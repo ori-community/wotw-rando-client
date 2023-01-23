@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_Double_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Action_1_Double_ {
     IL2CPP_REGISTER_METHOD(0x02A05520, void, Invoke, (app::Action_1_Double_ * this_ptr, double obj))

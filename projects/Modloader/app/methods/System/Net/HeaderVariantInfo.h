@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HeaderVariantInfo__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CookieVariant__Enum.h>
 
 namespace app::classes::System::Net::HeaderVariantInfo {
     IL2CPP_REGISTER_METHOD(0x0011D2D0, void, ctor, (app::HeaderVariantInfo__Boxed * this_ptr, app::String* name, app::CookieVariant__Enum variant))

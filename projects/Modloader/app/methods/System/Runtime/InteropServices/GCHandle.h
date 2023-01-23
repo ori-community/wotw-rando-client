@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GCHandle__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/GCHandleType__Enum.h>
+#include <Modloader/app/structs/GCHandle.h>
 
 namespace app::classes::System::Runtime::InteropServices::GCHandle {
     IL2CPP_REGISTER_METHOD(0x0010DB80, void, ctor_1, (app::GCHandle__Boxed * this_ptr, void* h))

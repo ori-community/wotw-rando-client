@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LicenseManager.h>
+#include <Modloader/app/structs/LicenseContext.h>
+#include <Modloader/app/structs/LicenseUsageMode__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/LicenseProvider.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/License.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ComponentModel::LicenseManager {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::LicenseManager * this_ptr))

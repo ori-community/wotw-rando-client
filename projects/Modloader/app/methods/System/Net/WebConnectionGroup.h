@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebConnectionGroup.h>
+#include <Modloader/app/structs/ServicePoint.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EventHandler.h>
+#include <Modloader/app/structs/WebConnection.h>
+#include <Modloader/app/structs/HttpWebRequest.h>
+#include <Modloader/app/structs/WebConnectionGroup_ConnectionState.h>
+#include <Modloader/app/structs/Queue.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/DateTime.h>
 
 namespace app::classes::System::Net::WebConnectionGroup {
     IL2CPP_REGISTER_METHOD(0x01D68CC0, void, ctor, (app::WebConnectionGroup * this_ptr, app::ServicePoint* s_point, app::String* name))

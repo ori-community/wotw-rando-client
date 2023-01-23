@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IPv4AddressHelper {
     IL2CPP_REGISTER_METHOD(0x0200AE30, app::String*, ParseCanonicalName, (app::String * str, int32_t start, int32_t end, bool* is_loopback))

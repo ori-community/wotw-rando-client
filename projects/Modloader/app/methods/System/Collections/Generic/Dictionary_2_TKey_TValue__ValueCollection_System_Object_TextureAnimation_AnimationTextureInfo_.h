@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Object_TextureAnimation_AnimationTextureInfo_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Object_TextureAnimation_AnimationTextureInfo_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Object_TextureAnimation_AnimationTextureInfo_.h>
+#include <Modloader/app/structs/TextureAnimation_AnimationTextureInfo__Array.h>
+#include <Modloader/app/structs/TextureAnimation_AnimationTextureInfo.h>
+#include <Modloader/app/structs/IEnumerator_1_TextureAnimation_AnimationTextureInfo_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_System_Object_TextureAnimation_AnimationTextureInfo_ {
     IL2CPP_REGISTER_METHOD(0x0282EFE0, void, ctor, (app::Dictionary_2_TKey_TValue_ValueCollection_System_Object_TextureAnimation_AnimationTextureInfo_ * this_ptr, app::Dictionary_2_System_Object_TextureAnimation_AnimationTextureInfo_* dictionary))

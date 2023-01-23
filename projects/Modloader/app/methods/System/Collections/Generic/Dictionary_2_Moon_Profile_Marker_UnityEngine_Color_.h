@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_Profile_Marker_UnityEngine_Color_.h>
+#include <Modloader/app/structs/Marker__Enum.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_Moon_Profile_Marker_UnityEngine_Color_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_Moon_Profile_Marker_UnityEngine_Color_ * this_ptr, app::Marker__Enum key))

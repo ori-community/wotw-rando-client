@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkBankManager_BankHandle.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AKRESULT__Enum.h>
 
 namespace app::classes::AkBankManager_BankHandle {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::AkBankManager_BankHandle * this_ptr, app::String* name))

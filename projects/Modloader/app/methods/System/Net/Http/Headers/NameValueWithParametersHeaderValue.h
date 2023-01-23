@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NameValueWithParametersHeaderValue.h>
+#include <Modloader/app/structs/ICollection_1_System_Net_Http_Headers_NameValueHeaderValue_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_System_Net_Http_Headers_NameValueWithParametersHeaderValue_.h>
+#include <Modloader/app/structs/Lexer.h>
+#include <Modloader/app/structs/Token.h>
 
 namespace app::classes::System::Net::Http::Headers::NameValueWithParametersHeaderValue {
     IL2CPP_REGISTER_METHOD(0x02D11210, void, ctor_1, (app::NameValueWithParametersHeaderValue * this_ptr, app::NameValueWithParametersHeaderValue* source))

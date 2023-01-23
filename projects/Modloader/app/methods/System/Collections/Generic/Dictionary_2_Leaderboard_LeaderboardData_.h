@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Leaderboard_LeaderboardData_.h>
+#include <Modloader/app/structs/Leaderboard__Enum.h>
+#include <Modloader/app/structs/LeaderboardData.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_Leaderboard_LeaderboardData_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_Leaderboard_LeaderboardData_ * this_ptr, app::Leaderboard__Enum key))

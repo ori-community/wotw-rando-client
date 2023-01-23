@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_ValueTuple_2_DynamicInstantiationScanner_Visitor_.h>
+#include <Modloader/app/structs/ValueTuple_2_Type_System_Reflection_FieldInfo_.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_Visitor.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_ValueTuple_2_DynamicInstantiationScanner_Visitor_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_System_ValueTuple_2_DynamicInstantiationScanner_Visitor_ * this_ptr))

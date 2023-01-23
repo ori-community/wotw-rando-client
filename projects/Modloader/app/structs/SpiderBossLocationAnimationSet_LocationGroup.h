@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SpiderBossLocationAnimationSet_LocationGroup_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SpiderBossLocationAnimationSet_LocationGroup_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpiderBossLocationAnimationSet_LocationGroup_DEFINED)
+#include <Modloader/app/structs/SpiderBossLocationAnimationSet_LocationGroup__Fields.h>
+#if defined(IL2CPP_STRUCT_SpiderBossLocationAnimationSet_LocationGroup__Fields_DEFINED)
+#define IL2CPP_STRUCT_SpiderBossLocationAnimationSet_LocationGroup_DEFINED
+struct SpiderBossLocationAnimationSet_LocationGroup__Class;
+struct SpiderBossLocationAnimationSet_LocationGroup {
+    struct SpiderBossLocationAnimationSet_LocationGroup__Class* klass;
+    MonitorData* monitor;
+    struct SpiderBossLocationAnimationSet_LocationGroup__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SpiderBossLocationAnimationSet_LocationGroup_FWDDECL)
+#define IL2CPP_STRUCT_SpiderBossLocationAnimationSet_LocationGroup_FWDDECL
+#include <Modloader/app/structs/SpiderBossLocationAnimationSet_LocationGroup__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SpiderBossLocationAnimationSet_LocationGroup_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpiderBossLocationAnimationSet_LocationGroup_DEFINED) && !defined(IL2CPP_STRUCT_SpiderBossLocationAnimationSet_LocationGroup_FWDDECL)
+#include <Modloader/app/structs/SpiderBossLocationAnimationSet_LocationGroup.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SpiderBossLocationAnimationSet_LocationGroup.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

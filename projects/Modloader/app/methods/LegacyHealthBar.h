@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyHealthBar.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::LegacyHealthBar {
     IL2CPP_REGISTER_METHOD(0x00A26FE0, float, get_Value, (app::LegacyHealthBar * this_ptr))

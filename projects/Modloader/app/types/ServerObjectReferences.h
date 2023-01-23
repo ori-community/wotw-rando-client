@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ServerObjectReferences__Class.h>
+#include <Modloader/app/structs/ServerObjectReferences.h>
 
 namespace app::classes::types {
     namespace ServerObjectReferences {

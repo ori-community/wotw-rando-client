@@ -1,5 +1,39 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Socket.h>
+#include <Modloader/app/structs/AddressFamily__Enum.h>
+#include <Modloader/app/structs/SocketType__Enum.h>
+#include <Modloader/app/structs/ProtocolType__Enum.h>
+#include <Modloader/app/structs/IList_1_System_ArraySegment_1_.h>
+#include <Modloader/app/structs/SocketFlags__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IOControlCode__Enum.h>
+#include <Modloader/app/structs/IPProtectionLevel__Enum.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SocketShutdown__Enum.h>
+#include <Modloader/app/structs/BufferOffsetSize_1__Array.h>
+#include <Modloader/app/structs/SocketOptionLevel__Enum.h>
+#include <Modloader/app/structs/SocketOptionName__Enum.h>
+#include <Modloader/app/structs/SafeSocketHandle.h>
+#include <Modloader/app/structs/EndPoint.h>
+#include <Modloader/app/structs/SocketAddress.h>
+#include <Modloader/app/structs/SelectMode__Enum.h>
+#include <Modloader/app/structs/SocketAsyncEventArgs.h>
+#include <Modloader/app/structs/IPAddress.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IPAddress__Array.h>
+#include <Modloader/app/structs/SocketAsyncResult.h>
+#include <Modloader/app/structs/SocketError__Enum.h>
+#include <Modloader/app/structs/Socket_WSABUF.h>
+#include <Modloader/app/structs/SemaphoreSlim.h>
+#include <Modloader/app/structs/IOSelectorJob.h>
+#include <Modloader/app/structs/SocketOperation__Enum.h>
+#include <Modloader/app/structs/SocketAsyncOperation__Enum.h>
+#include <Modloader/app/structs/IPEndPoint.h>
+#include <Modloader/app/structs/Thread.h>
+#include <Modloader/app/structs/NetworkInterfaceComponent__Enum.h>
 
 namespace app::classes::System::Net::Sockets::Socket {
     IL2CPP_REGISTER_METHOD(0x01BE48E0, void, ctor_1, (app::Socket * this_ptr, app::AddressFamily__Enum address_family, app::SocketType__Enum socket_type, app::ProtocolType__Enum protocol_type))

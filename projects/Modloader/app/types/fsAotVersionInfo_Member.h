@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/fsAotVersionInfo_Member__Class.h>
+#include <Modloader/app/structs/fsAotVersionInfo_Member.h>
+#include <Modloader/app/structs/fsAotVersionInfo_Member__Boxed.h>
+#include <Modloader/app/structs/fsAotVersionInfo_Member__Array.h>
 
 namespace app::classes::types {
     namespace fsAotVersionInfo_Member {

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TargetFPSSlider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::TargetFPSSlider {
     IL2CPP_REGISTER_METHOD(0x00CE21F0, void, Awake, (app::TargetFPSSlider * this_ptr))

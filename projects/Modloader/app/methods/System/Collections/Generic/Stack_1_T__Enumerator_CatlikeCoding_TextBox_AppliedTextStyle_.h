@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_T_Enumerator_CatlikeCoding_TextBox_AppliedTextStyle___Boxed.h>
+#include <Modloader/app/structs/Stack_1_CatlikeCoding_TextBox_AppliedTextStyle_.h>
+#include <Modloader/app/structs/AppliedTextStyle.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_T__Enumerator_CatlikeCoding_TextBox_AppliedTextStyle_ {
     IL2CPP_REGISTER_METHOD(0x002337B0, void, ctor, (app::Stack_1_T_Enumerator_CatlikeCoding_TextBox_AppliedTextStyle___Boxed * this_ptr, app::Stack_1_CatlikeCoding_TextBox_AppliedTextStyle_* stack))

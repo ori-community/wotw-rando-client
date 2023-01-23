@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Nullable_1_PlayFab_PlayStreamModels_LeaderboardVersionChangeBehavior__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Nullable_1_PlayFab_PlayStreamModels_LeaderboardVersionChangeBehavior__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Nullable_1_PlayFab_PlayStreamModels_LeaderboardVersionChangeBehavior__DEFINED)
+#include <Modloader/app/structs/LeaderboardVersionChangeBehavior__Enum.h>
+#if defined(IL2CPP_STRUCT_LeaderboardVersionChangeBehavior__Enum_DEFINED)
+#define IL2CPP_STRUCT_Nullable_1_PlayFab_PlayStreamModels_LeaderboardVersionChangeBehavior__DEFINED
+struct Nullable_1_PlayFab_PlayStreamModels_LeaderboardVersionChangeBehavior_ {
+    LeaderboardVersionChangeBehavior__Enum value;
+
+    bool has_value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Nullable_1_PlayFab_PlayStreamModels_LeaderboardVersionChangeBehavior__FWDDECL)
+#define IL2CPP_STRUCT_Nullable_1_PlayFab_PlayStreamModels_LeaderboardVersionChangeBehavior__FWDDECL
+#endif
+#undef IL2CPP_STRUCT_Nullable_1_PlayFab_PlayStreamModels_LeaderboardVersionChangeBehavior__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Nullable_1_PlayFab_PlayStreamModels_LeaderboardVersionChangeBehavior__DEFINED) && !defined(IL2CPP_STRUCT_Nullable_1_PlayFab_PlayStreamModels_LeaderboardVersionChangeBehavior__FWDDECL)
+#include <Modloader/app/structs/Nullable_1_PlayFab_PlayStreamModels_LeaderboardVersionChangeBehavior_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Nullable_1_PlayFab_PlayStreamModels_LeaderboardVersionChangeBehavior_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Utils_4.h>
 
 namespace app::classes::Microsoft::Applications::Events::Utils {
     IL2CPP_REGISTER_METHOD(0x00303590, int64_t, MsFrom1970, ())

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MinerHitReactionBehaviour_c.h>
 
 namespace app::classes::MinerHitReactionBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x0144B910, void, cctor, ())

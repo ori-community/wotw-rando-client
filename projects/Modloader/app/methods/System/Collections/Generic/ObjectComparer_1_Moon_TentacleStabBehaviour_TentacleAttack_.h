@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_Moon_TentacleStabBehaviour_TentacleAttack_.h>
+#include <Modloader/app/structs/TentacleStabBehaviour_TentacleAttack.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_Moon_TentacleStabBehaviour_TentacleAttack_ {
     IL2CPP_REGISTER_METHOD(0x01CC5A60, int32_t, Compare, (app::ObjectComparer_1_Moon_TentacleStabBehaviour_TentacleAttack_ * this_ptr, app::TentacleStabBehaviour_TentacleAttack x, app::TentacleStabBehaviour_TentacleAttack y))

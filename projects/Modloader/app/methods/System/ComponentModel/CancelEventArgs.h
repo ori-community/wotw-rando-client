@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CancelEventArgs.h>
 
 namespace app::classes::System::ComponentModel::CancelEventArgs {
     IL2CPP_REGISTER_METHOD(0x024A5EC0, void, ctor_1, (app::CancelEventArgs * this_ptr))

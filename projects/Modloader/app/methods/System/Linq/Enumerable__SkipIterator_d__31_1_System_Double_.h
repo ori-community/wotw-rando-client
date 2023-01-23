@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enumerable_SkipIterator_d_31_1_System_Double_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Double_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Linq::Enumerable__SkipIterator_d__31_1_System_Double_ {
     IL2CPP_REGISTER_METHOD(0x0225B170, void, ctor, (app::Enumerable_SkipIterator_d_31_1_System_Double_ * this_ptr, int32_t __1__state))

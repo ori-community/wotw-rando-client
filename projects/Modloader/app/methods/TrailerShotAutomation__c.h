@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TrailerShotAutomation_c.h>
 
 namespace app::classes::TrailerShotAutomation___c {
     IL2CPP_REGISTER_METHOD(0x00B05730, void, cctor, ())

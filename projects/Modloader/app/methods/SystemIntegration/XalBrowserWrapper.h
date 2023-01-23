@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XalBrowserWrapper.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SystemIntegration::XalBrowserWrapper {
     IL2CPP_REGISTER_METHOD(0x00CDB300, void, ctor, (app::XalBrowserWrapper * this_ptr))

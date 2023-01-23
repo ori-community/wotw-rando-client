@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SoundCompositionTransition_SoundFadeInformation_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SoundCompositionTransition_SoundFadeInformation_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SoundCompositionTransition_SoundFadeInformation_DEFINED)
+#include <Modloader/app/structs/SoundCompositionTransition_SoundFadeInformation__Fields.h>
+#if defined(IL2CPP_STRUCT_SoundCompositionTransition_SoundFadeInformation__Fields_DEFINED)
+#define IL2CPP_STRUCT_SoundCompositionTransition_SoundFadeInformation_DEFINED
+struct SoundCompositionTransition_SoundFadeInformation__Class;
+struct SoundCompositionTransition_SoundFadeInformation {
+    struct SoundCompositionTransition_SoundFadeInformation__Class* klass;
+    MonitorData* monitor;
+    struct SoundCompositionTransition_SoundFadeInformation__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SoundCompositionTransition_SoundFadeInformation_FWDDECL)
+#define IL2CPP_STRUCT_SoundCompositionTransition_SoundFadeInformation_FWDDECL
+#include <Modloader/app/structs/SoundCompositionTransition_SoundFadeInformation__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SoundCompositionTransition_SoundFadeInformation_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SoundCompositionTransition_SoundFadeInformation_DEFINED) && !defined(IL2CPP_STRUCT_SoundCompositionTransition_SoundFadeInformation_FWDDECL)
+#include <Modloader/app/structs/SoundCompositionTransition_SoundFadeInformation.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SoundCompositionTransition_SoundFadeInformation.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

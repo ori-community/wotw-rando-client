@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GlobalPlaceholderCountData_Tally__Class.h>
+#include <Modloader/app/structs/GlobalPlaceholderCountData_Tally.h>
+#include <Modloader/app/structs/GlobalPlaceholderCountData_Tally__Boxed.h>
+#include <Modloader/app/structs/GlobalPlaceholderCountData_Tally__Array.h>
 
 namespace app::classes::types {
     namespace GlobalPlaceholderCountData_Tally {

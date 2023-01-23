@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkMIDIPostArray.h>
+#include <Modloader/app/structs/AkMIDIPost.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::AkMIDIPostArray {
     IL2CPP_REGISTER_METHOD(0x026F81B0, void, ctor, (app::AkMIDIPostArray * this_ptr, int32_t size))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/IRecordable.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::IRecordableExtensions {
     IL2CPP_REGISTER_METHOD(0x02557A10, app::Component_1*, AsComponent, (app::IRecordable * recordable))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InitArgs.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/DeviceInfo.h>
+#include <Modloader/app/structs/TelemetryInfo.h>
 
 namespace app::classes::Microsoft::Xbox::Services::Xal::InitArgs {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, uint32_t, get_TitleId, (app::InitArgs * this_ptr))

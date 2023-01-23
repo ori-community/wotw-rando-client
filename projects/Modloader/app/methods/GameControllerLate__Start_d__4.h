@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameControllerLate_Start_d_4.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::GameControllerLate__Start_d__4 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::GameControllerLate_Start_d_4 * this_ptr, int32_t __1__state))

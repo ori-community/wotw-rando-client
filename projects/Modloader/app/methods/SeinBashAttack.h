@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinBashAttack.h>
+#include <Modloader/app/structs/IBashAttackable.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Action_1_EntityTargetting_.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/CharacterAirNoDeceleration.h>
+#include <Modloader/app/structs/SeinDoubleJump.h>
+#include <Modloader/app/structs/CharacterApplyFrictionToSpeed.h>
+#include <Modloader/app/structs/CharacterGravity.h>
+#include <Modloader/app/structs/PlayerAbilities.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/SeinController.h>
+#include <Modloader/app/structs/SeinBashAttackPuppet_SetElement__Enum.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SeinBashAttackPuppet.h>
 
 namespace app::classes::SeinBashAttack {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinBashAttack * this_ptr))

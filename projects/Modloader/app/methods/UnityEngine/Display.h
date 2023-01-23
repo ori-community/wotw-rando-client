@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Display.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IntPtr__Array.h>
 
 namespace app::classes::UnityEngine::Display {
     IL2CPP_REGISTER_METHOD(0x0063D180, void, ctor_1, (app::Display * this_ptr))

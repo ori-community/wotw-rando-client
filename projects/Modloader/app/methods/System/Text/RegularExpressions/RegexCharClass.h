@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegexCharClass.h>
+#include <Modloader/app/structs/List_1_System_Text_RegularExpressions_RegexCharClass_SingleRange_.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/UnicodeCategory__Enum.h>
+#include <Modloader/app/structs/RegexCharClass_SingleRange.h>
 
 namespace app::classes::System::Text::RegularExpressions::RegexCharClass {
     IL2CPP_REGISTER_METHOD(0x02588600, void, cctor, ())

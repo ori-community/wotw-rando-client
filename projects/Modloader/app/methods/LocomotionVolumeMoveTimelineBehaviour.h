@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocomotionVolumeMoveTimelineBehaviour.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::LocomotionVolumeMoveTimelineBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SetAnimationSpeed, (app::LocomotionVolumeMoveTimelineBehaviour * this_ptr, float speed))

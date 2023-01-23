@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MainThreadLoadingDebugger_c.h>
+#include <Modloader/app/structs/MainThreadLoadingDebugger_NotifyEntry.h>
 
 namespace app::classes::MainThreadLoadingDebugger___c {
     IL2CPP_REGISTER_METHOD(0x009F6170, void, cctor, ())

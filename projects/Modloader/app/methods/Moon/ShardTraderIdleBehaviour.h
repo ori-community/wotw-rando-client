@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShardTraderIdleBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::ShardTraderIdleBehaviour {
     IL2CPP_REGISTER_METHOD(0x00E26EC0, void, OnEnter, (app::ShardTraderIdleBehaviour * this_ptr, app::IContext* context))

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinInteraction.h>
+#include <Modloader/app/structs/SeinInteraction_ThrowKeystoneSettings__Array.h>
+#include <Modloader/app/structs/SeinInteraction_ThrowKeystoneSettings.h>
+#include <Modloader/app/structs/SeinInteraction_KeystoneThrowMode__Enum.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/ICharacterInteractable.h>
+#include <Modloader/app/structs/NPCEntity.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/CharacterInteractableType__Enum.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 
 namespace app::classes::SeinInteraction {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinInteraction * this_ptr))

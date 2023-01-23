@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeybindingCommandMapAsset_GetAllBindingsIterator_d_62_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeybindingCommandMapAsset_GetAllBindingsIterator_d_62_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeybindingCommandMapAsset_GetAllBindingsIterator_d_62_DEFINED)
+#include <Modloader/app/structs/KeybindingCommandMapAsset_GetAllBindingsIterator_d_62__Fields.h>
+#if defined(IL2CPP_STRUCT_KeybindingCommandMapAsset_GetAllBindingsIterator_d_62__Fields_DEFINED)
+#define IL2CPP_STRUCT_KeybindingCommandMapAsset_GetAllBindingsIterator_d_62_DEFINED
+struct KeybindingCommandMapAsset_GetAllBindingsIterator_d_62__Class;
+struct KeybindingCommandMapAsset_GetAllBindingsIterator_d_62 {
+    struct KeybindingCommandMapAsset_GetAllBindingsIterator_d_62__Class* klass;
+    MonitorData* monitor;
+    struct KeybindingCommandMapAsset_GetAllBindingsIterator_d_62__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KeybindingCommandMapAsset_GetAllBindingsIterator_d_62_FWDDECL)
+#define IL2CPP_STRUCT_KeybindingCommandMapAsset_GetAllBindingsIterator_d_62_FWDDECL
+#include <Modloader/app/structs/KeybindingCommandMapAsset_GetAllBindingsIterator_d_62__Class.h>
+#endif
+#undef IL2CPP_STRUCT_KeybindingCommandMapAsset_GetAllBindingsIterator_d_62_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeybindingCommandMapAsset_GetAllBindingsIterator_d_62_DEFINED) && !defined(IL2CPP_STRUCT_KeybindingCommandMapAsset_GetAllBindingsIterator_d_62_FWDDECL)
+#include <Modloader/app/structs/KeybindingCommandMapAsset_GetAllBindingsIterator_d_62.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeybindingCommandMapAsset_GetAllBindingsIterator_d_62.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

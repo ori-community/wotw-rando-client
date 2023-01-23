@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/List_1_System_Net_Http_Headers_NameValueHeaderValue_.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/List_1_System_Net_Http_Headers_RangeItemHeaderValue_.h>
 
 namespace app::classes::System::Net::Http::Headers::CollectionExtensions {
     IL2CPP_REGISTER_METHOD(0x01567DA0, bool, SequenceEqual_1, (app::List_1_System_Object_ * first, app::List_1_System_Object_* second))

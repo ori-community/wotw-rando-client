@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SplitWritesState.h>
+#include <Modloader/app/structs/BufferOffsetSize_1__Array.h>
 
 namespace app::classes::System::Net::SplitWritesState {
     IL2CPP_REGISTER_METHOD(0x020A53C0, void, ctor, (app::SplitWritesState * this_ptr, app::BufferOffsetSize_1__Array* buffers))

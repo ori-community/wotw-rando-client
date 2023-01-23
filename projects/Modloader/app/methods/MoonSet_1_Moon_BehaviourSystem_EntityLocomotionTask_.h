@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocomotionAirMoveBehaviour.h>
+#include <Modloader/app/structs/MoonSet_1_Moon_BehaviourSystem_EntityLocomotionTask_.h>
+#include <Modloader/app/structs/LocomotionAirMoveTimelineBehaviour.h>
+#include <Modloader/app/structs/LocomotionGroundMoveBehaviour.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/SkeetoAirMoveBehaviour.h>
+#include <Modloader/app/structs/LocomotionVolumeMoveTimelineBehaviour.h>
 
 namespace app::classes::MoonSet_1_Moon_BehaviourSystem_EntityLocomotionTask_ {
     IL2CPP_REGISTER_METHOD(0x01584050, app::LocomotionAirMoveBehaviour*, GetValueOfType_1, (app::MoonSet_1_Moon_BehaviourSystem_EntityLocomotionTask_ * this_ptr))

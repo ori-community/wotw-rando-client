@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CreateDelegateInstruction.h>
+#include <Modloader/app/structs/LightDelegateCreator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::CreateDelegateInstruction {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::CreateDelegateInstruction * this_ptr, app::LightDelegateCreator* delegate_creator))

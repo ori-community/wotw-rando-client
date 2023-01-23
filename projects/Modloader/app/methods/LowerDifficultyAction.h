@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LowerDifficultyAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::LowerDifficultyAction {
     IL2CPP_REGISTER_METHOD(0x009F3EC0, void, Perform, (app::LowerDifficultyAction * this_ptr, app::IContext* context))

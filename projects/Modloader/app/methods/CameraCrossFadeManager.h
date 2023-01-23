@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraCrossFadeManager.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/UberPostProcessingCrossFade_CameraInformation.h>
+#include <Modloader/app/structs/CameraController_1.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::CameraCrossFadeManager {
     IL2CPP_REGISTER_METHOD(0x01687570, void, Awake, (app::CameraCrossFadeManager * this_ptr))

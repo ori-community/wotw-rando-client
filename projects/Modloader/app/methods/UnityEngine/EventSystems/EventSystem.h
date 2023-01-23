@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EventSystem.h>
+#include <Modloader/app/structs/BaseInputModule.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/BaseEventData.h>
+#include <Modloader/app/structs/RaycastResult.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/List_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::EventSystems::EventSystem {
     IL2CPP_REGISTER_METHOD(0x01F1BDD0, void, ctor, (app::EventSystem * this_ptr))

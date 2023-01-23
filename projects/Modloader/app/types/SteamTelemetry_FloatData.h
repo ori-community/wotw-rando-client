@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SteamTelemetry_FloatData__Class.h>
+#include <Modloader/app/structs/SteamTelemetry_FloatData.h>
 
 namespace app::classes::types {
     namespace SteamTelemetry_FloatData {

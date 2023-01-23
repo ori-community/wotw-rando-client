@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_MicroProfilerGraph_MarkerCache_.h>
+#include <Modloader/app/structs/MicroProfilerGraph_MarkerCache__Array.h>
+#include <Modloader/app/structs/MicroProfilerGraph_MarkerCache.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_MicroProfilerGraph_MarkerCache_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_MicroProfilerGraph_MarkerCache_*, get_Default, ())

@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_System_UInt32_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_UInt32_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_UInt32_.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_System_UInt32_.h>
+#include <Modloader/app/structs/IEnumerator_1_System_UInt32_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_UInt32_.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_System_UInt32_ {
     IL2CPP_REGISTER_METHOD(0x02AB90A0, bool, Contains, (app::HashSet_1_System_UInt32_ * this_ptr, uint32_t item))

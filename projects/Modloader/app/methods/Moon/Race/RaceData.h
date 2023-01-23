@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/RaceData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_SceneMetaData_.h>
+#include <Modloader/app/structs/Condition_1.h>
+#include <Modloader/app/structs/DesiredUberStateComposite.h>
+#include <Modloader/app/structs/List_1_EquipmentType_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__13.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/RaceSettings.h>
+#include <Modloader/app/structs/PickupBase.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/PlayerInsideZoneChecker__Array.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/RaceData_RaceDataState__Enum.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::Moon::Race::RaceData {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::IUberState*, get_RaceState, (app::RaceData * this_ptr))

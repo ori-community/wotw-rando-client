@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ControlList.h>
+#include <Modloader/app/structs/ControlItem.h>
+#include <Modloader/app/structs/KeyCode__Enum.h>
+#include <Modloader/app/structs/List_1_ControlItem_.h>
+#include <Modloader/app/structs/ControlUIItem.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::ControlList {
     IL2CPP_REGISTER_METHOD(0x011E94F0, void, Awake, (app::ControlList * this_ptr))

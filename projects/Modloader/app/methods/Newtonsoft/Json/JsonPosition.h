@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonPosition__Boxed.h>
+#include <Modloader/app/structs/JsonContainerType__Enum.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/StringWriter.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_JsonPosition_.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_JsonPosition_.h>
+#include <Modloader/app/structs/IJsonLineInfo.h>
 
 namespace app::classes::Newtonsoft::Json::JsonPosition {
     IL2CPP_REGISTER_METHOD(0x00167100, void, ctor, (app::JsonPosition__Boxed * this_ptr, app::JsonContainerType__Enum type))

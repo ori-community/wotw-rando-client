@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NativeSandWormTailPost.h>
 
 namespace app::classes::NativeSandWormTailPost {
     IL2CPP_REGISTER_METHOD(0x00887670, void, Awake, (app::NativeSandWormTailPost * this_ptr))

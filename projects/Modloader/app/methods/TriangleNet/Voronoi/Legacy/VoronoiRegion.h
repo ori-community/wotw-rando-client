@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VoronoiRegion.h>
+#include <Modloader/app/structs/Point.h>
+#include <Modloader/app/structs/ICollection_1_TriangleNet_Geometry_Point_.h>
+#include <Modloader/app/structs/Vertex.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Geometry_Point_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::TriangleNet::Voronoi::Legacy::VoronoiRegion {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_ID, (app::VoronoiRegion * this_ptr))

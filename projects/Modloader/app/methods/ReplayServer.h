@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReplayServer.h>
+#include <Modloader/app/structs/List_1_ServerObject_.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ReplayServer {
     IL2CPP_REGISTER_METHOD(0x008FF6A0, void, Awake, (app::ReplayServer * this_ptr))

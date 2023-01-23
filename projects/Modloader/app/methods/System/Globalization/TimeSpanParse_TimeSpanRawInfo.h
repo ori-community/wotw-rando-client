@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeSpanFormat_FormatLiterals.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanRawInfo__Boxed.h>
+#include <Modloader/app/structs/DateTimeFormatInfo.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanToken.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanResult.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Globalization::TimeSpanParse_TimeSpanRawInfo {
     IL2CPP_REGISTER_METHOD(0x001D3C30, app::TimeSpanFormat_FormatLiterals, get_PositiveInvariant, (app::TimeSpanParse_TimeSpanRawInfo__Boxed * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_UnityEngine_UI_IClippable_.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_UnityEngine_UI_IClippable_.h>
+#include <Modloader/app/structs/IClippable.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_UnityEngine_UI_IClippable_ {
     IL2CPP_REGISTER_METHOD(0x02AB4370, void, ctor, (app::HashSet_1_UnityEngine_UI_IClippable_ * this_ptr))

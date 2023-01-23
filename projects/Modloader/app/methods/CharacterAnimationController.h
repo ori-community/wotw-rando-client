@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterAnimationController.h>
+#include <Modloader/app/structs/TextureAnimation.h>
+#include <Modloader/app/structs/CharacterAnimationStateBase.h>
 
 namespace app::classes::CharacterAnimationController {
     IL2CPP_REGISTER_METHOD(0x01046C20, void, Start, (app::CharacterAnimationController * this_ptr))

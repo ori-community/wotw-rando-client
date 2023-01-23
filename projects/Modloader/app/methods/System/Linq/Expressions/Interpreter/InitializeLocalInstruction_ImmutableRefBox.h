@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InitializeLocalInstruction_ImmutableRefBox.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::InitializeLocalInstruction_ImmutableRefBox {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::InitializeLocalInstruction_ImmutableRefBox * this_ptr, int32_t index))

@@ -1,5 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/IntPtr__Array.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/SecureString.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/UnityTls_unitytls_interface_struct.h>
+#include <Modloader/app/structs/Win32IPGlobalProperties_Win32_MIB_TCPROW.h>
+#include <Modloader/app/structs/Win32IPGlobalProperties_Win32_MIB_TCP6ROW.h>
+#include <Modloader/app/structs/Win32_FIXED_INFO.h>
+#include <Modloader/app/structs/XalService_AsyncBlock.h>
+#include <Modloader/app/structs/ISteamMatchmakingPingResponse_VTable.h>
+#include <Modloader/app/structs/ISteamMatchmakingPlayersResponse_VTable.h>
+#include <Modloader/app/structs/ISteamMatchmakingRulesResponse_VTable.h>
+#include <Modloader/app/structs/ISteamMatchmakingServerListResponse_VTable.h>
+#include <Modloader/app/structs/SteamParamStringArray_t.h>
+#include <Modloader/app/structs/MatchMakingKeyValuePair_t.h>
+#include <Modloader/app/structs/CCallbackBaseVTable.h>
 
 namespace app::classes::System::Runtime::InteropServices::Marshal {
     IL2CPP_REGISTER_METHOD(0x01A94B10, void*, AllocCoTaskMem, (int32_t cb))

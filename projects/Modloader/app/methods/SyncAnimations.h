@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuController.h>
+#include <Modloader/app/structs/SyncAnimations.h>
+#include <Modloader/app/structs/Ku.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 
 namespace app::classes::SyncAnimations {
     IL2CPP_REGISTER_METHOD(0x005136D0, app::KuController*, get_KuController, (app::SyncAnimations * this_ptr))

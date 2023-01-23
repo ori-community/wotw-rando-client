@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinGrabSurfacePuppet.h>
+#include <Modloader/app/structs/SeinGrabSurface.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/GrabbableSurface.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/CharacterGravity.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/CapsuleCollider.h>
+#include <Modloader/app/structs/GrabbableSurfaceMovingWheel.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/SeinGrabSurface_AnimationState__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 
 namespace app::classes::SeinGrabSurface {
     IL2CPP_REGISTER_METHOD(0x014BE840, app::SeinGrabSurfacePuppet*, get_Puppet, (app::SeinGrabSurface * this_ptr))

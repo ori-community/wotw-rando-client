@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FrameTiming__Array.h>
 
 namespace app::classes::UnityEngine::FrameTimingManager {
     IL2CPP_REGISTER_METHOD(0x025260C0, void, CaptureFrameTimings, ())

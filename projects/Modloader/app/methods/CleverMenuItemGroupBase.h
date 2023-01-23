@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CleverMenuItemGroupBase.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::CleverMenuItemGroupBase {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_IsSuspended, (app::CleverMenuItemGroupBase * this_ptr))

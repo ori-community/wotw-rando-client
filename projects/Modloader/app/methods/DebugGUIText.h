@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugGUIText.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::DebugGUIText {
     IL2CPP_REGISTER_METHOD(0x00DE43A0, bool, get_Enabled, ())

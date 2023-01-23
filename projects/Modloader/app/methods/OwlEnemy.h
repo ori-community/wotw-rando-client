@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OwlEnemy.h>
 
 namespace app::classes::OwlEnemy {
     IL2CPP_REGISTER_METHOD(0x004435B0, void, StopSpeed, (app::OwlEnemy * this_ptr))

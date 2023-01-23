@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_IDialogCallbackNotifier_.h>
+#include <Modloader/app/structs/IDialogCallbackNotifier.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_IDialogCallbackNotifier_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_IDialogCallbackNotifier_ {
     IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_IDialogCallbackNotifier_ * this_ptr, app::IDialogCallbackNotifier* item))

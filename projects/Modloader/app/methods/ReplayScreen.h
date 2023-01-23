@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReplayScreen.h>
+#include <Modloader/app/structs/CleverMenuItemGroup.h>
+#include <Modloader/app/structs/ReplaySetting__Array.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::ReplayScreen {
     IL2CPP_REGISTER_METHOD(0x008FE400, void, ResetStatics, ())

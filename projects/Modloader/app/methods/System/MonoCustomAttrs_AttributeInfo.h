@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MonoCustomAttrs_AttributeInfo.h>
+#include <Modloader/app/structs/AttributeUsageAttribute.h>
 
 namespace app::classes::System::MonoCustomAttrs_AttributeInfo {
     IL2CPP_REGISTER_METHOD(0x00CC8D50, void, ctor, (app::MonoCustomAttrs_AttributeInfo * this_ptr, app::AttributeUsageAttribute* usage, int32_t inheritance_level))

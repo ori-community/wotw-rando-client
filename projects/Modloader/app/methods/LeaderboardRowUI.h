@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LeaderboardRowUI.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/LeaderboardData_Entry.h>
 
 namespace app::classes::LeaderboardRowUI {
     IL2CPP_REGISTER_METHOD(0x002FBBA0, app::String*, get_UserHandle, (app::LeaderboardRowUI * this_ptr))

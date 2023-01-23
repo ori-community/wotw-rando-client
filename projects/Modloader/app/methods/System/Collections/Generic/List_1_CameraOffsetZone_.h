@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_CameraOffsetZone_.h>
+#include <Modloader/app/structs/CameraOffsetZone.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_CameraOffsetZone_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CameraOffsetZone_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_CameraOffsetZone_ * this_ptr))

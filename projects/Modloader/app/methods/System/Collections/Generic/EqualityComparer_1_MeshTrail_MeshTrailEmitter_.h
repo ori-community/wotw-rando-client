@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_MeshTrail_MeshTrailEmitter_.h>
+#include <Modloader/app/structs/MeshTrail_MeshTrailEmitter__Array.h>
+#include <Modloader/app/structs/MeshTrail_MeshTrailEmitter.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_MeshTrail_MeshTrailEmitter_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_MeshTrail_MeshTrailEmitter_*, get_Default, ())

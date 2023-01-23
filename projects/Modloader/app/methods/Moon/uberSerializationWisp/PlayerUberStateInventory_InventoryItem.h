@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/UberStateArchive.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateInventory_InventoryItem {
     IL2CPP_REGISTER_METHOD(0x00F3E1C0, void, ctor_1, (app::PlayerUberStateInventory_InventoryItem * this_ptr, app::EquipmentType__Enum type, app::Action* set_dirty_callback))

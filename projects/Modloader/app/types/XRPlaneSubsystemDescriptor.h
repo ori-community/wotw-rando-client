@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XRPlaneSubsystemDescriptor__Class.h>
+#include <Modloader/app/structs/XRPlaneSubsystemDescriptor.h>
 
 namespace app::classes::types {
     namespace XRPlaneSubsystemDescriptor {

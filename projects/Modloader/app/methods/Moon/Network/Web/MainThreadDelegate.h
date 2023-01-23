@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MainThreadDelegate.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ElapsedEventArgs.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::Moon::Network::Web::MainThreadDelegate {
     IL2CPP_REGISTER_METHOD(0x02E95C80, app::MainThreadDelegate*, get_Instance, ())

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GhostReplayMetaData_GhostReplayCollection_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GhostReplayMetaData_GhostReplayCollection_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostReplayMetaData_GhostReplayCollection_DEFINED)
+#include <Modloader/app/structs/GhostReplayMetaData_GhostReplayCollection__Fields.h>
+#if defined(IL2CPP_STRUCT_GhostReplayMetaData_GhostReplayCollection__Fields_DEFINED)
+#define IL2CPP_STRUCT_GhostReplayMetaData_GhostReplayCollection_DEFINED
+struct GhostReplayMetaData_GhostReplayCollection__Class;
+struct GhostReplayMetaData_GhostReplayCollection {
+    struct GhostReplayMetaData_GhostReplayCollection__Class* klass;
+    MonitorData* monitor;
+    struct GhostReplayMetaData_GhostReplayCollection__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GhostReplayMetaData_GhostReplayCollection_FWDDECL)
+#define IL2CPP_STRUCT_GhostReplayMetaData_GhostReplayCollection_FWDDECL
+#include <Modloader/app/structs/GhostReplayMetaData_GhostReplayCollection__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GhostReplayMetaData_GhostReplayCollection_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostReplayMetaData_GhostReplayCollection_DEFINED) && !defined(IL2CPP_STRUCT_GhostReplayMetaData_GhostReplayCollection_FWDDECL)
+#include <Modloader/app/structs/GhostReplayMetaData_GhostReplayCollection.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GhostReplayMetaData_GhostReplayCollection.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

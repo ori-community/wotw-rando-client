@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InstantiateAction.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::InstantiateAction {
     IL2CPP_REGISTER_METHOD(0x003FF2B0, int32_t, GetPrewarmAmount, (app::InstantiateAction * this_ptr, app::GameObject* entry))

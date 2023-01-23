@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_BaseAnimator_LegacyTimelineSequence_SequenceEntry_.h>
+#include <Modloader/app/structs/BaseAnimator.h>
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_BaseAnimator_LegacyTimelineSequence_SequenceEntry_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_BaseAnimator_LegacyTimelineSequence_SequenceEntry_ * this_ptr))

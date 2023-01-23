@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyEnvironmentFogColorAnimator.h>
 
 namespace app::classes::LegacyEnvironmentFogColorAnimator {
     IL2CPP_REGISTER_METHOD(0x00A240A0, void, Start, (app::LegacyEnvironmentFogColorAnimator * this_ptr))

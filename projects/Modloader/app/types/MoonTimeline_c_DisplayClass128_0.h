@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MoonTimeline_c_DisplayClass128_0__Class.h>
+#include <Modloader/app/structs/MoonTimeline_c_DisplayClass128_0.h>
 
 namespace app::classes::types {
     namespace MoonTimeline_c_DisplayClass128_0 {

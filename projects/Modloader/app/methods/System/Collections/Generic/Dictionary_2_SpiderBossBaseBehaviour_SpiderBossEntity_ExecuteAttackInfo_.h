@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_SpiderBossBaseBehaviour_SpiderBossEntity_ExecuteAttackInfo_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_SpiderBossBaseBehaviour_SpiderBossEntity_ExecuteAttackInfo_.h>
+#include <Modloader/app/structs/SpiderBossBaseBehaviour.h>
+#include <Modloader/app/structs/SpiderBossEntity_ExecuteAttackInfo.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_SpiderBossBaseBehaviour_SpiderBossEntity_ExecuteAttackInfo_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_SpiderBossBaseBehaviour_SpiderBossEntity_ExecuteAttackInfo_ * this_ptr))

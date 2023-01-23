@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Func_3_Int32_IntPtr_Boolean_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Func_3_Int32_IntPtr_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x02F42CF0, bool, Invoke, (app::Func_3_Int32_IntPtr_Boolean_ * this_ptr, int32_t arg1, void* arg2))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnemyShield.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/EnemyShield_State__Enum.h>
+#include <Modloader/app/structs/ArrowHitData.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
 
 namespace app::classes::EnemyShield {
     IL2CPP_REGISTER_METHOD(0x00C838F0, bool, IsProtecting, (app::EnemyShield * shield))

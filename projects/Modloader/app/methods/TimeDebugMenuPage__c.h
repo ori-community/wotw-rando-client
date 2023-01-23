@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeDebugMenuPage_c.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::TimeDebugMenuPage___c {
     IL2CPP_REGISTER_METHOD(0x010EF780, void, cctor, ())

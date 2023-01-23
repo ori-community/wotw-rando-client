@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightTorch.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::LightTorch {
     IL2CPP_REGISTER_METHOD(0x00601090, bool, get_IsChasing, (app::LightTorch * this_ptr))

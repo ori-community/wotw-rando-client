@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BatSwarmPlaceholder.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::BatSwarmPlaceholder {
     IL2CPP_REGISTER_METHOD(0x004430B0, bool, get_IsSuspended, (app::BatSwarmPlaceholder * this_ptr))

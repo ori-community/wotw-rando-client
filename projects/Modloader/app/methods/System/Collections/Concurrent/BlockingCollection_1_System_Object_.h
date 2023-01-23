@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BlockingCollection_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IProducerConsumerCollection_1_System_Object_.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/CancellationTokenSource.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Collections::Concurrent::BlockingCollection_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02AD81F0, bool, get_IsAddingCompleted, (app::BlockingCollection_1_System_Object_ * this_ptr))

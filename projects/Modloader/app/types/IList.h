@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IList__Class.h>
+#include <Modloader/app/structs/IList__Array.h>
+#include <Modloader/app/structs/IList.h>
 
 namespace app::classes::types {
     namespace IList {

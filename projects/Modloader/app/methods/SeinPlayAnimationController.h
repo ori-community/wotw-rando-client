@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinPlayAnimationController.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions.h>
+#include <Modloader/app/structs/MoonAnimation.h>
 
 namespace app::classes::SeinPlayAnimationController {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::SeinPlayAnimationController * this_ptr, app::SeinCharacter* sein))

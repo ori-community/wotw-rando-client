@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AccessViolationException.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::AccessViolationException {
     IL2CPP_REGISTER_METHOD(0x0228ADC0, void, ctor_1, (app::AccessViolationException * this_ptr))

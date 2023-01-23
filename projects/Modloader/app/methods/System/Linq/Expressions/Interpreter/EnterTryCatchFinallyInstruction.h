@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnterTryCatchFinallyInstruction.h>
+#include <Modloader/app/structs/TryCatchFinallyHandler.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::EnterTryCatchFinallyInstruction {
     IL2CPP_REGISTER_METHOD(0x002FB960, void, SetTryHandler, (app::EnterTryCatchFinallyInstruction * this_ptr, app::TryCatchFinallyHandler* try_handler))

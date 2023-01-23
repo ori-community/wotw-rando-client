@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_VelocityBezierSpline_VelocityBezierSplinePoint_.h>
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplinePoint.h>
 
 namespace app::classes::System::Collections::Generic::List_1_VelocityBezierSpline_VelocityBezierSplinePoint_ {
     IL2CPP_REGISTER_METHOD(0x025EAC80, void, Reverse, (app::List_1_VelocityBezierSpline_VelocityBezierSplinePoint_ * this_ptr))

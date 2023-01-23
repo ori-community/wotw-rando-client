@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObjectExtensions_c_0_1_System_Object_.h>
+#include <Modloader/app/structs/MonoBehaviour.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::GameObjectExtensions___c__0_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x019DE4F0, void, cctor, ())

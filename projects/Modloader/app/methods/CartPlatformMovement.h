@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CartPlatformMovement.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CartPlatformMovement {
     IL2CPP_REGISTER_METHOD(0x00B3D890, app::Vector2, WorldToLocal, (app::CartPlatformMovement * this_ptr, app::Vector2 world))

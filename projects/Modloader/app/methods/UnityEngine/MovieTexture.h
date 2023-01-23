@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MovieTexture.h>
+#include <Modloader/app/structs/AudioClip.h>
 
 namespace app::classes::UnityEngine::MovieTexture {
     IL2CPP_REGISTER_METHOD(0x03144CC0, void, Play, (app::MovieTexture * this_ptr))

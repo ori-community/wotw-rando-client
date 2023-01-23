@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/GizmosChangeColor.h>
 
 namespace app::classes::Moon::Gui::GizmosChangeColor {
     IL2CPP_REGISTER_METHOD(0x01349560, app::Color, get_PreviousColor, (app::GizmosChangeColor * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SharedReference.h>
 
 namespace app::classes::System::Text::RegularExpressions::SharedReference {
     IL2CPP_REGISTER_METHOD(0x02A7AB90, app::Object*, Get, (app::SharedReference * this_ptr))

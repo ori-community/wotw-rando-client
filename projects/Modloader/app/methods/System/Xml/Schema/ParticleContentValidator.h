@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParticleContentValidator.h>
+#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
+#include <Modloader/app/structs/ValidationState.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/NamespaceList.h>
+#include <Modloader/app/structs/SyntaxTreeNode.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/InteriorNode.h>
+#include <Modloader/app/structs/ContentValidator.h>
+#include <Modloader/app/structs/BitSet__Array.h>
+#include <Modloader/app/structs/BitSet.h>
+#include <Modloader/app/structs/Int32__Array__Array.h>
 
 namespace app::classes::System::Xml::Schema::ParticleContentValidator {
     IL2CPP_REGISTER_METHOD(0x016D5510, void, ctor_1, (app::ParticleContentValidator * this_ptr, app::XmlSchemaContentType__Enum content_type))

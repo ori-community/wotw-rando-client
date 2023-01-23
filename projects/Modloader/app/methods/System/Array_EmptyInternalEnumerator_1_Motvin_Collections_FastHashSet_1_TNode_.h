@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_Motvin_Collections_FastHashSet_1_TNode_.h>
+#include <Modloader/app/structs/FastHashSet_1_T_TNode_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_Motvin_Collections_FastHashSet_1_TNode__1.h>
+#include <Modloader/app/structs/FastHashSet_1_T_TNode_System_UInt32_.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_Motvin_Collections_FastHashSet_1_TNode_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose_1, (app::Array_EmptyInternalEnumerator_1_Motvin_Collections_FastHashSet_1_TNode_ * this_ptr))

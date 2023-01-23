@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MistTorchPlaceholder.h>
 
 namespace app::classes::MistTorchPlaceholder {
     IL2CPP_REGISTER_METHOD(0x013276C0, void, FixedUpdate, (app::MistTorchPlaceholder * this_ptr))

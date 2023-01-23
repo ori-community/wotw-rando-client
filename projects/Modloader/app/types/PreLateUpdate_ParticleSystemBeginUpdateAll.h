@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PreLateUpdate_ParticleSystemBeginUpdateAll__Class.h>
+#include <Modloader/app/structs/PreLateUpdate_ParticleSystemBeginUpdateAll.h>
+#include <Modloader/app/structs/PreLateUpdate_ParticleSystemBeginUpdateAll__Boxed.h>
 
 namespace app::classes::types {
     namespace PreLateUpdate_ParticleSystemBeginUpdateAll {

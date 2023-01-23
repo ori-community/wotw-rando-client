@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RECT.h>
+#include <Modloader/app/structs/WindowManager.h>
 
 namespace app::classes::WindowManager {
     IL2CPP_REGISTER_METHOD(0x0057AB90, int32_t, SetWindowLong, (void* h_wnd, int32_t n_index, int32_t dw_new_long))

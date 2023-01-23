@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AVProWindowsMediaControlPlayOnEnable.h>
 
 namespace app::classes::AVProWindowsMediaControlPlayOnEnable {
     IL2CPP_REGISTER_METHOD(0x03129830, void, OnEnable, (app::AVProWindowsMediaControlPlayOnEnable * this_ptr))

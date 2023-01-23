@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinMarkOfTheWildsSpell.h>
 
 namespace app::classes::SeinMarkOfTheWildsSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinMarkOfTheWildsSpell * this_ptr))

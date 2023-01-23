@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlQualifiedName_HashCodeOfStringDelegate.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Xml::XmlQualifiedName_HashCodeOfStringDelegate {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::XmlQualifiedName_HashCodeOfStringDelegate * this_ptr, app::Object* object, void* method_1))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MixerSnapshot.h>
+#include <Modloader/app/structs/MixerSnapshot_MixerSnapshotState__Enum.h>
 
 namespace app::classes::MixerSnapshot {
     IL2CPP_REGISTER_METHOD(0x0132EB50, float, get_Weight, (app::MixerSnapshot * this_ptr))

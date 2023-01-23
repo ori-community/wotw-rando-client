@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChallengeResponse.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Mono::Security::Protocol::Ntlm::ChallengeResponse {
     IL2CPP_REGISTER_METHOD(0x02A48350, void, ctor_1, (app::ChallengeResponse * this_ptr))

@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations__Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations__Class_DEFINED)
+#include <Modloader/app/structs/KwolokBossTendril_AllowedTendrilVariations__VTable.h>
+#if defined(IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations__VTable_DEFINED)
+#define IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations__Class_DEFINED
+struct KwolokBossTendril_AllowedTendrilVariations__StaticFields;
+struct KwolokBossTendril_AllowedTendrilVariations__Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct KwolokBossTendril_AllowedTendrilVariations__StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct KwolokBossTendril_AllowedTendrilVariations__VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations__Class_FWDDECL)
+#define IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations__Class_FWDDECL
+#include <Modloader/app/structs/KwolokBossTendril_AllowedTendrilVariations__StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations__Class_DEFINED) && !defined(IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations__Class_FWDDECL)
+#include <Modloader/app/structs/KwolokBossTendril_AllowedTendrilVariations__Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KwolokBossTendril_AllowedTendrilVariations__Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

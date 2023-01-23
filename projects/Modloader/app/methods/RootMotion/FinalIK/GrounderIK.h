@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GrounderIK.h>
 
 namespace app::classes::RootMotion::FinalIK::GrounderIK {
     IL2CPP_REGISTER_METHOD(0x02069C80, void, OpenUserManual, (app::GrounderIK * this_ptr))

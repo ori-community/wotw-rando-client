@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossTendril_DurationType__Enum.h>
+#include <Modloader/app/structs/KwolokBossTendril.h>
+#include <Modloader/app/structs/KwolokBossTendril_VariationType__Enum.h>
+#include <Modloader/app/structs/KwolokBossTendril_State__Enum.h>
+#include <Modloader/app/structs/OrbSpawner.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::KwolokBossTendril {
     IL2CPP_REGISTER_METHOD(0x00989BF0, app::KwolokBossTendril_DurationType__Enum, get_Duration, (app::KwolokBossTendril * this_ptr))

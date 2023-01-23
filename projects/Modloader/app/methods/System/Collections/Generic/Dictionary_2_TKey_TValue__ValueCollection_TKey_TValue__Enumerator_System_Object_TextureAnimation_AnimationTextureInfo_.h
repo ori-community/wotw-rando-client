@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Object_TextureAnimation_AnimationTextureInfo___Boxed.h>
+#include <Modloader/app/structs/Dictionary_2_System_Object_TextureAnimation_AnimationTextureInfo_.h>
+#include <Modloader/app/structs/TextureAnimation_AnimationTextureInfo.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_TKey_TValue__Enumerator_System_Object_TextureAnimation_AnimationTextureInfo_ {
     IL2CPP_REGISTER_METHOD(0x00142E50, void, ctor, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Object_TextureAnimation_AnimationTextureInfo___Boxed * this_ptr, app::Dictionary_2_System_Object_TextureAnimation_AnimationTextureInfo_* dictionary))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GlobalDebugQuadScaleMenuItem.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::GlobalDebugQuadScaleMenuItem {
     IL2CPP_REGISTER_METHOD(0x007F7750, void, ctor, (app::GlobalDebugQuadScaleMenuItem * this_ptr, app::String* path, app::String* str))

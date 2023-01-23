@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CollapsingPlatform__Class.h>
+#include <Modloader/app/structs/CollapsingPlatform.h>
+#include <Modloader/app/structs/CollapsingPlatform__Array.h>
 
 namespace app::classes::types {
     namespace CollapsingPlatform {

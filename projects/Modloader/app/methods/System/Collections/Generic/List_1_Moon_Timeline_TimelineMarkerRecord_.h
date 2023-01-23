@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineMarkerRecord_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_TimelineMarkerRecord_.h>
+#include <Modloader/app/structs/TimelineMarkerRecord.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Timeline_TimelineMarkerRecord_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_Moon_Timeline_TimelineMarkerRecord_ * this_ptr))

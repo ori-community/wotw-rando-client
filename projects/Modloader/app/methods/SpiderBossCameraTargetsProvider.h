@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBossCameraTargetsProvider.h>
+#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::SpiderBossCameraTargetsProvider {
     IL2CPP_REGISTER_METHOD(0x0096A2E0, float, get_GroundHeight, (app::SpiderBossCameraTargetsProvider * this_ptr))

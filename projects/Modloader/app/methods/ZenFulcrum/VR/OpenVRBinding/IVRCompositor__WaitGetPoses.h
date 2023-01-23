@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IVRCompositor_WaitGetPoses.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EVRCompositorError__Enum.h>
+#include <Modloader/app/structs/TrackedDevicePose_t__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVRCompositor__WaitGetPoses {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVRCompositor_WaitGetPoses * this_ptr, app::Object* object, void* method_1))

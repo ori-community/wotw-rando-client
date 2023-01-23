@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Base64Stream_WriteAsyncResult.h>
+#include <Modloader/app/structs/Base64Stream.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 
 namespace app::classes::System::Net::Base64Stream_WriteAsyncResult {
     IL2CPP_REGISTER_METHOD(0x020139E0, void, ctor, (app::Base64Stream_WriteAsyncResult * this_ptr, app::Base64Stream* parent, app::Byte__Array* buffer, int32_t offset, int32_t count, app::AsyncCallback* callback, app::Object* state))

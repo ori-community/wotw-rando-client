@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BabyWormWater.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::BabyWormWater {
     IL2CPP_REGISTER_METHOD(0x00F80B90, bool, DigEdgeZoneEdgeAhead, (app::BabyWormWater * this_ptr))

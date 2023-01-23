@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SneezeSlugIdleAggroBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IEntityBehaviour.h>
 
 namespace app::classes::SneezeSlugIdleAggroBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnInitialize, (app::SneezeSlugIdleAggroBehaviour * this_ptr))

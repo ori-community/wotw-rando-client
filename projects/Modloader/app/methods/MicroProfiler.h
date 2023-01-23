@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Marker__Enum.h>
+#include <Modloader/app/structs/Stat__Enum.h>
+#include <Modloader/app/structs/Metric__Enum.h>
+#include <Modloader/app/structs/MicroProfiler_SampleStats.h>
+#include <Modloader/app/structs/MicroProfiler_SampleStats__Array.h>
+#include <Modloader/app/structs/MicroProfiler_MarkerInfo.h>
+#include <Modloader/app/structs/MicroProfiler_StatInfo.h>
+#include <Modloader/app/structs/MicroProfiler.h>
 
 namespace app::classes::MicroProfiler {
     IL2CPP_REGISTER_METHOD(0x03154B90, bool, get_IsPaused, ())

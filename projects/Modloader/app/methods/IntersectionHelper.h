@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::IntersectionHelper {
     IL2CPP_REGISTER_METHOD(0x0063E090, bool, LinesIntersect, (app::Vector3 start0, app::Vector3 end0, app::Vector3 start1, app::Vector3 end1))

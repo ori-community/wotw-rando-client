@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PickupBase.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/CollectablePlaceholder.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::PickupBase {
     IL2CPP_REGISTER_METHOD(0x01157510, bool, get_ShouldUseLegacySerialization, (app::PickupBase * this_ptr))

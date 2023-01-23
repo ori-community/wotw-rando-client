@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinMaxSpeedBasedOnDistance.h>
 
 namespace app::classes::SeinMaxSpeedBasedOnDistance {
     IL2CPP_REGISTER_METHOD(0x008A34E0, void, OnHorizontalInputCalculate, (app::SeinMaxSpeedBasedOnDistance * this_ptr))

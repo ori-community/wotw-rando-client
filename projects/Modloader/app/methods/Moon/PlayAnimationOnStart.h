@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayAnimationOnStart.h>
 
 namespace app::classes::Moon::PlayAnimationOnStart {
     IL2CPP_REGISTER_METHOD(0x0211F4F0, void, Start, (app::PlayAnimationOnStart * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Tonemapping.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::Tonemapping {
     IL2CPP_REGISTER_METHOD(0x02D68DC0, bool, CheckResources, (app::Tonemapping * this_ptr))

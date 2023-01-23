@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValueTuple_2_Action_UberPoolItem_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2___Boxed.h>
+#include <Modloader/app/structs/ValueTuple_2_String_Single_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__1__Boxed.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_String_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__2__Boxed.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__3__Boxed.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__3.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__4__Boxed.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__4.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__5__Boxed.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__5.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Single_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_System_ValueTuple_2_ {
     IL2CPP_REGISTER_METHOD(0x00136440, app::ValueTuple_2_Action_UberPoolItem_, get_Current_1, (app::List_1_T_Enumerator_System_ValueTuple_2___Boxed * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BooleanUberStateCondition.h>
 
 namespace app::classes::BooleanUberStateCondition {
     IL2CPP_REGISTER_METHOD(0x01B55AA0, void, ctor, (app::BooleanUberStateCondition * this_ptr))

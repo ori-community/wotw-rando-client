@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MaterialBasedResourceMapEntry_1_HornBugMovementEffects__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MaterialBasedResourceMapEntry_1_HornBugMovementEffects__INITIALIZING
+#if !defined(IL2CPP_STRUCT_MaterialBasedResourceMapEntry_1_HornBugMovementEffects__DEFINED)
+#include <Modloader/app/structs/MaterialBasedResourceMapEntry_1_HornBugMovementEffects___Fields.h>
+#if defined(IL2CPP_STRUCT_MaterialBasedResourceMapEntry_1_HornBugMovementEffects___Fields_DEFINED)
+#define IL2CPP_STRUCT_MaterialBasedResourceMapEntry_1_HornBugMovementEffects__DEFINED
+struct MaterialBasedResourceMapEntry_1_HornBugMovementEffects___Class;
+struct MaterialBasedResourceMapEntry_1_HornBugMovementEffects_ {
+    struct MaterialBasedResourceMapEntry_1_HornBugMovementEffects___Class* klass;
+    MonitorData* monitor;
+    struct MaterialBasedResourceMapEntry_1_HornBugMovementEffects___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MaterialBasedResourceMapEntry_1_HornBugMovementEffects__FWDDECL)
+#define IL2CPP_STRUCT_MaterialBasedResourceMapEntry_1_HornBugMovementEffects__FWDDECL
+#include <Modloader/app/structs/MaterialBasedResourceMapEntry_1_HornBugMovementEffects___Class.h>
+#endif
+#undef IL2CPP_STRUCT_MaterialBasedResourceMapEntry_1_HornBugMovementEffects__INITIALIZING
+#if !defined(IL2CPP_STRUCT_MaterialBasedResourceMapEntry_1_HornBugMovementEffects__DEFINED) && !defined(IL2CPP_STRUCT_MaterialBasedResourceMapEntry_1_HornBugMovementEffects__FWDDECL)
+#include <Modloader/app/structs/MaterialBasedResourceMapEntry_1_HornBugMovementEffects_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MaterialBasedResourceMapEntry_1_HornBugMovementEffects_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

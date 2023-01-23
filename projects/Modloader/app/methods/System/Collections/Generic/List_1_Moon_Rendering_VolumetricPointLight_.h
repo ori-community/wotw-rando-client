@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_Rendering_VolumetricPointLight_.h>
+#include <Modloader/app/structs/VolumetricPointLight.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Rendering_VolumetricPointLight_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_Moon_Rendering_VolumetricPointLight_ * this_ptr))

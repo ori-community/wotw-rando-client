@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ConfiguredTaskAwaitable_1_System_Net_WebResponse__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ConfiguredTaskAwaitable_1_System_Net_WebResponse__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ConfiguredTaskAwaitable_1_System_Net_WebResponse__DEFINED)
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_1_TResult_ConfiguredTaskAwaiter_System_Net_WebResponse_.h>
+#if defined(IL2CPP_STRUCT_ConfiguredTaskAwaitable_1_TResult_ConfiguredTaskAwaiter_System_Net_WebResponse__DEFINED)
+#define IL2CPP_STRUCT_ConfiguredTaskAwaitable_1_System_Net_WebResponse__DEFINED
+struct ConfiguredTaskAwaitable_1_System_Net_WebResponse_ {
+    struct ConfiguredTaskAwaitable_1_TResult_ConfiguredTaskAwaiter_System_Net_WebResponse_ m_configuredTaskAwaiter;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ConfiguredTaskAwaitable_1_System_Net_WebResponse__FWDDECL)
+#define IL2CPP_STRUCT_ConfiguredTaskAwaitable_1_System_Net_WebResponse__FWDDECL
+#endif
+#undef IL2CPP_STRUCT_ConfiguredTaskAwaitable_1_System_Net_WebResponse__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ConfiguredTaskAwaitable_1_System_Net_WebResponse__DEFINED) && !defined(IL2CPP_STRUCT_ConfiguredTaskAwaitable_1_System_Net_WebResponse__FWDDECL)
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_1_System_Net_WebResponse_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_1_System_Net_WebResponse_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

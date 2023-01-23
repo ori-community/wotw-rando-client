@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_.h>
+#include <Modloader/app/structs/PointerUIBase_PointerState.h>
+#include <Modloader/app/structs/IEnumerable_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_.h>
+#include <Modloader/app/structs/IComparer_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_.h>
+#include <Modloader/app/structs/PointerUIBase_PointerState__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_.h>
+#include <Modloader/app/structs/Action_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_.h>
+#include <Modloader/app/structs/IEnumerator_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_ * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CVRExtendedDisplay.h>
+#include <Modloader/app/structs/EVREye__Enum.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRExtendedDisplay {
     IL2CPP_REGISTER_METHOD(0x016786F0, void, ctor, (app::CVRExtendedDisplay * this_ptr, void* p_interface))

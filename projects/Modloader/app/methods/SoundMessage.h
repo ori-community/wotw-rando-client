@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundMessage.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::SoundMessage {
     IL2CPP_REGISTER_METHOD(0x00EEABF0, void, OnGUI, (app::SoundMessage * this_ptr))

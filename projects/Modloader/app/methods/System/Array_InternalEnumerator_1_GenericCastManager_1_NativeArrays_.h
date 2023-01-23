@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_GenericCastManager_1_NativeArrays___Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_GenericCastManager_1_NativeArrays__1__Boxed.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_RaycastCommand_.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_GenericCastManager_1_NativeArrays__2__Boxed.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_SpherecastCommand_.h>
 
 namespace app::classes::System::Array_InternalEnumerator_1_GenericCastManager_1_NativeArrays_ {
     IL2CPP_REGISTER_METHOD(0x00160580, void, ctor_1, (app::Array_InternalEnumerator_1_GenericCastManager_1_NativeArrays___Boxed * this_ptr, app::Array* array))

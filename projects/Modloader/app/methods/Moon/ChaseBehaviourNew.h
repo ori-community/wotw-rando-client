@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChaseBehaviourNew.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::ChaseBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x00CC43F0, void, OnEnter, (app::ChaseBehaviourNew * this_ptr, app::IContext* context))

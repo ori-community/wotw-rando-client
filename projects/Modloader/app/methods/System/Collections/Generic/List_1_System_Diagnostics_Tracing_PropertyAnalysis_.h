@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Diagnostics_Tracing_PropertyAnalysis_.h>
+#include <Modloader/app/structs/PropertyAnalysis.h>
+#include <Modloader/app/structs/PropertyAnalysis__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Diagnostics_Tracing_PropertyAnalysis_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_System_Diagnostics_Tracing_PropertyAnalysis_ * this_ptr))

@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_IAttackable_SpiritTurret_AttackableRayHandle__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_IAttackable_SpiritTurret_AttackableRayHandle__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_IAttackable_SpiritTurret_AttackableRayHandle__DEFINED)
+#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle.h>
+#if defined(IL2CPP_STRUCT_SpiritTurret_AttackableRayHandle_DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_IAttackable_SpiritTurret_AttackableRayHandle__DEFINED
+struct IAttackable;
+struct Dictionary_2_TKey_TValue_Entry_IAttackable_SpiritTurret_AttackableRayHandle_ {
+    int32_t hashCode;
+    int32_t next;
+    struct IAttackable* key;
+    struct SpiritTurret_AttackableRayHandle value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_IAttackable_SpiritTurret_AttackableRayHandle__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_IAttackable_SpiritTurret_AttackableRayHandle__FWDDECL
+#include <Modloader/app/structs/IAttackable.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_IAttackable_SpiritTurret_AttackableRayHandle__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_IAttackable_SpiritTurret_AttackableRayHandle__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_IAttackable_SpiritTurret_AttackableRayHandle__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_IAttackable_SpiritTurret_AttackableRayHandle_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_IAttackable_SpiritTurret_AttackableRayHandle_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IVROverlay_GetOverlayTransformType.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EVROverlayError__Enum.h>
+#include <Modloader/app/structs/VROverlayTransformType__Enum.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVROverlay__GetOverlayTransformType {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVROverlay_GetOverlayTransformType * this_ptr, app::Object* object, void* method_1))

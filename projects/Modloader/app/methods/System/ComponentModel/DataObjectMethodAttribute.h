@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataObjectMethodAttribute.h>
+#include <Modloader/app/structs/DataObjectMethodType__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::DataObjectMethodAttribute {
     IL2CPP_REGISTER_METHOD(0x01FDE850, void, ctor_1, (app::DataObjectMethodAttribute * this_ptr, app::DataObjectMethodType__Enum method_type))

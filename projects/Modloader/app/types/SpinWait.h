@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SpinWait__Class.h>
+#include <Modloader/app/structs/SpinWait.h>
+#include <Modloader/app/structs/SpinWait__Boxed.h>
 
 namespace app::classes::types {
     namespace SpinWait {

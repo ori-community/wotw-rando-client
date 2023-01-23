@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlNumeric10Converter.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlValueConverter.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Xml::Schema::XmlNumeric10Converter {
     IL2CPP_REGISTER_METHOD(0x0224EB90, void, ctor, (app::XmlNumeric10Converter * this_ptr, app::XmlSchemaType* schema_type))

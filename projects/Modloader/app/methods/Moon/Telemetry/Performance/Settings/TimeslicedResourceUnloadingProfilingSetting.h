@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/TimeslicedResourceUnloadingProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::TimeslicedResourceUnloadingProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x00E40570, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::TimeslicedResourceUnloadingProfilingSetting * this_ptr))

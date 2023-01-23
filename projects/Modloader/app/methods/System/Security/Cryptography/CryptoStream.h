@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CryptoStream.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/ICryptoTransform.h>
+#include <Modloader/app/structs/CryptoStreamMode__Enum.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Task_1_System_Int32_.h>
 
 namespace app::classes::System::Security::Cryptography::CryptoStream {
     IL2CPP_REGISTER_METHOD(0x020CCDA0, void, ctor, (app::CryptoStream * this_ptr, app::Stream* stream, app::ICryptoTransform* transform, app::CryptoStreamMode__Enum mode))

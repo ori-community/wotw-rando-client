@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RotatingObstacleImpactEffect.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::RotatingObstacleImpactEffect {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Start, (app::RotatingObstacleImpactEffect * this_ptr))

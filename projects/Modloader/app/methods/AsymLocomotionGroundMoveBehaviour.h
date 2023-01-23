@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsymLocomotionGroundMoveBehaviour.h>
 
 namespace app::classes::AsymLocomotionGroundMoveBehaviour {
     IL2CPP_REGISTER_METHOD(0x00841DB0, void, PlayAnimation, (app::AsymLocomotionGroundMoveBehaviour * this_ptr))

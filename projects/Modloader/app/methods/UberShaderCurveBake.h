@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Gradient.h>
+#include <Modloader/app/structs/UberShaderCurveBake_GradientData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/TextureWrapMode__Enum.h>
+#include <Modloader/app/structs/GradientColorKey__Array.h>
+#include <Modloader/app/structs/GradientAlphaKey__Array.h>
 
 namespace app::classes::UberShaderCurveBake {
     IL2CPP_REGISTER_METHOD(0x0190EFA0, bool, GradientsAreEqual, (app::Gradient * a, app::UberShaderCurveBake_GradientData data))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextureAnimation.h>
+#include <Modloader/app/structs/AtlasSpriteTexture.h>
+#include <Modloader/app/structs/Atlas.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/UberAtlassingPlatform__Enum.h>
 
 namespace app::classes::TextureAnimation {
     IL2CPP_REGISTER_METHOD(0x010E90B0, float, get_Duration, (app::TextureAnimation * this_ptr))

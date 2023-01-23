@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MethodInfoCallInstruction__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MethodInfoCallInstruction__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MethodInfoCallInstruction__Fields_DEFINED)
+#define IL2CPP_STRUCT_MethodInfoCallInstruction__Fields_DEFINED
+struct MethodInfo_1;
+struct __declspec(align(8)) MethodInfoCallInstruction__Fields {
+    struct MethodInfo_1* _target;
+    int32_t _argumentCount;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_MethodInfoCallInstruction__Fields_FWDDECL)
+#define IL2CPP_STRUCT_MethodInfoCallInstruction__Fields_FWDDECL
+#include <Modloader/app/structs/MethodInfo_1.h>
+#endif
+#undef IL2CPP_STRUCT_MethodInfoCallInstruction__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MethodInfoCallInstruction__Fields_DEFINED) && !defined(IL2CPP_STRUCT_MethodInfoCallInstruction__Fields_FWDDECL)
+#include <Modloader/app/structs/MethodInfoCallInstruction__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MethodInfoCallInstruction__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

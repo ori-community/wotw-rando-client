@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListDictionaryInternal_NodeEnumerator.h>
+#include <Modloader/app/structs/ListDictionaryInternal.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DictionaryEntry.h>
 
 namespace app::classes::System::Collections::ListDictionaryInternal_NodeEnumerator {
     IL2CPP_REGISTER_METHOD(0x0202A190, void, ctor, (app::ListDictionaryInternal_NodeEnumerator * this_ptr, app::ListDictionaryInternal* list))

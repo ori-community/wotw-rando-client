@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DecoderExceptionFallbackBuffer.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Text::DecoderExceptionFallbackBuffer {
     IL2CPP_REGISTER_METHOD(0x02448F70, bool, Fallback, (app::DecoderExceptionFallbackBuffer * this_ptr, app::Byte__Array* bytes_unknown, int32_t index))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyScaleAnimator.h>
 
 namespace app::classes::LegacyScaleAnimator {
     IL2CPP_REGISTER_METHOD(0x00A34EC0, void, Awake, (app::LegacyScaleAnimator * this_ptr))

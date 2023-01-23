@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/VirtualClipsBuilder_Layout__Enum__Array__Class.h>
+#include <Modloader/app/structs/VirtualClipsBuilder_Layout__Enum__Array.h>
 
 namespace app::classes::types {
     namespace VirtualClipsBuilder_Layout__Enum__Array {

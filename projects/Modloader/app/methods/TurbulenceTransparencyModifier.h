@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TurbulenceTransparencyModifier.h>
 
 namespace app::classes::TurbulenceTransparencyModifier {
     IL2CPP_REGISTER_METHOD(0x013D7570, void, Randomize, (app::TurbulenceTransparencyModifier * this_ptr))

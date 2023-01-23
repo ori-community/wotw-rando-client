@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FfmpegStreamer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::FfmpegStreamer {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_PipeError, (app::FfmpegStreamer * this_ptr))

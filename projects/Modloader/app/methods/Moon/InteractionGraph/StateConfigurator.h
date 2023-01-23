@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateConfigurator.h>
+#include <Modloader/app/structs/StateMachine_1.h>
+#include <Modloader/app/structs/IState_1.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/ICondition.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 
 namespace app::classes::Moon::InteractionGraph::StateConfigurator {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::StateConfigurator * this_ptr, app::StateMachine_1* state_machine, app::IState_1* state))

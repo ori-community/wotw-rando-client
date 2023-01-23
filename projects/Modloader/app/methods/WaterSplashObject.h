@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaterSplashObject.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::WaterSplashObject {
     IL2CPP_REGISTER_METHOD(0x008E2280, void, RenameToFollowObject, (app::WaterSplashObject * this_ptr))

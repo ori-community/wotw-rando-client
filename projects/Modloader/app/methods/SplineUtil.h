@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseSpline_SplineWrapMode__Enum.h>
+#include <Modloader/app/structs/SplineUtil.h>
 
 namespace app::classes::SplineUtil {
     IL2CPP_REGISTER_METHOD(0x009A30C0, int32_t, ClampIndex, (int32_t idx, int32_t len))

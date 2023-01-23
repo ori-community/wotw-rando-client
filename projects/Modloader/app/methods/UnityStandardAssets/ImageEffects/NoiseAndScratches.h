@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NoiseAndScratches.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::NoiseAndScratches {
     IL2CPP_REGISTER_METHOD(0x02D5C780, void, Start, (app::NoiseAndScratches * this_ptr))

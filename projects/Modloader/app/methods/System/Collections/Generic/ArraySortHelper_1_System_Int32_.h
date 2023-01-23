@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/IComparer_1_System_Int32_.h>
+#include <Modloader/app/structs/Comparison_1_Int32_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x03000190, void, Sort_1, (app::Int32__Array * keys, int32_t index, int32_t length, app::IComparer_1_System_Int32_* comparer))

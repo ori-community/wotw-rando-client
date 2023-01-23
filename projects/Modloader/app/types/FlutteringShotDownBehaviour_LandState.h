@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/FlutteringShotDownBehaviour_LandState__Class.h>
+#include <Modloader/app/structs/FlutteringShotDownBehaviour_LandState.h>
 
 namespace app::classes::types {
     namespace FlutteringShotDownBehaviour_LandState {

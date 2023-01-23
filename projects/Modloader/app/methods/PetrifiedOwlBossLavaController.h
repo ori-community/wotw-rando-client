@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLavaController.h>
 
 namespace app::classes::PetrifiedOwlBossLavaController {
     IL2CPP_REGISTER_METHOD(0x01776990, float, get_Height, (app::PetrifiedOwlBossLavaController * this_ptr))

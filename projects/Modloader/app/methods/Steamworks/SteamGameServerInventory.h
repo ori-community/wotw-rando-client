@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EResult__Enum.h>
+#include <Modloader/app/structs/SteamInventoryResult_t.h>
+#include <Modloader/app/structs/SteamItemDetails_t__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CSteamID.h>
+#include <Modloader/app/structs/SteamItemInstanceID_t__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/SteamItemDef_t__Array.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/SteamItemDef_t.h>
+#include <Modloader/app/structs/SteamItemInstanceID_t.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
+#include <Modloader/app/structs/UInt64__Array.h>
+#include <Modloader/app/structs/SteamInventoryUpdateHandle_t.h>
 
 namespace app::classes::Steamworks::SteamGameServerInventory {
     IL2CPP_REGISTER_METHOD(0x027FAAF0, app::EResult__Enum, GetResultStatus, (app::SteamInventoryResult_t result_handle))

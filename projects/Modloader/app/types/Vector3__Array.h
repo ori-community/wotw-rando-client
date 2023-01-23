@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Vector3__Array__Class.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/Vector3__Array__Array.h>
 
 namespace app::classes::types {
     namespace Vector3__Array {

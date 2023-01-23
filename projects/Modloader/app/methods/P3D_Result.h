@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/P3D_Result.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/P3D_CoordType__Enum.h>
 
 namespace app::classes::P3D_Result {
     IL2CPP_REGISTER_METHOD(0x03096DF0, app::P3D_Result*, Spawn, ())

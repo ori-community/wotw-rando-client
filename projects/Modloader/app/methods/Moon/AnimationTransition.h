@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AnimationTransition.h>
 
 namespace app::classes::Moon::AnimationTransition {
     IL2CPP_REGISTER_METHOD(0x01B053F0, app::Object*, Clone, (app::AnimationTransition * this_ptr))

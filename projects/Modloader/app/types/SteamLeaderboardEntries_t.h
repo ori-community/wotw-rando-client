@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SteamLeaderboardEntries_t__Class.h>
+#include <Modloader/app/structs/SteamLeaderboardEntries_t.h>
+#include <Modloader/app/structs/SteamLeaderboardEntries_t__Boxed.h>
 
 namespace app::classes::types {
     namespace SteamLeaderboardEntries_t {

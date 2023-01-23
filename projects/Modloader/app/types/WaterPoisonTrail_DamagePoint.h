@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint__Class.h>
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint.h>
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint__Boxed.h>
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint__Array.h>
 
 namespace app::classes::types {
     namespace WaterPoisonTrail_DamagePoint {

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CartAnimation.h>
 
 namespace app::classes::CartAnimation {
     IL2CPP_REGISTER_METHOD(0x00B31760, void, set_AddtiveRotation, (app::CartAnimation * this_ptr, float value))

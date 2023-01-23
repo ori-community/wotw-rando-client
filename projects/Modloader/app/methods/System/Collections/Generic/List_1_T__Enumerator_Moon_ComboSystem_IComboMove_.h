@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_ComboSystem_IComboMove___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Moon_ComboSystem_IComboMove_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::IComboMove*, get_Current, (app::List_1_T_Enumerator_Moon_ComboSystem_IComboMove___Boxed * this_ptr))

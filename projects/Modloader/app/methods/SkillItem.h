@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkillItem.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::SkillItem {
     IL2CPP_REGISTER_METHOD(0x006B4670, int32_t, get_ActualRequiredSkillPoints, (app::SkillItem * this_ptr))

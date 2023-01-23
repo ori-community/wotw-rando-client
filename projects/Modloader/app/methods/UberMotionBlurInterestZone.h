@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberMotionBlurInterestZone.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Camera.h>
 
 namespace app::classes::UberMotionBlurInterestZone {
     IL2CPP_REGISTER_METHOD(0x00A1B030, void, Awake, (app::UberMotionBlurInterestZone * this_ptr))

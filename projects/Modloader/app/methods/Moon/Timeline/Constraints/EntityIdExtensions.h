@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/IConstraint.h>
+#include <Modloader/app/structs/IConstrainedEntity.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::Constraints::EntityIdExtensions {
     IL2CPP_REGISTER_METHOD(0x01BB62A0, bool, IsParentOrNothing, (app::EntityId id))

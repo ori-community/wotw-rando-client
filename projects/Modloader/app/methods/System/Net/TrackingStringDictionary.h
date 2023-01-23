@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TrackingStringDictionary.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::TrackingStringDictionary {
     IL2CPP_REGISTER_METHOD(0x020A9E30, void, ctor_1, (app::TrackingStringDictionary * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GlideFeatherAnimator_c.h>
+#include <Modloader/app/structs/IEnumerable_1_Atlas_.h>
+#include <Modloader/app/structs/TextureAnimation.h>
 
 namespace app::classes::GlideFeatherAnimator___c {
     IL2CPP_REGISTER_METHOD(0x007F5320, void, cctor, ())

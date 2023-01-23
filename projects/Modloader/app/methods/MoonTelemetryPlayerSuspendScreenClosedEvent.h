@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTelemetryPlayerSuspendScreenClosedEvent.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JsonBuilder_Object.h>
 
 namespace app::classes::MoonTelemetryPlayerSuspendScreenClosedEvent {
     IL2CPP_REGISTER_METHOD(0x014707A0, void, SynchronousInitialize, (app::MoonTelemetryPlayerSuspendScreenClosedEvent * this_ptr))

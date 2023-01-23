@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecommendedAsConfigurableAttribute.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::RecommendedAsConfigurableAttribute {
     IL2CPP_REGISTER_METHOD(0x0052C650, void, ctor, (app::RecommendedAsConfigurableAttribute * this_ptr, bool recommended_as_configurable))

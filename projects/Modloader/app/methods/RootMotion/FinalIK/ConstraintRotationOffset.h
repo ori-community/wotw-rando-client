@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConstraintRotationOffset.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::ConstraintRotationOffset {
     IL2CPP_REGISTER_METHOD(0x02052770, void, UpdateConstraint, (app::ConstraintRotationOffset * this_ptr))

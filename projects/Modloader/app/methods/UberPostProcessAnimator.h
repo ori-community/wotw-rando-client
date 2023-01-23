@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPostProcessAnimator.h>
+#include <Modloader/app/structs/CameraSettings.h>
+#include <Modloader/app/structs/PostProcessInfluencerOrder__Enum.h>
+#include <Modloader/app/structs/CameraSettingsAsset.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::UberPostProcessAnimator {
     IL2CPP_REGISTER_METHOD(0x00738690, float, get_Weight, (app::UberPostProcessAnimator * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_SmoothLinesPlugin_NodeMetaData_.h>
+#include <Modloader/app/structs/SmoothLinesPlugin_NodeMetaData.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_SmoothLinesPlugin_NodeMetaData_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_System_Int32_SmoothLinesPlugin_NodeMetaData_ * this_ptr))

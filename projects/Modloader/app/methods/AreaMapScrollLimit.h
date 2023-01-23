@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
+#include <Modloader/app/structs/AreaMapScrollLimit.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::AreaMapScrollLimit {
     IL2CPP_REGISTER_METHOD(0x00417920, app::SelectableCategory__Enum, get_Category, (app::AreaMapScrollLimit * this_ptr))

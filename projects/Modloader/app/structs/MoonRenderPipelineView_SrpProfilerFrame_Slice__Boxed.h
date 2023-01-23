@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MoonRenderPipelineView_SrpProfilerFrame_Slice__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MoonRenderPipelineView_SrpProfilerFrame_Slice__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonRenderPipelineView_SrpProfilerFrame_Slice__Boxed_DEFINED)
+#include <Modloader/app/structs/MoonRenderPipelineView_SrpProfilerFrame_Slice.h>
+#if defined(IL2CPP_STRUCT_MoonRenderPipelineView_SrpProfilerFrame_Slice_DEFINED)
+#define IL2CPP_STRUCT_MoonRenderPipelineView_SrpProfilerFrame_Slice__Boxed_DEFINED
+struct MoonRenderPipelineView_SrpProfilerFrame_Slice__Class;
+struct MoonRenderPipelineView_SrpProfilerFrame_Slice__Boxed {
+    struct MoonRenderPipelineView_SrpProfilerFrame_Slice__Class* klass;
+    MonitorData* monitor;
+    struct MoonRenderPipelineView_SrpProfilerFrame_Slice fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MoonRenderPipelineView_SrpProfilerFrame_Slice__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_MoonRenderPipelineView_SrpProfilerFrame_Slice__Boxed_FWDDECL
+#include <Modloader/app/structs/MoonRenderPipelineView_SrpProfilerFrame_Slice__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MoonRenderPipelineView_SrpProfilerFrame_Slice__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonRenderPipelineView_SrpProfilerFrame_Slice__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_MoonRenderPipelineView_SrpProfilerFrame_Slice__Boxed_FWDDECL)
+#include <Modloader/app/structs/MoonRenderPipelineView_SrpProfilerFrame_Slice__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MoonRenderPipelineView_SrpProfilerFrame_Slice__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Tuple_2_Object_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Tuple_3_Object_Object_Object_.h>
+#include <Modloader/app/structs/Tuple_2_Guid_Int32_.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Tuple_2_Int32_Int32_.h>
+#include <Modloader/app/structs/Tuple_2_System_Diagnostics_Tracing_EventProvider_SessionInfo_Boolean_.h>
+#include <Modloader/app/structs/EventProvider_SessionInfo.h>
+#include <Modloader/app/structs/Tuple_2_System_IO_Stream_System_IO_Stream_ReadWriteTask_.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Stream_ReadWriteTask.h>
+#include <Modloader/app/structs/Tuple_2_String_Byte_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Tuple_3_Single_SceneFPSTest_State_Boolean_.h>
+#include <Modloader/app/structs/SceneFPSTest_State__Enum.h>
+#include <Modloader/app/structs/Tuple_3_Single_Int32Enum_Boolean_.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::System::Tuple {
     IL2CPP_REGISTER_METHOD(0x022916C0, int32_t, CombineHashCodes_1, (int32_t h1, int32_t h2))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_.h>
+#include <Modloader/app/structs/XalHttpHeader__Array.h>
+#include <Modloader/app/structs/XalHttpHeader.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_*, get_Default, ())

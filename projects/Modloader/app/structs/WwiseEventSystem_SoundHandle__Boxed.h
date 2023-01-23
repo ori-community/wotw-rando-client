@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_WwiseEventSystem_SoundHandle__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_WwiseEventSystem_SoundHandle__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_WwiseEventSystem_SoundHandle__Boxed_DEFINED)
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandle.h>
+#if defined(IL2CPP_STRUCT_WwiseEventSystem_SoundHandle_DEFINED)
+#define IL2CPP_STRUCT_WwiseEventSystem_SoundHandle__Boxed_DEFINED
+struct WwiseEventSystem_SoundHandle__Class;
+struct WwiseEventSystem_SoundHandle__Boxed {
+    struct WwiseEventSystem_SoundHandle__Class* klass;
+    MonitorData* monitor;
+    struct WwiseEventSystem_SoundHandle fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_WwiseEventSystem_SoundHandle__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_WwiseEventSystem_SoundHandle__Boxed_FWDDECL
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandle__Class.h>
+#endif
+#undef IL2CPP_STRUCT_WwiseEventSystem_SoundHandle__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_WwiseEventSystem_SoundHandle__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_WwiseEventSystem_SoundHandle__Boxed_FWDDECL)
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandle__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandle__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

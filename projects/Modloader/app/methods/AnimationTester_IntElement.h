@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AnimationTester_IntElement.h>
+#include <Modloader/app/structs/Action_1_Int32_.h>
+#include <Modloader/app/structs/Func_1_Int32_.h>
 
 namespace app::classes::AnimationTester_IntElement {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::String*, get_Name, (app::AnimationTester_IntElement * this_ptr))

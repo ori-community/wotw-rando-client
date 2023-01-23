@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AkAudioInputManager_AudioSamplesInteropDelegate__Class.h>
+#include <Modloader/app/structs/AkAudioInputManager_AudioSamplesInteropDelegate.h>
 
 namespace app::classes::types {
     namespace AkAudioInputManager_AudioSamplesInteropDelegate {

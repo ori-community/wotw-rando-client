@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GroupEnumerator.h>
+#include <Modloader/app/structs/GroupCollection.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Capture.h>
 
 namespace app::classes::System::Text::RegularExpressions::GroupEnumerator {
     IL2CPP_REGISTER_METHOD(0x01DC2A00, void, ctor, (app::GroupEnumerator * this_ptr, app::GroupCollection* rgc))

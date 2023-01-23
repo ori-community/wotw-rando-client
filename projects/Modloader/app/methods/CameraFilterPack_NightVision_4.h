@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_NightVision_4.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_NightVision_4 {
     IL2CPP_REGISTER_METHOD(0x02481790, app::Material*, get_material, (app::CameraFilterPack_NightVision_4 * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IdentityFunction_1_TElement_c_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Linq::IdentityFunction_1_TElement____c_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x019DE4F0, void, cctor, ())

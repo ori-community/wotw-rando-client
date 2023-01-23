@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/HornBugBossRollBackBehaviour_new__Class.h>
+#include <Modloader/app/structs/HornBugBossRollBackBehaviour_new.h>
 
 namespace app::classes::types {
     namespace HornBugBossRollBackBehaviour_new {

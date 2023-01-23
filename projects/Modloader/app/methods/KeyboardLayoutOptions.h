@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyboardLayoutOptions.h>
+#include <Modloader/app/structs/KeyboardLayout__Enum.h>
 
 namespace app::classes::KeyboardLayoutOptions {
     IL2CPP_REGISTER_METHOD(0x00E6BF30, void, ResetStatics, ())

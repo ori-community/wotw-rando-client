@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MistyWoodsKuroController.h>
+#include <Modloader/app/structs/TextureAnimation.h>
+#include <Modloader/app/structs/MistyWoodsKuroController_State__Enum.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::MistyWoodsKuroController {
     IL2CPP_REGISTER_METHOD(0x01327FB0, bool, get_IsHunting, (app::MistyWoodsKuroController * this_ptr))

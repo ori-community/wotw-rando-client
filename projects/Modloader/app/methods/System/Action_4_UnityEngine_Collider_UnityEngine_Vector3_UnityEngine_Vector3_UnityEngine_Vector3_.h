@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_4_UnityEngine_Collider_UnityEngine_Vector3_UnityEngine_Vector3_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::System::Action_4_UnityEngine_Collider_UnityEngine_Vector3_UnityEngine_Vector3_UnityEngine_Vector3_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::Action_4_UnityEngine_Collider_UnityEngine_Vector3_UnityEngine_Vector3_UnityEngine_Vector3_ * this_ptr, app::Object* object, void* method_1))

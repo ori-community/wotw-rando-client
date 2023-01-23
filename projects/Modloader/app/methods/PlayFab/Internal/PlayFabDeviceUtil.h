@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AttributeInstallResult.h>
+#include <Modloader/app/structs/PlayFabError.h>
+#include <Modloader/app/structs/PlayFabResultCommon.h>
+#include <Modloader/app/structs/UserSettings.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::PlayFab::Internal::PlayFabDeviceUtil {
     IL2CPP_REGISTER_METHOD(0x01838A00, void, DoAttributeInstall, ())

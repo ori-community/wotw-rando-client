@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompositeTask.h>
+#include <Modloader/app/structs/IOptimizationTask.h>
 
 namespace app::classes::Moon::ArtOptimization::CompositeTask {
     IL2CPP_REGISTER_METHOD(0x0134B680, void, EnqueueSubTask, (app::CompositeTask * this_ptr, app::IOptimizationTask* sub_task))

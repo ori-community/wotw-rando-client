@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OperatingSystem.h>
+#include <Modloader/app/structs/PlatformID__Enum.h>
+#include <Modloader/app/structs/Version.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::OperatingSystem {
     IL2CPP_REGISTER_METHOD(0x0227BA00, void, ctor_1, (app::OperatingSystem * this_ptr, app::PlatformID__Enum platform, app::Version* version))

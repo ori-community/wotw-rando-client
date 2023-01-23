@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SpiderBossTimelineBehaviour.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::SpiderBossTimelineBehaviour {
     IL2CPP_REGISTER_METHOD(0x011BA940, app::String*, get_Info, (app::SpiderBossTimelineBehaviour * this_ptr))

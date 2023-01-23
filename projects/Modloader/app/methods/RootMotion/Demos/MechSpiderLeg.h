@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MechSpiderLeg.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::RootMotion::Demos::MechSpiderLeg {
     IL2CPP_REGISTER_METHOD(0x02225500, bool, get_isStepping, (app::MechSpiderLeg * this_ptr))

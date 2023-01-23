@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_IRecorderPlugin_.h>
+#include <Modloader/app/structs/List_1_IRecorderPlugin_.h>
+#include <Modloader/app/structs/IRecorderPlugin.h>
 
 namespace app::classes::System::Collections::Generic::List_1_IRecorderPlugin_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_IRecorderPlugin_, GetEnumerator, (app::List_1_IRecorderPlugin_ * this_ptr))

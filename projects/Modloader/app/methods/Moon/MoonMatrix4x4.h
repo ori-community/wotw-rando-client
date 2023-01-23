@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonMatrix4x4.h>
+#include <Modloader/app/structs/CrossSceneReferenceId.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/IMoonResolverContext.h>
+#include <Modloader/app/structs/MoonTypeData.h>
 
 namespace app::classes::Moon::MoonMatrix4x4 {
     IL2CPP_REGISTER_METHOD(0x02F96530, bool, get_IsCrossSceneReference, (app::MoonMatrix4x4 * this_ptr))

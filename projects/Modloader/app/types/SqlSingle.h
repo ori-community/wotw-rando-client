@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SqlSingle__Class.h>
+#include <Modloader/app/structs/SqlSingle.h>
+#include <Modloader/app/structs/SqlSingle__Boxed.h>
+#include <Modloader/app/structs/SqlSingle__Array.h>
 
 namespace app::classes::types {
     namespace SqlSingle {

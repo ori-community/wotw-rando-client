@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicLookup.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::DynamicLookup {
     IL2CPP_REGISTER_METHOD(0x03042EB0, void, OnRenderImage, (app::DynamicLookup * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

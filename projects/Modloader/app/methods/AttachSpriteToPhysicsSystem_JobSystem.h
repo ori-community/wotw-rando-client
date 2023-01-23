@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AttachSpriteToPhysicsSystem_JobSystem.h>
+#include <Modloader/app/structs/AttachSpriteToPhysicsSystem__Array.h>
 
 namespace app::classes::AttachSpriteToPhysicsSystem_JobSystem {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::AttachSpriteToPhysicsSystem_JobSystem * this_ptr, app::AttachSpriteToPhysicsSystem__Array* entities))

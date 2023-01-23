@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlatformRemoteConnectShowPromptEventHandler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CancellationTokenSource.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Microsoft::Xbox::Services::Xal::PlatformRemoteConnectShowPromptEventHandler {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::PlatformRemoteConnectShowPromptEventHandler * this_ptr, app::Object* object, void* method_1))

@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_ActiveAnimationHandle_System_Int32_.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/IEqualityComparer_1_Moon_ActiveAnimationHandle_.h>
+#include <Modloader/app/structs/IDictionary_2_Moon_ActiveAnimationHandle_System_Int32_.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_Moon_ActiveAnimationHandle_System_Int32_.h>
+#include <Modloader/app/structs/ICollection_1_Moon_ActiveAnimationHandle_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_ActiveAnimationHandle_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_Moon_ActiveAnimationHandle_System_Int32_.h>
+#include <Modloader/app/structs/ICollection_1_System_Int32_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Int32_.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_ActiveAnimationHandle_System_Int32_.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_ActiveAnimationHandle_System_Int32___Array.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_Moon_ActiveAnimationHandle_System_Int32_.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_Moon_ActiveAnimationHandle_System_Int32_.h>
+#include <Modloader/app/structs/InsertionBehavior__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_Moon_ActiveAnimationHandle_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x02E259D0, int32_t, get_Item, (app::Dictionary_2_Moon_ActiveAnimationHandle_System_Int32_ * this_ptr, app::ActiveAnimationHandle key))

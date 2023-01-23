@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/MoonTelemetryClientBaseEvent.h>
+#include <Modloader/app/structs/JsonBuilder_Object.h>
 
 namespace app::classes::MoonTelemetryClientBaseEvent {
     IL2CPP_REGISTER_METHOD(0x0146C490, void, ResetStatics, ())

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Update_ScriptRunBehaviourUpdate__Class.h>
+#include <Modloader/app/structs/Update_ScriptRunBehaviourUpdate.h>
+#include <Modloader/app/structs/Update_ScriptRunBehaviourUpdate__Boxed.h>
 
 namespace app::classes::types {
     namespace Update_ScriptRunBehaviourUpdate {

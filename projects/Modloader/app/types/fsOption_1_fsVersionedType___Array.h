@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/fsOption_1_fsVersionedType___Array__Class.h>
+#include <Modloader/app/structs/fsOption_1_fsVersionedType___Array.h>
 
 namespace app::classes::types {
     namespace fsOption_1_fsVersionedType___Array {

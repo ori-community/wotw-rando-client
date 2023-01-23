@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AnimationTester_Group.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/AnimationTester_IToogleGroup__Array.h>
 
 namespace app::classes::AnimationTester_Group {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::String*, get_ToogleName, (app::AnimationTester_Group * this_ptr))

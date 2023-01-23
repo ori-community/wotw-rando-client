@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Index.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/IndexField__Array.h>
+#include <Modloader/app/structs/DataViewRowState__Enum.h>
+#include <Modloader/app/structs/IFilter.h>
+#include <Modloader/app/structs/Comparison_1_System_Data_DataRow_.h>
+#include <Modloader/app/structs/DataColumnCollection.h>
+#include <Modloader/app/structs/DataViewListener.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/RBTree_1_K_RBTreeEnumerator_System_Int32_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Range.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRow__Array.h>
+#include <Modloader/app/structs/ListChangedType__Enum.h>
+#include <Modloader/app/structs/ListChangedEventArgs.h>
+#include <Modloader/app/structs/List_1_System_Object__1.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
 
 namespace app::classes::System::Data::Index {
     IL2CPP_REGISTER_METHOD(0x01E39C40, void, ctor_1, (app::Index * this_ptr, app::DataTable* table, app::IndexField__Array* index_fields, app::DataViewRowState__Enum record_states, app::IFilter* row_filter))

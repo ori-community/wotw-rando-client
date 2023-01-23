@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TerrainUtility_TerrainGroups.h>
 
 namespace app::classes::UnityEngine::Experimental::TerrainAPI::TerrainUtility {
     IL2CPP_REGISTER_METHOD(0x031973C0, bool, HasValidTerrains, ())

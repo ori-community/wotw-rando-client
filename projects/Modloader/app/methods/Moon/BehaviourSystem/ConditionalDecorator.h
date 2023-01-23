@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConditionalDecorator.h>
+#include <Modloader/app/structs/Action_1_Moon_BehaviourSystem_Condition_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/ConditionalDecorator_ConditionsCheckMode__Enum.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_Condition_.h>
+#include <Modloader/app/structs/Condition.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::ConditionalDecorator {
     IL2CPP_REGISTER_METHOD(0x0300B200, app::String*, get_Info, (app::ConditionalDecorator * this_ptr))

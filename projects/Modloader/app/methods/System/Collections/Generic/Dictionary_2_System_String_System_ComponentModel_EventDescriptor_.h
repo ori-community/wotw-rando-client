@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_ComponentModel_EventDescriptor_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EventDescriptor_1.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_String_System_ComponentModel_EventDescriptor_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_System_ComponentModel_EventDescriptor_ {
     IL2CPP_REGISTER_METHOD(0x02259DF0, void, ctor, (app::Dictionary_2_System_String_System_ComponentModel_EventDescriptor_ * this_ptr, int32_t capacity))

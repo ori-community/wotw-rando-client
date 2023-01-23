@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BombSlugEntity.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/EnemyEntity.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/BombSlugEntity_BombSlugState__Enum.h>
 
 namespace app::classes::BombSlugEntity {
     IL2CPP_REGISTER_METHOD(0x00D36680, bool, get_IsGoingToExplode, (app::BombSlugEntity * this_ptr))

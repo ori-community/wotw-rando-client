@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowQuest.h>
+#include <Modloader/app/structs/ShowQuest_State__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::ShowQuest {
     IL2CPP_REGISTER_METHOD(0x005C5F70, void, ChangeState, (app::ShowQuest * this_ptr, app::ShowQuest_State__Enum state))

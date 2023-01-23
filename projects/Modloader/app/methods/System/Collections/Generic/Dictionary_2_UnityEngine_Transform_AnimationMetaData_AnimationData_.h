@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_UnityEngine_Transform_AnimationMetaData_AnimationData_.h>
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_Transform_AnimationMetaData_AnimationData_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_UnityEngine_Transform_AnimationMetaData_AnimationData_.h>
+#include <Modloader/app/structs/AnimationMetaData_AnimationData.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_UnityEngine_Transform_AnimationMetaData_AnimationData_ {
     IL2CPP_REGISTER_METHOD(0x0283B3E0, app::Dictionary_2_TKey_TValue_ValueCollection_UnityEngine_Transform_AnimationMetaData_AnimationData_*, get_Values, (app::Dictionary_2_UnityEngine_Transform_AnimationMetaData_AnimationData_ * this_ptr))

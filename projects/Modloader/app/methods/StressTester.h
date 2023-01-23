@@ -1,5 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StressTester.h>
+#include <Modloader/app/structs/List_1_StressTester_StressTestPoint_.h>
+#include <Modloader/app/structs/StressTester_SceneIdentifier.h>
+#include <Modloader/app/structs/IStressTest.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CageStructureTool.h>
+#include <Modloader/app/structs/List_1_StressTester_SceneIdentifier_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/List_1_SceneMetaData_.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/CageStructureTool_Vertex.h>
+#include <Modloader/app/structs/HashSet_1_CageStructureTool_Vertex_.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/DebugTeleportSettings.h>
+#include <Modloader/app/structs/StressTester_TesterState__Enum.h>
+#include <Modloader/app/structs/StressTester_ScreenshotMethod__Enum.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 
 namespace app::classes::StressTester {
     IL2CPP_REGISTER_METHOD(0x0065F850, bool, get_StartingTest, ())

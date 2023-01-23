@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LimbIK.h>
+#include <Modloader/app/structs/IKSolver.h>
 
 namespace app::classes::RootMotion::FinalIK::LimbIK {
     IL2CPP_REGISTER_METHOD(0x02A17870, void, OpenUserManual, (app::LimbIK * this_ptr))

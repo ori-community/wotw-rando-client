@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Text.h>
+#include <Modloader/app/structs/TextGenerator.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Font.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextAnchor__Enum.h>
+#include <Modloader/app/structs/HorizontalWrapMode__Enum.h>
+#include <Modloader/app/structs/VerticalWrapMode__Enum.h>
+#include <Modloader/app/structs/FontStyle__Enum.h>
+#include <Modloader/app/structs/TextGenerationSettings.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/VertexHelper.h>
 
 namespace app::classes::UnityEngine::UI::Text {
     IL2CPP_REGISTER_METHOD(0x026793B0, void, ctor, (app::Text * this_ptr))

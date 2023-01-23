@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rect__Array.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_Rect_.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_Rect_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UnityEngine_Rect_ {
     IL2CPP_REGISTER_METHOD(0x02F6E2A0, void, Sort_1, (app::Rect__Array * keys, int32_t index, int32_t length, app::IComparer_1_UnityEngine_Rect_* comparer))

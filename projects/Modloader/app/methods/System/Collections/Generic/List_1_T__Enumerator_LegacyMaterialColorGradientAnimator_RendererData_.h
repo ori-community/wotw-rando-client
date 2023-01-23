@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_LegacyMaterialColorGradientAnimator_RendererData___Boxed.h>
+#include <Modloader/app/structs/List_1_LegacyMaterialColorGradientAnimator_RendererData_.h>
+#include <Modloader/app/structs/LegacyMaterialColorGradientAnimator_RendererData.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_LegacyMaterialColorGradientAnimator_RendererData_ {
     IL2CPP_REGISTER_METHOD(0x0014D030, void, ctor, (app::List_1_T_Enumerator_LegacyMaterialColorGradientAnimator_RendererData___Boxed * this_ptr, app::List_1_LegacyMaterialColorGradientAnimator_RendererData_* list))

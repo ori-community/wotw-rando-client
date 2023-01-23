@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/UberShaderVectorAnimator.h>
+#include <Modloader/app/structs/Renderer__Array.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/UberShaderVectorAnimator_VectorProperty__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
 
 namespace app::classes::Moon::Timeline::UberShaderVectorAnimator {
     IL2CPP_REGISTER_METHOD(0x00D1AEB0, app::GameObject*, get_EffectiveTarget, (app::UberShaderVectorAnimator * this_ptr))

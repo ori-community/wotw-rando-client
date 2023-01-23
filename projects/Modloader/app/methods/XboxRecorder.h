@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XboxRecorder.h>
 
 namespace app::classes::XboxRecorder {
     IL2CPP_REGISTER_METHOD(0x004FBAC0, bool, get_Recording, (app::XboxRecorder * this_ptr))

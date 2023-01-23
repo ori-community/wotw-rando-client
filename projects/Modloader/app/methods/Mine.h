@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Mine.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::Mine {
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::Mine * this_ptr))

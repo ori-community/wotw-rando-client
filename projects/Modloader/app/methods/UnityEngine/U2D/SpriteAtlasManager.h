@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_U2D_SpriteAtlas_.h>
+#include <Modloader/app/structs/SpriteAtlas.h>
 
 namespace app::classes::UnityEngine::U2D::SpriteAtlasManager {
     IL2CPP_REGISTER_METHOD(0x02C6FEF0, bool, RequestAtlas, (app::String * tag))

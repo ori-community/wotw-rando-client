@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/GuiBeginScrollView.h>
+#include <Modloader/app/structs/GUILayoutOption__Array.h>
+#include <Modloader/app/structs/GUIStyle.h>
 
 namespace app::classes::Moon::Gui::GuiBeginScrollView {
     IL2CPP_REGISTER_METHOD(0x00F28550, app::Vector2, get_Scroll, (app::GuiBeginScrollView * this_ptr))

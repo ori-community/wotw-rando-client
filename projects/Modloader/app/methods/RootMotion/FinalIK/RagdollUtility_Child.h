@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RagdollUtility_Child.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::RagdollUtility_Child {
     IL2CPP_REGISTER_METHOD(0x02A1BDB0, void, ctor, (app::RagdollUtility_Child * this_ptr, app::Transform* transform))

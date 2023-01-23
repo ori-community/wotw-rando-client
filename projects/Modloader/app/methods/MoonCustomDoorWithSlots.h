@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonCustomDoorWithSlots.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::MoonCustomDoorWithSlots {
     IL2CPP_REGISTER_METHOD(0x00F47010, int32_t, get_NumberOfOrbsUsed, (app::MoonCustomDoorWithSlots * this_ptr))

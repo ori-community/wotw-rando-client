@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegexInterpreter.h>
+#include <Modloader/app/structs/RegexCode.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Text::RegularExpressions::RegexInterpreter {
     IL2CPP_REGISTER_METHOD(0x02593420, void, ctor, (app::RegexInterpreter * this_ptr, app::RegexCode* code, app::CultureInfo* culture))

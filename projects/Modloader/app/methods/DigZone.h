@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/DigZone.h>
+#include <Modloader/app/structs/CageStructureTool.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/NavigationType__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::DigZone {
     IL2CPP_REGISTER_METHOD(0x00B92F40, app::Collider*, get_CageCollider, (app::DigZone * this_ptr))

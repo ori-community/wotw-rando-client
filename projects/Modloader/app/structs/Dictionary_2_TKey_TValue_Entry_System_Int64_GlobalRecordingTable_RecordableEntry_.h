@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int64_GlobalRecordingTable_RecordableEntry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int64_GlobalRecordingTable_RecordableEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int64_GlobalRecordingTable_RecordableEntry__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int64_GlobalRecordingTable_RecordableEntry__DEFINED
+struct GlobalRecordingTable_RecordableEntry;
+struct Dictionary_2_TKey_TValue_Entry_System_Int64_GlobalRecordingTable_RecordableEntry_ {
+    int32_t hashCode;
+    int32_t next;
+    int64_t key;
+    struct GlobalRecordingTable_RecordableEntry* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int64_GlobalRecordingTable_RecordableEntry__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int64_GlobalRecordingTable_RecordableEntry__FWDDECL
+#include <Modloader/app/structs/GlobalRecordingTable_RecordableEntry.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int64_GlobalRecordingTable_RecordableEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int64_GlobalRecordingTable_RecordableEntry__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int64_GlobalRecordingTable_RecordableEntry__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Int64_GlobalRecordingTable_RecordableEntry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Int64_GlobalRecordingTable_RecordableEntry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

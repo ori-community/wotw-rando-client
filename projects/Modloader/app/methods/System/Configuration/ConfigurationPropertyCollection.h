@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Configuration::ConfigurationPropertyCollection {
     IL2CPP_REGISTER_METHOD(0x031BBCF0, int32_t, get_Count, (app::ConfigurationPropertyCollection * this_ptr))

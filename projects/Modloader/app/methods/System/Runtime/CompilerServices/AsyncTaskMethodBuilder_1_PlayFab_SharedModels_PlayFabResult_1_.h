@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_PlayFab_SharedModels_PlayFabResult_1_.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_PlayFab_SharedModels_PlayFabResult_1___Boxed.h>
+#include <Modloader/app/structs/OneDSEventsAPI_WriteTelemetryEventsAsync_d_11.h>
+#include <Modloader/app/structs/Task_1_PlayFab_SharedModels_PlayFabResult_1_.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_PlayFab_SharedModels_PlayFabResult_1__1.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_PlayFab_SharedModels_PlayFabResult_1__1__Boxed.h>
+#include <Modloader/app/structs/OneDSEventsAPI_GetTelemetryIngestionConfigAsync_d_12.h>
+#include <Modloader/app/structs/Task_1_PlayFab_SharedModels_PlayFabResult_1__1.h>
+#include <Modloader/app/structs/TaskAwaiter.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/PlayFabResult_1_PlayFab_EventsModels_TelemetryIngestionConfigResponse_.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
+#include <Modloader/app/structs/PlayFabResult_1_PlayFab_EventsModels_WriteEventsResponse_.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncTaskMethodBuilder_1_PlayFab_SharedModels_PlayFabResult_1_ {
     IL2CPP_REGISTER_METHOD(0x00C537F0, app::AsyncTaskMethodBuilder_1_PlayFab_SharedModels_PlayFabResult_1_, Create_1, ())

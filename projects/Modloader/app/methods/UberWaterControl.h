@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberWaterControl.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/UberWaterControl_VisualDebugMode__Enum.h>
+#include <Modloader/app/structs/RenderingType__Enum.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/UberInteractionActor.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/UberWaterControl_ImpactBuf.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UberWaterControl_c_DisplayClass116_0.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UberWaterControl {
     IL2CPP_REGISTER_METHOD(0x00B1B670, bool, get_TimelineUpdate, (app::UberWaterControl * this_ptr))

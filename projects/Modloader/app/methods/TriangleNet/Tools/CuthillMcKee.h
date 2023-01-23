@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/CuthillMcKee.h>
+#include <Modloader/app/structs/Mesh_1.h>
+#include <Modloader/app/structs/AdjacencyMatrix.h>
 
 namespace app::classes::TriangleNet::Tools::CuthillMcKee {
     IL2CPP_REGISTER_METHOD(0x02A95410, app::Int32__Array*, Renumber_1, (app::CuthillMcKee * this_ptr, app::Mesh_1* mesh))

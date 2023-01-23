@@ -16,6 +16,26 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
 
+#include <Modloader/app/structs/VisibleOnWorldMap.h>
+#include <Modloader/app/structs/TranslatedMessageProvider_MessageItem.h>
+#include <Modloader/app/structs/TranslatedMessageProvider.h>
+#include <Modloader/app/structs/QuestNodeSetup_QuestInteraction.h>
+#include <Modloader/app/structs/QuestNodeSetup_QuestInteractionSet.h>
+#include <Modloader/app/structs/QuestNodeSetup_QuestInteractionSetup.h>
+#include <Modloader/app/structs/QuestNodeSetup.h>
+#include <Modloader/app/structs/QuestNodeWisps.h>
+#include <Modloader/app/structs/ActivateBasedOnCondition.h>
+#include <Modloader/app/structs/SeinAbilityCondition.h>
+#include <Modloader/app/structs/HasAbilityCondition.h>
+#include <Modloader/app/structs/UberStateConditionWrapper.h>
+#include <Modloader/app/structs/SetupStateModifier.h>
+#include <Modloader/app/structs/Boolean__Boxed.h>
+#include <Modloader/app/structs/NewSetupStateController.h>
+#include <Modloader/app/structs/AmbienceZone.h>
+#include <Modloader/app/structs/SoundZoneTrigger.h>
+#include <Modloader/app/structs/Int32__Boxed.h>
+#include <Modloader/app/structs/DesiredUberStateGeneric.h>
+
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
 

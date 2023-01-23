@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpherecastCommand.h>
+#include <Modloader/app/structs/SphereCastManager.h>
+#include <Modloader/app/structs/JobHandle.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_SpherecastCommand_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/SpherecastCommand__Array.h>
+#include <Modloader/app/structs/RaycastHit__Array.h>
+#include <Modloader/app/structs/Boolean__Array.h>
 
 namespace app::classes::SphereCastManager {
     IL2CPP_REGISTER_METHOD(0x00952390, app::SpherecastCommand, get_InvalidCmd, (app::SphereCastManager * this_ptr))

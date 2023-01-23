@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OrderedDictionary.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Collections::Specialized::OrderedDictionary {
     IL2CPP_REGISTER_METHOD(0x0249BA70, void, ctor_1, (app::OrderedDictionary * this_ptr))

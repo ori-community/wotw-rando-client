@@ -1,0 +1,28 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IReadOnlyDictionary_2_System_String_System_Int32___VTable_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IReadOnlyDictionary_2_System_String_System_Int32___VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IReadOnlyDictionary_2_System_String_System_Int32___VTable_DEFINED)
+#define IL2CPP_STRUCT_IReadOnlyDictionary_2_System_String_System_Int32___VTable_DEFINED
+struct IReadOnlyDictionary_2_System_String_System_Int32___VTable {
+    VirtualInvokeData ContainsKey;
+    VirtualInvokeData TryGetValue;
+    VirtualInvokeData get_Item;
+    VirtualInvokeData get_Keys;
+    VirtualInvokeData get_Values;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IReadOnlyDictionary_2_System_String_System_Int32___VTable_FWDDECL)
+#define IL2CPP_STRUCT_IReadOnlyDictionary_2_System_String_System_Int32___VTable_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_IReadOnlyDictionary_2_System_String_System_Int32___VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IReadOnlyDictionary_2_System_String_System_Int32___VTable_DEFINED) && !defined(IL2CPP_STRUCT_IReadOnlyDictionary_2_System_String_System_Int32___VTable_FWDDECL)
+#include <Modloader/app/structs/IReadOnlyDictionary_2_System_String_System_Int32___VTable.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IReadOnlyDictionary_2_System_String_System_Int32___VTable.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DateTimeKind__Enum.h>
+#include <Modloader/app/structs/BsonBinaryWriter.h>
+#include <Modloader/app/structs/BsonToken.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Nullable_1_Int32_.h>
 
 namespace app::classes::Newtonsoft::Json::Bson::BsonBinaryWriter {
     IL2CPP_REGISTER_METHOD(0x002FD1D0, app::DateTimeKind__Enum, get_DateTimeKindHandling, (app::BsonBinaryWriter * this_ptr))

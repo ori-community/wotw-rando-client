@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_CrossSceneReferenceId_.h>
+#include <Modloader/app/structs/CrossSceneReferenceId.h>
+#include <Modloader/app/structs/CrossSceneReferenceId__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_Moon_CrossSceneReferenceId_ {
     IL2CPP_REGISTER_METHOD(0x02658EC0, bool, Equals_1, (app::ObjectEqualityComparer_1_Moon_CrossSceneReferenceId_ * this_ptr, app::CrossSceneReferenceId x, app::CrossSceneReferenceId y))

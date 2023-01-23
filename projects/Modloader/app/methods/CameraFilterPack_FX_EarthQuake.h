@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_FX_EarthQuake.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_FX_EarthQuake {
     IL2CPP_REGISTER_METHOD(0x0246CC40, app::Material*, get_material, (app::CameraFilterPack_FX_EarthQuake * this_ptr))

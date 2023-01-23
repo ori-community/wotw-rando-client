@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PlayerUberStateAreaMapInformation_MapTrailEntry_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PlayerUberStateAreaMapInformation_MapTrailEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PlayerUberStateAreaMapInformation_MapTrailEntry_DEFINED)
+#include <Modloader/app/structs/PlayerUberStateAreaMapInformation_MapTrailEntry__Fields.h>
+#if defined(IL2CPP_STRUCT_PlayerUberStateAreaMapInformation_MapTrailEntry__Fields_DEFINED)
+#define IL2CPP_STRUCT_PlayerUberStateAreaMapInformation_MapTrailEntry_DEFINED
+struct PlayerUberStateAreaMapInformation_MapTrailEntry__Class;
+struct PlayerUberStateAreaMapInformation_MapTrailEntry {
+    struct PlayerUberStateAreaMapInformation_MapTrailEntry__Class* klass;
+    MonitorData* monitor;
+    struct PlayerUberStateAreaMapInformation_MapTrailEntry__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PlayerUberStateAreaMapInformation_MapTrailEntry_FWDDECL)
+#define IL2CPP_STRUCT_PlayerUberStateAreaMapInformation_MapTrailEntry_FWDDECL
+#include <Modloader/app/structs/PlayerUberStateAreaMapInformation_MapTrailEntry__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PlayerUberStateAreaMapInformation_MapTrailEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PlayerUberStateAreaMapInformation_MapTrailEntry_DEFINED) && !defined(IL2CPP_STRUCT_PlayerUberStateAreaMapInformation_MapTrailEntry_FWDDECL)
+#include <Modloader/app/structs/PlayerUberStateAreaMapInformation_MapTrailEntry.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PlayerUberStateAreaMapInformation_MapTrailEntry.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

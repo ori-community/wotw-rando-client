@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AttachSoundToPhysicsSystem.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::AttachSoundToPhysicsSystem {
     IL2CPP_REGISTER_METHOD(0x006F4090, bool, get_IsSuspended, (app::AttachSoundToPhysicsSystem * this_ptr))

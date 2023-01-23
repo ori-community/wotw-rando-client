@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_KuLogicCycle_IsAllowedDelegate__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_KuLogicCycle_IsAllowedDelegate__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_KuLogicCycle_IsAllowedDelegate__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_KuLogicCycle_IsAllowedDelegate__DEFINED
+struct Type;
+struct KuLogicCycle_IsAllowedDelegate;
+struct Dictionary_2_TKey_TValue_Entry_System_Type_KuLogicCycle_IsAllowedDelegate_ {
+    int32_t hashCode;
+    int32_t next;
+    struct Type* key;
+    struct KuLogicCycle_IsAllowedDelegate* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_KuLogicCycle_IsAllowedDelegate__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_KuLogicCycle_IsAllowedDelegate__FWDDECL
+#include <Modloader/app/structs/KuLogicCycle_IsAllowedDelegate.h>
+#include <Modloader/app/structs/Type.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_KuLogicCycle_IsAllowedDelegate__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_KuLogicCycle_IsAllowedDelegate__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_KuLogicCycle_IsAllowedDelegate__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Type_KuLogicCycle_IsAllowedDelegate_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Type_KuLogicCycle_IsAllowedDelegate_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

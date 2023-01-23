@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RBTree_1_K_TreePage_System_Int32_.h>
+#include <Modloader/app/structs/RBTree_1_System_Int32_.h>
 
 namespace app::classes::System::Data::RBTree_1_K__TreePage_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x02FAF2F0, void, ctor, (app::RBTree_1_K_TreePage_System_Int32_ * this_ptr, int32_t size))

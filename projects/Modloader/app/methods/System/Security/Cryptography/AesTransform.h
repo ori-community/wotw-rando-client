@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AesTransform.h>
+#include <Modloader/app/structs/Aes.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/UInt32__Array.h>
 
 namespace app::classes::System::Security::Cryptography::AesTransform {
     IL2CPP_REGISTER_METHOD(0x02FC9430, void, ctor, (app::AesTransform * this_ptr, app::Aes* algo, bool encryption, app::Byte__Array* key, app::Byte__Array* iv))

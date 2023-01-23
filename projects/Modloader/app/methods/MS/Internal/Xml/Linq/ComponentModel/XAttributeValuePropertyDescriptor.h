@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XAttributeValuePropertyDescriptor.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XObjectChangeEventArgs.h>
 
 namespace app::classes::MS::Internal::Xml::Linq::ComponentModel::XAttributeValuePropertyDescriptor {
     IL2CPP_REGISTER_METHOD(0x03028C80, void, ctor, (app::XAttributeValuePropertyDescriptor * this_ptr))

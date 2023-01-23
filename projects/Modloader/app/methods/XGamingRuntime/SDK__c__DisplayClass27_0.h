@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SDK_c_DisplayClass27_0.h>
+#include <Modloader/app/structs/XAsyncBlockPtr.h>
 
 namespace app::classes::XGamingRuntime::SDK___c__DisplayClass27_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SDK_c_DisplayClass27_0 * this_ptr))

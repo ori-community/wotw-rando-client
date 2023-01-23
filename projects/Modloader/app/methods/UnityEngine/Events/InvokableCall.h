@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InvokableCall.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/UnityAction.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::UnityEngine::Events::InvokableCall {
     IL2CPP_REGISTER_METHOD(0x0242EB20, void, ctor_1, (app::InvokableCall * this_ptr, app::Object* target, app::MethodInfo_1* the_function))

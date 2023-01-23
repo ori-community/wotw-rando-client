@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MortarEntity.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::MortarEntity {
     IL2CPP_REGISTER_METHOD(0x01476150, bool, get_ShouldCharge, (app::MortarEntity * this_ptr))

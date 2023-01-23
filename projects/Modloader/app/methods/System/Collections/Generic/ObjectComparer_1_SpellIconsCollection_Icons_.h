@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_SpellIconsCollection_Icons_.h>
+#include <Modloader/app/structs/SpellIconsCollection_Icons.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_SpellIconsCollection_Icons_ {
     IL2CPP_REGISTER_METHOD(0x01CC9690, int32_t, Compare, (app::ObjectComparer_1_SpellIconsCollection_Icons_ * this_ptr, app::SpellIconsCollection_Icons x, app::SpellIconsCollection_Icons y))

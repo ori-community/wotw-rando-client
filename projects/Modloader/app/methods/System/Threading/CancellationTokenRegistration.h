@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CancellationTokenRegistration__Boxed.h>
+#include <Modloader/app/structs/CancellationCallbackInfo.h>
+#include <Modloader/app/structs/SparselyPopulatedArrayAddInfo_1_CancellationCallbackInfo_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CancellationTokenRegistration.h>
 
 namespace app::classes::System::Threading::CancellationTokenRegistration {
     IL2CPP_REGISTER_METHOD(0x00151540, void, ctor, (app::CancellationTokenRegistration__Boxed * this_ptr, app::CancellationCallbackInfo* callback_info, app::SparselyPopulatedArrayAddInfo_1_CancellationCallbackInfo_ registration_info))

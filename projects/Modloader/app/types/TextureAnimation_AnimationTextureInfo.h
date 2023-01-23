@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TextureAnimation_AnimationTextureInfo__Class.h>
+#include <Modloader/app/structs/TextureAnimation_AnimationTextureInfo.h>
+#include <Modloader/app/structs/TextureAnimation_AnimationTextureInfo__Boxed.h>
+#include <Modloader/app/structs/TextureAnimation_AnimationTextureInfo__Array.h>
 
 namespace app::classes::types {
     namespace TextureAnimation_AnimationTextureInfo {

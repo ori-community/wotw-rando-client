@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_UberWaterReflectionView_Group_.h>
+#include <Modloader/app/structs/UberWaterReflectionView_Group.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_UberWaterReflectionView_Group_.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_UberWaterReflectionView_Group_ {
     IL2CPP_REGISTER_METHOD(0x02AB4A60, bool, Add, (app::HashSet_1_UberWaterReflectionView_Group_ * this_ptr, app::UberWaterReflectionView_Group* item))

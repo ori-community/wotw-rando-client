@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Point_1.h>
+#include <Modloader/app/structs/PrimitiveSpace__Enum.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::Moon::Point {
     IL2CPP_REGISTER_METHOD(0x00C3DB40, app::Vector3, GetPosition, (app::Point_1 * this_ptr, app::PrimitiveSpace__Enum target_space, app::Transform* local_toworld, app::Transform* root))

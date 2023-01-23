@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Exception_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Exception_.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Exception_ {
     IL2CPP_REGISTER_METHOD(0x02FE8360, void, ctor_1, (app::List_1_System_Exception_ * this_ptr, app::IEnumerable_1_System_Exception_* collection))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkChannelEmitterArray.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::AkChannelEmitterArray {
     IL2CPP_REGISTER_METHOD(0x026D8190, void, ctor, (app::AkChannelEmitterArray * this_ptr, uint32_t in__count))

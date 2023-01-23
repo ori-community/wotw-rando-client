@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SyntaxTreeNode.h>
+#include <Modloader/app/structs/InteriorNode.h>
+#include <Modloader/app/structs/SymbolsDictionary.h>
+#include <Modloader/app/structs/Positions.h>
 
 namespace app::classes::System::Xml::Schema::InteriorNode {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::SyntaxTreeNode*, get_LeftChild, (app::InteriorNode * this_ptr))

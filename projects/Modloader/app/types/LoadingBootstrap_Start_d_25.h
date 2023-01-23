@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LoadingBootstrap_Start_d_25__Class.h>
+#include <Modloader/app/structs/LoadingBootstrap_Start_d_25.h>
 
 namespace app::classes::types {
     namespace LoadingBootstrap_Start_d_25 {

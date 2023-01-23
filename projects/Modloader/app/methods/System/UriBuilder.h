@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UriBuilder.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::UriBuilder {
     IL2CPP_REGISTER_METHOD(0x02A8E0F0, void, ctor_1, (app::UriBuilder * this_ptr))

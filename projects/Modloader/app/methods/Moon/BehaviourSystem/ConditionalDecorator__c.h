@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConditionalDecorator_c.h>
+#include <Modloader/app/structs/Condition.h>
 
 namespace app::classes::Moon::BehaviourSystem::ConditionalDecorator___c {
     IL2CPP_REGISTER_METHOD(0x0300C410, void, cctor, ())

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SpiderBossLocomotionMoveBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/EntityTask.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBossLocomotionMoveBehaviour {
     IL2CPP_REGISTER_METHOD(0x00A1FBC0, app::Vector3, get_TargetPosition, (app::SpiderBossLocomotionMoveBehaviour * this_ptr))

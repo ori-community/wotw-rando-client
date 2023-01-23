@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValidationEventArgs.h>
+#include <Modloader/app/structs/XmlSchemaException.h>
+#include <Modloader/app/structs/XmlSeverityType__Enum.h>
 
 namespace app::classes::System::Xml::Schema::ValidationEventArgs {
     IL2CPP_REGISTER_METHOD(0x01ABDC50, void, ctor_1, (app::ValidationEventArgs * this_ptr, app::XmlSchemaException* ex))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDoubleJumpPuppet.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/SeinDoubleJumpPuppet_Event__Enum.h>
 
 namespace app::classes::SeinDoubleJumpPuppet {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, PerformDoubleJump, (app::SeinDoubleJumpPuppet * this_ptr))

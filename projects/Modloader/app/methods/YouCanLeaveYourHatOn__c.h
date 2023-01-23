@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/YouCanLeaveYourHatOn_c.h>
+#include <Modloader/app/structs/YouCanLeaveYourHatOn_Data.h>
+#include <Modloader/app/structs/YouCanLeaveYourHatOn_AssetWithSize.h>
 
 namespace app::classes::YouCanLeaveYourHatOn___c {
     IL2CPP_REGISTER_METHOD(0x01C5FA50, void, cctor, ())

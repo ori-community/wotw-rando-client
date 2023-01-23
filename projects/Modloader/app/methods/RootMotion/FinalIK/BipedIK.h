@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BipedIK.h>
+#include <Modloader/app/structs/AvatarIKGoal__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/IKSolverLimb.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::RootMotion::FinalIK::BipedIK {
     IL2CPP_REGISTER_METHOD(0x0204ECD0, void, OpenUserManual, (app::BipedIK * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneDataCaptureAgent.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/ValueTuple_2_String_String_.h>
+#include <Modloader/app/structs/FrameCaptureTester_AgentOutput.h>
 
 namespace app::classes::SceneDataCaptureAgent {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsCaptureAgentValid, (app::SceneDataCaptureAgent * this_ptr))

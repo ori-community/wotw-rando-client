@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaGroupRef.h>
+#include <Modloader/app/structs/XmlSchemaGroupBase.h>
+#include <Modloader/app/structs/XmlSchemaGroup.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaGroupRef {
     IL2CPP_REGISTER_METHOD(0x002FBBE0, app::XmlQualifiedName*, get_RefName, (app::XmlSchemaGroupRef * this_ptr))

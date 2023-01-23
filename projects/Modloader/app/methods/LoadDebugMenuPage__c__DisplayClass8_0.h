@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LoadDebugMenuPage_c_DisplayClass8_0.h>
 
 namespace app::classes::LoadDebugMenuPage___c__DisplayClass8_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::LoadDebugMenuPage_c_DisplayClass8_0 * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XComment.h>
+#include <Modloader/app/structs/XCommentWrapper.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IXmlNode.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::XCommentWrapper {
     IL2CPP_REGISTER_METHOD(0x01A560E0, app::XComment*, get_Text, (app::XCommentWrapper * this_ptr))

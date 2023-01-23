@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MicroProfilerInspector.h>
+#include <Modloader/app/structs/MicroProfilerInspector_MetricPreset.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Metric__Enum.h>
+#include <Modloader/app/structs/MicroProfilerInspector_MetricData.h>
 
 namespace app::classes::MicroProfilerInspector {
     IL2CPP_REGISTER_METHOD(0x015ACB80, void, InitializeMetricPresets, (app::MicroProfilerInspector * this_ptr))

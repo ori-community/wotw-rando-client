@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509BasicConstraintsExtension.h>
+#include <Modloader/app/structs/AsnEncodedData.h>
+#include <Modloader/app/structs/AsnDecodeStatus__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::X509BasicConstraintsExtension {
     IL2CPP_REGISTER_METHOD(0x021C3470, void, ctor_1, (app::X509BasicConstraintsExtension * this_ptr))

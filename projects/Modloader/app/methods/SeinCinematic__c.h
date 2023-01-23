@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCinematic_c.h>
 
 namespace app::classes::SeinCinematic___c {
     IL2CPP_REGISTER_METHOD(0x00A5AF00, void, cctor, ())

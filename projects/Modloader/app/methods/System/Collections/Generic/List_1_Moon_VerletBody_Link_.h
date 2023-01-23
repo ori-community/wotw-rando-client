@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VerletBody_Link.h>
+#include <Modloader/app/structs/List_1_Moon_VerletBody_Link_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_VerletBody_Link_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::VerletBody_Link*, get_Item, (app::List_1_Moon_VerletBody_Link_ * this_ptr, int32_t index))

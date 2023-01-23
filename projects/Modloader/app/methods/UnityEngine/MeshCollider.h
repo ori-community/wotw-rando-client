@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/MeshCollider.h>
 
 namespace app::classes::UnityEngine::MeshCollider {
     IL2CPP_REGISTER_METHOD(0x030A3710, app::Mesh*, get_sharedMesh, (app::MeshCollider * this_ptr))

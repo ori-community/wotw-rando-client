@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TitleScreenManager.h>
+#include <Modloader/app/structs/TitleScreenManager_Screen__Enum.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
 
 namespace app::classes::TitleScreenManager {
     IL2CPP_REGISTER_METHOD(0x00AF74D0, bool, get_MainMenuActive, ())

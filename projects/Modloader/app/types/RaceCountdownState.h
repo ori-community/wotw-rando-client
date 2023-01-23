@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RaceCountdownState__Class.h>
+#include <Modloader/app/structs/RaceCountdownState.h>
 
 namespace app::classes::types {
     namespace RaceCountdownState {

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_3_UInt32_UnityEngine_Vector3_Boolean_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Action_3_UInt32_UnityEngine_Vector3_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x02C169D0, void, Invoke, (app::Action_3_UInt32_UnityEngine_Vector3_Boolean_ * this_ptr, uint32_t arg1, app::Vector3 arg2, bool arg3))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RotationAnimatorB.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RotationAnimatorB {
     IL2CPP_REGISTER_METHOD(0x01371210, void, CacheOriginals, (app::RotationAnimatorB * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuIdle.h>
 
 namespace app::classes::KuIdle {
     IL2CPP_REGISTER_METHOD(0x01239C10, void, OnSetReferenceToKu, (app::KuIdle * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SuspensionManager_SuspendableInfo.h>
+#include <Modloader/app/structs/ISuspendable.h>
 
 namespace app::classes::Moon::SuspensionManager_SuspendableInfo {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_Counter, (app::SuspensionManager_SuspendableInfo * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserShooterEntity.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::LaserShooterEntity {
     IL2CPP_REGISTER_METHOD(0x00F13770, bool, LaserEnabled, (app::LaserShooterEntity * this_ptr))

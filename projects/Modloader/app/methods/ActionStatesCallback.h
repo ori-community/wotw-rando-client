@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActionStatesCallback.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/List_1_ServerTriggeredActionData_.h>
 
 namespace app::classes::ActionStatesCallback {
     IL2CPP_REGISTER_METHOD(0x02E8DAC0, void, OnResult, (app::ActionStatesCallback * this_ptr, app::Byte__Array* data))

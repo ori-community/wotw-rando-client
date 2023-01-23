@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KwolokBossLocomotion_OverrideTurnMultiplier_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KwolokBossLocomotion_OverrideTurnMultiplier_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossLocomotion_OverrideTurnMultiplier_DEFINED)
+#include <Modloader/app/structs/KwolokBossLocomotion_OverrideTurnMultiplier__Fields.h>
+#if defined(IL2CPP_STRUCT_KwolokBossLocomotion_OverrideTurnMultiplier__Fields_DEFINED)
+#define IL2CPP_STRUCT_KwolokBossLocomotion_OverrideTurnMultiplier_DEFINED
+struct KwolokBossLocomotion_OverrideTurnMultiplier__Class;
+struct KwolokBossLocomotion_OverrideTurnMultiplier {
+    struct KwolokBossLocomotion_OverrideTurnMultiplier__Class* klass;
+    MonitorData* monitor;
+    struct KwolokBossLocomotion_OverrideTurnMultiplier__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KwolokBossLocomotion_OverrideTurnMultiplier_FWDDECL)
+#define IL2CPP_STRUCT_KwolokBossLocomotion_OverrideTurnMultiplier_FWDDECL
+#include <Modloader/app/structs/KwolokBossLocomotion_OverrideTurnMultiplier__Class.h>
+#endif
+#undef IL2CPP_STRUCT_KwolokBossLocomotion_OverrideTurnMultiplier_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossLocomotion_OverrideTurnMultiplier_DEFINED) && !defined(IL2CPP_STRUCT_KwolokBossLocomotion_OverrideTurnMultiplier_FWDDECL)
+#include <Modloader/app/structs/KwolokBossLocomotion_OverrideTurnMultiplier.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KwolokBossLocomotion_OverrideTurnMultiplier.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

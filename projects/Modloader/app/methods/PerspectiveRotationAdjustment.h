@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PerspectiveRotationAdjustment.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PerspectiveRotationAdjustment {
     IL2CPP_REGISTER_METHOD(0x00446960, float, get_Weight, (app::PerspectiveRotationAdjustment * this_ptr))

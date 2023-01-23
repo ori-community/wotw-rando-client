@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeGameWorldArea.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_RuntimeGameWorldArea___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_RuntimeGameWorldArea_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::RuntimeGameWorldArea*, get_Current, (app::List_1_T_Enumerator_RuntimeGameWorldArea___Boxed * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LoadDebugMenuPage_DebugSaveInfo__Array.h>
+#include <Modloader/app/structs/IComparer_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/LoadDebugMenuPage_DebugSaveInfo.h>
+#include <Modloader/app/structs/Comparison_1_LoadDebugMenuPage_DebugSaveInfo_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_LoadDebugMenuPage_DebugSaveInfo_ {
     IL2CPP_REGISTER_METHOD(0x02F61550, void, Sort_1, (app::LoadDebugMenuPage_DebugSaveInfo__Array * keys, int32_t index, int32_t length, app::IComparer_1_LoadDebugMenuPage_DebugSaveInfo_* comparer))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PropertyAccessor_1_System_DateTime_.h>
+#include <Modloader/app/structs/PropertyAnalysis.h>
 
 namespace app::classes::System::Diagnostics::Tracing::PropertyAccessor_1_System_DateTime_ {
     IL2CPP_REGISTER_METHOD(0x02BA31E0, app::PropertyAccessor_1_System_DateTime_*, Create, (app::PropertyAnalysis * property))

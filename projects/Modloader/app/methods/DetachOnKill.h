@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DetachOnKill.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::DetachOnKill {
     IL2CPP_REGISTER_METHOD(0x00B8DF10, void, Awake, (app::DetachOnKill * this_ptr))

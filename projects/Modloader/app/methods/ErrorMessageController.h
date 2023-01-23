@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ErrorMessageController.h>
 
 namespace app::classes::ErrorMessageController {
     IL2CPP_REGISTER_METHOD(0x00982100, void, Awake, (app::ErrorMessageController * this_ptr))

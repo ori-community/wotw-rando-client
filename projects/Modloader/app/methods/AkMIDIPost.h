@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkMIDIPost.h>
+#include <Modloader/app/structs/AKRESULT__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::AkMIDIPost {
     IL2CPP_REGISTER_METHOD(0x026F76A0, void, ctor_1, (app::AkMIDIPost * this_ptr, void* c_ptr, bool c_memory_own))

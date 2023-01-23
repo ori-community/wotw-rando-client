@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EventBatchingStage_GetInputConsumingEnumerable_d_19.h>
+#include <Modloader/app/structs/IPlayFabEmitEventRequest.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_PlayFab_IPlayFabEmitEventRequest_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::PlayFab::Pipeline::EventBatchingStage__GetInputConsumingEnumerable_d__19 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::EventBatchingStage_GetInputConsumingEnumerable_d_19 * this_ptr, int32_t __1__state))

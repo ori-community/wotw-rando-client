@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Expression_DebugInfoExpressionProxy.h>
+#include <Modloader/app/structs/DebugInfoExpression.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SymbolDocumentInfo.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_DebugInfoExpressionProxy {
     IL2CPP_REGISTER_METHOD(0x029D4B70, void, ctor, (app::Expression_DebugInfoExpressionProxy * this_ptr, app::DebugInfoExpression* node))

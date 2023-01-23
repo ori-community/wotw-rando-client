@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EnumDebugMenuItem_1_System_Int32Enum_.h>
+#include <Modloader/app/structs/Func_1_Int32Enum_.h>
+#include <Modloader/app/structs/Action_1_Int32Enum_.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Func_1_String_.h>
 
 namespace app::classes::EnumDebugMenuItem_1_System_Int32Enum_ {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_Path, (app::EnumDebugMenuItem_1_System_Int32Enum_ * this_ptr))

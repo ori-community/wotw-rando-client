@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextMeshSetter.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::TextMeshSetter {
     IL2CPP_REGISTER_METHOD(0x010E8390, void, Awake, (app::TextMeshSetter * this_ptr))

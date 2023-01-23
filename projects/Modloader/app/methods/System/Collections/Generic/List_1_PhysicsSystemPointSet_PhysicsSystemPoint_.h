@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicsSystemPointSet_PhysicsSystemPoint.h>
+#include <Modloader/app/structs/List_1_PhysicsSystemPointSet_PhysicsSystemPoint_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_PhysicsSystemPointSet_PhysicsSystemPoint_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::PhysicsSystemPointSet_PhysicsSystemPoint*, get_Item, (app::List_1_PhysicsSystemPointSet_PhysicsSystemPoint_ * this_ptr, int32_t index))

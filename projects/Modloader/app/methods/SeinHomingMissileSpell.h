@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinHomingMissileSpell.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/SeinHomingMissileSpell_State__Enum.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SeinHomingMissileSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinHomingMissileSpell * this_ptr))

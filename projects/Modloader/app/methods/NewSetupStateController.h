@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NewSetupStateController.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/SetupState.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/SetupStateModifierData.h>
+#include <Modloader/app/structs/GameObject__Array.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::NewSetupStateController {
     IL2CPP_REGISTER_METHOD(0x002FB9D0, app::String*, get_GuidStr, (app::NewSetupStateController * this_ptr))

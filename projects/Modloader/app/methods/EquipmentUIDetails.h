@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EquipmentUIDetails.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
 
 namespace app::classes::EquipmentUIDetails {
     IL2CPP_REGISTER_METHOD(0x00977730, void, Awake, (app::EquipmentUIDetails * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SecureString.h>
 
 namespace app::classes::System::Net::UnsafeNclNativeMethods_SecureStringHelper {
     IL2CPP_REGISTER_METHOD(0x020ACA80, app::String*, CreateString, (app::SecureString * secure_string))

@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SqlDecimal__Boxed.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SqlDecimal.h>
+#include <Modloader/app/structs/SqlByte.h>
+#include <Modloader/app/structs/SqlInt16.h>
+#include <Modloader/app/structs/SqlInt32.h>
+#include <Modloader/app/structs/SqlInt64.h>
+#include <Modloader/app/structs/SqlMoney.h>
+#include <Modloader/app/structs/EComparison__Enum.h>
+#include <Modloader/app/structs/SqlBoolean.h>
+#include <Modloader/app/structs/SqlDouble.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
 
 namespace app::classes::System::Data::SqlTypes::SqlDecimal {
     IL2CPP_REGISTER_METHOD(0x001E3420, uint8_t, CalculatePrecision, (app::SqlDecimal__Boxed * this_ptr))

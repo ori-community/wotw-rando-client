@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BoolDebugMenuItem.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/Func_1_String_.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::BoolDebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_Path, (app::BoolDebugMenuItem * this_ptr))

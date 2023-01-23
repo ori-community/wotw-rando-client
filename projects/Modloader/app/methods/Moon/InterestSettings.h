@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InterestSettings.h>
+#include <Modloader/app/structs/List_1_IDebugMenuItem_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::InterestSettings {
     IL2CPP_REGISTER_METHOD(0x01103530, void, GetDebugMenuItems, (app::InterestSettings * this_ptr, app::List_1_IDebugMenuItem_* list, app::String* menu_name))

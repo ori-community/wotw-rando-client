@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enumerable_ReverseIterator_d_79_1_System_Collections_Generic_KeyValuePair_2_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32Enum_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Int32Enum_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Linq::Enumerable__ReverseIterator_d__79_1_System_Collections_Generic_KeyValuePair_2_ {
     IL2CPP_REGISTER_METHOD(0x02985070, void, ctor, (app::Enumerable_ReverseIterator_d_79_1_System_Collections_Generic_KeyValuePair_2_ * this_ptr, int32_t __1__state))

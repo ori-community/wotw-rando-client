@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/LegacyCameraSettingsDistanceBasedAnimator.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LegacyCameraSettingsDistanceBasedAnimator {
     IL2CPP_REGISTER_METHOD(0x015DD330, app::Bounds, GetOuterBounds, (app::LegacyCameraSettingsDistanceBasedAnimator * this_ptr))

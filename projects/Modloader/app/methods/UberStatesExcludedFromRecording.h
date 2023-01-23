@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStatesExcludedFromRecording.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UberStatesExcludedFromRecording {
     IL2CPP_REGISTER_METHOD(0x0128BC70, bool, IsExcluded, (app::UberStatesExcludedFromRecording * this_ptr, app::String* asset_guid))

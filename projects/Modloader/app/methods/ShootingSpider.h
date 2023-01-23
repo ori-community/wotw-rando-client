@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShootingSpider.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ShootingSpider {
     IL2CPP_REGISTER_METHOD(0x005BAC30, void, Awake, (app::ShootingSpider * this_ptr))

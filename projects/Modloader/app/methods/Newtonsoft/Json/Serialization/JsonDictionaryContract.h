@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Func_2_String_String_.h>
+#include <Modloader/app/structs/JsonDictionaryContract.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/JsonContract.h>
+#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
+#include <Modloader/app/structs/IWrappedDictionary.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IDictionary.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonDictionaryContract {
     IL2CPP_REGISTER_METHOD(0x002FBD00, app::Func_2_String_String_*, get_DictionaryKeyResolver, (app::JsonDictionaryContract * this_ptr))

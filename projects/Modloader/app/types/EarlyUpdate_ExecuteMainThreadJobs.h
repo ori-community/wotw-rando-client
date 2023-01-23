@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/EarlyUpdate_ExecuteMainThreadJobs__Class.h>
+#include <Modloader/app/structs/EarlyUpdate_ExecuteMainThreadJobs.h>
+#include <Modloader/app/structs/EarlyUpdate_ExecuteMainThreadJobs__Boxed.h>
 
 namespace app::classes::types {
     namespace EarlyUpdate_ExecuteMainThreadJobs {

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_Object_.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_Object_ {
     IL2CPP_REGISTER_METHOD(0x01CFFCC0, app::Object*, get_Current, (app::Array_EmptyInternalEnumerator_1_Object_ * this_ptr))

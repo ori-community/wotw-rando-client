@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MoveToTargetAnimator.h>
 
 namespace app::classes::MoveToTargetAnimator {
     IL2CPP_REGISTER_METHOD(0x00868870, app::Vector3, get_OriginalPosition, (app::MoveToTargetAnimator * this_ptr))

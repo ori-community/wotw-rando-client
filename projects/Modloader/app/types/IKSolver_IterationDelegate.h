@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IKSolver_IterationDelegate__Class.h>
+#include <Modloader/app/structs/IKSolver_IterationDelegate.h>
 
 namespace app::classes::types {
     namespace IKSolver_IterationDelegate {

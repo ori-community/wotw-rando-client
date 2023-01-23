@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LineRenderer.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 
 namespace app::classes::UnityEngine::LineRenderer {
     IL2CPP_REGISTER_METHOD(0x0252FEC0, void, SetWidth, (app::LineRenderer * this_ptr, float start, float end))

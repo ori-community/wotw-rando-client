@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LizardSpawnTask.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::LizardSpawnTask {
     IL2CPP_REGISTER_METHOD(0x00FB24F0, void, OnEnterTask, (app::LizardSpawnTask * this_ptr, app::IContext* context))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellUISpellDetails_c.h>
 
 namespace app::classes::SpellUISpellDetails___c {
     IL2CPP_REGISTER_METHOD(0x00952250, void, cctor, ())

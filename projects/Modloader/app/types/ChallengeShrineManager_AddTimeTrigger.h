@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ChallengeShrineManager_AddTimeTrigger__Class.h>
+#include <Modloader/app/structs/ChallengeShrineManager_AddTimeTrigger.h>
+#include <Modloader/app/structs/ChallengeShrineManager_AddTimeTrigger__Boxed.h>
+#include <Modloader/app/structs/ChallengeShrineManager_AddTimeTrigger__Array.h>
 
 namespace app::classes::types {
     namespace ChallengeShrineManager_AddTimeTrigger {

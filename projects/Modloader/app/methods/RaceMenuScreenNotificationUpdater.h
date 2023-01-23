@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceMenuScreenNotificationUpdater.h>
 
 namespace app::classes::RaceMenuScreenNotificationUpdater {
     IL2CPP_REGISTER_METHOD(0x0070FB00, void, Update, (app::RaceMenuScreenNotificationUpdater * this_ptr))

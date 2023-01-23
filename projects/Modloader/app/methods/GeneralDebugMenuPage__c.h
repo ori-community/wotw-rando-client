@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GeneralDebugMenuPage_c.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberWaterControl_VisualDebugMode__Enum.h>
+#include <Modloader/app/structs/GeneralDebugMenuPage_SceneInfo.h>
 
 namespace app::classes::GeneralDebugMenuPage___c {
     IL2CPP_REGISTER_METHOD(0x00DFE910, void, cctor, ())

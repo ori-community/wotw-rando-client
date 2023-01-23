@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/_ArrayPoolLEngineDefault.h>
 
 namespace app::classes::_ArrayPoolLEngineDefault {
     IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::_ArrayPoolLEngineDefault * this_ptr, void* c_ptr, bool c_memory_own))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GetAbilityOnCondition.h>
 
 namespace app::classes::GetAbilityOnCondition {
     IL2CPP_REGISTER_METHOD(0x00446590, bool, ShouldCreateCheckpoint, (app::GetAbilityOnCondition * this_ptr))

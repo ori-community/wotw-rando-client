@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkVertexArray.h>
+#include <Modloader/app/structs/AkVertex.h>
 
 namespace app::classes::AkVertexArray {
     IL2CPP_REGISTER_METHOD(0x027028B0, void, ctor, (app::AkVertexArray * this_ptr, int32_t count))

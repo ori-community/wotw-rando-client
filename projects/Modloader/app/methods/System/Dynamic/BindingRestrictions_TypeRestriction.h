@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BindingRestrictions_TypeRestriction.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Dynamic::BindingRestrictions_TypeRestriction {
     IL2CPP_REGISTER_METHOD(0x01F8A5D0, void, ctor, (app::BindingRestrictions_TypeRestriction * this_ptr, app::Expression* parameter, app::Type* type))

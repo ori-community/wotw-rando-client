@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberTypeTracker_DerivedTypeTracker_1_T_c_DisplayClass3_0_System_Object_.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::UberTypeTracker_DerivedTypeTracker_1_T____c__DisplayClass3_0_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::UberTypeTracker_DerivedTypeTracker_1_T_c_DisplayClass3_0_System_Object_ * this_ptr))

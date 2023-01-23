@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActivateOriAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ActivateOriAction {
     IL2CPP_REGISTER_METHOD(0x004C8C10, void, Perform, (app::ActivateOriAction * this_ptr, app::IContext* context))

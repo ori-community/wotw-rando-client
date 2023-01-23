@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_CleverMenuItem_EquipmentRadialSelection_RadialItemVisual_.h>
+#include <Modloader/app/structs/CleverMenuItem.h>
+#include <Modloader/app/structs/EquipmentRadialSelection_RadialItemVisual.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_CleverMenuItem_EquipmentRadialSelection_RadialItemVisual_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_CleverMenuItem_EquipmentRadialSelection_RadialItemVisual_ * this_ptr))

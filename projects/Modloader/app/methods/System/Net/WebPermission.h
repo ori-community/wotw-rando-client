@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Regex.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/WebPermission.h>
+#include <Modloader/app/structs/PermissionState__Enum.h>
+#include <Modloader/app/structs/NetworkAccess__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/DelayedRegex.h>
+#include <Modloader/app/structs/IPermission.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/SecurityElement.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::WebPermission {
     IL2CPP_REGISTER_METHOD(0x01D77B80, app::Regex*, get_MatchAllRegex, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DateTimeParser__Boxed.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::DateTimeParser {
     IL2CPP_REGISTER_METHOD(0x01C07B20, void, cctor, ())

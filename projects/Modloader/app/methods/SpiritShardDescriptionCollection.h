@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiritShardDescriptionCollection.h>
 
 namespace app::classes::SpiritShardDescriptionCollection {
     IL2CPP_REGISTER_METHOD(0x00D67B70, void, OnValidate, (app::SpiritShardDescriptionCollection * this_ptr))

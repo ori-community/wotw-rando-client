@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SaveSlotBackupsManager_BackupParseQueue__Class.h>
+#include <Modloader/app/structs/SaveSlotBackupsManager_BackupParseQueue.h>
+#include <Modloader/app/structs/SaveSlotBackupsManager_BackupParseQueue__Boxed.h>
+#include <Modloader/app/structs/SaveSlotBackupsManager_BackupParseQueue__Array.h>
 
 namespace app::classes::types {
     namespace SaveSlotBackupsManager_BackupParseQueue {

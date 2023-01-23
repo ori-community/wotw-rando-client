@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_LeakedSceneObjectDetector_ObjectData_.h>
+#include <Modloader/app/structs/LeakedSceneObjectDetector_ObjectData.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Int32_LeakedSceneObjectDetector_ObjectData_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_LeakedSceneObjectDetector_ObjectData_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_System_Int32_LeakedSceneObjectDetector_ObjectData_ * this_ptr))

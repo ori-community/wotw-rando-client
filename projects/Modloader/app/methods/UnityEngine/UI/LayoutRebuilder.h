@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LayoutRebuilder.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Component_.h>
+#include <Modloader/app/structs/CanvasUpdate__Enum.h>
+#include <Modloader/app/structs/UnityAction_1_UnityEngine_Component_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Component_1.h>
 
 namespace app::classes::UnityEngine::UI::LayoutRebuilder {
     IL2CPP_REGISTER_METHOD(0x0265B9B0, void, cctor, ())

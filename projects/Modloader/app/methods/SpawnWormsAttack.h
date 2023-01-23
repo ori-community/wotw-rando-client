@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpawnWormsAttack.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::SpawnWormsAttack {
     IL2CPP_REGISTER_METHOD(0x00EF6860, void, Start, (app::SpawnWormsAttack * this_ptr))

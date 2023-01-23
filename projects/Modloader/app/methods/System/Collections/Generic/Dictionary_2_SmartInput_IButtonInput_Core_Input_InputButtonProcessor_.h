@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_SmartInput_IButtonInput_Core_Input_InputButtonProcessor_.h>
+#include <Modloader/app/structs/IButtonInput.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_SmartInput_IButtonInput_Core_Input_InputButtonProcessor_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_SmartInput_IButtonInput_Core_Input_InputButtonProcessor_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_SmartInput_IButtonInput_Core_Input_InputButtonProcessor_ * this_ptr))

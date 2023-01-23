@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberInteractionManagerAccelerator.h>
+#include <Modloader/app/structs/UberInteractionManagerAccelerator_Cell__Array.h>
+#include <Modloader/app/structs/UberInteractionManagerAccelerator_CellInteractionData__Array.h>
+#include <Modloader/app/structs/Vector3Int.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/UberInteractionManagerAccelerator_Cell.h>
 
 namespace app::classes::UberInteractionManagerAccelerator {
     IL2CPP_REGISTER_METHOD(0x004C87B0, float, get_CellSize, (app::UberInteractionManagerAccelerator * this_ptr))

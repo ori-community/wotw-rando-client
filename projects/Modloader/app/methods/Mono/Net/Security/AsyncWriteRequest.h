@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncWriteRequest.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/AsyncOperationStatus__Enum.h>
 
 namespace app::classes::Mono::Net::Security::AsyncWriteRequest {
     IL2CPP_REGISTER_METHOD(0x0217C520, void, ctor, (app::AsyncWriteRequest * this_ptr, app::MobileAuthenticatedStream* parent, bool sync, app::Byte__Array* buffer, int32_t offset, int32_t size))

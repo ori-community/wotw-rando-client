@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMessage.h>
+#include <Modloader/app/structs/MemoryStream.h>
+#include <Modloader/app/structs/IMethodCallMessage.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Runtime::Remoting::Channels::CADSerializer {
     IL2CPP_REGISTER_METHOD(0x01A9AC40, app::IMessage*, DeserializeMessage, (app::MemoryStream * mem, app::IMethodCallMessage* msg))

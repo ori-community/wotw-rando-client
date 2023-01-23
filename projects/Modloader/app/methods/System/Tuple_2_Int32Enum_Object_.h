@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/Tuple_2_Int32Enum_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::Tuple_2_Int32Enum_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::Int32Enum__Enum, get_Item1, (app::Tuple_2_Int32Enum_Object_ * this_ptr))

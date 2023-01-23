@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XalUser_1.h>
+#include <Modloader/app/structs/XalUserState__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XalAgeGroup__Enum.h>
+#include <Modloader/app/structs/EventHandler_1_Microsoft_Xbox_Services_Xal_UserChangeEventArgs_.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/XalPrivilegeCheckResult.h>
+#include <Modloader/app/structs/XalPrivilege__Enum.h>
+#include <Modloader/app/structs/XalUserGetTokenAndSignatureArgs.h>
+#include <Modloader/app/structs/Action_1_Microsoft_Xbox_Services_Xal_XalUserGetTokenAndSignatureData_.h>
+#include <Modloader/app/structs/Action_1_Int32_.h>
+#include <Modloader/app/structs/Task_1_System_Byte_.h>
+#include <Modloader/app/structs/XalGamerPictureSize__Enum.h>
+#include <Modloader/app/structs/XalUser_InternalXalUserLocalId.h>
+#include <Modloader/app/structs/XalUserChangeType__Enum.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/void.h>
+#include <Modloader/app/structs/XalPrivilegeCheckDenyReasons__Enum.h>
+#include <Modloader/app/structs/XalUser_InternalXalUserGetTokenAndSignatureArgs.h>
+#include <Modloader/app/structs/XalHttpHeader__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/XalUser_XalUserChangeEventHandler.h>
 
 namespace app::classes::Microsoft::Xbox::Services::Xal::XalUser {
     IL2CPP_REGISTER_METHOD(0x0143F300, uint64_t, get_Id, (app::XalUser_1 * this_ptr))

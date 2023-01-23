@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwarmFollowPathBehaviour.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SwarmFollowPathBehaviour {
     IL2CPP_REGISTER_METHOD(0x01820FB0, void, SetPatrolNodes, (app::SwarmFollowPathBehaviour * this_ptr, app::List_1_UnityEngine_Vector3_* patrol_nodes))

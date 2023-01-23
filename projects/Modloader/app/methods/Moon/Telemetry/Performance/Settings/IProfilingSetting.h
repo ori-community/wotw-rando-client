@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IProfilingSetting.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingAction__Enum.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::IProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x00E3D5E0, void, CacheDefault, (app::IProfilingSetting * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PickUp2Handed.h>
+#include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
+#include <Modloader/app/structs/InteractionObject.h>
 
 namespace app::classes::RootMotion::Demos::PickUp2Handed {
     IL2CPP_REGISTER_METHOD(0x0222B500, void, OnGUI, (app::PickUp2Handed * this_ptr))

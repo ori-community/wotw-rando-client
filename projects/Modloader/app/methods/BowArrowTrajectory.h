@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BowArrowTrajectory.h>
 
 namespace app::classes::BowArrowTrajectory {
     IL2CPP_REGISTER_METHOD(0x00443C10, void, Awake, (app::BowArrowTrajectory * this_ptr))

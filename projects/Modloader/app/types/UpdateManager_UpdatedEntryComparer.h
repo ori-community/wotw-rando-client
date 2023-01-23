@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UpdateManager_UpdatedEntryComparer__Class.h>
+#include <Modloader/app/structs/UpdateManager_UpdatedEntryComparer.h>
 
 namespace app::classes::types {
     namespace UpdateManager_UpdatedEntryComparer {

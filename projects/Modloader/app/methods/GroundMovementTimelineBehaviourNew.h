@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GroundMovementTimelineBehaviourNew.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::GroundMovementTimelineBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x01096F50, void, OnEntityInitialized, (app::GroundMovementTimelineBehaviourNew * this_ptr))

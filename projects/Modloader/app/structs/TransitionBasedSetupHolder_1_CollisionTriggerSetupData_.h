@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TransitionBasedSetupHolder_1_CollisionTriggerSetupData__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TransitionBasedSetupHolder_1_CollisionTriggerSetupData__INITIALIZING
+#if !defined(IL2CPP_STRUCT_TransitionBasedSetupHolder_1_CollisionTriggerSetupData__DEFINED)
+#include <Modloader/app/structs/TransitionBasedSetupHolder_1_CollisionTriggerSetupData___Fields.h>
+#if defined(IL2CPP_STRUCT_TransitionBasedSetupHolder_1_CollisionTriggerSetupData___Fields_DEFINED)
+#define IL2CPP_STRUCT_TransitionBasedSetupHolder_1_CollisionTriggerSetupData__DEFINED
+struct TransitionBasedSetupHolder_1_CollisionTriggerSetupData___Class;
+struct TransitionBasedSetupHolder_1_CollisionTriggerSetupData_ {
+    struct TransitionBasedSetupHolder_1_CollisionTriggerSetupData___Class* klass;
+    MonitorData* monitor;
+    struct TransitionBasedSetupHolder_1_CollisionTriggerSetupData___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TransitionBasedSetupHolder_1_CollisionTriggerSetupData__FWDDECL)
+#define IL2CPP_STRUCT_TransitionBasedSetupHolder_1_CollisionTriggerSetupData__FWDDECL
+#include <Modloader/app/structs/TransitionBasedSetupHolder_1_CollisionTriggerSetupData___Class.h>
+#endif
+#undef IL2CPP_STRUCT_TransitionBasedSetupHolder_1_CollisionTriggerSetupData__INITIALIZING
+#if !defined(IL2CPP_STRUCT_TransitionBasedSetupHolder_1_CollisionTriggerSetupData__DEFINED) && !defined(IL2CPP_STRUCT_TransitionBasedSetupHolder_1_CollisionTriggerSetupData__FWDDECL)
+#include <Modloader/app/structs/TransitionBasedSetupHolder_1_CollisionTriggerSetupData_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TransitionBasedSetupHolder_1_CollisionTriggerSetupData_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

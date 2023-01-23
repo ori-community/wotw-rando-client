@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Socket_c.h>
+#include <Modloader/app/structs/IOAsyncResult.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 
 namespace app::classes::System::Net::Sockets::Socket___c {
     IL2CPP_REGISTER_METHOD(0x0209ED40, void, cctor, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostGenericEventsPlugin_Data__Boxed.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/BinaryWriter.h>
 
 namespace app::classes::GhostGenericEventsPlugin_Data {
     IL2CPP_REGISTER_METHOD(0x0011F5D0, void, ctor, (app::GhostGenericEventsPlugin_Data__Boxed * this_ptr, int32_t recording_i_d, int32_t property_id))

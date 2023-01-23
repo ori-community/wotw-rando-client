@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SortedList_SortedListDebugView.h>
+#include <Modloader/app/structs/SortedList.h>
+#include <Modloader/app/structs/KeyValuePairs__Array.h>
 
 namespace app::classes::System::Collections::SortedList_SortedListDebugView {
     IL2CPP_REGISTER_METHOD(0x0202F660, void, ctor, (app::SortedList_SortedListDebugView * this_ptr, app::SortedList* sorted_list))

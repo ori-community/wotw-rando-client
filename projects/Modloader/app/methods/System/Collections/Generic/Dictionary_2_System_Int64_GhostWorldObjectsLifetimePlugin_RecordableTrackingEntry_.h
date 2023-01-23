@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_System_Int64_GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int64_GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_Int64_GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry_.h>
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int64_GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry_ {
     IL2CPP_REGISTER_METHOD(0x0283B2B0, app::Dictionary_2_TKey_TValue_KeyCollection_System_Int64_GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry_*, get_Keys, (app::Dictionary_2_System_Int64_GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry_ * this_ptr))

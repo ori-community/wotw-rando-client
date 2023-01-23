@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InstructionList_DebugView_InstructionView__Array.h>
+#include <Modloader/app/structs/IComparer_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
+#include <Modloader/app/structs/InstructionList_DebugView_InstructionView.h>
+#include <Modloader/app/structs/Comparison_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ {
     IL2CPP_REGISTER_METHOD(0x030013C0, void, Sort_1, (app::InstructionList_DebugView_InstructionView__Array * keys, int32_t index, int32_t length, app::IComparer_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_* comparer))

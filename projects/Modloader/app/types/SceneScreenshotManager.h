@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SceneScreenshotManager__Class.h>
+#include <Modloader/app/structs/SceneScreenshotManager.h>
 
 namespace app::classes::types {
     namespace SceneScreenshotManager {

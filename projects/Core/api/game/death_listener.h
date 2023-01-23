@@ -4,6 +4,8 @@
 #include <Core/macros.h>
 #include <string>
 
+#include <Modloader/app/structs/DamageType__Enum.h>
+
 namespace core::api::death_listener {
     struct EnemyDeath {
         std::string game_object_name;

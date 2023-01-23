@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XGameSaveUpdateHandle.h>
+#include <Modloader/app/structs/XGameSaveUpdateHandle_1.h>
 
 namespace app::classes::XGamingRuntime::XGameSaveUpdateHandle {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::XGameSaveUpdateHandle * this_ptr, app::XGameSaveUpdateHandle_1 interop_handle))

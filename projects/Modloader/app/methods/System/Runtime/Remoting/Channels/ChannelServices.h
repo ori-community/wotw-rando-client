@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrossContextChannel.h>
+#include <Modloader/app/structs/IMessageSink.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IChannelSender.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IChannel.h>
+#include <Modloader/app/structs/ChannelData.h>
+#include <Modloader/app/structs/ProviderData.h>
+#include <Modloader/app/structs/IMessage.h>
+#include <Modloader/app/structs/ReturnMessage.h>
 
 namespace app::classes::System::Runtime::Remoting::Channels::ChannelServices {
     IL2CPP_REGISTER_METHOD(0x01A9B640, app::CrossContextChannel*, get_CrossContextChannel, ())

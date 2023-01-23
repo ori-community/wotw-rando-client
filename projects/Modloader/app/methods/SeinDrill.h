@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
+#include <Modloader/app/structs/SeinDrill.h>
+#include <Modloader/app/structs/CharacterGravity.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/SeinDrillPuppet.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/DrillZone.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::SeinDrill {
     IL2CPP_REGISTER_METHOD(0x00417920, app::ComboMoveType__Enum, get_ComboMoveType, (app::SeinDrill * this_ptr))

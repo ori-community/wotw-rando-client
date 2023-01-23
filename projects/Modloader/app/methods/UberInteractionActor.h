@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberWaterControl.h>
+#include <Modloader/app/structs/UberInteractionActor.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/StrippableBuildContex.h>
 
 namespace app::classes::UberInteractionActor {
     IL2CPP_REGISTER_METHOD(0x002FBBA0, app::UberWaterControl*, get_Water, (app::UberInteractionActor * this_ptr))

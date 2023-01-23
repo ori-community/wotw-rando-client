@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_GenericCastManager_1_NativeArrays___Boxed.h>
+#include <Modloader/app/structs/List_1_GenericCastManager_1_NativeArrays__2.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_GenericCastManager_1_NativeArrays__1__Boxed.h>
+#include <Modloader/app/structs/List_1_GenericCastManager_1_NativeArrays__1.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_RaycastCommand_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_GenericCastManager_1_NativeArrays__2__Boxed.h>
+#include <Modloader/app/structs/List_1_GenericCastManager_1_NativeArrays_.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_SpherecastCommand_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_GenericCastManager_1_NativeArrays_ {
     IL2CPP_REGISTER_METHOD(0x00152840, void, ctor_1, (app::List_1_T_Enumerator_GenericCastManager_1_NativeArrays___Boxed * this_ptr, app::List_1_GenericCastManager_1_NativeArrays__2* list))

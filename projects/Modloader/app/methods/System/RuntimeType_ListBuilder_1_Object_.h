@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RuntimeType_ListBuilder_1_Object___Boxed.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::RuntimeType_ListBuilder_1_Object_ {
     IL2CPP_REGISTER_METHOD(0x001FF7E0, app::Object*, get_Item, (app::RuntimeType_ListBuilder_1_Object___Boxed * this_ptr, int32_t index))

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Ephemeron__Class.h>
+#include <Modloader/app/structs/Ephemeron.h>
+#include <Modloader/app/structs/Ephemeron__Boxed.h>
+#include <Modloader/app/structs/Ephemeron__Array.h>
 
 namespace app::classes::types {
     namespace Ephemeron {

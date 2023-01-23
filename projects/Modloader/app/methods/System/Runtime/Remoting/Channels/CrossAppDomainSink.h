@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrossAppDomainSink.h>
+#include <Modloader/app/structs/CrossAppDomainSink_ProcessMessageRes.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CADMethodCallMessage.h>
+#include <Modloader/app/structs/IMessage.h>
+#include <Modloader/app/structs/IMessageCtrl.h>
+#include <Modloader/app/structs/IMessageSink.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::Remoting::Channels::CrossAppDomainSink {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::CrossAppDomainSink * this_ptr, int32_t domain_i_d))

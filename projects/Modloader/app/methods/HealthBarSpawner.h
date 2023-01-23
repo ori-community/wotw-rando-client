@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HealthBarSpawner.h>
+#include <Modloader/app/structs/HealthBar.h>
 
 namespace app::classes::HealthBarSpawner {
     IL2CPP_REGISTER_METHOD(0x010A10D0, void, Awake, (app::HealthBarSpawner * this_ptr))

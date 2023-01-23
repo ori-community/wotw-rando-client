@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellUIPassiveShards.h>
 
 namespace app::classes::SpellUIPassiveShards {
     IL2CPP_REGISTER_METHOD(0x0094E040, void, SetSocketsDirty, (app::SpellUIPassiveShards * this_ptr))

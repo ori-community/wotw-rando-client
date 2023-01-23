@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberWaterControl_c_DisplayClass116_0__Class.h>
+#include <Modloader/app/structs/UberWaterControl_c_DisplayClass116_0.h>
+#include <Modloader/app/structs/UberWaterControl_c_DisplayClass116_0__Boxed.h>
 
 namespace app::classes::types {
     namespace UberWaterControl_c_DisplayClass116_0 {

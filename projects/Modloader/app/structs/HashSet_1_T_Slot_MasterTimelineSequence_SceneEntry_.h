@@ -1,0 +1,28 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_HashSet_1_T_Slot_MasterTimelineSequence_SceneEntry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_HashSet_1_T_Slot_MasterTimelineSequence_SceneEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_HashSet_1_T_Slot_MasterTimelineSequence_SceneEntry__DEFINED)
+#define IL2CPP_STRUCT_HashSet_1_T_Slot_MasterTimelineSequence_SceneEntry__DEFINED
+struct MasterTimelineSequence_SceneEntry;
+struct HashSet_1_T_Slot_MasterTimelineSequence_SceneEntry_ {
+    int32_t hashCode;
+    int32_t next;
+    struct MasterTimelineSequence_SceneEntry* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_HashSet_1_T_Slot_MasterTimelineSequence_SceneEntry__FWDDECL)
+#define IL2CPP_STRUCT_HashSet_1_T_Slot_MasterTimelineSequence_SceneEntry__FWDDECL
+#include <Modloader/app/structs/MasterTimelineSequence_SceneEntry.h>
+#endif
+#undef IL2CPP_STRUCT_HashSet_1_T_Slot_MasterTimelineSequence_SceneEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_HashSet_1_T_Slot_MasterTimelineSequence_SceneEntry__DEFINED) && !defined(IL2CPP_STRUCT_HashSet_1_T_Slot_MasterTimelineSequence_SceneEntry__FWDDECL)
+#include <Modloader/app/structs/HashSet_1_T_Slot_MasterTimelineSequence_SceneEntry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/HashSet_1_T_Slot_MasterTimelineSequence_SceneEntry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsEnumConverter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/fsData.h>
+#include <Modloader/app/structs/fsResult.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::FullSerializer::Internal::fsEnumConverter {
     IL2CPP_REGISTER_METHOD(0x01654CA0, bool, CanProcess, (app::fsEnumConverter * this_ptr, app::Type* type))

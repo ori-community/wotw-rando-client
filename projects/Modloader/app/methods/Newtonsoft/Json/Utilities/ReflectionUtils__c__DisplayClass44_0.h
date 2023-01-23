@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReflectionUtils_c_DisplayClass44_0.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::ReflectionUtils___c__DisplayClass44_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ReflectionUtils_c_DisplayClass44_0 * this_ptr))

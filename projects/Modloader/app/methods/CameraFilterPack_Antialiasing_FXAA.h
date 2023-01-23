@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Antialiasing_FXAA.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Antialiasing_FXAA {
     IL2CPP_REGISTER_METHOD(0x0273F360, app::Material*, get_material, (app::CameraFilterPack_Antialiasing_FXAA * this_ptr))

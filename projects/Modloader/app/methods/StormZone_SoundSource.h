@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StormZone_SoundSource.h>
 
 namespace app::classes::StormZone_SoundSource {
     IL2CPP_REGISTER_METHOD(0x0065D290, void, FadeIn, (app::StormZone_SoundSource * this_ptr))

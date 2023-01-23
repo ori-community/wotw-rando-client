@@ -1,0 +1,155 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TypeInfo__VTable_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TypeInfo__VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TypeInfo__VTable_DEFINED)
+#define IL2CPP_STRUCT_TypeInfo__VTable_DEFINED
+struct TypeInfo__VTable {
+    VirtualInvokeData Equals;
+    VirtualInvokeData Finalize;
+    VirtualInvokeData GetHashCode;
+    VirtualInvokeData ToString;
+    VirtualInvokeData GetCustomAttributes;
+    VirtualInvokeData GetCustomAttributes_1;
+    VirtualInvokeData IsDefined;
+    VirtualInvokeData get_MemberType;
+    VirtualInvokeData __unknown;
+    VirtualInvokeData get_DeclaringType;
+    VirtualInvokeData get_ReflectedType;
+    VirtualInvokeData __unknown_1;
+    VirtualInvokeData __unknown_2;
+    VirtualInvokeData __unknown_3;
+    VirtualInvokeData GetCustomAttributesData;
+    VirtualInvokeData get_MetadataToken;
+    VirtualInvokeData __unknown_4;
+    VirtualInvokeData get_DeclaringMethod;
+    VirtualInvokeData MakePointerType;
+    VirtualInvokeData MakeByRefType;
+    VirtualInvokeData MakeArrayType;
+    VirtualInvokeData MakeArrayType_1;
+    VirtualInvokeData GetTypeCodeImpl;
+    VirtualInvokeData __unknown_5;
+    VirtualInvokeData InvokeMember;
+    VirtualInvokeData __unknown_6;
+    VirtualInvokeData get_TypeHandle;
+    VirtualInvokeData __unknown_7;
+    VirtualInvokeData __unknown_8;
+    VirtualInvokeData __unknown_9;
+    VirtualInvokeData GetArrayRank;
+    VirtualInvokeData __unknown_10;
+    VirtualInvokeData GetConstructor;
+    VirtualInvokeData GetConstructor_1;
+    VirtualInvokeData GetConstructor_2;
+    VirtualInvokeData __unknown_11;
+    VirtualInvokeData GetConstructors;
+    VirtualInvokeData __unknown_12;
+    VirtualInvokeData GetMethod;
+    VirtualInvokeData GetMethod_1;
+    VirtualInvokeData GetMethod_2;
+    VirtualInvokeData GetMethod_3;
+    VirtualInvokeData GetMethod_4;
+    VirtualInvokeData __unknown_13;
+    VirtualInvokeData GetMethods;
+    VirtualInvokeData __unknown_14;
+    VirtualInvokeData __unknown_15;
+    VirtualInvokeData GetField;
+    VirtualInvokeData GetFields;
+    VirtualInvokeData __unknown_16;
+    VirtualInvokeData GetInterface;
+    VirtualInvokeData __unknown_17;
+    VirtualInvokeData __unknown_18;
+    VirtualInvokeData FindInterfaces;
+    VirtualInvokeData GetEvent;
+    VirtualInvokeData __unknown_19;
+    VirtualInvokeData __unknown_20;
+    VirtualInvokeData GetProperty;
+    VirtualInvokeData GetProperty_1;
+    VirtualInvokeData GetProperty_2;
+    VirtualInvokeData GetProperty_3;
+    VirtualInvokeData GetProperty_4;
+    VirtualInvokeData __unknown_21;
+    VirtualInvokeData __unknown_22;
+    VirtualInvokeData GetProperties;
+    VirtualInvokeData GetNestedType;
+    VirtualInvokeData __unknown_23;
+    VirtualInvokeData GetMember;
+    VirtualInvokeData GetMember_1;
+    VirtualInvokeData GetMember_2;
+    VirtualInvokeData __unknown_24;
+    VirtualInvokeData get_Attributes;
+    VirtualInvokeData get_GenericParameterAttributes;
+    VirtualInvokeData get_IsNotPublic;
+    VirtualInvokeData get_IsPublic;
+    VirtualInvokeData get_IsNestedPublic;
+    VirtualInvokeData get_IsNestedAssembly;
+    VirtualInvokeData get_IsExplicitLayout;
+    VirtualInvokeData get_IsClass;
+    VirtualInvokeData get_IsInterface;
+    VirtualInvokeData get_IsValueType;
+    VirtualInvokeData get_IsAbstract;
+    VirtualInvokeData get_IsSealed;
+    VirtualInvokeData get_IsEnum;
+    VirtualInvokeData get_IsSerializable;
+    VirtualInvokeData get_IsArray;
+    VirtualInvokeData get_IsSzArray;
+    VirtualInvokeData get_IsGenericType;
+    VirtualInvokeData get_IsGenericTypeDefinition;
+    VirtualInvokeData get_IsConstructedGenericType;
+    VirtualInvokeData get_IsGenericParameter;
+    VirtualInvokeData get_GenericParameterPosition;
+    VirtualInvokeData get_ContainsGenericParameters;
+    VirtualInvokeData GetGenericParameterConstraints;
+    VirtualInvokeData get_IsByRef;
+    VirtualInvokeData get_IsPointer;
+    VirtualInvokeData get_IsPrimitive;
+    VirtualInvokeData get_IsCOMObject;
+    VirtualInvokeData get_HasElementType;
+    VirtualInvokeData get_IsContextful;
+    VirtualInvokeData get_IsMarshalByRef;
+    VirtualInvokeData IsValueTypeImpl;
+    VirtualInvokeData __unknown_25;
+    VirtualInvokeData __unknown_26;
+    VirtualInvokeData __unknown_27;
+    VirtualInvokeData __unknown_28;
+    VirtualInvokeData __unknown_29;
+    VirtualInvokeData __unknown_30;
+    VirtualInvokeData MakeGenericType;
+    VirtualInvokeData IsContextfulImpl;
+    VirtualInvokeData IsMarshalByRefImpl;
+    VirtualInvokeData __unknown_31;
+    VirtualInvokeData GetGenericArguments;
+    VirtualInvokeData GetGenericTypeDefinition;
+    VirtualInvokeData __unknown_32;
+    VirtualInvokeData GetEnumNames;
+    VirtualInvokeData GetEnumValues;
+    VirtualInvokeData GetEnumUnderlyingType;
+    VirtualInvokeData IsEnumDefined;
+    VirtualInvokeData GetEnumName;
+    VirtualInvokeData __unknown_33;
+    VirtualInvokeData IsSubclassOf;
+    VirtualInvokeData IsInstanceOfType;
+    VirtualInvokeData IsAssignableFrom;
+    VirtualInvokeData IsEquivalentTo;
+    VirtualInvokeData FormatTypeName;
+    VirtualInvokeData Equals_1;
+    VirtualInvokeData GetType;
+    VirtualInvokeData get_IsSZArray;
+    VirtualInvokeData System_Reflection_IReflectableType_GetTypeInfo;
+    VirtualInvokeData get_DeclaredFields;
+    VirtualInvokeData get_ImplementedInterfaces;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_TypeInfo__VTable_FWDDECL)
+#define IL2CPP_STRUCT_TypeInfo__VTable_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_TypeInfo__VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TypeInfo__VTable_DEFINED) && !defined(IL2CPP_STRUCT_TypeInfo__VTable_FWDDECL)
+#include <Modloader/app/structs/TypeInfo__VTable.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TypeInfo__VTable.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

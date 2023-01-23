@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StackBuilderSink.h>
+#include <Modloader/app/structs/MarshalByRefObject.h>
+#include <Modloader/app/structs/IMessage.h>
+#include <Modloader/app/structs/IMessageCtrl.h>
+#include <Modloader/app/structs/IMessageSink.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::StackBuilderSink {
     IL2CPP_REGISTER_METHOD(0x0231A770, void, ctor, (app::StackBuilderSink * this_ptr, app::MarshalByRefObject* obj, bool force_internal_execute))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExtractedIntFromInt64.h>
 
 namespace app::classes::ExtractedIntFromInt64 {
     IL2CPP_REGISTER_METHOD(0x00988420, void, ctor, (app::ExtractedIntFromInt64 * this_ptr, int32_t bits))

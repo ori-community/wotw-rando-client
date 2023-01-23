@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NumberFormatInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/CultureData.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/NumberStyles__Enum.h>
 
 namespace app::classes::System::Globalization::NumberFormatInfo {
     IL2CPP_REGISTER_METHOD(0x01DE9EB0, void, ctor_1, (app::NumberFormatInfo * this_ptr))

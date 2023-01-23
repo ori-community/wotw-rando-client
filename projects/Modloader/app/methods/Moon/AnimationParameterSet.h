@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationParameterSet.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_AnimationParameter_Moon_AnimationParameter_Instance_.h>
+#include <Modloader/app/structs/FloatAnimationParameter.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/VectorAnimationParameter.h>
+#include <Modloader/app/structs/AnimationParameter.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/FloatAnimationParameter_Instance.h>
+#include <Modloader/app/structs/VectorAnimationParameter_Instance.h>
+#include <Modloader/app/structs/List_1_Moon_FloatAnimationParameter_.h>
+#include <Modloader/app/structs/List_1_Moon_VectorAnimationParameter_.h>
 
 namespace app::classes::Moon::AnimationParameterSet {
     IL2CPP_REGISTER_METHOD(0x0052B590, bool, get_PreviewMode, (app::AnimationParameterSet * this_ptr))

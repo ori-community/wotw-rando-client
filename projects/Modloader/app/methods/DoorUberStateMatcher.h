@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DoorUberStateMatcher.h>
+#include <Modloader/app/structs/DesiredUberStateDoor_DoorState__Enum.h>
 
 namespace app::classes::DoorUberStateMatcher {
     IL2CPP_REGISTER_METHOD(0x01B5A360, void, ctor, (app::DoorUberStateMatcher * this_ptr))

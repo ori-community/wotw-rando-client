@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Text_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextStyleCollection.h>
+#include <Modloader/app/structs/CharMetaData.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/TextBoxLine_1.h>
+#include <Modloader/app/structs/LineDescent.h>
+#include <Modloader/app/structs/CharMetaData__Array.h>
 
 namespace app::classes::Moon::UI::Text {
     IL2CPP_REGISTER_METHOD(0x01184DB0, int32_t, get_LineCount, (app::Text_1 * this_ptr))

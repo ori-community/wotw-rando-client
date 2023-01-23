@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/EntityAvatar.h>
 
 namespace app::classes::EntityAvatar {
     IL2CPP_REGISTER_METHOD(0x00C8C150, app::Vector2, get_LookDirection, (app::EntityAvatar * this_ptr))

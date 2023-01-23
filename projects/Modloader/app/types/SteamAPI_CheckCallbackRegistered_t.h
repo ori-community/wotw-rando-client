@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SteamAPI_CheckCallbackRegistered_t__Class.h>
+#include <Modloader/app/structs/SteamAPI_CheckCallbackRegistered_t.h>
 
 namespace app::classes::types {
     namespace SteamAPI_CheckCallbackRegistered_t {

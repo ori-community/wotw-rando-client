@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/EnableSimpleFPSProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::EnableSimpleFPSProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x004AB2B0, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::EnableSimpleFPSProfilingSetting * this_ptr))

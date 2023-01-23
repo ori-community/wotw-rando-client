@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrossSceneDependencyInjector.h>
+#include <Modloader/app/structs/CrossSceneDependencyInjector_ObjectReference.h>
 
 namespace app::classes::Moon::CrossSceneDependencyInjector {
     IL2CPP_REGISTER_METHOD(0x00CD0400, void, Awake, (app::CrossSceneDependencyInjector * this_ptr))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Int32_UberGhostTrailMeshUpdate_TextureInfo_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_UberGhostTrailMeshUpdate_TextureInfo_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_UberGhostTrailMeshUpdate_TextureInfo_.h>
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate_TextureInfo__Array.h>
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate_TextureInfo.h>
+#include <Modloader/app/structs/IEnumerator_1_UberGhostTrailMeshUpdate_TextureInfo_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_System_Int32_UberGhostTrailMeshUpdate_TextureInfo_ {
     IL2CPP_REGISTER_METHOD(0x026AFF30, void, ctor, (app::Dictionary_2_TKey_TValue_ValueCollection_System_Int32_UberGhostTrailMeshUpdate_TextureInfo_ * this_ptr, app::Dictionary_2_System_Int32_UberGhostTrailMeshUpdate_TextureInfo_* dictionary))

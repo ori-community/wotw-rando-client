@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState___Boxed.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DictionaryEntry.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__Enumerator_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_ {
     IL2CPP_REGISTER_METHOD(0x00133F40, void, ctor, (app::Dictionary_2_TKey_TValue_Enumerator_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState___Boxed * this_ptr, app::Dictionary_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState_* dictionary, int32_t get_enumerator_ret_type))

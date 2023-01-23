@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CartDamageCheckAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::CartDamageCheckAction {
     IL2CPP_REGISTER_METHOD(0x00B35ED0, void, Perform, (app::CartDamageCheckAction * this_ptr, app::IContext* context))

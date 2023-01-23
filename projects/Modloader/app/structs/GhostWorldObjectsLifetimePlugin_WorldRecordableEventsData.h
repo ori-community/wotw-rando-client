@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_DEFINED)
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData__Fields.h>
+#if defined(IL2CPP_STRUCT_GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData__Fields_DEFINED)
+#define IL2CPP_STRUCT_GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_DEFINED
+struct GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData__Class;
+struct GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData {
+    struct GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData__Class* klass;
+    MonitorData* monitor;
+    struct GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_FWDDECL)
+#define IL2CPP_STRUCT_GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_FWDDECL
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_DEFINED) && !defined(IL2CPP_STRUCT_GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_FWDDECL)
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

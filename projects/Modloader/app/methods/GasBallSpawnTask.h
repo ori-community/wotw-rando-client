@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GasBallSpawnTask.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::GasBallSpawnTask {
     IL2CPP_REGISTER_METHOD(0x00419300, void, OnEnterTask, (app::GasBallSpawnTask * this_ptr, app::IContext* context))

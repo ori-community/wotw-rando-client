@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberWaterAnimator.h>
 
 namespace app::classes::UberWaterAnimator {
     IL2CPP_REGISTER_METHOD(0x01292FC0, float, get_Duration, (app::UberWaterAnimator * this_ptr))

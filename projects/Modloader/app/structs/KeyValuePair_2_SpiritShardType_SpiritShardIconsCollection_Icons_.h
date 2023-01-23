@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_SpiritShardType_SpiritShardIconsCollection_Icons__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_SpiritShardType_SpiritShardIconsCollection_Icons__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_SpiritShardType_SpiritShardIconsCollection_Icons__DEFINED)
+#include <Modloader/app/structs/SpiritShardIconsCollection_Icons.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#if defined(IL2CPP_STRUCT_SpiritShardType__Enum_DEFINED) && defined(IL2CPP_STRUCT_SpiritShardIconsCollection_Icons_DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_SpiritShardType_SpiritShardIconsCollection_Icons__DEFINED
+struct KeyValuePair_2_SpiritShardType_SpiritShardIconsCollection_Icons_ {
+    SpiritShardType__Enum key;
+
+    struct SpiritShardIconsCollection_Icons value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_SpiritShardType_SpiritShardIconsCollection_Icons__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_SpiritShardType_SpiritShardIconsCollection_Icons__FWDDECL
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_SpiritShardType_SpiritShardIconsCollection_Icons__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_SpiritShardType_SpiritShardIconsCollection_Icons__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_SpiritShardType_SpiritShardIconsCollection_Icons__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_SpiritShardType_SpiritShardIconsCollection_Icons_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_SpiritShardType_SpiritShardIconsCollection_Icons_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

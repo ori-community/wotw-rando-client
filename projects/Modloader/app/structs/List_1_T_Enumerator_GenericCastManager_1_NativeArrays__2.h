@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_GenericCastManager_1_NativeArrays__2_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_GenericCastManager_1_NativeArrays__2_INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_GenericCastManager_1_NativeArrays__2_DEFINED)
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_SpherecastCommand_.h>
+#if defined(IL2CPP_STRUCT_GenericCastManager_1_Command_NativeArrays_UnityEngine_SpherecastCommand__DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_GenericCastManager_1_NativeArrays__2_DEFINED
+struct List_1_GenericCastManager_1_NativeArrays_;
+struct List_1_T_Enumerator_GenericCastManager_1_NativeArrays__2 {
+    struct List_1_GenericCastManager_1_NativeArrays_* list;
+    int32_t index;
+    int32_t version;
+    struct GenericCastManager_1_Command_NativeArrays_UnityEngine_SpherecastCommand_ current;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_GenericCastManager_1_NativeArrays__2_FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_GenericCastManager_1_NativeArrays__2_FWDDECL
+#include <Modloader/app/structs/List_1_GenericCastManager_1_NativeArrays_.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_GenericCastManager_1_NativeArrays__2_INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_GenericCastManager_1_NativeArrays__2_DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_GenericCastManager_1_NativeArrays__2_FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_GenericCastManager_1_NativeArrays__2.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_GenericCastManager_1_NativeArrays__2.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

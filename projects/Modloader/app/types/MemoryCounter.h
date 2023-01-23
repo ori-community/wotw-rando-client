@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MemoryCounter__Class.h>
+#include <Modloader/app/structs/MemoryCounter.h>
 
 namespace app::classes::types {
     namespace MemoryCounter {

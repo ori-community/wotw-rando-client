@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PickupSequenceRestrictZone__Array__Class.h>
+#include <Modloader/app/structs/PickupSequenceRestrictZone__Array.h>
 
 namespace app::classes::types {
     namespace PickupSequenceRestrictZone__Array {

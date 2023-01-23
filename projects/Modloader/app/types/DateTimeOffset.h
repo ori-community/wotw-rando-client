@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DateTimeOffset__Class.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/DateTimeOffset__Boxed.h>
+#include <Modloader/app/structs/DateTimeOffset__Array.h>
 
 namespace app::classes::types {
     namespace DateTimeOffset {

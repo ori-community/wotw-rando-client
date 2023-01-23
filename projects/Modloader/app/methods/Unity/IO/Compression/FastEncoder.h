@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FastEncoder.h>
+#include <Modloader/app/structs/DeflateInput.h>
+#include <Modloader/app/structs/OutputBuffer.h>
 
 namespace app::classes::Unity::IO::Compression::FastEncoder {
     IL2CPP_REGISTER_METHOD(0x02B76210, void, ctor, (app::FastEncoder * this_ptr))

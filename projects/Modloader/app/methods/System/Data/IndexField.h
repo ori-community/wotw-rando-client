@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IndexField__Boxed.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/IndexField.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Data::IndexField {
     IL2CPP_REGISTER_METHOD(0x00151890, void, ctor, (app::IndexField__Boxed * this_ptr, app::DataColumn* column, bool is_descending))

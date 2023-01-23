@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_Resolution_.h>
+#include <Modloader/app/structs/Resolution.h>
+#include <Modloader/app/structs/Resolution__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_UnityEngine_Resolution_ {
     IL2CPP_REGISTER_METHOD(0x01CD3170, bool, Equals_1, (app::ObjectEqualityComparer_1_UnityEngine_Resolution_ * this_ptr, app::Resolution x, app::Resolution y))

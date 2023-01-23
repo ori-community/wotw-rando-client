@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Int32_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_String_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_System_String_System_Int32_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_String_System_Int32_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor_1, (app::Dictionary_2_System_String_System_Int32_ * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UTF8Encoding_UTF8Encoder.h>
+#include <Modloader/app/structs/UTF8Encoding.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Text::UTF8Encoding_UTF8Encoder {
     IL2CPP_REGISTER_METHOD(0x0244DBE0, void, ctor_1, (app::UTF8Encoding_UTF8Encoder * this_ptr, app::UTF8Encoding* encoding))

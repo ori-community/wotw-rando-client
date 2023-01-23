@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinController3D.h>
+#include <Modloader/app/structs/Action_1_SeinController3D_EventId_.h>
+#include <Modloader/app/structs/Action_1_String_.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/PerspectiveRotationAdjustment.h>
+#include <Modloader/app/structs/OriHeadIk.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IPuppet.h>
+#include <Modloader/app/structs/Animator.h>
+#include <Modloader/app/structs/AnimatorStateInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EmissiveIndividualSettings.h>
+#include <Modloader/app/structs/PlayerSettingsPerScene.h>
 
 namespace app::classes::SeinController3D {
     IL2CPP_REGISTER_METHOD(0x006DF9E0, void, add_OnAnimationEventCallback, (app::SeinController3D * this_ptr, app::Action_1_SeinController3D_EventId_* value))

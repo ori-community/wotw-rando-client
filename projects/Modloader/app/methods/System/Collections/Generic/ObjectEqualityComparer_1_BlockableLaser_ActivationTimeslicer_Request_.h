@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_BlockableLaser_ActivationTimeslicer_Request_.h>
+#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request.h>
+#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_BlockableLaser_ActivationTimeslicer_Request_ {
     IL2CPP_REGISTER_METHOD(0x01CD0C40, bool, Equals_1, (app::ObjectEqualityComparer_1_BlockableLaser_ActivationTimeslicer_Request_ * this_ptr, app::BlockableLaser_ActivationTimeslicer_Request x, app::BlockableLaser_ActivationTimeslicer_Request y))

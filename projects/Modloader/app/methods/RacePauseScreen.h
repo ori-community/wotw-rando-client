@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RacePauseScreen.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
 
 namespace app::classes::RacePauseScreen {
     IL2CPP_REGISTER_METHOD(0x007118D0, void, ResetStatics, ())

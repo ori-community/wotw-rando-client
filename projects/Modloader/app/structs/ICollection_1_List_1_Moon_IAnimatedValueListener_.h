@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ICollection_1_List_1_Moon_IAnimatedValueListener__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ICollection_1_List_1_Moon_IAnimatedValueListener__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_List_1_Moon_IAnimatedValueListener__DEFINED)
+#define IL2CPP_STRUCT_ICollection_1_List_1_Moon_IAnimatedValueListener__DEFINED
+struct ICollection_1_List_1_Moon_IAnimatedValueListener___Class;
+struct ICollection_1_List_1_Moon_IAnimatedValueListener_ {
+    struct ICollection_1_List_1_Moon_IAnimatedValueListener___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ICollection_1_List_1_Moon_IAnimatedValueListener__FWDDECL)
+#define IL2CPP_STRUCT_ICollection_1_List_1_Moon_IAnimatedValueListener__FWDDECL
+#include <Modloader/app/structs/ICollection_1_List_1_Moon_IAnimatedValueListener___Class.h>
+#endif
+#undef IL2CPP_STRUCT_ICollection_1_List_1_Moon_IAnimatedValueListener__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_List_1_Moon_IAnimatedValueListener__DEFINED) && !defined(IL2CPP_STRUCT_ICollection_1_List_1_Moon_IAnimatedValueListener__FWDDECL)
+#include <Modloader/app/structs/ICollection_1_List_1_Moon_IAnimatedValueListener_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ICollection_1_List_1_Moon_IAnimatedValueListener_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

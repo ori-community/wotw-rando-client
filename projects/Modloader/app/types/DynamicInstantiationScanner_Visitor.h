@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_Visitor__Class.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_Visitor.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_Visitor__Array.h>
 
 namespace app::classes::types {
     namespace DynamicInstantiationScanner_Visitor {

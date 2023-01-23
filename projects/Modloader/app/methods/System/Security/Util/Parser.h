@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SecurityElement.h>
+#include <Modloader/app/structs/Parser.h>
+#include <Modloader/app/structs/TokenizerStream.h>
+#include <Modloader/app/structs/Tokenizer.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Util::Parser {
     IL2CPP_REGISTER_METHOD(0x01E21CD0, app::SecurityElement*, GetTopElement, (app::Parser * this_ptr))

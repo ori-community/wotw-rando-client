@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerLoopSystemInternal__Array.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
+#include <Modloader/app/structs/PlayerLoopSystemInternal.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_ {
     IL2CPP_REGISTER_METHOD(0x02F68210, void, Sort_1, (app::PlayerLoopSystemInternal__Array * keys, int32_t index, int32_t length, app::IComparer_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_* comparer))

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AmbienceZone_WiseAuxSend__Class.h>
+#include <Modloader/app/structs/AmbienceZone_WiseAuxSend.h>
+#include <Modloader/app/structs/AmbienceZone_WiseAuxSend__Boxed.h>
+#include <Modloader/app/structs/AmbienceZone_WiseAuxSend__Array.h>
 
 namespace app::classes::types {
     namespace AmbienceZone_WiseAuxSend {

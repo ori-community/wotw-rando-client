@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CompiledIdentityConstraint__Class.h>
+#include <Modloader/app/structs/CompiledIdentityConstraint.h>
+#include <Modloader/app/structs/CompiledIdentityConstraint__Array.h>
 
 namespace app::classes::types {
     namespace CompiledIdentityConstraint {

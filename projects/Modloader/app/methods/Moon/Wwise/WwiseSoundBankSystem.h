@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WwiseSoundBankSystem.h>
+#include <Modloader/app/structs/AkWwiseInitializationSettings.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HashSet_1_System_String_.h>
 
 namespace app::classes::Moon::Wwise::WwiseSoundBankSystem {
     IL2CPP_REGISTER_METHOD(0x02716B80, void, Initialize, (app::WwiseSoundBankSystem * this_ptr, app::AkWwiseInitializationSettings* config))

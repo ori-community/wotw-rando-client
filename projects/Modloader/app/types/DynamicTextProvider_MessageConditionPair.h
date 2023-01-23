@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DynamicTextProvider_MessageConditionPair__Class.h>
+#include <Modloader/app/structs/DynamicTextProvider_MessageConditionPair.h>
+#include <Modloader/app/structs/DynamicTextProvider_MessageConditionPair__Boxed.h>
+#include <Modloader/app/structs/DynamicTextProvider_MessageConditionPair__Array.h>
 
 namespace app::classes::types {
     namespace DynamicTextProvider_MessageConditionPair {

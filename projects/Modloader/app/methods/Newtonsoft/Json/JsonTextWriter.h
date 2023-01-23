@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Base64Encoder_1.h>
+#include <Modloader/app/structs/JsonTextWriter.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JsonToken__Enum_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_Single_.h>
+#include <Modloader/app/structs/Nullable_1_Double_.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Uri.h>
 
 namespace app::classes::Newtonsoft::Json::JsonTextWriter {
     IL2CPP_REGISTER_METHOD(0x01EFAB00, app::Base64Encoder_1*, get_Base64Encoder, (app::JsonTextWriter * this_ptr))

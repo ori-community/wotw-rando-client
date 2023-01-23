@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_GameObject_LeashMarkEffect__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_GameObject_LeashMarkEffect__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_GameObject_LeashMarkEffect__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_GameObject_LeashMarkEffect__DEFINED
+struct GameObject;
+struct LeashMarkEffect;
+struct Dictionary_2_TKey_TValue_Entry_UnityEngine_GameObject_LeashMarkEffect_ {
+    int32_t hashCode;
+    int32_t next;
+    struct GameObject* key;
+    struct LeashMarkEffect* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_GameObject_LeashMarkEffect__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_GameObject_LeashMarkEffect__FWDDECL
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/LeashMarkEffect.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_GameObject_LeashMarkEffect__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_GameObject_LeashMarkEffect__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_GameObject_LeashMarkEffect__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_UnityEngine_GameObject_LeashMarkEffect_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_UnityEngine_GameObject_LeashMarkEffect_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

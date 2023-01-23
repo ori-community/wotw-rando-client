@@ -1,6 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
+#include <Modloader/app/structs/SimpleCollator.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/CodePointIndexer.h>
+
+#include <Modloader/app/structs/SimpleCollator_ExtenderType__Enum.h>
+#include <Modloader/app/structs/CompareOptions__Enum.h>
+#include <Modloader/app/structs/Contraction.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Contraction__Array.h>
+#include <Modloader/app/structs/SortKey.h>
+#include <Modloader/app/structs/SortKeyBuffer.h>
+#include <Modloader/app/structs/SimpleCollator_Context.h>
+
 namespace app::classes::Mono::Globalization::Unicode::SimpleCollator {
     IL2CPP_REGISTER_METHOD(0x023BDF30, void, ctor, (app::SimpleCollator * this_ptr, app::CultureInfo* culture))
     IL2CPP_REGISTER_METHOD(0x023BE3C0, void, SetCJKTable, (app::SimpleCollator * this_ptr, app::CultureInfo* culture, app::CodePointIndexer** cjk_indexer, app::uint8_t** cat_table, app::uint8_t** lv1_table, app::CodePointIndexer** lv2_indexer, app::uint8_t** lv2_table))

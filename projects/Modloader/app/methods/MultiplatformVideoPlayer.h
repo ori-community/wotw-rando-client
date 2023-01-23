@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MultiplatformVideoPlayer.h>
 
 namespace app::classes::MultiplatformVideoPlayer {
     IL2CPP_REGISTER_METHOD(0x00879500, void, Perform, (app::MultiplatformVideoPlayer * this_ptr))

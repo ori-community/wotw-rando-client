@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_StateCondition_StateConditionSetupHolder_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_StateCondition_StateConditionSetupHolder_INITIALIZING
+#if !defined(IL2CPP_STRUCT_StateCondition_StateConditionSetupHolder_DEFINED)
+#include <Modloader/app/structs/StateCondition_StateConditionSetupHolder__Fields.h>
+#if defined(IL2CPP_STRUCT_StateCondition_StateConditionSetupHolder__Fields_DEFINED)
+#define IL2CPP_STRUCT_StateCondition_StateConditionSetupHolder_DEFINED
+struct StateCondition_StateConditionSetupHolder__Class;
+struct StateCondition_StateConditionSetupHolder {
+    struct StateCondition_StateConditionSetupHolder__Class* klass;
+    MonitorData* monitor;
+    struct StateCondition_StateConditionSetupHolder__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_StateCondition_StateConditionSetupHolder_FWDDECL)
+#define IL2CPP_STRUCT_StateCondition_StateConditionSetupHolder_FWDDECL
+#include <Modloader/app/structs/StateCondition_StateConditionSetupHolder__Class.h>
+#endif
+#undef IL2CPP_STRUCT_StateCondition_StateConditionSetupHolder_INITIALIZING
+#if !defined(IL2CPP_STRUCT_StateCondition_StateConditionSetupHolder_DEFINED) && !defined(IL2CPP_STRUCT_StateCondition_StateConditionSetupHolder_FWDDECL)
+#include <Modloader/app/structs/StateCondition_StateConditionSetupHolder.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/StateCondition_StateConditionSetupHolder.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

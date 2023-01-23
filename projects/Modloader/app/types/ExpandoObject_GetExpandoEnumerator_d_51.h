@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ExpandoObject_GetExpandoEnumerator_d_51__Class.h>
+#include <Modloader/app/structs/ExpandoObject_GetExpandoEnumerator_d_51.h>
 
 namespace app::classes::types {
     namespace ExpandoObject_GetExpandoEnumerator_d_51 {

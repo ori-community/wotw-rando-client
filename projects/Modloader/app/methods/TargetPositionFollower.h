@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TargetPositionFollower.h>
 
 namespace app::classes::TargetPositionFollower {
     IL2CPP_REGISTER_METHOD(0x00CE3330, void, FixedUpdate, (app::TargetPositionFollower * this_ptr))

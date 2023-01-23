@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ServerProjectile_ServerProjectileData__Class.h>
+#include <Modloader/app/structs/ServerProjectile_ServerProjectileData.h>
+#include <Modloader/app/structs/ServerProjectile_ServerProjectileData__Boxed.h>
 
 namespace app::classes::types {
     namespace ServerProjectile_ServerProjectileData {

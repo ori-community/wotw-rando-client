@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CageStructureTool_c.h>
+#include <Modloader/app/structs/CageStructureTool_Vertex.h>
+#include <Modloader/app/structs/CageStructureTool_Edge.h>
+#include <Modloader/app/structs/CageStructureTool_Face.h>
 
 namespace app::classes::CageStructureTool___c {
     IL2CPP_REGISTER_METHOD(0x0167F470, void, cctor, ())

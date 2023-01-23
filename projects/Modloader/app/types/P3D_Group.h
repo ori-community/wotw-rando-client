@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/P3D_Group__Class.h>
+#include <Modloader/app/structs/P3D_Group.h>
+#include <Modloader/app/structs/P3D_Group__Boxed.h>
 
 namespace app::classes::types {
     namespace P3D_Group {

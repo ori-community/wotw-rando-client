@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Predicate_1_Moon_uberSerializationWisp_PlayerStateMap_Mapping_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PlayerStateMap_Mapping.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Predicate_1_Moon_uberSerializationWisp_PlayerStateMap_Mapping_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::Predicate_1_Moon_uberSerializationWisp_PlayerStateMap_Mapping_ * this_ptr, app::Object* object, void* method_1))

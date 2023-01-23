@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MemberInfo_1__Array.h>
+#include <Modloader/app/structs/RuntimeType.h>
+#include <Modloader/app/structs/RuntimeType__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::Serialization::FormatterServices {
     IL2CPP_REGISTER_METHOD(0x01D88670, void, cctor, ())

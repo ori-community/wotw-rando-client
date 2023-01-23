@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PullablePole.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::Game::PullablePole {
     IL2CPP_REGISTER_METHOD(0x015273C0, void, OnGrabbed, (app::PullablePole * this_ptr))

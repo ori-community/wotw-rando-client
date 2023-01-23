@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStateValueGroup.h>
+#include <Modloader/app/structs/UberID.h>
+#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_System_Object_.h>
+#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_System_Boolean_.h>
+#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_System_Single_.h>
+#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_System_Int32_.h>
+#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_System_Byte_.h>
+#include <Modloader/app/structs/ISerializedUberState.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberStateArchive.h>
+#include <Modloader/app/structs/UberStateHeader_UberStateType__Enum.h>
 
 namespace app::classes::Moon::UberStateValueGroup {
     IL2CPP_REGISTER_METHOD(0x01B6D8A0, void, ctor, (app::UberStateValueGroup * this_ptr, app::UberID* id))

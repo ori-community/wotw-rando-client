@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_GameplayCameraTargetEntry___Boxed.h>
+#include <Modloader/app/structs/List_1_GameplayCameraTargetEntry_.h>
+#include <Modloader/app/structs/GameplayCameraTargetEntry.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_GameplayCameraTargetEntry_ {
     IL2CPP_REGISTER_METHOD(0x0014D030, void, ctor, (app::List_1_T_Enumerator_GameplayCameraTargetEntry___Boxed * this_ptr, app::List_1_GameplayCameraTargetEntry_* list))

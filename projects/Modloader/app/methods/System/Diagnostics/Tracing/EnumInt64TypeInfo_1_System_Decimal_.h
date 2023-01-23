@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnumInt64TypeInfo_1_System_Decimal_.h>
+#include <Modloader/app/structs/TraceLoggingMetadataCollector.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EventFieldFormat__Enum.h>
+#include <Modloader/app/structs/TraceLoggingDataCollector.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EnumInt64TypeInfo_1_System_Decimal_ {
     IL2CPP_REGISTER_METHOD(0x02F4E200, void, WriteMetadata, (app::EnumInt64TypeInfo_1_System_Decimal_ * this_ptr, app::TraceLoggingMetadataCollector* collector, app::String* name, app::EventFieldFormat__Enum format))

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PushPullBlock.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IPressurePlate.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/TrackingExclusions.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::PushPullBlock {
     IL2CPP_REGISTER_METHOD(0x00E80480, void, ResetStatics, ())

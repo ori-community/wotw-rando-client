@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AttachInteractionToPhysicsSystem_SoundInteractionSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AttachInteractionToPhysicsSystem_SoundInteractionSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AttachInteractionToPhysicsSystem_SoundInteractionSettings_DEFINED)
+#include <Modloader/app/structs/AttachInteractionToPhysicsSystem_SoundInteractionSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_AttachInteractionToPhysicsSystem_SoundInteractionSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_AttachInteractionToPhysicsSystem_SoundInteractionSettings_DEFINED
+struct AttachInteractionToPhysicsSystem_SoundInteractionSettings__Class;
+struct AttachInteractionToPhysicsSystem_SoundInteractionSettings {
+    struct AttachInteractionToPhysicsSystem_SoundInteractionSettings__Class* klass;
+    MonitorData* monitor;
+    struct AttachInteractionToPhysicsSystem_SoundInteractionSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AttachInteractionToPhysicsSystem_SoundInteractionSettings_FWDDECL)
+#define IL2CPP_STRUCT_AttachInteractionToPhysicsSystem_SoundInteractionSettings_FWDDECL
+#include <Modloader/app/structs/AttachInteractionToPhysicsSystem_SoundInteractionSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_AttachInteractionToPhysicsSystem_SoundInteractionSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AttachInteractionToPhysicsSystem_SoundInteractionSettings_DEFINED) && !defined(IL2CPP_STRUCT_AttachInteractionToPhysicsSystem_SoundInteractionSettings_FWDDECL)
+#include <Modloader/app/structs/AttachInteractionToPhysicsSystem_SoundInteractionSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AttachInteractionToPhysicsSystem_SoundInteractionSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

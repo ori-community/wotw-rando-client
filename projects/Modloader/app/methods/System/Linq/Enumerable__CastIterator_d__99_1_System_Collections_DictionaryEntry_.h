@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enumerable_CastIterator_d_99_1_System_Collections_DictionaryEntry_.h>
+#include <Modloader/app/structs/DictionaryEntry.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Collections_DictionaryEntry_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Linq::Enumerable__CastIterator_d__99_1_System_Collections_DictionaryEntry_ {
     IL2CPP_REGISTER_METHOD(0x02985070, void, ctor, (app::Enumerable_CastIterator_d_99_1_System_Collections_DictionaryEntry_ * this_ptr, int32_t __1__state))

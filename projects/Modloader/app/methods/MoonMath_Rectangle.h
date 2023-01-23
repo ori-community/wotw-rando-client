@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::MoonMath_Rectangle {
     IL2CPP_REGISTER_METHOD(0x025796D0, bool, GetIntersection, (app::Rect rect, app::Vector2 p1, app::Vector2 p2, app::Vector2* intersection))

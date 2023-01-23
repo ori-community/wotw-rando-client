@@ -3,6 +3,17 @@
 #include <Core/api/graphics/sprite.h>
 #include <nlohmann/json.hpp>
 
+#include <Modloader/app/structs/BlendMode__Enum.h>
+#include <Modloader/app/structs/AlignmentMode__Enum.h>
+#include <Modloader/app/structs/HorizontalAnchorMode__Enum.h>
+#include <Modloader/app/structs/VerticalAnchorMode__Enum.h>
+#include <Modloader/app/structs/SetupControllerStateHolder_StateControllerMode__Enum.h>
+#include <Modloader/app/structs/QuestNodeSetup_RewardType__Enum.h>
+#include <Modloader/app/structs/UberStateConditionType__Enum.h>
+#include <Modloader/app/structs/ConditionUberState_ConditionsCheckMode__Enum.h>
+#include <Modloader/app/structs/WorldMapIconType__Enum.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+
 CORE_DLLEXPORT bool load_json_file(std::string path, nlohmann::json& j);
 
 namespace app {

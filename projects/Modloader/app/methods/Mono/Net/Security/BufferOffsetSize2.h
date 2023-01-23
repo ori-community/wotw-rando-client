@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BufferOffsetSize2.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Mono::Net::Security::BufferOffsetSize2 {
     IL2CPP_REGISTER_METHOD(0x0217C920, void, ctor, (app::BufferOffsetSize2 * this_ptr, int32_t size))

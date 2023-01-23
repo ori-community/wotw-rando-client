@@ -1,0 +1,37 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Enumerable_WhereSelectArrayIterator_2_UnityEngine_Vector3_UnityEngine_Vector2___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Enumerable_WhereSelectArrayIterator_2_UnityEngine_Vector3_UnityEngine_Vector2___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Enumerable_WhereSelectArrayIterator_2_UnityEngine_Vector3_UnityEngine_Vector2___Fields_DEFINED)
+#include <Modloader/app/structs/Enumerable_Iterator_1_UnityEngine_Vector2___Fields.h>
+#if defined(IL2CPP_STRUCT_Enumerable_Iterator_1_UnityEngine_Vector2___Fields_DEFINED)
+#define IL2CPP_STRUCT_Enumerable_WhereSelectArrayIterator_2_UnityEngine_Vector3_UnityEngine_Vector2___Fields_DEFINED
+struct Vector3__Array;
+struct Func_2_UnityEngine_Vector3_Boolean_;
+struct Func_2_UnityEngine_Vector3_UnityEngine_Vector2_;
+struct Enumerable_WhereSelectArrayIterator_2_UnityEngine_Vector3_UnityEngine_Vector2___Fields {
+    struct Enumerable_Iterator_1_UnityEngine_Vector2___Fields _;
+    struct Vector3__Array* source;
+    struct Func_2_UnityEngine_Vector3_Boolean_* predicate;
+    struct Func_2_UnityEngine_Vector3_UnityEngine_Vector2_* selector;
+    int32_t index;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Enumerable_WhereSelectArrayIterator_2_UnityEngine_Vector3_UnityEngine_Vector2___Fields_FWDDECL)
+#define IL2CPP_STRUCT_Enumerable_WhereSelectArrayIterator_2_UnityEngine_Vector3_UnityEngine_Vector2___Fields_FWDDECL
+#include <Modloader/app/structs/Func_2_UnityEngine_Vector3_Boolean_.h>
+#include <Modloader/app/structs/Func_2_UnityEngine_Vector3_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#endif
+#undef IL2CPP_STRUCT_Enumerable_WhereSelectArrayIterator_2_UnityEngine_Vector3_UnityEngine_Vector2___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Enumerable_WhereSelectArrayIterator_2_UnityEngine_Vector3_UnityEngine_Vector2___Fields_DEFINED) && !defined(IL2CPP_STRUCT_Enumerable_WhereSelectArrayIterator_2_UnityEngine_Vector3_UnityEngine_Vector2___Fields_FWDDECL)
+#include <Modloader/app/structs/Enumerable_WhereSelectArrayIterator_2_UnityEngine_Vector3_UnityEngine_Vector2___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Enumerable_WhereSelectArrayIterator_2_UnityEngine_Vector3_UnityEngine_Vector2___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

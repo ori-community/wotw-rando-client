@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WeaponMasterEntity.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ICharacter.h>
 
 namespace app::classes::WeaponMasterEntity {
     IL2CPP_REGISTER_METHOD(0x008E79D0, bool, get_OnGround, (app::WeaponMasterEntity * this_ptr))

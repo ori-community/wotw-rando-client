@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinLevel.h>
+#include <Modloader/app/structs/SeinCharacter.h>
 
 namespace app::classes::SeinLevel {
     IL2CPP_REGISTER_METHOD(0x010226C0, int32_t, get_Experience, (app::SeinLevel * this_ptr))

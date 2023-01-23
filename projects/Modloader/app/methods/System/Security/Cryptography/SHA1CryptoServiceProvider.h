@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SHA1CryptoServiceProvider.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::SHA1CryptoServiceProvider {
     IL2CPP_REGISTER_METHOD(0x028F4690, void, ctor, (app::SHA1CryptoServiceProvider * this_ptr))

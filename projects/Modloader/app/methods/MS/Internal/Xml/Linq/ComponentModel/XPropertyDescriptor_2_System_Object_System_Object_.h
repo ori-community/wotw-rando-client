@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XPropertyDescriptor_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventHandler.h>
+#include <Modloader/app/structs/XObjectChangeEventArgs.h>
 
 namespace app::classes::MS::Internal::Xml::Linq::ComponentModel::XPropertyDescriptor_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x019F8980, app::Type*, get_ComponentType, (app::XPropertyDescriptor_2_System_Object_System_Object_ * this_ptr))

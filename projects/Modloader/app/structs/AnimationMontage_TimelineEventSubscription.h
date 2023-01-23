@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription_DEFINED)
+#include <Modloader/app/structs/AnimationMontage_TimelineEventSubscription__Fields.h>
+#if defined(IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription__Fields_DEFINED)
+#define IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription_DEFINED
+struct AnimationMontage_TimelineEventSubscription__Class;
+struct AnimationMontage_TimelineEventSubscription {
+    struct AnimationMontage_TimelineEventSubscription__Class* klass;
+    MonitorData* monitor;
+    struct AnimationMontage_TimelineEventSubscription__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription_FWDDECL)
+#define IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription_FWDDECL
+#include <Modloader/app/structs/AnimationMontage_TimelineEventSubscription__Class.h>
+#endif
+#undef IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription_DEFINED) && !defined(IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription_FWDDECL)
+#include <Modloader/app/structs/AnimationMontage_TimelineEventSubscription.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AnimationMontage_TimelineEventSubscription.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AkMemBankLoader_LoadFile_d_14__Class.h>
+#include <Modloader/app/structs/AkMemBankLoader_LoadFile_d_14.h>
 
 namespace app::classes::types {
     namespace AkMemBankLoader_LoadFile_d_14 {

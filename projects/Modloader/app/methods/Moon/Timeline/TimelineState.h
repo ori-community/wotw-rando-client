@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_Single_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/ITimelineStateObserver.h>
+#include <Modloader/app/structs/TimelineState.h>
 
 namespace app::classes::Moon::Timeline::TimelineState {
     IL2CPP_REGISTER_METHOD(0x01E8CC30, bool, get_InPreviewMode, ())

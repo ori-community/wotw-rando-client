@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ControlsScreen.h>
+#include <Modloader/app/structs/ControlScheme__Enum.h>
+#include <Modloader/app/structs/KeyCode__Enum__Array.h>
+#include <Modloader/app/structs/KeybindingCommandMapAsset_CommandBindingEnum__Enum.h>
 
 namespace app::classes::ControlsScreen {
     IL2CPP_REGISTER_METHOD(0x011F2DC0, bool, get_IsVisible, ())

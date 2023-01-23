@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WorldProgression__Enum.h>
 
 namespace app::classes::Sein::World::Events {
     IL2CPP_REGISTER_METHOD(0x0106F850, bool, get_GinsoTreeEntered, ())

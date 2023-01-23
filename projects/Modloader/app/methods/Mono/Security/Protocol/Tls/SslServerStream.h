@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SslServerStream.h>
+#include <Modloader/app/structs/CertificateValidationCallback.h>
+#include <Modloader/app/structs/PrivateKeySelectionCallback.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/CertificateValidationCallback2.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/SecurityProtocolType__Enum_1.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/X509CertificateCollection_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/ValidationResult.h>
+#include <Modloader/app/structs/X509CertificateCollection_2.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::SslServerStream {
     IL2CPP_REGISTER_METHOD(0x01F82390, void, add_ClientCertValidation, (app::SslServerStream * this_ptr, app::CertificateValidationCallback* value))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IPAddress.h>
+#include <Modloader/app/structs/PlayFabLoggerBase.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/LogType__Enum.h>
 
 namespace app::classes::PlayFab::Public::PlayFabLoggerBase {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::IPAddress*, get_ip, (app::PlayFabLoggerBase * this_ptr))

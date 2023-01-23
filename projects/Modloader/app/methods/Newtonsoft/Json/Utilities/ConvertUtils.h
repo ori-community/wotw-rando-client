@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PrimitiveTypeCode__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeInformation_1.h>
+#include <Modloader/app/structs/IConvertible.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/StructMultiKey_2_System_Type_System_Type_.h>
+#include <Modloader/app/structs/BigInteger_2.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/ConvertUtils_ConvertResult__Enum.h>
+#include <Modloader/app/structs/Version.h>
+#include <Modloader/app/structs/ParseResult__Enum.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/Guid.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::ConvertUtils {
     IL2CPP_REGISTER_METHOD(0x01C01D10, app::PrimitiveTypeCode__Enum, GetTypeCode_1, (app::Type * t))

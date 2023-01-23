@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_System_String_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_System_String_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::EqualityComparer_1_System_String_ * this_ptr))

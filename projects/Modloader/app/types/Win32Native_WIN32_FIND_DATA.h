@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Win32Native_WIN32_FIND_DATA__Class.h>
+#include <Modloader/app/structs/Win32Native_WIN32_FIND_DATA.h>
 
 namespace app::classes::types {
     namespace Win32Native_WIN32_FIND_DATA {

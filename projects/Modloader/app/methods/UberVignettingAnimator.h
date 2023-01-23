@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberVignettingAnimator.h>
 
 namespace app::classes::UberVignettingAnimator {
     IL2CPP_REGISTER_METHOD(0x00FEF0A0, void, OnDisable, (app::UberVignettingAnimator * this_ptr))

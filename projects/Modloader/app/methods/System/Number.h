@@ -1,6 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NumberFormatInfo.h>
+#include <Modloader/app/structs/Number_NumberBuffer.h>
+#include <Modloader/app/structs/NumberStyles__Enum.h>
+
+#include <Modloader/app/structs/StringBuilder.h>
+
 namespace app::classes::System::Number {
     IL2CPP_REGISTER_METHOD(0x0226F7F0, bool, NumberBufferToDecimal, (uint8_t * number, app::Decimal* value))
     IL2CPP_REGISTER_METHOD(0x0226F800, bool, NumberBufferToDouble, (uint8_t * number, double* value))

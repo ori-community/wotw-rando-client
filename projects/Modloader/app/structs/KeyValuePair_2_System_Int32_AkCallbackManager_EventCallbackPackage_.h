@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_AkCallbackManager_EventCallbackPackage__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_AkCallbackManager_EventCallbackPackage__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_AkCallbackManager_EventCallbackPackage__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_AkCallbackManager_EventCallbackPackage__DEFINED
+struct AkCallbackManager_EventCallbackPackage;
+struct KeyValuePair_2_System_Int32_AkCallbackManager_EventCallbackPackage_ {
+    int32_t key;
+    struct AkCallbackManager_EventCallbackPackage* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_AkCallbackManager_EventCallbackPackage__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_AkCallbackManager_EventCallbackPackage__FWDDECL
+#include <Modloader/app/structs/AkCallbackManager_EventCallbackPackage.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_AkCallbackManager_EventCallbackPackage__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_AkCallbackManager_EventCallbackPackage__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_AkCallbackManager_EventCallbackPackage__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_AkCallbackManager_EventCallbackPackage_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_AkCallbackManager_EventCallbackPackage_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

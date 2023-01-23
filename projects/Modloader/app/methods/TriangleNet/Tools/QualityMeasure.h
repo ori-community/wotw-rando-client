@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QualityMeasure.h>
+#include <Modloader/app/structs/Mesh_1.h>
 
 namespace app::classes::TriangleNet::Tools::QualityMeasure {
     IL2CPP_REGISTER_METHOD(0x02A98DC0, void, ctor, (app::QualityMeasure * this_ptr))

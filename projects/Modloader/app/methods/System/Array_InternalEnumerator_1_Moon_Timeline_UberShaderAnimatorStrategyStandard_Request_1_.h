@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1___Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1__Boxed.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Single_.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2__Boxed.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3__Boxed.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Vector4_.h>
 
 namespace app::classes::System::Array_InternalEnumerator_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_ {
     IL2CPP_REGISTER_METHOD(0x00160580, void, ctor_1, (app::Array_InternalEnumerator_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1___Boxed * this_ptr, app::Array* array))

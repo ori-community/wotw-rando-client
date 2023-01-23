@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CFNetwork_CFProxyAutoConfigurationResultCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Mono::Net::CFNetwork_CFProxyAutoConfigurationResultCallback {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::CFNetwork_CFProxyAutoConfigurationResultCallback * this_ptr, app::Object* object, void* method_1))

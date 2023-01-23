@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CharacterStateWrapper_1_SeinBounceAbility__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CharacterStateWrapper_1_SeinBounceAbility__INITIALIZING
+#if !defined(IL2CPP_STRUCT_CharacterStateWrapper_1_SeinBounceAbility__DEFINED)
+#include <Modloader/app/structs/CharacterStateWrapper_1_SeinBounceAbility___Fields.h>
+#if defined(IL2CPP_STRUCT_CharacterStateWrapper_1_SeinBounceAbility___Fields_DEFINED)
+#define IL2CPP_STRUCT_CharacterStateWrapper_1_SeinBounceAbility__DEFINED
+struct CharacterStateWrapper_1_SeinBounceAbility___Class;
+struct CharacterStateWrapper_1_SeinBounceAbility_ {
+    struct CharacterStateWrapper_1_SeinBounceAbility___Class* klass;
+    MonitorData* monitor;
+    struct CharacterStateWrapper_1_SeinBounceAbility___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CharacterStateWrapper_1_SeinBounceAbility__FWDDECL)
+#define IL2CPP_STRUCT_CharacterStateWrapper_1_SeinBounceAbility__FWDDECL
+#include <Modloader/app/structs/CharacterStateWrapper_1_SeinBounceAbility___Class.h>
+#endif
+#undef IL2CPP_STRUCT_CharacterStateWrapper_1_SeinBounceAbility__INITIALIZING
+#if !defined(IL2CPP_STRUCT_CharacterStateWrapper_1_SeinBounceAbility__DEFINED) && !defined(IL2CPP_STRUCT_CharacterStateWrapper_1_SeinBounceAbility__FWDDECL)
+#include <Modloader/app/structs/CharacterStateWrapper_1_SeinBounceAbility_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CharacterStateWrapper_1_SeinBounceAbility_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormLocomotion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SandWormLocomotion_SpeedSetting__Enum.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Func_1_SandWormSandDigLocomotionBehaviour_SpeedEntry_.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/Entity.h>
 
 namespace app::classes::SandWormLocomotion {
     IL2CPP_REGISTER_METHOD(0x00C1ECF0, float, get_LastAvoidancePower, (app::SandWormLocomotion * this_ptr))

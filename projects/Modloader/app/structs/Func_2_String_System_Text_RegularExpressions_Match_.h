@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Func_2_String_System_Text_RegularExpressions_Match__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Func_2_String_System_Text_RegularExpressions_Match__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Func_2_String_System_Text_RegularExpressions_Match__DEFINED)
+#include <Modloader/app/structs/Func_2_String_System_Text_RegularExpressions_Match___Fields.h>
+#if defined(IL2CPP_STRUCT_Func_2_String_System_Text_RegularExpressions_Match___Fields_DEFINED)
+#define IL2CPP_STRUCT_Func_2_String_System_Text_RegularExpressions_Match__DEFINED
+struct Func_2_String_System_Text_RegularExpressions_Match___Class;
+struct Func_2_String_System_Text_RegularExpressions_Match_ {
+    struct Func_2_String_System_Text_RegularExpressions_Match___Class* klass;
+    MonitorData* monitor;
+    struct Func_2_String_System_Text_RegularExpressions_Match___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Func_2_String_System_Text_RegularExpressions_Match__FWDDECL)
+#define IL2CPP_STRUCT_Func_2_String_System_Text_RegularExpressions_Match__FWDDECL
+#include <Modloader/app/structs/Func_2_String_System_Text_RegularExpressions_Match___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Func_2_String_System_Text_RegularExpressions_Match__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Func_2_String_System_Text_RegularExpressions_Match__DEFINED) && !defined(IL2CPP_STRUCT_Func_2_String_System_Text_RegularExpressions_Match__FWDDECL)
+#include <Modloader/app/structs/Func_2_String_System_Text_RegularExpressions_Match_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Func_2_String_System_Text_RegularExpressions_Match_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

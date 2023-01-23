@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LimitRigidbodyMovement.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::LimitRigidbodyMovement {
     IL2CPP_REGISTER_METHOD(0x00FA4000, void, PerformAttachment, (app::LimitRigidbodyMovement * this_ptr))

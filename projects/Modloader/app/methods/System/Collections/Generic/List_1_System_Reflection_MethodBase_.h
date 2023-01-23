@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Reflection_MethodBase_.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/MethodBase__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Reflection_MethodBase_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor, (app::List_1_System_Reflection_MethodBase_ * this_ptr, int32_t capacity))

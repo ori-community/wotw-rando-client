@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_ArrayOrListVisitor.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_Visitor.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_VisitorCtx.h>
 
 namespace app::classes::DynamicInstantiationScanner_ArrayOrListVisitor {
     IL2CPP_REGISTER_METHOD(0x030E2F00, void, ctor, (app::DynamicInstantiationScanner_ArrayOrListVisitor * this_ptr, app::Type* type, app::DynamicInstantiationScanner_Visitor* underlying))

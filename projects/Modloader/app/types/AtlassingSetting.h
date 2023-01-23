@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AtlassingSetting__Class.h>
+#include <Modloader/app/structs/AtlassingSetting.h>
+#include <Modloader/app/structs/AtlassingSetting__Boxed.h>
+#include <Modloader/app/structs/AtlassingSetting__Array.h>
 
 namespace app::classes::types {
     namespace AtlassingSetting {

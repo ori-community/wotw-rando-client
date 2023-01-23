@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Sprite.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::Sprites::DataUtility {
     IL2CPP_REGISTER_METHOD(0x02C63300, app::Vector4, GetInnerUV, (app::Sprite * sprite))

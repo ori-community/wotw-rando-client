@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MemoryCounter.h>
 
 namespace app::classes::MemoryCounter {
     IL2CPP_REGISTER_METHOD(0x009D7710, void, FixedUpdate, (app::MemoryCounter * this_ptr))

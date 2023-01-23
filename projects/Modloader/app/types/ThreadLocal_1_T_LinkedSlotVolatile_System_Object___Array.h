@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ThreadLocal_1_T_LinkedSlotVolatile_System_Object___Array__Class.h>
+#include <Modloader/app/structs/ThreadLocal_1_T_LinkedSlotVolatile_System_Object___Array.h>
 
 namespace app::classes::types {
     namespace ThreadLocal_1_T_LinkedSlotVolatile_System_Object___Array {

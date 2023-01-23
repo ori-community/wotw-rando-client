@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MapmakerUISubItem.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/MapmakerItem.h>
 
 namespace app::classes::MapmakerUISubItem {
     IL2CPP_REGISTER_METHOD(0x00A0F4A0, void, Update, (app::MapmakerUISubItem * this_ptr))

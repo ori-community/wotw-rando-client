@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkillTreeManager.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager_NavigationData.h>
+#include <Modloader/app/structs/MessageDescriptor.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SkillItem.h>
 
 namespace app::classes::SkillTreeManager {
     IL2CPP_REGISTER_METHOD(0x006B5FF0, void, ResetStatics, ())

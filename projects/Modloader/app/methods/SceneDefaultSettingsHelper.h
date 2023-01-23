@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/SceneDefaultSettingsHelper.h>
+#include <Modloader/app/structs/SceneSettings.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SceneDefaultSettingsHelper {
     IL2CPP_REGISTER_METHOD(0x002FBB00, app::SceneRoot*, get_CurrentToScene, (app::SceneDefaultSettingsHelper * this_ptr))

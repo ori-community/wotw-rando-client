@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersStartState.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersStartState {
     IL2CPP_REGISTER_METHOD(0x01771600, void, ctor, (app::PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersStartState * this_ptr, app::PetrifiedOwlBossFinalComboBehaviour* behaviour))

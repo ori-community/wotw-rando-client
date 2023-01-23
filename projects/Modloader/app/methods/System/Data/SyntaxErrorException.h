@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SyntaxErrorException.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Data::SyntaxErrorException {
     IL2CPP_REGISTER_METHOD(0x022BE900, void, ctor_1, (app::SyntaxErrorException * this_ptr, app::SerializationInfo* info, app::StreamingContext context))

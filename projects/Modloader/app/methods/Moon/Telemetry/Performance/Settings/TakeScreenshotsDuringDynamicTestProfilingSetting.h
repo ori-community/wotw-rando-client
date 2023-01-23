@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/TakeScreenshotsDuringDynamicTestProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::TakeScreenshotsDuringDynamicTestProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x00C754B0, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::TakeScreenshotsDuringDynamicTestProfilingSetting * this_ptr))

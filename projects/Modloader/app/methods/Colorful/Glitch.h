@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Glitch.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Glitch_InterferenceSettings.h>
+#include <Modloader/app/structs/Glitch_TearingSettings.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::Glitch {
     IL2CPP_REGISTER_METHOD(0x0051DB40, bool, get_IsActive, (app::Glitch * this_ptr))

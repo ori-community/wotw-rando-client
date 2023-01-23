@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConditionalExpression.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/ExpressionVisitor.h>
 
 namespace app::classes::System::Linq::Expressions::ConditionalExpression {
     IL2CPP_REGISTER_METHOD(0x01FA2E70, void, ctor, (app::ConditionalExpression * this_ptr, app::Expression* test, app::Expression* if_true))

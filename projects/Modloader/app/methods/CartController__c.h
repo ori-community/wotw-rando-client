@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CartController_c.h>
 
 namespace app::classes::CartController___c {
     IL2CPP_REGISTER_METHOD(0x00B35D90, void, cctor, ())

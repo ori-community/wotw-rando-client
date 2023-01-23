@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RisingWater.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::RisingWater {
     IL2CPP_REGISTER_METHOD(0x01357920, app::RisingWater*, get_Instance, ())

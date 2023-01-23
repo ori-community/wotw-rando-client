@@ -26,7 +26,6 @@
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/types/SpiritShardSettings.h>
 #include <Modloader/app/types/SpiritShardsShopScreen.h>
-#include <Modloader/app/types/BuilderScreen.h>
 #include <Modloader/app/types/MapmakerScreen.h>
 #include <Modloader/app/types/ShardUpgradeScreen.h>
 #include <Modloader/app/types/WeaponmasterScreen.h>
@@ -35,6 +34,9 @@
 #include <Modloader/app/types/CleverMenuItem.h>
 #include <Modloader/app/types/TextBox.h>
 #include <Modloader/app/types/ShopkeeperUISubItem.h>
+#include <Modloader/app/structs/Boolean__Boxed.h>
+#include <Modloader/app/structs/Int32__Boxed.h>
+#include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Boxed.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>

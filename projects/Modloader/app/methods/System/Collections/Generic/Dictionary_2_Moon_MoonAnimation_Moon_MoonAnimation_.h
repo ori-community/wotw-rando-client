@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_MoonAnimation_Moon_MoonAnimation_.h>
+#include <Modloader/app/structs/MoonAnimation.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_Moon_MoonAnimation_Moon_MoonAnimation_ {
     IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_Moon_MoonAnimation_Moon_MoonAnimation_ * this_ptr, app::MoonAnimation* key, app::MoonAnimation** value))

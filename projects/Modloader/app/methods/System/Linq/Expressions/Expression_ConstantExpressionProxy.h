@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Expression_ConstantExpressionProxy.h>
+#include <Modloader/app/structs/ConstantExpression.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_ConstantExpressionProxy {
     IL2CPP_REGISTER_METHOD(0x029D4AD0, void, ctor, (app::Expression_ConstantExpressionProxy * this_ptr, app::ConstantExpression* node))

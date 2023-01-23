@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PreUpdate_PhysicsUpdate__Class.h>
+#include <Modloader/app/structs/PreUpdate_PhysicsUpdate.h>
+#include <Modloader/app/structs/PreUpdate_PhysicsUpdate__Boxed.h>
 
 namespace app::classes::types {
     namespace PreUpdate_PhysicsUpdate {

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityWeightData.h>
 
 namespace app::classes::EntityWeightData {
     IL2CPP_REGISTER_METHOD(0x00CA5F70, void, BuildDictonary, (app::EntityWeightData * this_ptr))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReplaySetting.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::ReplaySetting {
     IL2CPP_REGISTER_METHOD(0x006B8960, bool, ShowPositionOverride, (app::ReplaySetting * this_ptr))

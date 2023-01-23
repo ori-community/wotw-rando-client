@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/IllogicalCallContext.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::IllogicalCallContext {
     IL2CPP_REGISTER_METHOD(0x02310650, app::Hashtable*, get_Datastore, (app::IllogicalCallContext * this_ptr))

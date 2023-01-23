@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLowFlightArena2Behaviour.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseStatesSet.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::PetrifiedOwlBossLowFlightArena2Behaviour {
     IL2CPP_REGISTER_METHOD(0x002FBD40, app::StateMachine_2*, get_StateMachine, (app::PetrifiedOwlBossLowFlightArena2Behaviour * this_ptr))

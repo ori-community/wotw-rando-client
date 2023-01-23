@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyParticleEmissionRateAnimator.h>
 
 namespace app::classes::LegacyParticleEmissionRateAnimator {
     IL2CPP_REGISTER_METHOD(0x00A2F380, void, FetchInitialEmitterValues, (app::LegacyParticleEmissionRateAnimator * this_ptr))

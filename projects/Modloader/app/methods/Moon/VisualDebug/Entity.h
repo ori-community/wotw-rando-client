@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Entity_1.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IRenderEntity.h>
 
 namespace app::classes::Moon::VisualDebug::Entity {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::Entity_1 * this_ptr))

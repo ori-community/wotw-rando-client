@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GUIContent.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture.h>
 
 namespace app::classes::UnityEngine::GUIContent {
     IL2CPP_REGISTER_METHOD(0x029E2910, void, ctor_1, (app::GUIContent * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UInt32__Array.h>
 
 namespace app::classes::System::Numerics::BigIntegerCalculator {
     IL2CPP_REGISTER_METHOD(0x030FE440, app::UInt32__Array*, Add_1, (app::UInt32__Array * left, uint32_t right))

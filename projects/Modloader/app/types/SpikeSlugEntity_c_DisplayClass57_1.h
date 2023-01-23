@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SpikeSlugEntity_c_DisplayClass57_1__Class.h>
+#include <Modloader/app/structs/SpikeSlugEntity_c_DisplayClass57_1.h>
 
 namespace app::classes::types {
     namespace SpikeSlugEntity_c_DisplayClass57_1 {

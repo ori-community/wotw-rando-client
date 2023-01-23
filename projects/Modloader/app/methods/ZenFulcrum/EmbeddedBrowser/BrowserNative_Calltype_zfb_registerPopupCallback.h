@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_registerPopupCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/BrowserNative_NewWindowAction__Enum.h>
+#include <Modloader/app/structs/BrowserNative_ZFBSettings.h>
+#include <Modloader/app/structs/BrowserNative_NewWindowFunc.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::BrowserNative_Calltype_zfb_registerPopupCallback {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::BrowserNative_Calltype_zfb_registerPopupCallback * this_ptr, app::Object* object, void* method_1))

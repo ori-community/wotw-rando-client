@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinaryNode.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/ExpressionNode.h>
+#include <Modloader/app/structs/List_1_System_Data_DataColumn_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/StorageType__Enum.h>
+#include <Modloader/app/structs/CompareInfo.h>
+#include <Modloader/app/structs/BinaryNode_DataTypePrecedence__Enum.h>
 
 namespace app::classes::System::Data::BinaryNode {
     IL2CPP_REGISTER_METHOD(0x01E3FFB0, void, ctor, (app::BinaryNode * this_ptr, app::DataTable* table, int32_t op, app::ExpressionNode* left, app::ExpressionNode* right))

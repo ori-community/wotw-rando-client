@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebConnectionStream.h>
+#include <Modloader/app/structs/WebConnection.h>
+#include <Modloader/app/structs/WebConnectionData.h>
+#include <Modloader/app/structs/HttpWebRequest.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SimpleAsyncCallback.h>
+#include <Modloader/app/structs/SimpleAsyncResult.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
 
 namespace app::classes::System::Net::WebConnectionStream {
     IL2CPP_REGISTER_METHOD(0x01D6A890, void, ctor_1, (app::WebConnectionStream * this_ptr, app::WebConnection* cnc, app::WebConnectionData* data))

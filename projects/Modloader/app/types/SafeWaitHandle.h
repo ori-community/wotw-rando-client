@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SafeWaitHandle__Class.h>
+#include <Modloader/app/structs/SafeWaitHandle.h>
 
 namespace app::classes::types {
     namespace SafeWaitHandle {

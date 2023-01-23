@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFeatherFlurryBehaviour.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/ProjectileSpawner.h>
+#include <Modloader/app/structs/Projectile.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/Enum.h>
 
 namespace app::classes::PetrifiedOwlBossFeatherFlurryBehaviour {
     IL2CPP_REGISTER_METHOD(0x01763DD0, app::Vector3, get_AttackPosition, (app::PetrifiedOwlBossFeatherFlurryBehaviour * this_ptr))

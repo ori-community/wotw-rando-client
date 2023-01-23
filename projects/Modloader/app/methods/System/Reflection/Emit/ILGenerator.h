@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocalBuilder.h>
+#include <Modloader/app/structs/ILGenerator.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Label.h>
+#include <Modloader/app/structs/OpCode.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
 
 namespace app::classes::System::Reflection::Emit::ILGenerator {
     IL2CPP_REGISTER_METHOD(0x02680C20, app::LocalBuilder*, DeclareLocal, (app::ILGenerator * this_ptr, app::Type* local_type))

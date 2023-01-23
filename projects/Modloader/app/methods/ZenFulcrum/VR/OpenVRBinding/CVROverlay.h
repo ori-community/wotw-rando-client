@@ -1,5 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CVROverlay.h>
+#include <Modloader/app/structs/EVROverlayError__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/VROverlayFlags__Enum.h>
+#include <Modloader/app/structs/EColorSpace__Enum.h>
+#include <Modloader/app/structs/VRTextureBounds_t.h>
+#include <Modloader/app/structs/HmdColor_t.h>
+#include <Modloader/app/structs/VROverlayTransformType__Enum.h>
+#include <Modloader/app/structs/ETrackingUniverseOrigin__Enum.h>
+#include <Modloader/app/structs/HmdMatrix34_t.h>
+#include <Modloader/app/structs/HmdVector2_t.h>
+#include <Modloader/app/structs/VREvent_t.h>
+#include <Modloader/app/structs/VROverlayInputMethod__Enum.h>
+#include <Modloader/app/structs/VROverlayIntersectionParams_t.h>
+#include <Modloader/app/structs/VROverlayIntersectionResults_t.h>
+#include <Modloader/app/structs/EOverlayDirection__Enum.h>
+#include <Modloader/app/structs/Texture_t.h>
+#include <Modloader/app/structs/void.h>
+#include <Modloader/app/structs/ETextureType__Enum.h>
+#include <Modloader/app/structs/HmdRect2_t.h>
+#include <Modloader/app/structs/VROverlayIntersectionMaskPrimitive_t.h>
+#include <Modloader/app/structs/VRMessageOverlayResponse__Enum.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVROverlay {
     IL2CPP_REGISTER_METHOD(0x01678A40, void, ctor, (app::CVROverlay * this_ptr, void* p_interface))

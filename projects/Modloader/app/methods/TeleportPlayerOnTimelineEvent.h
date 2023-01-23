@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TeleportPlayerOnTimelineEvent.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::TeleportPlayerOnTimelineEvent {
     IL2CPP_REGISTER_METHOD(0x00CE8F90, void, OnEnable, (app::TeleportPlayerOnTimelineEvent * this_ptr))

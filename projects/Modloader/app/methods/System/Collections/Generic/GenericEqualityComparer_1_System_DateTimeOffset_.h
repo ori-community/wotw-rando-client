@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericEqualityComparer_1_System_DateTimeOffset_.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/DateTimeOffset__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::GenericEqualityComparer_1_System_DateTimeOffset_ {
     IL2CPP_REGISTER_METHOD(0x02AB0D20, bool, Equals_1, (app::GenericEqualityComparer_1_System_DateTimeOffset_ * this_ptr, app::DateTimeOffset x, app::DateTimeOffset y))

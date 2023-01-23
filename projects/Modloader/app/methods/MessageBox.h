@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_Moon_ISuspendable_.h>
+#include <Modloader/app/structs/MessageBox.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/Action_1_MessageBox_HideAction_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Language__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/QuestMessageIcon_QuestMode__Enum.h>
+#include <Modloader/app/structs/WispMessageIcon_Wisp__Enum.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/PickupContext.h>
+#include <Modloader/app/structs/GameObject__Array.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/MessageDescriptor.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/EmotionType__Enum.h>
+#include <Modloader/app/structs/Event_1.h>
 
 namespace app::classes::MessageBox {
     IL2CPP_REGISTER_METHOD(0x0158DA80, app::HashSet_1_Moon_ISuspendable_*, GetSuspendables, (app::MessageBox * this_ptr))

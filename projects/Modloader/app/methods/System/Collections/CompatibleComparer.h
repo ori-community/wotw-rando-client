@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompatibleComparer.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/IHashCodeProvider.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::CompatibleComparer {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::CompatibleComparer * this_ptr, app::IComparer* comparer, app::IHashCodeProvider* hash_code_provider))

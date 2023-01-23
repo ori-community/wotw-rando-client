@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringBuffer__Boxed.h>
+#include <Modloader/app/structs/IArrayPool_1_System_Char_.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::StringBuffer {
     IL2CPP_REGISTER_METHOD(0x0010A860, int32_t, get_Position, (app::StringBuffer__Boxed * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WeaponPreviewAnimator.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::WeaponPreviewAnimator {
     IL2CPP_REGISTER_METHOD(0x002FBC10, void, SetFrame, (app::WeaponPreviewAnimator * this_ptr, app::Transform* attached_joint))

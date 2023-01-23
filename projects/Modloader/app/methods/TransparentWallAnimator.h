@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonSetupVisuals.h>
+#include <Modloader/app/structs/TransparentWallAnimator.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::TransparentWallAnimator {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::IMoonSetupVisuals*, get_MoonSetupVisuals, (app::TransparentWallAnimator * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaitHandle.h>
+#include <Modloader/app/structs/ManualResetEventSlim.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Threading::ManualResetEventSlim {
     IL2CPP_REGISTER_METHOD(0x027DE960, app::WaitHandle*, get_WaitHandle, (app::ManualResetEventSlim * this_ptr))

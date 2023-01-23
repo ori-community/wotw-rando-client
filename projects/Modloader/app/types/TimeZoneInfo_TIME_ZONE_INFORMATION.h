@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TimeZoneInfo_TIME_ZONE_INFORMATION__Class.h>
+#include <Modloader/app/structs/TimeZoneInfo_TIME_ZONE_INFORMATION.h>
+#include <Modloader/app/structs/TimeZoneInfo_TIME_ZONE_INFORMATION__Boxed.h>
 
 namespace app::classes::types {
     namespace TimeZoneInfo_TIME_ZONE_INFORMATION {

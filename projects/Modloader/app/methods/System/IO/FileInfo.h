@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FileInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/DirectoryInfo.h>
+#include <Modloader/app/structs/FileStream.h>
 
 namespace app::classes::System::IO::FileInfo {
     IL2CPP_REGISTER_METHOD(0x01E085A0, void, ctor_1, (app::FileInfo * this_ptr, app::String* file_name))

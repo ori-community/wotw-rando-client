@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/KwolokBossCannonBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Projectile.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/Enum.h>
 
 namespace app::classes::KwolokBossCannonBehaviour {
     IL2CPP_REGISTER_METHOD(0x0124C3F0, app::Vector3, get_ProjectedShootPoint, (app::KwolokBossCannonBehaviour * this_ptr))

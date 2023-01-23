@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InventoryManager.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
 
 namespace app::classes::InventoryManager {
     IL2CPP_REGISTER_METHOD(0x0063F0E0, void, Show, (app::InventoryManager * this_ptr))

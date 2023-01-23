@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_CrabEntity_.h>
+#include <Modloader/app/structs/List_1_CrabEntity_.h>
+#include <Modloader/app/structs/CrabEntity.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CrabEntity_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_CrabEntity_, GetEnumerator, (app::List_1_CrabEntity_ * this_ptr))

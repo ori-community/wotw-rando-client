@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChangeStateInteractionNodeDecorator_StateConditionSetupHolder.h>
+#include <Modloader/app/structs/ChangeStateInteractionNodeDecorator_StateConditionSetupData.h>
+#include <Modloader/app/structs/List_1_IIndexedItem_.h>
 
 namespace app::classes::Moon::InteractionGraph::ChangeStateInteractionNodeDecorator_StateConditionSetupHolder {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_UseMapping, (app::ChangeStateInteractionNodeDecorator_StateConditionSetupHolder * this_ptr))

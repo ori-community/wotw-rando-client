@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem_c.h>
+#include <Modloader/app/structs/Component_1.h>
 
 namespace app::classes::HierarchyDebugMenu_GameObjectItem___c {
     IL2CPP_REGISTER_METHOD(0x00B53F10, void, cctor, ())

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_UInt32_frameworks_Switch_SwitchController_VibrationDataEntry___Array__Class.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_UInt32_frameworks_Switch_SwitchController_VibrationDataEntry___Array.h>
 
 namespace app::classes::types {
     namespace Dictionary_2_TKey_TValue_Entry_System_UInt32_frameworks_Switch_SwitchController_VibrationDataEntry___Array {

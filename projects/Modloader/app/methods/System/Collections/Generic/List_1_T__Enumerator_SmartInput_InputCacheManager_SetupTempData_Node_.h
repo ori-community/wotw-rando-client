@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InputCacheManager_SetupTempData_Node.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_SmartInput_InputCacheManager_SetupTempData_Node___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_SmartInput_InputCacheManager_SetupTempData_Node_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::InputCacheManager_SetupTempData_Node*, get_Current, (app::List_1_T_Enumerator_SmartInput_InputCacheManager_SetupTempData_Node___Boxed * this_ptr))

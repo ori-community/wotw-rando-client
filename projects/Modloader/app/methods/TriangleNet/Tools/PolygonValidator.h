@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IPolygon.h>
+#include <Modloader/app/structs/Point.h>
 
 namespace app::classes::TriangleNet::Tools::PolygonValidator {
     IL2CPP_REGISTER_METHOD(0x02A97720, bool, IsConsistent, (app::IPolygon * poly))

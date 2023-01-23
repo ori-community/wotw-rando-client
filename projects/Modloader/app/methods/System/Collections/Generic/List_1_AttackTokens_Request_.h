@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_AttackTokens_Request_.h>
+#include <Modloader/app/structs/AttackTokens_Request.h>
+#include <Modloader/app/structs/IEnumerable_1_AttackTokens_Request_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_AttackTokens_Request_.h>
+#include <Modloader/app/structs/IComparer_1_AttackTokens_Request_.h>
+#include <Modloader/app/structs/AttackTokens_Request__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_AttackTokens_Request_.h>
+#include <Modloader/app/structs/Action_1_AttackTokens_Request_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_AttackTokens_Request_.h>
+#include <Modloader/app/structs/IEnumerator_1_AttackTokens_Request_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_AttackTokens_Request_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_AttackTokens_Request_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_AttackTokens_Request_ * this_ptr))

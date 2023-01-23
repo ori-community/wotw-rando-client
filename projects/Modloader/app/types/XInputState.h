@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XInputState__Class.h>
+#include <Modloader/app/structs/XInputState.h>
+#include <Modloader/app/structs/XInputState__Boxed.h>
 
 namespace app::classes::types {
     namespace XInputState {

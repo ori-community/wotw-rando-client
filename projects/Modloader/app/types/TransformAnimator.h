@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TransformAnimator__Class.h>
+#include <Modloader/app/structs/TransformAnimator.h>
 
 namespace app::classes::types {
     namespace TransformAnimator {

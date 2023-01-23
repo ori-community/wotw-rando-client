@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Object_SeinNaruComboAnimator_AtlasAndSpriteTexture_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Object_SeinNaruComboAnimator_AtlasAndSpriteTexture_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Object_SeinNaruComboAnimator_AtlasAndSpriteTexture_.h>
+#include <Modloader/app/structs/SeinNaruComboAnimator_AtlasAndSpriteTexture__Array.h>
+#include <Modloader/app/structs/SeinNaruComboAnimator_AtlasAndSpriteTexture.h>
+#include <Modloader/app/structs/IEnumerator_1_SeinNaruComboAnimator_AtlasAndSpriteTexture_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_System_Object_SeinNaruComboAnimator_AtlasAndSpriteTexture_ {
     IL2CPP_REGISTER_METHOD(0x026BB7E0, void, ctor, (app::Dictionary_2_TKey_TValue_ValueCollection_System_Object_SeinNaruComboAnimator_AtlasAndSpriteTexture_ * this_ptr, app::Dictionary_2_System_Object_SeinNaruComboAnimator_AtlasAndSpriteTexture_* dictionary))

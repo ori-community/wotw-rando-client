@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServerCertValidationCallback.h>
+#include <Modloader/app/structs/RemoteCertificateValidationCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/X509Chain.h>
+#include <Modloader/app/structs/SslPolicyErrors__Enum.h>
 
 namespace app::classes::System::Net::ServerCertValidationCallback {
     IL2CPP_REGISTER_METHOD(0x01BD34E0, void, ctor, (app::ServerCertValidationCallback * this_ptr, app::RemoteCertificateValidationCallback* validation_callback))

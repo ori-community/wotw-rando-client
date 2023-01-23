@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLowFlightBehaviour_LandState.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLowFlightBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossLowFlightBehaviour_LandState {
     IL2CPP_REGISTER_METHOD(0x0177A160, void, ctor, (app::PetrifiedOwlBossLowFlightBehaviour_LandState * this_ptr, app::PetrifiedOwlBossLowFlightBehaviour* behaviour))

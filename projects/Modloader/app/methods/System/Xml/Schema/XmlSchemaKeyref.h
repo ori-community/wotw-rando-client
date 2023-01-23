@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaKeyref.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaKeyref {
     IL2CPP_REGISTER_METHOD(0x002FBBE0, app::XmlQualifiedName*, get_Refer, (app::XmlSchemaKeyref * this_ptr))

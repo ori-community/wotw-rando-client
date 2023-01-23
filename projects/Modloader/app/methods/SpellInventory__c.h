@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellInventory_c.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
 
 namespace app::classes::SpellInventory___c {
     IL2CPP_REGISTER_METHOD(0x00942ED0, void, cctor, ())

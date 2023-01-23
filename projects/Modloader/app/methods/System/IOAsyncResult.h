@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IOAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::System::IOAsyncResult {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::IOAsyncResult * this_ptr))

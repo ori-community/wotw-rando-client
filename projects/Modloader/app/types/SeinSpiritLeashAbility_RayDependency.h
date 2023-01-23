@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility_RayDependency__Class.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility_RayDependency.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility_RayDependency__Boxed.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility_RayDependency__Array.h>
 
 namespace app::classes::types {
     namespace SeinSpiritLeashAbility_RayDependency {

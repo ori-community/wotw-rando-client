@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwitchExpression.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_SwitchCase_.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/ExpressionVisitor.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_SwitchCase_.h>
 
 namespace app::classes::System::Linq::Expressions::SwitchExpression {
     IL2CPP_REGISTER_METHOD(0x02FC4FE0, void, ctor, (app::SwitchExpression * this_ptr, app::Type* type, app::Expression* switch_value, app::Expression* default_body, app::MethodInfo_1* comparison, app::ReadOnlyCollection_1_System_Linq_Expressions_SwitchCase_* cases))

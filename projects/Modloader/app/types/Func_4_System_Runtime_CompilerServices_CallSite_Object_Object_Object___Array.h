@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Func_4_System_Runtime_CompilerServices_CallSite_Object_Object_Object___Array__Class.h>
+#include <Modloader/app/structs/Func_4_System_Runtime_CompilerServices_CallSite_Object_Object_Object___Array.h>
 
 namespace app::classes::types {
     namespace Func_4_System_Runtime_CompilerServices_CallSite_Object_Object_Object___Array {

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityPlugin.h>
 
 namespace app::classes::EntityPlugin {
     IL2CPP_REGISTER_METHOD(0x00C9F850, void, Awake, (app::EntityPlugin * this_ptr))

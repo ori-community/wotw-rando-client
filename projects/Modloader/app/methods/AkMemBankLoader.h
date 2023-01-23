@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkMemBankLoader.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::AkMemBankLoader {
     IL2CPP_REGISTER_METHOD(0x026F9230, void, Start, (app::AkMemBankLoader * this_ptr))

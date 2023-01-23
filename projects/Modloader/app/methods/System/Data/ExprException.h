@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OverflowException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/InvalidExpressionException.h>
+#include <Modloader/app/structs/SyntaxErrorException.h>
+#include <Modloader/app/structs/EvaluateException.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Tokens__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Data::ExprException {
     IL2CPP_REGISTER_METHOD(0x01F57D10, app::OverflowException*, _Overflow, (app::String * error))

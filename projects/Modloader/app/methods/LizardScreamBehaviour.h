@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LizardScreamBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::LizardScreamBehaviour {
     IL2CPP_REGISTER_METHOD(0x00FB2330, void, OnEnter, (app::LizardScreamBehaviour * this_ptr, app::IContext* context))

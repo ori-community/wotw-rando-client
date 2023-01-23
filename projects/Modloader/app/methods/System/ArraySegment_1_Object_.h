@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/ArraySegment_1_Object___Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ArraySegment_1_Object_.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::ArraySegment_1_Object_ {
     IL2CPP_REGISTER_METHOD(0x00107C00, app::Object__Array*, get_Array, (app::ArraySegment_1_Object___Boxed * this_ptr))

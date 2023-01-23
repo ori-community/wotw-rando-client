@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/CapsuleCollider.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MovingPlatformsController.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/GrabbableSurface.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Collider_.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Action_2_UnityEngine_Vector3_UnityEngine_Collider_.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::PlatformMovement {
     IL2CPP_REGISTER_METHOD(0x011654C0, void, RefreshCapsulePropertiesCache, (app::PlatformMovement * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTelemetryShardEquipEvent.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JsonBuilder_Object.h>
 
 namespace app::classes::MoonTelemetryShardEquipEvent {
     IL2CPP_REGISTER_METHOD(0x01472090, void, ctor, (app::MoonTelemetryShardEquipEvent * this_ptr, app::PlayerUberStateShards_Shard* shard, bool equipped))

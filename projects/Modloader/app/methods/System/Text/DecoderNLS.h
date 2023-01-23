@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DecoderNLS.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Text::DecoderNLS {
     IL2CPP_REGISTER_METHOD(0x0244A220, void, ctor_1, (app::DecoderNLS * this_ptr, app::SerializationInfo* info, app::StreamingContext context))

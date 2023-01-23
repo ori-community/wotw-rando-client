@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IWebRequestCreate.h>
+#include <Modloader/app/structs/WebRequestPrefixElement.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Net::WebRequestPrefixElement {
     IL2CPP_REGISTER_METHOD(0x021B8380, app::IWebRequestCreate*, get_Creator, (app::WebRequestPrefixElement * this_ptr))

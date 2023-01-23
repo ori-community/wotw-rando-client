@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool_DEFINED)
+#include <Modloader/app/structs/MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool__Fields.h>
+#if defined(IL2CPP_STRUCT_MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool__Fields_DEFINED)
+#define IL2CPP_STRUCT_MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool_DEFINED
+struct MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool__Class;
+struct MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool {
+    struct MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool__Class* klass;
+    MonitorData* monitor;
+    struct MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool_FWDDECL)
+#define IL2CPP_STRUCT_MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool_FWDDECL
+#include <Modloader/app/structs/MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool_DEFINED) && !defined(IL2CPP_STRUCT_MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool_FWDDECL)
+#include <Modloader/app/structs/MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MoonEffectGenericRevertibleData_MoonEffectRevertibleDataPool.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager_c.h>
 
 namespace app::classes::CleverMenuItemSelectionManager___c {
     IL2CPP_REGISTER_METHOD(0x012BF120, void, cctor, ())

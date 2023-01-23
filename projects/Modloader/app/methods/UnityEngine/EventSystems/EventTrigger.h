@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EventTrigger.h>
+#include <Modloader/app/structs/List_1_UnityEngine_EventSystems_EventTrigger_Entry_.h>
+#include <Modloader/app/structs/EventTriggerType__Enum.h>
+#include <Modloader/app/structs/BaseEventData.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/AxisEventData.h>
 
 namespace app::classes::UnityEngine::EventSystems::EventTrigger {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::EventTrigger * this_ptr))

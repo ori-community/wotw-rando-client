@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PreloadSceneAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::PreloadSceneAction {
     IL2CPP_REGISTER_METHOD(0x00C6F4B0, void, Perform, (app::PreloadSceneAction * this_ptr, app::IContext* context))

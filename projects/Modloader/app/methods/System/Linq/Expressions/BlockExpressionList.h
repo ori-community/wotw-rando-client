@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BlockExpressionList.h>
+#include <Modloader/app/structs/BlockExpression.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Expression__Array.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Linq::Expressions::BlockExpressionList {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::BlockExpressionList * this_ptr, app::BlockExpression* provider, app::Expression* arg0))

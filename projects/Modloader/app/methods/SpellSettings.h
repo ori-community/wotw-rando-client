@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellSettings.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
 
 namespace app::classes::SpellSettings {
     IL2CPP_REGISTER_METHOD(0x00943DB0, void, Awake, (app::SpellSettings * this_ptr))

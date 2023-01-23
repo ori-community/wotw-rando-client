@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DamageReceiver_DamageEntry__Class.h>
+#include <Modloader/app/structs/DamageReceiver_DamageEntry.h>
+#include <Modloader/app/structs/DamageReceiver_DamageEntry__Array.h>
 
 namespace app::classes::types {
     namespace DamageReceiver_DamageEntry {

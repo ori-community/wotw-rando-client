@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PluginManager.h>
+#include <Modloader/app/structs/IPlayFabPlugin.h>
+#include <Modloader/app/structs/PluginContract__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ITransportPlugin.h>
+#include <Modloader/app/structs/IOneDSTransportPlugin.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ISerializerPlugin.h>
+#include <Modloader/app/structs/IPlayFabTransportPlugin.h>
 
 namespace app::classes::PlayFab::PluginManager {
     IL2CPP_REGISTER_METHOD(0x01AD03E0, void, ctor, (app::PluginManager * this_ptr))

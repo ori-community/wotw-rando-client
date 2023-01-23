@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TransformOffsetter.h>
 
 namespace app::classes::TransformOffsetter {
     IL2CPP_REGISTER_METHOD(0x00B07790, void, OnEnable, (app::TransformOffsetter * this_ptr))

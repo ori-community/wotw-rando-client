@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChallengeShrineManager.h>
+#include <Modloader/app/structs/LegacyTrigger.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/ChallengeShrineTrigger.h>
+#include <Modloader/app/structs/ChallengeShrineAnimatorEntity_ChallengeShrineActionType__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::ChallengeShrineManager {
     IL2CPP_REGISTER_METHOD(0x00A35F10, bool, get_IsChallengeOngoing, (app::ChallengeShrineManager * this_ptr))

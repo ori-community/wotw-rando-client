@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuRun.h>
 
 namespace app::classes::KuRun {
     IL2CPP_REGISTER_METHOD(0x003FDD20, float, get_RunSquashFloat, (app::KuRun * this_ptr))

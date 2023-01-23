@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_CageStructureTool_Vertex_.h>
+#include <Modloader/app/structs/CageStructureTool_Vertex.h>
+#include <Modloader/app/structs/IEnumerable_1_CageStructureTool_Vertex_.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_CageStructureTool_Vertex_ {
     IL2CPP_REGISTER_METHOD(0x02AB4370, void, ctor_1, (app::HashSet_1_CageStructureTool_Vertex_ * this_ptr))

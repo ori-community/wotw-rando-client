@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_VirtualClipsBuilder_Layout_.h>
+#include <Modloader/app/structs/VirtualClipsBuilder_Layout__Enum.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_VirtualClipsBuilder_Layout_ {
     IL2CPP_REGISTER_METHOD(0x0243CB70, void, ctor, (app::Stack_1_VirtualClipsBuilder_Layout_ * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityId__Boxed.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Timeline::EntityId {
     IL2CPP_REGISTER_METHOD(0x0010DB80, void, ctor, (app::EntityId__Boxed * this_ptr, int32_t id))

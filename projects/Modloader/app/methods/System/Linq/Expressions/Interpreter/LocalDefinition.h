@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocalDefinition__Boxed.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LocalDefinition {
     IL2CPP_REGISTER_METHOD(0x0013C010, void, ctor, (app::LocalDefinition__Boxed * this_ptr, int32_t local_index, app::ParameterExpression* parameter))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/NumericConvertInstruction_Checked__Class.h>
+#include <Modloader/app/structs/NumericConvertInstruction_Checked.h>
 
 namespace app::classes::types {
     namespace NumericConvertInstruction_Checked {

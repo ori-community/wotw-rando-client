@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_FullSerializer_Internal_fsPortableReflection_AttributeQuery_System_Object_.h>
+#include <Modloader/app/structs/Dictionary_2_FullSerializer_Internal_fsPortableReflection_AttributeQuery_System_Object_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_FullSerializer_Internal_fsPortableReflection_AttributeQuery_System_Object_.h>
+#include <Modloader/app/structs/fsPortableReflection_AttributeQuery__Array.h>
+#include <Modloader/app/structs/fsPortableReflection_AttributeQuery.h>
+#include <Modloader/app/structs/IEnumerator_1_FullSerializer_Internal_fsPortableReflection_AttributeQuery_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__KeyCollection_FullSerializer_Internal_fsPortableReflection_AttributeQuery_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x01D4FDA0, void, ctor, (app::Dictionary_2_TKey_TValue_KeyCollection_FullSerializer_Internal_fsPortableReflection_AttributeQuery_System_Object_ * this_ptr, app::Dictionary_2_FullSerializer_Internal_fsPortableReflection_AttributeQuery_System_Object_* dictionary))

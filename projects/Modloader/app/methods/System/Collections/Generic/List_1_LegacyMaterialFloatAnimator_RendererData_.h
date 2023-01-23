@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_LegacyMaterialFloatAnimator_RendererData_.h>
+#include <Modloader/app/structs/LegacyMaterialFloatAnimator_RendererData.h>
 
 namespace app::classes::System::Collections::Generic::List_1_LegacyMaterialFloatAnimator_RendererData_ {
     IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_LegacyMaterialFloatAnimator_RendererData_ * this_ptr, app::LegacyMaterialFloatAnimator_RendererData* item))

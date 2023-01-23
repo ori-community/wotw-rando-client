@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimelineStateCondition.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::TimelineStateCondition {
     IL2CPP_REGISTER_METHOD(0x00446590, bool, ShowEventTrigger, (app::TimelineStateCondition * this_ptr))

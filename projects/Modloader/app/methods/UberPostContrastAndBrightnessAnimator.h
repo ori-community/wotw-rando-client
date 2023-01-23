@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPostContrastAndBrightnessAnimator.h>
 
 namespace app::classes::UberPostContrastAndBrightnessAnimator {
     IL2CPP_REGISTER_METHOD(0x00FF08B0, void, CacheOriginals, (app::UberPostContrastAndBrightnessAnimator * this_ptr))

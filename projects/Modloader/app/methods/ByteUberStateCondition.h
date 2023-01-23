@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ByteUberStateCondition.h>
 
 namespace app::classes::ByteUberStateCondition {
     IL2CPP_REGISTER_METHOD(0x01B56F20, void, ctor, (app::ByteUberStateCondition * this_ptr))

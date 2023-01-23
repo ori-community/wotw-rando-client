@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CatAndMouseKuroLandZone.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::CatAndMouseKuroLandZone {
     IL2CPP_REGISTER_METHOD(0x010283C0, void, Awake, (app::CatAndMouseKuroLandZone * this_ptr))

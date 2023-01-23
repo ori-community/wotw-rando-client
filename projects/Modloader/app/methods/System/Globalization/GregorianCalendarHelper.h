@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GregorianCalendarHelper.h>
+#include <Modloader/app/structs/Calendar.h>
+#include <Modloader/app/structs/EraInfo__Array.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/DayOfWeek__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
 
 namespace app::classes::System::Globalization::GregorianCalendarHelper {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_MaxYear, (app::GregorianCalendarHelper * this_ptr))

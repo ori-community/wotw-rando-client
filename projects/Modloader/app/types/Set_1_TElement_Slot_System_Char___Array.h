@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Set_1_TElement_Slot_System_Char___Array__Class.h>
+#include <Modloader/app/structs/Set_1_TElement_Slot_System_Char___Array.h>
 
 namespace app::classes::types {
     namespace Set_1_TElement_Slot_System_Char___Array {

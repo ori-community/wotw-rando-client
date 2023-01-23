@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Halftone.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::Halftone {
     IL2CPP_REGISTER_METHOD(0x03046A50, void, OnRenderImage, (app::Halftone * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

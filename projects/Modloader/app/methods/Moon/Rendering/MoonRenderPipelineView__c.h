@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_c.h>
+#include <Modloader/app/structs/RendererCullingCategoryParameters.h>
+#include <Modloader/app/structs/ICullingCategoryManager.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderPipelineView___c {
     IL2CPP_REGISTER_METHOD(0x00EACFD0, void, cctor, ())

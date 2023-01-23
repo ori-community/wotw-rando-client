@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MonoBehaviour.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Coroutine.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object_1.h>
 
 namespace app::classes::UnityEngine::MonoBehaviour {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::MonoBehaviour * this_ptr))

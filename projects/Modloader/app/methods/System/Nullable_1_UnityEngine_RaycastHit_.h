@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_RaycastHit___Boxed.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_UnityEngine_RaycastHit_ {
     IL2CPP_REGISTER_METHOD(0x00211790, void, ctor, (app::Nullable_1_UnityEngine_RaycastHit___Boxed * this_ptr, app::RaycastHit value))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabJsonSerializer_c.h>
+#include <Modloader/app/structs/JsonBuilder_Slot.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::Telemetry::PlayFabJsonSerializer___c {
     IL2CPP_REGISTER_METHOD(0x00CD6820, void, cctor, ())

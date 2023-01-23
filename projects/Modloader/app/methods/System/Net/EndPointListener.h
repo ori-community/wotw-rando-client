@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EndPointListener.h>
+#include <Modloader/app/structs/HttpListener.h>
+#include <Modloader/app/structs/IPAddress.h>
+#include <Modloader/app/structs/Socket.h>
+#include <Modloader/app/structs/SocketAsyncEventArgs.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/HttpConnection.h>
+#include <Modloader/app/structs/HttpListenerContext.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/ListenerPrefix.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ArrayList.h>
 
 namespace app::classes::System::Net::EndPointListener {
     IL2CPP_REGISTER_METHOD(0x01EB42F0, void, ctor, (app::EndPointListener * this_ptr, app::HttpListener* listener, app::IPAddress* addr, int32_t port, bool secure))

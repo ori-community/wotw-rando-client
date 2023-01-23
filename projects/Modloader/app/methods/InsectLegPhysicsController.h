@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InsectLegPhysicsController.h>
 
 namespace app::classes::InsectLegPhysicsController {
     IL2CPP_REGISTER_METHOD(0x00629980, void, OnUpdatePhysics, (app::InsectLegPhysicsController * this_ptr, float dt))

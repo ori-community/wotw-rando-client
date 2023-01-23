@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Datatype_month__Class.h>
+#include <Modloader/app/structs/Datatype_month.h>
 
 namespace app::classes::types {
     namespace Datatype_month {

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AreaMapDebugNavigation.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
 
 namespace app::classes::AreaMapDebugNavigation {
     IL2CPP_REGISTER_METHOD(0x002FCE30, bool, get_DebugModeEnabled, (app::AreaMapDebugNavigation * this_ptr))

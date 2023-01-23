@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem_.h>
+#include <Modloader/app/structs/NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem.h>
+#include <Modloader/app/structs/NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_Moon_NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem_ {
     IL2CPP_REGISTER_METHOD(0x01CD0840, bool, Equals_1, (app::ObjectEqualityComparer_1_Moon_NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem_ * this_ptr, app::NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem x, app::NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem y))

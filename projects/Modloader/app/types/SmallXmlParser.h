@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SmallXmlParser__Class.h>
+#include <Modloader/app/structs/SmallXmlParser.h>
 
 namespace app::classes::types {
     namespace SmallXmlParser {

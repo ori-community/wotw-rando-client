@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RotatingMaceRoomCarryable.h>
+#include <Modloader/app/structs/IPressurePlate.h>
 
 namespace app::classes::RotatingMaceRoomCarryable {
     IL2CPP_REGISTER_METHOD(0x002FB9A0, void, OnPressed, (app::RotatingMaceRoomCarryable * this_ptr, app::IPressurePlate* plate))

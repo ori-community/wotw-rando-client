@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Task_1_TResult_c_VoidTaskResult_.h>
+#include <Modloader/app/structs/Task_1_VoidTaskResult_.h>
+#include <Modloader/app/structs/Task_1_Task_.h>
 
 namespace app::classes::System::Threading::Tasks::Task_1_TResult____c_VoidTaskResult_ {
     IL2CPP_REGISTER_METHOD(0x019DE4F0, void, cctor, ())

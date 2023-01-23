@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/InvisibleCheckpoint.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::InvisibleCheckpoint {
     IL2CPP_REGISTER_METHOD(0x00643F40, app::Rect, get_Bounds, (app::InvisibleCheckpoint * this_ptr))

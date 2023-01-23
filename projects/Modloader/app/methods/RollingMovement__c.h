@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RollingMovement_c.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::RollingMovement___c {
     IL2CPP_REGISTER_METHOD(0x01366AC0, void, cctor, ())

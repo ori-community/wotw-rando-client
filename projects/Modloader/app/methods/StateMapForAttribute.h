@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/StateMapForAttribute.h>
 
 namespace app::classes::StateMapForAttribute {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Type*, get_ServableType, (app::StateMapForAttribute * this_ptr))

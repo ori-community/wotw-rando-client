@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/OrderedEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IOrderedEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/IComparer_1_System_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_Int32_.h>
+#include <Modloader/app/structs/IComparer_1_System_Int32_.h>
 
 namespace app::classes::System::Linq::OrderedEnumerable_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x025497D0, app::IEnumerator_1_System_Object_*, GetEnumerator, (app::OrderedEnumerable_1_System_Object_ * this_ptr))

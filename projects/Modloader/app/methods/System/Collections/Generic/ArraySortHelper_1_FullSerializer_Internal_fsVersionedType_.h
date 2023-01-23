@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsVersionedType__Array.h>
+#include <Modloader/app/structs/IComparer_1_FullSerializer_Internal_fsVersionedType_.h>
+#include <Modloader/app/structs/fsVersionedType.h>
+#include <Modloader/app/structs/Comparison_1_FullSerializer_Internal_fsVersionedType_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_FullSerializer_Internal_fsVersionedType_ {
     IL2CPP_REGISTER_METHOD(0x02F5B2F0, void, Sort_1, (app::fsVersionedType__Array * keys, int32_t index, int32_t length, app::IComparer_1_FullSerializer_Internal_fsVersionedType_* comparer))

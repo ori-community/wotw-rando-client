@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/MemberDescriptor.h>
+#include <Modloader/app/structs/TypeConverter.h>
+#include <Modloader/app/structs/DesignerSerializationVisibility__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventHandler.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IList.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/EventArgs.h>
 
 namespace app::classes::System::ComponentModel::PropertyDescriptor {
     IL2CPP_REGISTER_METHOD(0x01FE9DF0, void, ctor_1, (app::PropertyDescriptor * this_ptr, app::String* name, app::Attribute__Array* attrs))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CsvReader_ReadRow_d_10.h>
+#include <Modloader/app/structs/CsvReader_Cell.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_CsvReader_Cell_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::Moon::CsvReader__ReadRow_d__10 {
     IL2CPP_REGISTER_METHOD(0x01426B00, void, ctor, (app::CsvReader_ReadRow_d_10 * this_ptr, int32_t __1__state))

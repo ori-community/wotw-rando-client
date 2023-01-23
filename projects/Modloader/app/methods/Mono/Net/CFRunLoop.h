@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CFRunLoop.h>
+#include <Modloader/app/structs/CFString.h>
 
 namespace app::classes::Mono::Net::CFRunLoop {
     IL2CPP_REGISTER_METHOD(0x021799A0, void, CFRunLoopAddSource, (void* rl, void* source, void* mode))

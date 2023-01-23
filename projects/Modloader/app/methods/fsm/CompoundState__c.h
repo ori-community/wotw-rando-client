@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompoundState_c_1.h>
 
 namespace app::classes::fsm::CompoundState___c {
     IL2CPP_REGISTER_METHOD(0x00F6DDE0, void, cctor, ())

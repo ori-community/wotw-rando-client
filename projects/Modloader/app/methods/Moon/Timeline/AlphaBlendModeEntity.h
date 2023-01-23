@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IAlphaBlendModeController.h>
+#include <Modloader/app/structs/AlphaBlendModeEntity.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::AlphaBlendModeEntity {
     IL2CPP_REGISTER_METHOD(0x010C7360, app::IAlphaBlendModeController*, get_EffectiveTarget, (app::AlphaBlendModeEntity * this_ptr))

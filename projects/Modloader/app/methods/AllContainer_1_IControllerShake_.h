@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AllContainer_1_IControllerShake_.h>
+#include <Modloader/app/structs/IControllerShake.h>
 
 namespace app::classes::AllContainer_1_IControllerShake_ {
     IL2CPP_REGISTER_METHOD(0x019D7830, void, Add, (app::AllContainer_1_IControllerShake_ * this_ptr, app::IControllerShake* item))

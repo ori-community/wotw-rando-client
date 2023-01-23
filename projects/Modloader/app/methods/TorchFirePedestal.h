@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TorchFirePedestal.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Flammable.h>
+#include <Modloader/app/structs/ICharacter.h>
 
 namespace app::classes::TorchFirePedestal {
     IL2CPP_REGISTER_METHOD(0x00AFEE70, void, Awake, (app::TorchFirePedestal * this_ptr))

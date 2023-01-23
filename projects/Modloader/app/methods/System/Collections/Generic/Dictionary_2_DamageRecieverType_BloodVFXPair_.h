@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_DamageRecieverType_BloodVFXPair_.h>
+#include <Modloader/app/structs/DamageRecieverType__Enum.h>
+#include <Modloader/app/structs/BloodVFXPair.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_DamageRecieverType_BloodVFXPair_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_DamageRecieverType_BloodVFXPair_ * this_ptr))

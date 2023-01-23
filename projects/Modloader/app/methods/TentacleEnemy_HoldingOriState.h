@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TentacleEnemy_HoldingOriState.h>
+#include <Modloader/app/structs/BehaviourTreeStatus__Enum.h>
+#include <Modloader/app/structs/TickData.h>
 
 namespace app::classes::TentacleEnemy_HoldingOriState {
     IL2CPP_REGISTER_METHOD(0x00CF6EC0, app::String*, get_Name, (app::TentacleEnemy_HoldingOriState * this_ptr))

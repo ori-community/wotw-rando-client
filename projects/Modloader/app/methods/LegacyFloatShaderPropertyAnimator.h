@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyFloatShaderPropertyAnimator.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/Material.h>
 
 namespace app::classes::LegacyFloatShaderPropertyAnimator {
     IL2CPP_REGISTER_METHOD(0x00A24880, int32_t, get_PropertyID, (app::LegacyFloatShaderPropertyAnimator * this_ptr))

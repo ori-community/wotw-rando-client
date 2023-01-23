@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MessageDictionary_DictionaryEnumerator.h>
+#include <Modloader/app/structs/MessageDictionary.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DictionaryEntry.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::MessageDictionary_DictionaryEnumerator {
     IL2CPP_REGISTER_METHOD(0x02314440, void, ctor, (app::MessageDictionary_DictionaryEnumerator * this_ptr, app::MessageDictionary* method_dictionary))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CollisionEventHandler__Class.h>
+#include <Modloader/app/structs/CollisionEventHandler.h>
+#include <Modloader/app/structs/CollisionEventHandler__Array.h>
 
 namespace app::classes::types {
     namespace CollisionEventHandler {

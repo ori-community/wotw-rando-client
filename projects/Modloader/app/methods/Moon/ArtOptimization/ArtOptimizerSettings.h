@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Moon::ArtOptimization::ArtOptimizerSettings {
     IL2CPP_REGISTER_METHOD(0x01348490, bool, IsModifierTypeIgnored, (app::Type * modifier_type))

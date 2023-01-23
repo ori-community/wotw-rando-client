@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XboxLiveIdentityUI.h>
+#include <Modloader/app/structs/IPlatformUser.h>
 
 namespace app::classes::XboxLiveIdentityUI {
     IL2CPP_REGISTER_METHOD(0x00594530, bool, get_IsGrdk, (app::XboxLiveIdentityUI * this_ptr))

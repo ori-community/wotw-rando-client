@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PaperwhiteVolumeSlider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::PaperwhiteVolumeSlider {
     IL2CPP_REGISTER_METHOD(0x00443D70, void, Awake, (app::PaperwhiteVolumeSlider * this_ptr))

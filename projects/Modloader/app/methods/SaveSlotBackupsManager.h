@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_Int32_.h>
+#include <Modloader/app/structs/SaveSlotBackupsManager.h>
+#include <Modloader/app/structs/SaveSlotBackup.h>
+#include <Modloader/app/structs/List_1_SaveSlotBackupsManager_BackupParseQueue_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::SaveSlotBackupsManager {
     IL2CPP_REGISTER_METHOD(0x0091DD70, void, add_OnFinishedReadingBackups, (app::Action_1_Int32_ * value))

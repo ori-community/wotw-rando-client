@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XAsyncBlockPtr.h>
+#include <Modloader/app/structs/XTaskQueueHandle.h>
+#include <Modloader/app/structs/XAsyncCompletionRoutine.h>
 
 namespace app::classes::XGamingRuntime::Interop::AsyncHelpers {
     IL2CPP_REGISTER_METHOD(0x030AFB50, app::XAsyncBlockPtr, WrapAsyncBlock, (app::XTaskQueueHandle queue, app::XAsyncCompletionRoutine* callback))

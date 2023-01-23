@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SoundListener.h>
 
 namespace app::classes::Moon::Wwise::SoundListener {
     IL2CPP_REGISTER_METHOD(0x010790F0, app::Vector3, get_PositionOffset, (app::SoundListener * this_ptr))

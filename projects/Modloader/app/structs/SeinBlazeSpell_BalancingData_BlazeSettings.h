@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SeinBlazeSpell_BalancingData_BlazeSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SeinBlazeSpell_BalancingData_BlazeSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SeinBlazeSpell_BalancingData_BlazeSettings_DEFINED)
+#include <Modloader/app/structs/SeinBlazeSpell_BalancingData_BlazeSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_SeinBlazeSpell_BalancingData_BlazeSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_SeinBlazeSpell_BalancingData_BlazeSettings_DEFINED
+struct SeinBlazeSpell_BalancingData_BlazeSettings__Class;
+struct SeinBlazeSpell_BalancingData_BlazeSettings {
+    struct SeinBlazeSpell_BalancingData_BlazeSettings__Class* klass;
+    MonitorData* monitor;
+    struct SeinBlazeSpell_BalancingData_BlazeSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SeinBlazeSpell_BalancingData_BlazeSettings_FWDDECL)
+#define IL2CPP_STRUCT_SeinBlazeSpell_BalancingData_BlazeSettings_FWDDECL
+#include <Modloader/app/structs/SeinBlazeSpell_BalancingData_BlazeSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SeinBlazeSpell_BalancingData_BlazeSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SeinBlazeSpell_BalancingData_BlazeSettings_DEFINED) && !defined(IL2CPP_STRUCT_SeinBlazeSpell_BalancingData_BlazeSettings_FWDDECL)
+#include <Modloader/app/structs/SeinBlazeSpell_BalancingData_BlazeSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SeinBlazeSpell_BalancingData_BlazeSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

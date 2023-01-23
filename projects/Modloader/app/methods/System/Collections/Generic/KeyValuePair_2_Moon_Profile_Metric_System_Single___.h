@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Metric__Enum.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_Profile_Metric_System_Single__1__Boxed.h>
+#include <Modloader/app/structs/Single__Array.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_Moon_Profile_Metric_System_Single___ {
     IL2CPP_REGISTER_METHOD(0x0010E170, app::Metric__Enum, get_Key, (app::KeyValuePair_2_Moon_Profile_Metric_System_Single__1__Boxed * this_ptr))

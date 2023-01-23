@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConcurrentBag_1_T_WorkStealingQueue_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Collections::Concurrent::ConcurrentBag_1_T__WorkStealingQueue_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02ADB040, int32_t, get_DangerousCount, (app::ConcurrentBag_1_T_WorkStealingQueue_System_Object_ * this_ptr))

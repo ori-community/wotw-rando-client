@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GZipFormatter.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Unity::IO::Compression::GZipFormatter {
     IL2CPP_REGISTER_METHOD(0x02B78A40, void, ctor_1, (app::GZipFormatter * this_ptr))

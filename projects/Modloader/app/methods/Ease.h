@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Ease_Easing__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Ease {
     IL2CPP_REGISTER_METHOD(0x00BED370, float, EaseByType_1, (app::Ease_Easing__Enum e, float start, float end, float t))

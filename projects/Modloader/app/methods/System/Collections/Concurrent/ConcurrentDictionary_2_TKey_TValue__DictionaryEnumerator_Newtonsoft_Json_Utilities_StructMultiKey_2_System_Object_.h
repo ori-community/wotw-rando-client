@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_DictionaryEnumerator_Newtonsoft_Json_Utilities_StructMultiKey_2_System_Object_.h>
+#include <Modloader/app/structs/ConcurrentDictionary_2_Newtonsoft_Json_Utilities_StructMultiKey_2_System_Object_.h>
+#include <Modloader/app/structs/DictionaryEntry.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Concurrent::ConcurrentDictionary_2_TKey_TValue__DictionaryEnumerator_Newtonsoft_Json_Utilities_StructMultiKey_2_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02ADC8C0, void, ctor, (app::ConcurrentDictionary_2_TKey_TValue_DictionaryEnumerator_Newtonsoft_Json_Utilities_StructMultiKey_2_System_Object_ * this_ptr, app::ConcurrentDictionary_2_Newtonsoft_Json_Utilities_StructMultiKey_2_System_Object_* dictionary))

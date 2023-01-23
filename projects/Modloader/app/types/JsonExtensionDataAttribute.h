@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/JsonExtensionDataAttribute__Class.h>
+#include <Modloader/app/structs/JsonExtensionDataAttribute.h>
 
 namespace app::classes::types {
     namespace JsonExtensionDataAttribute {

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_BlockableLaser_ActivationTimeslicer_Request_.h>
+#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request.h>
+#include <Modloader/app/structs/IEnumerable_1_BlockableLaser_ActivationTimeslicer_Request_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_BlockableLaser_ActivationTimeslicer_Request_.h>
+#include <Modloader/app/structs/IComparer_1_BlockableLaser_ActivationTimeslicer_Request_.h>
+#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_BlockableLaser_ActivationTimeslicer_Request_.h>
+#include <Modloader/app/structs/Action_1_BlockableLaser_ActivationTimeslicer_Request_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_BlockableLaser_ActivationTimeslicer_Request_.h>
+#include <Modloader/app/structs/IEnumerator_1_BlockableLaser_ActivationTimeslicer_Request_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_BlockableLaser_ActivationTimeslicer_Request_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_BlockableLaser_ActivationTimeslicer_Request_ {
     IL2CPP_REGISTER_METHOD(0x025ECB30, void, Add, (app::List_1_BlockableLaser_ActivationTimeslicer_Request_ * this_ptr, app::BlockableLaser_ActivationTimeslicer_Request item))

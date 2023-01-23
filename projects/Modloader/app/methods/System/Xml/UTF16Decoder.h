@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UTF16Decoder.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::UTF16Decoder {
     IL2CPP_REGISTER_METHOD(0x019509A0, void, ctor, (app::UTF16Decoder * this_ptr, bool big_endian))

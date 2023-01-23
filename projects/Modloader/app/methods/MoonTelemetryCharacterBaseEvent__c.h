@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_c.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 
 namespace app::classes::MoonTelemetryCharacterBaseEvent___c {
     IL2CPP_REGISTER_METHOD(0x01469DC0, void, cctor, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InitializeLocalInstruction_MutableBox.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::InitializeLocalInstruction_MutableBox {
     IL2CPP_REGISTER_METHOD(0x0091DD30, void, ctor, (app::InitializeLocalInstruction_MutableBox * this_ptr, int32_t index, app::Type* type))

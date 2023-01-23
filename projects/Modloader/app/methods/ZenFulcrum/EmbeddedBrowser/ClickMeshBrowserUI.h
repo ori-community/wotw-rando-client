@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ClickMeshBrowserUI.h>
+#include <Modloader/app/structs/MeshCollider.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/BrowserCursor.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MouseButton__Enum.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Event_.h>
+#include <Modloader/app/structs/BrowserInputSettings.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::ClickMeshBrowserUI {
     IL2CPP_REGISTER_METHOD(0x01DCE780, app::ClickMeshBrowserUI*, Create, (app::MeshCollider * mesh_collider))

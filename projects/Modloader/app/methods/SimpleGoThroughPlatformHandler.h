@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleGoThroughPlatformHandler.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::SimpleGoThroughPlatformHandler {
     IL2CPP_REGISTER_METHOD(0x00748010, void, Update, (app::SimpleGoThroughPlatformHandler * this_ptr, app::Collider* collider, float check_distance))

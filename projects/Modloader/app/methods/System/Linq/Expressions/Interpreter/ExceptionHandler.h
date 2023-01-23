@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExceptionHandler.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ExceptionFilter.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::ExceptionHandler {
     IL2CPP_REGISTER_METHOD(0x022E4220, void, ctor, (app::ExceptionHandler * this_ptr, int32_t label_index, int32_t handler_start_index, int32_t handler_end_index, app::Type* exception_type, app::ExceptionFilter* filter))

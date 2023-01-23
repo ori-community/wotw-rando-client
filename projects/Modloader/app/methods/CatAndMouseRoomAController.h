@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CatAndMouseRoomAController.h>
 
 namespace app::classes::CatAndMouseRoomAController {
     IL2CPP_REGISTER_METHOD(0x010288A0, void, Start, (app::CatAndMouseRoomAController * this_ptr))

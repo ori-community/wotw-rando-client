@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QualityOptions.h>
+#include <Modloader/app/structs/Func_3_TriangleNet_Geometry_ITriangle_Double_Boolean_.h>
 
 namespace app::classes::TriangleNet::Meshing::QualityOptions {
     IL2CPP_REGISTER_METHOD(0x01433F10, double, get_MaximumAngle, (app::QualityOptions * this_ptr))

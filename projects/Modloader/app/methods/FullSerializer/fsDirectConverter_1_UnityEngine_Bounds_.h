@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsDirectConverter_1_UnityEngine_Bounds_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/fsResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/fsData.h>
 
 namespace app::classes::FullSerializer::fsDirectConverter_1_UnityEngine_Bounds_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::fsDirectConverter_1_UnityEngine_Bounds_ * this_ptr))

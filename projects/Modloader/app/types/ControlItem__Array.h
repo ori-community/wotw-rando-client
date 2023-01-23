@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ControlItem__Array__Class.h>
+#include <Modloader/app/structs/ControlItem__Array.h>
 
 namespace app::classes::types {
     namespace ControlItem__Array {

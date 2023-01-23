@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParticleSystemColorAnimator.h>
+#include <Modloader/app/structs/ParticleSystem.h>
 
 namespace app::classes::ParticleSystemColorAnimator {
     IL2CPP_REGISTER_METHOD(0x00444DE0, void, CacheOriginals, (app::ParticleSystemColorAnimator * this_ptr, app::ParticleSystem* particle_system_to_animate))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AVProWindowsMediaManager.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/AVProWindowsMediaPlugin_VideoFrameFormat__Enum.h>
 
 namespace app::classes::AVProWindowsMediaManager {
     IL2CPP_REGISTER_METHOD(0x0312C580, app::AVProWindowsMediaManager*, get_Instance, ())

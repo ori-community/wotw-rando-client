@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/OneDsWebRequestPlugin_c_DisplayClass0_0__Class.h>
+#include <Modloader/app/structs/OneDsWebRequestPlugin_c_DisplayClass0_0.h>
 
 namespace app::classes::types {
     namespace OneDsWebRequestPlugin_c_DisplayClass0_0 {

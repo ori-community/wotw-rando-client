@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RTime32__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RTime32.h>
 
 namespace app::classes::Steamworks::RTime32 {
     IL2CPP_REGISTER_METHOD(0x0010DB80, void, ctor, (app::RTime32__Boxed * this_ptr, uint32_t value))

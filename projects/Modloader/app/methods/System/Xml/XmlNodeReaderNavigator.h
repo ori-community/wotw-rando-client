@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlNodeReaderNavigator.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlDeclaration.h>
+#include <Modloader/app/structs/XmlDocumentType.h>
+#include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
+#include <Modloader/app/structs/XmlDocument.h>
 
 namespace app::classes::System::Xml::XmlNodeReaderNavigator {
     IL2CPP_REGISTER_METHOD(0x016FB1D0, void, ctor, (app::XmlNodeReaderNavigator * this_ptr, app::XmlNode* node))

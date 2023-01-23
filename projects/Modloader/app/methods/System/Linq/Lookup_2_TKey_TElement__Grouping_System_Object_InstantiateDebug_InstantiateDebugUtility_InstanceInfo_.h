@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Lookup_2_TKey_TElement_Grouping_System_Object_InstantiateDebug_InstantiateDebugUtility_InstanceInfo_.h>
+#include <Modloader/app/structs/InstantiateDebugUtility_InstanceInfo.h>
+#include <Modloader/app/structs/IEnumerator_1_InstantiateDebug_InstantiateDebugUtility_InstanceInfo_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/InstantiateDebugUtility_InstanceInfo__Array.h>
 
 namespace app::classes::System::Linq::Lookup_2_TKey_TElement__Grouping_System_Object_InstantiateDebug_InstantiateDebugUtility_InstanceInfo_ {
     IL2CPP_REGISTER_METHOD(0x02547780, void, Add, (app::Lookup_2_TKey_TElement_Grouping_System_Object_InstantiateDebug_InstantiateDebugUtility_InstanceInfo_ * this_ptr, app::InstantiateDebugUtility_InstanceInfo element))

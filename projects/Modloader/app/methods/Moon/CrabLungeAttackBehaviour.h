@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrabLungeAttackBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::CrabLungeAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00CCCED0, void, OnEnter, (app::CrabLungeAttackBehaviour * this_ptr, app::IContext* context))

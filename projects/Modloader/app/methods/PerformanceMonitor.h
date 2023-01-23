@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PerformanceMonitor.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/FPSTestResult.h>
+#include <Modloader/app/structs/SceneManagerScene.h>
+#include <Modloader/app/structs/FPSSampleData.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::PerformanceMonitor {
     IL2CPP_REGISTER_METHOD(0x00496C40, void, Awake, (app::PerformanceMonitor * this_ptr))

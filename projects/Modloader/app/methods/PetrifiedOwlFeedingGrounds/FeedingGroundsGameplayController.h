@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlUberState__Enum.h>
+#include <Modloader/app/structs/FeedingGroundsGameplayController.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/IDesiredUberState__Array.h>
 
 namespace app::classes::PetrifiedOwlFeedingGrounds::FeedingGroundsGameplayController {
     IL2CPP_REGISTER_METHOD(0x01785A30, app::PetrifiedOwlUberState__Enum, get_CurrentUberState, (app::FeedingGroundsGameplayController * this_ptr))

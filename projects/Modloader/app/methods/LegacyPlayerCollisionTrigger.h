@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
+#include <Modloader/app/structs/LegacyPlayerCollisionTrigger.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StressTestStatus__Enum.h>
 
 namespace app::classes::LegacyPlayerCollisionTrigger {
     IL2CPP_REGISTER_METHOD(0x0043D9A0, app::SelectableCategory__Enum, get_Category, (app::LegacyPlayerCollisionTrigger * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TransformAccessArray__Boxed.h>
+#include <Modloader/app/structs/Transform__Array.h>
+#include <Modloader/app/structs/TransformAccessArray.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UnityEngine::Jobs::TransformAccessArray {
     IL2CPP_REGISTER_METHOD(0x001F2790, void, ctor, (app::TransformAccessArray__Boxed * this_ptr, app::Transform__Array* transforms, int32_t desired_job_count))

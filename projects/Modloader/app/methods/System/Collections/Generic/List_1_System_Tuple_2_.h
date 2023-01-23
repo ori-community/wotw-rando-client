@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Tuple_2_.h>
+#include <Modloader/app/structs/List_1_System_Tuple_2_.h>
+#include <Modloader/app/structs/Tuple_2_System_Diagnostics_Tracing_EventProvider_SessionInfo_Boolean_.h>
+#include <Modloader/app/structs/List_1_System_Tuple_2__1.h>
+#include <Modloader/app/structs/Tuple_2_String_Single_.h>
+#include <Modloader/app/structs/Predicate_1_Tuple_2_String_Single_.h>
+#include <Modloader/app/structs/List_1_System_Tuple_2__2.h>
+#include <Modloader/app/structs/Tuple_2_String_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/List_1_System_Tuple_2__3.h>
+#include <Modloader/app/structs/Tuple_2_MoonGuid_Boolean_.h>
+#include <Modloader/app/structs/List_1_System_Tuple_2__4.h>
+#include <Modloader/app/structs/Tuple_2_SceneManagerScene_SceneState_.h>
+#include <Modloader/app/structs/List_1_System_Tuple_2__5.h>
+#include <Modloader/app/structs/Tuple_2_GameController_ProfilingConfiguration_FrameCaptureTester_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Tuple_2_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_System_Tuple_2_, GetEnumerator, (app::List_1_System_Tuple_2_ * this_ptr))

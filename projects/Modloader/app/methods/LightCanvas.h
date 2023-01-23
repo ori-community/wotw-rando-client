@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightCanvas.h>
+#include <Modloader/app/structs/LightCanvas_BindData.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
+#include <Modloader/app/structs/LightCanvas_SubLayerSettings.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/LightCanvas_LightCanvasStateData.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/LightCanvasShadingZone_LightCanvasShadingZonesFlags__Enum.h>
+#include <Modloader/app/structs/UberShaderProperty_Texture__Enum.h>
+#include <Modloader/app/structs/UberShaderProperty_Vector__Enum.h>
+#include <Modloader/app/structs/UberShaderProperty_Float__Enum.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/List_1_LightCanvasStateController_LightCanvasState_.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::LightCanvas {
     IL2CPP_REGISTER_METHOD(0x00989BF0, int32_t, get_CurrentStateGuid, (app::LightCanvas * this_ptr))

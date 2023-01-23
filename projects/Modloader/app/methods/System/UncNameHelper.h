@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::UncNameHelper {
     IL2CPP_REGISTER_METHOD(0x02A7C140, app::String*, ParseCanonicalName, (app::String * str, int32_t start, int32_t end, bool* loopback))

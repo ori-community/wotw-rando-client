@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WebConnectionStream_c_DisplayClass80_0__Class.h>
+#include <Modloader/app/structs/WebConnectionStream_c_DisplayClass80_0.h>
 
 namespace app::classes::types {
     namespace WebConnectionStream_c_DisplayClass80_0 {

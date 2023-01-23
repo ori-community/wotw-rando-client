@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ControllerShake.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ControllerShake {
     IL2CPP_REGISTER_METHOD(0x00B1C480, void, OnPoolSpawned, (app::ControllerShake * this_ptr))

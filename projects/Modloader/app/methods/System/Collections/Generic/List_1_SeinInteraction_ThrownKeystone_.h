@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinInteraction_ThrownKeystone.h>
+#include <Modloader/app/structs/List_1_SeinInteraction_ThrownKeystone_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_SeinInteraction_ThrownKeystone_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_SeinInteraction_ThrownKeystone_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::SeinInteraction_ThrownKeystone*, get_Item, (app::List_1_SeinInteraction_ThrownKeystone_ * this_ptr, int32_t index))

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SByte__Class.h>
+#include <Modloader/app/structs/SByte.h>
+#include <Modloader/app/structs/SByte__Boxed.h>
+#include <Modloader/app/structs/SByte__Array.h>
 
 namespace app::classes::types {
     namespace SByte {

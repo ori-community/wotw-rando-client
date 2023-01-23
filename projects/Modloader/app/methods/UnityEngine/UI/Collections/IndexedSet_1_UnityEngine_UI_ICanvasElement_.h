@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IndexedSet_1_UnityEngine_UI_ICanvasElement_.h>
+#include <Modloader/app/structs/ICanvasElement.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_UI_ICanvasElement_.h>
 
 namespace app::classes::UnityEngine::UI::Collections::IndexedSet_1_UnityEngine_UI_ICanvasElement_ {
     IL2CPP_REGISTER_METHOD(0x02ACD120, void, ctor, (app::IndexedSet_1_UnityEngine_UI_ICanvasElement_ * this_ptr))

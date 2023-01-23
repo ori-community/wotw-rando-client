@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UIComponent.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/LegacyTimelineSequence.h>
 
 namespace app::classes::Moon::UI::UIComponent {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Awake, (app::UIComponent * this_ptr))

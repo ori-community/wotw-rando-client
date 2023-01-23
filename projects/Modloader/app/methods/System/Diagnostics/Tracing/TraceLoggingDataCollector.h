@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TraceLoggingDataCollector.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Boolean__Array.h>
+#include <Modloader/app/structs/SByte__Array.h>
+#include <Modloader/app/structs/Int16__Array.h>
+#include <Modloader/app/structs/UInt16__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/Int64__Array.h>
+#include <Modloader/app/structs/UInt64__Array.h>
+#include <Modloader/app/structs/IntPtr__Array.h>
+#include <Modloader/app/structs/UIntPtr__Array.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/Double__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Guid__Array.h>
 
 namespace app::classes::System::Diagnostics::Tracing::TraceLoggingDataCollector {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::TraceLoggingDataCollector * this_ptr))

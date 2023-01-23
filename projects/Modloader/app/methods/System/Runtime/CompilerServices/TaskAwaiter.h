@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TaskAwaiter__Boxed.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::System::Runtime::CompilerServices::TaskAwaiter {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::TaskAwaiter__Boxed * this_ptr, app::Task* task))

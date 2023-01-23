@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MoonAnimator_SimpleCrossfadeInstance__Class.h>
+#include <Modloader/app/structs/MoonAnimator_SimpleCrossfadeInstance.h>
+#include <Modloader/app/structs/MoonAnimator_SimpleCrossfadeInstance__Array.h>
 
 namespace app::classes::types {
     namespace MoonAnimator_SimpleCrossfadeInstance {

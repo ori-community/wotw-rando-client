@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OnTrapped.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
 
 namespace app::classes::fsm::triggers::OnTrapped {
     IL2CPP_REGISTER_METHOD(0x004C87B0, float, get_Amount, (app::OnTrapped * this_ptr))

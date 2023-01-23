@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HideMenuAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::HideMenuAction {
     IL2CPP_REGISTER_METHOD(0x00B493C0, bool, get_ShouldSKipUiBackgroundBlur, (app::HideMenuAction * this_ptr))

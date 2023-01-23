@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AssemblyLoadEventArgs.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::FullSerializer::Internal::fsTypeCache {
     IL2CPP_REGISTER_METHOD(0x0165DC10, void, cctor, ())

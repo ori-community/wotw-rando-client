@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FBIKHandsOnProp.h>
+#include <Modloader/app/structs/IKEffector.h>
 
 namespace app::classes::RootMotion::Demos::FBIKHandsOnProp {
     IL2CPP_REGISTER_METHOD(0x0221A1C0, void, Awake, (app::FBIKHandsOnProp * this_ptr))

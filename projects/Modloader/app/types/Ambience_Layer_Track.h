@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Ambience_Layer_Track__Class.h>
+#include <Modloader/app/structs/Ambience_Layer_Track.h>
+#include <Modloader/app/structs/Ambience_Layer_Track__Array.h>
 
 namespace app::classes::types {
     namespace Ambience_Layer_Track {

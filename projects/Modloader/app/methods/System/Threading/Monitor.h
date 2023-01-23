@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Threading::Monitor {
     IL2CPP_REGISTER_METHOD(0x027E0300, void, Enter_1, (app::Object * obj))

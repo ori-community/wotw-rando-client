@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCharacter_c.h>
 
 namespace app::classes::SeinCharacter___c {
     IL2CPP_REGISTER_METHOD(0x00A44020, void, cctor, ())

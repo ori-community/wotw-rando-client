@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GCFinalizerTablePrewarm.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::frameworks::loading::Prewarmers::GCFinalizerTablePrewarm {
     IL2CPP_REGISTER_METHOD(0x00F5F0A0, void, ctor, (app::GCFinalizerTablePrewarm * this_ptr))

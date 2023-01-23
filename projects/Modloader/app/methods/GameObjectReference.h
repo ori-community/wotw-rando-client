@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GameObjectReference.h>
 
 namespace app::classes::GameObjectReference {
     IL2CPP_REGISTER_METHOD(0x003F8B20, app::GameObject*, GetReference, (app::GameObjectReference * game_object_reference))

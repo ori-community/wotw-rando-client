@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyHierarchyTransparancyAnimatorController.h>
 
 namespace app::classes::LegacyHierarchyTransparancyAnimatorController {
     IL2CPP_REGISTER_METHOD(0x00A283D0, void, Start, (app::LegacyHierarchyTransparancyAnimatorController * this_ptr))

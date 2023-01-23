@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JValue.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/JTokenType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BigInteger_2.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_Linq_JTokenType_.h>
+#include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/JsonConverter__Array.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/DynamicMetaObject.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JValue {
     IL2CPP_REGISTER_METHOD(0x0185A290, void, ctor_1, (app::JValue * this_ptr, app::Object* value, app::JTokenType__Enum type))

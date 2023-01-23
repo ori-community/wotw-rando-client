@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ToggleCleverMenuItemLeftRight.h>
 
 namespace app::classes::ToggleCleverMenuItemLeftRight {
     IL2CPP_REGISTER_METHOD(0x00AFC490, void, Awake, (app::ToggleCleverMenuItemLeftRight * this_ptr))

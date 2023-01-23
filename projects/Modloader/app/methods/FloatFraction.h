@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FloatFraction__Boxed.h>
 
 namespace app::classes::FloatFraction {
     IL2CPP_REGISTER_METHOD(0x00125480, void, ctor, (app::FloatFraction__Boxed * this_ptr, float value, float max))

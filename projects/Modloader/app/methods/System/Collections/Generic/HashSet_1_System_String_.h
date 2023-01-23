@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_System_String_.h>
+#include <Modloader/app/structs/HashSet_1_System_String_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_System_String_ {
     IL2CPP_REGISTER_METHOD(0x02ABCD80, app::HashSet_1_T_Enumerator_System_String_, GetEnumerator, (app::HashSet_1_System_String_ * this_ptr))

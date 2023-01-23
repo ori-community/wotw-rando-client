@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/MovingDiscController.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::Moon::MovingDiscController {
     IL2CPP_REGISTER_METHOD(0x0043D9E0, app::UpdateType__Enum, get_UpdateType, (app::MovingDiscController * this_ptr))

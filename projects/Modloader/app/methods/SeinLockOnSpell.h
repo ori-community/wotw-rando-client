@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinLockOnSpell.h>
+#include <Modloader/app/structs/SeinLockOnSpell_State__Enum.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinLockOnSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinLockOnSpell * this_ptr))

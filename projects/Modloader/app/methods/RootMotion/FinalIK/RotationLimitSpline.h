@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RotationLimitSpline.h>
+#include <Modloader/app/structs/Keyframe__Array.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::RootMotion::FinalIK::RotationLimitSpline {
     IL2CPP_REGISTER_METHOD(0x02A25F10, void, OpenUserManual, (app::RotationLimitSpline * this_ptr))

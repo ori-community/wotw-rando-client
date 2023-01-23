@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwitchSeriesPuzzleSetupData.h>
+#include <Modloader/app/structs/SwitchSeriesPuzzleSwitchSetupHolder.h>
+#include <Modloader/app/structs/List_1_IIndexedItem_.h>
 
 namespace app::classes::SwitchSeriesPuzzleSwitchSetupHolder {
     IL2CPP_REGISTER_METHOD(0x01835240, app::SwitchSeriesPuzzleSetupData*, get_DeactivatedState, (app::SwitchSeriesPuzzleSwitchSetupHolder * this_ptr))

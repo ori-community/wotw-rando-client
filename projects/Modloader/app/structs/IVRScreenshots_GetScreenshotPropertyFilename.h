@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRScreenshots_GetScreenshotPropertyFilename_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRScreenshots_GetScreenshotPropertyFilename_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRScreenshots_GetScreenshotPropertyFilename_DEFINED)
+#include <Modloader/app/structs/IVRScreenshots_GetScreenshotPropertyFilename__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRScreenshots_GetScreenshotPropertyFilename__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRScreenshots_GetScreenshotPropertyFilename_DEFINED
+struct IVRScreenshots_GetScreenshotPropertyFilename__Class;
+struct IVRScreenshots_GetScreenshotPropertyFilename {
+    struct IVRScreenshots_GetScreenshotPropertyFilename__Class* klass;
+    MonitorData* monitor;
+    struct IVRScreenshots_GetScreenshotPropertyFilename__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRScreenshots_GetScreenshotPropertyFilename_FWDDECL)
+#define IL2CPP_STRUCT_IVRScreenshots_GetScreenshotPropertyFilename_FWDDECL
+#include <Modloader/app/structs/IVRScreenshots_GetScreenshotPropertyFilename__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRScreenshots_GetScreenshotPropertyFilename_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRScreenshots_GetScreenshotPropertyFilename_DEFINED) && !defined(IL2CPP_STRUCT_IVRScreenshots_GetScreenshotPropertyFilename_FWDDECL)
+#include <Modloader/app/structs/IVRScreenshots_GetScreenshotPropertyFilename.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRScreenshots_GetScreenshotPropertyFilename.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

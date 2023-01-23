@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/CharacterPlatformMovement_ScheduledSpeedCurve.h>
+#include <Modloader/app/structs/ExternalForceEntry.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/QueryTriggerInteraction__Enum.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/Kickback.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::CharacterPlatformMovement {
     IL2CPP_REGISTER_METHOD(0x01303670, void, ResetStatics, ())

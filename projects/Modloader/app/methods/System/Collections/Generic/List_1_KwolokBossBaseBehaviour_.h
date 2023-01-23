@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_KwolokBossBaseBehaviour_.h>
+#include <Modloader/app/structs/KwolokBossBaseBehaviour.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_KwolokBossBaseBehaviour_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_KwolokBossBaseBehaviour_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_KwolokBossBaseBehaviour_ * this_ptr))

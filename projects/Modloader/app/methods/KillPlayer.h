@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KillPlayer.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::KillPlayer {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Start, (app::KillPlayer * this_ptr))

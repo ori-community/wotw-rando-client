@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ForwardAxis.h>
+#include <Modloader/app/structs/AxisStack.h>
+#include <Modloader/app/structs/ActiveAxis.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::Schema::AxisStack {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::ForwardAxis*, get_Subtree, (app::AxisStack * this_ptr))

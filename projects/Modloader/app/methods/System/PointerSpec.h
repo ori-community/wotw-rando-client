@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PointerSpec.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::PointerSpec {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::PointerSpec * this_ptr, int32_t pointer_level))

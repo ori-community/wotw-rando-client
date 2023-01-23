@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTextMeshRenderer_1.h>
+#include <Modloader/app/structs/CharMetaData_1.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Moon::UI::MoonTextMeshRenderer {
     IL2CPP_REGISTER_METHOD(0x011835A0, void, OnDestroy, (app::MoonTextMeshRenderer_1 * this_ptr))

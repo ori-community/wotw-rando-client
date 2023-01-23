@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_System_Dynamic_BindingRestrictions_TestBuilder_AndNode_.h>
+#include <Modloader/app/structs/BindingRestrictions_TestBuilder_AndNode__Array.h>
+#include <Modloader/app/structs/BindingRestrictions_TestBuilder_AndNode.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_System_Dynamic_BindingRestrictions_TestBuilder_AndNode_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_System_Dynamic_BindingRestrictions_TestBuilder_AndNode_*, get_Default, ())

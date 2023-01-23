@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Func_2_IContext_Boolean_.h>
+#include <Modloader/app/structs/WaitAnimator.h>
+#include <Modloader/app/structs/BaseAnimator.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::WaitAnimator {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::Func_2_IContext_Boolean_*, get_CodeCondition, (app::WaitAnimator * this_ptr))

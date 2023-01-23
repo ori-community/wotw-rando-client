@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypeDescriptor_TypeDescriptionNode.h>
+#include <Modloader/app/structs/TypeDescriptionProvider.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IServiceProvider.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/ICustomTypeDescriptor.h>
+#include <Modloader/app/structs/IExtenderProvider__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ComponentModel::TypeDescriptor_TypeDescriptionNode {
     IL2CPP_REGISTER_METHOD(0x002FBB10, void, ctor, (app::TypeDescriptor_TypeDescriptionNode * this_ptr, app::TypeDescriptionProvider* provider))

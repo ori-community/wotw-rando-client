@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GrabbableSurface.h>
+#include <Modloader/app/structs/GrabbableSurfaceSettings.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/SpiritLeashMode__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/GrabbableSurface_PositionInfo.h>
 
 namespace app::classes::GrabbableSurface {
     IL2CPP_REGISTER_METHOD(0x0107B800, int32_t, get_InstanceCount, ())

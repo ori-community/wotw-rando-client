@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterTimelineTurning.h>
+#include <Modloader/app/structs/ICharacter.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::CharacterTimelineTurning {
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, get_IsDone, (app::CharacterTimelineTurning * this_ptr))

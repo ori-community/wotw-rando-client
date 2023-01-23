@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_TimeSlicer_ITimeSlicedJob_System_Func_1_.h>
+#include <Modloader/app/structs/ITimeSlicedJob.h>
+#include <Modloader/app/structs/Func_1_Moon_TimeSlicer_TimeSlicedJobPriority_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_Moon_TimeSlicer_ITimeSlicedJob_System_Func_1_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_Moon_TimeSlicer_ITimeSlicedJob_System_Func_1_ * this_ptr))

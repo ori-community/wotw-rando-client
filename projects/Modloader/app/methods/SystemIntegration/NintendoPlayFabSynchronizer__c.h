@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NintendoPlayFabSynchronizer_c.h>
+#include <Modloader/app/structs/AddFriendResult.h>
+#include <Modloader/app/structs/RemoveFriendResult.h>
 
 namespace app::classes::SystemIntegration::NintendoPlayFabSynchronizer___c {
     IL2CPP_REGISTER_METHOD(0x00518A80, void, cctor, ())

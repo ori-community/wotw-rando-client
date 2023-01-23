@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_UberShaderAtlasUtilities_TextureInfo___Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberShaderAtlasUtilities_TextureInfo.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_Object_UberShaderAtlasUtilities_TextureInfo_ {
     IL2CPP_REGISTER_METHOD(0x00110270, void, ctor, (app::KeyValuePair_2_System_Object_UberShaderAtlasUtilities_TextureInfo___Boxed * this_ptr, app::Object* key, app::UberShaderAtlasUtilities_TextureInfo value))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundHideZone.h>
+#include <Modloader/app/structs/List_1_PetrifiedOwlFeedingGrounds_PetrifiedOwlFeedingGroundHideZone_.h>
+#include <Modloader/app/structs/IEnumerable_1_PetrifiedOwlFeedingGrounds_PetrifiedOwlFeedingGroundHideZone_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_PetrifiedOwlFeedingGrounds_PetrifiedOwlFeedingGroundHideZone_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::PetrifiedOwlFeedingGroundHideZone*, get_Item, (app::List_1_PetrifiedOwlFeedingGrounds_PetrifiedOwlFeedingGroundHideZone_ * this_ptr, int32_t index))

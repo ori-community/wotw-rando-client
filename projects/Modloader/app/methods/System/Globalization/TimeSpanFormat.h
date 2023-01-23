@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/TimeSpanFormat_Pattern__Enum.h>
+#include <Modloader/app/structs/DateTimeFormatInfo.h>
 
 namespace app::classes::System::Globalization::TimeSpanFormat {
     IL2CPP_REGISTER_METHOD(0x01DF0190, app::String*, IntToString, (int32_t n, int32_t digits))

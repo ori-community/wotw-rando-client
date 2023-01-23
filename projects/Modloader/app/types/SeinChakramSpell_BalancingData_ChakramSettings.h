@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinChakramSpell_BalancingData_ChakramSettings__Class.h>
+#include <Modloader/app/structs/SeinChakramSpell_BalancingData_ChakramSettings.h>
 
 namespace app::classes::types {
     namespace SeinChakramSpell_BalancingData_ChakramSettings {

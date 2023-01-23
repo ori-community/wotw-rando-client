@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_AbilityType_List_1_Moon_ComboSystem_ComboMove__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_AbilityType_List_1_Moon_ComboSystem_ComboMove__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_AbilityType_List_1_Moon_ComboSystem_ComboMove__DEFINED)
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#if defined(IL2CPP_STRUCT_AbilityType__Enum_DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_AbilityType_List_1_Moon_ComboSystem_ComboMove__DEFINED
+struct List_1_Moon_ComboSystem_ComboMove_;
+struct Dictionary_2_TKey_TValue_Entry_AbilityType_List_1_Moon_ComboSystem_ComboMove_ {
+    int32_t hashCode;
+    int32_t next;
+    AbilityType__Enum key;
+
+    struct List_1_Moon_ComboSystem_ComboMove_* value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_AbilityType_List_1_Moon_ComboSystem_ComboMove__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_AbilityType_List_1_Moon_ComboSystem_ComboMove__FWDDECL
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_ComboMove_.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_AbilityType_List_1_Moon_ComboSystem_ComboMove__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_AbilityType_List_1_Moon_ComboSystem_ComboMove__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_AbilityType_List_1_Moon_ComboSystem_ComboMove__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_AbilityType_List_1_Moon_ComboSystem_ComboMove_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_AbilityType_List_1_Moon_ComboSystem_ComboMove_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

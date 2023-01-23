@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility_LeashableInfo__Boxed.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility_LeashableInfo.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/ISpiritLeashAttackable.h>
+#include <Modloader/app/structs/GrabbableSurface.h>
 
 namespace app::classes::SeinSpiritLeashAbility_LeashableInfo {
     IL2CPP_REGISTER_METHOD(0x0011C130, app::Vector3, GetAttackablePosition, (app::SeinSpiritLeashAbility_LeashableInfo__Boxed * this_ptr))

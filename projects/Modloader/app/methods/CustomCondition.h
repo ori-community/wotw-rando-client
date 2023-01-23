@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CustomCondition.h>
+#include <Modloader/app/structs/ICustomConditionDefinition.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::CustomCondition {
     IL2CPP_REGISTER_METHOD(0x00DBB040, void, OnValidate, (app::CustomCondition * this_ptr))

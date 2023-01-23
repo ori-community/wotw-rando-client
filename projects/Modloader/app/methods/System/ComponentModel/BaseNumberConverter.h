@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseNumberConverter.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ITypeDescriptorContext.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CultureInfo.h>
 
 namespace app::classes::System::ComponentModel::BaseNumberConverter {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_AllowHex, (app::BaseNumberConverter * this_ptr))

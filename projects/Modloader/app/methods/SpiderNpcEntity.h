@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SpiderNpcEntity.h>
+#include <Modloader/app/structs/SpiderNpcEntity_State__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::SpiderNpcEntity {
     IL2CPP_REGISTER_METHOD(0x011BE8A0, app::String*, get_DialogActorName, (app::SpiderNpcEntity * this_ptr))

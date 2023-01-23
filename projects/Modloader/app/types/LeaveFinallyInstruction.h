@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LeaveFinallyInstruction__Class.h>
+#include <Modloader/app/structs/LeaveFinallyInstruction.h>
 
 namespace app::classes::types {
     namespace LeaveFinallyInstruction {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/LeverController.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::Moon::Setups::MoonLever::LeverController {
     IL2CPP_REGISTER_METHOD(0x00E257A0, app::IDesiredUberState*, get_LeftState, (app::LeverController * this_ptr))

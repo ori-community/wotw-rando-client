@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Boolean__Array.h>
+#include <Modloader/app/structs/StringEscapeHandling__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/IArrayPool_1_System_Char_.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Nullable_1_Int64_.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::JavaScriptUtils {
     IL2CPP_REGISTER_METHOD(0x0301B750, void, cctor, ())

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DifficultyModeMessageProvider_GetMessages_d_5__Class.h>
+#include <Modloader/app/structs/DifficultyModeMessageProvider_GetMessages_d_5.h>
 
 namespace app::classes::types {
     namespace DifficultyModeMessageProvider_GetMessages_d_5 {

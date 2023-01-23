@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShootableCreepVisuals.h>
 
 namespace app::classes::ShootableCreepVisuals {
     IL2CPP_REGISTER_METHOD(0x004430B0, bool, get_InvalidateParentTimelineCache, (app::ShootableCreepVisuals * this_ptr))

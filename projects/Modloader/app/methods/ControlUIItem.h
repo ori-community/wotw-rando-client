@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ControlUIItem.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ControlUIItem {
     IL2CPP_REGISTER_METHOD(0x011F07F0, void, SetItemContext, (app::ControlUIItem * this_ptr, app::Object* context, app::Object* grid_context))

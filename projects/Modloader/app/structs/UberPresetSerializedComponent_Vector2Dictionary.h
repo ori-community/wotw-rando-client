@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberPresetSerializedComponent_Vector2Dictionary_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_Vector2Dictionary_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_Vector2Dictionary_DEFINED)
+#include <Modloader/app/structs/UberPresetSerializedComponent_Vector2Dictionary__Fields.h>
+#if defined(IL2CPP_STRUCT_UberPresetSerializedComponent_Vector2Dictionary__Fields_DEFINED)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_Vector2Dictionary_DEFINED
+struct UberPresetSerializedComponent_Vector2Dictionary__Class;
+struct UberPresetSerializedComponent_Vector2Dictionary {
+    struct UberPresetSerializedComponent_Vector2Dictionary__Class* klass;
+    MonitorData* monitor;
+    struct UberPresetSerializedComponent_Vector2Dictionary__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_Vector2Dictionary_FWDDECL)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_Vector2Dictionary_FWDDECL
+#include <Modloader/app/structs/UberPresetSerializedComponent_Vector2Dictionary__Class.h>
+#endif
+#undef IL2CPP_STRUCT_UberPresetSerializedComponent_Vector2Dictionary_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_Vector2Dictionary_DEFINED) && !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_Vector2Dictionary_FWDDECL)
+#include <Modloader/app/structs/UberPresetSerializedComponent_Vector2Dictionary.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberPresetSerializedComponent_Vector2Dictionary.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DesiredPlayerAbilityState.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::uberSerializationWisp::DesiredPlayerAbilityState {
     IL2CPP_REGISTER_METHOD(0x00F318D0, bool, IsFulfilled, (app::DesiredPlayerAbilityState * this_ptr))

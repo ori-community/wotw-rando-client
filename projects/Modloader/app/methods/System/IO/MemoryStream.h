@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MemoryStream.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/Task_1_System_Int32_.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/Stream.h>
 
 namespace app::classes::System::IO::MemoryStream {
     IL2CPP_REGISTER_METHOD(0x02370060, void, ctor_1, (app::MemoryStream * this_ptr))

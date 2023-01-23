@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListOfCollidedObjects.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::ListOfCollidedObjects {
     IL2CPP_REGISTER_METHOD(0x00FA87C0, void, OnCollisionEnter, (app::ListOfCollidedObjects * this_ptr, app::Collision* collision))

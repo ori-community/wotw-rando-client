@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpWebRequest.h>
+#include <Modloader/app/structs/MonoTlsStream.h>
+#include <Modloader/app/structs/WebExceptionStatus__Enum.h>
+#include <Modloader/app/structs/NetworkStream.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Mono::Net::Security::MonoTlsStream {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::HttpWebRequest*, get_Request, (app::MonoTlsStream * this_ptr))

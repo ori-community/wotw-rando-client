@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CaseInsensitiveAscii.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::CaseInsensitiveAscii {
     IL2CPP_REGISTER_METHOD(0x02016520, int32_t, GetHashCode, (app::CaseInsensitiveAscii * this_ptr, app::Object* my_object))

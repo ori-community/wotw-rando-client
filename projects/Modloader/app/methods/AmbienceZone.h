@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/AmbienceZone.h>
+#include <Modloader/app/structs/ISoundListener.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::AmbienceZone {
     IL2CPP_REGISTER_METHOD(0x004F7280, app::Rect, get_EditorBounds, (app::AmbienceZone * this_ptr))

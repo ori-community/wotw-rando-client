@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SaveFileExistsCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SaveFileExistsCondition {
     IL2CPP_REGISTER_METHOD(0x00C2AF70, bool, Validate, (app::SaveFileExistsCondition * this_ptr, app::IContext* context))

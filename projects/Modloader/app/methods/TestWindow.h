@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TestWindow.h>
+#include <Modloader/app/structs/TestWindow_State__Enum.h>
 
 namespace app::classes::TestWindow {
     IL2CPP_REGISTER_METHOD(0x010E09F0, void, Show, (app::TestWindow * this_ptr))

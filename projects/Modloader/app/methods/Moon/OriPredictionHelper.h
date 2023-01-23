@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/OriPredictionHelper.h>
 
 namespace app::classes::Moon::OriPredictionHelper {
     IL2CPP_REGISTER_METHOD(0x0064EB90, app::Vector3, get_SmoothedWorldSpeed, (app::OriPredictionHelper * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuFall.h>
 
 namespace app::classes::KuFall {
     IL2CPP_REGISTER_METHOD(0x01235EE0, void, OnSetReferenceToKu, (app::KuFall * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MechSpiderLeg_Step_d_24.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::RootMotion::Demos::MechSpiderLeg__Step_d__24 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::MechSpiderLeg_Step_d_24 * this_ptr, int32_t __1__state))

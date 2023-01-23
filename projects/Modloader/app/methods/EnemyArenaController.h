@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnemyArenaController.h>
+#include <Modloader/app/structs/EnemyArenaController_EnemyWave.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/ICondition.h>
+#include <Modloader/app/structs/List_1_Moon_Entity_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/VirtualClipsBuilder.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::EnemyArenaController {
     IL2CPP_REGISTER_METHOD(0x00BFF2B0, bool, get_IsCompleted, (app::EnemyArenaController * this_ptr))

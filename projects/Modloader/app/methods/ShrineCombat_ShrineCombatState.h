@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShrineCombat_ShrineCombatState.h>
+#include <Modloader/app/structs/ShrineCombat.h>
 
 namespace app::classes::ShrineCombat_ShrineCombatState {
     IL2CPP_REGISTER_METHOD(0x0073CAB0, void, ctor, (app::ShrineCombat_ShrineCombatState * this_ptr, app::ShrineCombat* shrine_combat))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlatformPuppet.h>
 
 namespace app::classes::PlatformPuppet {
     IL2CPP_REGISTER_METHOD(0x01172090, int32_t, get_Id, (app::PlatformPuppet * this_ptr))

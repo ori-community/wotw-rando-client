@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameWorld.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/GameWorldArea.h>
+#include <Modloader/app/structs/GameWorldAreaID__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/RuntimeGameWorldArea.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/WorldMapIconType__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::GameWorld {
     IL2CPP_REGISTER_METHOD(0x00406190, bool, HasCompletedEverything, (app::GameWorld * this_ptr))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata__DEFINED)
+#include <Modloader/app/structs/List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata__DEFINED
+struct List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata___Class;
+struct List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata_ {
+    struct List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata___Class* klass;
+    MonitorData* monitor;
+    struct List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata__FWDDECL)
+#define IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata__FWDDECL
+#include <Modloader/app/structs/List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata__DEFINED) && !defined(IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata__FWDDECL)
+#include <Modloader/app/structs/List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_Moon_VerletPhysicsAnimationPostprocess_JointMetadata_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MethodCall.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/CADMethodCallMessage.h>
+#include <Modloader/app/structs/IMethodMessage.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/LogicalCallContext.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Identity.h>
+#include <Modloader/app/structs/Type__Array.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::MethodCall {
     IL2CPP_REGISTER_METHOD(0x0230EC70, void, ctor_1, (app::MethodCall * this_ptr, app::SerializationInfo* info, app::StreamingContext context))

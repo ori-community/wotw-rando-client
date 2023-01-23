@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GenericPuppet_GhostGenericResourcesReflectionCache_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GenericPuppet_GhostGenericResourcesReflectionCache_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GenericPuppet_GhostGenericResourcesReflectionCache_DEFINED)
+#include <Modloader/app/structs/GenericPuppet_GhostGenericResourcesReflectionCache__Fields.h>
+#if defined(IL2CPP_STRUCT_GenericPuppet_GhostGenericResourcesReflectionCache__Fields_DEFINED)
+#define IL2CPP_STRUCT_GenericPuppet_GhostGenericResourcesReflectionCache_DEFINED
+struct GenericPuppet_GhostGenericResourcesReflectionCache__Class;
+struct GenericPuppet_GhostGenericResourcesReflectionCache {
+    struct GenericPuppet_GhostGenericResourcesReflectionCache__Class* klass;
+    MonitorData* monitor;
+    struct GenericPuppet_GhostGenericResourcesReflectionCache__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GenericPuppet_GhostGenericResourcesReflectionCache_FWDDECL)
+#define IL2CPP_STRUCT_GenericPuppet_GhostGenericResourcesReflectionCache_FWDDECL
+#include <Modloader/app/structs/GenericPuppet_GhostGenericResourcesReflectionCache__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GenericPuppet_GhostGenericResourcesReflectionCache_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GenericPuppet_GhostGenericResourcesReflectionCache_DEFINED) && !defined(IL2CPP_STRUCT_GenericPuppet_GhostGenericResourcesReflectionCache_FWDDECL)
+#include <Modloader/app/structs/GenericPuppet_GhostGenericResourcesReflectionCache.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GenericPuppet_GhostGenericResourcesReflectionCache.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

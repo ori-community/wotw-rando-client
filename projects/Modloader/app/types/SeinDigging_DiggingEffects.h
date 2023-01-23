@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinDigging_DiggingEffects__Class.h>
+#include <Modloader/app/structs/SeinDigging_DiggingEffects.h>
+#include <Modloader/app/structs/SeinDigging_DiggingEffects__Array.h>
 
 namespace app::classes::types {
     namespace SeinDigging_DiggingEffects {

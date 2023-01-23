@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuPushWall.h>
 
 namespace app::classes::KuPushWall {
     IL2CPP_REGISTER_METHOD(0x01245850, void, OnSetReferenceToKu, (app::KuPushWall * this_ptr))

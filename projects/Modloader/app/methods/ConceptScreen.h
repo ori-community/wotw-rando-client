@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConceptScreen.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Texture.h>
 
 namespace app::classes::ConceptScreen {
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, get_IsSuspended, (app::ConceptScreen * this_ptr))

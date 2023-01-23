@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SaveSlotsScreenshotManager.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/GameWorldAreaID__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SaveSlotsScreenshotManager {
     IL2CPP_REGISTER_METHOD(0x0092ABF0, void, Awake, (app::SaveSlotsScreenshotManager * this_ptr))

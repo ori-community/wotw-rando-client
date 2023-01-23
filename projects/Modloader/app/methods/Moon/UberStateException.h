@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStateException.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::UberStateException {
     IL2CPP_REGISTER_METHOD(0x01B6CEE0, void, ctor_1, (app::UberStateException * this_ptr))

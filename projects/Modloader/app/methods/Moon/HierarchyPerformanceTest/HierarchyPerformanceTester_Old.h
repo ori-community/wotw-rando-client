@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HierarchyPerformanceTester_Old.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
+#include <Modloader/app/structs/State__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
+#include <Modloader/app/structs/HashSet_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::HierarchyPerformanceTester_Old {
     IL2CPP_REGISTER_METHOD(0x0149BDF0, void, add_OnTestComplete, (app::HierarchyPerformanceTester_Old * this_ptr, app::Action* value))

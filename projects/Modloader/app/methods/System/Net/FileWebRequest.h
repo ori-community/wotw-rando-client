@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FileWebRequest.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ICredentials.h>
+#include <Modloader/app/structs/WebHeaderCollection.h>
+#include <Modloader/app/structs/IWebProxy.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/WebResponse.h>
 
 namespace app::classes::System::Net::FileWebRequest {
     IL2CPP_REGISTER_METHOD(0x01D27E90, void, ctor_1, (app::FileWebRequest * this_ptr, app::Uri* uri))

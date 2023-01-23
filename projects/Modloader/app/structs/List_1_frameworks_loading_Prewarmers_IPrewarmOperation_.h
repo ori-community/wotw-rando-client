@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_frameworks_loading_Prewarmers_IPrewarmOperation__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_frameworks_loading_Prewarmers_IPrewarmOperation__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_frameworks_loading_Prewarmers_IPrewarmOperation__DEFINED)
+#include <Modloader/app/structs/List_1_frameworks_loading_Prewarmers_IPrewarmOperation___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_frameworks_loading_Prewarmers_IPrewarmOperation___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_frameworks_loading_Prewarmers_IPrewarmOperation__DEFINED
+struct List_1_frameworks_loading_Prewarmers_IPrewarmOperation___Class;
+struct List_1_frameworks_loading_Prewarmers_IPrewarmOperation_ {
+    struct List_1_frameworks_loading_Prewarmers_IPrewarmOperation___Class* klass;
+    MonitorData* monitor;
+    struct List_1_frameworks_loading_Prewarmers_IPrewarmOperation___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_frameworks_loading_Prewarmers_IPrewarmOperation__FWDDECL)
+#define IL2CPP_STRUCT_List_1_frameworks_loading_Prewarmers_IPrewarmOperation__FWDDECL
+#include <Modloader/app/structs/List_1_frameworks_loading_Prewarmers_IPrewarmOperation___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_frameworks_loading_Prewarmers_IPrewarmOperation__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_frameworks_loading_Prewarmers_IPrewarmOperation__DEFINED) && !defined(IL2CPP_STRUCT_List_1_frameworks_loading_Prewarmers_IPrewarmOperation__FWDDECL)
+#include <Modloader/app/structs/List_1_frameworks_loading_Prewarmers_IPrewarmOperation_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_frameworks_loading_Prewarmers_IPrewarmOperation_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DelayedActionExecuter__Class.h>
+#include <Modloader/app/structs/DelayedActionExecuter.h>
 
 namespace app::classes::types {
     namespace DelayedActionExecuter {

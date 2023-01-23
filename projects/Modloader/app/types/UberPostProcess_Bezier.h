@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberPostProcess_Bezier__Class.h>
+#include <Modloader/app/structs/UberPostProcess_Bezier.h>
+#include <Modloader/app/structs/UberPostProcess_Bezier__Boxed.h>
 
 namespace app::classes::types {
     namespace UberPostProcess_Bezier {

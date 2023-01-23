@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlSchemaAll.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaAll {
     IL2CPP_REGISTER_METHOD(0x002FBBE0, app::XmlSchemaObjectCollection*, get_Items, (app::XmlSchemaAll * this_ptr))

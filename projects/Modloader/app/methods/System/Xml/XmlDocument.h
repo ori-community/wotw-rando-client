@@ -1,5 +1,40 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlImplementation.h>
+#include <Modloader/app/structs/SchemaInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlName.h>
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
+#include <Modloader/app/structs/WeakReference.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlDocumentType.h>
+#include <Modloader/app/structs/XmlDeclaration.h>
+#include <Modloader/app/structs/XmlLinkedNode.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/XmlAttribute.h>
+#include <Modloader/app/structs/XmlCDataSection.h>
+#include <Modloader/app/structs/XmlComment.h>
+#include <Modloader/app/structs/XmlDocumentFragment.h>
+#include <Modloader/app/structs/SchemaElementDecl.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/XmlEntityReference.h>
+#include <Modloader/app/structs/XmlProcessingInstruction.h>
+#include <Modloader/app/structs/XmlText.h>
+#include <Modloader/app/structs/XmlSignificantWhitespace.h>
+#include <Modloader/app/structs/XmlWhitespace.h>
+#include <Modloader/app/structs/XmlNamedNodeMap.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlTextReader.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlNodeChangedEventArgs.h>
+#include <Modloader/app/structs/XmlNodeChangedAction__Enum.h>
+#include <Modloader/app/structs/XmlEntity.h>
 
 namespace app::classes::System::Xml::XmlDocument {
     IL2CPP_REGISTER_METHOD(0x0196C010, void, ctor_1, (app::XmlDocument * this_ptr))

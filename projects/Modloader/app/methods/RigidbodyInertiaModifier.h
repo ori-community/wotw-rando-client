@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RigidbodyInertiaModifier.h>
 
 namespace app::classes::RigidbodyInertiaModifier {
     IL2CPP_REGISTER_METHOD(0x00912030, void, OnEnable, (app::RigidbodyInertiaModifier * this_ptr))

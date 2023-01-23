@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/fsData.h>
+#include <Modloader/app/structs/List_1_FullSerializer_fsObjectProcessor_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/fsSerializer.h>
+#include <Modloader/app/structs/fsObjectProcessor.h>
+#include <Modloader/app/structs/fsBaseConverter.h>
+#include <Modloader/app/structs/fsResult.h>
 
 namespace app::classes::FullSerializer::fsSerializer {
     IL2CPP_REGISTER_METHOD(0x01515440, void, cctor, ())

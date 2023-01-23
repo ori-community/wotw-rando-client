@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
+#include <Modloader/app/structs/Datatype_normalizedString.h>
+#include <Modloader/app/structs/XmlSchemaWhiteSpace__Enum.h>
 
 namespace app::classes::System::Xml::Schema::Datatype_normalizedString {
     IL2CPP_REGISTER_METHOD(0x00E3EE40, app::XmlTypeCode__Enum, get_TypeCode, (app::Datatype_normalizedString * this_ptr))

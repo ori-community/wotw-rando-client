@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration_DEFINED)
+#include <Modloader/app/structs/AkCommonOutputSettings_ChannelConfiguration__Fields.h>
+#if defined(IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration__Fields_DEFINED)
+#define IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration_DEFINED
+struct AkCommonOutputSettings_ChannelConfiguration__Class;
+struct AkCommonOutputSettings_ChannelConfiguration {
+    struct AkCommonOutputSettings_ChannelConfiguration__Class* klass;
+    MonitorData* monitor;
+    struct AkCommonOutputSettings_ChannelConfiguration__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration_FWDDECL)
+#define IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration_FWDDECL
+#include <Modloader/app/structs/AkCommonOutputSettings_ChannelConfiguration__Class.h>
+#endif
+#undef IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration_DEFINED) && !defined(IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration_FWDDECL)
+#include <Modloader/app/structs/AkCommonOutputSettings_ChannelConfiguration.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AkCommonOutputSettings_ChannelConfiguration.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

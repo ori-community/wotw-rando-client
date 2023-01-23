@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecordingUnmanagedParticlesTracker.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/TrackingExclusions.h>
 
 namespace app::classes::RecordingUnmanagedParticlesTracker {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_TrackTranformChangesForRecording, (app::RecordingUnmanagedParticlesTracker * this_ptr))

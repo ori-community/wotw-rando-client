@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WindShaftController.h>
+#include <Modloader/app/structs/WindSegment.h>
 
 namespace app::classes::WindShaftController {
     IL2CPP_REGISTER_METHOD(0x00578CD0, void, Awake, (app::WindShaftController * this_ptr))

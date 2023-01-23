@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PauseMenuProgressElements_UberStateToElement__Class.h>
+#include <Modloader/app/structs/PauseMenuProgressElements_UberStateToElement.h>
+#include <Modloader/app/structs/PauseMenuProgressElements_UberStateToElement__Boxed.h>
+#include <Modloader/app/structs/PauseMenuProgressElements_UberStateToElement__Array.h>
 
 namespace app::classes::types {
     namespace PauseMenuProgressElements_UberStateToElement {

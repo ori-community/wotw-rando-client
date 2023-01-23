@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/IState_2.h>
+#include <Modloader/app/structs/List_1_fsm_IState_.h>
+#include <Modloader/app/structs/StateConfigurator_1.h>
+#include <Modloader/app/structs/TransitionManager_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ITrigger_1.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IState_2__Array.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
 
 namespace app::classes::fsm::StateMachine {
     IL2CPP_REGISTER_METHOD(0x00F6EA60, void, ctor_1, (app::StateMachine_2 * this_ptr))

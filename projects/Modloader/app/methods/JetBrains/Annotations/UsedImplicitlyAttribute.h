@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UsedImplicitlyAttribute.h>
+#include <Modloader/app/structs/ImplicitUseKindFlags__Enum.h>
+#include <Modloader/app/structs/ImplicitUseTargetFlags__Enum.h>
 
 namespace app::classes::JetBrains::Annotations::UsedImplicitlyAttribute {
     IL2CPP_REGISTER_METHOD(0x02418CA0, void, ctor_1, (app::UsedImplicitlyAttribute * this_ptr))

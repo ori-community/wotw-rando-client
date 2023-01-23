@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Guid__Boxed.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Guid_GuidStyles__Enum.h>
+#include <Modloader/app/structs/Guid_GuidResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IFormatProvider.h>
 
 namespace app::classes::System::Guid {
     IL2CPP_REGISTER_METHOD(0x001D46A0, void, ctor_1, (app::Guid__Boxed * this_ptr, app::Byte__Array* b))

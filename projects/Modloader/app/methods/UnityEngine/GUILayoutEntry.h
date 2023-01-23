@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GUILayoutEntry.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/GUILayoutOption__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::GUILayoutEntry {
     IL2CPP_REGISTER_METHOD(0x029E6F30, void, ctor_1, (app::GUILayoutEntry * this_ptr, float _min_width, float _max_width, float _min_height, float _max_height, app::GUIStyle* _style))

@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StringComparison__Enum.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/StringSplitOptions__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/NormalizationForm__Enum.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/CompareOptions__Enum.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/ParamsArray.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Char_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
 
 namespace app::classes::System::String {
     IL2CPP_REGISTER_METHOD(0x01E26B60, app::String*, Join_1, (app::String * separator, app::String__Array* value))

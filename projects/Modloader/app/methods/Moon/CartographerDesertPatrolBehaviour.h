@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CartographerDesertPatrolBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::CartographerDesertPatrolBehaviour {
     IL2CPP_REGISTER_METHOD(0x00CC2B10, void, OnEntityInitialized, (app::CartographerDesertPatrolBehaviour * this_ptr))

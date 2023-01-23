@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleScripting.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::SimpleScripting {
     IL2CPP_REGISTER_METHOD(0x0166BC70, void, Start, (app::SimpleScripting * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MortarSpitBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::MortarSpitBehaviour {
     IL2CPP_REGISTER_METHOD(0x0147E890, void, OnEntityInitialized, (app::MortarSpitBehaviour * this_ptr))

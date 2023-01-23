@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderlingDeathReaction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
 
 namespace app::classes::SpiderlingDeathReaction {
     IL2CPP_REGISTER_METHOD(0x011BF7D0, void, OnInitializeTask, (app::SpiderlingDeathReaction * this_ptr, app::IContext* context))

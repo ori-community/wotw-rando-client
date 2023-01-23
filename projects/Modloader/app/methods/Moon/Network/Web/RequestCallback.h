@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RequestCallback.h>
+#include <Modloader/app/structs/WebResponse_1.h>
+#include <Modloader/app/structs/IDataWriter.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IRequest.h>
 
 namespace app::classes::Moon::Network::Web::RequestCallback {
     IL2CPP_REGISTER_METHOD(0x02E97F50, void, SetResponse, (app::RequestCallback * this_ptr, app::WebResponse_1* response))

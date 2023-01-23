@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServiceNameCollection.h>
+#include <Modloader/app/structs/ServiceNameStore.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::Net::ServiceNameStore {
     IL2CPP_REGISTER_METHOD(0x01BD3990, app::ServiceNameCollection*, get_ServiceNames, (app::ServiceNameStore * this_ptr))

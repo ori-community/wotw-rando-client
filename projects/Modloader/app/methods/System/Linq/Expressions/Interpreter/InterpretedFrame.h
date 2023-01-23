@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
+#include <Modloader/app/structs/Interpreter.h>
+#include <Modloader/app/structs/IStrongBox__Array.h>
+#include <Modloader/app/structs/DebugInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::InterpretedFrame {
     IL2CPP_REGISTER_METHOD(0x01CE1270, void, ctor, (app::InterpretedFrame * this_ptr, app::Interpreter* interpreter, app::IStrongBox__Array* closure))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Resolution__Boxed.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Resolution {
     IL2CPP_REGISTER_METHOD(0x001EBC90, int32_t, get_width, (app::Resolution__Boxed * this_ptr))

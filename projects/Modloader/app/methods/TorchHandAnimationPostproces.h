@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TorchHandAnimationPostproces.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::TorchHandAnimationPostproces {
     IL2CPP_REGISTER_METHOD(0x00651560, int32_t, get_Order, (app::TorchHandAnimationPostproces * this_ptr))

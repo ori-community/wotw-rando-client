@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlatformMovementListOfColliders.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PlatformMovementListOfColliders {
     IL2CPP_REGISTER_METHOD(0x01170090, void, Start, (app::PlatformMovementListOfColliders * this_ptr))

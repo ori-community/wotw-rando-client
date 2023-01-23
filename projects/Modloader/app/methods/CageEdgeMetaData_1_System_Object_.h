@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CageEdgeMetaData_1_System_Object_.h>
+#include <Modloader/app/structs/CageStructureTool_Edge.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::CageEdgeMetaData_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x019D8900, void, OnEnable, (app::CageEdgeMetaData_1_System_Object_ * this_ptr))

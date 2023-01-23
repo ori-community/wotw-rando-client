@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlAsyncCheckReader.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ReadState__Enum_1.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
+#include <Modloader/app/structs/IDtdInfo.h>
 
 namespace app::classes::System::Xml::XmlAsyncCheckReader {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::XmlReader*, get_CoreReader, (app::XmlAsyncCheckReader * this_ptr))

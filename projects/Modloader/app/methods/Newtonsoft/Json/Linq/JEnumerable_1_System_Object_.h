@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JEnumerable_1_System_Object___Boxed.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/JEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JEnumerable_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x001C92F0, void, ctor, (app::JEnumerable_1_System_Object___Boxed * this_ptr, app::IEnumerable_1_System_Object_* enumerable))

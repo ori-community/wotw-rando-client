@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TouchInputModule.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::EventSystems::TouchInputModule {
     IL2CPP_REGISTER_METHOD(0x01F29500, void, ctor, (app::TouchInputModule * this_ptr))

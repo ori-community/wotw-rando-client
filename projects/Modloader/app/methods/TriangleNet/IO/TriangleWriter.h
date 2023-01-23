@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TriangleWriter.h>
+#include <Modloader/app/structs/Mesh_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StreamWriter.h>
+#include <Modloader/app/structs/IEnumerable_1_TriangleNet_Geometry_Vertex_.h>
+#include <Modloader/app/structs/IPolygon.h>
 
 namespace app::classes::TriangleNet::IO::TriangleWriter {
     IL2CPP_REGISTER_METHOD(0x02625800, void, Write, (app::TriangleWriter * this_ptr, app::Mesh_1* mesh, app::String* filename))

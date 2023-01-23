@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDoorHandler.h>
+#include <Modloader/app/structs/SeinDoorHandler_State__Enum.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/LegacyDoor.h>
 
 namespace app::classes::SeinDoorHandler {
     IL2CPP_REGISTER_METHOD(0x00446590, bool, get_IsOverlappingDoor, (app::SeinDoorHandler * this_ptr))

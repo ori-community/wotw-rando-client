@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProvidePropertyAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::ProvidePropertyAttribute {
     IL2CPP_REGISTER_METHOD(0x029989E0, void, ctor_1, (app::ProvidePropertyAttribute * this_ptr, app::String* property_name, app::Type* receiver_type))

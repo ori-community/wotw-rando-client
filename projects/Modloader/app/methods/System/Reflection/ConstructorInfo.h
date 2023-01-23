@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
+#include <Modloader/app/structs/MemberTypes__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Reflection::ConstructorInfo {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ConstructorInfo * this_ptr))

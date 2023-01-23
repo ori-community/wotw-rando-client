@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_Moon_WaterFallMask_.h>
+#include <Modloader/app/structs/WaterFallMask.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_Moon_WaterFallMask_ {
     IL2CPP_REGISTER_METHOD(0x0243CB70, void, ctor, (app::Queue_1_Moon_WaterFallMask_ * this_ptr))

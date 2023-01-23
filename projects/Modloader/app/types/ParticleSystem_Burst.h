@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ParticleSystem_Burst__Class.h>
+#include <Modloader/app/structs/ParticleSystem_Burst.h>
+#include <Modloader/app/structs/ParticleSystem_Burst__Boxed.h>
+#include <Modloader/app/structs/ParticleSystem_Burst__Array.h>
 
 namespace app::classes::types {
     namespace ParticleSystem_Burst {

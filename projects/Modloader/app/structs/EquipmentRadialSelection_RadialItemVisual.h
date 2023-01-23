@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EquipmentRadialSelection_RadialItemVisual_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EquipmentRadialSelection_RadialItemVisual_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EquipmentRadialSelection_RadialItemVisual_DEFINED)
+#include <Modloader/app/structs/EquipmentRadialSelection_RadialItemVisual__Fields.h>
+#if defined(IL2CPP_STRUCT_EquipmentRadialSelection_RadialItemVisual__Fields_DEFINED)
+#define IL2CPP_STRUCT_EquipmentRadialSelection_RadialItemVisual_DEFINED
+struct EquipmentRadialSelection_RadialItemVisual__Class;
+struct EquipmentRadialSelection_RadialItemVisual {
+    struct EquipmentRadialSelection_RadialItemVisual__Class* klass;
+    MonitorData* monitor;
+    struct EquipmentRadialSelection_RadialItemVisual__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_EquipmentRadialSelection_RadialItemVisual_FWDDECL)
+#define IL2CPP_STRUCT_EquipmentRadialSelection_RadialItemVisual_FWDDECL
+#include <Modloader/app/structs/EquipmentRadialSelection_RadialItemVisual__Class.h>
+#endif
+#undef IL2CPP_STRUCT_EquipmentRadialSelection_RadialItemVisual_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EquipmentRadialSelection_RadialItemVisual_DEFINED) && !defined(IL2CPP_STRUCT_EquipmentRadialSelection_RadialItemVisual_FWDDECL)
+#include <Modloader/app/structs/EquipmentRadialSelection_RadialItemVisual.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EquipmentRadialSelection_RadialItemVisual.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

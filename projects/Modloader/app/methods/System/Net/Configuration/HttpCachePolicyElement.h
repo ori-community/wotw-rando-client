@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpCachePolicyElement.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/HttpRequestCacheLevel__Enum.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/ConfigurationElement.h>
 
 namespace app::classes::System::Net::Configuration::HttpCachePolicyElement {
     IL2CPP_REGISTER_METHOD(0x02019500, void, ctor, (app::HttpCachePolicyElement * this_ptr))

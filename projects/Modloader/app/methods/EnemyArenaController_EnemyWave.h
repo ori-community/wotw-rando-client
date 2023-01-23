@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/EnemyArenaController_EnemyWave.h>
+#include <Modloader/app/structs/ICondition.h>
+#include <Modloader/app/structs/EnemyArenaController_WaveStatus__Enum.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::EnemyArenaController_EnemyWave {
     IL2CPP_REGISTER_METHOD(0x00C02130, app::MoonTimeline*, get_OnStartTimelineResolved, (app::EnemyArenaController_EnemyWave * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StarSlugCrawlingState.h>
+#include <Modloader/app/structs/StarSlugEnemy.h>
 
 namespace app::classes::StarSlugCrawlingState {
     IL2CPP_REGISTER_METHOD(0x004C1E90, void, ctor, (app::StarSlugCrawlingState * this_ptr, app::StarSlugEnemy* slug))

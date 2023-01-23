@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VoronoiFactory_ObjectPool_1_TriangleNet_Topology_DCEL_HalfEdge_.h>
+#include <Modloader/app/structs/HalfEdge.h>
 
 namespace app::classes::TriangleNet::Smoothing::VoronoiFactory_ObjectPool_1_TriangleNet_Topology_DCEL_HalfEdge_ {
     IL2CPP_REGISTER_METHOD(0x0225C010, void, ctor, (app::VoronoiFactory_ObjectPool_1_TriangleNet_Topology_DCEL_HalfEdge_ * this_ptr, int32_t capacity))

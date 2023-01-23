@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDeadlyDarknessController.h>
+#include <Modloader/app/structs/ZoneDamageSettings.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::SeinDeadlyDarknessController {
     IL2CPP_REGISTER_METHOD(0x006FD880, bool, get_ControllerShakeActive, (app::SeinDeadlyDarknessController * this_ptr))

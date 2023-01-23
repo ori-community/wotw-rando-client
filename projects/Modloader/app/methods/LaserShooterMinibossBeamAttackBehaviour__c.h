@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserShooterMinibossBeamAttackBehaviour_c.h>
 
 namespace app::classes::LaserShooterMinibossBeamAttackBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x00F18820, void, cctor, ())

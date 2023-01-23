@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnityTlsContext.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SslProtocols__Enum.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/X509CertificateCollection_1.h>
+#include <Modloader/app/structs/UnityTls_unitytls_errorstate.h>
+#include <Modloader/app/structs/UnityTls_unitytls_x509list.h>
+#include <Modloader/app/structs/UnityTls_unitytls_key.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Boolean_.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Void.h>
+#include <Modloader/app/structs/UnityTls_unitytls_x509verify_result__Enum.h>
+#include <Modloader/app/structs/UnityTls_unitytls_x509list_ref.h>
+#include <Modloader/app/structs/UnityTls_unitytls_tlsctx.h>
+#include <Modloader/app/structs/UnityTls_unitytls_x509name.h>
+#include <Modloader/app/structs/UnityTls_unitytls_key_ref.h>
 
 namespace app::classes::Mono::Unity::UnityTlsContext {
     IL2CPP_REGISTER_METHOD(0x0248D710, void, ctor, (app::UnityTlsContext * this_ptr, app::MobileAuthenticatedStream* parent, bool server_mode, app::String* target_host, app::SslProtocols__Enum enabled_protocols, app::X509Certificate_1* server_certificate, app::X509CertificateCollection_1* client_certificates, bool ask_for_client_cert))

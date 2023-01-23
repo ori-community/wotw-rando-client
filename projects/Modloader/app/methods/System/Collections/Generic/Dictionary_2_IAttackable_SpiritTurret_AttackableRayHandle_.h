@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_IAttackable_SpiritTurret_AttackableRayHandle_.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_IAttackable_SpiritTurret_AttackableRayHandle_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_IAttackable_SpiritTurret_AttackableRayHandle_ * this_ptr, app::IAttackable* key))

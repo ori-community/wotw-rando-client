@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KickupDeathBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/KickupDeathBehaviour_KickupState__Enum.h>
 
 namespace app::classes::KickupDeathBehaviour {
     IL2CPP_REGISTER_METHOD(0x00E736D0, void, OnInitializeTask, (app::KickupDeathBehaviour * this_ptr, app::IContext* context))

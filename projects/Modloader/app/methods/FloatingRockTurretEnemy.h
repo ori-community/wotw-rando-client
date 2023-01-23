@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FloatingRockTurretEnemy.h>
+#include <Modloader/app/structs/CharacterAnimationSystem.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::FloatingRockTurretEnemy {
     IL2CPP_REGISTER_METHOD(0x01277550, void, PlayAnimationOnce, (app::FloatingRockTurretEnemy * this_ptr, app::CharacterAnimationSystem* animation_system, app::TextureAnimationWithTransitions* anim, int32_t layer))

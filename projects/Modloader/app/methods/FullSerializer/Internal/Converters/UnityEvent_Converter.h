@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnityEvent_Converter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/fsResult.h>
+#include <Modloader/app/structs/fsData.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::FullSerializer::Internal::Converters::UnityEvent_Converter {
     IL2CPP_REGISTER_METHOD(0x0164AAA0, bool, CanProcess, (app::UnityEvent_Converter * this_ptr, app::Type* type))

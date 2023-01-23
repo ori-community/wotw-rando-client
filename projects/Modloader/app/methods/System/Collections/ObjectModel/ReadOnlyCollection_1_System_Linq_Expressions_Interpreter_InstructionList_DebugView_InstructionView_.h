@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
+#include <Modloader/app/structs/IList_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
+#include <Modloader/app/structs/InstructionList_DebugView_InstructionView.h>
+#include <Modloader/app/structs/InstructionList_DebugView_InstructionView__Array.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::ObjectModel::ReadOnlyCollection_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ {
     IL2CPP_REGISTER_METHOD(0x02B7DCF0, void, ctor, (app::ReadOnlyCollection_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ * this_ptr, app::IList_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_* list))

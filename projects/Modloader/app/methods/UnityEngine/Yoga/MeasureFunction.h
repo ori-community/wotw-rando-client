@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeasureFunction.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/YogaSize.h>
+#include <Modloader/app/structs/YogaNode.h>
+#include <Modloader/app/structs/YogaMeasureMode__Enum.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::UnityEngine::Yoga::MeasureFunction {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::MeasureFunction * this_ptr, app::Object* object, void* method_1))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VelocityBezierSpline.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/BaseSpline_SplinePointType__Enum.h>
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment.h>
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplinePoint.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::VelocityBezierSpline {
     IL2CPP_REGISTER_METHOD(0x013BCE90, void, ReversePoints, (app::VelocityBezierSpline * this_ptr))

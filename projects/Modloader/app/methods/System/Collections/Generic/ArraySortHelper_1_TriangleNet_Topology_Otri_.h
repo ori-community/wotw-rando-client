@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Otri__Array.h>
+#include <Modloader/app/structs/IComparer_1_TriangleNet_Topology_Otri_.h>
+#include <Modloader/app/structs/Otri.h>
+#include <Modloader/app/structs/Comparison_1_TriangleNet_Topology_Otri_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_TriangleNet_Topology_Otri_ {
     IL2CPP_REGISTER_METHOD(0x02F851C0, void, Sort_1, (app::Otri__Array * keys, int32_t index, int32_t length, app::IComparer_1_TriangleNet_Topology_Otri_* comparer))

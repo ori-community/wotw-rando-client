@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinStatusAnimatorDriver_SeinStatus__Enum__Class.h>
+#include <Modloader/app/structs/SeinStatusAnimatorDriver_SeinStatus__Enum.h>
 
 namespace app::classes::types {
     namespace SeinStatusAnimatorDriver_SeinStatus__Enum {

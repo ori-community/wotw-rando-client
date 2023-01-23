@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActivatedServiceTypeEntry.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Runtime::Remoting::ActivatedServiceTypeEntry {
     IL2CPP_REGISTER_METHOD(0x01A97700, void, ctor, (app::ActivatedServiceTypeEntry * this_ptr, app::String* type_name, app::String* assembly_name))

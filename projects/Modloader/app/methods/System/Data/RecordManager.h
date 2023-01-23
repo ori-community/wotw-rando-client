@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecordManager.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRow__Array.h>
 
 namespace app::classes::System::Data::RecordManager {
     IL2CPP_REGISTER_METHOD(0x01E49910, void, ctor, (app::RecordManager * this_ptr, app::DataTable* table))

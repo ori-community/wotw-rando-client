@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStateGroupData.h>
+#include <Modloader/app/structs/List_1_Moon_UberStateVisualization_UberStateGroupData_.h>
+#include <Modloader/app/structs/IComparer_1_Moon_UberStateVisualization_UberStateGroupData_.h>
+#include <Modloader/app/structs/Comparison_1_Moon_UberStateVisualization_UberStateGroupData_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_UberStateVisualization_UberStateGroupData_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_UberStateVisualization_UberStateGroupData_.h>
+#include <Modloader/app/structs/UberStateGroupData__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_Moon_UberStateVisualization_UberStateGroupData_.h>
+#include <Modloader/app/structs/Action_1_Moon_UberStateVisualization_UberStateGroupData_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_UberStateVisualization_UberStateGroupData_.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_UberStateVisualization_UberStateGroupData_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_UberStateVisualization_UberStateGroupData_ {
     IL2CPP_REGISTER_METHOD(0x02E05DF0, app::UberStateGroupData, get_Item, (app::List_1_Moon_UberStateVisualization_UberStateGroupData_ * this_ptr, int32_t index))

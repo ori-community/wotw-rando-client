@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/HybridReferenceDictionary_2_TKey_TValue_GetEnumeratorWorker_d_7_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::HybridReferenceDictionary_2_TKey_TValue___GetEnumeratorWorker_d__7_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00C3DD30, app::KeyValuePair_2_System_Object_System_Object_, System_Collections_Generic_IEnumerator_System_Collections_Generic_KeyValuePair_TKey_TValue___get_Current, (app::HybridReferenceDictionary_2_TKey_TValue_GetEnumeratorWorker_d_7_System_Object_System_Object_ * this_ptr))

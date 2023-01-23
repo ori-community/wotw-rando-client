@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QuestIconUI.h>
+#include <Modloader/app/structs/List_1_QuestIconUI_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_QuestIconUI_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::QuestIconUI*, get_Item, (app::List_1_QuestIconUI_ * this_ptr, int32_t index))

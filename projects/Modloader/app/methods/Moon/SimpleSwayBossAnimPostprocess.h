@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleSwayBossAnimPostprocess.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/SimpleSwayBossAnimPostprocess_PerFrameReadOnly.h>
 
 namespace app::classes::Moon::SimpleSwayBossAnimPostprocess {
     IL2CPP_REGISTER_METHOD(0x003FF7B0, int32_t, get_Order, (app::SimpleSwayBossAnimPostprocess * this_ptr))

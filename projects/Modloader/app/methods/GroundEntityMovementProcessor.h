@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GroundEntityMovementProcessor.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/ILocomotionTurningHandler.h>
+#include <Modloader/app/structs/RaycastCommand.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::GroundEntityMovementProcessor {
     IL2CPP_REGISTER_METHOD(0x0108DD00, bool, get_StickToSurfaces, (app::GroundEntityMovementProcessor * this_ptr))

@@ -4,6 +4,10 @@
 #include <Core/enums/game_areas.h>
 #include <Randomizer/macros.h>
 
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/GameStateMachine_State__Enum.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+
 RANDOMIZER_C_DLLEXPORT void set_debug_controls(bool value);
 RANDOMIZER_C_DLLEXPORT bool get_debug_controls();
 RANDOMIZER_C_DLLEXPORT void fill_health();

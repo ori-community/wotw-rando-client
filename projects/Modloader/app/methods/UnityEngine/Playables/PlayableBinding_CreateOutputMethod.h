@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayableBinding_CreateOutputMethod.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PlayableOutput.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::UnityEngine::Playables::PlayableBinding_CreateOutputMethod {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::PlayableBinding_CreateOutputMethod * this_ptr, app::Object* object, void* method_1))

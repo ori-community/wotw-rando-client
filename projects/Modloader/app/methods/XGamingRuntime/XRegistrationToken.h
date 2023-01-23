@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XRegistrationToken.h>
+#include <Modloader/app/structs/GCHandle.h>
+#include <Modloader/app/structs/XTaskQueueRegistrationToken.h>
 
 namespace app::classes::XGamingRuntime::XRegistrationToken {
     IL2CPP_REGISTER_METHOD(0x0091DD30, void, ctor, (app::XRegistrationToken * this_ptr, app::GCHandle callback_handle, app::XTaskQueueRegistrationToken token))

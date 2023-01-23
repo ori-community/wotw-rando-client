@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraSizeConstraint.h>
 
 namespace app::classes::CameraSizeConstraint {
     IL2CPP_REGISTER_METHOD(0x00B1E080, void, Start, (app::CameraSizeConstraint * this_ptr))

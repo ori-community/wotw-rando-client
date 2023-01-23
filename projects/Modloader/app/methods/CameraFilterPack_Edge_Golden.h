@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Edge_Golden.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Edge_Golden {
     IL2CPP_REGISTER_METHOD(0x02464D70, app::Material*, get_material, (app::CameraFilterPack_Edge_Golden * this_ptr))

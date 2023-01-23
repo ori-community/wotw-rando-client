@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugValues.h>
 
 namespace app::classes::Game::DebugValues {
     IL2CPP_REGISTER_METHOD(0x015247D0, void, ResetStatics, ())

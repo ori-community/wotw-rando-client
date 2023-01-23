@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MultiplyLayerDistortedModifier__Class.h>
+#include <Modloader/app/structs/MultiplyLayerDistortedModifier.h>
 
 namespace app::classes::types {
     namespace MultiplyLayerDistortedModifier {

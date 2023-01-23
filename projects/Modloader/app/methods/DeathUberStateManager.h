@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DeathUberStateManager.h>
+#include <Modloader/app/structs/IDeathUberStateSetter.h>
 
 namespace app::classes::DeathUberStateManager {
     IL2CPP_REGISTER_METHOD(0x00DDEDC0, void, Awake, (app::DeathUberStateManager * this_ptr))

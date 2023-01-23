@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlatformRotator_SwitchRotation_d_14.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::RootMotion::Demos::PlatformRotator__SwitchRotation_d__14 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::PlatformRotator_SwitchRotation_d_14 * this_ptr, int32_t __1__state))

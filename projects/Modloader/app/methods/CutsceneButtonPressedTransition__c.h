@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CutsceneButtonPressedTransition_c.h>
+#include <Modloader/app/structs/Input_Button__Enum.h>
 
 namespace app::classes::CutsceneButtonPressedTransition___c {
     IL2CPP_REGISTER_METHOD(0x00DBDFB0, void, cctor, ())

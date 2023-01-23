@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ItemSelectionManager.h>
+#include <Modloader/app/structs/UIComponent.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/UIInteractable.h>
 
 namespace app::classes::Moon::UI::ItemSelectionManager {
     IL2CPP_REGISTER_METHOD(0x00D251B0, void, OnDrawGizmosSelected, (app::ItemSelectionManager * this_ptr))

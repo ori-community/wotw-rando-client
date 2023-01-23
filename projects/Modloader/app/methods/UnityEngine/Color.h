@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Color__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UnityEngine::Color {
     IL2CPP_REGISTER_METHOD(0x00121740, void, ctor_1, (app::Color__Boxed * this_ptr, float r, float g, float b, float a))

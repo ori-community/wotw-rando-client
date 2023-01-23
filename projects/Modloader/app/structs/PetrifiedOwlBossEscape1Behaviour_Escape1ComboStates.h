@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates_DEFINED
+struct PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates__Class;
+struct PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates {
+    struct PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_Escape1ComboStates.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

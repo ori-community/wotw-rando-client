@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkMonitoringCallbackInfo.h>
+#include <Modloader/app/structs/AkMonitorErrorCode__Enum.h>
+#include <Modloader/app/structs/AkMonitorErrorLevel__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::AkMonitoringCallbackInfo {
     IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkMonitoringCallbackInfo * this_ptr, void* c_ptr, bool c_memory_own))

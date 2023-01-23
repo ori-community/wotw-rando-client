@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XalUser_c.h>
+#include <Modloader/app/structs/Task_1_Task_1_System_Boolean_.h>
 
 namespace app::classes::SystemIntegration::XalUser___c {
     IL2CPP_REGISTER_METHOD(0x00CDF7D0, void, cctor, ())

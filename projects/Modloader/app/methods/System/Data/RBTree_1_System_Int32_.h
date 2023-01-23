@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RBTree_1_System_Int32_.h>
+#include <Modloader/app/structs/TreeAccessMethod__Enum.h>
+#include <Modloader/app/structs/RBTree_1_K_TreePage_System_Int32_.h>
+#include <Modloader/app/structs/RBTree_1_K_NodePath_System_Int32_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/RBTree_1_K_NodeColor_System_Int32_.h>
 
 namespace app::classes::System::Data::RBTree_1_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x02FB3CE0, int32_t, get_Item, (app::RBTree_1_System_Int32_ * this_ptr, int32_t index))

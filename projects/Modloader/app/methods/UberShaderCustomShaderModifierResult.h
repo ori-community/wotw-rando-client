@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderCustomShaderModifierResult.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UberShaderCustomShaderModifierResult {
     IL2CPP_REGISTER_METHOD(0x00420EE0, int32_t, CompareTo, (app::UberShaderCustomShaderModifierResult * this_ptr, app::Object* obj))

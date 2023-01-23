@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericMesher.h>
+#include <Modloader/app/structs/ITriangulator.h>
+#include <Modloader/app/structs/Configuration_1.h>
+#include <Modloader/app/structs/IMesh.h>
+#include <Modloader/app/structs/IList_1_TriangleNet_Geometry_Vertex_.h>
+#include <Modloader/app/structs/IPolygon.h>
+#include <Modloader/app/structs/ConstraintOptions.h>
+#include <Modloader/app/structs/QualityOptions.h>
+#include <Modloader/app/structs/Rectangle.h>
 
 namespace app::classes::TriangleNet::Meshing::GenericMesher {
     IL2CPP_REGISTER_METHOD(0x02B0F0C0, void, ctor_1, (app::GenericMesher * this_ptr))

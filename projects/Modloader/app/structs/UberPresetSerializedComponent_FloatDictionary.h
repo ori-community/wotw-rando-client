@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberPresetSerializedComponent_FloatDictionary_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_FloatDictionary_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_FloatDictionary_DEFINED)
+#include <Modloader/app/structs/UberPresetSerializedComponent_FloatDictionary__Fields.h>
+#if defined(IL2CPP_STRUCT_UberPresetSerializedComponent_FloatDictionary__Fields_DEFINED)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_FloatDictionary_DEFINED
+struct UberPresetSerializedComponent_FloatDictionary__Class;
+struct UberPresetSerializedComponent_FloatDictionary {
+    struct UberPresetSerializedComponent_FloatDictionary__Class* klass;
+    MonitorData* monitor;
+    struct UberPresetSerializedComponent_FloatDictionary__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_FloatDictionary_FWDDECL)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_FloatDictionary_FWDDECL
+#include <Modloader/app/structs/UberPresetSerializedComponent_FloatDictionary__Class.h>
+#endif
+#undef IL2CPP_STRUCT_UberPresetSerializedComponent_FloatDictionary_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_FloatDictionary_DEFINED) && !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_FloatDictionary_FWDDECL)
+#include <Modloader/app/structs/UberPresetSerializedComponent_FloatDictionary.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberPresetSerializedComponent_FloatDictionary.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

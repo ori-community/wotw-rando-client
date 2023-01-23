@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UIVertex__Class.h>
+#include <Modloader/app/structs/UIVertex.h>
+#include <Modloader/app/structs/UIVertex__Boxed.h>
+#include <Modloader/app/structs/UIVertex__Array.h>
 
 namespace app::classes::types {
     namespace UIVertex {

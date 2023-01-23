@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AuthenticationModuleElement.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
 
 namespace app::classes::System::Net::Configuration::AuthenticationModuleElement {
     IL2CPP_REGISTER_METHOD(0x020180B0, void, ctor_1, (app::AuthenticationModuleElement * this_ptr))

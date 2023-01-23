@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StressTester_c.h>
 
 namespace app::classes::StressTester___c {
     IL2CPP_REGISTER_METHOD(0x0066C2C0, void, cctor, ())

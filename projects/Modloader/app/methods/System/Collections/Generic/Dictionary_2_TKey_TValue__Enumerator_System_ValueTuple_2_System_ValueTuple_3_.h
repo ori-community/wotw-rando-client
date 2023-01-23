@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_ValueTuple_2_System_ValueTuple_3___Boxed.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_ValueTuple_2_System_ValueTuple_3__1__Boxed.h>
+#include <Modloader/app/structs/Dictionary_2_System_ValueTuple_2_System_ValueTuple_3__1.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3__1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DictionaryEntry.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__Enumerator_System_ValueTuple_2_System_ValueTuple_3_ {
     IL2CPP_REGISTER_METHOD(0x001354E0, app::KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3_, get_Current_1, (app::Dictionary_2_TKey_TValue_Enumerator_System_ValueTuple_2_System_ValueTuple_3___Boxed * this_ptr))

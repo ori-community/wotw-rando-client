@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConcurrentQueue_1_System_String_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Concurrent::ConcurrentQueue_1_System_String_ {
     IL2CPP_REGISTER_METHOD(0x02F28970, void, Enqueue, (app::ConcurrentQueue_1_System_String_ * this_ptr, app::String* item))

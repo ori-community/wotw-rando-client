@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_PlayFab_PluginContractKey_.h>
+#include <Modloader/app/structs/PluginContractKey__Array.h>
+#include <Modloader/app/structs/PluginContractKey.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_PlayFab_PluginContractKey_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::EqualityComparer_1_PlayFab_PluginContractKey_ * this_ptr))

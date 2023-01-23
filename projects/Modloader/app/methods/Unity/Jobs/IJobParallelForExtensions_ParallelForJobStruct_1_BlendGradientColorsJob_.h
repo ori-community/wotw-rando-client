@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BlendGradientColorsJob.h>
+#include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::Unity::Jobs::IJobParallelForExtensions_ParallelForJobStruct_1_BlendGradientColorsJob_ {
     IL2CPP_REGISTER_METHOD(0x02AC3880, void*, Initialize, ())

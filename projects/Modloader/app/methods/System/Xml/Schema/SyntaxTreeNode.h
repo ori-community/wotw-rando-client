@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SyntaxTreeNode.h>
 
 namespace app::classes::System::Xml::Schema::SyntaxTreeNode {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsRangeNode, (app::SyntaxTreeNode * this_ptr))

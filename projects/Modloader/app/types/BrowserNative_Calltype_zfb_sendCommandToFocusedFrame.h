@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_sendCommandToFocusedFrame__Class.h>
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_sendCommandToFocusedFrame.h>
 
 namespace app::classes::types {
     namespace BrowserNative_Calltype_zfb_sendCommandToFocusedFrame {

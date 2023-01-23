@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/EntityCinematicData.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::EntityCinematicData {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::MoonAnimation*, get_Animation, (app::EntityCinematicData * this_ptr))

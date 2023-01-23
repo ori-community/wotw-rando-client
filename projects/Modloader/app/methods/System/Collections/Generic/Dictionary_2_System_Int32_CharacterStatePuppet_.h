@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_CharacterStatePuppet_.h>
+#include <Modloader/app/structs/CharacterStatePuppet.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Int32_CharacterStatePuppet_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_CharacterStatePuppet_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_System_Int32_CharacterStatePuppet_ * this_ptr))

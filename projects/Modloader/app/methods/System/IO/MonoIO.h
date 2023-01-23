@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/MonoIOError__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FileAttributes__Enum.h>
+#include <Modloader/app/structs/MonoFileType__Enum.h>
+#include <Modloader/app/structs/SafeHandle.h>
+#include <Modloader/app/structs/MonoIOStat.h>
+#include <Modloader/app/structs/FileMode__Enum.h>
+#include <Modloader/app/structs/FileAccess__Enum.h>
+#include <Modloader/app/structs/FileShare__Enum.h>
+#include <Modloader/app/structs/FileOptions__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/void.h>
 
 namespace app::classes::System::IO::MonoIO {
     IL2CPP_REGISTER_METHOD(0x023721F0, app::Exception*, GetException_1, (app::MonoIOError__Enum error))

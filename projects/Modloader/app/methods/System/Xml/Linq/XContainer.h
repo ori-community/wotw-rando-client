@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XContainer.h>
+#include <Modloader/app/structs/XNode.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Xml_Linq_XElement_.h>
+#include <Modloader/app/structs/XName.h>
+#include <Modloader/app/structs/XElement.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Xml_Linq_XNode_.h>
+#include <Modloader/app/structs/XAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/LoadOptions__Enum.h>
+#include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::Linq::XContainer {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::XContainer * this_ptr))

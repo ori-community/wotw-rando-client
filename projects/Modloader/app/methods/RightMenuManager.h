@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RightMenuManager.h>
+#include <Modloader/app/structs/UIContext.h>
 
 namespace app::classes::RightMenuManager {
     IL2CPP_REGISTER_METHOD(0x00910BE0, void, OnEnable, (app::RightMenuManager * this_ptr))

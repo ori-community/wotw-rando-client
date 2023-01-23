@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/TimesliceDebugger.h>
 
 namespace app::classes::TimesliceDebugger {
     IL2CPP_REGISTER_METHOD(0x00AF2610, app::GUIStyle*, get_LabelStyle, (app::TimesliceDebugger * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_DateTime_System_TimeType_.h>
+#include <Modloader/app/structs/List_1_KeyValuePair_2_System_DateTime_System_TimeType_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_KeyValuePair_2_System_DateTime_System_TimeType__ {
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::KeyValuePair_2_System_DateTime_System_TimeType_, get_Item, (app::List_1_KeyValuePair_2_System_DateTime_System_TimeType_ * this_ptr, int32_t index))

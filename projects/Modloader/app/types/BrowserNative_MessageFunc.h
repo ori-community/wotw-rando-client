@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BrowserNative_MessageFunc__Class.h>
+#include <Modloader/app/structs/BrowserNative_MessageFunc.h>
 
 namespace app::classes::types {
     namespace BrowserNative_MessageFunc {

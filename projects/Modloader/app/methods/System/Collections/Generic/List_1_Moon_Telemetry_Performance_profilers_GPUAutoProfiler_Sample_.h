@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_Telemetry_Performance_profilers_GPUAutoProfiler_Sample_.h>
+#include <Modloader/app/structs/GPUAutoProfiler_Sample.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Telemetry_Performance_profilers_GPUAutoProfiler_Sample_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Telemetry_Performance_profilers_GPUAutoProfiler_Sample_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_Moon_Telemetry_Performance_profilers_GPUAutoProfiler_Sample_ * this_ptr))

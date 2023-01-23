@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TaskAwaiter_1_System_Boolean_.h>
+#include <Modloader/app/structs/Task_1_System_Boolean_.h>
+#include <Modloader/app/structs/TaskCreationOptions__Enum.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_1_System_Boolean_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Func_2_Object_Boolean_.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/InternalTaskOptions__Enum.h>
+#include <Modloader/app/structs/TaskScheduler.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TaskFactory_1_System_Boolean_.h>
+#include <Modloader/app/structs/Action_1_System_Threading_Tasks_Task_1__6.h>
+#include <Modloader/app/structs/TaskContinuationOptions__Enum.h>
 
 namespace app::classes::System::Threading::Tasks::Task_1_System_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x004C50A0, app::TaskAwaiter_1_System_Boolean_, GetAwaiter, (app::Task_1_System_Boolean_ * this_ptr))

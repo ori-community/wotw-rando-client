@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_CleverMenuItem_.h>
+#include <Modloader/app/structs/List_1_CleverMenuItem_.h>
+#include <Modloader/app/structs/CleverMenuItem.h>
+#include <Modloader/app/structs/Predicate_1_CleverMenuItem_.h>
+#include <Modloader/app/structs/IEnumerable_1_CleverMenuItem_.h>
+#include <Modloader/app/structs/Comparison_1_CleverMenuItem_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CleverMenuItem_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_CleverMenuItem_, GetEnumerator, (app::List_1_CleverMenuItem_ * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActionWithDuration.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::ActionWithDuration {
     IL2CPP_REGISTER_METHOD(0x004C6DA0, void, Awake, (app::ActionWithDuration * this_ptr))

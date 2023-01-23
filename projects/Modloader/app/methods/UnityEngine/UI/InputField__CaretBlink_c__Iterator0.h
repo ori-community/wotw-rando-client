@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InputField_CaretBlink_c_Iterator0.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::UI::InputField__CaretBlink_c__Iterator0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::InputField_CaretBlink_c_Iterator0 * this_ptr))

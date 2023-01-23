@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RigidbodyInteractionController_InteractionInformation__Boxed.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RigidbodyInteractionController_InteractionInformation {
     IL2CPP_REGISTER_METHOD(0x0011AE50, void, ctor_1, (app::RigidbodyInteractionController_InteractionInformation__Boxed * this_ptr, app::Collision* collision))

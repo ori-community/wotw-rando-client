@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_BaseAnimator_.h>
+#include <Modloader/app/structs/BaseAnimator.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_BaseAnimator_ {
     IL2CPP_REGISTER_METHOD(0x02AB4A90, void, Clear, (app::HashSet_1_BaseAnimator_ * this_ptr))

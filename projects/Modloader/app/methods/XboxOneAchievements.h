@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_Achievement_.h>
+#include <Modloader/app/structs/Action_1_Challenge_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Achievement_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Challenge_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XboxOneAchievements.h>
 
 namespace app::classes::XboxOneAchievements {
     IL2CPP_REGISTER_METHOD(0x00597000, app::Action_1_Achievement_*, get_OnAchievementUnlocked, ())

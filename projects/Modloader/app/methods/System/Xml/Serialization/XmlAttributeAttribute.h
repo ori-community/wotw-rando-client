@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlAttributeAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchemaForm__Enum.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::Xml::Serialization::XmlAttributeAttribute {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::XmlAttributeAttribute * this_ptr, app::String* attribute_name))

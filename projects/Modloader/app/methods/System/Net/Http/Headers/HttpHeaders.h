@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpHeaders.h>
+#include <Modloader/app/structs/HttpHeaderKind__Enum.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_String_IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/HttpHeaders_HeaderBucket.h>
+#include <Modloader/app/structs/HeaderInfo_1.h>
 
 namespace app::classes::System::Net::Http::Headers::HttpHeaders {
     IL2CPP_REGISTER_METHOD(0x02D083E0, void, cctor, ())

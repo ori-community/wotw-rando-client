@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DropSlugLocomotion.h>
 
 namespace app::classes::DropSlugLocomotion {
     IL2CPP_REGISTER_METHOD(0x00BE57B0, bool, get_IsSpinning, (app::DropSlugLocomotion * this_ptr))

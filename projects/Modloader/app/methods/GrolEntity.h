@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GrolEntity.h>
 
 namespace app::classes::GrolEntity {
     IL2CPP_REGISTER_METHOD(0x0108CDB0, app::String*, get_DialogActorName, (app::GrolEntity * this_ptr))

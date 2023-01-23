@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextMesh.h>
+#include <Modloader/app/structs/Font.h>
+#include <Modloader/app/structs/TextAlignment__Enum.h>
+#include <Modloader/app/structs/TextAnchor__Enum.h>
 
 namespace app::classes::UnityEngine::TextMesh {
     IL2CPP_REGISTER_METHOD(0x0319D520, app::String*, get_text, (app::TextMesh * this_ptr))

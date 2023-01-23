@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReflectionObject.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/KeyValuePairConverter.h>
+#include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/JsonSerializer.h>
+#include <Modloader/app/structs/JsonReader.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::KeyValuePairConverter {
     IL2CPP_REGISTER_METHOD(0x01A53E30, app::ReflectionObject*, InitializeReflectionObject, (app::Type * t))

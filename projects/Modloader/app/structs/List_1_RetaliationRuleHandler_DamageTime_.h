@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_RetaliationRuleHandler_DamageTime__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_RetaliationRuleHandler_DamageTime__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_RetaliationRuleHandler_DamageTime__DEFINED)
+#include <Modloader/app/structs/List_1_RetaliationRuleHandler_DamageTime___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_RetaliationRuleHandler_DamageTime___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_RetaliationRuleHandler_DamageTime__DEFINED
+struct List_1_RetaliationRuleHandler_DamageTime___Class;
+struct List_1_RetaliationRuleHandler_DamageTime_ {
+    struct List_1_RetaliationRuleHandler_DamageTime___Class* klass;
+    MonitorData* monitor;
+    struct List_1_RetaliationRuleHandler_DamageTime___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_RetaliationRuleHandler_DamageTime__FWDDECL)
+#define IL2CPP_STRUCT_List_1_RetaliationRuleHandler_DamageTime__FWDDECL
+#include <Modloader/app/structs/List_1_RetaliationRuleHandler_DamageTime___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_RetaliationRuleHandler_DamageTime__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_RetaliationRuleHandler_DamageTime__DEFINED) && !defined(IL2CPP_STRUCT_List_1_RetaliationRuleHandler_DamageTime__FWDDECL)
+#include <Modloader/app/structs/List_1_RetaliationRuleHandler_DamageTime_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_RetaliationRuleHandler_DamageTime_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

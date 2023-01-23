@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CaseInsensitiveComparer.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::CaseInsensitiveComparer {
     IL2CPP_REGISTER_METHOD(0x0201EB10, void, ctor_1, (app::CaseInsensitiveComparer * this_ptr))

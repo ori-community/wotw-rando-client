@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuLand.h>
 
 namespace app::classes::KuLand {
     IL2CPP_REGISTER_METHOD(0x0123C0B0, bool, get_IdleLand, (app::KuLand * this_ptr))

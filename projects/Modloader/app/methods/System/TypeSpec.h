@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypeSpec.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TypeSpec_DisplayNameFormat__Enum.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Func_2_System_Reflection_AssemblyName_System_Reflection_Assembly_.h>
+#include <Modloader/app/structs/Func_4_System_Reflection_Assembly_String_Boolean_Type_.h>
+#include <Modloader/app/structs/ModifierSpec.h>
+#include <Modloader/app/structs/TypeIdentifier.h>
 
 namespace app::classes::System::TypeSpec {
     IL2CPP_REGISTER_METHOD(0x00519290, bool, get_HasModifiers, (app::TypeSpec * this_ptr))

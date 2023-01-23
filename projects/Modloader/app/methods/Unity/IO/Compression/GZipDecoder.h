@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GZipDecoder.h>
+#include <Modloader/app/structs/InputBuffer.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Unity::IO::Compression::GZipDecoder {
     IL2CPP_REGISTER_METHOD(0x02B781E0, void, ctor, (app::GZipDecoder * this_ptr))

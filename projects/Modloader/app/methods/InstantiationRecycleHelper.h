@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InstantiationRecycleHelper.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Object_1.h>
 
 namespace app::classes::InstantiationRecycleHelper {
     IL2CPP_REGISTER_METHOD(0x006366B0, void, ctor, (app::InstantiationRecycleHelper * this_ptr, int32_t prewarm_amount, bool limit_amount_of_active_instances))

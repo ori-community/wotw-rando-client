@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TentacleEnemy_MeleeAttackState.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BehaviourTreeStatus__Enum.h>
+#include <Modloader/app/structs/TickData.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::TentacleEnemy_MeleeAttackState {
     IL2CPP_REGISTER_METHOD(0x00CF8280, bool, get_CanInitiateAttack, (app::TentacleEnemy_MeleeAttackState * this_ptr))

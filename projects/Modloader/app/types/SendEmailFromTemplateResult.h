@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SendEmailFromTemplateResult__Class.h>
+#include <Modloader/app/structs/SendEmailFromTemplateResult.h>
 
 namespace app::classes::types {
     namespace SendEmailFromTemplateResult {

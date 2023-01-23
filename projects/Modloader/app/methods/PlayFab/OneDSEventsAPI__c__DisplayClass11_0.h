@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OneDSEventsAPI_c_DisplayClass11_0.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::PlayFab::OneDSEventsAPI___c__DisplayClass11_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::OneDSEventsAPI_c_DisplayClass11_0 * this_ptr))

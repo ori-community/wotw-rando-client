@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiritShardSettings.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/UpgradablePropertyType__Enum.h>
+#include <Modloader/app/structs/SpiritShardDescription.h>
 
 namespace app::classes::SpiritShardSettings {
     IL2CPP_REGISTER_METHOD(0x00D68D90, void, ResetStatics, ())

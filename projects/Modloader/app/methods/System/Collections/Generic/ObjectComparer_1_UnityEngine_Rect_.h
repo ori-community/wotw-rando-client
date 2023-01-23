@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_Rect_.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_UnityEngine_Rect_ {
     IL2CPP_REGISTER_METHOD(0x01CCF130, int32_t, Compare, (app::ObjectComparer_1_UnityEngine_Rect_ * this_ptr, app::Rect x, app::Rect y))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkDeviceSettings.h>
+#include <Modloader/app/structs/AkThreadProperties.h>
 
 namespace app::classes::AkDeviceSettings {
     IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkDeviceSettings * this_ptr, void* c_ptr, bool c_memory_own))

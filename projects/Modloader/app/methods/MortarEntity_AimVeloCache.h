@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MortarEntity_AimVeloCache.h>
+#include <Modloader/app/structs/MortarEntity.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MortarEntity_AimVeloCache {
     IL2CPP_REGISTER_METHOD(0x01478230, void, ctor, (app::MortarEntity_AimVeloCache * this_ptr, app::MortarEntity* entity))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseNPC.h>
+#include <Modloader/app/structs/InteractionSettings.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/Action_1_MessageBox_HideAction_.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::BaseNPC {
     IL2CPP_REGISTER_METHOD(0x00F86A90, void, Awake, (app::BaseNPC * this_ptr))

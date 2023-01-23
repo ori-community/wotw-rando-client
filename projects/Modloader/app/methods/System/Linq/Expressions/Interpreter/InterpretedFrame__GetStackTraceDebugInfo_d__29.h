@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InterpretedFrame_GetStackTraceDebugInfo_d_29.h>
+#include <Modloader/app/structs/InterpretedFrameInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::InterpretedFrame__GetStackTraceDebugInfo_d__29 {
     IL2CPP_REGISTER_METHOD(0x01426B00, void, ctor, (app::InterpretedFrame_GetStackTraceDebugInfo_d_29 * this_ptr, int32_t __1__state))

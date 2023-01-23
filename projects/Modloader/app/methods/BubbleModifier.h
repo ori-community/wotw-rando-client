@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BubbleModifier.h>
 
 namespace app::classes::BubbleModifier {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ApplyMultipliers, (app::BubbleModifier * this_ptr, float strength, float speed))

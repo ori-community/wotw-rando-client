@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SerializationInfoEnumerator.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationEntry.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Runtime::Serialization::SerializationInfoEnumerator {
     IL2CPP_REGISTER_METHOD(0x01EE10F0, void, ctor, (app::SerializationInfoEnumerator * this_ptr, app::String__Array* members, app::Object__Array* info, app::Type__Array* types, int32_t num_items))

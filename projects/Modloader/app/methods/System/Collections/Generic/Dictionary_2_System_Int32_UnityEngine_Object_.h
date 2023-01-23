@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_UnityEngine_Object_.h>
+#include <Modloader/app/structs/Object_1.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_UnityEngine_Object_ {
     IL2CPP_REGISTER_METHOD(0x02BAC170, void, Add, (app::Dictionary_2_System_Int32_UnityEngine_Object_ * this_ptr, int32_t key, app::Object_1* value))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugOutput.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::DebugOutput {
     IL2CPP_REGISTER_METHOD(0x00DF9B10, void, Awake, (app::DebugOutput * this_ptr))

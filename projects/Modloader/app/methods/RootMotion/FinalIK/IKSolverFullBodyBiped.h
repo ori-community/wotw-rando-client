@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IKEffector.h>
+#include <Modloader/app/structs/IKSolverFullBodyBiped.h>
+#include <Modloader/app/structs/FBIKChain.h>
+#include <Modloader/app/structs/IKMappingLimb.h>
+#include <Modloader/app/structs/IKMappingBone.h>
+#include <Modloader/app/structs/FullBodyBipedChain__Enum.h>
+#include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
+#include <Modloader/app/structs/IKMappingSpine.h>
+#include <Modloader/app/structs/IKConstraintBend.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BipedReferences.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/BipedLimbOrientations.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/BipedLimbOrientations_LimbOrientation.h>
+#include <Modloader/app/structs/Transform__Array.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolverFullBodyBiped {
     IL2CPP_REGISTER_METHOD(0x02BF4E10, app::IKEffector*, get_bodyEffector, (app::IKSolverFullBodyBiped * this_ptr))

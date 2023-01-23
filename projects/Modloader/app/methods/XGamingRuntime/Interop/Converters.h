@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DisposableBuffer.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/SizeT.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_UTF8StringPtr_String_.h>
+#include <Modloader/app/structs/XGameSaveBlob__Array.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XGameSaveBlob_XGamingRuntime_XGameSaveBlob_.h>
+#include <Modloader/app/structs/XblAchievement__Array.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievement_XGamingRuntime_XblAchievement_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementMediaAsset_Object_.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_UTF8StringPtr_Object_.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XGameSaveBlob_Object_.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievement_Object_.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementRequirement_Object_.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementReward_Object_.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementTitleAssociation_Object_.h>
 
 namespace app::classes::XGamingRuntime::Interop::Converters {
     IL2CPP_REGISTER_METHOD(0x030B0320, void*, Offset, (void* ptr, int64_t that))

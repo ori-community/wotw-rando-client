@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SpiderBatEntityReactions_UninterruptableTimelineVars__Class.h>
+#include <Modloader/app/structs/SpiderBatEntityReactions_UninterruptableTimelineVars.h>
+#include <Modloader/app/structs/SpiderBatEntityReactions_UninterruptableTimelineVars__Boxed.h>
+#include <Modloader/app/structs/SpiderBatEntityReactions_UninterruptableTimelineVars__Array.h>
 
 namespace app::classes::types {
     namespace SpiderBatEntityReactions_UninterruptableTimelineVars {

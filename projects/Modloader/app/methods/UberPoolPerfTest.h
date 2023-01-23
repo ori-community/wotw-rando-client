@@ -1,5 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPoolPerfTest.h>
+#include <Modloader/app/structs/UberPoolPerfTest_TestMode__Enum.h>
+#include <Modloader/app/structs/UberPoolPerfTest_Settings.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/UberPoolPerfTest_PrefabInfo.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/CsvWriter.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Stopwatch.h>
+#include <Modloader/app/structs/List_1_System_Int64__1.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/IProfilingDataProvider.h>
+#include <Modloader/app/structs/UberPoolPerfTest_LogCatcher.h>
+#include <Modloader/app/structs/List_1_UberPoolPerfTest_PrefabInfo_.h>
+#include <Modloader/app/structs/Task_1_System_Collections_Generic_List_1_.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/UberPoolPerfTest_Timings.h>
+#include <Modloader/app/structs/UberPoolPerfTest_ProfileTimings.h>
+#include <Modloader/app/structs/Double__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Double__Array__Array.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 
 namespace app::classes::UberPoolPerfTest {
     IL2CPP_REGISTER_METHOD(0x00FDFC80, app::UberPoolPerfTest*, get_Instance, ())

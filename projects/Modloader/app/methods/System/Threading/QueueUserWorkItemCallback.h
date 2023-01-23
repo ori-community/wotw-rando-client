@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QueueUserWorkItemCallback.h>
+#include <Modloader/app/structs/WaitCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/ThreadAbortException.h>
 
 namespace app::classes::System::Threading::QueueUserWorkItemCallback {
     IL2CPP_REGISTER_METHOD(0x02329510, void, cctor, ())

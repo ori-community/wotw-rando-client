@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonPropertyCollection.h>
+#include <Modloader/app/structs/JsonDynamicContract.h>
+#include <Modloader/app/structs/Func_2_String_String_.h>
+#include <Modloader/app/structs/CallSite_1_System_Func_3_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CallSite_1_System_Func_4_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IDynamicMetaObjectProvider.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonDynamicContract {
     IL2CPP_REGISTER_METHOD(0x002FBD00, app::JsonPropertyCollection*, get_Properties, (app::JsonDynamicContract * this_ptr))

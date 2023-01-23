@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TaskCompletionSource_1_System_Byte_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Task_1_System_Byte_.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Threading::Tasks::TaskCompletionSource_1_System_Byte___ {
     IL2CPP_REGISTER_METHOD(0x02776D20, void, ctor_1, (app::TaskCompletionSource_1_System_Byte_ * this_ptr, app::Object* state))

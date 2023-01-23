@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CatAndMouseRoomDController.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::CatAndMouseRoomDController {
     IL2CPP_REGISTER_METHOD(0x0102B6C0, void, Awake, (app::CatAndMouseRoomDController * this_ptr))

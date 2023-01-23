@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SceneUberStateCondition_PositionSource__Enum__Class.h>
+#include <Modloader/app/structs/SceneUberStateCondition_PositionSource__Enum.h>
 
 namespace app::classes::types {
     namespace SceneUberStateCondition_PositionSource__Enum {

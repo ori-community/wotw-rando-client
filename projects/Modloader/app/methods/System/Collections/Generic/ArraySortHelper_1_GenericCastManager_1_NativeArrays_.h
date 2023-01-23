@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand___Array.h>
+#include <Modloader/app/structs/IComparer_1_GenericCastManager_1_NativeArrays_.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand_.h>
+#include <Modloader/app/structs/Comparison_1_GenericCastManager_1_NativeArrays_.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_RaycastCommand___Array.h>
+#include <Modloader/app/structs/IComparer_1_GenericCastManager_1_NativeArrays__1.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_RaycastCommand_.h>
+#include <Modloader/app/structs/Comparison_1_GenericCastManager_1_NativeArrays__1.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_SpherecastCommand___Array.h>
+#include <Modloader/app/structs/IComparer_1_GenericCastManager_1_NativeArrays__2.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_SpherecastCommand_.h>
+#include <Modloader/app/structs/Comparison_1_GenericCastManager_1_NativeArrays__2.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_GenericCastManager_1_NativeArrays_ {
     IL2CPP_REGISTER_METHOD(0x02F5CB70, void, Sort_1, (app::GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand___Array * keys, int32_t index, int32_t length, app::IComparer_1_GenericCastManager_1_NativeArrays_* comparer))

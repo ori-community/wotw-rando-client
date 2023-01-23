@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiritLeashEffectPoseAnimator.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/IAttackable.h>
 
 namespace app::classes::SpiritLeashEffectPoseAnimator {
     IL2CPP_REGISTER_METHOD(0x00D5C840, void, Awake, (app::SpiritLeashEffectPoseAnimator * this_ptr))

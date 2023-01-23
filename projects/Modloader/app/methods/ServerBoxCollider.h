@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServerBoxCollider.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::ServerBoxCollider {
     IL2CPP_REGISTER_METHOD(0x0059D6C0, void, ctor, (app::ServerBoxCollider * this_ptr, app::Object* data))

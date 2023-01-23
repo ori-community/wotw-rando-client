@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundDescriptor.h>
+#include <Modloader/app/structs/ConditionBasedSoundProvider.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ConditionBasedSoundProvider {
     IL2CPP_REGISTER_METHOD(0x011E3F60, app::SoundDescriptor*, GetSound, (app::ConditionBasedSoundProvider * this_ptr, app::IContext* context))

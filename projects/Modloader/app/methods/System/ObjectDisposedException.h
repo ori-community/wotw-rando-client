@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectDisposedException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::ObjectDisposedException {
     IL2CPP_REGISTER_METHOD(0x0227B460, void, ctor_1, (app::ObjectDisposedException * this_ptr))

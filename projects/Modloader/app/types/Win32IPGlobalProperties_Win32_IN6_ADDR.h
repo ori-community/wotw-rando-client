@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Win32IPGlobalProperties_Win32_IN6_ADDR__Class.h>
+#include <Modloader/app/structs/Win32IPGlobalProperties_Win32_IN6_ADDR.h>
+#include <Modloader/app/structs/Win32IPGlobalProperties_Win32_IN6_ADDR__Boxed.h>
 
 namespace app::classes::types {
     namespace Win32IPGlobalProperties_Win32_IN6_ADDR {

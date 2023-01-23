@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecorderMessagePlugin.h>
+#include <Modloader/app/structs/Dictionary_2_RecorderMessageData_System_Int32_.h>
+#include <Modloader/app/structs/RecorderData.h>
 
 namespace app::classes::RecorderMessagePlugin {
     IL2CPP_REGISTER_METHOD(0x008F3470, void, Awake, (app::RecorderMessagePlugin * this_ptr))

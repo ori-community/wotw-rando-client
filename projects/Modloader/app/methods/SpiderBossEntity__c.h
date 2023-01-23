@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBossEntity_c.h>
 
 namespace app::classes::SpiderBossEntity___c {
     IL2CPP_REGISTER_METHOD(0x011ABB20, void, cctor, ())

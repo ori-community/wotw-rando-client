@@ -4,6 +4,8 @@
 #include <vector>
 #include <Core/macros.h>
 
+#include <Modloader/app/structs/Byte__Array.h>
+
 namespace utils {
     struct CORE_DLLEXPORT ByteStream {
         std::vector<std::byte> buffer;

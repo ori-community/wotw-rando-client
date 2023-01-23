@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XUserChangeEventCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XUserLocalId.h>
+#include <Modloader/app/structs/XUserChangeEvent__Enum.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::XGamingRuntime::XUserChangeEventCallback {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::XUserChangeEventCallback * this_ptr, app::Object* object, void* method_1))

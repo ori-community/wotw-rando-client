@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TestWindowB.h>
+#include <Modloader/app/structs/TestWindowB_State__Enum.h>
+#include <Modloader/app/structs/UIContext.h>
 
 namespace app::classes::TestWindowB {
     IL2CPP_REGISTER_METHOD(0x010E17B0, void, OnEnable, (app::TestWindowB * this_ptr))

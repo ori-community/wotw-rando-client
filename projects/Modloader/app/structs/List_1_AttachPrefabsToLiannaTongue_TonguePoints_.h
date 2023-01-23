@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_AttachPrefabsToLiannaTongue_TonguePoints__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_AttachPrefabsToLiannaTongue_TonguePoints__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_AttachPrefabsToLiannaTongue_TonguePoints__DEFINED)
+#include <Modloader/app/structs/List_1_AttachPrefabsToLiannaTongue_TonguePoints___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_AttachPrefabsToLiannaTongue_TonguePoints___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_AttachPrefabsToLiannaTongue_TonguePoints__DEFINED
+struct List_1_AttachPrefabsToLiannaTongue_TonguePoints___Class;
+struct List_1_AttachPrefabsToLiannaTongue_TonguePoints_ {
+    struct List_1_AttachPrefabsToLiannaTongue_TonguePoints___Class* klass;
+    MonitorData* monitor;
+    struct List_1_AttachPrefabsToLiannaTongue_TonguePoints___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_AttachPrefabsToLiannaTongue_TonguePoints__FWDDECL)
+#define IL2CPP_STRUCT_List_1_AttachPrefabsToLiannaTongue_TonguePoints__FWDDECL
+#include <Modloader/app/structs/List_1_AttachPrefabsToLiannaTongue_TonguePoints___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_AttachPrefabsToLiannaTongue_TonguePoints__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_AttachPrefabsToLiannaTongue_TonguePoints__DEFINED) && !defined(IL2CPP_STRUCT_List_1_AttachPrefabsToLiannaTongue_TonguePoints__FWDDECL)
+#include <Modloader/app/structs/List_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

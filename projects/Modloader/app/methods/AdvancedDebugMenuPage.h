@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AdvancedDebugMenuPage.h>
+#include <Modloader/app/structs/List_1_List_1_IDebugMenuItem_.h>
+#include <Modloader/app/structs/UberStateValueGroup.h>
+#include <Modloader/app/structs/StreamWriter.h>
+#include <Modloader/app/structs/DebugPlayerTeleporter.h>
 
 namespace app::classes::AdvancedDebugMenuPage {
     IL2CPP_REGISTER_METHOD(0x004CB040, void, ResetStatics, ())

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RammingBehaviour_ChaseState.h>
+#include <Modloader/app/structs/RammingBehaviour.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
 
 namespace app::classes::Moon::RammingBehaviour_ChaseState {
     IL2CPP_REGISTER_METHOD(0x00C503D0, app::String*, get_StateName, (app::RammingBehaviour_ChaseState * this_ptr))

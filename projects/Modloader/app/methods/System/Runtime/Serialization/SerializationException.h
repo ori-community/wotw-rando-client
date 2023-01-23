@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SerializationException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Runtime::Serialization::SerializationException {
     IL2CPP_REGISTER_METHOD(0x01EDE190, void, ctor_1, (app::SerializationException * this_ptr))

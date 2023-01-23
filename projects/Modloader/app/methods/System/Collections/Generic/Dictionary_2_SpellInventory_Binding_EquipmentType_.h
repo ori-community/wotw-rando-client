@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_SpellInventory_Binding_EquipmentType_.h>
+#include <Modloader/app/structs/Dictionary_2_SpellInventory_Binding_EquipmentType_.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_SpellInventory_Binding_EquipmentType_ {
     IL2CPP_REGISTER_METHOD(0x02BAC6E0, app::Dictionary_2_TKey_TValue_Enumerator_SpellInventory_Binding_EquipmentType_, GetEnumerator, (app::Dictionary_2_SpellInventory_Binding_EquipmentType_ * this_ptr))

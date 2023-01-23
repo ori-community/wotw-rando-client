@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NintendoPlayFabSynchronizer.h>
+#include <Modloader/app/structs/GetFriendsListResult.h>
+#include <Modloader/app/structs/GetPlayFabIDsFromNintendoSwitchDeviceIdsResult.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PlayFabError.h>
 
 namespace app::classes::SystemIntegration::NintendoPlayFabSynchronizer {
     IL2CPP_REGISTER_METHOD(0x00516E50, app::NintendoPlayFabSynchronizer*, get_Instance, ())

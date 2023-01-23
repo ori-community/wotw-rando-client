@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Trail_TrailPosition_.h>
+#include <Modloader/app/structs/Trail_TrailPosition.h>
+#include <Modloader/app/structs/Trail_TrailPosition__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_Trail_TrailPosition_ {
     IL2CPP_REGISTER_METHOD(0x01CD0840, bool, Equals_1, (app::ObjectEqualityComparer_1_Trail_TrailPosition_ * this_ptr, app::Trail_TrailPosition x, app::Trail_TrailPosition y))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BindingRestrictions_TestBuilder_AndNode.h>
+#include <Modloader/app/structs/Stack_1_System_Dynamic_BindingRestrictions_TestBuilder_AndNode_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Stack_1_T_Enumerator_System_Dynamic_BindingRestrictions_TestBuilder_AndNode_.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Dynamic_BindingRestrictions_TestBuilder_AndNode_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/BindingRestrictions_TestBuilder_AndNode__Array.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_System_Dynamic_BindingRestrictions_TestBuilder_AndNode_ {
     IL2CPP_REGISTER_METHOD(0x02CF6720, app::BindingRestrictions_TestBuilder_AndNode, Pop, (app::Stack_1_System_Dynamic_BindingRestrictions_TestBuilder_AndNode_ * this_ptr))

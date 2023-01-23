@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState.h>
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState {
     IL2CPP_REGISTER_METHOD(0x004A1A90, void, ctor, (app::PetrifiedOwlBossDiveBombVerticalBehaviour_PostAttackState * this_ptr, app::PetrifiedOwlBossDiveBombVerticalBehaviour* behaviour))

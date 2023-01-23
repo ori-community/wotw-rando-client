@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCrouch.h>
+#include <Modloader/app/structs/CharacterCapsuleController.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 
 namespace app::classes::SeinCrouch {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinCrouch * this_ptr))

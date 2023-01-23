@@ -1,0 +1,58 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_VerletSkinning3DModifier___VTable_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_VerletSkinning3DModifier___VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_VerletSkinning3DModifier___VTable_DEFINED)
+#define IL2CPP_STRUCT_List_1_VerletSkinning3DModifier___VTable_DEFINED
+struct List_1_VerletSkinning3DModifier___VTable {
+    VirtualInvokeData Equals;
+    VirtualInvokeData Finalize;
+    VirtualInvokeData GetHashCode;
+    VirtualInvokeData ToString;
+    VirtualInvokeData get_Item;
+    VirtualInvokeData set_Item;
+    VirtualInvokeData IndexOf;
+    VirtualInvokeData Insert;
+    VirtualInvokeData RemoveAt;
+    VirtualInvokeData get_Count;
+    VirtualInvokeData System_Collections_Generic_ICollection_T__get_IsReadOnly;
+    VirtualInvokeData Add;
+    VirtualInvokeData Clear;
+    VirtualInvokeData Contains;
+    VirtualInvokeData CopyTo;
+    VirtualInvokeData Remove;
+    VirtualInvokeData System_Collections_Generic_IEnumerable_T__GetEnumerator;
+    VirtualInvokeData System_Collections_IEnumerable_GetEnumerator;
+    VirtualInvokeData System_Collections_IList_get_Item;
+    VirtualInvokeData System_Collections_IList_set_Item;
+    VirtualInvokeData System_Collections_IList_Add;
+    VirtualInvokeData System_Collections_IList_Contains;
+    VirtualInvokeData Clear_1;
+    VirtualInvokeData System_Collections_IList_get_IsReadOnly;
+    VirtualInvokeData System_Collections_IList_get_IsFixedSize;
+    VirtualInvokeData System_Collections_IList_IndexOf;
+    VirtualInvokeData System_Collections_IList_Insert;
+    VirtualInvokeData System_Collections_IList_Remove;
+    VirtualInvokeData RemoveAt_1;
+    VirtualInvokeData System_Collections_ICollection_CopyTo;
+    VirtualInvokeData get_Count_1;
+    VirtualInvokeData System_Collections_ICollection_get_SyncRoot;
+    VirtualInvokeData System_Collections_ICollection_get_IsSynchronized;
+    VirtualInvokeData get_Item_1;
+    VirtualInvokeData get_Count_2;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_VerletSkinning3DModifier___VTable_FWDDECL)
+#define IL2CPP_STRUCT_List_1_VerletSkinning3DModifier___VTable_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_List_1_VerletSkinning3DModifier___VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_VerletSkinning3DModifier___VTable_DEFINED) && !defined(IL2CPP_STRUCT_List_1_VerletSkinning3DModifier___VTable_FWDDECL)
+#include <Modloader/app/structs/List_1_VerletSkinning3DModifier___VTable.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_VerletSkinning3DModifier___VTable.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

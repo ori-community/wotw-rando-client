@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IScriptableRuntimeReflectionSystem.h>
+#include <Modloader/app/structs/ScriptableRuntimeReflectionSystemWrapper.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::ScriptableRuntimeReflectionSystemSettings {
     IL2CPP_REGISTER_METHOD(0x02524C80, void, set_Internal_ScriptableRuntimeReflectionSystemSettings_system, (app::IScriptableRuntimeReflectionSystem * value))

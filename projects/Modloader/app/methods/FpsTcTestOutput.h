@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FpsTcTestOutput.h>
+#include <Modloader/app/structs/FPSTestResult.h>
 
 namespace app::classes::FpsTcTestOutput {
     IL2CPP_REGISTER_METHOD(0x01636C40, void, ctor, (app::FpsTcTestOutput * this_ptr))

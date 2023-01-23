@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GrantCharacterToUserResult__Class.h>
+#include <Modloader/app/structs/GrantCharacterToUserResult.h>
 
 namespace app::classes::types {
     namespace GrantCharacterToUserResult {

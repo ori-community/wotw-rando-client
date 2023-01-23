@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_MoonAnimator_BlendInstance_.h>
+#include <Modloader/app/structs/MoonAnimator_BlendInstance.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_MoonAnimator_BlendInstance_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_Moon_MoonAnimator_BlendInstance_ * this_ptr))

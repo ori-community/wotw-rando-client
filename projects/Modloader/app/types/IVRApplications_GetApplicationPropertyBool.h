@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IVRApplications_GetApplicationPropertyBool__Class.h>
+#include <Modloader/app/structs/IVRApplications_GetApplicationPropertyBool.h>
 
 namespace app::classes::types {
     namespace IVRApplications_GetApplicationPropertyBool {

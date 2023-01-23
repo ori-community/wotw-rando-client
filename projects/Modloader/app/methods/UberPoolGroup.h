@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPoolSettings.h>
+#include <Modloader/app/structs/UberPoolGroup.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WeakPrefab.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_UberPoolItem_.h>
+#include <Modloader/app/structs/UberPoolItem.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Nullable_1_Single_.h>
 
 namespace app::classes::UberPoolGroup {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::UberPoolSettings*, get_Settings, (app::UberPoolGroup * this_ptr))

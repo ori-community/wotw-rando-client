@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDashNewPuppet.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::SeinDashNewPuppet {
     IL2CPP_REGISTER_METHOD(0x006FD440, void, Awake, (app::SeinDashNewPuppet * this_ptr))

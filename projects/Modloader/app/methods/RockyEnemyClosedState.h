@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RockyEnemyClosedState.h>
+#include <Modloader/app/structs/RockyEnemy.h>
 
 namespace app::classes::RockyEnemyClosedState {
     IL2CPP_REGISTER_METHOD(0x004C1E90, void, ctor, (app::RockyEnemyClosedState * this_ptr, app::RockyEnemy* enemy))

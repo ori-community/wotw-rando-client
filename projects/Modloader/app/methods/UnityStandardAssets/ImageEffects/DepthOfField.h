@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DepthOfField.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::DepthOfField {
     IL2CPP_REGISTER_METHOD(0x0251FF20, bool, CheckResources, (app::DepthOfField * this_ptr))

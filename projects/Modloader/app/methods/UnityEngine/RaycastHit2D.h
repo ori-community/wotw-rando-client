@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/RaycastHit2D__Boxed.h>
+#include <Modloader/app/structs/Collider2D.h>
 
 namespace app::classes::UnityEngine::RaycastHit2D {
     IL2CPP_REGISTER_METHOD(0x0014BC10, app::Vector2, get_point, (app::RaycastHit2D__Boxed * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_UnityEngine_Object_.h>
+#include <Modloader/app/structs/Object_1.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_UnityEngine_Object_ {
     IL2CPP_REGISTER_METHOD(0x02CF78E0, void, ctor, (app::Stack_1_UnityEngine_Object_ * this_ptr, int32_t capacity))

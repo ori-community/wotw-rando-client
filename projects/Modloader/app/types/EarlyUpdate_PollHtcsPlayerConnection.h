@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/EarlyUpdate_PollHtcsPlayerConnection__Class.h>
+#include <Modloader/app/structs/EarlyUpdate_PollHtcsPlayerConnection.h>
+#include <Modloader/app/structs/EarlyUpdate_PollHtcsPlayerConnection__Boxed.h>
 
 namespace app::classes::types {
     namespace EarlyUpdate_PollHtcsPlayerConnection {

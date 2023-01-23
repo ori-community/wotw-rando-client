@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_String_SystemIntegration_Races_RaceEntry_.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_SystemIntegration_Races_RaceEntry_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RaceEntry.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_SystemIntegration_Races_RaceEntry_ {
     IL2CPP_REGISTER_METHOD(0x02BA5400, app::Dictionary_2_TKey_TValue_Enumerator_System_String_SystemIntegration_Races_RaceEntry_, GetEnumerator, (app::Dictionary_2_System_String_SystemIntegration_Races_RaceEntry_ * this_ptr))

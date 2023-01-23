@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListenerSyncProcessor.h>
+#include <Modloader/app/structs/AkWwiseInitializationSettings.h>
+#include <Modloader/app/structs/SoundListener.h>
 
 namespace app::classes::Moon::Wwise::ListenerSyncProcessor {
     IL2CPP_REGISTER_METHOD(0x02709E80, void, Initialize, (app::ListenerSyncProcessor * this_ptr, app::AkWwiseInitializationSettings* config))

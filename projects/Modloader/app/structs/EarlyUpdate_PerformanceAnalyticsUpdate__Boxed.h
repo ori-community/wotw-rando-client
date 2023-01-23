@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EarlyUpdate_PerformanceAnalyticsUpdate__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EarlyUpdate_PerformanceAnalyticsUpdate__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EarlyUpdate_PerformanceAnalyticsUpdate__Boxed_DEFINED)
+#include <Modloader/app/structs/EarlyUpdate_PerformanceAnalyticsUpdate.h>
+#if defined(IL2CPP_STRUCT_EarlyUpdate_PerformanceAnalyticsUpdate_DEFINED)
+#define IL2CPP_STRUCT_EarlyUpdate_PerformanceAnalyticsUpdate__Boxed_DEFINED
+struct EarlyUpdate_PerformanceAnalyticsUpdate__Class;
+struct EarlyUpdate_PerformanceAnalyticsUpdate__Boxed {
+    struct EarlyUpdate_PerformanceAnalyticsUpdate__Class* klass;
+    MonitorData* monitor;
+    struct EarlyUpdate_PerformanceAnalyticsUpdate fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_EarlyUpdate_PerformanceAnalyticsUpdate__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_EarlyUpdate_PerformanceAnalyticsUpdate__Boxed_FWDDECL
+#include <Modloader/app/structs/EarlyUpdate_PerformanceAnalyticsUpdate__Class.h>
+#endif
+#undef IL2CPP_STRUCT_EarlyUpdate_PerformanceAnalyticsUpdate__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EarlyUpdate_PerformanceAnalyticsUpdate__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_EarlyUpdate_PerformanceAnalyticsUpdate__Boxed_FWDDECL)
+#include <Modloader/app/structs/EarlyUpdate_PerformanceAnalyticsUpdate__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EarlyUpdate_PerformanceAnalyticsUpdate__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

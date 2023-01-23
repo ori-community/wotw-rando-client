@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour.h>
+#include <Modloader/app/structs/AttachSpriteToPhysicsSystem__Array.h>
 
 namespace app::classes::AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour {
     IL2CPP_REGISTER_METHOD(0x0084C970, void, ctor, (app::AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour * this_ptr, app::AttachSpriteToPhysicsSystem__Array* entities))

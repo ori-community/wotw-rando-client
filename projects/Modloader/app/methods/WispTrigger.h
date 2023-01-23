@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/WispTrigger.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::WispTrigger {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::MessageProvider*, get_Dialogue, (app::WispTrigger * this_ptr))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BackgroundWorker.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DoWorkEventHandler.h>
+#include <Modloader/app/structs/DoWorkEventArgs.h>
+#include <Modloader/app/structs/RunWorkerCompletedEventArgs.h>
+#include <Modloader/app/structs/ProgressChangedEventArgs.h>
+#include <Modloader/app/structs/ProgressChangedEventHandler.h>
+#include <Modloader/app/structs/RunWorkerCompletedEventHandler.h>
 
 namespace app::classes::System::ComponentModel::BackgroundWorker {
     IL2CPP_REGISTER_METHOD(0x024A2970, void, ctor, (app::BackgroundWorker * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowHintAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ShowHintAction {
     IL2CPP_REGISTER_METHOD(0x005C4820, void, Perform, (app::ShowHintAction * this_ptr, app::IContext* context))

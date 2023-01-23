@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WandererNPC_c.h>
 
 namespace app::classes::WandererNPC___c {
     IL2CPP_REGISTER_METHOD(0x008D14F0, void, cctor, ())

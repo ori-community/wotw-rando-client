@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RijndaelManaged.h>
+#include <Modloader/app/structs/ICryptoTransform.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CipherMode__Enum.h>
+#include <Modloader/app/structs/RijndaelManagedTransformMode__Enum.h>
 
 namespace app::classes::System::Security::Cryptography::RijndaelManaged {
     IL2CPP_REGISTER_METHOD(0x028F00D0, void, ctor, (app::RijndaelManaged * this_ptr))

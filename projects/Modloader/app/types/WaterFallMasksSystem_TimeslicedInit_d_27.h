@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WaterFallMasksSystem_TimeslicedInit_d_27__Class.h>
+#include <Modloader/app/structs/WaterFallMasksSystem_TimeslicedInit_d_27.h>
 
 namespace app::classes::types {
     namespace WaterFallMasksSystem_TimeslicedInit_d_27 {

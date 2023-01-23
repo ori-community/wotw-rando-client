@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpdateCategory__Enum.h>
+#include <Modloader/app/structs/WaitForTriggerEntity.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
 
 namespace app::classes::Moon::Timeline::WaitForTriggerEntity {
     IL2CPP_REGISTER_METHOD(0x00417920, app::UpdateCategory__Enum, get_UpdateCategory, (app::WaitForTriggerEntity * this_ptr))

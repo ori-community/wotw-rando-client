@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChainLevelAndCount__Array.h>
+#include <Modloader/app/structs/IComparer_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/ChainLevelAndCount.h>
+#include <Modloader/app/structs/Comparison_1_Motvin_Collections_ChainLevelAndCount_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Motvin_Collections_ChainLevelAndCount_ {
     IL2CPP_REGISTER_METHOD(0x02F79DE0, void, Sort_1, (app::ChainLevelAndCount__Array * keys, int32_t index, int32_t length, app::IComparer_1_Motvin_Collections_ChainLevelAndCount_* comparer))

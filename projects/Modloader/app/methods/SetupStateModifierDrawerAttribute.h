@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/SetupStateModifierDrawerAttribute.h>
 
 namespace app::classes::SetupStateModifierDrawerAttribute {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Type*, get_ModifierType, (app::SetupStateModifierDrawerAttribute * this_ptr))

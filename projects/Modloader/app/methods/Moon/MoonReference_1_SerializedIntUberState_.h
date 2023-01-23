@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SerializedIntUberState.h>
+#include <Modloader/app/structs/MoonReference_1_SerializedIntUberState_.h>
+#include <Modloader/app/structs/IMoonResolverContext.h>
 
 namespace app::classes::Moon::MoonReference_1_SerializedIntUberState_ {
     IL2CPP_REGISTER_METHOD(0x02720AC0, app::SerializedIntUberState*, Resolve, (app::MoonReference_1_SerializedIntUberState_ * this_ptr, app::IMoonResolverContext* context))

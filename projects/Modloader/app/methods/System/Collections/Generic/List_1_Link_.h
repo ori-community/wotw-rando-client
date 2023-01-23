@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Link_.h>
+#include <Modloader/app/structs/Link.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Link_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_Link_ * this_ptr))

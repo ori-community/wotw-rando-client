@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/SavePedestalController.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SavePedestalController_CanTeleportResult__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::SavePedestalController {
     IL2CPP_REGISTER_METHOD(0x00917F50, app::MoonAnimation*, get_EffectiveTeleportingStart, (app::SavePedestalController * this_ptr))

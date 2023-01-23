@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture__Array.h>
+#include <Modloader/app/structs/IComparer_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture.h>
+#include <Modloader/app/structs/Comparison_1_TextureTilingAdjuster_AdjustedTexture_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_TextureTilingAdjuster_AdjustedTexture_ {
     IL2CPP_REGISTER_METHOD(0x02F84580, void, Sort_1, (app::TextureTilingAdjuster_AdjustedTexture__Array * keys, int32_t index, int32_t length, app::IComparer_1_TextureTilingAdjuster_AdjustedTexture_* comparer))

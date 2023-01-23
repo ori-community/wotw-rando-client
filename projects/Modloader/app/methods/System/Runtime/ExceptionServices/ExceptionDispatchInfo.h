@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExceptionDispatchInfo.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::ExceptionServices::ExceptionDispatchInfo {
     IL2CPP_REGISTER_METHOD(0x01A93870, void, ctor, (app::ExceptionDispatchInfo * this_ptr, app::Exception* exception))

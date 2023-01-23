@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SettingsProviderCollection.h>
+#include <Modloader/app/structs/SettingsProvider.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ProviderBase.h>
 
 namespace app::classes::System::Configuration::SettingsProviderCollection {
     IL2CPP_REGISTER_METHOD(0x01FFE110, void, ctor, (app::SettingsProviderCollection * this_ptr))

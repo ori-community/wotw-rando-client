@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/ICustomAttributeProvider.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/CustomAttributeData__Array.h>
+#include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeData_.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/MonoProperty.h>
+#include <Modloader/app/structs/EventInfo_1.h>
+#include <Modloader/app/structs/MonoEvent.h>
+#include <Modloader/app/structs/AttributeUsageAttribute.h>
 
 namespace app::classes::System::MonoCustomAttrs {
     IL2CPP_REGISTER_METHOD(0x0226AAB0, bool, IsUserCattrProvider, (app::Object * obj))

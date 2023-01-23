@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShardSlotUpgradePickup.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/RuntimeWorldMapIcon.h>
 
 namespace app::classes::ShardSlotUpgradePickup {
     IL2CPP_REGISTER_METHOD(0x005ABE60, void, OnCollectorCandidateTouch, (app::ShardSlotUpgradePickup * this_ptr, app::GameObject* collector))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RC2.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::RC2 {
     IL2CPP_REGISTER_METHOD(0x028DDDF0, void, ctor, (app::RC2 * this_ptr))

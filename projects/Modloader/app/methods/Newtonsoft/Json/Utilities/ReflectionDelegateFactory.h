@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReflectionDelegateFactory.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/Action_2_Object_Object_.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::ReflectionDelegateFactory {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ReflectionDelegateFactory * this_ptr))

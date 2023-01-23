@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2__Boxed.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::Vector2 {
     IL2CPP_REGISTER_METHOD(0x00125480, void, ctor, (app::Vector2__Boxed * this_ptr, float x, float y))

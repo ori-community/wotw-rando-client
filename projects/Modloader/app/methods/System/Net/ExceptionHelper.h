@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NotImplementedException.h>
+#include <Modloader/app/structs/NotSupportedException.h>
+#include <Modloader/app/structs/WebException.h>
 
 namespace app::classes::System::Net::ExceptionHelper {
     IL2CPP_REGISTER_METHOD(0x01D27350, app::NotImplementedException*, get_MethodNotImplementedException, ())

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/HttpListener_ExtendedProtectionSelector__Class.h>
+#include <Modloader/app/structs/HttpListener_ExtendedProtectionSelector.h>
 
 namespace app::classes::types {
     namespace HttpListener_ExtendedProtectionSelector {

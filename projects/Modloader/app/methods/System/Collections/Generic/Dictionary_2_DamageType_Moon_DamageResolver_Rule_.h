@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_DamageType_Moon_DamageResolver_Rule_.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/DamageResolver_Rule.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_DamageType_Moon_DamageResolver_Rule_ {
     IL2CPP_REGISTER_METHOD(0x02BAC140, void, set_Item, (app::Dictionary_2_DamageType_Moon_DamageResolver_Rule_ * this_ptr, app::DamageType__Enum key, app::DamageResolver_Rule* value))

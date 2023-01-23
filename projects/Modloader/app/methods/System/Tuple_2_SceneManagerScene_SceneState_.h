@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Tuple_2_SceneManagerScene_SceneState_.h>
+#include <Modloader/app/structs/SceneManagerScene.h>
+#include <Modloader/app/structs/SceneState__Enum.h>
 
 namespace app::classes::System::Tuple_2_SceneManagerScene_SceneState_ {
     IL2CPP_REGISTER_METHOD(0x02A66D80, void, ctor, (app::Tuple_2_SceneManagerScene_SceneState_ * this_ptr, app::SceneManagerScene* item1, app::SceneState__Enum item2))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpriteTransparencyAnimator.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SpriteRenderer.h>
 
 namespace app::classes::Moon::Timeline::SpriteTransparencyAnimator {
     IL2CPP_REGISTER_METHOD(0x01E821C0, void, OnStartPlayback, (app::SpriteTransparencyAnimator * this_ptr, app::IContext* context))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTrail_SimulationFrameData__Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_MoonTrail_SimulationFrameData_.h>
+#include <Modloader/app/structs/MoonTrail_SimulationFrameData.h>
+#include <Modloader/app/structs/Comparison_1_Moon_MoonTrail_SimulationFrameData_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_MoonTrail_SimulationFrameData_ {
     IL2CPP_REGISTER_METHOD(0x02F38940, void, Sort_1, (app::MoonTrail_SimulationFrameData__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_MoonTrail_SimulationFrameData_* comparer))

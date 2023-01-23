@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ContentRangeHeaderValue.h>
+#include <Modloader/app/structs/Nullable_1_Int64_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::Http::Headers::ContentRangeHeaderValue {
     IL2CPP_REGISTER_METHOD(0x02D067B0, void, ctor, (app::ContentRangeHeaderValue * this_ptr))

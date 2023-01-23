@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DtdValidator.h>
+#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
+#include <Modloader/app/structs/IValidationEventHandling.h>
+#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/SchemaEntity.h>
+#include <Modloader/app/structs/IDtdParserAdapter.h>
+#include <Modloader/app/structs/SchemaInfo.h>
 
 namespace app::classes::System::Xml::Schema::DtdValidator {
     IL2CPP_REGISTER_METHOD(0x023657A0, void, ctor, (app::DtdValidator * this_ptr, app::XmlValidatingReaderImpl* reader, app::IValidationEventHandling* event_handling, bool process_identity_constraints))

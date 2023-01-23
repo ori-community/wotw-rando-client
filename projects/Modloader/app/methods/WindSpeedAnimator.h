@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WindSpeedAnimator.h>
 
 namespace app::classes::WindSpeedAnimator {
     IL2CPP_REGISTER_METHOD(0x00578EE0, void, Start, (app::WindSpeedAnimator * this_ptr))

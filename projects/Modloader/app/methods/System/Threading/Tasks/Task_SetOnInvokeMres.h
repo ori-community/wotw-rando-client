@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Task_SetOnInvokeMres.h>
+#include <Modloader/app/structs/Task.h>
 
 namespace app::classes::System::Threading::Tasks::Task_SetOnInvokeMres {
     IL2CPP_REGISTER_METHOD(0x0233B580, void, ctor, (app::Task_SetOnInvokeMres * this_ptr))

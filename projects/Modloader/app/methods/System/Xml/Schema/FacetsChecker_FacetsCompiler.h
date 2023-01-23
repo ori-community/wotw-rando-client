@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FacetsChecker_FacetsCompiler__Boxed.h>
+#include <Modloader/app/structs/DatatypeImplementation.h>
+#include <Modloader/app/structs/RestrictionFacets.h>
+#include <Modloader/app/structs/XmlSchemaFacet.h>
+#include <Modloader/app/structs/XmlSchemaPatternFacet.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RestrictionFlags__Enum.h>
 
 namespace app::classes::System::Xml::Schema::FacetsChecker_FacetsCompiler {
     IL2CPP_REGISTER_METHOD(0x001E6F60, void, ctor, (app::FacetsChecker_FacetsCompiler__Boxed * this_ptr, app::DatatypeImplementation* base_datatype, app::RestrictionFacets* restriction))

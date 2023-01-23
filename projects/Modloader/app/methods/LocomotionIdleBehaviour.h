@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocomotionIdleBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::LocomotionIdleBehaviour {
     IL2CPP_REGISTER_METHOD(0x00FC7270, void, OnEnterTask, (app::LocomotionIdleBehaviour * this_ptr, app::IContext* context))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/GoldenSein.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::GoldenSein {
     IL2CPP_REGISTER_METHOD(0x00660430, app::SeinCharacter*, get_Sein, (app::GoldenSein * this_ptr))

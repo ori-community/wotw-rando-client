@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_SneezeSlugBurrowBehaviour_UnburrowPointRate__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_SneezeSlugBurrowBehaviour_UnburrowPointRate__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_SneezeSlugBurrowBehaviour_UnburrowPointRate__DEFINED)
+#include <Modloader/app/structs/SneezeSlugBurrowBehaviour_UnburrowPointRate.h>
+#if defined(IL2CPP_STRUCT_SneezeSlugBurrowBehaviour_UnburrowPointRate_DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_SneezeSlugBurrowBehaviour_UnburrowPointRate__DEFINED
+struct List_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_;
+struct List_1_T_Enumerator_SneezeSlugBurrowBehaviour_UnburrowPointRate_ {
+    struct List_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_* list;
+    int32_t index;
+    int32_t version;
+    struct SneezeSlugBurrowBehaviour_UnburrowPointRate current;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_SneezeSlugBurrowBehaviour_UnburrowPointRate__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_SneezeSlugBurrowBehaviour_UnburrowPointRate__FWDDECL
+#include <Modloader/app/structs/List_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_SneezeSlugBurrowBehaviour_UnburrowPointRate__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_SneezeSlugBurrowBehaviour_UnburrowPointRate__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_SneezeSlugBurrowBehaviour_UnburrowPointRate__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_SneezeSlugBurrowBehaviour_UnburrowPointRate_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_SneezeSlugBurrowBehaviour_UnburrowPointRate_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

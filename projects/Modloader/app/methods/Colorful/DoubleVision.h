@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DoubleVision.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::DoubleVision {
     IL2CPP_REGISTER_METHOD(0x03042B60, void, OnRenderImage, (app::DoubleVision * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

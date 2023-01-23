@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_DynamicInstantiationDescriptor_ReflectionInfo___Boxed.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_DynamicInstantiationDescriptor_ReflectionInfo_ {
     IL2CPP_REGISTER_METHOD(0x00133F90, app::DynamicInstantiationDescriptor_ReflectionInfo, get_Current, (app::List_1_T_Enumerator_DynamicInstantiationDescriptor_ReflectionInfo___Boxed * this_ptr))

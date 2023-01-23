@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SceneLayers_Layer__Class.h>
+#include <Modloader/app/structs/SceneLayers_Layer.h>
+#include <Modloader/app/structs/SceneLayers_Layer__Array.h>
 
 namespace app::classes::types {
     namespace SceneLayers_Layer {

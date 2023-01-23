@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BrainEntity.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_ITimelineEntity_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__2.h>
+#include <Modloader/app/structs/IBrainController.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineEntityRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ConstraintsMetaData_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineMarkerRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ExternalTimelineRecord_.h>
+#include <Modloader/app/structs/IConstraint.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/IConstrainedEntity.h>
+#include <Modloader/app/structs/ITimelineEntityParent.h>
+#include <Modloader/app/structs/ITrimController.h>
+#include <Modloader/app/structs/IConstrainedEntityWithChildren.h>
 
 namespace app::classes::Moon::BrainEntity {
     IL2CPP_REGISTER_METHOD(0x01BA63B0, app::String*, get_FullAddress, (app::BrainEntity * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypeDescriptor_ComNativeDescriptionProvider.h>
+#include <Modloader/app/structs/IComNativeDescriptorHandler.h>
+#include <Modloader/app/structs/ICustomTypeDescriptor.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::TypeDescriptor_ComNativeDescriptionProvider {
     IL2CPP_REGISTER_METHOD(0x002FB960, void, ctor, (app::TypeDescriptor_ComNativeDescriptionProvider * this_ptr, app::IComNativeDescriptorHandler* handler))

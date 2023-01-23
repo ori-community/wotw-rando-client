@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Damage_c.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::Damage___c {
     IL2CPP_REGISTER_METHOD(0x00DC1B40, void, cctor, ())

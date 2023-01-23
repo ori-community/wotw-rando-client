@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinOnGroundCondition.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SeinOnGroundCondition_Characters__Enum.h>
+#include <Modloader/app/structs/PlatformBehaviour.h>
 
 namespace app::classes::SeinOnGroundCondition {
     IL2CPP_REGISTER_METHOD(0x008AF4D0, bool, Validate, (app::SeinOnGroundCondition * this_ptr, app::IContext* context))

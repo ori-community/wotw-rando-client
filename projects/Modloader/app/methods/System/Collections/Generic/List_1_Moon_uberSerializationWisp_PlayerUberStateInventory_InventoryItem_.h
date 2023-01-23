@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_ * this_ptr))

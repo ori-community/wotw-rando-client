@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Threading_Thread_.h>
+#include <Modloader/app/structs/List_1_System_Threading_Thread_.h>
+#include <Modloader/app/structs/Thread.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Threading_Thread_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_System_Threading_Thread_, GetEnumerator, (app::List_1_System_Threading_Thread_ * this_ptr))

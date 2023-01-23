@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundZoneProcessor_Job.h>
+#include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::Unity::Jobs::IJobParallelForExtensions_ParallelForJobStruct_1_SoundZoneProcessor_Job_ {
     IL2CPP_REGISTER_METHOD(0x02AC45C0, void*, Initialize, ())

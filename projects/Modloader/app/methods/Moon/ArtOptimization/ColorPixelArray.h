@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ColorPixelArray.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Color32.h>
 
 namespace app::classes::Moon::ArtOptimization::ColorPixelArray {
     IL2CPP_REGISTER_METHOD(0x0134A020, void, ctor_1, (app::ColorPixelArray * this_ptr, int32_t width, int32_t height))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Object_KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Object_KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Object_KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object___Array.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_System_Object_KeyValuePair_2_System_Object_System_Object__ {
     IL2CPP_REGISTER_METHOD(0x026BDBD0, void, ctor, (app::Dictionary_2_TKey_TValue_ValueCollection_System_Object_KeyValuePair_2_System_Object_System_Object_ * this_ptr, app::Dictionary_2_System_Object_KeyValuePair_2_System_Object_System_Object_* dictionary))

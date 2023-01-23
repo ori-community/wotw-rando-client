@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinGlowSpell.h>
+#include <Modloader/app/structs/SeinGlowSpell_QuickGlowSetupInfo.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowState__Enum.h>
+#include <Modloader/app/structs/GlowChargeEffect.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowLightInfo.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowType__Enum.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/SeinGlowSpell_QuickGlowTypes__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StressTestStatus__Enum.h>
 
 namespace app::classes::SeinGlowSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinGlowSpell * this_ptr))

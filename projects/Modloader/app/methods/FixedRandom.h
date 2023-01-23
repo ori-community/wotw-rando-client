@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/FixedRandom.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions__Array.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/TargetSpheres_Sphere.h>
+#include <Modloader/app/structs/List_1_TargetSpheres_Sphere_.h>
+#include <Modloader/app/structs/WormHole.h>
+#include <Modloader/app/structs/WormHole__Array.h>
 
 namespace app::classes::FixedRandom {
     IL2CPP_REGISTER_METHOD(0x02552D90, int32_t, GetSafeIndex, (int32_t index))

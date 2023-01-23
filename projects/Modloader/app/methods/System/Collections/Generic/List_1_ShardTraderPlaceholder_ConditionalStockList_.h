@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/List_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/ShardTraderPlaceholder_ConditionalStockList.h>
+#include <Modloader/app/structs/IEnumerable_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/IComparer_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/ShardTraderPlaceholder_ConditionalStockList__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/Action_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/IEnumerator_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_ShardTraderPlaceholder_ConditionalStockList_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_ShardTraderPlaceholder_ConditionalStockList_ {
     IL2CPP_REGISTER_METHOD(0x025E9D20, app::List_1_T_Enumerator_ShardTraderPlaceholder_ConditionalStockList_, GetEnumerator, (app::List_1_ShardTraderPlaceholder_ConditionalStockList_ * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RammingRetreatState.h>
+#include <Modloader/app/structs/RammingEnemy.h>
 
 namespace app::classes::RammingRetreatState {
     IL2CPP_REGISTER_METHOD(0x004C1E90, void, ctor, (app::RammingRetreatState * this_ptr, app::RammingEnemy* ramming_enemy))

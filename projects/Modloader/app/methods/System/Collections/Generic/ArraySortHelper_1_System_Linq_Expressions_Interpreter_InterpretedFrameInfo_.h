@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InterpretedFrameInfo__Array.h>
+#include <Modloader/app/structs/IComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
+#include <Modloader/app/structs/InterpretedFrameInfo.h>
+#include <Modloader/app/structs/Comparison_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_ {
     IL2CPP_REGISTER_METHOD(0x030019E0, void, Sort_1, (app::InterpretedFrameInfo__Array * keys, int32_t index, int32_t length, app::IComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_* comparer))

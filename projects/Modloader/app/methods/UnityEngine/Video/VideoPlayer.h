@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VideoPlayer.h>
+#include <Modloader/app/structs/VideoSource__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AudioSource.h>
+#include <Modloader/app/structs/VideoPlayer_EventHandler.h>
 
 namespace app::classes::UnityEngine::Video::VideoPlayer {
     IL2CPP_REGISTER_METHOD(0x031B7200, void, set_source, (app::VideoPlayer * this_ptr, app::VideoSource__Enum value))

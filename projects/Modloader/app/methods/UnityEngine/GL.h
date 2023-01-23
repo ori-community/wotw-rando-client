@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Camera.h>
 
 namespace app::classes::UnityEngine::GL {
     IL2CPP_REGISTER_METHOD(0x02526170, void, Vertex3, (float x, float y, float z))

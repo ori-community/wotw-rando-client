@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AttachSpriteToPhysicsSystem.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/TrackingExclusions.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/TransformAccess.h>
 
 namespace app::classes::AttachSpriteToPhysicsSystem {
     IL2CPP_REGISTER_METHOD(0x008495E0, void, InitTransform, (app::AttachSpriteToPhysicsSystem * this_ptr))

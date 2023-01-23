@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationMontage_TimelineEventSubscription.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AnimationMontage.h>
+#include <Modloader/app/structs/IMontageEventProvider.h>
 
 namespace app::classes::Moon::AnimationMontage_TimelineEventSubscription {
     IL2CPP_REGISTER_METHOD(0x0133C0B0, void, ctor, (app::AnimationMontage_TimelineEventSubscription * this_ptr, app::String* event_id, app::AnimationMontage* montage, app::IMontageEventProvider* provider))

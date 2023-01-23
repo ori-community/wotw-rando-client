@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FaderBFadeInAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::FaderBFadeInAction {
     IL2CPP_REGISTER_METHOD(0x00449EA0, float, get_Duration, (app::FaderBFadeInAction * this_ptr))

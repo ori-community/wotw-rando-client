@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberSwarm.h>
+#include <Modloader/app/structs/UberSwarmer.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::UberSwarmer {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::UberSwarm*, get_Swarm, (app::UberSwarmer * this_ptr))

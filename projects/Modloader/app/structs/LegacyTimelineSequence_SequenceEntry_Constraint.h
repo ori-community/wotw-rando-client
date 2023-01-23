@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_LegacyTimelineSequence_SequenceEntry_Constraint_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_LegacyTimelineSequence_SequenceEntry_Constraint_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LegacyTimelineSequence_SequenceEntry_Constraint_DEFINED)
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry_Constraint__Fields.h>
+#if defined(IL2CPP_STRUCT_LegacyTimelineSequence_SequenceEntry_Constraint__Fields_DEFINED)
+#define IL2CPP_STRUCT_LegacyTimelineSequence_SequenceEntry_Constraint_DEFINED
+struct LegacyTimelineSequence_SequenceEntry_Constraint__Class;
+struct LegacyTimelineSequence_SequenceEntry_Constraint {
+    struct LegacyTimelineSequence_SequenceEntry_Constraint__Class* klass;
+    MonitorData* monitor;
+    struct LegacyTimelineSequence_SequenceEntry_Constraint__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_LegacyTimelineSequence_SequenceEntry_Constraint_FWDDECL)
+#define IL2CPP_STRUCT_LegacyTimelineSequence_SequenceEntry_Constraint_FWDDECL
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry_Constraint__Class.h>
+#endif
+#undef IL2CPP_STRUCT_LegacyTimelineSequence_SequenceEntry_Constraint_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LegacyTimelineSequence_SequenceEntry_Constraint_DEFINED) && !defined(IL2CPP_STRUCT_LegacyTimelineSequence_SequenceEntry_Constraint_FWDDECL)
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry_Constraint.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry_Constraint.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

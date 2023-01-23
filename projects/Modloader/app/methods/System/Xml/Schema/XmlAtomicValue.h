@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlAtomicValue.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Xml::Schema::XmlAtomicValue {
     IL2CPP_REGISTER_METHOD(0x0223BA20, void, ctor_1, (app::XmlAtomicValue * this_ptr, app::XmlSchemaType* xml_type, bool value))

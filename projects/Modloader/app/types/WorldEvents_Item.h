@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WorldEvents_Item__Class.h>
+#include <Modloader/app/structs/WorldEvents_Item.h>
+#include <Modloader/app/structs/WorldEvents_Item__Array.h>
 
 namespace app::classes::types {
     namespace WorldEvents_Item {

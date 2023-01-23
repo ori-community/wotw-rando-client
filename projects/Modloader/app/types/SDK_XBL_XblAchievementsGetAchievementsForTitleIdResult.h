@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SDK_XBL_XblAchievementsGetAchievementsForTitleIdResult__Class.h>
+#include <Modloader/app/structs/SDK_XBL_XblAchievementsGetAchievementsForTitleIdResult.h>
 
 namespace app::classes::types {
     namespace SDK_XBL_XblAchievementsGetAchievementsForTitleIdResult {

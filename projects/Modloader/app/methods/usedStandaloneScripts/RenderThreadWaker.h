@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerLoopSystem.h>
+#include <Modloader/app/structs/RenderThreadWaker.h>
 
 namespace app::classes::usedStandaloneScripts::RenderThreadWaker {
     IL2CPP_REGISTER_METHOD(0x03126C00, bool, get_Enabled, ())

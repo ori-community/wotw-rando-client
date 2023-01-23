@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_System_Int32_PoolTransformPosition__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_System_Int32_PoolTransformPosition__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_System_Int32_PoolTransformPosition__DEFINED)
+#include <Modloader/app/structs/Dictionary_2_System_Int32_PoolTransformPosition___Fields.h>
+#if defined(IL2CPP_STRUCT_Dictionary_2_System_Int32_PoolTransformPosition___Fields_DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_System_Int32_PoolTransformPosition__DEFINED
+struct Dictionary_2_System_Int32_PoolTransformPosition___Class;
+struct Dictionary_2_System_Int32_PoolTransformPosition_ {
+    struct Dictionary_2_System_Int32_PoolTransformPosition___Class* klass;
+    MonitorData* monitor;
+    struct Dictionary_2_System_Int32_PoolTransformPosition___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_System_Int32_PoolTransformPosition__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_System_Int32_PoolTransformPosition__FWDDECL
+#include <Modloader/app/structs/Dictionary_2_System_Int32_PoolTransformPosition___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_System_Int32_PoolTransformPosition__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_System_Int32_PoolTransformPosition__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_System_Int32_PoolTransformPosition__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_System_Int32_PoolTransformPosition_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_System_Int32_PoolTransformPosition_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

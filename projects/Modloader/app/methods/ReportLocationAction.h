@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReportLocationAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ReportLocationAction {
     IL2CPP_REGISTER_METHOD(0x00904670, void, Perform, (app::ReportLocationAction * this_ptr, app::IContext* context))

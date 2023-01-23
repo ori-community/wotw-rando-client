@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TimeSlicedActivationTask_TimeSlicedActivation_d_25__Class.h>
+#include <Modloader/app/structs/TimeSlicedActivationTask_TimeSlicedActivation_d_25.h>
 
 namespace app::classes::types {
     namespace TimeSlicedActivationTask_TimeSlicedActivation_d_25 {

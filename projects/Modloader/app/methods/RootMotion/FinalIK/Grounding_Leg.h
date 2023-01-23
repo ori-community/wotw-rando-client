@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Grounding_Leg.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Grounding.h>
+#include <Modloader/app/structs/RaycastHit.h>
 
 namespace app::classes::RootMotion::FinalIK::Grounding_Leg {
     IL2CPP_REGISTER_METHOD(0x0052B590, bool, get_isGrounded, (app::Grounding_Leg * this_ptr))

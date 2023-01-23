@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/PlayerStayInsideZoneTrigger.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PlayerStayInsideZoneTrigger {
     IL2CPP_REGISTER_METHOD(0x00886330, app::Rect, get_Bounds, (app::PlayerStayInsideZoneTrigger * this_ptr))

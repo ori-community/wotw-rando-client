@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationCharacterAttribute.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::AnimationCharacterAttribute {
     IL2CPP_REGISTER_METHOD(0x01B03400, void, ctor, (app::AnimationCharacterAttribute * this_ptr, app::String* character))

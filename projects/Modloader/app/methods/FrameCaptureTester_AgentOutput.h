@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FrameCaptureTester_AgentOutput.h>
+#include <Modloader/app/structs/FrameCaptureTester.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/FrameCaptureTester_StringBuilderScope.h>
 
 namespace app::classes::FrameCaptureTester_AgentOutput {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::FrameCaptureTester_AgentOutput * this_ptr, app::FrameCaptureTester* self))

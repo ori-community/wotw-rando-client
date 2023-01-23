@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HWStack.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Xml::HWStack {
     IL2CPP_REGISTER_METHOD(0x021F81C0, void, ctor_1, (app::HWStack * this_ptr, int32_t growth_rate))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterInteractable.h>
+#include <Modloader/app/structs/CharacterInteractableType__Enum.h>
+#include <Modloader/app/structs/ICharacter.h>
+#include <Modloader/app/structs/CharacterInteractableActivationMode__Enum.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/MessageProvider.h>
 
 namespace app::classes::Moon::CharacterInteractable {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_IsSuspended, (app::CharacterInteractable * this_ptr))

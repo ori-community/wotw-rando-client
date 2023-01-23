@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/PressurePlate.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/PressurePlate_Target__Enum.h>
+#include <Modloader/app/structs/ICanActivatePressurePlate.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::PressurePlate {
     IL2CPP_REGISTER_METHOD(0x00C707B0, app::GameObject*, get_TargetGameObject, (app::PressurePlate * this_ptr))

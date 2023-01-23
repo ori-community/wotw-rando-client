@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/BombableWallLogic.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
 
 namespace app::classes::BombableWallLogic {
     IL2CPP_REGISTER_METHOD(0x00D388C0, app::Vector3, get_Position, (app::BombableWallLogic * this_ptr))

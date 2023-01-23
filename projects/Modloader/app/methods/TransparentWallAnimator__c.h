@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TransparentWallAnimator_c.h>
 
 namespace app::classes::TransparentWallAnimator___c {
     IL2CPP_REGISTER_METHOD(0x00B0C6F0, void, cctor, ())

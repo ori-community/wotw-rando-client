@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BigInteger.h>
+#include <Modloader/app/structs/BigInteger_Sign__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/RandomNumberGenerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/BigInteger_1.h>
+#include <Modloader/app/structs/BigInteger_Sign__Enum_1.h>
 
 namespace app::classes::Mono::Math::BigInteger {
     IL2CPP_REGISTER_METHOD(0x023C5490, void, ctor_1, (app::BigInteger * this_ptr, app::BigInteger_Sign__Enum sign, uint32_t len))

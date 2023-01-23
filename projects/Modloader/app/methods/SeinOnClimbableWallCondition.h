@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinOnClimbableWallCondition.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/PlatformBehaviour.h>
 
 namespace app::classes::SeinOnClimbableWallCondition {
     IL2CPP_REGISTER_METHOD(0x008AF1E0, bool, Validate, (app::SeinOnClimbableWallCondition * this_ptr, app::IContext* context))

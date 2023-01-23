@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeleeComboAdapter.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
 
 namespace app::classes::Moon::ComboSystem::MeleeComboAdapter {
     IL2CPP_REGISTER_METHOD(0x00CC7730, void, OnInitialize, (app::MeleeComboAdapter * this_ptr))

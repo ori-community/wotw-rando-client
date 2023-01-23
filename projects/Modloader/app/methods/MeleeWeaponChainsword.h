@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/MeleeWeaponChainsword.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/Transform__Array.h>
 
 namespace app::classes::MeleeWeaponChainsword {
     IL2CPP_REGISTER_METHOD(0x00720150, app::MoonAnimator*, get_LeftWeaponAnimator, (app::MeleeWeaponChainsword * this_ptr))

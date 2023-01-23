@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LoadingBootstrap.h>
+#include <Modloader/app/structs/PlayerLoopSystem.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/ThreadPriority__Enum_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/PrewarmOperationSlot__Enum.h>
+#include <Modloader/app/structs/Scene.h>
 
 namespace app::classes::LoadingBootstrap {
     IL2CPP_REGISTER_METHOD(0x00FB6B00, void, ResetStatics, ())

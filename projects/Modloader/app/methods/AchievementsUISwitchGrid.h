@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AchievementsUISwitchGrid.h>
 
 namespace app::classes::AchievementsUISwitchGrid {
     IL2CPP_REGISTER_METHOD(0x004BF570, void, Start, (app::AchievementsUISwitchGrid * this_ptr))

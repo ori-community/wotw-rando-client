@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VolumeEffectComponentFlags_c.h>
+#include <Modloader/app/structs/VolumeEffectFieldFlags.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::AmplifyColor::VolumeEffectComponentFlags___c {
     IL2CPP_REGISTER_METHOD(0x030D2110, void, cctor, ())

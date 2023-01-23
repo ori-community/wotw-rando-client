@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RSAManaged.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/RSAParameters.h>
+#include <Modloader/app/structs/RSAManaged_KeyGeneratedEventHandler.h>
+#include <Modloader/app/structs/BigInteger.h>
+#include <Modloader/app/structs/RSAManaged_1.h>
+#include <Modloader/app/structs/BigInteger_1.h>
 
 namespace app::classes::Mono::Security::Cryptography::RSAManaged {
     IL2CPP_REGISTER_METHOD(0x025D4FD0, void, ctor_1, (app::RSAManaged * this_ptr, int32_t key_size))

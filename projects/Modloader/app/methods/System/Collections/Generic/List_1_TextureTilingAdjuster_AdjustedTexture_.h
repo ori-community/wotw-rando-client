@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture.h>
+#include <Modloader/app/structs/IEnumerable_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/IComparer_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/Action_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/IEnumerator_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_TextureTilingAdjuster_AdjustedTexture_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_TextureTilingAdjuster_AdjustedTexture_ {
     IL2CPP_REGISTER_METHOD(0x02D49F20, void, Add, (app::List_1_TextureTilingAdjuster_AdjustedTexture_ * this_ptr, app::TextureTilingAdjuster_AdjustedTexture item))

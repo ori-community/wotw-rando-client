@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::Quest {
     IL2CPP_REGISTER_METHOD(0x00E855A0, bool, get_ShownOnMapByTimeline, (app::Quest * this_ptr))

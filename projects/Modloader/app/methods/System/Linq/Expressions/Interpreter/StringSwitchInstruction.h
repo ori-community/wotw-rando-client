@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringSwitchInstruction.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Int32_.h>
+#include <Modloader/app/structs/StrongBox_1_System_Int32_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::StringSwitchInstruction {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::StringSwitchInstruction * this_ptr, app::Dictionary_2_System_String_System_Int32_* cases, app::StrongBox_1_System_Int32_* null_case))

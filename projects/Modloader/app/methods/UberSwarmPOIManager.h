@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberSwarmPOI.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/ISwarmer.h>
 
 namespace app::classes::UberSwarmPOIManager {
     IL2CPP_REGISTER_METHOD(0x0128D520, void, ResetStatics, ())

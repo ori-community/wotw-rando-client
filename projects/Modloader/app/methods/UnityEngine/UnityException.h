@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnityException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::UnityEngine::UnityException {
     IL2CPP_REGISTER_METHOD(0x02C70AA0, void, ctor_1, (app::UnityException * this_ptr))

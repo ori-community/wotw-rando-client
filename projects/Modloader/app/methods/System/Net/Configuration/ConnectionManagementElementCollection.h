@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConnectionManagementElementCollection.h>
+#include <Modloader/app/structs/ConnectionManagementElement.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConfigurationElement.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::Configuration::ConnectionManagementElementCollection {
     IL2CPP_REGISTER_METHOD(0x020189E0, void, ctor, (app::ConnectionManagementElementCollection * this_ptr))

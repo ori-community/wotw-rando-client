@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecordableObjectPuppet.h>
+#include <Modloader/app/structs/IPuppetBase.h>
+#include <Modloader/app/structs/GhostPlayer.h>
+#include <Modloader/app/structs/RecordingLink.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RecordableObjectPuppet {
     IL2CPP_REGISTER_METHOD(0x00736620, int32_t, get_UniqueRecordingId, (app::RecordableObjectPuppet * this_ptr))

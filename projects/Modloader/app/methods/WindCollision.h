@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WindCollision.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/AnimationCurve.h>
 
 namespace app::classes::WindCollision {
     IL2CPP_REGISTER_METHOD(0x00575560, void, Awake, (app::WindCollision * this_ptr))

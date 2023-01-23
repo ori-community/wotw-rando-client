@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CallbackState_c_1.h>
 
 namespace app::classes::fsm::CallbackState___c {
     IL2CPP_REGISTER_METHOD(0x00F6D350, void, cctor, ())

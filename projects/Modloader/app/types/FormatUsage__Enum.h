@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/FormatUsage__Enum__Class.h>
+#include <Modloader/app/structs/FormatUsage__Enum.h>
 
 namespace app::classes::types {
     namespace FormatUsage__Enum {

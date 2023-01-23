@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IBrigthnessContributionAgent.h>
+#include <Modloader/app/structs/GlobalBrightnessController.h>
 
 namespace app::classes::GlobalBrightnessController {
     IL2CPP_REGISTER_METHOD(0x007F5EF0, float, get_GlobalBrightness, ())

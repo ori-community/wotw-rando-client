@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextUtf8RawTextWriter.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/XmlWriterSettings.h>
+#include <Modloader/app/structs/XmlStandalone__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::TextUtf8RawTextWriter {
     IL2CPP_REGISTER_METHOD(0x019508A0, void, ctor, (app::TextUtf8RawTextWriter * this_ptr, app::Stream* stream, app::XmlWriterSettings* settings))

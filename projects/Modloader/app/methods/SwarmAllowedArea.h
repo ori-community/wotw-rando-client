@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwarmAllowedArea.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Transform_.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::SwarmAllowedArea {
     IL2CPP_REGISTER_METHOD(0x01812CD0, void, Start, (app::SwarmAllowedArea * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FlyToUserInterfaceSpot.h>
 
 namespace app::classes::FlyToUserInterfaceSpot {
     IL2CPP_REGISTER_METHOD(0x0127B540, void, Start, (app::FlyToUserInterfaceSpot * this_ptr))

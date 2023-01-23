@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LicenseProviderAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::LicenseProviderAttribute {
     IL2CPP_REGISTER_METHOD(0x002FBAF0, void, ctor_1, (app::LicenseProviderAttribute * this_ptr))

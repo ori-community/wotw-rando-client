@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_UnityEngine_CapsuleCollider_.h>
+#include <Modloader/app/structs/CapsuleCollider.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_CapsuleCollider_ {
     IL2CPP_REGISTER_METHOD(0x02FE8D00, bool, Contains, (app::List_1_UnityEngine_CapsuleCollider_ * this_ptr, app::CapsuleCollider* item))

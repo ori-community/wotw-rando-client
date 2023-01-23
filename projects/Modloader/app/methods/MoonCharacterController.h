@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MoonCharacterController.h>
+#include <Modloader/app/structs/RaycastHit__Array.h>
+#include <Modloader/app/structs/QueryTriggerInteraction__Enum.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/LayerMask.h>
 
 namespace app::classes::MoonCharacterController {
     IL2CPP_REGISTER_METHOD(0x00F452B0, app::Vector3, get_Position, (app::MoonCharacterController * this_ptr))

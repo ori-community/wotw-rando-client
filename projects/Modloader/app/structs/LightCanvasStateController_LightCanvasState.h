@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_LightCanvasStateController_LightCanvasState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_LightCanvasStateController_LightCanvasState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LightCanvasStateController_LightCanvasState_DEFINED)
+#include <Modloader/app/structs/LightCanvasStateController_LightCanvasState__Fields.h>
+#if defined(IL2CPP_STRUCT_LightCanvasStateController_LightCanvasState__Fields_DEFINED)
+#define IL2CPP_STRUCT_LightCanvasStateController_LightCanvasState_DEFINED
+struct LightCanvasStateController_LightCanvasState__Class;
+struct LightCanvasStateController_LightCanvasState {
+    struct LightCanvasStateController_LightCanvasState__Class* klass;
+    MonitorData* monitor;
+    struct LightCanvasStateController_LightCanvasState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_LightCanvasStateController_LightCanvasState_FWDDECL)
+#define IL2CPP_STRUCT_LightCanvasStateController_LightCanvasState_FWDDECL
+#include <Modloader/app/structs/LightCanvasStateController_LightCanvasState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_LightCanvasStateController_LightCanvasState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LightCanvasStateController_LightCanvasState_DEFINED) && !defined(IL2CPP_STRUCT_LightCanvasStateController_LightCanvasState_FWDDECL)
+#include <Modloader/app/structs/LightCanvasStateController_LightCanvasState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/LightCanvasStateController_LightCanvasState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

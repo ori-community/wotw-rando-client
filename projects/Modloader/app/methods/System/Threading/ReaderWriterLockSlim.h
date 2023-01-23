@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReaderWriterLockSlim.h>
+#include <Modloader/app/structs/LockRecursionPolicy__Enum.h>
+#include <Modloader/app/structs/ReaderWriterCount.h>
+#include <Modloader/app/structs/ReaderWriterLockSlim_TimeoutTracker.h>
+#include <Modloader/app/structs/EventWaitHandle.h>
 
 namespace app::classes::System::Threading::ReaderWriterLockSlim {
     IL2CPP_REGISTER_METHOD(0x02FD2290, void, InitializeThreadCounts, (app::ReaderWriterLockSlim * this_ptr))

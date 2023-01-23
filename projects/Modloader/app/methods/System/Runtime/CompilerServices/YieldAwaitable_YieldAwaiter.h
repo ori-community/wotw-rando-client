@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/YieldAwaitable_YieldAwaiter__Boxed.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::CompilerServices::YieldAwaitable_YieldAwaiter {
     IL2CPP_REGISTER_METHOD(0x0018F210, bool, get_IsCompleted, (app::YieldAwaitable_YieldAwaiter__Boxed * this_ptr))

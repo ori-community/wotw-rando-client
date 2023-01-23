@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPoolGroupWarmer__Array.h>
+#include <Modloader/app/structs/UberPoolTimeslicedPrewarmer.h>
 
 namespace app::classes::UberPoolTimeslicedPrewarmer {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::UberPoolGroupWarmer__Array*, get_Warmers, (app::UberPoolTimeslicedPrewarmer * this_ptr))

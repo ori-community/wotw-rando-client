@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchemaParticle.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaParticle {
     IL2CPP_REGISTER_METHOD(0x01CB9070, app::String*, get_MinOccursString, (app::XmlSchemaParticle * this_ptr))

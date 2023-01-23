@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Toad.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Animator.h>
+#include <Modloader/app/structs/AnimatorStateInfo.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::Toad {
     IL2CPP_REGISTER_METHOD(0x00585310, bool, get_IsSuspended, (app::Toad * this_ptr))

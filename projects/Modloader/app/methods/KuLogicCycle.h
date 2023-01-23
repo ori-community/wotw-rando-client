@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuLogicCycle.h>
+#include <Modloader/app/structs/List_1_KuState_.h>
+#include <Modloader/app/structs/KuState.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/KuLogicCycle_IsAllowedDelegate.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::KuLogicCycle {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_AllowJumpSustain, (app::KuLogicCycle * this_ptr))

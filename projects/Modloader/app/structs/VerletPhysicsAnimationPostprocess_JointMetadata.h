@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_JointMetadata_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_JointMetadata_INITIALIZING
+#if !defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_JointMetadata_DEFINED)
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_JointMetadata__Fields.h>
+#if defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_JointMetadata__Fields_DEFINED)
+#define IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_JointMetadata_DEFINED
+struct VerletPhysicsAnimationPostprocess_JointMetadata__Class;
+struct VerletPhysicsAnimationPostprocess_JointMetadata {
+    struct VerletPhysicsAnimationPostprocess_JointMetadata__Class* klass;
+    MonitorData* monitor;
+    struct VerletPhysicsAnimationPostprocess_JointMetadata__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_JointMetadata_FWDDECL)
+#define IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_JointMetadata_FWDDECL
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_JointMetadata__Class.h>
+#endif
+#undef IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_JointMetadata_INITIALIZING
+#if !defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_JointMetadata_DEFINED) && !defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_JointMetadata_FWDDECL)
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_JointMetadata.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_JointMetadata.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

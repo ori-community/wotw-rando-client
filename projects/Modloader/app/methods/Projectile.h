@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Projectile.h>
+#include <Modloader/app/structs/Projectile_ExplodeCollisionInfo.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/DamageLayerMask__Enum.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/TrackingExclusions.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::Projectile {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CanGoThroughPortals, (app::Projectile * this_ptr))

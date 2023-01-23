@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_RendererState.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/UberShaderProperty_Vector__Enum.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/UberShaderProperty_Float__Enum.h>
 
 namespace app::classes::Moon::Timeline::UberShaderAnimatorStrategyStandard_RendererState {
     IL2CPP_REGISTER_METHOD(0x00D18960, bool, get_IsValid, (app::UberShaderAnimatorStrategyStandard_RendererState * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CodePageDataItem.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Globalization::CodePageDataItem {
     IL2CPP_REGISTER_METHOD(0x01A22490, void, ctor, (app::CodePageDataItem * this_ptr, int32_t data_index))

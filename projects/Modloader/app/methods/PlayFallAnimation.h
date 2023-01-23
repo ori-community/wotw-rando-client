@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFallAnimation.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::PlayFallAnimation {
     IL2CPP_REGISTER_METHOD(0x01179380, void, Perform, (app::PlayFallAnimation * this_ptr, app::IContext* context))

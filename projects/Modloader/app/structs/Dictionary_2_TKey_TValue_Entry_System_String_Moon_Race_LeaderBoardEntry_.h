@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Race_LeaderBoardEntry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Race_LeaderBoardEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Race_LeaderBoardEntry__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Race_LeaderBoardEntry__DEFINED
+struct String;
+struct LeaderBoardEntry;
+struct Dictionary_2_TKey_TValue_Entry_System_String_Moon_Race_LeaderBoardEntry_ {
+    int32_t hashCode;
+    int32_t next;
+    struct String* key;
+    struct LeaderBoardEntry* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Race_LeaderBoardEntry__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Race_LeaderBoardEntry__FWDDECL
+#include <Modloader/app/structs/LeaderBoardEntry.h>
+#include <Modloader/app/structs/String.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Race_LeaderBoardEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Race_LeaderBoardEntry__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Race_LeaderBoardEntry__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_String_Moon_Race_LeaderBoardEntry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_String_Moon_Race_LeaderBoardEntry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

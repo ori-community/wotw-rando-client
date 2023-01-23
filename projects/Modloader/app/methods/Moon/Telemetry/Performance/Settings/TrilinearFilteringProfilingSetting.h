@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/TrilinearFilteringProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::TrilinearFilteringProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x00E406F0, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::TrilinearFilteringProfilingSetting * this_ptr))

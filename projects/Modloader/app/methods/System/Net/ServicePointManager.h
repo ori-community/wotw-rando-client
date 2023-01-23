@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServicePointManager.h>
+#include <Modloader/app/structs/ICertificatePolicy.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/SecurityProtocolType__Enum.h>
+#include <Modloader/app/structs/ServerCertValidationCallback.h>
+#include <Modloader/app/structs/RemoteCertificateValidationCallback.h>
+#include <Modloader/app/structs/EncryptionPolicy__Enum.h>
+#include <Modloader/app/structs/ServicePoint.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IWebProxy.h>
 
 namespace app::classes::System::Net::ServicePointManager {
     IL2CPP_REGISTER_METHOD(0x01BD77A0, void, cctor, ())

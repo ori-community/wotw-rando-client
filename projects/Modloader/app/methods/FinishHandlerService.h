@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FinishHandlerService.h>
+#include <Modloader/app/structs/List_1_GhostPlayer_.h>
+#include <Modloader/app/structs/RaceStateMachineContext.h>
 
 namespace app::classes::FinishHandlerService {
     IL2CPP_REGISTER_METHOD(0x01255F50, void, Setup, (app::FinishHandlerService * this_ptr, app::List_1_GhostPlayer_* ghosts))

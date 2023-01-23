@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EntityReactions_ReactionInterruptionSuspensionEntry_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EntityReactions_ReactionInterruptionSuspensionEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EntityReactions_ReactionInterruptionSuspensionEntry_DEFINED)
+#define IL2CPP_STRUCT_EntityReactions_ReactionInterruptionSuspensionEntry_DEFINED
+struct EntityReactionBehaviour;
+struct EntityReactions_ReactionInterruptionSuspensionEntry {
+    float Duration;
+    struct EntityReactionBehaviour* BehaviourToOverride;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_EntityReactions_ReactionInterruptionSuspensionEntry_FWDDECL)
+#define IL2CPP_STRUCT_EntityReactions_ReactionInterruptionSuspensionEntry_FWDDECL
+#include <Modloader/app/structs/EntityReactionBehaviour.h>
+#endif
+#undef IL2CPP_STRUCT_EntityReactions_ReactionInterruptionSuspensionEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EntityReactions_ReactionInterruptionSuspensionEntry_DEFINED) && !defined(IL2CPP_STRUCT_EntityReactions_ReactionInterruptionSuspensionEntry_FWDDECL)
+#include <Modloader/app/structs/EntityReactions_ReactionInterruptionSuspensionEntry.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EntityReactions_ReactionInterruptionSuspensionEntry.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

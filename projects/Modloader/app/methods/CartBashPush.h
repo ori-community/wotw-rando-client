@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CartBashPush.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::CartBashPush {
     IL2CPP_REGISTER_METHOD(0x00417920, int32_t, get_BashPriority, (app::CartBashPush * this_ptr))

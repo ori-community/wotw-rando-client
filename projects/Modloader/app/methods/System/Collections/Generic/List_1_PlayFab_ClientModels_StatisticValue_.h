@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StatisticValue.h>
+#include <Modloader/app/structs/List_1_PlayFab_ClientModels_StatisticValue_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_PlayFab_ClientModels_StatisticValue_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::StatisticValue*, get_Item, (app::List_1_PlayFab_ClientModels_StatisticValue_ * this_ptr, int32_t index))

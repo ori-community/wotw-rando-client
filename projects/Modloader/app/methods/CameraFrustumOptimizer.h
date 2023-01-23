@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraFrustumOptimizer.h>
+#include <Modloader/app/structs/RenderingType__Enum.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IFrustumOptimizable.h>
+#include <Modloader/app/structs/IFrustumEnabled.h>
+#include <Modloader/app/structs/MeshRenderer.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Renderer__Array.h>
+#include <Modloader/app/structs/CameraController_1.h>
+#include <Modloader/app/structs/CameraFrustumOptimizer_IntersectionResult__Enum.h>
 
 namespace app::classes::CameraFrustumOptimizer {
     IL2CPP_REGISTER_METHOD(0x0168A060, void, RegisterVisualDebug, (app::CameraFrustumOptimizer * this_ptr))

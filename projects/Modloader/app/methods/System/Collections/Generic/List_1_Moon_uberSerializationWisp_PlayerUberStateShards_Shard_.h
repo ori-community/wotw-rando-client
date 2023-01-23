@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_.h>
+#include <Modloader/app/structs/Predicate_1_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_.h>
+#include <Modloader/app/structs/Comparison_1_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::PlayerUberStateShards_Shard*, get_Item, (app::List_1_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_ * this_ptr, int32_t index))

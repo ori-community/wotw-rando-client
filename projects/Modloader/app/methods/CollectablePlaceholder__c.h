@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CollectablePlaceholder_c.h>
 
 namespace app::classes::CollectablePlaceholder___c {
     IL2CPP_REGISTER_METHOD(0x012CE140, void, cctor, ())

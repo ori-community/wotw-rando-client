@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::UnityEngine::ImageConversion {
     IL2CPP_REGISTER_METHOD(0x031C4C40, app::Byte__Array*, EncodeToPNG, (app::Texture2D * tex))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LoadSceneParameters__Boxed.h>
+#include <Modloader/app/structs/LoadSceneMode__Enum.h>
+#include <Modloader/app/structs/LocalPhysicsMode__Enum.h>
 
 namespace app::classes::UnityEngine::SceneManagement::LoadSceneParameters {
     IL2CPP_REGISTER_METHOD(0x00218590, void, ctor_1, (app::LoadSceneParameters__Boxed * this_ptr, app::LoadSceneMode__Enum mode))

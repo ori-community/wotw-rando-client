@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AudioPlayback_Status__Enum.h>
 
 namespace app::classes::Steamworks::SteamMusic {
     IL2CPP_REGISTER_METHOD(0x0278B9C0, bool, BIsEnabled, ())

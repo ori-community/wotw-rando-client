@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BuyMapUIConfirmationOverlay_c.h>
+#include <Modloader/app/structs/BuyMapUIConfirmationOverlay_Selection__Enum.h>
 
 namespace app::classes::BuyMapUIConfirmationOverlay___c {
     IL2CPP_REGISTER_METHOD(0x00822F80, void, cctor, ())

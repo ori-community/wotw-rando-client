@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ManifestBasedResourceGroveler.h>
+#include <Modloader/app/structs/ResourceManager_ResourceManagerMediator.h>
+#include <Modloader/app/structs/ResourceSet.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Resources_ResourceSet_.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/UltimateResourceFallbackLocation__Enum.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/RuntimeAssembly.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Resources::ManifestBasedResourceGroveler {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::ManifestBasedResourceGroveler * this_ptr, app::ResourceManager_ResourceManagerMediator* mediator))

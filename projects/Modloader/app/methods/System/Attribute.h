@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/EventInfo_1.h>
+#include <Modloader/app/structs/ParameterInfo_1.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/Attribute.h>
+#include <Modloader/app/structs/Module.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Attribute {
     IL2CPP_REGISTER_METHOD(0x022990C0, app::Attribute__Array*, InternalGetCustomAttributes_1, (app::PropertyInfo_1 * element, app::Type* type, bool inherit))

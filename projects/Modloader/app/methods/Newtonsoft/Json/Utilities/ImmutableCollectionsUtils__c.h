@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ImmutableCollectionsUtils_c.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::ImmutableCollectionsUtils___c {
     IL2CPP_REGISTER_METHOD(0x0301B320, void, cctor, ())

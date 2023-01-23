@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_Vector2_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UnityEngine_Vector2_ {
     IL2CPP_REGISTER_METHOD(0x02C86500, void, Sort_1, (app::Vector2__Array * keys, int32_t index, int32_t length, app::IComparer_1_UnityEngine_Vector2_* comparer))

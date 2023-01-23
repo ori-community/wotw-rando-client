@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DnsPermission.h>
+#include <Modloader/app/structs/PermissionState__Enum.h>
+#include <Modloader/app/structs/IPermission.h>
+#include <Modloader/app/structs/SecurityElement.h>
 
 namespace app::classes::System::Net::DnsPermission {
     IL2CPP_REGISTER_METHOD(0x01EB3EA0, void, ctor, (app::DnsPermission * this_ptr, app::PermissionState__Enum state))

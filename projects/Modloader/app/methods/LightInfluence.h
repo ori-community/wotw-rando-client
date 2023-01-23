@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightInfluence.h>
+#include <Modloader/app/structs/LightPriority_Layer__Enum.h>
 
 namespace app::classes::LightInfluence {
     IL2CPP_REGISTER_METHOD(0x0114D0B0, void, ctor, (app::LightInfluence * this_ptr, app::LightPriority_Layer__Enum layer))

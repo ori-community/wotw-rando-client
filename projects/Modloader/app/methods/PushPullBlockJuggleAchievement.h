@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PushPullBlockJuggleAchievement.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::PushPullBlockJuggleAchievement {
     IL2CPP_REGISTER_METHOD(0x00E84170, void, Awake, (app::PushPullBlockJuggleAchievement * this_ptr))

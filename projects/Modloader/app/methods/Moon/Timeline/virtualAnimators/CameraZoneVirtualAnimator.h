@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ICameraInfluencer.h>
+#include <Modloader/app/structs/CameraZoneVirtualAnimator.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Timeline::virtualAnimators::CameraZoneVirtualAnimator {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::ICameraInfluencer*, get_Influencer, (app::CameraZoneVirtualAnimator * this_ptr))

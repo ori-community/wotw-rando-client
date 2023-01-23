@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CameraFilterPack_Drawing_Manga_Flash_Color__Class.h>
+#include <Modloader/app/structs/CameraFilterPack_Drawing_Manga_Flash_Color.h>
 
 namespace app::classes::types {
     namespace CameraFilterPack_Drawing_Manga_Flash_Color {

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GroundPatrolDirectionMode__Enum.h>
+#include <Modloader/app/structs/SpikeSlugEntity.h>
+#include <Modloader/app/structs/EnemyPlatformMovement.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/ShellSlugShell.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/SpikeSlugEntity_SpikeSlugShellState__Enum.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::SpikeSlugEntity {
     IL2CPP_REGISTER_METHOD(0x011C9260, app::GroundPatrolDirectionMode__Enum, get_MovementPattern, (app::SpikeSlugEntity * this_ptr))

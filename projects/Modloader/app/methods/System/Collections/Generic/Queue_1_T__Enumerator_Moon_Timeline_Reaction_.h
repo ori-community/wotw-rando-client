@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Reaction.h>
+#include <Modloader/app/structs/Queue_1_T_Enumerator_Moon_Timeline_Reaction___Boxed.h>
+#include <Modloader/app/structs/Queue_1_Moon_Timeline_Reaction_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_T__Enumerator_Moon_Timeline_Reaction_ {
     IL2CPP_REGISTER_METHOD(0x001ED740, app::Reaction, get_Current, (app::Queue_1_T_Enumerator_Moon_Timeline_Reaction___Boxed * this_ptr))

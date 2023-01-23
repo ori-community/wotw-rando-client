@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Asttree.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
+#include <Modloader/app/structs/Axis.h>
 
 namespace app::classes::System::Xml::Schema::Asttree {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::ArrayList*, get_SubtreeArray, (app::Asttree * this_ptr))

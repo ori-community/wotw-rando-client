@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CheatsHandler.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::CheatsHandler {
     IL2CPP_REGISTER_METHOD(0x0131C6E0, bool, CanUseCheats, (app::CheatsHandler * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PasswordPropertyTextAttribute.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::PasswordPropertyTextAttribute {
     IL2CPP_REGISTER_METHOD(0x00531660, void, ctor_1, (app::PasswordPropertyTextAttribute * this_ptr))

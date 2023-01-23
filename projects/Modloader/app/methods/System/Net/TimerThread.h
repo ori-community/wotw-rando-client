@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimerThread_Queue.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventArgs.h>
 
 namespace app::classes::System::Net::TimerThread {
     IL2CPP_REGISTER_METHOD(0x020A5FD0, void, cctor, ())

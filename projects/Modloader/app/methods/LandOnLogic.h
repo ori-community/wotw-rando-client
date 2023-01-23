@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/LandOnLogic.h>
+#include <Modloader/app/structs/LandOnState__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::LandOnLogic {
     IL2CPP_REGISTER_METHOD(0x002FB9D0, app::IMoonSetupAnimator*, get_MoonSetupAnimator, (app::LandOnLogic * this_ptr))

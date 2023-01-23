@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OrderedEnumerable_1_TElement_GetEnumerator_d_1_System_Collections_Generic_KeyValuePair_2_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Single_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/OrderedEnumerable_1_TElement_GetEnumerator_d_1_System_Collections_Generic_KeyValuePair_2__1.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_ValueTuple_2_.h>
 
 namespace app::classes::System::Linq::OrderedEnumerable_1_TElement___GetEnumerator_d__1_System_Collections_Generic_KeyValuePair_2_ {
     IL2CPP_REGISTER_METHOD(0x01D09710, void, ctor_1, (app::OrderedEnumerable_1_TElement_GetEnumerator_d_1_System_Collections_Generic_KeyValuePair_2_ * this_ptr, int32_t __1__state))

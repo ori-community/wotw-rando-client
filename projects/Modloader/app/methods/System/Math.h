@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MidpointRounding__Enum.h>
+#include <Modloader/app/structs/Decimal.h>
 
 namespace app::classes::System::Math {
     IL2CPP_REGISTER_METHOD(0x02268030, double, Acos, (double d))

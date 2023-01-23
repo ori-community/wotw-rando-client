@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnterExitActionsExecutor.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::EnterExitActionsExecutor {
     IL2CPP_REGISTER_METHOD(0x00C8B8A0, void, add_OnExitActionFinished, (app::EnterExitActionsExecutor * this_ptr, app::Action* value))

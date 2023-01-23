@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RBTree_1_K_Node_DataRow___Array__Class.h>
+#include <Modloader/app/structs/RBTree_1_K_Node_DataRow___Array.h>
 
 namespace app::classes::types {
     namespace RBTree_1_K_Node_DataRow___Array {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XalService_AsyncCompletionRoutine.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Microsoft::Xbox::Services::Xal::XalService_AsyncCompletionRoutine {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::XalService_AsyncCompletionRoutine * this_ptr, app::Object* object, void* method_1))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SortVersion.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Globalization::SortVersion {
     IL2CPP_REGISTER_METHOD(0x01DEC630, bool, Equals_1, (app::SortVersion * this_ptr, app::Object* obj))

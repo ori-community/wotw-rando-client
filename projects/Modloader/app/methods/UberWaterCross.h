@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberWaterCross.h>
+#include <Modloader/app/structs/UberPostProcess.h>
 
 namespace app::classes::UberWaterCross {
     IL2CPP_REGISTER_METHOD(0x0129DEA0, void, OnEnable, (app::UberWaterCross * this_ptr))

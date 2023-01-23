@@ -1,5 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameController.h>
+#include <Modloader/app/structs/GameController_GameDifficultyModes__Enum.h>
+#include <Modloader/app/structs/GameParameters.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/RestartReason__Enum.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/PlayerLoopSystem.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/PlatformServiceProvider.h>
+#include <Modloader/app/structs/IRaceServiceProvider.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/LogType__Enum.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/WorldEventsOnAwake.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Objective.h>
+#include <Modloader/app/structs/List_1_TelemetryFpsSample_.h>
+#include <Modloader/app/structs/GameController_GameModeBalanceSettings.h>
+#include <Modloader/app/structs/ExecuteCloudScriptResult.h>
+#include <Modloader/app/structs/PlayFabError.h>
 
 namespace app::classes::GameController {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_IsPressTourBuild, (app::GameController * this_ptr))

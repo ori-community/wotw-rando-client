@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DateTimeFormatInfo.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/CultureData.h>
+#include <Modloader/app/structs/Calendar.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/MonthNameStyles__Enum.h>
+#include <Modloader/app/structs/DayOfWeek__Enum.h>
+#include <Modloader/app/structs/CompareInfo.h>
+#include <Modloader/app/structs/DateTimeStyles__Enum.h>
+#include <Modloader/app/structs/DateTimeFormatFlags__Enum.h>
+#include <Modloader/app/structs/TokenHashValue__Array.h>
+#include <Modloader/app/structs/_DTString.h>
+#include <Modloader/app/structs/TokenType__Enum.h>
 
 namespace app::classes::System::Globalization::DateTimeFormatInfo {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, InitPreferExistingTokens, ())

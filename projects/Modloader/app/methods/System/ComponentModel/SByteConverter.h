@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/SByteConverter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NumberFormatInfo.h>
+#include <Modloader/app/structs/CultureInfo.h>
 
 namespace app::classes::System::ComponentModel::SByteConverter {
     IL2CPP_REGISTER_METHOD(0x029AC600, app::Type*, get_TargetType, (app::SByteConverter * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeshFilter.h>
+#include <Modloader/app/structs/List_1_UnityEngine_MeshFilter_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_MeshFilter_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_MeshFilter_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::MeshFilter*, get_Item, (app::List_1_UnityEngine_MeshFilter_ * this_ptr, int32_t index))

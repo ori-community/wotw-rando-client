@@ -1,0 +1,40 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EnumDictionary_2_SpiritShardType_SpiritShardDescription___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EnumDictionary_2_SpiritShardType_SpiritShardDescription___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EnumDictionary_2_SpiritShardType_SpiritShardDescription___Fields_DEFINED)
+#include <Modloader/app/structs/MonoBehaviour__Fields.h>
+#if defined(IL2CPP_STRUCT_MonoBehaviour__Fields_DEFINED)
+#define IL2CPP_STRUCT_EnumDictionary_2_SpiritShardType_SpiritShardDescription___Fields_DEFINED
+struct SpiritShardDescription;
+struct List_1_SpiritShardType_;
+struct List_1_SpiritShardDescription_;
+struct Dictionary_2_SpiritShardType_SpiritShardDescription_;
+struct EnumDictionary_2_SpiritShardType_SpiritShardDescription___Fields {
+    struct MonoBehaviour__Fields _;
+    struct SpiritShardDescription* Missing;
+    bool ThrowMissingError;
+    struct List_1_SpiritShardType_* m_keys;
+    struct List_1_SpiritShardDescription_* m_values;
+    struct Dictionary_2_SpiritShardType_SpiritShardDescription_* m_dictionary;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_EnumDictionary_2_SpiritShardType_SpiritShardDescription___Fields_FWDDECL)
+#define IL2CPP_STRUCT_EnumDictionary_2_SpiritShardType_SpiritShardDescription___Fields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_SpiritShardType_SpiritShardDescription_.h>
+#include <Modloader/app/structs/List_1_SpiritShardDescription_.h>
+#include <Modloader/app/structs/List_1_SpiritShardType_.h>
+#include <Modloader/app/structs/SpiritShardDescription.h>
+#endif
+#undef IL2CPP_STRUCT_EnumDictionary_2_SpiritShardType_SpiritShardDescription___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EnumDictionary_2_SpiritShardType_SpiritShardDescription___Fields_DEFINED) && !defined(IL2CPP_STRUCT_EnumDictionary_2_SpiritShardType_SpiritShardDescription___Fields_FWDDECL)
+#include <Modloader/app/structs/EnumDictionary_2_SpiritShardType_SpiritShardDescription___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EnumDictionary_2_SpiritShardType_SpiritShardDescription___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

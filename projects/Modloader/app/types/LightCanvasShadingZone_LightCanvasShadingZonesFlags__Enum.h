@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LightCanvasShadingZone_LightCanvasShadingZonesFlags__Enum__Class.h>
+#include <Modloader/app/structs/LightCanvasShadingZone_LightCanvasShadingZonesFlags__Enum.h>
 
 namespace app::classes::types {
     namespace LightCanvasShadingZone_LightCanvasShadingZonesFlags__Enum {

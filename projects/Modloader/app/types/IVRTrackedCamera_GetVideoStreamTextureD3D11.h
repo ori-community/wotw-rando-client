@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IVRTrackedCamera_GetVideoStreamTextureD3D11__Class.h>
+#include <Modloader/app/structs/IVRTrackedCamera_GetVideoStreamTextureD3D11.h>
 
 namespace app::classes::types {
     namespace IVRTrackedCamera_GetVideoStreamTextureD3D11 {

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnumOrderAttribute.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/EquipmentType__Enum__Array.h>
+#include <Modloader/app/structs/SpiritShardType__Enum__Array.h>
+#include <Modloader/app/structs/ByteEnum__Enum__Array.h>
+#include <Modloader/app/structs/Int32Enum__Enum__Array.h>
 
 namespace app::classes::EnumOrderAttribute {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::EnumOrderAttribute * this_ptr, int32_t order))

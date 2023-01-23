@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwitchSeriesPuzzle.h>
+#include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::SwitchSeriesPuzzle {
     IL2CPP_REGISTER_METHOD(0x01834490, void, Awake, (app::SwitchSeriesPuzzle * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WindZoneVisualizer.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::WindZoneVisualizer {
     IL2CPP_REGISTER_METHOD(0x0057A6A0, void, Awake, (app::WindZoneVisualizer * this_ptr))

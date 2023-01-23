@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StencilState__Boxed.h>
+#include <Modloader/app/structs/CompareFunction__Enum.h>
+#include <Modloader/app/structs/StencilOp__Enum.h>
+#include <Modloader/app/structs/StencilState.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::StencilState {
     IL2CPP_REGISTER_METHOD(0x001F2150, void, ctor_1, (app::StencilState__Boxed * this_ptr, bool enabled, uint8_t read_mask, uint8_t write_mask, app::CompareFunction__Enum compare_function, app::StencilOp__Enum pass_operation, app::StencilOp__Enum fail_operation, app::StencilOp__Enum z_fail_operation))

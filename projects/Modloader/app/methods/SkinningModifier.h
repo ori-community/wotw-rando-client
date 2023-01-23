@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkinningModifier.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::SkinningModifier {
     IL2CPP_REGISTER_METHOD(0x006BF180, void, OnEnable, (app::SkinningModifier * this_ptr))

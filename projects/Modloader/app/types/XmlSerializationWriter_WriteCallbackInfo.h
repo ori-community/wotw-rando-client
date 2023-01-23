@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlSerializationWriter_WriteCallbackInfo__Class.h>
+#include <Modloader/app/structs/XmlSerializationWriter_WriteCallbackInfo.h>
 
 namespace app::classes::types {
     namespace XmlSerializationWriter_WriteCallbackInfo {

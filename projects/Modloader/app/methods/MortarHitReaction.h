@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MortarHitReaction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/EntityEvent.h>
 
 namespace app::classes::MortarHitReaction {
     IL2CPP_REGISTER_METHOD(0x0147D580, void, OnInitializeTask, (app::MortarHitReaction * this_ptr, app::IContext* context))

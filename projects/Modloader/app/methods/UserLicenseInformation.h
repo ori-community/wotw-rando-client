@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UserLicenseInformation.h>
 
 namespace app::classes::UserLicenseInformation {
     IL2CPP_REGISTER_METHOD(0x013B1840, bool, get_IsFullVersion, ())

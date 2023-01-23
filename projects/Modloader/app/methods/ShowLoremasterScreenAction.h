@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowLoremasterScreenAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ShowLoremasterScreenAction {
     IL2CPP_REGISTER_METHOD(0x005C4D90, void, Perform, (app::ShowLoremasterScreenAction * this_ptr, app::IContext* context))

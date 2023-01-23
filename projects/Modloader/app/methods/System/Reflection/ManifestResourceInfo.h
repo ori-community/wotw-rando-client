@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ManifestResourceInfo.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ResourceLocation__Enum.h>
 
 namespace app::classes::System::Reflection::ManifestResourceInfo {
     IL2CPP_REGISTER_METHOD(0x00E332C0, void, ctor, (app::ManifestResourceInfo * this_ptr, app::Assembly* containing_assembly, app::String* containing_file_name, app::ResourceLocation__Enum resource_location))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_TimeSlicer_ITimeSlicedJob_System_Func_1___Array__Class.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_TimeSlicer_ITimeSlicedJob_System_Func_1___Array.h>
 
 namespace app::classes::types {
     namespace KeyValuePair_2_Moon_TimeSlicer_ITimeSlicedJob_System_Func_1___Array {

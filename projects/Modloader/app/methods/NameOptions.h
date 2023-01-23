@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NameOptions.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/NameOptions_NameDatabase.h>
 
 namespace app::classes::NameOptions {
     IL2CPP_REGISTER_METHOD(0x002FBC00, app::String*, get_FirstLetter, (app::NameOptions * this_ptr))

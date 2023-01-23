@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SerializedIntUberState.h>
+#include <Modloader/app/structs/List_1_Moon_SerializedIntUberState_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_SerializedIntUberState_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_SerializedIntUberState_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::SerializedIntUberState*, get_Item, (app::List_1_Moon_SerializedIntUberState_ * this_ptr, int32_t index))

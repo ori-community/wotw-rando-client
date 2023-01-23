@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BowArrow.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/TrackingExclusions.h>
 
 namespace app::classes::BowArrow {
     IL2CPP_REGISTER_METHOD(0x00413160, bool, get_Charged, (app::BowArrow * this_ptr))

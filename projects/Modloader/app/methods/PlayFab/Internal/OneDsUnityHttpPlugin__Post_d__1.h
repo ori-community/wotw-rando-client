@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OneDsUnityHttpPlugin_Post_d_1.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::PlayFab::Internal::OneDsUnityHttpPlugin__Post_d__1 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::OneDsUnityHttpPlugin_Post_d_1 * this_ptr, int32_t __1__state))

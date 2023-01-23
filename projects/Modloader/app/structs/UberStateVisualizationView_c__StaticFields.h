@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberStateVisualizationView_c__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberStateVisualizationView_c__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberStateVisualizationView_c__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_UberStateVisualizationView_c__StaticFields_DEFINED
+struct UberStateVisualizationView_c;
+struct Comparison_1_Moon_UberStateVisualization_UberStateGroupData_;
+struct Comparison_1_Moon_UberStateVisualization_UberStateData_;
+struct UberStateVisualizationView_c__StaticFields {
+    struct UberStateVisualizationView_c* __9;
+    struct Comparison_1_Moon_UberStateVisualization_UberStateGroupData_* __9__10_0;
+    struct Comparison_1_Moon_UberStateVisualization_UberStateData_* __9__11_0;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_UberStateVisualizationView_c__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_UberStateVisualizationView_c__StaticFields_FWDDECL
+#include <Modloader/app/structs/Comparison_1_Moon_UberStateVisualization_UberStateData_.h>
+#include <Modloader/app/structs/Comparison_1_Moon_UberStateVisualization_UberStateGroupData_.h>
+#include <Modloader/app/structs/UberStateVisualizationView_c.h>
+#endif
+#undef IL2CPP_STRUCT_UberStateVisualizationView_c__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberStateVisualizationView_c__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_UberStateVisualizationView_c__StaticFields_FWDDECL)
+#include <Modloader/app/structs/UberStateVisualizationView_c__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberStateVisualizationView_c__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

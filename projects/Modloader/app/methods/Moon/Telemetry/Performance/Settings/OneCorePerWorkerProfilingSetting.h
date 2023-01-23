@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/OneCorePerWorkerProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::OneCorePerWorkerProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x00E3E740, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::OneCorePerWorkerProfilingSetting * this_ptr))

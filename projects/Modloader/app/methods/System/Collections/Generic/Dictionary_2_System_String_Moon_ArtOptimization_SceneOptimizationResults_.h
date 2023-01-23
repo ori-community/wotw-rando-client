@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_String_Moon_ArtOptimization_SceneOptimizationResults_.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_Moon_ArtOptimization_SceneOptimizationResults_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_Moon_ArtOptimization_SceneOptimizationResults_ {
     IL2CPP_REGISTER_METHOD(0x02BA5400, app::Dictionary_2_TKey_TValue_Enumerator_System_String_Moon_ArtOptimization_SceneOptimizationResults_, GetEnumerator, (app::Dictionary_2_System_String_Moon_ArtOptimization_SceneOptimizationResults_ * this_ptr))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberID.h>
+#include <Modloader/app/structs/SerializedBooleanUberState.h>
+#include <Modloader/app/structs/IUberStateGroup.h>
+#include <Modloader/app/structs/Nullable_1_Single_.h>
+#include <Modloader/app/structs/NamedValue_1_System_Boolean___Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberStateArchive.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberStateHeader_UberStateType__Enum.h>
 
 namespace app::classes::Moon::SerializedBooleanUberState {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::UberID*, get_StateID, (app::SerializedBooleanUberState * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/LegacyWaitForTrigger.h>
+#include <Modloader/app/structs/Func_2_IContext_Boolean_.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::LegacyWaitForTrigger {
     IL2CPP_REGISTER_METHOD(0x011318A0, app::Rect, get_Bounds, (app::LegacyWaitForTrigger * this_ptr))

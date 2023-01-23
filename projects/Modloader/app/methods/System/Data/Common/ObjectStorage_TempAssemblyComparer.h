@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectStorage_TempAssemblyComparer.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Type_System_Xml_Serialization_XmlRootAttribute_.h>
 
 namespace app::classes::System::Data::Common::ObjectStorage_TempAssemblyComparer {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ObjectStorage_TempAssemblyComparer * this_ptr))

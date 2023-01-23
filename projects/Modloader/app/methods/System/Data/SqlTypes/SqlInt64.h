@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SqlInt64__Boxed.h>
+#include <Modloader/app/structs/SqlInt64.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SqlByte.h>
+#include <Modloader/app/structs/SqlInt16.h>
+#include <Modloader/app/structs/SqlInt32.h>
+#include <Modloader/app/structs/SqlDecimal.h>
+#include <Modloader/app/structs/SqlBoolean.h>
+#include <Modloader/app/structs/SqlDouble.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
 
 namespace app::classes::System::Data::SqlTypes::SqlInt64 {
     IL2CPP_REGISTER_METHOD(0x001E3B70, void, ctor_1, (app::SqlInt64__Boxed * this_ptr, bool f_null))

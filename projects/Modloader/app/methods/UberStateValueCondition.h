@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStateValueCondition.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::UberStateValueCondition {
     IL2CPP_REGISTER_METHOD(0x0128B500, bool, Validate, (app::UberStateValueCondition * this_ptr, app::IContext* context))

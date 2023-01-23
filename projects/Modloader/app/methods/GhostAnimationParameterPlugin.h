@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GlobalRecordingTable.h>
+#include <Modloader/app/structs/GhostAnimationParameterPlugin.h>
+#include <Modloader/app/structs/PreRecordingData.h>
+#include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::GhostAnimationParameterPlugin {
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::GlobalRecordingTable*, get_GlobalRecordingTable, (app::GhostAnimationParameterPlugin * this_ptr))

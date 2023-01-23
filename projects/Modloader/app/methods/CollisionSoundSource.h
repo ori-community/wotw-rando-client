@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ISoundHost.h>
+#include <Modloader/app/structs/CollisionSoundSource.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::CollisionSoundSource {
     IL2CPP_REGISTER_METHOD(0x012D0AA0, app::ISoundHost*, get_SoundHost, (app::CollisionSoundSource * this_ptr))

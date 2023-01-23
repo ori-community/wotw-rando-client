@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/VideoEditor.h>
+#include <Modloader/app/structs/VideoPlayer.h>
 
 namespace app::classes::VideoEditor {
     IL2CPP_REGISTER_METHOD(0x008BBD50, uint32_t, Execute, (app::String * path, app::String* parameters, app::String* working_dir))

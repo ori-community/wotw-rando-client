@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Region__Enum_3__Array__Class.h>
+#include <Modloader/app/structs/Region__Enum_3__Array.h>
 
 namespace app::classes::types {
     namespace Region__Enum_3__Array {

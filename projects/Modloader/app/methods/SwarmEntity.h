@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwarmEntity.h>
+#include <Modloader/app/structs/List_1_SwarmAgent_.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SwarmAgent.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/SwarmNestEntity.h>
 
 namespace app::classes::SwarmEntity {
     IL2CPP_REGISTER_METHOD(0x018191D0, bool, IsAggro, (app::SwarmEntity * this_ptr))

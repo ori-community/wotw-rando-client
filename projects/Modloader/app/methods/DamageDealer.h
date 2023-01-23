@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Polygon_1.h>
+#include <Modloader/app/structs/DamageLayerMask__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageDealer_OverrideInfo.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::DamageDealer {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, ShouldUseDamageByAreaResolver, (app::DamageDealer * this_ptr))

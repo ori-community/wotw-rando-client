@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpdateCategory__Enum.h>
+#include <Modloader/app/structs/UpdateHelper_UpdateCategoryGetter_3_UnityEngine_Transform_UnityEngine_Rigidbody_Moon_UpdateCategory_.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::moonCore::moonDriver::UpdateHelper_UpdateCategoryGetter_3_UnityEngine_Transform_UnityEngine_Rigidbody_Moon_UpdateCategory_ {
     IL2CPP_REGISTER_METHOD(0x02AD6B00, app::UpdateCategory__Enum, Invoke, (app::UpdateHelper_UpdateCategoryGetter_3_UnityEngine_Transform_UnityEngine_Rigidbody_Moon_UpdateCategory_ * this_ptr, app::Transform* arg1, app::Rigidbody** arg2))

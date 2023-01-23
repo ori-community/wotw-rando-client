@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderProperty_Texture__Enum.h>
+#include <Modloader/app/structs/UberShaderProperties_TextureSuffixType__Enum.h>
+#include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
+#include <Modloader/app/structs/UberShaderProperty_Vector__Enum.h>
+#include <Modloader/app/structs/UberShaderProperty_Float__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UberShaderProperties {
     IL2CPP_REGISTER_METHOD(0x019170F0, int32_t, get_MainTexturePropertyID, ())

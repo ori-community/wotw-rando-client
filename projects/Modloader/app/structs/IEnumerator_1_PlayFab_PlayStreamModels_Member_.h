@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_PlayFab_PlayStreamModels_Member__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_PlayFab_PlayStreamModels_Member__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_PlayStreamModels_Member__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_PlayFab_PlayStreamModels_Member__DEFINED
+struct IEnumerator_1_PlayFab_PlayStreamModels_Member___Class;
+struct IEnumerator_1_PlayFab_PlayStreamModels_Member_ {
+    struct IEnumerator_1_PlayFab_PlayStreamModels_Member___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_PlayStreamModels_Member__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_PlayFab_PlayStreamModels_Member__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_PlayFab_PlayStreamModels_Member___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_PlayFab_PlayStreamModels_Member__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_PlayStreamModels_Member__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_PlayStreamModels_Member__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_PlayFab_PlayStreamModels_Member_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_PlayFab_PlayStreamModels_Member_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Vector4__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/List_1_System_Int32_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Rect_.h>
+#include <Modloader/app/structs/Rect__Array.h>
+#include <Modloader/app/structs/List_1_MeshTrail_MeshTrailEmitter_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
 
 namespace app::classes::UnityEngine::NoAllocHelpers {
     IL2CPP_REGISTER_METHOD(0x02540D90, int32_t, SafeLength_1, (app::Array * values))

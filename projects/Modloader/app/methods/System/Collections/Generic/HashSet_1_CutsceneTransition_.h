@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_CutsceneTransition_.h>
+#include <Modloader/app/structs/HashSet_1_CutsceneTransition_.h>
+#include <Modloader/app/structs/CutsceneTransition.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_CutsceneTransition_ {
     IL2CPP_REGISTER_METHOD(0x02ABCD80, app::HashSet_1_T_Enumerator_CutsceneTransition_, GetEnumerator, (app::HashSet_1_CutsceneTransition_ * this_ptr))

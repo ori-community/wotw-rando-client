@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SerializableUberShaderWrapperComparer.h>
+#include <Modloader/app/structs/SerializableUberShaderWrapper.h>
 
 namespace app::classes::Moon::ArtOptimization::SerializableUberShaderWrapperComparer {
     IL2CPP_REGISTER_METHOD(0x004C87C0, void, ctor, (app::SerializableUberShaderWrapperComparer * this_ptr, float lerp_value))

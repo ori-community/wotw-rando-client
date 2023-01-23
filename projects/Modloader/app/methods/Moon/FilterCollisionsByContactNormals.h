@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FilterCollisionsByContactNormals.h>
 
 namespace app::classes::Moon::FilterCollisionsByContactNormals {
     IL2CPP_REGISTER_METHOD(0x01222E00, void, OnValidate, (app::FilterCollisionsByContactNormals * this_ptr))

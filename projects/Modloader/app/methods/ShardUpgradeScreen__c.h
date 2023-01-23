@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShardUpgradeScreen_c.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
 
 namespace app::classes::ShardUpgradeScreen___c {
     IL2CPP_REGISTER_METHOD(0x005B0C00, void, cctor, ())

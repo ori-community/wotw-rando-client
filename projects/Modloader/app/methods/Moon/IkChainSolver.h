@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IkChainSolver.h>
+#include <Modloader/app/structs/IkChainSolver_JointData.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::Moon::IkChainSolver {
     IL2CPP_REGISTER_METHOD(0x01B0E560, app::Vector3, get_LocalDirection, (app::IkChainSolver * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Core_Input_Command_System_Int32_.h>
+#include <Modloader/app/structs/Input_Command__Enum.h>
+#include <Modloader/app/structs/IEqualityComparer_1_Core_Input_Command_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_Core_Input_Command_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_Core_Input_Command_System_Int32_ * this_ptr, app::Input_Command__Enum key))

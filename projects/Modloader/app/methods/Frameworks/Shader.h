@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Color__Array.h>
+#include <Modloader/app/structs/Gradient.h>
 
 namespace app::classes::Frameworks::Shader {
     IL2CPP_REGISTER_METHOD(0x01643ED0, void, ConvertColorsToTexture, (app::Texture2D * texture, app::Color__Array* gradient))

@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MoonTelemetry_State__Enum.h>
+#include <Modloader/app/structs/MoonTelemetry.h>
+#include <Modloader/app/structs/MoonTelemetryEvent.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/EventArgs.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/IRequest.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_System_Int32_.h>
 
 namespace app::classes::MoonTelemetry {
     IL2CPP_REGISTER_METHOD(0x02E9B450, app::String*, CleanName, (app::String * name))

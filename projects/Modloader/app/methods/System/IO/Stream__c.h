@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stream_c.h>
+#include <Modloader/app/structs/SemaphoreSlim.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Stream_ReadWriteParameters.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/VoidTaskResult.h>
 
 namespace app::classes::System::IO::Stream___c {
     IL2CPP_REGISTER_METHOD(0x0237DF10, void, cctor, ())

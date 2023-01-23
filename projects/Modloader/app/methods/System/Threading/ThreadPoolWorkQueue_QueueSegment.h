@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ThreadPoolWorkQueue_QueueSegment.h>
+#include <Modloader/app/structs/IThreadPoolWorkItem.h>
 
 namespace app::classes::System::Threading::ThreadPoolWorkQueue_QueueSegment {
     IL2CPP_REGISTER_METHOD(0x02347C40, void, GetIndexes, (app::ThreadPoolWorkQueue_QueueSegment * this_ptr, int32_t* upper, int32_t* lower))

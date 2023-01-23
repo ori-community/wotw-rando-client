@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkeetoDeathReaction.h>
+#include <Modloader/app/structs/SkeetoFallingReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SkeetoFallingReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00756A30, app::SkeetoDeathReaction*, get_DeathReaction, (app::SkeetoFallingReactionBehaviour * this_ptr))

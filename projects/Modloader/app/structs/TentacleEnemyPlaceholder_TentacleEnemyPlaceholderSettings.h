@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings_DEFINED)
+#include <Modloader/app/structs/TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings_DEFINED
+struct TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings__Class;
+struct TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings {
+    struct TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings__Class* klass;
+    MonitorData* monitor;
+    struct TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings_FWDDECL)
+#define IL2CPP_STRUCT_TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings_FWDDECL
+#include <Modloader/app/structs/TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings_DEFINED) && !defined(IL2CPP_STRUCT_TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings_FWDDECL)
+#include <Modloader/app/structs/TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TentacleEnemyPlaceholder_TentacleEnemyPlaceholderSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

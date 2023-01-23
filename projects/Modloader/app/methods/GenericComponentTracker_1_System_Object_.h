@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/GenericComponentTracker_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::GenericComponentTracker_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::List_1_System_Object_*, get_All, (app::GenericComponentTracker_1_System_Object_ * this_ptr))

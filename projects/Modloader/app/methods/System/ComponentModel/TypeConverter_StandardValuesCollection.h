@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypeConverter_StandardValuesCollection.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::ComponentModel::TypeConverter_StandardValuesCollection {
     IL2CPP_REGISTER_METHOD(0x02945F10, void, ctor, (app::TypeConverter_StandardValuesCollection * this_ptr, app::ICollection* values))

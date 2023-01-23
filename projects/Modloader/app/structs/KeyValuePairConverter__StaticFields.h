@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePairConverter__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePairConverter__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePairConverter__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_KeyValuePairConverter__StaticFields_DEFINED
+struct ThreadSafeStore_2_System_Type_ReflectionObject_;
+struct KeyValuePairConverter__StaticFields {
+    struct ThreadSafeStore_2_System_Type_ReflectionObject_* ReflectionObjectPerType;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePairConverter__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePairConverter__StaticFields_FWDDECL
+#include <Modloader/app/structs/ThreadSafeStore_2_System_Type_ReflectionObject_.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePairConverter__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePairConverter__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePairConverter__StaticFields_FWDDECL)
+#include <Modloader/app/structs/KeyValuePairConverter__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePairConverter__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

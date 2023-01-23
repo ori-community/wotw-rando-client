@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/TextureFormat__Enum.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::Swing::TextureExtensions {
     IL2CPP_REGISTER_METHOD(0x0182FB70, float, ratio, (app::Texture * _this))

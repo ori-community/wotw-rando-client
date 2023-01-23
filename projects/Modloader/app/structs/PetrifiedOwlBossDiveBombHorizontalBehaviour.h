@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossDiveBombHorizontalBehaviour_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossDiveBombHorizontalBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombHorizontalBehaviour_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombHorizontalBehaviour__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombHorizontalBehaviour__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossDiveBombHorizontalBehaviour_DEFINED
+struct PetrifiedOwlBossDiveBombHorizontalBehaviour__Class;
+struct PetrifiedOwlBossDiveBombHorizontalBehaviour {
+    struct PetrifiedOwlBossDiveBombHorizontalBehaviour__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossDiveBombHorizontalBehaviour__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombHorizontalBehaviour_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossDiveBombHorizontalBehaviour_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombHorizontalBehaviour__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossDiveBombHorizontalBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombHorizontalBehaviour_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombHorizontalBehaviour_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombHorizontalBehaviour.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombHorizontalBehaviour.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

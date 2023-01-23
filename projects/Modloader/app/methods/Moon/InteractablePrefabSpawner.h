@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractablePrefabSpawner.h>
+#include <Modloader/app/structs/ICharacter.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::Moon::InteractablePrefabSpawner {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnInteractionStart, (app::InteractablePrefabSpawner * this_ptr, app::ICharacter* character))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsResult.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/fsVersionedType.h>
+#include <Modloader/app/structs/List_1_FullSerializer_Internal_fsVersionedType_.h>
+#include <Modloader/app/structs/fsOption_1_fsVersionedType_.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::FullSerializer::Internal::fsVersionManager {
     IL2CPP_REGISTER_METHOD(0x01502EE0, app::fsResult, GetVersionImportPath, (app::String * current_version, app::fsVersionedType target_version, app::List_1_FullSerializer_Internal_fsVersionedType_** path))

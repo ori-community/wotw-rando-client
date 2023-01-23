@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadyForAnimationTrigger.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ReadyForAnimationTrigger {
     IL2CPP_REGISTER_METHOD(0x007340E0, void, Awake, (app::ReadyForAnimationTrigger * this_ptr))

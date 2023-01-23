@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NaruLookUpZone.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::NaruLookUpZone {
     IL2CPP_REGISTER_METHOD(0x00885C60, void, ResetStatics, ())

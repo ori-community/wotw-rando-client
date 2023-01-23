@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CanvasScaler.h>
+#include <Modloader/app/structs/CanvasScaler_ScaleMode__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CanvasScaler_ScreenMatchMode__Enum.h>
+#include <Modloader/app/structs/CanvasScaler_Unit__Enum.h>
 
 namespace app::classes::UnityEngine::UI::CanvasScaler {
     IL2CPP_REGISTER_METHOD(0x01F2C240, void, ctor, (app::CanvasScaler * this_ptr))

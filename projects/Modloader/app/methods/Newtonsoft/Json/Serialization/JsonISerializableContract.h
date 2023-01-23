@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
+#include <Modloader/app/structs/JsonISerializableContract.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonISerializableContract {
     IL2CPP_REGISTER_METHOD(0x002FBD00, app::ObjectConstructor_1_System_Object_*, get_ISerializableCreator, (app::JsonISerializableContract * this_ptr))

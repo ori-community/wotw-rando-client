@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DisplayScaleSlider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::DisplayScaleSlider {
     IL2CPP_REGISTER_METHOD(0x00B99220, void, Awake, (app::DisplayScaleSlider * this_ptr))

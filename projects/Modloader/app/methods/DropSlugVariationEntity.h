@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DropSlugVariationEntity.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::DropSlugVariationEntity {
     IL2CPP_REGISTER_METHOD(0x00BE61D0, float, get_DistanceToPredictedCharacterX, (app::DropSlugVariationEntity * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityHitReactionBehaviour_1_LaserShooterEntity_.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
 
 namespace app::classes::EntityHitReactionBehaviour_1_LaserShooterEntity_ {
     IL2CPP_REGISTER_METHOD(0x019E1830, void, ctor, (app::EntityHitReactionBehaviour_1_LaserShooterEntity_ * this_ptr))

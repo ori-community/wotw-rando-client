@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WindSegment.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::WindSegment {
     IL2CPP_REGISTER_METHOD(0x005782E0, void, Awake, (app::WindSegment * this_ptr))

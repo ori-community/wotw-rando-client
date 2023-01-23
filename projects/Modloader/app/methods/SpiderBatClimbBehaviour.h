@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBatClimbBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBatClimbBehaviour {
     IL2CPP_REGISTER_METHOD(0x009552D0, bool, ShouldClimb, (app::SpiderBatClimbBehaviour * this_ptr))

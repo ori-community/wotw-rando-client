@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/AirLocomotion.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
 
 namespace app::classes::AirLocomotion {
     IL2CPP_REGISTER_METHOD(0x004F15D0, app::Transform*, get_FeetTransform, (app::AirLocomotion * this_ptr))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_CleverMenuItemGroup_CleverMenuItemGroupItem__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_CleverMenuItemGroup_CleverMenuItemGroupItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_CleverMenuItemGroup_CleverMenuItemGroupItem__DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_CleverMenuItemGroup_CleverMenuItemGroupItem__DEFINED
+struct List_1_CleverMenuItemGroup_CleverMenuItemGroupItem_;
+struct CleverMenuItemGroup_CleverMenuItemGroupItem;
+struct List_1_T_Enumerator_CleverMenuItemGroup_CleverMenuItemGroupItem_ {
+    struct List_1_CleverMenuItemGroup_CleverMenuItemGroupItem_* list;
+    int32_t index;
+    int32_t version;
+    struct CleverMenuItemGroup_CleverMenuItemGroupItem* current;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_CleverMenuItemGroup_CleverMenuItemGroupItem__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_CleverMenuItemGroup_CleverMenuItemGroupItem__FWDDECL
+#include <Modloader/app/structs/CleverMenuItemGroup_CleverMenuItemGroupItem.h>
+#include <Modloader/app/structs/List_1_CleverMenuItemGroup_CleverMenuItemGroupItem_.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_CleverMenuItemGroup_CleverMenuItemGroupItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_CleverMenuItemGroup_CleverMenuItemGroupItem__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_CleverMenuItemGroup_CleverMenuItemGroupItem__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_CleverMenuItemGroup_CleverMenuItemGroupItem_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_CleverMenuItemGroup_CleverMenuItemGroupItem_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

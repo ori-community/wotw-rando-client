@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsOverride__Class.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsOverride.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsOverride__Boxed.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsOverride__Array.h>
 
 namespace app::classes::types {
     namespace LayeredRenderSettings_LayeredRenderSettingsOverride {

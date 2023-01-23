@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FloatAnimationParameterAnimator.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::FloatAnimationParameterAnimator {
     IL2CPP_REGISTER_METHOD(0x00763150, void, OnStartPlayback, (app::FloatAnimationParameterAnimator * this_ptr, app::IContext* context))

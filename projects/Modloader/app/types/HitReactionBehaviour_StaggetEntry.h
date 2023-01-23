@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/HitReactionBehaviour_StaggetEntry__Class.h>
+#include <Modloader/app/structs/HitReactionBehaviour_StaggetEntry.h>
+#include <Modloader/app/structs/HitReactionBehaviour_StaggetEntry__Array.h>
 
 namespace app::classes::types {
     namespace HitReactionBehaviour_StaggetEntry {

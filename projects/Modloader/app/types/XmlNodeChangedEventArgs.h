@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlNodeChangedEventArgs__Class.h>
+#include <Modloader/app/structs/XmlNodeChangedEventArgs.h>
 
 namespace app::classes::types {
     namespace XmlNodeChangedEventArgs {

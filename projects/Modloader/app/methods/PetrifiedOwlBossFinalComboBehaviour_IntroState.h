@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_IntroState.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossFinalComboBehaviour_IntroState {
     IL2CPP_REGISTER_METHOD(0x01770D60, void, ctor, (app::PetrifiedOwlBossFinalComboBehaviour_IntroState * this_ptr, app::PetrifiedOwlBossFinalComboBehaviour* behaviour))

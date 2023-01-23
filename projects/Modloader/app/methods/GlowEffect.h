@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/GlowEffect.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::GlowEffect {
     IL2CPP_REGISTER_METHOD(0x024FA640, app::Material*, get_compositeMaterial, (app::GlowEffect * this_ptr))

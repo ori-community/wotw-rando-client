@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/CustomizeMaterial.h>
 
 namespace app::classes::CustomizeMaterial {
     IL2CPP_REGISTER_METHOD(0x002FBC80, app::Texture*, get_LastMainTexture, (app::CustomizeMaterial * this_ptr))

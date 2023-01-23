@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectTracker_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ObjectTracker_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x01D14960, int32_t, Add, (app::ObjectTracker_1_System_Object_ * this_ptr, app::Object* obj))

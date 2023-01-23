@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InputHandle_t__Array.h>
+#include <Modloader/app/structs/InputActionSetHandle_t.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/InputHandle_t.h>
+#include <Modloader/app/structs/InputActionSetHandle_t__Array.h>
+#include <Modloader/app/structs/InputDigitalActionHandle_t.h>
+#include <Modloader/app/structs/InputDigitalActionData_t.h>
+#include <Modloader/app/structs/EInputActionOrigin__Enum__Array.h>
+#include <Modloader/app/structs/InputAnalogActionHandle_t.h>
+#include <Modloader/app/structs/InputAnalogActionData_t.h>
+#include <Modloader/app/structs/EInputActionOrigin__Enum.h>
+#include <Modloader/app/structs/InputMotionData_t.h>
+#include <Modloader/app/structs/ESteamControllerPad__Enum.h>
+#include <Modloader/app/structs/ESteamInputType__Enum.h>
+#include <Modloader/app/structs/EXboxOrigin__Enum.h>
 
 namespace app::classes::Steamworks::SteamInput {
     IL2CPP_REGISTER_METHOD(0x02781EA0, bool, Init, ())

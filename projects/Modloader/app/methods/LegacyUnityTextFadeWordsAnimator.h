@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LegacyUnityTextFadeWordsAnimator.h>
+#include <Modloader/app/structs/Color32.h>
 
 namespace app::classes::LegacyUnityTextFadeWordsAnimator {
     IL2CPP_REGISTER_METHOD(0x01130B00, app::String*, ColorToHex, (app::LegacyUnityTextFadeWordsAnimator * this_ptr, app::Color32 color))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FlutteringShotDownBehaviour_LandState.h>
+#include <Modloader/app/structs/FlutteringShotDownBehaviour.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::FlutteringShotDownBehaviour_LandState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::FlutteringShotDownBehaviour_LandState * this_ptr, app::FlutteringShotDownBehaviour* behaviour))

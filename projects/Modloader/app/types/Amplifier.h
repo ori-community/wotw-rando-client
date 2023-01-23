@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Amplifier__Class.h>
+#include <Modloader/app/structs/Amplifier.h>
 
 namespace app::classes::types {
     namespace Amplifier {

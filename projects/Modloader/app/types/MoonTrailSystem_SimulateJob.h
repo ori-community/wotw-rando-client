@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MoonTrailSystem_SimulateJob__Class.h>
+#include <Modloader/app/structs/MoonTrailSystem_SimulateJob.h>
+#include <Modloader/app/structs/MoonTrailSystem_SimulateJob__Boxed.h>
 
 namespace app::classes::types {
     namespace MoonTrailSystem_SimulateJob {

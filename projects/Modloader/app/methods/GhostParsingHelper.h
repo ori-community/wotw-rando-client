@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/List_1_System_Single_.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/GhostParsingHelper.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_UnityEngine_Component_.h>
 
 namespace app::classes::GhostParsingHelper {
     IL2CPP_REGISTER_METHOD(0x007DB4E0, app::GameObject*, CreatePlaybackInstance, (app::GameObject * prefab, app::Vector3 position, app::Quaternion rotation, app::Transform* parent))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ClipAnimation_RootMotionData.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/Keyframe.h>
 
 namespace app::classes::Moon::ClipAnimation_RootMotionData {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_IsDirty, (app::ClipAnimation_RootMotionData * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InternalStringComparer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::Collections::Generic::InternalStringComparer {
     IL2CPP_REGISTER_METHOD(0x02022440, int32_t, GetHashCode, (app::InternalStringComparer * this_ptr, app::String* obj))

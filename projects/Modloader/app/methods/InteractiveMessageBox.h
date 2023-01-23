@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractiveMessageBox.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/InteractiveMessageBox_State__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::InteractiveMessageBox {
     IL2CPP_REGISTER_METHOD(0x0063BC90, void, Awake, (app::InteractiveMessageBox * this_ptr))

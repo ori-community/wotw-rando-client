@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MasterTimelineSequence.h>
+#include <Modloader/app/structs/MasterTimelineSequence_SceneEntry.h>
 
 namespace app::classes::MasterTimelineSequence {
     IL2CPP_REGISTER_METHOD(0x00A11940, float, get_UnlockedDuration, (app::MasterTimelineSequence * this_ptr))

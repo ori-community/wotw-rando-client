@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Queue_1_T_Enumerator_QuestsController_QueuedQuestMessage__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Queue_1_T_Enumerator_QuestsController_QueuedQuestMessage__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Queue_1_T_Enumerator_QuestsController_QueuedQuestMessage__DEFINED)
+#include <Modloader/app/structs/QuestsController_QueuedQuestMessage.h>
+#if defined(IL2CPP_STRUCT_QuestsController_QueuedQuestMessage_DEFINED)
+#define IL2CPP_STRUCT_Queue_1_T_Enumerator_QuestsController_QueuedQuestMessage__DEFINED
+struct Queue_1_QuestsController_QueuedQuestMessage_;
+struct Queue_1_T_Enumerator_QuestsController_QueuedQuestMessage_ {
+    struct Queue_1_QuestsController_QueuedQuestMessage_* _q;
+    int32_t _version;
+    int32_t _index;
+    struct QuestsController_QueuedQuestMessage _currentElement;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Queue_1_T_Enumerator_QuestsController_QueuedQuestMessage__FWDDECL)
+#define IL2CPP_STRUCT_Queue_1_T_Enumerator_QuestsController_QueuedQuestMessage__FWDDECL
+#include <Modloader/app/structs/Queue_1_QuestsController_QueuedQuestMessage_.h>
+#endif
+#undef IL2CPP_STRUCT_Queue_1_T_Enumerator_QuestsController_QueuedQuestMessage__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Queue_1_T_Enumerator_QuestsController_QueuedQuestMessage__DEFINED) && !defined(IL2CPP_STRUCT_Queue_1_T_Enumerator_QuestsController_QueuedQuestMessage__FWDDECL)
+#include <Modloader/app/structs/Queue_1_T_Enumerator_QuestsController_QueuedQuestMessage_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Queue_1_T_Enumerator_QuestsController_QueuedQuestMessage_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

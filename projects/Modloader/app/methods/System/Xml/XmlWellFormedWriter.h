@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlWellFormedWriter.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlWriterSettings.h>
+#include <Modloader/app/structs/WriteState__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/XmlRawWriter.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_SpecialAttribute__Enum.h>
+#include <Modloader/app/structs/XmlStandalone__Enum.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_NamespaceKind__Enum.h>
+#include <Modloader/app/structs/XmlException.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_Token__Enum.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_State__Enum.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Xml::XmlWellFormedWriter {
     IL2CPP_REGISTER_METHOD(0x01FCB480, void, ctor, (app::XmlWellFormedWriter * this_ptr, app::XmlWriter* writer, app::XmlWriterSettings* settings))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MemoryOverlay.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Func_1_Int64_.h>
+#include <Modloader/app/structs/Func_1_UInt32_.h>
 
 namespace app::classes::Moon::Telemetry::Performance::visualization::MemoryOverlay {
     IL2CPP_REGISTER_METHOD(0x010A5BE0, void, CreateLineMaterial, (app::MemoryOverlay * this_ptr))

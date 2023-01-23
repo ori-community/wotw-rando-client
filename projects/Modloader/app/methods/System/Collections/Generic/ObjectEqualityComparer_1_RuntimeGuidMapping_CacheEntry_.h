@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_RuntimeGuidMapping_CacheEntry_.h>
+#include <Modloader/app/structs/RuntimeGuidMapping_CacheEntry.h>
+#include <Modloader/app/structs/RuntimeGuidMapping_CacheEntry__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_RuntimeGuidMapping_CacheEntry_ {
     IL2CPP_REGISTER_METHOD(0x01CD1020, bool, Equals_1, (app::ObjectEqualityComparer_1_RuntimeGuidMapping_CacheEntry_ * this_ptr, app::RuntimeGuidMapping_CacheEntry x, app::RuntimeGuidMapping_CacheEntry y))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowPagesFinishedCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ShowPagesFinishedCondition {
     IL2CPP_REGISTER_METHOD(0x005C5E70, bool, Validate, (app::ShowPagesFinishedCondition * this_ptr, app::IContext* context))

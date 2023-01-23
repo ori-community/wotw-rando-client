@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ControlListGridController_c.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::ControlListGridController___c {
     IL2CPP_REGISTER_METHOD(0x011EE8B0, void, cctor, ())

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GameplayCameraTargetEntry__Class.h>
+#include <Modloader/app/structs/GameplayCameraTargetEntry.h>
+#include <Modloader/app/structs/GameplayCameraTargetEntry__Boxed.h>
+#include <Modloader/app/structs/GameplayCameraTargetEntry__Array.h>
 
 namespace app::classes::types {
     namespace GameplayCameraTargetEntry {

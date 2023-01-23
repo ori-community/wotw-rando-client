@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BoundedVoronoiLegacy.h>
+#include <Modloader/app/structs/Mesh_1.h>
+#include <Modloader/app/structs/Point__Array.h>
+#include <Modloader/app/structs/ICollection_1_TriangleNet_Voronoi_Legacy_VoronoiRegion_.h>
+#include <Modloader/app/structs/IEnumerable_1_TriangleNet_Geometry_IEdge_.h>
+#include <Modloader/app/structs/Otri.h>
+#include <Modloader/app/structs/Osub.h>
+#include <Modloader/app/structs/Vertex.h>
+#include <Modloader/app/structs/Point.h>
 
 namespace app::classes::TriangleNet::Voronoi::Legacy::BoundedVoronoiLegacy {
     IL2CPP_REGISTER_METHOD(0x02AA8790, void, ctor_1, (app::BoundedVoronoiLegacy * this_ptr, app::Mesh_1* mesh))

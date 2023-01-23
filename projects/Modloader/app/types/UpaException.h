@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UpaException__Class.h>
+#include <Modloader/app/structs/UpaException.h>
 
 namespace app::classes::types {
     namespace UpaException {

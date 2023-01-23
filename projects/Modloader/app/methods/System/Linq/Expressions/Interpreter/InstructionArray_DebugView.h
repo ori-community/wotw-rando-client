@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InstructionArray_DebugView.h>
+#include <Modloader/app/structs/InstructionArray.h>
+#include <Modloader/app/structs/InstructionList_DebugView_InstructionView__Array.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::InstructionArray_DebugView {
     IL2CPP_REGISTER_METHOD(0x01CD7AE0, void, ctor, (app::InstructionArray_DebugView * this_ptr, app::InstructionArray array))

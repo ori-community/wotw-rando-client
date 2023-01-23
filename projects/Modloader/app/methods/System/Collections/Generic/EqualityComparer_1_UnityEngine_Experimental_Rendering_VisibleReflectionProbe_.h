@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_UnityEngine_Experimental_Rendering_VisibleReflectionProbe_.h>
+#include <Modloader/app/structs/VisibleReflectionProbe__Array.h>
+#include <Modloader/app/structs/VisibleReflectionProbe.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_UnityEngine_Experimental_Rendering_VisibleReflectionProbe_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_UnityEngine_Experimental_Rendering_VisibleReflectionProbe_*, get_Default, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChallengeShrineAnimatorEntity.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ChallengeShrineAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x010415F0, void, OnStartPlayback, (app::ChallengeShrineAnimatorEntity * this_ptr, app::IContext* context))

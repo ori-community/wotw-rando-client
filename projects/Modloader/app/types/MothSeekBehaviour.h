@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MothSeekBehaviour__Class.h>
+#include <Modloader/app/structs/MothSeekBehaviour.h>
 
 namespace app::classes::types {
     namespace MothSeekBehaviour {

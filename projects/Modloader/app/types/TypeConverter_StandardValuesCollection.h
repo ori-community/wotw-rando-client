@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TypeConverter_StandardValuesCollection__Class.h>
+#include <Modloader/app/structs/TypeConverter_StandardValuesCollection.h>
 
 namespace app::classes::types {
     namespace TypeConverter_StandardValuesCollection {

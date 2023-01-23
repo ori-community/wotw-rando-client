@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TestSpiderColliderManager_ColliderHolder_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TestSpiderColliderManager_ColliderHolder_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TestSpiderColliderManager_ColliderHolder_DEFINED)
+#include <Modloader/app/structs/TestSpiderColliderManager_ColliderHolder__Fields.h>
+#if defined(IL2CPP_STRUCT_TestSpiderColliderManager_ColliderHolder__Fields_DEFINED)
+#define IL2CPP_STRUCT_TestSpiderColliderManager_ColliderHolder_DEFINED
+struct TestSpiderColliderManager_ColliderHolder__Class;
+struct TestSpiderColliderManager_ColliderHolder {
+    struct TestSpiderColliderManager_ColliderHolder__Class* klass;
+    MonitorData* monitor;
+    struct TestSpiderColliderManager_ColliderHolder__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TestSpiderColliderManager_ColliderHolder_FWDDECL)
+#define IL2CPP_STRUCT_TestSpiderColliderManager_ColliderHolder_FWDDECL
+#include <Modloader/app/structs/TestSpiderColliderManager_ColliderHolder__Class.h>
+#endif
+#undef IL2CPP_STRUCT_TestSpiderColliderManager_ColliderHolder_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TestSpiderColliderManager_ColliderHolder_DEFINED) && !defined(IL2CPP_STRUCT_TestSpiderColliderManager_ColliderHolder_FWDDECL)
+#include <Modloader/app/structs/TestSpiderColliderManager_ColliderHolder.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TestSpiderColliderManager_ColliderHolder.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

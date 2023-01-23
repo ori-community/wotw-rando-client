@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
+#include <Modloader/app/structs/SeinDashNew.h>
+#include <Modloader/app/structs/ButtonInputType__Enum.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/SeinDashNew_PreDashDelegateType.h>
+#include <Modloader/app/structs/List_1_DigZone_.h>
+#include <Modloader/app/structs/List_1_WaterZone_.h>
+#include <Modloader/app/structs/DigZone.h>
+#include <Modloader/app/structs/MonoBehaviour.h>
+#include <Modloader/app/structs/List_1_UnityEngine_MonoBehaviour_.h>
+#include <Modloader/app/structs/SeinDashNewPuppet.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/ComboInput.h>
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
 
 namespace app::classes::SeinDashNew {
     IL2CPP_REGISTER_METHOD(0x00417920, app::ComboMoveType__Enum, get_ComboMoveType, (app::SeinDashNew * this_ptr))

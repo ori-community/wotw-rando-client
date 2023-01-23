@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_SimpleGenericPool_1_PoolItem_.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_SimpleGenericPool_1_PoolItem__1.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_System_Object_.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_SimpleGenericPool_1_PoolItem_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose_1, (app::Array_EmptyInternalEnumerator_1_SimpleGenericPool_1_PoolItem_ * this_ptr))

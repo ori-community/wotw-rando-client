@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DemoMainMenuState.h>
+#include <Modloader/app/structs/IState.h>
 
 namespace app::classes::DemoMainMenuState {
     IL2CPP_REGISTER_METHOD(0x00B822F0, void, OnEnterState, (app::DemoMainMenuState * this_ptr))

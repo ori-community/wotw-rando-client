@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/FeedingGroundsPetrifiedOwlController.h>
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundsState__Enum.h>
+#include <Modloader/app/structs/FeedingGroundsPetrifiedOwlController_FeedingGroundsChaseState__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/FeedingGroundsPetrifiedOwlController_KillType__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::PetrifiedOwlFeedingGrounds::FeedingGroundsPetrifiedOwlController {
     IL2CPP_REGISTER_METHOD(0x014D9C60, bool, get_ShowDebug, ())

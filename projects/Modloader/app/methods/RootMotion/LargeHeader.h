@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LargeHeader.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::RootMotion::LargeHeader {
     IL2CPP_REGISTER_METHOD(0x02A2BAD0, void, ctor_1, (app::LargeHeader * this_ptr, app::String* name))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/TentaclePlaceholder.h>
 
 namespace app::classes::TentaclePlaceholder {
     IL2CPP_REGISTER_METHOD(0x010D6940, app::GameObject*, get_Prefab, (app::TentaclePlaceholder * this_ptr))

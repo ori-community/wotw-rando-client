@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enum_ValuesAndNames.h>
+#include <Modloader/app/structs/RuntimeType.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UInt64__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Enum_EnumResult.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Enum__Boxed.h>
+#include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/UberGCLogic_ResourceCollectPriorityMode__Enum.h>
+#include <Modloader/app/structs/KeyCode__Enum.h>
+#include <Modloader/app/structs/GameController_ProfilingConfiguration__Enum.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::System::Enum {
     IL2CPP_REGISTER_METHOD(0x01A10D70, app::Enum_ValuesAndNames*, GetCachedValuesAndNames, (app::RuntimeType * enum_type, bool get_names))

@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_1_System_Nullable_1_.h>
+#include <Modloader/app/structs/Task_1_System_Nullable_1_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TaskCreationOptions__Enum.h>
+#include <Modloader/app/structs/Nullable_1_Int32_.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/Func_2_Object_Nullable_1_Int32_.h>
+#include <Modloader/app/structs/Func_1_Nullable_1_Int32_.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/InternalTaskOptions__Enum.h>
+#include <Modloader/app/structs/TaskScheduler.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TaskFactory_1_System_Nullable_1_.h>
+#include <Modloader/app/structs/TaskAwaiter_1_System_Nullable_1_.h>
+#include <Modloader/app/structs/Action_1_System_Threading_Tasks_Task_1__8.h>
+#include <Modloader/app/structs/TaskContinuationOptions__Enum.h>
 
 namespace app::classes::System::Threading::Tasks::Task_1_System_Nullable_1_ {
     IL2CPP_REGISTER_METHOD(0x0277FBD0, app::ConfiguredTaskAwaitable_1_System_Nullable_1_, ConfigureAwait, (app::Task_1_System_Nullable_1_ * this_ptr, bool continue_on_captured_context))

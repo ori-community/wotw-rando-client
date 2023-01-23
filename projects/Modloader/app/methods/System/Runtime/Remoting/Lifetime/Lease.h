@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Lease.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/LeaseState__Enum.h>
+#include <Modloader/app/structs/ISponsor.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::Remoting::Lifetime::Lease {
     IL2CPP_REGISTER_METHOD(0x02306F60, void, ctor, (app::Lease * this_ptr))

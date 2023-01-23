@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XNode.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SaveOptions__Enum.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::Xml::Linq::XNode {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::XNode * this_ptr))

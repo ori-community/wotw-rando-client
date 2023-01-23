@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/CartBouncer.h>
 
 namespace app::classes::CartBouncer {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::Collider*, get_Collider, (app::CartBouncer * this_ptr))

@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlWriterSettings.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/NewLineHandling__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConformanceLevel__Enum.h>
+#include <Modloader/app/structs/NamespaceHandling__Enum.h>
+#include <Modloader/app/structs/XmlOutputMethod__Enum.h>
+#include <Modloader/app/structs/List_1_System_Xml_XmlQualifiedName_.h>
+#include <Modloader/app/structs/XmlStandalone__Enum.h>
+#include <Modloader/app/structs/TriState__Enum.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/TextWriter.h>
 
 namespace app::classes::System::Xml::XmlWriterSettings {
     IL2CPP_REGISTER_METHOD(0x01FD6340, void, ctor, (app::XmlWriterSettings * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TurbulenceScaleModifier.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 
 namespace app::classes::TurbulenceScaleModifier {
     IL2CPP_REGISTER_METHOD(0x00B14990, void, ApplyMultipliers, (app::TurbulenceScaleModifier * this_ptr, float strength, float speed))

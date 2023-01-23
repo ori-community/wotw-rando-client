@@ -3,6 +3,11 @@
 #include <Core/macros.h>
 #include <nlohmann/json.hpp>
 
+#include <Modloader/app/structs/MessageBox.h>
+#include <Modloader/app/structs/AlignmentMode__Enum.h>
+#include <Modloader/app/structs/HorizontalAnchorMode__Enum.h>
+#include <Modloader/app/structs/VerticalAnchorMode__Enum.h>
+
 namespace core {
     class TextBox {
     public:

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimelineNotifier_Action__Enum.h>
+#include <Modloader/app/structs/BrainEntity.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer.h>
+#include <Modloader/app/structs/MoonTimelineNotifier.h>
 
 namespace app::classes::Moon::Timeline::MoonTimelineNotifier {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, NotifyTimelineEvent, (app::ITimelineEntity * timeline, app::IContext* context, app::MoonTimelineNotifier_Action__Enum action))

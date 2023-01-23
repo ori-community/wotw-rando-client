@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExecutionContext_Reader__Boxed.h>
+#include <Modloader/app/structs/ExecutionContext.h>
+#include <Modloader/app/structs/SynchronizationContext.h>
+#include <Modloader/app/structs/LogicalCallContext_Reader.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncLocal.h>
 
 namespace app::classes::System::Threading::ExecutionContext_Reader {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::ExecutionContext_Reader__Boxed * this_ptr, app::ExecutionContext* ec))

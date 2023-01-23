@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Version.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Version_VersionResult.h>
 
 namespace app::classes::System::Version {
     IL2CPP_REGISTER_METHOD(0x0314B480, void, ctor_1, (app::Version * this_ptr, int32_t major, int32_t minor, int32_t build, int32_t revision))

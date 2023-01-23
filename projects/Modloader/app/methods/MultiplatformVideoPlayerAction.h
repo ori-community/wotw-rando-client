@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MultiplatformVideoPlayerAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::MultiplatformVideoPlayerAction {
     IL2CPP_REGISTER_METHOD(0x00879F00, void, Stop, (app::MultiplatformVideoPlayerAction * this_ptr))

@@ -1,5 +1,31 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDamageReciever.h>
+#include <Modloader/app/structs/SeinDamageReceiverPuppet.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/CharacterGravity.h>
+#include <Modloader/app/structs/CharacterInstantStop.h>
+#include <Modloader/app/structs/SeinHealthController.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/Ku.h>
+#include <Modloader/app/structs/Action_1_Damage_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/EnemyEntity.h>
+#include <Modloader/app/structs/DamageReceiver.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::SeinDamageReciever {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinDamageReciever * this_ptr))

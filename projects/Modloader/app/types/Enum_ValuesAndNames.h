@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Enum_ValuesAndNames__Class.h>
+#include <Modloader/app/structs/Enum_ValuesAndNames.h>
 
 namespace app::classes::types {
     namespace Enum_ValuesAndNames {

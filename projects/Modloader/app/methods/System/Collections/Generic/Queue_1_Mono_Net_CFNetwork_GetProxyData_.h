@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_Mono_Net_CFNetwork_GetProxyData_.h>
+#include <Modloader/app/structs/CFNetwork_GetProxyData.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_Mono_Net_CFNetwork_GetProxyData_ {
     IL2CPP_REGISTER_METHOD(0x002FD1D0, int32_t, get_Count, (app::Queue_1_Mono_Net_CFNetwork_GetProxyData_ * this_ptr))

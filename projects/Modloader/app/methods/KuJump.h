@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuJump.h>
 
 namespace app::classes::KuJump {
     IL2CPP_REGISTER_METHOD(0x0123A3E0, bool, get_PerformingSpringJump, (app::KuJump * this_ptr))

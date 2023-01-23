@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServerGenericAttackable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::ServerGenericAttackable {
     IL2CPP_REGISTER_METHOD(0x0059D6C0, void, ctor, (app::ServerGenericAttackable * this_ptr, app::Object* original_component))

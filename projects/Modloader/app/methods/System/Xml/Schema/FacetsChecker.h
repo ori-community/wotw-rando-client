@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/FacetsChecker.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/RestrictionFacets.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/DatatypeImplementation.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlNameTable.h>
 
 namespace app::classes::System::Xml::Schema::FacetsChecker {
     IL2CPP_REGISTER_METHOD(0x02369B00, app::Exception*, CheckLexicalFacets, (app::FacetsChecker * this_ptr, app::String** parse_string, app::XmlSchemaDatatype* datatype))

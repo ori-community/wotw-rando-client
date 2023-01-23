@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TraceGroundMovement.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::TraceGroundMovement {
     IL2CPP_REGISTER_METHOD(0x00449EA0, float, get_Speed, (app::TraceGroundMovement * this_ptr))

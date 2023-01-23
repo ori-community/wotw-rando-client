@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AddressFamily__Enum.h>
+#include <Modloader/app/structs/IPEndPoint.h>
+#include <Modloader/app/structs/IPAddress.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SocketAddress.h>
+#include <Modloader/app/structs/EndPoint.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::IPEndPoint {
     IL2CPP_REGISTER_METHOD(0x004F0AC0, app::AddressFamily__Enum, get_AddressFamily, (app::IPEndPoint * this_ptr))

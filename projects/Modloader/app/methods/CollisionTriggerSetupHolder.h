@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CollisionTriggerSetupHolder.h>
+#include <Modloader/app/structs/CollisionTriggerSetupData.h>
+#include <Modloader/app/structs/List_1_IIndexedItem_.h>
 
 namespace app::classes::CollisionTriggerSetupHolder {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_UseMapping, (app::CollisionTriggerSetupHolder * this_ptr))

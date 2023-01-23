@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FloatStateMap_Mapping__Array.h>
+#include <Modloader/app/structs/IComparer_1_FloatStateMap_Mapping_.h>
+#include <Modloader/app/structs/FloatStateMap_Mapping.h>
+#include <Modloader/app/structs/Comparison_1_FloatStateMap_Mapping_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_FloatStateMap_Mapping_ {
     IL2CPP_REGISTER_METHOD(0x02F32C60, void, Sort_1, (app::FloatStateMap_Mapping__Array * keys, int32_t index, int32_t length, app::IComparer_1_FloatStateMap_Mapping_* comparer))

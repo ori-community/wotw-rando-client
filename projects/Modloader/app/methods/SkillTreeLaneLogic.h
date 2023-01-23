@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkillTreeLaneLogic.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SkillTreeLaneLogic {
     IL2CPP_REGISTER_METHOD(0x006B5650, float, get_Index, (app::SkillTreeLaneLogic * this_ptr))

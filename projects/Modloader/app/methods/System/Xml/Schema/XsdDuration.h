@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XsdDuration__Boxed.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/XsdDuration_DurationType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/XsdDuration.h>
 
 namespace app::classes::System::Xml::Schema::XsdDuration {
     IL2CPP_REGISTER_METHOD(0x001C6280, void, ctor_1, (app::XsdDuration__Boxed * this_ptr, bool is_negative, int32_t years, int32_t months, int32_t days, int32_t hours, int32_t minutes, int32_t seconds, int32_t nanoseconds))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValueType.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ValueType {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ValueType * this_ptr))

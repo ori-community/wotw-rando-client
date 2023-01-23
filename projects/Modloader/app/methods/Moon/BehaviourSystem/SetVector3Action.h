@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SetVector3Action.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::SetVector3Action {
     IL2CPP_REGISTER_METHOD(0x03011130, app::String*, get_Info, (app::SetVector3Action * this_ptr))

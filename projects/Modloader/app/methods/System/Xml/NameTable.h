@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NameTable.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::NameTable {
     IL2CPP_REGISTER_METHOD(0x0199D9A0, void, ctor, (app::NameTable * this_ptr))

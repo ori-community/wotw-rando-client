@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseAnimator.h>
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry.h>
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry_Constraint_AnchorPoint__Enum.h>
+#include <Modloader/app/structs/LegacyTimelineSequence.h>
 
 namespace app::classes::LegacyTimelineSequence_SequenceEntry {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::BaseAnimator*, get_Animator, (app::LegacyTimelineSequence_SequenceEntry * this_ptr))

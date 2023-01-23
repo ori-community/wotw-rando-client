@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WhiteBalance.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::WhiteBalance {
     IL2CPP_REGISTER_METHOD(0x03055540, void, Reset, (app::WhiteBalance * this_ptr))

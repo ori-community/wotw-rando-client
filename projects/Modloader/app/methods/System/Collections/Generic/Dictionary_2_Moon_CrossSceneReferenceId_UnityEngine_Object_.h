@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_CrossSceneReferenceId_UnityEngine_Object_.h>
+#include <Modloader/app/structs/CrossSceneReferenceId.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/IEqualityComparer_1_Moon_CrossSceneReferenceId_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_Moon_CrossSceneReferenceId_UnityEngine_Object_ {
     IL2CPP_REGISTER_METHOD(0x02E291C0, void, set_Item, (app::Dictionary_2_Moon_CrossSceneReferenceId_UnityEngine_Object_ * this_ptr, app::CrossSceneReferenceId key, app::Object_1* value))

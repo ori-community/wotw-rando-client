@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ClientGameServerDeny_t__Class.h>
+#include <Modloader/app/structs/ClientGameServerDeny_t.h>
+#include <Modloader/app/structs/ClientGameServerDeny_t__Boxed.h>
 
 namespace app::classes::types {
     namespace ClientGameServerDeny_t {

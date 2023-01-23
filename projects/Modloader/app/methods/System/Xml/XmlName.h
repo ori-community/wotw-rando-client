@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlName.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
+#include <Modloader/app/structs/XmlSchemaValidity__Enum.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlSchemaElement.h>
+#include <Modloader/app/structs/XmlSchemaAttribute.h>
 
 namespace app::classes::System::Xml::XmlName {
     IL2CPP_REGISTER_METHOD(0x01DC0490, app::XmlName*, Create, (app::String * prefix, app::String* local_name, app::String* ns, int32_t hash_code, app::XmlDocument* owner_doc, app::XmlName* next, app::IXmlSchemaInfo* schema_info))

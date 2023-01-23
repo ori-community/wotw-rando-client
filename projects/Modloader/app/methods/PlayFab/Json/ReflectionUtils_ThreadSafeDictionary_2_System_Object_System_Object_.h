@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ICollection_1_System_Object_.h>
+#include <Modloader/app/structs/ReflectionUtils_ThreadSafeDictionary_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReflectionUtils_ThreadSafeDictionaryValueFactory_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::PlayFab::Json::ReflectionUtils_ThreadSafeDictionary_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x01D15D10, app::ICollection_1_System_Object_*, get_Keys, (app::ReflectionUtils_ThreadSafeDictionary_2_System_Object_System_Object_ * this_ptr))

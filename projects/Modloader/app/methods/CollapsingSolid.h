@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CollapsingSolid.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::CollapsingSolid {
     IL2CPP_REGISTER_METHOD(0x012CB9D0, void, OnCollisionEnter, (app::CollapsingSolid * this_ptr, app::Collision* other))

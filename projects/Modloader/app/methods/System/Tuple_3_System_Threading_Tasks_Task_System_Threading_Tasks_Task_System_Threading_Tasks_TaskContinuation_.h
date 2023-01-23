@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Tuple_3_System_Threading_Tasks_Task_System_Threading_Tasks_Task_System_Threading_Tasks_TaskContinuation_.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/TaskContinuation.h>
 
 namespace app::classes::System::Tuple_3_System_Threading_Tasks_Task_System_Threading_Tasks_Task_System_Threading_Tasks_TaskContinuation_ {
     IL2CPP_REGISTER_METHOD(0x02A69560, void, ctor, (app::Tuple_3_System_Threading_Tasks_Task_System_Threading_Tasks_Task_System_Threading_Tasks_TaskContinuation_ * this_ptr, app::Task* item1, app::Task* item2, app::TaskContinuation* item3))

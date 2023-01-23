@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeSlicedRigidbodyTask.h>
+#include <Modloader/app/structs/PhysicalSystemManager.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::TimeSlicer::TimeSlicedRigidbodyTask {
     IL2CPP_REGISTER_METHOD(0x010C4560, void, ctor, (app::TimeSlicedRigidbodyTask * this_ptr, app::PhysicalSystemManager* manager, app::IEnumerator* routine, bool activate, app::GameObject* owner, app::Action_1_Boolean_* on_job_completed, app::String* scene_name))

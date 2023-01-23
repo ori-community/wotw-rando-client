@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberPoolPerfTest_FinishPendingTasks_d_43__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberPoolPerfTest_FinishPendingTasks_d_43__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPoolPerfTest_FinishPendingTasks_d_43__Boxed_DEFINED)
+#include <Modloader/app/structs/UberPoolPerfTest_FinishPendingTasks_d_43.h>
+#if defined(IL2CPP_STRUCT_UberPoolPerfTest_FinishPendingTasks_d_43_DEFINED)
+#define IL2CPP_STRUCT_UberPoolPerfTest_FinishPendingTasks_d_43__Boxed_DEFINED
+struct UberPoolPerfTest_FinishPendingTasks_d_43__Class;
+struct UberPoolPerfTest_FinishPendingTasks_d_43__Boxed {
+    struct UberPoolPerfTest_FinishPendingTasks_d_43__Class* klass;
+    MonitorData* monitor;
+    struct UberPoolPerfTest_FinishPendingTasks_d_43 fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberPoolPerfTest_FinishPendingTasks_d_43__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_UberPoolPerfTest_FinishPendingTasks_d_43__Boxed_FWDDECL
+#include <Modloader/app/structs/UberPoolPerfTest_FinishPendingTasks_d_43__Class.h>
+#endif
+#undef IL2CPP_STRUCT_UberPoolPerfTest_FinishPendingTasks_d_43__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPoolPerfTest_FinishPendingTasks_d_43__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_UberPoolPerfTest_FinishPendingTasks_d_43__Boxed_FWDDECL)
+#include <Modloader/app/structs/UberPoolPerfTest_FinishPendingTasks_d_43__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberPoolPerfTest_FinishPendingTasks_d_43__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

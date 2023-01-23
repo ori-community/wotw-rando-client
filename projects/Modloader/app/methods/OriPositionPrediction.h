@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OriPositionPrediction.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::OriPositionPrediction {
     IL2CPP_REGISTER_METHOD(0x0043EAE0, void, ctor, (app::OriPositionPrediction * this_ptr, app::Transform* owner_transform))

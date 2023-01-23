@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacySwarmEnemy.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::LegacySwarmEnemy {
     IL2CPP_REGISTER_METHOD(0x00A37EA0, bool, CanBeOptimized, (app::LegacySwarmEnemy * this_ptr))

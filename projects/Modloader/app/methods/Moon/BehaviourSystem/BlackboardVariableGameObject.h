@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/BlackboardVariableGameObject.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::Moon::BehaviourSystem::BlackboardVariableGameObject {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::IMoonType_1_UnityEngine_GameObject_*, GetMoonType, (app::BlackboardVariableGameObject * this_ptr))

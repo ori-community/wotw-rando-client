@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DepthState__Class.h>
+#include <Modloader/app/structs/DepthState.h>
+#include <Modloader/app/structs/DepthState__Boxed.h>
 
 namespace app::classes::types {
     namespace DepthState {

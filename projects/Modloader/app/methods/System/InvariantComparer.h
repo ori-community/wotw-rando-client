@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InvariantComparer.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::InvariantComparer {
     IL2CPP_REGISTER_METHOD(0x0200CED0, void, ctor, (app::InvariantComparer * this_ptr))

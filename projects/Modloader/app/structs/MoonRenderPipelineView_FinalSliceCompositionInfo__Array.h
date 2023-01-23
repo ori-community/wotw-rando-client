@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MoonRenderPipelineView_FinalSliceCompositionInfo__Array_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MoonRenderPipelineView_FinalSliceCompositionInfo__Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonRenderPipelineView_FinalSliceCompositionInfo__Array_DEFINED)
+#include <Modloader/app/structs/MoonRenderPipelineView_FinalSliceCompositionInfo.h>
+#if defined(IL2CPP_STRUCT_MoonRenderPipelineView_FinalSliceCompositionInfo_DEFINED)
+#define IL2CPP_STRUCT_MoonRenderPipelineView_FinalSliceCompositionInfo__Array_DEFINED
+struct MoonRenderPipelineView_FinalSliceCompositionInfo__Array__Class;
+struct MoonRenderPipelineView_FinalSliceCompositionInfo__Array {
+    struct MoonRenderPipelineView_FinalSliceCompositionInfo__Array__Class* klass;
+    MonitorData* monitor;
+    Il2CppArrayBounds* bounds;
+    il2cpp_array_size_t max_length;
+    struct MoonRenderPipelineView_FinalSliceCompositionInfo vector[32];
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MoonRenderPipelineView_FinalSliceCompositionInfo__Array_FWDDECL)
+#define IL2CPP_STRUCT_MoonRenderPipelineView_FinalSliceCompositionInfo__Array_FWDDECL
+#include <Modloader/app/structs/MoonRenderPipelineView_FinalSliceCompositionInfo__Array__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MoonRenderPipelineView_FinalSliceCompositionInfo__Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonRenderPipelineView_FinalSliceCompositionInfo__Array_DEFINED) && !defined(IL2CPP_STRUCT_MoonRenderPipelineView_FinalSliceCompositionInfo__Array_FWDDECL)
+#include <Modloader/app/structs/MoonRenderPipelineView_FinalSliceCompositionInfo__Array.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MoonRenderPipelineView_FinalSliceCompositionInfo__Array.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

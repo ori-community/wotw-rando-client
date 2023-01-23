@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InterfaceCache.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/IDamageInterruptionBlockingTask__Array.h>
+#include <Modloader/app/structs/IDamageResolver.h>
+#include <Modloader/app/structs/ITask__Array.h>
+#include <Modloader/app/structs/INavigationAgent.h>
+#include <Modloader/app/structs/IEntityEventListener__Array.h>
+#include <Modloader/app/structs/IEntityOwned__Array.h>
+#include <Modloader/app/structs/IEntityLocomotion.h>
+#include <Modloader/app/structs/IVitalsDeathListener__Array.h>
+#include <Modloader/app/structs/ICameraFrustumSuspendable__Array.h>
 
 namespace app::classes::InterfaceCache {
     IL2CPP_REGISTER_METHOD(0x0063D180, void, Dispose, (app::InterfaceCache * this_ptr))

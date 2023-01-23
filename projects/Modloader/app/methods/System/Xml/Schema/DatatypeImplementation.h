@@ -1,5 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/DatatypeImplementation.h>
+#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType__Array.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlValueConverter.h>
+#include <Modloader/app/structs/FacetsChecker.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XmlSchemaDatatypeVariety__Enum.h>
+#include <Modloader/app/structs/RestrictionFacets.h>
+#include <Modloader/app/structs/XmlSchemaWhiteSpace__Enum.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Xml::Schema::DatatypeImplementation {
     IL2CPP_REGISTER_METHOD(0x0234DC40, void, cctor, ())

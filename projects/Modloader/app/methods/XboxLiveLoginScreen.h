@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XboxLiveLoginScreen.h>
+#include <Modloader/app/structs/CancellationTokenSource.h>
 
 namespace app::classes::XboxLiveLoginScreen {
     IL2CPP_REGISTER_METHOD(0x00596340, app::String*, get_Code, ())

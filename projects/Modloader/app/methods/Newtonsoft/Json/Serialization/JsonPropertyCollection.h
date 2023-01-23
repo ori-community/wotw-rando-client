@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonPropertyCollection.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JsonProperty.h>
+#include <Modloader/app/structs/StringComparison__Enum.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonPropertyCollection {
     IL2CPP_REGISTER_METHOD(0x01873320, void, ctor, (app::JsonPropertyCollection * this_ptr, app::Type* type))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SetupStateModifierData.h>
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SetupStateModifierDataType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_System_Type_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::SetupStateModifierData {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Apply, (app::SetupStateModifierData * this_ptr, app::MoonReference_1_UnityEngine_GameObject_* target, app::UberStateApplyContext__Enum context))

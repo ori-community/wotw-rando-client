@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/PatrolBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/Locomotion.h>
 
 namespace app::classes::Moon::PatrolBehaviour {
     IL2CPP_REGISTER_METHOD(0x0064D930, app::Vector3, get_PatrolOrigin, (app::PatrolBehaviour * this_ptr))

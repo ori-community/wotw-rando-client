@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_BatchedPhysicscast_1_UnityEngine_RaycastCommand___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_BatchedPhysicscast_1_UnityEngine_RaycastCommand___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BatchedPhysicscast_1_UnityEngine_RaycastCommand___Fields_DEFINED)
+#include <Modloader/app/structs/JobHandle.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastCommand_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastHit_.h>
+#if defined(IL2CPP_STRUCT_NativeArray_1_UnityEngine_RaycastCommand__DEFINED) && defined(IL2CPP_STRUCT_NativeArray_1_UnityEngine_RaycastHit__DEFINED) && defined(IL2CPP_STRUCT_JobHandle_DEFINED)
+#define IL2CPP_STRUCT_BatchedPhysicscast_1_UnityEngine_RaycastCommand___Fields_DEFINED
+struct __declspec(align(8)) BatchedPhysicscast_1_UnityEngine_RaycastCommand___Fields {
+    struct NativeArray_1_UnityEngine_RaycastCommand_ m_cmds;
+    struct NativeArray_1_UnityEngine_RaycastHit_ m_hits;
+    struct JobHandle m_job;
+    int32_t m_capacity;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_BatchedPhysicscast_1_UnityEngine_RaycastCommand___Fields_FWDDECL)
+#define IL2CPP_STRUCT_BatchedPhysicscast_1_UnityEngine_RaycastCommand___Fields_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_BatchedPhysicscast_1_UnityEngine_RaycastCommand___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BatchedPhysicscast_1_UnityEngine_RaycastCommand___Fields_DEFINED) && !defined(IL2CPP_STRUCT_BatchedPhysicscast_1_UnityEngine_RaycastCommand___Fields_FWDDECL)
+#include <Modloader/app/structs/BatchedPhysicscast_1_UnityEngine_RaycastCommand___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/BatchedPhysicscast_1_UnityEngine_RaycastCommand___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

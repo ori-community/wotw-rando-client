@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XsdBuilder.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/SchemaNames.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNode__Array.h>
+#include <Modloader/app/structs/SchemaNames_Token__Enum.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/XsdBuilder_State__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchemaParticle.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/XmlSeverityType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaException.h>
 
 namespace app::classes::System::Xml::Schema::XsdBuilder {
     IL2CPP_REGISTER_METHOD(0x01938610, void, ctor, (app::XsdBuilder * this_ptr, app::XmlReader* reader, app::XmlNamespaceManager* curmgr, app::XmlSchema* schema, app::XmlNameTable* name_table, app::SchemaNames* schema_names, app::ValidationEventHandler* eventhandler))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReplayValidatorData.h>
+#include <Modloader/app/structs/RaceStateMachineContext_OfflineRaceMetaData.h>
 
 namespace app::classes::RaceStateMachineContext_OfflineRaceMetaData {
     IL2CPP_REGISTER_METHOD(0x0071B680, app::ReplayValidatorData*, ToReplayValidatorData, (app::RaceStateMachineContext_OfflineRaceMetaData * this_ptr))

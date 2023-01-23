@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Missing.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Reflection::Missing {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::Missing * this_ptr))

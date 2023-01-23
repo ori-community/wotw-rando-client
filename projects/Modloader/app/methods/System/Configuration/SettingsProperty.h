@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SettingsProperty.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/SettingsProvider.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SettingsSerializeAs__Enum.h>
+#include <Modloader/app/structs/SettingsAttributeDictionary.h>
 
 namespace app::classes::System::Configuration::SettingsProperty {
     IL2CPP_REGISTER_METHOD(0x02962D70, void, ctor_1, (app::SettingsProperty * this_ptr, app::SettingsProperty* property_to_copy))

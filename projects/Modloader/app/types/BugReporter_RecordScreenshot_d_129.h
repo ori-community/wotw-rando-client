@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BugReporter_RecordScreenshot_d_129__Class.h>
+#include <Modloader/app/structs/BugReporter_RecordScreenshot_d_129.h>
 
 namespace app::classes::types {
     namespace BugReporter_RecordScreenshot_d_129 {

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VirtualClipsBuilder.h>
+#include <Modloader/app/structs/VirtualMoonTimeline.h>
+#include <Modloader/app/structs/VirtualClipsBuilder_BuilderScope.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
 
 namespace app::classes::VirtualClipsBuilder {
     IL2CPP_REGISTER_METHOD(0x002FD1D0, int32_t, get_AddedChildren, (app::VirtualClipsBuilder * this_ptr))

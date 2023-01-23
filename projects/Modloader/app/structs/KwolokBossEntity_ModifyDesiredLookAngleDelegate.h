@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLookAngleDelegate_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLookAngleDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLookAngleDelegate_DEFINED)
+#include <Modloader/app/structs/KwolokBossEntity_ModifyDesiredLookAngleDelegate__Fields.h>
+#if defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLookAngleDelegate__Fields_DEFINED)
+#define IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLookAngleDelegate_DEFINED
+struct KwolokBossEntity_ModifyDesiredLookAngleDelegate__Class;
+struct KwolokBossEntity_ModifyDesiredLookAngleDelegate {
+    struct KwolokBossEntity_ModifyDesiredLookAngleDelegate__Class* klass;
+    MonitorData* monitor;
+    struct KwolokBossEntity_ModifyDesiredLookAngleDelegate__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLookAngleDelegate_FWDDECL)
+#define IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLookAngleDelegate_FWDDECL
+#include <Modloader/app/structs/KwolokBossEntity_ModifyDesiredLookAngleDelegate__Class.h>
+#endif
+#undef IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLookAngleDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLookAngleDelegate_DEFINED) && !defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLookAngleDelegate_FWDDECL)
+#include <Modloader/app/structs/KwolokBossEntity_ModifyDesiredLookAngleDelegate.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KwolokBossEntity_ModifyDesiredLookAngleDelegate.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

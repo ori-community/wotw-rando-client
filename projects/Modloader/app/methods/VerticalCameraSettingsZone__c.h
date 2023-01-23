@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VerticalCameraSettingsZone_c.h>
+#include <Modloader/app/structs/VerticalCameraSettingsZone_CameraPostMetaData.h>
 
 namespace app::classes::VerticalCameraSettingsZone___c {
     IL2CPP_REGISTER_METHOD(0x008BA9A0, void, cctor, ())

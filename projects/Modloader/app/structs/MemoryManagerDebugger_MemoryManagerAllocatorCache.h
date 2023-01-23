@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache_DEFINED)
+#include <Modloader/app/structs/MemoryManagerDebugger_MemoryManagerAllocatorCache__Fields.h>
+#if defined(IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache__Fields_DEFINED)
+#define IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache_DEFINED
+struct MemoryManagerDebugger_MemoryManagerAllocatorCache__Class;
+struct MemoryManagerDebugger_MemoryManagerAllocatorCache {
+    struct MemoryManagerDebugger_MemoryManagerAllocatorCache__Class* klass;
+    MonitorData* monitor;
+    struct MemoryManagerDebugger_MemoryManagerAllocatorCache__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache_FWDDECL)
+#define IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache_FWDDECL
+#include <Modloader/app/structs/MemoryManagerDebugger_MemoryManagerAllocatorCache__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache_DEFINED) && !defined(IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache_FWDDECL)
+#include <Modloader/app/structs/MemoryManagerDebugger_MemoryManagerAllocatorCache.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MemoryManagerDebugger_MemoryManagerAllocatorCache.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

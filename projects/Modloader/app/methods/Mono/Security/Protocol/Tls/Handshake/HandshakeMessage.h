@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Context_1.h>
+#include <Modloader/app/structs/HandshakeMessage.h>
+#include <Modloader/app/structs/HandshakeType__Enum.h>
+#include <Modloader/app/structs/ContentType__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::Handshake::HandshakeMessage {
     IL2CPP_REGISTER_METHOD(0x002FB9D0, app::Context_1*, get_Context, (app::HandshakeMessage * this_ptr))

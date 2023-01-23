@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OutputWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::OutputWriter {
     IL2CPP_REGISTER_METHOD(0x00442420, void, ctor, (app::OutputWriter * this_ptr, app::String* folder, app::String* output_file_name))

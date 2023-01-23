@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Boolean___Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Boolean_.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ValueTuple_2_Int32_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x001508B0, void, ctor, (app::ValueTuple_2_Int32_Boolean___Boxed * this_ptr, int32_t item1, bool item2))

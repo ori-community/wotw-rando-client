@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeaderBoardService.h>
+#include <Modloader/app/structs/RaceLeaderboardsTitlescreenController.h>
+#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
+#include <Modloader/app/structs/RaceLeaderboardsTitlescreenController_OnlineHandlerState__Enum.h>
+#include <Modloader/app/structs/RaceSettings.h>
 
 namespace app::classes::RaceLeaderboardsTitlescreenController {
     IL2CPP_REGISTER_METHOD(0x00EA5A70, app::LeaderBoardService*, get_m_leaderBoardService, (app::RaceLeaderboardsTitlescreenController * this_ptr))

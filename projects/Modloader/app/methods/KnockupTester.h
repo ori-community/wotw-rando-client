@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KnockupTester.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
 
 namespace app::classes::KnockupTester {
     IL2CPP_REGISTER_METHOD(0x01229AF0, void, Update, (app::KnockupTester * this_ptr))

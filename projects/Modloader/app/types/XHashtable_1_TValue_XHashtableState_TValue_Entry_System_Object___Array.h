@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XHashtable_1_TValue_XHashtableState_TValue_Entry_System_Object___Array__Class.h>
+#include <Modloader/app/structs/XHashtable_1_TValue_XHashtableState_TValue_Entry_System_Object___Array.h>
 
 namespace app::classes::types {
     namespace XHashtable_1_TValue_XHashtableState_TValue_Entry_System_Object___Array {

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinWallChargeJump.h>
+#include <Modloader/app/structs/PlayerAbilities.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/SeinWallChargeJump_State__Enum.h>
+#include <Modloader/app/structs/CharacterSpriteMirror.h>
 
 namespace app::classes::SeinWallChargeJump {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinWallChargeJump * this_ptr))

@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Blackboard_BlackboardMoonTypes.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/BlackboardVariableInt.h>
+#include <Modloader/app/structs/BlackboardVariableBool.h>
+#include <Modloader/app/structs/BlackboardVariableFloat.h>
+#include <Modloader/app/structs/BlackboardVariableVector3.h>
+#include <Modloader/app/structs/BlackboardVariableGameObject.h>
+#include <Modloader/app/structs/BlackboardVariableObject.h>
+#include <Modloader/app/structs/BlackboardVariableString.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableBool_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableInt_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableFloat_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableString_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableVector3_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableGameObject_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableObject_.h>
 
 namespace app::classes::Moon::BehaviourSystem::Blackboard_BlackboardMoonTypes {
     IL2CPP_REGISTER_METHOD(0x03008720, void, AddVariable, (app::Blackboard_BlackboardMoonTypes * this_ptr, app::String* var_name, app::Type* type))

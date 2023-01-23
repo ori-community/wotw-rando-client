@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightCompiler_c.h>
+#include <Modloader/app/structs/SwitchCase.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/LightCompiler.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LightCompiler___c {
     IL2CPP_REGISTER_METHOD(0x023F5F90, void, cctor, ())

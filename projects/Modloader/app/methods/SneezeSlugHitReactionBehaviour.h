@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityDamageEvent.h>
+#include <Modloader/app/structs/SneezeSlugHitReactionBehaviour.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::SneezeSlugHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00756A30, app::EntityDamageEvent*, get_DamageEvent, (app::SneezeSlugHitReactionBehaviour * this_ptr))

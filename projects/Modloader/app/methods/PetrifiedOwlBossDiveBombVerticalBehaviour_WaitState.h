@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState.h>
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState {
     IL2CPP_REGISTER_METHOD(0x004A1D20, void, ctor, (app::PetrifiedOwlBossDiveBombVerticalBehaviour_WaitState * this_ptr, app::PetrifiedOwlBossDiveBombVerticalBehaviour* behaviour))

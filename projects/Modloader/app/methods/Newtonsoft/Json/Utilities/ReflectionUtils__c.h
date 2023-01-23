@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReflectionUtils_c.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ParameterInfo_1.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::ReflectionUtils___c {
     IL2CPP_REGISTER_METHOD(0x03026560, void, cctor, ())

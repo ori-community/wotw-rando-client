@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActivityFilter_c_DisplayClass13_0.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Guid_System_Int32_.h>
 
 namespace app::classes::System::Diagnostics::Tracing::ActivityFilter___c__DisplayClass13_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ActivityFilter_c_DisplayClass13_0 * this_ptr))

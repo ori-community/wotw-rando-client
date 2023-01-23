@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlAsyncCheckReaderWithLineInfo.h>
+#include <Modloader/app/structs/XmlReader.h>
 
 namespace app::classes::System::Xml::XmlAsyncCheckReaderWithLineInfo {
     IL2CPP_REGISTER_METHOD(0x01959580, void, ctor, (app::XmlAsyncCheckReaderWithLineInfo * this_ptr, app::XmlReader* reader))

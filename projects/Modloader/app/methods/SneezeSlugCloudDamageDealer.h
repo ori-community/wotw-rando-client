@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SneezeSlugCloudDamageDealer.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageOwner.h>
 
 namespace app::classes::SneezeSlugCloudDamageDealer {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_BypassPlayerInvincibility, (app::SneezeSlugCloudDamageDealer * this_ptr))

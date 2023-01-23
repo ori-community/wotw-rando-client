@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LianaPlaceholder.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::LianaPlaceholder {
     IL2CPP_REGISTER_METHOD(0x0113F3B0, void, Initialize, (app::LianaPlaceholder * this_ptr))

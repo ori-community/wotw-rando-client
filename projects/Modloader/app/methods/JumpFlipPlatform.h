@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JumpFlipPlatform.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::JumpFlipPlatform {
     IL2CPP_REGISTER_METHOD(0x00E4A210, void, OnValidate, (app::JumpFlipPlatform * this_ptr))

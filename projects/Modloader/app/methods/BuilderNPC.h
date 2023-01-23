@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BuilderNPC_State__Enum.h>
+#include <Modloader/app/structs/BuilderNPC.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::BuilderNPC {
     IL2CPP_REGISTER_METHOD(0x0061E5E0, app::BuilderNPC_State__Enum, get_CurrentState, (app::BuilderNPC * this_ptr))

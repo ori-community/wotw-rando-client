@@ -1,6 +1,14 @@
 #pragma once
 
 #include <Modloader/macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/ScriptableObject.h>
+#include <Modloader/app/structs/Scene.h>
 
 #include <string_view>
 #include <vector>
@@ -299,7 +307,7 @@ namespace il2cpp {
 
     template <typename Return>
     Return* safe_il2cpp_cast(void* obj, void* klass) {
-        return safe_il2cpp_cast<Return>(obj, klass);
+        return safe_il2cpp_cast<Return>(obj, reinterpret_cast<Il2CppClass*>(klass));
     }
 
     template <typename T>

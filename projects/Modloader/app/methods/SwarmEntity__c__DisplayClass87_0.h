@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwarmEntity_c_DisplayClass87_0.h>
+#include <Modloader/app/structs/SwarmAgent.h>
 
 namespace app::classes::SwarmEntity___c__DisplayClass87_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SwarmEntity_c_DisplayClass87_0 * this_ptr))

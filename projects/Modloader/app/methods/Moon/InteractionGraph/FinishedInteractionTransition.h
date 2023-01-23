@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IInteractionNode.h>
+#include <Modloader/app/structs/FinishedInteractionTransition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::InteractionGraph::FinishedInteractionTransition {
     IL2CPP_REGISTER_METHOD(0x0198D180, app::IInteractionNode*, get_TransitionDestination, (app::FinishedInteractionTransition * this_ptr))

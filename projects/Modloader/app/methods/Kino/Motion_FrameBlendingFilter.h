@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Motion_FrameBlendingFilter.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/Motion_FrameBlendingFilter_Frame.h>
 
 namespace app::classes::Kino::Motion_FrameBlendingFilter {
     IL2CPP_REGISTER_METHOD(0x00E75A40, void, ctor, (app::Motion_FrameBlendingFilter * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VitalsHealthProvider.h>
 
 namespace app::classes::VitalsHealthProvider {
     IL2CPP_REGISTER_METHOD(0x008C2B20, void, OnValidate, (app::VitalsHealthProvider * this_ptr))

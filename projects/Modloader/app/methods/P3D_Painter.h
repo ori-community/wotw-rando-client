@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/P3D_Painter.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/P3D_Brush.h>
+#include <Modloader/app/structs/List_1_P3D_Result_.h>
+#include <Modloader/app/structs/P3D_CoordType__Enum.h>
+#include <Modloader/app/structs/P3D_Result.h>
+#include <Modloader/app/structs/P3D_Matrix.h>
 
 namespace app::classes::P3D_Painter {
     IL2CPP_REGISTER_METHOD(0x030961C0, app::P3D_Painter*, get_TempInstance, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/ServerIdentity.h>
 
 namespace app::classes::System::Runtime::Remoting::Lifetime::LifetimeServices {
     IL2CPP_REGISTER_METHOD(0x02308E00, void, cctor, ())

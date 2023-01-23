@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_TextureTilingAdjuster_AdjustedTexture___Boxed.h>
+#include <Modloader/app/structs/List_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_TextureTilingAdjuster_AdjustedTexture_ {
     IL2CPP_REGISTER_METHOD(0x0014D2A0, void, ctor, (app::List_1_T_Enumerator_TextureTilingAdjuster_AdjustedTexture___Boxed * this_ptr, app::List_1_TextureTilingAdjuster_AdjustedTexture_* list))

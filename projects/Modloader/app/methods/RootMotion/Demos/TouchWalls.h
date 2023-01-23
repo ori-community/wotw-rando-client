@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TouchWalls.h>
 
 namespace app::classes::RootMotion::Demos::TouchWalls {
     IL2CPP_REGISTER_METHOD(0x02047640, void, Start, (app::TouchWalls * this_ptr))

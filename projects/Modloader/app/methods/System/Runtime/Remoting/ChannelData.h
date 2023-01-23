@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/ChannelData.h>
+#include <Modloader/app/structs/Hashtable.h>
 
 namespace app::classes::System::Runtime::Remoting::ChannelData {
     IL2CPP_REGISTER_METHOD(0x01A99A40, app::ArrayList*, get_ServerProviders, (app::ChannelData * this_ptr))

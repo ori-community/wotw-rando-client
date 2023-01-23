@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SortedList_SyncSortedList.h>
+#include <Modloader/app/structs/SortedList.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
+#include <Modloader/app/structs/IList.h>
+#include <Modloader/app/structs/KeyValuePairs__Array.h>
 
 namespace app::classes::System::Collections::SortedList_SyncSortedList {
     IL2CPP_REGISTER_METHOD(0x0202FE70, void, ctor, (app::SortedList_SyncSortedList * this_ptr, app::SortedList* list))

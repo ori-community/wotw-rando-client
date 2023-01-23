@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/ExceptionDispatchInfo.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Exception_ExceptionMessageKind__Enum.h>
 
 namespace app::classes::System::Exception {
     IL2CPP_REGISTER_METHOD(0x01A1AFC0, void, Init, (app::Exception * this_ptr))

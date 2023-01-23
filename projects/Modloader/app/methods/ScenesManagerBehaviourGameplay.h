@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/ScenesManagerBehaviourGameplay.h>
+#include <Modloader/app/structs/ScenesManagerUpdateType__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ScenesManagerBehaviourGameplay {
     IL2CPP_REGISTER_METHOD(0x01056D40, app::Vector2, get_CurrentCameraTargetPositionExtrapolated, (app::ScenesManagerBehaviourGameplay * this_ptr))

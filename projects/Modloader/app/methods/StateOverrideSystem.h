@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateOverrideSystem.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/app/structs/IPassiveStateDescriptor.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::StateOverrideSystem {
     IL2CPP_REGISTER_METHOD(0x03146FE0, app::StateOverrideSystem*, get_Instance, ())

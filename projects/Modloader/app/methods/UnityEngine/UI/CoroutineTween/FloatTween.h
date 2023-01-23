@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FloatTween__Boxed.h>
+#include <Modloader/app/structs/UnityAction_1_System_Single_.h>
 
 namespace app::classes::UnityEngine::UI::CoroutineTween::FloatTween {
     IL2CPP_REGISTER_METHOD(0x001D9B90, float, get_startValue, (app::FloatTween__Boxed * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TentacleTurnBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::TentacleTurnBehaviour {
     IL2CPP_REGISTER_METHOD(0x010BAEF0, void, OnInitializeTask, (app::TentacleTurnBehaviour * this_ptr, app::IContext* context))

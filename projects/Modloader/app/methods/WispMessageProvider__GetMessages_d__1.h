@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WispMessageProvider_GetMessages_d_1.h>
+#include <Modloader/app/structs/MessageDescriptor.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_MessageDescriptor_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::WispMessageProvider__GetMessages_d__1 {
     IL2CPP_REGISTER_METHOD(0x004BD8A0, void, ctor, (app::WispMessageProvider_GetMessages_d_1 * this_ptr, int32_t __1__state))

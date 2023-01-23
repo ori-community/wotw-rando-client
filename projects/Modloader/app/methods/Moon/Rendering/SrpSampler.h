@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SrpSampler__Boxed.h>
+#include <Modloader/app/structs/SrpSampler_Scope__Enum.h>
+#include <Modloader/app/structs/SrpSampler.h>
+#include <Modloader/app/structs/Metric__Enum.h>
 
 namespace app::classes::Moon::Rendering::SrpSampler {
     IL2CPP_REGISTER_METHOD(0x001203B0, app::String*, get_name, (app::SrpSampler__Boxed * this_ptr))

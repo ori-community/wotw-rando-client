@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberGhostTrailMeshUpdate_TextureInfo__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberGhostTrailMeshUpdate_TextureInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberGhostTrailMeshUpdate_TextureInfo__DEFINED)
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate_TextureInfo.h>
+#if defined(IL2CPP_STRUCT_UberGhostTrailMeshUpdate_TextureInfo_DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberGhostTrailMeshUpdate_TextureInfo__DEFINED
+struct Dictionary_2_TKey_TValue_Entry_System_Int32_UberGhostTrailMeshUpdate_TextureInfo_ {
+    int32_t hashCode;
+    int32_t next;
+    int32_t key;
+    struct UberGhostTrailMeshUpdate_TextureInfo value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberGhostTrailMeshUpdate_TextureInfo__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberGhostTrailMeshUpdate_TextureInfo__FWDDECL
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberGhostTrailMeshUpdate_TextureInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberGhostTrailMeshUpdate_TextureInfo__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberGhostTrailMeshUpdate_TextureInfo__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Int32_UberGhostTrailMeshUpdate_TextureInfo_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Int32_UberGhostTrailMeshUpdate_TextureInfo_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

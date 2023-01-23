@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PickupOrbSystem.h>
+#include <Modloader/app/structs/StretchGameObject.h>
+#include <Modloader/app/structs/DropPickup.h>
+#include <Modloader/app/structs/PickupBase.h>
 
 namespace app::classes::PickupOrbSystem {
     IL2CPP_REGISTER_METHOD(0x01159E50, app::PickupOrbSystem*, get_Instance, ())

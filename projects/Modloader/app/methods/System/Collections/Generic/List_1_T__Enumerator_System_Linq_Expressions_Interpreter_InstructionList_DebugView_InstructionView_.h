@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView___Boxed.h>
+#include <Modloader/app/structs/List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
+#include <Modloader/app/structs/InstructionList_DebugView_InstructionView.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ {
     IL2CPP_REGISTER_METHOD(0x0014D4F0, void, ctor, (app::List_1_T_Enumerator_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView___Boxed * this_ptr, app::List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_* list))

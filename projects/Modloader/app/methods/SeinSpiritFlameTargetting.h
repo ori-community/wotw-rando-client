@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinSpiritFlameTargetting.h>
+#include <Modloader/app/structs/IAttackable.h>
 
 namespace app::classes::SeinSpiritFlameTargetting {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinSpiritFlameTargetting * this_ptr))

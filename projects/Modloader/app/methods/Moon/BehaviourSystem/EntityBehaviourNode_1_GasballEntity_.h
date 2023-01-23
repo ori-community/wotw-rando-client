@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GasballEntity.h>
+#include <Modloader/app/structs/EntityBehaviourNode_1_GasballEntity_.h>
 
 namespace app::classes::Moon::BehaviourSystem::EntityBehaviourNode_1_GasballEntity_ {
     IL2CPP_REGISTER_METHOD(0x0271C510, app::GasballEntity*, get_Entity, (app::EntityBehaviourNode_1_GasballEntity_ * this_ptr))

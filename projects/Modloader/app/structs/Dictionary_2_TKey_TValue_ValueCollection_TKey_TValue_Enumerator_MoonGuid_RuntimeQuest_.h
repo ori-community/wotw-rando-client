@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_MoonGuid_RuntimeQuest__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_MoonGuid_RuntimeQuest__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_MoonGuid_RuntimeQuest__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_MoonGuid_RuntimeQuest__DEFINED
+struct Dictionary_2_MoonGuid_RuntimeQuest_;
+struct RuntimeQuest;
+struct Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_MoonGuid_RuntimeQuest_ {
+    struct Dictionary_2_MoonGuid_RuntimeQuest_* dictionary;
+    int32_t index;
+    int32_t version;
+    struct RuntimeQuest* currentValue;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_MoonGuid_RuntimeQuest__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_MoonGuid_RuntimeQuest__FWDDECL
+#include <Modloader/app/structs/Dictionary_2_MoonGuid_RuntimeQuest_.h>
+#include <Modloader/app/structs/RuntimeQuest.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_MoonGuid_RuntimeQuest__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_MoonGuid_RuntimeQuest__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_MoonGuid_RuntimeQuest__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_MoonGuid_RuntimeQuest_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_MoonGuid_RuntimeQuest_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

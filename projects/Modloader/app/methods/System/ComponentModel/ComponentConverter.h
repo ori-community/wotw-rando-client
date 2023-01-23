@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ComponentConverter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/ITypeDescriptorContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Attribute__Array.h>
 
 namespace app::classes::System::ComponentModel::ComponentConverter {
     IL2CPP_REGISTER_METHOD(0x024A9C70, void, ctor, (app::ComponentConverter * this_ptr, app::Type* type))

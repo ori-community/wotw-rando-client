@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/NvnMemoryDebugger_NvnPoolCache__Class.h>
+#include <Modloader/app/structs/NvnMemoryDebugger_NvnPoolCache.h>
+#include <Modloader/app/structs/NvnMemoryDebugger_NvnPoolCache__Array.h>
 
 namespace app::classes::types {
     namespace NvnMemoryDebugger_NvnPoolCache {

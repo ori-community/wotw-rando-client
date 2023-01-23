@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeleeComboMoveChainsword.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/MoveEventType__Enum.h>
 
 namespace app::classes::Moon::MeleeComboMoveChainsword {
     IL2CPP_REGISTER_METHOD(0x01116570, float, get_EffectiveDamage, (app::MeleeComboMoveChainsword * this_ptr))

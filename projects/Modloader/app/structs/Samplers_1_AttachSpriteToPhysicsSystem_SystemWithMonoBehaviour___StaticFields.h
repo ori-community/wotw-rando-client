@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Samplers_1_AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour___StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Samplers_1_AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Samplers_1_AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour___StaticFields_DEFINED)
+#define IL2CPP_STRUCT_Samplers_1_AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour___StaticFields_DEFINED
+struct CustomSampler;
+struct Samplers_1_AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour___StaticFields {
+    struct CustomSampler* Pre;
+    struct CustomSampler* Post;
+    struct CustomSampler* Schedule;
+    struct CustomSampler* Complete;
+    struct CustomSampler* ScheduleBatchedJobs;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Samplers_1_AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour___StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_Samplers_1_AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour___StaticFields_FWDDECL
+#include <Modloader/app/structs/CustomSampler.h>
+#endif
+#undef IL2CPP_STRUCT_Samplers_1_AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Samplers_1_AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour___StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_Samplers_1_AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour___StaticFields_FWDDECL)
+#include <Modloader/app/structs/Samplers_1_AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour___StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Samplers_1_AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour___StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

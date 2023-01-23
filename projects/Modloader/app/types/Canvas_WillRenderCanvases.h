@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Canvas_WillRenderCanvases__Class.h>
+#include <Modloader/app/structs/Canvas_WillRenderCanvases.h>
 
 namespace app::classes::types {
     namespace Canvas_WillRenderCanvases {

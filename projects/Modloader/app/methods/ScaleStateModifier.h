@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/ScaleStateModifier.h>
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::ScaleStateModifier {
     IL2CPP_REGISTER_METHOD(0x01B7A5D0, app::Vector3, get_Scale, (app::ScaleStateModifier * this_ptr))

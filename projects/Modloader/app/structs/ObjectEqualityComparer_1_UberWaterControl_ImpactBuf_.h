@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ObjectEqualityComparer_1_UberWaterControl_ImpactBuf__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ObjectEqualityComparer_1_UberWaterControl_ImpactBuf__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ObjectEqualityComparer_1_UberWaterControl_ImpactBuf__DEFINED)
+#define IL2CPP_STRUCT_ObjectEqualityComparer_1_UberWaterControl_ImpactBuf__DEFINED
+struct ObjectEqualityComparer_1_UberWaterControl_ImpactBuf___Class;
+struct ObjectEqualityComparer_1_UberWaterControl_ImpactBuf_ {
+    struct ObjectEqualityComparer_1_UberWaterControl_ImpactBuf___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ObjectEqualityComparer_1_UberWaterControl_ImpactBuf__FWDDECL)
+#define IL2CPP_STRUCT_ObjectEqualityComparer_1_UberWaterControl_ImpactBuf__FWDDECL
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UberWaterControl_ImpactBuf___Class.h>
+#endif
+#undef IL2CPP_STRUCT_ObjectEqualityComparer_1_UberWaterControl_ImpactBuf__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ObjectEqualityComparer_1_UberWaterControl_ImpactBuf__DEFINED) && !defined(IL2CPP_STRUCT_ObjectEqualityComparer_1_UberWaterControl_ImpactBuf__FWDDECL)
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UberWaterControl_ImpactBuf_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UberWaterControl_ImpactBuf_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

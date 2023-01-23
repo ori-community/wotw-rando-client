@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeftMenuManager.h>
+#include <Modloader/app/structs/UIContext.h>
 
 namespace app::classes::LeftMenuManager {
     IL2CPP_REGISTER_METHOD(0x015C7CD0, void, OnEnable, (app::LeftMenuManager * this_ptr))

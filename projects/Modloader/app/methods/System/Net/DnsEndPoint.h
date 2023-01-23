@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DnsEndPoint.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AddressFamily__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::DnsEndPoint {
     IL2CPP_REGISTER_METHOD(0x01EB37F0, void, ctor_1, (app::DnsEndPoint * this_ptr, app::String* host, int32_t port))

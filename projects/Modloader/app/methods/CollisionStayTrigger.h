@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CollisionStayTrigger.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::CollisionStayTrigger {
     IL2CPP_REGISTER_METHOD(0x012D1AA0, void, Awake, (app::CollisionStayTrigger * this_ptr))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlAsyncCheckReaderWithLineInfoNSSchema.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlSchemaValidity__Enum.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlSchemaElement.h>
+#include <Modloader/app/structs/XmlSchemaAttribute.h>
 
 namespace app::classes::System::Xml::XmlAsyncCheckReaderWithLineInfoNSSchema {
     IL2CPP_REGISTER_METHOD(0x01959AD0, void, ctor, (app::XmlAsyncCheckReaderWithLineInfoNSSchema * this_ptr, app::XmlReader* reader))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_WeaponmasterItem_.h>
+#include <Modloader/app/structs/WeaponmasterItem.h>
+#include <Modloader/app/structs/WeaponmasterItem__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_WeaponmasterItem_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_WeaponmasterItem_ * this_ptr))

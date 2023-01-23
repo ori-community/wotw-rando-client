@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwarmTargetingBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::SwarmTargetingBehaviour {
     IL2CPP_REGISTER_METHOD(0x01825920, void, Start, (app::SwarmTargetingBehaviour * this_ptr))

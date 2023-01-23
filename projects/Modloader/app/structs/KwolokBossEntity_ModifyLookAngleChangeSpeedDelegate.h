@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate_DEFINED)
+#include <Modloader/app/structs/KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate__Fields.h>
+#if defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate__Fields_DEFINED)
+#define IL2CPP_STRUCT_KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate_DEFINED
+struct KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate__Class;
+struct KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate {
+    struct KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate__Class* klass;
+    MonitorData* monitor;
+    struct KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate_FWDDECL)
+#define IL2CPP_STRUCT_KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate_FWDDECL
+#include <Modloader/app/structs/KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate__Class.h>
+#endif
+#undef IL2CPP_STRUCT_KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate_DEFINED) && !defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate_FWDDECL)
+#include <Modloader/app/structs/KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/X509CertificateImpl.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/X509KeyStorageFlags__Enum.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::X509Certificate {
     IL2CPP_REGISTER_METHOD(0x01E15DC0, void, ctor_1, (app::X509Certificate_1 * this_ptr, app::Byte__Array* data, bool dates))

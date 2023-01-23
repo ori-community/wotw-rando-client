@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Kickback.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Kickback {
     IL2CPP_REGISTER_METHOD(0x00863E90, float, get_TimeRemaining, (app::Kickback * this_ptr))

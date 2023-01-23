@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BidirectionalDictionary_2_System_Object_System_Object__1.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_Object_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::BidirectionalDictionary_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x01D09C20, void, ctor, (app::BidirectionalDictionary_2_System_Object_System_Object__1 * this_ptr, app::IEqualityComparer_1_System_Object_* first_equality_comparer, app::IEqualityComparer_1_System_Object_* second_equality_comparer, app::String* duplicate_first_error_message, app::String* duplicate_second_error_message))

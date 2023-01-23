@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TimeSpan__Class.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/TimeSpan__Boxed.h>
+#include <Modloader/app/structs/TimeSpan__Array.h>
 
 namespace app::classes::types {
     namespace TimeSpan {

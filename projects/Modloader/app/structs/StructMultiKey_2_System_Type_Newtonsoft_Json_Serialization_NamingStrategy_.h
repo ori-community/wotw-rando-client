@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy__INITIALIZING
+#if !defined(IL2CPP_STRUCT_StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy__DEFINED)
+#define IL2CPP_STRUCT_StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy__DEFINED
+struct Type;
+struct NamingStrategy;
+struct StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy_ {
+    struct Type* Value1;
+    struct NamingStrategy* Value2;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy__FWDDECL)
+#define IL2CPP_STRUCT_StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy__FWDDECL
+#include <Modloader/app/structs/NamingStrategy.h>
+#include <Modloader/app/structs/Type.h>
+#endif
+#undef IL2CPP_STRUCT_StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy__INITIALIZING
+#if !defined(IL2CPP_STRUCT_StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy__DEFINED) && !defined(IL2CPP_STRUCT_StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy__FWDDECL)
+#include <Modloader/app/structs/StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

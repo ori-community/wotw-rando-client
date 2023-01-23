@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlSchemaSimpleTypeUnion.h>
+#include <Modloader/app/structs/XmlQualifiedName__Array.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType__Array.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaSimpleTypeUnion {
     IL2CPP_REGISTER_METHOD(0x002FBB40, app::XmlSchemaObjectCollection*, get_BaseTypes, (app::XmlSchemaSimpleTypeUnion * this_ptr))

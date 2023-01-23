@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Type_System_String_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Type_System_String_ {
     IL2CPP_REGISTER_METHOD(0x02BAC170, void, Add, (app::Dictionary_2_System_Type_System_String_ * this_ptr, app::Type* key, app::String* value))

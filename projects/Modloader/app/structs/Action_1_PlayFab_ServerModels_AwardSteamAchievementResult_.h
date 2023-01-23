@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_AwardSteamAchievementResult__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_AwardSteamAchievementResult__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_AwardSteamAchievementResult__DEFINED)
+#include <Modloader/app/structs/Action_1_PlayFab_ServerModels_AwardSteamAchievementResult___Fields.h>
+#if defined(IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_AwardSteamAchievementResult___Fields_DEFINED)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_AwardSteamAchievementResult__DEFINED
+struct Action_1_PlayFab_ServerModels_AwardSteamAchievementResult___Class;
+struct Action_1_PlayFab_ServerModels_AwardSteamAchievementResult_ {
+    struct Action_1_PlayFab_ServerModels_AwardSteamAchievementResult___Class* klass;
+    MonitorData* monitor;
+    struct Action_1_PlayFab_ServerModels_AwardSteamAchievementResult___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_AwardSteamAchievementResult__FWDDECL)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_AwardSteamAchievementResult__FWDDECL
+#include <Modloader/app/structs/Action_1_PlayFab_ServerModels_AwardSteamAchievementResult___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_AwardSteamAchievementResult__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_AwardSteamAchievementResult__DEFINED) && !defined(IL2CPP_STRUCT_Action_1_PlayFab_ServerModels_AwardSteamAchievementResult__FWDDECL)
+#include <Modloader/app/structs/Action_1_PlayFab_ServerModels_AwardSteamAchievementResult_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Action_1_PlayFab_ServerModels_AwardSteamAchievementResult_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_MS_Internal_Xml_Cache_XPathNodeRef_MS_Internal_Xml_Cache_XPathNodeRef_.h>
+#include <Modloader/app/structs/XPathNodeRef.h>
+#include <Modloader/app/structs/IEqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef_.h>
+#include <Modloader/app/structs/IDictionary_2_MS_Internal_Xml_Cache_XPathNodeRef_MS_Internal_Xml_Cache_XPathNodeRef_.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_MS_Internal_Xml_Cache_XPathNodeRef_MS_Internal_Xml_Cache_XPathNodeRef_.h>
+#include <Modloader/app/structs/ICollection_1_MS_Internal_Xml_Cache_XPathNodeRef_.h>
+#include <Modloader/app/structs/IEnumerable_1_MS_Internal_Xml_Cache_XPathNodeRef_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_MS_Internal_Xml_Cache_XPathNodeRef_MS_Internal_Xml_Cache_XPathNodeRef_.h>
+#include <Modloader/app/structs/KeyValuePair_2_MS_Internal_Xml_Cache_XPathNodeRef_MS_Internal_Xml_Cache_XPathNodeRef_.h>
+#include <Modloader/app/structs/KeyValuePair_2_MS_Internal_Xml_Cache_XPathNodeRef_MS_Internal_Xml_Cache_XPathNodeRef___Array.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_MS_Internal_Xml_Cache_XPathNodeRef_MS_Internal_Xml_Cache_XPathNodeRef_.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_MS_Internal_Xml_Cache_XPathNodeRef_MS_Internal_Xml_Cache_XPathNodeRef_.h>
+#include <Modloader/app/structs/InsertionBehavior__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_MS_Internal_Xml_Cache_XPathNodeRef_MS_Internal_Xml_Cache_XPathNodeRef_ {
     IL2CPP_REGISTER_METHOD(0x0283B9A0, bool, ContainsKey, (app::Dictionary_2_MS_Internal_Xml_Cache_XPathNodeRef_MS_Internal_Xml_Cache_XPathNodeRef_ * this_ptr, app::XPathNodeRef key))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_MasterTimelineSequence_SceneEntry_.h>
+#include <Modloader/app/structs/MasterTimelineSequence_SceneEntry.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_MasterTimelineSequence_SceneEntry_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_MasterTimelineSequence_SceneEntry_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_MasterTimelineSequence_SceneEntry_ * this_ptr))

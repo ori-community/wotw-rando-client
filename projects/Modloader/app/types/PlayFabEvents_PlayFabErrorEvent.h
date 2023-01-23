@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PlayFabEvents_PlayFabErrorEvent__Class.h>
+#include <Modloader/app/structs/PlayFabEvents_PlayFabErrorEvent.h>
 
 namespace app::classes::types {
     namespace PlayFabEvents_PlayFabErrorEvent {

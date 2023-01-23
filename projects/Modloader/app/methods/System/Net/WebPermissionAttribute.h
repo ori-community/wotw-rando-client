@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebPermissionAttribute.h>
+#include <Modloader/app/structs/SecurityAction__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IPermission.h>
 
 namespace app::classes::System::Net::WebPermissionAttribute {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::WebPermissionAttribute * this_ptr, app::SecurityAction__Enum action))

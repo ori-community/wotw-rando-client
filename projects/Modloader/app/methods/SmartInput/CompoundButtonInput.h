@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompoundButtonInput.h>
+#include <Modloader/app/structs/IButtonInput__Array.h>
+#include <Modloader/app/structs/InputCacheManager.h>
+#include <Modloader/app/structs/IButtonInput.h>
+#include <Modloader/app/structs/KeyCode__Enum.h>
 
 namespace app::classes::SmartInput::CompoundButtonInput {
     IL2CPP_REGISTER_METHOD(0x006CA840, void, ctor_1, (app::CompoundButtonInput * this_ptr, app::IButtonInput__Array* inputs))

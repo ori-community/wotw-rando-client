@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
+#include <Modloader/app/structs/SimpleSRPToggleProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::SimpleSRPToggleProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x0044E710, app::MoonRenderPipelineAsset*, get_mrpAsset, (app::SimpleSRPToggleProfilingSetting * this_ptr))

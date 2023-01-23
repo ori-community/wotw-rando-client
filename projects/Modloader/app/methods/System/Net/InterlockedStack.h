@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InterlockedStack.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::InterlockedStack {
     IL2CPP_REGISTER_METHOD(0x01E6A520, void, ctor, (app::InterlockedStack * this_ptr))

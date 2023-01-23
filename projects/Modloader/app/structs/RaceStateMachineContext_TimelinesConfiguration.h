@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RaceStateMachineContext_TimelinesConfiguration_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RaceStateMachineContext_TimelinesConfiguration_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RaceStateMachineContext_TimelinesConfiguration_DEFINED)
+#include <Modloader/app/structs/RaceStateMachineContext_TimelinesConfiguration__Fields.h>
+#if defined(IL2CPP_STRUCT_RaceStateMachineContext_TimelinesConfiguration__Fields_DEFINED)
+#define IL2CPP_STRUCT_RaceStateMachineContext_TimelinesConfiguration_DEFINED
+struct RaceStateMachineContext_TimelinesConfiguration__Class;
+struct RaceStateMachineContext_TimelinesConfiguration {
+    struct RaceStateMachineContext_TimelinesConfiguration__Class* klass;
+    MonitorData* monitor;
+    struct RaceStateMachineContext_TimelinesConfiguration__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_RaceStateMachineContext_TimelinesConfiguration_FWDDECL)
+#define IL2CPP_STRUCT_RaceStateMachineContext_TimelinesConfiguration_FWDDECL
+#include <Modloader/app/structs/RaceStateMachineContext_TimelinesConfiguration__Class.h>
+#endif
+#undef IL2CPP_STRUCT_RaceStateMachineContext_TimelinesConfiguration_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RaceStateMachineContext_TimelinesConfiguration_DEFINED) && !defined(IL2CPP_STRUCT_RaceStateMachineContext_TimelinesConfiguration_FWDDECL)
+#include <Modloader/app/structs/RaceStateMachineContext_TimelinesConfiguration.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RaceStateMachineContext_TimelinesConfiguration.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

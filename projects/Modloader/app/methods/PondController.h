@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PondController.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::PondController {
     IL2CPP_REGISTER_METHOD(0x00C5E4E0, void, FixedUpdate, (app::PondController * this_ptr))

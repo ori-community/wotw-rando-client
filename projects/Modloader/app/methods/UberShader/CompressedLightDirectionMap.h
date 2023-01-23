@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompressedLightDirectionMap.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::UberShader::CompressedLightDirectionMap {
     IL2CPP_REGISTER_METHOD(0x018F8C80, bool, get_AllTexturesSet, (app::CompressedLightDirectionMap * this_ptr))

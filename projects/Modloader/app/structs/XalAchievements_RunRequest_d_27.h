@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XalAchievements_RunRequest_d_27_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XalAchievements_RunRequest_d_27_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XalAchievements_RunRequest_d_27_DEFINED)
+#include <Modloader/app/structs/XalAchievements_RunRequest_d_27__Fields.h>
+#if defined(IL2CPP_STRUCT_XalAchievements_RunRequest_d_27__Fields_DEFINED)
+#define IL2CPP_STRUCT_XalAchievements_RunRequest_d_27_DEFINED
+struct XalAchievements_RunRequest_d_27__Class;
+struct XalAchievements_RunRequest_d_27 {
+    struct XalAchievements_RunRequest_d_27__Class* klass;
+    MonitorData* monitor;
+    struct XalAchievements_RunRequest_d_27__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_XalAchievements_RunRequest_d_27_FWDDECL)
+#define IL2CPP_STRUCT_XalAchievements_RunRequest_d_27_FWDDECL
+#include <Modloader/app/structs/XalAchievements_RunRequest_d_27__Class.h>
+#endif
+#undef IL2CPP_STRUCT_XalAchievements_RunRequest_d_27_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XalAchievements_RunRequest_d_27_DEFINED) && !defined(IL2CPP_STRUCT_XalAchievements_RunRequest_d_27_FWDDECL)
+#include <Modloader/app/structs/XalAchievements_RunRequest_d_27.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XalAchievements_RunRequest_d_27.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnemyNoGoZone.h>
 
 namespace app::classes::EnemyNoGoZone {
     IL2CPP_REGISTER_METHOD(0x00C82200, void, OnEnableRuntime, (app::EnemyNoGoZone * this_ptr))

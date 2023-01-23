@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Timeline_EventHistoryItem_.h>
+#include <Modloader/app/structs/EventHistoryItem.h>
+#include <Modloader/app/structs/EventHistoryItem__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_Moon_Timeline_EventHistoryItem_ {
     IL2CPP_REGISTER_METHOD(0x01CD3170, bool, Equals_1, (app::ObjectEqualityComparer_1_Moon_Timeline_EventHistoryItem_ * this_ptr, app::EventHistoryItem x, app::EventHistoryItem y))

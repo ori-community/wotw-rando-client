@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IkLimbPostprocess.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::IkLimbPostprocess {
     IL2CPP_REGISTER_METHOD(0x003FF7B0, int32_t, get_Order, (app::IkLimbPostprocess * this_ptr))

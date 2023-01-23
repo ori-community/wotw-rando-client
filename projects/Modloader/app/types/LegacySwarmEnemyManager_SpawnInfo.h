@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LegacySwarmEnemyManager_SpawnInfo__Class.h>
+#include <Modloader/app/structs/LegacySwarmEnemyManager_SpawnInfo.h>
+#include <Modloader/app/structs/LegacySwarmEnemyManager_SpawnInfo__Boxed.h>
+#include <Modloader/app/structs/LegacySwarmEnemyManager_SpawnInfo__Array.h>
 
 namespace app::classes::types {
     namespace LegacySwarmEnemyManager_SpawnInfo {

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_ColorVariationManager_IColorVariationInfluencer_.h>
+#include <Modloader/app/structs/ColorVariationManager_IColorVariationInfluencer.h>
 
 namespace app::classes::System::Collections::Generic::List_1_ColorVariationManager_IColorVariationInfluencer_ {
     IL2CPP_REGISTER_METHOD(0x02FE8D00, bool, Contains, (app::List_1_ColorVariationManager_IColorVariationInfluencer_ * this_ptr, app::ColorVariationManager_IColorVariationInfluencer* item))

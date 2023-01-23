@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_PoolTransformPosition___Boxed.h>
+#include <Modloader/app/structs/PoolTransformPosition.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_Int32_PoolTransformPosition_ {
     IL2CPP_REGISTER_METHOD(0x00150760, void, ctor, (app::KeyValuePair_2_System_Int32_PoolTransformPosition___Boxed * this_ptr, int32_t key, app::PoolTransformPosition value))

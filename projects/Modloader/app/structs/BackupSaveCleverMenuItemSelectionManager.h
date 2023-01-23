@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_BackupSaveCleverMenuItemSelectionManager_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_BackupSaveCleverMenuItemSelectionManager_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BackupSaveCleverMenuItemSelectionManager_DEFINED)
+#include <Modloader/app/structs/BackupSaveCleverMenuItemSelectionManager__Fields.h>
+#if defined(IL2CPP_STRUCT_BackupSaveCleverMenuItemSelectionManager__Fields_DEFINED)
+#define IL2CPP_STRUCT_BackupSaveCleverMenuItemSelectionManager_DEFINED
+struct BackupSaveCleverMenuItemSelectionManager__Class;
+struct BackupSaveCleverMenuItemSelectionManager {
+    struct BackupSaveCleverMenuItemSelectionManager__Class* klass;
+    MonitorData* monitor;
+    struct BackupSaveCleverMenuItemSelectionManager__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_BackupSaveCleverMenuItemSelectionManager_FWDDECL)
+#define IL2CPP_STRUCT_BackupSaveCleverMenuItemSelectionManager_FWDDECL
+#include <Modloader/app/structs/BackupSaveCleverMenuItemSelectionManager__Class.h>
+#endif
+#undef IL2CPP_STRUCT_BackupSaveCleverMenuItemSelectionManager_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BackupSaveCleverMenuItemSelectionManager_DEFINED) && !defined(IL2CPP_STRUCT_BackupSaveCleverMenuItemSelectionManager_FWDDECL)
+#include <Modloader/app/structs/BackupSaveCleverMenuItemSelectionManager.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/BackupSaveCleverMenuItemSelectionManager.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

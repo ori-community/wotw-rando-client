@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_AlphaState_.h>
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_AlphaState.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_AlphaState_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose, (app::Array_EmptyInternalEnumerator_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_AlphaState_ * this_ptr))

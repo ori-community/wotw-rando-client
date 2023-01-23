@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WeaponTypeVFXSettings.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/MaterialTypeVFXSettings_EffectSize__Enum.h>
+#include <Modloader/app/structs/DamageRecieverType__Enum.h>
 
 namespace app::classes::WeaponTypeVFXSettings {
     IL2CPP_REGISTER_METHOD(0x0056FF10, void, Initialize, (app::WeaponTypeVFXSettings * this_ptr))

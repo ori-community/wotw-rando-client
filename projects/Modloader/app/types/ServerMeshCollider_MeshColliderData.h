@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ServerMeshCollider_MeshColliderData__Class.h>
+#include <Modloader/app/structs/ServerMeshCollider_MeshColliderData.h>
+#include <Modloader/app/structs/ServerMeshCollider_MeshColliderData__Boxed.h>
 
 namespace app::classes::types {
     namespace ServerMeshCollider_MeshColliderData {

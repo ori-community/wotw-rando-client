@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParticleSystemForceAnimator.h>
+#include <Modloader/app/structs/ParticleSystem.h>
 
 namespace app::classes::ParticleSystemForceAnimator {
     IL2CPP_REGISTER_METHOD(0x00445770, void, CacheOriginals, (app::ParticleSystemForceAnimator * this_ptr, app::ParticleSystem* particle_system_to_animate))

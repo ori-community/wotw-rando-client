@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompareInfo.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CompareOptions__Enum.h>
+#include <Modloader/app/structs/SortKey.h>
+#include <Modloader/app/structs/SimpleCollator.h>
 
 namespace app::classes::System::Globalization::CompareInfo {
     IL2CPP_REGISTER_METHOD(0x01A229B0, void, ctor_1, (app::CompareInfo * this_ptr, app::CultureInfo* culture))

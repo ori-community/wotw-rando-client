@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Claim.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ClaimsIdentity.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
 
 namespace app::classes::System::Security::Claims::Claim {
     IL2CPP_REGISTER_METHOD(0x020C0D40, void, ctor_1, (app::Claim * this_ptr, app::String* type, app::String* value, app::String* value_type, app::String* issuer, app::String* original_issuer, app::ClaimsIdentity* subject))

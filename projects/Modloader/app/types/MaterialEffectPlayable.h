@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MaterialEffectPlayable__Class.h>
+#include <Modloader/app/structs/MaterialEffectPlayable.h>
+#include <Modloader/app/structs/MaterialEffectPlayable__Boxed.h>
 
 namespace app::classes::types {
     namespace MaterialEffectPlayable {

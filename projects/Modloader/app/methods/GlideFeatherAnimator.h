@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Atlas__Array.h>
+#include <Modloader/app/structs/GlideFeatherAnimator.h>
+#include <Modloader/app/structs/AtlasSpriteTexture.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GlideFeatherAnimator_AtlasAndSpriteTexture.h>
+#include <Modloader/app/structs/UberScreenMode__Enum.h>
 
 namespace app::classes::GlideFeatherAnimator {
     IL2CPP_REGISTER_METHOD(0x007F4060, app::Atlas__Array*, get_Atlases, (app::GlideFeatherAnimator * this_ptr))

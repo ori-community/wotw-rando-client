@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_SceneOperation_.h>
+#include <Modloader/app/structs/ScenesManagerBehaviour.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SceneLoadingQueue.h>
+#include <Modloader/app/structs/ScenesManager.h>
+#include <Modloader/app/structs/ScenesManagerContext.h>
+#include <Modloader/app/structs/List_1_SceneManagerScene_.h>
+#include <Modloader/app/structs/ScenesManagerSettings.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ScenesManagerBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::List_1_SceneOperation_*, get_SceneOperationsEnable, (app::ScenesManagerBehaviour * this_ptr))

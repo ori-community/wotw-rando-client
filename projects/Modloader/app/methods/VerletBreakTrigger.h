@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VerletBreakTrigger.h>
 
 namespace app::classes::VerletBreakTrigger {
     IL2CPP_REGISTER_METHOD(0x013C29C0, void, OnEnable, (app::VerletBreakTrigger * this_ptr))

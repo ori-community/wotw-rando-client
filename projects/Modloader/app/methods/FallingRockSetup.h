@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FallingRockSetup.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::FallingRockSetup {
     IL2CPP_REGISTER_METHOD(0x00996AA0, void, OnDamageDealt, (app::FallingRockSetup * this_ptr, app::DamageDealer* dealer, app::DamageResult result))

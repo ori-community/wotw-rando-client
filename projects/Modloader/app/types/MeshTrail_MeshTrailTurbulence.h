@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MeshTrail_MeshTrailTurbulence__Class.h>
+#include <Modloader/app/structs/MeshTrail_MeshTrailTurbulence.h>
+#include <Modloader/app/structs/MeshTrail_MeshTrailTurbulence__Boxed.h>
+#include <Modloader/app/structs/MeshTrail_MeshTrailTurbulence__Array.h>
 
 namespace app::classes::types {
     namespace MeshTrail_MeshTrailTurbulence {

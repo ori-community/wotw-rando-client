@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProjectilesStickToThisPlatform.h>
 
 namespace app::classes::ProjectilesStickToThisPlatform {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Start, (app::ProjectilesStickToThisPlatform * this_ptr))

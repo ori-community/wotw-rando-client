@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostReplayMetaData.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::GhostReplayMetaData {
     IL2CPP_REGISTER_METHOD(0x007E4D50, bool, get_ReadDataFromMemory, (app::GhostReplayMetaData * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HighlightNearSein.h>
 
 namespace app::classes::HighlightNearSein {
     IL2CPP_REGISTER_METHOD(0x00B55F20, void, OnNearSeinEnter, (app::HighlightNearSein * this_ptr))

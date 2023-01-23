@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PlayFabAchievements.h>
+#include <Modloader/app/structs/CacheData__Array.h>
+#include <Modloader/app/structs/CacheData.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::Achievements::PlayFabAchievements {
     IL2CPP_REGISTER_METHOD(0x0052C5D0, app::String*, get_Name, (app::PlayFabAchievements * this_ptr))

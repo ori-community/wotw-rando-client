@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameplaySoundManager.h>
+#include <Modloader/app/structs/GameplaySoundManager_AudioQualitySetting__Enum.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ArtificialSoundHostReference.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/EnemyEntity.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AkCallbackType__Enum.h>
+#include <Modloader/app/structs/AkCallbackInfo.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::GameplaySoundManager {
     IL2CPP_REGISTER_METHOD(0x004108F0, bool, get_ShowCinematicDebug, ())

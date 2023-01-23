@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinIdle.h>
+#include <Modloader/app/structs/SeinIdlePuppet.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/CharacterSpriteMirror.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 
 namespace app::classes::SeinIdle {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinIdle * this_ptr))

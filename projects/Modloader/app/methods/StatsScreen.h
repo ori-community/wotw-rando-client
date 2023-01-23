@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StatsScreen.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/StatUISlot.h>
+#include <Modloader/app/structs/List_1_StatSetting_.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/StatSetting_StatDisplayCategory__Enum.h>
+#include <Modloader/app/structs/MessageProvider.h>
 
 namespace app::classes::StatsScreen {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanInterruptTab, (app::StatsScreen * this_ptr))

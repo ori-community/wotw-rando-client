@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScenesManager_c_DisplayClass188_0.h>
+#include <Modloader/app/structs/SceneManagerScene.h>
 
 namespace app::classes::ScenesManager___c__DisplayClass188_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ScenesManager_c_DisplayClass188_0 * this_ptr))

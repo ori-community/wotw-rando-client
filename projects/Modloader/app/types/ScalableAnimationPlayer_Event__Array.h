@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer_Event__Array__Class.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer_Event__Array.h>
 
 namespace app::classes::types {
     namespace ScalableAnimationPlayer_Event__Array {

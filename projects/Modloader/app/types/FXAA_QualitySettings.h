@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/FXAA_QualitySettings__Class.h>
+#include <Modloader/app/structs/FXAA_QualitySettings.h>
+#include <Modloader/app/structs/FXAA_QualitySettings__Boxed.h>
 
 namespace app::classes::types {
     namespace FXAA_QualitySettings {

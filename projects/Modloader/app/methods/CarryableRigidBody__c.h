@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CarryableRigidBody_c.h>
 
 namespace app::classes::CarryableRigidBody___c {
     IL2CPP_REGISTER_METHOD(0x00B29940, void, cctor, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TriggerWithCondition.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::TriggerWithCondition {
     IL2CPP_REGISTER_METHOD(0x00B143B0, void, Awake, (app::TriggerWithCondition * this_ptr))

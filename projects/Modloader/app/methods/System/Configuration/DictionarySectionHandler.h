@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DictionarySectionHandler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlNode.h>
 
 namespace app::classes::System::Configuration::DictionarySectionHandler {
     IL2CPP_REGISTER_METHOD(0x02961A80, void, ctor, (app::DictionarySectionHandler * this_ptr))

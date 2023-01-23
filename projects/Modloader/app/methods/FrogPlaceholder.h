@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FrogEntity.h>
+#include <Modloader/app/structs/FrogPlaceholder.h>
 
 namespace app::classes::FrogPlaceholder {
     IL2CPP_REGISTER_METHOD(0x0164A2C0, app::FrogEntity*, get_CurrentFrogEntity, (app::FrogPlaceholder * this_ptr))

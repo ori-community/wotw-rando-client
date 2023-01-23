@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FireStickInteractor.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/FireStick.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StressTestStatus__Enum.h>
 
 namespace app::classes::FireStickInteractor {
     IL2CPP_REGISTER_METHOD(0x0125C150, void, OnEnable, (app::FireStickInteractor * this_ptr))

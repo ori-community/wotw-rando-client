@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/CancellationToken__Boxed.h>
+#include <Modloader/app/structs/CancellationTokenSource.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CancellationTokenRegistration.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Action_1_Object_.h>
 
 namespace app::classes::System::Threading::CancellationToken {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::CancellationToken, get_None, ())

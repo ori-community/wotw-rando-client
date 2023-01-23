@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Promise_1_System_Object_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PromiseState__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Action_2_Action_1_Object_Action_1_Exception_.h>
+#include <Modloader/app/structs/Action_1_Exception_.h>
+#include <Modloader/app/structs/IRejectable.h>
+#include <Modloader/app/structs/Action_1_Object_.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/IPromise_1_System_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_ZenFulcrum_EmbeddedBrowser_IPromise_1_.h>
+#include <Modloader/app/structs/IPromise.h>
+#include <Modloader/app/structs/Func_2_Object_ZenFulcrum_EmbeddedBrowser_IPromise_.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/IPromise_1_System_Collections_Generic_IEnumerable_1_.h>
+#include <Modloader/app/structs/Func_2_Object_System_Collections_Generic_IEnumerable_1__1.h>
+#include <Modloader/app/structs/Func_2_Object_System_Collections_Generic_IEnumerable_1__2.h>
+#include <Modloader/app/structs/IPromise_1_System_Object___Array.h>
+#include <Modloader/app/structs/IEnumerable_1_ZenFulcrum_EmbeddedBrowser_IPromise_1_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Promise_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x003FC7F0, int32_t, get_Id, (app::Promise_1_System_Object_ * this_ptr))

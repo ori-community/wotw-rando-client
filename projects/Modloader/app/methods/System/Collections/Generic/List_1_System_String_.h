@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_String_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_String_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_System_String_ * this_ptr))

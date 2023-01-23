@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Recorder_1.h>
+#include <Modloader/app/structs/RecorderPlaybackUI.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::RecorderPlaybackUI {
     IL2CPP_REGISTER_METHOD(0x008F4A40, void, ResetStatics, ())

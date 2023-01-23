@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBatRestingToAttackingBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IEntityBehaviour.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBatRestingToAttackingBehaviour {
     IL2CPP_REGISTER_METHOD(0x0095F0C0, void, OnEnter, (app::SpiderBatRestingToAttackingBehaviour * this_ptr, app::IContext* context))

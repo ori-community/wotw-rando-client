@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GasballDeathReaction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::GasballDeathReaction {
     IL2CPP_REGISTER_METHOD(0x0041DB70, void, SetInstantDeath, (app::GasballDeathReaction * this_ptr, bool instant_death))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RotatingMaceRoomCarryablePlaceholder.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::RotatingMaceRoomCarryablePlaceholder {
     IL2CPP_REGISTER_METHOD(0x0136E9A0, void, Awake, (app::RotatingMaceRoomCarryablePlaceholder * this_ptr))

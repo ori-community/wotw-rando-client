@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WandererTurningBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::WandererTurningBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FC5D0, float, get_TargetLookDirectionX, (app::WandererTurningBehaviour * this_ptr))

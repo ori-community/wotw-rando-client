@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringCageMetaData.h>
+#include <Modloader/app/structs/CageStructureTool_Face.h>
 
 namespace app::classes::StringCageMetaData {
     IL2CPP_REGISTER_METHOD(0x00670E00, void, OnEnable, (app::StringCageMetaData * this_ptr))

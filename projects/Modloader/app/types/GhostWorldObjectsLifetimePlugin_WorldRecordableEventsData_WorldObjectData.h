@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_WorldObjectData__Class.h>
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_WorldObjectData.h>
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_WorldObjectData__Array.h>
 
 namespace app::classes::types {
     namespace GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_WorldObjectData {

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStateArchive.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::UberStateArchive {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_CaretPosition, (app::UberStateArchive * this_ptr))

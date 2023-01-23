@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::P3D_Brush_LightPaintErase {
     IL2CPP_REGISTER_METHOD(0x0308CF50, void, Initialize, ())

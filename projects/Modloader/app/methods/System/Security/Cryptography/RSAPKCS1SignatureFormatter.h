@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RSAPKCS1SignatureFormatter.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::RSAPKCS1SignatureFormatter {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::RSAPKCS1SignatureFormatter * this_ptr))

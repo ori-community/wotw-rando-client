@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CVRDriverManager.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRDriverManager {
     IL2CPP_REGISTER_METHOD(0x016785A0, void, ctor, (app::CVRDriverManager * this_ptr, void* p_interface))

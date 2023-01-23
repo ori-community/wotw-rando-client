@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReplayData.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Race::Networking::ReplayData {
     IL2CPP_REGISTER_METHOD(0x00C454E0, void, ctor, (app::ReplayData * this_ptr))

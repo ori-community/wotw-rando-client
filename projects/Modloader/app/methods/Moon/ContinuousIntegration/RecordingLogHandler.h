@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecordingLogHandler.h>
+#include <Modloader/app/structs/LogType__Enum.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/UnhandledExceptionEventArgs.h>
 
 namespace app::classes::Moon::ContinuousIntegration::RecordingLogHandler {
     IL2CPP_REGISTER_METHOD(0x0318BC50, void, ctor, (app::RecordingLogHandler * this_ptr, bool quick_exit))

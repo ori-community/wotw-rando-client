@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaterFall.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/WaterFall_WaterLine.h>
+#include <Modloader/app/structs/ParticleSystem.h>
+#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::Moon::WaterFall {
     IL2CPP_REGISTER_METHOD(0x011A3DC0, void, Awake, (app::WaterFall * this_ptr))

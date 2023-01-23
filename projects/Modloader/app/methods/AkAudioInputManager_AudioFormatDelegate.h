@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkAudioInputManager_AudioFormatDelegate.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AkAudioFormat.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::AkAudioInputManager_AudioFormatDelegate {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::AkAudioInputManager_AudioFormatDelegate * this_ptr, app::Object* object, void* method_1))

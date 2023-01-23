@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Distortion_Wave_Horizontal.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Distortion_Wave_Horizontal {
     IL2CPP_REGISTER_METHOD(0x024ED700, app::Material*, get_material, (app::CameraFilterPack_Distortion_Wave_Horizontal * this_ptr))

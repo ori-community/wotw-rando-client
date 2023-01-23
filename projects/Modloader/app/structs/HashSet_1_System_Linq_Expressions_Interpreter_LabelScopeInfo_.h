@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo__DEFINED)
+#include <Modloader/app/structs/HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo___Fields.h>
+#if defined(IL2CPP_STRUCT_HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo___Fields_DEFINED)
+#define IL2CPP_STRUCT_HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo__DEFINED
+struct HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo___Class;
+struct HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo_ {
+    struct HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo___Class* klass;
+    MonitorData* monitor;
+    struct HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo__FWDDECL)
+#define IL2CPP_STRUCT_HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo__FWDDECL
+#include <Modloader/app/structs/HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo___Class.h>
+#endif
+#undef IL2CPP_STRUCT_HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo__DEFINED) && !defined(IL2CPP_STRUCT_HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo__FWDDECL)
+#include <Modloader/app/structs/HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/HashSet_1_System_Linq_Expressions_Interpreter_LabelScopeInfo_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

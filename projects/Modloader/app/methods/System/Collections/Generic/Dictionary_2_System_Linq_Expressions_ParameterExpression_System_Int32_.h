@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Linq_Expressions_ParameterExpression_System_Int32_.h>
+#include <Modloader/app/structs/ParameterExpression.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Linq_Expressions_ParameterExpression_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_System_Linq_Expressions_ParameterExpression_System_Int32_ * this_ptr, app::ParameterExpression* key))

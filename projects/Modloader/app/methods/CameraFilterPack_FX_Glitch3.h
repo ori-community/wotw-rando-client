@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_FX_Glitch3.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_FX_Glitch3 {
     IL2CPP_REGISTER_METHOD(0x0246EDA0, app::Material*, get_material, (app::CameraFilterPack_FX_Glitch3 * this_ptr))

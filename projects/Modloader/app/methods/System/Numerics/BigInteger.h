@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BigInteger_2__Boxed.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/ReadOnlySpan_1_Byte_.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/BigInteger_2.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/NumberStyles__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/BigInteger_GetBytesMode__Enum.h>
+#include <Modloader/app/structs/Span_1_Byte_.h>
 
 namespace app::classes::System::Numerics::BigInteger {
     IL2CPP_REGISTER_METHOD(0x00246440, void, ctor_1, (app::BigInteger_2__Boxed * this_ptr, int32_t value))

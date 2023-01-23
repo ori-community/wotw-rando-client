@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3.h>
+
 namespace scenes {
     using object_loaded_callback = void (*)(std::string_view scene_name, std::string_view object_name, app::GameObject* scene_root, app::GameObject* go);
 

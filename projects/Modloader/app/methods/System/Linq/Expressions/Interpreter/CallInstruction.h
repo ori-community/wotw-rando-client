@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CallInstruction.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/LightLambda.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::CallInstruction {
     IL2CPP_REGISTER_METHOD(0x022D75B0, app::String*, get_InstructionName, (app::CallInstruction * this_ptr))

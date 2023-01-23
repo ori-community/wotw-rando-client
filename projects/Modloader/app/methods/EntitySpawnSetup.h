@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityPlaceholder.h>
+#include <Modloader/app/structs/EntitySpawnSetup.h>
 
 namespace app::classes::EntitySpawnSetup {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::EntityPlaceholder*, get_Placeholer, (app::EntitySpawnSetup * this_ptr))

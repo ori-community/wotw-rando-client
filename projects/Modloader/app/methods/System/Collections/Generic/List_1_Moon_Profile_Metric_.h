@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_Profile_Metric_.h>
+#include <Modloader/app/structs/Metric__Enum.h>
+#include <Modloader/app/structs/Metric__Enum__Array.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Profile_Metric_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Profile_Metric_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_Moon_Profile_Metric_ * this_ptr, int32_t capacity))

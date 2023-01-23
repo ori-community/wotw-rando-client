@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MonoBehaviour.h>
+#include <Modloader/app/structs/VisualLog.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LogType__Enum.h>
 
 namespace app::classes::VisualLog {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, RegisterStatus, (app::MonoBehaviour * behaviour))

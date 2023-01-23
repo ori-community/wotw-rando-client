@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NegateCheckedInstruction.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Instruction.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::NegateCheckedInstruction {
     IL2CPP_REGISTER_METHOD(0x00417920, int32_t, get_ConsumedStack, (app::NegateCheckedInstruction * this_ptr))

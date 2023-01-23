@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/AppId_t.h>
+#include <Modloader/app/structs/CSteamID.h>
 
 namespace app::classes::Steamworks::SteamEncryptedAppTicket {
     IL2CPP_REGISTER_METHOD(0x016022C0, bool, BDecryptTicket, (app::Byte__Array * rgub_ticket_encrypted, uint32_t cub_ticket_encrypted, app::Byte__Array* rgub_ticket_decrypted, uint32_t* pcub_ticket_decrypted, app::Byte__Array* rgub_key, int32_t cub_key))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBatRetaliateShriekBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IEntityBehaviour.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBatRetaliateShriekBehaviour {
     IL2CPP_REGISTER_METHOD(0x0095F720, void, OnEnter, (app::SpiderBatRetaliateShriekBehaviour * this_ptr, app::IContext* context))

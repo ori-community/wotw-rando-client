@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Void.h>
 
 namespace app::classes::System::Runtime::CompilerServices::Unsafe {
     IL2CPP_REGISTER_METHOD(0x0157E120, app::Object**, Add_1, (app::Object * *source, int32_t element_offset))

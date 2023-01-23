@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TheGiftSetupController.h>
 
 namespace app::classes::TheGiftSetupController {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Start, (app::TheGiftSetupController * this_ptr))

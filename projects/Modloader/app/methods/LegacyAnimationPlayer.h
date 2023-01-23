@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyAnimationPlayer.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::LegacyAnimationPlayer {
     IL2CPP_REGISTER_METHOD(0x015CB490, void, Awake, (app::LegacyAnimationPlayer * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XRNodeState__Boxed.h>
+#include <Modloader/app/structs/XRNode__Enum.h>
 
 namespace app::classes::UnityEngine::XR::XRNodeState {
     IL2CPP_REGISTER_METHOD(0x0010D440, void, set_uniqueID, (app::XRNodeState__Boxed * this_ptr, uint64_t value))

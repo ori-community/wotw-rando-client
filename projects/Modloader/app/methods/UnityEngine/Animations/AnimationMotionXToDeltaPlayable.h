@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationMotionXToDeltaPlayable__Boxed.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/AnimationMotionXToDeltaPlayable.h>
 
 namespace app::classes::UnityEngine::Animations::AnimationMotionXToDeltaPlayable {
     IL2CPP_REGISTER_METHOD(0x00241AB0, void, ctor, (app::AnimationMotionXToDeltaPlayable__Boxed * this_ptr, app::PlayableHandle handle))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XalService_XalPlatformWebShowUrlEventHandler_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XalService_XalPlatformWebShowUrlEventHandler_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XalService_XalPlatformWebShowUrlEventHandler_DEFINED)
+#include <Modloader/app/structs/XalService_XalPlatformWebShowUrlEventHandler__Fields.h>
+#if defined(IL2CPP_STRUCT_XalService_XalPlatformWebShowUrlEventHandler__Fields_DEFINED)
+#define IL2CPP_STRUCT_XalService_XalPlatformWebShowUrlEventHandler_DEFINED
+struct XalService_XalPlatformWebShowUrlEventHandler__Class;
+struct XalService_XalPlatformWebShowUrlEventHandler {
+    struct XalService_XalPlatformWebShowUrlEventHandler__Class* klass;
+    MonitorData* monitor;
+    struct XalService_XalPlatformWebShowUrlEventHandler__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_XalService_XalPlatformWebShowUrlEventHandler_FWDDECL)
+#define IL2CPP_STRUCT_XalService_XalPlatformWebShowUrlEventHandler_FWDDECL
+#include <Modloader/app/structs/XalService_XalPlatformWebShowUrlEventHandler__Class.h>
+#endif
+#undef IL2CPP_STRUCT_XalService_XalPlatformWebShowUrlEventHandler_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XalService_XalPlatformWebShowUrlEventHandler_DEFINED) && !defined(IL2CPP_STRUCT_XalService_XalPlatformWebShowUrlEventHandler_FWDDECL)
+#include <Modloader/app/structs/XalService_XalPlatformWebShowUrlEventHandler.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XalService_XalPlatformWebShowUrlEventHandler.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

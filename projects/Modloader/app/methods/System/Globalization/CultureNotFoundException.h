@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CultureNotFoundException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Nullable_1_Int32_.h>
 
 namespace app::classes::System::Globalization::CultureNotFoundException {
     IL2CPP_REGISTER_METHOD(0x025FC0F0, void, ctor_1, (app::CultureNotFoundException * this_ptr))

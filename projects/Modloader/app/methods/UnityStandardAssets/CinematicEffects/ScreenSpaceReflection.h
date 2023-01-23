@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/ScreenSpaceReflection.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Camera.h>
 
 namespace app::classes::UnityStandardAssets::CinematicEffects::ScreenSpaceReflection {
     IL2CPP_REGISTER_METHOD(0x0250B530, app::Shader*, get_shader, (app::ScreenSpaceReflection * this_ptr))

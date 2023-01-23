@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/MeleePositionInterpolator.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MeleePositionInterpolator {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::Vector3__Array*, get_InterpolatedPositions, (app::MeleePositionInterpolator * this_ptr))

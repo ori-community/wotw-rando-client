@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActivityTracker.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/EventActivityOptions__Enum.h>
+#include <Modloader/app/structs/ActivityTracker_ActivityInfo.h>
+#include <Modloader/app/structs/AsyncLocalValueChangedArgs_1_System_Diagnostics_Tracing_ActivityTracker_ActivityInfo_.h>
 
 namespace app::classes::System::Diagnostics::Tracing::ActivityTracker {
     IL2CPP_REGISTER_METHOD(0x01745360, void, OnStart, (app::ActivityTracker * this_ptr, app::String* provider_name, app::String* activity_name, int32_t task, app::Guid* activity_id, app::Guid* related_activity_id, app::EventActivityOptions__Enum options))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnableSceneSuspendedAction_EnableRoutine_d_3.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::EnableSceneSuspendedAction__EnableRoutine_d__3 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::EnableSceneSuspendedAction_EnableRoutine_d_3 * this_ptr, int32_t __1__state))

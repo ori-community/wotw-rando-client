@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterAnimationSystem.h>
+#include <Modloader/app/structs/PressAOrRightCutsceneState.h>
+#include <Modloader/app/structs/SeinCutsceneBlocked.h>
 
 namespace app::classes::PressAOrRightCutsceneState {
     IL2CPP_REGISTER_METHOD(0x00C6FEC0, app::CharacterAnimationSystem*, get_Animation, (app::PressAOrRightCutsceneState * this_ptr))

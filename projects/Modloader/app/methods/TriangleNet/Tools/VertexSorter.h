@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VertexSorter.h>
+#include <Modloader/app/structs/Vertex__Array.h>
 
 namespace app::classes::TriangleNet::Tools::VertexSorter {
     IL2CPP_REGISTER_METHOD(0x02A9F090, void, ctor, (app::VertexSorter * this_ptr, app::Vertex__Array* points, int32_t seed))

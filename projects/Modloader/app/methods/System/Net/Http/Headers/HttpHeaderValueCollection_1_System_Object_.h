@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpHeaderValueCollection_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Net::Http::Headers::HttpHeaderValueCollection_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x0243AC00, int32_t, get_Count, (app::HttpHeaderValueCollection_1_System_Object_ * this_ptr))

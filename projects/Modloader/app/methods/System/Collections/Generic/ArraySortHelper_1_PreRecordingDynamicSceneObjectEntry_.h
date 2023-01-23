@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PreRecordingDynamicSceneObjectEntry__Array.h>
+#include <Modloader/app/structs/IComparer_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/PreRecordingDynamicSceneObjectEntry.h>
+#include <Modloader/app/structs/Comparison_1_PreRecordingDynamicSceneObjectEntry_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_PreRecordingDynamicSceneObjectEntry_ {
     IL2CPP_REGISTER_METHOD(0x02F7B650, void, Sort_1, (app::PreRecordingDynamicSceneObjectEntry__Array * keys, int32_t index, int32_t length, app::IComparer_1_PreRecordingDynamicSceneObjectEntry_* comparer))

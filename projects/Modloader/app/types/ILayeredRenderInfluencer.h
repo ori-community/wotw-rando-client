@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ILayeredRenderInfluencer__Class.h>
+#include <Modloader/app/structs/ILayeredRenderInfluencer__Array.h>
+#include <Modloader/app/structs/ILayeredRenderInfluencer.h>
 
 namespace app::classes::types {
     namespace ILayeredRenderInfluencer {

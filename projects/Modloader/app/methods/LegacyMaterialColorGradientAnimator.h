@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyMaterialColorGradientAnimator.h>
 
 namespace app::classes::LegacyMaterialColorGradientAnimator {
     IL2CPP_REGISTER_METHOD(0x00A2CA90, int32_t, get_PropertyID, (app::LegacyMaterialColorGradientAnimator * this_ptr))

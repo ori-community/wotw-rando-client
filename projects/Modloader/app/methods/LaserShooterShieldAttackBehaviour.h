@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserShooterShieldAttackBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/LaserShooterShieldAttackBehaviour_State__Enum.h>
 
 namespace app::classes::LaserShooterShieldAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00F210E0, void, OnEntityInitialized, (app::LaserShooterShieldAttackBehaviour * this_ptr))

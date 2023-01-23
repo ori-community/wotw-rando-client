@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_MoonGuid_.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_MoonGuid_.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_MoonGuid_ {
     IL2CPP_REGISTER_METHOD(0x02AB4A60, bool, Add, (app::HashSet_1_MoonGuid_ * this_ptr, app::MoonGuid* item))

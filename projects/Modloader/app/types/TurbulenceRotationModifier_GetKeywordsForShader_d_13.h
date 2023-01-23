@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TurbulenceRotationModifier_GetKeywordsForShader_d_13__Class.h>
+#include <Modloader/app/structs/TurbulenceRotationModifier_GetKeywordsForShader_d_13.h>
 
 namespace app::classes::types {
     namespace TurbulenceRotationModifier_GetKeywordsForShader_d_13 {

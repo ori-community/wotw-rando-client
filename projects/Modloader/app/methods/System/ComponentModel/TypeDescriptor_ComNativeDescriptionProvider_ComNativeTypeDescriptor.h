@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypeDescriptor_ComNativeDescriptionProvider_ComNativeTypeDescriptor.h>
+#include <Modloader/app/structs/IComNativeDescriptorHandler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AttributeCollection.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TypeConverter.h>
+#include <Modloader/app/structs/EventDescriptor_1.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/EventDescriptorCollection.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
 
 namespace app::classes::System::ComponentModel::TypeDescriptor_ComNativeDescriptionProvider_ComNativeTypeDescriptor {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::TypeDescriptor_ComNativeDescriptionProvider_ComNativeTypeDescriptor * this_ptr, app::IComNativeDescriptorHandler* handler, app::Object* instance))

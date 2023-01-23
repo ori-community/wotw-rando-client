@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EmptyEnumerator.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::EmptyEnumerator {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IEnumerator_MoveNext, (app::EmptyEnumerator * this_ptr))

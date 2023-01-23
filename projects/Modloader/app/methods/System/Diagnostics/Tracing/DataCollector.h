@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataCollector__Boxed.h>
+#include <Modloader/app/structs/EventSource_EventData.h>
+#include <Modloader/app/structs/GCHandle.h>
+#include <Modloader/app/structs/Void.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Diagnostics::Tracing::DataCollector {
     IL2CPP_REGISTER_METHOD(0x0013DDE0, void, Enable, (app::DataCollector__Boxed * this_ptr, uint8_t* scratch, int32_t scratch_size, app::EventSource_EventData* datas, int32_t data_count, app::GCHandle* pins, int32_t pin_count))

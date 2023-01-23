@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_FullSerializer_fsData_.h>
+#include <Modloader/app/structs/List_1_FullSerializer_fsData_.h>
+#include <Modloader/app/structs/fsDataType__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::FullSerializer::fsData {
     IL2CPP_REGISTER_METHOD(0x0063D180, void, ctor_1, (app::fsData * this_ptr))

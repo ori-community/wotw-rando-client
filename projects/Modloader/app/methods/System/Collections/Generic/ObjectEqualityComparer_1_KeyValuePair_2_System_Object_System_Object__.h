@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object___Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_KeyValuePair_2_System_Object_System_Object__ {
     IL2CPP_REGISTER_METHOD(0x01CD0840, bool, Equals_1, (app::ObjectEqualityComparer_1_KeyValuePair_2_System_Object_System_Object_ * this_ptr, app::KeyValuePair_2_System_Object_System_Object_ x, app::KeyValuePair_2_System_Object_System_Object_ y))

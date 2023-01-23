@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_Int32_AkCallbackManager_EventCallbackPackage_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_AkCallbackManager_EventCallbackPackage_.h>
+#include <Modloader/app/structs/AkCallbackManager_EventCallbackPackage.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_AkCallbackManager_EventCallbackPackage_ {
     IL2CPP_REGISTER_METHOD(0x02BA5400, app::Dictionary_2_TKey_TValue_Enumerator_System_Int32_AkCallbackManager_EventCallbackPackage_, GetEnumerator, (app::Dictionary_2_System_Int32_AkCallbackManager_EventCallbackPackage_ * this_ptr))

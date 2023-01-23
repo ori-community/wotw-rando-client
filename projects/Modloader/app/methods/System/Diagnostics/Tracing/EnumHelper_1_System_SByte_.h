@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/EmptyStruct.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TimeSpan.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EnumHelper_1_System_SByte_ {
     IL2CPP_REGISTER_METHOD(0x02FF68C0, int8_t, Cast_1, (bool value))

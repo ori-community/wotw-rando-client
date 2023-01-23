@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VerletBodyIndexed.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::VerletBodyIndexed {
     IL2CPP_REGISTER_METHOD(0x021274D0, int32_t, AddPoint, (app::VerletBodyIndexed * this_ptr, app::Vector3 position, float mass, float damping))

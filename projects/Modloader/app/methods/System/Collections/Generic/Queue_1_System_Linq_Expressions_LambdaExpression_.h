@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LambdaExpression.h>
+#include <Modloader/app/structs/Queue_1_System_Linq_Expressions_LambdaExpression_.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_System_Linq_Expressions_LambdaExpression_ {
     IL2CPP_REGISTER_METHOD(0x02CA77B0, app::LambdaExpression*, Dequeue, (app::Queue_1_System_Linq_Expressions_LambdaExpression_ * this_ptr))

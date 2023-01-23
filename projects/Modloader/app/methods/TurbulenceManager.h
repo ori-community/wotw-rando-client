@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TurbulenceManager.h>
+#include <Modloader/app/structs/TurbulenceManagerBinder.h>
+#include <Modloader/app/structs/SceneSettingsComponent.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/ITurbulenceInfluencer.h>
+#include <Modloader/app/structs/TurbulenceSettings.h>
+#include <Modloader/app/structs/SceneSettings.h>
 
 namespace app::classes::TurbulenceManager {
     IL2CPP_REGISTER_METHOD(0x00B153C0, void, OnEnable, (app::TurbulenceManager * this_ptr))

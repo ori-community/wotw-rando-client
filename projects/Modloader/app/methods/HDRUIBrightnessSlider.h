@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HDRUIBrightnessSlider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::HDRUIBrightnessSlider {
     IL2CPP_REGISTER_METHOD(0x0109BEC0, void, Awake, (app::HDRUIBrightnessSlider * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InstantiateCharacterAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::InstantiateCharacterAction {
     IL2CPP_REGISTER_METHOD(0x0062C8D0, void, Perform, (app::InstantiateCharacterAction * this_ptr, app::IContext* context))

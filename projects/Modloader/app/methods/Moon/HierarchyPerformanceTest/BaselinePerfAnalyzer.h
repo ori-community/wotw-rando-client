@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaselinePerfAnalyzer.h>
+#include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::BaselinePerfAnalyzer {
     IL2CPP_REGISTER_METHOD(0x0149B670, bool, Analyze, (app::BaselinePerfAnalyzer * this_ptr, app::List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_* results))

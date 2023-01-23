@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MemoryLabelDebugger_MemoryLabelBucketInfoCache__Class.h>
+#include <Modloader/app/structs/MemoryLabelDebugger_MemoryLabelBucketInfoCache.h>
+#include <Modloader/app/structs/MemoryLabelDebugger_MemoryLabelBucketInfoCache__Array.h>
 
 namespace app::classes::types {
     namespace MemoryLabelDebugger_MemoryLabelBucketInfoCache {

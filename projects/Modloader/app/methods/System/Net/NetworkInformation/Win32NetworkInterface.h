@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Win32_FIXED_INFO.h>
 
 namespace app::classes::System::Net::NetworkInformation::Win32NetworkInterface {
     IL2CPP_REGISTER_METHOD(0x01BCABE0, int32_t, GetNetworkParams, (void* ptr, int32_t* size))

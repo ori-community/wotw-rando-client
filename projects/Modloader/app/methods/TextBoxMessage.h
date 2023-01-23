@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextBoxMessage.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::TextBoxMessage {
     IL2CPP_REGISTER_METHOD(0x010E4770, bool, get_OnButtonPressed, (app::TextBoxMessage * this_ptr))

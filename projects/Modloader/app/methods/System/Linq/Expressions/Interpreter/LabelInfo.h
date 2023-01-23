@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LabelInfo.h>
+#include <Modloader/app/structs/LabelTarget.h>
+#include <Modloader/app/structs/BranchLabel.h>
+#include <Modloader/app/structs/LightCompiler.h>
+#include <Modloader/app/structs/LabelScopeInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/Func_2_System_Linq_Expressions_Interpreter_LabelScopeInfo_System_Linq_Expressions_Interpreter_LabelScopeInfo_.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LabelInfo {
     IL2CPP_REGISTER_METHOD(0x01CE31F0, void, ctor, (app::LabelInfo * this_ptr, app::LabelTarget* node))

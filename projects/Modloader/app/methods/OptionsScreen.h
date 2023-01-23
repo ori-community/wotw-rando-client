@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OptionsScreen.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::OptionsScreen {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CanInterruptTab, (app::OptionsScreen * this_ptr))

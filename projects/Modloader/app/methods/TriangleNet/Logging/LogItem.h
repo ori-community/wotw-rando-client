@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/LogItem.h>
+#include <Modloader/app/structs/LogLevel__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::TriangleNet::Logging::LogItem {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::DateTime, get_Time, (app::LogItem * this_ptr))

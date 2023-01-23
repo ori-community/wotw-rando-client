@@ -1,5 +1,31 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IMethodReturnMessage.h>
+#include <Modloader/app/structs/MarshalByRefObject.h>
+#include <Modloader/app/structs/IMethodCallMessage.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ObjRef.h>
+#include <Modloader/app/structs/RealProxy.h>
+#include <Modloader/app/structs/IMethodMessage.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/ActivatedClientTypeEntry.h>
+#include <Modloader/app/structs/WellKnownClientTypeEntry.h>
+#include <Modloader/app/structs/Identity.h>
+#include <Modloader/app/structs/ClientIdentity.h>
+#include <Modloader/app/structs/IMessageSink.h>
+#include <Modloader/app/structs/ClientActivatedIdentity.h>
+#include <Modloader/app/structs/ServerIdentity.h>
+#include <Modloader/app/structs/WellKnownObjectMode__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/IMessage.h>
+#include <Modloader/app/structs/ParameterInfo_1.h>
 
 namespace app::classes::System::Runtime::Remoting::RemotingServices {
     IL2CPP_REGISTER_METHOD(0x02323E80, void, cctor, ())

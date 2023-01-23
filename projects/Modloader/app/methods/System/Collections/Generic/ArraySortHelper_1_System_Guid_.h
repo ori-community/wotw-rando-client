@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Guid__Array.h>
+#include <Modloader/app/structs/IComparer_1_System_Guid_.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Comparison_1_Guid_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_System_Guid_ {
     IL2CPP_REGISTER_METHOD(0x02FFF560, void, Sort_1, (app::Guid__Array * keys, int32_t index, int32_t length, app::IComparer_1_System_Guid_* comparer))

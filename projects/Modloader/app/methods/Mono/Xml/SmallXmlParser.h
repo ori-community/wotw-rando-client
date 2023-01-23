@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SmallXmlParser.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextReader.h>
+#include <Modloader/app/structs/SmallXmlParser_IContentHandler.h>
+#include <Modloader/app/structs/SmallXmlParser_AttrListImpl.h>
 
 namespace app::classes::Mono::Xml::SmallXmlParser {
     IL2CPP_REGISTER_METHOD(0x02287290, void, ctor, (app::SmallXmlParser * this_ptr))

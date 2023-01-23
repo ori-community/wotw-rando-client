@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPosePacked__Class.h>
+#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPosePacked.h>
 
 namespace app::classes::types {
     namespace CVRSystem_GetControllerStateWithPosePacked {

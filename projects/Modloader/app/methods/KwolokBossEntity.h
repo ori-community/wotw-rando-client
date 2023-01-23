@@ -1,5 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Collider__Array.h>
+#include <Modloader/app/structs/KwolokBossEntity.h>
+#include <Modloader/app/structs/DamageDealer__Array.h>
+#include <Modloader/app/structs/KwolokBossEntity_ModifyDesiredLegsIKDelegate.h>
+#include <Modloader/app/structs/KwolokBossEntity_ModifyLookAngleChangeSpeedDelegate.h>
+#include <Modloader/app/structs/KwolokBossEntity_ModifyDesiredLookAngleDelegate.h>
+#include <Modloader/app/structs/KwolokBossEntity_Phases__Enum.h>
+#include <Modloader/app/structs/KwolokBossBehaviourZones.h>
+#include <Modloader/app/structs/KwolokBossEntity_OnDamageReceivedDelegate.h>
+#include <Modloader/app/structs/KwolokBossEntity_ModifyCameraTargetsDelegate.h>
+#include <Modloader/app/structs/List_1_KwolokBossBaseBehaviour_.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/KwolokBossLocomotion.h>
+#include <Modloader/app/structs/KwolokBossBaseBehaviour.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::KwolokBossEntity {
     IL2CPP_REGISTER_METHOD(0x012D70E0, app::Collider__Array*, get_AllColliders, (app::KwolokBossEntity * this_ptr))

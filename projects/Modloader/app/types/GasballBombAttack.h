@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GasballBombAttack__Class.h>
+#include <Modloader/app/structs/GasballBombAttack.h>
 
 namespace app::classes::types {
     namespace GasballBombAttack {

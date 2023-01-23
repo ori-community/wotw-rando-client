@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebProxy.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/ICredentials.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/AutoWebProxyScriptEngine.h>
+#include <Modloader/app/structs/IWebProxy.h>
+#include <Modloader/app/structs/WebProxyData.h>
+#include <Modloader/app/structs/ProxyChain.h>
+#include <Modloader/app/structs/Uri__Array.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 
 namespace app::classes::System::Net::WebProxy {
     IL2CPP_REGISTER_METHOD(0x01D805A0, void, ctor_1, (app::WebProxy * this_ptr))

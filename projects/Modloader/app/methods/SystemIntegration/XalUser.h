@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XalUser.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XalUser_1.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Task_1_System_Boolean_.h>
+#include <Modloader/app/structs/Task_1_System_Byte_.h>
+#include <Modloader/app/structs/XalUserGetTokenAndSignatureArgs.h>
+#include <Modloader/app/structs/Action_1_Microsoft_Xbox_Services_Xal_XalUserGetTokenAndSignatureData_.h>
+#include <Modloader/app/structs/Action_1_Int32_.h>
 
 namespace app::classes::SystemIntegration::XalUser {
     IL2CPP_REGISTER_METHOD(0x00CDE930, uint64_t, get_Id, (app::XalUser * this_ptr))

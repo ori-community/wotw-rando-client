@@ -27,6 +27,7 @@
 #include <Modloader/app/types/MoonGuid.h>
 #include <Modloader/app/types/AreaMapIconManager.h>
 #include <Modloader/app/types/Renderer.h>
+#include <Modloader/app/structs/Boolean__Boxed.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>

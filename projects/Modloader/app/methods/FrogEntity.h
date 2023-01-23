@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FrogEntity.h>
+#include <Modloader/app/structs/FrogGroup.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::FrogEntity {
     IL2CPP_REGISTER_METHOD(0x01646F60, bool, CanAnySeeCharacter, (app::FrogEntity * this_ptr))

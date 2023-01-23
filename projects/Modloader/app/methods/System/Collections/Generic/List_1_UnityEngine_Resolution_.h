@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Resolution_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Resolution_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Resolution_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Resolution.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_Resolution_.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_Resolution_.h>
+#include <Modloader/app/structs/Resolution__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_Resolution_.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Resolution_.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Resolution_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_Resolution_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_Resolution_ {
     IL2CPP_REGISTER_METHOD(0x02EE42B0, void, ctor_1, (app::List_1_UnityEngine_Resolution_ * this_ptr, app::IEnumerable_1_UnityEngine_Resolution_* collection))

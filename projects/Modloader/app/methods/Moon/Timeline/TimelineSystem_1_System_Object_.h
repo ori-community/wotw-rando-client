@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/TimelineSystem_1_System_Object_.h>
 
 namespace app::classes::Moon::Timeline::TimelineSystem_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02AF3ED0, app::Object*, get_Instance, ())

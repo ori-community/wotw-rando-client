@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
 
 namespace app::classes::System::Xml::XmlNamespaceManager {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::XmlNamespaceManager * this_ptr))

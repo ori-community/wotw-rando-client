@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AggregateNode.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/FunctionId__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_System_Data_DataColumn_.h>
+#include <Modloader/app/structs/DataRelation.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/ExpressionNode.h>
 
 namespace app::classes::System::Data::AggregateNode {
     IL2CPP_REGISTER_METHOD(0x02148550, void, ctor_1, (app::AggregateNode * this_ptr, app::DataTable* table, app::FunctionId__Enum aggregate_type, app::String* column_name))

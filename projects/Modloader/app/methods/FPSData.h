@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FPSData.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/RecorderFrame_FrameDataTypes__Enum.h>
 
 namespace app::classes::FPSData {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Initialize, (app::FPSData * this_ptr))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EventBatchingStage_GetInputConsumingEnumerable_d_19__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EventBatchingStage_GetInputConsumingEnumerable_d_19__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EventBatchingStage_GetInputConsumingEnumerable_d_19__Fields_DEFINED)
+#define IL2CPP_STRUCT_EventBatchingStage_GetInputConsumingEnumerable_d_19__Fields_DEFINED
+struct IPlayFabEmitEventRequest;
+struct EventBatchingStage;
+struct __declspec(align(8)) EventBatchingStage_GetInputConsumingEnumerable_d_19__Fields {
+    int32_t __1__state;
+    struct IPlayFabEmitEventRequest* __2__current;
+    int32_t __l__initialThreadId;
+    struct EventBatchingStage* __4__this;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_EventBatchingStage_GetInputConsumingEnumerable_d_19__Fields_FWDDECL)
+#define IL2CPP_STRUCT_EventBatchingStage_GetInputConsumingEnumerable_d_19__Fields_FWDDECL
+#include <Modloader/app/structs/EventBatchingStage.h>
+#include <Modloader/app/structs/IPlayFabEmitEventRequest.h>
+#endif
+#undef IL2CPP_STRUCT_EventBatchingStage_GetInputConsumingEnumerable_d_19__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EventBatchingStage_GetInputConsumingEnumerable_d_19__Fields_DEFINED) && !defined(IL2CPP_STRUCT_EventBatchingStage_GetInputConsumingEnumerable_d_19__Fields_FWDDECL)
+#include <Modloader/app/structs/EventBatchingStage_GetInputConsumingEnumerable_d_19__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EventBatchingStage_GetInputConsumingEnumerable_d_19__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

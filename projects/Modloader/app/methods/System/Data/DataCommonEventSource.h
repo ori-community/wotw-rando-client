@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataCommonEventSource.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/MappingType__Enum.h>
+#include <Modloader/app/structs/SchemaFormat__Enum.h>
+#include <Modloader/app/structs/XmlReadMode__Enum.h>
+#include <Modloader/app/structs/XmlWriteMode__Enum.h>
+#include <Modloader/app/structs/MissingSchemaAction__Enum.h>
+#include <Modloader/app/structs/DataViewRowState__Enum.h>
+#include <Modloader/app/structs/ListChangedType__Enum.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::System::Data::DataCommonEventSource {
     IL2CPP_REGISTER_METHOD(0x0239ECF0, void, Trace_1, (app::DataCommonEventSource * this_ptr, app::String* message))

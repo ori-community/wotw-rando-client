@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_Moon_MoonAnimator_AnimatorPostprocessData___Boxed.h>
+#include <Modloader/app/structs/MoonAnimator_AnimatorPostprocessData.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_Moon_MoonAnimator_AnimatorPostprocessData_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_Moon_MoonAnimator_AnimatorPostprocessData_ {
     IL2CPP_REGISTER_METHOD(0x0011E7F0, void, ctor, (app::Nullable_1_Moon_MoonAnimator_AnimatorPostprocessData___Boxed * this_ptr, app::MoonAnimator_AnimatorPostprocessData value))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AudioListener.h>
+#include <Modloader/app/structs/PropertyName.h>
+#include <Modloader/app/structs/AudioListenerExtension.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::UnityEngine::AudioListener {
     IL2CPP_REGISTER_METHOD(0x03140E60, int32_t, GetNumExtensionProperties, (app::AudioListener * this_ptr))

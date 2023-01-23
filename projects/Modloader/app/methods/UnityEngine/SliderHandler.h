@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SliderHandler__Boxed.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/EventType__Enum.h>
+#include <Modloader/app/structs/Event.h>
+#include <Modloader/app/structs/SliderState.h>
 
 namespace app::classes::UnityEngine::SliderHandler {
     IL2CPP_REGISTER_METHOD(0x00218FB0, void, ctor, (app::SliderHandler__Boxed * this_ptr, app::Rect position, float current_value, float size, float start, float end, app::GUIStyle* slider, app::GUIStyle* thumb, bool horiz, int32_t id))

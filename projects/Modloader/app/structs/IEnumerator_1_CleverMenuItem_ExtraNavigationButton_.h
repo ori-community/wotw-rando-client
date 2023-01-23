@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_CleverMenuItem_ExtraNavigationButton__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_CleverMenuItem_ExtraNavigationButton__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_CleverMenuItem_ExtraNavigationButton__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_CleverMenuItem_ExtraNavigationButton__DEFINED
+struct IEnumerator_1_CleverMenuItem_ExtraNavigationButton___Class;
+struct IEnumerator_1_CleverMenuItem_ExtraNavigationButton_ {
+    struct IEnumerator_1_CleverMenuItem_ExtraNavigationButton___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_CleverMenuItem_ExtraNavigationButton__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_CleverMenuItem_ExtraNavigationButton__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_CleverMenuItem_ExtraNavigationButton___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_CleverMenuItem_ExtraNavigationButton__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_CleverMenuItem_ExtraNavigationButton__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_CleverMenuItem_ExtraNavigationButton__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_CleverMenuItem_ExtraNavigationButton_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_CleverMenuItem_ExtraNavigationButton_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

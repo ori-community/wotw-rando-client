@@ -1,0 +1,24 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7_DEFINED)
+#define IL2CPP_STRUCT_RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7_DEFINED
+struct RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7 {
+    int32_t FixedElementField;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7_FWDDECL)
+#define IL2CPP_STRUCT_RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7_DEFINED) && !defined(IL2CPP_STRUCT_RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7_FWDDECL)
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CoalesceConversionBinaryExpression.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/LambdaExpression.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::CoalesceConversionBinaryExpression {
     IL2CPP_REGISTER_METHOD(0x01FA1100, void, ctor, (app::CoalesceConversionBinaryExpression * this_ptr, app::Expression* left, app::Expression* right, app::LambdaExpression* conversion))

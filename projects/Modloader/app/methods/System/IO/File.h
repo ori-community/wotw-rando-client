@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FileStream.h>
+#include <Modloader/app/structs/StreamWriter.h>
+#include <Modloader/app/structs/FileAttributes__Enum.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/FileMode__Enum.h>
+#include <Modloader/app/structs/FileAccess__Enum.h>
+#include <Modloader/app/structs/FileShare__Enum.h>
+#include <Modloader/app/structs/StreamReader.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/MonoIOStat.h>
 
 namespace app::classes::System::IO::File {
     IL2CPP_REGISTER_METHOD(0x01E05270, void, Copy_1, (app::String * source_file_name, app::String* dest_file_name))

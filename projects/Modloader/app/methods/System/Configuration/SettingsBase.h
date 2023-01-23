@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SettingsBase.h>
+#include <Modloader/app/structs/SettingsContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SettingsPropertyCollection.h>
+#include <Modloader/app/structs/SettingsPropertyValueCollection.h>
+#include <Modloader/app/structs/SettingsProviderCollection.h>
 
 namespace app::classes::System::Configuration::SettingsBase {
     IL2CPP_REGISTER_METHOD(0x02962950, void, ctor, (app::SettingsBase * this_ptr))

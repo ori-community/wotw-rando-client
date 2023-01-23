@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecorderOutputAnimatorEntity.h>
+#include <Modloader/app/structs/UpdateCategory__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Timeline::RecorderOutputAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x0077EA90, void, ResetStatics, ())

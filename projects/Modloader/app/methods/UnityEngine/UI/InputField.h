@@ -1,5 +1,33 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InputField.h>
+#include <Modloader/app/structs/BaseInput.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/TextGenerator.h>
+#include <Modloader/app/structs/Text.h>
+#include <Modloader/app/structs/Graphic.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/InputField_SubmitEvent.h>
+#include <Modloader/app/structs/InputField_OnChangeEvent.h>
+#include <Modloader/app/structs/InputField_OnValidateInput.h>
+#include <Modloader/app/structs/InputField_ContentType__Enum.h>
+#include <Modloader/app/structs/InputField_LineType__Enum.h>
+#include <Modloader/app/structs/InputField_InputType__Enum.h>
+#include <Modloader/app/structs/TouchScreenKeyboard.h>
+#include <Modloader/app/structs/TouchScreenKeyboardType__Enum.h>
+#include <Modloader/app/structs/InputField_CharacterValidation__Enum.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/InputField_EditState__Enum.h>
+#include <Modloader/app/structs/Event.h>
+#include <Modloader/app/structs/BaseEventData.h>
+#include <Modloader/app/structs/CanvasUpdate__Enum.h>
+#include <Modloader/app/structs/VertexHelper.h>
+#include <Modloader/app/structs/InputField_ContentType__Enum__Array.h>
+#include <Modloader/app/structs/Selectable_SelectionState__Enum.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UnityEngine::UI::InputField {
     IL2CPP_REGISTER_METHOD(0x024C0BE0, void, ctor, (app::InputField * this_ptr))

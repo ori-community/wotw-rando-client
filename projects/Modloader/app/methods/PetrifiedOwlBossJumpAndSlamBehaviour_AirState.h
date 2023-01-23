@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossJumpAndSlamBehaviour_AirState.h>
+#include <Modloader/app/structs/PetrifiedOwlBossJumpAndSlamBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossJumpAndSlamBehaviour_AirState {
     IL2CPP_REGISTER_METHOD(0x01774C40, void, ctor, (app::PetrifiedOwlBossJumpAndSlamBehaviour_AirState * this_ptr, app::PetrifiedOwlBossJumpAndSlamBehaviour* behaviour))

@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XUserHandle_1.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/XAsyncBlockPtr.h>
+#include <Modloader/app/structs/XGameSaveProviderHandle_1.h>
+#include <Modloader/app/structs/XGameSaveContainerHandle_1.h>
+#include <Modloader/app/structs/XGameSaveBlobInfoCallback.h>
+#include <Modloader/app/structs/SizeT.h>
+#include <Modloader/app/structs/XGameSaveUpdateHandle_1.h>
+#include <Modloader/app/structs/XUserAddOptions__Enum.h>
+#include <Modloader/app/structs/XUserGamertagComponent__Enum.h>
+#include <Modloader/app/structs/XUserGamerPictureSize__Enum.h>
+#include <Modloader/app/structs/XUserGetTokenAndSignatureOptions__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XUserGetTokenAndSignatureUtf16HttpHeader_1__Array.h>
+#include <Modloader/app/structs/void.h>
+#include <Modloader/app/structs/XTaskQueueHandle.h>
+#include <Modloader/app/structs/XUserChangeEventCallback_1.h>
+#include <Modloader/app/structs/XTaskQueueRegistrationToken.h>
+#include <Modloader/app/structs/XTaskQueueDispatchMode__Enum.h>
+#include <Modloader/app/structs/XTaskQueuePort__Enum.h>
 
 namespace app::classes::XGamingRuntime::Interop::XGRInterop {
     IL2CPP_REGISTER_METHOD(0x030B18E0, int32_t, XGameSaveInitializeProviderAsync, (app::XUserHandle_1 user_context, app::Byte__Array* configuration_id, bool sync_on_demand, app::XAsyncBlockPtr async_block))

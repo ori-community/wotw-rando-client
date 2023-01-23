@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnumMap.h>
+#include <Modloader/app/structs/EnumMap_EnumMapMember__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Int64__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::Serialization::EnumMap {
     IL2CPP_REGISTER_METHOD(0x01C8D8C0, void, ctor, (app::EnumMap * this_ptr, app::EnumMap_EnumMapMember__Array* members, bool is_flags))

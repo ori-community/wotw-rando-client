@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnumSByteTypeInfo_1_System_DateTimeOffset_.h>
+#include <Modloader/app/structs/TraceLoggingMetadataCollector.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EventFieldFormat__Enum.h>
+#include <Modloader/app/structs/TraceLoggingDataCollector.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EnumSByteTypeInfo_1_System_DateTimeOffset_ {
     IL2CPP_REGISTER_METHOD(0x02B8F890, void, WriteMetadata, (app::EnumSByteTypeInfo_1_System_DateTimeOffset_ * this_ptr, app::TraceLoggingMetadataCollector* collector, app::String* name, app::EventFieldFormat__Enum format))

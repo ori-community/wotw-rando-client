@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStateWwiseStateManager_ResetStateData__Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Wwise_UberStateWwiseStateManager_ResetStateData_.h>
+#include <Modloader/app/structs/UberStateWwiseStateManager_ResetStateData.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Wwise_UberStateWwiseStateManager_ResetStateData_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_Wwise_UberStateWwiseStateManager_ResetStateData_ {
     IL2CPP_REGISTER_METHOD(0x02F78560, void, Sort_1, (app::UberStateWwiseStateManager_ResetStateData__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_Wwise_UberStateWwiseStateManager_ResetStateData_* comparer))

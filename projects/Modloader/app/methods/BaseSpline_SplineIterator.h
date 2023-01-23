@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseSpline_SplineIterator.h>
+#include <Modloader/app/structs/BaseSpline.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::BaseSpline_SplineIterator {
     IL2CPP_REGISTER_METHOD(0x00F89440, void, ctor, (app::BaseSpline_SplineIterator * this_ptr, app::BaseSpline* spline, bool reverse, int32_t startidx, int32_t endidx))

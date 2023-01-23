@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MinerThrowAttack.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::MinerThrowAttack {
     IL2CPP_REGISTER_METHOD(0x01450DE0, void, Shoot, (app::MinerThrowAttack * this_ptr))

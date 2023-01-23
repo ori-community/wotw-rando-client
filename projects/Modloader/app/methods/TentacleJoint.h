@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TentacleJoint.h>
+#include <Modloader/app/structs/Action_2_Damage_Int32_.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::TentacleJoint {
     IL2CPP_REGISTER_METHOD(0x010CDB80, void, add_ReceiveDamageCallback, (app::TentacleJoint * this_ptr, app::Action_2_Damage_Int32_* value))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinSpiritShardsSpell.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/AnimationMontageEventContext.h>
+#include <Modloader/app/structs/SeinSpiritShardsSpell_State__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::SeinSpiritShardsSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinSpiritShardsSpell * this_ptr))

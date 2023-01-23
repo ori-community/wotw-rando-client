@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TransparentWallB.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::TransparentWallB {
     IL2CPP_REGISTER_METHOD(0x00B0C830, bool, CanPlaySound, (app::TransparentWallB * this_ptr))

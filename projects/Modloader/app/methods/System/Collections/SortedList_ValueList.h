@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SortedList_ValueList.h>
+#include <Modloader/app/structs/SortedList.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Collections::SortedList_ValueList {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::SortedList_ValueList * this_ptr, app::SortedList* sorted_list))

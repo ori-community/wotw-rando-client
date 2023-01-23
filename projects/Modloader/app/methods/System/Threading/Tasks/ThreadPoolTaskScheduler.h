@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ThreadPoolTaskScheduler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Threading_Tasks_Task_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Threading_IThreadPoolWorkItem_.h>
 
 namespace app::classes::System::Threading::Tasks::ThreadPoolTaskScheduler {
     IL2CPP_REGISTER_METHOD(0x02340880, void, ctor, (app::ThreadPoolTaskScheduler * this_ptr))

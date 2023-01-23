@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_RendererState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_RendererState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_RendererState_DEFINED)
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_RendererState__Fields.h>
+#if defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_RendererState__Fields_DEFINED)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_RendererState_DEFINED
+struct UberShaderAnimatorStrategyExperimental_RendererState__Class;
+struct UberShaderAnimatorStrategyExperimental_RendererState {
+    struct UberShaderAnimatorStrategyExperimental_RendererState__Class* klass;
+    MonitorData* monitor;
+    struct UberShaderAnimatorStrategyExperimental_RendererState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_RendererState_FWDDECL)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_RendererState_FWDDECL
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_RendererState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_RendererState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_RendererState_DEFINED) && !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_RendererState_FWDDECL)
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_RendererState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_RendererState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

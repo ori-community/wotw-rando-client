@@ -3,6 +3,9 @@
 #include <Core/enums/game_event.h>
 #include <Core/utils/event_bus.h>
 #include <Core/macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GameController.h>
+#include <Modloader/app/structs/SaveGameController.h>
 
 namespace game {
     enum class RandoContainer {

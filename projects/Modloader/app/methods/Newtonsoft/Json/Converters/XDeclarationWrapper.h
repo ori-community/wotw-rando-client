@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XDeclaration.h>
+#include <Modloader/app/structs/XDeclarationWrapper.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::XDeclarationWrapper {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::XDeclaration*, get_Declaration, (app::XDeclarationWrapper * this_ptr))

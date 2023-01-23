@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpListenerTimeoutsElement.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
 
 namespace app::classes::System::Net::Configuration::HttpListenerTimeoutsElement {
     IL2CPP_REGISTER_METHOD(0x02019800, void, ctor, (app::HttpListenerTimeoutsElement * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Blur_Dithering2x2.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Blur_Dithering2x2 {
     IL2CPP_REGISTER_METHOD(0x02766390, app::Material*, get_material, (app::CameraFilterPack_Blur_Dithering2x2 * this_ptr))

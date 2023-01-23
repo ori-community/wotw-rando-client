@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConstraintEnumerator.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/Constraint_1.h>
 
 namespace app::classes::System::Data::ConstraintEnumerator {
     IL2CPP_REGISTER_METHOD(0x01E327F0, void, ctor, (app::ConstraintEnumerator * this_ptr, app::DataSet* data_set))

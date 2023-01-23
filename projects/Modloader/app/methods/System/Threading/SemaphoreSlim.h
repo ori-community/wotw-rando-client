@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SemaphoreSlim.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Task_1_System_Boolean_.h>
+#include <Modloader/app/structs/SemaphoreSlim_TaskNode.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Threading::SemaphoreSlim {
     IL2CPP_REGISTER_METHOD(0x0232AD00, int32_t, get_CurrentCount, (app::SemaphoreSlim * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_TV_WideScreenHorizontal.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_TV_WideScreenHorizontal {
     IL2CPP_REGISTER_METHOD(0x020F2750, app::Material*, get_material, (app::CameraFilterPack_TV_WideScreenHorizontal * this_ptr))

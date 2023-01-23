@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProxyElement.h>
+#include <Modloader/app/structs/ProxyElement_AutoDetectValues__Enum.h>
+#include <Modloader/app/structs/ProxyElement_BypassOnLocalValues__Enum.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/ProxyElement_UseSystemDefaultValues__Enum.h>
 
 namespace app::classes::System::Net::Configuration::ProxyElement {
     IL2CPP_REGISTER_METHOD(0x02019FE0, void, ctor, (app::ProxyElement * this_ptr))

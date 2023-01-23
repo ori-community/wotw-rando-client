@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConsoleKeyInfo__Boxed.h>
+#include <Modloader/app/structs/ConsoleKey__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ConsoleKeyInfo.h>
 
 namespace app::classes::System::ConsoleKeyInfo {
     IL2CPP_REGISTER_METHOD(0x001DBE50, void, ctor, (app::ConsoleKeyInfo__Boxed * this_ptr, uint16_t key_char, app::ConsoleKey__Enum key, bool shift, bool alt, bool control))

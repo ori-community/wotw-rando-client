@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossOffLimitsBehaviour.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::PetrifiedOwlBossOffLimitsBehaviour {
     IL2CPP_REGISTER_METHOD(0x0177A4A0, void, CopyData, (app::PetrifiedOwlBossOffLimitsBehaviour * this_ptr, app::PetrifiedOwlBossBaseBehaviour* other))

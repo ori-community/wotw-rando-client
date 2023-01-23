@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BlackboardVariableString__Class.h>
+#include <Modloader/app/structs/BlackboardVariableString.h>
+#include <Modloader/app/structs/BlackboardVariableString__Array.h>
 
 namespace app::classes::types {
     namespace BlackboardVariableString {

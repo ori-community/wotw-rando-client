@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServerPhysicalSystemManager_RigidbodyStateData__Array.h>
+#include <Modloader/app/structs/IComparer_1_ServerPhysicalSystemManager_RigidbodyStateData_.h>
+#include <Modloader/app/structs/ServerPhysicalSystemManager_RigidbodyStateData.h>
+#include <Modloader/app/structs/Comparison_1_ServerPhysicalSystemManager_RigidbodyStateData_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_ServerPhysicalSystemManager_RigidbodyStateData_ {
     IL2CPP_REGISTER_METHOD(0x02FF02B0, void, Sort_1, (app::ServerPhysicalSystemManager_RigidbodyStateData__Array * keys, int32_t index, int32_t length, app::IComparer_1_ServerPhysicalSystemManager_RigidbodyStateData_* comparer))

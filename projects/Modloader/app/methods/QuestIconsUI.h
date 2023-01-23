@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/QuestIconsUI.h>
+#include <Modloader/app/structs/CleverMenuItem.h>
+#include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/QuestIconUI.h>
+#include <Modloader/app/structs/RuntimeQuest.h>
 
 namespace app::classes::QuestIconsUI {
     IL2CPP_REGISTER_METHOD(0x00E88290, app::GameObject*, get_ObjectiveMarker, (app::QuestIconsUI * this_ptr))

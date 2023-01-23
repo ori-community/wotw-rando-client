@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityBehaviourDebugData.h>
+#include <Modloader/app/structs/EntityBehaviour.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/List_1_Moon_IEntityBehaviour_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus_.h>
+#include <Modloader/app/structs/EntityOwnedInitOrder__Enum.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/IEntityBehaviour.h>
 
 namespace app::classes::Moon::EntityBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FBB80, app::EntityBehaviourDebugData*, get_DebugData, (app::EntityBehaviour * this_ptr))

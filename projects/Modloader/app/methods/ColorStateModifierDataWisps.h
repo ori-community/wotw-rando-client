@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/ColorStateModifierDataWisps.h>
+#include <Modloader/app/structs/ColorAnimator_ColorType__Enum.h>
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_System_Type_.h>
 
 namespace app::classes::ColorStateModifierDataWisps {
     IL2CPP_REGISTER_METHOD(0x012D3960, app::Color, get_Color, (app::ColorStateModifierDataWisps * this_ptr))

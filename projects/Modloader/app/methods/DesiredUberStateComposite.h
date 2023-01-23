@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DesiredUberStateComposite.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/List_1_Moon_IUberState_.h>
+#include <Modloader/app/structs/IDesiredUberState__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::DesiredUberStateComposite {
     IL2CPP_REGISTER_METHOD(0x01B58540, void, WriteDesiredStates, (app::DesiredUberStateComposite * this_ptr))

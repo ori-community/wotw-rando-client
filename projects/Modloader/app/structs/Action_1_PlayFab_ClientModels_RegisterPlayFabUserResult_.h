@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult__DEFINED)
+#include <Modloader/app/structs/Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult___Fields.h>
+#if defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult___Fields_DEFINED)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult__DEFINED
+struct Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult___Class;
+struct Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult_ {
+    struct Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult___Class* klass;
+    MonitorData* monitor;
+    struct Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult__FWDDECL)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult__FWDDECL
+#include <Modloader/app/structs/Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult__DEFINED) && !defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult__FWDDECL)
+#include <Modloader/app/structs/Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Action_1_PlayFab_ClientModels_RegisterPlayFabUserResult_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

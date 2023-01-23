@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GuidPtr__Class.h>
+#include <Modloader/app/structs/GuidPtr.h>
 
 namespace app::classes::types {
     namespace GuidPtr {

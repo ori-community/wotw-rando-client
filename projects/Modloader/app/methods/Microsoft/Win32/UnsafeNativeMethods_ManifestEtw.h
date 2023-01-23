@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_EtwEnableCallback.h>
+#include <Modloader/app/structs/Void.h>
+#include <Modloader/app/structs/EventDescriptor.h>
+#include <Modloader/app/structs/EventProvider_EventData.h>
+#include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_ActivityControl__Enum.h>
+#include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_EVENT_INFO_CLASS__Enum.h>
+#include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_TRACE_QUERY_INFO_CLASS__Enum.h>
 
 namespace app::classes::Microsoft::Win32::UnsafeNativeMethods_ManifestEtw {
     IL2CPP_REGISTER_METHOD(0x023B70F0, uint32_t, EventRegister, (app::Guid * provider_id, app::UnsafeNativeMethods_ManifestEtw_EtwEnableCallback* enable_callback, app::Void* callback_context, int64_t* registration_handle))

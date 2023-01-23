@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Angle.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Ray.h>
 
 namespace app::classes::Swing::Math2d {
     IL2CPP_REGISTER_METHOD(0x0182B520, float, getAngle, (app::Vector2 _vector))

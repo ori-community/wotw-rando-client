@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Tuple_4_Boolean_Boolean_Boolean_Boolean_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::Tuple_4_Boolean_Boolean_Boolean_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x0052B590, bool, get_Item1, (app::Tuple_4_Boolean_Boolean_Boolean_Boolean_ * this_ptr))

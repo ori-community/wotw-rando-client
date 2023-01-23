@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AVProWindowsMediaMaterialApply.h>
+#include <Modloader/app/structs/Texture.h>
 
 namespace app::classes::AVProWindowsMediaMaterialApply {
     IL2CPP_REGISTER_METHOD(0x0312D7F0, void, CreateTexture, ())

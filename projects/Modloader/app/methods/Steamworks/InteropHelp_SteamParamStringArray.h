@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteropHelp_SteamParamStringArray.h>
+#include <Modloader/app/structs/IList_1_System_String_.h>
 
 namespace app::classes::Steamworks::InteropHelp_SteamParamStringArray {
     IL2CPP_REGISTER_METHOD(0x015FFDD0, void, ctor, (app::InteropHelp_SteamParamStringArray * this_ptr, app::IList_1_System_String_* strings))

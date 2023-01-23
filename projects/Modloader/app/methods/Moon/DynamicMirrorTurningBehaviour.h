@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SplitTurnAnimation.h>
+#include <Modloader/app/structs/DynamicMirrorTurningBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::DynamicMirrorTurningBehaviour {
     IL2CPP_REGISTER_METHOD(0x01207370, app::SplitTurnAnimation*, get_CurrentMirrorTurningAnimation, (app::DynamicMirrorTurningBehaviour * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonShadingZoneController_TargetData.h>
+#include <Modloader/app/structs/List_1_MoonShadingZoneController_TargetData_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_MoonShadingZoneController_TargetData_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::MoonShadingZoneController_TargetData*, get_Item, (app::List_1_MoonShadingZoneController_TargetData_ * this_ptr, int32_t index))

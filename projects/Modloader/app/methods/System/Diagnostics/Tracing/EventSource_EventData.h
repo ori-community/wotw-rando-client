@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EventSource_EventData__Boxed.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EventSource_EventData {
     IL2CPP_REGISTER_METHOD(0x00107C00, void*, get_DataPointer, (app::EventSource_EventData__Boxed * this_ptr))

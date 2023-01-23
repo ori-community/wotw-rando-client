@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArmouredRammingEnemy_c.h>
+#include <Modloader/app/structs/LegacyEntity.h>
 
 namespace app::classes::ArmouredRammingEnemy___c {
     IL2CPP_REGISTER_METHOD(0x0083FBF0, void, cctor, ())

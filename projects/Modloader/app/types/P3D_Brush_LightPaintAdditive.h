@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/P3D_Brush_LightPaintAdditive__Class.h>
+#include <Modloader/app/structs/P3D_Brush_LightPaintAdditive.h>
 
 namespace app::classes::types {
     namespace P3D_Brush_LightPaintAdditive {

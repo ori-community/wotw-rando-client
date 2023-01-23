@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpConnection.h>
+#include <Modloader/app/structs/Socket.h>
+#include <Modloader/app/structs/EndPointListener.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/SslStream.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/X509Certificate2.h>
+#include <Modloader/app/structs/IPEndPoint.h>
+#include <Modloader/app/structs/ListenerPrefix.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RequestStream.h>
+#include <Modloader/app/structs/ResponseStream.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/MemoryStream.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/X509Chain.h>
+#include <Modloader/app/structs/SslPolicyErrors__Enum.h>
 
 namespace app::classes::System::Net::HttpConnection {
     IL2CPP_REGISTER_METHOD(0x01D3DAA0, void, ctor, (app::HttpConnection * this_ptr, app::Socket* sock, app::EndPointListener* epl, bool secure, app::X509Certificate_1* cert))

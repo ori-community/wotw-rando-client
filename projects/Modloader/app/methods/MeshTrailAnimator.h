@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeshTrail.h>
+#include <Modloader/app/structs/MeshTrailAnimator.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::MeshTrailAnimator {
     IL2CPP_REGISTER_METHOD(0x031119D0, app::MeshTrail*, get_MeshTrail, (app::MeshTrailAnimator * this_ptr))

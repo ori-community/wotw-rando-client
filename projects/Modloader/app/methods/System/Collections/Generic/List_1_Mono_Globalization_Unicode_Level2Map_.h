@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Mono_Globalization_Unicode_Level2Map_.h>
+#include <Modloader/app/structs/Level2Map.h>
+#include <Modloader/app/structs/Comparison_1_Mono_Globalization_Unicode_Level2Map_.h>
+#include <Modloader/app/structs/Level2Map__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Mono_Globalization_Unicode_Level2Map_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_Mono_Globalization_Unicode_Level2Map_ * this_ptr))

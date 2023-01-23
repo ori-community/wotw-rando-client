@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TouchWalls_EffectorLink.h>
+#include <Modloader/app/structs/InteractionSystem.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
+#include <Modloader/app/structs/InteractionObject.h>
 
 namespace app::classes::RootMotion::Demos::TouchWalls_EffectorLink {
     IL2CPP_REGISTER_METHOD(0x02047870, void, Initiate, (app::TouchWalls_EffectorLink * this_ptr, app::InteractionSystem* interaction_system))

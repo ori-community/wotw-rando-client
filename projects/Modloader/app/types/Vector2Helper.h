@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Vector2Helper__Class.h>
+#include <Modloader/app/structs/Vector2Helper.h>
 
 namespace app::classes::types {
     namespace Vector2Helper {

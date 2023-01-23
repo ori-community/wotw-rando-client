@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DefaultEventAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::DefaultEventAttribute {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::DefaultEventAttribute * this_ptr, app::String* name))

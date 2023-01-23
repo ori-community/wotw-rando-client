@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DateTimeOffset__Array.h>
+#include <Modloader/app/structs/IComparer_1_System_DateTimeOffset_.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Comparison_1_DateTimeOffset_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_System_DateTimeOffset_ {
     IL2CPP_REGISTER_METHOD(0x02FFD140, void, Sort_1, (app::DateTimeOffset__Array * keys, int32_t index, int32_t length, app::IComparer_1_System_DateTimeOffset_* comparer))

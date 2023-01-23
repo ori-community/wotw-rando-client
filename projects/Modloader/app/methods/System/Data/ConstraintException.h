@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConstraintException.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Data::ConstraintException {
     IL2CPP_REGISTER_METHOD(0x02392380, void, ctor_1, (app::ConstraintException * this_ptr, app::SerializationInfo* info, app::StreamingContext context))

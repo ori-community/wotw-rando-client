@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinUIEntity.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::SeinUIEntity {
     IL2CPP_REGISTER_METHOD(0x00405F50, bool, get_Show, (app::SeinUIEntity * this_ptr))

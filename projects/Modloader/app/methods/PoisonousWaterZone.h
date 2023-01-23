@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PoisonousWaterZone.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MetaballRenderer_IMetaball.h>
 
 namespace app::classes::PoisonousWaterZone {
     IL2CPP_REGISTER_METHOD(0x00C57630, bool, get_IsPlayerInside, (app::PoisonousWaterZone * this_ptr))

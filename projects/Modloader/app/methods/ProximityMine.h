@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/ProximityMine.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::ProximityMine {
     IL2CPP_REGISTER_METHOD(0x00C7FA90, app::SeinCharacter*, get_Sein, (app::ProximityMine * this_ptr))

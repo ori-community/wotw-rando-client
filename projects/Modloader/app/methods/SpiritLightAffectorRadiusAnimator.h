@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiritLightAffectorRadiusAnimator.h>
 
 namespace app::classes::SpiritLightAffectorRadiusAnimator {
     IL2CPP_REGISTER_METHOD(0x004167A0, bool, get_IsLooping, (app::SpiritLightAffectorRadiusAnimator * this_ptr))

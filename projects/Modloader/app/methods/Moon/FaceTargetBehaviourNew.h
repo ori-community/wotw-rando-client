@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/FaceTargetBehaviourNew.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::FaceTargetBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x00E2D530, app::Vector3, get_TargetPosition, (app::FaceTargetBehaviourNew * this_ptr))

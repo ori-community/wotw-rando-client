@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SpellUIEquipScreen_c_DisplayClass84_0__Class.h>
+#include <Modloader/app/structs/SpellUIEquipScreen_c_DisplayClass84_0.h>
 
 namespace app::classes::types {
     namespace SpellUIEquipScreen_c_DisplayClass84_0 {

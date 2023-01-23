@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AchievementsUISynchronizer_SynchronizationState__Enum__Class.h>
+#include <Modloader/app/structs/AchievementsUISynchronizer_SynchronizationState__Enum.h>
 
 namespace app::classes::types {
     namespace AchievementsUISynchronizer_SynchronizationState__Enum {

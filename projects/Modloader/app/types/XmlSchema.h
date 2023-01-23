@@ -2,6 +2,11 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlSchema__Class.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlSchema__Array.h>
+#include <Modloader/app/structs/XMLSchema__Class.h>
+#include <Modloader/app/structs/XMLSchema.h>
 
 namespace app::classes::types {
     namespace XmlSchema {
@@ -24,18 +29,4 @@ namespace app::classes::types {
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
-
-namespace app::classes::types {
-    namespace XMLSchema {
-        namespace {
-            inline app::XMLSchema__Class* type_info_ref = nullptr;
-        }
-        inline app::XMLSchema__Class** type_info = &type_info_ref;
-        inline app::XMLSchema__Class* get_class() {
-            return il2cpp::get_class<app::XMLSchema__Class>(type_info, "System.Data", "XMLSchema");
-        }
-        inline app::XMLSchema* create() {
-            return il2cpp::create_object<app::XMLSchema>(get_class());
-        }
-    } // namespace XMLSchema
-} // namespace app::classes::types
+

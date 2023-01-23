@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TurbulenceTranslationModifier.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 
 namespace app::classes::TurbulenceTranslationModifier {
     IL2CPP_REGISTER_METHOD(0x013D6150, void, OnPresetCreation, (app::TurbulenceTranslationModifier * this_ptr))

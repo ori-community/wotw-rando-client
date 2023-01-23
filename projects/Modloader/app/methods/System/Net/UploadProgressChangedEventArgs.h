@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UploadProgressChangedEventArgs.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::UploadProgressChangedEventArgs {
     IL2CPP_REGISTER_METHOD(0x020ACF70, void, ctor_1, (app::UploadProgressChangedEventArgs * this_ptr, int32_t progress_percentage, app::Object* user_token, int64_t bytes_sent, int64_t total_bytes_to_send, int64_t bytes_received, int64_t total_bytes_to_receive))

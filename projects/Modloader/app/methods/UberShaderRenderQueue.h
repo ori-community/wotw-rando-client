@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderComponent.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::UberShaderRenderQueue {
     IL2CPP_REGISTER_METHOD(0x0191B0B0, double, GetUberComponentZ, (app::UberShaderComponent * component))

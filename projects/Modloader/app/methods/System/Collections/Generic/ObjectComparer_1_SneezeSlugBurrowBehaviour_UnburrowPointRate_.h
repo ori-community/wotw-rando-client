@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_.h>
+#include <Modloader/app/structs/SneezeSlugBurrowBehaviour_UnburrowPointRate.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_ {
     IL2CPP_REGISTER_METHOD(0x01CC93D0, int32_t, Compare, (app::ObjectComparer_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_ * this_ptr, app::SneezeSlugBurrowBehaviour_UnburrowPointRate x, app::SneezeSlugBurrowBehaviour_UnburrowPointRate y))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DeflateStreamAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::Unity::IO::Compression::DeflateStreamAsyncResult {
     IL2CPP_REGISTER_METHOD(0x02B75330, void, ctor, (app::DeflateStreamAsyncResult * this_ptr, app::Object* async_object, app::Object* async_state, app::AsyncCallback* async_callback, app::Byte__Array* buffer, int32_t offset, int32_t count))

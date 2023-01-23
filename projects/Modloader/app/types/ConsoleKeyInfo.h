@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ConsoleKeyInfo__Class.h>
+#include <Modloader/app/structs/ConsoleKeyInfo.h>
+#include <Modloader/app/structs/ConsoleKeyInfo__Boxed.h>
 
 namespace app::classes::types {
     namespace ConsoleKeyInfo {

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValleyOfTheWindKuroDeathZone.h>
 
 namespace app::classes::ValleyOfTheWindKuroDeathZone {
     IL2CPP_REGISTER_METHOD(0x013B7DD0, void, Start, (app::ValleyOfTheWindKuroDeathZone * this_ptr))

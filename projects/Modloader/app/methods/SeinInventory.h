@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinInventory.h>
+#include <Modloader/app/structs/PlayerUberStateInventory.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SeinCharacter.h>
 
 namespace app::classes::SeinInventory {
     IL2CPP_REGISTER_METHOD(0x01014320, int32_t, get_Keystones, (app::SeinInventory * this_ptr))

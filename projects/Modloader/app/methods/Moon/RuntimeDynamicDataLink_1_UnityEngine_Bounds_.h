@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeDynamicDataLink_1_UnityEngine_Bounds_.h>
+#include <Modloader/app/structs/DynamicDataLinkSerializedData.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IMoonResolverContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::RuntimeDynamicDataLink_1_UnityEngine_Bounds_ {
     IL2CPP_REGISTER_METHOD(0x029115B0, bool, Init, (app::RuntimeDynamicDataLink_1_UnityEngine_Bounds_ * this_ptr, app::DynamicDataLinkSerializedData data, app::MemberInfo_1* member_info))

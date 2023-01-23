@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArtOptimizerDataContainer_c.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_ArtOptimization_SerializableUberSaderModifierWrapper_.h>
+#include <Modloader/app/structs/SerializableUberShaderWrapper.h>
+#include <Modloader/app/structs/SerializableUberSaderModifierWrapper.h>
 
 namespace app::classes::Moon::ArtOptimization::ArtOptimizerDataContainer___c {
     IL2CPP_REGISTER_METHOD(0x01347160, void, cctor, ())

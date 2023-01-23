@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LimitedLifetime.h>
 
 namespace app::classes::LimitedLifetime {
     IL2CPP_REGISTER_METHOD(0x00FA4B90, void, OnPoolSpawned, (app::LimitedLifetime * this_ptr))

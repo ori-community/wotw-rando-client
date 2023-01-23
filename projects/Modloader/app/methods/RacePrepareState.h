@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RacePrepareState.h>
+#include <Modloader/app/structs/RaceSystem.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/RaceConfiguration.h>
 
 namespace app::classes::RacePrepareState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::RacePrepareState * this_ptr, app::RaceSystem* race_system))

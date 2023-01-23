@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EquipmentWheel_c.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::EquipmentWheel___c {
     IL2CPP_REGISTER_METHOD(0x00981200, void, cctor, ())

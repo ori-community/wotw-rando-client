@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MainThreadWorkStealer_WorkStealingMode__Enum.h>
+#include <Modloader/app/structs/MainThreadWorkStealer_TimeBudgetMode__Enum.h>
+#include <Modloader/app/structs/PlayerLoopSystem.h>
+#include <Modloader/app/structs/MainThreadWorkStealer.h>
 
 namespace app::classes::usedStandaloneScripts::MainThreadWorkStealer {
     IL2CPP_REGISTER_METHOD(0x03125FF0, app::MainThreadWorkStealer_WorkStealingMode__Enum, get_StealingMode, ())

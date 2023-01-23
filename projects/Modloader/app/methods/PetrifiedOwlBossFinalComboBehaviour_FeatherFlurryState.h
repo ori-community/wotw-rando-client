@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState {
     IL2CPP_REGISTER_METHOD(0x0176FFA0, void, ctor, (app::PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState * this_ptr, app::PetrifiedOwlBossFinalComboBehaviour* behaviour))

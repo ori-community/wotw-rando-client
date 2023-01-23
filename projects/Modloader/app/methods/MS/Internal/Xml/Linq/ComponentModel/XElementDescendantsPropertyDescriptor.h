@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XElementDescendantsPropertyDescriptor.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XObjectChangeEventArgs.h>
 
 namespace app::classes::MS::Internal::Xml::Linq::ComponentModel::XElementDescendantsPropertyDescriptor {
     IL2CPP_REGISTER_METHOD(0x03029930, void, ctor, (app::XElementDescendantsPropertyDescriptor * this_ptr))

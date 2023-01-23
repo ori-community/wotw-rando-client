@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MortarEntity_AimVeloCache_Grid.h>
+#include <Modloader/app/structs/MortarEntity_AimVeloCache_Packer.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MortarEntity_AimVeloCache_EntityParams.h>
 
 namespace app::classes::MortarEntity_AimVeloCache_Grid {
     IL2CPP_REGISTER_METHOD(0x0147BA80, bool, get_ShouldUnpack, (app::MortarEntity_AimVeloCache_Grid * this_ptr))

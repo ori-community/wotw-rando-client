@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GrdkSignInProvider.h>
+#include <Modloader/app/structs/INetworkConnectivityChecker.h>
+#include <Modloader/app/structs/IPlatformUser.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::SystemIntegration::GrdkSignInProvider {
     IL2CPP_REGISTER_METHOD(0x00514C90, app::GrdkSignInProvider*, get_Instance, ())

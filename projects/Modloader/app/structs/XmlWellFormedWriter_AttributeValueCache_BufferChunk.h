@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XmlWellFormedWriter_AttributeValueCache_BufferChunk_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XmlWellFormedWriter_AttributeValueCache_BufferChunk_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XmlWellFormedWriter_AttributeValueCache_BufferChunk_DEFINED)
+#include <Modloader/app/structs/XmlWellFormedWriter_AttributeValueCache_BufferChunk__Fields.h>
+#if defined(IL2CPP_STRUCT_XmlWellFormedWriter_AttributeValueCache_BufferChunk__Fields_DEFINED)
+#define IL2CPP_STRUCT_XmlWellFormedWriter_AttributeValueCache_BufferChunk_DEFINED
+struct XmlWellFormedWriter_AttributeValueCache_BufferChunk__Class;
+struct XmlWellFormedWriter_AttributeValueCache_BufferChunk {
+    struct XmlWellFormedWriter_AttributeValueCache_BufferChunk__Class* klass;
+    MonitorData* monitor;
+    struct XmlWellFormedWriter_AttributeValueCache_BufferChunk__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_XmlWellFormedWriter_AttributeValueCache_BufferChunk_FWDDECL)
+#define IL2CPP_STRUCT_XmlWellFormedWriter_AttributeValueCache_BufferChunk_FWDDECL
+#include <Modloader/app/structs/XmlWellFormedWriter_AttributeValueCache_BufferChunk__Class.h>
+#endif
+#undef IL2CPP_STRUCT_XmlWellFormedWriter_AttributeValueCache_BufferChunk_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XmlWellFormedWriter_AttributeValueCache_BufferChunk_DEFINED) && !defined(IL2CPP_STRUCT_XmlWellFormedWriter_AttributeValueCache_BufferChunk_FWDDECL)
+#include <Modloader/app/structs/XmlWellFormedWriter_AttributeValueCache_BufferChunk.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XmlWellFormedWriter_AttributeValueCache_BufferChunk.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

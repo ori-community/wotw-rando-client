@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_InstantiateUtility_InstantiateInfo_.h>
 
 namespace app::classes::SimpleGenericPool_1_InstantiateUtility_InstantiateInfo_ {
     IL2CPP_REGISTER_METHOD(0x01D17960, app::SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_, GetInstance, (app::SimpleGenericPool_1_InstantiateUtility_InstantiateInfo_ * this_ptr))

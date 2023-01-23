@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_.h>
+#include <Modloader/app/structs/EventProvider_SessionInfo.h>
+#include <Modloader/app/structs/EventProvider_SessionInfo__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_ {
     IL2CPP_REGISTER_METHOD(0x01CD1020, bool, Equals_1, (app::ObjectEqualityComparer_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_ * this_ptr, app::EventProvider_SessionInfo x, app::EventProvider_SessionInfo y))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CollapsingPlatformAnimator_c.h>
 
 namespace app::classes::CollapsingPlatformAnimator___c {
     IL2CPP_REGISTER_METHOD(0x012CB890, void, cctor, ())

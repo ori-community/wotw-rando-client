@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ServerActionSequence__Class.h>
+#include <Modloader/app/structs/ServerActionSequence.h>
 
 namespace app::classes::types {
     namespace ServerActionSequence {

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MovementProcessor.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Moon::MovementProcessor {
     IL2CPP_REGISTER_METHOD(0x0111CA50, void, SetTargetLocalSpeed, (app::MovementProcessor * this_ptr, app::Vector2 velocity))

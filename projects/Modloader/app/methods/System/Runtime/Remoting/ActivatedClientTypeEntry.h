@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActivatedClientTypeEntry.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IContextAttribute__Array.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Runtime::Remoting::ActivatedClientTypeEntry {
     IL2CPP_REGISTER_METHOD(0x01A97590, void, ctor, (app::ActivatedClientTypeEntry * this_ptr, app::String* type_name, app::String* assembly_name, app::String* app_url))

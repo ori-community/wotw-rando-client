@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokTongueStatue_TongueState.h>
+#include <Modloader/app/structs/KwolokTongueStatue.h>
+#include <Modloader/app/structs/KwolokTongueStatue_KwolowTongueStatueState__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/DesiredUberStateByte.h>
 
 namespace app::classes::KwolokTongueStatue_TongueState {
     IL2CPP_REGISTER_METHOD(0x00EFB0C0, void, ctor, (app::KwolokTongueStatue_TongueState * this_ptr, app::KwolokTongueStatue* owner, app::KwolokTongueStatue_KwolowTongueStatueState__Enum desired_state, app::MoonTimeline* timeline))

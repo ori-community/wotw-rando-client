@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SByteStorage.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/AggregateType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BitArray.h>
 
 namespace app::classes::System::Data::Common::SByteStorage {
     IL2CPP_REGISTER_METHOD(0x0216F1C0, void, ctor, (app::SByteStorage * this_ptr, app::DataColumn* column))

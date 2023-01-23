@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InstantiateUtility_c_DisplayClass30_0__Class.h>
+#include <Modloader/app/structs/InstantiateUtility_c_DisplayClass30_0.h>
 
 namespace app::classes::types {
     namespace InstantiateUtility_c_DisplayClass30_0 {

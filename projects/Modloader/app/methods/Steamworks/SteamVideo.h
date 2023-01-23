@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AppId_t.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::SteamVideo {
     IL2CPP_REGISTER_METHOD(0x027A6430, void, GetVideoURL, (app::AppId_t un_video_app_i_d))

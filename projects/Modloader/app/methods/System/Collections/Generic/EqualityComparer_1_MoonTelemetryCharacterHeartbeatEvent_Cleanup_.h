@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup__Array.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_*, get_Default, ())

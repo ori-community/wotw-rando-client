@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XTaskQueueHandle.h>
+#include <Modloader/app/structs/XTaskQueue.h>
 
 namespace app::classes::XGamingRuntime::Interop::XTaskQueue {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::XTaskQueueHandle, get_handle, (app::XTaskQueue * this_ptr))

@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/ComputeBuffer.h>
+#include <Modloader/app/structs/Vector4__Array.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector4_.h>
 
 namespace app::classes::UnityEngine::Material {
     IL2CPP_REGISTER_METHOD(0x02531050, void, ctor_1, (app::Material * this_ptr, app::Shader* shader))

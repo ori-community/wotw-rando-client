@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IKSolverLimb__Array.h>
+#include <Modloader/app/structs/BipedIKSolvers.h>
+#include <Modloader/app/structs/IKSolver__Array.h>
+#include <Modloader/app/structs/BipedReferences.h>
 
 namespace app::classes::RootMotion::FinalIK::BipedIKSolvers {
     IL2CPP_REGISTER_METHOD(0x020503B0, app::IKSolverLimb__Array*, get_limbs, (app::BipedIKSolvers * this_ptr))

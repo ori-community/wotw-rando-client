@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PropertyTabAttribute.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PropertyTabScope__Enum.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/PropertyTabScope__Enum__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::PropertyTabAttribute {
     IL2CPP_REGISTER_METHOD(0x029975B0, void, ctor_1, (app::PropertyTabAttribute * this_ptr))

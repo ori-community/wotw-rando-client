@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/Action_1_Object_.h>
+#include <Modloader/app/structs/Action_2_Object_Int32_.h>
 
 namespace app::classes::Moon::Extensions::LinqExtensions {
     IL2CPP_REGISTER_METHOD(0x00E7D170, app::IEnumerable_1_System_Object_*, DistinctBy, (app::IEnumerable_1_System_Object_ * source, app::Func_2_Object_Object_* key_selector))

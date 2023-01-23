@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GroundAreaPatrolBehaviourNew_c.h>
 
 namespace app::classes::Moon::GroundAreaPatrolBehaviourNew___c {
     IL2CPP_REGISTER_METHOD(0x0148C330, void, cctor, ())

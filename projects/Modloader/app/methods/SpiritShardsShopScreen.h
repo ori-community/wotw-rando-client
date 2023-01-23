@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/SpiritShardsShopScreen.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
+#include <Modloader/app/structs/SpiritShardUIConfirmationOverlay_Selection__Enum.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/SpellUIItem.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/SpiritShardShopUIItem.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/RTPC.h>
 
 namespace app::classes::SpiritShardsShopScreen {
     IL2CPP_REGISTER_METHOD(0x006B8940, app::CleverMenuItemSelectionManager*, get_NavigationManager, (app::SpiritShardsShopScreen * this_ptr))

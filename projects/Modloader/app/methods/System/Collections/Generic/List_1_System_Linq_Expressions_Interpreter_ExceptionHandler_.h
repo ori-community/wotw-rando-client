@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Linq_Expressions_Interpreter_ExceptionHandler_.h>
+#include <Modloader/app/structs/ExceptionHandler.h>
+#include <Modloader/app/structs/ExceptionHandler__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Linq_Expressions_Interpreter_ExceptionHandler_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_System_Linq_Expressions_Interpreter_ExceptionHandler_ * this_ptr))

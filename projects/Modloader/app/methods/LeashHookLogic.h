@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/LeashHookLogic.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/FloatAnimationParameter.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/LeashHookLogic_State__Enum.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::LeashHookLogic {
     IL2CPP_REGISTER_METHOD(0x002FBC20, app::IMoonSetupAnimator*, get_MoonSetupAnimator, (app::LeashHookLogic * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/HashSet_1_System_Object_.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::Moon::Timeline::TransformExtensions {
     IL2CPP_REGISTER_METHOD(0x0157F160, app::Object*, GetCommonParent_1, (app::Object * left, app::Object* right))

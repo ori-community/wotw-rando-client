@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompilationRelaxationsAttribute.h>
+#include <Modloader/app/structs/CompilationRelaxations__Enum.h>
 
 namespace app::classes::System::Runtime::CompilerServices::CompilationRelaxationsAttribute {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor_1, (app::CompilationRelaxationsAttribute * this_ptr, int32_t relaxations))

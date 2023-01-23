@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
+#include <Modloader/app/structs/CallResult_1_System_Object_.h>
+#include <Modloader/app/structs/CallResult_1_T_APIDispatchDelegate_System_Object_.h>
 
 namespace app::classes::Steamworks::CallResult_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::SteamAPICall_t, get_Handle, (app::CallResult_1_System_Object_ * this_ptr))

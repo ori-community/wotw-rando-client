@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/VideoPlayer_EventHandler__Class.h>
+#include <Modloader/app/structs/VideoPlayer_EventHandler.h>
 
 namespace app::classes::types {
     namespace VideoPlayer_EventHandler {

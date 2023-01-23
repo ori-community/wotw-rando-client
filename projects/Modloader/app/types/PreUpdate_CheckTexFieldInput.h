@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PreUpdate_CheckTexFieldInput__Class.h>
+#include <Modloader/app/structs/PreUpdate_CheckTexFieldInput.h>
+#include <Modloader/app/structs/PreUpdate_CheckTexFieldInput__Boxed.h>
 
 namespace app::classes::types {
     namespace PreUpdate_CheckTexFieldInput {

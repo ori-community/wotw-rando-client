@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuController.h>
+#include <Modloader/app/structs/SeinRide_KuRidingState.h>
+#include <Modloader/app/structs/Ku.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/List_1_EquipmentType_.h>
+#include <Modloader/app/structs/IRideable.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 
 namespace app::classes::SeinRide_KuRidingState {
     IL2CPP_REGISTER_METHOD(0x005D45D0, app::KuController*, get_KuController, (app::SeinRide_KuRidingState * this_ptr))

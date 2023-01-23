@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Authorization.h>
+#include <Modloader/app/structs/NtlmClient.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WebRequest.h>
+#include <Modloader/app/structs/ICredentials.h>
 
 namespace app::classes::Mono::Http::NtlmClient {
     IL2CPP_REGISTER_METHOD(0x02172460, app::Authorization*, Authenticate, (app::NtlmClient * this_ptr, app::String* challenge, app::WebRequest* web_request, app::ICredentials* credentials))

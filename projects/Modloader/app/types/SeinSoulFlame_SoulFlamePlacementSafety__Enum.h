@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinSoulFlame_SoulFlamePlacementSafety__Enum__Class.h>
+#include <Modloader/app/structs/SeinSoulFlame_SoulFlamePlacementSafety__Enum.h>
 
 namespace app::classes::types {
     namespace SeinSoulFlame_SoulFlamePlacementSafety__Enum {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderDictionary_2_System_String_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_String_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::UberShaderDictionary_2_System_String_UnityEngine_Quaternion_ {
     IL2CPP_REGISTER_METHOD(0x0225DBC0, void, ctor, (app::UberShaderDictionary_2_System_String_UnityEngine_Quaternion_ * this_ptr))

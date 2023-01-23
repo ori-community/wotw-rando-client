@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WorldMapOverworldLogic.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::WorldMapOverworldLogic {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnGameReset, (app::WorldMapOverworldLogic * this_ptr))

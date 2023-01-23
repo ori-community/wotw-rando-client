@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameController_c.h>
 
 namespace app::classes::GameController___c {
     IL2CPP_REGISTER_METHOD(0x00699730, void, cctor, ())

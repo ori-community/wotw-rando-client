@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTelemetryCallback.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/SwaggerJSONParser.h>
 
 namespace app::classes::Moon::Telemetry::Web::MoonTelemetryCallback {
     IL2CPP_REGISTER_METHOD(0x02E9A6F0, void, ctor, (app::MoonTelemetryCallback * this_ptr))

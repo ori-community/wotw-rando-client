@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneFPSTest_c.h>
+#include <Modloader/app/structs/SceneManagerScene.h>
 
 namespace app::classes::SceneFPSTest___c {
     IL2CPP_REGISTER_METHOD(0x00B9D4D0, void, cctor, ())

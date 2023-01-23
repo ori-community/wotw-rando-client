@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RunOverride.h>
+#include <Modloader/app/structs/SeinRunPuppet.h>
 
 namespace app::classes::RunOverride {
     IL2CPP_REGISTER_METHOD(0x01373260, void, Override, (app::RunOverride * this_ptr, app::SeinRunPuppet* puppet))

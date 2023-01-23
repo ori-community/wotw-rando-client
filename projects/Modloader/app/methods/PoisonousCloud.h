@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PoisonousCloud.h>
+#include <Modloader/app/structs/CloudAttackSettings.h>
 
 namespace app::classes::PoisonousCloud {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_IsSuspended, (app::PoisonousCloud * this_ptr))

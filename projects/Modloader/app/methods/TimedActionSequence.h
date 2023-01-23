@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimedActionSequence.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::TimedActionSequence {
     IL2CPP_REGISTER_METHOD(0x010F2920, void, Awake, (app::TimedActionSequence * this_ptr))

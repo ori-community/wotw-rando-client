@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Geometry_ISegment_.h>
+#include <Modloader/app/structs/ISegment.h>
+#include <Modloader/app/structs/IEnumerable_1_TriangleNet_Geometry_ISegment_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_TriangleNet_Geometry_ISegment_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_TriangleNet_Geometry_ISegment_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_TriangleNet_Geometry_ISegment_ * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XalHttpHeader__Array.h>
+#include <Modloader/app/structs/IComparer_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_.h>
+#include <Modloader/app/structs/XalHttpHeader.h>
+#include <Modloader/app/structs/Comparison_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_ {
     IL2CPP_REGISTER_METHOD(0x02F33280, void, Sort_1, (app::XalHttpHeader__Array * keys, int32_t index, int32_t length, app::IComparer_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_* comparer))

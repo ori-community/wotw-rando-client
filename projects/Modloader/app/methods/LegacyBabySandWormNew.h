@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyBabySandWormNew.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/LegacyBabySandWormNew_BabySandwormState__Enum.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/DigZone.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
 
 namespace app::classes::LegacyBabySandWormNew {
     IL2CPP_REGISTER_METHOD(0x00C754B0, int32_t, get_BashPriority, (app::LegacyBabySandWormNew * this_ptr))

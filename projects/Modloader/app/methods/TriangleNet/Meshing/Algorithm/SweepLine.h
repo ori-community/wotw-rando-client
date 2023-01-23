@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMesh.h>
+#include <Modloader/app/structs/SweepLine.h>
+#include <Modloader/app/structs/IList_1_TriangleNet_Geometry_Vertex_.h>
+#include <Modloader/app/structs/Configuration_1.h>
+#include <Modloader/app/structs/SweepLine_SweepEvent__Array.h>
+#include <Modloader/app/structs/SweepLine_SweepEvent.h>
+#include <Modloader/app/structs/SweepLine_SplayNode.h>
+#include <Modloader/app/structs/Point.h>
+#include <Modloader/app/structs/Otri.h>
+#include <Modloader/app/structs/Vertex.h>
 
 namespace app::classes::TriangleNet::Meshing::Algorithm::SweepLine {
     IL2CPP_REGISTER_METHOD(0x02636B70, int32_t, randomnation, (int32_t choices))

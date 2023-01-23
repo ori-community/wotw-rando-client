@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TerrainMesherData.h>
+#include <Modloader/app/structs/Stack_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/TerrainMesher_TerrainProxy.h>
+#include <Modloader/app/structs/TerrainMesherSettings.h>
+#include <Modloader/app/structs/IRng.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Moon::TerrainMesher {
     IL2CPP_REGISTER_METHOD(0x025669C0, void, ProcessTerrain, (app::TerrainMesherData data))

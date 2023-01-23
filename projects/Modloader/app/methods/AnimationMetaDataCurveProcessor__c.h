@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationMetaDataCurveProcessor_c.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/AnimationMetaData_AnimationData.h>
 
 namespace app::classes::AnimationMetaDataCurveProcessor___c {
     IL2CPP_REGISTER_METHOD(0x005020E0, void, cctor, ())

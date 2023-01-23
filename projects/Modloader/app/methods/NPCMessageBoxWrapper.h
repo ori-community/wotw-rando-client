@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NPCMessageBoxWrapper.h>
+#include <Modloader/app/structs/IMessageProvider.h>
+#include <Modloader/app/structs/InteractionSettings.h>
 
 namespace app::classes::NPCMessageBoxWrapper {
     IL2CPP_REGISTER_METHOD(0x00881EE0, void, ShowMessage, (app::NPCMessageBoxWrapper * this_ptr, app::IMessageProvider* message_provider))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Swing::Vector2Ext {
     IL2CPP_REGISTER_METHOD(0x013BB100, float, cross, (app::Vector2 lhs, app::Vector2 rhs))

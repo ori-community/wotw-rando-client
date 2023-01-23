@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinBashAttack_c.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/EntityTargetting.h>
 
 namespace app::classes::SeinBashAttack___c {
     IL2CPP_REGISTER_METHOD(0x00D8F270, void, cctor, ())

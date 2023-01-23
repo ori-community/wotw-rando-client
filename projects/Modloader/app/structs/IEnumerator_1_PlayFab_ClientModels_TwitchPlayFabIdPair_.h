@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair__DEFINED
+struct IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair___Class;
+struct IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair_ {
+    struct IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_PlayFab_ClientModels_TwitchPlayFabIdPair_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

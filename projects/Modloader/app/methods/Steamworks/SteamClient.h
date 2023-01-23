@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HSteamPipe.h>
+#include <Modloader/app/structs/HSteamUser.h>
+#include <Modloader/app/structs/EAccountType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SteamAPIWarningMessageHook_t.h>
 
 namespace app::classes::Steamworks::SteamClient {
     IL2CPP_REGISTER_METHOD(0x027E3940, app::HSteamPipe, CreateSteamPipe, ())

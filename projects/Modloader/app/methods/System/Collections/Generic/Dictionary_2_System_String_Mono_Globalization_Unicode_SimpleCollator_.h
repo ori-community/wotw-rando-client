@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_Mono_Globalization_Unicode_SimpleCollator_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_String_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SimpleCollator.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_Mono_Globalization_Unicode_SimpleCollator_ {
     IL2CPP_REGISTER_METHOD(0x0283AC50, void, ctor, (app::Dictionary_2_System_String_Mono_Globalization_Unicode_SimpleCollator_ * this_ptr, app::IEqualityComparer_1_System_String_* comparer))

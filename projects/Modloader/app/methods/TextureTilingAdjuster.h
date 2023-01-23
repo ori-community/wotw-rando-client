@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextureTilingAdjuster.h>
 
 namespace app::classes::TextureTilingAdjuster {
     IL2CPP_REGISTER_METHOD(0x010EC7D0, void, Start, (app::TextureTilingAdjuster * this_ptr))

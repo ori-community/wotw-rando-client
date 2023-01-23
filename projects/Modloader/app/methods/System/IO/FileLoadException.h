@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FileLoadException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::IO::FileLoadException {
     IL2CPP_REGISTER_METHOD(0x01E08E00, void, ctor_1, (app::FileLoadException * this_ptr))

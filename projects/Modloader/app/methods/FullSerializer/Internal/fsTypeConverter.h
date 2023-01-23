@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsTypeConverter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/fsResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/fsData.h>
 
 namespace app::classes::FullSerializer::Internal::fsTypeConverter {
     IL2CPP_REGISTER_METHOD(0x01502A50, bool, CanProcess, (app::fsTypeConverter * this_ptr, app::Type* type))

@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache.h>
+#include <Modloader/app/structs/MaterialBasedResourceMap.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/HornBugSlamEffects.h>
+#include <Modloader/app/structs/LizardMovementEffects.h>
+#include <Modloader/app/structs/SeinWeaponsEffects.h>
+#include <Modloader/app/structs/LizardAttackEffects.h>
+#include <Modloader/app/structs/PhysicsEffects.h>
+#include <Modloader/app/structs/SeinPlatformingEffects.h>
+#include <Modloader/app/structs/SeinPoleEffects.h>
 
 namespace app::classes::MaterialBasedResourceMap {
     IL2CPP_REGISTER_METHOD(0x01380A60, app::MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache*, get_RuntimeCache, (app::MaterialBasedResourceMap * this_ptr))

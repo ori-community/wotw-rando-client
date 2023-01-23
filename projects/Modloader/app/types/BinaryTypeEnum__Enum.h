@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BinaryTypeEnum__Enum__Class.h>
+#include <Modloader/app/structs/BinaryTypeEnum__Enum.h>
+#include <Modloader/app/structs/BinaryTypeEnum__Enum__Array.h>
 
 namespace app::classes::types {
     namespace BinaryTypeEnum__Enum {

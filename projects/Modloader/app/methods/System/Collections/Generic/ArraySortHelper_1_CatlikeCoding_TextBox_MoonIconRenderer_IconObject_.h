@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonIconRenderer_IconObject__Array.h>
+#include <Modloader/app/structs/IComparer_1_CatlikeCoding_TextBox_MoonIconRenderer_IconObject_.h>
+#include <Modloader/app/structs/MoonIconRenderer_IconObject.h>
+#include <Modloader/app/structs/Comparison_1_CatlikeCoding_TextBox_MoonIconRenderer_IconObject_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_CatlikeCoding_TextBox_MoonIconRenderer_IconObject_ {
     IL2CPP_REGISTER_METHOD(0x02F2D120, void, Sort_1, (app::MoonIconRenderer_IconObject__Array * keys, int32_t index, int32_t length, app::IComparer_1_CatlikeCoding_TextBox_MoonIconRenderer_IconObject_* comparer))

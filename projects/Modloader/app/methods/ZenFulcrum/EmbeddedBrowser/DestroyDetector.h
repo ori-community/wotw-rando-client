@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DestroyDetector.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::DestroyDetector {
     IL2CPP_REGISTER_METHOD(0x01DD3F30, void, add_onDestroy, (app::DestroyDetector * this_ptr, app::Action* value))

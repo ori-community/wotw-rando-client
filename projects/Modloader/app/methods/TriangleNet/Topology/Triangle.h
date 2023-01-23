@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Triangle.h>
+#include <Modloader/app/structs/Vertex.h>
+#include <Modloader/app/structs/ITriangle.h>
+#include <Modloader/app/structs/ISegment.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::TriangleNet::Topology::Triangle {
     IL2CPP_REGISTER_METHOD(0x02AA4E20, void, ctor, (app::Triangle * this_ptr))

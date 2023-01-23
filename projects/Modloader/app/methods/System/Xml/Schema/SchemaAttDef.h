@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
+#include <Modloader/app/structs/SchemaAttDef_Reserve__Enum.h>
+#include <Modloader/app/structs/XmlSchemaAttribute.h>
+#include <Modloader/app/structs/IValidationEventHandling.h>
 
 namespace app::classes::System::Xml::Schema::SchemaAttDef {
     IL2CPP_REGISTER_METHOD(0x016E7630, void, ctor_1, (app::SchemaAttDef * this_ptr, app::XmlQualifiedName* name, app::String* prefix))

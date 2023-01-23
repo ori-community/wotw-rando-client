@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/BrainEntityTester.h>
+#include <Modloader/app/structs/Enum.h>
 
 namespace app::classes::BrainEntityTester {
     IL2CPP_REGISTER_METHOD(0x01BA4230, app::Enum__Array*, GetEntries, (app::BrainEntityTester * this_ptr))

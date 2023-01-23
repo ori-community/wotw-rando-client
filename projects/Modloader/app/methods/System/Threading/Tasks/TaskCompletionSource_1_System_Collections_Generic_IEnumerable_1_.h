@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TaskCompletionSource_1_System_Collections_Generic_IEnumerable_1_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Byte__1.h>
+#include <Modloader/app/structs/Task_1_System_Collections_Generic_IEnumerable_1_.h>
 
 namespace app::classes::System::Threading::Tasks::TaskCompletionSource_1_System_Collections_Generic_IEnumerable_1_ {
     IL2CPP_REGISTER_METHOD(0x02776BF0, void, ctor, (app::TaskCompletionSource_1_System_Collections_Generic_IEnumerable_1_ * this_ptr))

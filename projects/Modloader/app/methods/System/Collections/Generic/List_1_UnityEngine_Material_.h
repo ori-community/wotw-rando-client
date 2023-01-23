@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Material_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Material_.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Material__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_Material_ {
     IL2CPP_REGISTER_METHOD(0x02FE8360, void, ctor, (app::List_1_UnityEngine_Material_ * this_ptr, app::IEnumerable_1_UnityEngine_Material_* collection))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DeltaTimeManager_DeltaTimeFrameHistory__Class.h>
+#include <Modloader/app/structs/DeltaTimeManager_DeltaTimeFrameHistory.h>
+#include <Modloader/app/structs/DeltaTimeManager_DeltaTimeFrameHistory__Array.h>
 
 namespace app::classes::types {
     namespace DeltaTimeManager_DeltaTimeFrameHistory {

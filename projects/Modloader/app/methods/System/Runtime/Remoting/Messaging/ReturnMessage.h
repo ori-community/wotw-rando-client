@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReturnMessage.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/LogicalCallContext.h>
+#include <Modloader/app/structs/IMethodCallMessage.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/Identity.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::ReturnMessage {
     IL2CPP_REGISTER_METHOD(0x02319710, void, ctor_1, (app::ReturnMessage * this_ptr, app::Object* ret, app::Object__Array* out_args, int32_t out_args_count, app::LogicalCallContext* call_ctx, app::IMethodCallMessage* mcm))

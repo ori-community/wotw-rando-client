@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SparselyPopulatedArrayFragment_1_System_Object_.h>
 
 namespace app::classes::System::Threading::SparselyPopulatedArrayFragment_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02775470, app::Object*, get_Item, (app::SparselyPopulatedArrayFragment_1_System_Object_ * this_ptr, int32_t index))

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/HeaderVariantInfo__Class.h>
+#include <Modloader/app/structs/HeaderVariantInfo.h>
+#include <Modloader/app/structs/HeaderVariantInfo__Boxed.h>
+#include <Modloader/app/structs/HeaderVariantInfo__Array.h>
 
 namespace app::classes::types {
     namespace HeaderVariantInfo {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HornBugBossTimelineBehaviour.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::HornBugBossTimelineBehaviour {
     IL2CPP_REGISTER_METHOD(0x00B688F0, void, OnEntityInitialized, (app::HornBugBossTimelineBehaviour * this_ptr))

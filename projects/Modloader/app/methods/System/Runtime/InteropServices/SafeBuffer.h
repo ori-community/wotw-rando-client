@@ -1,6 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
+#include <Modloader/app/structs/SafeBuffer.h>
+
+
 namespace app::classes::System::Runtime::InteropServices::SafeBuffer {
     IL2CPP_REGISTER_METHOD(0x01A96CB0, void, AcquirePointer, (app::SafeBuffer * this_ptr, app::uint8_t** pointer))
     IL2CPP_REGISTER_METHODINFO(0x04724368, SafeBuffer_AcquirePointer__MethodInfo)

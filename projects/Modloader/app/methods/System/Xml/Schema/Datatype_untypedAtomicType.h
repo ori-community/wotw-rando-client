@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlValueConverter.h>
+#include <Modloader/app/structs/Datatype_untypedAtomicType.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlSchemaWhiteSpace__Enum.h>
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
 
 namespace app::classes::System::Xml::Schema::Datatype_untypedAtomicType {
     IL2CPP_REGISTER_METHOD(0x02363710, app::XmlValueConverter*, CreateValueConverter, (app::Datatype_untypedAtomicType * this_ptr, app::XmlSchemaType* schema_type))

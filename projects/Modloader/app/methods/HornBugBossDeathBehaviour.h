@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/HornBugBossDeathBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::HornBugBossDeathBehaviour {
     IL2CPP_REGISTER_METHOD(0x00420230, app::BehaviourStatus__Enum, OnExecuteTask, (app::HornBugBossDeathBehaviour * this_ptr, app::IContext* context))

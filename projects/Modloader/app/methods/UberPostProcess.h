@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPostProcess.h>
+#include <Modloader/app/structs/ColorVariationManager.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SeinController3D.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/MeshFilter.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/PostProcessRenderContext.h>
+#include <Modloader/app/structs/MoonRenderContext.h>
+#include <Modloader/app/structs/MoonRenderPipelineView.h>
+#include <Modloader/app/structs/RenderTargetIdentifier.h>
+#include <Modloader/app/structs/RenderTextureDescriptor.h>
+#include <Modloader/app/structs/RenderTarget.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/CameraSettingsAsset.h>
+#include <Modloader/app/structs/CameraAdditiveSettings.h>
+#include <Modloader/app/structs/CameraSettings.h>
 
 namespace app::classes::UberPostProcess {
     IL2CPP_REGISTER_METHOD(0x00FF2180, bool, get_DebugOverrideEnabled, ())

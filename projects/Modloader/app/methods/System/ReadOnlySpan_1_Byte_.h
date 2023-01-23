@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadOnlySpan_1_Byte___Boxed.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Void.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Pinnable_1_Byte_.h>
 
 namespace app::classes::System::ReadOnlySpan_1_Byte_ {
     IL2CPP_REGISTER_METHOD(0x00219D80, void, ctor_1, (app::ReadOnlySpan_1_Byte___Boxed * this_ptr, app::Byte__Array* array))

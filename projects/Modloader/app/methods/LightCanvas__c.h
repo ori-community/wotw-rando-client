@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightCanvas_c.h>
+#include <Modloader/app/structs/LightCanvas_SubLayerSettingGroup.h>
 
 namespace app::classes::LightCanvas___c {
     IL2CPP_REGISTER_METHOD(0x01143AD0, void, cctor, ())

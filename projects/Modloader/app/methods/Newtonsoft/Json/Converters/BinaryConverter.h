@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinaryConverter_1.h>
+#include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/JsonSerializer.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/JsonReader.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::BinaryConverter {
     IL2CPP_REGISTER_METHOD(0x01A4D430, void, WriteJson, (app::BinaryConverter_1 * this_ptr, app::JsonWriter* writer, app::Object* value, app::JsonSerializer* serializer))

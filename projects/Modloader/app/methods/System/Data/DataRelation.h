@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataRelation.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/DataColumn__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/DataKey.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/DataRow__Array.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/UniqueConstraint.h>
+#include <Modloader/app/structs/ForeignKeyConstraint.h>
+#include <Modloader/app/structs/PropertyCollection.h>
+#include <Modloader/app/structs/PropertyChangedEventArgs.h>
 
 namespace app::classes::System::Data::DataRelation {
     IL2CPP_REGISTER_METHOD(0x023A1700, void, ctor_1, (app::DataRelation * this_ptr, app::String* relation_name, app::DataColumn* parent_column, app::DataColumn* child_column))

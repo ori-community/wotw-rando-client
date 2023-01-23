@@ -18,6 +18,7 @@
 #include <Modloader/app/types/ControllerAxisInput.h>
 #include <Modloader/app/types/ControllerButtonInput.h>
 #include <Modloader/app/types/PlayerInputRebinding.h>
+#include <Modloader/app/structs/Boolean__Boxed.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>

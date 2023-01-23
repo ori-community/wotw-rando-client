@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyGetAbilityPedestal.h>
+#include <Modloader/app/structs/LegacyGetAbilityPedestal_States__Enum.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::LegacyGetAbilityPedestal {
     IL2CPP_REGISTER_METHOD(0x00A253A0, bool, get_SeinInRange, (app::LegacyGetAbilityPedestal * this_ptr))

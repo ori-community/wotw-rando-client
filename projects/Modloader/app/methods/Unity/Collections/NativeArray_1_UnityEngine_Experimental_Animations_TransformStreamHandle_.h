@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Experimental_Animations_TransformStreamHandle___Boxed.h>
+#include <Modloader/app/structs/Allocator__Enum.h>
+#include <Modloader/app/structs/NativeArrayOptions__Enum.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Experimental_Animations_TransformStreamHandle_.h>
+#include <Modloader/app/structs/TransformStreamHandle.h>
+#include <Modloader/app/structs/TransformStreamHandle__Array.h>
+#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_Experimental_Animations_TransformStreamHandle_.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Experimental_Animations_TransformStreamHandle_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Unity::Collections::NativeArray_1_UnityEngine_Experimental_Animations_TransformStreamHandle_ {
     IL2CPP_REGISTER_METHOD(0x001DF770, void, ctor, (app::NativeArray_1_UnityEngine_Experimental_Animations_TransformStreamHandle___Boxed * this_ptr, int32_t length, app::Allocator__Enum allocator, app::NativeArrayOptions__Enum options))

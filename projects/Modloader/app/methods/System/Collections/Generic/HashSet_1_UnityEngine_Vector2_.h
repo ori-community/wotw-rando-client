@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/IEqualityComparer_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_Vector2_.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_UnityEngine_Vector2_ {
     IL2CPP_REGISTER_METHOD(0x02AB4370, void, ctor_1, (app::HashSet_1_UnityEngine_Vector2_ * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InteractiveMessageBox_ProgressInput__Enum__Class.h>
+#include <Modloader/app/structs/InteractiveMessageBox_ProgressInput__Enum.h>
 
 namespace app::classes::types {
     namespace InteractiveMessageBox_ProgressInput__Enum {

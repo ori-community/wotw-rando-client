@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AppDomain.h>
+#include <Modloader/app/structs/AppDomainSetup.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Assembly__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/Evidence.h>
+#include <Modloader/app/structs/AssemblyName.h>
+#include <Modloader/app/structs/Context.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CADMethodCallMessage.h>
+#include <Modloader/app/structs/CADMethodReturnMessage.h>
+#include <Modloader/app/structs/AssemblyLoadEventHandler.h>
+#include <Modloader/app/structs/EventHandler.h>
+#include <Modloader/app/structs/UnhandledExceptionEventHandler.h>
 
 namespace app::classes::System::AppDomain {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::AppDomain * this_ptr))

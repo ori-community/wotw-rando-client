@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_Formatting___Boxed.h>
+#include <Modloader/app/structs/Formatting__Enum_1.h>
 
 namespace app::classes::System::Nullable_1_Newtonsoft_Json_Formatting_ {
     IL2CPP_REGISTER_METHOD(0x001F6090, bool, get_HasValue, (app::Nullable_1_Newtonsoft_Json_Formatting___Boxed * this_ptr))

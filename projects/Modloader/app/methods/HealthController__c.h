@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HealthController_c.h>
 
 namespace app::classes::HealthController___c {
     IL2CPP_REGISTER_METHOD(0x010A1D20, void, cctor, ())

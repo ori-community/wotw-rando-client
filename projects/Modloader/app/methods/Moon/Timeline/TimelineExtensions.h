@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/ITimelineEntityParent.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/TimelineMarkerRecord.h>
+#include <Modloader/app/structs/ExternalTimelineRecord.h>
 
 namespace app::classes::Moon::Timeline::TimelineExtensions {
     IL2CPP_REGISTER_METHOD(0x01E878B0, app::TimelineEntityRecord*, GetEntityFor_1, (app::ITimelineEntityParent * timeline, app::EntityId entity_id))

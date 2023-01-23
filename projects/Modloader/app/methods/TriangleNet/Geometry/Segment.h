@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Segment.h>
+#include <Modloader/app/structs/Vertex.h>
+#include <Modloader/app/structs/ITriangle.h>
 
 namespace app::classes::TriangleNet::Geometry::Segment {
     IL2CPP_REGISTER_METHOD(0x002FD1D0, int32_t, get_Label, (app::Segment * this_ptr))

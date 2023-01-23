@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SteamAchievements.h>
+#include <Modloader/app/structs/UserAchievementStored_t.h>
+#include <Modloader/app/structs/UserStatsStored_t.h>
+#include <Modloader/app/structs/UserStatsReceived_t.h>
+#include <Modloader/app/structs/CacheData__Array.h>
+#include <Modloader/app/structs/CacheData.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::Achievements::SteamAchievements {
     IL2CPP_REGISTER_METHOD(0x0052E6A0, app::String*, get_Name, (app::SteamAchievements * this_ptr))

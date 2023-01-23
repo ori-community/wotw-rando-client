@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataExpression.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/DataColumn__Array.h>
 
 namespace app::classes::System::Data::DataExpression {
     IL2CPP_REGISTER_METHOD(0x0239FA60, void, ctor_1, (app::DataExpression * this_ptr, app::DataTable* table, app::String* expression))

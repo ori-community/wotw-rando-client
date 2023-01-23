@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FPSMonitor_FrameTimingData.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::FPSMonitor_FrameTimingData {
     IL2CPP_REGISTER_METHOD(0x0098AB30, void, Reset, (app::FPSMonitor_FrameTimingData * this_ptr))

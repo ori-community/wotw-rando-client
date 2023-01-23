@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Merger.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/MissingSchemaAction__Enum.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/DataRelation.h>
+#include <Modloader/app/structs/PropertyCollection.h>
+#include <Modloader/app/structs/DataKey.h>
 
 namespace app::classes::System::Data::Merger {
     IL2CPP_REGISTER_METHOD(0x01E40FC0, void, ctor_1, (app::Merger * this_ptr, app::DataSet* data_set, bool preserve_changes, app::MissingSchemaAction__Enum missing_schema_action))

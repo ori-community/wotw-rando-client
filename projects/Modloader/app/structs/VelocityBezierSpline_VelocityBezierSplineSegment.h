@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_VelocityBezierSpline_VelocityBezierSplineSegment_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_VelocityBezierSpline_VelocityBezierSplineSegment_INITIALIZING
+#if !defined(IL2CPP_STRUCT_VelocityBezierSpline_VelocityBezierSplineSegment_DEFINED)
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment__Fields.h>
+#if defined(IL2CPP_STRUCT_VelocityBezierSpline_VelocityBezierSplineSegment__Fields_DEFINED)
+#define IL2CPP_STRUCT_VelocityBezierSpline_VelocityBezierSplineSegment_DEFINED
+struct VelocityBezierSpline_VelocityBezierSplineSegment__Class;
+struct VelocityBezierSpline_VelocityBezierSplineSegment {
+    struct VelocityBezierSpline_VelocityBezierSplineSegment__Class* klass;
+    MonitorData* monitor;
+    struct VelocityBezierSpline_VelocityBezierSplineSegment__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_VelocityBezierSpline_VelocityBezierSplineSegment_FWDDECL)
+#define IL2CPP_STRUCT_VelocityBezierSpline_VelocityBezierSplineSegment_FWDDECL
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment__Class.h>
+#endif
+#undef IL2CPP_STRUCT_VelocityBezierSpline_VelocityBezierSplineSegment_INITIALIZING
+#if !defined(IL2CPP_STRUCT_VelocityBezierSpline_VelocityBezierSplineSegment_DEFINED) && !defined(IL2CPP_STRUCT_VelocityBezierSpline_VelocityBezierSplineSegment_FWDDECL)
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

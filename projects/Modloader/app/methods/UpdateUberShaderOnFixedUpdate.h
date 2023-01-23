@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderComponent.h>
+#include <Modloader/app/structs/UpdateUberShaderOnFixedUpdate.h>
 
 namespace app::classes::UpdateUberShaderOnFixedUpdate {
     IL2CPP_REGISTER_METHOD(0x013ADA10, app::UberShaderComponent*, get_AttachedUberShader, (app::UpdateUberShaderOnFixedUpdate * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SetNightBerryRespawnPosition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SetNightBerryRespawnPosition {
     IL2CPP_REGISTER_METHOD(0x005A2F50, void, Perform, (app::SetNightBerryRespawnPosition * this_ptr, app::IContext* context))

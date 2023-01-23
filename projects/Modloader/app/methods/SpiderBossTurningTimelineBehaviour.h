@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBossTurningTimelineBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SpiderBossTurningTimelineBehaviour {
     IL2CPP_REGISTER_METHOD(0x011BB5A0, void, OnEnter, (app::SpiderBossTurningTimelineBehaviour * this_ptr, app::IContext* context))

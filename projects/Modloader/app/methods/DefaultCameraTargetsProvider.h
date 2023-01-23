@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DefaultCameraTargetsProvider.h>
+#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/DefaultCameraProviderEntry.h>
 
 namespace app::classes::DefaultCameraTargetsProvider {
     IL2CPP_REGISTER_METHOD(0x0040F3B0, void, UpdateTargets, (app::DefaultCameraTargetsProvider * this_ptr))

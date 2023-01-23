@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LinkedList_1_System_Net_WebConnectionGroup_ConnectionState_.h>
+#include <Modloader/app/structs/LinkedListNode_1_System_Net_WebConnectionGroup_ConnectionState_.h>
+#include <Modloader/app/structs/LinkedList_1_T_Enumerator_System_Net_WebConnectionGroup_ConnectionState_.h>
+#include <Modloader/app/structs/WebConnectionGroup_ConnectionState.h>
 
 namespace app::classes::System::Collections::Generic::LinkedList_1_System_Net_WebConnectionGroup_ConnectionState_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::LinkedList_1_System_Net_WebConnectionGroup_ConnectionState_ * this_ptr))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SecurityStatus__Enum.h>
+#include <Modloader/app/structs/ContextCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/IPAddress.h>
+#include <Modloader/app/structs/IPHostEntry.h>
+#include <Modloader/app/structs/IPAddress__Array.h>
 
 namespace app::classes::System::Net::NclUtilities {
     IL2CPP_REGISTER_METHOD(0x01E70E40, bool, IsThreadPoolLow, ())

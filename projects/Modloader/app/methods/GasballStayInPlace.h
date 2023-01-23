@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GasballStayInPlace.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::GasballStayInPlace {
     IL2CPP_REGISTER_METHOD(0x00421000, void, OnEntityInitialized, (app::GasballStayInPlace * this_ptr))

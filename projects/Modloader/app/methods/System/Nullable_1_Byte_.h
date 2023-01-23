@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_Byte___Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_Byte_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_Byte_ {
     IL2CPP_REGISTER_METHOD(0x001F7750, bool, get_HasValue, (app::Nullable_1_Byte___Boxed * this_ptr))

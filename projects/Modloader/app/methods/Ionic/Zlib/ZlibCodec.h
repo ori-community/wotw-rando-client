@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ZlibCodec.h>
+#include <Modloader/app/structs/FlushType__Enum.h>
+#include <Modloader/app/structs/CompressionLevel__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Ionic::Zlib::ZlibCodec {
     IL2CPP_REGISTER_METHOD(0x030791D0, void, ctor, (app::ZlibCodec * this_ptr))

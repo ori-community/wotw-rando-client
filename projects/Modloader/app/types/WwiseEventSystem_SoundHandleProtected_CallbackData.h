@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandleProtected_CallbackData__Class.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandleProtected_CallbackData.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandleProtected_CallbackData__Boxed.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandleProtected_CallbackData__Array.h>
 
 namespace app::classes::types {
     namespace WwiseEventSystem_SoundHandleProtected_CallbackData {

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/EventProvider_c_DisplayClass44_0__Class.h>
+#include <Modloader/app/structs/EventProvider_c_DisplayClass44_0.h>
 
 namespace app::classes::types {
     namespace EventProvider_c_DisplayClass44_0 {

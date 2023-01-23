@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Checkpoint.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::Checkpoint {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Awake, (app::Checkpoint * this_ptr))

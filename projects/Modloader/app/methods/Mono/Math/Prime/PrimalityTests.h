@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BigInteger.h>
+#include <Modloader/app/structs/ConfidenceFactor__Enum.h>
+#include <Modloader/app/structs/BigInteger_1.h>
+#include <Modloader/app/structs/ConfidenceFactor__Enum_1.h>
 
 namespace app::classes::Mono::Math::Prime::PrimalityTests {
     IL2CPP_REGISTER_METHOD(0x023CDD00, int32_t, GetSPPRounds_1, (app::BigInteger * bi, app::ConfidenceFactor__Enum confidence))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AdvancedDebugMenuPage_c_DisplayClass15_0__Class.h>
+#include <Modloader/app/structs/AdvancedDebugMenuPage_c_DisplayClass15_0.h>
 
 namespace app::classes::types {
     namespace AdvancedDebugMenuPage_c_DisplayClass15_0 {

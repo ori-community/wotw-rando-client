@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightCanvasShadingZoneHierarchyTarget.h>
 
 namespace app::classes::LightCanvasShadingZoneHierarchyTarget {
     IL2CPP_REGISTER_METHOD(0x01148F70, void, OnEnable, (app::LightCanvasShadingZoneHierarchyTarget * this_ptr))

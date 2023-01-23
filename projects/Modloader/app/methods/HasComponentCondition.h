@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HasComponentCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::HasComponentCondition {
     IL2CPP_REGISTER_METHOD(0x0109DD70, void, Start, (app::HasComponentCondition * this_ptr))

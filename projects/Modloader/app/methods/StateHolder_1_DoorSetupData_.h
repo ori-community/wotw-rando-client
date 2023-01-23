@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DoorSetupData.h>
+#include <Modloader/app/structs/StateHolder_1_DoorSetupData_.h>
+#include <Modloader/app/structs/List_1_IIndexedItem_.h>
 
 namespace app::classes::StateHolder_1_DoorSetupData_ {
     IL2CPP_REGISTER_METHOD(0x01D19450, app::DoorSetupData*, ResolveCurrent, (app::StateHolder_1_DoorSetupData_ * this_ptr))

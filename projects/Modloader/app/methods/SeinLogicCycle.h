@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinLogicCycle_StateFlags__Enum.h>
+#include <Modloader/app/structs/SeinLogicCycle.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/List_1_CharacterState_.h>
+#include <Modloader/app/structs/CharacterState.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/SeinLogicCycle_IsAllowedDelegate.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::SeinLogicCycle {
     IL2CPP_REGISTER_METHOD(0x00894F40, app::SeinLogicCycle_StateFlags__Enum, GetFlags, (app::SeinLogicCycle * this_ptr, app::SeinLogicCycle_StateFlags__Enum test_flags))

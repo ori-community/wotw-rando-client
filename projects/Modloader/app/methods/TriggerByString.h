@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TriggerByString.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::TriggerByString {
     IL2CPP_REGISTER_METHOD(0x00B12B40, void, Register, (app::String * s))

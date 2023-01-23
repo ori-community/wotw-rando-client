@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IVRTrackedCamera_GetVideoStreamTextureSize.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EVRTrackedCameraError__Enum.h>
+#include <Modloader/app/structs/EVRTrackedCameraFrameType__Enum.h>
+#include <Modloader/app/structs/VRTextureBounds_t.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVRTrackedCamera__GetVideoStreamTextureSize {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVRTrackedCamera_GetVideoStreamTextureSize * this_ptr, app::Object* object, void* method_1))

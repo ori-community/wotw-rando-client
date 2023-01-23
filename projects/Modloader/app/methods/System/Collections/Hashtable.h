@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/IHashCodeProvider.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/KeyValuePairs__Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/Hashtable_bucket__Array.h>
 
 namespace app::classes::System::Collections::Hashtable {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::Hashtable * this_ptr, bool trash))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CookieCollection.h>
+#include <Modloader/app/structs/Cookie.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Cookie__Array.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/CookieCollection_Stamp__Enum.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Net::CookieCollection {
     IL2CPP_REGISTER_METHOD(0x01EA0EE0, void, ctor_1, (app::CookieCollection * this_ptr))

@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_PlayFab_EventsModels_EventContents__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_PlayFab_EventsModels_EventContents__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_EventsModels_EventContents__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_PlayFab_EventsModels_EventContents__DEFINED
+struct IEnumerator_1_PlayFab_EventsModels_EventContents___Class;
+struct IEnumerator_1_PlayFab_EventsModels_EventContents_ {
+    struct IEnumerator_1_PlayFab_EventsModels_EventContents___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_EventsModels_EventContents__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_PlayFab_EventsModels_EventContents__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_PlayFab_EventsModels_EventContents___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_PlayFab_EventsModels_EventContents__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_EventsModels_EventContents__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_PlayFab_EventsModels_EventContents__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_PlayFab_EventsModels_EventContents_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_PlayFab_EventsModels_EventContents_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossSpitBehaviour.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Projectile.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PetrifiedOwlBossSpitBehaviour {
     IL2CPP_REGISTER_METHOD(0x0177E780, int32_t, get_ShotsLeft, (app::PetrifiedOwlBossSpitBehaviour * this_ptr))

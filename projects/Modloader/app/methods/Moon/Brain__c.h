@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Brain_c.h>
+#include <Modloader/app/structs/BrainBehaviour.h>
 
 namespace app::classes::Moon::Brain___c {
     IL2CPP_REGISTER_METHOD(0x00CC0370, void, cctor, ())

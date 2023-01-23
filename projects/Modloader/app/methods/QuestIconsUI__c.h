@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QuestIconsUI_c.h>
 
 namespace app::classes::QuestIconsUI___c {
     IL2CPP_REGISTER_METHOD(0x00E8A6C0, void, cctor, ())

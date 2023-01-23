@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ComputeShader.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/ComputeBuffer.h>
 
 namespace app::classes::UnityEngine::ComputeShader {
     IL2CPP_REGISTER_METHOD(0x0242A6B0, int32_t, FindKernel, (app::ComputeShader * this_ptr, app::String* name))

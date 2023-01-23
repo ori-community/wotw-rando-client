@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicAnimationPlayer.h>
+#include <Modloader/app/structs/AnimationPlayer.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::DynamicAnimationPlayer {
     IL2CPP_REGISTER_METHOD(0x01BAA050, void, Clone, (app::DynamicAnimationPlayer * this_ptr, app::AnimationPlayer* player))

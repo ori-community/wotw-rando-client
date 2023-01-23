@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/AllowCoreTwoWorkerOnCoreZeroProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::AllowCoreTwoWorkerOnCoreZeroProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x00E3AE80, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::AllowCoreTwoWorkerOnCoreZeroProfilingSetting * this_ptr))

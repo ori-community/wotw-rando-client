@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceStateMachineContext.h>
+#include <Modloader/app/structs/EscapeRaceHandler.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::Moon::Race::EscapeRaceHandler {
     IL2CPP_REGISTER_METHOD(0x00C419B0, app::RaceStateMachineContext*, get_Context, (app::EscapeRaceHandler * this_ptr))

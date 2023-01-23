@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Task_1_System_Object_.h>
 
 namespace app::classes::System::Xml::XmlResolver {
     IL2CPP_REGISTER_METHOD(0x01706E60, app::Uri*, ResolveUri, (app::XmlResolver * this_ptr, app::Uri* base_uri, app::String* relative_uri))

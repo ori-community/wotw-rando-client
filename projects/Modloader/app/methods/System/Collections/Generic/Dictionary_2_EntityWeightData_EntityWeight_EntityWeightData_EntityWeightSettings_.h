@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_EntityWeightData_EntityWeight_EntityWeightData_EntityWeightSettings_.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeightSettings.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_EntityWeightData_EntityWeight_EntityWeightData_EntityWeightSettings_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_EntityWeightData_EntityWeight_EntityWeightData_EntityWeightSettings_ * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DesignerAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::DesignerAttribute {
     IL2CPP_REGISTER_METHOD(0x01FE6280, void, ctor_1, (app::DesignerAttribute * this_ptr, app::String* designer_type_name))

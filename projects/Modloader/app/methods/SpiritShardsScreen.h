@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/SpiritShardsScreen.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/SpellUIConfirmationOverlay_Selection__Enum.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/SpellUIItem.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/SpiritShardUIItem.h>
+#include <Modloader/app/structs/SpiritShardUIShardSocket.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::SpiritShardsScreen {
     IL2CPP_REGISTER_METHOD(0x003FFBD0, app::MenuTabBackground__Enum, get_BackgroundMode, (app::SpiritShardsScreen * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractionLookAt.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::InteractionLookAt {
     IL2CPP_REGISTER_METHOD(0x02A0A870, void, Look, (app::InteractionLookAt * this_ptr, app::Transform* target, float time))

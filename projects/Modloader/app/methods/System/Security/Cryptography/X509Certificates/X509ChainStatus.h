@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509ChainStatus__Boxed.h>
+#include <Modloader/app/structs/X509ChainStatusFlags__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::X509ChainStatus {
     IL2CPP_REGISTER_METHOD(0x001DE2E0, void, ctor, (app::X509ChainStatus__Boxed * this_ptr, app::X509ChainStatusFlags__Enum flag))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiritCrescent.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/SeinSpiritCrescentSpell.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SpiritCrescent_State__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::SpiritCrescent {
     IL2CPP_REGISTER_METHOD(0x003FD650, bool, get_IsSuspended, (app::SpiritCrescent * this_ptr))

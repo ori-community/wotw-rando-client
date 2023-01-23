@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509Certificate.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/DSA.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RSA.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/ASN1.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/X509Certificate_2.h>
+#include <Modloader/app/structs/X509ExtensionCollection_1.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
+#include <Modloader/app/structs/ASN1_1.h>
 
 namespace app::classes::Mono::Security::X509::X509Certificate {
     IL2CPP_REGISTER_METHOD(0x025E6220, void, Parse_1, (app::X509Certificate * this_ptr, app::Byte__Array* data))

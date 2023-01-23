@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FontData.h>
+#include <Modloader/app/structs/Font.h>
+#include <Modloader/app/structs/FontStyle__Enum.h>
+#include <Modloader/app/structs/TextAnchor__Enum.h>
+#include <Modloader/app/structs/HorizontalWrapMode__Enum.h>
+#include <Modloader/app/structs/VerticalWrapMode__Enum.h>
 
 namespace app::classes::UnityEngine::UI::FontData {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::FontData * this_ptr))

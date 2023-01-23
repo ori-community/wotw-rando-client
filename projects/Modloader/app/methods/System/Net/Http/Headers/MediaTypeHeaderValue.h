@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MediaTypeHeaderValue.h>
+#include <Modloader/app/structs/ICollection_1_System_Net_Http_Headers_NameValueHeaderValue_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Nullable_1_System_Net_Http_Headers_Token_.h>
+#include <Modloader/app/structs/Lexer.h>
 
 namespace app::classes::System::Net::Http::Headers::MediaTypeHeaderValue {
     IL2CPP_REGISTER_METHOD(0x02D0ECF0, void, ctor_1, (app::MediaTypeHeaderValue * this_ptr, app::MediaTypeHeaderValue* source))

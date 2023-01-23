@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeGPtrArrayHandle__Boxed.h>
+#include <Modloader/app/structs/RuntimeStructs_GPtrArray.h>
+#include <Modloader/app/structs/RuntimeGPtrArrayHandle.h>
 
 namespace app::classes::Mono::RuntimeGPtrArrayHandle {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::RuntimeGPtrArrayHandle__Boxed * this_ptr, void* ptr))

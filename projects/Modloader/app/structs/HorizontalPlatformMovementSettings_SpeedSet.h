@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_HorizontalPlatformMovementSettings_SpeedSet_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_HorizontalPlatformMovementSettings_SpeedSet_INITIALIZING
+#if !defined(IL2CPP_STRUCT_HorizontalPlatformMovementSettings_SpeedSet_DEFINED)
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings_SpeedSet__Fields.h>
+#if defined(IL2CPP_STRUCT_HorizontalPlatformMovementSettings_SpeedSet__Fields_DEFINED)
+#define IL2CPP_STRUCT_HorizontalPlatformMovementSettings_SpeedSet_DEFINED
+struct HorizontalPlatformMovementSettings_SpeedSet__Class;
+struct HorizontalPlatformMovementSettings_SpeedSet {
+    struct HorizontalPlatformMovementSettings_SpeedSet__Class* klass;
+    MonitorData* monitor;
+    struct HorizontalPlatformMovementSettings_SpeedSet__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_HorizontalPlatformMovementSettings_SpeedSet_FWDDECL)
+#define IL2CPP_STRUCT_HorizontalPlatformMovementSettings_SpeedSet_FWDDECL
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings_SpeedSet__Class.h>
+#endif
+#undef IL2CPP_STRUCT_HorizontalPlatformMovementSettings_SpeedSet_INITIALIZING
+#if !defined(IL2CPP_STRUCT_HorizontalPlatformMovementSettings_SpeedSet_DEFINED) && !defined(IL2CPP_STRUCT_HorizontalPlatformMovementSettings_SpeedSet_FWDDECL)
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings_SpeedSet.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings_SpeedSet.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ObjectPool_1_System_Collections_Generic_List_1__9_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ObjectPool_1_System_Collections_Generic_List_1__9_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ObjectPool_1_System_Collections_Generic_List_1__9_DEFINED)
+#include <Modloader/app/structs/ObjectPool_1_System_Collections_Generic_List_1__9__Fields.h>
+#if defined(IL2CPP_STRUCT_ObjectPool_1_System_Collections_Generic_List_1__9__Fields_DEFINED)
+#define IL2CPP_STRUCT_ObjectPool_1_System_Collections_Generic_List_1__9_DEFINED
+struct ObjectPool_1_System_Collections_Generic_List_1__9__Class;
+struct ObjectPool_1_System_Collections_Generic_List_1__9 {
+    struct ObjectPool_1_System_Collections_Generic_List_1__9__Class* klass;
+    MonitorData* monitor;
+    struct ObjectPool_1_System_Collections_Generic_List_1__9__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ObjectPool_1_System_Collections_Generic_List_1__9_FWDDECL)
+#define IL2CPP_STRUCT_ObjectPool_1_System_Collections_Generic_List_1__9_FWDDECL
+#include <Modloader/app/structs/ObjectPool_1_System_Collections_Generic_List_1__9__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ObjectPool_1_System_Collections_Generic_List_1__9_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ObjectPool_1_System_Collections_Generic_List_1__9_DEFINED) && !defined(IL2CPP_STRUCT_ObjectPool_1_System_Collections_Generic_List_1__9_FWDDECL)
+#include <Modloader/app/structs/ObjectPool_1_System_Collections_Generic_List_1__9.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ObjectPool_1_System_Collections_Generic_List_1__9.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpikeSlugHitReactionBehaviour_c.h>
 
 namespace app::classes::SpikeSlugHitReactionBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x011D0B50, void, cctor, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightningAnimator.h>
+#include <Modloader/app/structs/LightningAnimator_LightningEvent.h>
 
 namespace app::classes::LightningAnimator {
     IL2CPP_REGISTER_METHOD(0x00FA2ED0, void, Awake, (app::LightningAnimator * this_ptr))

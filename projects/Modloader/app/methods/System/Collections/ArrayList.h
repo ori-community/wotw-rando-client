@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IList.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Collections::ArrayList {
     IL2CPP_REGISTER_METHOD(0x022A3560, void, ctor_1, (app::ArrayList * this_ptr))

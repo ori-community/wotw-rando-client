@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberShaderPrewarmer_PrewarmedShader__Array__Class.h>
+#include <Modloader/app/structs/UberShaderPrewarmer_PrewarmedShader__Array.h>
 
 namespace app::classes::types {
     namespace UberShaderPrewarmer_PrewarmedShader__Array {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Data_DataTable_.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/DataTable__Array.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Data_DataTable_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Data_DataTable_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_System_Data_DataTable_ * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypeSpec.h>
+#include <Modloader/app/structs/List_1_System_TypeSpec_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_TypeSpec_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::TypeSpec*, get_Item, (app::List_1_System_TypeSpec_ * this_ptr, int32_t index))

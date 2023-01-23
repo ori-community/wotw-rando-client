@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlQualifiedName_HashCodeOfStringDelegate__Class.h>
+#include <Modloader/app/structs/XmlQualifiedName_HashCodeOfStringDelegate.h>
 
 namespace app::classes::types {
     namespace XmlQualifiedName_HashCodeOfStringDelegate {

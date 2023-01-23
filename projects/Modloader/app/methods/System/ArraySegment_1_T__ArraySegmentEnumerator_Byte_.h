@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArraySegment_1_T_ArraySegmentEnumerator_Byte_.h>
+#include <Modloader/app/structs/ArraySegment_1_Byte_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ArraySegment_1_T__ArraySegmentEnumerator_Byte_ {
     IL2CPP_REGISTER_METHOD(0x01A70D80, void, ctor, (app::ArraySegment_1_T_ArraySegmentEnumerator_Byte_ * this_ptr, app::ArraySegment_1_Byte_ array_segment))

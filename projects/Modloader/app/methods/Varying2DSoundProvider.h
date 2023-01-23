@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Varying2DSoundProvider.h>
+#include <Modloader/app/structs/SoundDescriptor.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Varying2DSoundProvider {
     IL2CPP_REGISTER_METHOD(0x013B9450, uint32_t, get_GuidHash, (app::Varying2DSoundProvider * this_ptr))

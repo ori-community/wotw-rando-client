@@ -1,5 +1,47 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NavigableOnGUI_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GUILayoutOption__Array.h>
+#include <Modloader/app/structs/NavigableOnGUI_Field_1.h>
+#include <Modloader/app/structs/NavigableOnGUI_Tracker_1.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_FXAADepthPrecull__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_DeferredLightingDebug__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_FXAAHiRes__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_TLCCulling__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_TLCLighting__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_TLCLightingDebug__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_FxaaQualityLevel__Enum.h>
+#include <Modloader/app/structs/SrpSampler_Scope__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebugUI_QualityForInspector__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_WaterSimulationUpdateMode__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_WaterReflectionSortMode__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_DofBlurType__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_SliceCompositionType__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebugUI_TextureQuality__Enum.h>
+#include <Modloader/app/structs/SceneRTAllocationPolicy__Enum.h>
+#include <Modloader/app/structs/SliceRTAllocationPolicy__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_FrameBufferFormat__Enum.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_FrameBufferDepth__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_XboxResolution__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_DebugDownsample__Enum.h>
+#include <Modloader/app/structs/ClearPolicy__Enum.h>
+#include <Modloader/app/structs/ClearFlagMode__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_ClearSceneRT__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_ClearSliceBlurRT__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebugUI_MSAA__Enum.h>
+#include <Modloader/app/structs/FilterMode__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_HDRRecMode__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_MaskErasingFixType__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_POT__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebugUI_SliceRangeMode__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_RenderQueues__Enum.h>
+#include <Modloader/app/structs/SortFlags__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_GodRaySampleCount__Enum.h>
+#include <Modloader/app/structs/FullScreenMode__Enum.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::NavigableOnGUI {
     IL2CPP_REGISTER_METHOD(0x00887DE0, bool, get_isSelected, (app::NavigableOnGUI_1 * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NormalBackwardsCutsceneState.h>
 
 namespace app::classes::NormalBackwardsCutsceneState {
     IL2CPP_REGISTER_METHOD(0x0060BDF0, void, OnEnter, (app::NormalBackwardsCutsceneState * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/Tuple_2_MoonGuid_Boolean_.h>
 
 namespace app::classes::System::Tuple_2_MoonGuid_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::MoonGuid*, get_Item1, (app::Tuple_2_MoonGuid_Boolean_ * this_ptr))

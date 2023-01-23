@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinaryFormatter.h>
+#include <Modloader/app/structs/FormatterAssemblyStyle__Enum.h>
+#include <Modloader/app/structs/ISurrogateSelector.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/HeaderHandler.h>
+#include <Modloader/app/structs/Header__Array.h>
+#include <Modloader/app/structs/TypeInformation.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::BinaryFormatter {
     IL2CPP_REGISTER_METHOD(0x00E06D70, void, set_AssemblyFormat, (app::BinaryFormatter * this_ptr, app::FormatterAssemblyStyle__Enum value))

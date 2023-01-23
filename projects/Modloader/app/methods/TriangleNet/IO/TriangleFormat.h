@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TriangleFormat.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IMesh.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/IPolygon.h>
 
 namespace app::classes::TriangleNet::IO::TriangleFormat {
     IL2CPP_REGISTER_METHOD(0x02621520, bool, IsSupported, (app::TriangleFormat * this_ptr, app::String* file))

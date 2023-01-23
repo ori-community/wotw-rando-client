@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberTransformFollow.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/ValueTuple_2_UnityEngine_Vector3_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Moon::UberTransformFollow {
     IL2CPP_REGISTER_METHOD(0x0256FF30, int32_t, get_TargetCount, (app::UberTransformFollow * this_ptr))

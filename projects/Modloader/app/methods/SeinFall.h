@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinFall.h>
+#include <Modloader/app/structs/SeinFallPuppet.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/RaycastHit.h>
 
 namespace app::classes::SeinFall {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinFall * this_ptr))

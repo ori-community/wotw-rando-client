@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WwiseEventSystem.h>
+#include <Modloader/app/structs/AkWwiseInitializationSettings.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/ISoundHost.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandle.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandleProtected.h>
 
 namespace app::classes::Moon::Wwise::WwiseEventSystem {
     IL2CPP_REGISTER_METHOD(0x027123C0, void, Initialize, (app::WwiseEventSystem * this_ptr, app::AkWwiseInitializationSettings* config))

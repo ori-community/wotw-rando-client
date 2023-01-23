@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SceneLoadingTest_Stats__Class.h>
+#include <Modloader/app/structs/SceneLoadingTest_Stats.h>
 
 namespace app::classes::types {
     namespace SceneLoadingTest_Stats {

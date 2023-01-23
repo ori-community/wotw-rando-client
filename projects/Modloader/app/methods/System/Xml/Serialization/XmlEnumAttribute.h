@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlEnumAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::Xml::Serialization::XmlEnumAttribute {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::XmlEnumAttribute * this_ptr, app::String* name))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraController_1.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds_.h>
+#include <Modloader/app/structs/NativeArray_1_System_Byte_.h>
+#include <Modloader/app/structs/Plane__Array.h>
 
 namespace app::classes::CameraController {
     IL2CPP_REGISTER_METHOD(0x003FBE50, bool, get_FrustumLocked, (app::CameraController_1 * this_ptr))

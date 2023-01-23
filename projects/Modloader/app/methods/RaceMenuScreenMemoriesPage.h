@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/RaceMenuScreenMemoriesPage.h>
+#include <Modloader/app/structs/MemoryUISlot.h>
+#include <Modloader/app/structs/ReplaySetting__Array.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::RaceMenuScreenMemoriesPage {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ResetStatics, ())

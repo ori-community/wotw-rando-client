@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Calendar.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/TaiwanCalendar.h>
+#include <Modloader/app/structs/DayOfWeek__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
 
 namespace app::classes::System::Globalization::TaiwanCalendar {
     IL2CPP_REGISTER_METHOD(0x01DEC880, app::Calendar*, GetDefaultInstance, ())

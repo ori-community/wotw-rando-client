@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListView.h>
+#include <Modloader/app/structs/Action_1_Moon_UberStateVisualization_ListViewItem_.h>
+#include <Modloader/app/structs/GUIContent.h>
+#include <Modloader/app/structs/ListViewItem.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/ControllerInput.h>
+#include <Modloader/app/structs/List_1_Moon_UberStateVisualization_ListViewItem_.h>
 
 namespace app::classes::Moon::UberStateVisualization::ListView {
     IL2CPP_REGISTER_METHOD(0x019976D0, void, add_OnSelectionChanged, (app::ListView * this_ptr, app::Action_1_Moon_UberStateVisualization_ListViewItem_* value))

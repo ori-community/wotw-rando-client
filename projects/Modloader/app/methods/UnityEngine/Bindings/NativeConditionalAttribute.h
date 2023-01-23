@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NativeConditionalAttribute.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Bindings::NativeConditionalAttribute {
     IL2CPP_REGISTER_METHOD(0x020D0390, void, ctor, (app::NativeConditionalAttribute * this_ptr, app::String* condition))

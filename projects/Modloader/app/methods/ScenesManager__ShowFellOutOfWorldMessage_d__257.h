@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScenesManager_ShowFellOutOfWorldMessage_d_257.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ScenesManager__ShowFellOutOfWorldMessage_d__257 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::ScenesManager_ShowFellOutOfWorldMessage_d_257 * this_ptr, int32_t __1__state))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RammingBehaviour.h>
+#include <Modloader/app/structs/EntityDamageEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 
 namespace app::classes::Moon::RammingBehaviour {
     IL2CPP_REGISTER_METHOD(0x00805AA0, int32_t, get_GroundMask, ())

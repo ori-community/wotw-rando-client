@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_RuntimeSceneMetaData_Moon_Timeline_Systems_SceneManagementSystem_SceneLoadedState_.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
+#include <Modloader/app/structs/SceneManagementSystem_SceneLoadedState.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_RuntimeSceneMetaData_Moon_Timeline_Systems_SceneManagementSystem_SceneLoadedState_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_RuntimeSceneMetaData_Moon_Timeline_Systems_SceneManagementSystem_SceneLoadedState_ {
     IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_RuntimeSceneMetaData_Moon_Timeline_Systems_SceneManagementSystem_SceneLoadedState_ * this_ptr, app::RuntimeSceneMetaData* key, app::SceneManagementSystem_SceneLoadedState** value))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KwolokTongueSyncGroup_KwolokTongueGroupEntry_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KwolokTongueSyncGroup_KwolokTongueGroupEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokTongueSyncGroup_KwolokTongueGroupEntry_DEFINED)
+#include <Modloader/app/structs/KwolokTongueSyncGroup_KwolokTongueGroupEntry__Fields.h>
+#if defined(IL2CPP_STRUCT_KwolokTongueSyncGroup_KwolokTongueGroupEntry__Fields_DEFINED)
+#define IL2CPP_STRUCT_KwolokTongueSyncGroup_KwolokTongueGroupEntry_DEFINED
+struct KwolokTongueSyncGroup_KwolokTongueGroupEntry__Class;
+struct KwolokTongueSyncGroup_KwolokTongueGroupEntry {
+    struct KwolokTongueSyncGroup_KwolokTongueGroupEntry__Class* klass;
+    MonitorData* monitor;
+    struct KwolokTongueSyncGroup_KwolokTongueGroupEntry__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KwolokTongueSyncGroup_KwolokTongueGroupEntry_FWDDECL)
+#define IL2CPP_STRUCT_KwolokTongueSyncGroup_KwolokTongueGroupEntry_FWDDECL
+#include <Modloader/app/structs/KwolokTongueSyncGroup_KwolokTongueGroupEntry__Class.h>
+#endif
+#undef IL2CPP_STRUCT_KwolokTongueSyncGroup_KwolokTongueGroupEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokTongueSyncGroup_KwolokTongueGroupEntry_DEFINED) && !defined(IL2CPP_STRUCT_KwolokTongueSyncGroup_KwolokTongueGroupEntry_FWDDECL)
+#include <Modloader/app/structs/KwolokTongueSyncGroup_KwolokTongueGroupEntry.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KwolokTongueSyncGroup_KwolokTongueGroupEntry.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

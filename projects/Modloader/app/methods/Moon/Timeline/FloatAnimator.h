@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FloatAnimator.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::Moon::Timeline::FloatAnimator {
     IL2CPP_REGISTER_METHOD(0x013E41D0, float, get_CurrentValue, (app::FloatAnimator * this_ptr))

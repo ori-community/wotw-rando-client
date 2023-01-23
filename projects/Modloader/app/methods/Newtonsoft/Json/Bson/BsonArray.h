@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BsonArray.h>
+#include <Modloader/app/structs/BsonToken.h>
+#include <Modloader/app/structs/BsonType__Enum.h>
+#include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_Bson_BsonToken_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::Newtonsoft::Json::Bson::BsonArray {
     IL2CPP_REGISTER_METHOD(0x01A485B0, void, Add, (app::BsonArray * this_ptr, app::BsonToken* token))

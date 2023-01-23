@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonProjectInfo__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonProjectInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonProjectInfo__DEFINED)
+#define IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonProjectInfo__DEFINED
+struct WaapiJsonClassBase_1_WaapiJsonProjectInfo___Class;
+struct WaapiJsonClassBase_1_WaapiJsonProjectInfo_ {
+    struct WaapiJsonClassBase_1_WaapiJsonProjectInfo___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonProjectInfo__FWDDECL)
+#define IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonProjectInfo__FWDDECL
+#include <Modloader/app/structs/WaapiJsonClassBase_1_WaapiJsonProjectInfo___Class.h>
+#endif
+#undef IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonProjectInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonProjectInfo__DEFINED) && !defined(IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonProjectInfo__FWDDECL)
+#include <Modloader/app/structs/WaapiJsonClassBase_1_WaapiJsonProjectInfo_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/WaapiJsonClassBase_1_WaapiJsonProjectInfo_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

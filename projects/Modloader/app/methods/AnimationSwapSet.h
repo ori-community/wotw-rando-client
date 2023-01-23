@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationSwapSet.h>
 
 namespace app::classes::AnimationSwapSet {
     IL2CPP_REGISTER_METHOD(0x004F4CE0, bool, get_BlockTurning, (app::AnimationSwapSet * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NativePropertyAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TargetType__Enum.h>
 
 namespace app::classes::UnityEngine::Bindings::NativePropertyAttribute {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::NativePropertyAttribute * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BitArray_BitArrayEnumeratorSimple.h>
+#include <Modloader/app/structs/BitArray.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::BitArray_BitArrayEnumeratorSimple {
     IL2CPP_REGISTER_METHOD(0x0201E7A0, void, ctor, (app::BitArray_BitArrayEnumeratorSimple * this_ptr, app::BitArray* bitarray))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AudioListenerZoneReference__Boxed.h>
+#include <Modloader/app/structs/AudioListenerZone.h>
+#include <Modloader/app/structs/AudioListenerZoneReference.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::Wwise::AudioListenerZoneReference {
     IL2CPP_REGISTER_METHOD(0x001FE700, void, ctor, (app::AudioListenerZoneReference__Boxed * this_ptr, app::AudioListenerZone* zone))

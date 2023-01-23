@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkCommonAdvancedSettings.h>
+#include <Modloader/app/structs/AkDeviceSettings.h>
+#include <Modloader/app/structs/AkInitSettings.h>
+#include <Modloader/app/structs/AkPlatformInitSettings.h>
+#include <Modloader/app/structs/AkSpatialAudioInitSettings.h>
+#include <Modloader/app/structs/AkUnityPlatformSpecificSettings.h>
 
 namespace app::classes::AkCommonAdvancedSettings {
     IL2CPP_REGISTER_METHOD(0x026D8830, void, CopyTo_1, (app::AkCommonAdvancedSettings * this_ptr, app::AkDeviceSettings* settings))

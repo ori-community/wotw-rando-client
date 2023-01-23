@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LoremasterScreen_c.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::LoremasterScreen___c {
     IL2CPP_REGISTER_METHOD(0x009F3090, void, cctor, ())

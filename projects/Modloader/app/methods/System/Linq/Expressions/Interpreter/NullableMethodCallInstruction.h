@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NullableMethodCallInstruction.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Instruction.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::NullableMethodCallInstruction {
     IL2CPP_REGISTER_METHOD(0x00417920, int32_t, get_ConsumedStack, (app::NullableMethodCallInstruction * this_ptr))

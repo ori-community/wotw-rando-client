@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HMACMD5.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::HMACMD5 {
     IL2CPP_REGISTER_METHOD(0x020D9880, void, ctor_1, (app::HMACMD5 * this_ptr))

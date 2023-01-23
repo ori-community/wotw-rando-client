@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_UnityEngine_SendMouseEvents_HitInfo___Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/SendMouseEvents_HitInfo.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_InternalEnumerator_1_UnityEngine_SendMouseEvents_HitInfo_ {
     IL2CPP_REGISTER_METHOD(0x00160580, void, ctor, (app::Array_InternalEnumerator_1_UnityEngine_SendMouseEvents_HitInfo___Boxed * this_ptr, app::Array* array))

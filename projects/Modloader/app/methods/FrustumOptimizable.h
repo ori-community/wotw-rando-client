@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FrustumOptimizable.h>
+#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::FrustumOptimizable {
     IL2CPP_REGISTER_METHOD(0x0164A810, void, OnFrustumEnter, (app::FrustumOptimizable * this_ptr))

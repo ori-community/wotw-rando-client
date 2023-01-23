@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WorldEventsOnAwake_WorldEventState__Class.h>
+#include <Modloader/app/structs/WorldEventsOnAwake_WorldEventState.h>
+#include <Modloader/app/structs/WorldEventsOnAwake_WorldEventState__Array.h>
 
 namespace app::classes::types {
     namespace WorldEventsOnAwake_WorldEventState {

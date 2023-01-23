@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Lookup_2_TKey_TElement_Grouping_System_Object_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Linq::Lookup_2_TKey_TElement__Grouping_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Object*, get_Key, (app::Lookup_2_TKey_TElement_Grouping_System_Object_System_Object_ * this_ptr))

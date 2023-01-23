@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TitleScreenManager_WaitToShowFirstTimeQualitySettings_d_48__Class.h>
+#include <Modloader/app/structs/TitleScreenManager_WaitToShowFirstTimeQualitySettings_d_48.h>
 
 namespace app::classes::types {
     namespace TitleScreenManager_WaitToShowFirstTimeQualitySettings_d_48 {

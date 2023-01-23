@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IKSolverLimb.h>
+#include <Modloader/app/structs/AvatarIKGoal__Enum.h>
+#include <Modloader/app/structs/IKSolverLimb_AxisDirection__Array.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolverLimb {
     IL2CPP_REGISTER_METHOD(0x02BFC570, void, MaintainRotation, (app::IKSolverLimb * this_ptr))

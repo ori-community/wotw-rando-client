@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormDeathBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SandWormDeathBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C0BE80, void, OnInitializeTask, (app::SandWormDeathBehaviour * this_ptr, app::IContext* context))

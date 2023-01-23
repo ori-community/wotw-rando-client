@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractionRotationModifier.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberInteractionManager_PropertyIDCache.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::InteractionRotationModifier {
     IL2CPP_REGISTER_METHOD(0x00639CE0, void, ApplyMultipliers, (app::InteractionRotationModifier * this_ptr, float strength, float speed))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RuntimeLicenseContext.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Uri.h>
 
 namespace app::classes::System::ComponentModel::Design::RuntimeLicenseContext {
     IL2CPP_REGISTER_METHOD(0x01FE3840, app::String*, GetLocalPath, (app::RuntimeLicenseContext * this_ptr, app::String* file_name))

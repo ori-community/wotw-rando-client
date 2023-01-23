@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonBuilder.h>
+#include <Modloader/app/structs/JsonBuilder_Slot.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DateTime.h>
 
 namespace app::classes::Moon::JsonBuilder {
     IL2CPP_REGISTER_METHOD(0x030EB650, int32_t, get_Capacity, (app::JsonBuilder * this_ptr))

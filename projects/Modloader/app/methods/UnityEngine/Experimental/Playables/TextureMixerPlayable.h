@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/TextureMixerPlayable__Boxed.h>
+#include <Modloader/app/structs/TextureMixerPlayable.h>
 
 namespace app::classes::UnityEngine::Experimental::Playables::TextureMixerPlayable {
     IL2CPP_REGISTER_METHOD(0x001D9980, app::PlayableHandle, GetHandle, (app::TextureMixerPlayable__Boxed * this_ptr))

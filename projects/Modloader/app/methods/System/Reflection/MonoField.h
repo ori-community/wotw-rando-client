@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FieldAttributes__Enum.h>
+#include <Modloader/app/structs/MonoField.h>
+#include <Modloader/app/structs/RuntimeFieldHandle.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/Binder.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeData_.h>
 
 namespace app::classes::System::Reflection::MonoField {
     IL2CPP_REGISTER_METHOD(0x00654950, app::FieldAttributes__Enum, get_Attributes, (app::MonoField * this_ptr))

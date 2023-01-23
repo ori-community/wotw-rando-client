@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleGroundNavigation.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::SimpleGroundNavigation {
     IL2CPP_REGISTER_METHOD(0x00E27620, void, Awake, (app::SimpleGroundNavigation * this_ptr))

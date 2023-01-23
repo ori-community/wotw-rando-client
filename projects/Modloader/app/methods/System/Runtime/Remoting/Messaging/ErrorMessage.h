@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ErrorMessage.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/LogicalCallContext.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::ErrorMessage {
     IL2CPP_REGISTER_METHOD(0x023104C0, void, ctor, (app::ErrorMessage * this_ptr))

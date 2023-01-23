@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PhysicalSystemManager_TimeSliceActivatePhysics_d_159__Class.h>
+#include <Modloader/app/structs/PhysicalSystemManager_TimeSliceActivatePhysics_d_159.h>
 
 namespace app::classes::types {
     namespace PhysicalSystemManager_TimeSliceActivatePhysics_d_159 {

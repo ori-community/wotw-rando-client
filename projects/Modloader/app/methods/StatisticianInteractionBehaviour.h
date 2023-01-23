@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StatisticianInteractionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/StatisticianInteractionBehaviour_InteractionStates__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::StatisticianInteractionBehaviour {
     IL2CPP_REGISTER_METHOD(0x009B8C30, void, OnEntityInitialized, (app::StatisticianInteractionBehaviour * this_ptr))

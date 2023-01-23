@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServerPhysicalMaterial_PhysicalMaterialData.h>
+#include <Modloader/app/structs/PhysicMaterial.h>
+#include <Modloader/app/structs/ServerPhysicalMaterial.h>
 
 namespace app::classes::ServerPhysicalMaterial {
     IL2CPP_REGISTER_METHOD(0x00AC3150, app::ServerPhysicalMaterial_PhysicalMaterialData, CreateData, (app::PhysicMaterial * physic_material))

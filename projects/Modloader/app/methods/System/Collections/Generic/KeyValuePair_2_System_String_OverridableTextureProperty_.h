@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_String_OverridableTextureProperty___Boxed.h>
+#include <Modloader/app/structs/OverridableTextureProperty.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_String_OverridableTextureProperty_ {
     IL2CPP_REGISTER_METHOD(0x00107C00, app::String*, get_Key, (app::KeyValuePair_2_System_String_OverridableTextureProperty___Boxed * this_ptr))

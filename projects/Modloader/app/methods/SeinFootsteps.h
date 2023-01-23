@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinFootsteps.h>
+#include <Modloader/app/structs/SeinFootstepsPuppet.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/CharacterSpriteMirror.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::SeinFootsteps {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinFootsteps * this_ptr))

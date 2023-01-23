@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MaskExtraModifier.h>
 
 namespace app::classes::MaskExtraModifier {
     IL2CPP_REGISTER_METHOD(0x00A10DA0, void, Randomize, (app::MaskExtraModifier * this_ptr))

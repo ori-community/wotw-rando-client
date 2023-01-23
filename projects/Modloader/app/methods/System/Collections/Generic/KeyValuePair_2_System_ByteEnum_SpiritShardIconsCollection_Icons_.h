@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_ByteEnum_SpiritShardIconsCollection_Icons___Boxed.h>
+#include <Modloader/app/structs/ByteEnum__Enum.h>
+#include <Modloader/app/structs/SpiritShardIconsCollection_Icons.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_ByteEnum_SpiritShardIconsCollection_Icons_ {
     IL2CPP_REGISTER_METHOD(0x0014FE00, void, ctor, (app::KeyValuePair_2_System_ByteEnum_SpiritShardIconsCollection_Icons___Boxed * this_ptr, app::ByteEnum__Enum key, app::SpiritShardIconsCollection_Icons value))

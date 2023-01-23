@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/StringWriter.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_String_.h>
+#include <Modloader/app/structs/JsonProperty.h>
+#include <Modloader/app/structs/IEnumerable_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
+#include <Modloader/app/structs/Func_2_Newtonsoft_Json_Serialization_JsonProperty_String_.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::StringUtils {
     IL2CPP_REGISTER_METHOD(0x030272D0, app::String*, FormatWith_1, (app::String * format, app::IFormatProvider* provider, app::Object* arg0))

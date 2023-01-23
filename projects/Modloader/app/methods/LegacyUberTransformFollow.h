@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyUberTransformFollow.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Transform_.h>
 
 namespace app::classes::LegacyUberTransformFollow {
     IL2CPP_REGISTER_METHOD(0x0112D350, void, Awake, (app::LegacyUberTransformFollow * this_ptr))

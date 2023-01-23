@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_LegacyTransparencyAnimator_RendererData___Boxed.h>
+#include <Modloader/app/structs/List_1_LegacyTransparencyAnimator_RendererData_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_LegacyTransparencyAnimator_RendererData_ {
     IL2CPP_REGISTER_METHOD(0x00136440, app::LegacyTransparencyAnimator_RendererData, get_Current, (app::List_1_T_Enumerator_LegacyTransparencyAnimator_RendererData___Boxed * this_ptr))

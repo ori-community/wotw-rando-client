@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XElementDescendantsPropertyDescriptor__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XElementDescendantsPropertyDescriptor__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XElementDescendantsPropertyDescriptor__Fields_DEFINED)
+#include <Modloader/app/structs/XPropertyDescriptor_2_System_Xml_Linq_XElement_System_Collections_Generic_IEnumerable_1___Fields.h>
+#if defined(IL2CPP_STRUCT_XPropertyDescriptor_2_System_Xml_Linq_XElement_System_Collections_Generic_IEnumerable_1___Fields_DEFINED)
+#define IL2CPP_STRUCT_XElementDescendantsPropertyDescriptor__Fields_DEFINED
+struct XDeferredAxis_1_System_Xml_Linq_XElement_;
+struct XName;
+struct XElementDescendantsPropertyDescriptor__Fields {
+    struct XPropertyDescriptor_2_System_Xml_Linq_XElement_System_Collections_Generic_IEnumerable_1___Fields _;
+    struct XDeferredAxis_1_System_Xml_Linq_XElement_* value;
+    struct XName* changeState;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_XElementDescendantsPropertyDescriptor__Fields_FWDDECL)
+#define IL2CPP_STRUCT_XElementDescendantsPropertyDescriptor__Fields_FWDDECL
+#include <Modloader/app/structs/XDeferredAxis_1_System_Xml_Linq_XElement_.h>
+#include <Modloader/app/structs/XName.h>
+#endif
+#undef IL2CPP_STRUCT_XElementDescendantsPropertyDescriptor__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XElementDescendantsPropertyDescriptor__Fields_DEFINED) && !defined(IL2CPP_STRUCT_XElementDescendantsPropertyDescriptor__Fields_FWDDECL)
+#include <Modloader/app/structs/XElementDescendantsPropertyDescriptor__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XElementDescendantsPropertyDescriptor__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

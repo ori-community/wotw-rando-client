@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_c.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_EvaluationCtx.h>
 
 namespace app::classes::DynamicInstantiationScanner___c {
     IL2CPP_REGISTER_METHOD(0x030E2DC0, void, cctor, ())

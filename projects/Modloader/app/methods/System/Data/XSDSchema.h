@@ -1,5 +1,34 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XSDSchema.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlAttribute__Array.h>
+#include <Modloader/app/structs/XmlSchemaAnnotated.h>
+#include <Modloader/app/structs/XmlAttributeCollection.h>
+#include <Modloader/app/structs/XmlSchemaElement.h>
+#include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlSchemaParticle.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/XmlSchemaAnnotation.h>
+#include <Modloader/app/structs/XmlSchemaAttributeGroup.h>
+#include <Modloader/app/structs/XmlSchemaComplexType.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/DataColumn__Array.h>
+#include <Modloader/app/structs/XmlSchemaIdentityConstraint.h>
+#include <Modloader/app/structs/AcceptRejectRule__Enum.h>
+#include <Modloader/app/structs/Rule__Enum.h>
+#include <Modloader/app/structs/XmlSchemaKeyref.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XSDSchema_NameType.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/XmlSchemaAttribute.h>
+#include <Modloader/app/structs/List_1_System_Data_DataTable_.h>
 
 namespace app::classes::System::Data::XSDSchema {
     IL2CPP_REGISTER_METHOD(0x003FD650, bool, get_FromInference, (app::XSDSchema * this_ptr))

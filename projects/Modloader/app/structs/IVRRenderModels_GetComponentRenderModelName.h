@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRRenderModels_GetComponentRenderModelName_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRRenderModels_GetComponentRenderModelName_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRRenderModels_GetComponentRenderModelName_DEFINED)
+#include <Modloader/app/structs/IVRRenderModels_GetComponentRenderModelName__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRRenderModels_GetComponentRenderModelName__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRRenderModels_GetComponentRenderModelName_DEFINED
+struct IVRRenderModels_GetComponentRenderModelName__Class;
+struct IVRRenderModels_GetComponentRenderModelName {
+    struct IVRRenderModels_GetComponentRenderModelName__Class* klass;
+    MonitorData* monitor;
+    struct IVRRenderModels_GetComponentRenderModelName__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRRenderModels_GetComponentRenderModelName_FWDDECL)
+#define IL2CPP_STRUCT_IVRRenderModels_GetComponentRenderModelName_FWDDECL
+#include <Modloader/app/structs/IVRRenderModels_GetComponentRenderModelName__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRRenderModels_GetComponentRenderModelName_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRRenderModels_GetComponentRenderModelName_DEFINED) && !defined(IL2CPP_STRUCT_IVRRenderModels_GetComponentRenderModelName_FWDDECL)
+#include <Modloader/app/structs/IVRRenderModels_GetComponentRenderModelName.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRRenderModels_GetComponentRenderModelName.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

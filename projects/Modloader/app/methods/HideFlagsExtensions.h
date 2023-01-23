@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ScenesManager.h>
 
 namespace app::classes::HideFlagsExtensions {
     IL2CPP_REGISTER_METHOD(0x00B49070, bool, HasFlagDontSave, (app::Object_1 * _this))

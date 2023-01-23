@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_Int32Enum_EntityWeightData_EntityWeightSettings__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32Enum_EntityWeightData_EntityWeightSettings__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32Enum_EntityWeightData_EntityWeightSettings__DEFINED)
+#include <Modloader/app/structs/EntityWeightData_EntityWeightSettings.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
+#if defined(IL2CPP_STRUCT_Int32Enum__Enum_DEFINED) && defined(IL2CPP_STRUCT_EntityWeightData_EntityWeightSettings_DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32Enum_EntityWeightData_EntityWeightSettings__DEFINED
+struct KeyValuePair_2_System_Int32Enum_EntityWeightData_EntityWeightSettings_ {
+    Int32Enum__Enum key;
+
+    struct EntityWeightData_EntityWeightSettings value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32Enum_EntityWeightData_EntityWeightSettings__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32Enum_EntityWeightData_EntityWeightSettings__FWDDECL
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_Int32Enum_EntityWeightData_EntityWeightSettings__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32Enum_EntityWeightData_EntityWeightSettings__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32Enum_EntityWeightData_EntityWeightSettings__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32Enum_EntityWeightData_EntityWeightSettings_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32Enum_EntityWeightData_EntityWeightSettings_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

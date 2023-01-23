@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GUICamera.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::GUICamera {
     IL2CPP_REGISTER_METHOD(0x0151D640, void, Update, (app::GUICamera * this_ptr))

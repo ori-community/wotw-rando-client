@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_SrpProfilerSample__Boxed.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_SrpProfilerSample.h>
+#include <Modloader/app/structs/SrpSampler.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderPipelineView_SrpProfilerSample {
     IL2CPP_REGISTER_METHOD(0x00120070, float, get_totalTime, (app::MoonRenderPipelineView_SrpProfilerSample__Boxed * this_ptr))

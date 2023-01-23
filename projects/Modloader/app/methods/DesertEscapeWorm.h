@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DesertEscapeWorm.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/DesertEscapeWorm_States__Enum.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_MoonTimeline_.h>
+#include <Modloader/app/structs/DesertEscapeWorm_AdditionalTimelineSet.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::DesertEscapeWorm {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_IsSuspended, (app::DesertEscapeWorm * this_ptr))

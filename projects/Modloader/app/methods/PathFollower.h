@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/PathFollower.h>
 
 namespace app::classes::PathFollower {
     IL2CPP_REGISTER_METHOD(0x00446940, app::Vector3, get_WorldPosition, (app::PathFollower * this_ptr))

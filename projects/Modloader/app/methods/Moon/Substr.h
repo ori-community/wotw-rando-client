@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Substr__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Substr.h>
+#include <Modloader/app/structs/List_1_Moon_Substr_.h>
+#include <Modloader/app/structs/StringSplitOptions__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Moon::Substr {
     IL2CPP_REGISTER_METHOD(0x00245E70, void, ctor_1, (app::Substr__Boxed * this_ptr, app::String* str))

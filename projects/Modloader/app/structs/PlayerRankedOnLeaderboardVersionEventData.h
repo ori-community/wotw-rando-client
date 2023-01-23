@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PlayerRankedOnLeaderboardVersionEventData_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PlayerRankedOnLeaderboardVersionEventData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PlayerRankedOnLeaderboardVersionEventData_DEFINED)
+#include <Modloader/app/structs/PlayerRankedOnLeaderboardVersionEventData__Fields.h>
+#if defined(IL2CPP_STRUCT_PlayerRankedOnLeaderboardVersionEventData__Fields_DEFINED)
+#define IL2CPP_STRUCT_PlayerRankedOnLeaderboardVersionEventData_DEFINED
+struct PlayerRankedOnLeaderboardVersionEventData__Class;
+struct PlayerRankedOnLeaderboardVersionEventData {
+    struct PlayerRankedOnLeaderboardVersionEventData__Class* klass;
+    MonitorData* monitor;
+    struct PlayerRankedOnLeaderboardVersionEventData__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PlayerRankedOnLeaderboardVersionEventData_FWDDECL)
+#define IL2CPP_STRUCT_PlayerRankedOnLeaderboardVersionEventData_FWDDECL
+#include <Modloader/app/structs/PlayerRankedOnLeaderboardVersionEventData__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PlayerRankedOnLeaderboardVersionEventData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PlayerRankedOnLeaderboardVersionEventData_DEFINED) && !defined(IL2CPP_STRUCT_PlayerRankedOnLeaderboardVersionEventData_FWDDECL)
+#include <Modloader/app/structs/PlayerRankedOnLeaderboardVersionEventData.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PlayerRankedOnLeaderboardVersionEventData.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

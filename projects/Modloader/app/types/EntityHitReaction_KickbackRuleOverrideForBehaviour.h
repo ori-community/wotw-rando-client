@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/EntityHitReaction_KickbackRuleOverrideForBehaviour__Class.h>
+#include <Modloader/app/structs/EntityHitReaction_KickbackRuleOverrideForBehaviour.h>
+#include <Modloader/app/structs/EntityHitReaction_KickbackRuleOverrideForBehaviour__Array.h>
 
 namespace app::classes::types {
     namespace EntityHitReaction_KickbackRuleOverrideForBehaviour {

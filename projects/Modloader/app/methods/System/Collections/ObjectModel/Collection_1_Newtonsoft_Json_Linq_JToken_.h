@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/Collection_1_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/JToken__Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::ObjectModel::Collection_1_Newtonsoft_Json_Linq_JToken_ {
     IL2CPP_REGISTER_METHOD(0x02CFA3A0, app::JToken*, get_Item, (app::Collection_1_Newtonsoft_Json_Linq_JToken_ * this_ptr, int32_t index))

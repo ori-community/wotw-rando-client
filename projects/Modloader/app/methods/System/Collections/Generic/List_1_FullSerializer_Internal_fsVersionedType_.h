@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_FullSerializer_Internal_fsVersionedType_.h>
+#include <Modloader/app/structs/fsVersionedType.h>
+#include <Modloader/app/structs/IEnumerable_1_FullSerializer_Internal_fsVersionedType_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_FullSerializer_Internal_fsVersionedType_.h>
+#include <Modloader/app/structs/IComparer_1_FullSerializer_Internal_fsVersionedType_.h>
+#include <Modloader/app/structs/fsVersionedType__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_FullSerializer_Internal_fsVersionedType_.h>
+#include <Modloader/app/structs/Action_1_FullSerializer_Internal_fsVersionedType_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_FullSerializer_Internal_fsVersionedType_.h>
+#include <Modloader/app/structs/IEnumerator_1_FullSerializer_Internal_fsVersionedType_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_FullSerializer_Internal_fsVersionedType_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_FullSerializer_Internal_fsVersionedType_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_FullSerializer_Internal_fsVersionedType_ * this_ptr))

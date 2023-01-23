@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/EnumerableSorter_1_MicroProfilerInspector_MetricData_.h>
+#include <Modloader/app/structs/MicroProfilerInspector_MetricData__Array.h>
 
 namespace app::classes::System::Linq::EnumerableSorter_1_MicroProfilerInspector_MetricData_ {
     IL2CPP_REGISTER_METHOD(0x0289C130, app::Int32__Array*, Sort, (app::EnumerableSorter_1_MicroProfilerInspector_MetricData_ * this_ptr, app::MicroProfilerInspector_MetricData__Array* elements, int32_t count))

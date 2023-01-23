@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TaskScheduler.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UnobservedTaskExceptionEventArgs.h>
 
 namespace app::classes::System::Threading::Tasks::TaskScheduler {
     IL2CPP_REGISTER_METHOD(0x0233EC50, bool, TryRunInline, (app::TaskScheduler * this_ptr, app::Task* task, bool task_was_previously_queued))

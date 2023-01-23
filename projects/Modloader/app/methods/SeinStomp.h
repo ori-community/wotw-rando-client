@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinStomp.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/SeinDoubleJump.h>
+#include <Modloader/app/structs/CharacterUpwardsDeceleration.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::SeinStomp {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinStomp * this_ptr))

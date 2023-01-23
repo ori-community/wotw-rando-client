@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/BlackboardVariableVector3.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::BehaviourSystem::BlackboardVariableVector3 {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::IMoonType_1_UnityEngine_Vector3_*, GetMoonType, (app::BlackboardVariableVector3 * this_ptr))

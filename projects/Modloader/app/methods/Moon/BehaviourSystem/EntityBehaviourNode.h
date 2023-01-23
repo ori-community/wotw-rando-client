@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/EntityOwnedInitOrder__Enum.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::EntityBehaviourNode {
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::Entity*, get_Entity, (app::EntityBehaviourNode * this_ptr))

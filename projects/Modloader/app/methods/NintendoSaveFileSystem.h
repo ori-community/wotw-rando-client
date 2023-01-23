@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NintendoSaveFileSystem.h>
 
 namespace app::classes::NintendoSaveFileSystem {
     IL2CPP_REGISTER_METHOD(0x0257B520, app::String*, get_MountName, ())

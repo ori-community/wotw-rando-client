@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ModuloInstruction_ModuloInt16.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::ModuloInstruction_ModuloInt16 {
     IL2CPP_REGISTER_METHOD(0x023FCAF0, int32_t, Run, (app::ModuloInstruction_ModuloInt16 * this_ptr, app::InterpretedFrame* frame))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Index_c.h>
+#include <Modloader/app/structs/DataViewListener.h>
+#include <Modloader/app/structs/ListChangedEventArgs.h>
 
 namespace app::classes::System::Data::Index___c {
     IL2CPP_REGISTER_METHOD(0x01E3F5A0, void, cctor, ())

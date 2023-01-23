@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_List_1_System_Byte_.h>
+#include <Modloader/app/structs/List_1_System_Byte__1.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_List_1_System_Byte____ {
     IL2CPP_REGISTER_METHOD(0x002FD1D0, int32_t, get_Count, (app::Queue_1_List_1_System_Byte_ * this_ptr))

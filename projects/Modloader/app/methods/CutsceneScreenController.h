@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CutsceneScreenController.h>
 
 namespace app::classes::CutsceneScreenController {
     IL2CPP_REGISTER_METHOD(0x00DBEB70, void, Awake, (app::CutsceneScreenController * this_ptr))

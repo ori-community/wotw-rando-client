@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaitForAttachOperation.h>
 
 namespace app::classes::frameworks::loading::Prewarmers::WaitForAttachOperation {
     IL2CPP_REGISTER_METHOD(0x00F62D20, void, ctor, (app::WaitForAttachOperation * this_ptr))

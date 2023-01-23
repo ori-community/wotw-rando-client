@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MinerBasketEntity.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::MinerBasketEntity {
     IL2CPP_REGISTER_METHOD(0x01445560, void, Awake, (app::MinerBasketEntity * this_ptr))

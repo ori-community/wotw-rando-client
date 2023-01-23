@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayableBehaviour.h>
+#include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/FrameData.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::Playables::PlayableBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::PlayableBehaviour * this_ptr))

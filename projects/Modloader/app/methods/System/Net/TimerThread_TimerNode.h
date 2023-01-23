@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimerThread_TimerNode.h>
+#include <Modloader/app/structs/TimerThread_Callback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::TimerThread_TimerNode {
     IL2CPP_REGISTER_METHOD(0x020A9190, void, ctor_1, (app::TimerThread_TimerNode * this_ptr, app::TimerThread_Callback* callback, app::Object* context, int32_t duration_milliseconds, app::Object* queue_lock))

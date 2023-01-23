@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RigidbodyMovement.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RigidbodyMovement {
     IL2CPP_REGISTER_METHOD(0x00913C50, void, Awake, (app::RigidbodyMovement * this_ptr))

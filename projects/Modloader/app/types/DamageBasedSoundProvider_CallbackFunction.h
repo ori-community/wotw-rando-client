@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DamageBasedSoundProvider_CallbackFunction__Class.h>
+#include <Modloader/app/structs/DamageBasedSoundProvider_CallbackFunction.h>
 
 namespace app::classes::types {
     namespace DamageBasedSoundProvider_CallbackFunction {

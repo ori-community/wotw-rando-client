@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleController.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::SimpleController {
     IL2CPP_REGISTER_METHOD(0x0166A610, void, Start, (app::SimpleController * this_ptr))

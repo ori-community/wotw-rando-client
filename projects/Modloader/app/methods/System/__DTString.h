@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/_DTString__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DateTimeFormatInfo.h>
+#include <Modloader/app/structs/CompareInfo.h>
+#include <Modloader/app/structs/TokenType__Enum.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/DTSubString.h>
 
 namespace app::classes::System::__DTString {
     IL2CPP_REGISTER_METHOD(0x00249FC0, void, ctor_1, (app::_DTString__Boxed * this_ptr, app::String* str, app::DateTimeFormatInfo* dtfi, bool check_digit_token))

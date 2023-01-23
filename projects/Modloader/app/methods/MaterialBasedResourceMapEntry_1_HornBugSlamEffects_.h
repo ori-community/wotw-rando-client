@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MaterialBasedResourceMapEntry_1_HornBugSlamEffects_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::MaterialBasedResourceMapEntry_1_HornBugSlamEffects_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::MaterialBasedResourceMapEntry_1_HornBugSlamEffects_ * this_ptr))

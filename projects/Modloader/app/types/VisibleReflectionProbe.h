@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/VisibleReflectionProbe__Class.h>
+#include <Modloader/app/structs/VisibleReflectionProbe.h>
+#include <Modloader/app/structs/VisibleReflectionProbe__Boxed.h>
+#include <Modloader/app/structs/VisibleReflectionProbe__Array.h>
 
 namespace app::classes::types {
     namespace VisibleReflectionProbe {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StressTestPlaylist.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/StressTester.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::StressTestPlaylist {
     IL2CPP_REGISTER_METHOD(0x0065DFB0, void, Start, (app::StressTestPlaylist * this_ptr))

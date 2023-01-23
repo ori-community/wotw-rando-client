@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ImageEffectBase.h>
+#include <Modloader/app/structs/Material.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::ImageEffectBase {
     IL2CPP_REGISTER_METHOD(0x02D59FA0, void, Start, (app::ImageEffectBase * this_ptr))

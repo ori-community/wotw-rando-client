@@ -3,6 +3,11 @@
 #include <Core/macros.h>
 #include <Core/enums/game_areas.h>
 
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+
 namespace game {
     namespace player {
         CORE_DLLEXPORT app::SeinCharacter* sein();

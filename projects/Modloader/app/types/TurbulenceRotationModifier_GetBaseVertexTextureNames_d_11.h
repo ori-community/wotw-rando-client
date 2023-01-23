@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TurbulenceRotationModifier_GetBaseVertexTextureNames_d_11__Class.h>
+#include <Modloader/app/structs/TurbulenceRotationModifier_GetBaseVertexTextureNames_d_11.h>
 
 namespace app::classes::types {
     namespace TurbulenceRotationModifier_GetBaseVertexTextureNames_d_11 {

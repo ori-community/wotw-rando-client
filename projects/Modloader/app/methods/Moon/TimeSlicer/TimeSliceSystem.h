@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_Moon_TimeSlicer_ITimeSlicedJob_.h>
+#include <Modloader/app/structs/TimeSliceSystem.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ITimeSlicedJob.h>
+#include <Modloader/app/structs/TimeSlicedJobPriority__Enum.h>
+#include <Modloader/app/structs/Func_1_Moon_TimeSlicer_TimeSlicedJobPriority_.h>
+#include <Modloader/app/structs/Type__Array.h>
 
 namespace app::classes::Moon::TimeSlicer::TimeSliceSystem {
     IL2CPP_REGISTER_METHOD(0x010BCA70, bool, get_DebuggingBudgetExceeded, ())

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationPlayableOutput.h>
+#include <Modloader/app/structs/AnimationLayerMixerPlayable.h>
+#include <Modloader/app/structs/Playable.h>
 
 namespace app::classes::UnityEngine::Playables::PlayableOutputExtensions {
     IL2CPP_REGISTER_METHOD(0x015E6720, void, SetSourcePlayable_1, (app::AnimationPlayableOutput output, app::AnimationLayerMixerPlayable value))

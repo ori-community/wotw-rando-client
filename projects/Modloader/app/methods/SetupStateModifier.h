@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SetupStateModifier.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/List_1_SetupState_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/SetupStateModifierData.h>
+#include <Modloader/app/structs/SetupStateModifierDataType__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::SetupStateModifier {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_Index, (app::SetupStateModifier * this_ptr))

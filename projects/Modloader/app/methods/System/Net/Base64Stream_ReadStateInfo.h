@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Base64Stream_ReadStateInfo.h>
 
 namespace app::classes::System::Net::Base64Stream_ReadStateInfo {
     IL2CPP_REGISTER_METHOD(0x0052B590, uint8_t, get_Val, (app::Base64Stream_ReadStateInfo * this_ptr))

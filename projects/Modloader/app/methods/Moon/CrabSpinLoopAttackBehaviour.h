@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrabSpinLoopAttackBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/CrabSpinLoopAttackBehaviour_State__Enum.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::CrabSpinLoopAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00CCD280, void, OnEnter, (app::CrabSpinLoopAttackBehaviour * this_ptr, app::IContext* context))

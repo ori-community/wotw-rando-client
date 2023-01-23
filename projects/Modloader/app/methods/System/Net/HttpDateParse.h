@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DateTime.h>
 
 namespace app::classes::System::Net::HttpDateParse {
     IL2CPP_REGISTER_METHOD(0x01D407A0, uint16_t, MAKE_UPPER, (uint16_t c))

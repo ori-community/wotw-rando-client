@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LayoutElement.h>
 
 namespace app::classes::UnityEngine::UI::LayoutElement {
     IL2CPP_REGISTER_METHOD(0x024CEFE0, void, ctor, (app::LayoutElement * this_ptr))

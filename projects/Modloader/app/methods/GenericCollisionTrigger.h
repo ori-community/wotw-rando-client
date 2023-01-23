@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericCollisionTrigger.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
 
 namespace app::classes::GenericCollisionTrigger {
     IL2CPP_REGISTER_METHOD(0x00E06170, void, OnCollisionEnter, (app::GenericCollisionTrigger * this_ptr, app::Collision* collision))

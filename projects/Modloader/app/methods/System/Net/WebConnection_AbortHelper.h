@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebConnection_AbortHelper.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventArgs.h>
 
 namespace app::classes::System::Net::WebConnection_AbortHelper {
     IL2CPP_REGISTER_METHOD(0x01D68A00, void, Abort, (app::WebConnection_AbortHelper * this_ptr, app::Object* sender, app::EventArgs* args))

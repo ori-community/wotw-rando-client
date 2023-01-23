@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IVRResources_LoadSharedResource__Class.h>
+#include <Modloader/app/structs/IVRResources_LoadSharedResource.h>
 
 namespace app::classes::types {
     namespace IVRResources_LoadSharedResource {

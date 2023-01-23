@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DelegateSerializationHolder_DelegateEntry.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
 
 namespace app::classes::System::DelegateSerializationHolder_DelegateEntry {
     IL2CPP_REGISTER_METHOD(0x01740800, void, ctor, (app::DelegateSerializationHolder_DelegateEntry * this_ptr, app::Delegate* del, app::String* target_label))

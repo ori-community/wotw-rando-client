@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup__DEFINED)
+#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup.h>
+#if defined(IL2CPP_STRUCT_MoonTelemetryCharacterHeartbeatEvent_Cleanup_DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup__DEFINED
+struct List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_;
+struct List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup_ {
+    struct List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_* list;
+    int32_t index;
+    int32_t version;
+    struct MoonTelemetryCharacterHeartbeatEvent_Cleanup current;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup__FWDDECL
+#include <Modloader/app/structs/List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

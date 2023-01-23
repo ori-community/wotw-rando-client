@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/ComboMoveStressTest.h>
+#include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ComboMoveStressTest {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::IComboMove*, get_ComboMove, (app::ComboMoveStressTest * this_ptr))

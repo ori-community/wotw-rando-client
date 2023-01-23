@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IVRRenderModels_GetRenderModelErrorNameFromEnum__Class.h>
+#include <Modloader/app/structs/IVRRenderModels_GetRenderModelErrorNameFromEnum.h>
 
 namespace app::classes::types {
     namespace IVRRenderModels_GetRenderModelErrorNameFromEnum {

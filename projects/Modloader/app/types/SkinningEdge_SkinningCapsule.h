@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SkinningEdge_SkinningCapsule__Class.h>
+#include <Modloader/app/structs/SkinningEdge_SkinningCapsule.h>
+#include <Modloader/app/structs/SkinningEdge_SkinningCapsule__Array.h>
 
 namespace app::classes::types {
     namespace SkinningEdge_SkinningCapsule {

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SteeringForces_SteeringForcesBuilder__Class.h>
+#include <Modloader/app/structs/SteeringForces_SteeringForcesBuilder.h>
 
 namespace app::classes::types {
     namespace SteeringForces_SteeringForcesBuilder {

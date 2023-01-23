@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFight1DiveLaserBehaviour.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseStatesSet.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/Enum.h>
 
 namespace app::classes::PetrifiedOwlBossFight1DiveLaserBehaviour {
     IL2CPP_REGISTER_METHOD(0x00660430, app::StateMachine_2*, get_StateMachine, (app::PetrifiedOwlBossFight1DiveLaserBehaviour * this_ptr))

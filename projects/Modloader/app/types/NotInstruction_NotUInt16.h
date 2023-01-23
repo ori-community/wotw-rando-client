@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/NotInstruction_NotUInt16__Class.h>
+#include <Modloader/app/structs/NotInstruction_NotUInt16.h>
 
 namespace app::classes::types {
     namespace NotInstruction_NotUInt16 {

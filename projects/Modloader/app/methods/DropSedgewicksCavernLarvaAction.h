@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DropSedgewicksCavernLarvaAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::DropSedgewicksCavernLarvaAction {
     IL2CPP_REGISTER_METHOD(0x00BE07E0, void, Perform, (app::DropSedgewicksCavernLarvaAction * this_ptr, app::IContext* context))

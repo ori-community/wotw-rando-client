@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Int16__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/NumberFormatInfo.h>
+#include <Modloader/app/structs/NumberStyles__Enum.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Int16 {
     IL2CPP_REGISTER_METHOD(0x001E71E0, int32_t, CompareTo_1, (app::Int16__Boxed * this_ptr, app::Object* value))

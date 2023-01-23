@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlWhitespace.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::XmlWhitespace {
     IL2CPP_REGISTER_METHOD(0x01FD5270, void, ctor, (app::XmlWhitespace * this_ptr, app::String* str_data, app::XmlDocument* doc))

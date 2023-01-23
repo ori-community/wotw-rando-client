@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OrbSpawnerSettingsOverride.h>
+#include <Modloader/app/structs/OrbSpawner.h>
 
 namespace app::classes::OrbSpawnerSettingsOverride {
     IL2CPP_REGISTER_METHOD(0x0052B590, bool, ShouldOverrideHorizontalSpeedCurve, (app::OrbSpawnerSettingsOverride * this_ptr))

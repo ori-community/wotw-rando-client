@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OriFlyToPositionAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::OriFlyToPositionAction {
     IL2CPP_REGISTER_METHOD(0x0043BBA0, void, Perform, (app::OriFlyToPositionAction * this_ptr, app::IContext* context))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BushSetupController.h>
+#include <Modloader/app/structs/BushSetupController_State__Enum.h>
 
 namespace app::classes::BushSetupController {
     IL2CPP_REGISTER_METHOD(0x0081CD00, void, FixedUpdate, (app::BushSetupController * this_ptr))

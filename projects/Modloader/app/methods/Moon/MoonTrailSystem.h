@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/ComputeBuffer.h>
+#include <Modloader/app/structs/MoonTrailSystem.h>
 
 namespace app::classes::Moon::MoonTrailSystem {
     IL2CPP_REGISTER_METHOD(0x025634F0, app::Mesh*, GetUniversalRenderMesh, (int32_t particle_count))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecordProtocol_SendRecordAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/HandshakeMessage.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::RecordProtocol_SendRecordAsyncResult {
     IL2CPP_REGISTER_METHOD(0x01F7AF80, void, ctor, (app::RecordProtocol_SendRecordAsyncResult * this_ptr, app::AsyncCallback* user_callback, app::Object* user_state, app::HandshakeMessage* message))

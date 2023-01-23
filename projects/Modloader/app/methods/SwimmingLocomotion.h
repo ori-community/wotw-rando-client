@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VolumeEntityMovementProcessor.h>
+#include <Modloader/app/structs/SwimmingLocomotion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/MovementProcessor.h>
 
 namespace app::classes::SwimmingLocomotion {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::VolumeEntityMovementProcessor*, get_VolumeMovement, (app::SwimmingLocomotion * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BitSet.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::Schema::BitSet {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::BitSet * this_ptr))

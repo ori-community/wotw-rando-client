@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_Request.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_Request__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
+#include <Modloader/app/structs/Action_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_ {
     IL2CPP_REGISTER_METHOD(0x02D49F20, void, Add, (app::List_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_ * this_ptr, app::ExperimentalTransparencyAnimatorSystemStrategy_Request item))

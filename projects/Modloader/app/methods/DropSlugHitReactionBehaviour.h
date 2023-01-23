@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DropSlugHitReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
 
 namespace app::classes::DropSlugHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00BE4BC0, void, OnInitializeTask, (app::DropSlugHitReactionBehaviour * this_ptr, app::IContext* context))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowType__Enum__Class.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowType__Enum.h>
 
 namespace app::classes::types {
     namespace SeinGlowSpell_GlowType__Enum {

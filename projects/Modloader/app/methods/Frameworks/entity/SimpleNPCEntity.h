@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SimpleNPCEntity.h>
+#include <Modloader/app/structs/Sensor.h>
+#include <Modloader/app/structs/CharacterInteractableType__Enum.h>
+#include <Modloader/app/structs/ICharacter.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/CharacterInteractableActivationMode__Enum.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::frameworks::entity::SimpleNPCEntity {
     IL2CPP_REGISTER_METHOD(0x00F5BA90, app::Vector2, get_EffectivePlayerAnchor, (app::SimpleNPCEntity * this_ptr))

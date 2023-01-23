@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TelemetryDeserializationDebugProfilingSetting_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TelemetryDeserializationDebugProfilingSetting_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TelemetryDeserializationDebugProfilingSetting_DEFINED)
+#include <Modloader/app/structs/TelemetryDeserializationDebugProfilingSetting__Fields.h>
+#if defined(IL2CPP_STRUCT_TelemetryDeserializationDebugProfilingSetting__Fields_DEFINED)
+#define IL2CPP_STRUCT_TelemetryDeserializationDebugProfilingSetting_DEFINED
+struct TelemetryDeserializationDebugProfilingSetting__Class;
+struct TelemetryDeserializationDebugProfilingSetting {
+    struct TelemetryDeserializationDebugProfilingSetting__Class* klass;
+    MonitorData* monitor;
+    struct TelemetryDeserializationDebugProfilingSetting__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TelemetryDeserializationDebugProfilingSetting_FWDDECL)
+#define IL2CPP_STRUCT_TelemetryDeserializationDebugProfilingSetting_FWDDECL
+#include <Modloader/app/structs/TelemetryDeserializationDebugProfilingSetting__Class.h>
+#endif
+#undef IL2CPP_STRUCT_TelemetryDeserializationDebugProfilingSetting_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TelemetryDeserializationDebugProfilingSetting_DEFINED) && !defined(IL2CPP_STRUCT_TelemetryDeserializationDebugProfilingSetting_FWDDECL)
+#include <Modloader/app/structs/TelemetryDeserializationDebugProfilingSetting.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TelemetryDeserializationDebugProfilingSetting.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinEntanglingRootsSpell.h>
 
 namespace app::classes::SeinEntanglingRootsSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinEntanglingRootsSpell * this_ptr))

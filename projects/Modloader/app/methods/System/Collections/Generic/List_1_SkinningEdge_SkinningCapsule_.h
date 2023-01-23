@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_SkinningEdge_SkinningCapsule_.h>
+#include <Modloader/app/structs/SkinningEdge_SkinningCapsule.h>
+#include <Modloader/app/structs/Predicate_1_SkinningEdge_SkinningCapsule_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_SkinningEdge_SkinningCapsule_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_SkinningEdge_SkinningCapsule_ * this_ptr))

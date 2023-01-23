@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_SerializedBooleanUberState_.h>
+#include <Modloader/app/structs/List_1_Moon_SerializedBooleanUberState_.h>
+#include <Modloader/app/structs/SerializedBooleanUberState.h>
+#include <Modloader/app/structs/Comparison_1_Moon_SerializedBooleanUberState_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_SerializedBooleanUberState_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_Moon_SerializedBooleanUberState_, GetEnumerator, (app::List_1_Moon_SerializedBooleanUberState_ * this_ptr))

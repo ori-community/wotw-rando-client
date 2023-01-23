@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Stack_1_CatlikeCoding_TextBox_AppliedTextStyle__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Stack_1_CatlikeCoding_TextBox_AppliedTextStyle__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Stack_1_CatlikeCoding_TextBox_AppliedTextStyle__DEFINED)
+#include <Modloader/app/structs/Stack_1_CatlikeCoding_TextBox_AppliedTextStyle___Fields.h>
+#if defined(IL2CPP_STRUCT_Stack_1_CatlikeCoding_TextBox_AppliedTextStyle___Fields_DEFINED)
+#define IL2CPP_STRUCT_Stack_1_CatlikeCoding_TextBox_AppliedTextStyle__DEFINED
+struct Stack_1_CatlikeCoding_TextBox_AppliedTextStyle___Class;
+struct Stack_1_CatlikeCoding_TextBox_AppliedTextStyle_ {
+    struct Stack_1_CatlikeCoding_TextBox_AppliedTextStyle___Class* klass;
+    MonitorData* monitor;
+    struct Stack_1_CatlikeCoding_TextBox_AppliedTextStyle___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Stack_1_CatlikeCoding_TextBox_AppliedTextStyle__FWDDECL)
+#define IL2CPP_STRUCT_Stack_1_CatlikeCoding_TextBox_AppliedTextStyle__FWDDECL
+#include <Modloader/app/structs/Stack_1_CatlikeCoding_TextBox_AppliedTextStyle___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Stack_1_CatlikeCoding_TextBox_AppliedTextStyle__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Stack_1_CatlikeCoding_TextBox_AppliedTextStyle__DEFINED) && !defined(IL2CPP_STRUCT_Stack_1_CatlikeCoding_TextBox_AppliedTextStyle__FWDDECL)
+#include <Modloader/app/structs/Stack_1_CatlikeCoding_TextBox_AppliedTextStyle_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Stack_1_CatlikeCoding_TextBox_AppliedTextStyle_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

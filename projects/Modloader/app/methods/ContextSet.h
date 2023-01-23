@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ContextSet.h>
+#include <Modloader/app/structs/IContext__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/AnimationLayerContext.h>
+#include <Modloader/app/structs/AnimationContext.h>
+#include <Modloader/app/structs/RecordingContext.h>
 
 namespace app::classes::ContextSet {
     IL2CPP_REGISTER_METHOD(0x02552AD0, void, ctor, (app::ContextSet * this_ptr, app::IContext__Array* context))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkeetoDiveAttackBehaviour_c.h>
 
 namespace app::classes::SkeetoDiveAttackBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x00754BA0, void, cctor, ())

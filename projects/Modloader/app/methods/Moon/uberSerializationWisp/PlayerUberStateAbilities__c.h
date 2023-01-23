@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerUberStateAbilities_c.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateAbilities___c {
     IL2CPP_REGISTER_METHOD(0x00F35400, void, cctor, ())

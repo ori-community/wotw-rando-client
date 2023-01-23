@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_LayeredRenderSettings_LayerParams_.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayerParams__Array.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_LayeredRenderSettings_LayerParams___ {
     IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_System_Int32_LayeredRenderSettings_LayerParams_ * this_ptr, int32_t key, app::LayeredRenderSettings_LayerParams__Array** value))

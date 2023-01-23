@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectHolder.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/ISerializationSurrogate.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ObjectManager.h>
+#include <Modloader/app/structs/FixupHolder.h>
+#include <Modloader/app/structs/TypeLoadExceptionHolder.h>
+#include <Modloader/app/structs/LongList.h>
+#include <Modloader/app/structs/ValueTypeFixupInfo.h>
 
 namespace app::classes::System::Runtime::Serialization::ObjectHolder {
     IL2CPP_REGISTER_METHOD(0x01ED59B0, void, ctor_1, (app::ObjectHolder * this_ptr, int64_t obj_i_d))

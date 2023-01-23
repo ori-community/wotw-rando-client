@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkBankCallbackInfo.h>
+#include <Modloader/app/structs/AKRESULT__Enum.h>
 
 namespace app::classes::AkBankCallbackInfo {
     IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkBankCallbackInfo * this_ptr, void* c_ptr, bool c_memory_own))

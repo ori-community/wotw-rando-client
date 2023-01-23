@@ -1,5 +1,38 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Component_1__Array.h>
+#include <Modloader/app/structs/BatSwarm.h>
+#include <Modloader/app/structs/IDamageReciever.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/SeinDamageReciever.h>
+#include <Modloader/app/structs/IPickupCollector.h>
+#include <Modloader/app/structs/LegacyEntity.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/IGoThroughPlatformTester.h>
+#include <Modloader/app/structs/IRespawnReciever.h>
+#include <Modloader/app/structs/MortarWormEnemy.h>
+#include <Modloader/app/structs/MothSwarm.h>
+#include <Modloader/app/structs/INightBerrySpiritRingReciever.h>
+#include <Modloader/app/structs/ICarryable.h>
+#include <Modloader/app/structs/IProjectileDetonatable.h>
+#include <Modloader/app/structs/IReflectable.h>
+#include <Modloader/app/structs/IRelatedReflectable.h>
+#include <Modloader/app/structs/Animator.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/ISpiritFlameAttackable.h>
+#include <Modloader/app/structs/Projectile.h>
+#include <Modloader/app/structs/CameraChaseTarget.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/CameraStraightLineMotion.h>
+#include <Modloader/app/structs/EntityPlatformingMovement.h>
+#include <Modloader/app/structs/RigidbodyMovement.h>
+#include <Modloader/app/structs/TraceGroundMovement.h>
+#include <Modloader/app/structs/Vitals.h>
 
 namespace app::classes::GameObjectExtender {
     IL2CPP_REGISTER_METHOD(0x003F8460, app::Transform*, FindChildRecursive, (app::GameObject * game_object, app::String* name, bool include_inactive))

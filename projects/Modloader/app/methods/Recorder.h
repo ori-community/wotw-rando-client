@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Recorder_1.h>
+#include <Modloader/app/structs/RecorderFrame.h>
+#include <Modloader/app/structs/Recorder_RecorderState__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/RecorderAsset.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IRecorderPlugin.h>
+#include <Modloader/app/structs/LogType__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CharacterData.h>
+#include <Modloader/app/structs/BuildData.h>
 
 namespace app::classes::Recorder {
     IL2CPP_REGISTER_METHOD(0x008E9240, void, ResetStatics, ())

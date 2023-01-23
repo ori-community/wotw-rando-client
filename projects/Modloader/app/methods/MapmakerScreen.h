@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/MapmakerScreen.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/MapmakerUIItem.h>
+#include <Modloader/app/structs/MapmakerItem.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/RTPC.h>
 
 namespace app::classes::MapmakerScreen {
     IL2CPP_REGISTER_METHOD(0x00A0B3F0, void, ResetStatics, ())

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinJump.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/CharacterSpriteMirror.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/GenericPuppet.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/MoonAnimation__Array.h>
+#include <Modloader/app/structs/SurfaceToSoundProviderMap.h>
+#include <Modloader/app/structs/Action_1_Single_.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/OriJumpPuppet.h>
 
 namespace app::classes::SeinJump {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinJump * this_ptr))

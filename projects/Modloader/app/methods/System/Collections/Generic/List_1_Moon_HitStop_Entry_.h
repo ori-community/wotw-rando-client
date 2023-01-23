@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_HitStop_Entry_.h>
+#include <Modloader/app/structs/HitStop_Entry.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_HitStop_Entry_ {
     IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_Moon_HitStop_Entry_ * this_ptr, app::HitStop_Entry* item))

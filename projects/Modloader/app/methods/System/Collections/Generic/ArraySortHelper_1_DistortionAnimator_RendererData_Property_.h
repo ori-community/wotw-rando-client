@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DistortionAnimator_RendererData_Property__Array.h>
+#include <Modloader/app/structs/IComparer_1_DistortionAnimator_RendererData_Property_.h>
+#include <Modloader/app/structs/DistortionAnimator_RendererData_Property.h>
+#include <Modloader/app/structs/Comparison_1_DistortionAnimator_RendererData_Property_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_DistortionAnimator_RendererData_Property_ {
     IL2CPP_REGISTER_METHOD(0x02F2FE70, void, Sort_1, (app::DistortionAnimator_RendererData_Property__Array * keys, int32_t index, int32_t length, app::IComparer_1_DistortionAnimator_RendererData_Property_* comparer))

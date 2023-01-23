@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ResetInteractionObject.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::RootMotion::Demos::ResetInteractionObject {
     IL2CPP_REGISTER_METHOD(0x0222EE10, void, Start, (app::ResetInteractionObject * this_ptr))

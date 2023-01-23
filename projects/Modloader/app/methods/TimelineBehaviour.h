@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyTimelineSequence.h>
+#include <Modloader/app/structs/TimelineBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
 
 namespace app::classes::TimelineBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FBBA0, app::LegacyTimelineSequence*, get_TimelineSequence, (app::TimelineBehaviour * this_ptr))

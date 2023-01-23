@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Scrollbar.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/Scrollbar_Direction__Enum.h>
+#include <Modloader/app/structs/Scrollbar_ScrollEvent.h>
+#include <Modloader/app/structs/CanvasUpdate__Enum.h>
+#include <Modloader/app/structs/Scrollbar_Axis__Enum.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/AxisEventData.h>
+#include <Modloader/app/structs/Selectable.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UnityEngine::UI::Scrollbar {
     IL2CPP_REGISTER_METHOD(0x0266F180, void, ctor, (app::Scrollbar * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecordableType__Enum.h>
+#include <Modloader/app/structs/RecordingContext__Boxed.h>
+#include <Modloader/app/structs/Component_1.h>
 
 namespace app::classes::Moon::Timeline::RecordingContext {
     IL2CPP_REGISTER_METHOD(0x0010E100, app::RecordableType__Enum, get_RecordableType, (app::RecordingContext__Boxed * this_ptr))

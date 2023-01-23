@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_MaterialBasedResourceMapEntry_.h>
+#include <Modloader/app/structs/MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache {
     IL2CPP_REGISTER_METHOD(0x01380BD0, app::List_1_MaterialBasedResourceMapEntry_*, get_Entries, (app::MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReportLocationAction_c.h>
 
 namespace app::classes::ReportLocationAction___c {
     IL2CPP_REGISTER_METHOD(0x00904B40, void, cctor, ())

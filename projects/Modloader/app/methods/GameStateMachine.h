@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameStateMachine.h>
+#include <Modloader/app/structs/GameStateMachine_State__Enum.h>
 
 namespace app::classes::GameStateMachine {
     IL2CPP_REGISTER_METHOD(0x00403F70, app::GameStateMachine*, get_Instance, ())

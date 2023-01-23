@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_ComboMove_.h>
+#include <Modloader/app/structs/SeinComboMoves.h>
+#include <Modloader/app/structs/ComboMove.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::SeinComboMoves {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::List_1_Moon_ComboSystem_ComboMove_*, get_Moves, (app::SeinComboMoves * this_ptr))

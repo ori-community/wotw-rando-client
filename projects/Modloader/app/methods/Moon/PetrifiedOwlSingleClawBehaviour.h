@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlSingleClawBehaviour.h>
 
 namespace app::classes::Moon::PetrifiedOwlSingleClawBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C3A1E0, void, Awake, (app::PetrifiedOwlSingleClawBehaviour * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RSAEncryptionPadding.h>
+#include <Modloader/app/structs/RSAEncryptionPaddingMode__Enum.h>
+#include <Modloader/app/structs/HashAlgorithmName.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::RSAEncryptionPadding {
     IL2CPP_REGISTER_METHOD(0x028EA3A0, app::RSAEncryptionPadding*, get_Pkcs1, ())

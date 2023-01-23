@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Trigger_1.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Trigger {
     IL2CPP_REGISTER_METHOD(0x00B11420, bool, get_IsSuspended, (app::Trigger_1 * this_ptr))

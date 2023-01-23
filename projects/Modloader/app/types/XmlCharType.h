@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlCharType__Class.h>
+#include <Modloader/app/structs/XmlCharType.h>
+#include <Modloader/app/structs/XmlCharType__Boxed.h>
 
 namespace app::classes::types {
     namespace XmlCharType {

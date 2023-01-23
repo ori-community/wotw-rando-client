@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DamagerAnimator.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/EffectSpawn.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::DamagerAnimator {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, CacheOriginals, (app::DamagerAnimator * this_ptr))

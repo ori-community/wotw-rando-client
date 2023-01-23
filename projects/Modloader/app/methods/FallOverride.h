@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FallOverride.h>
 
 namespace app::classes::FallOverride {
     IL2CPP_REGISTER_METHOD(0x00996820, void, Override, (app::FallOverride * this_ptr))

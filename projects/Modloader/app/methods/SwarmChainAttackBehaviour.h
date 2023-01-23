@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwarmChainAttackBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/SwarmAgent.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::SwarmChainAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Awake, (app::SwarmChainAttackBehaviour * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ControlListGridController.h>
 
 namespace app::classes::ControlListGridController {
     IL2CPP_REGISTER_METHOD(0x011EE200, void, Awake, (app::ControlListGridController * this_ptr))

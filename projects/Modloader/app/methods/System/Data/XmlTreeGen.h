@@ -1,5 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlTreeGen.h>
+#include <Modloader/app/structs/SchemaFormat__Enum.h>
+#include <Modloader/app/structs/PropertyCollection.h>
+#include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/DataTable__Array.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/Converter_2_Type_String_.h>
+#include <Modloader/app/structs/DataRelation.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/AcceptRejectRule__Enum.h>
+#include <Modloader/app/structs/Rule__Enum.h>
+#include <Modloader/app/structs/UniqueConstraint.h>
+#include <Modloader/app/structs/ForeignKeyConstraint.h>
 
 namespace app::classes::System::Data::XmlTreeGen {
     IL2CPP_REGISTER_METHOD(0x030563D0, void, ctor, (app::XmlTreeGen * this_ptr, app::SchemaFormat__Enum format))

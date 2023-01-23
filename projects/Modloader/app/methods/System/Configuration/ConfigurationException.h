@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConfigurationException.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/XmlNode.h>
 
 namespace app::classes::System::Configuration::ConfigurationException {
     IL2CPP_REGISTER_METHOD(0x02961750, void, ctor_1, (app::ConfigurationException * this_ptr))

@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EquipmentWheel.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/List_1_EquipmentType_.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/SpellUIItem.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_.h>
+#include <Modloader/app/structs/HashSet_1_EquipmentType_.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/HashSet_1_Moon_ISuspendable_.h>
 
 namespace app::classes::EquipmentWheel {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanInterruptTab, (app::EquipmentWheel * this_ptr))

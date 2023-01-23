@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ApplyForceToPhysicsSystem_ExplosionSettings__Class.h>
+#include <Modloader/app/structs/ApplyForceToPhysicsSystem_ExplosionSettings.h>
+#include <Modloader/app/structs/ApplyForceToPhysicsSystem_ExplosionSettings__Boxed.h>
 
 namespace app::classes::types {
     namespace ApplyForceToPhysicsSystem_ExplosionSettings {

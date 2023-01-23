@@ -5,6 +5,9 @@
 #include <Core/enums/shard_type.h>
 #include <Core/enums/game_areas.h>
 
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+
 #include <string>
 
 namespace csharp_bridge {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_UInt64___Boxed.h>
+#include <Modloader/app/structs/List_1_System_UInt64_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_System_UInt64_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, uint64_t, get_Current, (app::List_1_T_Enumerator_System_UInt64___Boxed * this_ptr))

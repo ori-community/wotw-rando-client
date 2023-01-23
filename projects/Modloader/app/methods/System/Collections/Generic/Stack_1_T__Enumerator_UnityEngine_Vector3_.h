@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_T_Enumerator_UnityEngine_Vector3___Boxed.h>
+#include <Modloader/app/structs/Stack_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_T__Enumerator_UnityEngine_Vector3_ {
     IL2CPP_REGISTER_METHOD(0x00234810, void, ctor, (app::Stack_1_T_Enumerator_UnityEngine_Vector3___Boxed * this_ptr, app::Stack_1_UnityEngine_Vector3_* stack))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimationAssociation_c.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 
 namespace app::classes::MoonAnimationAssociation___c {
     IL2CPP_REGISTER_METHOD(0x02130740, void, cctor, ())

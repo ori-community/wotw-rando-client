@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EntityBehaviourDebugData.h>
 
 namespace app::classes::Moon::EntityBehaviourDebugData {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_BriefInfo, (app::EntityBehaviourDebugData * this_ptr))

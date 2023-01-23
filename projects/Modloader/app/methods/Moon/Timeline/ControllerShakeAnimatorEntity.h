@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ControllerShakeAnimatorEntity.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Timeline::ControllerShakeAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x00763150, void, OnPoolSpawned, (app::ControllerShakeAnimatorEntity * this_ptr))

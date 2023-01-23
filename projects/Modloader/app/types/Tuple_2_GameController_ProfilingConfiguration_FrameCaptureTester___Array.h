@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Tuple_2_GameController_ProfilingConfiguration_FrameCaptureTester___Array__Class.h>
+#include <Modloader/app/structs/Tuple_2_GameController_ProfilingConfiguration_FrameCaptureTester___Array.h>
 
 namespace app::classes::types {
     namespace Tuple_2_GameController_ProfilingConfiguration_FrameCaptureTester___Array {

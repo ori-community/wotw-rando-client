@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlNumeric2Converter__Class.h>
+#include <Modloader/app/structs/XmlNumeric2Converter.h>
 
 namespace app::classes::types {
     namespace XmlNumeric2Converter {

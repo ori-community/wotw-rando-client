@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Tuple_2_Guid_String_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Tuple_2_Guid_String_ {
     IL2CPP_REGISTER_METHOD(0x01349560, app::Guid, get_Item1, (app::Tuple_2_Guid_String_ * this_ptr))

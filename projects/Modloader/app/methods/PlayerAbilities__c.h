@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerAbilities_c.h>
 
 namespace app::classes::PlayerAbilities___c {
     IL2CPP_REGISTER_METHOD(0x0140A430, void, cctor, ())

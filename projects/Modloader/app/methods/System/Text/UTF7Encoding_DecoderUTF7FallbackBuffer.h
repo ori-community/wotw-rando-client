@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UTF7Encoding_DecoderUTF7FallbackBuffer.h>
+#include <Modloader/app/structs/UTF7Encoding_DecoderUTF7Fallback.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Text::UTF7Encoding_DecoderUTF7FallbackBuffer {
     IL2CPP_REGISTER_METHOD(0x027CDE00, void, ctor, (app::UTF7Encoding_DecoderUTF7FallbackBuffer * this_ptr, app::UTF7Encoding_DecoderUTF7Fallback* fallback))

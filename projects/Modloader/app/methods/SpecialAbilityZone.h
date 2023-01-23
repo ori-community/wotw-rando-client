@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpecialAbilityZone.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::SpecialAbilityZone {
     IL2CPP_REGISTER_METHOD(0x00EF7470, void, ResetStatics, ())

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerLoopSystem.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
+#include <Modloader/app/structs/PlayerLoopSystemInternal__Array.h>
 
 namespace app::classes::UnityEngine::Experimental::LowLevel::PlayerLoop {
     IL2CPP_REGISTER_METHOD(0x02431FB0, app::PlayerLoopSystem, GetDefaultPlayerLoop, ())

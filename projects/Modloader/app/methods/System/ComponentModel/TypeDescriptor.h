@@ -1,5 +1,35 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypeDescriptor.h>
+#include <Modloader/app/structs/IComNativeDescriptorHandler.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/RefreshEventHandler.h>
+#include <Modloader/app/structs/TypeDescriptionProvider.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/IDesigner.h>
+#include <Modloader/app/structs/IComponent.h>
+#include <Modloader/app/structs/EventDescriptor_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IServiceProvider.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/AttributeCollection.h>
+#include <Modloader/app/structs/TypeConverter.h>
+#include <Modloader/app/structs/EventDescriptorCollection.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/IList.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/ICustomTypeDescriptor.h>
+#include <Modloader/app/structs/MemberDescriptor.h>
+#include <Modloader/app/structs/TypeDescriptor_TypeDescriptionNode.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/Module.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/Attribute.h>
 
 namespace app::classes::System::ComponentModel::TypeDescriptor {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::TypeDescriptor * this_ptr))

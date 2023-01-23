@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonGetAbilityPedestal.h>
+#include <Modloader/app/structs/MoonGetAbilityPedestal_States__Enum.h>
+#include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::MoonGetAbilityPedestal {
     IL2CPP_REGISTER_METHOD(0x00F4E2B0, bool, get_SeinInRange, (app::MoonGetAbilityPedestal * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CStreamWriter.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IO::CStreamWriter {
     IL2CPP_REGISTER_METHOD(0x01E014A0, void, ctor, (app::CStreamWriter * this_ptr, app::Stream* stream, app::Encoding* encoding, bool leave_open))

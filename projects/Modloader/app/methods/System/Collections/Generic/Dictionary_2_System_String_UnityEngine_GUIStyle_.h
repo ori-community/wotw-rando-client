@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_UnityEngine_GUIStyle_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_String_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_String_UnityEngine_GUIStyle_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_UnityEngine_GUIStyle_ {
     IL2CPP_REGISTER_METHOD(0x0283AC50, void, ctor, (app::Dictionary_2_System_String_UnityEngine_GUIStyle_ * this_ptr, app::IEqualityComparer_1_System_String_* comparer))

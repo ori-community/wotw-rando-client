@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneRoot_UnloadSceneCoroutine_d_61.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::SceneRoot__UnloadSceneCoroutine_d__61 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::SceneRoot_UnloadSceneCoroutine_d_61 * this_ptr, int32_t __1__state))

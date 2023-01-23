@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SequenceNode.h>
+#include <Modloader/app/structs/BitSet.h>
+#include <Modloader/app/structs/BitSet__Array.h>
+#include <Modloader/app/structs/InteriorNode.h>
+#include <Modloader/app/structs/SymbolsDictionary.h>
+#include <Modloader/app/structs/Positions.h>
 
 namespace app::classes::System::Xml::Schema::SequenceNode {
     IL2CPP_REGISTER_METHOD(0x01AB9C70, void, ConstructPos, (app::SequenceNode * this_ptr, app::BitSet* firstpos, app::BitSet* lastpos, app::BitSet__Array* followpos))

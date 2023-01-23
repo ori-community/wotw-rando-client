@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationWarping.h>
 
 namespace app::classes::RootMotion::Demos::AnimationWarping {
     IL2CPP_REGISTER_METHOD(0x022085F0, void, Start, (app::AnimationWarping * this_ptr))

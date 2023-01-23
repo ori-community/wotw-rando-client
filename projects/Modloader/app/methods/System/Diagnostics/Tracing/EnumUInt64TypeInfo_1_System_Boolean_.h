@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnumUInt64TypeInfo_1_System_Boolean_.h>
+#include <Modloader/app/structs/TraceLoggingMetadataCollector.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EventFieldFormat__Enum.h>
+#include <Modloader/app/structs/TraceLoggingDataCollector.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EnumUInt64TypeInfo_1_System_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x02B96070, void, WriteMetadata, (app::EnumUInt64TypeInfo_1_System_Boolean_ * this_ptr, app::TraceLoggingMetadataCollector* collector, app::String* name, app::EventFieldFormat__Enum format))

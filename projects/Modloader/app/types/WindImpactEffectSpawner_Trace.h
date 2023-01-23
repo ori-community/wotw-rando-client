@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WindImpactEffectSpawner_Trace__Class.h>
+#include <Modloader/app/structs/WindImpactEffectSpawner_Trace.h>
+#include <Modloader/app/structs/WindImpactEffectSpawner_Trace__Boxed.h>
+#include <Modloader/app/structs/WindImpactEffectSpawner_Trace__Array.h>
 
 namespace app::classes::types {
     namespace WindImpactEffectSpawner_Trace {

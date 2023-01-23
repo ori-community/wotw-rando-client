@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinRun.h>
+#include <Modloader/app/structs/SeinRunPuppet.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/CharacterSpriteMirror.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SeinRun {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinRun * this_ptr))

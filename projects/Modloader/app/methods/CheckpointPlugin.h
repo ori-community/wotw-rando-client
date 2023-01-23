@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CheckpointPlugin.h>
+#include <Modloader/app/structs/Recorder_1.h>
 
 namespace app::classes::CheckpointPlugin {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, OnGameLoad, (app::CheckpointPlugin * this_ptr))

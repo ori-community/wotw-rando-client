@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DeflaterManaged.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Unity::IO::Compression::DeflaterManaged {
     IL2CPP_REGISTER_METHOD(0x02B756F0, void, ctor, (app::DeflaterManaged * this_ptr))

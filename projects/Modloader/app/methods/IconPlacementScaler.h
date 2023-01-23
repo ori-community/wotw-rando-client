@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IconPlacementScaler.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::IconPlacementScaler {
     IL2CPP_REGISTER_METHOD(0x00624540, void, PlaceIcon, (app::IconPlacementScaler * this_ptr, app::GameObject* icon, app::Vector3 location, bool is_teleportable))

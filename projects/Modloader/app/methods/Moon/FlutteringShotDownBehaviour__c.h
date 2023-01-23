@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FlutteringShotDownBehaviour_c.h>
 
 namespace app::classes::Moon::FlutteringShotDownBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x014835F0, void, cctor, ())

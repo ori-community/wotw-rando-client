@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/PreRecordingDynamicSceneObjectEntry.h>
+#include <Modloader/app/structs/IEnumerable_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/IComparer_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/PreRecordingDynamicSceneObjectEntry__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/Action_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/IEnumerator_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_PreRecordingDynamicSceneObjectEntry_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_PreRecordingDynamicSceneObjectEntry_ {
     IL2CPP_REGISTER_METHOD(0x025EFF90, void, Add, (app::List_1_PreRecordingDynamicSceneObjectEntry_ * this_ptr, app::PreRecordingDynamicSceneObjectEntry item))

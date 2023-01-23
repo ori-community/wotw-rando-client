@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimator_ActiveAnimation.h>
+#include <Modloader/app/structs/MoonAnimator_Layer.h>
+#include <Modloader/app/structs/IAnimation.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MoonAnimatorLayerDefinition.h>
+#include <Modloader/app/structs/MoonAnimator_AnimationInstance.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/IActiveAnimation.h>
 
 namespace app::classes::Moon::MoonAnimator_Layer {
     IL2CPP_REGISTER_METHOD(0x02117030, void, AssureActiveAnimationBufferInitialized, ())

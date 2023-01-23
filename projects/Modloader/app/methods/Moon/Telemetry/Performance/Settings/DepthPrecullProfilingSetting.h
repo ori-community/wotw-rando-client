@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/DepthPrecullProfilingSetting.h>
+#include <Modloader/app/structs/RenderScope__Enum.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::DepthPrecullProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x005D89A0, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::DepthPrecullProfilingSetting * this_ptr))

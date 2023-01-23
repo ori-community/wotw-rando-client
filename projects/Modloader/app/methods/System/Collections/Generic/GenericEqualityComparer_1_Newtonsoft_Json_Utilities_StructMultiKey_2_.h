@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericEqualityComparer_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
+#include <Modloader/app/structs/StructMultiKey_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/StructMultiKey_2_System_Object_System_Object___Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::GenericEqualityComparer_1_Newtonsoft_Json_Utilities_StructMultiKey_2_ {
     IL2CPP_REGISTER_METHOD(0x02AB1DF0, bool, Equals_1, (app::GenericEqualityComparer_1_Newtonsoft_Json_Utilities_StructMultiKey_2_ * this_ptr, app::StructMultiKey_2_System_Object_System_Object_ x, app::StructMultiKey_2_System_Object_System_Object_ y))

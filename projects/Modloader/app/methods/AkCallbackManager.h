@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AKRESULT__Enum.h>
+#include <Modloader/app/structs/AkCallbackManager_InitializationSettings.h>
+#include <Modloader/app/structs/AkMonitorErrorLevel__Enum.h>
+#include <Modloader/app/structs/AkCallbackManager_MonitoringCallback.h>
+#include <Modloader/app/structs/AkCallbackManager_BGMCallback.h>
 
 namespace app::classes::AkCallbackManager {
     IL2CPP_REGISTER_METHOD(0x026D0330, bool, get_IsLoggingEnabled, ())

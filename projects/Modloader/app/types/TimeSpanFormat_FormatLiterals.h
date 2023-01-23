@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TimeSpanFormat_FormatLiterals__Class.h>
+#include <Modloader/app/structs/TimeSpanFormat_FormatLiterals.h>
+#include <Modloader/app/structs/TimeSpanFormat_FormatLiterals__Boxed.h>
 
 namespace app::classes::types {
     namespace TimeSpanFormat_FormatLiterals {

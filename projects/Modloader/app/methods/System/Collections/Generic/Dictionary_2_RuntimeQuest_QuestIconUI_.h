@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_RuntimeQuest_QuestIconUI_.h>
+#include <Modloader/app/structs/RuntimeQuest.h>
+#include <Modloader/app/structs/QuestIconUI.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_RuntimeQuest_QuestIconUI_ {
     IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_RuntimeQuest_QuestIconUI_ * this_ptr, app::RuntimeQuest* key, app::QuestIconUI** value))

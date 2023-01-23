@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MenuTabManager_c.h>
+#include <Modloader/app/structs/MenuTabEntry.h>
 
 namespace app::classes::MenuTabManager___c {
     IL2CPP_REGISTER_METHOD(0x009EAE20, void, cctor, ())

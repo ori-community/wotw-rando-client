@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Mesh_get_Edges_d_39.h>
+#include <Modloader/app/structs/Edge.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_TriangleNet_Geometry_Edge_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::TriangleNet::Mesh__get_Edges_d__39 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::Mesh_get_Edges_d_39 * this_ptr, int32_t __1__state))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Blend2DTriangleState__Array__Class.h>
+#include <Modloader/app/structs/Blend2DTriangleState__Array.h>
 
 namespace app::classes::types {
     namespace Blend2DTriangleState__Array {

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpContent.h>
+#include <Modloader/app/structs/HttpRequestMessage.h>
+#include <Modloader/app/structs/HttpRequestHeaders.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/Version.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::Http::HttpRequestMessage {
     IL2CPP_REGISTER_METHOD(0x002FB9D0, app::HttpContent*, get_Content, (app::HttpRequestMessage * this_ptr))

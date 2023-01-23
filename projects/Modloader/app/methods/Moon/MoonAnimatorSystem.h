@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/MoonAnimatorSystem.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/PlayableGraph.h>
 
 namespace app::classes::Moon::MoonAnimatorSystem {
     IL2CPP_REGISTER_METHOD(0x0211D880, void, RegisterAnimatorForPreview, (app::MoonAnimator * animator))

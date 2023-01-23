@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectPool_1_System_Object_.h>
+#include <Modloader/app/structs/UnityAction_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::UI::ObjectPool_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x01F19BD0, int32_t, get_countAll, (app::ObjectPool_1_System_Object_ * this_ptr))

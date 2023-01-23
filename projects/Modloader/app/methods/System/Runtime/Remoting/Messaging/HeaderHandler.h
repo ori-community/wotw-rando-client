@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HeaderHandler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Header__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::HeaderHandler {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::HeaderHandler * this_ptr, app::Object* object, void* method_1))

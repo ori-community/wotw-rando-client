@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XDeclaration.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::Linq::XDeclaration {
     IL2CPP_REGISTER_METHOD(0x00522850, void, ctor_1, (app::XDeclaration * this_ptr, app::String* version, app::String* encoding, app::String* standalone))

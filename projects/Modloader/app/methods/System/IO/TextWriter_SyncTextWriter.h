@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextWriter_SyncTextWriter.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::IO::TextWriter_SyncTextWriter {
     IL2CPP_REGISTER_METHOD(0x023882C0, void, ctor, (app::TextWriter_SyncTextWriter * this_ptr, app::TextWriter* t))

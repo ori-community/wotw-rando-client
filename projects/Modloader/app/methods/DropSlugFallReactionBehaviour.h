@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DropSlugFallReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::DropSlugFallReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00BE3F80, void, OnInitializeTask, (app::DropSlugFallReactionBehaviour * this_ptr, app::IContext* context))

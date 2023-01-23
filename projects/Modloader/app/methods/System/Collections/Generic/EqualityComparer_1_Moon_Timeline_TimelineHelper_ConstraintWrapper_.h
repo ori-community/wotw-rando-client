@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
+#include <Modloader/app/structs/TimelineHelper_ConstraintWrapper__Array.h>
+#include <Modloader/app/structs/TimelineHelper_ConstraintWrapper.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_*, get_Default, ())

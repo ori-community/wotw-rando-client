@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCutsceneMovement.h>
+#include <Modloader/app/structs/PlatformMovement.h>
 
 namespace app::classes::SeinCutsceneMovement {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinCutsceneMovement * this_ptr))

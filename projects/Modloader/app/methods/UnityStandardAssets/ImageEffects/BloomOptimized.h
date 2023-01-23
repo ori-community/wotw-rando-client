@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BloomOptimized.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::BloomOptimized {
     IL2CPP_REGISTER_METHOD(0x025152C0, bool, CheckResources, (app::BloomOptimized * this_ptr))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BoundedVoronoi.h>
+#include <Modloader/app/structs/Mesh_1.h>
+#include <Modloader/app/structs/IVoronoiFactory.h>
+#include <Modloader/app/structs/IPredicates.h>
+#include <Modloader/app/structs/HalfEdge.h>
+#include <Modloader/app/structs/Vertex.h>
 
 namespace app::classes::TriangleNet::Voronoi::BoundedVoronoi {
     IL2CPP_REGISTER_METHOD(0x02AA7800, void, ctor_1, (app::BoundedVoronoi * this_ptr, app::Mesh_1* mesh))

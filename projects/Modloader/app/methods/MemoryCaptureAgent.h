@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MemoryCaptureAgent.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/FrameCaptureTester_AgentOutput.h>
 
 namespace app::classes::MemoryCaptureAgent {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsCaptureAgentValid, (app::MemoryCaptureAgent * this_ptr))

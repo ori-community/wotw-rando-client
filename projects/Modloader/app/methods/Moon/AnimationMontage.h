@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationMontage.h>
+#include <Modloader/app/structs/List_1_Moon_AnimationMontage_Entry_.h>
+#include <Modloader/app/structs/IAnimationMontageEventHandler.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_Moon_MoonAnimator_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IMontageEventProvider.h>
+#include <Modloader/app/structs/BaseAnimator.h>
+#include <Modloader/app/structs/Action_1_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::AnimationMontage {
     IL2CPP_REGISTER_METHOD(0x01338060, bool, get_IsMontagePlaying, (app::AnimationMontage * this_ptr))

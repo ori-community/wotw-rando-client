@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimerThread_Timer.h>
 
 namespace app::classes::System::Net::TimerThread_Timer {
     IL2CPP_REGISTER_METHOD(0x020A8FC0, void, ctor, (app::TimerThread_Timer * this_ptr, int32_t duration_milliseconds))

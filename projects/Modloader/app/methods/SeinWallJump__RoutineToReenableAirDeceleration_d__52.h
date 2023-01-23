@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinWallJump_RoutineToReenableAirDeceleration_d_52.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::SeinWallJump__RoutineToReenableAirDeceleration_d__52 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::SeinWallJump_RoutineToReenableAirDeceleration_d_52 * this_ptr, int32_t __1__state))

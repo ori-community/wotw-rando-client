@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AppDomainLevelActivator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IActivator.h>
+#include <Modloader/app/structs/IConstructionReturnMessage.h>
+#include <Modloader/app/structs/IConstructionCallMessage.h>
 
 namespace app::classes::System::Runtime::Remoting::Activation::AppDomainLevelActivator {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::AppDomainLevelActivator * this_ptr, app::String* activation_url, app::IActivator* next))

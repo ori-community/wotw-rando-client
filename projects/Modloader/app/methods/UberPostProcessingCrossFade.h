@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/UberPostProcessingCrossFade.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/UberPostProcessingCrossFade_CameraInformation.h>
 
 namespace app::classes::UberPostProcessingCrossFade {
     IL2CPP_REGISTER_METHOD(0x018F6430, app::Material*, get_Material, (app::UberPostProcessingCrossFade * this_ptr))

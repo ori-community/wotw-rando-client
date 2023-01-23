@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoulFlame.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SoulFlame {
     IL2CPP_REGISTER_METHOD(0x00EE3A50, bool, get_IsInside, (app::SoulFlame * this_ptr))

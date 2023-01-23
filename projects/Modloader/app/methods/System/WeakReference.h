@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WeakReference.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::WeakReference {
     IL2CPP_REGISTER_METHOD(0x0314DC40, void, AllocateHandle, (app::WeakReference * this_ptr, app::Object* target))

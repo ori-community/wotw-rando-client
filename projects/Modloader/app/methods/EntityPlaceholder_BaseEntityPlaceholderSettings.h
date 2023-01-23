@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityPlaceholder_BaseEntityPlaceholderSettings.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::EntityPlaceholder_BaseEntityPlaceholderSettings {
     IL2CPP_REGISTER_METHOD(0x00C9DB10, void, CopyTo, (app::EntityPlaceholder_BaseEntityPlaceholderSettings * this_ptr, app::EntityPlaceholder_BaseEntityPlaceholderSettings* copy_target))

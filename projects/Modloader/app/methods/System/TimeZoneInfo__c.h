@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeZoneInfo_c.h>
+#include <Modloader/app/structs/TimeZoneInfo_AdjustmentRule.h>
 
 namespace app::classes::System::TimeZoneInfo___c {
     IL2CPP_REGISTER_METHOD(0x027B95F0, void, cctor, ())

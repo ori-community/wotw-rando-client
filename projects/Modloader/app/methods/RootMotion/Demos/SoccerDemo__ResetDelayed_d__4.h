@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoccerDemo_ResetDelayed_d_4.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::RootMotion::Demos::SoccerDemo__ResetDelayed_d__4 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::SoccerDemo_ResetDelayed_d_4 * this_ptr, int32_t __1__state))

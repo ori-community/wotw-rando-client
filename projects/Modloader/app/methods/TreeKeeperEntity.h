@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TreeKeeperEntity.h>
 
 namespace app::classes::TreeKeeperEntity {
     IL2CPP_REGISTER_METHOD(0x00B104C0, app::String*, get_DialogActorName, (app::TreeKeeperEntity * this_ptr))

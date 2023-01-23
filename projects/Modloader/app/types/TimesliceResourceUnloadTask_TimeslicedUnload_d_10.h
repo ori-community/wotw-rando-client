@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TimesliceResourceUnloadTask_TimeslicedUnload_d_10__Class.h>
+#include <Modloader/app/structs/TimesliceResourceUnloadTask_TimeslicedUnload_d_10.h>
 
 namespace app::classes::types {
     namespace TimesliceResourceUnloadTask_TimeslicedUnload_d_10 {

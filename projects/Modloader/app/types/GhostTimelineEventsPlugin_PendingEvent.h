@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GhostTimelineEventsPlugin_PendingEvent__Class.h>
+#include <Modloader/app/structs/GhostTimelineEventsPlugin_PendingEvent.h>
+#include <Modloader/app/structs/GhostTimelineEventsPlugin_PendingEvent__Boxed.h>
+#include <Modloader/app/structs/GhostTimelineEventsPlugin_PendingEvent__Array.h>
 
 namespace app::classes::types {
     namespace GhostTimelineEventsPlugin_PendingEvent {

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UniqueConstraint.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/DataColumn__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Index.h>
+#include <Modloader/app/structs/ConstraintCollection.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRowAction__Enum.h>
+#include <Modloader/app/structs/Constraint_1.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DataKey.h>
 
 namespace app::classes::System::Data::UniqueConstraint {
     IL2CPP_REGISTER_METHOD(0x022BFAB0, void, ctor_1, (app::UniqueConstraint * this_ptr, app::String* name, app::DataColumn* column))

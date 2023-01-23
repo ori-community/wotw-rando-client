@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ExecuteCloudScriptServerRequest__Class.h>
+#include <Modloader/app/structs/ExecuteCloudScriptServerRequest.h>
 
 namespace app::classes::types {
     namespace ExecuteCloudScriptServerRequest {

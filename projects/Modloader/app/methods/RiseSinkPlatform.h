@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RiseSinkPlatform.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::RiseSinkPlatform {
     IL2CPP_REGISTER_METHOD(0x01355070, void, Awake, (app::RiseSinkPlatform * this_ptr))

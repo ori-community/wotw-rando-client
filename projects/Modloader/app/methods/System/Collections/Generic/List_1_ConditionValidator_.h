@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_ConditionValidator_.h>
+#include <Modloader/app/structs/List_1_ConditionValidator_.h>
+#include <Modloader/app/structs/IEnumerable_1_ConditionValidator_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ConditionValidator.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_ConditionValidator_.h>
+#include <Modloader/app/structs/IComparer_1_ConditionValidator_.h>
+#include <Modloader/app/structs/ConditionValidator__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_ConditionValidator_.h>
+#include <Modloader/app/structs/Action_1_ConditionValidator_.h>
+#include <Modloader/app/structs/IEnumerator_1_ConditionValidator_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_ConditionValidator_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_ConditionValidator_ {
     IL2CPP_REGISTER_METHOD(0x025E9D20, app::List_1_T_Enumerator_ConditionValidator_, GetEnumerator, (app::List_1_ConditionValidator_ * this_ptr))

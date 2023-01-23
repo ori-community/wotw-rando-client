@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/PlaybackStatus.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AnimatorPlayState__Enum.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/UpdateCategory__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/IEventReciever.h>
+#include <Modloader/app/structs/ITimelineEntityParent.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/GennadiysDice_DiceEvents__Enum.h>
+#include <Modloader/app/structs/FixedDurationSceneEntity_Markers__Enum.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::Moon::Timeline::TimelineEntity {
     IL2CPP_REGISTER_METHOD(0x01E85270, bool, get_IsReadOnly, (app::TimelineEntity * this_ptr))

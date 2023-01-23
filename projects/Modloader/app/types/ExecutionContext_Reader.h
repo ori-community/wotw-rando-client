@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ExecutionContext_Reader__Class.h>
+#include <Modloader/app/structs/ExecutionContext_Reader.h>
+#include <Modloader/app/structs/ExecutionContext_Reader__Boxed.h>
 
 namespace app::classes::types {
     namespace ExecutionContext_Reader {

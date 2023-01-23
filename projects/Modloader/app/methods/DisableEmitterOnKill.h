@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DisableEmitterOnKill.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::DisableEmitterOnKill {
     IL2CPP_REGISTER_METHOD(0x00B950D0, void, Awake, (app::DisableEmitterOnKill * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PressurePlateSetupData.h>
+#include <Modloader/app/structs/PressurePlateSetupHolder.h>
+#include <Modloader/app/structs/List_1_IIndexedItem_.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::PressurePlateSetupHolder {
     IL2CPP_REGISTER_METHOD(0x00C73190, app::PressurePlateSetupData*, get_NotPressed, (app::PressurePlateSetupHolder * this_ptr))

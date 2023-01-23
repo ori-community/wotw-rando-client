@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Comparer_1_System_Int64___StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Comparer_1_System_Int64___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Comparer_1_System_Int64___StaticFields_DEFINED)
+#define IL2CPP_STRUCT_Comparer_1_System_Int64___StaticFields_DEFINED
+struct Comparer_1_System_Int64_;
+struct Comparer_1_System_Int64___StaticFields {
+    struct Comparer_1_System_Int64_* defaultComparer;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Comparer_1_System_Int64___StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_Comparer_1_System_Int64___StaticFields_FWDDECL
+#include <Modloader/app/structs/Comparer_1_System_Int64_.h>
+#endif
+#undef IL2CPP_STRUCT_Comparer_1_System_Int64___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Comparer_1_System_Int64___StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_Comparer_1_System_Int64___StaticFields_FWDDECL)
+#include <Modloader/app/structs/Comparer_1_System_Int64___StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Comparer_1_System_Int64___StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

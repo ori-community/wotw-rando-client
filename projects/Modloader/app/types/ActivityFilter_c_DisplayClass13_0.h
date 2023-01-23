@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ActivityFilter_c_DisplayClass13_0__Class.h>
+#include <Modloader/app/structs/ActivityFilter_c_DisplayClass13_0.h>
 
 namespace app::classes::types {
     namespace ActivityFilter_c_DisplayClass13_0 {

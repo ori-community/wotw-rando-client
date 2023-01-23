@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkeetoShootBehaviour_c.h>
 
 namespace app::classes::SkeetoShootBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x006B3490, void, cctor, ())

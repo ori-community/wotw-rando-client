@@ -1,5 +1,42 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CommandBuffer.h>
+#include <Modloader/app/structs/ComputeShader.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/RenderTargetIdentifier.h>
+#include <Modloader/app/structs/ComputeBuffer.h>
+#include <Modloader/app/structs/SkinnedMeshRenderer.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/MaterialPropertyBlock.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/MeshTopology__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SurfaceType__Enum.h>
+#include <Modloader/app/structs/SurfaceUsage__Enum.h>
+#include <Modloader/app/structs/FastMemoryFlags__Enum.h>
+#include <Modloader/app/structs/FilterMode__Enum.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/RenderTextureReadWrite__Enum.h>
+#include <Modloader/app/structs/RenderTextureMemoryless__Enum.h>
+#include <Modloader/app/structs/RenderTextureDescriptor.h>
+#include <Modloader/app/structs/ClearFlags__Enum.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Vector4__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/CustomSampler.h>
+#include <Modloader/app/structs/CubemapFace__Enum.h>
+#include <Modloader/app/structs/RenderTargetIdentifier__Array.h>
+#include <Modloader/app/structs/RenderBufferLoadAction__Enum.h>
+#include <Modloader/app/structs/RenderBufferStoreAction__Enum.h>
+#include <Modloader/app/structs/RenderBufferLoadAction__Enum__Array.h>
+#include <Modloader/app/structs/RenderBufferStoreAction__Enum__Array.h>
 
 namespace app::classes::UnityEngine::Rendering::CommandBuffer {
     IL2CPP_REGISTER_METHOD(0x02973C90, void, ctor, (app::CommandBuffer * this_ptr))

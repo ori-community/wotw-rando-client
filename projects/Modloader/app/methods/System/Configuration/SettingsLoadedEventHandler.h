@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SettingsLoadedEventHandler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SettingsLoadedEventArgs.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Configuration::SettingsLoadedEventHandler {
     IL2CPP_REGISTER_METHOD(0x02962C80, void, ctor, (app::SettingsLoadedEventHandler * this_ptr, app::Object* object, void* method_1))

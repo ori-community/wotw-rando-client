@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnmanagedMemoryStream.h>
+#include <Modloader/app/structs/FileAccess__Enum.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Task_1_System_Int32_.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
 
 namespace app::classes::System::IO::UnmanagedMemoryStream {
     IL2CPP_REGISTER_METHOD(0x02389540, void, ctor_1, (app::UnmanagedMemoryStream * this_ptr))

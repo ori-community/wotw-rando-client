@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyDoorWithSlots.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::LegacyDoorWithSlots {
     IL2CPP_REGISTER_METHOD(0x00A1AEA0, int32_t, get_NumberOfOrbsUsed, (app::LegacyDoorWithSlots * this_ptr))

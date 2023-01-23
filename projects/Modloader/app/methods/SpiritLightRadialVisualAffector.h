@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SpiritLightRadialVisualAffector.h>
+#include <Modloader/app/structs/GameplayCamera.h>
+#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::SpiritLightRadialVisualAffector {
     IL2CPP_REGISTER_METHOD(0x00D626B0, app::Vector3, get_Position, (app::SpiritLightRadialVisualAffector * this_ptr))

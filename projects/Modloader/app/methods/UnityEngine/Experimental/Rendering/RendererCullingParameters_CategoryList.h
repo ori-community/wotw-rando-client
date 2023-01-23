@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList__Boxed.h>
+#include <Modloader/app/structs/RendererCullingCategoryParameters.h>
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList.h>
+#include <Modloader/app/structs/RendererCullingCategoryParameters__Array.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::RendererCullingParameters_CategoryList {
     IL2CPP_REGISTER_METHOD(0x001F12F0, void, set_Item, (app::RendererCullingParameters_CategoryList__Boxed * this_ptr, int32_t i, app::RendererCullingCategoryParameters value))

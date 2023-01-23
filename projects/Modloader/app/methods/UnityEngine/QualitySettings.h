@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ColorSpace__Enum.h>
 
 namespace app::classes::UnityEngine::QualitySettings {
     IL2CPP_REGISTER_METHOD(0x0252FC40, int32_t, get_pixelLightCount, ())

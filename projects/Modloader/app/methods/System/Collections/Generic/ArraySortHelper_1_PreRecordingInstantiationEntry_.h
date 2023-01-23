@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PreRecordingInstantiationEntry__Array.h>
+#include <Modloader/app/structs/IComparer_1_PreRecordingInstantiationEntry_.h>
+#include <Modloader/app/structs/PreRecordingInstantiationEntry.h>
+#include <Modloader/app/structs/Comparison_1_PreRecordingInstantiationEntry_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_PreRecordingInstantiationEntry_ {
     IL2CPP_REGISTER_METHOD(0x02FED7B0, void, Sort_1, (app::PreRecordingInstantiationEntry__Array * keys, int32_t index, int32_t length, app::IComparer_1_PreRecordingInstantiationEntry_* comparer))

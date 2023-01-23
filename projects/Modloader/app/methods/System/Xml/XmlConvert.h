@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/ExceptionType__Enum.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/XmlDateTimeSerializationMode__Enum.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/ArgumentException.h>
 
 namespace app::classes::System::Xml::XmlConvert {
     IL2CPP_REGISTER_METHOD(0x01960BB0, app::String*, EncodeName_1, (app::String * name))

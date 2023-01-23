@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/AnimationLayerContext.h>
+#include <Modloader/app/structs/AnimationAdditiveStrengthContext.h>
+#include <Modloader/app/structs/ContinueConditionContext.h>
+#include <Modloader/app/structs/IRecordingContext.h>
+#include <Modloader/app/structs/ITimelineContext.h>
+#include <Modloader/app/structs/AnimationContext.h>
+#include <Modloader/app/structs/RecordingContext.h>
+#include <Modloader/app/structs/IntensityMultiplierContext.h>
+#include <Modloader/app/structs/CameraShakeModifierContext.h>
+#include <Modloader/app/structs/TweenDelayAnimatorContext.h>
+#include <Modloader/app/structs/ForceRefreshAnimatorContext.h>
 
 namespace app::classes::IContextExtensions {
     IL2CPP_REGISTER_METHOD(0x015EAD90, app::Object*, GetContextAs_1, (app::IContext * context, bool* sucess))

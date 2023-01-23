@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XsdCachingReader_CachingReaderState__Enum__Class.h>
+#include <Modloader/app/structs/XsdCachingReader_CachingReaderState__Enum.h>
 
 namespace app::classes::types {
     namespace XsdCachingReader_CachingReaderState__Enum {

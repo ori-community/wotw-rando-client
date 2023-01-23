@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_registerConsoleCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/BrowserNative_ConsoleFunc.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::BrowserNative_Calltype_zfb_registerConsoleCallback {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::BrowserNative_Calltype_zfb_registerConsoleCallback * this_ptr, app::Object* object, void* method_1))

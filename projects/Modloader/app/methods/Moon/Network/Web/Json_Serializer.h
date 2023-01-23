@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Json_Serializer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/IList.h>
 
 namespace app::classes::Moon::Network::Web::Json_Serializer {
     IL2CPP_REGISTER_METHOD(0x02E94940, void, ctor, (app::Json_Serializer * this_ptr))

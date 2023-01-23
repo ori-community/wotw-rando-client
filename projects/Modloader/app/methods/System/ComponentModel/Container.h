@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Container.h>
+#include <Modloader/app/structs/IComponent.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ISite.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ComponentCollection.h>
 
 namespace app::classes::System::ComponentModel::Container {
     IL2CPP_REGISTER_METHOD(0x024AB110, void, Finalize, (app::Container * this_ptr))

@@ -1,0 +1,28 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_HashSet_1_T_Slot_Moon_BehaviourSystem_IBehaviourNode__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_HashSet_1_T_Slot_Moon_BehaviourSystem_IBehaviourNode__INITIALIZING
+#if !defined(IL2CPP_STRUCT_HashSet_1_T_Slot_Moon_BehaviourSystem_IBehaviourNode__DEFINED)
+#define IL2CPP_STRUCT_HashSet_1_T_Slot_Moon_BehaviourSystem_IBehaviourNode__DEFINED
+struct IBehaviourNode;
+struct HashSet_1_T_Slot_Moon_BehaviourSystem_IBehaviourNode_ {
+    int32_t hashCode;
+    int32_t next;
+    struct IBehaviourNode* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_HashSet_1_T_Slot_Moon_BehaviourSystem_IBehaviourNode__FWDDECL)
+#define IL2CPP_STRUCT_HashSet_1_T_Slot_Moon_BehaviourSystem_IBehaviourNode__FWDDECL
+#include <Modloader/app/structs/IBehaviourNode.h>
+#endif
+#undef IL2CPP_STRUCT_HashSet_1_T_Slot_Moon_BehaviourSystem_IBehaviourNode__INITIALIZING
+#if !defined(IL2CPP_STRUCT_HashSet_1_T_Slot_Moon_BehaviourSystem_IBehaviourNode__DEFINED) && !defined(IL2CPP_STRUCT_HashSet_1_T_Slot_Moon_BehaviourSystem_IBehaviourNode__FWDDECL)
+#include <Modloader/app/structs/HashSet_1_T_Slot_Moon_BehaviourSystem_IBehaviourNode_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/HashSet_1_T_Slot_Moon_BehaviourSystem_IBehaviourNode_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates_DEFINED
+struct PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates__Class;
+struct PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates {
+    struct PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossTripleSlamBehaviour_TripleSlamStates.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

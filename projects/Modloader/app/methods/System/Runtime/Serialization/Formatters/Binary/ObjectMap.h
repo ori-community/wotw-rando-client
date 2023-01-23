@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectMap.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/ObjectReader.h>
+#include <Modloader/app/structs/BinaryAssemblyInfo.h>
+#include <Modloader/app/structs/BinaryTypeEnum__Enum__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/SizedArray.h>
+#include <Modloader/app/structs/ReadObjectInfo.h>
+#include <Modloader/app/structs/SerializationInfo.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::ObjectMap {
     IL2CPP_REGISTER_METHOD(0x01D93850, void, ctor_1, (app::ObjectMap * this_ptr, app::String* object_name, app::Type* object_type, app::String__Array* member_names, app::ObjectReader* object_reader, int32_t object_id, app::BinaryAssemblyInfo* assembly_info))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PropertyName__Class.h>
+#include <Modloader/app/structs/PropertyName.h>
+#include <Modloader/app/structs/PropertyName__Boxed.h>
 
 namespace app::classes::types {
     namespace PropertyName {

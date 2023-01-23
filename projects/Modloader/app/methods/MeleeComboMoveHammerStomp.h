@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HammerComboMoveBase_BalancingData.h>
+#include <Modloader/app/structs/MeleeComboMoveHammerStomp.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/MeleeComboMoveHammerStomp_State__Enum.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/Ray.h>
 
 namespace app::classes::MeleeComboMoveHammerStomp {
     IL2CPP_REGISTER_METHOD(0x00813FA0, app::HammerComboMoveBase_BalancingData*, get_BalancingBase, (app::MeleeComboMoveHammerStomp * this_ptr))

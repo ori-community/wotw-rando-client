@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ControlSettingsItem.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ControlSettingsItem {
     IL2CPP_REGISTER_METHOD(0x011F05A0, void, Awake, (app::ControlSettingsItem * this_ptr))

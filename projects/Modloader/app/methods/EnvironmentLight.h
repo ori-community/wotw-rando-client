@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnvironmentLight.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/EnvironmentLight_Channel__Enum.h>
+#include <Modloader/app/structs/Material.h>
 
 namespace app::classes::EnvironmentLight {
     IL2CPP_REGISTER_METHOD(0x00CA6810, bool, get_IsSceneLight, (app::EnvironmentLight * this_ptr))

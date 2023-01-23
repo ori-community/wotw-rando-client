@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RigidbodyConstraints__Enum_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RigidbodyConstraints__Enum_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RigidbodyConstraints__Enum_DEFINED)
+#define IL2CPP_STRUCT_RigidbodyConstraints__Enum_DEFINED
+enum class RigidbodyConstraints__Enum : int32_t {
+    None = 0x00000000,
+    FreezePositionX = 0x00000002,
+    FreezePositionY = 0x00000004,
+    FreezePositionZ = 0x00000008,
+    FreezeRotationX = 0x00000010,
+    FreezeRotationY = 0x00000020,
+    FreezeRotationZ = 0x00000040,
+    FreezePosition = 0x0000000e,
+    FreezeRotation = 0x00000070,
+    FreezeAll = 0x0000007e,
+};
+#endif
+#if !defined(IL2CPP_STRUCT_RigidbodyConstraints__Enum_FWDDECL)
+#define IL2CPP_STRUCT_RigidbodyConstraints__Enum_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_RigidbodyConstraints__Enum_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RigidbodyConstraints__Enum_DEFINED) && !defined(IL2CPP_STRUCT_RigidbodyConstraints__Enum_FWDDECL)
+#include <Modloader/app/structs/RigidbodyConstraints__Enum.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RigidbodyConstraints__Enum.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/WebExceptionStatus__Enum.h>
+#include <Modloader/app/structs/WebExceptionInternalStatus__Enum.h>
+#include <Modloader/app/structs/WebResponse.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Net::WebException {
     IL2CPP_REGISTER_METHOD(0x01D6FAD0, void, ctor_1, (app::WebException * this_ptr))

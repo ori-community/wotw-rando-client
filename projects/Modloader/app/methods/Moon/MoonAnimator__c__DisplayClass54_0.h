@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimator_c_DisplayClass54_0.h>
+#include <Modloader/app/structs/MoonAnimator_PreviewAnimation.h>
 
 namespace app::classes::Moon::MoonAnimator___c__DisplayClass54_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MoonAnimator_c_DisplayClass54_0 * this_ptr))

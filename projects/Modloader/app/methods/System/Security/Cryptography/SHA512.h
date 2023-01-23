@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SHA512.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::SHA512 {
     IL2CPP_REGISTER_METHOD(0x01E0E3C0, void, ctor, (app::SHA512 * this_ptr))

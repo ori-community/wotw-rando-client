@@ -1,0 +1,28 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DynamicDataResolver_SerializedDynamicDataLinkItem_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DynamicDataResolver_SerializedDynamicDataLinkItem_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DynamicDataResolver_SerializedDynamicDataLinkItem_DEFINED)
+#include <Modloader/app/structs/DynamicDataLinkSerializedData.h>
+#if defined(IL2CPP_STRUCT_DynamicDataLinkSerializedData_DEFINED)
+#define IL2CPP_STRUCT_DynamicDataResolver_SerializedDynamicDataLinkItem_DEFINED
+struct DynamicDataResolver_SerializedDynamicDataLinkItem {
+    int32_t Guid;
+    struct DynamicDataLinkSerializedData DataLinkItem;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_DynamicDataResolver_SerializedDynamicDataLinkItem_FWDDECL)
+#define IL2CPP_STRUCT_DynamicDataResolver_SerializedDynamicDataLinkItem_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_DynamicDataResolver_SerializedDynamicDataLinkItem_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DynamicDataResolver_SerializedDynamicDataLinkItem_DEFINED) && !defined(IL2CPP_STRUCT_DynamicDataResolver_SerializedDynamicDataLinkItem_FWDDECL)
+#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

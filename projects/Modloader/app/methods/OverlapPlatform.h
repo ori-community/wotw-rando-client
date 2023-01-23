@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OverlapPlatform.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::OverlapPlatform {
     IL2CPP_REGISTER_METHOD(0x00442AD0, void, FixedUpdate, (app::OverlapPlatform * this_ptr))

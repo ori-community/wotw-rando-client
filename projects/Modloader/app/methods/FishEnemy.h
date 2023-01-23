@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FishEnemy.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::FishEnemy {
     IL2CPP_REGISTER_METHOD(0x012673D0, bool, CanBeOptimized, (app::FishEnemy * this_ptr))

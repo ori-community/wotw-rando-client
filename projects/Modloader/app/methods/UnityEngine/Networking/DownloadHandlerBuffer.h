@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DownloadHandlerBuffer.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::UnityEngine::Networking::DownloadHandlerBuffer {
     IL2CPP_REGISTER_METHOD(0x0317E370, void, ctor, (app::DownloadHandlerBuffer * this_ptr))

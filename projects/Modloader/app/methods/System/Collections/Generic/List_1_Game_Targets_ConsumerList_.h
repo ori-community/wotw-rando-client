@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Game_Targets_ConsumerList_.h>
+#include <Modloader/app/structs/Targets_ConsumerList.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Game_Targets_ConsumerList_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Game_Targets_ConsumerList_ {
     IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_Game_Targets_ConsumerList_ * this_ptr, app::Targets_ConsumerList* item))

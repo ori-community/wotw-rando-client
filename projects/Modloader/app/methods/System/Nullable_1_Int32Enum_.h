@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_Int32Enum___Boxed.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_Int32Enum_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_Int32Enum_ {
     IL2CPP_REGISTER_METHOD(0x0010DB80, void, ctor, (app::Nullable_1_Int32Enum___Boxed * this_ptr, app::Int32Enum__Enum value))

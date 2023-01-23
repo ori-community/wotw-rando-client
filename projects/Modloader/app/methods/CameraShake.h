@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraShake.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::CameraShake {
     IL2CPP_REGISTER_METHOD(0x00B1C3B0, void, ResetStatics, ())

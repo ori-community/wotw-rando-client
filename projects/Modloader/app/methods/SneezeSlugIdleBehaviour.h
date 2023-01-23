@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SneezeSlugIdleBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
 
 namespace app::classes::SneezeSlugIdleBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnInitialize, (app::SneezeSlugIdleBehaviour * this_ptr))

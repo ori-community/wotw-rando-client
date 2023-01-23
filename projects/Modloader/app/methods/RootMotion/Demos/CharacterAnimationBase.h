@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/CharacterAnimationBase.h>
 
 namespace app::classes::RootMotion::Demos::CharacterAnimationBase {
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, GetPivotPoint, (app::CharacterAnimationBase * this_ptr))

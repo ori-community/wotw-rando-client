@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollectionBuilder_1_T_Enumerator_System_Object_.h>
+#include <Modloader/app/structs/ReadOnlyCollectionBuilder_1_System_Object_.h>
 
 namespace app::classes::System::Runtime::CompilerServices::ReadOnlyCollectionBuilder_1_T__Enumerator_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::Object*, get_Current, (app::ReadOnlyCollectionBuilder_1_T_Enumerator_System_Object_ * this_ptr))

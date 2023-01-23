@@ -14,3 +14,9 @@ namespace inline app::classes::MS::Internal::Xml::XPath : operator{
                                                                                           operator* this_ptr))
     IL2CPP_REGISTER_METHOD(0x021D9440, void, cctor, ())
 } // namespace app::classes::MS::Internal::Xml::XPath
+#include <Modloader/app/structs/classes.h>
+#include <Modloader/app/structs/AstNode.h>
+#include <Modloader/app/structs/AstNode_AstType__Enum.h>
+#include <Modloader/app/structs/XPathResultType__Enum.h>
+
+namespace app::classesundefined

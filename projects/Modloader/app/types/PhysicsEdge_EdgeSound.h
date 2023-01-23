@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PhysicsEdge_EdgeSound__Class.h>
+#include <Modloader/app/structs/PhysicsEdge_EdgeSound.h>
 
 namespace app::classes::types {
     namespace PhysicsEdge_EdgeSound {

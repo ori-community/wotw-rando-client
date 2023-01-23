@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameController_LoadAssets_d_182.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::GameController__LoadAssets_d__182 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::GameController_LoadAssets_d_182 * this_ptr, int32_t __1__state))

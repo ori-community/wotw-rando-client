@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PhysicsScene__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PhysicsScene.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/QueryTriggerInteraction__Enum.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/RaycastHit__Array.h>
 
 namespace app::classes::UnityEngine::PhysicsScene {
     IL2CPP_REGISTER_METHOD(0x002442E0, app::String*, ToString, (app::PhysicsScene__Boxed * this_ptr))

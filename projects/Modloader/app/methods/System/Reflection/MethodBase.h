@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/RuntimeMethodHandle.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/CallingConventions__Enum.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/MethodBody.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RuntimeTypeHandle.h>
 
 namespace app::classes::System::Reflection::MethodBase {
     IL2CPP_REGISTER_METHOD(0x0268C9D0, app::MethodBase*, GetMethodFromHandle, (app::RuntimeMethodHandle handle))

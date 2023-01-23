@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MothSwarm.h>
+#include <Modloader/app/structs/MothEnemy.h>
+#include <Modloader/app/structs/MothSwarmer.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::MothEnemy {
     IL2CPP_REGISTER_METHOD(0x00864990, app::MothSwarm*, get_Swarm, (app::MothEnemy * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStateData__Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_UberStateVisualization_UberStateData_.h>
+#include <Modloader/app/structs/UberStateData.h>
+#include <Modloader/app/structs/Comparison_1_Moon_UberStateVisualization_UberStateData_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_UberStateVisualization_UberStateData_ {
     IL2CPP_REGISTER_METHOD(0x02F75B50, void, Sort_1, (app::UberStateData__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_UberStateVisualization_UberStateData_* comparer))

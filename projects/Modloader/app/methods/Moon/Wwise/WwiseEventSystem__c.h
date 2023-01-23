@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WwiseEventSystem_c.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Wwise::WwiseEventSystem___c {
     IL2CPP_REGISTER_METHOD(0x027134F0, void, cctor, ())

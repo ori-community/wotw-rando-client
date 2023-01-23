@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WwiseBootstrapInitializer.h>
 
 namespace app::classes::WwiseBootstrapInitializer {
     IL2CPP_REGISTER_METHOD(0x00593430, void, ResetStatics, ())

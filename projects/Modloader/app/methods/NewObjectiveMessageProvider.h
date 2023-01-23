@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NewObjectiveMessageProvider.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/IEnumerable_1_MessageDescriptor_.h>
 
 namespace app::classes::NewObjectiveMessageProvider {
     IL2CPP_REGISTER_METHOD(0x002FBB10, void, SetMessage, (app::NewObjectiveMessageProvider * this_ptr, app::MessageProvider* message))

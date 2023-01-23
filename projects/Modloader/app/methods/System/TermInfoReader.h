@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TermInfoReader.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/TermInfoNumbers__Enum.h>
+#include <Modloader/app/structs/TermInfoStrings__Enum.h>
 
 namespace app::classes::System::TermInfoReader {
     IL2CPP_REGISTER_METHOD(0x02444C20, void, ctor_1, (app::TermInfoReader * this_ptr, app::String* term, app::String* filename))

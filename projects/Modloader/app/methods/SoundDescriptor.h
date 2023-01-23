@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundDescriptor.h>
+#include <Modloader/app/structs/AudioClip.h>
+#include <Modloader/app/structs/SoundSize.h>
+#include <Modloader/app/structs/LowPassFilterSettings.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::SoundDescriptor {
     IL2CPP_REGISTER_METHOD(0x00EE9200, void, ctor_1, (app::SoundDescriptor * this_ptr))

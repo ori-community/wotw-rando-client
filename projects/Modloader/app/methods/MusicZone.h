@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MusicZone.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::MusicZone {
     IL2CPP_REGISTER_METHOD(0x004430B0, bool, get_Activated, (app::MusicZone * this_ptr))

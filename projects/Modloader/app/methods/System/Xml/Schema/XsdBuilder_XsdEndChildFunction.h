@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XsdBuilder_XsdEndChildFunction.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XsdBuilder.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Xml::Schema::XsdBuilder_XsdEndChildFunction {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::XsdBuilder_XsdEndChildFunction * this_ptr, app::Object* object, void* method_1))

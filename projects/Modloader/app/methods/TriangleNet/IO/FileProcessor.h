@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IFileFormat.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IPolygon.h>
+#include <Modloader/app/structs/IMesh.h>
 
 namespace app::classes::TriangleNet::IO::FileProcessor {
     IL2CPP_REGISTER_METHOD(0x02620610, void, cctor, ())

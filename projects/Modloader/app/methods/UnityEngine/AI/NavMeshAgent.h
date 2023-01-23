@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NavMeshAgent.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/OffMeshLinkData.h>
+#include <Modloader/app/structs/NavMeshPathStatus__Enum.h>
+#include <Modloader/app/structs/NavMeshPath.h>
+#include <Modloader/app/structs/NavMeshHit.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/ObstacleAvoidanceType__Enum.h>
 
 namespace app::classes::UnityEngine::AI::NavMeshAgent {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::NavMeshAgent * this_ptr))

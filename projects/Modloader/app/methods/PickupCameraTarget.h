@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PickupCameraTarget.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CameraTargetData.h>
+#include <Modloader/app/structs/CameraTargetType__Enum.h>
 
 namespace app::classes::PickupCameraTarget {
     IL2CPP_REGISTER_METHOD(0x01158B30, bool, get_CameraTargetActive, (app::PickupCameraTarget * this_ptr))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/JSONNode__Class.h>
+#include <Modloader/app/structs/JSONNode.h>
+#include <Modloader/app/structs/JSONNode__Array.h>
 
 namespace app::classes::types {
     namespace JSONNode {

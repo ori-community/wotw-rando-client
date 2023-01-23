@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OverridableShaderProperty.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_OverridableTextureProperty_.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_OverridableFloatProperty_.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_OverridableColorProperty_.h>
 
 namespace app::classes::MaterialPropertiesUtility {
     IL2CPP_REGISTER_METHOD(0x01382A20, void, ApplyShaderProperty, (app::OverridableShaderProperty * shader_property_from, app::OverridableShaderProperty* shader_property_to))

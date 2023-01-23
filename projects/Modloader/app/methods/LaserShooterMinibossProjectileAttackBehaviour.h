@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserShooterMinibossProjectileAttackBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::LaserShooterMinibossProjectileAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00F1D150, void, OnEnter, (app::LaserShooterMinibossProjectileAttackBehaviour * this_ptr, app::IContext* context))

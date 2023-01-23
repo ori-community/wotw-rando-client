@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UIntPtr__Boxed.h>
+#include <Modloader/app/structs/Void.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::UIntPtr {
     IL2CPP_REGISTER_METHOD(0x00206760, void, ctor_1, (app::UIntPtr__Boxed * this_ptr, uint64_t value))

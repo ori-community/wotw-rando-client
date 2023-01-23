@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberStateVisualizationView_UberStateVisualizationLayout__Class.h>
+#include <Modloader/app/structs/UberStateVisualizationView_UberStateVisualizationLayout.h>
+#include <Modloader/app/structs/UberStateVisualizationView_UberStateVisualizationLayout__Boxed.h>
 
 namespace app::classes::types {
     namespace UberStateVisualizationView_UberStateVisualizationLayout {

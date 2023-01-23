@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Delegate__Array.h>
+#include <Modloader/app/structs/RuntimeType.h>
+#include <Modloader/app/structs/MulticastDelegate.h>
 
 namespace app::classes::System::Delegate {
     IL2CPP_REGISTER_METHOD(0x0173D7B0, app::MethodInfo_1*, get_Method, (app::Delegate * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExceptionEntry.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 
 namespace app::classes::Moon::ExceptionProcessing::ExceptionEntry {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Id, (app::ExceptionEntry * this_ptr))

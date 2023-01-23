@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SmallXmlParser_AttrListImpl.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::Mono::Xml::SmallXmlParser_AttrListImpl {
     IL2CPP_REGISTER_METHOD(0x0228A230, int32_t, get_Length, (app::SmallXmlParser_AttrListImpl * this_ptr))

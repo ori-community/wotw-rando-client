@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightCanvasStateController.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LightCanvasStateController_LightCanvasState.h>
 
 namespace app::classes::LightCanvasStateController {
     IL2CPP_REGISTER_METHOD(0x00654950, int32_t, get_CurrentPassiveStateApplied, (app::LightCanvasStateController * this_ptr))

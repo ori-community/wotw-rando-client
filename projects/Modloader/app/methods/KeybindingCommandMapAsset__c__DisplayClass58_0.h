@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeybindingCommandMapAsset_c_DisplayClass58_0.h>
+#include <Modloader/app/structs/KeybindingCommandMapAsset_ExclusiveCommandList.h>
 
 namespace app::classes::KeybindingCommandMapAsset___c__DisplayClass58_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::KeybindingCommandMapAsset_c_DisplayClass58_0 * this_ptr))

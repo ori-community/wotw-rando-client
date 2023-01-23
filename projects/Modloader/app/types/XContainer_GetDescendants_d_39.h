@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XContainer_GetDescendants_d_39__Class.h>
+#include <Modloader/app/structs/XContainer_GetDescendants_d_39.h>
 
 namespace app::classes::types {
     namespace XContainer_GetDescendants_d_39 {

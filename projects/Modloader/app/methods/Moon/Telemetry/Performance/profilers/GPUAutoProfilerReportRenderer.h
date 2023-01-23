@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GPUAutoProfilerReportRenderer.h>
+#include <Modloader/app/structs/GPUAutoProfilerReport.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/GPUAutoProfilerReport_ReportBaselineData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::Moon::Telemetry::Performance::profilers::GPUAutoProfilerReportRenderer {
     IL2CPP_REGISTER_METHOD(0x00E46F40, void, CreateLineMaterial, (app::GPUAutoProfilerReportRenderer * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SceneRoot_UnloadSceneCoroutine_d_61__Class.h>
+#include <Modloader/app/structs/SceneRoot_UnloadSceneCoroutine_d_61.h>
 
 namespace app::classes::types {
     namespace SceneRoot_UnloadSceneCoroutine_d_61 {

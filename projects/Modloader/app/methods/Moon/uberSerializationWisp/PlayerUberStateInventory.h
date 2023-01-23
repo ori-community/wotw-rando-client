@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_.h>
+#include <Modloader/app/structs/PlayerUberStateInventory.h>
+#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_QuestItem_.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/QuestItemType__Enum.h>
+#include <Modloader/app/structs/UberStateArchive.h>
+#include <Modloader/app/structs/NavigableOnGUI.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateInventory {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_*, get_Inventory, (app::PlayerUberStateInventory * this_ptr))

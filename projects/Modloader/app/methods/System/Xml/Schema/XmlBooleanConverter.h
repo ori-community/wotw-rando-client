@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlBooleanConverter.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlValueConverter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Xml::Schema::XmlBooleanConverter {
     IL2CPP_REGISTER_METHOD(0x02244E40, void, ctor, (app::XmlBooleanConverter * this_ptr, app::XmlSchemaType* schema_type))

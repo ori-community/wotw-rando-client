@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScrollRect.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/ScrollRect_MovementType__Enum.h>
+#include <Modloader/app/structs/Scrollbar.h>
+#include <Modloader/app/structs/ScrollRect_ScrollbarVisibility__Enum.h>
+#include <Modloader/app/structs/ScrollRect_ScrollRectEvent.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CanvasUpdate__Enum.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UnityEngine::UI::ScrollRect {
     IL2CPP_REGISTER_METHOD(0x02668580, void, ctor, (app::ScrollRect * this_ptr))

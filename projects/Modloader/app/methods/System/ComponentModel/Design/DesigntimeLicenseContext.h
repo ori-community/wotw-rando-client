@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LicenseUsageMode__Enum.h>
+#include <Modloader/app/structs/DesigntimeLicenseContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Assembly.h>
 
 namespace app::classes::System::ComponentModel::Design::DesigntimeLicenseContext {
     IL2CPP_REGISTER_METHOD(0x00417920, app::LicenseUsageMode__Enum, get_UsageMode, (app::DesigntimeLicenseContext * this_ptr))

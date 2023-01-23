@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellUISpellDetails.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
 
 namespace app::classes::SpellUISpellDetails {
     IL2CPP_REGISTER_METHOD(0x009512C0, void, Awake, (app::SpellUISpellDetails * this_ptr))

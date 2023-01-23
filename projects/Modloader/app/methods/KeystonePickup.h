@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeystonePickup.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/RuntimeWorldMapIcon.h>
 
 namespace app::classes::KeystonePickup {
     IL2CPP_REGISTER_METHOD(0x00E70A70, void, OnCollectorCandidateTouch, (app::KeystonePickup * this_ptr, app::GameObject* collector))

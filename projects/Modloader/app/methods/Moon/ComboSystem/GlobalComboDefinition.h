@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GlobalComboDefinition.h>
+#include <Modloader/app/structs/ComboDataEntry.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/MeleeComboMoveSettings.h>
+#include <Modloader/app/structs/ComboMoveSettings.h>
 
 namespace app::classes::Moon::ComboSystem::GlobalComboDefinition {
     IL2CPP_REGISTER_METHOD(0x00CC6E10, void, InitializeDictionary, (app::GlobalComboDefinition * this_ptr))

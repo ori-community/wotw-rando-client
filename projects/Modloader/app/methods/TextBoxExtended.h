@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/TextBox.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Text_1.h>
 
 namespace app::classes::TextBoxExtended {
     IL2CPP_REGISTER_METHOD(0x010E3CF0, app::Rect, GetRect, (app::TextBox * text_box))

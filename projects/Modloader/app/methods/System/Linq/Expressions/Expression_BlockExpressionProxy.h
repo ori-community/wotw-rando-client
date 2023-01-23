@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Expression_BlockExpressionProxy.h>
+#include <Modloader/app/structs/BlockExpression.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_BlockExpressionProxy {
     IL2CPP_REGISTER_METHOD(0x029D48A0, void, ctor, (app::Expression_BlockExpressionProxy * this_ptr, app::BlockExpression* node))

@@ -2,6 +2,13 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Rect__Class.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Rect__Boxed.h>
+#include <Modloader/app/structs/Rect__Array.h>
+#include <Modloader/app/structs/RECT__Class.h>
+#include <Modloader/app/structs/RECT.h>
+#include <Modloader/app/structs/RECT__Boxed.h>
 
 namespace app::classes::types {
     namespace Rect {
@@ -27,18 +34,4 @@ namespace app::classes::types {
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
-
-namespace app::classes::types {
-    namespace RECT {
-        inline app::RECT__Class** type_info = (app::RECT__Class**)(modloader::win::memory::resolve_rva(0x0473E098));
-        inline app::RECT__Class* get_class() {
-            return il2cpp::get_class<app::RECT__Class>(type_info, "", "RECT");
-        }
-        inline app::RECT* create() {
-            return il2cpp::create_object<app::RECT>(get_class());
-        }
-        inline app::RECT__Boxed* box(app::RECT value) {
-            return il2cpp::box_value<app::RECT__Boxed>(get_class(), value);
-        }
-    } // namespace RECT
-} // namespace app::classes::types
+

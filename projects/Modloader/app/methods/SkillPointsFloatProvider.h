@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkillPointsFloatProvider.h>
 
 namespace app::classes::SkillPointsFloatProvider {
     IL2CPP_REGISTER_METHOD(0x006B53D0, float, GetFloatValue, (app::SkillPointsFloatProvider * this_ptr))

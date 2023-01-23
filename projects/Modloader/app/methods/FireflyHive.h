@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Firefly.h>
+#include <Modloader/app/structs/FireflyHive.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::FireflyHive {
     IL2CPP_REGISTER_METHOD(0x0125F550, app::Firefly*, get_FireflyInstance, (app::FireflyHive * this_ptr))

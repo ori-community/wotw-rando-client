@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings_DEFINED)
+#include <Modloader/app/structs/RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings_DEFINED
+struct RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings__Class;
+struct RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings {
+    struct RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings__Class* klass;
+    MonitorData* monitor;
+    struct RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings_FWDDECL)
+#define IL2CPP_STRUCT_RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings_FWDDECL
+#include <Modloader/app/structs/RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings_DEFINED) && !defined(IL2CPP_STRUCT_RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings_FWDDECL)
+#include <Modloader/app/structs/RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RammingEnemyPlaceholder_RammingEnemyPlaceholderSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

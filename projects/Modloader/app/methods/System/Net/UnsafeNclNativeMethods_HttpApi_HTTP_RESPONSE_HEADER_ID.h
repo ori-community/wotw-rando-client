@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::UnsafeNclNativeMethods_HttpApi_HTTP_RESPONSE_HEADER_ID {
     IL2CPP_REGISTER_METHOD(0x020AC690, void, cctor, ())

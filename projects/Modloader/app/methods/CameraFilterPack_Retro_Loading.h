@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Retro_Loading.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Retro_Loading {
     IL2CPP_REGISTER_METHOD(0x0248B2C0, app::Material*, get_material, (app::CameraFilterPack_Retro_Loading * this_ptr))

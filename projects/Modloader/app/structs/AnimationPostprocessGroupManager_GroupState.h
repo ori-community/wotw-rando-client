@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AnimationPostprocessGroupManager_GroupState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AnimationPostprocessGroupManager_GroupState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AnimationPostprocessGroupManager_GroupState_DEFINED)
+#include <Modloader/app/structs/AnimationPostprocessGroupManager_GroupState__Fields.h>
+#if defined(IL2CPP_STRUCT_AnimationPostprocessGroupManager_GroupState__Fields_DEFINED)
+#define IL2CPP_STRUCT_AnimationPostprocessGroupManager_GroupState_DEFINED
+struct AnimationPostprocessGroupManager_GroupState__Class;
+struct AnimationPostprocessGroupManager_GroupState {
+    struct AnimationPostprocessGroupManager_GroupState__Class* klass;
+    MonitorData* monitor;
+    struct AnimationPostprocessGroupManager_GroupState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AnimationPostprocessGroupManager_GroupState_FWDDECL)
+#define IL2CPP_STRUCT_AnimationPostprocessGroupManager_GroupState_FWDDECL
+#include <Modloader/app/structs/AnimationPostprocessGroupManager_GroupState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_AnimationPostprocessGroupManager_GroupState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AnimationPostprocessGroupManager_GroupState_DEFINED) && !defined(IL2CPP_STRUCT_AnimationPostprocessGroupManager_GroupState_FWDDECL)
+#include <Modloader/app/structs/AnimationPostprocessGroupManager_GroupState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AnimationPostprocessGroupManager_GroupState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

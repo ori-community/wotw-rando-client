@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DESCryptoServiceProvider.h>
+#include <Modloader/app/structs/ICryptoTransform.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::DESCryptoServiceProvider {
     IL2CPP_REGISTER_METHOD(0x020D1750, void, ctor, (app::DESCryptoServiceProvider * this_ptr))

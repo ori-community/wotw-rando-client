@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsPlatformOverride__Enum.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayerParams__Array.h>
+#include <Modloader/app/structs/LayeredRenderSettings.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsOverride.h>
 
 namespace app::classes::LayeredRenderSettings {
     IL2CPP_REGISTER_METHOD(0x00F267A0, app::LayeredRenderSettings_LayeredRenderSettingsPlatformOverride__Enum, get_CurrentPlatformOverride, ())

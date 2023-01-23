@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/KwolokTongueStatue_KwolowTongueStatueState__Enum__Class.h>
+#include <Modloader/app/structs/KwolokTongueStatue_KwolowTongueStatueState__Enum.h>
 
 namespace app::classes::types {
     namespace KwolokTongueStatue_KwolowTongueStatueState__Enum {

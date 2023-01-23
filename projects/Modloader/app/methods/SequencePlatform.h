@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SequencePlatform.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/HashSet_1_SequencePlatform_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::SequencePlatform {
     IL2CPP_REGISTER_METHOD(0x00AB5E50, void, OnEnable, (app::SequencePlatform * this_ptr))

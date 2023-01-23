@@ -1,5 +1,40 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
+#include <Modloader/app/structs/Task_1_VoidTaskResult_.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CryptoStream_HopToThreadPoolAwaitable.h>
+#include <Modloader/app/structs/CryptoStream_WriteAsyncInternal_d_37.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_ConfiguredTaskAwaiter.h>
+#include <Modloader/app/structs/AsyncProtocolRequest_ProcessOperation_d_24.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream_InnerWrite_d_67.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_1_TResult_ConfiguredTaskAwaiter_System_Nullable_1_.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_1_TResult_ConfiguredTaskAwaiter_System_Object_.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream_ProcessAuthentication_d_47.h>
+#include <Modloader/app/structs/TaskAwaiter.h>
+#include <Modloader/app/structs/SceneLoadingTest_Execute_d_19.h>
+#include <Modloader/app/structs/SceneLoadingTest_LoadAndUnloadScene_d_20.h>
+#include <Modloader/app/structs/OneDSEventsAPI_c_DisplayClass13_0_WaitWhile_b_0_d.h>
+#include <Modloader/app/structs/OneDSEventPipeline_StartAsync_d_19.h>
+#include <Modloader/app/structs/OneDSEventPipeline_StartAsync_d_20.h>
+#include <Modloader/app/structs/XalSignInProvider_SignIn_b_31_0_d.h>
+#include <Modloader/app/structs/UberPoolPerfTest_BenchmarkPrefabInfos_d_40.h>
+#include <Modloader/app/structs/UberPoolPerfTest_BenchmarkSinglePrefabInstantiation_d_37.h>
+#include <Modloader/app/structs/UberPoolPerfTest_BenchmarkSinglePrefabPrewarm_d_39.h>
+#include <Modloader/app/structs/UberPoolPerfTest_BenchmarkSinglePrefabProfiler_d_38.h>
+#include <Modloader/app/structs/UberPoolPerfTest_ForcePrefabPrewarmed_d_36.h>
+#include <Modloader/app/structs/UberPoolPerfTest_RunTest_d_31.h>
+#include <Modloader/app/structs/TaskAwaiter_1_System_Object_.h>
+#include <Modloader/app/structs/OneDSEventsAPI_WaitWhile_d_13.h>
+#include <Modloader/app/structs/XalSignInProvider_SignInSilently_b_30_0_d.h>
+#include <Modloader/app/structs/YieldAwaitable_YieldAwaiter.h>
+#include <Modloader/app/structs/SceneLoadingTest_ExtraDelay_d_21.h>
+#include <Modloader/app/structs/UberPoolPerfTest_LoadPoolPrewarmScene_d_42.h>
+#include <Modloader/app/structs/UberPoolPerfTest_SetupAutomatedTest_d_32.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult_.h>
+#include <Modloader/app/structs/VoidTaskResult.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult_ {
     IL2CPP_REGISTER_METHOD(0x0018ED60, void, SetStateMachine, (app::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed * this_ptr, app::IAsyncStateMachine* state_machine))

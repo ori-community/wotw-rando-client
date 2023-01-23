@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CheatsHandler_c.h>
 
 namespace app::classes::CheatsHandler___c {
     IL2CPP_REGISTER_METHOD(0x0131ED60, void, cctor, ())

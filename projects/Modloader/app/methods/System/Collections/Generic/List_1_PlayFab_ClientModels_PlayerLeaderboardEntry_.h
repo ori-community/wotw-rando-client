@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerLeaderboardEntry.h>
+#include <Modloader/app/structs/List_1_PlayFab_ClientModels_PlayerLeaderboardEntry_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_PlayFab_ClientModels_PlayerLeaderboardEntry_.h>
+#include <Modloader/app/structs/Predicate_1_PlayFab_ClientModels_PlayerLeaderboardEntry_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_PlayFab_ClientModels_PlayerLeaderboardEntry_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::PlayerLeaderboardEntry*, get_Item, (app::List_1_PlayFab_ClientModels_PlayerLeaderboardEntry_ * this_ptr, int32_t index))

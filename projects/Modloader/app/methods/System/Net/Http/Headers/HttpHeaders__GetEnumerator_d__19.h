@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpHeaders_GetEnumerator_d_19.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_String_IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::Http::Headers::HttpHeaders__GetEnumerator_d__19 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::HttpHeaders_GetEnumerator_d_19 * this_ptr, int32_t __1__state))

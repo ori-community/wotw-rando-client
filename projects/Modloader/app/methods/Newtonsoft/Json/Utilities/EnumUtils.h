@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnumInfo.h>
+#include <Modloader/app/structs/StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/NamingStrategy.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Nullable_1_Int32_.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/StringComparison__Enum.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::EnumUtils {
     IL2CPP_REGISTER_METHOD(0x01C0F590, app::EnumInfo*, InitializeValuesAndNames, (app::StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy_ key))

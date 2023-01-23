@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MatchEnumerator.h>
+#include <Modloader/app/structs/MatchCollection.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Text::RegularExpressions::MatchEnumerator {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::MatchEnumerator * this_ptr, app::MatchCollection* matchcoll))

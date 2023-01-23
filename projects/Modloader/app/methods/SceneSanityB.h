@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SceneSanityB.h>
 
 namespace app::classes::SceneSanityB {
     IL2CPP_REGISTER_METHOD(0x00BBA2A0, app::String*, GetFullHierarchy, (app::GameObject * game_object))

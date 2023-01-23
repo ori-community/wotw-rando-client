@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IPhysicsCollisionReceiver.h>
 
 namespace app::classes::GameObjectExtensions {
     IL2CPP_REGISTER_METHOD(0x015855E0, app::Object__Array*, GetInterfaces, (app::GameObject * g_obj))

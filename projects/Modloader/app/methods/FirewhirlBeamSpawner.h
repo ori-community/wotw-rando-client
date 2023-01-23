@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FirewhirlBeamSpawner.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/IDamageReciever.h>
+#include <Modloader/app/structs/IAttackable.h>
 
 namespace app::classes::FirewhirlBeamSpawner {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_IsSuspended, (app::FirewhirlBeamSpawner * this_ptr))

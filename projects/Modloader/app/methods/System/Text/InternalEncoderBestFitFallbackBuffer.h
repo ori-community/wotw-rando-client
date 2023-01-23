@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/InternalEncoderBestFitFallbackBuffer.h>
+#include <Modloader/app/structs/InternalEncoderBestFitFallback.h>
 
 namespace app::classes::System::Text::InternalEncoderBestFitFallbackBuffer {
     IL2CPP_REGISTER_METHOD(0x02458BC0, app::Object*, get_InternalSyncObject, ())

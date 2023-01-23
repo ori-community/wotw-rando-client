@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ApplyPhysicalManagerState.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::ApplyPhysicalManagerState {
     IL2CPP_REGISTER_METHOD(0x005072F0, void, OnEnable, (app::ApplyPhysicalManagerState * this_ptr))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/AkAudioInputManager_AudioSamplesDelegate.h>
+#include <Modloader/app/structs/AkAudioInputManager_AudioFormatDelegate.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AkCallbackType__Enum.h>
+#include <Modloader/app/structs/AkCallbackInfo.h>
 
 namespace app::classes::AkAudioInputManager {
     IL2CPP_REGISTER_METHOD(0x026C6E70, uint32_t, PostAudioInputEvent_1, (app::Event_1 * ak_event, app::GameObject* game_object, app::AkAudioInputManager_AudioSamplesDelegate* sample_delegate, app::AkAudioInputManager_AudioFormatDelegate* format_delegate))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpriteAnimatorAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SpriteAnimatorAction {
     IL2CPP_REGISTER_METHOD(0x009AC210, void, Perform, (app::SpriteAnimatorAction * this_ptr, app::IContext* context))

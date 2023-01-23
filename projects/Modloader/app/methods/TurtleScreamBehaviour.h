@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TurtleScreamBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
 
 namespace app::classes::TurtleScreamBehaviour {
     IL2CPP_REGISTER_METHOD(0x013D8950, void, OnExecute, (app::TurtleScreamBehaviour * this_ptr, app::IBlackboard* blackboard))

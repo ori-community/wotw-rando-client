@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PearsonHash.h>
 
 namespace app::classes::Moon::PearsonHash {
     IL2CPP_REGISTER_METHOD(0x01B64F70, uint16_t, Hash, (app::String * guid))

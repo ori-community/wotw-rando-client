@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_TimeSlicer_ITimeSlicedPreDisableObserver_.h>
+#include <Modloader/app/structs/ITimeSlicedPreDisableObserver.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_TimeSlicer_ITimeSlicedPreDisableObserver_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_Moon_TimeSlicer_ITimeSlicedPreDisableObserver_ * this_ptr))

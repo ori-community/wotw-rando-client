@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/JoinMatchmakingTicketResult__Class.h>
+#include <Modloader/app/structs/JoinMatchmakingTicketResult.h>
 
 namespace app::classes::types {
     namespace JoinMatchmakingTicketResult {

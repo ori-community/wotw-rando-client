@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonReference_1_IAlphaBlendModeController_.h>
+#include <Modloader/app/structs/IMoonResolverContext.h>
+#include <Modloader/app/structs/IAlphaBlendModeController.h>
 
 namespace app::classes::Moon::MoonReference_1_IAlphaBlendModeController_ {
     IL2CPP_REGISTER_METHOD(0x027216E0, bool, CanResolve, (app::MoonReference_1_IAlphaBlendModeController_ * this_ptr, app::IMoonResolverContext* context))

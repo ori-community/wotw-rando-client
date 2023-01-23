@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBatReactionFallingBehaviour.h>
 
 namespace app::classes::SpiderBatReactionFallingBehaviour {
     IL2CPP_REGISTER_METHOD(0x0095E670, void, OnEnterFalling, (app::SpiderBatReactionFallingBehaviour * this_ptr))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RigidbodyInteractionController_InteractionInformation__Class.h>
+#include <Modloader/app/structs/RigidbodyInteractionController_InteractionInformation.h>
+#include <Modloader/app/structs/RigidbodyInteractionController_InteractionInformation__Boxed.h>
 
 namespace app::classes::types {
     namespace RigidbodyInteractionController_InteractionInformation {

@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectManager.h>
+#include <Modloader/app/structs/ISurrogateSelector.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ObjectHolderList.h>
+#include <Modloader/app/structs/ObjectHolder.h>
+#include <Modloader/app/structs/FixupHolder.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/RuntimeConstructorInfo.h>
+#include <Modloader/app/structs/RuntimeType.h>
+#include <Modloader/app/structs/DeserializationEventHandler.h>
 
 namespace app::classes::System::Runtime::Serialization::ObjectManager {
     IL2CPP_REGISTER_METHOD(0x01ED7C10, void, ctor, (app::ObjectManager * this_ptr, app::ISurrogateSelector* selector, app::StreamingContext context, bool check_security, bool is_cross_app_domain))

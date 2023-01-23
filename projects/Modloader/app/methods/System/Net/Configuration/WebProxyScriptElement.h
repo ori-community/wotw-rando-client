@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebProxyScriptElement.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
 
 namespace app::classes::System::Net::Configuration::WebProxyScriptElement {
     IL2CPP_REGISTER_METHOD(0x01E994D0, void, ctor, (app::WebProxyScriptElement * this_ptr))

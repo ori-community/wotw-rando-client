@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_LaserShieldPieceProjectile_Ring__Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_LaserShieldPieceProjectile_Ring__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LaserShieldPieceProjectile_Ring__Class_DEFINED)
+#include <Modloader/app/structs/LaserShieldPieceProjectile_Ring__VTable.h>
+#if defined(IL2CPP_STRUCT_LaserShieldPieceProjectile_Ring__VTable_DEFINED)
+#define IL2CPP_STRUCT_LaserShieldPieceProjectile_Ring__Class_DEFINED
+struct LaserShieldPieceProjectile_Ring__StaticFields;
+struct LaserShieldPieceProjectile_Ring__Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct LaserShieldPieceProjectile_Ring__StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct LaserShieldPieceProjectile_Ring__VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_LaserShieldPieceProjectile_Ring__Class_FWDDECL)
+#define IL2CPP_STRUCT_LaserShieldPieceProjectile_Ring__Class_FWDDECL
+#include <Modloader/app/structs/LaserShieldPieceProjectile_Ring__StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_LaserShieldPieceProjectile_Ring__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LaserShieldPieceProjectile_Ring__Class_DEFINED) && !defined(IL2CPP_STRUCT_LaserShieldPieceProjectile_Ring__Class_FWDDECL)
+#include <Modloader/app/structs/LaserShieldPieceProjectile_Ring__Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/LaserShieldPieceProjectile_Ring__Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

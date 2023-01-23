@@ -1,5 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityPlaceholder.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/Vitals.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/EntityPlaceholderScalingData.h>
+#include <Modloader/app/structs/EntityPlaceholder_BaseEntityPlaceholderSettings.h>
+#include <Modloader/app/structs/EntityPlaceholderScalingData_EntityCategory__Enum.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/List_1_Moon_Entity_.h>
+#include <Modloader/app/structs/List_1_Moon_Entity___Array.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/AxisAlignedBox.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::EntityPlaceholder {
     IL2CPP_REGISTER_METHOD(0x00C93750, void, ResetStatics, ())

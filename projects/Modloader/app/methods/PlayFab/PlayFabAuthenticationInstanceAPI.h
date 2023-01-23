@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabAuthenticationInstanceAPI.h>
+#include <Modloader/app/structs/PlayFabApiSettings.h>
+#include <Modloader/app/structs/PlayFabAuthenticationContext.h>
+#include <Modloader/app/structs/GetEntityTokenRequest.h>
+#include <Modloader/app/structs/Action_1_PlayFab_AuthenticationModels_GetEntityTokenResponse_.h>
+#include <Modloader/app/structs/Action_1_PlayFab_PlayFabError_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
 
 namespace app::classes::PlayFab::PlayFabAuthenticationInstanceAPI {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::PlayFabAuthenticationInstanceAPI * this_ptr))

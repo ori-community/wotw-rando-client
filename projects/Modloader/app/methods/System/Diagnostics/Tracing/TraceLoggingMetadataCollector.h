@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TraceLoggingMetadataCollector.h>
+#include <Modloader/app/structs/FieldMetadata.h>
+#include <Modloader/app/structs/EventFieldTags__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TraceLoggingDataType__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Diagnostics::Tracing::TraceLoggingMetadataCollector {
     IL2CPP_REGISTER_METHOD(0x01A0C500, void, ctor_1, (app::TraceLoggingMetadataCollector * this_ptr))

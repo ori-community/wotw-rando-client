@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/ConformanceLevel__Enum.h>
+#include <Modloader/app/structs/DtdProcessing__Enum.h>
+#include <Modloader/app/structs/ValidationType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaValidationFlags__Enum.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlParserContext.h>
+#include <Modloader/app/structs/TextReader.h>
+#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
 
 namespace app::classes::System::Xml::XmlReaderSettings {
     IL2CPP_REGISTER_METHOD(0x01704870, void, ctor, (app::XmlReaderSettings * this_ptr))

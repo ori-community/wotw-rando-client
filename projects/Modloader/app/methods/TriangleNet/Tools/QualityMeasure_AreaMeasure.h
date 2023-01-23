@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QualityMeasure_AreaMeasure.h>
+#include <Modloader/app/structs/Point.h>
 
 namespace app::classes::TriangleNet::Tools::QualityMeasure_AreaMeasure {
     IL2CPP_REGISTER_METHOD(0x02A99D80, void, Reset, (app::QualityMeasure_AreaMeasure * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StreamReader.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::IO::StreamReader {
     IL2CPP_REGISTER_METHOD(0x012EE6D0, int32_t, get_DefaultBufferSize, ())

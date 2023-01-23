@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BatSwarm.h>
+#include <Modloader/app/structs/BatEnemy.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/BehaviourTreeStatus__Enum.h>
+#include <Modloader/app/structs/TickData.h>
 
 namespace app::classes::BatEnemy {
     IL2CPP_REGISTER_METHOD(0x00F8F610, app::BatSwarm*, get_Swarm, (app::BatEnemy * this_ptr))

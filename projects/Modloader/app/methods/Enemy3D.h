@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enemy3D.h>
 
 namespace app::classes::Enemy3D {
     IL2CPP_REGISTER_METHOD(0x006C14C0, bool, get_FaceLeft, (app::Enemy3D * this_ptr))

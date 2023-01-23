@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SelectionGizmo.h>
 
 namespace app::classes::SelectionGizmo {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnDrawGizmos, (app::SelectionGizmo * this_ptr))

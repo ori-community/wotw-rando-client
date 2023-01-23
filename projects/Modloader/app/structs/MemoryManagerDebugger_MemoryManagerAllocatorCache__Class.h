@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache__Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache__Class_DEFINED)
+#include <Modloader/app/structs/MemoryManagerDebugger_MemoryManagerAllocatorCache__VTable.h>
+#if defined(IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache__VTable_DEFINED)
+#define IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache__Class_DEFINED
+struct MemoryManagerDebugger_MemoryManagerAllocatorCache__StaticFields;
+struct MemoryManagerDebugger_MemoryManagerAllocatorCache__Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct MemoryManagerDebugger_MemoryManagerAllocatorCache__StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct MemoryManagerDebugger_MemoryManagerAllocatorCache__VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache__Class_FWDDECL)
+#define IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache__Class_FWDDECL
+#include <Modloader/app/structs/MemoryManagerDebugger_MemoryManagerAllocatorCache__StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache__Class_DEFINED) && !defined(IL2CPP_STRUCT_MemoryManagerDebugger_MemoryManagerAllocatorCache__Class_FWDDECL)
+#include <Modloader/app/structs/MemoryManagerDebugger_MemoryManagerAllocatorCache__Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MemoryManagerDebugger_MemoryManagerAllocatorCache__Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

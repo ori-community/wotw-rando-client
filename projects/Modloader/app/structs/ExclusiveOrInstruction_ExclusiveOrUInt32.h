@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ExclusiveOrInstruction_ExclusiveOrUInt32_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ExclusiveOrInstruction_ExclusiveOrUInt32_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ExclusiveOrInstruction_ExclusiveOrUInt32_DEFINED)
+#define IL2CPP_STRUCT_ExclusiveOrInstruction_ExclusiveOrUInt32_DEFINED
+struct ExclusiveOrInstruction_ExclusiveOrUInt32__Class;
+struct ExclusiveOrInstruction_ExclusiveOrUInt32 {
+    struct ExclusiveOrInstruction_ExclusiveOrUInt32__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ExclusiveOrInstruction_ExclusiveOrUInt32_FWDDECL)
+#define IL2CPP_STRUCT_ExclusiveOrInstruction_ExclusiveOrUInt32_FWDDECL
+#include <Modloader/app/structs/ExclusiveOrInstruction_ExclusiveOrUInt32__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ExclusiveOrInstruction_ExclusiveOrUInt32_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ExclusiveOrInstruction_ExclusiveOrUInt32_DEFINED) && !defined(IL2CPP_STRUCT_ExclusiveOrInstruction_ExclusiveOrUInt32_FWDDECL)
+#include <Modloader/app/structs/ExclusiveOrInstruction_ExclusiveOrUInt32.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ExclusiveOrInstruction_ExclusiveOrUInt32.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

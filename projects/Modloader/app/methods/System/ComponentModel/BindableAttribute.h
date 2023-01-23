@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BindableAttribute.h>
+#include <Modloader/app/structs/BindingDirection__Enum.h>
+#include <Modloader/app/structs/BindableSupport__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::BindableAttribute {
     IL2CPP_REGISTER_METHOD(0x024A4D00, void, ctor_1, (app::BindableAttribute * this_ptr, bool bindable))

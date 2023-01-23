@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeleeComboMoveHammerBase.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
 
 namespace app::classes::MeleeComboMoveHammerBase {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Awake, (app::MeleeComboMoveHammerBase * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IFieldOfViewInfluencer.h>
+#include <Modloader/app/structs/CameraFovOffsetMixer_OffsetResult.h>
 
 namespace app::classes::CameraFovOffsetMixer {
     IL2CPP_REGISTER_METHOD(0x01688BB0, int32_t, get_InfluencersCount, ())

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Promise_c_DisplayClass44_0_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Promise___c__DisplayClass44_0_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::Promise_c_DisplayClass44_0_1_System_Object_ * this_ptr))

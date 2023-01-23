@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NotifyParentPropertyAttribute.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::NotifyParentPropertyAttribute {
     IL2CPP_REGISTER_METHOD(0x0052C650, void, ctor, (app::NotifyParentPropertyAttribute * this_ptr, bool notify_parent))

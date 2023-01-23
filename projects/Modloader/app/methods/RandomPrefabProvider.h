@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/RandomPrefabProvider.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/GameObject__Array.h>
 
 namespace app::classes::RandomPrefabProvider {
     IL2CPP_REGISTER_METHOD(0x0072F9F0, app::GameObject*, Prefab, (app::RandomPrefabProvider * this_ptr, app::IContext* context))

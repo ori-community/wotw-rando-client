@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceCountdownState.h>
+#include <Modloader/app/structs/RaceSystem.h>
+#include <Modloader/app/structs/RaceConfiguration.h>
 
 namespace app::classes::RaceCountdownState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::RaceCountdownState * this_ptr, app::RaceSystem* race_system))

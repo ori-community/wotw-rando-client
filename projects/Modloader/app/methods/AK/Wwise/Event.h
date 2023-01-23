@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WwiseObjectType__Enum.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/CallbackFlags.h>
+#include <Modloader/app/structs/AkCallbackManager_EventCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AkCurveInterpolation__Enum.h>
+#include <Modloader/app/structs/AkActionOnEventType__Enum.h>
+#include <Modloader/app/structs/AkMIDIPostArray.h>
 
 namespace app::classes::AK::Wwise::Event {
     IL2CPP_REGISTER_METHOD(0x00420230, app::WwiseObjectType__Enum, get_WwiseObjectType, (app::Event_1 * this_ptr))

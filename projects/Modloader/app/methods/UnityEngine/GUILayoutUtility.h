@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/GUILayoutUtility_LayoutCache.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/GUILayoutOption__Array.h>
+#include <Modloader/app/structs/GUILayoutGroup.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/GUIContent.h>
 
 namespace app::classes::UnityEngine::GUILayoutUtility {
     IL2CPP_REGISTER_METHOD(0x029EBA90, app::Rect, Internal_GetWindowRect, (int32_t window_i_d))

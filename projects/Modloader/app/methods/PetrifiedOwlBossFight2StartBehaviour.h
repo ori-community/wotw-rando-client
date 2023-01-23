@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFight2StartBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::PetrifiedOwlBossFight2StartBehaviour {
     IL2CPP_REGISTER_METHOD(0x0176C900, void, OnEnter, (app::PetrifiedOwlBossFight2StartBehaviour * this_ptr, app::IContext* context))

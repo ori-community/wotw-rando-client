@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SandWormEntity_SandWormSquetch__Class.h>
+#include <Modloader/app/structs/SandWormEntity_SandWormSquetch.h>
+#include <Modloader/app/structs/SandWormEntity_SandWormSquetch__Array.h>
 
 namespace app::classes::types {
     namespace SandWormEntity_SandWormSquetch {

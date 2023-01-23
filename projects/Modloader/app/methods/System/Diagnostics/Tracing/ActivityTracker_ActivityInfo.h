@@ -1,6 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
+#include <Modloader/app/structs/ActivityTracker_ActivityInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/EventActivityOptions__Enum.h>
+
+
 namespace app::classes::System::Diagnostics::Tracing::ActivityTracker_ActivityInfo {
     IL2CPP_REGISTER_METHOD(0x01746930, void, ctor, (app::ActivityTracker_ActivityInfo * this_ptr, app::String* name, int64_t unique_id, app::ActivityTracker_ActivityInfo* creator, app::Guid activity_i_d_to_restore, app::EventActivityOptions__Enum options))
     IL2CPP_REGISTER_METHOD(0x01746A40, app::Guid, get_ActivityId, (app::ActivityTracker_ActivityInfo * this_ptr))

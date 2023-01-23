@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ContactPoint__Array.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/ContactPoint.h>
 
 namespace app::classes::UnityEngine::Collision {
     IL2CPP_REGISTER_METHOD(0x030A0120, app::ContactPoint__Array*, GetContacts_Internal, (app::Collision * this_ptr))

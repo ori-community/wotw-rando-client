@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DelayedAction_1_System_Single_.h>
+#include <Modloader/app/structs/Action_1_Single_.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/Component_1.h>
 
 namespace app::classes::DelayedAction_1_System_Single_ {
     IL2CPP_REGISTER_METHOD(0x019E00E0, void, ctor_1, (app::DelayedAction_1_System_Single_ * this_ptr, app::Action_1_Single_* action, float time_seconds, float param))

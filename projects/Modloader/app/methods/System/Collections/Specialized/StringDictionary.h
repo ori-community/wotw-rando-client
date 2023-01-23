@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringDictionary.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Collections::Specialized::StringDictionary {
     IL2CPP_REGISTER_METHOD(0x0249E610, void, ctor, (app::StringDictionary * this_ptr))

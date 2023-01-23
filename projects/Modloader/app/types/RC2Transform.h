@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RC2Transform__Class.h>
+#include <Modloader/app/structs/RC2Transform.h>
 
 namespace app::classes::types {
     namespace RC2Transform {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserShieldDamageReceiver_FollowingEffect__Array.h>
+#include <Modloader/app/structs/IComparer_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/LaserShieldDamageReceiver_FollowingEffect.h>
+#include <Modloader/app/structs/Comparison_1_LaserShieldDamageReceiver_FollowingEffect_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_LaserShieldDamageReceiver_FollowingEffect_ {
     IL2CPP_REGISTER_METHOD(0x02F5F090, void, Sort_1, (app::LaserShieldDamageReceiver_FollowingEffect__Array * keys, int32_t index, int32_t length, app::IComparer_1_LaserShieldDamageReceiver_FollowingEffect_* comparer))

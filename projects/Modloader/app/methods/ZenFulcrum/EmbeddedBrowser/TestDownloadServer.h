@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TestDownloadServer.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::TestDownloadServer {
     IL2CPP_REGISTER_METHOD(0x0166E610, void, OnEnable, (app::TestDownloadServer * this_ptr))

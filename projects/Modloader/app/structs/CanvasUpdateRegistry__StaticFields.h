@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CanvasUpdateRegistry__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CanvasUpdateRegistry__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CanvasUpdateRegistry__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_CanvasUpdateRegistry__StaticFields_DEFINED
+struct CanvasUpdateRegistry;
+struct Comparison_1_UnityEngine_UI_ICanvasElement_;
+struct CanvasUpdateRegistry__StaticFields {
+    struct CanvasUpdateRegistry* s_Instance;
+    struct Comparison_1_UnityEngine_UI_ICanvasElement_* s_SortLayoutFunction;
+    struct Comparison_1_UnityEngine_UI_ICanvasElement_* __f__mg_cache0;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_CanvasUpdateRegistry__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_CanvasUpdateRegistry__StaticFields_FWDDECL
+#include <Modloader/app/structs/CanvasUpdateRegistry.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_UI_ICanvasElement_.h>
+#endif
+#undef IL2CPP_STRUCT_CanvasUpdateRegistry__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CanvasUpdateRegistry__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_CanvasUpdateRegistry__StaticFields_FWDDECL)
+#include <Modloader/app/structs/CanvasUpdateRegistry__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CanvasUpdateRegistry__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

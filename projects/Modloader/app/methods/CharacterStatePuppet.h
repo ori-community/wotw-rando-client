@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterStatePuppet.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/IPuppet.h>
+#include <Modloader/app/structs/GhostPlayer.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::CharacterStatePuppet {
     IL2CPP_REGISTER_METHOD(0x00420EE0, int32_t, get_UniqueRecordingId, (app::CharacterStatePuppet * this_ptr))

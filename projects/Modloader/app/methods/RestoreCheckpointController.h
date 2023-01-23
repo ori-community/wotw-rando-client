@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RestoreCheckpointController.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/InvisibleCheckpoint.h>
+#include <Modloader/app/structs/SeinPlaceholder.h>
 
 namespace app::classes::RestoreCheckpointController {
     IL2CPP_REGISTER_METHOD(0x0090B8A0, void, RestoreCheckpoint, (app::RestoreCheckpointController * this_ptr, bool load_from_disc))

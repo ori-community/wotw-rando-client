@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCinematic.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/EventTriggerAnimator.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SeinCinematic_MoveOriToPositionMode__Enum.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 
 namespace app::classes::SeinCinematic {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinCinematic * this_ptr))

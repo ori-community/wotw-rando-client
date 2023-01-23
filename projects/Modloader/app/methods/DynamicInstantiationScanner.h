@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MonoBehaviour.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_Visitor.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_EvaluationCtx.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
 
 namespace app::classes::DynamicInstantiationScanner {
     IL2CPP_REGISTER_METHOD(0x030E0670, void, EmitException, (app::Exception * ex, app::Object_1* obj))

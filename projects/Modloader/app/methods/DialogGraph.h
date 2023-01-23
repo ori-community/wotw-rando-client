@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IDialogNode.h>
+#include <Modloader/app/structs/DialogGraph.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/IDialogNode__Array.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::DialogGraph {
     IL2CPP_REGISTER_METHOD(0x00B8E940, app::IDialogNode*, get_ResolvedRootNode, (app::DialogGraph * this_ptr))

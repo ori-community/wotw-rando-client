@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScriptableObject.h>
+#include <Modloader/app/structs/RenderPipelineAsset.h>
 
 namespace app::classes::UnityEngine::Rendering::GraphicsSettings {
     IL2CPP_REGISTER_METHOD(0x02977C40, void, set_useScriptableRenderPipelineBatching, (bool value))

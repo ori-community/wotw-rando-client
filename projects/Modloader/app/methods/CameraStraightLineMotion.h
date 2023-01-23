@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraStraightLineMotion.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CameraStraightLineMotion {
     IL2CPP_REGISTER_METHOD(0x00B1E330, void, add_OnMotionFinishedEvent, (app::CameraStraightLineMotion * this_ptr, app::Action* value))

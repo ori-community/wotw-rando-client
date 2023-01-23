@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SneezeSlugSneezeBehaviourNew.h>
+#include <Modloader/app/structs/EntityDamageEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SneezeSlugSneezeBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x00EE0070, void, Awake, (app::SneezeSlugSneezeBehaviourNew * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SkillPointsFloatProvider__Class.h>
+#include <Modloader/app/structs/SkillPointsFloatProvider.h>
 
 namespace app::classes::types {
     namespace SkillPointsFloatProvider {

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SecureStringHasher_HashCodeOfStringDelegate__Class.h>
+#include <Modloader/app/structs/SecureStringHasher_HashCodeOfStringDelegate.h>
 
 namespace app::classes::types {
     namespace SecureStringHasher_HashCodeOfStringDelegate {

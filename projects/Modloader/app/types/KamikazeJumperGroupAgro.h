@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/KamikazeJumperGroupAgro__Class.h>
+#include <Modloader/app/structs/KamikazeJumperGroupAgro.h>
+#include <Modloader/app/structs/KamikazeJumperGroupAgro__Array.h>
 
 namespace app::classes::types {
     namespace KamikazeJumperGroupAgro {

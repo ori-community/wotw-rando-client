@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AggregateException.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Exception_.h>
+#include <Modloader/app/structs/Exception__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IList_1_System_Exception_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Runtime_ExceptionServices_ExceptionDispatchInfo_.h>
+#include <Modloader/app/structs/IList_1_System_Runtime_ExceptionServices_ExceptionDispatchInfo_.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Exception_.h>
 
 namespace app::classes::System::AggregateException {
     IL2CPP_REGISTER_METHOD(0x0228B2B0, void, ctor_1, (app::AggregateException * this_ptr))

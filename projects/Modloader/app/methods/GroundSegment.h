@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GroundSegment.h>
 
 namespace app::classes::GroundSegment {
     IL2CPP_REGISTER_METHOD(0x010983C0, app::Vector3, ClampPosition, (app::GroundSegment * this_ptr, app::Vector3 position))

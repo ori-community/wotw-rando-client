@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SortingOrder__Enum.h>
+#include <Modloader/app/structs/CacheData.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SystemIntegration::CacheData {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::SortingOrder__Enum, get_SortingOrder, (app::CacheData * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
+#include <Modloader/app/structs/InstructionList_DebugView_InstructionView__Array.h>
+#include <Modloader/app/structs/InstructionList_DebugView_InstructionView.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_*, get_Default, ())

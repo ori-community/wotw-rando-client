@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FieldInfo_1__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HashSet_1_System_Object_.h>
+#include <Modloader/app/structs/HashSet_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::UberPoolAnalyze {
     IL2CPP_REGISTER_METHOD(0x00FD0010, app::FieldInfo_1__Array*, GetFields, (app::Type * t))

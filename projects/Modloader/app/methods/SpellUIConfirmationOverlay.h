@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellUIConfirmationOverlay_Context__Enum.h>
+#include <Modloader/app/structs/SpellUIConfirmationOverlay.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SpellUIConfirmationOverlay {
     IL2CPP_REGISTER_METHOD(0x003FF8B0, app::SpellUIConfirmationOverlay_Context__Enum, get_CurrentContext, (app::SpellUIConfirmationOverlay * this_ptr))

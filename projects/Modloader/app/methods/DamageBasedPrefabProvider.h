@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageBasedPrefabProvider.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/GameObject__Array.h>
 
 namespace app::classes::DamageBasedPrefabProvider {
     IL2CPP_REGISTER_METHOD(0x00DC1C80, app::GameObject*, Prefab, (app::DamageBasedPrefabProvider * this_ptr, app::IContext* context))

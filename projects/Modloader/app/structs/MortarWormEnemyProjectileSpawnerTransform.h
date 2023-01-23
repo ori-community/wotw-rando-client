@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MortarWormEnemyProjectileSpawnerTransform_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MortarWormEnemyProjectileSpawnerTransform_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MortarWormEnemyProjectileSpawnerTransform_DEFINED)
+#include <Modloader/app/structs/MortarWormEnemyProjectileSpawnerTransform__Fields.h>
+#if defined(IL2CPP_STRUCT_MortarWormEnemyProjectileSpawnerTransform__Fields_DEFINED)
+#define IL2CPP_STRUCT_MortarWormEnemyProjectileSpawnerTransform_DEFINED
+struct MortarWormEnemyProjectileSpawnerTransform__Class;
+struct MortarWormEnemyProjectileSpawnerTransform {
+    struct MortarWormEnemyProjectileSpawnerTransform__Class* klass;
+    MonitorData* monitor;
+    struct MortarWormEnemyProjectileSpawnerTransform__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MortarWormEnemyProjectileSpawnerTransform_FWDDECL)
+#define IL2CPP_STRUCT_MortarWormEnemyProjectileSpawnerTransform_FWDDECL
+#include <Modloader/app/structs/MortarWormEnemyProjectileSpawnerTransform__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MortarWormEnemyProjectileSpawnerTransform_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MortarWormEnemyProjectileSpawnerTransform_DEFINED) && !defined(IL2CPP_STRUCT_MortarWormEnemyProjectileSpawnerTransform_FWDDECL)
+#include <Modloader/app/structs/MortarWormEnemyProjectileSpawnerTransform.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MortarWormEnemyProjectileSpawnerTransform.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

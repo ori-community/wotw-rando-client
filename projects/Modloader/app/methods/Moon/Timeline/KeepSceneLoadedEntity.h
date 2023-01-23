@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpdateCategory__Enum.h>
+#include <Modloader/app/structs/KeepSceneLoadedEntity.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::KeepSceneLoadedEntity {
     IL2CPP_REGISTER_METHOD(0x00417920, app::UpdateCategory__Enum, get_UpdateCategory, (app::KeepSceneLoadedEntity * this_ptr))

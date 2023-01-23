@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BadTriQueue.h>
+#include <Modloader/app/structs/BadTriangle.h>
+#include <Modloader/app/structs/Otri.h>
+#include <Modloader/app/structs/Vertex.h>
 
 namespace app::classes::TriangleNet::Meshing::Data::BadTriQueue {
     IL2CPP_REGISTER_METHOD(0x005C3FF0, int32_t, get_Count, (app::BadTriQueue * this_ptr))

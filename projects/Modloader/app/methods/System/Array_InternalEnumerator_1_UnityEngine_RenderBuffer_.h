@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_UnityEngine_RenderBuffer___Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/RenderBuffer.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_InternalEnumerator_1_UnityEngine_RenderBuffer_ {
     IL2CPP_REGISTER_METHOD(0x00160580, void, ctor, (app::Array_InternalEnumerator_1_UnityEngine_RenderBuffer___Boxed * this_ptr, app::Array* array))

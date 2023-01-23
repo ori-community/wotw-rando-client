@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::BitConverter {
     IL2CPP_REGISTER_METHOD(0x0229C490, bool, AmILittleEndian, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationPostprocessGroupManager.h>
+#include <Modloader/app/structs/AnimationPostprocessGroup.h>
 
 namespace app::classes::Moon::AnimationPostprocessGroupManager {
     IL2CPP_REGISTER_METHOD(0x01B04910, float, GetGroupWeight, (app::AnimationPostprocessGroupManager * this_ptr, app::AnimationPostprocessGroup* group))

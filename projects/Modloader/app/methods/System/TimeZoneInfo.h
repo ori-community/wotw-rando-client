@@ -1,5 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/List_1_System_TimeZoneInfo_AdjustmentRule_.h>
+#include <Modloader/app/structs/Int64__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimeZoneInfo.h>
+#include <Modloader/app/structs/TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION.h>
+#include <Modloader/app/structs/TimeZoneInfo_TIME_ZONE_INFORMATION.h>
+#include <Modloader/app/structs/TimeZoneInfo_AdjustmentRule.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/TimeZoneInfo_TransitionTime.h>
+#include <Modloader/app/structs/List_1_System_TimeZoneInfo_.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/RegistryKey.h>
+#include <Modloader/app/structs/DateTimeKind__Enum.h>
+#include <Modloader/app/structs/TimeZoneInfoOptions__Enum.h>
+#include <Modloader/app/structs/TimeZoneInfo_AdjustmentRule__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_TimeZoneInfo_.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_System_String_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_System_TimeType_.h>
+#include <Modloader/app/structs/List_1_KeyValuePair_2_System_DateTime_System_TimeType_.h>
 
 namespace app::classes::System::TimeZoneInfo {
     IL2CPP_REGISTER_METHOD(0x027AE7B0, bool, UtcOffsetOutOfRange, (app::TimeSpan offset))

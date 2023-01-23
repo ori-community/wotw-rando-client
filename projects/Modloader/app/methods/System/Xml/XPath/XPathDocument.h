@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XPathDocument.h>
+#include <Modloader/app/structs/XPathNode__Array.h>
 
 namespace app::classes::System::Xml::XPath::XPathDocument {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::XmlNameTable*, get_NameTable, (app::XPathDocument * this_ptr))

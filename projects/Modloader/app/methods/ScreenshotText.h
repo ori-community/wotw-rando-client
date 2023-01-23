@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScreenshotText.h>
+#include <Modloader/app/structs/ScreenshotTextMarker.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ScreenshotText {
     IL2CPP_REGISTER_METHOD(0x01069540, void, ctor_1, (app::ScreenshotText * this_ptr, app::ScreenshotTextMarker* screenshot_text_marker))

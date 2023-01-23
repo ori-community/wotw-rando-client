@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DemoList.h>
+#include <Modloader/app/structs/JSONNode.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::DemoList {
     IL2CPP_REGISTER_METHOD(0x01DD35D0, void, Start, (app::DemoList * this_ptr))

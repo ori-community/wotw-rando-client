@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualSingle_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualSingle_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualSingle_DEFINED)
+#include <Modloader/app/structs/LessThanOrEqualInstruction_LessThanOrEqualSingle__Fields.h>
+#if defined(IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualSingle__Fields_DEFINED)
+#define IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualSingle_DEFINED
+struct LessThanOrEqualInstruction_LessThanOrEqualSingle__Class;
+struct LessThanOrEqualInstruction_LessThanOrEqualSingle {
+    struct LessThanOrEqualInstruction_LessThanOrEqualSingle__Class* klass;
+    MonitorData* monitor;
+    struct LessThanOrEqualInstruction_LessThanOrEqualSingle__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualSingle_FWDDECL)
+#define IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualSingle_FWDDECL
+#include <Modloader/app/structs/LessThanOrEqualInstruction_LessThanOrEqualSingle__Class.h>
+#endif
+#undef IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualSingle_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualSingle_DEFINED) && !defined(IL2CPP_STRUCT_LessThanOrEqualInstruction_LessThanOrEqualSingle_FWDDECL)
+#include <Modloader/app/structs/LessThanOrEqualInstruction_LessThanOrEqualSingle.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/LessThanOrEqualInstruction_LessThanOrEqualSingle.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

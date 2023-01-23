@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabFileUploader_c.h>
+#include <Modloader/app/structs/AbortFileUploadsResponse.h>
+#include <Modloader/app/structs/PlayFabError.h>
 
 namespace app::classes::SystemIntegration::Races::PlayFabFileUploader___c {
     IL2CPP_REGISTER_METHOD(0x00524490, void, cctor, ())

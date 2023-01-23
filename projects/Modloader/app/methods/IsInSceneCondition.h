@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/IsInSceneCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::IsInSceneCondition {
     IL2CPP_REGISTER_METHOD(0x006462E0, app::SceneMetaData*, get_CurrentMetaData, (app::IsInSceneCondition * this_ptr))

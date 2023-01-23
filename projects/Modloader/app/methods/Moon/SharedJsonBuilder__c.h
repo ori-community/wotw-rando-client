@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SharedJsonBuilder_c.h>
+#include <Modloader/app/structs/JsonBuilder.h>
 
 namespace app::classes::Moon::SharedJsonBuilder___c {
     IL2CPP_REGISTER_METHOD(0x030F1D00, void, cctor, ())

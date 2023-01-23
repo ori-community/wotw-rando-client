@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SliceRenderSettings_Slice__Boxed.h>
+#include <Modloader/app/structs/SliceRenderSettings_Slice.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Rendering::SliceRenderSettings_Slice {
     IL2CPP_REGISTER_METHOD(0x00120380, void, Lerp, (app::SliceRenderSettings_Slice__Boxed * this_ptr, app::SliceRenderSettings_Slice from, app::SliceRenderSettings_Slice to, float t))

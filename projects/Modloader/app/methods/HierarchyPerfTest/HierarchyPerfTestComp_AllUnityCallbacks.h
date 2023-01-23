@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HierarchyPerfTestComp_AllUnityCallbacks.h>
 
 namespace app::classes::HierarchyPerfTest::HierarchyPerfTestComp_AllUnityCallbacks {
     IL2CPP_REGISTER_METHOD(0x019738E0, void, Awake, (app::HierarchyPerfTestComp_AllUnityCallbacks * this_ptr))

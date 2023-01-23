@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnumConverter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeConverter_StandardValuesCollection.h>
+#include <Modloader/app/structs/ITypeDescriptorContext.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CultureInfo.h>
 
 namespace app::classes::System::ComponentModel::EnumConverter {
     IL2CPP_REGISTER_METHOD(0x01FE8140, void, ctor, (app::EnumConverter * this_ptr, app::Type* type))

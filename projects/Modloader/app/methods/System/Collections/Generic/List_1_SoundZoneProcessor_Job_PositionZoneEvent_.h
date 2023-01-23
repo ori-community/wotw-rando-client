@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
+#include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEvent.h>
+#include <Modloader/app/structs/IEnumerable_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
+#include <Modloader/app/structs/IComparer_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
+#include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEvent__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
+#include <Modloader/app/structs/Action_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_SoundZoneProcessor_Job_PositionZoneEvent_.h>
+#include <Modloader/app/structs/IEnumerator_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_SoundZoneProcessor_Job_PositionZoneEvent_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_SoundZoneProcessor_Job_PositionZoneEvent_ * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuController.h>
+#include <Modloader/app/structs/KuState.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::KuController {
     IL2CPP_REGISTER_METHOD(0x0122D4D0, float, get_HorizontalInput, (app::KuController * this_ptr))

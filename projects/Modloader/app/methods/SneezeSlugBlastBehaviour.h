@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SneezeSlugBlastBehaviour.h>
+#include <Modloader/app/structs/EntityDamageEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/SneezeSlugBlastBehaviour_State__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::SneezeSlugBlastBehaviour {
     IL2CPP_REGISTER_METHOD(0x00ED4200, bool, IsBlockingInterruption, (app::SneezeSlugBlastBehaviour * this_ptr, app::EntityDamageEvent* damage_event, app::EntityReactionBehaviour_ReasonWhyReactionWontInterrupt* reason))

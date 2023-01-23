@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DigestSession.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HttpWebRequest.h>
+#include <Modloader/app/structs/Authorization.h>
+#include <Modloader/app/structs/WebRequest.h>
+#include <Modloader/app/structs/ICredentials.h>
+#include <Modloader/app/structs/DateTime.h>
 
 namespace app::classes::System::Net::DigestSession {
     IL2CPP_REGISTER_METHOD(0x01EAF500, void, cctor, ())

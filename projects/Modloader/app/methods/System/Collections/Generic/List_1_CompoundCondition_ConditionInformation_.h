@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_CompoundCondition_ConditionInformation_.h>
+#include <Modloader/app/structs/List_1_CompoundCondition_ConditionInformation_.h>
+#include <Modloader/app/structs/CompoundCondition_ConditionInformation.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CompoundCondition_ConditionInformation_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_CompoundCondition_ConditionInformation_, GetEnumerator, (app::List_1_CompoundCondition_ConditionInformation_ * this_ptr))

@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TaskFactory.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/TaskCreationOptions__Enum.h>
+#include <Modloader/app/structs/TaskContinuationOptions__Enum.h>
+#include <Modloader/app/structs/TaskScheduler.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Action_1_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Task_1_Task_.h>
+#include <Modloader/app/structs/IList_1_System_Threading_Tasks_Task_.h>
+#include <Modloader/app/structs/Task_1_System_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
 
 namespace app::classes::System::Threading::Tasks::TaskFactory {
     IL2CPP_REGISTER_METHOD(0x0233DEB0, void, ctor_1, (app::TaskFactory * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NanoProfiler.h>
+#include <Modloader/app/structs/Metric__Enum.h>
+#include <Modloader/app/structs/PlayerLoopSystem.h>
 
 namespace app::classes::Moon::nanoProfiler::NanoProfiler {
     IL2CPP_REGISTER_METHOD(0x00F2DAC0, app::NanoProfiler*, get_Instance, ())

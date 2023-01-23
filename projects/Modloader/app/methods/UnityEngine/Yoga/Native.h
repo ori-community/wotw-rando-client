@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/YogaNode.h>
+#include <Modloader/app/structs/YogaMeasureMode__Enum.h>
 
 namespace app::classes::UnityEngine::Yoga::Native {
     IL2CPP_REGISTER_METHOD(0x031BE3F0, void, YGNodeFree, (void* yg_node))

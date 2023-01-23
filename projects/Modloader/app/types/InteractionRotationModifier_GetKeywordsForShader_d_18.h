@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InteractionRotationModifier_GetKeywordsForShader_d_18__Class.h>
+#include <Modloader/app/structs/InteractionRotationModifier_GetKeywordsForShader_d_18.h>
 
 namespace app::classes::types {
     namespace InteractionRotationModifier_GetKeywordsForShader_d_18 {

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlCharType__Boxed.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/XmlCharType.h>
 
 namespace app::classes::System::Xml::XmlCharType {
     IL2CPP_REGISTER_METHOD(0x0195F1F0, app::Object*, get_StaticLock, ())

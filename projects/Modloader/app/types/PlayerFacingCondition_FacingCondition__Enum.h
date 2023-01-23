@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PlayerFacingCondition_FacingCondition__Enum__Class.h>
+#include <Modloader/app/structs/PlayerFacingCondition_FacingCondition__Enum.h>
 
 namespace app::classes::types {
     namespace PlayerFacingCondition_FacingCondition__Enum {

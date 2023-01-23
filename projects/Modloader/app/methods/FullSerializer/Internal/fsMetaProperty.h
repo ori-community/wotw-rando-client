@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsMetaProperty.h>
+#include <Modloader/app/structs/fsConfig.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::FullSerializer::Internal::fsMetaProperty {
     IL2CPP_REGISTER_METHOD(0x01658810, void, ctor_1, (app::fsMetaProperty * this_ptr, app::fsConfig* config, app::FieldInfo_1* field))

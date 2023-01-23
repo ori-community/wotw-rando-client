@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegexCode.h>
+#include <Modloader/app/structs/RegexTree.h>
+#include <Modloader/app/structs/RegexWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ArgumentException.h>
+#include <Modloader/app/structs/RegexNode.h>
 
 namespace app::classes::System::Text::RegularExpressions::RegexWriter {
     IL2CPP_REGISTER_METHOD(0x02A78D50, app::RegexCode*, Write, (app::RegexTree * t))

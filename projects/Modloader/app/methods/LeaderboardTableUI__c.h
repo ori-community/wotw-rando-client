@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeaderboardTableUI_c.h>
+#include <Modloader/app/structs/LeaderboardData_Entry.h>
 
 namespace app::classes::LeaderboardTableUI___c {
     IL2CPP_REGISTER_METHOD(0x015B9F20, void, cctor, ())

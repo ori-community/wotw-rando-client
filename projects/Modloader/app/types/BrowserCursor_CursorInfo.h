@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BrowserCursor_CursorInfo__Class.h>
+#include <Modloader/app/structs/BrowserCursor_CursorInfo.h>
+#include <Modloader/app/structs/BrowserCursor_CursorInfo__Array.h>
 
 namespace app::classes::types {
     namespace BrowserCursor_CursorInfo {

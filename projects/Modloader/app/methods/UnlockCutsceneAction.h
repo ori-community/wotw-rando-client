@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnlockCutsceneAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnlockCutsceneAction {
     IL2CPP_REGISTER_METHOD(0x013AC0E0, void, Perform, (app::UnlockCutsceneAction * this_ptr, app::IContext* context))

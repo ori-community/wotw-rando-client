@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwaggerComunicator.h>
+#include <Modloader/app/structs/TelemetryComunicator.h>
+#include <Modloader/app/structs/IRequest.h>
 
 namespace app::classes::Moon::Telemetry::TelemetryComunicator {
     IL2CPP_REGISTER_METHOD(0x010A9E90, app::SwaggerComunicator*, get_Instance, ())

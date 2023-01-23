@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BlurOptimized.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::BlurOptimized {
     IL2CPP_REGISTER_METHOD(0x02516910, bool, CheckResources, (app::BlurOptimized * this_ptr))

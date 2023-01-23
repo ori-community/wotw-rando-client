@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlatformMovementEnvironmentForceController.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::PlatformMovementEnvironmentForceController {
     IL2CPP_REGISTER_METHOD(0x0116EEF0, void, Awake, (app::PlatformMovementEnvironmentForceController * this_ptr))

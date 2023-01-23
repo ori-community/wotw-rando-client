@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinNestedPrefab.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::SeinNestedPrefab {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::SeinNestedPrefab * this_ptr, app::SeinCharacter* sein, app::GameObject* prefab))

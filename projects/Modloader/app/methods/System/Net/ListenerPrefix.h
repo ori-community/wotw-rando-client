@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListenerPrefix.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IPAddress__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::ListenerPrefix {
     IL2CPP_REGISTER_METHOD(0x01E6D7F0, void, ctor, (app::ListenerPrefix * this_ptr, app::String* prefix))

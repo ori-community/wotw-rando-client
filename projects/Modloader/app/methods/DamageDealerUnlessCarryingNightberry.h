@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DamageDealerUnlessCarryingNightberry.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageOwner.h>
 
 namespace app::classes::DamageDealerUnlessCarryingNightberry {
     IL2CPP_REGISTER_METHOD(0x00DC7DF0, void, Awake, (app::DamageDealerUnlessCarryingNightberry * this_ptr))

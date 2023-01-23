@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameplaySystemsScenePreloadPrewarmOperation.h>
+#include <Modloader/app/structs/AsyncOperation_1.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::frameworks::loading::Prewarmers::GameplaySystemsScenePreloadPrewarmOperation {
     IL2CPP_REGISTER_METHOD(0x00F5F9B0, void, ctor, (app::GameplaySystemsScenePreloadPrewarmOperation * this_ptr))

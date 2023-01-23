@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RemotingSurrogate.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/ISurrogateSelector.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::RemotingSurrogate {
     IL2CPP_REGISTER_METHOD(0x023191D0, void, GetObjectData, (app::RemotingSurrogate * this_ptr, app::Object* obj, app::SerializationInfo* si, app::StreamingContext sc))

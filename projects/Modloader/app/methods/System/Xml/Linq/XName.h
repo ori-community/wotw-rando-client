@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XName.h>
+#include <Modloader/app/structs/XNamespace.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Xml::Linq::XName {
     IL2CPP_REGISTER_METHOD(0x03038AD0, void, ctor_1, (app::XName * this_ptr, app::XNamespace* ns, app::String* local_name))

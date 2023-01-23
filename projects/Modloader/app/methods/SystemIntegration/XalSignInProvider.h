@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XalSignInProvider.h>
+#include <Modloader/app/structs/INetworkConnectivityChecker.h>
+#include <Modloader/app/structs/IPlatformUser.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Task_1_Microsoft_Xbox_Services_Xal_XalUser_.h>
+#include <Modloader/app/structs/XalTraceLevel__Enum.h>
+#include <Modloader/app/structs/XalUserGetTokenAndSignatureData.h>
 
 namespace app::classes::SystemIntegration::XalSignInProvider {
     IL2CPP_REGISTER_METHOD(0x00CDC050, void, ctor, (app::XalSignInProvider * this_ptr, app::INetworkConnectivityChecker* net_connectivity_checker))

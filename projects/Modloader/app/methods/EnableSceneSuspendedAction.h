@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnableSceneSuspendedAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::EnableSceneSuspendedAction {
     IL2CPP_REGISTER_METHOD(0x00BFD0E0, void, Perform, (app::EnableSceneSuspendedAction * this_ptr, app::IContext* context))

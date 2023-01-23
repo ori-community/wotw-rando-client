@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KamikazeSkeetoDiveAttackBehaviour_DiveAttackState__Enum.h>
+#include <Modloader/app/structs/KamikazeSkeetoDiveAttackBehaviour.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/SkeetoLocomotion.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::KamikazeSkeetoDiveAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00E5BF60, app::KamikazeSkeetoDiveAttackBehaviour_DiveAttackState__Enum, get_State, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SocketAsyncResult.h>
+#include <Modloader/app/structs/Socket.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SocketOperation__Enum.h>
+#include <Modloader/app/structs/SocketError__Enum.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Net::Sockets::SocketAsyncResult {
     IL2CPP_REGISTER_METHOD(0x020A1D60, void*, get_Handle, (app::SocketAsyncResult * this_ptr))

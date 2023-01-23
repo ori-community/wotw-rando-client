@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Collection_1_Newtonsoft_Json_JsonConverter_.h>
+#include <Modloader/app/structs/JsonConverter.h>
+#include <Modloader/app/structs/JsonConverter__Array.h>
+#include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_JsonConverter_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::ObjectModel::Collection_1_Newtonsoft_Json_JsonConverter_ {
     IL2CPP_REGISTER_METHOD(0x02776BF0, void, ctor, (app::Collection_1_Newtonsoft_Json_JsonConverter_ * this_ptr))

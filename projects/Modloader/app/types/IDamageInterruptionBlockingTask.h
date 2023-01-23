@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IDamageInterruptionBlockingTask__Class.h>
+#include <Modloader/app/structs/IDamageInterruptionBlockingTask__Array.h>
+#include <Modloader/app/structs/IDamageInterruptionBlockingTask.h>
 
 namespace app::classes::types {
     namespace IDamageInterruptionBlockingTask {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IInteractionNode.h>
+#include <Modloader/app/structs/ConditionalInteractionTransition.h>
+#include <Modloader/app/structs/ICondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::InteractionGraph::ConditionalInteractionTransition {
     IL2CPP_REGISTER_METHOD(0x0198CE50, app::IInteractionNode*, get_TransitionDestination, (app::ConditionalInteractionTransition * this_ptr))

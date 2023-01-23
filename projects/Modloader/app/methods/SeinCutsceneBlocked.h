@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCutsceneBlocked.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/SeinCutsceneBlocked_State__Enum.h>
 
 namespace app::classes::SeinCutsceneBlocked {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinCutsceneBlocked * this_ptr))

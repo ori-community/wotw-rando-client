@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/VerletBody_Point__Array__Class.h>
+#include <Modloader/app/structs/VerletBody_Point__Array.h>
 
 namespace app::classes::types {
     namespace VerletBody_Point__Array {

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_GodRaySrcRT__Class.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_GodRaySrcRT.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_GodRaySrcRT__Array.h>
 
 namespace app::classes::types {
     namespace MoonRenderPipelineView_GodRaySrcRT {

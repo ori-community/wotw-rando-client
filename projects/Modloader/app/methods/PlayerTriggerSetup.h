@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerTriggerSetup.h>
+#include <Modloader/app/structs/PlayerTriggerSetup_TriggerSetupState__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::PlayerTriggerSetup {
     IL2CPP_REGISTER_METHOD(0x0142EA80, void, Awake, (app::PlayerTriggerSetup * this_ptr))

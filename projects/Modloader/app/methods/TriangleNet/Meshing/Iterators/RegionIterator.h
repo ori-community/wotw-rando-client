@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegionIterator.h>
+#include <Modloader/app/structs/Mesh_1.h>
+#include <Modloader/app/structs/Triangle.h>
+#include <Modloader/app/structs/Action_1_TriangleNet_Topology_Triangle_.h>
+#include <Modloader/app/structs/Func_2_TriangleNet_Topology_SubSegment_Boolean_.h>
 
 namespace app::classes::TriangleNet::Meshing::Iterators::RegionIterator {
     IL2CPP_REGISTER_METHOD(0x02B11180, void, ctor, (app::RegionIterator * this_ptr, app::Mesh_1* mesh))

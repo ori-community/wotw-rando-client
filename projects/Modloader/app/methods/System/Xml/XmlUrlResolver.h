@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlDownloadManager.h>
+#include <Modloader/app/structs/XmlUrlResolver.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Task_1_System_Object_.h>
 
 namespace app::classes::System::Xml::XmlUrlResolver {
     IL2CPP_REGISTER_METHOD(0x01FC3F60, app::XmlDownloadManager*, get_DownloadManager, ())

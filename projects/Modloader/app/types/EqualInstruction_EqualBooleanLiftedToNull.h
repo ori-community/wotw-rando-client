@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/EqualInstruction_EqualBooleanLiftedToNull__Class.h>
+#include <Modloader/app/structs/EqualInstruction_EqualBooleanLiftedToNull.h>
 
 namespace app::classes::types {
     namespace EqualInstruction_EqualBooleanLiftedToNull {

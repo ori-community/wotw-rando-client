@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InverseKinematicsSolver_AngleRestriction__Class.h>
+#include <Modloader/app/structs/InverseKinematicsSolver_AngleRestriction.h>
 
 namespace app::classes::types {
     namespace InverseKinematicsSolver_AngleRestriction {

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinXmlSqlDecimal__Boxed.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::BinXmlSqlDecimal {
     IL2CPP_REGISTER_METHOD(0x001DE5A0, bool, get_IsPositive, (app::BinXmlSqlDecimal__Boxed * this_ptr))

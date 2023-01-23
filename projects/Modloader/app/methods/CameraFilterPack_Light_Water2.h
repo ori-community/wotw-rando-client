@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Light_Water2.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Light_Water2 {
     IL2CPP_REGISTER_METHOD(0x0247FE20, app::Material*, get_material, (app::CameraFilterPack_Light_Water2 * this_ptr))

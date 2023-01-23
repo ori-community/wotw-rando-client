@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AmplifyColorVolume.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::AmplifyColorVolume {
     IL2CPP_REGISTER_METHOD(0x030DB390, void, OnTriggerEnter, (app::AmplifyColorVolume * this_ptr, app::Collider* other))

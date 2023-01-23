@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CADMessageBase__Class.h>
+#include <Modloader/app/structs/CADMessageBase.h>
 
 namespace app::classes::types {
     namespace CADMessageBase {

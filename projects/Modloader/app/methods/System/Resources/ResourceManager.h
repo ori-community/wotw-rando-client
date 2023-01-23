@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ResourceManager.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/UltimateResourceFallbackLocation__Enum.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/ResourceSet.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Resources_ResourceSet_.h>
+#include <Modloader/app/structs/Version.h>
+#include <Modloader/app/structs/AssemblyName.h>
 
 namespace app::classes::System::Resources::ResourceManager {
     IL2CPP_REGISTER_METHOD(0x01A84750, void, Init, (app::ResourceManager * this_ptr))

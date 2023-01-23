@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer_ScenarioPlaybackData__Class.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer_ScenarioPlaybackData.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer_ScenarioPlaybackData__Boxed.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer_ScenarioPlaybackData__Array.h>
 
 namespace app::classes::types {
     namespace ScalableAnimationPlayer_ScenarioPlaybackData {

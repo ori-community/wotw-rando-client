@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/GhostStateMachinePlugin.h>
+#include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
 
 namespace app::classes::GhostStateMachinePlugin {
     IL2CPP_REGISTER_METHOD(0x007E99B0, void, Register, (app::MoonGuid * guid, app::StateMachine_2* state_machine))

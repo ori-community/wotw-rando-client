@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlRawWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/WriteState__Enum.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/XmlStandalone__Enum.h>
+#include <Modloader/app/structs/ConformanceLevel__Enum.h>
 
 namespace app::classes::System::Xml::XmlRawWriter {
     IL2CPP_REGISTER_METHOD(0x01700F60, void, WriteStartDocument_1, (app::XmlRawWriter * this_ptr))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/PowerLineSetup.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
 
 namespace app::classes::PowerLineSetup {
     IL2CPP_REGISTER_METHOD(0x00C6B6C0, app::MoonTimeline*, get_AllDestroyedResolvedTimeline, (app::PowerLineSetup * this_ptr))

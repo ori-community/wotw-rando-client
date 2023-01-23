@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FirstExecutionOrder.h>
 
 namespace app::classes::FirstExecutionOrder {
     IL2CPP_REGISTER_METHOD(0x01266800, void, Awake, (app::FirstExecutionOrder * this_ptr))

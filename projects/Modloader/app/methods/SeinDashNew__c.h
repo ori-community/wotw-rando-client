@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDashNew_c.h>
+#include <Modloader/app/structs/MonoBehaviour.h>
+#include <Modloader/app/structs/DigZone.h>
 
 namespace app::classes::SeinDashNew___c {
     IL2CPP_REGISTER_METHOD(0x006FCE30, void, cctor, ())

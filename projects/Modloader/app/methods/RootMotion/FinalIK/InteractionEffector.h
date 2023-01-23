@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
+#include <Modloader/app/structs/InteractionEffector.h>
+#include <Modloader/app/structs/InteractionObject.h>
+#include <Modloader/app/structs/InteractionSystem.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::InteractionEffector {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::FullBodyBipedEffector__Enum, get_effectorType, (app::InteractionEffector * this_ptr))

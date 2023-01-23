@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_WaapiJsonProjectInfo_ProjectInfoDirectories_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_WaapiJsonProjectInfo_ProjectInfoDirectories_INITIALIZING
+#if !defined(IL2CPP_STRUCT_WaapiJsonProjectInfo_ProjectInfoDirectories_DEFINED)
+#include <Modloader/app/structs/WaapiJsonProjectInfo_ProjectInfoDirectories__Fields.h>
+#if defined(IL2CPP_STRUCT_WaapiJsonProjectInfo_ProjectInfoDirectories__Fields_DEFINED)
+#define IL2CPP_STRUCT_WaapiJsonProjectInfo_ProjectInfoDirectories_DEFINED
+struct WaapiJsonProjectInfo_ProjectInfoDirectories__Class;
+struct WaapiJsonProjectInfo_ProjectInfoDirectories {
+    struct WaapiJsonProjectInfo_ProjectInfoDirectories__Class* klass;
+    MonitorData* monitor;
+    struct WaapiJsonProjectInfo_ProjectInfoDirectories__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_WaapiJsonProjectInfo_ProjectInfoDirectories_FWDDECL)
+#define IL2CPP_STRUCT_WaapiJsonProjectInfo_ProjectInfoDirectories_FWDDECL
+#include <Modloader/app/structs/WaapiJsonProjectInfo_ProjectInfoDirectories__Class.h>
+#endif
+#undef IL2CPP_STRUCT_WaapiJsonProjectInfo_ProjectInfoDirectories_INITIALIZING
+#if !defined(IL2CPP_STRUCT_WaapiJsonProjectInfo_ProjectInfoDirectories_DEFINED) && !defined(IL2CPP_STRUCT_WaapiJsonProjectInfo_ProjectInfoDirectories_FWDDECL)
+#include <Modloader/app/structs/WaapiJsonProjectInfo_ProjectInfoDirectories.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/WaapiJsonProjectInfo_ProjectInfoDirectories.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

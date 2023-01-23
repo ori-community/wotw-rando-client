@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Mono::Security::BitConverterLE {
     IL2CPP_REGISTER_METHOD(0x025C3C30, app::Byte__Array*, GetUIntBytes_1, (uint8_t * bytes))

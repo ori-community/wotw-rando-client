@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonBuilder_Slot__Boxed.h>
+#include <Modloader/app/structs/JsonBuilder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/JsonBuilder_Object.h>
+#include <Modloader/app/structs/JsonBuilder_Array.h>
 
 namespace app::classes::Moon::JsonBuilder_Slot {
     IL2CPP_REGISTER_METHOD(0x0013C010, void, ctor, (app::JsonBuilder_Slot__Boxed * this_ptr, int32_t ident, app::JsonBuilder* builder))

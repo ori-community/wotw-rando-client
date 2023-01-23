@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/FilterRenderersSettings__Class.h>
+#include <Modloader/app/structs/FilterRenderersSettings.h>
+#include <Modloader/app/structs/FilterRenderersSettings__Boxed.h>
 
 namespace app::classes::types {
     namespace FilterRenderersSettings {

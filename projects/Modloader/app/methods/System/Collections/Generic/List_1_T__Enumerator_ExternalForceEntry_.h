@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_ExternalForceEntry___Boxed.h>
+#include <Modloader/app/structs/List_1_ExternalForceEntry_.h>
+#include <Modloader/app/structs/ExternalForceEntry.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_ExternalForceEntry_ {
     IL2CPP_REGISTER_METHOD(0x00152840, void, ctor, (app::List_1_T_Enumerator_ExternalForceEntry___Boxed * this_ptr, app::List_1_ExternalForceEntry_* list))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509ExtensionCollection.h>
+#include <Modloader/app/structs/ASN1.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/X509ExtensionCollection_1.h>
+#include <Modloader/app/structs/ASN1_1.h>
+#include <Modloader/app/structs/X509Extension_2.h>
+#include <Modloader/app/structs/X509Extension_2__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Mono::Security::X509::X509ExtensionCollection {
     IL2CPP_REGISTER_METHOD(0x01C9A650, void, ctor_1, (app::X509ExtensionCollection * this_ptr))

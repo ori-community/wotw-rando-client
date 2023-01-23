@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonFloat.h>
+#include <Modloader/app/structs/CrossSceneReferenceId.h>
+#include <Modloader/app/structs/IMoonResolverContext.h>
+#include <Modloader/app/structs/MoonTypeData.h>
 
 namespace app::classes::Moon::MoonFloat {
     IL2CPP_REGISTER_METHOD(0x02F942E0, bool, get_IsCrossSceneReference, (app::MoonFloat * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonParser.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JsonParser_Slot.h>
+#include <Modloader/app/structs/JsonToken__Enum.h>
+#include <Modloader/app/structs/Substr.h>
 
 namespace app::classes::Moon::JsonParser {
     IL2CPP_REGISTER_METHOD(0x030EB650, int32_t, get_Capacity, (app::JsonParser * this_ptr))

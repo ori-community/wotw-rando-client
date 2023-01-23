@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SceneFrameworkPerformanceMonitor__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SceneFrameworkPerformanceMonitor__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SceneFrameworkPerformanceMonitor__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_SceneFrameworkPerformanceMonitor__StaticFields_DEFINED
+struct SceneFrameworkPerformanceMonitor;
+struct SceneFrameworkPerformanceMonitor__StaticFields {
+    struct SceneFrameworkPerformanceMonitor* m_instance;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_SceneFrameworkPerformanceMonitor__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_SceneFrameworkPerformanceMonitor__StaticFields_FWDDECL
+#include <Modloader/app/structs/SceneFrameworkPerformanceMonitor.h>
+#endif
+#undef IL2CPP_STRUCT_SceneFrameworkPerformanceMonitor__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SceneFrameworkPerformanceMonitor__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_SceneFrameworkPerformanceMonitor__StaticFields_FWDDECL)
+#include <Modloader/app/structs/SceneFrameworkPerformanceMonitor__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SceneFrameworkPerformanceMonitor__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

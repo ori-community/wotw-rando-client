@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket__Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ {
     IL2CPP_REGISTER_METHOD(0x02F77920, void, Sort_1, (app::Vitals_DamageProcessHelper_DamageBucket__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_Vitals_DamageProcessHelper_DamageBucket_* comparer))

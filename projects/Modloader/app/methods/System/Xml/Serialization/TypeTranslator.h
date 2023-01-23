@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypeData.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::Serialization::TypeTranslator {
     IL2CPP_REGISTER_METHOD(0x01C93DB0, void, cctor, ())

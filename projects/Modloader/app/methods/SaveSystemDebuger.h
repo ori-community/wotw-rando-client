@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SaveSystemDebuger.h>
 
 namespace app::classes::SaveSystemDebuger {
     IL2CPP_REGISTER_METHOD(0x00931840, bool, get_SaveSystemDebugEnabled, ())

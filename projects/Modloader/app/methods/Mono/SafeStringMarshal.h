@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SafeStringMarshal__Boxed.h>
 
 namespace app::classes::Mono::SafeStringMarshal {
     IL2CPP_REGISTER_METHOD(0x023CED90, void*, StringToUtf8, (app::String * str))

@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SnapTrapEntity.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/SnapTrapEntity_State__Enum.h>
+#include <Modloader/app/structs/SnapTrapEntity_SnapTrapParameters.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/SerializedBooleanUberState.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/PhysicalSystemManager.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/AttachJointSettings.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/TrackingExclusions.h>
 
 namespace app::classes::SnapTrapEntity {
     IL2CPP_REGISTER_METHOD(0x006D6470, bool, get_IsSuspended, (app::SnapTrapEntity * this_ptr))

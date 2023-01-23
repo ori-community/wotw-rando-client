@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonIconRenderer_c_1.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::Moon::UI::MoonIconRenderer___c {
     IL2CPP_REGISTER_METHOD(0x011833C0, void, cctor, ())

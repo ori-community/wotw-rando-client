@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ComparisonComparer_1_WaterPoisonCloud_Blob_.h>
+#include <Modloader/app/structs/Comparison_1_WaterPoisonCloud_Blob_.h>
+#include <Modloader/app/structs/WaterPoisonCloud_Blob.h>
 
 namespace app::classes::System::Collections::Generic::ComparisonComparer_1_WaterPoisonCloud_Blob_ {
     IL2CPP_REGISTER_METHOD(0x0162A010, void, ctor, (app::ComparisonComparer_1_WaterPoisonCloud_Blob_ * this_ptr, app::Comparison_1_WaterPoisonCloud_Blob_* comparison))

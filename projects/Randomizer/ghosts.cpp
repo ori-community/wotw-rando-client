@@ -37,11 +37,10 @@
 #include <Modloader/app/types/SkinnedMeshRenderer.h>
 #include <Modloader/app/types/MeshRenderer.h>
 #include <Modloader/il2cpp_helpers.h>
-#include <constants.h>
-#include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
 #include <Randomizer/ghosts/plugins.h>
 #include <Core/text_style.h>
+#include <Modloader/app/structs/Int32__Boxed.h>
 
 #include "ghosts.h"
 

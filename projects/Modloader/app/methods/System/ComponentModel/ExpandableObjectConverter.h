@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExpandableObjectConverter.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/ITypeDescriptorContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Attribute__Array.h>
 
 namespace app::classes::System::ComponentModel::ExpandableObjectConverter {
     IL2CPP_REGISTER_METHOD(0x01FECA60, void, ctor, (app::ExpandableObjectConverter * this_ptr))

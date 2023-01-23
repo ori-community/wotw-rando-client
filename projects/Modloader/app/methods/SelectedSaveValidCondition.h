@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SelectedSaveValidCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SelectedSaveValidCondition {
     IL2CPP_REGISTER_METHOD(0x00AB5750, bool, Validate, (app::SelectedSaveValidCondition * this_ptr, app::IContext* context))

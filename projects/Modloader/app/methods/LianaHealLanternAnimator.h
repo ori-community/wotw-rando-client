@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonSetupVisuals.h>
+#include <Modloader/app/structs/LianaHealLanternAnimator.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::LianaHealLanternAnimator {
     IL2CPP_REGISTER_METHOD(0x002FBB40, app::IMoonSetupVisuals*, get_MoonSetupVisuals, (app::LianaHealLanternAnimator * this_ptr))

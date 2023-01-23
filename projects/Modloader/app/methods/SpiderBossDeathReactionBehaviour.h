@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBossDeathReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBossDeathReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x0096B6C0, void, Awake, (app::SpiderBossDeathReactionBehaviour * this_ptr))

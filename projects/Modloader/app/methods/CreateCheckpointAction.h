@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CreateCheckpointAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::CreateCheckpointAction {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Perform, (app::CreateCheckpointAction * this_ptr, app::IContext* context))

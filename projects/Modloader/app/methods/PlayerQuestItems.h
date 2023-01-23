@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerQuestItems.h>
+#include <Modloader/app/structs/QuestItemType__Enum.h>
+#include <Modloader/app/structs/SeinCharacter.h>
 
 namespace app::classes::PlayerQuestItems {
     IL2CPP_REGISTER_METHOD(0x014287B0, void, AddItem, (app::PlayerQuestItems * this_ptr, app::QuestItemType__Enum item))

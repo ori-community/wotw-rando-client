@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceDebug.h>
 
 namespace app::classes::RaceDebug {
     IL2CPP_REGISTER_METHOD(0x00E98580, void, DownloadReplay, (app::RaceDebug * this_ptr))

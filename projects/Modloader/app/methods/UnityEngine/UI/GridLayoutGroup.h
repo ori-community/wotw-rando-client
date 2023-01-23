@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GridLayoutGroup.h>
+#include <Modloader/app/structs/GridLayoutGroup_Corner__Enum.h>
+#include <Modloader/app/structs/GridLayoutGroup_Axis__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/GridLayoutGroup_Constraint__Enum.h>
 
 namespace app::classes::UnityEngine::UI::GridLayoutGroup {
     IL2CPP_REGISTER_METHOD(0x024B4F90, void, ctor, (app::GridLayoutGroup * this_ptr))

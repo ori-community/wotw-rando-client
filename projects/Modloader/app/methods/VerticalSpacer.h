@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VerticalSpacer.h>
 
 namespace app::classes::VerticalSpacer {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnEnable, (app::VerticalSpacer * this_ptr))

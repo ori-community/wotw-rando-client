@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConditionalShowAttribute.h>
 
 namespace app::classes::ConditionalShowAttribute {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_MethodName, (app::ConditionalShowAttribute * this_ptr))

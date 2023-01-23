@@ -16,6 +16,7 @@
 #include <app/types/GameObject.h>
 #include <app/types/Component_1.h>
 #include <app/types/Quaternion.h>
+#include <app/types/Scene.h>
 
 #include <Common/ext.h>
 
@@ -432,7 +433,7 @@ namespace il2cpp {
 
         std::vector<app::GameObject*> get_root_game_objects(app::Scene& scene) {
             std::vector<app::GameObject*> output;
-            auto boxed = box_value<app::Scene__Boxed>(get_class(app::Scene__TypeInfo, "UnityEngine.SceneManagement", "Scene"), scene);
+            auto boxed = types::Scene::box(scene);
             if (UnityEngine::SceneManagement::Scene::get_isLoaded(boxed)) {
                 auto game_objects = UnityEngine::SceneManagement::Scene::GetRootGameObjects_1(boxed);
                 for (auto i = 0; i < game_objects->max_length; ++i)
@@ -443,7 +444,7 @@ namespace il2cpp {
         }
 
         std::string get_scene_name(app::Scene& scene) {
-            auto boxed = box_value<app::Scene__Boxed>(get_class(app::Scene__TypeInfo, "UnityEngine.SceneManagement", "Scene"), scene);
+            auto boxed = types::Scene::box(scene);
             auto csstring = UnityEngine::SceneManagement::Scene::get_name(boxed);
             return convert_csstring(csstring);
         }

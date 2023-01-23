@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugHub.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/GUIStyle.h>
 
 namespace app::classes::DebugHub {
     IL2CPP_REGISTER_METHOD(0x00DE59B0, bool, get_IsActive, ())

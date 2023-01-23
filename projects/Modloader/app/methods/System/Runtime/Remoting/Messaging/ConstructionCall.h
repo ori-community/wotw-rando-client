@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConstructionCall.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IActivator.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IList.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/RemotingProxy.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::ConstructionCall {
     IL2CPP_REGISTER_METHOD(0x0230EC20, void, ctor_1, (app::ConstructionCall * this_ptr, app::Type* type))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Trigger_c.h>
+#include <Modloader/app/structs/Trigger_1.h>
 
 namespace app::classes::Trigger___c {
     IL2CPP_REGISTER_METHOD(0x00B121E0, void, cctor, ())

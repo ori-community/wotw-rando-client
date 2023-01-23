@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ThreadPoolWorkQueue.h>
+#include <Modloader/app/structs/ThreadPoolWorkQueueThreadLocals.h>
+#include <Modloader/app/structs/IThreadPoolWorkItem.h>
 
 namespace app::classes::System::Threading::ThreadPoolWorkQueue {
     IL2CPP_REGISTER_METHOD(0x02346BA0, void, ctor, (app::ThreadPoolWorkQueue * this_ptr))

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility__Class.h>
+#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility.h>
+#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility__Boxed.h>
+#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility__Array.h>
 
 namespace app::classes::types {
     namespace UtilitySelectorNode_NodeUtility {

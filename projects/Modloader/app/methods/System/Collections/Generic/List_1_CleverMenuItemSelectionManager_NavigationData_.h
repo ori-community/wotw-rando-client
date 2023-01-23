@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_CleverMenuItemSelectionManager_NavigationData_.h>
+#include <Modloader/app/structs/List_1_CleverMenuItemSelectionManager_NavigationData_.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager_NavigationData.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CleverMenuItemSelectionManager_NavigationData_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_CleverMenuItemSelectionManager_NavigationData_, GetEnumerator, (app::List_1_CleverMenuItemSelectionManager_NavigationData_ * this_ptr))

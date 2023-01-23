@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinChargeJump.h>
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
+#include <Modloader/app/structs/SeinChargeJumpPuppet.h>
+#include <Modloader/app/structs/CharacterSpriteMirror.h>
+#include <Modloader/app/structs/ButtonInputType__Enum.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/ComboInput.h>
+#include <Modloader/app/structs/SeinChargeJump_State__Enum.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/EffectSpawn.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
 
 namespace app::classes::SeinChargeJump {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinChargeJump * this_ptr))

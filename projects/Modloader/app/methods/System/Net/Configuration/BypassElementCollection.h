@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BypassElementCollection.h>
+#include <Modloader/app/structs/BypassElement.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConfigurationElement.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::Configuration::BypassElementCollection {
     IL2CPP_REGISTER_METHOD(0x020185F0, void, ctor, (app::BypassElementCollection * this_ptr))

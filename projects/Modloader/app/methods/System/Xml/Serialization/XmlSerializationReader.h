@@ -1,5 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSerializationReader.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlSerializer.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlSerializationReader_CollectionFixup.h>
+#include <Modloader/app/structs/XmlSerializationReader_Fixup.h>
+#include <Modloader/app/structs/XmlSerializationReader_CollectionItemFixup.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XmlSerializationReadCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/XmlAttribute.h>
+#include <Modloader/app/structs/XmlSerializationReader_WriteCallbackInfo.h>
+#include <Modloader/app/structs/IXmlSerializable.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlElement.h>
 
 namespace app::classes::System::Xml::Serialization::XmlSerializationReader {
     IL2CPP_REGISTER_METHOD(0x025AC6A0, void, Initialize, (app::XmlSerializationReader * this_ptr, app::XmlReader* reader, app::XmlSerializer* event_source))

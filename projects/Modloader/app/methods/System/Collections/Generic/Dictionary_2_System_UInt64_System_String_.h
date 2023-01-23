@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_UInt64_System_String_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_System_UInt64_System_String_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_UInt64_System_String_ {
     IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_System_UInt64_System_String_ * this_ptr, uint64_t key, app::String** value))

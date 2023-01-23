@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SaveSlotsScreenshotManager_ScreenshotPair.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_SaveSlotsScreenshotManager_ScreenshotPair___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_SaveSlotsScreenshotManager_ScreenshotPair_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::SaveSlotsScreenshotManager_ScreenshotPair*, get_Current, (app::List_1_T_Enumerator_SaveSlotsScreenshotManager_ScreenshotPair___Boxed * this_ptr))

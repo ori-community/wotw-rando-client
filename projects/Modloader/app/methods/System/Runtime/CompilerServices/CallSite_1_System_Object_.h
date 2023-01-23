@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CallSite_1_System_Object_.h>
+#include <Modloader/app/structs/CallSiteBinder.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Runtime::CompilerServices::CallSite_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x0276D310, app::Object*, get_Update, (app::CallSite_1_System_Object_ * this_ptr))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CCTextCylinderWrapper_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CCTextCylinderWrapper_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CCTextCylinderWrapper_DEFINED)
+#include <Modloader/app/structs/CCTextCylinderWrapper__Fields.h>
+#if defined(IL2CPP_STRUCT_CCTextCylinderWrapper__Fields_DEFINED)
+#define IL2CPP_STRUCT_CCTextCylinderWrapper_DEFINED
+struct CCTextCylinderWrapper__Class;
+struct CCTextCylinderWrapper {
+    struct CCTextCylinderWrapper__Class* klass;
+    MonitorData* monitor;
+    struct CCTextCylinderWrapper__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CCTextCylinderWrapper_FWDDECL)
+#define IL2CPP_STRUCT_CCTextCylinderWrapper_FWDDECL
+#include <Modloader/app/structs/CCTextCylinderWrapper__Class.h>
+#endif
+#undef IL2CPP_STRUCT_CCTextCylinderWrapper_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CCTextCylinderWrapper_DEFINED) && !defined(IL2CPP_STRUCT_CCTextCylinderWrapper_FWDDECL)
+#include <Modloader/app/structs/CCTextCylinderWrapper.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CCTextCylinderWrapper.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

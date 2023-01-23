@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OptionsScreen_c.h>
 
 namespace app::classes::OptionsScreen___c {
     IL2CPP_REGISTER_METHOD(0x006190E0, void, cctor, ())

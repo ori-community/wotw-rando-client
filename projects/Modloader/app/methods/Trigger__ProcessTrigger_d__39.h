@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Trigger_ProcessTrigger_d_39.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Trigger__ProcessTrigger_d__39 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::Trigger_ProcessTrigger_d_39 * this_ptr, int32_t __1__state))

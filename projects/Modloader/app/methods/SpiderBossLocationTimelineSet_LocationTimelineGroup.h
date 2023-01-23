@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBossLocationTimelineSet_LocationTimelineGroup.h>
 
 namespace app::classes::SpiderBossLocationTimelineSet_LocationTimelineGroup {
     IL2CPP_REGISTER_METHOD(0x011B2BC0, void, Reset, (app::SpiderBossLocationTimelineSet_LocationTimelineGroup * this_ptr))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/GameplayCamera.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/CameraPostProcessing.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::GameplayCamera {
     IL2CPP_REGISTER_METHOD(0x0040B220, app::Camera*, get_Camera, (app::GameplayCamera * this_ptr))

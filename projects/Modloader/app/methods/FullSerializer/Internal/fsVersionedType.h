@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/fsVersionedType__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/fsVersionedType.h>
 
 namespace app::classes::FullSerializer::Internal::fsVersionedType {
     IL2CPP_REGISTER_METHOD(0x0012BF80, app::Object*, Migrate, (app::fsVersionedType__Boxed * this_ptr, app::Object* ancestor_instance))

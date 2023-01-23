@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/ScenesManagerBehaviourStatic.h>
+#include <Modloader/app/structs/ScenesManagerUpdateType__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ScenesManagerBehaviourStatic {
     IL2CPP_REGISTER_METHOD(0x01052D80, app::Vector2, get_PredictedTargetPosition, (app::ScenesManagerBehaviourStatic * this_ptr))

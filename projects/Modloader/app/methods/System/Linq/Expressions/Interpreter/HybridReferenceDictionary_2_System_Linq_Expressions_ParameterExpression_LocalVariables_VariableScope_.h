@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HybridReferenceDictionary_2_System_Linq_Expressions_ParameterExpression_LocalVariables_VariableScope_.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/LocalVariables_VariableScope.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::HybridReferenceDictionary_2_System_Linq_Expressions_ParameterExpression_LocalVariables_VariableScope_ {
     IL2CPP_REGISTER_METHOD(0x025457C0, bool, TryGetValue, (app::HybridReferenceDictionary_2_System_Linq_Expressions_ParameterExpression_LocalVariables_VariableScope_ * this_ptr, app::ParameterExpression* key, app::LocalVariables_VariableScope** value))

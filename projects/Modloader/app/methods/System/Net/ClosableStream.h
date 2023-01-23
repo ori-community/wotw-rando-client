@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ClosableStream.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/EventHandler.h>
 
 namespace app::classes::System::Net::ClosableStream {
     IL2CPP_REGISTER_METHOD(0x02017B50, void, ctor, (app::ClosableStream * this_ptr, app::Stream* stream, app::EventHandler* on_close))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RotatingRoomController.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::RotatingRoomController {
     IL2CPP_REGISTER_METHOD(0x01370840, void, FixedUpdate, (app::RotatingRoomController * this_ptr))

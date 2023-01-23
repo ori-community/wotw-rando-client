@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SaveSlotBackupsManager_BackupParseQueue__Array.h>
+#include <Modloader/app/structs/IComparer_1_SaveSlotBackupsManager_BackupParseQueue_.h>
+#include <Modloader/app/structs/SaveSlotBackupsManager_BackupParseQueue.h>
+#include <Modloader/app/structs/Comparison_1_SaveSlotBackupsManager_BackupParseQueue_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_SaveSlotBackupsManager_BackupParseQueue_ {
     IL2CPP_REGISTER_METHOD(0x02FEE3F0, void, Sort_1, (app::SaveSlotBackupsManager_BackupParseQueue__Array * keys, int32_t index, int32_t length, app::IComparer_1_SaveSlotBackupsManager_BackupParseQueue_* comparer))

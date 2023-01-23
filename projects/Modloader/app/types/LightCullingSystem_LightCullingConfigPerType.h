@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType__Class.h>
+#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType.h>
+#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType__Boxed.h>
+#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType__Array.h>
 
 namespace app::classes::types {
     namespace LightCullingSystem_LightCullingConfigPerType {

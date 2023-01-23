@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/UberStateArchive.h>
+#include <Modloader/app/structs/BinaryWriter.h>
 
 namespace app::classes::MoonGuid {
     IL2CPP_REGISTER_METHOD(0x00F506D0, void, ctor_1, (app::MoonGuid * this_ptr, app::MoonGuid* moon_guid))

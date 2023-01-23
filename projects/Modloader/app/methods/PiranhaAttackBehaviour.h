@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PiranhaAttackBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/PiranhaAttackBehaviour_State__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::PiranhaAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x0115C5B0, void, OnEntityInitialized, (app::PiranhaAttackBehaviour * this_ptr))

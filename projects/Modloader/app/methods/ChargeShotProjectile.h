@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChargeShotProjectile.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
 
 namespace app::classes::ChargeShotProjectile {
     IL2CPP_REGISTER_METHOD(0x00675C60, bool, get_IsSuspended, (app::ChargeShotProjectile * this_ptr))

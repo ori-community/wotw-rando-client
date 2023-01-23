@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WotwWwiseBootstrapConfiguration_c_DisplayClass7_0__Class.h>
+#include <Modloader/app/structs/WotwWwiseBootstrapConfiguration_c_DisplayClass7_0.h>
 
 namespace app::classes::types {
     namespace WotwWwiseBootstrapConfiguration_c_DisplayClass7_0 {

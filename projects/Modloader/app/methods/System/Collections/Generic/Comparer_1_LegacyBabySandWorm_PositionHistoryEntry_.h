@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Comparer_1_LegacyBabySandWorm_PositionHistoryEntry_.h>
+#include <Modloader/app/structs/Comparison_1_LegacyBabySandWorm_PositionHistoryEntry_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Comparer_1_LegacyBabySandWorm_PositionHistoryEntry_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::Comparer_1_LegacyBabySandWorm_PositionHistoryEntry_*, get_Default, ())

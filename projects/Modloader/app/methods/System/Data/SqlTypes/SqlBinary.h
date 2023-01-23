@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SqlBinary__Boxed.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/SqlBinary.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EComparison__Enum.h>
+#include <Modloader/app/structs/SqlBoolean.h>
+#include <Modloader/app/structs/SqlGuid.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
 
 namespace app::classes::System::Data::SqlTypes::SqlBinary {
     IL2CPP_REGISTER_METHOD(0x00120B90, void, ctor_1, (app::SqlBinary__Boxed * this_ptr, bool f_null))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChangeDetectorApproxFloat.h>
 
 namespace app::classes::ChangeDetectorApproxFloat {
     IL2CPP_REGISTER_METHOD(0x006D39E0, void, ctor, (app::ChangeDetectorApproxFloat * this_ptr, float epsilon, float last_value))

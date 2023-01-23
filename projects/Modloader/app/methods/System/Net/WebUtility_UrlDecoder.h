@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebUtility_UrlDecoder.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::WebUtility_UrlDecoder {
     IL2CPP_REGISTER_METHOD(0x021BB4D0, void, FlushBytes, (app::WebUtility_UrlDecoder * this_ptr))

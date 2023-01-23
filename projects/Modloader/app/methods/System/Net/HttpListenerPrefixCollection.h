@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpListenerPrefixCollection.h>
+#include <Modloader/app/structs/HttpListener.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator_1_System_String_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Net::HttpListenerPrefixCollection {
     IL2CPP_REGISTER_METHOD(0x01D45B30, void, ctor_1, (app::HttpListenerPrefixCollection * this_ptr, app::HttpListener* listener))

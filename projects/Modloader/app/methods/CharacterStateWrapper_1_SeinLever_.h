@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterStateWrapper_1_SeinLever_.h>
 
 namespace app::classes::CharacterStateWrapper_1_SeinLever_ {
     IL2CPP_REGISTER_METHOD(0x019DF450, void, Refresh, (app::CharacterStateWrapper_1_SeinLever_ * this_ptr))

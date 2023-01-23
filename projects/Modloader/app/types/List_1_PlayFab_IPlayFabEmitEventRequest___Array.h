@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/List_1_PlayFab_IPlayFabEmitEventRequest___Array__Class.h>
+#include <Modloader/app/structs/List_1_PlayFab_IPlayFabEmitEventRequest___Array.h>
 
 namespace app::classes::types {
     namespace List_1_PlayFab_IPlayFabEmitEventRequest___Array {

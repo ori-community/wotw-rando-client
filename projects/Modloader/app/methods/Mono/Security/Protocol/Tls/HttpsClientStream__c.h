@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpsClientStream_c.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/X509CertificateCollection_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::HttpsClientStream___c {
     IL2CPP_REGISTER_METHOD(0x01F76680, void, cctor, ())

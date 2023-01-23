@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseInputModule.h>
+#include <Modloader/app/structs/BaseInput.h>
+#include <Modloader/app/structs/EventSystem.h>
+#include <Modloader/app/structs/RaycastResult.h>
+#include <Modloader/app/structs/List_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/MoveDirection__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/AxisEventData.h>
+#include <Modloader/app/structs/BaseEventData.h>
 
 namespace app::classes::UnityEngine::EventSystems::BaseInputModule {
     IL2CPP_REGISTER_METHOD(0x01F1A120, void, ctor, (app::BaseInputModule * this_ptr))

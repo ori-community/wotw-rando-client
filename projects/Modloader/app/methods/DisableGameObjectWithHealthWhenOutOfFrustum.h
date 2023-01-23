@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DisableGameObjectWithHealthWhenOutOfFrustum.h>
+#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::DisableGameObjectWithHealthWhenOutOfFrustum {
     IL2CPP_REGISTER_METHOD(0x00B97FC0, void, OnFrustumEnter, (app::DisableGameObjectWithHealthWhenOutOfFrustum * this_ptr))

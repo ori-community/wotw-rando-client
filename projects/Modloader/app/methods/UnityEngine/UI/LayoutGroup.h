@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LayoutGroup.h>
+#include <Modloader/app/structs/RectOffset.h>
+#include <Modloader/app/structs/TextAnchor__Enum.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/List_1_UnityEngine_RectTransform_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/GridLayoutGroup_Corner__Enum.h>
+#include <Modloader/app/structs/GridLayoutGroup_Axis__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/GridLayoutGroup_Constraint__Enum.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::UnityEngine::UI::LayoutGroup {
     IL2CPP_REGISTER_METHOD(0x024CF7B0, void, ctor, (app::LayoutGroup * this_ptr))

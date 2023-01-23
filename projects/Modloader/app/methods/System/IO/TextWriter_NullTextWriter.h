@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextWriter_NullTextWriter.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IO::TextWriter_NullTextWriter {
     IL2CPP_REGISTER_METHOD(0x023881E0, void, ctor, (app::TextWriter_NullTextWriter * this_ptr))

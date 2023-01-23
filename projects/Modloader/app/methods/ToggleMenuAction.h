@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ToggleMenuAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ToggleMenuAction {
     IL2CPP_REGISTER_METHOD(0x00AFC900, bool, get_IsToggleOn, (app::ToggleMenuAction * this_ptr))

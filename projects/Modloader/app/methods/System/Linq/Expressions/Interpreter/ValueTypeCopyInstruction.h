@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValueTypeCopyInstruction.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::ValueTypeCopyInstruction {
     IL2CPP_REGISTER_METHOD(0x00417920, int32_t, get_ConsumedStack, (app::ValueTypeCopyInstruction * this_ptr))

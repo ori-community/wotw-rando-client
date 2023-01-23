@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Geometry_Vertex_.h>
+#include <Modloader/app/structs/Polygon.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Geometry_Point_.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Geometry_RegionPointer_.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Geometry_ISegment_.h>
+#include <Modloader/app/structs/IEnumerable_1_TriangleNet_Geometry_Vertex_.h>
+#include <Modloader/app/structs/Point.h>
+#include <Modloader/app/structs/Rectangle.h>
+#include <Modloader/app/structs/Vertex.h>
+#include <Modloader/app/structs/ISegment.h>
+#include <Modloader/app/structs/Contour.h>
 
 namespace app::classes::TriangleNet::Geometry::Polygon {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::List_1_TriangleNet_Geometry_Vertex_*, get_Points, (app::Polygon * this_ptr))

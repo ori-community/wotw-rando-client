@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecorderSettings.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IRecorderShot.h>
 
 namespace app::classes::Moon::ContinuousIntegration::RecorderSettings {
     IL2CPP_REGISTER_METHOD(0x031C46C0, app::RecorderSettings*, get_Instance, ())

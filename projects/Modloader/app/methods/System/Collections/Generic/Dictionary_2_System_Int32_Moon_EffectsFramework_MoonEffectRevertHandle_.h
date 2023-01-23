@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_EffectsFramework_MoonEffectRevertHandle_.h>
+#include <Modloader/app/structs/MoonEffectRevertHandle.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_Moon_EffectsFramework_MoonEffectRevertHandle_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_System_Int32_Moon_EffectsFramework_MoonEffectRevertHandle_ * this_ptr))

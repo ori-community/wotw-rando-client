@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ContinuousTimelineSequenceBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
 
 namespace app::classes::ContinuousTimelineSequenceBehaviour {
     IL2CPP_REGISTER_METHOD(0x011E7B90, void, OnExecute, (app::ContinuousTimelineSequenceBehaviour * this_ptr, app::IBlackboard* blackboard))

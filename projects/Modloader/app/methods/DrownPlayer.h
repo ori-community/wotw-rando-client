@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DrownPlayer.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::DrownPlayer {
     IL2CPP_REGISTER_METHOD(0x00BE8450, void, OnTriggerStay, (app::DrownPlayer * this_ptr, app::Collider* other))

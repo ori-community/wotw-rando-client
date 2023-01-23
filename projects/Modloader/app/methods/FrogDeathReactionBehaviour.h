@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FrogDeathReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::FrogDeathReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00A48970, void, SkipDeathTimeline, (app::FrogDeathReactionBehaviour * this_ptr))

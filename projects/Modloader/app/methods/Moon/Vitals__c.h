@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vitals_c.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::Moon::Vitals___c {
     IL2CPP_REGISTER_METHOD(0x01198620, void, cctor, ())

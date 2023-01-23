@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderRuntimeZShift.h>
+#include <Modloader/app/structs/Renderer.h>
 
 namespace app::classes::UberShaderRuntimeZShift {
     IL2CPP_REGISTER_METHOD(0x004F2320, bool, get_IsInScene, (app::UberShaderRuntimeZShift * this_ptr))

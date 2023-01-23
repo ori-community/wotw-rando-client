@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509CertificateCollection.h>
+#include <Modloader/app/structs/X509Certificate.h>
+#include <Modloader/app/structs/X509CertificateCollection_X509CertificateEnumerator.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/X509CertificateCollection_2.h>
+#include <Modloader/app/structs/X509Certificate_2__Array.h>
+#include <Modloader/app/structs/X509Certificate_2.h>
+#include <Modloader/app/structs/X509CertificateCollection_X509CertificateEnumerator_2.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Mono::Security::X509::X509CertificateCollection {
     IL2CPP_REGISTER_METHOD(0x01C9A650, void, ctor_1, (app::X509CertificateCollection * this_ptr))

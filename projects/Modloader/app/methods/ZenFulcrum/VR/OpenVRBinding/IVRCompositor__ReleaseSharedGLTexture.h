@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IVRCompositor_ReleaseSharedGLTexture.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVRCompositor__ReleaseSharedGLTexture {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVRCompositor_ReleaseSharedGLTexture * this_ptr, app::Object* object, void* method_1))

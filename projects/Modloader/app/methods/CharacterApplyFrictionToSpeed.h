@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterApplyFrictionToSpeed.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::CharacterApplyFrictionToSpeed {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::CharacterApplyFrictionToSpeed * this_ptr))

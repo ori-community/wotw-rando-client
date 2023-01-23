@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberWaterReflectionView_AutomaticGroup.h>
+#include <Modloader/app/structs/UberWaterReflectionView.h>
+#include <Modloader/app/structs/UberWaterReflectionPlane.h>
+#include <Modloader/app/structs/UberWaterReflectionView_Group.h>
+#include <Modloader/app/structs/UberWaterReflectionView_ViewCamInfo.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/MoonRenderContext.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/UberWaterReflectionView_c_DisplayClass21_0.h>
 
 namespace app::classes::UberWaterReflectionView {
     IL2CPP_REGISTER_METHOD(0x012A1690, app::UberWaterReflectionView_AutomaticGroup*, FindAutomaticGroup, (app::UberWaterReflectionView * this_ptr, app::UberWaterReflectionPlane* plane, bool is_game_view))

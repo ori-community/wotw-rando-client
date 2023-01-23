@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostSceneTrackingPlugin_Data.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
 
 namespace app::classes::GhostSceneTrackingPlugin_Data {
     IL2CPP_REGISTER_METHOD(0x007E59C0, void, Save, (app::GhostSceneTrackingPlugin_Data * this_ptr, app::BinaryWriter* binary_writer))

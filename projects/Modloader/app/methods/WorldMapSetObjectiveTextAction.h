@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WorldMapSetObjectiveTextAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::WorldMapSetObjectiveTextAction {
     IL2CPP_REGISTER_METHOD(0x00585170, void, Perform, (app::WorldMapSetObjectiveTextAction * this_ptr, app::IContext* context))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanTokenizer__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanToken.h>
 
 namespace app::classes::System::Globalization::TimeSpanParse_TimeSpanTokenizer {
     IL2CPP_REGISTER_METHOD(0x001D4590, void, Init_1, (app::TimeSpanParse_TimeSpanTokenizer__Boxed * this_ptr, app::String* input))

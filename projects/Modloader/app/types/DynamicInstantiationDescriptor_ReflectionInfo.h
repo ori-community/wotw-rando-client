@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo__Class.h>
+#include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo.h>
+#include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo__Boxed.h>
+#include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo__Array.h>
 
 namespace app::classes::types {
     namespace DynamicInstantiationDescriptor_ReflectionInfo {

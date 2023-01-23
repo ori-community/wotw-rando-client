@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AcidSlugCrawlingState.h>
+#include <Modloader/app/structs/AcidSlugEnemy.h>
+#include <Modloader/app/structs/SoundSource.h>
 
 namespace app::classes::AcidSlugCrawlingState {
     IL2CPP_REGISTER_METHOD(0x004C1F10, void, ctor, (app::AcidSlugCrawlingState * this_ptr, app::AcidSlugEnemy* slug, app::SoundSource* sound, app::SoundSource* move_sound))

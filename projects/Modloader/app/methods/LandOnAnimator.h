@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/LandOnAnimator.h>
+#include <Modloader/app/structs/IMoonSetupVisuals.h>
+#include <Modloader/app/structs/LandOnState__Enum.h>
 
 namespace app::classes::LandOnAnimator {
     IL2CPP_REGISTER_METHOD(0x009A6580, app::MoonTimeline*, get_OnDestroyTimeline, (app::LandOnAnimator * this_ptr))

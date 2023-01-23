@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_LegacyCameraSettingsDistanceBasedAnimator_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_LegacyCameraSettingsDistanceBasedAnimator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LegacyCameraSettingsDistanceBasedAnimator_DEFINED)
+#include <Modloader/app/structs/LegacyCameraSettingsDistanceBasedAnimator__Fields.h>
+#if defined(IL2CPP_STRUCT_LegacyCameraSettingsDistanceBasedAnimator__Fields_DEFINED)
+#define IL2CPP_STRUCT_LegacyCameraSettingsDistanceBasedAnimator_DEFINED
+struct LegacyCameraSettingsDistanceBasedAnimator__Class;
+struct LegacyCameraSettingsDistanceBasedAnimator {
+    struct LegacyCameraSettingsDistanceBasedAnimator__Class* klass;
+    MonitorData* monitor;
+    struct LegacyCameraSettingsDistanceBasedAnimator__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_LegacyCameraSettingsDistanceBasedAnimator_FWDDECL)
+#define IL2CPP_STRUCT_LegacyCameraSettingsDistanceBasedAnimator_FWDDECL
+#include <Modloader/app/structs/LegacyCameraSettingsDistanceBasedAnimator__Class.h>
+#endif
+#undef IL2CPP_STRUCT_LegacyCameraSettingsDistanceBasedAnimator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LegacyCameraSettingsDistanceBasedAnimator_DEFINED) && !defined(IL2CPP_STRUCT_LegacyCameraSettingsDistanceBasedAnimator_FWDDECL)
+#include <Modloader/app/structs/LegacyCameraSettingsDistanceBasedAnimator.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/LegacyCameraSettingsDistanceBasedAnimator.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

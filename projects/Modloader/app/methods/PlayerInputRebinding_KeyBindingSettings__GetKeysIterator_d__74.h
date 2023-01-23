@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerInputRebinding_KeyBindingSettings_GetKeysIterator_d_74.h>
+#include <Modloader/app/structs/PlayerInputRebinding_PlayerInputKey.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_PlayerInputRebinding_PlayerInputKey_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::PlayerInputRebinding_KeyBindingSettings__GetKeysIterator_d__74 {
     IL2CPP_REGISTER_METHOD(0x01426B00, void, ctor, (app::PlayerInputRebinding_KeyBindingSettings_GetKeysIterator_d_74 * this_ptr, int32_t __1__state))

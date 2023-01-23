@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VisibleReflectionProbe__Array.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_Experimental_Rendering_VisibleReflectionProbe_.h>
+#include <Modloader/app/structs/VisibleReflectionProbe.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_Experimental_Rendering_VisibleReflectionProbe_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UnityEngine_Experimental_Rendering_VisibleReflectionProbe_ {
     IL2CPP_REGISTER_METHOD(0x02F6A310, void, Sort_1, (app::VisibleReflectionProbe__Array * keys, int32_t index, int32_t length, app::IComparer_1_UnityEngine_Experimental_Rendering_VisibleReflectionProbe_* comparer))

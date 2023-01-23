@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ClearSettings.h>
+#include <Modloader/app/structs/ClearSettings__Boxed.h>
+#include <Modloader/app/structs/ClearFlags__Enum.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::Moon::Rendering::ClearSettings {
     IL2CPP_REGISTER_METHOD(0x00C537F0, app::ClearSettings, get_nothing, ())

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpperKickReactionBehaviour_c.h>
 
 namespace app::classes::UpperKickReactionBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x013B1700, void, cctor, ())

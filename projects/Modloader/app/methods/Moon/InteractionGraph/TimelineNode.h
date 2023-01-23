@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_MoonTimeline_.h>
+#include <Modloader/app/structs/TimelineNode.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::Moon::InteractionGraph::TimelineNode {
     IL2CPP_REGISTER_METHOD(0x01993A90, app::List_1_Moon_Timeline_MoonTimeline_*, get_ResolvedTimelines, (app::TimelineNode * this_ptr))

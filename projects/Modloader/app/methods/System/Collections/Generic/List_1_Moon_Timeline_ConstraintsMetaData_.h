@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConstraintsMetaData__Array.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ConstraintsMetaData_.h>
+#include <Modloader/app/structs/ConstraintsMetaData.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Timeline_ConstraintsMetaData_ {
     IL2CPP_REGISTER_METHOD(0x025EAEF0, app::ConstraintsMetaData__Array*, ToArray, (app::List_1_Moon_Timeline_ConstraintsMetaData_ * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RunActionAndWait.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::RunActionAndWait {
     IL2CPP_REGISTER_METHOD(0x013727E0, void, Awake, (app::RunActionAndWait * this_ptr))

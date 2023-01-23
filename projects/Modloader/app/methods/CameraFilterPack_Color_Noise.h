@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Color_Noise.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Color_Noise {
     IL2CPP_REGISTER_METHOD(0x024DA880, app::Material*, get_material, (app::CameraFilterPack_Color_Noise * this_ptr))

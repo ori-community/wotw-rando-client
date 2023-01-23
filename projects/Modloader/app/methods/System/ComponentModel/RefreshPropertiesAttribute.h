@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RefreshPropertiesAttribute.h>
+#include <Modloader/app/structs/RefreshProperties__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::RefreshPropertiesAttribute {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::RefreshPropertiesAttribute * this_ptr, app::RefreshProperties__Enum refresh))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_TriangleNet_Topology_SubSegment_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Int32_TriangleNet_Topology_SubSegment_.h>
+#include <Modloader/app/structs/SubSegment.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_TriangleNet_Topology_SubSegment_ {
     IL2CPP_REGISTER_METHOD(0x0283B2A0, int32_t, get_Count, (app::Dictionary_2_System_Int32_TriangleNet_Topology_SubSegment_ * this_ptr))

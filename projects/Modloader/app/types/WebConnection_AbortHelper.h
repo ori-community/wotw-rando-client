@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WebConnection_AbortHelper__Class.h>
+#include <Modloader/app/structs/WebConnection_AbortHelper.h>
 
 namespace app::classes::types {
     namespace WebConnection_AbortHelper {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Blur_Tilt_Shift.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Blur_Tilt_Shift {
     IL2CPP_REGISTER_METHOD(0x024D5BD0, app::Material*, get_material, (app::CameraFilterPack_Blur_Tilt_Shift * this_ptr))

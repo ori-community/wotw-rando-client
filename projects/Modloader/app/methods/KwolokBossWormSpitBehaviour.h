@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossWormSpitBehaviour.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Collider__Array.h>
+#include <Modloader/app/structs/KwolokBossWormSpitBehaviour_Direction__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::KwolokBossWormSpitBehaviour {
     IL2CPP_REGISTER_METHOD(0x012F9400, bool, CanCancel, (app::KwolokBossWormSpitBehaviour * this_ptr))

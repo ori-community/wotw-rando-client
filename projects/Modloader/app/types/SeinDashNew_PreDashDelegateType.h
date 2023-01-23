@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinDashNew_PreDashDelegateType__Class.h>
+#include <Modloader/app/structs/SeinDashNew_PreDashDelegateType.h>
 
 namespace app::classes::types {
     namespace SeinDashNew_PreDashDelegateType {

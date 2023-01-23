@@ -1,5 +1,31 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/ReflectTypeDescriptionProvider.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IServiceProvider.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/AttributeCollection.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TypeConverter.h>
+#include <Modloader/app/structs/EventDescriptor_1.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/EventDescriptorCollection.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/IExtenderProvider__Array.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/ICustomTypeDescriptor.h>
+#include <Modloader/app/structs/Module.h>
+#include <Modloader/app/structs/ReflectTypeDescriptionProvider_ReflectedTypeData.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/EventDescriptor_1__Array.h>
+#include <Modloader/app/structs/PropertyDescriptor__Array.h>
+#include <Modloader/app/structs/IExtenderProvider.h>
 
 namespace app::classes::System::ComponentModel::ReflectTypeDescriptionProvider {
     IL2CPP_REGISTER_METHOD(0x029A1850, app::Guid, get_ExtenderProviderKey, ())

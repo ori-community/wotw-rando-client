@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RegistryKey.h>
+#include <Modloader/app/structs/UnixRegistryApi.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RegistryValueOptions__Enum.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::Microsoft::Win32::UnixRegistryApi {
     IL2CPP_REGISTER_METHOD(0x023B6600, app::String*, ToUnix, (app::String * keyname))

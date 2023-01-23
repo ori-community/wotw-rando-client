@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpListener.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/MonoTlsProvider.h>
+#include <Modloader/app/structs/MonoTlsSettings.h>
+#include <Modloader/app/structs/IPAddress.h>
+#include <Modloader/app/structs/SslStream.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/RemoteCertificateValidationCallback.h>
+#include <Modloader/app/structs/AuthenticationSchemes__Enum.h>
+#include <Modloader/app/structs/AuthenticationSchemeSelector.h>
+#include <Modloader/app/structs/HttpListener_ExtendedProtectionSelector.h>
+#include <Modloader/app/structs/HttpListenerPrefixCollection.h>
+#include <Modloader/app/structs/HttpListenerTimeoutManager.h>
+#include <Modloader/app/structs/ExtendedProtectionPolicy.h>
+#include <Modloader/app/structs/ServiceNameCollection.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/HttpListenerContext.h>
+#include <Modloader/app/structs/Task_1_System_Net_HttpListenerContext_.h>
+#include <Modloader/app/structs/HttpConnection.h>
 
 namespace app::classes::System::Net::HttpListener {
     IL2CPP_REGISTER_METHOD(0x01D411E0, void, ctor_1, (app::HttpListener * this_ptr, app::X509Certificate_1* certificate, app::MonoTlsProvider* tls_provider, app::MonoTlsSettings* tls_settings))

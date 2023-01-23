@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActionSequence_c.h>
+#include <Modloader/app/structs/ActionMethod.h>
 
 namespace app::classes::ActionSequence___c {
     IL2CPP_REGISTER_METHOD(0x004C6980, void, cctor, ())

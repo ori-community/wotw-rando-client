@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlUntypedConverter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Xml::Schema::XmlUntypedConverter {
     IL2CPP_REGISTER_METHOD(0x01930730, void, ctor_1, (app::XmlUntypedConverter * this_ptr))

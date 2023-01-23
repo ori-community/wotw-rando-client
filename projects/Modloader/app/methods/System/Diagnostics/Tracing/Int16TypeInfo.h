@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Int16TypeInfo.h>
+#include <Modloader/app/structs/TraceLoggingMetadataCollector.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EventFieldFormat__Enum.h>
+#include <Modloader/app/structs/TraceLoggingDataCollector.h>
 
 namespace app::classes::System::Diagnostics::Tracing::Int16TypeInfo {
     IL2CPP_REGISTER_METHOD(0x019FE680, void, WriteMetadata, (app::Int16TypeInfo * this_ptr, app::TraceLoggingMetadataCollector* collector, app::String* name, app::EventFieldFormat__Enum format))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AudioListenerZone.h>
 
 namespace app::classes::Moon::Wwise::AudioListenerZone {
     IL2CPP_REGISTER_METHOD(0x02709950, app::String*, get_GizmoText, (app::AudioListenerZone * this_ptr))

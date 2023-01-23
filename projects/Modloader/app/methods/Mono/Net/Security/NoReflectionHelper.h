@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Mono::Net::Security::NoReflectionHelper {
     IL2CPP_REGISTER_METHOD(0x021853D0, app::Object*, GetInternalValidator, (app::Object * provider, app::Object* settings))

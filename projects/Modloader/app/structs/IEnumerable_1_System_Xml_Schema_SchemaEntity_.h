@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerable_1_System_Xml_Schema_SchemaEntity__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerable_1_System_Xml_Schema_SchemaEntity__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_System_Xml_Schema_SchemaEntity__DEFINED)
+#define IL2CPP_STRUCT_IEnumerable_1_System_Xml_Schema_SchemaEntity__DEFINED
+struct IEnumerable_1_System_Xml_Schema_SchemaEntity___Class;
+struct IEnumerable_1_System_Xml_Schema_SchemaEntity_ {
+    struct IEnumerable_1_System_Xml_Schema_SchemaEntity___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_System_Xml_Schema_SchemaEntity__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerable_1_System_Xml_Schema_SchemaEntity__FWDDECL
+#include <Modloader/app/structs/IEnumerable_1_System_Xml_Schema_SchemaEntity___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerable_1_System_Xml_Schema_SchemaEntity__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_System_Xml_Schema_SchemaEntity__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerable_1_System_Xml_Schema_SchemaEntity__FWDDECL)
+#include <Modloader/app/structs/IEnumerable_1_System_Xml_Schema_SchemaEntity_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerable_1_System_Xml_Schema_SchemaEntity_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlElementWrapper.h>
+#include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/IXmlNode.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::XmlElementWrapper {
     IL2CPP_REGISTER_METHOD(0x01A59FC0, void, ctor, (app::XmlElementWrapper * this_ptr, app::XmlElement* element))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DeltaTimeManager.h>
+#include <Modloader/app/structs/DeltaTimeManager_ControllerType__Enum.h>
+#include <Modloader/app/structs/PlayerLoopSystem.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystem_.h>
+#include <Modloader/app/structs/DeltaTimeManager_InsertionMode__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DeltaTimeManager_DeltaTimeFrameHistory.h>
+#include <Modloader/app/structs/DeltaTimeManager_DeltaTimeFrameHistory__Array.h>
 
 namespace app::classes::usedStandaloneScripts::DeltaTimeManagers::DeltaTimeManager {
     IL2CPP_REGISTER_METHOD(0x03123160, void, ResetStatics, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/ColorBlock__Boxed.h>
+#include <Modloader/app/structs/ColorBlock.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::UI::ColorBlock {
     IL2CPP_REGISTER_METHOD(0x001D9980, app::Color, get_normalColor, (app::ColorBlock__Boxed * this_ptr))

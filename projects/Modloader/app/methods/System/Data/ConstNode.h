@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConstNode.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/ValueType__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Data_DataColumn_.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/ExpressionNode.h>
 
 namespace app::classes::System::Data::ConstNode {
     IL2CPP_REGISTER_METHOD(0x0286A6F0, void, ctor_1, (app::ConstNode * this_ptr, app::DataTable* table, app::ValueType__Enum type, app::Object* constant))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleJsonInstance_PlayFabSimpleJsonCuztomization.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::PlayFab::Internal::PlayFabUtil {
     IL2CPP_REGISTER_METHOD(0x0183FF40, void, cctor, ())

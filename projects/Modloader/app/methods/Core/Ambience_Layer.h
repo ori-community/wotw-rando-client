@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Ambience_Layer.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/AmbienceZone.h>
+#include <Modloader/app/structs/AkCurveInterpolation__Enum.h>
 
 namespace app::classes::Core::Ambience_Layer {
     IL2CPP_REGISTER_METHOD(0x011F7960, int32_t, Sort, (app::Ambience_Layer * layer_a, app::Ambience_Layer* layer_b))

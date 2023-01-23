@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
 
 namespace app::classes::System::Linq::Expressions::CachedReflectionInfo {
     IL2CPP_REGISTER_METHOD(0x01FA01E0, app::MethodInfo_1*, get_CallSiteOps_SetNotMatched, ())

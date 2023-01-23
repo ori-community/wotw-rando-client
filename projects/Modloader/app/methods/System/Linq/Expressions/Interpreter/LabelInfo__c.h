@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LabelInfo_c.h>
+#include <Modloader/app/structs/LabelScopeInfo.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LabelInfo___c {
     IL2CPP_REGISTER_METHOD(0x01CE4270, void, cctor, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NightCrawlerFightController.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::NightCrawlerFightController {
     IL2CPP_REGISTER_METHOD(0x00603D60, bool, get_Defeated, (app::NightCrawlerFightController * this_ptr))

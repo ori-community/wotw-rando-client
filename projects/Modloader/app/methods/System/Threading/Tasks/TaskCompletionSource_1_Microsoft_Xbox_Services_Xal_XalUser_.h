@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TaskCompletionSource_1_Microsoft_Xbox_Services_Xal_XalUser_.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Task_1_Microsoft_Xbox_Services_Xal_XalUser_.h>
+#include <Modloader/app/structs/XalUser_1.h>
 
 namespace app::classes::System::Threading::Tasks::TaskCompletionSource_1_Microsoft_Xbox_Services_Xal_XalUser_ {
     IL2CPP_REGISTER_METHOD(0x02776BF0, void, ctor, (app::TaskCompletionSource_1_Microsoft_Xbox_Services_Xal_XalUser_ * this_ptr))

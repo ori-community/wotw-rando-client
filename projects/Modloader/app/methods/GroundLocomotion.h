@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GroundLocomotion.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/MovementProcessor.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/EntityBehaviour.h>
+#include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/LocomotionGoal.h>
+#include <Modloader/app/structs/Func_1_UnityEngine_Vector3_.h>
 
 namespace app::classes::GroundLocomotion {
     IL2CPP_REGISTER_METHOD(0x01094300, float, get_AgentLocationOffsetY, (app::GroundLocomotion * this_ptr))

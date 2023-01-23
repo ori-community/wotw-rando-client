@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SkillTreeManager_AbilityMessageProvider__Class.h>
+#include <Modloader/app/structs/SkillTreeManager_AbilityMessageProvider.h>
+#include <Modloader/app/structs/SkillTreeManager_AbilityMessageProvider__Array.h>
 
 namespace app::classes::types {
     namespace SkillTreeManager_AbilityMessageProvider {

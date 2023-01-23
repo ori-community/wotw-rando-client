@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimesliceJobTracker.h>
+#include <Modloader/app/structs/TestTagHelper_TestTypeTag__Enum.h>
+#include <Modloader/app/structs/SliceExecutionStats.h>
 
 namespace app::classes::TimesliceJobTracker {
     IL2CPP_REGISTER_METHOD(0x00AF3960, app::String*, get_TestName, (app::TimesliceJobTracker * this_ptr))

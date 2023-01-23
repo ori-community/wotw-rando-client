@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FtpDataStream.h>
+#include <Modloader/app/structs/FtpWebRequest.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::FtpDataStream {
     IL2CPP_REGISTER_METHOD(0x01D2CC90, void, ctor, (app::FtpDataStream * this_ptr, app::FtpWebRequest* request, app::Stream* stream, bool is_read))

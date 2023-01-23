@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PropertyDescriptorCollection_PropertyDescriptorEnumerator_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PropertyDescriptorCollection_PropertyDescriptorEnumerator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PropertyDescriptorCollection_PropertyDescriptorEnumerator_DEFINED)
+#include <Modloader/app/structs/PropertyDescriptorCollection_PropertyDescriptorEnumerator__Fields.h>
+#if defined(IL2CPP_STRUCT_PropertyDescriptorCollection_PropertyDescriptorEnumerator__Fields_DEFINED)
+#define IL2CPP_STRUCT_PropertyDescriptorCollection_PropertyDescriptorEnumerator_DEFINED
+struct PropertyDescriptorCollection_PropertyDescriptorEnumerator__Class;
+struct PropertyDescriptorCollection_PropertyDescriptorEnumerator {
+    struct PropertyDescriptorCollection_PropertyDescriptorEnumerator__Class* klass;
+    MonitorData* monitor;
+    struct PropertyDescriptorCollection_PropertyDescriptorEnumerator__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PropertyDescriptorCollection_PropertyDescriptorEnumerator_FWDDECL)
+#define IL2CPP_STRUCT_PropertyDescriptorCollection_PropertyDescriptorEnumerator_FWDDECL
+#include <Modloader/app/structs/PropertyDescriptorCollection_PropertyDescriptorEnumerator__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PropertyDescriptorCollection_PropertyDescriptorEnumerator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PropertyDescriptorCollection_PropertyDescriptorEnumerator_DEFINED) && !defined(IL2CPP_STRUCT_PropertyDescriptorCollection_PropertyDescriptorEnumerator_FWDDECL)
+#include <Modloader/app/structs/PropertyDescriptorCollection_PropertyDescriptorEnumerator.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PropertyDescriptorCollection_PropertyDescriptorEnumerator.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

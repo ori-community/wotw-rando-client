@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/MonoAssembly.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Module.h>
+#include <Modloader/app/structs/Module__Array.h>
 
 namespace app::classes::System::Reflection::MonoAssembly {
     IL2CPP_REGISTER_METHOD(0x0268ED90, app::Type*, GetType, (app::MonoAssembly * this_ptr, app::String* name, bool throw_on_error, bool ignore_case))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/DropPickup.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/DropPickup_State__Enum.h>
+#include <Modloader/app/structs/DropPickup_SharedUpdateData.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::DropPickup {
     IL2CPP_REGISTER_METHOD(0x00BDDC50, void, ResetStatics, ())

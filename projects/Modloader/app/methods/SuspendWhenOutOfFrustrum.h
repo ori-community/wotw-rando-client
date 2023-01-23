@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SuspendWhenOutOfFrustrum.h>
+#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::SuspendWhenOutOfFrustrum {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldDisable, (app::SuspendWhenOutOfFrustrum * this_ptr))

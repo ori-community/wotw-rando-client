@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaterFallMasksSystem.h>
+#include <Modloader/app/structs/WaterFallMask.h>
+#include <Modloader/app/structs/IWaterfallInteractionAgent.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::WaterFallMasksSystem {
     IL2CPP_REGISTER_METHOD(0x00F28AF0, bool, ForceDisableWaterFallObjects, ())

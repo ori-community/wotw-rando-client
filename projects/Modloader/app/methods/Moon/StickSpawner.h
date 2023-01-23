@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/StickSpawner.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/ICharacter.h>
 
 namespace app::classes::Moon::StickSpawner {
     IL2CPP_REGISTER_METHOD(0x00E31ED0, app::Input_InputButtonProcessor*, get_ActivationButton, (app::StickSpawner * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RestoreHealthAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::RestoreHealthAction {
     IL2CPP_REGISTER_METHOD(0x0090CC90, void, Perform, (app::RestoreHealthAction * this_ptr, app::IContext* context))

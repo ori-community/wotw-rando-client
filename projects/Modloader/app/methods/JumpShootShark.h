@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JumpShootShark.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::JumpShootShark {
     IL2CPP_REGISTER_METHOD(0x00E4CB20, bool, ShouldIgnoreDamage, (app::JumpShootShark * this_ptr, app::Damage* damage))

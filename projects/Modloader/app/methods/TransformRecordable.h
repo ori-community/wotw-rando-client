@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TransformRecordable.h>
 
 namespace app::classes::TransformRecordable {
     IL2CPP_REGISTER_METHOD(0x00B08AD0, void, ResetStatics, ())

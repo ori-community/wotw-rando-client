@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LessThanInstruction_LessThanByte__Class.h>
+#include <Modloader/app/structs/LessThanInstruction_LessThanByte.h>
 
 namespace app::classes::types {
     namespace LessThanInstruction_LessThanByte {

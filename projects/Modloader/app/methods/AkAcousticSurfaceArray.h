@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkAcousticSurfaceArray.h>
+#include <Modloader/app/structs/AkAcousticSurface.h>
 
 namespace app::classes::AkAcousticSurfaceArray {
     IL2CPP_REGISTER_METHOD(0x026C4F40, void, ctor, (app::AkAcousticSurfaceArray * this_ptr, int32_t count))

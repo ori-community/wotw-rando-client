@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/DoStressTestsProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::DoStressTestsProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x0043D9A0, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::DoStressTestsProfilingSetting * this_ptr))

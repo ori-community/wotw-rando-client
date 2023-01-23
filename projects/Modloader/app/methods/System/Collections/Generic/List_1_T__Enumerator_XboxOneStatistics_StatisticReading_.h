@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XboxOneStatistics_StatisticReading.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_XboxOneStatistics_StatisticReading___Boxed.h>
+#include <Modloader/app/structs/List_1_XboxOneStatistics_StatisticReading_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_XboxOneStatistics_StatisticReading_ {
     IL2CPP_REGISTER_METHOD(0x00133A80, app::XboxOneStatistics_StatisticReading, get_Current, (app::List_1_T_Enumerator_XboxOneStatistics_StatisticReading___Boxed * this_ptr))

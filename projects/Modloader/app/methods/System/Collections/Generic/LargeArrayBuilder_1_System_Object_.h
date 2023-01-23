@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LargeArrayBuilder_1_System_Object___Boxed.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Collections::Generic::LargeArrayBuilder_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00152230, void, ctor_1, (app::LargeArrayBuilder_1_System_Object___Boxed * this_ptr, bool initialize))

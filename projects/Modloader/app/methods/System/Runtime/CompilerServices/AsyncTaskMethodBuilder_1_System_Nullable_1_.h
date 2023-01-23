@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_Nullable_1_.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_Nullable_1___Boxed.h>
+#include <Modloader/app/structs/AsyncProtocolRequest_InnerRead_d_25.h>
+#include <Modloader/app/structs/Task_1_System_Nullable_1_.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_1_TResult_ConfiguredTaskAwaiter_System_Int32_.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Nullable_1_Int32_.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncTaskMethodBuilder_1_System_Nullable_1_ {
     IL2CPP_REGISTER_METHOD(0x00C537F0, app::AsyncTaskMethodBuilder_1_System_Nullable_1_, Create, ())

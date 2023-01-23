@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/EncodingProvider.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EncoderFallback.h>
+#include <Modloader/app/structs/DecoderFallback.h>
 
 namespace app::classes::System::Text::EncodingProvider {
     IL2CPP_REGISTER_METHOD(0x02457590, app::Encoding*, GetEncoding_1, (app::EncodingProvider * this_ptr, app::String* name, app::EncoderFallback* encoder_fallback, app::DecoderFallback* decoder_fallback))

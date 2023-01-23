@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPoolItem.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Transform_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_UberPoolItem_.h>
 
 namespace app::classes::UberPoolItem {
     IL2CPP_REGISTER_METHOD(0x00FD5D20, bool, get_IsFree, (app::UberPoolItem * this_ptr))

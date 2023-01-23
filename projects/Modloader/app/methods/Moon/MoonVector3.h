@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonVector3.h>
+#include <Modloader/app/structs/CrossSceneReferenceId.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IMoonResolverContext.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/MoonTypeData.h>
 
 namespace app::classes::Moon::MoonVector3 {
     IL2CPP_REGISTER_METHOD(0x02F9A7C0, bool, get_IsCrossSceneReference, (app::MoonVector3 * this_ptr))

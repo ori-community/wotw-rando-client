@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderColor.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::UberShaderColor {
     IL2CPP_REGISTER_METHOD(0x0190CEA0, void, BindProperties, (app::UberShaderColor * this_ptr))

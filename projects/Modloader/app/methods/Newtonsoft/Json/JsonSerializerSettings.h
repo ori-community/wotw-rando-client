@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReferenceLoopHandling__Enum.h>
+#include <Modloader/app/structs/JsonSerializerSettings.h>
+#include <Modloader/app/structs/MissingMemberHandling__Enum.h>
+#include <Modloader/app/structs/ObjectCreationHandling__Enum.h>
+#include <Modloader/app/structs/NullValueHandling__Enum.h>
+#include <Modloader/app/structs/DefaultValueHandling__Enum.h>
+#include <Modloader/app/structs/IList_1_Newtonsoft_Json_JsonConverter_.h>
+#include <Modloader/app/structs/PreserveReferencesHandling__Enum.h>
+#include <Modloader/app/structs/TypeNameHandling__Enum.h>
+#include <Modloader/app/structs/MetadataPropertyHandling__Enum.h>
+#include <Modloader/app/structs/TypeNameAssemblyFormatHandling__Enum.h>
+#include <Modloader/app/structs/ConstructorHandling__Enum.h>
+#include <Modloader/app/structs/IContractResolver.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/Func_1_Newtonsoft_Json_Serialization_IReferenceResolver_.h>
+#include <Modloader/app/structs/ITraceWriter.h>
+#include <Modloader/app/structs/ISerializationBinder.h>
+#include <Modloader/app/structs/EventHandler_1_Newtonsoft_Json_Serialization_ErrorEventArgs_.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::Newtonsoft::Json::JsonSerializerSettings {
     IL2CPP_REGISTER_METHOD(0x01EF0E50, app::ReferenceLoopHandling__Enum, get_ReferenceLoopHandling, (app::JsonSerializerSettings * this_ptr))

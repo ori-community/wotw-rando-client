@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpdateCategory__Enum.h>
+#include <Modloader/app/structs/TransformAnimatorEntity.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::TransformAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x00C03C70, app::UpdateCategory__Enum, get_UpdateCategory, (app::TransformAnimatorEntity * this_ptr))

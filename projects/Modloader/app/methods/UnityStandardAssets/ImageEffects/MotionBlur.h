@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MotionBlur.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::MotionBlur {
     IL2CPP_REGISTER_METHOD(0x02D5AA90, void, Start, (app::MotionBlur * this_ptr))

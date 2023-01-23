@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball__DEFINED
+struct IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball___Class;
+struct IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball_ {
+    struct IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_Metaballs2D_MetaballRenderer_IMetaball_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

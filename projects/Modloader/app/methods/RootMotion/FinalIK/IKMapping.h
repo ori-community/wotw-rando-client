@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IKMapping.h>
+#include <Modloader/app/structs/IKSolver.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IKSolverFullBody.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Warning_Logger.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::IKMapping {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, IsValid, (app::IKMapping * this_ptr, app::IKSolver* solver, app::String** message))

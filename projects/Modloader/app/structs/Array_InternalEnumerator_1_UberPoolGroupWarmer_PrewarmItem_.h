@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Array_InternalEnumerator_1_UberPoolGroupWarmer_PrewarmItem__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Array_InternalEnumerator_1_UberPoolGroupWarmer_PrewarmItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Array_InternalEnumerator_1_UberPoolGroupWarmer_PrewarmItem__DEFINED)
+#define IL2CPP_STRUCT_Array_InternalEnumerator_1_UberPoolGroupWarmer_PrewarmItem__DEFINED
+struct Array;
+struct Array_InternalEnumerator_1_UberPoolGroupWarmer_PrewarmItem_ {
+    struct Array* array;
+    int32_t idx;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Array_InternalEnumerator_1_UberPoolGroupWarmer_PrewarmItem__FWDDECL)
+#define IL2CPP_STRUCT_Array_InternalEnumerator_1_UberPoolGroupWarmer_PrewarmItem__FWDDECL
+#include <Modloader/app/structs/Array.h>
+#endif
+#undef IL2CPP_STRUCT_Array_InternalEnumerator_1_UberPoolGroupWarmer_PrewarmItem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Array_InternalEnumerator_1_UberPoolGroupWarmer_PrewarmItem__DEFINED) && !defined(IL2CPP_STRUCT_Array_InternalEnumerator_1_UberPoolGroupWarmer_PrewarmItem__FWDDECL)
+#include <Modloader/app/structs/Array_InternalEnumerator_1_UberPoolGroupWarmer_PrewarmItem_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Array_InternalEnumerator_1_UberPoolGroupWarmer_PrewarmItem_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

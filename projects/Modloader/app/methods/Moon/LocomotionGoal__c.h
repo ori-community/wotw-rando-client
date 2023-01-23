@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocomotionGoal_c.h>
+#include <Modloader/app/structs/LocomotionGoal_GoalStatus__Enum.h>
 
 namespace app::classes::Moon::LocomotionGoal___c {
     IL2CPP_REGISTER_METHOD(0x0110E100, void, cctor, ())

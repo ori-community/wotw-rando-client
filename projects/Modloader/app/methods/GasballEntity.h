@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GasballEntity_InflateState__Enum.h>
+#include <Modloader/app/structs/GasballEntity.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::GasballEntity {
     IL2CPP_REGISTER_METHOD(0x0041EBA0, app::GasballEntity_InflateState__Enum, GetNextInflateState, (app::GasballEntity * this_ptr))

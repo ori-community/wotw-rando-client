@@ -1,6 +1,8 @@
 #include <functional>
 #include <string>
 
+#include <Modloader/app/structs/NewSetupStateController.h>
+
 namespace randomizer {
     namespace conditions {
         using applier_intercept = std::function<int32_t(app::NewSetupStateController*, std::string const&, int32_t, int32_t)>;

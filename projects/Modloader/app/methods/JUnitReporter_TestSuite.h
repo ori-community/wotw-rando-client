@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JUnitReporter_TestSuite.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JUnitReporter_TestCase.h>
+#include <Modloader/app/structs/TimeSpan.h>
 
 namespace app::classes::JUnitReporter_TestSuite {
     IL2CPP_REGISTER_METHOD(0x006498D0, void, ctor, (app::JUnitReporter_TestSuite * this_ptr, app::String* id, app::String* name))

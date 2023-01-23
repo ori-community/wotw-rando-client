@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NvnMemoryCaptureAgent.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/FrameCaptureTester_AgentOutput.h>
 
 namespace app::classes::NvnMemoryCaptureAgent {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsCaptureAgentValid, (app::NvnMemoryCaptureAgent * this_ptr))

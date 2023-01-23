@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArrayBuilder_1_System_Object___Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Collections::Generic::ArrayBuilder_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00239DF0, int32_t, get_Capacity, (app::ArrayBuilder_1_System_Object___Boxed * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ListMatchmakingQueuesResult__Class.h>
+#include <Modloader/app/structs/ListMatchmakingQueuesResult.h>
 
 namespace app::classes::types {
     namespace ListMatchmakingQueuesResult {

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UInt16__Class.h>
+#include <Modloader/app/structs/UInt16.h>
+#include <Modloader/app/structs/UInt16__Boxed.h>
+#include <Modloader/app/structs/UInt16__Array.h>
 
 namespace app::classes::types {
     namespace UInt16 {

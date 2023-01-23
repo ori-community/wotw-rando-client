@@ -1,6 +1,9 @@
 #pragma once
 
 #include <Modloader/app/types/TranslatedMessageProvider_MessageItem.h>
+#include <Modloader/app/types/TranslatedMessageProvider.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/TranslatedMessageProvider.h>
 #include <Modloader/il2cpp_helpers.h>
 
 using namespace app::classes;
@@ -46,7 +49,7 @@ namespace utils {
 
     template <typename... Args>
     app::MessageProvider* create_message_provider(Args... args) {
-        auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>(app::TranslatedMessageProvider__TypeInfo, "", "TranslatedMessageProvider");
+        auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>(types::TranslatedMessageProvider::get_class());
         il2cpp::invoke(provider, ".ctor");
         add_to_message_provider(provider, args...);
         return reinterpret_cast<app::MessageProvider*>(provider);
@@ -54,7 +57,7 @@ namespace utils {
 
     template <typename T>
     app::MessageProvider* create_message_provider(std::vector<T> const& messages) {
-        auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>(app::TranslatedMessageProvider__TypeInfo, "", "TranslatedMessageProvider");
+        auto provider = il2cpp::unity::create_scriptable_object<app::TranslatedMessageProvider>(types::TranslatedMessageProvider::get_class());
         il2cpp::invoke(provider, ".ctor");
         for (auto const& message : messages)
             add_to_message_provider(provider, message);

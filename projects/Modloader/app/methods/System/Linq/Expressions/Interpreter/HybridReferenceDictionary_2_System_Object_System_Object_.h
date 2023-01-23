@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/HybridReferenceDictionary_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Object_.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::HybridReferenceDictionary_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02545B40, app::Object*, get_Item, (app::HybridReferenceDictionary_2_System_Object_System_Object_ * this_ptr, app::Object* key))

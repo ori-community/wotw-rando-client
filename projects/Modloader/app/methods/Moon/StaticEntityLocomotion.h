@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/StaticEntityLocomotion.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/EntityBehaviour.h>
 
 namespace app::classes::Moon::StaticEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x005B0220, app::Transform*, get_FeetTransform, (app::StaticEntityLocomotion * this_ptr))

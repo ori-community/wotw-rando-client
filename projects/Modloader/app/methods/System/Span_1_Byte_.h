@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Span_1_Byte___Boxed.h>
+#include <Modloader/app/structs/Span_1_Byte_.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Pinnable_1_Byte_.h>
 
 namespace app::classes::System::Span_1_Byte_ {
     IL2CPP_REGISTER_METHOD(0x00114150, int32_t, get_Length, (app::Span_1_Byte___Boxed * this_ptr))

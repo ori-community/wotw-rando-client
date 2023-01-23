@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_SpellIconsCollection_Icons_.h>
+#include <Modloader/app/structs/SpellIconsCollection_Icons.h>
+#include <Modloader/app/structs/SpellIconsCollection_Icons__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_SpellIconsCollection_Icons_ {
     IL2CPP_REGISTER_METHOD(0x01CD0C40, bool, Equals_1, (app::ObjectEqualityComparer_1_SpellIconsCollection_Icons_ * this_ptr, app::SpellIconsCollection_Icons x, app::SpellIconsCollection_Icons y))

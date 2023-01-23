@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossHeadbuttBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::KwolokBossHeadbuttBehaviour {
     IL2CPP_REGISTER_METHOD(0x012E09B0, void, Start, (app::KwolokBossHeadbuttBehaviour * this_ptr))

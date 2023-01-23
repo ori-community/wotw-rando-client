@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_FinalPost.h>
+#include <Modloader/app/structs/PostProcessRenderContext.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderPipelineView_FinalPost {
     IL2CPP_REGISTER_METHOD(0x00EAD3B0, app::Material*, get_Material, ())

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericSpring2D.h>
 
 namespace app::classes::GenericSpring2D {
     IL2CPP_REGISTER_METHOD(0x00446960, float, get_Distance, (app::GenericSpring2D * this_ptr))

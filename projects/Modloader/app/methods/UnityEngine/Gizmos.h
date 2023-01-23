@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Matrix4x4.h>
 
 namespace app::classes::UnityEngine::Gizmos {
     IL2CPP_REGISTER_METHOD(0x025295F0, void, DrawLine, (app::Vector3 from, app::Vector3 to))

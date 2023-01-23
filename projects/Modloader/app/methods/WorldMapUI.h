@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WorldMapUI.h>
+#include <Modloader/app/structs/SceneSettingsComponent.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/CameraSettings.h>
+#include <Modloader/app/structs/SliceRenderSettings.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/WorldMapOverworldArea.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/QuestIconUI.h>
+#include <Modloader/app/structs/RuntimeQuest.h>
+#include <Modloader/app/structs/List_1_QuestIconUI_.h>
+#include <Modloader/app/structs/GameMapSavePedestal.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Transform_.h>
 
 namespace app::classes::WorldMapUI {
     IL2CPP_REGISTER_METHOD(0x00585310, bool, get_Activated, (app::WorldMapUI * this_ptr))

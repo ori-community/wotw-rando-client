@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScreenSpaceAmbientObscurance.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::ScreenSpaceAmbientObscurance {
     IL2CPP_REGISTER_METHOD(0x02D60F40, bool, CheckResources, (app::ScreenSpaceAmbientObscurance * this_ptr))

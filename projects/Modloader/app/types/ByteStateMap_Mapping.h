@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ByteStateMap_Mapping__Class.h>
+#include <Modloader/app/structs/ByteStateMap_Mapping.h>
+#include <Modloader/app/structs/ByteStateMap_Mapping__Boxed.h>
+#include <Modloader/app/structs/ByteStateMap_Mapping__Array.h>
 
 namespace app::classes::types {
     namespace ByteStateMap_Mapping {

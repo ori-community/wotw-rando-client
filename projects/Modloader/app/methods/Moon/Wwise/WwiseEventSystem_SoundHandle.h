@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandle__Boxed.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandleProtected.h>
+#include <Modloader/app/structs/AkCurveInterpolation__Enum.h>
+#include <Modloader/app/structs/WwiseEventSystem_EventStatus__Enum.h>
+#include <Modloader/app/structs/AkCallbackType__Enum.h>
+#include <Modloader/app/structs/AkCallbackManager_EventCallback.h>
 
 namespace app::classes::Moon::Wwise::WwiseEventSystem_SoundHandle {
     IL2CPP_REGISTER_METHOD(0x001FEC90, void, ctor, (app::WwiseEventSystem_SoundHandle__Boxed * this_ptr, app::WwiseEventSystem_SoundHandleProtected* snd_handle, int64_t handle_version))

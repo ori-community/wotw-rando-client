@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CooldownDecorator.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::CooldownDecorator {
     IL2CPP_REGISTER_METHOD(0x0300C550, float, get_TimeRemaining, (app::CooldownDecorator * this_ptr))

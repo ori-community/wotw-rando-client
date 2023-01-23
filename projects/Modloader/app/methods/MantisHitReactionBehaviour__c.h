@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MantisHitReactionBehaviour_c.h>
 
 namespace app::classes::MantisHitReactionBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x009FE6E0, void, cctor, ())

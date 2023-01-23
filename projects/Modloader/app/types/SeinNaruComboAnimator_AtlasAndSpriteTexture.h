@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinNaruComboAnimator_AtlasAndSpriteTexture__Class.h>
+#include <Modloader/app/structs/SeinNaruComboAnimator_AtlasAndSpriteTexture.h>
+#include <Modloader/app/structs/SeinNaruComboAnimator_AtlasAndSpriteTexture__Boxed.h>
+#include <Modloader/app/structs/SeinNaruComboAnimator_AtlasAndSpriteTexture__Array.h>
 
 namespace app::classes::types {
     namespace SeinNaruComboAnimator_AtlasAndSpriteTexture {

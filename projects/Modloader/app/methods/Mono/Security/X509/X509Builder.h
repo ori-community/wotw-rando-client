@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509Builder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
+#include <Modloader/app/structs/ASN1_1.h>
+#include <Modloader/app/structs/RSA.h>
+#include <Modloader/app/structs/DSA.h>
 
 namespace app::classes::Mono::Security::X509::X509Builder {
     IL2CPP_REGISTER_METHOD(0x029392D0, void, ctor, (app::X509Builder * this_ptr))

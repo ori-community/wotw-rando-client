@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ComboInput.h>
+#include <Modloader/app/structs/InputDirection__Enum.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/ButtonInputType__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::ComboSystem::ComboInput {
     IL2CPP_REGISTER_METHOD(0x00CC59C0, void, ctor, (app::ComboInput * this_ptr, app::InputDirection__Enum direction, app::AbilityType__Enum action, app::ButtonInputType__Enum input_type, bool facing_left))

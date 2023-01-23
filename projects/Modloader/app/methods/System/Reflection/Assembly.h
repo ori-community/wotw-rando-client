@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Module.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Version.h>
+#include <Modloader/app/structs/AssemblyNameFlags__Enum.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/AssemblyName.h>
+#include <Modloader/app/structs/RuntimeAssembly.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Evidence.h>
+#include <Modloader/app/structs/Module__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/ManifestResourceInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Reflection::Assembly {
     IL2CPP_REGISTER_METHOD(0x02280FB0, void, ctor, (app::Assembly * this_ptr))

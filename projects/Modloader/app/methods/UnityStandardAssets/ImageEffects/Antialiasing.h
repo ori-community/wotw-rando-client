@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Antialiasing.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::Antialiasing {
     IL2CPP_REGISTER_METHOD(0x02510990, app::Material*, CurrentAAMaterial, (app::Antialiasing * this_ptr))

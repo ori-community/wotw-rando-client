@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/P3D_Brush.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/P3D_Matrix.h>
+#include <Modloader/app/structs/P3D_Rect.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Material.h>
 
 namespace app::classes::P3D_Brush {
     IL2CPP_REGISTER_METHOD(0x03087690, app::P3D_Brush*, get_TempInstance, ())

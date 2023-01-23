@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CursorMode__Enum.h>
+#include <Modloader/app/structs/CursorLockMode__Enum.h>
 
 namespace app::classes::UnityEngine::Cursor {
     IL2CPP_REGISTER_METHOD(0x0242BB70, void, SetCursor, (app::Texture2D * texture, app::Vector2 hotspot, app::CursorMode__Enum cursor_mode))

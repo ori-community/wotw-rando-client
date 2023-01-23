@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_UberInteractionManager_InteractionInfo_.h>
+#include <Modloader/app/structs/UberInteractionManager_InteractionInfo.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_UberInteractionManager_InteractionInfo_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose, (app::Array_EmptyInternalEnumerator_1_UberInteractionManager_InteractionInfo_ * this_ptr))

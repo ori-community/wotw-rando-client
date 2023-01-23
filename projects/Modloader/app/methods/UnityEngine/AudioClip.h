@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AudioClip.h>
+#include <Modloader/app/structs/AudioClipLoadType__Enum.h>
+#include <Modloader/app/structs/AudioDataLoadState__Enum.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AudioClip_PCMReaderCallback.h>
+#include <Modloader/app/structs/AudioClip_PCMSetPositionCallback.h>
 
 namespace app::classes::UnityEngine::AudioClip {
     IL2CPP_REGISTER_METHOD(0x0313DB80, void, ctor, (app::AudioClip * this_ptr))

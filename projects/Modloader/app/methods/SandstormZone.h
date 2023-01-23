@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SandstormZone.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::SandstormZone {
     IL2CPP_REGISTER_METHOD(0x008D4DF0, app::Vector2, get_NormalizedStormDirection, (app::SandstormZone * this_ptr))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SqlXml.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Func_4_System_IO_Stream_System_Xml_XmlReaderSettings_System_Xml_XmlParserContext_System_Xml_XmlReader_.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
 
 namespace app::classes::System::Data::SqlTypes::SqlXml {
     IL2CPP_REGISTER_METHOD(0x022BC390, void, ctor, (app::SqlXml * this_ptr))

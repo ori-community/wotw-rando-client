@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UnityTls_unitytls_interface_struct_unitytls_x509list_get_ref_t__Class.h>
+#include <Modloader/app/structs/UnityTls_unitytls_interface_struct_unitytls_x509list_get_ref_t.h>
 
 namespace app::classes::types {
     namespace UnityTls_unitytls_interface_struct_unitytls_x509list_get_ref_t {

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IInteractionNode.h>
+#include <Modloader/app/structs/InteractionGraph.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/IInteractionNode__Array.h>
+#include <Modloader/app/structs/StateMachine_1.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::InteractionGraph::InteractionGraph {
     IL2CPP_REGISTER_METHOD(0x0198D6D0, app::IInteractionNode*, get_ResolvedRootNode, (app::InteractionGraph * this_ptr))

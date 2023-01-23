@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OnSceneStartRunAction.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::OnSceneStartRunAction {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Start, (app::OnSceneStartRunAction * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GUIContext.h>
+#include <Modloader/app/structs/IDisposable.h>
 
 namespace app::classes::Sini::Unity::GUIContext {
     IL2CPP_REGISTER_METHOD(0x03114A60, void, ctor, (app::GUIContext * this_ptr))

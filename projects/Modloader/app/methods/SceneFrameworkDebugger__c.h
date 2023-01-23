@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneFrameworkDebugger_c.h>
+#include <Modloader/app/structs/Tuple_2_String_Single_.h>
 
 namespace app::classes::SceneFrameworkDebugger___c {
     IL2CPP_REGISTER_METHOD(0x00B9FD20, void, cctor, ())

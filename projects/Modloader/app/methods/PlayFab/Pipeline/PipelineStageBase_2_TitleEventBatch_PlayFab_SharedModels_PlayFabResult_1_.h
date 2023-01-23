@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PipelineStageBase_2_TitleEventBatch_PlayFab_SharedModels_PlayFabResult_1_.h>
+#include <Modloader/app/structs/BlockingCollection_1_PlayFab_Pipeline_TitleEventBatch_.h>
+#include <Modloader/app/structs/BlockingCollection_1_PlayFab_SharedModels_PlayFabResult_1_.h>
+#include <Modloader/app/structs/CancellationTokenSource.h>
+#include <Modloader/app/structs/IEnumerable_1_PlayFab_Pipeline_TitleEventBatch_.h>
+#include <Modloader/app/structs/PlayFabResult_1_PlayFab_EventsModels_WriteEventsResponse_.h>
 
 namespace app::classes::PlayFab::Pipeline::PipelineStageBase_2_TitleEventBatch_PlayFab_SharedModels_PlayFabResult_1_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::PipelineStageBase_2_TitleEventBatch_PlayFab_SharedModels_PlayFabResult_1_ * this_ptr))

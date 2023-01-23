@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityBehaviourCageMetaData.h>
+#include <Modloader/app/structs/CageStructureTool_Face.h>
 
 namespace app::classes::EntityBehaviourCageMetaData {
     IL2CPP_REGISTER_METHOD(0x00C8C800, void, OnEnable, (app::EntityBehaviourCageMetaData * this_ptr))

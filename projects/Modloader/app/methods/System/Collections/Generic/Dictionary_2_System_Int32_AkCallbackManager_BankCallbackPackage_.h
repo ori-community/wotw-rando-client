@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_Int32_AkCallbackManager_BankCallbackPackage_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_AkCallbackManager_BankCallbackPackage_.h>
+#include <Modloader/app/structs/AkCallbackManager_BankCallbackPackage.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_AkCallbackManager_BankCallbackPackage_ {
     IL2CPP_REGISTER_METHOD(0x02BA5400, app::Dictionary_2_TKey_TValue_Enumerator_System_Int32_AkCallbackManager_BankCallbackPackage_, GetEnumerator, (app::Dictionary_2_System_Int32_AkCallbackManager_BankCallbackPackage_ * this_ptr))

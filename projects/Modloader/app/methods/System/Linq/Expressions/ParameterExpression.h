@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/ExpressionVisitor.h>
 
 namespace app::classes::System::Linq::Expressions::ParameterExpression {
     IL2CPP_REGISTER_METHOD(0x02FBDAA0, void, ctor, (app::ParameterExpression * this_ptr, app::String* name))

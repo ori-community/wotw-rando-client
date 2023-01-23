@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IVRSettings_SetInt32__Class.h>
+#include <Modloader/app/structs/IVRSettings_SetInt32.h>
 
 namespace app::classes::types {
     namespace IVRSettings_SetInt32 {

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ResponseStream.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/HttpListenerResponse.h>
+#include <Modloader/app/structs/MemoryStream.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
 
 namespace app::classes::System::Net::ResponseStream {
     IL2CPP_REGISTER_METHOD(0x01BCF150, void, ctor, (app::ResponseStream * this_ptr, app::Stream* stream, app::HttpListenerResponse* response, bool ignore_errors))

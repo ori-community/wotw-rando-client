@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LehmerRng.h>
 
 namespace app::classes::Moon::LehmerRng {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::LehmerRng * this_ptr, uint32_t seed))

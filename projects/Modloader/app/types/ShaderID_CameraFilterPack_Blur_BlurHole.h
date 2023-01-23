@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blur_BlurHole__Class.h>
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blur_BlurHole.h>
 
 namespace app::classes::types {
     namespace ShaderID_CameraFilterPack_Blur_BlurHole {

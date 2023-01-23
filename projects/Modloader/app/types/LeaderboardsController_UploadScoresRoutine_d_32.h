@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LeaderboardsController_UploadScoresRoutine_d_32__Class.h>
+#include <Modloader/app/structs/LeaderboardsController_UploadScoresRoutine_d_32.h>
 
 namespace app::classes::types {
     namespace LeaderboardsController_UploadScoresRoutine_d_32 {

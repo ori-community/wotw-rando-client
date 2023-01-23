@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RotationLimitPolygonal_ReachCone__Class.h>
+#include <Modloader/app/structs/RotationLimitPolygonal_ReachCone.h>
+#include <Modloader/app/structs/RotationLimitPolygonal_ReachCone__Array.h>
 
 namespace app::classes::types {
     namespace RotationLimitPolygonal_ReachCone {

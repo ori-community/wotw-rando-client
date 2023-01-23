@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocomotionIdleBehaviourWithShift.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::LocomotionIdleBehaviourWithShift {
     IL2CPP_REGISTER_METHOD(0x00FC7560, void, OnEnterTask, (app::LocomotionIdleBehaviourWithShift * this_ptr, app::IContext* context))

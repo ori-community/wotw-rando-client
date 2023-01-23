@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCarry_DelayedPickupSound_d_41.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::SeinCarry__DelayedPickupSound_d__41 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::SeinCarry_DelayedPickupSound_d_41 * this_ptr, int32_t __1__state))

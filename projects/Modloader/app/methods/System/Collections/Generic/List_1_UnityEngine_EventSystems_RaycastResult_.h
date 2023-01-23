@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/RaycastResult.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/RaycastResult__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_EventSystems_RaycastResult_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_UnityEngine_EventSystems_RaycastResult_ * this_ptr))

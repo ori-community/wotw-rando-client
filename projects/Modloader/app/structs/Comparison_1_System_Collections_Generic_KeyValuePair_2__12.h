@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__12_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__12_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__12_DEFINED)
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__12__Fields.h>
+#if defined(IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__12__Fields_DEFINED)
+#define IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__12_DEFINED
+struct Comparison_1_System_Collections_Generic_KeyValuePair_2__12__Class;
+struct Comparison_1_System_Collections_Generic_KeyValuePair_2__12 {
+    struct Comparison_1_System_Collections_Generic_KeyValuePair_2__12__Class* klass;
+    MonitorData* monitor;
+    struct Comparison_1_System_Collections_Generic_KeyValuePair_2__12__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__12_FWDDECL)
+#define IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__12_FWDDECL
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__12__Class.h>
+#endif
+#undef IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__12_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__12_DEFINED) && !defined(IL2CPP_STRUCT_Comparison_1_System_Collections_Generic_KeyValuePair_2__12_FWDDECL)
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__12.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__12.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

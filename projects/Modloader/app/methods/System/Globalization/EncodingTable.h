@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InternalEncodingDataItem.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/InternalCodePageDataItem.h>
+#include <Modloader/app/structs/CodePageDataItem.h>
 
 namespace app::classes::System::Globalization::EncodingTable {
     IL2CPP_REGISTER_METHOD(0x02607260, int32_t, GetNumEncodingItems, ())

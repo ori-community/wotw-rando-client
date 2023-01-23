@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ScenesManager_ShowFellOutOfWorldMessage_d_257_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ScenesManager_ShowFellOutOfWorldMessage_d_257_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ScenesManager_ShowFellOutOfWorldMessage_d_257_DEFINED)
+#include <Modloader/app/structs/ScenesManager_ShowFellOutOfWorldMessage_d_257__Fields.h>
+#if defined(IL2CPP_STRUCT_ScenesManager_ShowFellOutOfWorldMessage_d_257__Fields_DEFINED)
+#define IL2CPP_STRUCT_ScenesManager_ShowFellOutOfWorldMessage_d_257_DEFINED
+struct ScenesManager_ShowFellOutOfWorldMessage_d_257__Class;
+struct ScenesManager_ShowFellOutOfWorldMessage_d_257 {
+    struct ScenesManager_ShowFellOutOfWorldMessage_d_257__Class* klass;
+    MonitorData* monitor;
+    struct ScenesManager_ShowFellOutOfWorldMessage_d_257__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ScenesManager_ShowFellOutOfWorldMessage_d_257_FWDDECL)
+#define IL2CPP_STRUCT_ScenesManager_ShowFellOutOfWorldMessage_d_257_FWDDECL
+#include <Modloader/app/structs/ScenesManager_ShowFellOutOfWorldMessage_d_257__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ScenesManager_ShowFellOutOfWorldMessage_d_257_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ScenesManager_ShowFellOutOfWorldMessage_d_257_DEFINED) && !defined(IL2CPP_STRUCT_ScenesManager_ShowFellOutOfWorldMessage_d_257_FWDDECL)
+#include <Modloader/app/structs/ScenesManager_ShowFellOutOfWorldMessage_d_257.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ScenesManager_ShowFellOutOfWorldMessage_d_257.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

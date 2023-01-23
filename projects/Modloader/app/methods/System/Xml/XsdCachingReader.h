@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XsdCachingReader.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/IXmlLineInfo.h>
+#include <Modloader/app/structs/CachingEventHandler.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
+#include <Modloader/app/structs/ValidatingReaderNodeData.h>
+#include <Modloader/app/structs/ReadState__Enum_1.h>
+#include <Modloader/app/structs/XmlNameTable.h>
 
 namespace app::classes::System::Xml::XsdCachingReader {
     IL2CPP_REGISTER_METHOD(0x01FD82A0, void, ctor, (app::XsdCachingReader * this_ptr, app::XmlReader* reader, app::IXmlLineInfo* line_info, app::CachingEventHandler* handler_method))

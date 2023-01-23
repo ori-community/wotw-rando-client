@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_AkBankManager_BankHandle_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AkBankManager_BankHandle.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_AkBankManager_BankHandle_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_System_String_AkBankManager_BankHandle_ * this_ptr))

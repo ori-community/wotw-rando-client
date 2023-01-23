@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MortarSpitAttackSettings.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::MortarSpitAttackSettings {
     IL2CPP_REGISTER_METHOD(0x0147E800, float, get_AggroDistance, (app::MortarSpitAttackSettings * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WindImpactEffectSpawner.h>
+#include <Modloader/app/structs/RaycastHit.h>
 
 namespace app::classes::WindImpactEffectSpawner {
     IL2CPP_REGISTER_METHOD(0x005764F0, void, Awake, (app::WindImpactEffectSpawner * this_ptr))

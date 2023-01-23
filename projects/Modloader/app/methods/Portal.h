@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/Portal.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/ISoundHost.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IPortalVisitor.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Portal_AssistConfig.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/Event_1.h>
 
 namespace app::classes::Portal {
     IL2CPP_REGISTER_METHOD(0x00C60E20, app::SceneRoot*, get_SceneRoot, (app::Portal * this_ptr))

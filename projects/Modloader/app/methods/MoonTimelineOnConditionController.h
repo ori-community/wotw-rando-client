@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/MoonTimelineOnConditionController.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::MoonTimelineOnConditionController {
     IL2CPP_REGISTER_METHOD(0x014732D0, app::MoonTimeline*, get_OnConditionEnterResolved, (app::MoonTimelineOnConditionController * this_ptr))

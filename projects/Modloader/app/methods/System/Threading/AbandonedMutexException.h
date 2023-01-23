@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AbandonedMutexException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WaitHandle.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Threading::AbandonedMutexException {
     IL2CPP_REGISTER_METHOD(0x027D7FD0, void, ctor_1, (app::AbandonedMutexException * this_ptr))

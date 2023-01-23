@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnemyShield_c.h>
 
 namespace app::classes::EnemyShield___c {
     IL2CPP_REGISTER_METHOD(0x00C85D00, void, cctor, ())

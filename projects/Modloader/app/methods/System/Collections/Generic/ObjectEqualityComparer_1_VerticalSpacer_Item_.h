@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_VerticalSpacer_Item_.h>
+#include <Modloader/app/structs/VerticalSpacer_Item.h>
+#include <Modloader/app/structs/VerticalSpacer_Item__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_VerticalSpacer_Item_ {
     IL2CPP_REGISTER_METHOD(0x01CD2410, bool, Equals_1, (app::ObjectEqualityComparer_1_VerticalSpacer_Item_ * this_ptr, app::VerticalSpacer_Item x, app::VerticalSpacer_Item y))

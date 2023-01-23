@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParticlesSuspendable.h>
 
 namespace app::classes::ParticlesSuspendable {
     IL2CPP_REGISTER_METHOD(0x00446340, void, Awake, (app::ParticlesSuspendable * this_ptr))

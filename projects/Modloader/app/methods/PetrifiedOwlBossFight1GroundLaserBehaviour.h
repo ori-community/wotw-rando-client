@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFight1GroundLaserBehaviour.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/Enum.h>
 
 namespace app::classes::PetrifiedOwlBossFight1GroundLaserBehaviour {
     IL2CPP_REGISTER_METHOD(0x017691C0, void, CopyData, (app::PetrifiedOwlBossFight1GroundLaserBehaviour * this_ptr, app::PetrifiedOwlBossBaseBehaviour* other))

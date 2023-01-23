@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_QuestsController_QuestStateToIndexRemap_StateToIndex_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_QuestsController_QuestStateToIndexRemap_StateToIndex_INITIALIZING
+#if !defined(IL2CPP_STRUCT_QuestsController_QuestStateToIndexRemap_StateToIndex_DEFINED)
+#include <Modloader/app/structs/QuestsController_QuestStateToIndexRemap_StateToIndex__Fields.h>
+#if defined(IL2CPP_STRUCT_QuestsController_QuestStateToIndexRemap_StateToIndex__Fields_DEFINED)
+#define IL2CPP_STRUCT_QuestsController_QuestStateToIndexRemap_StateToIndex_DEFINED
+struct QuestsController_QuestStateToIndexRemap_StateToIndex__Class;
+struct QuestsController_QuestStateToIndexRemap_StateToIndex {
+    struct QuestsController_QuestStateToIndexRemap_StateToIndex__Class* klass;
+    MonitorData* monitor;
+    struct QuestsController_QuestStateToIndexRemap_StateToIndex__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_QuestsController_QuestStateToIndexRemap_StateToIndex_FWDDECL)
+#define IL2CPP_STRUCT_QuestsController_QuestStateToIndexRemap_StateToIndex_FWDDECL
+#include <Modloader/app/structs/QuestsController_QuestStateToIndexRemap_StateToIndex__Class.h>
+#endif
+#undef IL2CPP_STRUCT_QuestsController_QuestStateToIndexRemap_StateToIndex_INITIALIZING
+#if !defined(IL2CPP_STRUCT_QuestsController_QuestStateToIndexRemap_StateToIndex_DEFINED) && !defined(IL2CPP_STRUCT_QuestsController_QuestStateToIndexRemap_StateToIndex_FWDDECL)
+#include <Modloader/app/structs/QuestsController_QuestStateToIndexRemap_StateToIndex.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/QuestsController_QuestStateToIndexRemap_StateToIndex.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

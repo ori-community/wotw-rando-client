@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RotationTrackingChain_ChainEntry.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RotationTrackingChain_ChainEntry {
     IL2CPP_REGISTER_METHOD(0x01371930, void, Update, (app::RotationTrackingChain_ChainEntry * this_ptr, float delta_time, app::Vector3 target))

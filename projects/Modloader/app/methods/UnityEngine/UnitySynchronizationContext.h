@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnitySynchronizationContext.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
+#include <Modloader/app/structs/SendOrPostCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SynchronizationContext.h>
 
 namespace app::classes::UnityEngine::UnitySynchronizationContext {
     IL2CPP_REGISTER_METHOD(0x02C71310, void, ctor_1, (app::UnitySynchronizationContext * this_ptr, int32_t main_thread_i_d))

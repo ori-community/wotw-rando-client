@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TweenLocalXValueProvider__Class.h>
+#include <Modloader/app/structs/TweenLocalXValueProvider.h>
 
 namespace app::classes::types {
     namespace TweenLocalXValueProvider {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Spring.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Spring {
     IL2CPP_REGISTER_METHOD(0x009A4D70, void, OnEnable, (app::Spring * this_ptr))

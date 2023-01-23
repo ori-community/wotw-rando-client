@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Scope1.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/BlockExpression.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/Expression__Array.h>
 
 namespace app::classes::System::Linq::Expressions::Scope1 {
     IL2CPP_REGISTER_METHOD(0x01F9E3E0, void, ctor_1, (app::Scope1 * this_ptr, app::IReadOnlyList_1_System_Linq_Expressions_ParameterExpression_* variables, app::Expression* body))

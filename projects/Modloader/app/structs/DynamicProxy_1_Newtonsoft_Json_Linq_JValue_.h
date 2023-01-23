@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DynamicProxy_1_Newtonsoft_Json_Linq_JValue__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DynamicProxy_1_Newtonsoft_Json_Linq_JValue__INITIALIZING
+#if !defined(IL2CPP_STRUCT_DynamicProxy_1_Newtonsoft_Json_Linq_JValue__DEFINED)
+#define IL2CPP_STRUCT_DynamicProxy_1_Newtonsoft_Json_Linq_JValue__DEFINED
+struct DynamicProxy_1_Newtonsoft_Json_Linq_JValue___Class;
+struct DynamicProxy_1_Newtonsoft_Json_Linq_JValue_ {
+    struct DynamicProxy_1_Newtonsoft_Json_Linq_JValue___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_DynamicProxy_1_Newtonsoft_Json_Linq_JValue__FWDDECL)
+#define IL2CPP_STRUCT_DynamicProxy_1_Newtonsoft_Json_Linq_JValue__FWDDECL
+#include <Modloader/app/structs/DynamicProxy_1_Newtonsoft_Json_Linq_JValue___Class.h>
+#endif
+#undef IL2CPP_STRUCT_DynamicProxy_1_Newtonsoft_Json_Linq_JValue__INITIALIZING
+#if !defined(IL2CPP_STRUCT_DynamicProxy_1_Newtonsoft_Json_Linq_JValue__DEFINED) && !defined(IL2CPP_STRUCT_DynamicProxy_1_Newtonsoft_Json_Linq_JValue__FWDDECL)
+#include <Modloader/app/structs/DynamicProxy_1_Newtonsoft_Json_Linq_JValue_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DynamicProxy_1_Newtonsoft_Json_Linq_JValue_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

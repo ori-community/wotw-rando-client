@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReflectPropertyDescriptor.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventDescriptor_1.h>
+#include <Modloader/app/structs/EventHandler.h>
+#include <Modloader/app/structs/IExtenderProvider.h>
+#include <Modloader/app/structs/IList.h>
+#include <Modloader/app/structs/PropertyChangedEventArgs.h>
+#include <Modloader/app/structs/EventArgs.h>
 
 namespace app::classes::System::ComponentModel::ReflectPropertyDescriptor {
     IL2CPP_REGISTER_METHOD(0x0299BA60, void, ctor_1, (app::ReflectPropertyDescriptor * this_ptr, app::Type* component_class, app::String* name, app::Type* type, app::Attribute__Array* attributes))

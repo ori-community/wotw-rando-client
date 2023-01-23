@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ControlItem_c.h>
+#include <Modloader/app/structs/IButtonInput.h>
 
 namespace app::classes::ControlItem___c {
     IL2CPP_REGISTER_METHOD(0x011E92E0, void, cctor, ())

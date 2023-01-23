@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/BackupSaveSlotUI.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::BackupSaveSlotUI {
     IL2CPP_REGISTER_METHOD(0x00F83480, app::Rect, get_Bounds, (app::BackupSaveSlotUI * this_ptr))

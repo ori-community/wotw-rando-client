@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinInteraction_ThrownKeystone.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_SeinInteraction_ThrownKeystone___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_SeinInteraction_ThrownKeystone_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::SeinInteraction_ThrownKeystone*, get_Current, (app::List_1_T_Enumerator_SeinInteraction_ThrownKeystone___Boxed * this_ptr))

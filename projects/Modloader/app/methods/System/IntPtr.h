@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IntPtr__Boxed.h>
+#include <Modloader/app/structs/Void.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IntPtr {
     IL2CPP_REGISTER_METHOD(0x001DE610, void, ctor_1, (app::IntPtr__Boxed * this_ptr, int32_t value))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enumerable_Iterator_1_System_Int32Enum_.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Int32Enum_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Linq::Enumerable_Iterator_1_System_Int32Enum_ {
     IL2CPP_REGISTER_METHOD(0x02980400, void, ctor, (app::Enumerable_Iterator_1_System_Int32Enum_ * this_ptr))

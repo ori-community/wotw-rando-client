@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_List_1_IDebugMenuItem_.h>
+#include <Modloader/app/structs/HierarchyDebugMenu.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IDebugMenuItem.h>
+#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Func_1_String_.h>
 
 namespace app::classes::HierarchyDebugMenu {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::List_1_List_1_IDebugMenuItem_*, get_Items, (app::HierarchyDebugMenu * this_ptr))

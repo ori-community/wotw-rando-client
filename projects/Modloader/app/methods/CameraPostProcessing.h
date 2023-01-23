@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_IPostProcessInfluencer_.h>
+#include <Modloader/app/structs/CameraSettings.h>
+#include <Modloader/app/structs/CameraPostProcessing.h>
+#include <Modloader/app/structs/SceneDefaultSettingsHelper.h>
+#include <Modloader/app/structs/CameraSettingsAsset.h>
+#include <Modloader/app/structs/IPostProcessInfluencer.h>
+#include <Modloader/app/structs/FogGradientController.h>
 
 namespace app::classes::CameraPostProcessing {
     IL2CPP_REGISTER_METHOD(0x0169F5E0, app::List_1_IPostProcessInfluencer_*, get_Influencers, ())

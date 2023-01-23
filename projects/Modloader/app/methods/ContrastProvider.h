@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ContrastProvider.h>
 
 namespace app::classes::ContrastProvider {
     IL2CPP_REGISTER_METHOD(0x011E7C10, float, GetFloatValue, (app::ContrastProvider * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ModuloInstruction_ModuloInt32__Class.h>
+#include <Modloader/app/structs/ModuloInstruction_ModuloInt32.h>
 
 namespace app::classes::types {
     namespace ModuloInstruction_ModuloInt32 {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XboxOneAchievements_1.h>
+#include <Modloader/app/structs/CacheData__Array.h>
+#include <Modloader/app/structs/CacheData.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::Achievements::XboxOneAchievements {
     IL2CPP_REGISTER_METHOD(0x00532FC0, bool, get_Disable, ())

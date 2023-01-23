@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CarryablePickedUpTrigger.h>
 
 namespace app::classes::CarryablePickedUpTrigger {
     IL2CPP_REGISTER_METHOD(0x00B25F10, void, Awake, (app::CarryablePickedUpTrigger * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/RectExt.h>
 
 namespace app::classes::Swing::RectExtensions {
     IL2CPP_REGISTER_METHOD(0x0182EF30, app::Rect, scale_1, (app::Rect _this, float _scale))

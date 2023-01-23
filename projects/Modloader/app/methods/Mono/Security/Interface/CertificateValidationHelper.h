@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ICertificateValidator2.h>
+#include <Modloader/app/structs/MonoTlsSettings.h>
+#include <Modloader/app/structs/MonoTlsProvider.h>
 
 namespace app::classes::Mono::Security::Interface::CertificateValidationHelper {
     IL2CPP_REGISTER_METHOD(0x02A46150, void, cctor, ())

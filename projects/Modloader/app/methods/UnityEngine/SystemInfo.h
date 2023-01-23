@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/OperatingSystemFamily__Enum.h>
+#include <Modloader/app/structs/DeviceType__Enum.h>
+#include <Modloader/app/structs/GraphicsDeviceType__Enum.h>
+#include <Modloader/app/structs/CopyTextureSupport__Enum.h>
+#include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/TextureFormat__Enum.h>
+#include <Modloader/app/structs/NPOTSupport__Enum.h>
+#include <Modloader/app/structs/GraphicsFormat__Enum.h>
+#include <Modloader/app/structs/FormatUsage__Enum.h>
 
 namespace app::classes::UnityEngine::SystemInfo {
     IL2CPP_REGISTER_METHOD(0x02C648F0, app::String*, get_operatingSystem, ())

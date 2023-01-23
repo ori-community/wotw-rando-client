@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Root.h>
+#include <Modloader/app/structs/AstNode_AstType__Enum.h>
+#include <Modloader/app/structs/XPathResultType__Enum.h>
 
 namespace app::classes::MS::Internal::Xml::XPath::Root {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::Root * this_ptr))

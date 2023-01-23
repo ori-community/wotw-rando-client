@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EmptyReadOnlyDictionaryInternal.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
 
 namespace app::classes::System::Collections::EmptyReadOnlyDictionaryInternal {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::EmptyReadOnlyDictionaryInternal * this_ptr))

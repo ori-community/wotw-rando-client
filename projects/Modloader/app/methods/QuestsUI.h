@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QuestsUI.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/CleverMenuItem.h>
+#include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quest_QuestType__Enum.h>
+#include <Modloader/app/structs/RuntimeQuest.h>
+#include <Modloader/app/structs/QuestItemUI.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::QuestsUI {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CanInterruptTab, (app::QuestsUI * this_ptr))

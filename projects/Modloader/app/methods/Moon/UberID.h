@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberID.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::UberID {
     IL2CPP_REGISTER_METHOD(0x01B66E50, void, ctor_1, (app::UberID * this_ptr, app::String* guid))

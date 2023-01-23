@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Bloom_Settings__Class.h>
+#include <Modloader/app/structs/Bloom_Settings.h>
+#include <Modloader/app/structs/Bloom_Settings__Boxed.h>
 
 namespace app::classes::types {
     namespace Bloom_Settings {

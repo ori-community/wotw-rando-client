@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BitmapFontChar_1.h>
 
 namespace app::classes::Moon::UI::BitmapFontChar {
     IL2CPP_REGISTER_METHOD(0x00D23F10, float, GetKerning, (app::BitmapFontChar_1 * this_ptr, uint16_t next_char))

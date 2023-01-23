@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayLoopAnimation.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::PlayLoopAnimation {
     IL2CPP_REGISTER_METHOD(0x00585310, bool, get_IsSuspended, (app::PlayLoopAnimation * this_ptr))

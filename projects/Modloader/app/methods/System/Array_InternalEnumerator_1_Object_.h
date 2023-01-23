@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_Object___Boxed.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Array_InternalEnumerator_1_Object_ {
     IL2CPP_REGISTER_METHOD(0x0019CE00, app::Object*, get_Current, (app::Array_InternalEnumerator_1_Object___Boxed * this_ptr))

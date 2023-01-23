@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellUIExperience.h>
+#include <Modloader/app/structs/DiscoverAreasEntity.h>
+#include <Modloader/app/structs/AreaMapCanvas.h>
+#include <Modloader/app/structs/DiscoverAreasEntity_State__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::DiscoverAreasEntity {
     IL2CPP_REGISTER_METHOD(0x00764800, app::SpellUIExperience*, get_Experience, (app::DiscoverAreasEntity * this_ptr))

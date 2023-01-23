@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_StateValidator_.h>
+#include <Modloader/app/structs/List_1_StateValidator_.h>
+#include <Modloader/app/structs/IEnumerable_1_StateValidator_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StateValidator.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_StateValidator_.h>
+#include <Modloader/app/structs/IComparer_1_StateValidator_.h>
+#include <Modloader/app/structs/StateValidator__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_StateValidator_.h>
+#include <Modloader/app/structs/Action_1_StateValidator_.h>
+#include <Modloader/app/structs/IEnumerator_1_StateValidator_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_StateValidator_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_StateValidator_ {
     IL2CPP_REGISTER_METHOD(0x025ED850, app::List_1_T_Enumerator_StateValidator_, GetEnumerator, (app::List_1_StateValidator_ * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SyncFramesTest.h>
 
 namespace app::classes::SyncFramesTest {
     IL2CPP_REGISTER_METHOD(0x00514420, bool, get_TimeIsScaled, (app::SyncFramesTest * this_ptr))

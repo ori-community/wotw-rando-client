@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_KeyValuePair_2_System_Object_System_Byte_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Byte_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_KeyValuePair_2_System_Object_System_Byte__ {
     IL2CPP_REGISTER_METHOD(0x01CCA6C0, int32_t, Compare, (app::ObjectComparer_1_KeyValuePair_2_System_Object_System_Byte_ * this_ptr, app::KeyValuePair_2_System_Object_System_Byte_ x, app::KeyValuePair_2_System_Object_System_Byte_ y))

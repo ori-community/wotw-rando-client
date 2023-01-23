@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IsShardEquippedCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::IsShardEquippedCondition {
     IL2CPP_REGISTER_METHOD(0x00647B30, bool, Validate, (app::IsShardEquippedCondition * this_ptr, app::IContext* context))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LeaderboardScoresDownloaded_t__Class.h>
+#include <Modloader/app/structs/LeaderboardScoresDownloaded_t.h>
+#include <Modloader/app/structs/LeaderboardScoresDownloaded_t__Boxed.h>
 
 namespace app::classes::types {
     namespace LeaderboardScoresDownloaded_t {

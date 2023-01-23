@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecoilTest.h>
 
 namespace app::classes::RootMotion::Demos::RecoilTest {
     IL2CPP_REGISTER_METHOD(0x0222EC30, void, Start, (app::RecoilTest * this_ptr))

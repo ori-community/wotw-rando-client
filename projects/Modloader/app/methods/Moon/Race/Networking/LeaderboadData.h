@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeaderboadData.h>
 
 namespace app::classes::Moon::Race::Networking::LeaderboadData {
     IL2CPP_REGISTER_METHOD(0x0052A280, bool, get_IsReady, (app::LeaderboadData * this_ptr))

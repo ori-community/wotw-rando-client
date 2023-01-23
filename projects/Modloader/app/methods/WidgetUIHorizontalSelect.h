@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WidgetUIHorizontalSelect.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::WidgetUIHorizontalSelect {
     IL2CPP_REGISTER_METHOD(0x00573CF0, void, SetNames, (app::WidgetUIHorizontalSelect * this_ptr, app::String__Array* names))

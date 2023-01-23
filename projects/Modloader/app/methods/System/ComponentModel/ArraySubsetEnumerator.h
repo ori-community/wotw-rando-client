@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArraySubsetEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::ArraySubsetEnumerator {
     IL2CPP_REGISTER_METHOD(0x024A01A0, void, ctor, (app::ArraySubsetEnumerator * this_ptr, app::Array* array, int32_t count))

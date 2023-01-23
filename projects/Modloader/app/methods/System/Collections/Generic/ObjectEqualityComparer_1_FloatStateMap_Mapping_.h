@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_FloatStateMap_Mapping_.h>
+#include <Modloader/app/structs/FloatStateMap_Mapping.h>
+#include <Modloader/app/structs/FloatStateMap_Mapping__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_FloatStateMap_Mapping_ {
     IL2CPP_REGISTER_METHOD(0x01CD3170, bool, Equals_1, (app::ObjectEqualityComparer_1_FloatStateMap_Mapping_ * this_ptr, app::FloatStateMap_Mapping x, app::FloatStateMap_Mapping y))

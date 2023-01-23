@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Context.h>
+#include <Modloader/app/structs/IContextProperty__Array.h>
+#include <Modloader/app/structs/IDynamicProperty.h>
+#include <Modloader/app/structs/ContextBoundObject.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DynamicPropertyCollection.h>
+#include <Modloader/app/structs/IMessage.h>
+#include <Modloader/app/structs/IContextProperty.h>
+#include <Modloader/app/structs/IMessageSink.h>
+#include <Modloader/app/structs/MarshalByRefObject.h>
+#include <Modloader/app/structs/IConstructionCallMessage.h>
+#include <Modloader/app/structs/CrossContextDelegate.h>
+#include <Modloader/app/structs/LocalDataStore.h>
+#include <Modloader/app/structs/LocalDataStoreSlot.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::Remoting::Contexts::Context {
     IL2CPP_REGISTER_METHOD(0x0173D7D0, void, RegisterContext, (app::Context * ctx))

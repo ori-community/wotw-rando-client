@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/UInt64Converter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NumberFormatInfo.h>
+#include <Modloader/app/structs/CultureInfo.h>
 
 namespace app::classes::System::ComponentModel::UInt64Converter {
     IL2CPP_REGISTER_METHOD(0x0295D7A0, app::Type*, get_TargetType, (app::UInt64Converter * this_ptr))

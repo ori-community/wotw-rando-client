@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RemotingProxy.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ClientIdentity.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IMessage.h>
+#include <Modloader/app/structs/Identity.h>
+#include <Modloader/app/structs/IMethodMessage.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::Remoting::Proxies::RemotingProxy {
     IL2CPP_REGISTER_METHOD(0x0231ECB0, void, ctor_1, (app::RemotingProxy * this_ptr, app::Type* type, app::ClientIdentity* identity))

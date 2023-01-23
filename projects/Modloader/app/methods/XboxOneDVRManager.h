@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XboxOneDVRManager.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::XboxOneDVRManager {
     IL2CPP_REGISTER_METHOD(0x00597E70, void, Awake, (app::XboxOneDVRManager * this_ptr))

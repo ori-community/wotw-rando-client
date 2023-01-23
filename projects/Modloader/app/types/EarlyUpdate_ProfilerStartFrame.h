@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/EarlyUpdate_ProfilerStartFrame__Class.h>
+#include <Modloader/app/structs/EarlyUpdate_ProfilerStartFrame.h>
+#include <Modloader/app/structs/EarlyUpdate_ProfilerStartFrame__Boxed.h>
 
 namespace app::classes::types {
     namespace EarlyUpdate_ProfilerStartFrame {

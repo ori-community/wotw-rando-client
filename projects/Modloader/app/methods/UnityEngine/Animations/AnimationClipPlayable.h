@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationClipPlayable__Boxed.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/AnimationClipPlayable.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/AnimationClip.h>
+#include <Modloader/app/structs/Playable.h>
 
 namespace app::classes::UnityEngine::Animations::AnimationClipPlayable {
     IL2CPP_REGISTER_METHOD(0x002414B0, void, ctor, (app::AnimationClipPlayable__Boxed * this_ptr, app::PlayableHandle handle))

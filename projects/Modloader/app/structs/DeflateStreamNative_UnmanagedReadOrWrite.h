@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DeflateStreamNative_UnmanagedReadOrWrite_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DeflateStreamNative_UnmanagedReadOrWrite_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DeflateStreamNative_UnmanagedReadOrWrite_DEFINED)
+#include <Modloader/app/structs/DeflateStreamNative_UnmanagedReadOrWrite__Fields.h>
+#if defined(IL2CPP_STRUCT_DeflateStreamNative_UnmanagedReadOrWrite__Fields_DEFINED)
+#define IL2CPP_STRUCT_DeflateStreamNative_UnmanagedReadOrWrite_DEFINED
+struct DeflateStreamNative_UnmanagedReadOrWrite__Class;
+struct DeflateStreamNative_UnmanagedReadOrWrite {
+    struct DeflateStreamNative_UnmanagedReadOrWrite__Class* klass;
+    MonitorData* monitor;
+    struct DeflateStreamNative_UnmanagedReadOrWrite__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_DeflateStreamNative_UnmanagedReadOrWrite_FWDDECL)
+#define IL2CPP_STRUCT_DeflateStreamNative_UnmanagedReadOrWrite_FWDDECL
+#include <Modloader/app/structs/DeflateStreamNative_UnmanagedReadOrWrite__Class.h>
+#endif
+#undef IL2CPP_STRUCT_DeflateStreamNative_UnmanagedReadOrWrite_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DeflateStreamNative_UnmanagedReadOrWrite_DEFINED) && !defined(IL2CPP_STRUCT_DeflateStreamNative_UnmanagedReadOrWrite_FWDDECL)
+#include <Modloader/app/structs/DeflateStreamNative_UnmanagedReadOrWrite.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DeflateStreamNative_UnmanagedReadOrWrite.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Request_1_Moon_Telemetry_Web_MoonTelemetrySendCallback_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Method__Enum.h>
+#include <Modloader/app/structs/IDataReader.h>
+#include <Modloader/app/structs/Action_1_Moon_Telemetry_Web_MoonTelemetrySendCallback_.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/IRequestCallback.h>
 
 namespace app::classes::Moon::Network::Web::Request_1_Moon_Telemetry_Web_MoonTelemetrySendCallback_ {
     IL2CPP_REGISTER_METHOD(0x002FB960, void, SetPath, (app::Request_1_Moon_Telemetry_Web_MoonTelemetrySendCallback_ * this_ptr, app::String* path))

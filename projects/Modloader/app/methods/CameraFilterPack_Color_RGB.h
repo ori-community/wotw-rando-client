@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Color_RGB.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Color_RGB {
     IL2CPP_REGISTER_METHOD(0x024DB110, app::Material*, get_material, (app::CameraFilterPack_Color_RGB * this_ptr))

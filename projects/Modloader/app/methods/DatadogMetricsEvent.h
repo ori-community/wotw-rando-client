@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DatadogMetricsEvent.h>
 
 namespace app::classes::DatadogMetricsEvent {
     IL2CPP_REGISTER_METHOD(0x02E90170, app::String*, get_Url, (app::DatadogMetricsEvent * this_ptr))

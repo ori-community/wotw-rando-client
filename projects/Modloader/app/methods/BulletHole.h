@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BulletHole.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::BulletHole {
     IL2CPP_REGISTER_METHOD(0x021FB080, void, Start, (app::BulletHole * this_ptr))

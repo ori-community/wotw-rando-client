@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IVRRenderModels_GetComponentButtonMask__Class.h>
+#include <Modloader/app/structs/IVRRenderModels_GetComponentButtonMask.h>
 
 namespace app::classes::types {
     namespace IVRRenderModels_GetComponentButtonMask {

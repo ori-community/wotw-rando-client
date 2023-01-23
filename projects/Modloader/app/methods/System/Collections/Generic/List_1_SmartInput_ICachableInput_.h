@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_SmartInput_ICachableInput_.h>
+#include <Modloader/app/structs/IEnumerable_1_SmartInput_ICachableInput_.h>
+#include <Modloader/app/structs/ICachableInput.h>
 
 namespace app::classes::System::Collections::Generic::List_1_SmartInput_ICachableInput_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor, (app::List_1_SmartInput_ICachableInput_ * this_ptr, int32_t capacity))

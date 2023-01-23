@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IntroLogosSkip.h>
 
 namespace app::classes::IntroLogosSkip {
     IL2CPP_REGISTER_METHOD(0x0063E920, void, Update, (app::IntroLogosSkip * this_ptr))

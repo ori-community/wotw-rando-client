@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IDisposable.h>
+#include <Modloader/app/structs/IConstraintEntityCache.h>
+#include <Modloader/app/structs/ITimelineEntityParent.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/IConstrainedEntity.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/IConstrainedEntityWithChildren.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/ICustomConstrainable.h>
+#include <Modloader/app/structs/ITimelineEventProvider.h>
+#include <Modloader/app/structs/IConstraint.h>
+#include <Modloader/app/structs/TimelineMarkerRecord.h>
+#include <Modloader/app/structs/HashSet_1_Moon_Timeline_Constraints_IConstraint_.h>
 
 namespace app::classes::Moon::Timeline::Constraints::ConstraintEvaluator {
     IL2CPP_REGISTER_METHOD(0x01BB1790, app::IDisposable*, OpenCache, (app::IConstraintEntityCache * cache))

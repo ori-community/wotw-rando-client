@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MistyWoodsKuroHideZoneAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::MistyWoodsKuroHideZoneAction {
     IL2CPP_REGISTER_METHOD(0x0132B120, void, Perform, (app::MistyWoodsKuroHideZoneAction * this_ptr, app::IContext* context))

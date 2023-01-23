@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChargeFlameBurst.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::ChargeFlameBurst {
     IL2CPP_REGISTER_METHOD(0x01318620, void, OnPoolSpawned, (app::ChargeFlameBurst * this_ptr))

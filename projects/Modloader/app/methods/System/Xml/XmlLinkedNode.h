@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlLinkedNode.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlNode.h>
 
 namespace app::classes::System::Xml::XmlLinkedNode {
     IL2CPP_REGISTER_METHOD(0x01DB9A00, void, ctor, (app::XmlLinkedNode * this_ptr, app::XmlDocument* doc))

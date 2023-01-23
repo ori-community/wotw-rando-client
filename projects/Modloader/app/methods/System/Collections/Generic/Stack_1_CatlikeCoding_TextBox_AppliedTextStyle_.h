@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_CatlikeCoding_TextBox_AppliedTextStyle_.h>
+#include <Modloader/app/structs/AppliedTextStyle.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Stack_1_T_Enumerator_CatlikeCoding_TextBox_AppliedTextStyle_.h>
+#include <Modloader/app/structs/IEnumerator_1_CatlikeCoding_TextBox_AppliedTextStyle_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/AppliedTextStyle__Array.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_CatlikeCoding_TextBox_AppliedTextStyle_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::Stack_1_CatlikeCoding_TextBox_AppliedTextStyle_ * this_ptr))

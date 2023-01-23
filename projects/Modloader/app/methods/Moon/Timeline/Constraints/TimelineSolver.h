@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IDisposable.h>
+#include <Modloader/app/structs/ITimelineEntityParent.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/ITimelineEventProvider.h>
 
 namespace app::classes::Moon::Timeline::Constraints::TimelineSolver {
     IL2CPP_REGISTER_METHOD(0x01BB66B0, void, cctor, ())

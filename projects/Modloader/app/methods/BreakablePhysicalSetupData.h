@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_MoonTimeline_.h>
+#include <Modloader/app/structs/BreakablePhysicalSetupData.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::BreakablePhysicalSetupData {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::MoonReference_1_Moon_Timeline_MoonTimeline_*, get_TransitionMoonReference, (app::BreakablePhysicalSetupData * this_ptr))

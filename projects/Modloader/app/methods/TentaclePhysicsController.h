@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TentaclePhysicsController.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 
 namespace app::classes::TentaclePhysicsController {
     IL2CPP_REGISTER_METHOD(0x010CE240, bool, get_Enabled, (app::TentaclePhysicsController * this_ptr))

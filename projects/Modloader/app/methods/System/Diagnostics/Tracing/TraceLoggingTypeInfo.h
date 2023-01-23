@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EventLevel__Enum.h>
+#include <Modloader/app/structs/EventOpcode__Enum.h>
+#include <Modloader/app/structs/EventKeywords__Enum.h>
+#include <Modloader/app/structs/EventTags__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Diagnostics::Tracing::TraceLoggingTypeInfo {
     IL2CPP_REGISTER_METHOD(0x01A0DB40, void, ctor_1, (app::TraceLoggingTypeInfo * this_ptr, app::Type* data_type))

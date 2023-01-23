@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/GameplayUISystem.h>
 
 namespace app::classes::Moon::Timeline::Systems::GameplayUISystem {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::UpdateType__Enum, get_UpdateType, (app::GameplayUISystem * this_ptr))

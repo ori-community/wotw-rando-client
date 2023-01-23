@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/DestructibleStalactite.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::DestructibleStalactite {
     IL2CPP_REGISTER_METHOD(0x00B8DCD0, app::Vector3, get_Position, (app::DestructibleStalactite * this_ptr))

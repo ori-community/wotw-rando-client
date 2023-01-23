@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IndexedSet_1_UnityEngine_UI_IClipper_.h>
+#include <Modloader/app/structs/IClipper.h>
 
 namespace app::classes::UnityEngine::UI::Collections::IndexedSet_1_UnityEngine_UI_IClipper_ {
     IL2CPP_REGISTER_METHOD(0x02ACD120, void, ctor, (app::IndexedSet_1_UnityEngine_UI_IClipper_ * this_ptr))

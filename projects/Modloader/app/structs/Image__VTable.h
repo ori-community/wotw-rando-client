@@ -1,0 +1,110 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Image__VTable_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Image__VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Image__VTable_DEFINED)
+#define IL2CPP_STRUCT_Image__VTable_DEFINED
+struct Image__VTable {
+    VirtualInvokeData Equals;
+    VirtualInvokeData Finalize;
+    VirtualInvokeData GetHashCode;
+    VirtualInvokeData ToString;
+    VirtualInvokeData Awake;
+    VirtualInvokeData OnEnable;
+    VirtualInvokeData Start;
+    VirtualInvokeData OnDisable;
+    VirtualInvokeData OnDestroy;
+    VirtualInvokeData IsActive;
+    VirtualInvokeData OnRectTransformDimensionsChange;
+    VirtualInvokeData OnBeforeTransformParentChanged;
+    VirtualInvokeData OnTransformParentChanged;
+    VirtualInvokeData OnDidApplyAnimationProperties;
+    VirtualInvokeData OnCanvasGroupChanged;
+    VirtualInvokeData OnCanvasHierarchyChanged;
+    VirtualInvokeData IsDestroyed;
+    VirtualInvokeData Rebuild;
+    VirtualInvokeData UnityEngine_UI_ICanvasElement_get_transform;
+    VirtualInvokeData LayoutComplete;
+    VirtualInvokeData GraphicUpdateComplete;
+    VirtualInvokeData IsDestroyed_1;
+    VirtualInvokeData get_color;
+    VirtualInvokeData set_color;
+    VirtualInvokeData get_raycastTarget;
+    VirtualInvokeData set_raycastTarget;
+    VirtualInvokeData SetAllDirty;
+    VirtualInvokeData SetLayoutDirty;
+    VirtualInvokeData SetVerticesDirty;
+    VirtualInvokeData SetMaterialDirty;
+    VirtualInvokeData get_rectTransform;
+    VirtualInvokeData get_defaultMaterial;
+    VirtualInvokeData get_material;
+    VirtualInvokeData set_material;
+    VirtualInvokeData get_materialForRendering;
+    VirtualInvokeData get_mainTexture;
+    VirtualInvokeData OnCullingChanged;
+    VirtualInvokeData Rebuild_1;
+    VirtualInvokeData LayoutComplete_1;
+    VirtualInvokeData GraphicUpdateComplete_1;
+    VirtualInvokeData UpdateMaterial;
+    VirtualInvokeData UpdateGeometry;
+    VirtualInvokeData OnFillVBO;
+    VirtualInvokeData OnPopulateMesh;
+    VirtualInvokeData OnPopulateMesh_1;
+    VirtualInvokeData SetNativeSize;
+    VirtualInvokeData Raycast;
+    VirtualInvokeData CrossFadeColor;
+    VirtualInvokeData CrossFadeColor_1;
+    VirtualInvokeData CrossFadeAlpha;
+    VirtualInvokeData UnityEngine_UI_IClippable_get_gameObject;
+    VirtualInvokeData RecalculateClipping;
+    VirtualInvokeData get_rectTransform_1;
+    VirtualInvokeData Cull;
+    VirtualInvokeData SetClipRect;
+    VirtualInvokeData RecalculateMasking;
+    VirtualInvokeData GetModifiedMaterial;
+    VirtualInvokeData GetModifiedMaterial_1;
+    VirtualInvokeData Cull_1;
+    VirtualInvokeData SetClipRect_1;
+    VirtualInvokeData ParentMaskStateChanged;
+    VirtualInvokeData RecalculateClipping_1;
+    VirtualInvokeData RecalculateMasking_1;
+    VirtualInvokeData OnBeforeSerialize;
+    VirtualInvokeData OnAfterDeserialize;
+    VirtualInvokeData CalculateLayoutInputHorizontal;
+    VirtualInvokeData CalculateLayoutInputVertical;
+    VirtualInvokeData get_minWidth;
+    VirtualInvokeData get_preferredWidth;
+    VirtualInvokeData get_flexibleWidth;
+    VirtualInvokeData get_minHeight;
+    VirtualInvokeData get_preferredHeight;
+    VirtualInvokeData get_flexibleHeight;
+    VirtualInvokeData get_layoutPriority;
+    VirtualInvokeData IsRaycastLocationValid;
+    VirtualInvokeData OnBeforeSerialize_1;
+    VirtualInvokeData OnAfterDeserialize_1;
+    VirtualInvokeData CalculateLayoutInputHorizontal_1;
+    VirtualInvokeData CalculateLayoutInputVertical_1;
+    VirtualInvokeData get_minWidth_1;
+    VirtualInvokeData get_preferredWidth_1;
+    VirtualInvokeData get_flexibleWidth_1;
+    VirtualInvokeData get_minHeight_1;
+    VirtualInvokeData get_preferredHeight_1;
+    VirtualInvokeData get_flexibleHeight_1;
+    VirtualInvokeData get_layoutPriority_1;
+    VirtualInvokeData IsRaycastLocationValid_1;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Image__VTable_FWDDECL)
+#define IL2CPP_STRUCT_Image__VTable_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_Image__VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Image__VTable_DEFINED) && !defined(IL2CPP_STRUCT_Image__VTable_FWDDECL)
+#include <Modloader/app/structs/Image__VTable.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Image__VTable.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

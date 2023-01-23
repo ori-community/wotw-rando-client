@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GreaterThanOrEqualInstruction_GreaterThanOrEqualInt16__Class.h>
+#include <Modloader/app/structs/GreaterThanOrEqualInstruction_GreaterThanOrEqualInt16.h>
 
 namespace app::classes::types {
     namespace GreaterThanOrEqualInstruction_GreaterThanOrEqualInt16 {

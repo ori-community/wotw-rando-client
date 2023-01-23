@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_IAttackable_.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_IAttackable_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_IAttackable_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_IAttackable_ * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FadingSound.h>
 
 namespace app::classes::FadingSound {
     IL2CPP_REGISTER_METHOD(0x00994270, void, Start, (app::FadingSound * this_ptr))

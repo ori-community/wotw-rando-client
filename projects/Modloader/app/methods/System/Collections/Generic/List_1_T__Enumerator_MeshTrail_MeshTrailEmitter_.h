@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_MeshTrail_MeshTrailEmitter___Boxed.h>
+#include <Modloader/app/structs/List_1_MeshTrail_MeshTrailEmitter_.h>
+#include <Modloader/app/structs/MeshTrail_MeshTrailEmitter.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_MeshTrail_MeshTrailEmitter_ {
     IL2CPP_REGISTER_METHOD(0x00152AF0, void, ctor, (app::List_1_T_Enumerator_MeshTrail_MeshTrailEmitter___Boxed * this_ptr, app::List_1_MeshTrail_MeshTrailEmitter_* list))

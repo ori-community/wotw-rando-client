@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HornBugBossJumpBehaviour.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::HornBugBossJumpBehaviour {
     IL2CPP_REGISTER_METHOD(0x00B65480, void, SetupTimelines, (app::HornBugBossJumpBehaviour * this_ptr))

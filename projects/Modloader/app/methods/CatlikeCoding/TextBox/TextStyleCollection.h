@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextStyleCollection.h>
+#include <Modloader/app/structs/Text_1.h>
+#include <Modloader/app/structs/TextBox.h>
+#include <Modloader/app/structs/TextRenderer__Array.h>
 
 namespace app::classes::CatlikeCoding::TextBox::TextStyleCollection {
     IL2CPP_REGISTER_METHOD(0x01038AA0, void, ComputeRendererCount, (app::TextStyleCollection * this_ptr))

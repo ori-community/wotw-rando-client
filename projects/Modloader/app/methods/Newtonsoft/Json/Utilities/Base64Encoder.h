@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Base64Encoder_1.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::Base64Encoder {
     IL2CPP_REGISTER_METHOD(0x01BFFFC0, void, ctor, (app::Base64Encoder_1 * this_ptr, app::TextWriter* writer))

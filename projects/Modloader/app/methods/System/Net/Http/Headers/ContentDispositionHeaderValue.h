@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ContentDispositionHeaderValue.h>
+#include <Modloader/app/structs/ICollection_1_System_Net_Http_Headers_NameValueHeaderValue_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::Http::Headers::ContentDispositionHeaderValue {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::ContentDispositionHeaderValue * this_ptr))

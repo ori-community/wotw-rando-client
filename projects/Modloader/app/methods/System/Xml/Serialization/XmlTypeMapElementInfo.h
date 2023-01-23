@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlTypeMapElementInfo.h>
+#include <Modloader/app/structs/XmlTypeMapMember.h>
+#include <Modloader/app/structs/TypeData.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchemaForm__Enum.h>
+#include <Modloader/app/structs/XmlTypeMapping.h>
 
 namespace app::classes::System::Xml::Serialization::XmlTypeMapElementInfo {
     IL2CPP_REGISTER_METHOD(0x0194CD70, void, ctor, (app::XmlTypeMapElementInfo * this_ptr, app::XmlTypeMapMember* member, app::TypeData* type))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuPlaceholder.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::KuPlaceholder {
     IL2CPP_REGISTER_METHOD(0x01244A10, void, Awake, (app::KuPlaceholder * this_ptr))

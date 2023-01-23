@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_SimpleGenericPool_1_PoolItem_.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Queue_1_T_Enumerator_SimpleGenericPool_1_PoolItem_.h>
+#include <Modloader/app/structs/IEnumerator_1_SimpleGenericPool_1_PoolItem_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo___Array.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_SimpleGenericPool_1_PoolItem_ {
     IL2CPP_REGISTER_METHOD(0x02CA60D0, void, Enqueue, (app::Queue_1_SimpleGenericPool_1_PoolItem_ * this_ptr, app::SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_ item))

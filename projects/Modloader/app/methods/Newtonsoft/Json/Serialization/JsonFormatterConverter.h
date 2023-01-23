@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonFormatterConverter.h>
+#include <Modloader/app/structs/JsonSerializerInternalReader.h>
+#include <Modloader/app/structs/JsonISerializableContract.h>
+#include <Modloader/app/structs/JsonProperty.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonFormatterConverter {
     IL2CPP_REGISTER_METHOD(0x018719E0, void, ctor, (app::JsonFormatterConverter * this_ptr, app::JsonSerializerInternalReader* reader, app::JsonISerializableContract* contract, app::JsonProperty* member))

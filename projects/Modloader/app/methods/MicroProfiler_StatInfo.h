@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MicroProfiler_StatType__Enum.h>
+#include <Modloader/app/structs/MicroProfiler_StatInfo__Boxed.h>
 
 namespace app::classes::MicroProfiler_StatInfo {
     IL2CPP_REGISTER_METHOD(0x0011DC50, app::MicroProfiler_StatType__Enum, get_Type, (app::MicroProfiler_StatInfo__Boxed * this_ptr))

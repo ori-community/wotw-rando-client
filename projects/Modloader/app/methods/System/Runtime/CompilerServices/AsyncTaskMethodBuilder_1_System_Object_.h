@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Task_1_System_Object_.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_Object___Boxed.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/XmlUrlResolver_GetEntityAsync_d_15.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_1_TResult_ConfiguredTaskAwaiter_System_IO_Stream_.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_ConfiguredTaskAwaiter.h>
+#include <Modloader/app/structs/AsyncProtocolRequest_StartOperation_d_23.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_1_TResult_ConfiguredTaskAwaiter_System_Object_.h>
+#include <Modloader/app/structs/XmlDownloadManager_GetNonFileStreamAsync_d_5.h>
+#include <Modloader/app/structs/TaskAwaiter.h>
+#include <Modloader/app/structs/OneDSEventsAPI_GetTelemetryIngestionConfigAsync_d_12.h>
+#include <Modloader/app/structs/OneDSEventsAPI_WriteTelemetryEventsAsync_d_11.h>
+#include <Modloader/app/structs/UberPoolPerfTest_LoadPrefabInfos_d_41.h>
+#include <Modloader/app/structs/TaskAwaiter_1_System_Object_.h>
+#include <Modloader/app/structs/OneDSEventPipeline_IntakeEventAsync_d_24.h>
+#include <Modloader/app/structs/PlayFabRaceServiceProvider_GetRaceData_d_10.h>
+#include <Modloader/app/structs/PlayFabRaceServiceProvider_GetRaceResultEntry_d_15.h>
+#include <Modloader/app/structs/PlayFabRaceServiceProvider_ProcessLeaderBoardList_d_13.h>
+#include <Modloader/app/structs/YieldAwaitable_YieldAwaiter.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncTaskMethodBuilder_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x001FF3E0, app::Task_1_System_Object_*, get_Task, (app::AsyncTaskMethodBuilder_1_System_Object___Boxed * this_ptr))

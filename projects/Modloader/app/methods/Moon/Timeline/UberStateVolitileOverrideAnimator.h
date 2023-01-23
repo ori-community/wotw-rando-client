@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/app/structs/UberStateVolitileOverrideAnimator.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
 
 namespace app::classes::Moon::Timeline::UberStateVolitileOverrideAnimator {
     IL2CPP_REGISTER_METHOD(0x01E904A0, app::IGenericUberState*, get_ResolvedUberState, (app::UberStateVolitileOverrideAnimator * this_ptr))

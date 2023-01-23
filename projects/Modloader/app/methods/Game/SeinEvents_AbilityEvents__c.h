@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinEvents_AbilityEvents_c.h>
 
 namespace app::classes::Game::SeinEvents_AbilityEvents___c {
     IL2CPP_REGISTER_METHOD(0x01528BD0, void, cctor, ())

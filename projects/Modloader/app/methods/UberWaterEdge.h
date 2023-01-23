@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberWaterEdge.h>
 
 namespace app::classes::UberWaterEdge {
     IL2CPP_REGISTER_METHOD(0x0129E7A0, void, OnEnable, (app::UberWaterEdge * this_ptr))

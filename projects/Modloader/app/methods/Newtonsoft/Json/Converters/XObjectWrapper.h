@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XObjectWrapper.h>
+#include <Modloader/app/structs/XObject.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_Converters_IXmlNode_.h>
+#include <Modloader/app/structs/IXmlNode.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::XObjectWrapper {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::XObjectWrapper * this_ptr, app::XObject* xml_object))

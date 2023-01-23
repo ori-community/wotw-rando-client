@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/OneDSEventsAPI_WriteTelemetryEventsAsync_d_11__Class.h>
+#include <Modloader/app/structs/OneDSEventsAPI_WriteTelemetryEventsAsync_d_11.h>
+#include <Modloader/app/structs/OneDSEventsAPI_WriteTelemetryEventsAsync_d_11__Boxed.h>
 
 namespace app::classes::types {
     namespace OneDSEventsAPI_WriteTelemetryEventsAsync_d_11 {

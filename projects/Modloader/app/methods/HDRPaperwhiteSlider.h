@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HDRPaperwhiteSlider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::HDRPaperwhiteSlider {
     IL2CPP_REGISTER_METHOD(0x0109B3A0, void, Awake, (app::HDRPaperwhiteSlider * this_ptr))

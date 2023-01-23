@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CameraTargetSettings__Class.h>
+#include <Modloader/app/structs/CameraTargetSettings.h>
+#include <Modloader/app/structs/CameraTargetSettings__Boxed.h>
+#include <Modloader/app/structs/CameraTargetSettings__Array.h>
 
 namespace app::classes::types {
     namespace CameraTargetSettings {

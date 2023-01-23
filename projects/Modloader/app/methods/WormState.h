@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WormState.h>
+#include <Modloader/app/structs/WormEnemy.h>
 
 namespace app::classes::WormState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::WormState * this_ptr, app::WormEnemy* worm))

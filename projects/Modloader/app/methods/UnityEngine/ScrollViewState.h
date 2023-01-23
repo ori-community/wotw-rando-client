@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScrollViewState.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::ScrollViewState {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ScrollViewState * this_ptr))

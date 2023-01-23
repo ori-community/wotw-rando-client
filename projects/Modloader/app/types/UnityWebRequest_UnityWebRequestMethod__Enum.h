@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UnityWebRequest_UnityWebRequestMethod__Enum__Class.h>
+#include <Modloader/app/structs/UnityWebRequest_UnityWebRequestMethod__Enum.h>
 
 namespace app::classes::types {
     namespace UnityWebRequest_UnityWebRequestMethod__Enum {

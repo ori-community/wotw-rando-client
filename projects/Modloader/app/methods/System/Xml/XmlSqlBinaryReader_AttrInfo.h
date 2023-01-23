@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSqlBinaryReader_AttrInfo__Boxed.h>
+#include <Modloader/app/structs/XmlSqlBinaryReader_QName.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SecureStringHasher.h>
 
 namespace app::classes::System::Xml::XmlSqlBinaryReader_AttrInfo {
     IL2CPP_REGISTER_METHOD(0x0013C710, void, Set_1, (app::XmlSqlBinaryReader_AttrInfo__Boxed * this_ptr, app::XmlSqlBinaryReader_QName n, app::String* v))

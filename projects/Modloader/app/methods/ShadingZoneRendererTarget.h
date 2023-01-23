@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShadingZoneRendererTarget.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ShadingZoneRendererTarget {
     IL2CPP_REGISTER_METHOD(0x005A8FE0, void, ctor, (app::ShadingZoneRendererTarget * this_ptr, app::Renderer* renderer))

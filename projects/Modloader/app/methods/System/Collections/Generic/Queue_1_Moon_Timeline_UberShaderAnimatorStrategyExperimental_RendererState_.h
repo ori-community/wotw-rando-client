@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_RendererState_.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_RendererState.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_RendererState_ {
     IL2CPP_REGISTER_METHOD(0x02CA7610, void, Enqueue, (app::Queue_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_RendererState_ * this_ptr, app::UberShaderAnimatorStrategyExperimental_RendererState* item))

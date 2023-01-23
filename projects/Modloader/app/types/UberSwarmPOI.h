@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberSwarmPOI__Class.h>
+#include <Modloader/app/structs/UberSwarmPOI.h>
+#include <Modloader/app/structs/UberSwarmPOI__Array.h>
 
 namespace app::classes::types {
     namespace UberSwarmPOI {

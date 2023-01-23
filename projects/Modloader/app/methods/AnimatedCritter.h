@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/AnimatedCritter.h>
 
 namespace app::classes::AnimatedCritter {
     IL2CPP_REGISTER_METHOD(0x004FA640, app::Vector3, get_Position, (app::AnimatedCritter * this_ptr))

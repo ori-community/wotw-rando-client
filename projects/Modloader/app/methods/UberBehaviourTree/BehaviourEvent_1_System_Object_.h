@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BehaviourEvent_1_System_Object_.h>
 
 namespace app::classes::UberBehaviourTree::BehaviourEvent_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x0225C1B0, int32_t, get_ID, (app::BehaviourEvent_1_System_Object_ * this_ptr))

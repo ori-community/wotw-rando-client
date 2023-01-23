@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_NightCrawlerFightController_AttackCloseState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_NightCrawlerFightController_AttackCloseState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NightCrawlerFightController_AttackCloseState_DEFINED)
+#include <Modloader/app/structs/NightCrawlerFightController_AttackCloseState__Fields.h>
+#if defined(IL2CPP_STRUCT_NightCrawlerFightController_AttackCloseState__Fields_DEFINED)
+#define IL2CPP_STRUCT_NightCrawlerFightController_AttackCloseState_DEFINED
+struct NightCrawlerFightController_AttackCloseState__Class;
+struct NightCrawlerFightController_AttackCloseState {
+    struct NightCrawlerFightController_AttackCloseState__Class* klass;
+    MonitorData* monitor;
+    struct NightCrawlerFightController_AttackCloseState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_NightCrawlerFightController_AttackCloseState_FWDDECL)
+#define IL2CPP_STRUCT_NightCrawlerFightController_AttackCloseState_FWDDECL
+#include <Modloader/app/structs/NightCrawlerFightController_AttackCloseState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_NightCrawlerFightController_AttackCloseState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NightCrawlerFightController_AttackCloseState_DEFINED) && !defined(IL2CPP_STRUCT_NightCrawlerFightController_AttackCloseState_FWDDECL)
+#include <Modloader/app/structs/NightCrawlerFightController_AttackCloseState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/NightCrawlerFightController_AttackCloseState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

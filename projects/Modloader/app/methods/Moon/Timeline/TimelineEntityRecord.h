@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/ITimelineEntityParent.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_ITimelineEntity_.h>
+#include <Modloader/app/structs/TimelineConstraint.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IConstrainedEntity.h>
+#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_Timeline_EventHistoryItem_.h>
 
 namespace app::classes::Moon::Timeline::TimelineEntityRecord {
     IL2CPP_REGISTER_METHOD(0x01E85EE0, void, set_Parent, (app::TimelineEntityRecord * this_ptr, app::ITimelineEntityParent* value))

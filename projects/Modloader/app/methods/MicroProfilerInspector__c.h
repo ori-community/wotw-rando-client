@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MicroProfilerInspector_c.h>
+#include <Modloader/app/structs/Metric__Enum.h>
+#include <Modloader/app/structs/MicroProfilerInspector_MetricData.h>
 
 namespace app::classes::MicroProfilerInspector___c {
     IL2CPP_REGISTER_METHOD(0x01433D70, void, cctor, ())

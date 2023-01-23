@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ITweenLerpInputProvider.h>
+#include <Modloader/app/structs/DrivenAlpha.h>
+#include <Modloader/app/structs/Renderer.h>
 
 namespace app::classes::Moon::DrivenAlpha {
     IL2CPP_REGISTER_METHOD(0x01201D70, app::ITweenLerpInputProvider*, get_ResolvedInputProvider, (app::DrivenAlpha * this_ptr))

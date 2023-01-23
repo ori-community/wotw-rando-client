@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MeleeComboMoveSwordstaff_DummyHitStop_d_86__Class.h>
+#include <Modloader/app/structs/MeleeComboMoveSwordstaff_DummyHitStop_d_86.h>
 
 namespace app::classes::types {
     namespace MeleeComboMoveSwordstaff_DummyHitStop_d_86 {

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
+#include <Modloader/app/structs/Collection_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
+#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
+#include <Modloader/app/structs/JsonProperty.h>
+#include <Modloader/app/structs/JsonProperty__Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::ObjectModel::Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ {
     IL2CPP_REGISTER_METHOD(0x02B833F0, app::IEnumerator_1_Newtonsoft_Json_Serialization_JsonProperty_*, GetEnumerator, (app::Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ * this_ptr))

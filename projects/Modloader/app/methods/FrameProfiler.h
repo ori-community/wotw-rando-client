@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FrameProfiler.h>
+#include <Modloader/app/structs/Metric__Enum.h>
+#include <Modloader/app/structs/FrameProfiler_FrameData.h>
 
 namespace app::classes::FrameProfiler {
     IL2CPP_REGISTER_METHOD(0x03150900, bool, get_Enabled, ())

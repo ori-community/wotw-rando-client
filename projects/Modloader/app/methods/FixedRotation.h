@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FixedRotation.h>
 
 namespace app::classes::FixedRotation {
     IL2CPP_REGISTER_METHOD(0x0126F480, void, OnPoolSpawned, (app::FixedRotation * this_ptr))

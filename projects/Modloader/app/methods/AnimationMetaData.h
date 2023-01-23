@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationMetaData.h>
+#include <Modloader/app/structs/AnimationMetaData_AnimationData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::AnimationMetaData {
     IL2CPP_REGISTER_METHOD(0x004FCA50, int32_t, get_FrameCount, (app::AnimationMetaData * this_ptr))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ServerSpawnOnKill_SpawnOnKillData__Class.h>
+#include <Modloader/app/structs/ServerSpawnOnKill_SpawnOnKillData.h>
+#include <Modloader/app/structs/ServerSpawnOnKill_SpawnOnKillData__Boxed.h>
 
 namespace app::classes::types {
     namespace ServerSpawnOnKill_SpawnOnKillData {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_AnimationPostprocessGroup_Moon_AnimationPostprocessGroupManager_GroupState_.h>
+#include <Modloader/app/structs/AnimationPostprocessGroup.h>
+#include <Modloader/app/structs/AnimationPostprocessGroupManager_GroupState.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_Moon_AnimationPostprocessGroup_Moon_AnimationPostprocessGroupManager_GroupState_ {
     IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_Moon_AnimationPostprocessGroup_Moon_AnimationPostprocessGroupManager_GroupState_ * this_ptr, app::AnimationPostprocessGroup* key, app::AnimationPostprocessGroupManager_GroupState** value))

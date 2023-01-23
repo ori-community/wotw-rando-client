@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Color__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_UnityEngine_Color_ {
     IL2CPP_REGISTER_METHOD(0x024382C0, bool, Equals_1, (app::ObjectEqualityComparer_1_UnityEngine_Color_ * this_ptr, app::Color x, app::Color y))

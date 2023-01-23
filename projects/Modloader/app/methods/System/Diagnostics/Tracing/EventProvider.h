@@ -1,6 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
+#include <Modloader/app/structs/EventProvider.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_EVENT_INFO_CLASS__Enum.h>
+#include <Modloader/app/structs/Void.h>
+#include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_EVENT_FILTER_DESCRIPTOR.h>
+#include <Modloader/app/structs/ControllerCommand__Enum.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/EventLevel__Enum.h>
+#include <Modloader/app/structs/EventKeywords__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/List_1_System_Tuple_2_.h>
+#include <Modloader/app/structs/List_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_.h>
+#include <Modloader/app/structs/Action_2_Int32_Int64_.h>
+#include <Modloader/app/structs/EventProvider_WriteEventErrorCode__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventProvider_EventData.h>
+
+#include <Modloader/app/structs/EventDescriptor.h>
+#include <Modloader/app/structs/Object__Array.h>
+
 namespace app::classes::System::Diagnostics::Tracing::EventProvider {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::EventProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0174D480, void, Register, (app::EventProvider * this_ptr, app::Guid provider_guid))

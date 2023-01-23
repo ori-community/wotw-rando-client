@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LoadDebugMenuPage.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_List_1_IDebugMenuItem_.h>
 
 namespace app::classes::LoadDebugMenuPage {
     IL2CPP_REGISTER_METHOD(0x00420230, int32_t, get_ColumnOffset, (app::LoadDebugMenuPage * this_ptr))

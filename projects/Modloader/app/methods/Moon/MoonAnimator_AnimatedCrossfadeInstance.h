@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimator_AnimatedCrossfadeInstance.h>
+#include <Modloader/app/structs/MoonAnimator_AnimationInstance.h>
+#include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/MoonAnimator_AnimationInstanceType__Enum.h>
+#include <Modloader/app/structs/IAnimation.h>
+#include <Modloader/app/structs/MoonAnimator_AnimatedCrossfadeInstance_State__Enum.h>
 
 namespace app::classes::Moon::MoonAnimator_AnimatedCrossfadeInstance {
     IL2CPP_REGISTER_METHOD(0x0210E940, bool, get_IsCrossFading, (app::MoonAnimator_AnimatedCrossfadeInstance * this_ptr))

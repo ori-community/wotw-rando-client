@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509SubjectKeyIdentifierExtension.h>
+#include <Modloader/app/structs/AsnEncodedData.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PublicKey.h>
+#include <Modloader/app/structs/X509SubjectKeyIdentifierHashAlgorithm__Enum.h>
+#include <Modloader/app/structs/AsnDecodeStatus__Enum.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::X509SubjectKeyIdentifierExtension {
     IL2CPP_REGISTER_METHOD(0x0257E3B0, void, ctor_1, (app::X509SubjectKeyIdentifierExtension * this_ptr))

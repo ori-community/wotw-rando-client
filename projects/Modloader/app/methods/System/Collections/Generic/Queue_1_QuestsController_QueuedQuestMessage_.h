@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_QuestsController_QueuedQuestMessage_.h>
+#include <Modloader/app/structs/QuestsController_QueuedQuestMessage.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Queue_1_T_Enumerator_QuestsController_QueuedQuestMessage_.h>
+#include <Modloader/app/structs/IEnumerator_1_QuestsController_QueuedQuestMessage_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/QuestsController_QueuedQuestMessage__Array.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_QuestsController_QueuedQuestMessage_ {
     IL2CPP_REGISTER_METHOD(0x002FD1D0, int32_t, get_Count, (app::Queue_1_QuestsController_QueuedQuestMessage_ * this_ptr))

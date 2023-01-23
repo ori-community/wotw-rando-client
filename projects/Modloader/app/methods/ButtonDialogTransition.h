@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractionBidingButton__Enum.h>
+#include <Modloader/app/structs/ButtonDialogTransition.h>
+#include <Modloader/app/structs/InteractionBinding.h>
+#include <Modloader/app/structs/Action_1_IContext_.h>
+#include <Modloader/app/structs/IDialogNode.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ButtonDialogTransition {
     IL2CPP_REGISTER_METHOD(0x003FC7F0, app::InteractionBidingButton__Enum, get_Button, (app::ButtonDialogTransition * this_ptr))

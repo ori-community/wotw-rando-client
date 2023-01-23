@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GoldenSeinOnTimelineEvent.h>
 
 namespace app::classes::GoldenSeinOnTimelineEvent {
     IL2CPP_REGISTER_METHOD(0x01078A70, void, Awake, (app::GoldenSeinOnTimelineEvent * this_ptr))

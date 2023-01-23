@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Events_PersistentCall__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Events_PersistentCall__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Events_PersistentCall__DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Events_PersistentCall__DEFINED
+struct List_1_UnityEngine_Events_PersistentCall_;
+struct PersistentCall;
+struct List_1_T_Enumerator_UnityEngine_Events_PersistentCall_ {
+    struct List_1_UnityEngine_Events_PersistentCall_* list;
+    int32_t index;
+    int32_t version;
+    struct PersistentCall* current;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Events_PersistentCall__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Events_PersistentCall__FWDDECL
+#include <Modloader/app/structs/List_1_UnityEngine_Events_PersistentCall_.h>
+#include <Modloader/app/structs/PersistentCall.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Events_PersistentCall__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Events_PersistentCall__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Events_PersistentCall__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Events_PersistentCall_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Events_PersistentCall_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

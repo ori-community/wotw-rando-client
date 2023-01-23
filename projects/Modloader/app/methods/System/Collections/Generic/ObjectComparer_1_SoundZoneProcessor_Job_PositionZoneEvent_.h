@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
+#include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEvent.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_SoundZoneProcessor_Job_PositionZoneEvent_ {
     IL2CPP_REGISTER_METHOD(0x01CC9530, int32_t, Compare, (app::ObjectComparer_1_SoundZoneProcessor_Job_PositionZoneEvent_ * this_ptr, app::SoundZoneProcessor_Job_PositionZoneEvent x, app::SoundZoneProcessor_Job_PositionZoneEvent y))

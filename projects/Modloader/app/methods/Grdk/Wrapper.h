@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Action_1_Int32_.h>
+#include <Modloader/app/structs/XblAchievementType__Enum.h>
+#include <Modloader/app/structs/XblAchievementOrderBy__Enum.h>
+#include <Modloader/app/structs/Action_1_XGamingRuntime_XblAchievement_.h>
+#include <Modloader/app/structs/XUserGamerPictureSize__Enum.h>
+#include <Modloader/app/structs/Action_1_Byte_.h>
+#include <Modloader/app/structs/XUserGetTokenAndSignatureOptions__Enum.h>
+#include <Modloader/app/structs/Action_2_String_Int32_.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/XGameSaveUpdateHandle.h>
+#include <Modloader/app/structs/XUserHandle.h>
+#include <Modloader/app/structs/XUserLocalId.h>
+#include <Modloader/app/structs/XUserChangeEvent__Enum.h>
+#include <Modloader/app/structs/Wrapper.h>
 
 namespace app::classes::Grdk::Wrapper {
     IL2CPP_REGISTER_METHOD(0x01083CD0, bool, get_InitializedOk, ())

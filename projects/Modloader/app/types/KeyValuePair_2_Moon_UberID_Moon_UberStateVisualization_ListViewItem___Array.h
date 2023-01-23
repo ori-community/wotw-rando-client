@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_UberID_Moon_UberStateVisualization_ListViewItem___Array__Class.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_UberID_Moon_UberStateVisualization_ListViewItem___Array.h>
 
 namespace app::classes::types {
     namespace KeyValuePair_2_Moon_UberID_Moon_UberStateVisualization_ListViewItem___Array {

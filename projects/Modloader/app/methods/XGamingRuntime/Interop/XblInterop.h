@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XblAchievementsResultHandle_1.h>
+#include <Modloader/app/structs/void.h>
+#include <Modloader/app/structs/SizeT.h>
+#include <Modloader/app/structs/XblContextHandle_1.h>
+#include <Modloader/app/structs/XblAchievementType__Enum.h>
+#include <Modloader/app/structs/XblAchievementOrderBy__Enum.h>
+#include <Modloader/app/structs/XAsyncBlockPtr.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/XUserHandle_1.h>
+#include <Modloader/app/structs/XTaskQueueHandle.h>
 
 namespace app::classes::XGamingRuntime::Interop::XblInterop {
     IL2CPP_REGISTER_METHOD(0x030B3F20, int32_t, XblAchievementsResultGetAchievements, (app::XblAchievementsResultHandle_1 result_handle, app::void** achievements, app::SizeT* achievements_count))

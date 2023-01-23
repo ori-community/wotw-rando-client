@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServiceNameCollection.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Authentication::ExtendedProtection::ServiceNameCollection {
     IL2CPP_REGISTER_METHOD(0x021BC8D0, void, ctor, (app::ServiceNameCollection * this_ptr, app::ICollection* items))

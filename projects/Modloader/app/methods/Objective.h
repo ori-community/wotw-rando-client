@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Objective.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/RuntimeGameWorldArea.h>
 
 namespace app::classes::Objective {
     IL2CPP_REGISTER_METHOD(0x0060FCD0, void, AddObjective, (app::Objective * this_ptr))

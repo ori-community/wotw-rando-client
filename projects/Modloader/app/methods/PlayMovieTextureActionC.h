@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayMovieTextureActionC.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::PlayMovieTextureActionC {
     IL2CPP_REGISTER_METHOD(0x005D2E60, void, OnDestroy, (app::PlayMovieTextureActionC * this_ptr))

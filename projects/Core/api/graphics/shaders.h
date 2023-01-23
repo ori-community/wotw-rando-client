@@ -1,6 +1,17 @@
 #pragma once
 
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderProperties_TextureSuffixType__Enum.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/UberShaderProperty_Texture__Enum.h>
+#include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
+#include <Modloader/app/structs/UberShaderProperty_Vector__Enum.h>
+#include <Modloader/app/structs/UberShaderProperty_Float__Enum.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Color.h>
 
 #include <vector>
 #include <Core/macros.h>

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeSlicedHeirarchyEnablingTask.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::Moon::TimeSlicer::TimeSlicedHeirarchyEnablingTask {
     IL2CPP_REGISTER_METHOD(0x010C2BF0, void, ctor, (app::TimeSlicedHeirarchyEnablingTask * this_ptr, app::Transform* root, app::GameObject* owner, bool reenable_root, app::Action_1_Boolean_* on_job_completed, app::String* scene_name))

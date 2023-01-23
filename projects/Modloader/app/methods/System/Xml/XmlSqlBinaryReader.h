@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSqlBinaryReader.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/ReadState__Enum_1.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
+#include <Modloader/app/structs/BinXmlToken__Enum.h>
+#include <Modloader/app/structs/XmlSqlBinaryReader_NamespaceDecl.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Xml::XmlSqlBinaryReader {
     IL2CPP_REGISTER_METHOD(0x01707790, void, ctor, (app::XmlSqlBinaryReader * this_ptr, app::Stream* stream, app::Byte__Array* data, int32_t len, app::String* base_uri, bool close_input, app::XmlReaderSettings* settings))

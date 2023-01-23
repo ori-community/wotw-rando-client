@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_AbilityType_.h>
+#include <Modloader/app/structs/List_1_AbilityType_.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/IEnumerable_1_AbilityType_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_AbilityType_ {
     IL2CPP_REGISTER_METHOD(0x02F51B80, app::List_1_T_Enumerator_AbilityType_, GetEnumerator, (app::List_1_AbilityType_ * this_ptr))

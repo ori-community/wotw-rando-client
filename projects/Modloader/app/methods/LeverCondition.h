@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeverCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::LeverCondition {
     IL2CPP_REGISTER_METHOD(0x01137C20, bool, Validate, (app::LeverCondition * this_ptr, app::IContext* context))

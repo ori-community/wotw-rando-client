@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyTimelineSequence_c.h>
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry.h>
 
 namespace app::classes::LegacyTimelineSequence___c {
     IL2CPP_REGISTER_METHOD(0x01126AD0, void, cctor, ())

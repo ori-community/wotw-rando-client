@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RagdollUtility_Rigidbone.h>
+#include <Modloader/app/structs/Rigidbody.h>
 
 namespace app::classes::RootMotion::FinalIK::RagdollUtility_Rigidbone {
     IL2CPP_REGISTER_METHOD(0x02A1C440, void, ctor, (app::RagdollUtility_Rigidbone * this_ptr, app::Rigidbody* r))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinBashAttackPuppet.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::SeinBashAttackPuppet {
     IL2CPP_REGISTER_METHOD(0x00D8F3B0, void, BashFailed, (app::SeinBashAttackPuppet * this_ptr))

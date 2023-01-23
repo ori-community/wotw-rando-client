@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebug_Slice__Class.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebug_Slice.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebug_Slice__Array.h>
 
 namespace app::classes::types {
     namespace MoonRenderPipelineDebug_Slice {

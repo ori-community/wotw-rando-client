@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DifficultyController_c.h>
 
 namespace app::classes::DifficultyController___c {
     IL2CPP_REGISTER_METHOD(0x00B922D0, void, cctor, ())

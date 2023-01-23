@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FOVConversionReport.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::Moon::EditorTools::FOVConversionReport {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, CanRemoveObject, (app::FOVConversionReport * this_ptr, app::GameObject* target))

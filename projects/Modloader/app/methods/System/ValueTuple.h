@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValueTuple__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ValueTuple.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ValueTuple {
     IL2CPP_REGISTER_METHOD(0x00249B10, bool, Equals_1, (app::ValueTuple__Boxed * this_ptr, app::Object* obj))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RacePrepareState_ShowFlythroughUi_d_9__Class.h>
+#include <Modloader/app/structs/RacePrepareState_ShowFlythroughUi_d_9.h>
 
 namespace app::classes::types {
     namespace RacePrepareState_ShowFlythroughUi_d_9 {

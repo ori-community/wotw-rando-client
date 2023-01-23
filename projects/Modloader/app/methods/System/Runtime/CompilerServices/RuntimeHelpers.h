@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/RuntimeFieldHandle.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RuntimeTypeHandle.h>
 
 namespace app::classes::System::Runtime::CompilerServices::RuntimeHelpers {
     IL2CPP_REGISTER_METHOD(0x01A92480, void, InitializeArray_1, (app::Array * array, void* fld_handle))

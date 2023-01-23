@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DamageDealer_c.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::DamageDealer___c {
     IL2CPP_REGISTER_METHOD(0x00DC76F0, void, cctor, ())

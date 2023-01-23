@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnityLogWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::UnityEngine::UnityLogWriter {
     IL2CPP_REGISTER_METHOD(0x02C70CE0, void, ctor, (app::UnityLogWriter * this_ptr))

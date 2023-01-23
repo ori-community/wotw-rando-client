@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AkCallbackManager_InitializationSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AkCallbackManager_InitializationSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkCallbackManager_InitializationSettings_DEFINED)
+#include <Modloader/app/structs/AkCallbackManager_InitializationSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_AkCallbackManager_InitializationSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_AkCallbackManager_InitializationSettings_DEFINED
+struct AkCallbackManager_InitializationSettings__Class;
+struct AkCallbackManager_InitializationSettings {
+    struct AkCallbackManager_InitializationSettings__Class* klass;
+    MonitorData* monitor;
+    struct AkCallbackManager_InitializationSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AkCallbackManager_InitializationSettings_FWDDECL)
+#define IL2CPP_STRUCT_AkCallbackManager_InitializationSettings_FWDDECL
+#include <Modloader/app/structs/AkCallbackManager_InitializationSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_AkCallbackManager_InitializationSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkCallbackManager_InitializationSettings_DEFINED) && !defined(IL2CPP_STRUCT_AkCallbackManager_InitializationSettings_FWDDECL)
+#include <Modloader/app/structs/AkCallbackManager_InitializationSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AkCallbackManager_InitializationSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TransparentWallRevealedCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::TransparentWallRevealedCondition {
     IL2CPP_REGISTER_METHOD(0x00B0F080, void, Awake, (app::TransparentWallRevealedCondition * this_ptr))

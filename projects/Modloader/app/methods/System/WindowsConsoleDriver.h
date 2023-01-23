@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WindowsConsoleDriver.h>
+#include <Modloader/app/structs/ConsoleKeyInfo.h>
+#include <Modloader/app/structs/Handles__Enum.h>
+#include <Modloader/app/structs/ConsoleScreenBufferInfo.h>
+#include <Modloader/app/structs/InputRecord.h>
 
 namespace app::classes::System::WindowsConsoleDriver {
     IL2CPP_REGISTER_METHOD(0x0314E010, void, ctor, (app::WindowsConsoleDriver * this_ptr))

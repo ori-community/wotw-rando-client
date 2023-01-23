@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_StackEnumerator.h>
+#include <Modloader/app/structs/Stack.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Stack_StackEnumerator {
     IL2CPP_REGISTER_METHOD(0x02032A90, void, ctor, (app::Stack_StackEnumerator * this_ptr, app::Stack* stack))

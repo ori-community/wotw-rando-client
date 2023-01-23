@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_CameraPositionTracker_CameraPosition_.h>
+#include <Modloader/app/structs/CameraPositionTracker_CameraPosition.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_CameraPositionTracker_CameraPosition_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_System_Int32_CameraPositionTracker_CameraPosition_ * this_ptr, int32_t key))

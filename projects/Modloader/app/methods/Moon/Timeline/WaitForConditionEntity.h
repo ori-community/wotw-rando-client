@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaitForConditionEntity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
 
 namespace app::classes::Moon::Timeline::WaitForConditionEntity {
     IL2CPP_REGISTER_METHOD(0x00D1E020, void, OnStartPlayback, (app::WaitForConditionEntity * this_ptr, app::IContext* context))

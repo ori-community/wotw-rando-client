@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Window.h>
+#include <Modloader/app/structs/UIInteractable.h>
 
 namespace app::classes::Moon::UI::Window {
     IL2CPP_REGISTER_METHOD(0x0118BC20, void, OnUserInput, (app::Window * this_ptr))

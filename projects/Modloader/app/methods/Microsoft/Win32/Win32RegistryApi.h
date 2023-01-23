@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/void.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Int64__Array.h>
+#include <Modloader/app/structs/RegistryValueKind__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Win32RegistryApi.h>
+#include <Modloader/app/structs/RegistryKey.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RegistryValueOptions__Enum.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::Microsoft::Win32::Win32RegistryApi {
     IL2CPP_REGISTER_METHOD(0x023B7F60, int32_t, RegCloseKey, (void* key_handle))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GameController_LoadAssets_d_182__Class.h>
+#include <Modloader/app/structs/GameController_LoadAssets_d_182.h>
 
 namespace app::classes::types {
     namespace GameController_LoadAssets_d_182 {

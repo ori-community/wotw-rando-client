@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CarryableDamageReciever.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::CarryableDamageReciever {
     IL2CPP_REGISTER_METHOD(0x00B25A10, void, Awake, (app::CarryableDamageReciever * this_ptr))

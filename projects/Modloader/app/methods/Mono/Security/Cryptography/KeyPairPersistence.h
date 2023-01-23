@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyPairPersistence.h>
+#include <Modloader/app/structs/CspParameters.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Security::Cryptography::KeyPairPersistence {
     IL2CPP_REGISTER_METHOD(0x025CC460, void, ctor_1, (app::KeyPairPersistence * this_ptr, app::CspParameters* parameters))

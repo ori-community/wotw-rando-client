@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinIceSpiritFlame.h>
 
 namespace app::classes::SeinIceSpiritFlame {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinIceSpiritFlame * this_ptr))

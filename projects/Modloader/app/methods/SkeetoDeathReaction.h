@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkeetoLocomotion.h>
+#include <Modloader/app/structs/SkeetoDeathReaction.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::SkeetoDeathReaction {
     IL2CPP_REGISTER_METHOD(0x0074DC90, app::SkeetoLocomotion*, get_Locomotion, (app::SkeetoDeathReaction * this_ptr))

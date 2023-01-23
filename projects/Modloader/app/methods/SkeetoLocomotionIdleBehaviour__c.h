@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkeetoLocomotionIdleBehaviour_c.h>
 
 namespace app::classes::SkeetoLocomotionIdleBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x00759FE0, void, cctor, ())

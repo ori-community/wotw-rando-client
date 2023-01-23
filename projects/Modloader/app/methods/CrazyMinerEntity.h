@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrazyMinerEntity.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::CrazyMinerEntity {
     IL2CPP_REGISTER_METHOD(0x00DB7040, void, OnDied, (app::CrazyMinerEntity * this_ptr, app::DamageResult result))

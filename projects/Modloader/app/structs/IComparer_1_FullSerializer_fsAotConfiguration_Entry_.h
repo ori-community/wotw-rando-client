@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IComparer_1_FullSerializer_fsAotConfiguration_Entry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IComparer_1_FullSerializer_fsAotConfiguration_Entry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IComparer_1_FullSerializer_fsAotConfiguration_Entry__DEFINED)
+#define IL2CPP_STRUCT_IComparer_1_FullSerializer_fsAotConfiguration_Entry__DEFINED
+struct IComparer_1_FullSerializer_fsAotConfiguration_Entry___Class;
+struct IComparer_1_FullSerializer_fsAotConfiguration_Entry_ {
+    struct IComparer_1_FullSerializer_fsAotConfiguration_Entry___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IComparer_1_FullSerializer_fsAotConfiguration_Entry__FWDDECL)
+#define IL2CPP_STRUCT_IComparer_1_FullSerializer_fsAotConfiguration_Entry__FWDDECL
+#include <Modloader/app/structs/IComparer_1_FullSerializer_fsAotConfiguration_Entry___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IComparer_1_FullSerializer_fsAotConfiguration_Entry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IComparer_1_FullSerializer_fsAotConfiguration_Entry__DEFINED) && !defined(IL2CPP_STRUCT_IComparer_1_FullSerializer_fsAotConfiguration_Entry__FWDDECL)
+#include <Modloader/app/structs/IComparer_1_FullSerializer_fsAotConfiguration_Entry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IComparer_1_FullSerializer_fsAotConfiguration_Entry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

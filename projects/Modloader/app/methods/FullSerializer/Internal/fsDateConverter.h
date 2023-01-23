@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/fsDateConverter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/fsResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/fsData.h>
 
 namespace app::classes::FullSerializer::Internal::fsDateConverter {
     IL2CPP_REGISTER_METHOD(0x01652370, app::String*, get_DateTimeFormatString, (app::fsDateConverter * this_ptr))

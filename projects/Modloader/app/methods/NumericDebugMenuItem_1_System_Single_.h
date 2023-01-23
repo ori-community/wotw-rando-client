@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NumericDebugMenuItem_1_System_Single_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Func_1_Single_.h>
+#include <Modloader/app/structs/Action_1_Single_.h>
+#include <Modloader/app/structs/Func_1_String_.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::NumericDebugMenuItem_1_System_Single_ {
     IL2CPP_REGISTER_METHOD(0x002FB960, void, set_HelpText, (app::NumericDebugMenuItem_1_System_Single_ * this_ptr, app::String* value))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_ColliderAnimatorSystem_SphereColliderAnimationState_.h>
+#include <Modloader/app/structs/ColliderAnimatorSystem_SphereColliderAnimationState.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_ColliderAnimatorSystem_SphereColliderAnimationState_ {
     IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_System_Int32_ColliderAnimatorSystem_SphereColliderAnimationState_ * this_ptr, int32_t key, app::ColliderAnimatorSystem_SphereColliderAnimationState** value))

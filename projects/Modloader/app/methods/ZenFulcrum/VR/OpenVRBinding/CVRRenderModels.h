@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CVRRenderModels.h>
+#include <Modloader/app/structs/EVRRenderModelError__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/void.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/VRControllerState_t.h>
+#include <Modloader/app/structs/RenderModel_ControllerMode_State_t.h>
+#include <Modloader/app/structs/RenderModel_ComponentState_t.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRRenderModels {
     IL2CPP_REGISTER_METHOD(0x0167A3B0, void, ctor, (app::CVRRenderModels * this_ptr, void* p_interface))

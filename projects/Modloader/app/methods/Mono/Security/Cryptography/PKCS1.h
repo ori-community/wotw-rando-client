@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/HashAlgorithm.h>
+#include <Modloader/app/structs/RSA.h>
+#include <Modloader/app/structs/RandomNumberGenerator.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Security::Cryptography::PKCS1 {
     IL2CPP_REGISTER_METHOD(0x025D0AD0, bool, Compare_1, (app::Byte__Array * array1, app::Byte__Array* array2))

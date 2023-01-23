@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BinXmlSqlDecimal__Class.h>
+#include <Modloader/app/structs/BinXmlSqlDecimal.h>
+#include <Modloader/app/structs/BinXmlSqlDecimal__Boxed.h>
 
 namespace app::classes::types {
     namespace BinXmlSqlDecimal {

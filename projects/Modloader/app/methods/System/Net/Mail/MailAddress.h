@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MailAddress.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/FormatException.h>
 
 namespace app::classes::System::Net::Mail::MailAddress {
     IL2CPP_REGISTER_METHOD(0x01E6E080, void, ctor_1, (app::MailAddress * this_ptr, app::String* address))

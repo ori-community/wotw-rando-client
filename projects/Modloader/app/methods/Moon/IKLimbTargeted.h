@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IKLimbTargeted.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::Moon::IKLimbTargeted {
     IL2CPP_REGISTER_METHOD(0x010FE720, void, OnAddedToAnimator, (app::IKLimbTargeted * this_ptr, app::MoonAnimator* animator))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PlayFabRaceServiceProvider_c_DisplayClass10_0_GetRaceData_b_0_d__Class.h>
+#include <Modloader/app/structs/PlayFabRaceServiceProvider_c_DisplayClass10_0_GetRaceData_b_0_d.h>
+#include <Modloader/app/structs/PlayFabRaceServiceProvider_c_DisplayClass10_0_GetRaceData_b_0_d__Boxed.h>
 
 namespace app::classes::types {
     namespace PlayFabRaceServiceProvider_c_DisplayClass10_0_GetRaceData_b_0_d {

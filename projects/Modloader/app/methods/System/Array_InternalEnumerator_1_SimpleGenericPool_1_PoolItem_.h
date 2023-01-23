@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_SimpleGenericPool_1_PoolItem___Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_SimpleGenericPool_1_PoolItem__1__Boxed.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_System_Object_.h>
 
 namespace app::classes::System::Array_InternalEnumerator_1_SimpleGenericPool_1_PoolItem_ {
     IL2CPP_REGISTER_METHOD(0x00160580, void, ctor_1, (app::Array_InternalEnumerator_1_SimpleGenericPool_1_PoolItem___Boxed * this_ptr, app::Array* array))

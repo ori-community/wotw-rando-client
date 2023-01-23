@@ -1,5 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PKCS12.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/X509CertificateCollection.h>
+#include <Modloader/app/structs/RandomNumberGenerator.h>
+#include <Modloader/app/structs/SymmetricAlgorithm.h>
+#include <Modloader/app/structs/PKCS7_EncryptedData.h>
+#include <Modloader/app/structs/DSAParameters.h>
+#include <Modloader/app/structs/PKCS8_PrivateKeyInfo.h>
+#include <Modloader/app/structs/ASN1.h>
+#include <Modloader/app/structs/X509Certificate.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/PKCS7_ContentInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PKCS12_1.h>
+#include <Modloader/app/structs/X509CertificateCollection_2.h>
+#include <Modloader/app/structs/PKCS7_EncryptedData_1.h>
+#include <Modloader/app/structs/PKCS8_PrivateKeyInfo_1.h>
+#include <Modloader/app/structs/ASN1_1.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
+#include <Modloader/app/structs/X509Certificate_2.h>
+#include <Modloader/app/structs/PKCS7_ContentInfo_1.h>
 
 namespace app::classes::Mono::Security::X509::PKCS12 {
     IL2CPP_REGISTER_METHOD(0x025DAA00, void, ctor_1, (app::PKCS12 * this_ptr))

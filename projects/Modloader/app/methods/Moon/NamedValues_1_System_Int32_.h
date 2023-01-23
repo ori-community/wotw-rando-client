@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NamedValues_1_System_Int32_.h>
 
 namespace app::classes::Moon::NamedValues_1_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x02722210, app::String*, GetName, (app::NamedValues_1_System_Int32_ * this_ptr, int32_t value))

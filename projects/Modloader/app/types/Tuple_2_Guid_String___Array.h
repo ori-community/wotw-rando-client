@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Tuple_2_Guid_String___Array__Class.h>
+#include <Modloader/app/structs/Tuple_2_Guid_String___Array.h>
 
 namespace app::classes::types {
     namespace Tuple_2_Guid_String___Array {

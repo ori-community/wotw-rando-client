@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData_c.h>
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceEntry.h>
 
 namespace app::classes::FramePerformanceMonitor_PerformanceFrameData___c {
     IL2CPP_REGISTER_METHOD(0x01643300, void, cctor, ())

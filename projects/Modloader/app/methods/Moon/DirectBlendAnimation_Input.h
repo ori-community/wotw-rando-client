@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DirectBlendAnimation_Input.h>
 
 namespace app::classes::Moon::DirectBlendAnimation_Input {
     IL2CPP_REGISTER_METHOD(0x01B0E260, bool, get_IsValid, (app::DirectBlendAnimation_Input * this_ptr))

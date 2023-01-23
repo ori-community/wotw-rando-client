@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SortedList_2_System_Single_Link_.h>
+#include <Modloader/app/structs/Link.h>
 
 namespace app::classes::System::Collections::Generic::SortedList_2_System_Single_Link_ {
     IL2CPP_REGISTER_METHOD(0x02CAF300, void, Clear, (app::SortedList_2_System_Single_Link_ * this_ptr))

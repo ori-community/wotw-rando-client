@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WeakHashtable.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::WeakHashtable {
     IL2CPP_REGISTER_METHOD(0x0295DF70, void, ctor, (app::WeakHashtable * this_ptr))

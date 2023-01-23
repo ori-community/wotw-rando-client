@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeEventHandle__Boxed.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Mono::RuntimeEventHandle {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::RuntimeEventHandle__Boxed * this_ptr, void* v))

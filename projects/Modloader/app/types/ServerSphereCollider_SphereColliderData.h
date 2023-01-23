@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ServerSphereCollider_SphereColliderData__Class.h>
+#include <Modloader/app/structs/ServerSphereCollider_SphereColliderData.h>
+#include <Modloader/app/structs/ServerSphereCollider_SphereColliderData__Boxed.h>
 
 namespace app::classes::types {
     namespace ServerSphereCollider_SphereColliderData {

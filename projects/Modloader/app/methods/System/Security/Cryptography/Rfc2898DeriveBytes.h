@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rfc2898DeriveBytes.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::Rfc2898DeriveBytes {
     IL2CPP_REGISTER_METHOD(0x028EE7D0, void, ctor_1, (app::Rfc2898DeriveBytes * this_ptr, app::String* password, int32_t salt_size))

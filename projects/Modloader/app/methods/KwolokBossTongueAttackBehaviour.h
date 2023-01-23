@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/KwolokBossTongueAttackBehaviour.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::KwolokBossTongueAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x012F0DF0, app::Transform*, get_TongueRoot, (app::KwolokBossTongueAttackBehaviour * this_ptr))

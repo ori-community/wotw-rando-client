@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_System_ByteEnum___Boxed.h>
+#include <Modloader/app/structs/ByteEnum__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_Int32_System_ByteEnum_ {
     IL2CPP_REGISTER_METHOD(0x001508B0, void, ctor, (app::KeyValuePair_2_System_Int32_System_ByteEnum___Boxed * this_ptr, int32_t key, app::ByteEnum__Enum value))

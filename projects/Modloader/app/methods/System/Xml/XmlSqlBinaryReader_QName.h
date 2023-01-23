@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSqlBinaryReader_QName__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SecureStringHasher.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSqlBinaryReader_QName.h>
 
 namespace app::classes::System::Xml::XmlSqlBinaryReader_QName {
     IL2CPP_REGISTER_METHOD(0x0013C860, void, ctor, (app::XmlSqlBinaryReader_QName__Boxed * this_ptr, app::String* prefix, app::String* lname, app::String* ns_uri))

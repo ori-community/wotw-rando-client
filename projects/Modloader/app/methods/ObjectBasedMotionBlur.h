@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectBasedMotionBlur.h>
 
 namespace app::classes::ObjectBasedMotionBlur {
     IL2CPP_REGISTER_METHOD(0x0060D940, void, Start, (app::ObjectBasedMotionBlur * this_ptr))

@@ -1,5 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HammerComboMoveBase_BalancingData.h>
+#include <Modloader/app/structs/MeleeComboMoveHammer.h>
+#include <Modloader/app/structs/MeleeComboMoveHammer_State__Enum.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/EffectSpawn.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/MoveEventType__Enum.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
 
 namespace app::classes::MeleeComboMoveHammer {
     IL2CPP_REGISTER_METHOD(0x00BC6E90, app::HammerComboMoveBase_BalancingData*, get_BalancingBase, (app::MeleeComboMoveHammer * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SerializationSetupGroup.h>
 
 namespace app::classes::SerializationSetupGroup {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, DoStrip, (app::SerializationSetupGroup * this_ptr))

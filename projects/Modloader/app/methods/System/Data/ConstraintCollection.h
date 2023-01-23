@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConstraintCollection.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Constraint_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataColumn__Array.h>
+#include <Modloader/app/structs/UniqueConstraint.h>
+#include <Modloader/app/structs/ForeignKeyConstraint.h>
+#include <Modloader/app/structs/Constraint_1__Array.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/CollectionChangeEventArgs.h>
 
 namespace app::classes::System::Data::ConstraintCollection {
     IL2CPP_REGISTER_METHOD(0x0238DC10, void, ctor, (app::ConstraintCollection * this_ptr, app::DataTable* table))

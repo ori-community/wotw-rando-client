@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/Uri_Flags__Enum.h>
+#include <Modloader/app/structs/UriParser.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Uri_UriInfo.h>
+#include <Modloader/app/structs/UriKind__Enum.h>
+#include <Modloader/app/structs/ParsingError__Enum.h>
+#include <Modloader/app/structs/UriFormatException.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/UriHostNameType__Enum.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UriPartial__Enum.h>
+#include <Modloader/app/structs/UriComponents__Enum.h>
+#include <Modloader/app/structs/UriFormat__Enum.h>
+#include <Modloader/app/structs/Uri_Check__Enum.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Uri {
     IL2CPP_REGISTER_METHOD(0x02A7C400, bool, get_IsImplicitFile, (app::Uri * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConsoleConnection.h>
+#include <Modloader/app/structs/ConsoleConnection_State__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ConsoleConnection {
     IL2CPP_REGISTER_METHOD(0x011E4E90, void, ctor, (app::ConsoleConnection * this_ptr, bool receive_files))

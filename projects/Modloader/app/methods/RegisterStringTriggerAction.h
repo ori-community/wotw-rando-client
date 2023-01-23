@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegisterStringTriggerAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::RegisterStringTriggerAction {
     IL2CPP_REGISTER_METHOD(0x008FD2C0, void, Perform, (app::RegisterStringTriggerAction * this_ptr, app::IContext* context))

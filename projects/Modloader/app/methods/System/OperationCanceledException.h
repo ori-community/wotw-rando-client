@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/OperationCanceledException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::OperationCanceledException {
     IL2CPP_REGISTER_METHOD(0x002FBC20, app::CancellationToken, get_CancellationToken, (app::OperationCanceledException * this_ptr))

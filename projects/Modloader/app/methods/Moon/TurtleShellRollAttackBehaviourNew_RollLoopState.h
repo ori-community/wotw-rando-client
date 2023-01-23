@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TurtleShellRollAttackBehaviourNew_RollLoopState.h>
+#include <Modloader/app/structs/TurtleShellRollAttackBehaviourNew.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::Moon::TurtleShellRollAttackBehaviourNew_RollLoopState {
     IL2CPP_REGISTER_METHOD(0x00D21D80, void, ctor, (app::TurtleShellRollAttackBehaviourNew_RollLoopState * this_ptr, app::TurtleShellRollAttackBehaviourNew* behaviour))

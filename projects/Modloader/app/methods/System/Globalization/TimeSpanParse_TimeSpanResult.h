@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanResult__Boxed.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanThrowStyle__Enum.h>
+#include <Modloader/app/structs/TimeSpanParse_ParseFailureKind__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Globalization::TimeSpanParse_TimeSpanResult {
     IL2CPP_REGISTER_METHOD(0x001D43C0, void, Init, (app::TimeSpanParse_TimeSpanResult__Boxed * this_ptr, app::TimeSpanParse_TimeSpanThrowStyle__Enum can_throw))

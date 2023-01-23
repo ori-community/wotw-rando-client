@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityHealthProvider.h>
 
 namespace app::classes::EntityHealthProvider {
     IL2CPP_REGISTER_METHOD(0x00C91C30, void, OnValidate, (app::EntityHealthProvider * this_ptr))

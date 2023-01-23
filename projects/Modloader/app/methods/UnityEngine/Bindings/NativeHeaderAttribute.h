@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NativeHeaderAttribute.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Bindings::NativeHeaderAttribute {
     IL2CPP_REGISTER_METHOD(0x031BB220, void, ctor, (app::NativeHeaderAttribute * this_ptr, app::String* header))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/ListFacetsChecker.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
+#include <Modloader/app/structs/ArrayList.h>
 
 namespace app::classes::System::Xml::Schema::ListFacetsChecker {
     IL2CPP_REGISTER_METHOD(0x016CD2E0, app::Exception*, CheckValueFacets, (app::ListFacetsChecker * this_ptr, app::Object* value, app::XmlSchemaDatatype* datatype))

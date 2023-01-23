@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_PlayFab_IPlayFabEmitEventResponse_.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_PlayFab_IPlayFabEmitEventResponse___Boxed.h>
+#include <Modloader/app/structs/OneDSEventPipeline_IntakeEventAsync_d_24.h>
+#include <Modloader/app/structs/Task_1_PlayFab_IPlayFabEmitEventResponse_.h>
+#include <Modloader/app/structs/TaskAwaiter_1_PlayFab_IPlayFabEmitEventResponse_.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/IPlayFabEmitEventResponse.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncTaskMethodBuilder_1_PlayFab_IPlayFabEmitEventResponse_ {
     IL2CPP_REGISTER_METHOD(0x00C537F0, app::AsyncTaskMethodBuilder_1_PlayFab_IPlayFabEmitEventResponse_, Create, ())

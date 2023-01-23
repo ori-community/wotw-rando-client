@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberExplosionActor.h>
+#include <Modloader/app/structs/UberInteractionExplosionAnimator.h>
 
 namespace app::classes::UberInteractionExplosionAnimator {
     IL2CPP_REGISTER_METHOD(0x013F74A0, app::UberExplosionActor*, get_Actor, (app::UberInteractionExplosionAnimator * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberAtlassingPlatform__Enum.h>
+#include <Modloader/app/structs/AtlassingSetting.h>
 
 namespace app::classes::UberShaderAtlasSettings {
     IL2CPP_REGISTER_METHOD(0x0190A160, app::String*, get_DefaultPlatformPref, ())

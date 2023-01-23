@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Operand.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AstNode_AstType__Enum.h>
+#include <Modloader/app/structs/XPathResultType__Enum.h>
 
 namespace app::classes::MS::Internal::Xml::XPath::Operand {
     IL2CPP_REGISTER_METHOD(0x01DE2830, void, ctor_1, (app::Operand * this_ptr, app::String* val))

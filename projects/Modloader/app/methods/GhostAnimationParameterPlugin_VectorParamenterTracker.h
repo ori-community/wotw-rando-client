@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VectorAnimationParameter.h>
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_VectorParamenterTracker.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::GhostAnimationParameterPlugin_VectorParamenterTracker {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::VectorAnimationParameter*, get_Parameter, (app::GhostAnimationParameterPlugin_VectorParamenterTracker * this_ptr))

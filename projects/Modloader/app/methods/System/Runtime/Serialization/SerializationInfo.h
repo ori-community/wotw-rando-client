@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IFormatterConverter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/SerializationInfoEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DateTime.h>
 
 namespace app::classes::System::Runtime::Serialization::SerializationInfo {
     IL2CPP_REGISTER_METHOD(0x01EDE780, void, ctor_1, (app::SerializationInfo * this_ptr, app::Type* type, app::IFormatterConverter* converter))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_CameraTarget_TargetLayer_.h>
+#include <Modloader/app/structs/CameraTarget_TargetLayer.h>
+#include <Modloader/app/structs/IEnumerable_1_CameraTarget_TargetLayer_.h>
+#include <Modloader/app/structs/Comparison_1_CameraTarget_TargetLayer_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CameraTarget_TargetLayer_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_CameraTarget_TargetLayer_ * this_ptr))

@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AttackableSwitch.h>
+#include <Modloader/app/structs/StateChangeDefinition.h>
+#include <Modloader/app/structs/AttackableSwitchSetupData.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/AttackableSwitch_AttackTypes__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/ArrowHitData.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action_1_Damage_.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::AttackableSwitch {
     IL2CPP_REGISTER_METHOD(0x00854340, bool, get_Activated, (app::AttackableSwitch * this_ptr))

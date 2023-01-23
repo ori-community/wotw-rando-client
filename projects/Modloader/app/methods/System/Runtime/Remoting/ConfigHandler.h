@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConfigHandler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/SmallXmlParser.h>
+#include <Modloader/app/structs/SmallXmlParser_IAttrList.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/ProviderData.h>
 
 namespace app::classes::System::Runtime::Remoting::ConfigHandler {
     IL2CPP_REGISTER_METHOD(0x01AA0550, void, ctor, (app::ConfigHandler * this_ptr, bool only_delayed_channels))

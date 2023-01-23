@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StressTester_StressTestPoint.h>
+#include <Modloader/app/structs/List_1_StressTester_StressTestPoint_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_StressTester_StressTestPoint_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::StressTester_StressTestPoint*, get_Item, (app::List_1_StressTester_StressTestPoint_ * this_ptr, int32_t index))

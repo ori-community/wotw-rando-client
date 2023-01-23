@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UriParser_BuiltInUriParser__Class.h>
+#include <Modloader/app/structs/UriParser_BuiltInUriParser.h>
 
 namespace app::classes::types {
     namespace UriParser_BuiltInUriParser {

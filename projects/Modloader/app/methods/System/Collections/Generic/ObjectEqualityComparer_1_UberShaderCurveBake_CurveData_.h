@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UberShaderCurveBake_CurveData_.h>
+#include <Modloader/app/structs/UberShaderCurveBake_CurveData.h>
+#include <Modloader/app/structs/UberShaderCurveBake_CurveData__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_UberShaderCurveBake_CurveData_ {
     IL2CPP_REGISTER_METHOD(0x01CD2D60, bool, Equals_1, (app::ObjectEqualityComparer_1_UberShaderCurveBake_CurveData_ * this_ptr, app::UberShaderCurveBake_CurveData x, app::UberShaderCurveBake_CurveData y))

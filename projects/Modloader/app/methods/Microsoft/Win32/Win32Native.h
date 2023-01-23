@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Microsoft::Win32::Win32Native {
     IL2CPP_REGISTER_METHOD(0x023B7DC0, app::String*, GetMessage, (int32_t hr))

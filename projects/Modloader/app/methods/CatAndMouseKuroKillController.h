@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CatAndMouseKuroKillController.h>
 
 namespace app::classes::CatAndMouseKuroKillController {
     IL2CPP_REGISTER_METHOD(0x00B48300, void, Awake, (app::CatAndMouseKuroKillController * this_ptr))

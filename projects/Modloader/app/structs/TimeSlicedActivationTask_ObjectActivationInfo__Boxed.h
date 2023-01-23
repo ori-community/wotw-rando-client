@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TimeSlicedActivationTask_ObjectActivationInfo__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TimeSlicedActivationTask_ObjectActivationInfo__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TimeSlicedActivationTask_ObjectActivationInfo__Boxed_DEFINED)
+#include <Modloader/app/structs/TimeSlicedActivationTask_ObjectActivationInfo.h>
+#if defined(IL2CPP_STRUCT_TimeSlicedActivationTask_ObjectActivationInfo_DEFINED)
+#define IL2CPP_STRUCT_TimeSlicedActivationTask_ObjectActivationInfo__Boxed_DEFINED
+struct TimeSlicedActivationTask_ObjectActivationInfo__Class;
+struct TimeSlicedActivationTask_ObjectActivationInfo__Boxed {
+    struct TimeSlicedActivationTask_ObjectActivationInfo__Class* klass;
+    MonitorData* monitor;
+    struct TimeSlicedActivationTask_ObjectActivationInfo fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TimeSlicedActivationTask_ObjectActivationInfo__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_TimeSlicedActivationTask_ObjectActivationInfo__Boxed_FWDDECL
+#include <Modloader/app/structs/TimeSlicedActivationTask_ObjectActivationInfo__Class.h>
+#endif
+#undef IL2CPP_STRUCT_TimeSlicedActivationTask_ObjectActivationInfo__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TimeSlicedActivationTask_ObjectActivationInfo__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_TimeSlicedActivationTask_ObjectActivationInfo__Boxed_FWDDECL)
+#include <Modloader/app/structs/TimeSlicedActivationTask_ObjectActivationInfo__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TimeSlicedActivationTask_ObjectActivationInfo__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

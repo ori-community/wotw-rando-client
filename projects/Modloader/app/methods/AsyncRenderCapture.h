@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/AsyncRenderCapture.h>
+#include <Modloader/app/structs/Action_1_Int32_.h>
+#include <Modloader/app/structs/RenderTarget.h>
+#include <Modloader/app/structs/AsyncGPUReadbackRequest.h>
 
 namespace app::classes::AsyncRenderCapture {
     IL2CPP_REGISTER_METHOD(0x00843D70, app::Type*, get_GameViewType, ())

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/FormattableString.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NetEventSource.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Net::NetEventSource {
     IL2CPP_REGISTER_METHOD(0x01E71D10, void, Enter_1, (app::Object * this_or_context_object, app::FormattableString* formattable_string, app::String* member_name))

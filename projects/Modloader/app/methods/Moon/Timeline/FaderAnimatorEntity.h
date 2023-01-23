@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FaderAnimatorEntity.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::FaderAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x00769F00, void, OnStartPlayback, (app::FaderAnimatorEntity * this_ptr, app::IContext* context))

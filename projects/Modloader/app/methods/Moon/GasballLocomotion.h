@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GasballLocomotion.h>
+#include <Modloader/app/structs/Entity.h>
 
 namespace app::classes::Moon::GasballLocomotion {
     IL2CPP_REGISTER_METHOD(0x0148AA70, void, OnEntityInitialization, (app::GasballLocomotion * this_ptr, app::Entity* entity))

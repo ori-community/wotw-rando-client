@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PointerUIBase.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/PointerUIBase_PointerState.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MouseButton__Enum.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Event_.h>
+#include <Modloader/app/structs/BrowserCursor.h>
+#include <Modloader/app/structs/BrowserInputSettings.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::PointerUIBase {
     IL2CPP_REGISTER_METHOD(0x0165F470, void, add_onHandlePointers, (app::PointerUIBase * this_ptr, app::Action* value))

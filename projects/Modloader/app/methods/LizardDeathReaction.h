@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LizardDeathReaction.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/LizardDeathReaction_DeathState__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LizardDeathReaction {
     IL2CPP_REGISTER_METHOD(0x00FA9E50, void, OnCacheSerializedComponents, (app::LizardDeathReaction * this_ptr, app::Entity* owner))

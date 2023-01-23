@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GhostAnimationParameterPlugin_FloatParamenterTracker_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GhostAnimationParameterPlugin_FloatParamenterTracker_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_FloatParamenterTracker_DEFINED)
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_FloatParamenterTracker__Fields.h>
+#if defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_FloatParamenterTracker__Fields_DEFINED)
+#define IL2CPP_STRUCT_GhostAnimationParameterPlugin_FloatParamenterTracker_DEFINED
+struct GhostAnimationParameterPlugin_FloatParamenterTracker__Class;
+struct GhostAnimationParameterPlugin_FloatParamenterTracker {
+    struct GhostAnimationParameterPlugin_FloatParamenterTracker__Class* klass;
+    MonitorData* monitor;
+    struct GhostAnimationParameterPlugin_FloatParamenterTracker__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_FloatParamenterTracker_FWDDECL)
+#define IL2CPP_STRUCT_GhostAnimationParameterPlugin_FloatParamenterTracker_FWDDECL
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_FloatParamenterTracker__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GhostAnimationParameterPlugin_FloatParamenterTracker_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_FloatParamenterTracker_DEFINED) && !defined(IL2CPP_STRUCT_GhostAnimationParameterPlugin_FloatParamenterTracker_FWDDECL)
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_FloatParamenterTracker.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_FloatParamenterTracker.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

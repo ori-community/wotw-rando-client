@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InstanciationToggler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::InstanciationToggler {
     IL2CPP_REGISTER_METHOD(0x0062A360, void, OnApplicationQuit, (app::InstanciationToggler * this_ptr))

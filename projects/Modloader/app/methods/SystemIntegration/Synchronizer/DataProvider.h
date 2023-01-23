@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataProvider.h>
+#include <Modloader/app/structs/CacheData__Array.h>
+#include <Modloader/app/structs/IServiceSynchronizer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CacheData.h>
+#include <Modloader/app/structs/Task_1_System_Byte_.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::DataProvider {
     IL2CPP_REGISTER_METHOD(0x005332A0, bool, get_HasSynchronised, (app::DataProvider * this_ptr))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/BlockExpression.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/ExpressionVisitor.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Expression__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Linq::Expressions::BlockExpression {
     IL2CPP_REGISTER_METHOD(0x0060EEC0, app::ReadOnlyCollection_1_System_Linq_Expressions_Expression_*, get_Expressions, (app::BlockExpression * this_ptr))

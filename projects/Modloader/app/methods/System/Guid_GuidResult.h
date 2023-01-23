@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Guid_GuidResult__Boxed.h>
+#include <Modloader/app/structs/Guid_GuidParseThrowStyle__Enum.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Guid_ParseFailureKind__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Guid_GuidResult {
     IL2CPP_REGISTER_METHOD(0x001D4820, void, Init, (app::Guid_GuidResult__Boxed * this_ptr, app::Guid_GuidParseThrowStyle__Enum can_throw))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GroundMoveInDirectionBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Locomotion.h>
 
 namespace app::classes::Moon::GroundMoveInDirectionBehaviour {
     IL2CPP_REGISTER_METHOD(0x0051DB40, bool, get_MoveLeft, (app::GroundMoveInDirectionBehaviour * this_ptr))

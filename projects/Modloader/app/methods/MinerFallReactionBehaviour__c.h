@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MinerFallReactionBehaviour_c.h>
 
 namespace app::classes::MinerFallReactionBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x01449E20, void, cctor, ())

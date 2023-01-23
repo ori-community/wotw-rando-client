@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PlayerEditorConnectionEvents_AddAndCreate_c_AnonStorey1__Class.h>
+#include <Modloader/app/structs/PlayerEditorConnectionEvents_AddAndCreate_c_AnonStorey1.h>
 
 namespace app::classes::types {
     namespace PlayerEditorConnectionEvents_AddAndCreate_c_AnonStorey1 {

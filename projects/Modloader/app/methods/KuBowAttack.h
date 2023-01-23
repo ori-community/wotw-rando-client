@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/KuBowAttack.h>
+#include <Modloader/app/structs/SeinBowAttack.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 
 namespace app::classes::KuBowAttack {
     IL2CPP_REGISTER_METHOD(0x0122C980, app::SeinCharacter*, get_Sein, (app::KuBowAttack * this_ptr))

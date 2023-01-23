@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DefaultContractResolver_c.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Reflection_MemberInfo_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
+#include <Modloader/app/structs/JsonProperty.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::DefaultContractResolver___c {
     IL2CPP_REGISTER_METHOD(0x018694C0, void, cctor, ())

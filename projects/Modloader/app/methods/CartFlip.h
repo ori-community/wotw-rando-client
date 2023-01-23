@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CartFlip.h>
+#include <Modloader/app/structs/Rail.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/LegacyTimelineSequence.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/CapsuleCollider.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::CartFlip {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::CartFlip * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossLocomotion_c.h>
+#include <Modloader/app/structs/KwolokBossLocomotion_StayAtRangeSettings.h>
 
 namespace app::classes::KwolokBossLocomotion___c {
     IL2CPP_REGISTER_METHOD(0x012E7340, void, cctor, ())

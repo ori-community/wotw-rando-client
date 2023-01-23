@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/JProperty.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/JTokenType__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/JsonConverter__Array.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/JsonLoadSettings.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JProperty {
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::IList_1_Newtonsoft_Json_Linq_JToken_*, get_ChildrenTokens, (app::JProperty * this_ptr))

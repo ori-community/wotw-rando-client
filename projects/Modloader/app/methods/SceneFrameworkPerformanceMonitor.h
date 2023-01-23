@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneFrameworkPerformanceMonitor.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SceneManagerScene.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::SceneFrameworkPerformanceMonitor {
     IL2CPP_REGISTER_METHOD(0x00B9FFC0, bool, get_Enabled, ())

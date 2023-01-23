@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CVRSystem_GetControllerStatePacked.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/VRControllerState_t_Packed.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRSystem__GetControllerStatePacked {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::CVRSystem_GetControllerStatePacked * this_ptr, app::Object* object, void* method_1))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HMAC.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HashAlgorithm.h>
+#include <Modloader/app/structs/Func_1_System_Security_Cryptography_HashAlgorithm_.h>
 
 namespace app::classes::System::Security::Cryptography::HMAC {
     IL2CPP_REGISTER_METHOD(0x00654950, int32_t, get_BlockSizeValue, (app::HMAC * this_ptr))

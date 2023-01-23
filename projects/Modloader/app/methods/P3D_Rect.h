@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/P3D_Rect__Boxed.h>
+#include <Modloader/app/structs/P3D_Rect.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::P3D_Rect {
     IL2CPP_REGISTER_METHOD(0x00243E50, bool, get_IsSet, (app::P3D_Rect__Boxed * this_ptr))

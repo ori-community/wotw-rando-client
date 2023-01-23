@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Span_1_Object___Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Pinnable_1_Object_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Span_1_Object_.h>
 
 namespace app::classes::System::Span_1_Object_ {
     IL2CPP_REGISTER_METHOD(0x001FFA00, app::String*, get_DebuggerDisplay, (app::Span_1_Object___Boxed * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Event_.h>
+#include <Modloader/app/structs/KeyEvents.h>
+#include <Modloader/app/structs/Event.h>
+#include <Modloader/app/structs/KeyCode__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::KeyEvents {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::List_1_UnityEngine_Event_*, get_Events, (app::KeyEvents * this_ptr))

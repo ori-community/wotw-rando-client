@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SmoothCurve.h>
+#include <Modloader/app/structs/SmoothCurve_PathNode.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Mesh.h>
 
 namespace app::classes::SmoothCurve {
     IL2CPP_REGISTER_METHOD(0x006D1790, void, Start, (app::SmoothCurve * this_ptr))

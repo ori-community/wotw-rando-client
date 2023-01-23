@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VisibleOnWorldMap.h>
+#include <Modloader/app/structs/ConditionUberState.h>
+#include <Modloader/app/structs/SerializedBooleanUberState.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::VisibleOnWorldMap {
     IL2CPP_REGISTER_METHOD(0x008C1CB0, void, AlwaysAddToAll, (app::VisibleOnWorldMap * this_ptr))

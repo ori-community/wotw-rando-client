@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FacesPointXCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::FacesPointXCondition {
     IL2CPP_REGISTER_METHOD(0x00CB71A0, app::String*, get_Info, (app::FacesPointXCondition * this_ptr))

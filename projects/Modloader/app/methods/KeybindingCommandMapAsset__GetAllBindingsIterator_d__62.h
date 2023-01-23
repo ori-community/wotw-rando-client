@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeybindingCommandMapAsset_GetAllBindingsIterator_d_62.h>
+#include <Modloader/app/structs/CommandBinding.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_CommandBinding_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::KeybindingCommandMapAsset__GetAllBindingsIterator_d__62 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::KeybindingCommandMapAsset_GetAllBindingsIterator_d_62 * this_ptr, int32_t __1__state))

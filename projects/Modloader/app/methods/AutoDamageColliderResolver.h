@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AutoDamageColliderResolver.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GameWorldAreaID__Enum.h>
 
 namespace app::classes::AutoDamageColliderResolver {
     IL2CPP_REGISTER_METHOD(0x0085C410, void, Awake, (app::AutoDamageColliderResolver * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IComparer_1_System_Object_.h>
+#include <Modloader/app/structs/XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::XmlTextReaderImpl_DtdDefaultAttributeInfoToNodeDataComparer {
     IL2CPP_REGISTER_METHOD(0x01FBACB0, app::IComparer_1_System_Object_*, get_Instance, ())

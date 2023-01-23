@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Quaternion__Array.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_Quaternion_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UnityEngine_Quaternion_ {
     IL2CPP_REGISTER_METHOD(0x02F6C640, void, Sort_1, (app::Quaternion__Array * keys, int32_t index, int32_t length, app::IComparer_1_UnityEngine_Quaternion_* comparer))

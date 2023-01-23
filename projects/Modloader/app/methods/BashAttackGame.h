@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BashAttackGame.h>
+#include <Modloader/app/structs/Action_1_Single_.h>
+#include <Modloader/app/structs/BashAttackGame_State__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::BashAttackGame {
     IL2CPP_REGISTER_METHOD(0x00F8D5E0, void, add_BashGameComplete, (app::BashAttackGame * this_ptr, app::Action_1_Single_* value))

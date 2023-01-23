@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PositionSyncTask__Array.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array.h>
+#include <Modloader/app/structs/List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array.h>
+#include <Modloader/app/structs/SoundZoneProcessor_Job__Boxed.h>
+#include <Modloader/app/structs/JobHandle.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_.h>
+#include <Modloader/app/structs/PositionSyncTask.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_.h>
+#include <Modloader/app/structs/AudioZoneShape2D__Enum.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/List_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
 
 namespace app::classes::SoundZoneProcessor_Job {
     IL2CPP_REGISTER_METHOD(0x00EEFC40, app::PositionSyncTask__Array*, get_PositionTasks, ())

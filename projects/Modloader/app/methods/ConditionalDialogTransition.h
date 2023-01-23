@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IDialogNode.h>
+#include <Modloader/app/structs/ConditionalDialogTransition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ConditionalDialogTransition {
     IL2CPP_REGISTER_METHOD(0x011E4120, app::IDialogNode*, get_TransitionDestination, (app::ConditionalDialogTransition * this_ptr))

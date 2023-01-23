@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormUnclogBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/SandWormSandDigLocomotionBehaviour_SpeedEntry.h>
 
 namespace app::classes::SandWormUnclogBehaviour {
     IL2CPP_REGISTER_METHOD(0x00603D60, bool, get_IsWaterWorm, (app::SandWormUnclogBehaviour * this_ptr))

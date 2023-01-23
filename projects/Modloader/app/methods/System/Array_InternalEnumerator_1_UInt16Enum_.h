@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_UInt16Enum___Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/UInt16Enum__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_InternalEnumerator_1_UInt16Enum_ {
     IL2CPP_REGISTER_METHOD(0x00160580, void, ctor, (app::Array_InternalEnumerator_1_UInt16Enum___Boxed * this_ptr, app::Array* array))

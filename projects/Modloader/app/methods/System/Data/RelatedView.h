@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RelatedView.h>
+#include <Modloader/app/structs/DataColumn__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/DataRowView.h>
+#include <Modloader/app/structs/DataKey.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/IFilter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataViewRowState__Enum.h>
 
 namespace app::classes::System::Data::RelatedView {
     IL2CPP_REGISTER_METHOD(0x01E4AB30, void, ctor_1, (app::RelatedView * this_ptr, app::DataColumn__Array* columns, app::Object__Array* values))

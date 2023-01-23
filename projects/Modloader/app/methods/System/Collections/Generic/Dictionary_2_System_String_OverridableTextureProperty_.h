@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_String_OverridableTextureProperty_.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_OverridableTextureProperty_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_String_OverridableTextureProperty_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/OverridableTextureProperty.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_OverridableTextureProperty_ {
     IL2CPP_REGISTER_METHOD(0x0283B3E0, app::Dictionary_2_TKey_TValue_ValueCollection_System_String_OverridableTextureProperty_*, get_Values, (app::Dictionary_2_System_String_OverridableTextureProperty_ * this_ptr))

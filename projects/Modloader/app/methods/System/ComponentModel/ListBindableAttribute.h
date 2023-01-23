@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListBindableAttribute.h>
+#include <Modloader/app/structs/BindableSupport__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::ListBindableAttribute {
     IL2CPP_REGISTER_METHOD(0x0052C650, void, ctor_1, (app::ListBindableAttribute * this_ptr, bool list_bindable))

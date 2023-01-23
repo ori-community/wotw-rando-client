@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_HitFlash3D_Flash_.h>
+#include <Modloader/app/structs/HitFlash3D.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/EntityEvent.h>
 
 namespace app::classes::HitFlash3D {
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::List_1_HitFlash3D_Flash_*, get_Entries, (app::HitFlash3D * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IPlayFabEventRouter.h>
+#include <Modloader/app/structs/PlayFabEventAPI.h>
+#include <Modloader/app/structs/ILogger_1.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Threading_Tasks_Task_1_.h>
+#include <Modloader/app/structs/IPlayFabEvent.h>
 
 namespace app::classes::PlayFab::PlayFabEventAPI {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::IPlayFabEventRouter*, get_EventRouter, (app::PlayFabEventAPI * this_ptr))

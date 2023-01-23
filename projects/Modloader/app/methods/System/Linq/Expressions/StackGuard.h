@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StackGuard_1.h>
+#include <Modloader/app/structs/Action_2_Object_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/Action_2_System_Linq_Expressions_Interpreter_LightCompiler_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/LightCompiler.h>
+#include <Modloader/app/structs/Expression.h>
 
 namespace app::classes::System::Linq::Expressions::StackGuard {
     IL2CPP_REGISTER_METHOD(0x02FBFB20, bool, TryEnterOnCurrentStack, (app::StackGuard_1 * this_ptr))

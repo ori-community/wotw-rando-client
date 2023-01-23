@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameplayToCinematicEntity_c.h>
+#include <Modloader/app/structs/FloatProviderZone.h>
 
 namespace app::classes::Moon::Timeline::GameplayToCinematicEntity___c {
     IL2CPP_REGISTER_METHOD(0x0076F470, void, cctor, ())

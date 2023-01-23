@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ZoomDebugMenuItem.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ZoomDebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x00F59470, void, ctor, (app::ZoomDebugMenuItem * this_ptr, app::String* path, app::String* str))

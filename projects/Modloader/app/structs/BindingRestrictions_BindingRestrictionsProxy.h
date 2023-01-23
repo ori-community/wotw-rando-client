@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_BindingRestrictions_BindingRestrictionsProxy_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_BindingRestrictions_BindingRestrictionsProxy_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BindingRestrictions_BindingRestrictionsProxy_DEFINED)
+#include <Modloader/app/structs/BindingRestrictions_BindingRestrictionsProxy__Fields.h>
+#if defined(IL2CPP_STRUCT_BindingRestrictions_BindingRestrictionsProxy__Fields_DEFINED)
+#define IL2CPP_STRUCT_BindingRestrictions_BindingRestrictionsProxy_DEFINED
+struct BindingRestrictions_BindingRestrictionsProxy__Class;
+struct BindingRestrictions_BindingRestrictionsProxy {
+    struct BindingRestrictions_BindingRestrictionsProxy__Class* klass;
+    MonitorData* monitor;
+    struct BindingRestrictions_BindingRestrictionsProxy__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_BindingRestrictions_BindingRestrictionsProxy_FWDDECL)
+#define IL2CPP_STRUCT_BindingRestrictions_BindingRestrictionsProxy_FWDDECL
+#include <Modloader/app/structs/BindingRestrictions_BindingRestrictionsProxy__Class.h>
+#endif
+#undef IL2CPP_STRUCT_BindingRestrictions_BindingRestrictionsProxy_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BindingRestrictions_BindingRestrictionsProxy_DEFINED) && !defined(IL2CPP_STRUCT_BindingRestrictions_BindingRestrictionsProxy_FWDDECL)
+#include <Modloader/app/structs/BindingRestrictions_BindingRestrictionsProxy.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/BindingRestrictions_BindingRestrictionsProxy.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

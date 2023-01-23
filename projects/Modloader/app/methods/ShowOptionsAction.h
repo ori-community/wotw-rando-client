@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowOptionsAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ShowOptionsAction {
     IL2CPP_REGISTER_METHOD(0x005C5060, void, Perform, (app::ShowOptionsAction * this_ptr, app::IContext* context))

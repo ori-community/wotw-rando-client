@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HHTMLBrowser.h>
+#include <Modloader/app/structs/EHTMLMouseButton__Enum.h>
+#include <Modloader/app/structs/EHTMLKeyModifiers__Enum.h>
 
 namespace app::classes::Steamworks::SteamHTMLSurface {
     IL2CPP_REGISTER_METHOD(0x02804CE0, bool, Init, ())

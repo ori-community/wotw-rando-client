@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwimBoostHelper.h>
 
 namespace app::classes::SwimBoostHelper {
     IL2CPP_REGISTER_METHOD(0x01826BD0, void, Update, (app::SwimBoostHelper * this_ptr))

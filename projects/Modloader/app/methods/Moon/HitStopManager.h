@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HitStop.h>
 
 namespace app::classes::Moon::HitStopManager {
     IL2CPP_REGISTER_METHOD(0x010FA1D0, void, cctor, ())

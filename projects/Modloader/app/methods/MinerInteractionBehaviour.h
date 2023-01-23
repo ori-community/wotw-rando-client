@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MinerInteractionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MinerInteractionBehaviour_InteractionStates__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::MinerInteractionBehaviour {
     IL2CPP_REGISTER_METHOD(0x0144C570, void, OnEntityInitialized, (app::MinerInteractionBehaviour * this_ptr))

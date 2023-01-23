@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/AudioPlayback_Status__Enum.h>
 
 namespace app::classes::Steamworks::SteamMusicRemote {
     IL2CPP_REGISTER_METHOD(0x0278C000, bool, RegisterSteamMusicRemote, (app::String * pch_name))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugRaycastCheck.h>
 
 namespace app::classes::DebugRaycastCheck {
     IL2CPP_REGISTER_METHOD(0x00B72FB0, void, CheckForFirstBetweenHereAndTarget, (app::DebugRaycastCheck * this_ptr))

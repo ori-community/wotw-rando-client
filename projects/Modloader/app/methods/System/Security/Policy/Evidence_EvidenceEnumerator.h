@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Evidence_EvidenceEnumerator.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Security::Policy::Evidence_EvidenceEnumerator {
     IL2CPP_REGISTER_METHOD(0x01E1BFA0, void, ctor, (app::Evidence_EvidenceEnumerator * this_ptr, app::IEnumerator* hostenum, app::IEnumerator* assemblyenum))

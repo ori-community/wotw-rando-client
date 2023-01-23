@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ListViewItem_1_System_Object_.h>
+#include <Modloader/app/structs/ListView.h>
 
 namespace app::classes::Moon::UberStateVisualization::ListViewItem_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FBB00, app::Object*, get_Data, (app::ListViewItem_1_System_Object_ * this_ptr))

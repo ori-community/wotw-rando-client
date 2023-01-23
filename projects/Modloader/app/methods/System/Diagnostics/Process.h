@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Process.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ProcessInfo.h>
+#include <Modloader/app/structs/ProcessStartInfo.h>
+#include <Modloader/app/structs/ISynchronizeInvoke.h>
+#include <Modloader/app/structs/StreamWriter.h>
+#include <Modloader/app/structs/StreamReader.h>
+#include <Modloader/app/structs/SafeProcessHandle.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Process_State__Enum.h>
+#include <Modloader/app/structs/Process_ProcInfo.h>
+#include <Modloader/app/structs/void.h>
 
 namespace app::classes::System::Diagnostics::Process {
     IL2CPP_REGISTER_METHOD(0x01FFE840, void, ctor_1, (app::Process * this_ptr))

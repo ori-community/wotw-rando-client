@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReplayModel.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_ReplayModel___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_ReplayModel_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::ReplayModel*, get_Current, (app::List_1_T_Enumerator_ReplayModel___Boxed * this_ptr))

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InventoryScreenPickupElements_UberStateToElement__Class.h>
+#include <Modloader/app/structs/InventoryScreenPickupElements_UberStateToElement.h>
+#include <Modloader/app/structs/InventoryScreenPickupElements_UberStateToElement__Boxed.h>
+#include <Modloader/app/structs/InventoryScreenPickupElements_UberStateToElement__Array.h>
 
 namespace app::classes::types {
     namespace InventoryScreenPickupElements_UberStateToElement {

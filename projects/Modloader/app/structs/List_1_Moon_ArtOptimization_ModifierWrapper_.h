@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_Moon_ArtOptimization_ModifierWrapper__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_Moon_ArtOptimization_ModifierWrapper__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_ArtOptimization_ModifierWrapper__DEFINED)
+#include <Modloader/app/structs/List_1_Moon_ArtOptimization_ModifierWrapper___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_Moon_ArtOptimization_ModifierWrapper___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_Moon_ArtOptimization_ModifierWrapper__DEFINED
+struct List_1_Moon_ArtOptimization_ModifierWrapper___Class;
+struct List_1_Moon_ArtOptimization_ModifierWrapper_ {
+    struct List_1_Moon_ArtOptimization_ModifierWrapper___Class* klass;
+    MonitorData* monitor;
+    struct List_1_Moon_ArtOptimization_ModifierWrapper___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_Moon_ArtOptimization_ModifierWrapper__FWDDECL)
+#define IL2CPP_STRUCT_List_1_Moon_ArtOptimization_ModifierWrapper__FWDDECL
+#include <Modloader/app/structs/List_1_Moon_ArtOptimization_ModifierWrapper___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_Moon_ArtOptimization_ModifierWrapper__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_ArtOptimization_ModifierWrapper__DEFINED) && !defined(IL2CPP_STRUCT_List_1_Moon_ArtOptimization_ModifierWrapper__FWDDECL)
+#include <Modloader/app/structs/List_1_Moon_ArtOptimization_ModifierWrapper_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_Moon_ArtOptimization_ModifierWrapper_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

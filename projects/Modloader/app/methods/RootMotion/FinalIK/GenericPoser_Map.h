@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericPoser_Map.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::GenericPoser_Map {
     IL2CPP_REGISTER_METHOD(0x02064DD0, void, ctor, (app::GenericPoser_Map * this_ptr, app::Transform* bone, app::Transform* target))

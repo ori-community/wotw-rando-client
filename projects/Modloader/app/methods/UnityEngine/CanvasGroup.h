@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CanvasGroup.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Camera.h>
 
 namespace app::classes::UnityEngine::CanvasGroup {
     IL2CPP_REGISTER_METHOD(0x031A5E40, float, get_alpha, (app::CanvasGroup * this_ptr))

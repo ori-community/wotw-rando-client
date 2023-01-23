@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RagdollUtility_Rigidbone__Class.h>
+#include <Modloader/app/structs/RagdollUtility_Rigidbone.h>
+#include <Modloader/app/structs/RagdollUtility_Rigidbone__Array.h>
 
 namespace app::classes::types {
     namespace RagdollUtility_Rigidbone {

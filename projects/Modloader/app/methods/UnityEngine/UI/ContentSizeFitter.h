@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ContentSizeFitter.h>
+#include <Modloader/app/structs/ContentSizeFitter_FitMode__Enum.h>
+#include <Modloader/app/structs/RectTransform.h>
 
 namespace app::classes::UnityEngine::UI::ContentSizeFitter {
     IL2CPP_REGISTER_METHOD(0x01F30480, void, ctor, (app::ContentSizeFitter * this_ptr))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MoonAnimatorSystem_UpdateGuard__Class.h>
+#include <Modloader/app/structs/MoonAnimatorSystem_UpdateGuard.h>
+#include <Modloader/app/structs/MoonAnimatorSystem_UpdateGuard__Boxed.h>
 
 namespace app::classes::types {
     namespace MoonAnimatorSystem_UpdateGuard {

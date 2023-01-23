@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UserAgent.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::UserAgent {
     IL2CPP_REGISTER_METHOD(0x0166FAF0, app::String*, GetUserAgent, ())

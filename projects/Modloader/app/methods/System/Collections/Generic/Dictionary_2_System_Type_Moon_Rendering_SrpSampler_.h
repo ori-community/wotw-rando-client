@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Type_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/SrpSampler.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Type_Moon_Rendering_SrpSampler_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_System_Type_Moon_Rendering_SrpSampler_ * this_ptr))

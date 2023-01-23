@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/BreakableWallLogic.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::BreakableWallLogic {
     IL2CPP_REGISTER_METHOD(0x00D4F420, app::IUberState*, get_UberState, (app::BreakableWallLogic * this_ptr))

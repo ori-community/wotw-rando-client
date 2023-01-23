@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector2DebugMenuItem.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Func_1_String_.h>
 
 namespace app::classes::Vector2DebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x00F28570, app::Vector2, get_Value, (app::Vector2DebugMenuItem * this_ptr))

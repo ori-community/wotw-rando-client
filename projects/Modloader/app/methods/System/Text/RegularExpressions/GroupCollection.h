@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GroupCollection.h>
+#include <Modloader/app/structs/Match.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Group.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Text::RegularExpressions::GroupCollection {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor_1, (app::GroupCollection * this_ptr, app::Match* match, app::Hashtable* caps))

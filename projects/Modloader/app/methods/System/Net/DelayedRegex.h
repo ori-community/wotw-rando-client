@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DelayedRegex.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Regex.h>
 
 namespace app::classes::System::Net::DelayedRegex {
     IL2CPP_REGISTER_METHOD(0x01EAC710, void, ctor_1, (app::DelayedRegex * this_ptr, app::String* regex_string))

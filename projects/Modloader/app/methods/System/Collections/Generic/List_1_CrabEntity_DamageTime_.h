@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_CrabEntity_DamageTime_.h>
+#include <Modloader/app/structs/CrabEntity_DamageTime.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CrabEntity_DamageTime_ {
     IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_CrabEntity_DamageTime_ * this_ptr, app::CrabEntity_DamageTime* item))

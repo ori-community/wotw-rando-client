@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DropSlugEnemy.h>
 
 namespace app::classes::DropSlugEnemy {
     IL2CPP_REGISTER_METHOD(0x00BE1310, bool, CanBeOptimized, (app::DropSlugEnemy * this_ptr))

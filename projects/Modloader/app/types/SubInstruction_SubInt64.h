@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SubInstruction_SubInt64__Class.h>
+#include <Modloader/app/structs/SubInstruction_SubInt64.h>
 
 namespace app::classes::types {
     namespace SubInstruction_SubInt64 {

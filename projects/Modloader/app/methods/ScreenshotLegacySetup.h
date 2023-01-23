@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ScreenshotLegacySetup.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::ScreenshotLegacySetup {
     IL2CPP_REGISTER_METHOD(0x01068F60, app::Type*, get_Type, (app::ScreenshotLegacySetup * this_ptr))

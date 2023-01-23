@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_IAttackable_LockOnTarget_.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_IAttackable_LockOnTarget_.h>
+#include <Modloader/app/structs/LockOnTarget.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_IAttackable_LockOnTarget_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_IAttackable_LockOnTarget_ * this_ptr, app::IAttackable* key))

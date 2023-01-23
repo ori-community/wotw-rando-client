@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Scene__Boxed.h>
+#include <Modloader/app/structs/GameObject__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::UnityEngine::SceneManagement::Scene {
     IL2CPP_REGISTER_METHOD(0x02978E80, bool, IsValidInternal, (int32_t scene_handle))

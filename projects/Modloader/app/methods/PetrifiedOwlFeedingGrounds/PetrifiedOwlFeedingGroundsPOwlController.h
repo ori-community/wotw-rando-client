@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundsPOwlController.h>
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundsPOwlController_PetrifiedOwlFeedingGroundsPOwlState__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::PetrifiedOwlFeedingGrounds::PetrifiedOwlFeedingGroundsPOwlController {
     IL2CPP_REGISTER_METHOD(0x014E2CA0, void, OnEnable, (app::PetrifiedOwlFeedingGroundsPOwlController * this_ptr))

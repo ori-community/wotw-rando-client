@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VerletStructure_JobWithMonoBehaviour.h>
+#include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::UnityEngine::Jobs::IJobParallelForTransformExtensions_TransformParallelForLoopStruct_1_VerletStructure_JobWithMonoBehaviour_ {
     IL2CPP_REGISTER_METHOD(0x02ACCBE0, void*, Initialize, ())

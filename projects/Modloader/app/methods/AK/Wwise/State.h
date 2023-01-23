@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WwiseObjectType__Enum.h>
+#include <Modloader/app/structs/State.h>
 
 namespace app::classes::AK::Wwise::State {
     IL2CPP_REGISTER_METHOD(0x0043D9A0, app::WwiseObjectType__Enum, get_WwiseObjectType, (app::State * this_ptr))

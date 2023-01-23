@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ExternalTimelineEntity.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineEntityRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ConstraintsMetaData_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineMarkerRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ExternalTimelineRecord_.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_ITimelineEntity_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__2.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/ITrimController.h>
 
 namespace app::classes::Moon::Timeline::ExternalTimelineEntity {
     IL2CPP_REGISTER_METHOD(0x01BBDF00, app::String*, get_FullAddress, (app::ExternalTimelineEntity * this_ptr))

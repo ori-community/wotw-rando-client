@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/Action_1_Object_.h>
+#include <Modloader/app/structs/Action_2_Object_Int32_.h>
+#include <Modloader/app/structs/IEnumerable_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
+#include <Modloader/app/structs/Action_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
+#include <Modloader/app/structs/IEnumerable_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_.h>
+#include <Modloader/app/structs/Action_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_.h>
+#include <Modloader/app/structs/IEnumerable_1_ZenFulcrum_EmbeddedBrowser_IPromise_.h>
+#include <Modloader/app/structs/Action_2_ZenFulcrum_EmbeddedBrowser_IPromise_Int32_.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Promises::EnumerableExt {
     IL2CPP_REGISTER_METHOD(0x0156C730, app::IEnumerable_1_System_Object_*, Empty, ())

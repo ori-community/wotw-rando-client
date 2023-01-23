@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LookAt.h>
 
 namespace app::classes::LookAt {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Start, (app::LookAt * this_ptr))

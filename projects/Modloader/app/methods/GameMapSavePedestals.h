@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_GameMapSavePedestal_.h>
+#include <Modloader/app/structs/GameMapSavePedestals.h>
+#include <Modloader/app/structs/GameMapSavePedestal.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::GameMapSavePedestals {
     IL2CPP_REGISTER_METHOD(0x006A1160, app::List_1_GameMapSavePedestal_*, get_Pedestals, (app::GameMapSavePedestals * this_ptr))

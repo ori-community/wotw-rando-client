@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DeviceInfoRequest__Class.h>
+#include <Modloader/app/structs/DeviceInfoRequest.h>
 
 namespace app::classes::types {
     namespace DeviceInfoRequest {

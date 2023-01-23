@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeQuest.h>
+#include <Modloader/app/structs/Quest_QuestState__Enum.h>
+#include <Modloader/app/structs/Quest.h>
 
 namespace app::classes::RuntimeQuest {
     IL2CPP_REGISTER_METHOD(0x0137AAD0, void, CatchUpState, (app::RuntimeQuest * this_ptr))

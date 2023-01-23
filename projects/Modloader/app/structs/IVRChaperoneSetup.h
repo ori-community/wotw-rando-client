@@ -1,0 +1,83 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRChaperoneSetup_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRChaperoneSetup_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRChaperoneSetup_DEFINED)
+#define IL2CPP_STRUCT_IVRChaperoneSetup_DEFINED
+struct IVRChaperoneSetup_CommitWorkingCopy;
+struct IVRChaperoneSetup_RevertWorkingCopy;
+struct IVRChaperoneSetup_GetWorkingPlayAreaSize;
+struct IVRChaperoneSetup_GetWorkingPlayAreaRect;
+struct IVRChaperoneSetup_GetWorkingCollisionBoundsInfo;
+struct IVRChaperoneSetup_GetLiveCollisionBoundsInfo;
+struct IVRChaperoneSetup_GetWorkingSeatedZeroPoseToRawTrackingPose;
+struct IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose;
+struct IVRChaperoneSetup_SetWorkingPlayAreaSize;
+struct IVRChaperoneSetup_SetWorkingCollisionBoundsInfo;
+struct IVRChaperoneSetup_SetWorkingSeatedZeroPoseToRawTrackingPose;
+struct IVRChaperoneSetup_SetWorkingStandingZeroPoseToRawTrackingPose;
+struct IVRChaperoneSetup_ReloadFromDisk;
+struct IVRChaperoneSetup_GetLiveSeatedZeroPoseToRawTrackingPose;
+struct IVRChaperoneSetup_SetWorkingCollisionBoundsTagsInfo;
+struct IVRChaperoneSetup_GetLiveCollisionBoundsTagsInfo;
+struct IVRChaperoneSetup_SetWorkingPhysicalBoundsInfo;
+struct IVRChaperoneSetup_GetLivePhysicalBoundsInfo;
+struct IVRChaperoneSetup_ExportLiveToBuffer;
+struct IVRChaperoneSetup_ImportFromBufferToWorking;
+struct IVRChaperoneSetup {
+    struct IVRChaperoneSetup_CommitWorkingCopy* CommitWorkingCopy;
+    struct IVRChaperoneSetup_RevertWorkingCopy* RevertWorkingCopy;
+    struct IVRChaperoneSetup_GetWorkingPlayAreaSize* GetWorkingPlayAreaSize;
+    struct IVRChaperoneSetup_GetWorkingPlayAreaRect* GetWorkingPlayAreaRect;
+    struct IVRChaperoneSetup_GetWorkingCollisionBoundsInfo* GetWorkingCollisionBoundsInfo;
+    struct IVRChaperoneSetup_GetLiveCollisionBoundsInfo* GetLiveCollisionBoundsInfo;
+    struct IVRChaperoneSetup_GetWorkingSeatedZeroPoseToRawTrackingPose* GetWorkingSeatedZeroPoseToRawTrackingPose;
+    struct IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose* GetWorkingStandingZeroPoseToRawTrackingPose;
+    struct IVRChaperoneSetup_SetWorkingPlayAreaSize* SetWorkingPlayAreaSize;
+    struct IVRChaperoneSetup_SetWorkingCollisionBoundsInfo* SetWorkingCollisionBoundsInfo;
+    struct IVRChaperoneSetup_SetWorkingSeatedZeroPoseToRawTrackingPose* SetWorkingSeatedZeroPoseToRawTrackingPose;
+    struct IVRChaperoneSetup_SetWorkingStandingZeroPoseToRawTrackingPose* SetWorkingStandingZeroPoseToRawTrackingPose;
+    struct IVRChaperoneSetup_ReloadFromDisk* ReloadFromDisk;
+    struct IVRChaperoneSetup_GetLiveSeatedZeroPoseToRawTrackingPose* GetLiveSeatedZeroPoseToRawTrackingPose;
+    struct IVRChaperoneSetup_SetWorkingCollisionBoundsTagsInfo* SetWorkingCollisionBoundsTagsInfo;
+    struct IVRChaperoneSetup_GetLiveCollisionBoundsTagsInfo* GetLiveCollisionBoundsTagsInfo;
+    struct IVRChaperoneSetup_SetWorkingPhysicalBoundsInfo* SetWorkingPhysicalBoundsInfo;
+    struct IVRChaperoneSetup_GetLivePhysicalBoundsInfo* GetLivePhysicalBoundsInfo;
+    struct IVRChaperoneSetup_ExportLiveToBuffer* ExportLiveToBuffer;
+    struct IVRChaperoneSetup_ImportFromBufferToWorking* ImportFromBufferToWorking;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IVRChaperoneSetup_FWDDECL)
+#define IL2CPP_STRUCT_IVRChaperoneSetup_FWDDECL
+#include <Modloader/app/structs/IVRChaperoneSetup_CommitWorkingCopy.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_ExportLiveToBuffer.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_GetLiveCollisionBoundsInfo.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_GetLiveCollisionBoundsTagsInfo.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_GetLivePhysicalBoundsInfo.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_GetLiveSeatedZeroPoseToRawTrackingPose.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_GetWorkingCollisionBoundsInfo.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_GetWorkingPlayAreaRect.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_GetWorkingPlayAreaSize.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_GetWorkingSeatedZeroPoseToRawTrackingPose.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_GetWorkingStandingZeroPoseToRawTrackingPose.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_ImportFromBufferToWorking.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_ReloadFromDisk.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_RevertWorkingCopy.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingCollisionBoundsInfo.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingCollisionBoundsTagsInfo.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingPhysicalBoundsInfo.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingPlayAreaSize.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingSeatedZeroPoseToRawTrackingPose.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingStandingZeroPoseToRawTrackingPose.h>
+#endif
+#undef IL2CPP_STRUCT_IVRChaperoneSetup_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRChaperoneSetup_DEFINED) && !defined(IL2CPP_STRUCT_IVRChaperoneSetup_FWDDECL)
+#include <Modloader/app/structs/IVRChaperoneSetup.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRChaperoneSetup.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

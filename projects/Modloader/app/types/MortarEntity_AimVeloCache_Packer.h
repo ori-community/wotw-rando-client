@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MortarEntity_AimVeloCache_Packer__Class.h>
+#include <Modloader/app/structs/MortarEntity_AimVeloCache_Packer.h>
 
 namespace app::classes::types {
     namespace MortarEntity_AimVeloCache_Packer {

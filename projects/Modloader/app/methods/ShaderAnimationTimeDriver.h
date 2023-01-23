@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShaderAnimationTimeDriver.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::ShaderAnimationTimeDriver {
     IL2CPP_REGISTER_METHOD(0x005A60E0, app::ShaderAnimationTimeDriver*, get_Instance, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkinnedMeshLod_c_DisplayClass11_1.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::SkinnedMeshLod___c__DisplayClass11_1 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SkinnedMeshLod_c_DisplayClass11_1 * this_ptr))

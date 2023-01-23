@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MemoryLabelDebugger_MemoryLabelAllocationCache_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MemoryLabelDebugger_MemoryLabelAllocationCache_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MemoryLabelDebugger_MemoryLabelAllocationCache_DEFINED)
+#include <Modloader/app/structs/MemoryLabelDebugger_MemoryLabelAllocationCache__Fields.h>
+#if defined(IL2CPP_STRUCT_MemoryLabelDebugger_MemoryLabelAllocationCache__Fields_DEFINED)
+#define IL2CPP_STRUCT_MemoryLabelDebugger_MemoryLabelAllocationCache_DEFINED
+struct MemoryLabelDebugger_MemoryLabelAllocationCache__Class;
+struct MemoryLabelDebugger_MemoryLabelAllocationCache {
+    struct MemoryLabelDebugger_MemoryLabelAllocationCache__Class* klass;
+    MonitorData* monitor;
+    struct MemoryLabelDebugger_MemoryLabelAllocationCache__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MemoryLabelDebugger_MemoryLabelAllocationCache_FWDDECL)
+#define IL2CPP_STRUCT_MemoryLabelDebugger_MemoryLabelAllocationCache_FWDDECL
+#include <Modloader/app/structs/MemoryLabelDebugger_MemoryLabelAllocationCache__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MemoryLabelDebugger_MemoryLabelAllocationCache_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MemoryLabelDebugger_MemoryLabelAllocationCache_DEFINED) && !defined(IL2CPP_STRUCT_MemoryLabelDebugger_MemoryLabelAllocationCache_FWDDECL)
+#include <Modloader/app/structs/MemoryLabelDebugger_MemoryLabelAllocationCache.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MemoryLabelDebugger_MemoryLabelAllocationCache.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

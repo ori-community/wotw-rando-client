@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BossHealthbar.h>
 
 namespace app::classes::BossHealthbar {
     IL2CPP_REGISTER_METHOD(0x00A26FE0, float, get_Value, (app::BossHealthbar * this_ptr))

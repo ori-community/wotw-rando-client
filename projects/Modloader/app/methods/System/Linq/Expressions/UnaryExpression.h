@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnaryExpression.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/ExpressionVisitor.h>
 
 namespace app::classes::System::Linq::Expressions::UnaryExpression {
     IL2CPP_REGISTER_METHOD(0x02FC57F0, void, ctor, (app::UnaryExpression * this_ptr, app::ExpressionType__Enum node_type, app::Expression* expression, app::Type* type, app::MethodInfo_1* method_1))

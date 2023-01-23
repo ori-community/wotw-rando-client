@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GoldenSein_UndrainRoutine_d_60__Class.h>
+#include <Modloader/app/structs/GoldenSein_UndrainRoutine_d_60.h>
 
 namespace app::classes::types {
     namespace GoldenSein_UndrainRoutine_d_60 {

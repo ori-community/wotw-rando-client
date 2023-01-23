@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TiggerWithConditionOrWaitTime.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::TiggerWithConditionOrWaitTime {
     IL2CPP_REGISTER_METHOD(0x010ED520, void, Awake, (app::TiggerWithConditionOrWaitTime * this_ptr))

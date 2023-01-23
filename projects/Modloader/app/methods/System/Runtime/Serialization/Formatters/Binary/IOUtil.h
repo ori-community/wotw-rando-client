@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MessageEnum__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/_BinaryWriter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::IOUtil {
     IL2CPP_REGISTER_METHOD(0x00EB1B80, bool, FlagTest, (app::MessageEnum__Enum flag, app::MessageEnum__Enum target))

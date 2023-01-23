@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Door_1.h>
+#include <Modloader/app/structs/Action_1_ZenFulcrum_EmbeddedBrowser_Door_OpenState_.h>
+#include <Modloader/app/structs/Door_OpenState__Enum.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Door {
     IL2CPP_REGISTER_METHOD(0x01DD5AC0, void, add_stateChange, (app::Door_1 * this_ptr, app::Action_1_ZenFulcrum_EmbeddedBrowser_Door_OpenState_* value))

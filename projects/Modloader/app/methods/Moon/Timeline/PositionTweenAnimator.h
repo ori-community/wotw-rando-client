@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/PositionTweenAnimator.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
 
 namespace app::classes::Moon::Timeline::PositionTweenAnimator {
     IL2CPP_REGISTER_METHOD(0x01E7AF70, app::Transform*, get_TransformTarget, (app::PositionTweenAnimator * this_ptr))

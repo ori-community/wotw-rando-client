@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MulticastDelegate.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Delegate__Array.h>
+#include <Modloader/app/structs/Delegate.h>
 
 namespace app::classes::System::MulticastDelegate {
     IL2CPP_REGISTER_METHOD(0x0173FA70, void, GetObjectData, (app::MulticastDelegate * this_ptr, app::SerializationInfo* info, app::StreamingContext context))

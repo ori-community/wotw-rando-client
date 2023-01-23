@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberShaderTexture__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberShaderTexture__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderTexture__Fields_DEFINED)
+#include <Modloader/app/structs/UberShaderTextureBase__Fields.h>
+#if defined(IL2CPP_STRUCT_UberShaderTextureBase__Fields_DEFINED)
+#define IL2CPP_STRUCT_UberShaderTexture__Fields_DEFINED
+struct Texture2D;
+struct String;
+struct UberShaderTexture__Fields {
+    struct UberShaderTextureBase__Fields _;
+    struct Texture2D* m_texture;
+    bool IsVertexTexture;
+    struct String* VariantUnboundKeyword;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberShaderTexture__Fields_FWDDECL)
+#define IL2CPP_STRUCT_UberShaderTexture__Fields_FWDDECL
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture2D.h>
+#endif
+#undef IL2CPP_STRUCT_UberShaderTexture__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderTexture__Fields_DEFINED) && !defined(IL2CPP_STRUCT_UberShaderTexture__Fields_FWDDECL)
+#include <Modloader/app/structs/UberShaderTexture__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberShaderTexture__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

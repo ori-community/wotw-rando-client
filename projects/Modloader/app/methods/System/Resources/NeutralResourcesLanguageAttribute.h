@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NeutralResourcesLanguageAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UltimateResourceFallbackLocation__Enum.h>
 
 namespace app::classes::System::Resources::NeutralResourcesLanguageAttribute {
     IL2CPP_REGISTER_METHOD(0x01A84120, void, ctor, (app::NeutralResourcesLanguageAttribute * this_ptr, app::String* culture_name))

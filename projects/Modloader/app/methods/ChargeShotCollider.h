@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/ChargeShotCollider.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Collider_.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::ChargeShotCollider {
     IL2CPP_REGISTER_METHOD(0x01319C80, app::GameObject*, get_Reflectable, (app::ChargeShotCollider * this_ptr))

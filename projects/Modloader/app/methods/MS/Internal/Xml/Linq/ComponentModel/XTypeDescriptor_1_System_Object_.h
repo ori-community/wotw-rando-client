@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XTypeDescriptor_1_System_Object_.h>
+#include <Modloader/app/structs/ICustomTypeDescriptor.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/Attribute__Array.h>
 
 namespace app::classes::MS::Internal::Xml::Linq::ComponentModel::XTypeDescriptor_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x019D6B90, void, ctor, (app::XTypeDescriptor_1_System_Object_ * this_ptr, app::ICustomTypeDescriptor* parent))

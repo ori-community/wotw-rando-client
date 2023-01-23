@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyDamageReciever.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::LegacyDamageReciever {
     IL2CPP_REGISTER_METHOD(0x00A17920, void, OnValidate, (app::LegacyDamageReciever * this_ptr))

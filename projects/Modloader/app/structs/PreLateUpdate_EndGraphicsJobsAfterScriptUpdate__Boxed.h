@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Boxed_DEFINED)
+#include <Modloader/app/structs/PreLateUpdate_EndGraphicsJobsAfterScriptUpdate.h>
+#if defined(IL2CPP_STRUCT_PreLateUpdate_EndGraphicsJobsAfterScriptUpdate_DEFINED)
+#define IL2CPP_STRUCT_PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Boxed_DEFINED
+struct PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Class;
+struct PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Boxed {
+    struct PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Class* klass;
+    MonitorData* monitor;
+    struct PreLateUpdate_EndGraphicsJobsAfterScriptUpdate fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Boxed_FWDDECL
+#include <Modloader/app/structs/PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Boxed_FWDDECL)
+#include <Modloader/app/structs/PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PreLateUpdate_EndGraphicsJobsAfterScriptUpdate__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

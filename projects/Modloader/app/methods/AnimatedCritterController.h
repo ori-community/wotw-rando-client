@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimatedCritter.h>
+#include <Modloader/app/structs/AnimatedCritterController.h>
 
 namespace app::classes::AnimatedCritterController {
     IL2CPP_REGISTER_METHOD(0x004FAA70, app::AnimatedCritter*, get_CurrentCritter, (app::AnimatedCritterController * this_ptr))

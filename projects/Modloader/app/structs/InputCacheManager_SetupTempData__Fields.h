@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_InputCacheManager_SetupTempData__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_InputCacheManager_SetupTempData__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_InputCacheManager_SetupTempData__Fields_DEFINED)
+#define IL2CPP_STRUCT_InputCacheManager_SetupTempData__Fields_DEFINED
+struct Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_;
+struct List_1_SmartInput_InputCacheManager_SetupTempData_Node_;
+struct __declspec(align(8)) InputCacheManager_SetupTempData__Fields {
+    int32_t m_index;
+    struct Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_* m_nodes;
+    struct List_1_SmartInput_InputCacheManager_SetupTempData_Node_* m_stack;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_InputCacheManager_SetupTempData__Fields_FWDDECL)
+#define IL2CPP_STRUCT_InputCacheManager_SetupTempData__Fields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_.h>
+#include <Modloader/app/structs/List_1_SmartInput_InputCacheManager_SetupTempData_Node_.h>
+#endif
+#undef IL2CPP_STRUCT_InputCacheManager_SetupTempData__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_InputCacheManager_SetupTempData__Fields_DEFINED) && !defined(IL2CPP_STRUCT_InputCacheManager_SetupTempData__Fields_FWDDECL)
+#include <Modloader/app/structs/InputCacheManager_SetupTempData__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/InputCacheManager_SetupTempData__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

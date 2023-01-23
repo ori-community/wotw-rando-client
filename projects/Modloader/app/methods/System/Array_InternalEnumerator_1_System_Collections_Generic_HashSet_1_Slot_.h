@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot___Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_Moon_Timeline_EntityId_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__1__Boxed.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_ByteEnum_.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__2__Boxed.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_Int32_.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__3__Boxed.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_Int32Enum_.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__4__Boxed.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_Int64_.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__5__Boxed.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_Object_.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__6__Boxed.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_UInt32_.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__7__Boxed.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_UInt64_.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__8__Boxed.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__9__Boxed.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_UnityEngine_Vector3_.h>
 
 namespace app::classes::System::Array_InternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot_ {
     IL2CPP_REGISTER_METHOD(0x00160580, void, ctor_1, (app::Array_InternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot___Boxed * this_ptr, app::Array* array))

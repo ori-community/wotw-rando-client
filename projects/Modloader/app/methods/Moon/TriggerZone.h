@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TriggerZone.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Collider2D.h>
 
 namespace app::classes::Moon::TriggerZone {
     IL2CPP_REGISTER_METHOD(0x031B0F80, void, add_OnEnterTrigger, (app::TriggerZone * this_ptr, app::Action* value))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CheckpointRestrictZone_CheckpointRestrictType__Enum__Class.h>
+#include <Modloader/app/structs/CheckpointRestrictZone_CheckpointRestrictType__Enum.h>
 
 namespace app::classes::types {
     namespace CheckpointRestrictZone_CheckpointRestrictType__Enum {

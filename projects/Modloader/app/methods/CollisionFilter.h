@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CollisionFilter.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::CollisionFilter {
     IL2CPP_REGISTER_METHOD(0x012D08F0, void, Awake, (app::CollisionFilter * this_ptr))

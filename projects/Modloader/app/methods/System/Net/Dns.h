@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IPAddress.h>
+#include <Modloader/app/structs/IPHostEntry.h>
+#include <Modloader/app/structs/IPAddress__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Task_1_System_Net_IPAddress_.h>
+#include <Modloader/app/structs/Task_1_System_Net_IPHostEntry_.h>
 
 namespace app::classes::System::Net::Dns {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())

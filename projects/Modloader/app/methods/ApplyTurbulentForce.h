@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ApplyTurbulentForce.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::ApplyTurbulentForce {
     IL2CPP_REGISTER_METHOD(0x00507BF0, void, Awake, (app::ApplyTurbulentForce * this_ptr))

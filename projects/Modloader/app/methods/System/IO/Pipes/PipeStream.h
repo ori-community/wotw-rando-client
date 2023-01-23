@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PipeStream.h>
+#include <Modloader/app/structs/PipeDirection__Enum.h>
+#include <Modloader/app/structs/PipeTransmissionMode__Enum.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::IO::Pipes::PipeStream {
     IL2CPP_REGISTER_METHOD(0x01F99750, void, ctor_1, (app::PipeStream * this_ptr, app::PipeDirection__Enum direction, int32_t buffer_size))

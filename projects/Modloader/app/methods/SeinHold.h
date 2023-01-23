@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinHold.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/IHoldable.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/SeinHold_ThrowAnimationSet.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinHold {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinHold * this_ptr))

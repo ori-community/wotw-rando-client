@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DictionaryList_2_System_Object_System_Object___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DictionaryList_2_System_Object_System_Object___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DictionaryList_2_System_Object_System_Object___Fields_DEFINED)
+#define IL2CPP_STRUCT_DictionaryList_2_System_Object_System_Object___Fields_DEFINED
+struct Dictionary_2_System_Object_System_Object_;
+struct List_1_DictionaryList_2_KeyValuePair_;
+struct __declspec(align(8)) DictionaryList_2_System_Object_System_Object___Fields {
+    int32_t Test;
+    struct Dictionary_2_System_Object_System_Object_* Dictionary;
+    struct List_1_DictionaryList_2_KeyValuePair_* List;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_DictionaryList_2_System_Object_System_Object___Fields_FWDDECL)
+#define IL2CPP_STRUCT_DictionaryList_2_System_Object_System_Object___Fields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/List_1_DictionaryList_2_KeyValuePair_.h>
+#endif
+#undef IL2CPP_STRUCT_DictionaryList_2_System_Object_System_Object___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DictionaryList_2_System_Object_System_Object___Fields_DEFINED) && !defined(IL2CPP_STRUCT_DictionaryList_2_System_Object_System_Object___Fields_FWDDECL)
+#include <Modloader/app/structs/DictionaryList_2_System_Object_System_Object___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DictionaryList_2_System_Object_System_Object___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

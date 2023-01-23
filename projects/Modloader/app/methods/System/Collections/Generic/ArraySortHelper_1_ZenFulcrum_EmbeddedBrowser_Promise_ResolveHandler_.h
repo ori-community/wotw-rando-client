@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Promise_ResolveHandler__Array.h>
+#include <Modloader/app/structs/IComparer_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_.h>
+#include <Modloader/app/structs/Promise_ResolveHandler.h>
+#include <Modloader/app/structs/Comparison_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_ {
     IL2CPP_REGISTER_METHOD(0x02C8FE20, void, Sort_1, (app::Promise_ResolveHandler__Array * keys, int32_t index, int32_t length, app::IComparer_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_* comparer))

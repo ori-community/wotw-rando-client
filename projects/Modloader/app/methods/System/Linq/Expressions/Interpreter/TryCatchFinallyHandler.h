@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TryCatchFinallyHandler.h>
+#include <Modloader/app/structs/ExceptionHandler__Array.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/ExceptionHandler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ExceptionFilter.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::TryCatchFinallyHandler {
     IL2CPP_REGISTER_METHOD(0x02415020, bool, get_IsFinallyBlockExist, (app::TryCatchFinallyHandler * this_ptr))

@@ -1,0 +1,40 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EnumDictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EnumDictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EnumDictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D___Fields_DEFINED)
+#include <Modloader/app/structs/MonoBehaviour__Fields.h>
+#if defined(IL2CPP_STRUCT_MonoBehaviour__Fields_DEFINED)
+#define IL2CPP_STRUCT_EnumDictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D___Fields_DEFINED
+struct Texture2D;
+struct List_1_ScreenshotIcon_NPCType_;
+struct List_1_UnityEngine_Texture2D_;
+struct Dictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D_;
+struct EnumDictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D___Fields {
+    struct MonoBehaviour__Fields _;
+    struct Texture2D* Missing;
+    bool ThrowMissingError;
+    struct List_1_ScreenshotIcon_NPCType_* m_keys;
+    struct List_1_UnityEngine_Texture2D_* m_values;
+    struct Dictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D_* m_dictionary;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_EnumDictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D___Fields_FWDDECL)
+#define IL2CPP_STRUCT_EnumDictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D___Fields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D_.h>
+#include <Modloader/app/structs/List_1_ScreenshotIcon_NPCType_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Texture2D_.h>
+#include <Modloader/app/structs/Texture2D.h>
+#endif
+#undef IL2CPP_STRUCT_EnumDictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EnumDictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D___Fields_DEFINED) && !defined(IL2CPP_STRUCT_EnumDictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D___Fields_FWDDECL)
+#include <Modloader/app/structs/EnumDictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EnumDictionary_2_ScreenshotIcon_NPCType_UnityEngine_Texture2D___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

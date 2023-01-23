@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Tuple_2_GameController_ProfilingConfiguration_FrameCaptureTester_.h>
+#include <Modloader/app/structs/GameController_ProfilingConfiguration__Enum.h>
+#include <Modloader/app/structs/FrameCaptureTester.h>
 
 namespace app::classes::System::Tuple_2_GameController_ProfilingConfiguration_FrameCaptureTester_ {
     IL2CPP_REGISTER_METHOD(0x02A64EE0, void, ctor, (app::Tuple_2_GameController_ProfilingConfiguration_FrameCaptureTester_ * this_ptr, app::GameController_ProfilingConfiguration__Enum item1, app::FrameCaptureTester* item2))

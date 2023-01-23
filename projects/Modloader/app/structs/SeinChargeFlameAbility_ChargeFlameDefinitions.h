@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SeinChargeFlameAbility_ChargeFlameDefinitions_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SeinChargeFlameAbility_ChargeFlameDefinitions_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SeinChargeFlameAbility_ChargeFlameDefinitions_DEFINED)
+#include <Modloader/app/structs/SeinChargeFlameAbility_ChargeFlameDefinitions__Fields.h>
+#if defined(IL2CPP_STRUCT_SeinChargeFlameAbility_ChargeFlameDefinitions__Fields_DEFINED)
+#define IL2CPP_STRUCT_SeinChargeFlameAbility_ChargeFlameDefinitions_DEFINED
+struct SeinChargeFlameAbility_ChargeFlameDefinitions__Class;
+struct SeinChargeFlameAbility_ChargeFlameDefinitions {
+    struct SeinChargeFlameAbility_ChargeFlameDefinitions__Class* klass;
+    MonitorData* monitor;
+    struct SeinChargeFlameAbility_ChargeFlameDefinitions__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SeinChargeFlameAbility_ChargeFlameDefinitions_FWDDECL)
+#define IL2CPP_STRUCT_SeinChargeFlameAbility_ChargeFlameDefinitions_FWDDECL
+#include <Modloader/app/structs/SeinChargeFlameAbility_ChargeFlameDefinitions__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SeinChargeFlameAbility_ChargeFlameDefinitions_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SeinChargeFlameAbility_ChargeFlameDefinitions_DEFINED) && !defined(IL2CPP_STRUCT_SeinChargeFlameAbility_ChargeFlameDefinitions_FWDDECL)
+#include <Modloader/app/structs/SeinChargeFlameAbility_ChargeFlameDefinitions.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SeinChargeFlameAbility_ChargeFlameDefinitions.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

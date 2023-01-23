@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WotwUberStateToWwiseData_WotwUberStateToWWiseEntry.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry {
     IL2CPP_REGISTER_METHOD(0x0058F9F0, bool, IsFulfilled, (app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry * this_ptr))

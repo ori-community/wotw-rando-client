@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KwolokBossTendrilStrikeBehaviour_StabLeftOutState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KwolokBossTendrilStrikeBehaviour_StabLeftOutState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossTendrilStrikeBehaviour_StabLeftOutState_DEFINED)
+#include <Modloader/app/structs/KwolokBossTendrilStrikeBehaviour_StabLeftOutState__Fields.h>
+#if defined(IL2CPP_STRUCT_KwolokBossTendrilStrikeBehaviour_StabLeftOutState__Fields_DEFINED)
+#define IL2CPP_STRUCT_KwolokBossTendrilStrikeBehaviour_StabLeftOutState_DEFINED
+struct KwolokBossTendrilStrikeBehaviour_StabLeftOutState__Class;
+struct KwolokBossTendrilStrikeBehaviour_StabLeftOutState {
+    struct KwolokBossTendrilStrikeBehaviour_StabLeftOutState__Class* klass;
+    MonitorData* monitor;
+    struct KwolokBossTendrilStrikeBehaviour_StabLeftOutState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KwolokBossTendrilStrikeBehaviour_StabLeftOutState_FWDDECL)
+#define IL2CPP_STRUCT_KwolokBossTendrilStrikeBehaviour_StabLeftOutState_FWDDECL
+#include <Modloader/app/structs/KwolokBossTendrilStrikeBehaviour_StabLeftOutState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_KwolokBossTendrilStrikeBehaviour_StabLeftOutState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossTendrilStrikeBehaviour_StabLeftOutState_DEFINED) && !defined(IL2CPP_STRUCT_KwolokBossTendrilStrikeBehaviour_StabLeftOutState_FWDDECL)
+#include <Modloader/app/structs/KwolokBossTendrilStrikeBehaviour_StabLeftOutState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KwolokBossTendrilStrikeBehaviour_StabLeftOutState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

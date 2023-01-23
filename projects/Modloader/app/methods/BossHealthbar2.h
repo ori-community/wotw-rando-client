@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BossHealthbar2.h>
+#include <Modloader/app/structs/Vitals.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/BossHealthbar2_BossNameType__Enum.h>
 
 namespace app::classes::BossHealthbar2 {
     IL2CPP_REGISTER_METHOD(0x00D3B6E0, app::BossHealthbar2*, get_Instance, ())

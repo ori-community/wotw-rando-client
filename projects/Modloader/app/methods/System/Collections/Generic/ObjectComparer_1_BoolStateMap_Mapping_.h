@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_BoolStateMap_Mapping_.h>
+#include <Modloader/app/structs/BoolStateMap_Mapping.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_BoolStateMap_Mapping_ {
     IL2CPP_REGISTER_METHOD(0x02C29510, int32_t, Compare, (app::ObjectComparer_1_BoolStateMap_Mapping_ * this_ptr, app::BoolStateMap_Mapping x, app::BoolStateMap_Mapping y))

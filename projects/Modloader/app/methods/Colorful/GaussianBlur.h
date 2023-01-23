@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GaussianBlur.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::GaussianBlur {
     IL2CPP_REGISTER_METHOD(0x03043B80, void, OnRenderImage, (app::GaussianBlur * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

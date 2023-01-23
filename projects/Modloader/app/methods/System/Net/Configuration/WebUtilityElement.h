@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebUtilityElement.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
+#include <Modloader/app/structs/UnicodeDecodingConformance__Enum.h>
+#include <Modloader/app/structs/UnicodeEncodingConformance__Enum.h>
 
 namespace app::classes::System::Net::Configuration::WebUtilityElement {
     IL2CPP_REGISTER_METHOD(0x01E99AA0, void, ctor, (app::WebUtilityElement * this_ptr))

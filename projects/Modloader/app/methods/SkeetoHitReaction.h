@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityDamageEvent.h>
+#include <Modloader/app/structs/SkeetoHitReaction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::SkeetoHitReaction {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::EntityDamageEvent*, get_DamageEvent, (app::SkeetoHitReaction * this_ptr))

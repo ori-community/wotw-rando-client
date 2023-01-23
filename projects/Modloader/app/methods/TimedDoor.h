@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimedDoor.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::TimedDoor {
     IL2CPP_REGISTER_METHOD(0x010F3C70, void, Awake, (app::TimedDoor * this_ptr))

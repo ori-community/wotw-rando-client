@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ControlSettingsItem__Class.h>
+#include <Modloader/app/structs/ControlSettingsItem.h>
+#include <Modloader/app/structs/ControlSettingsItem__Array.h>
 
 namespace app::classes::types {
     namespace ControlSettingsItem {

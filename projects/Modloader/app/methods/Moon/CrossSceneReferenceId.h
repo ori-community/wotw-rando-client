@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrossSceneReferenceId__Boxed.h>
+#include <Modloader/app/structs/CrossSceneReferenceId.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEqualityComparer_1_Moon_CrossSceneReferenceId_.h>
 
 namespace app::classes::Moon::CrossSceneReferenceId {
     IL2CPP_REGISTER_METHOD(0x00114150, int32_t, get_ObjectId, (app::CrossSceneReferenceId__Boxed * this_ptr))

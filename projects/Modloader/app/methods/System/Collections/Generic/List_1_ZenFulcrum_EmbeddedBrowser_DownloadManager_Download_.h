@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_ZenFulcrum_EmbeddedBrowser_DownloadManager_Download_.h>
+#include <Modloader/app/structs/DownloadManager_Download.h>
 
 namespace app::classes::System::Collections::Generic::List_1_ZenFulcrum_EmbeddedBrowser_DownloadManager_Download_ {
     IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_ZenFulcrum_EmbeddedBrowser_DownloadManager_Download_ * this_ptr, app::DownloadManager_Download* item))

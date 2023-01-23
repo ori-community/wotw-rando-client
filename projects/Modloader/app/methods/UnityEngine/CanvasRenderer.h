@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CanvasRenderer.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UIVertex_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/List_1_System_Int32_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::CanvasRenderer {
     IL2CPP_REGISTER_METHOD(0x031A5FE0, void, set_hasPopInstruction, (app::CanvasRenderer * this_ptr, bool value))

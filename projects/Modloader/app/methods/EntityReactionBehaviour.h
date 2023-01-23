@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityReactionBehaviour.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EntityDeathEvent.h>
+#include <Modloader/app/structs/EntityDamageEvent.h>
+#include <Modloader/app/structs/EntityKickbackEvent.h>
 
 namespace app::classes::EntityReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_RunInParallel, (app::EntityReactionBehaviour * this_ptr))

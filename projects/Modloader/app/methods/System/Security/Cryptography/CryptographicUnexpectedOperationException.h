@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CryptographicUnexpectedOperationException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Security::Cryptography::CryptographicUnexpectedOperationException {
     IL2CPP_REGISTER_METHOD(0x020D0180, void, ctor_1, (app::CryptographicUnexpectedOperationException * this_ptr))

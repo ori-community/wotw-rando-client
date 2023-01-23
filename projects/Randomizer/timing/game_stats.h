@@ -8,6 +8,8 @@
 #include <nlohmann/json.hpp>
 #include <unordered_map>
 
+#include <Modloader/app/structs/AbilityType__Enum.h>
+
 NLOHMANN_JSON_NAMESPACE_BEGIN
         template<typename T>
         struct adl_serializer<std::unordered_map<GameArea, T>> {

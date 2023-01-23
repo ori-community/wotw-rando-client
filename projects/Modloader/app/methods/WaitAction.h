@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaitAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::WaitAction {
     IL2CPP_REGISTER_METHOD(0x008C4680, void, Awake, (app::WaitAction * this_ptr))

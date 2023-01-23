@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Locomotion.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/EntityOwnedInitOrder__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/WaterfallIntersectionMode__Enum.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/Locomotion_StateTransitionEntry__Array.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/RootMotionProcessorData.h>
+#include <Modloader/app/structs/Func_2_UnityEngine_Vector3_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/MonoBehaviour.h>
+#include <Modloader/app/structs/RootMotionProcessor.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Locomotion {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_DrawGizmos, ())

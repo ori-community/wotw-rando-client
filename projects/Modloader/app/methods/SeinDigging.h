@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDigging.h>
+#include <Modloader/app/structs/SeinDigging_State__Enum.h>
+#include <Modloader/app/structs/SeinDigging_DiggingEffects.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SeinSwimming.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/DigZone.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/SeinDiggingPuppet.h>
+#include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EffectSpawn.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::SeinDigging {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinDigging * this_ptr))

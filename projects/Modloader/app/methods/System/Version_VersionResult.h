@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Version_VersionResult__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Version_ParseFailureKind__Enum.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Version_VersionResult {
     IL2CPP_REGISTER_METHOD(0x00249F60, void, Init, (app::Version_VersionResult__Boxed * this_ptr, app::String* argument_name, bool can_throw))

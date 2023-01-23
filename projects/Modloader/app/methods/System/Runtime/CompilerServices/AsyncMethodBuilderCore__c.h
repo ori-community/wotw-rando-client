@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncMethodBuilderCore_c.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncMethodBuilderCore___c {
     IL2CPP_REGISTER_METHOD(0x01A90ED0, void, cctor, ())

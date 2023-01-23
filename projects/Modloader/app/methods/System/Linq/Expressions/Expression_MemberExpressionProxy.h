@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Expression_MemberExpressionProxy.h>
+#include <Modloader/app/structs/MemberExpression.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_MemberExpressionProxy {
     IL2CPP_REGISTER_METHOD(0x029D5180, void, ctor, (app::Expression_MemberExpressionProxy * this_ptr, app::MemberExpression* node))

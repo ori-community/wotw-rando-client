@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_UnityEngine_Vector3_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_UnityEngine_Vector3_*, get_Default, ())

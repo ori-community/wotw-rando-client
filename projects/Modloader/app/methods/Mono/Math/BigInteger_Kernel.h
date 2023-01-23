@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BigInteger.h>
+#include <Modloader/app/structs/BigInteger_Sign__Enum.h>
+#include <Modloader/app/structs/BigInteger__Array.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/BigInteger_1.h>
+#include <Modloader/app/structs/BigInteger_Sign__Enum_1.h>
+#include <Modloader/app/structs/BigInteger_1__Array.h>
 
 namespace app::classes::Mono::Math::BigInteger_Kernel {
     IL2CPP_REGISTER_METHOD(0x023C8C80, app::BigInteger*, AddSameSign_1, (app::BigInteger * bi1, app::BigInteger* bi2))

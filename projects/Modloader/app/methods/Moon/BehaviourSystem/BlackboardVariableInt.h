@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonType_1_System_Int32_.h>
+#include <Modloader/app/structs/BlackboardVariableInt.h>
 
 namespace app::classes::Moon::BehaviourSystem::BlackboardVariableInt {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::IMoonType_1_System_Int32_*, GetMoonType, (app::BlackboardVariableInt * this_ptr))

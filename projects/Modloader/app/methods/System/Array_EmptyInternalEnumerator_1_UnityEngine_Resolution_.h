@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_UnityEngine_Resolution_.h>
+#include <Modloader/app/structs/Resolution.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_UnityEngine_Resolution_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose, (app::Array_EmptyInternalEnumerator_1_UnityEngine_Resolution_ * this_ptr))

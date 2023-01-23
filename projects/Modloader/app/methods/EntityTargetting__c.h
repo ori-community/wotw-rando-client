@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityTargetting_c.h>
 
 namespace app::classes::EntityTargetting___c {
     IL2CPP_REGISTER_METHOD(0x00CA5E30, void, cctor, ())

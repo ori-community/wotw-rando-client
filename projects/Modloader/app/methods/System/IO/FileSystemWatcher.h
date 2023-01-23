@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ISite.h>
+#include <Modloader/app/structs/FileSystemWatcher.h>
 
 namespace app::classes::System::IO::FileSystemWatcher {
     IL2CPP_REGISTER_METHOD(0x0200A8A0, app::ISite*, get_Site, (app::FileSystemWatcher * this_ptr))

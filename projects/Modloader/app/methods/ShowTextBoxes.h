@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowTextBoxes.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ShowTextBoxes {
     IL2CPP_REGISTER_METHOD(0x007386C0, void, Perform, (app::ShowTextBoxes * this_ptr, app::IContext* context))

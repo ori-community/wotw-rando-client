@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SoundZoneTrigger.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/ISoundListener.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::SoundZoneTrigger {
     IL2CPP_REGISTER_METHOD(0x00EF3770, app::String*, get_GizmoText, (app::SoundZoneTrigger * this_ptr))

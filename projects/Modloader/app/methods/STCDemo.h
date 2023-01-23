@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/STCDemo.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::STCDemo {
     IL2CPP_REGISTER_METHOD(0x00C07A70, void, Start, (app::STCDemo * this_ptr))

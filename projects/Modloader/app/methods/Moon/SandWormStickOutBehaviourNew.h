@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormStickOutBehaviourNew.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::SandWormStickOutBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x00EC5520, void, OnEnter, (app::SandWormStickOutBehaviourNew * this_ptr, app::IContext* context))

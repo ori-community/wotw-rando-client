@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinPowerslideSpell.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SeinPowerslideSpell_FireTrailPoint.h>
+#include <Modloader/app/structs/SeinPowerslideSpell_State__Enum.h>
 
 namespace app::classes::SeinPowerslideSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinPowerslideSpell * this_ptr))

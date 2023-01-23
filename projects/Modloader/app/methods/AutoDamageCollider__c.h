@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AutoDamageCollider_c.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::AutoDamageCollider___c {
     IL2CPP_REGISTER_METHOD(0x0085C230, void, cctor, ())

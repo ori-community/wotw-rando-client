@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OriCell.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 
 namespace app::classes::OriCell {
     IL2CPP_REGISTER_METHOD(0x00623200, void, SetShowCondition, (app::OriCell * this_ptr, app::Func_1_Boolean_* should_show_now))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Object_FullSerializer_Internal_fsOption_1_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Object_FullSerializer_Internal_fsOption_1_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Object_FullSerializer_Internal_fsOption_1_.h>
+#include <Modloader/app/structs/fsOption_1_fsVersionedType___Array.h>
+#include <Modloader/app/structs/fsOption_1_fsVersionedType_.h>
+#include <Modloader/app/structs/IEnumerator_1_FullSerializer_Internal_fsOption_1_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_System_Object_FullSerializer_Internal_fsOption_1_ {
     IL2CPP_REGISTER_METHOD(0x026B8AA0, void, ctor, (app::Dictionary_2_TKey_TValue_ValueCollection_System_Object_FullSerializer_Internal_fsOption_1_ * this_ptr, app::Dictionary_2_System_Object_FullSerializer_Internal_fsOption_1_* dictionary))

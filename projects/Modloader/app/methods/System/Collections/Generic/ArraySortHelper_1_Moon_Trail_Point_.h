@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Trail_Point__Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Trail_Point_.h>
+#include <Modloader/app/structs/Trail_Point.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Trail_Point_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_Trail_Point_ {
     IL2CPP_REGISTER_METHOD(0x02F73830, void, Sort_1, (app::Trail_Point__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_Trail_Point_* comparer))

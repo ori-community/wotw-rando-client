@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_FullSerializer_Internal_fsMetaProperty_.h>
+#include <Modloader/app/structs/fsMetaProperty__Array.h>
+#include <Modloader/app/structs/fsMetaProperty.h>
 
 namespace app::classes::System::Collections::Generic::List_1_FullSerializer_Internal_fsMetaProperty_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_FullSerializer_Internal_fsMetaProperty_ * this_ptr))

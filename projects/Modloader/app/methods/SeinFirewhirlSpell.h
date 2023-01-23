@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinFirewhirlSpell.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinFirewhirlSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinFirewhirlSpell * this_ptr))

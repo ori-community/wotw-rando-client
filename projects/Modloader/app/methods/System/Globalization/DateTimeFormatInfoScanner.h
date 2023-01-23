@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DateTimeFormatInfoScanner.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/DateTimeFormatInfo.h>
+#include <Modloader/app/structs/FORMATFLAGS__Enum.h>
 
 namespace app::classes::System::Globalization::DateTimeFormatInfoScanner {
     IL2CPP_REGISTER_METHOD(0x02605430, app::Dictionary_2_System_String_System_String_*, get_KnownWords, ())

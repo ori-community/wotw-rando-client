@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CommandBuffer__Array__Class.h>
+#include <Modloader/app/structs/CommandBuffer__Array.h>
+#include <Modloader/app/structs/CommandBuffer__Array__Array.h>
 
 namespace app::classes::types {
     namespace CommandBuffer__Array {

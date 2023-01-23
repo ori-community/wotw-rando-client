@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IntSizedArray.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::IntSizedArray {
     IL2CPP_REGISTER_METHOD(0x01D92880, void, ctor_1, (app::IntSizedArray * this_ptr))

@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EncoderFallback.h>
+#include <Modloader/app/structs/DecoderFallback.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/EncoderNLS.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/DecoderNLS.h>
+#include <Modloader/app/structs/Decoder.h>
+#include <Modloader/app/structs/Encoder.h>
 
 namespace app::classes::System::Text::Encoding {
     IL2CPP_REGISTER_METHOD(0x01952A10, void, ctor_1, (app::Encoding * this_ptr))

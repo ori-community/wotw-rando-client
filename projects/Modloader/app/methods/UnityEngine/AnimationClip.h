@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationClip.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/WrapMode__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/AnimationEvent.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AnimationEvent__Array.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::UnityEngine::AnimationClip {
     IL2CPP_REGISTER_METHOD(0x0307B220, void, ctor, (app::AnimationClip * this_ptr))

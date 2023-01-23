@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IsWatchingCutsceneCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::IsWatchingCutsceneCondition {
     IL2CPP_REGISTER_METHOD(0x00648FA0, bool, Validate, (app::IsWatchingCutsceneCondition * this_ptr, app::IContext* context))

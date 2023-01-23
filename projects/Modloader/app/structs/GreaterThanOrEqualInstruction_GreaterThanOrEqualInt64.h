@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64_DEFINED)
+#include <Modloader/app/structs/GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64__Fields.h>
+#if defined(IL2CPP_STRUCT_GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64__Fields_DEFINED)
+#define IL2CPP_STRUCT_GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64_DEFINED
+struct GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64__Class;
+struct GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64 {
+    struct GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64__Class* klass;
+    MonitorData* monitor;
+    struct GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64_FWDDECL)
+#define IL2CPP_STRUCT_GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64_FWDDECL
+#include <Modloader/app/structs/GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64_DEFINED) && !defined(IL2CPP_STRUCT_GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64_FWDDECL)
+#include <Modloader/app/structs/GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GreaterThanOrEqualInstruction_GreaterThanOrEqualInt64.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

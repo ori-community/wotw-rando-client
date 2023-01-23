@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CsEvent.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Ingest_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Protocol_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_User_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Device_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Os_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_App_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Utc_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Xbl_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Javascript_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Receipts_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Net_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Sdk_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Loc_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Cloud_.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Data_.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
 
 namespace app::classes::Microsoft::Applications::Events::DataModels::CsEvent {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_ver, (app::CsEvent * this_ptr))

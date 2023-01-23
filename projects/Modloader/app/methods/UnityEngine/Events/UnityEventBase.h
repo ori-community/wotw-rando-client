@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnityEventBase.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/PersistentCall.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PersistentListenerMode__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/BaseInvokableCall.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Events_BaseInvokableCall_.h>
+#include <Modloader/app/structs/Type__Array.h>
 
 namespace app::classes::UnityEngine::Events::UnityEventBase {
     IL2CPP_REGISTER_METHOD(0x02431080, void, ctor, (app::UnityEventBase * this_ptr))

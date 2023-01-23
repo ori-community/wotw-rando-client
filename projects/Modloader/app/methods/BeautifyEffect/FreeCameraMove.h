@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FreeCameraMove.h>
 
 namespace app::classes::BeautifyEffect::FreeCameraMove {
     IL2CPP_REGISTER_METHOD(0x0317C200, void, Start, (app::FreeCameraMove * this_ptr))

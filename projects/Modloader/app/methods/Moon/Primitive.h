@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/PrimitiveSpace__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Primitive.h>
 
 namespace app::classes::Moon::Primitive {
     IL2CPP_REGISTER_METHOD(0x00C3EAA0, app::Vector3, TransformPosition, (app::Vector3 position, app::PrimitiveSpace__Enum source_space, app::PrimitiveSpace__Enum target_space, app::Transform* local_toworld, app::Transform* root))

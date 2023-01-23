@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/CryptoConfig.h>
 
 namespace app::classes::System::Security::Cryptography::CryptoConfig {
     IL2CPP_REGISTER_METHOD(0x020C91F0, app::Byte__Array*, EncodeOID, (app::String * str))

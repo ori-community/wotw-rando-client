@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyPointAmbienceZone.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::LegacyPointAmbienceZone {
     IL2CPP_REGISTER_METHOD(0x00A30830, void, Awake, (app::LegacyPointAmbienceZone * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PathDataPoint.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataPointType__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Telemetry::PathDataPoint {
     IL2CPP_REGISTER_METHOD(0x00E338A0, void, ctor, (app::PathDataPoint * this_ptr, app::String* player_key, app::String* session_key, app::String* time, app::String* level, app::DataPointType__Enum type, app::Vector3 position, float health, float light))

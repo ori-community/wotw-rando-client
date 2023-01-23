@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyRespawner.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::LegacyRespawner {
     IL2CPP_REGISTER_METHOD(0x00A32B00, void, UpdateRespawners, ())

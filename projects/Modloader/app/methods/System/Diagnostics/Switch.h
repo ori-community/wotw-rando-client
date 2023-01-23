@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Switch.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Diagnostics::Switch {
     IL2CPP_REGISTER_METHOD(0x02004A20, void, ctor_1, (app::Switch * this_ptr, app::String* display_name, app::String* description))

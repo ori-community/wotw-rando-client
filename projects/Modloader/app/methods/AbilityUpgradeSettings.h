@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AbilityUpgradeSettings.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/UpgradableAbility.h>
 
 namespace app::classes::AbilityUpgradeSettings {
     IL2CPP_REGISTER_METHOD(0x004B3B30, void, Awake, (app::AbilityUpgradeSettings * this_ptr))

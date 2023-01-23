@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LookAtIK.h>
+#include <Modloader/app/structs/IKSolver.h>
 
 namespace app::classes::RootMotion::FinalIK::LookAtIK {
     IL2CPP_REGISTER_METHOD(0x02A17CD0, void, OpenUserManual, (app::LookAtIK * this_ptr))

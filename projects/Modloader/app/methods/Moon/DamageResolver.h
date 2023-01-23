@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DamageResolver.h>
+#include <Modloader/app/structs/DamageResolver_Rule__Array.h>
+#include <Modloader/app/structs/DamageType__Enum__Array.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::Moon::DamageResolver {
     IL2CPP_REGISTER_METHOD(0x01200D00, void, AddRuleOverrides, (app::DamageResolver * this_ptr, app::DamageResolver_Rule__Array* rules_to_override))

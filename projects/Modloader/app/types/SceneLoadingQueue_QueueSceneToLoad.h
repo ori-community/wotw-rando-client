@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SceneLoadingQueue_QueueSceneToLoad__Class.h>
+#include <Modloader/app/structs/SceneLoadingQueue_QueueSceneToLoad.h>
+#include <Modloader/app/structs/SceneLoadingQueue_QueueSceneToLoad__Boxed.h>
+#include <Modloader/app/structs/SceneLoadingQueue_QueueSceneToLoad__Array.h>
 
 namespace app::classes::types {
     namespace SceneLoadingQueue_QueueSceneToLoad {

@@ -18,6 +18,8 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
 
+#include <Modloader/app/structs/Int32__Boxed.h>
+
 #include <unordered_map>
 #include <unordered_set>
 

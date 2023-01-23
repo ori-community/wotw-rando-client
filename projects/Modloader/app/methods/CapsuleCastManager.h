@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CapsulecastCommand.h>
+#include <Modloader/app/structs/CapsuleCastManager.h>
+#include <Modloader/app/structs/JobHandle.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_CapsulecastCommand_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/RaycastHit.h>
 
 namespace app::classes::CapsuleCastManager {
     IL2CPP_REGISTER_METHOD(0x00B22E80, app::CapsulecastCommand, get_InvalidCmd, (app::CapsuleCastManager * this_ptr))

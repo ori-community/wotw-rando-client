@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjRef.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IChannelInfo.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/IEnvoyInfo.h>
+#include <Modloader/app/structs/IRemotingTypeInfo.h>
 
 namespace app::classes::System::Runtime::Remoting::ObjRef {
     IL2CPP_REGISTER_METHOD(0x0231B8D0, void, ctor_1, (app::ObjRef * this_ptr))

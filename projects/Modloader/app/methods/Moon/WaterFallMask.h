@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaterFallMask.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/List_1_Moon_IWaterfallInteractionAgent_.h>
+#include <Modloader/app/structs/IWaterfallInteractionAgent.h>
+#include <Modloader/app/structs/WaterFallMask_WaterLineGroup.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/ParticleSystem.h>
+#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::Moon::WaterFallMask {
     IL2CPP_REGISTER_METHOD(0x011A7910, float, get_LineWidth, (app::WaterFallMask * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConstructionCallDictionary.h>
+#include <Modloader/app/structs/IConstructionCallMessage.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::ConstructionCallDictionary {
     IL2CPP_REGISTER_METHOD(0x0230F580, void, ctor, (app::ConstructionCallDictionary * this_ptr, app::IConstructionCallMessage* message))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Action_1_System_Collections_Generic_List_1__4__Array__Class.h>
+#include <Modloader/app/structs/Action_1_System_Collections_Generic_List_1__4__Array.h>
 
 namespace app::classes::types {
     namespace Action_1_System_Collections_Generic_List_1__4__Array {

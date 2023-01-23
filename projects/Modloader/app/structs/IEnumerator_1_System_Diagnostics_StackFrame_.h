@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_System_Diagnostics_StackFrame__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_System_Diagnostics_StackFrame__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_System_Diagnostics_StackFrame__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_System_Diagnostics_StackFrame__DEFINED
+struct IEnumerator_1_System_Diagnostics_StackFrame___Class;
+struct IEnumerator_1_System_Diagnostics_StackFrame_ {
+    struct IEnumerator_1_System_Diagnostics_StackFrame___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_System_Diagnostics_StackFrame__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_System_Diagnostics_StackFrame__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_System_Diagnostics_StackFrame___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_System_Diagnostics_StackFrame__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_System_Diagnostics_StackFrame__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_System_Diagnostics_StackFrame__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_System_Diagnostics_StackFrame_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_System_Diagnostics_StackFrame_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

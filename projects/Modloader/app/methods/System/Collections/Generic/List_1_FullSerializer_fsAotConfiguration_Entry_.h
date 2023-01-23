@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_FullSerializer_fsAotConfiguration_Entry_.h>
+#include <Modloader/app/structs/List_1_FullSerializer_fsAotConfiguration_Entry_.h>
+#include <Modloader/app/structs/fsAotConfiguration_Entry.h>
+#include <Modloader/app/structs/IEnumerable_1_FullSerializer_fsAotConfiguration_Entry_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_FullSerializer_fsAotConfiguration_Entry_.h>
+#include <Modloader/app/structs/IComparer_1_FullSerializer_fsAotConfiguration_Entry_.h>
+#include <Modloader/app/structs/fsAotConfiguration_Entry__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_FullSerializer_fsAotConfiguration_Entry_.h>
+#include <Modloader/app/structs/Action_1_FullSerializer_fsAotConfiguration_Entry_.h>
+#include <Modloader/app/structs/IEnumerator_1_FullSerializer_fsAotConfiguration_Entry_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_FullSerializer_fsAotConfiguration_Entry_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_FullSerializer_fsAotConfiguration_Entry_ {
     IL2CPP_REGISTER_METHOD(0x025E9D20, app::List_1_T_Enumerator_FullSerializer_fsAotConfiguration_Entry_, GetEnumerator, (app::List_1_FullSerializer_fsAotConfiguration_Entry_ * this_ptr))

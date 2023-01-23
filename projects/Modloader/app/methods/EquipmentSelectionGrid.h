@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EquipmentSelectionGrid.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/EquipmentSelectionGrid_EquipmentAnchorGroup.h>
 
 namespace app::classes::EquipmentSelectionGrid {
     IL2CPP_REGISTER_METHOD(0x00976AA0, void, UpdateItemProperties, (app::EquipmentSelectionGrid * this_ptr, app::Object* grid_context))

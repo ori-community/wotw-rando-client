@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FallingRocksGroup.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Projectile.h>
 
 namespace app::classes::FallingRocksGroup {
     IL2CPP_REGISTER_METHOD(0x00998560, int32_t, get_GroundMask, (app::FallingRocksGroup * this_ptr))

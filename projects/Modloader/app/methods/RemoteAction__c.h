@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RemoteAction_c.h>
+#include <Modloader/app/structs/ActionStatesCallback.h>
 
 namespace app::classes::RemoteAction___c {
     IL2CPP_REGISTER_METHOD(0x02EA1DF0, void, cctor, ())

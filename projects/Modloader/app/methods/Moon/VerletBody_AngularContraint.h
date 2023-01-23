@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VerletBody_AngularContraint.h>
+#include <Modloader/app/structs/VerletBody_Link.h>
 
 namespace app::classes::Moon::VerletBody_AngularContraint {
     IL2CPP_REGISTER_METHOD(0x00418FC0, float, get_MaxAngle, (app::VerletBody_AngularContraint * this_ptr))

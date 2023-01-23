@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkChannelEmitter.h>
+#include <Modloader/app/structs/AkTransform.h>
 
 namespace app::classes::AkChannelEmitter {
     IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor, (app::AkChannelEmitter * this_ptr, void* c_ptr, bool c_memory_own))

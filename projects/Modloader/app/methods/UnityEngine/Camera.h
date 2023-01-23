@@ -1,5 +1,42 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/RenderingPath__Enum.h>
+#include <Modloader/app/structs/OpaqueSortMode__Enum.h>
+#include <Modloader/app/structs/TransparencySortMode__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/CameraType__Enum.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/CameraClearFlags__Enum.h>
+#include <Modloader/app/structs/DepthTextureMode__Enum.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Camera_ProjectionMatrixMode__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Camera_GateFitMode__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/RenderBuffer.h>
+#include <Modloader/app/structs/RenderBuffer__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Camera_MonoOrStereoscopicEye__Enum.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/Camera_GateFitParameters.h>
+#include <Modloader/app/structs/Scene.h>
+#include <Modloader/app/structs/StereoTargetEyeMask__Enum.h>
+#include <Modloader/app/structs/Camera_StereoscopicEye__Enum.h>
+#include <Modloader/app/structs/Camera__Array.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Cubemap.h>
+#include <Modloader/app/structs/CameraEvent__Enum.h>
+#include <Modloader/app/structs/CommandBuffer.h>
+#include <Modloader/app/structs/ComputeQueueType__Enum.h>
+#include <Modloader/app/structs/CommandBuffer__Array.h>
 
 namespace app::classes::UnityEngine::Camera {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Camera * this_ptr))

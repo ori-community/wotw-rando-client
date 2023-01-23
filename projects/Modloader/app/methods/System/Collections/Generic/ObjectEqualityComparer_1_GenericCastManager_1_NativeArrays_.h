@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_GenericCastManager_1_NativeArrays_.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand_.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand___Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_GenericCastManager_1_NativeArrays__1.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_RaycastCommand_.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_RaycastCommand___Array.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_GenericCastManager_1_NativeArrays__2.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_SpherecastCommand_.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_SpherecastCommand___Array.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_GenericCastManager_1_NativeArrays_ {
     IL2CPP_REGISTER_METHOD(0x01CD2D60, bool, Equals_1, (app::ObjectEqualityComparer_1_GenericCastManager_1_NativeArrays_ * this_ptr, app::GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand_ x, app::GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand_ y))

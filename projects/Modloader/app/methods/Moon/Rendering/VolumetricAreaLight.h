@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/VolumetricAreaLight.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::Moon::Rendering::VolumetricAreaLight {
     IL2CPP_REGISTER_METHOD(0x00EBFC50, app::Vector3, get_WorldPos, (app::VolumetricAreaLight * this_ptr))

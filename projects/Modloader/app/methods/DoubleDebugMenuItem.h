@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DoubleDebugMenuItem.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Func_1_Double_.h>
+#include <Modloader/app/structs/Action_1_Double_.h>
 
 namespace app::classes::DoubleDebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x00BDB720, void, ctor_1, (app::DoubleDebugMenuItem * this_ptr))

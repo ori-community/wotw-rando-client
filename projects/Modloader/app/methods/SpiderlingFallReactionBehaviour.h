@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SpiderlingFallReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/SpiderlingFallReactionBehaviour_FallState__Enum.h>
 
 namespace app::classes::SpiderlingFallReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::MoonTimeline*, get_EffectiveLandSequenceNew, (app::SpiderlingFallReactionBehaviour * this_ptr))

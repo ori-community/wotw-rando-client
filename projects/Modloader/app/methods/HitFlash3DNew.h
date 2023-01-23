@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HitFlash3DNew.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::HitFlash3DNew {
     IL2CPP_REGISTER_METHOD(0x00B56C40, void, ResetStatics, ())

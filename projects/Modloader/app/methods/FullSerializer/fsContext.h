@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsContext.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::FullSerializer::fsContext {
     IL2CPP_REGISTER_METHOD(0x015096E0, void, Reset, (app::fsContext * this_ptr))

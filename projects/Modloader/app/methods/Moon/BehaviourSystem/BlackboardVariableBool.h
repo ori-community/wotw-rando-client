@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonType_1_System_Boolean_.h>
+#include <Modloader/app/structs/BlackboardVariableBool.h>
 
 namespace app::classes::Moon::BehaviourSystem::BlackboardVariableBool {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::IMoonType_1_System_Boolean_*, GetMoonType, (app::BlackboardVariableBool * this_ptr))

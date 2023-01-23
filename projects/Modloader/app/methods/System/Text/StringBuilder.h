@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/ParamsArray.h>
+#include <Modloader/app/structs/Int32__Array.h>
 
 namespace app::classes::System::Text::StringBuilder {
     IL2CPP_REGISTER_METHOD(0x0245CF10, void, ctor_1, (app::StringBuilder * this_ptr))

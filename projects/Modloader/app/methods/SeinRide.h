@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinRide.h>
+#include <Modloader/app/structs/SeinRidePuppet.h>
+#include <Modloader/app/structs/SeinRide_RideState.h>
+#include <Modloader/app/structs/IRideable.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::SeinRide {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsAllowedNonZeroZPosition, (app::SeinRide * this_ptr))

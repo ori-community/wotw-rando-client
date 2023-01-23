@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeverSetupData.h>
+#include <Modloader/app/structs/LeverSetupHolder.h>
+#include <Modloader/app/structs/List_1_IIndexedItem_.h>
 
 namespace app::classes::LeverSetupHolder {
     IL2CPP_REGISTER_METHOD(0x01137C50, app::LeverSetupData*, get_LeftState, (app::LeverSetupHolder * this_ptr))

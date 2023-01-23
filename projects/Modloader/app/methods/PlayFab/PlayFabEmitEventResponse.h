@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabEvent.h>
+#include <Modloader/app/structs/PlayFabEmitEventResponse.h>
+#include <Modloader/app/structs/EmitEventResult__Enum.h>
+#include <Modloader/app/structs/PlayFabError.h>
+#include <Modloader/app/structs/WriteEventsResponse.h>
+#include <Modloader/app/structs/IList_1_PlayFab_IPlayFabEmitEventRequest_.h>
 
 namespace app::classes::PlayFab::PlayFabEmitEventResponse {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::PlayFabEvent*, get_Event, (app::PlayFabEmitEventResponse * this_ptr))

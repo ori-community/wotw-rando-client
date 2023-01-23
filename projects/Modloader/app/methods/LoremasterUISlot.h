@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReplaySetting.h>
+#include <Modloader/app/structs/LoremasterUISlot.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::LoremasterUISlot {
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::ReplaySetting*, get_ReplaySetting, (app::LoremasterUISlot * this_ptr))

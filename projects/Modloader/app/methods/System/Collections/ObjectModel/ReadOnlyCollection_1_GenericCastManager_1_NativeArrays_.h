@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_GenericCastManager_1_NativeArrays_.h>
+#include <Modloader/app/structs/IList_1_GenericCastManager_1_NativeArrays_.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand_.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_GenericCastManager_1_NativeArrays__2.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_GenericCastManager_1_NativeArrays__1.h>
+#include <Modloader/app/structs/IList_1_GenericCastManager_1_NativeArrays__1.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_RaycastCommand_.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_RaycastCommand___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_GenericCastManager_1_NativeArrays__1.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_GenericCastManager_1_NativeArrays__2.h>
+#include <Modloader/app/structs/IList_1_GenericCastManager_1_NativeArrays__2.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_SpherecastCommand_.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_SpherecastCommand___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_GenericCastManager_1_NativeArrays_.h>
 
 namespace app::classes::System::Collections::ObjectModel::ReadOnlyCollection_1_GenericCastManager_1_NativeArrays_ {
     IL2CPP_REGISTER_METHOD(0x02B7DCF0, void, ctor_1, (app::ReadOnlyCollection_1_GenericCastManager_1_NativeArrays_ * this_ptr, app::IList_1_GenericCastManager_1_NativeArrays_* list))

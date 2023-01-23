@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DefaultValueAttribute.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::DefaultValueAttribute {
     IL2CPP_REGISTER_METHOD(0x01FE2240, void, ctor_1, (app::DefaultValueAttribute * this_ptr, app::Type* type, app::String* value))

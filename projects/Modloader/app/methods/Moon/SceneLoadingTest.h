@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneLoadingTest_RunState__Enum.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/TaskCompletionSource_1_System_Object_.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/SceneLoadingTest_Context.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AsyncOperation_1.h>
+#include <Modloader/app/structs/SceneLoadingTest_Stats.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_String___Array.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__3.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Object___Array.h>
 
 namespace app::classes::Moon::SceneLoadingTest {
     IL2CPP_REGISTER_METHOD(0x00EC6950, app::SceneLoadingTest_RunState__Enum, get_State, ())

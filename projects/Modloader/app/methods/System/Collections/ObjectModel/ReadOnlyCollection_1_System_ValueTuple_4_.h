@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_ValueTuple_4_.h>
+#include <Modloader/app/structs/IList_1_System_ValueTuple_4_.h>
+#include <Modloader/app/structs/ValueTuple_4_Object_Int32_Int32_Single_.h>
+#include <Modloader/app/structs/ValueTuple_4_Object_Int32_Int32_Single___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_System_ValueTuple_4__1.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::ObjectModel::ReadOnlyCollection_1_System_ValueTuple_4_ {
     IL2CPP_REGISTER_METHOD(0x02B7DCF0, void, ctor, (app::ReadOnlyCollection_1_System_ValueTuple_4_ * this_ptr, app::IList_1_System_ValueTuple_4_* list))

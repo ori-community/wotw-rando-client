@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinaryExpression.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/LambdaExpression.h>
+#include <Modloader/app/structs/ExpressionVisitor.h>
 
 namespace app::classes::System::Linq::Expressions::BinaryExpression {
     IL2CPP_REGISTER_METHOD(0x01F9C060, void, ctor, (app::BinaryExpression * this_ptr, app::Expression* left, app::Expression* right))

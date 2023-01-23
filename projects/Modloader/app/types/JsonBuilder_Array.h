@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/JsonBuilder_Array__Class.h>
+#include <Modloader/app/structs/JsonBuilder_Array.h>
+#include <Modloader/app/structs/JsonBuilder_Array__Boxed.h>
 
 namespace app::classes::types {
     namespace JsonBuilder_Array {

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProcessStartInfo.h>
+#include <Modloader/app/structs/Process.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringDictionary.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/SecureString.h>
+#include <Modloader/app/structs/ProcessWindowStyle__Enum.h>
 
 namespace app::classes::System::Diagnostics::ProcessStartInfo {
     IL2CPP_REGISTER_METHOD(0x020035C0, void, ctor, (app::ProcessStartInfo * this_ptr, app::Process* parent))

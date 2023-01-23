@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SafeSerializationManager.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::Serialization::SafeSerializationManager {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::SafeSerializationManager * this_ptr))

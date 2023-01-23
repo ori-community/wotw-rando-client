@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/NaruSounds.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 
 namespace app::classes::NaruSounds {
     IL2CPP_REGISTER_METHOD(0x00886490, app::PlatformMovement*, get_PlatformMovement, (app::NaruSounds * this_ptr))

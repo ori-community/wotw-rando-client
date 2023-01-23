@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RespawningPlaceholder_c.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::RespawningPlaceholder___c {
     IL2CPP_REGISTER_METHOD(0x0090A870, void, cctor, ())

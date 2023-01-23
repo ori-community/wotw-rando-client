@@ -1,5 +1,39 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
+#include <Modloader/app/structs/IList_1_System_Int32_.h>
+#include <Modloader/app/structs/IList.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ICollection_1_System_Object_.h>
+#include <Modloader/app/structs/IList_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_Boolean_.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/ICollection_1_Newtonsoft_Json_JsonConverter_.h>
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_JsonPosition_.h>
+#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
+#include <Modloader/app/structs/IEnumerable_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
+#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Serialization_SerializationCallback_.h>
+#include <Modloader/app/structs/IEnumerable_1_Newtonsoft_Json_Serialization_SerializationCallback_.h>
+#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Serialization_SerializationErrorCallback_.h>
+#include <Modloader/app/structs/IEnumerable_1_Newtonsoft_Json_Serialization_SerializationErrorCallback_.h>
+#include <Modloader/app/structs/IList_1_System_Reflection_MemberInfo_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Reflection_MemberInfo_.h>
+#include <Modloader/app/structs/DynamicMetaObject__Array.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Reflection_PropertyInfo_.h>
+#include <Modloader/app/structs/Func_2_System_Reflection_PropertyInfo_Boolean_.h>
+#include <Modloader/app/structs/Expression__Array.h>
+#include <Modloader/app/structs/IList_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::CollectionUtils {
     IL2CPP_REGISTER_METHOD(0x01C00BD0, bool, IsDictionaryType, (app::Type * type))

@@ -24,6 +24,7 @@
 #include <Modloader/app/types/UberShaderRuntimeRenderOrder.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/Renderer.h>
+#include <Modloader/app/structs/MoonIconRenderer.h>
 #include <Modloader/il2cpp_helpers.h>
 
 using namespace app::classes;

@@ -1,0 +1,23 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_FixedUpdate_ScriptRunDelayedFixedFrameRate_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_FixedUpdate_ScriptRunDelayedFixedFrameRate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_FixedUpdate_ScriptRunDelayedFixedFrameRate_DEFINED)
+#define IL2CPP_STRUCT_FixedUpdate_ScriptRunDelayedFixedFrameRate_DEFINED
+struct FixedUpdate_ScriptRunDelayedFixedFrameRate {
+};
+#endif
+#if !defined(IL2CPP_STRUCT_FixedUpdate_ScriptRunDelayedFixedFrameRate_FWDDECL)
+#define IL2CPP_STRUCT_FixedUpdate_ScriptRunDelayedFixedFrameRate_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_FixedUpdate_ScriptRunDelayedFixedFrameRate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_FixedUpdate_ScriptRunDelayedFixedFrameRate_DEFINED) && !defined(IL2CPP_STRUCT_FixedUpdate_ScriptRunDelayedFixedFrameRate_FWDDECL)
+#include <Modloader/app/structs/FixedUpdate_ScriptRunDelayedFixedFrameRate.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/FixedUpdate_ScriptRunDelayedFixedFrameRate.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

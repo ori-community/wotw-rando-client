@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JContainer.h>
+#include <Modloader/app/structs/ListChangedEventHandler.h>
+#include <Modloader/app/structs/AddingNewEventArgs.h>
+#include <Modloader/app/structs/ListChangedEventArgs.h>
+#include <Modloader/app/structs/NotifyCollectionChangedEventArgs.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/JEnumerable_1_JToken_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/JsonLoadSettings.h>
+#include <Modloader/app/structs/JProperty.h>
+#include <Modloader/app/structs/IJsonLineInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PropertyDescriptor__Array.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/JToken__Array.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/ListSortDirection__Enum.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JContainer {
     IL2CPP_REGISTER_METHOD(0x01F050C0, void, add_ListChanged, (app::JContainer * this_ptr, app::ListChangedEventHandler* value))

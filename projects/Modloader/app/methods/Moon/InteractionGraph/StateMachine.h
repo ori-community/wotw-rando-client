@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateMachine_1.h>
+#include <Modloader/app/structs/IState_1.h>
+#include <Modloader/app/structs/List_1_Moon_InteractionGraph_IState_.h>
+#include <Modloader/app/structs/StateConfigurator.h>
+#include <Modloader/app/structs/TransitionManager.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ITrigger.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IState_1__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::InteractionGraph::StateMachine {
     IL2CPP_REGISTER_METHOD(0x004C87B0, float, get_CurrentStateTime, (app::StateMachine_1 * this_ptr))

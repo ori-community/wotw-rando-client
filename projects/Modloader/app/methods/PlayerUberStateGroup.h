@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerUberStateGroup.h>
 
 namespace app::classes::PlayerUberStateGroup {
     IL2CPP_REGISTER_METHOD(0x0142FA90, void, Awake, (app::PlayerUberStateGroup * this_ptr))

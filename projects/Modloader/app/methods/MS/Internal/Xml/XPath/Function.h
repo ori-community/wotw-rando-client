@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Function.h>
+#include <Modloader/app/structs/Function_FunctionType__Enum.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AstNode.h>
+#include <Modloader/app/structs/AstNode_AstType__Enum.h>
+#include <Modloader/app/structs/XPathResultType__Enum.h>
 
 namespace app::classes::MS::Internal::Xml::XPath::Function {
     IL2CPP_REGISTER_METHOD(0x021D8DA0, void, ctor_1, (app::Function * this_ptr, app::Function_FunctionType__Enum ftype, app::ArrayList* argument_list))

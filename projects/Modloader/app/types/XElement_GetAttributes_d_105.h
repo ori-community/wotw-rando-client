@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XElement_GetAttributes_d_105__Class.h>
+#include <Modloader/app/structs/XElement_GetAttributes_d_105.h>
 
 namespace app::classes::types {
     namespace XElement_GetAttributes_d_105 {

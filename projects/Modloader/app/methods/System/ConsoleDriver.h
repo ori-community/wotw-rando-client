@@ -1,6 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
+#include <Modloader/app/structs/IConsoleDriver.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConsoleKeyInfo.h>
+#include <Modloader/app/structs/Byte__Array.h>
+
+
 namespace app::classes::System::ConsoleDriver {
     IL2CPP_REGISTER_METHOD(0x020349F0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x02034A90, app::IConsoleDriver*, CreateNullConsoleDriver, ())

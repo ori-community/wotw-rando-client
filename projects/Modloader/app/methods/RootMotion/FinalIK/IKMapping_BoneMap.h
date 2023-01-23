@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IKMapping_BoneMap.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/IKSolverFullBody.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IKSolver_Node.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::RootMotion::FinalIK::IKMapping_BoneMap {
     IL2CPP_REGISTER_METHOD(0x02BDB2F0, void, Initiate, (app::IKMapping_BoneMap * this_ptr, app::Transform* transform, app::IKSolverFullBody* solver))

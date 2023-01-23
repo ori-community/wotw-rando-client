@@ -1,5 +1,51 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Blackboard.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/BlackboardVariable__Array.h>
+#include <Modloader/app/structs/BlackboardVariable.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IMoonResolverContext.h>
+#include <Modloader/app/structs/MoonTypeExtraData.h>
+#include <Modloader/app/structs/IMoonType_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableBool_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableInt_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableFloat_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableString_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableVector3_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableGameObject_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableObject_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/IMoonType_1_System_Boolean_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Int32_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Single_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Int16_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Int64_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Double_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Matrix4x4_.h>
+#include <Modloader/app/structs/IMoonType_1_System_String_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Char_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Bounds_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Byte_.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Color32.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::Moon::BehaviourSystem::Blackboard {
     IL2CPP_REGISTER_METHOD(0x030071B0, void, AddVariable, (app::Blackboard * this_ptr, app::String* var_name, app::Type* type))

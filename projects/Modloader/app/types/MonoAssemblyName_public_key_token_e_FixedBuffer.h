@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MonoAssemblyName_public_key_token_e_FixedBuffer__Class.h>
+#include <Modloader/app/structs/MonoAssemblyName_public_key_token_e_FixedBuffer.h>
+#include <Modloader/app/structs/MonoAssemblyName_public_key_token_e_FixedBuffer__Boxed.h>
 
 namespace app::classes::types {
     namespace MonoAssemblyName_public_key_token_e_FixedBuffer {

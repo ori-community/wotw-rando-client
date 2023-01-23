@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationStream__Boxed.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/AnimationHumanStream.h>
+#include <Modloader/app/structs/AnimationStream.h>
 
 namespace app::classes::UnityEngine::Experimental::Animations::AnimationStream {
     IL2CPP_REGISTER_METHOD(0x001EBC90, uint32_t, get_animatorBindingsVersion, (app::AnimationStream__Boxed * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneRoot_c.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::SceneRoot___c {
     IL2CPP_REGISTER_METHOD(0x00BB8A60, void, cctor, ())

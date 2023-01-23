@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings_DEFINED)
+#include <Modloader/app/structs/DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings_DEFINED
+struct DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings__Class;
+struct DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings {
+    struct DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings__Class* klass;
+    MonitorData* monitor;
+    struct DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings_FWDDECL)
+#define IL2CPP_STRUCT_DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings_FWDDECL
+#include <Modloader/app/structs/DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings_DEFINED) && !defined(IL2CPP_STRUCT_DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings_FWDDECL)
+#include <Modloader/app/structs/DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DashOwlEnemyPlaceholder_DashOwlEnemyPlaceholderSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

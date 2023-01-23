@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Bubblemaker.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::Bubblemaker {
     IL2CPP_REGISTER_METHOD(0x00654950, app::SuspendableMask__Enum, get_Mask, (app::Bubblemaker * this_ptr))

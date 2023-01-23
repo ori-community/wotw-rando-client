@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StrongBox_1_System_Int32_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::CompilerServices::StrongBox_1_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x01D09710, void, ctor_1, (app::StrongBox_1_System_Int32_ * this_ptr, int32_t value))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProjectileExplodeWall.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::ProjectileExplodeWall {
     IL2CPP_REGISTER_METHOD(0x00C7B7A0, void, Awake, (app::ProjectileExplodeWall * this_ptr))

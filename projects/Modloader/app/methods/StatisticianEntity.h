@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StatisticianEntity.h>
+#include <Modloader/app/structs/ICharacter.h>
 
 namespace app::classes::StatisticianEntity {
     IL2CPP_REGISTER_METHOD(0x009B7220, app::String*, get_DialogActorName, (app::StatisticianEntity * this_ptr))

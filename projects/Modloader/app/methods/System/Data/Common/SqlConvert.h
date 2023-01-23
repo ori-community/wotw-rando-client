@@ -1,5 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SqlByte.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SqlInt16.h>
+#include <Modloader/app/structs/SqlInt32.h>
+#include <Modloader/app/structs/SqlInt64.h>
+#include <Modloader/app/structs/SqlDouble.h>
+#include <Modloader/app/structs/SqlDecimal.h>
+#include <Modloader/app/structs/SqlSingle.h>
+#include <Modloader/app/structs/SqlMoney.h>
+#include <Modloader/app/structs/SqlDateTime.h>
+#include <Modloader/app/structs/SqlBoolean.h>
+#include <Modloader/app/structs/SqlGuid.h>
+#include <Modloader/app/structs/SqlBinary.h>
+#include <Modloader/app/structs/SqlString.h>
+#include <Modloader/app/structs/SqlChars.h>
+#include <Modloader/app/structs/SqlBytes.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/StorageType__Enum.h>
 
 namespace app::classes::System::Data::Common::SqlConvert {
     IL2CPP_REGISTER_METHOD(0x028489B0, app::SqlByte, ConvertToSqlByte, (app::Object * value))

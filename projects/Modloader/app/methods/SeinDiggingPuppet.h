@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDiggingPuppet.h>
 
 namespace app::classes::SeinDiggingPuppet {
     IL2CPP_REGISTER_METHOD(0x007E3F30, int32_t, get_Id, (app::SeinDiggingPuppet * this_ptr))

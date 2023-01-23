@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IVRScreenshots_HookScreenshot.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EVRScreenshotError__Enum.h>
+#include <Modloader/app/structs/EVRScreenshotType__Enum__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVRScreenshots__HookScreenshot {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVRScreenshots_HookScreenshot * this_ptr, app::Object* object, void* method_1))

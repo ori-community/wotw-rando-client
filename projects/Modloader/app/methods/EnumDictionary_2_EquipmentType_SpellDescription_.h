@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellDescription.h>
+#include <Modloader/app/structs/EnumDictionary_2_EquipmentType_SpellDescription_.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
 
 namespace app::classes::EnumDictionary_2_EquipmentType_SpellDescription_ {
     IL2CPP_REGISTER_METHOD(0x019E5330, app::SpellDescription*, GetValue, (app::EnumDictionary_2_EquipmentType_SpellDescription_ * this_ptr, app::EquipmentType__Enum key))

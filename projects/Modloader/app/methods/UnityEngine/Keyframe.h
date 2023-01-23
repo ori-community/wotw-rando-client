@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Keyframe__Boxed.h>
+#include <Modloader/app/structs/WeightedMode__Enum.h>
 
 namespace app::classes::UnityEngine::Keyframe {
     IL2CPP_REGISTER_METHOD(0x001F2820, void, ctor_1, (app::Keyframe__Boxed * this_ptr, float time, float value))

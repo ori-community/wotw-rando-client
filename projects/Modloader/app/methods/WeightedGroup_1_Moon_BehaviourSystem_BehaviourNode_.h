@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BehaviourNode.h>
+#include <Modloader/app/structs/WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BehaviourNode_.h>
+#include <Modloader/app/structs/List_1_System_Single_.h>
 
 namespace app::classes::WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode_ {
     IL2CPP_REGISTER_METHOD(0x02AD0150, app::BehaviourNode*, GetRandomElement, (app::WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode_ * this_ptr))

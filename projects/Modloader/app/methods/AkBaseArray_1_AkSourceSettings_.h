@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkBaseArray_1_AkSourceSettings_.h>
 
 namespace app::classes::AkBaseArray_1_AkSourceSettings_ {
     IL2CPP_REGISTER_METHOD(0x002FB930, void*, GetBuffer, (app::AkBaseArray_1_AkSourceSettings_ * this_ptr))

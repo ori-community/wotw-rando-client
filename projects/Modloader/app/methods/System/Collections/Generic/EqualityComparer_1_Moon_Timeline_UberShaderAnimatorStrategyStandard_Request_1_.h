@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Object___Array.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Single___Array.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Single_.h>
+#include <Modloader/app/structs/EqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Color___Array.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/EqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Vector4___Array.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Vector4_.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_*, get_Default_1, ())

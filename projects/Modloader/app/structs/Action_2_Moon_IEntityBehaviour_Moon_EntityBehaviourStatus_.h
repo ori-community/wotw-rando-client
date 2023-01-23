@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus__DEFINED)
+#include <Modloader/app/structs/Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus___Fields.h>
+#if defined(IL2CPP_STRUCT_Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus___Fields_DEFINED)
+#define IL2CPP_STRUCT_Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus__DEFINED
+struct Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus___Class;
+struct Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus_ {
+    struct Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus___Class* klass;
+    MonitorData* monitor;
+    struct Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus__FWDDECL)
+#define IL2CPP_STRUCT_Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus__FWDDECL
+#include <Modloader/app/structs/Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus__DEFINED) && !defined(IL2CPP_STRUCT_Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus__FWDDECL)
+#include <Modloader/app/structs/Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

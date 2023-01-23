@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BossRaceHandler_StartMenuRaceNextFrame_d_20__Class.h>
+#include <Modloader/app/structs/BossRaceHandler_StartMenuRaceNextFrame_d_20.h>
 
 namespace app::classes::types {
     namespace BossRaceHandler_StartMenuRaceNextFrame_d_20 {

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509Store_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/X509CertificateCollection_2.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/X509Certificate_2.h>
+#include <Modloader/app/structs/X509Crl.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/X509ExtensionCollection_1.h>
 
 namespace app::classes::Mono::Security::X509::X509Store {
     IL2CPP_REGISTER_METHOD(0x031676F0, void, ctor, (app::X509Store_1 * this_ptr, app::String* path, bool crl, bool new_format))

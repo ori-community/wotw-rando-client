@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_ExternalForceEntry_.h>
+#include <Modloader/app/structs/ExternalForceEntry.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_ExternalForceEntry_ {
     IL2CPP_REGISTER_METHOD(0x02C2A710, int32_t, Compare, (app::ObjectComparer_1_ExternalForceEntry_ * this_ptr, app::ExternalForceEntry x, app::ExternalForceEntry y))

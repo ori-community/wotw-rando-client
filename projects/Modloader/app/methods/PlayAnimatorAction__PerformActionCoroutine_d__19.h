@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayAnimatorAction_PerformActionCoroutine_d_19.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::PlayAnimatorAction__PerformActionCoroutine_d__19 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::PlayAnimatorAction_PerformActionCoroutine_d_19 * this_ptr, int32_t __1__state))

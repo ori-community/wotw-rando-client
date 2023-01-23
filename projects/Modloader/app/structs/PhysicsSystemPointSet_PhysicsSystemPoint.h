@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PhysicsSystemPointSet_PhysicsSystemPoint_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PhysicsSystemPointSet_PhysicsSystemPoint_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PhysicsSystemPointSet_PhysicsSystemPoint_DEFINED)
+#include <Modloader/app/structs/PhysicsSystemPointSet_PhysicsSystemPoint__Fields.h>
+#if defined(IL2CPP_STRUCT_PhysicsSystemPointSet_PhysicsSystemPoint__Fields_DEFINED)
+#define IL2CPP_STRUCT_PhysicsSystemPointSet_PhysicsSystemPoint_DEFINED
+struct PhysicsSystemPointSet_PhysicsSystemPoint__Class;
+struct PhysicsSystemPointSet_PhysicsSystemPoint {
+    struct PhysicsSystemPointSet_PhysicsSystemPoint__Class* klass;
+    MonitorData* monitor;
+    struct PhysicsSystemPointSet_PhysicsSystemPoint__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PhysicsSystemPointSet_PhysicsSystemPoint_FWDDECL)
+#define IL2CPP_STRUCT_PhysicsSystemPointSet_PhysicsSystemPoint_FWDDECL
+#include <Modloader/app/structs/PhysicsSystemPointSet_PhysicsSystemPoint__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PhysicsSystemPointSet_PhysicsSystemPoint_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PhysicsSystemPointSet_PhysicsSystemPoint_DEFINED) && !defined(IL2CPP_STRUCT_PhysicsSystemPointSet_PhysicsSystemPoint_FWDDECL)
+#include <Modloader/app/structs/PhysicsSystemPointSet_PhysicsSystemPoint.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PhysicsSystemPointSet_PhysicsSystemPoint.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RNGCryptoServiceProvider.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/UInt64__Array.h>
+#include <Modloader/app/structs/RSA.h>
+#include <Modloader/app/structs/HashAlgorithm.h>
+#include <Modloader/app/structs/PKCS1MaskGenerationMethod.h>
+#include <Modloader/app/structs/RandomNumberGenerator.h>
+#include <Modloader/app/structs/HashAlgorithmName.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Security::Cryptography::Utils {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormEntity_SandWormBodyAnimation.h>
 
 namespace app::classes::SandWormEntity_SandWormBodyAnimation {
     IL2CPP_REGISTER_METHOD(0x00A28F40, float, get_Time, (app::SandWormEntity_SandWormBodyAnimation * this_ptr))

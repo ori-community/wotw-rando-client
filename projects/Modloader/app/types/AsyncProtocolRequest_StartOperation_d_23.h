@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AsyncProtocolRequest_StartOperation_d_23__Class.h>
+#include <Modloader/app/structs/AsyncProtocolRequest_StartOperation_d_23.h>
+#include <Modloader/app/structs/AsyncProtocolRequest_StartOperation_d_23__Boxed.h>
 
 namespace app::classes::types {
     namespace AsyncProtocolRequest_StartOperation_d_23 {

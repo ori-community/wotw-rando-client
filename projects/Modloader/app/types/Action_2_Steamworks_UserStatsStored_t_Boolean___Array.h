@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Action_2_Steamworks_UserStatsStored_t_Boolean___Array__Class.h>
+#include <Modloader/app/structs/Action_2_Steamworks_UserStatsStored_t_Boolean___Array.h>
 
 namespace app::classes::types {
     namespace Action_2_Steamworks_UserStatsStored_t_Boolean___Array {

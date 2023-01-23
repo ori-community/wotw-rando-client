@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FeedingGroundsBreakableOwl.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::PetrifiedOwlFeedingGrounds::FeedingGroundsBreakableOwl {
     IL2CPP_REGISTER_METHOD(0x01782DA0, void, OnDisable, (app::FeedingGroundsBreakableOwl * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_Int32Enum_SpellIconsCollection_Icons___Boxed.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32Enum_SpellIconsCollection_Icons_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32Enum_SpellIconsCollection_Icons_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DictionaryEntry.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__Enumerator_System_Int32Enum_SpellIconsCollection_Icons_ {
     IL2CPP_REGISTER_METHOD(0x00133F40, void, ctor, (app::Dictionary_2_TKey_TValue_Enumerator_System_Int32Enum_SpellIconsCollection_Icons___Boxed * this_ptr, app::Dictionary_2_System_Int32Enum_SpellIconsCollection_Icons_* dictionary, int32_t get_enumerator_ret_type))

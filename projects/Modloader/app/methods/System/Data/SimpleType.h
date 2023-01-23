@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleType.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/StorageType__Enum.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Data::SimpleType {
     IL2CPP_REGISTER_METHOD(0x01E4C230, void, ctor_1, (app::SimpleType * this_ptr, app::String* base_type))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossEntity_c.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
 
 namespace app::classes::KwolokBossEntity___c {
     IL2CPP_REGISTER_METHOD(0x012DDD90, void, cctor, ())

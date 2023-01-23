@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeResourceSet.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ResourceLocator.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Resources_ResourceLocator_.h>
 
 namespace app::classes::System::Resources::RuntimeResourceSet {
     IL2CPP_REGISTER_METHOD(0x01A8E5F0, void, ctor_1, (app::RuntimeResourceSet * this_ptr, app::String* file_name))

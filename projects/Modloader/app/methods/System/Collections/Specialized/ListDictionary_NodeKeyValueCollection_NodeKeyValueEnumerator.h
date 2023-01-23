@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListDictionary_NodeKeyValueCollection_NodeKeyValueEnumerator.h>
+#include <Modloader/app/structs/ListDictionary.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Specialized::ListDictionary_NodeKeyValueCollection_NodeKeyValueEnumerator {
     IL2CPP_REGISTER_METHOD(0x0202ACC0, void, ctor, (app::ListDictionary_NodeKeyValueCollection_NodeKeyValueEnumerator * this_ptr, app::ListDictionary* list, bool is_keys))

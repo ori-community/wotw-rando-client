@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IsUsingAzertyKeyboardCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::IsUsingAzertyKeyboardCondition {
     IL2CPP_REGISTER_METHOD(0x00648C70, bool, Validate, (app::IsUsingAzertyKeyboardCondition * this_ptr, app::IContext* context))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossLocomotion.h>
+#include <Modloader/app/structs/KwolokBossBaseBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::KwolokBossBaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x01246D80, app::KwolokBossLocomotion*, get_Locomotion, (app::KwolokBossBaseBehaviour * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrossStitch.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::CrossStitch {
     IL2CPP_REGISTER_METHOD(0x030420F0, void, OnRenderImage, (app::CrossStitch * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

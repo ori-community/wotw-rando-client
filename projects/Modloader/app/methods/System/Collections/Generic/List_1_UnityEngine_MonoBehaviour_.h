@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_MonoBehaviour_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_MonoBehaviour_.h>
+#include <Modloader/app/structs/MonoBehaviour.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_MonoBehaviour_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_UnityEngine_MonoBehaviour_, GetEnumerator, (app::List_1_UnityEngine_MonoBehaviour_ * this_ptr))

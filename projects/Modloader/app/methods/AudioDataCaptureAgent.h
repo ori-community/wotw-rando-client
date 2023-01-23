@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AudioDataCaptureAgent.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/FrameCaptureTester_AgentOutput.h>
 
 namespace app::classes::AudioDataCaptureAgent {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsCaptureAgentValid, (app::AudioDataCaptureAgent * this_ptr))

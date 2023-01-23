@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Leaderboard__Enum.h>
+#include <Modloader/app/structs/LeaderboardData.h>
+#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerable_1_LeaderboardData_Entry_.h>
+#include <Modloader/app/structs/IEnumerator_1_LeaderboardData_Entry_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/LeaderboardData_Entry.h>
 
 namespace app::classes::LeaderboardData {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::Leaderboard__Enum, get_Type, (app::LeaderboardData * this_ptr))

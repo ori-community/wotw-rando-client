@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LoadingBootstrap_OnEndOfFrame_d_34__Class.h>
+#include <Modloader/app/structs/LoadingBootstrap_OnEndOfFrame_d_34.h>
 
 namespace app::classes::types {
     namespace LoadingBootstrap_OnEndOfFrame_d_34 {

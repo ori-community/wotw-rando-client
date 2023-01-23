@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Label__Boxed.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Reflection::Emit::Label {
     IL2CPP_REGISTER_METHOD(0x001FC9E0, bool, Equals, (app::Label__Boxed * this_ptr, app::Object* obj))

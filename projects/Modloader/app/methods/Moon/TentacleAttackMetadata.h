@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TentacleAttackMetadata.h>
+#include <Modloader/app/structs/CageStructureTool_Face.h>
 
 namespace app::classes::Moon::TentacleAttackMetadata {
     IL2CPP_REGISTER_METHOD(0x010ACCF0, void, OnEnable, (app::TentacleAttackMetadata * this_ptr))

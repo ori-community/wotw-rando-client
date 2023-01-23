@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_BlockableLaser_ActivationTimeslicer__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_BlockableLaser_ActivationTimeslicer__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BlockableLaser_ActivationTimeslicer__Fields_DEFINED)
+#define IL2CPP_STRUCT_BlockableLaser_ActivationTimeslicer__Fields_DEFINED
+struct List_1_BlockableLaser_ActivationTimeslicer_Request_;
+struct __declspec(align(8)) BlockableLaser_ActivationTimeslicer__Fields {
+    struct List_1_BlockableLaser_ActivationTimeslicer_Request_* queue;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_BlockableLaser_ActivationTimeslicer__Fields_FWDDECL)
+#define IL2CPP_STRUCT_BlockableLaser_ActivationTimeslicer__Fields_FWDDECL
+#include <Modloader/app/structs/List_1_BlockableLaser_ActivationTimeslicer_Request_.h>
+#endif
+#undef IL2CPP_STRUCT_BlockableLaser_ActivationTimeslicer__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BlockableLaser_ActivationTimeslicer__Fields_DEFINED) && !defined(IL2CPP_STRUCT_BlockableLaser_ActivationTimeslicer__Fields_FWDDECL)
+#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

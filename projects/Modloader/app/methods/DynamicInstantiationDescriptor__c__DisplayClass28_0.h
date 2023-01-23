@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicInstantiationDescriptor_c_DisplayClass28_0.h>
+#include <Modloader/app/structs/MonoBehaviour.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::DynamicInstantiationDescriptor___c__DisplayClass28_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::DynamicInstantiationDescriptor_c_DisplayClass28_0 * this_ptr))

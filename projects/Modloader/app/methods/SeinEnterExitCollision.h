@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinEnterExitCollision.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::SeinEnterExitCollision {
     IL2CPP_REGISTER_METHOD(0x00AD0BD0, void, OnTriggerEnter, (app::SeinEnterExitCollision * this_ptr, app::Collider* collider))

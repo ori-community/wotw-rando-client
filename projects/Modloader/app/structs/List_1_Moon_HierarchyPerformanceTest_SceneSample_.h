@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_Moon_HierarchyPerformanceTest_SceneSample__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_Moon_HierarchyPerformanceTest_SceneSample__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_HierarchyPerformanceTest_SceneSample__DEFINED)
+#include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_SceneSample___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_Moon_HierarchyPerformanceTest_SceneSample___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_Moon_HierarchyPerformanceTest_SceneSample__DEFINED
+struct List_1_Moon_HierarchyPerformanceTest_SceneSample___Class;
+struct List_1_Moon_HierarchyPerformanceTest_SceneSample_ {
+    struct List_1_Moon_HierarchyPerformanceTest_SceneSample___Class* klass;
+    MonitorData* monitor;
+    struct List_1_Moon_HierarchyPerformanceTest_SceneSample___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_Moon_HierarchyPerformanceTest_SceneSample__FWDDECL)
+#define IL2CPP_STRUCT_List_1_Moon_HierarchyPerformanceTest_SceneSample__FWDDECL
+#include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_SceneSample___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_Moon_HierarchyPerformanceTest_SceneSample__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_HierarchyPerformanceTest_SceneSample__DEFINED) && !defined(IL2CPP_STRUCT_List_1_Moon_HierarchyPerformanceTest_SceneSample__FWDDECL)
+#include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_SceneSample_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_SceneSample_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

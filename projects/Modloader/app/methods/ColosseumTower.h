@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ColosseumTower.h>
+#include <Modloader/app/structs/ColosseumTower_SentryStats.h>
 
 namespace app::classes::ColosseumTower {
     IL2CPP_REGISTER_METHOD(0x011DDB80, void, Upgrade, (app::ColosseumTower * this_ptr))

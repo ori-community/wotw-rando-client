@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericAttackable.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
 
 namespace app::classes::GenericAttackable {
     IL2CPP_REGISTER_METHOD(0x00E05AB0, void, Awake, (app::GenericAttackable * this_ptr))

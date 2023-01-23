@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeleeAttackTimelineBehaviourNew_c_DisplayClass46_0.h>
 
 namespace app::classes::Moon::MeleeAttackTimelineBehaviourNew___c__DisplayClass46_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MeleeAttackTimelineBehaviourNew_c_DisplayClass46_0 * this_ptr))

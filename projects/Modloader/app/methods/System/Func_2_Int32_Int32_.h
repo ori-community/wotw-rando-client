@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Func_2_Int32_Int32_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Func_2_Int32_Int32_ {
     IL2CPP_REGISTER_METHOD(0x02B33400, int32_t, Invoke, (app::Func_2_Int32_Int32_ * this_ptr, int32_t arg))

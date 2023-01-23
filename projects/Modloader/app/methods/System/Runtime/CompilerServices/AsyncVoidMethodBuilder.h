@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncVoidMethodBuilder.h>
+#include <Modloader/app/structs/AsyncVoidMethodBuilder__Boxed.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PlayFabRaceServiceProvider_c_DisplayClass10_0_GetRaceData_b_0_d.h>
+#include <Modloader/app/structs/TaskAwaiter_1_SystemIntegration_Races_RaceRequestResult_.h>
+#include <Modloader/app/structs/TaskAwaiter_1_System_Object_.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncVoidMethodBuilder {
     IL2CPP_REGISTER_METHOD(0x01A91D60, app::AsyncVoidMethodBuilder, Create, ())

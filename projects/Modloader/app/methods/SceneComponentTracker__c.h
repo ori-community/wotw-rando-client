@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneComponentTracker_c.h>
+#include <Modloader/app/structs/Component_1.h>
 
 namespace app::classes::SceneComponentTracker___c {
     IL2CPP_REGISTER_METHOD(0x031C3F50, void, cctor, ())

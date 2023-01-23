@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerDataCaptureAgent.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/FrameCaptureTester_AgentOutput.h>
 
 namespace app::classes::PlayerDataCaptureAgent {
     IL2CPP_REGISTER_METHOD(0x0140DC40, bool, get_IsCaptureAgentValid, (app::PlayerDataCaptureAgent * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BranchLabel.h>
+#include <Modloader/app/structs/RuntimeLabel.h>
+#include <Modloader/app/structs/InstructionList.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::BranchLabel {
     IL2CPP_REGISTER_METHOD(0x002FB970, int32_t, get_LabelIndex, (app::BranchLabel * this_ptr))

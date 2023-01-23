@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Socket_c_DisplayClass242_0.h>
+#include <Modloader/app/structs/IOAsyncResult.h>
 
 namespace app::classes::System::Net::Sockets::Socket___c__DisplayClass242_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::Socket_c_DisplayClass242_0 * this_ptr))

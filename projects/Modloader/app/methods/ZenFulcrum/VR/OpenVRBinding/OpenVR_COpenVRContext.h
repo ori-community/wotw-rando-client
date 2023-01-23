@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OpenVR_COpenVRContext.h>
+#include <Modloader/app/structs/CVRSystem.h>
+#include <Modloader/app/structs/CVRChaperone.h>
+#include <Modloader/app/structs/CVRChaperoneSetup.h>
+#include <Modloader/app/structs/CVRCompositor.h>
+#include <Modloader/app/structs/CVROverlay.h>
+#include <Modloader/app/structs/CVRRenderModels.h>
+#include <Modloader/app/structs/CVRExtendedDisplay.h>
+#include <Modloader/app/structs/CVRSettings.h>
+#include <Modloader/app/structs/CVRApplications.h>
+#include <Modloader/app/structs/CVRScreenshots.h>
+#include <Modloader/app/structs/CVRTrackedCamera.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::OpenVR_COpenVRContext {
     IL2CPP_REGISTER_METHOD(0x00F56B30, void, ctor, (app::OpenVR_COpenVRContext * this_ptr))

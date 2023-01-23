@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MenuScreenManager.h>
+#include <Modloader/app/structs/MenuScreen.h>
+#include <Modloader/app/structs/ISKipUiBackgroundBlur.h>
+#include <Modloader/app/structs/MenuScreenManager_Screens__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/MenuScreenManager_Screens__Enum__Array.h>
+#include <Modloader/app/structs/HashSet_1_Moon_ISuspendable_.h>
+#include <Modloader/app/structs/State.h>
+#include <Modloader/app/structs/Objective.h>
+#include <Modloader/app/structs/IMenuTab.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
 
 namespace app::classes::MenuScreenManager {
     IL2CPP_REGISTER_METHOD(0x009DA500, void, ResetStatics, ())

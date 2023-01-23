@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Entity_c.h>
+#include <Modloader/app/structs/IEntityOwned.h>
 
 namespace app::classes::Moon::Entity___c {
     IL2CPP_REGISTER_METHOD(0x0121D110, void, cctor, ())

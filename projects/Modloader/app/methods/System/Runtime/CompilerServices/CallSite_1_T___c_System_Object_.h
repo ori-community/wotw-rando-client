@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CallSite_1_T_c_System_Object_.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/ParameterInfo_1.h>
+#include <Modloader/app/structs/Expression.h>
 
 namespace app::classes::System::Runtime::CompilerServices::CallSite_1_T____c_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x019DE4F0, void, cctor, ())

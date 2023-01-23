@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DebugMenuToggler_ToggleOption__Class.h>
+#include <Modloader/app/structs/DebugMenuToggler_ToggleOption.h>
+#include <Modloader/app/structs/DebugMenuToggler_ToggleOption__Array.h>
 
 namespace app::classes::types {
     namespace DebugMenuToggler_ToggleOption {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AmbientSoundZone.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Scene.h>
+#include <Modloader/app/structs/LoadSceneMode__Enum.h>
 
 namespace app::classes::AmbientSoundZone {
     IL2CPP_REGISTER_METHOD(0x004F8FB0, void, Awake, (app::AmbientSoundZone * this_ptr))

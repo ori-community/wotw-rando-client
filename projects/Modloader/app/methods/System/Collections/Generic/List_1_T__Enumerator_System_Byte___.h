@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Byte__1__Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_System_Byte___ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::Byte__Array*, get_Current, (app::List_1_T_Enumerator_System_Byte__1__Boxed * this_ptr))

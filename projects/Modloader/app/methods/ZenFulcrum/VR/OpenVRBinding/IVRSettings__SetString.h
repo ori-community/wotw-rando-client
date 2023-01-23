@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IVRSettings_SetString.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EVRSettingsError__Enum.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVRSettings__SetString {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVRSettings_SetString * this_ptr, app::Object* object, void* method_1))

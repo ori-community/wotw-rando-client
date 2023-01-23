@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EarlyZGrid__Boxed.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3Int.h>
 
 namespace app::classes::Moon::Rendering::EarlyZGrid {
     IL2CPP_REGISTER_METHOD(0x00118FE0, void, ctor, (app::EarlyZGrid__Boxed * this_ptr, app::Bounds bounds, app::Vector3 cell_size))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Module.h>
+#include <Modloader/app/structs/RuntimeConstructorInfo.h>
+#include <Modloader/app/structs/RuntimeModule.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/RuntimeType.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Reflection::RuntimeConstructorInfo {
     IL2CPP_REGISTER_METHOD(0x02696B10, app::Module*, get_Module, (app::RuntimeConstructorInfo * this_ptr))

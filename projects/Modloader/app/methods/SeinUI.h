@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinUI.h>
+#include <Modloader/app/structs/ShowUIType__Enum.h>
+#include <Modloader/app/structs/SeinUI_UIZone__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::SeinUI {
     IL2CPP_REGISTER_METHOD(0x00AA25F0, float, get_SpiritLightTimer, (app::SeinUI * this_ptr))

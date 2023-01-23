@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebConnectionData.h>
+#include <Modloader/app/structs/HttpWebRequest.h>
+#include <Modloader/app/structs/ReadState__Enum.h>
 
 namespace app::classes::System::Net::WebConnectionData {
     IL2CPP_REGISTER_METHOD(0x00C26ED0, void, ctor_1, (app::WebConnectionData * this_ptr))

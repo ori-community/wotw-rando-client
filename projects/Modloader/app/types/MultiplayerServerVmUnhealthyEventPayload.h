@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MultiplayerServerVmUnhealthyEventPayload__Class.h>
+#include <Modloader/app/structs/MultiplayerServerVmUnhealthyEventPayload.h>
 
 namespace app::classes::types {
     namespace MultiplayerServerVmUnhealthyEventPayload {

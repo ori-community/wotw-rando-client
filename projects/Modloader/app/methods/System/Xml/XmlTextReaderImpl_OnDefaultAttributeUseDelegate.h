@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlTextReaderImpl_OnDefaultAttributeUseDelegate.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IDtdDefaultAttributeInfo.h>
+#include <Modloader/app/structs/XmlTextReaderImpl.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Xml::XmlTextReaderImpl_OnDefaultAttributeUseDelegate {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::XmlTextReaderImpl_OnDefaultAttributeUseDelegate * this_ptr, app::Object* object, void* method_1))

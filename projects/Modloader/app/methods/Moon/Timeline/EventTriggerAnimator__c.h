@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EventTriggerAnimator_c.h>
+#include <Modloader/app/structs/EventTriggerAnimator.h>
 
 namespace app::classes::Moon::Timeline::EventTriggerAnimator___c {
     IL2CPP_REGISTER_METHOD(0x01BBD8A0, void, cctor, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DealDamageAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::DealDamageAction {
     IL2CPP_REGISTER_METHOD(0x00DDCAB0, void, Awake, (app::DealDamageAction * this_ptr))

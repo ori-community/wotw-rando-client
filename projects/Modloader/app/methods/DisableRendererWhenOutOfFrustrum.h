@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DisableRendererWhenOutOfFrustrum.h>
+#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::DisableRendererWhenOutOfFrustrum {
     IL2CPP_REGISTER_METHOD(0x00B986E0, void, OnFrustumEnter, (app::DisableRendererWhenOutOfFrustrum * this_ptr))

@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/ArgumentException.h>
+#include <Modloader/app/structs/ArgumentOutOfRangeException.h>
+#include <Modloader/app/structs/InvalidOperationException.h>
+#include <Modloader/app/structs/NotSupportedException.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/AcceptRejectRule__Enum.h>
+#include <Modloader/app/structs/MissingSchemaAction__Enum.h>
+#include <Modloader/app/structs/Rule__Enum.h>
 
 namespace app::classes::System::Data::Common::ADP {
     IL2CPP_REGISTER_METHOD(0x02153240, void, TraceException, (app::String * trace, app::Exception* e))

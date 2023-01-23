@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkInitializationSettings.h>
+#include <Modloader/app/structs/AkBasePlatformSettings.h>
+#include <Modloader/app/structs/AkSpatialAudioInitSettings.h>
+#include <Modloader/app/structs/AkCallbackManager_InitializationSettings.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AkCommunicationSettings.h>
 
 namespace app::classes::AkBasePlatformSettings {
     IL2CPP_REGISTER_METHOD(0x026CF390, app::AkInitializationSettings*, get_AkInitializationSettings, (app::AkBasePlatformSettings * this_ptr))

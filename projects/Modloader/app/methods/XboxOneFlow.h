@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XboxOneFlow.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::XboxOneFlow {
     IL2CPP_REGISTER_METHOD(0x005981C0, app::XboxOneFlow*, get_Instance, ())

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Comparer_1_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Comparer_1_System_ValueTuple_2__1.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/Comparer_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Object_Single_.h>
 
 namespace app::classes::System::Collections::Generic::Comparer_1_System_ValueTuple_2_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::Comparer_1_System_ValueTuple_2_*, get_Default_1, ())

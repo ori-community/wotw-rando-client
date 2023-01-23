@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PhraseRecognitionSystem_ErrorDelegate__Class.h>
+#include <Modloader/app/structs/PhraseRecognitionSystem_ErrorDelegate.h>
 
 namespace app::classes::types {
     namespace PhraseRecognitionSystem_ErrorDelegate {

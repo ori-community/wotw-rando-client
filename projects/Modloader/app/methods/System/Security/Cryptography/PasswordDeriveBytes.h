@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PasswordDeriveBytes.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CspParameters.h>
+#include <Modloader/app/structs/CryptoStream.h>
 
 namespace app::classes::System::Security::Cryptography::PasswordDeriveBytes {
     IL2CPP_REGISTER_METHOD(0x020DFA80, void, ctor_1, (app::PasswordDeriveBytes * this_ptr, app::String* str_password, app::Byte__Array* rgb_salt))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PointerUIGUI.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/BaseEventData.h>
+#include <Modloader/app/structs/PointerEventData.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::PointerUIGUI {
     IL2CPP_REGISTER_METHOD(0x01661A30, void, Awake, (app::PointerUIGUI * this_ptr))

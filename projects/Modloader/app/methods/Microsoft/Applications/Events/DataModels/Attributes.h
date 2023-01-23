@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_PII_.h>
+#include <Modloader/app/structs/Attributes.h>
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_CustomerContent_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Microsoft::Applications::Events::DataModels::Attributes {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::List_1_Microsoft_Applications_Events_DataModels_PII_*, get_pii, (app::Attributes * this_ptr))

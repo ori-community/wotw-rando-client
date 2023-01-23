@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ThreadAbortException.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Threading::ThreadAbortException {
     IL2CPP_REGISTER_METHOD(0x02344330, void, ctor_1, (app::ThreadAbortException * this_ptr))

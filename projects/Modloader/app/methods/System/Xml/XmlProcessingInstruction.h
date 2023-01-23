@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlProcessingInstruction.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::XmlProcessingInstruction {
     IL2CPP_REGISTER_METHOD(0x016FF630, void, ctor, (app::XmlProcessingInstruction * this_ptr, app::String* target, app::String* data, app::XmlDocument* doc))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MatchJointsJob.h>
+#include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::UnityEngine::Experimental::Animations::ProcessAnimationJobStruct_1_Moon_Animation_MatchJointsJob_ {
     IL2CPP_REGISTER_METHOD(0x02ACB6D0, void*, GetJobReflectionData, ())

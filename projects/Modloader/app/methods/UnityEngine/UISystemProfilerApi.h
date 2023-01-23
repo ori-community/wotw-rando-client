@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UISystemProfilerApi_SampleType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object_1.h>
 
 namespace app::classes::UnityEngine::UISystemProfilerApi {
     IL2CPP_REGISTER_METHOD(0x031A81E0, void, BeginSample, (app::UISystemProfilerApi_SampleType__Enum type))

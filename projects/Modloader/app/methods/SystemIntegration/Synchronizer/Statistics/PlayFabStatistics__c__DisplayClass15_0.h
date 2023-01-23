@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabStatistics_c_DisplayClass15_0.h>
+#include <Modloader/app/structs/ExecuteCloudScriptResult.h>
+#include <Modloader/app/structs/PlayFabError.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::Statistics::PlayFabStatistics___c__DisplayClass15_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::PlayFabStatistics_c_DisplayClass15_0 * this_ptr))

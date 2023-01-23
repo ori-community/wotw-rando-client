@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DSAManaged.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/RandomNumberGenerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DSAParameters.h>
+#include <Modloader/app/structs/DSAManaged_KeyGeneratedEventHandler.h>
 
 namespace app::classes::Mono::Security::Cryptography::DSAManaged {
     IL2CPP_REGISTER_METHOD(0x025C92E0, void, ctor, (app::DSAManaged * this_ptr, int32_t dw_key_size))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/HomingMissile.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/DamageOwner.h>
 
 namespace app::classes::HomingMissile {
     IL2CPP_REGISTER_METHOD(0x00B5C4F0, app::Vector3, get_TargetPosition, (app::HomingMissile * this_ptr))

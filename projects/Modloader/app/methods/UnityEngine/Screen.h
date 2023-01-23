@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Resolution.h>
+#include <Modloader/app/structs/FullScreenMode__Enum.h>
+#include <Modloader/app/structs/Resolution__Array.h>
 
 namespace app::classes::UnityEngine::Screen {
     IL2CPP_REGISTER_METHOD(0x0297AB50, int32_t, get_width, ())

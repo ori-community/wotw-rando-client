@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KamikazeSootEnemy.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::KamikazeSootEnemy {
     IL2CPP_REGISTER_METHOD(0x00E60AA0, bool, CanBeOptimized, (app::KamikazeSootEnemy * this_ptr))

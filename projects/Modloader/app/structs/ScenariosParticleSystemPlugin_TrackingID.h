@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ScenariosParticleSystemPlugin_TrackingID_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ScenariosParticleSystemPlugin_TrackingID_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ScenariosParticleSystemPlugin_TrackingID_DEFINED)
+#include <Modloader/app/structs/ScenariosParticleSystemPlugin_TrackingID__Fields.h>
+#if defined(IL2CPP_STRUCT_ScenariosParticleSystemPlugin_TrackingID__Fields_DEFINED)
+#define IL2CPP_STRUCT_ScenariosParticleSystemPlugin_TrackingID_DEFINED
+struct ScenariosParticleSystemPlugin_TrackingID__Class;
+struct ScenariosParticleSystemPlugin_TrackingID {
+    struct ScenariosParticleSystemPlugin_TrackingID__Class* klass;
+    MonitorData* monitor;
+    struct ScenariosParticleSystemPlugin_TrackingID__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ScenariosParticleSystemPlugin_TrackingID_FWDDECL)
+#define IL2CPP_STRUCT_ScenariosParticleSystemPlugin_TrackingID_FWDDECL
+#include <Modloader/app/structs/ScenariosParticleSystemPlugin_TrackingID__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ScenariosParticleSystemPlugin_TrackingID_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ScenariosParticleSystemPlugin_TrackingID_DEFINED) && !defined(IL2CPP_STRUCT_ScenariosParticleSystemPlugin_TrackingID_FWDDECL)
+#include <Modloader/app/structs/ScenariosParticleSystemPlugin_TrackingID.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ScenariosParticleSystemPlugin_TrackingID.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

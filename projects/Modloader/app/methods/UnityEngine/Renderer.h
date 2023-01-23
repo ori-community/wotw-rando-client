@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Material__Array.h>
+#include <Modloader/app/structs/MaterialPropertyBlock.h>
+#include <Modloader/app/structs/ShadowCastingMode__Enum.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/LightmapType__Enum.h>
 
 namespace app::classes::UnityEngine::Renderer {
     IL2CPP_REGISTER_METHOD(0x02972900, app::Bounds, get_bounds, (app::Renderer * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WorldMapOverworldAreaCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::WorldMapOverworldAreaCondition {
     IL2CPP_REGISTER_METHOD(0x005847F0, bool, Validate, (app::WorldMapOverworldAreaCondition * this_ptr, app::IContext* context))

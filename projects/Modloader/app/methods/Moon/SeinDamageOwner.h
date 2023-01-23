@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDamageOwner.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::Moon::SeinDamageOwner {
     IL2CPP_REGISTER_METHOD(0x00ECB7C0, void, HandleDamageBoostShard, (app::SeinDamageOwner * this_ptr, app::Damage* damage))

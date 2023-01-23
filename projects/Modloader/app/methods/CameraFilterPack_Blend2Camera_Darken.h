@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Blend2Camera_Darken.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Blend2Camera_Darken {
     IL2CPP_REGISTER_METHOD(0x02746C10, app::Material*, get_material, (app::CameraFilterPack_Blend2Camera_Darken * this_ptr))

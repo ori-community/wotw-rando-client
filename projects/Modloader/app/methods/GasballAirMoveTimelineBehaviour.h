@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GasballAirMoveTimelineBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::GasballAirMoveTimelineBehaviour {
     IL2CPP_REGISTER_METHOD(0x0041A160, void, OnInitializeTask, (app::GasballAirMoveTimelineBehaviour * this_ptr, app::IContext* context))

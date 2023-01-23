@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GasBallAttractionRect.h>
+#include <Modloader/app/structs/IGasBallBait.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::GasBallAttractionRect {
     IL2CPP_REGISTER_METHOD(0x00418B70, void, Enable, (app::GasBallAttractionRect * this_ptr, app::IGasBallBait* owner))

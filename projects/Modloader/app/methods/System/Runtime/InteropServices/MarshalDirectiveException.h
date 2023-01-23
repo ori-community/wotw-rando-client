@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MarshalDirectiveException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Runtime::InteropServices::MarshalDirectiveException {
     IL2CPP_REGISTER_METHOD(0x01A96C00, void, ctor_1, (app::MarshalDirectiveException * this_ptr))

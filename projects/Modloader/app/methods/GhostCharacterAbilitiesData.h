@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_AbilityType_.h>
+#include <Modloader/app/structs/GhostCharacterAbilitiesData.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/BinaryWriter.h>
 
 namespace app::classes::GhostCharacterAbilitiesData {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::HashSet_1_AbilityType_*, get_Abilities, (app::GhostCharacterAbilitiesData * this_ptr))

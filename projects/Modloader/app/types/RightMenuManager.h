@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RightMenuManager__Class.h>
+#include <Modloader/app/structs/RightMenuManager.h>
 
 namespace app::classes::types {
     namespace RightMenuManager {

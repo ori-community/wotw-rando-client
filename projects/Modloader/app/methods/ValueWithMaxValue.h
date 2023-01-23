@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValueWithMaxValue.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::ValueWithMaxValue {
     IL2CPP_REGISTER_METHOD(0x006B5650, float, get_Value, (app::ValueWithMaxValue * this_ptr))

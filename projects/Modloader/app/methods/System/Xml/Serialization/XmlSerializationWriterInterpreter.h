@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSerializationWriterInterpreter.h>
+#include <Modloader/app/structs/XmlMapping.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlTypeMapping.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlMembersMapping.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/ClassMap.h>
+#include <Modloader/app/structs/XmlTypeMapMember.h>
+#include <Modloader/app/structs/XmlTypeMapElementInfo.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeData.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/ListMap.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/XmlTypeMapMemberAnyElement.h>
 
 namespace app::classes::System::Xml::Serialization::XmlSerializationWriterInterpreter {
     IL2CPP_REGISTER_METHOD(0x025BE360, void, ctor, (app::XmlSerializationWriterInterpreter * this_ptr, app::XmlMapping* type_map))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CharacterAnimationSystem_CharacterAnimationState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CharacterAnimationSystem_CharacterAnimationState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CharacterAnimationSystem_CharacterAnimationState_DEFINED)
+#include <Modloader/app/structs/CharacterAnimationSystem_CharacterAnimationState__Fields.h>
+#if defined(IL2CPP_STRUCT_CharacterAnimationSystem_CharacterAnimationState__Fields_DEFINED)
+#define IL2CPP_STRUCT_CharacterAnimationSystem_CharacterAnimationState_DEFINED
+struct CharacterAnimationSystem_CharacterAnimationState__Class;
+struct CharacterAnimationSystem_CharacterAnimationState {
+    struct CharacterAnimationSystem_CharacterAnimationState__Class* klass;
+    MonitorData* monitor;
+    struct CharacterAnimationSystem_CharacterAnimationState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CharacterAnimationSystem_CharacterAnimationState_FWDDECL)
+#define IL2CPP_STRUCT_CharacterAnimationSystem_CharacterAnimationState_FWDDECL
+#include <Modloader/app/structs/CharacterAnimationSystem_CharacterAnimationState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_CharacterAnimationSystem_CharacterAnimationState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CharacterAnimationSystem_CharacterAnimationState_DEFINED) && !defined(IL2CPP_STRUCT_CharacterAnimationSystem_CharacterAnimationState_FWDDECL)
+#include <Modloader/app/structs/CharacterAnimationSystem_CharacterAnimationState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CharacterAnimationSystem_CharacterAnimationState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

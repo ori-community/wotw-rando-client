@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActivationParent.h>
 
 namespace app::classes::ActivationParent {
     IL2CPP_REGISTER_METHOD(0x004C9330, void, ResetStatics, ())

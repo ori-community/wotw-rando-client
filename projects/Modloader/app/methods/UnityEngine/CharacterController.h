@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterController.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/CollisionFlags__Enum.h>
 
 namespace app::classes::UnityEngine::CharacterController {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::CharacterController * this_ptr))

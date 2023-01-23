@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DictationRecognizer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConfidenceLevel__Enum.h>
+#include <Modloader/app/structs/DictationCompletionCause__Enum.h>
 
 namespace app::classes::UnityEngine::Windows::Speech::DictationRecognizer {
     IL2CPP_REGISTER_METHOD(0x02C79AB0, void, Destroy, (void* self))

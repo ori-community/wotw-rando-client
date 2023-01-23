@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/UpgradableShardItem.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Action_1_MessageProvider_.h>
+#include <Modloader/app/structs/UISoundSettingsAsset.h>
+#include <Modloader/app/structs/ShopKeeperHints.h>
+#include <Modloader/app/structs/PurchaseContext.h>
 
 namespace app::classes::UpgradableShardItem {
     IL2CPP_REGISTER_METHOD(0x013AE4A0, app::PlayerUberStateShards_Shard*, get_ShardState, (app::UpgradableShardItem * this_ptr))

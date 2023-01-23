@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleSwayBossAnimPostprocess_Job.h>
+#include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::UnityEngine::Jobs::IJobParallelForTransformExtensions_TransformParallelForLoopStruct_1_Moon_SimpleSwayBossAnimPostprocess_Job_ {
     IL2CPP_REGISTER_METHOD(0x02ACC6A0, void*, Initialize, ())

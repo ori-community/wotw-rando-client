@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Oculus_NightVision3.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Oculus_NightVision3 {
     IL2CPP_REGISTER_METHOD(0x02485740, app::Material*, get_material, (app::CameraFilterPack_Oculus_NightVision3 * this_ptr))

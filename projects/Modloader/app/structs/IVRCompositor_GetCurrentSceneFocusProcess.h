@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRCompositor_GetCurrentSceneFocusProcess_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRCompositor_GetCurrentSceneFocusProcess_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRCompositor_GetCurrentSceneFocusProcess_DEFINED)
+#include <Modloader/app/structs/IVRCompositor_GetCurrentSceneFocusProcess__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRCompositor_GetCurrentSceneFocusProcess__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRCompositor_GetCurrentSceneFocusProcess_DEFINED
+struct IVRCompositor_GetCurrentSceneFocusProcess__Class;
+struct IVRCompositor_GetCurrentSceneFocusProcess {
+    struct IVRCompositor_GetCurrentSceneFocusProcess__Class* klass;
+    MonitorData* monitor;
+    struct IVRCompositor_GetCurrentSceneFocusProcess__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRCompositor_GetCurrentSceneFocusProcess_FWDDECL)
+#define IL2CPP_STRUCT_IVRCompositor_GetCurrentSceneFocusProcess_FWDDECL
+#include <Modloader/app/structs/IVRCompositor_GetCurrentSceneFocusProcess__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRCompositor_GetCurrentSceneFocusProcess_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRCompositor_GetCurrentSceneFocusProcess_DEFINED) && !defined(IL2CPP_STRUCT_IVRCompositor_GetCurrentSceneFocusProcess_FWDDECL)
+#include <Modloader/app/structs/IVRCompositor_GetCurrentSceneFocusProcess.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRCompositor_GetCurrentSceneFocusProcess.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

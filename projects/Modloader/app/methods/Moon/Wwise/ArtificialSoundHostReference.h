@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArtificialSoundHostReference__Boxed.h>
+#include <Modloader/app/structs/ArtificialSoundHost.h>
+#include <Modloader/app/structs/ArtificialSoundHostReference.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandle.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/AkCallbackType__Enum.h>
+#include <Modloader/app/structs/AkCallbackInfo.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::Moon::Wwise::ArtificialSoundHostReference {
     IL2CPP_REGISTER_METHOD(0x001FE1E0, void, ctor, (app::ArtificialSoundHostReference__Boxed * this_ptr, app::ArtificialSoundHost* host))

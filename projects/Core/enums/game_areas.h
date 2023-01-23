@@ -2,6 +2,7 @@
 
 #include <Core/macros.h>
 #include <nlohmann/json.hpp>
+#include <Modloader/app/structs/GameWorldAreaID__Enum.h>
 
 /**
  * This enum matches `ZoneType` in C#

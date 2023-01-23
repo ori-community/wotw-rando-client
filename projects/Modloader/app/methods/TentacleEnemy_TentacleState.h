@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BehaviourTreeStatus__Enum.h>
+#include <Modloader/app/structs/TentacleEnemy_TentacleState.h>
+#include <Modloader/app/structs/TickData.h>
+#include <Modloader/app/structs/TentacleEnemy_WiggleData.h>
 
 namespace app::classes::TentacleEnemy_TentacleState {
     IL2CPP_REGISTER_METHOD(0x00CFCB30, app::BehaviourTreeStatus__Enum, OnUpdate, (app::TentacleEnemy_TentacleState * this_ptr, app::TickData tick))

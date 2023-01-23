@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SketchupGroup.h>
 
 namespace app::classes::SketchupGroup {
     IL2CPP_REGISTER_METHOD(0x00654950, int32_t, get_Version, (app::SketchupGroup * this_ptr))

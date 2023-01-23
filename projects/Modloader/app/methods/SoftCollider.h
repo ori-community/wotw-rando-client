@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoftCollider.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::SoftCollider {
     IL2CPP_REGISTER_METHOD(0x00EE29E0, void, OnEnable, (app::SoftCollider * this_ptr))

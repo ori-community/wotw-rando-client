@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScreenTimeTracker.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WriteEventsResponse.h>
+#include <Modloader/app/structs/PlayFabError.h>
 
 namespace app::classes::PlayFab::Public::ScreenTimeTracker {
     IL2CPP_REGISTER_METHOD(0x01AD30C0, void, ClientSessionStart, (app::ScreenTimeTracker * this_ptr, app::String* entity_id, app::String* entity_type, app::String* play_fab_user_id))

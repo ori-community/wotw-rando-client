@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IVRTrackedCamera_ReleaseVideoStreamingService__Class.h>
+#include <Modloader/app/structs/IVRTrackedCamera_ReleaseVideoStreamingService.h>
 
 namespace app::classes::types {
     namespace IVRTrackedCamera_ReleaseVideoStreamingService {

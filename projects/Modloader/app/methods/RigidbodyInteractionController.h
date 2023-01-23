@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RigidbodyInteractionController.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/RigidbodyInteractionController_InteractionInformation.h>
+#include <Modloader/app/structs/RigidbodyInteractionController_InstanciationInteractionSettings__Array.h>
+#include <Modloader/app/structs/RigidbodyInteractionController_SoundInteractionSettings__Array.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::RigidbodyInteractionController {
     IL2CPP_REGISTER_METHOD(0x00912560, void, OnCollisionEnter, (app::RigidbodyInteractionController * this_ptr, app::Collision* collision))

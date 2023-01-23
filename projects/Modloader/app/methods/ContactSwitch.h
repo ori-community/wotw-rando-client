@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ContactSwitch.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::ContactSwitch {
     IL2CPP_REGISTER_METHOD(0x011E6910, bool, get_IsActivated, (app::ContactSwitch * this_ptr))

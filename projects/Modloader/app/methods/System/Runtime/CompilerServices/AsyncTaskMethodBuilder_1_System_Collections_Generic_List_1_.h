@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_Collections_Generic_List_1_.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_Collections_Generic_List_1___Boxed.h>
+#include <Modloader/app/structs/UberPoolPerfTest_LoadPrefabInfos_d_41.h>
+#include <Modloader/app/structs/Task_1_System_Collections_Generic_List_1_.h>
+#include <Modloader/app/structs/TaskAwaiter.h>
+#include <Modloader/app/structs/YieldAwaitable_YieldAwaiter.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/List_1_UberPoolPerfTest_PrefabInfo_.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncTaskMethodBuilder_1_System_Collections_Generic_List_1_ {
     IL2CPP_REGISTER_METHOD(0x00C537F0, app::AsyncTaskMethodBuilder_1_System_Collections_Generic_List_1_, Create, ())

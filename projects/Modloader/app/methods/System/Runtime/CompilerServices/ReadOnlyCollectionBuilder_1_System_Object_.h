@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadOnlyCollectionBuilder_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Object_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::CompilerServices::ReadOnlyCollectionBuilder_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02771D10, void, set_Capacity, (app::ReadOnlyCollectionBuilder_1_System_Object_ * this_ptr, int32_t value))

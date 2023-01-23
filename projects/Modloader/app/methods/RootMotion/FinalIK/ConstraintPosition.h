@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConstraintPosition.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::ConstraintPosition {
     IL2CPP_REGISTER_METHOD(0x02051CC0, void, UpdateConstraint, (app::ConstraintPosition * this_ptr))

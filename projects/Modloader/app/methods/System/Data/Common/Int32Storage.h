@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Int32Storage.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/AggregateType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BitArray.h>
 
 namespace app::classes::System::Data::Common::Int32Storage {
     IL2CPP_REGISTER_METHOD(0x02167D70, void, ctor, (app::Int32Storage * this_ptr, app::DataColumn* column))

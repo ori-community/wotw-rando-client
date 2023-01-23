@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LogicUtility_ComparisonType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LogicUtility.h>
 
 namespace app::classes::LogicUtility {
     IL2CPP_REGISTER_METHOD(0x009EC800, bool, Compare, (float a, float b, app::LogicUtility_ComparisonType__Enum comparison))

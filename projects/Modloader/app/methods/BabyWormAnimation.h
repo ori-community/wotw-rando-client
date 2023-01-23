@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BabyWormAnimation.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::BabyWormAnimation {
     IL2CPP_REGISTER_METHOD(0x00F7FA90, void, SetTurnParameter, (app::BabyWormAnimation * this_ptr, float turn_parameter))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MoonAnimator_AnimationPostprocessMetadata_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MoonAnimator_AnimationPostprocessMetadata_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonAnimator_AnimationPostprocessMetadata_DEFINED)
+#include <Modloader/app/structs/MoonAnimator_AnimationPostprocessMetadata__Fields.h>
+#if defined(IL2CPP_STRUCT_MoonAnimator_AnimationPostprocessMetadata__Fields_DEFINED)
+#define IL2CPP_STRUCT_MoonAnimator_AnimationPostprocessMetadata_DEFINED
+struct MoonAnimator_AnimationPostprocessMetadata__Class;
+struct MoonAnimator_AnimationPostprocessMetadata {
+    struct MoonAnimator_AnimationPostprocessMetadata__Class* klass;
+    MonitorData* monitor;
+    struct MoonAnimator_AnimationPostprocessMetadata__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MoonAnimator_AnimationPostprocessMetadata_FWDDECL)
+#define IL2CPP_STRUCT_MoonAnimator_AnimationPostprocessMetadata_FWDDECL
+#include <Modloader/app/structs/MoonAnimator_AnimationPostprocessMetadata__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MoonAnimator_AnimationPostprocessMetadata_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonAnimator_AnimationPostprocessMetadata_DEFINED) && !defined(IL2CPP_STRUCT_MoonAnimator_AnimationPostprocessMetadata_FWDDECL)
+#include <Modloader/app/structs/MoonAnimator_AnimationPostprocessMetadata.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MoonAnimator_AnimationPostprocessMetadata.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

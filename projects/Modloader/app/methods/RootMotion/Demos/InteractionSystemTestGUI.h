@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractionSystemTestGUI.h>
 
 namespace app::classes::RootMotion::Demos::InteractionSystemTestGUI {
     IL2CPP_REGISTER_METHOD(0x022218B0, void, Awake, (app::InteractionSystemTestGUI * this_ptr))

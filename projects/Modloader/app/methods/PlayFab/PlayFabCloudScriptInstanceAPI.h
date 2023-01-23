@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabCloudScriptInstanceAPI.h>
+#include <Modloader/app/structs/PlayFabApiSettings.h>
+#include <Modloader/app/structs/PlayFabAuthenticationContext.h>
+#include <Modloader/app/structs/ExecuteEntityCloudScriptRequest.h>
+#include <Modloader/app/structs/Action_1_PlayFab_CloudScriptModels_ExecuteCloudScriptResult_.h>
+#include <Modloader/app/structs/Action_1_PlayFab_PlayFabError_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
 
 namespace app::classes::PlayFab::PlayFabCloudScriptInstanceAPI {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::PlayFabCloudScriptInstanceAPI * this_ptr))

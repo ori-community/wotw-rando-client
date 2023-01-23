@@ -1,5 +1,34 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServerObjectComponent.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ServerBoxCollider_BoxColliderData.h>
+#include <Modloader/app/structs/ServerBreakablePhysicalSetup_BreakablePhysicalSetupData.h>
+#include <Modloader/app/structs/BreakablePhysicalSetup.h>
+#include <Modloader/app/structs/ServerConfigurableJoint_ConfigurableJointData.h>
+#include <Modloader/app/structs/ServerConfigureConfigurableJointAction_ConfigureConfigurableJointActionData.h>
+#include <Modloader/app/structs/ExplodingRigidbody.h>
+#include <Modloader/app/structs/ServerInstantiateAction_InstantiateActionData.h>
+#include <Modloader/app/structs/InstantiateAction.h>
+#include <Modloader/app/structs/LimitedLifetime.h>
+#include <Modloader/app/structs/ServerMeshCollider_MeshColliderData.h>
+#include <Modloader/app/structs/ServerOwlProjectileTest_OwlProjectileTestData.h>
+#include <Modloader/app/structs/ServerPhysicalSystemManager_PhysicalManagerData.h>
+#include <Modloader/app/structs/ServerPolygon_PolygonData.h>
+#include <Modloader/app/structs/Polygon_1.h>
+#include <Modloader/app/structs/ServerProjectile_ServerProjectileData.h>
+#include <Modloader/app/structs/Projectile.h>
+#include <Modloader/app/structs/ServerProjectileSpawner_ProjectileSpawnerData.h>
+#include <Modloader/app/structs/ProjectileSpawner.h>
+#include <Modloader/app/structs/ServerProjectileSpawnerPinkPlantBrain_ProjectileSpawnerPinkPlantBrainData.h>
+#include <Modloader/app/structs/ServerRigidbody_RigidbodyData.h>
+#include <Modloader/app/structs/SeekingProjectile.h>
+#include <Modloader/app/structs/ServerSetRigidBodyPropertiesAction_SetRigidBodyPropertiesActionData.h>
+#include <Modloader/app/structs/ServerSpawnOnKill_SpawnOnKillData.h>
+#include <Modloader/app/structs/SpawnOnKill.h>
+#include <Modloader/app/structs/ServerSphereCollider_SphereColliderData.h>
+#include <Modloader/app/structs/ServerTransform_TransformData.h>
 
 namespace app::classes::ServerObjectComponent {
     IL2CPP_REGISTER_METHOD(0x00AC05C0, void, ctor, (app::ServerObjectComponent * this_ptr, app::Object* original_component))

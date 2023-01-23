@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FtpCachePolicyElement.h>
+#include <Modloader/app/structs/RequestCacheLevel__Enum.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/ConfigurationElement.h>
 
 namespace app::classes::System::Net::Configuration::FtpCachePolicyElement {
     IL2CPP_REGISTER_METHOD(0x020193E0, void, ctor, (app::FtpCachePolicyElement * this_ptr))

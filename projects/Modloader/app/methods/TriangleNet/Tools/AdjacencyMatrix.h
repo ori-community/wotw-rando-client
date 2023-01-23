@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/AdjacencyMatrix.h>
+#include <Modloader/app/structs/Mesh_1.h>
 
 namespace app::classes::TriangleNet::Tools::AdjacencyMatrix {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Int32__Array*, get_ColumnPointers, (app::AdjacencyMatrix * this_ptr))

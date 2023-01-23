@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/NavigableOnGUI_Field_1__Class.h>
+#include <Modloader/app/structs/NavigableOnGUI_Field_1.h>
+#include <Modloader/app/structs/NavigableOnGUI_Field_1__Boxed.h>
 
 namespace app::classes::types {
     namespace NavigableOnGUI_Field_1 {

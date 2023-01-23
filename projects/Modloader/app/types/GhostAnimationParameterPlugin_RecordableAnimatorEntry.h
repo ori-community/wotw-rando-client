@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_RecordableAnimatorEntry__Class.h>
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_RecordableAnimatorEntry.h>
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_RecordableAnimatorEntry__Array.h>
 
 namespace app::classes::types {
     namespace GhostAnimationParameterPlugin_RecordableAnimatorEntry {

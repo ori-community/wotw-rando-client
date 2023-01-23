@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnitySynchronizationContext_WorkRequest__Array.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
+#include <Modloader/app/structs/UnitySynchronizationContext_WorkRequest.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ {
     IL2CPP_REGISTER_METHOD(0x02F71370, void, Sort_1, (app::UnitySynchronizationContext_WorkRequest__Array * keys, int32_t index, int32_t length, app::IComparer_1_UnityEngine_UnitySynchronizationContext_WorkRequest_* comparer))

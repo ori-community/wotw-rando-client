@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnityModelAnimationCurveProcessor.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::UnityModelAnimationCurveProcessor {
     IL2CPP_REGISTER_METHOD(0x012ABB10, void, ProcessCurves, (app::UnityModelAnimationCurveProcessor * this_ptr, app::GameObject* model, float step, float start, float end))

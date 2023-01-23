@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/StrippableBuildContex__Class.h>
+#include <Modloader/app/structs/StrippableBuildContex.h>
+#include <Modloader/app/structs/StrippableBuildContex__Boxed.h>
 
 namespace app::classes::types {
     namespace StrippableBuildContex {

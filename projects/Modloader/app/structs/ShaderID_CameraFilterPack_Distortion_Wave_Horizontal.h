@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_Wave_Horizontal_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_Wave_Horizontal_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_Wave_Horizontal_DEFINED)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_Wave_Horizontal_DEFINED
+struct ShaderID_CameraFilterPack_Distortion_Wave_Horizontal__Class;
+struct ShaderID_CameraFilterPack_Distortion_Wave_Horizontal {
+    struct ShaderID_CameraFilterPack_Distortion_Wave_Horizontal__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_Wave_Horizontal_FWDDECL)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_Wave_Horizontal_FWDDECL
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Distortion_Wave_Horizontal__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_Wave_Horizontal_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_Wave_Horizontal_DEFINED) && !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Distortion_Wave_Horizontal_FWDDECL)
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Distortion_Wave_Horizontal.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Distortion_Wave_Horizontal.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

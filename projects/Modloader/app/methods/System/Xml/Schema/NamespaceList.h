@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NamespaceList.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NamespaceList_ListType__Enum.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
 
 namespace app::classes::System::Xml::Schema::NamespaceList {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::NamespaceList * this_ptr))

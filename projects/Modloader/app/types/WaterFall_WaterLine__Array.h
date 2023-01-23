@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WaterFall_WaterLine__Array__Class.h>
+#include <Modloader/app/structs/WaterFall_WaterLine__Array.h>
 
 namespace app::classes::types {
     namespace WaterFall_WaterLine__Array {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Function_FunctionType__Enum.h>
+#include <Modloader/app/structs/XPathParser_ParamInfo.h>
+#include <Modloader/app/structs/XPathResultType__Enum__Array.h>
 
 namespace app::classes::MS::Internal::Xml::XPath::XPathParser_ParamInfo {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::Function_FunctionType__Enum, get_FType, (app::XPathParser_ParamInfo * this_ptr))

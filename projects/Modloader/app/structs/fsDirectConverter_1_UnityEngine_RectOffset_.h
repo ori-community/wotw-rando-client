@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_RectOffset__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_RectOffset__INITIALIZING
+#if !defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_RectOffset__DEFINED)
+#include <Modloader/app/structs/fsDirectConverter_1_UnityEngine_RectOffset___Fields.h>
+#if defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_RectOffset___Fields_DEFINED)
+#define IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_RectOffset__DEFINED
+struct fsDirectConverter_1_UnityEngine_RectOffset___Class;
+struct fsDirectConverter_1_UnityEngine_RectOffset_ {
+    struct fsDirectConverter_1_UnityEngine_RectOffset___Class* klass;
+    MonitorData* monitor;
+    struct fsDirectConverter_1_UnityEngine_RectOffset___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_RectOffset__FWDDECL)
+#define IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_RectOffset__FWDDECL
+#include <Modloader/app/structs/fsDirectConverter_1_UnityEngine_RectOffset___Class.h>
+#endif
+#undef IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_RectOffset__INITIALIZING
+#if !defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_RectOffset__DEFINED) && !defined(IL2CPP_STRUCT_fsDirectConverter_1_UnityEngine_RectOffset__FWDDECL)
+#include <Modloader/app/structs/fsDirectConverter_1_UnityEngine_RectOffset_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/fsDirectConverter_1_UnityEngine_RectOffset_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

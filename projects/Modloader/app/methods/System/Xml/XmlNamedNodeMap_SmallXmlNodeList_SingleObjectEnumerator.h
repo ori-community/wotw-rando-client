@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator {
     IL2CPP_REGISTER_METHOD(0x01DC2A00, void, ctor, (app::XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator * this_ptr, app::Object* value))

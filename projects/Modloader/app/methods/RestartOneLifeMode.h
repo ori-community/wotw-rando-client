@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RestartOneLifeMode.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::RestartOneLifeMode {
     IL2CPP_REGISTER_METHOD(0x0090A9D0, void, Perform, (app::RestartOneLifeMode * this_ptr, app::IContext* context))

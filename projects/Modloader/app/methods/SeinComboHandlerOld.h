@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinComboHandlerOld.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Animator.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/ComboMove.h>
+#include <Modloader/app/structs/MeleeComboMoveSettings.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/ComboInput.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/IHoldable.h>
+#include <Modloader/app/structs/MeleeWeaponTorch.h>
 
 namespace app::classes::SeinComboHandlerOld {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinComboHandlerOld * this_ptr))

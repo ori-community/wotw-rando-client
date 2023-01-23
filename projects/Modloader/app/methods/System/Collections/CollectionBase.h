@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CollectionBase.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/IList.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Collections::CollectionBase {
     IL2CPP_REGISTER_METHOD(0x0201F3C0, void, ctor, (app::CollectionBase * this_ptr))

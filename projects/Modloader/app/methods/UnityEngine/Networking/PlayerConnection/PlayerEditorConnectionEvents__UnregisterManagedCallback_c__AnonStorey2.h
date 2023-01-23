@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerEditorConnectionEvents_UnregisterManagedCallback_c_AnonStorey2.h>
+#include <Modloader/app/structs/PlayerEditorConnectionEvents_MessageTypeSubscribers.h>
 
 namespace app::classes::UnityEngine::Networking::PlayerConnection::PlayerEditorConnectionEvents__UnregisterManagedCallback_c__AnonStorey2 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::PlayerEditorConnectionEvents_UnregisterManagedCallback_c_AnonStorey2 * this_ptr))

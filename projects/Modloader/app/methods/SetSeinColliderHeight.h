@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SetSeinColliderHeight.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SetSeinColliderHeight {
     IL2CPP_REGISTER_METHOD(0x005A4240, void, Perform, (app::SetSeinColliderHeight * this_ptr, app::IContext* context))

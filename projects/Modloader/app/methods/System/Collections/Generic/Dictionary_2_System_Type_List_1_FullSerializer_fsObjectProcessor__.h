@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Type_List_1_FullSerializer_fsObjectProcessor_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/List_1_FullSerializer_fsObjectProcessor_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Type_List_1_FullSerializer_fsObjectProcessor__ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_System_Type_List_1_FullSerializer_fsObjectProcessor_ * this_ptr))

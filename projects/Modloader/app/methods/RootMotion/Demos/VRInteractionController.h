@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractionSystem.h>
+#include <Modloader/app/structs/VRInteractionController.h>
+#include <Modloader/app/structs/InteractionTrigger.h>
 
 namespace app::classes::RootMotion::Demos::VRInteractionController {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::InteractionSystem*, get_interactionSystem, (app::VRInteractionController * this_ptr))

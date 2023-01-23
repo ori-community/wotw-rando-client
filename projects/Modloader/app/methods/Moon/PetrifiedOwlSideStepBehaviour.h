@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlSideStepBehaviour.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/BaseAnimator.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::PetrifiedOwlSideStepBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C396A0, void, Awake, (app::PetrifiedOwlSideStepBehaviour * this_ptr))

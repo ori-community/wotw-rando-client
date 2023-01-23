@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Wwise_WwiseEventSystem_SoundHandleProtected_CallbackData_.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandleProtected_CallbackData.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandleProtected_CallbackData__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_Moon_Wwise_WwiseEventSystem_SoundHandleProtected_CallbackData_ {
     IL2CPP_REGISTER_METHOD(0x01CD2410, bool, Equals_1, (app::ObjectEqualityComparer_1_Moon_Wwise_WwiseEventSystem_SoundHandleProtected_CallbackData_ * this_ptr, app::WwiseEventSystem_SoundHandleProtected_CallbackData x, app::WwiseEventSystem_SoundHandleProtected_CallbackData y))

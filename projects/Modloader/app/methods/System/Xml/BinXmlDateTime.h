@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
 
 namespace app::classes::System::Xml::BinXmlDateTime {
     IL2CPP_REGISTER_METHOD(0x021E2430, void, Write2Dig, (app::StringBuilder * sb, int32_t val))

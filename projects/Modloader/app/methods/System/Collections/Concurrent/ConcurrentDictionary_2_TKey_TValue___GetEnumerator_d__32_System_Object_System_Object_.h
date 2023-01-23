@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_GetEnumerator_d_32_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Concurrent::ConcurrentDictionary_2_TKey_TValue___GetEnumerator_d__32_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00C3DD30, app::KeyValuePair_2_System_Object_System_Object_, System_Collections_Generic_IEnumerator_System_Collections_Generic_KeyValuePair_TKey_TValue___get_Current, (app::ConcurrentDictionary_2_TKey_TValue_GetEnumerator_d_32_System_Object_System_Object_ * this_ptr))

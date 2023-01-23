@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocationChanger.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LocationChanger {
     IL2CPP_REGISTER_METHOD(0x00FC1570, void, Start, (app::LocationChanger * this_ptr))

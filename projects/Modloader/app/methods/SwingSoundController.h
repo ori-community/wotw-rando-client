@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwingSoundController.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::SwingSoundController {
     IL2CPP_REGISTER_METHOD(0x01833180, void, Awake, (app::SwingSoundController * this_ptr))

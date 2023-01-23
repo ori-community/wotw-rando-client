@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IgnitableSpiritTorch.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::IgnitableSpiritTorch {
     IL2CPP_REGISTER_METHOD(0x00625800, void, add_OnLightTorchWithGrenadeEvent, (app::Action * value))

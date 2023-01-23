@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CSteamID.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ESteamDeviceFormFactor__Enum.h>
 
 namespace app::classes::Steamworks::SteamRemotePlay {
     IL2CPP_REGISTER_METHOD(0x0278FE20, uint32_t, GetSessionCount, ())

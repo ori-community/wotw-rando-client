@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BloomAndFlares.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::BloomAndFlares {
     IL2CPP_REGISTER_METHOD(0x02513620, bool, CheckResources, (app::BloomAndFlares * this_ptr))

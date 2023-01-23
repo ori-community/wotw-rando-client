@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NewInstruction.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::NewInstruction {
     IL2CPP_REGISTER_METHOD(0x00CC8D50, void, ctor, (app::NewInstruction * this_ptr, app::ConstructorInfo* constructor, int32_t argument_count))

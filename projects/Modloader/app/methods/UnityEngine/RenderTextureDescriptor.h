@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RenderTextureDescriptor__Boxed.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/TextureDimension__Enum.h>
+#include <Modloader/app/structs/ShadowSamplingMode__Enum.h>
+#include <Modloader/app/structs/VRTextureUsage__Enum.h>
+#include <Modloader/app/structs/RenderTextureMemoryless__Enum.h>
+#include <Modloader/app/structs/RenderTextureCreationFlags__Enum.h>
 
 namespace app::classes::UnityEngine::RenderTextureDescriptor {
     IL2CPP_REGISTER_METHOD(0x00218070, void, ctor_1, (app::RenderTextureDescriptor__Boxed * this_ptr, int32_t width, int32_t height))

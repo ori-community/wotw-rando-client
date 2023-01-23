@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EventHandler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventArgs.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::EventHandler {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::EventHandler * this_ptr, app::Object* object, void* method_1))

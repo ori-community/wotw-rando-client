@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ISteamMatchmakingRulesResponse_InternalRulesRefreshComplete.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Steamworks::ISteamMatchmakingRulesResponse_InternalRulesRefreshComplete {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::ISteamMatchmakingRulesResponse_InternalRulesRefreshComplete * this_ptr, app::Object* object, void* method_1))

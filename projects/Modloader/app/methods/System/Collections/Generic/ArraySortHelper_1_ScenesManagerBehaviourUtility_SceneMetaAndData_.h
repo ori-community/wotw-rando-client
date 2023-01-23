@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScenesManagerBehaviourUtility_SceneMetaAndData__Array.h>
+#include <Modloader/app/structs/IComparer_1_ScenesManagerBehaviourUtility_SceneMetaAndData_.h>
+#include <Modloader/app/structs/ScenesManagerBehaviourUtility_SceneMetaAndData.h>
+#include <Modloader/app/structs/Comparison_1_ScenesManagerBehaviourUtility_SceneMetaAndData_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_ScenesManagerBehaviourUtility_SceneMetaAndData_ {
     IL2CPP_REGISTER_METHOD(0x02FEF650, void, Sort_1, (app::ScenesManagerBehaviourUtility_SceneMetaAndData__Array * keys, int32_t index, int32_t length, app::IComparer_1_ScenesManagerBehaviourUtility_SceneMetaAndData_* comparer))

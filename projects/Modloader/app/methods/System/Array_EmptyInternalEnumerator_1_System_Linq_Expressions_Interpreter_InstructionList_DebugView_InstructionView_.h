@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
+#include <Modloader/app/structs/InstructionList_DebugView_InstructionView.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose, (app::Array_EmptyInternalEnumerator_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ * this_ptr))

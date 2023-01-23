@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TriangleReader.h>
+#include <Modloader/app/structs/StreamReader.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Geometry_Vertex_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Polygon.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Geometry_ITriangle_.h>
+#include <Modloader/app/structs/IPolygon.h>
+#include <Modloader/app/structs/Double__Array.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Geometry_Edge_.h>
 
 namespace app::classes::TriangleNet::IO::TriangleReader {
     IL2CPP_REGISTER_METHOD(0x02622160, bool, TryReadLine, (app::TriangleReader * this_ptr, app::StreamReader* reader, app::String__Array** token))

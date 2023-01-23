@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/SkinnedMeshRenderer.h>
+#include <Modloader/app/structs/Transform__Array.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/ComputeBuffer.h>
 
 namespace app::classes::UnityEngine::SkinnedMeshRenderer {
     IL2CPP_REGISTER_METHOD(0x0297DC60, app::Transform*, get_rootBone, (app::SkinnedMeshRenderer * this_ptr))

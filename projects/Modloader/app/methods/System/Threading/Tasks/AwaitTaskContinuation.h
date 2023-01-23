@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AwaitTaskContinuation.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Action_1_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TaskScheduler.h>
+#include <Modloader/app/structs/ThreadAbortException.h>
+#include <Modloader/app/structs/ContextCallback.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Threading::Tasks::AwaitTaskContinuation {
     IL2CPP_REGISTER_METHOD(0x0232E5F0, void, ctor_1, (app::AwaitTaskContinuation * this_ptr, app::Action* action, bool flow_execution_context, app::StackCrawlMark__Enum* stack_mark))

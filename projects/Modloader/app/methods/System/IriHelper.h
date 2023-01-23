@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UriComponents__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IriHelper {
     IL2CPP_REGISTER_METHOD(0x0200D2B0, bool, CheckIriUnicodeRange_1, (uint16_t unicode, bool is_query))

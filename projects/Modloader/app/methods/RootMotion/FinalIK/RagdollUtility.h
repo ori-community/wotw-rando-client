@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RagdollUtility.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::RootMotion::FinalIK::RagdollUtility {
     IL2CPP_REGISTER_METHOD(0x02A198F0, void, EnableRagdoll, (app::RagdollUtility * this_ptr))

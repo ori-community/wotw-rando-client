@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_System_Xml_Schema_InteriorNode_.h>
+#include <Modloader/app/structs/InteriorNode.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_System_Xml_Schema_InteriorNode_ {
     IL2CPP_REGISTER_METHOD(0x0243CB70, void, ctor, (app::Stack_1_System_Xml_Schema_InteriorNode_ * this_ptr))

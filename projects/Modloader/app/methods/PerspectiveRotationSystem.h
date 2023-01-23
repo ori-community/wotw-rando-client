@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PerspectiveRotationSystem.h>
+#include <Modloader/app/structs/PerspectiveRotationAdjustment.h>
 
 namespace app::classes::PerspectiveRotationSystem {
     IL2CPP_REGISTER_METHOD(0x00499EF0, app::PerspectiveRotationSystem*, get_Instance, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChargeFlameWall.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::ChargeFlameWall {
     IL2CPP_REGISTER_METHOD(0x01319670, void, Awake, (app::ChargeFlameWall * this_ptr))

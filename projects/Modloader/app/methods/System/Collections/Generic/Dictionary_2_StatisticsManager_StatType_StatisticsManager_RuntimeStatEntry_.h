@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_StatisticsManager_StatType_StatisticsManager_RuntimeStatEntry_.h>
+#include <Modloader/app/structs/StatisticsManager_StatType__Enum.h>
+#include <Modloader/app/structs/StatisticsManager_RuntimeStatEntry.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_StatisticsManager_StatType_StatisticsManager_RuntimeStatEntry_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_StatisticsManager_StatType_StatisticsManager_RuntimeStatEntry_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_StatisticsManager_StatType_StatisticsManager_RuntimeStatEntry_ * this_ptr))

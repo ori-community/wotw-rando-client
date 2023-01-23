@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_ServerPhysicalSystemManager_RigidbodyStateData_.h>
+#include <Modloader/app/structs/ServerPhysicalSystemManager_RigidbodyStateData.h>
+#include <Modloader/app/structs/ServerPhysicalSystemManager_RigidbodyStateData__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_ServerPhysicalSystemManager_RigidbodyStateData_ {
     IL2CPP_REGISTER_METHOD(0x02659150, bool, Equals_1, (app::ObjectEqualityComparer_1_ServerPhysicalSystemManager_RigidbodyStateData_ * this_ptr, app::ServerPhysicalSystemManager_RigidbodyStateData x, app::ServerPhysicalSystemManager_RigidbodyStateData y))

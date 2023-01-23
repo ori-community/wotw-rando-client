@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HebrewNumberParsingState__Enum.h>
+#include <Modloader/app/structs/HebrewNumberParsingContext.h>
 
 namespace app::classes::System::Globalization::HebrewNumber {
     IL2CPP_REGISTER_METHOD(0x02613650, app::String*, ToString, (int32_t number))

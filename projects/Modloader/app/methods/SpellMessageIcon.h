@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellMessageIcon.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/MessageProvider.h>
 
 namespace app::classes::SpellMessageIcon {
     IL2CPP_REGISTER_METHOD(0x00943010, void, SetIcon, (app::SpellMessageIcon * this_ptr, app::Texture2D* icon))

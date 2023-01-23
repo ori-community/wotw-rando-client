@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/P3D_Tree.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/P3D_Result.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/List_1_P3D_Result_.h>
+#include <Modloader/app/structs/P3D_Node.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/P3D_Triangle.h>
 
 namespace app::classes::P3D_Tree {
     IL2CPP_REGISTER_METHOD(0x03099100, app::P3D_Tree*, get_TempInstance, ())

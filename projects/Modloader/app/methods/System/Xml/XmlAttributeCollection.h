@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlAttributeCollection.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::XmlAttributeCollection {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::XmlAttributeCollection * this_ptr, app::XmlNode* parent))

@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/LegacyEntity.h>
+#include <Modloader/app/structs/BehaviourTree_1.h>
+#include <Modloader/app/structs/List_1_Moon_ISuspendable_.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/RespawningPlaceholder.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/SoundSource.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/PrefabSpawner.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::LegacyEntity {
     IL2CPP_REGISTER_METHOD(0x00A1DC40, app::StateMachine_2*, get_StateMachine, (app::LegacyEntity * this_ptr))

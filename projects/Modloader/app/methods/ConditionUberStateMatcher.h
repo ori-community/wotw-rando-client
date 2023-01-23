@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConditionUberStateMatcher.h>
+#include <Modloader/app/structs/IUberState.h>
 
 namespace app::classes::ConditionUberStateMatcher {
     IL2CPP_REGISTER_METHOD(0x01B575A0, void, ctor, (app::ConditionUberStateMatcher * this_ptr))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataRowCollection.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/DataRow__Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Data::DataRowCollection {
     IL2CPP_REGISTER_METHOD(0x017E0200, void, ctor, (app::DataRowCollection * this_ptr, app::DataTable* table))

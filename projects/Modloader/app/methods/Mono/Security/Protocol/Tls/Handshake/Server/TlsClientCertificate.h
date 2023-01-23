@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TlsClientCertificate.h>
+#include <Modloader/app/structs/Context_1.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/X509Certificate_2.h>
+#include <Modloader/app/structs/X509CertificateCollection_2.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::Handshake::Server::TlsClientCertificate {
     IL2CPP_REGISTER_METHOD(0x01F6CD40, void, ctor, (app::TlsClientCertificate * this_ptr, app::Context_1* context, app::Byte__Array* buffer))

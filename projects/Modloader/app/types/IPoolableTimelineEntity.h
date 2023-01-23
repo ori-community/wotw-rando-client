@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IPoolableTimelineEntity__Class.h>
+#include <Modloader/app/structs/IPoolableTimelineEntity__Array.h>
+#include <Modloader/app/structs/IPoolableTimelineEntity.h>
 
 namespace app::classes::types {
     namespace IPoolableTimelineEntity {

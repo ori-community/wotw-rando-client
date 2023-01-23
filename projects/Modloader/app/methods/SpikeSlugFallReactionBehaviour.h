@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpikeSlugLocomotion.h>
+#include <Modloader/app/structs/SpikeSlugFallReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpikeSlugFallReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x011CCD70, app::SpikeSlugLocomotion*, get_Locomotion, (app::SpikeSlugFallReactionBehaviour * this_ptr))

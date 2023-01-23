@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConcurrentBag_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ConcurrentBag_1_T_WorkStealingQueue_System_Object_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Collections::Concurrent::ConcurrentBag_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02ADBFD0, int32_t, get_Count, (app::ConcurrentBag_1_System_Object_ * this_ptr))

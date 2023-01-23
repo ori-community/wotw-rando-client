@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsOverride__Array.h>
+#include <Modloader/app/structs/IComparer_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsOverride.h>
+#include <Modloader/app/structs/Comparison_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_LayeredRenderSettings_LayeredRenderSettingsOverride_ {
     IL2CPP_REGISTER_METHOD(0x02F5F6B0, void, Sort_1, (app::LayeredRenderSettings_LayeredRenderSettingsOverride__Array * keys, int32_t index, int32_t length, app::IComparer_1_LayeredRenderSettings_LayeredRenderSettingsOverride_* comparer))

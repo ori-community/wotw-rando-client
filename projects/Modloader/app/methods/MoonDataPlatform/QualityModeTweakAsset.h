@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QualityModeTweakAsset.h>
 
 namespace app::classes::MoonDataPlatform::QualityModeTweakAsset {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ApplyVsyncInterval, (app::QualityModeTweakAsset * this_ptr))

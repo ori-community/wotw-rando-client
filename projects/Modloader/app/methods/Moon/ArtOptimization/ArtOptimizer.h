@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArtOptimizer.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IList_1_UberShaderComponent_.h>
+#include <Modloader/app/structs/ArtOptimizer_OptimizerState__Enum.h>
 
 namespace app::classes::Moon::ArtOptimization::ArtOptimizer {
     IL2CPP_REGISTER_METHOD(0x01341260, void, add_OnEnterGettingReady, (app::ArtOptimizer * this_ptr, app::Action* value))

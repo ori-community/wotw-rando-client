@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GrabbableRope.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/ForceMode__Enum.h>
 
 namespace app::classes::GrabbableRope {
     IL2CPP_REGISTER_METHOD(0x010790F0, app::Vector3, get_LastForceApplied, (app::GrabbableRope * this_ptr))

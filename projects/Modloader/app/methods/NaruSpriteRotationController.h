@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NaruSpriteRotationController.h>
 
 namespace app::classes::NaruSpriteRotationController {
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, get_IsSuspended, (app::NaruSpriteRotationController * this_ptr))

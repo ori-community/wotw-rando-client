@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard_c.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateShards_Shard___c {
     IL2CPP_REGISTER_METHOD(0x00F435A0, void, cctor, ())

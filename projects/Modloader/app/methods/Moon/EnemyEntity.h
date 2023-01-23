@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnemyEntity_SpawnPopFixState__Enum.h>
+#include <Modloader/app/structs/EnemyEntity.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/SuspendWhenOutOfFrustrumWithCondition.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::Moon::EnemyEntity {
     IL2CPP_REGISTER_METHOD(0x0120D000, void, ResetStatics, ())

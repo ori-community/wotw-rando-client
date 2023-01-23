@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MothSwarmer.h>
+#include <Modloader/app/structs/UberSwarmerSettings.h>
+#include <Modloader/app/structs/MothSwarm.h>
+#include <Modloader/app/structs/MothEnemy.h>
 
 namespace app::classes::MothSwarmer {
     IL2CPP_REGISTER_METHOD(0x00866A40, app::Vector2, get_Position, (app::MothSwarmer * this_ptr))

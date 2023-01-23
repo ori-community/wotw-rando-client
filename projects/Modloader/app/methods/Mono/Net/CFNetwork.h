@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/void.h>
+#include <Modloader/app/structs/CFNetwork_CFProxyAutoConfigurationResultCallback.h>
+#include <Modloader/app/structs/CFStreamClientContext.h>
+#include <Modloader/app/structs/CFArray.h>
+#include <Modloader/app/structs/CFUrl.h>
+#include <Modloader/app/structs/CFProxy__Array.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/CFDictionary.h>
+#include <Modloader/app/structs/CFProxySettings.h>
+#include <Modloader/app/structs/IWebProxy.h>
 
 namespace app::classes::Mono::Net::CFNetwork {
     IL2CPP_REGISTER_METHOD(0x02173E80, void*, CFNetworkCopyProxiesForAutoConfigurationScriptSequential, (void* proxy_auto_configuration_script, void* target_u_r_l, app::void** error))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinSpiritSpearSpell_FlyingSpear__Array.h>
+#include <Modloader/app/structs/IComparer_1_SeinSpiritSpearSpell_FlyingSpear_.h>
+#include <Modloader/app/structs/SeinSpiritSpearSpell_FlyingSpear.h>
+#include <Modloader/app/structs/Comparison_1_SeinSpiritSpearSpell_FlyingSpear_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_SeinSpiritSpearSpell_FlyingSpear_ {
     IL2CPP_REGISTER_METHOD(0x02FEFC70, void, Sort_1, (app::SeinSpiritSpearSpell_FlyingSpear__Array * keys, int32_t index, int32_t length, app::IComparer_1_SeinSpiritSpearSpell_FlyingSpear_* comparer))

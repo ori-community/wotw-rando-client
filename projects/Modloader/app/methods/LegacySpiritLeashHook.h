@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacySpiritLeashHook.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SpiritLeashMode__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CameraTargetType__Enum.h>
+#include <Modloader/app/structs/CameraTargetData.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
 
 namespace app::classes::LegacySpiritLeashHook {
     IL2CPP_REGISTER_METHOD(0x0051DB40, bool, get_Activated, (app::LegacySpiritLeashHook * this_ptr))

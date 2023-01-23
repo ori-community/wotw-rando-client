@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InternalEncodingDataItem__Class.h>
+#include <Modloader/app/structs/InternalEncodingDataItem.h>
+#include <Modloader/app/structs/InternalEncodingDataItem__Boxed.h>
+#include <Modloader/app/structs/InternalEncodingDataItem__Array.h>
 
 namespace app::classes::types {
     namespace InternalEncodingDataItem {

@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HierarchyDebugMenu.h>
+#include <Modloader/app/structs/List_1_WorldEvents_.h>
+#include <Modloader/app/structs/DebugMenu.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/List_1_DebugMenu_ExternalItem_.h>
+#include <Modloader/app/structs/List_1_IDebugMenuItem_.h>
+#include <Modloader/app/structs/HierarchySuspensionTest.h>
+#include <Modloader/app/structs/IDebugMenuPageHandler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IDebugMenuItem.h>
+#include <Modloader/app/structs/WorldEvents.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::DebugMenu {
     IL2CPP_REGISTER_METHOD(0x00DED6F0, app::HierarchyDebugMenu*, get_HierarchyDebugMenu, ())

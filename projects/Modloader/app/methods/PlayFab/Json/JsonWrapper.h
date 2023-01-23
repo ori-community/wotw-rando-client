@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ISerializerPlugin.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::PlayFab::Json::JsonWrapper {
     IL2CPP_REGISTER_METHOD(0x01847F50, app::ISerializerPlugin*, get_Instance, ())

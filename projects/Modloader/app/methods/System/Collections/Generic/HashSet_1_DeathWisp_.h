@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_DeathWisp_.h>
+#include <Modloader/app/structs/IEnumerable_1_DeathWisp_.h>
+#include <Modloader/app/structs/DeathWisp.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_DeathWisp_.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_DeathWisp_ {
     IL2CPP_REGISTER_METHOD(0x02ABF4D0, void, UnionWith, (app::HashSet_1_DeathWisp_ * this_ptr, app::IEnumerable_1_DeathWisp_* other))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugSeinAbilityOverride.h>
 
 namespace app::classes::DebugSeinAbilityOverride {
     IL2CPP_REGISTER_METHOD(0x00B7E070, void, Start, (app::DebugSeinAbilityOverride * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpikeProjectile.h>
 
 namespace app::classes::SpikeProjectile {
     IL2CPP_REGISTER_METHOD(0x011C6E80, void, Awake, (app::SpikeProjectile * this_ptr))

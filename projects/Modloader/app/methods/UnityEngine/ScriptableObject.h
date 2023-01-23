@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScriptableObject.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PlayerConnection.h>
+#include <Modloader/app/structs/MoonAnimator_CrossfadeAnimation.h>
+#include <Modloader/app/structs/CameraSettingsAsset.h>
+#include <Modloader/app/structs/LightCanvasEditorTextureCache.h>
 
 namespace app::classes::UnityEngine::ScriptableObject {
     IL2CPP_REGISTER_METHOD(0x0297AF40, void, ctor, (app::ScriptableObject * this_ptr))

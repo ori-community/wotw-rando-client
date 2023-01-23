@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CartLogicCycle.h>
+#include <Modloader/app/structs/CharacterState.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/CartLogicCycle_IsAllowedDelegate.h>
 
 namespace app::classes::CartLogicCycle {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_AllowGravity, (app::CartLogicCycle * this_ptr))

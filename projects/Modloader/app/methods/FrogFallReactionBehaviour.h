@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FrogFallReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::FrogFallReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x01647CE0, void, OnInitializeTask, (app::FrogFallReactionBehaviour * this_ptr, app::IContext* context))

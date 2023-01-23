@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BoolPref.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::PlayerPrefsUtility::BoolPref {
     IL2CPP_REGISTER_METHOD(0x00C3D150, void, ctor, (app::BoolPref * this_ptr, app::String* _key, bool _default_value))

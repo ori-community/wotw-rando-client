@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/CharacterFactory_Characters__Enum.h>
+#include <Modloader/app/structs/AnimationCharacterProvider.h>
 
 namespace app::classes::AnimationCharacterProvider {
     IL2CPP_REGISTER_METHOD(0x004FBE50, app::MoonAnimator*, GetAnimator, (app::CharacterFactory_Characters__Enum character_type))

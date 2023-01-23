@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinGlidePuppet.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::SeinGlidePuppet {
     IL2CPP_REGISTER_METHOD(0x00417920, int32_t, get_Id, (app::SeinGlidePuppet * this_ptr))

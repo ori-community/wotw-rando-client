@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/SeinAnimationParametersHandler.h>
 
 namespace app::classes::SeinAnimationParametersHandler {
     IL2CPP_REGISTER_METHOD(0x00D841B0, app::CharacterPlatformMovement*, get_PlatformMovement, (app::SeinAnimationParametersHandler * this_ptr))

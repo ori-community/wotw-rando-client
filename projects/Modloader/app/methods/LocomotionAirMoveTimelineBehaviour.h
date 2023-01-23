@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocomotionAirMoveTimelineBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::LocomotionAirMoveTimelineBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SetAnimationSpeed, (app::LocomotionAirMoveTimelineBehaviour * this_ptr, float speed))

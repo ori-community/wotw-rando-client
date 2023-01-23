@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AudioSourceExtension.h>
+#include <Modloader/app/structs/AudioSource.h>
+#include <Modloader/app/structs/PropertyName.h>
 
 namespace app::classes::UnityEngine::AudioSourceExtension {
     IL2CPP_REGISTER_METHOD(0x03144650, void, ctor, (app::AudioSourceExtension * this_ptr))

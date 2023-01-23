@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SpikeSlugEntity_c_DisplayClass57_0__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SpikeSlugEntity_c_DisplayClass57_0__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpikeSlugEntity_c_DisplayClass57_0__Fields_DEFINED)
+#define IL2CPP_STRUCT_SpikeSlugEntity_c_DisplayClass57_0__Fields_DEFINED
+struct List_1_Moon_LocomotionAnimation_;
+struct __declspec(align(8)) SpikeSlugEntity_c_DisplayClass57_0__Fields {
+    struct List_1_Moon_LocomotionAnimation_* locomotionAnimations;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_SpikeSlugEntity_c_DisplayClass57_0__Fields_FWDDECL)
+#define IL2CPP_STRUCT_SpikeSlugEntity_c_DisplayClass57_0__Fields_FWDDECL
+#include <Modloader/app/structs/List_1_Moon_LocomotionAnimation_.h>
+#endif
+#undef IL2CPP_STRUCT_SpikeSlugEntity_c_DisplayClass57_0__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpikeSlugEntity_c_DisplayClass57_0__Fields_DEFINED) && !defined(IL2CPP_STRUCT_SpikeSlugEntity_c_DisplayClass57_0__Fields_FWDDECL)
+#include <Modloader/app/structs/SpikeSlugEntity_c_DisplayClass57_0__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SpikeSlugEntity_c_DisplayClass57_0__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

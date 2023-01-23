@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnityRaceTimerDisplay.h>
 
 namespace app::classes::UnityRaceTimerDisplay {
     IL2CPP_REGISTER_METHOD(0x012ABFF0, void, Awake, (app::UnityRaceTimerDisplay * this_ptr))

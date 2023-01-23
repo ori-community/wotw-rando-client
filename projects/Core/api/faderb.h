@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/macros.h>
+#include <Modloader/app/structs/FaderB.h>
 
 namespace faderb {
     CORE_DLLEXPORT app::FaderB* get();

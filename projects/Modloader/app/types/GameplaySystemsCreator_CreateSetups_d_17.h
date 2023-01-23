@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GameplaySystemsCreator_CreateSetups_d_17__Class.h>
+#include <Modloader/app/structs/GameplaySystemsCreator_CreateSetups_d_17.h>
 
 namespace app::classes::types {
     namespace GameplaySystemsCreator_CreateSetups_d_17 {

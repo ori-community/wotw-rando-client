@@ -5,6 +5,10 @@
 #include <unordered_map>
 #include <Modloader/il2cpp_helpers.h>
 
+#include <Modloader/app/structs/GhostPlayer.h>
+#include <Modloader/app/structs/GhostRecorder.h>
+#include <Modloader/app/structs/GhostFrame.h>
+
 namespace ghosts {
     struct RandoGhost {
         struct ActiveAnimation {

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SpiritFlameProjectile_PointOnArc__Class.h>
+#include <Modloader/app/structs/SpiritFlameProjectile_PointOnArc.h>
+#include <Modloader/app/structs/SpiritFlameProjectile_PointOnArc__Boxed.h>
 
 namespace app::classes::types {
     namespace SpiritFlameProjectile_PointOnArc {

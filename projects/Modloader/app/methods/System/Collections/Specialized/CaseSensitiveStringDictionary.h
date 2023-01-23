@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CaseSensitiveStringDictionary.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Specialized::CaseSensitiveStringDictionary {
     IL2CPP_REGISTER_METHOD(0x024928E0, void, ctor, (app::CaseSensitiveStringDictionary * this_ptr))

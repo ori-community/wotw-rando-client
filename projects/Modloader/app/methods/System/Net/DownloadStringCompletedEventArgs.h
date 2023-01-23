@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DownloadStringCompletedEventArgs.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::DownloadStringCompletedEventArgs {
     IL2CPP_REGISTER_METHOD(0x01BCB240, void, ctor_1, (app::DownloadStringCompletedEventArgs * this_ptr, app::String* result, app::Exception* exception, bool cancelled, app::Object* user_token))

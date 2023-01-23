@@ -1,0 +1,43 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TaskFactory_1_TResult_FromAsyncTrimPromise_1_VoidTaskResult_System_Object___VTable_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TaskFactory_1_TResult_FromAsyncTrimPromise_1_VoidTaskResult_System_Object___VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TaskFactory_1_TResult_FromAsyncTrimPromise_1_VoidTaskResult_System_Object___VTable_DEFINED)
+#define IL2CPP_STRUCT_TaskFactory_1_TResult_FromAsyncTrimPromise_1_VoidTaskResult_System_Object___VTable_DEFINED
+struct TaskFactory_1_TResult_FromAsyncTrimPromise_1_VoidTaskResult_System_Object___VTable {
+    VirtualInvokeData Equals;
+    VirtualInvokeData Finalize;
+    VirtualInvokeData GetHashCode;
+    VirtualInvokeData ToString;
+    VirtualInvokeData System_Threading_IThreadPoolWorkItem_ExecuteWorkItem;
+    VirtualInvokeData System_Threading_IThreadPoolWorkItem_MarkAborted;
+    VirtualInvokeData get_IsCompleted;
+    VirtualInvokeData System_IAsyncResult_get_AsyncWaitHandle;
+    VirtualInvokeData get_AsyncState;
+    VirtualInvokeData System_IAsyncResult_get_CompletedSynchronously;
+    VirtualInvokeData Dispose;
+    VirtualInvokeData get_ShouldNotifyDebuggerOfWaitCompletion;
+    VirtualInvokeData Dispose_1;
+    VirtualInvokeData ShouldReplicate;
+    VirtualInvokeData CreateReplicaTask;
+    VirtualInvokeData get_SavedStateForNextReplica;
+    VirtualInvokeData set_SavedStateFromPreviousReplica;
+    VirtualInvokeData get_HandedOverChildReplica;
+    VirtualInvokeData set_HandedOverChildReplica;
+    VirtualInvokeData InnerInvoke;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_TaskFactory_1_TResult_FromAsyncTrimPromise_1_VoidTaskResult_System_Object___VTable_FWDDECL)
+#define IL2CPP_STRUCT_TaskFactory_1_TResult_FromAsyncTrimPromise_1_VoidTaskResult_System_Object___VTable_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_TaskFactory_1_TResult_FromAsyncTrimPromise_1_VoidTaskResult_System_Object___VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TaskFactory_1_TResult_FromAsyncTrimPromise_1_VoidTaskResult_System_Object___VTable_DEFINED) && !defined(IL2CPP_STRUCT_TaskFactory_1_TResult_FromAsyncTrimPromise_1_VoidTaskResult_System_Object___VTable_FWDDECL)
+#include <Modloader/app/structs/TaskFactory_1_TResult_FromAsyncTrimPromise_1_VoidTaskResult_System_Object___VTable.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TaskFactory_1_TResult_FromAsyncTrimPromise_1_VoidTaskResult_System_Object___VTable.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

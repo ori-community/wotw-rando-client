@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/KeyCode__Enum.h>
+#include <Modloader/app/structs/MoonInput.h>
 
 namespace app::classes::MoonInput {
     IL2CPP_REGISTER_METHOD(0x0145B130, bool, get_anyKeyDown, ())

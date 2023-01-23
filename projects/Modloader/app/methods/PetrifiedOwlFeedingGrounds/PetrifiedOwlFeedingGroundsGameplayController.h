@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundsGameplayController.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundsGameplayController_PetrifiedOwlFeedingGroundsGameplayState__Enum.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::PetrifiedOwlFeedingGrounds::PetrifiedOwlFeedingGroundsGameplayController {
     IL2CPP_REGISTER_METHOD(0x014DF990, bool, get_IsSuspended, (app::PetrifiedOwlFeedingGroundsGameplayController * this_ptr))

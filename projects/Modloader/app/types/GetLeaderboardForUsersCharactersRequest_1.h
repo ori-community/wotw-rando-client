@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GetLeaderboardForUsersCharactersRequest_1__Class.h>
+#include <Modloader/app/structs/GetLeaderboardForUsersCharactersRequest_1.h>
 
 namespace app::classes::types {
     namespace GetLeaderboardForUsersCharactersRequest_1 {

@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AudioSource.h>
+#include <Modloader/app/structs/AudioClip.h>
+#include <Modloader/app/structs/AudioMixerGroup.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/AudioVelocityUpdateMode__Enum.h>
+#include <Modloader/app/structs/AudioSourceCurveType__Enum.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/AudioRolloffMode__Enum.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/FFTWindow__Enum.h>
+#include <Modloader/app/structs/PropertyName.h>
+#include <Modloader/app/structs/AudioSourceExtension.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::UnityEngine::AudioSource {
     IL2CPP_REGISTER_METHOD(0x03141820, void, ctor, (app::AudioSource * this_ptr))

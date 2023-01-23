@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonIconRenderer.h>
+#include <Modloader/app/structs/CharMetaData.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::CatlikeCoding::TextBox::MoonIconRenderer {
     IL2CPP_REGISTER_METHOD(0x0102ED10, void, Prepare, (app::MoonIconRenderer * this_ptr))

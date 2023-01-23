@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataRelationCollection.h>
+#include <Modloader/app/structs/DataRelation.h>
+#include <Modloader/app/structs/CollectionChangeEventHandler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CollectionChangeEventArgs.h>
 
 namespace app::classes::System::Data::DataRelationCollection {
     IL2CPP_REGISTER_METHOD(0x00654950, int32_t, get_ObjectID, (app::DataRelationCollection * this_ptr))

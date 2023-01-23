@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RandomNumberGenerator.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Mono::Security::Cryptography::KeyBuilder {
     IL2CPP_REGISTER_METHOD(0x025CC250, app::RandomNumberGenerator*, get_Rng_1, ())

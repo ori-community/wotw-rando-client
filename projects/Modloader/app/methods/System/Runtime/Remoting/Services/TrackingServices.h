@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ObjRef.h>
 
 namespace app::classes::System::Runtime::Remoting::Services::TrackingServices {
     IL2CPP_REGISTER_METHOD(0x01D83F10, void, NotifyMarshaledObject, (app::Object * obj, app::ObjRef* or_1))

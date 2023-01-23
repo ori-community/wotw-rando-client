@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringWithQualityHeaderValue.h>
+#include <Modloader/app/structs/Nullable_1_Double_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Net_Http_Headers_StringWithQualityHeaderValue_.h>
+#include <Modloader/app/structs/Lexer.h>
+#include <Modloader/app/structs/Token.h>
 
 namespace app::classes::System::Net::Http::Headers::StringWithQualityHeaderValue {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::StringWithQualityHeaderValue * this_ptr))

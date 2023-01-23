@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlaybackStatus.h>
 
 namespace app::classes::Moon::Timeline::PlaybackStatus {
     IL2CPP_REGISTER_METHOD(0x011FE8D0, bool, get_IsPending, (app::PlaybackStatus * this_ptr))

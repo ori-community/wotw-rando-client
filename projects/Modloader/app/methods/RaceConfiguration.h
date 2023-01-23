@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RaceConfiguration.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RaceConfiguration {
     IL2CPP_REGISTER_METHOD(0x00E976D0, app::String*, get_RaceName, (app::RaceConfiguration * this_ptr))

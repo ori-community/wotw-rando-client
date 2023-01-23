@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/MortarEntity_AimVeloCache_Grid.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/MortarEntity_AimVeloCache_EntityParams.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/MortarEntity_AimVeloCache_Caster.h>
 
 namespace app::classes::MortarEntity_AimVeloCache_Caster {
     IL2CPP_REGISTER_METHOD(0x01478B50, app::Vector3, TweakVelocity, (app::Vector3 v))

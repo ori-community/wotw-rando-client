@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PointerInputModule_ButtonState__Class.h>
+#include <Modloader/app/structs/PointerInputModule_ButtonState.h>
+#include <Modloader/app/structs/PointerInputModule_ButtonState__Array.h>
 
 namespace app::classes::types {
     namespace PointerInputModule_ButtonState {

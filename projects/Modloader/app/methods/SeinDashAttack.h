@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDashAttack.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/SeinDashAttack_State__Enum.h>
+#include <Modloader/app/structs/IChargeDashAttackable.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/SoundProvider.h>
 
 namespace app::classes::SeinDashAttack {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinDashAttack * this_ptr))

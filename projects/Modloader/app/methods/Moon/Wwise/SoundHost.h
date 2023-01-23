@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/ISoundListener.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/AkCallbackInfo.h>
+#include <Modloader/app/structs/RTPC.h>
+#include <Modloader/app/structs/Switch_1.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::Wwise::SoundHost {
     IL2CPP_REGISTER_METHOD(0x0270B840, bool, IsActiveVersion, (app::SoundHost * this_ptr, int32_t version))

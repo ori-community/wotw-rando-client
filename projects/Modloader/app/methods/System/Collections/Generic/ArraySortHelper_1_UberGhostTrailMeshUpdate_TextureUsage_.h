@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate_TextureUsage__Array.h>
+#include <Modloader/app/structs/IComparer_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate_TextureUsage.h>
+#include <Modloader/app/structs/Comparison_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UberGhostTrailMeshUpdate_TextureUsage_ {
     IL2CPP_REGISTER_METHOD(0x02F85E00, void, Sort_1, (app::UberGhostTrailMeshUpdate_TextureUsage__Array * keys, int32_t index, int32_t length, app::IComparer_1_UberGhostTrailMeshUpdate_TextureUsage_* comparer))

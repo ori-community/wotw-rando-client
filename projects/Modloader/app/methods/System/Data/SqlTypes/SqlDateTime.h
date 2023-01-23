@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SqlDateTime__Boxed.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/SqlDateTime.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SqlBoolean.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
 
 namespace app::classes::System::Data::SqlTypes::SqlDateTime {
     IL2CPP_REGISTER_METHOD(0x001D6C50, void, ctor_1, (app::SqlDateTime__Boxed * this_ptr, bool f_null))

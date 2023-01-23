@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_ParameterExpression_.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_System_Linq_Expressions_ParameterExpression_ {
     IL2CPP_REGISTER_METHOD(0x02AB4370, void, ctor_1, (app::HashSet_1_System_Linq_Expressions_ParameterExpression_ * this_ptr))

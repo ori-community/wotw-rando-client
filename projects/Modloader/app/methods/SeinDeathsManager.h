@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDeathsManager.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SeinDeathsManager {
     IL2CPP_REGISTER_METHOD(0x006FF490, void, FakeADeathHere, (app::SeinDeathsManager * this_ptr))

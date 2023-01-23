@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegexFC.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CultureInfo.h>
 
 namespace app::classes::System::Text::RegularExpressions::RegexFC {
     IL2CPP_REGISTER_METHOD(0x02591160, void, ctor_1, (app::RegexFC * this_ptr, bool nullable))

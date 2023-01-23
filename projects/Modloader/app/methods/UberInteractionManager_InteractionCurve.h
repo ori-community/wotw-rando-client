@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberInteractionManager_InteractionCurve.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::UberInteractionManager_InteractionCurve {
     IL2CPP_REGISTER_METHOD(0x00C3DD50, float, get_Scale, (app::UberInteractionManager_InteractionCurve * this_ptr))

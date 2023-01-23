@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkeetoLocomotion.h>
+#include <Modloader/app/structs/SkeetoBombAttack.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SkeetoBombAttack {
     IL2CPP_REGISTER_METHOD(0x0074D8F0, app::SkeetoLocomotion*, get_Locomotion, (app::SkeetoBombAttack * this_ptr))

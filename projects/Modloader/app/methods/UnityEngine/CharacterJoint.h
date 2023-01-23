@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterJoint.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SoftJointLimitSpring.h>
+#include <Modloader/app/structs/SoftJointLimit.h>
 
 namespace app::classes::UnityEngine::CharacterJoint {
     IL2CPP_REGISTER_METHOD(0x0309F1E0, void, set_swingAxis, (app::CharacterJoint * this_ptr, app::Vector3 value))

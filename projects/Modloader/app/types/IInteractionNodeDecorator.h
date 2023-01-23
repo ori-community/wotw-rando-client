@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IInteractionNodeDecorator__Class.h>
+#include <Modloader/app/structs/IInteractionNodeDecorator__Array.h>
+#include <Modloader/app/structs/IInteractionNodeDecorator.h>
 
 namespace app::classes::types {
     namespace IInteractionNodeDecorator {

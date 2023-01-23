@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PlayableBinding__Class.h>
+#include <Modloader/app/structs/PlayableBinding.h>
+#include <Modloader/app/structs/PlayableBinding__Boxed.h>
+#include <Modloader/app/structs/PlayableBinding__Array.h>
 
 namespace app::classes::types {
     namespace PlayableBinding {

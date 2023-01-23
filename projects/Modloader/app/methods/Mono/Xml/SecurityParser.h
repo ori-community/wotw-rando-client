@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SecurityParser.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SecurityElement.h>
+#include <Modloader/app/structs/SmallXmlParser.h>
+#include <Modloader/app/structs/SmallXmlParser_IAttrList.h>
 
 namespace app::classes::Mono::Xml::SecurityParser {
     IL2CPP_REGISTER_METHOD(0x02286B70, void, ctor, (app::SecurityParser * this_ptr))

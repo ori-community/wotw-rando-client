@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NetworkInformationException.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Net::NetworkInformation::NetworkInformationException {
     IL2CPP_REGISTER_METHOD(0x01BC9610, void, ctor_1, (app::NetworkInformationException * this_ptr))

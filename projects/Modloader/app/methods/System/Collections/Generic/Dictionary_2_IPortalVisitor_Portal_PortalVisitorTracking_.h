@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_IPortalVisitor_Portal_PortalVisitorTracking_.h>
+#include <Modloader/app/structs/IPortalVisitor.h>
+#include <Modloader/app/structs/Portal_PortalVisitorTracking.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_IPortalVisitor_Portal_PortalVisitorTracking_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_IPortalVisitor_Portal_PortalVisitorTracking_ * this_ptr, app::IPortalVisitor* key))

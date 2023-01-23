@@ -27,6 +27,7 @@
 #include <Modloader/app/types/DestroyOnRestoreCheckpoint.h>
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/SoundSource.h>
+#include <Modloader/app/structs/MonoSingleInstance_1_OnScreenPositions___Class.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlDeclaration.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::XmlDeclaration {
     IL2CPP_REGISTER_METHOD(0x0196B610, void, ctor, (app::XmlDeclaration * this_ptr, app::String* version, app::String* encoding, app::String* standalone, app::XmlDocument* doc))

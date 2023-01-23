@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/ChaseBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
 
 namespace app::classes::Moon::ChaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FBBE0, app::GameObject*, get_ChaseTarget, (app::ChaseBehaviour * this_ptr))

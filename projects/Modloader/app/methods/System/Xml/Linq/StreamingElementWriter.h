@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StreamingElementWriter__Boxed.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XNamespace.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XAttribute.h>
+#include <Modloader/app/structs/XNode.h>
+#include <Modloader/app/structs/XStreamingElement.h>
 
 namespace app::classes::System::Xml::Linq::StreamingElementWriter {
     IL2CPP_REGISTER_METHOD(0x00241380, void, ctor, (app::StreamingElementWriter__Boxed * this_ptr, app::XmlWriter* w))

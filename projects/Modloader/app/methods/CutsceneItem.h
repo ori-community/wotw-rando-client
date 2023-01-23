@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CutsceneItem.h>
 
 namespace app::classes::CutsceneItem {
     IL2CPP_REGISTER_METHOD(0x00DBE690, bool, get_IsLocked, (app::CutsceneItem * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JumperEnemyPuppet.h>
+#include <Modloader/app/structs/JumperEnemy.h>
 
 namespace app::classes::JumperEnemy {
     IL2CPP_REGISTER_METHOD(0x00E52DE0, app::JumperEnemyPuppet*, get_Puppet, (app::JumperEnemy * this_ptr))

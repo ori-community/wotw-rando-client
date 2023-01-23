@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_Profile_Metric_List_1_System_Single___Array__Class.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_Profile_Metric_List_1_System_Single___Array.h>
 
 namespace app::classes::types {
     namespace KeyValuePair_2_Moon_Profile_Metric_List_1_System_Single___Array {

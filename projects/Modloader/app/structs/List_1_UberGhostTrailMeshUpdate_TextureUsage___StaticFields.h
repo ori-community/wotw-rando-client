@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_UberGhostTrailMeshUpdate_TextureUsage___StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_UberGhostTrailMeshUpdate_TextureUsage___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_UberGhostTrailMeshUpdate_TextureUsage___StaticFields_DEFINED)
+#define IL2CPP_STRUCT_List_1_UberGhostTrailMeshUpdate_TextureUsage___StaticFields_DEFINED
+struct UberGhostTrailMeshUpdate_TextureUsage__Array;
+struct List_1_UberGhostTrailMeshUpdate_TextureUsage___StaticFields {
+    struct UberGhostTrailMeshUpdate_TextureUsage__Array* _emptyArray;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_UberGhostTrailMeshUpdate_TextureUsage___StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_List_1_UberGhostTrailMeshUpdate_TextureUsage___StaticFields_FWDDECL
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate_TextureUsage__Array.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_UberGhostTrailMeshUpdate_TextureUsage___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_UberGhostTrailMeshUpdate_TextureUsage___StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_List_1_UberGhostTrailMeshUpdate_TextureUsage___StaticFields_FWDDECL)
+#include <Modloader/app/structs/List_1_UberGhostTrailMeshUpdate_TextureUsage___StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_UberGhostTrailMeshUpdate_TextureUsage___StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

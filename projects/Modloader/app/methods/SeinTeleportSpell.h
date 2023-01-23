@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinTeleportSpell.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/IGreanade.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::SeinTeleportSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinTeleportSpell * this_ptr))

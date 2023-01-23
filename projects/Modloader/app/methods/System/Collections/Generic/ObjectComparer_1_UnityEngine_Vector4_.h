@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_UnityEngine_Vector4_ {
     IL2CPP_REGISTER_METHOD(0x01CCFCE0, int32_t, Compare, (app::ObjectComparer_1_UnityEngine_Vector4_ * this_ptr, app::Vector4 x, app::Vector4 y))

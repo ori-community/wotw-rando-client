@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/SampleUberShaderTask.h>
+#include <Modloader/app/structs/ArtOptimizationDataModel.h>
+#include <Modloader/app/structs/UberShaderComponent.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::ArtOptimization::SampleUberShaderTask {
     IL2CPP_REGISTER_METHOD(0x00CAECA0, app::RenderTexture*, get_RenderTex, ())

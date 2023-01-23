@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlShakeOffBehaviour.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::Moon::PetrifiedOwlShakeOffBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C37D60, void, OnStartBehaviour, (app::PetrifiedOwlShakeOffBehaviour * this_ptr))

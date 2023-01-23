@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AtlasSpriteTexture.h>
+#include <Modloader/app/structs/SeinNaruComboAnimator.h>
+#include <Modloader/app/structs/Atlas.h>
+#include <Modloader/app/structs/UberScreenMode__Enum.h>
 
 namespace app::classes::SeinNaruComboAnimator {
     IL2CPP_REGISTER_METHOD(0x008ADB50, app::AtlasSpriteTexture*, get_NaruCurrentTexture, (app::SeinNaruComboAnimator * this_ptr))

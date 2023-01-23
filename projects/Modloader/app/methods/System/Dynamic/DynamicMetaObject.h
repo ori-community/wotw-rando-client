@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicMetaObject.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/BindingRestrictions.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/GetMemberBinder.h>
+#include <Modloader/app/structs/SetMemberBinder.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 
 namespace app::classes::System::Dynamic::DynamicMetaObject {
     IL2CPP_REGISTER_METHOD(0x01F8A880, void, ctor_1, (app::DynamicMetaObject * this_ptr, app::Expression* expression, app::BindingRestrictions* restrictions))

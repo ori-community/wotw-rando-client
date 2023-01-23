@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_JUnitReporter_TestCase_.h>
+#include <Modloader/app/structs/JUnitReporter_TestCase.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_JUnitReporter_TestCase_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_JUnitReporter_TestCase_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_JUnitReporter_TestCase_ * this_ptr))

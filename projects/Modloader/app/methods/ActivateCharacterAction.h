@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActivateCharacterAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ActivateCharacterAction {
     IL2CPP_REGISTER_METHOD(0x004C8620, void, Perform, (app::ActivateCharacterAction * this_ptr, app::IContext* context))

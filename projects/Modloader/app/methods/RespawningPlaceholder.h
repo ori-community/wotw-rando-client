@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RespawningPlaceholder.h>
+#include <Modloader/app/structs/LegacyEntity.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RespawningPlaceholder {
     IL2CPP_REGISTER_METHOD(0x002FBBB0, void, SetCurrentEntity, (app::RespawningPlaceholder * this_ptr, app::LegacyEntity* entity))

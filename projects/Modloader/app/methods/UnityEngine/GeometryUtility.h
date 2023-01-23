@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Plane__Array.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds_.h>
+#include <Modloader/app/structs/NativeArray_1_System_Byte_.h>
+#include <Modloader/app/structs/Void.h>
 
 namespace app::classes::UnityEngine::GeometryUtility {
     IL2CPP_REGISTER_METHOD(0x02528E00, app::Plane__Array*, CalculateFrustumPlanes_1, (app::Camera * camera))

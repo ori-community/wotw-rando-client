@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ILogger.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::UnityEngine::Debug {
     IL2CPP_REGISTER_METHOD(0x0242BD40, app::ILogger*, get_unityLogger, ())

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityTagHeaderValue.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Lexer.h>
+#include <Modloader/app/structs/Token.h>
+#include <Modloader/app/structs/List_1_System_Net_Http_Headers_EntityTagHeaderValue_.h>
 
 namespace app::classes::System::Net::Http::Headers::EntityTagHeaderValue {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::EntityTagHeaderValue * this_ptr))

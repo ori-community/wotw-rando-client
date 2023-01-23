@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NetworkStream.h>
+#include <Modloader/app/structs/Socket.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/FileAccess__Enum.h>
+#include <Modloader/app/structs/SelectMode__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/BufferOffsetSize_1__Array.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/SocketShutdown__Enum.h>
 
 namespace app::classes::System::Net::Sockets::NetworkStream {
     IL2CPP_REGISTER_METHOD(0x01BE0280, void, ctor_1, (app::NetworkStream * this_ptr))

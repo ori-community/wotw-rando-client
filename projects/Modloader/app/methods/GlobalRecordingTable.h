@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GlobalRecordingTable.h>
+#include <Modloader/app/structs/GlobalRecordingTable_RecordableEntry.h>
+#include <Modloader/app/structs/IRecordable.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/RecordableIdData.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/GenericPuppet.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int64_EntityPlaceholder_.h>
+#include <Modloader/app/structs/List_1_List_1_GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::GlobalRecordingTable {
     IL2CPP_REGISTER_METHOD(0x007F7BE0, void, AddEntry, (app::GlobalRecordingTable * this_ptr, app::GlobalRecordingTable_RecordableEntry* entry))

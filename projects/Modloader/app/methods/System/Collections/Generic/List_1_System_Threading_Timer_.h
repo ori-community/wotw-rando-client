@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Threading_Timer_.h>
+#include <Modloader/app/structs/Timer.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Threading_Timer_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor, (app::List_1_System_Threading_Timer_ * this_ptr, int32_t capacity))

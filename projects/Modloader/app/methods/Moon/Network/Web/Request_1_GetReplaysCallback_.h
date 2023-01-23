@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Request_1_GetReplaysCallback_.h>
+#include <Modloader/app/structs/Method__Enum.h>
+#include <Modloader/app/structs/Action_1_GetReplaysCallback_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IDataReader.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/IRequestCallback.h>
 
 namespace app::classes::Moon::Network::Web::Request_1_GetReplaysCallback_ {
     IL2CPP_REGISTER_METHOD(0x0052A000, void, SetMethod, (app::Request_1_GetReplaysCallback_ * this_ptr, app::Method__Enum method_1))

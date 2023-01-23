@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_MaterialBasedResourceMapEntry_.h>
+#include <Modloader/app/structs/IEnumerable_1_MaterialBasedResourceMapEntry_.h>
+#include <Modloader/app/structs/MaterialBasedResourceMapEntry.h>
 
 namespace app::classes::System::Collections::Generic::List_1_MaterialBasedResourceMapEntry_ {
     IL2CPP_REGISTER_METHOD(0x025E9020, void, AddRange, (app::List_1_MaterialBasedResourceMapEntry_ * this_ptr, app::IEnumerable_1_MaterialBasedResourceMapEntry_* collection))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostCameraPlugin_CameraData.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
 
 namespace app::classes::GhostCameraPlugin_CameraData {
     IL2CPP_REGISTER_METHOD(0x00E159F0, void, Save, (app::GhostCameraPlugin_CameraData * this_ptr, app::BinaryWriter* binary_writer))

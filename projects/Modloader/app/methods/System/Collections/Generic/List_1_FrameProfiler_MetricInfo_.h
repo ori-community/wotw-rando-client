@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_FrameProfiler_MetricInfo_.h>
+#include <Modloader/app/structs/FrameProfiler_MetricInfo.h>
 
 namespace app::classes::System::Collections::Generic::List_1_FrameProfiler_MetricInfo_ {
     IL2CPP_REGISTER_METHOD(0x025F0BE0, int32_t, IndexOf, (app::List_1_FrameProfiler_MetricInfo_ * this_ptr, app::FrameProfiler_MetricInfo* item))

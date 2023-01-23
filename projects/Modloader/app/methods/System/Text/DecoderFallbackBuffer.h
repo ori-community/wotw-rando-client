@@ -1,6 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
+#include <Modloader/app/structs/DecoderFallbackBuffer.h>
+#include <Modloader/app/structs/Byte__Array.h>
+
+
 namespace app::classes::System::Text::DecoderFallbackBuffer {
     IL2CPP_REGISTER_METHOD(0x02449950, void, Reset, (app::DecoderFallbackBuffer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02449980, void, InternalReset, (app::DecoderFallbackBuffer * this_ptr))

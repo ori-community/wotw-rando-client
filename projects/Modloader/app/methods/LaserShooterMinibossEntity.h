@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserShieldRotationController.h>
+#include <Modloader/app/structs/LaserShooterMinibossEntity.h>
+#include <Modloader/app/structs/LaserShooterMinibossPathMover.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/LaserShooterMinibossPath.h>
+#include <Modloader/app/structs/List_1_LaserShooterRockSpawnPoint_.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Tuple_2_UnityEngine_GameObject_Moon_UberTransformFollow_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::LaserShooterMinibossEntity {
     IL2CPP_REGISTER_METHOD(0x00F189C0, app::LaserShieldRotationController*, get_ShieldController, (app::LaserShooterMinibossEntity * this_ptr))

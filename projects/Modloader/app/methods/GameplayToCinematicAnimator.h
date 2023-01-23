@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraPuppetController.h>
+#include <Modloader/app/structs/GameplayToCinematicAnimator.h>
 
 namespace app::classes::GameplayToCinematicAnimator {
     IL2CPP_REGISTER_METHOD(0x002FBC60, app::CameraPuppetController*, get_Puppet, (app::GameplayToCinematicAnimator * this_ptr))

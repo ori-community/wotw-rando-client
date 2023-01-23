@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_PlayFab_PluginContractKey_System_Object_.h>
+#include <Modloader/app/structs/Dictionary_2_PlayFab_PluginContractKey_System_Object_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_PlayFab_PluginContractKey_System_Object_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_PlayFab_PluginContractKey_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x01ADA860, void, ctor, (app::Dictionary_2_TKey_TValue_ValueCollection_PlayFab_PluginContractKey_System_Object_ * this_ptr, app::Dictionary_2_PlayFab_PluginContractKey_System_Object_* dictionary))

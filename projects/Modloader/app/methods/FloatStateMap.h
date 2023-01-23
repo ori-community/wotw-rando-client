@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_GenericMappingEntry_.h>
+#include <Modloader/app/structs/FloatStateMap.h>
 
 namespace app::classes::FloatStateMap {
     IL2CPP_REGISTER_METHOD(0x01B5AB80, app::List_1_GenericMappingEntry_*, GetGenericMapping, (app::FloatStateMap * this_ptr))

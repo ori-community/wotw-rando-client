@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RotationLimit.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::RootMotion::FinalIK::RotationLimit {
     IL2CPP_REGISTER_METHOD(0x02A1F900, void, SetDefaultLocalRotation, (app::RotationLimit * this_ptr))

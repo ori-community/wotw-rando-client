@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DynamicInstantiationScanner_EvaluationCtx_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DynamicInstantiationScanner_EvaluationCtx_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DynamicInstantiationScanner_EvaluationCtx_DEFINED)
+#include <Modloader/app/structs/DynamicInstantiationScanner_EvaluationCtx__Fields.h>
+#if defined(IL2CPP_STRUCT_DynamicInstantiationScanner_EvaluationCtx__Fields_DEFINED)
+#define IL2CPP_STRUCT_DynamicInstantiationScanner_EvaluationCtx_DEFINED
+struct DynamicInstantiationScanner_EvaluationCtx__Class;
+struct DynamicInstantiationScanner_EvaluationCtx {
+    struct DynamicInstantiationScanner_EvaluationCtx__Class* klass;
+    MonitorData* monitor;
+    struct DynamicInstantiationScanner_EvaluationCtx__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_DynamicInstantiationScanner_EvaluationCtx_FWDDECL)
+#define IL2CPP_STRUCT_DynamicInstantiationScanner_EvaluationCtx_FWDDECL
+#include <Modloader/app/structs/DynamicInstantiationScanner_EvaluationCtx__Class.h>
+#endif
+#undef IL2CPP_STRUCT_DynamicInstantiationScanner_EvaluationCtx_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DynamicInstantiationScanner_EvaluationCtx_DEFINED) && !defined(IL2CPP_STRUCT_DynamicInstantiationScanner_EvaluationCtx_FWDDECL)
+#include <Modloader/app/structs/DynamicInstantiationScanner_EvaluationCtx.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DynamicInstantiationScanner_EvaluationCtx.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

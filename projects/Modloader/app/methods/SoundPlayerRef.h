@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundPlayer.h>
+#include <Modloader/app/structs/SoundPlayerRef__Boxed.h>
+#include <Modloader/app/structs/SoundDescriptor.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::SoundPlayerRef {
     IL2CPP_REGISTER_METHOD(0x00107C00, app::SoundPlayer*, get_Player, (app::SoundPlayerRef__Boxed * this_ptr))

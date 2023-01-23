@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBossBreakArena1WallBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBossBreakArena1WallBehaviour {
     IL2CPP_REGISTER_METHOD(0x00969BA0, void, OnEnterTask, (app::SpiderBossBreakArena1WallBehaviour * this_ptr, app::IContext* context))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IdnMapping.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Globalization::IdnMapping {
     IL2CPP_REGISTER_METHOD(0x026168E0, void, ctor, (app::IdnMapping * this_ptr))

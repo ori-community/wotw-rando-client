@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IVRRenderModels_LoadTexture_Async.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EVRRenderModelError__Enum.h>
+#include <Modloader/app/structs/void.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVRRenderModels__LoadTexture_Async {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVRRenderModels_LoadTexture_Async * this_ptr, app::Object* object, void* method_1))

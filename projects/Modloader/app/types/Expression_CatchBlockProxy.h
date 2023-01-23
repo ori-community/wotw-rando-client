@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Expression_CatchBlockProxy__Class.h>
+#include <Modloader/app/structs/Expression_CatchBlockProxy.h>
 
 namespace app::classes::types {
     namespace Expression_CatchBlockProxy {

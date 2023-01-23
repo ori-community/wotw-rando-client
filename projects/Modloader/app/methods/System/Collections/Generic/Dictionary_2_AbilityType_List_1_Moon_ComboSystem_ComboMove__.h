@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_ComboMove_.h>
+#include <Modloader/app/structs/Dictionary_2_AbilityType_List_1_Moon_ComboSystem_ComboMove_.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_AbilityType_List_1_Moon_ComboSystem_ComboMove__ {
     IL2CPP_REGISTER_METHOD(0x02EAA0E0, app::List_1_Moon_ComboSystem_ComboMove_*, get_Item, (app::Dictionary_2_AbilityType_List_1_Moon_ComboSystem_ComboMove_ * this_ptr, app::AbilityType__Enum key))

@@ -6,8 +6,6 @@ message(STATUS "Project ${PROJECT_NAME}:")
 
 set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 
-set(STRUCTS_FILES_COUNT 1514)
-
 set(
         SOURCE_FILES
         "windows_api/bootstrap.cpp"
@@ -37,18 +35,15 @@ set(
         "app/il2cpp_internals.h"
 )
 
-foreach (i RANGE 1 ${STRUCTS_FILES_COUNT})
-    list(APPEND PUBLIC_HEADER_FILES "app/structs/structs.${i}.h")
-endforeach ()
-
-file(GLOB_RECURSE METHODS ${PROJECT_DIR}/app/methods *.h)
-file(GLOB_RECURSE TYPES ${PROJECT_DIR}/app/types *.h)
+# message("Resolving methods")
+# file(GLOB_RECURSE METHODS ${PROJECT_DIR}/app/methods *.h)
+# message("Resolving types")
+# file(GLOB_RECURSE TYPES ${PROJECT_DIR}/app/types *.h)
 
 list(
         APPEND
         PUBLIC_HEADER_FILES
         "app/il2cpp_api.h"
-        "app/il2cpp_typeinfo.h"
         "interception.h"
         "interception_macros.h"
         "macros.h"
@@ -120,17 +115,9 @@ target_precompile_headers(
         PUBLIC <${PROJECT_NAME}/app/il2cpp_internals.h>
 )
 
-foreach (i RANGE 1 ${STRUCTS_FILES_COUNT})
-    target_precompile_headers(
-            ${PROJECT_NAME}
-            PUBLIC <${PROJECT_NAME}/app/structs/structs.${i}.h>
-    )
-endforeach ()
-
 target_precompile_headers(
         ${PROJECT_NAME}
         PUBLIC <${PROJECT_NAME}/app/il2cpp_api.h>
-        PUBLIC <${PROJECT_NAME}/app/il2cpp_typeinfo.h>
 )
 
 set_source_files_properties(windows_api/console.cpp PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
@@ -145,8 +132,8 @@ message(STATUS "test ${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};${INTE
 set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};${INTERNAL_IL2CPP_HEADERS}")
 set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
 
-message(STATUS "Resolving il2cpp methods.")
-source_group(TREE ${PROJECT_DIR} FILES ${METHODS})
+# message(STATUS "Resolving il2cpp methods.")
+# source_group(TREE ${PROJECT_DIR} FILES ${METHODS})
 
 message(STATUS "TESTING ${PROJECT_BINARY_DIR}")
 

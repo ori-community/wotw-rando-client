@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FileLocations_CEFDirs.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::BrowserNative {
     IL2CPP_REGISTER_METHOD(0x01C74AB0, app::String*, get_LocalUrlPrefix, ())

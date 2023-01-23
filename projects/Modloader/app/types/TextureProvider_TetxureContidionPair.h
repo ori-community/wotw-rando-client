@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TextureProvider_TetxureContidionPair__Class.h>
+#include <Modloader/app/structs/TextureProvider_TetxureContidionPair.h>
+#include <Modloader/app/structs/TextureProvider_TetxureContidionPair__Array.h>
 
 namespace app::classes::types {
     namespace TextureProvider_TetxureContidionPair {

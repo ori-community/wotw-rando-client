@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DllCheck.h>
 
 namespace app::classes::Steamworks::DllCheck {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, Test, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Tokenizer_StreamTokenReader.h>
+#include <Modloader/app/structs/StreamReader.h>
 
 namespace app::classes::System::Security::Util::Tokenizer_StreamTokenReader {
     IL2CPP_REGISTER_METHOD(0x00E464D0, void, ctor, (app::Tokenizer_StreamTokenReader * this_ptr, app::StreamReader* input))

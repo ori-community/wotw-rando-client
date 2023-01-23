@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GetMultiplayerServerDetailsResponse__Class.h>
+#include <Modloader/app/structs/GetMultiplayerServerDetailsResponse.h>
 
 namespace app::classes::types {
     namespace GetMultiplayerServerDetailsResponse {

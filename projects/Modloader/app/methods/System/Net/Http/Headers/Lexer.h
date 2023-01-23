@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Lexer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Token.h>
+#include <Modloader/app/structs/Nullable_1_TimeSpan_.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
 
 namespace app::classes::System::Net::Http::Headers::Lexer {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::Lexer * this_ptr, app::String* stream))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CullingCategoryManager_1_T_Enumerator_System_Object___Boxed.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_System_Object_.h>
+#include <Modloader/app/structs/RendererCullingCategoryResults_Slice__Array.h>
+#include <Modloader/app/structs/CullingCategoryManager_1_T_Enumerator_System_Object_.h>
 
 namespace app::classes::Moon::Rendering::CullingCategoryManager_1_T__Enumerator_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00107C60, app::Object*, get_Current, (app::CullingCategoryManager_1_T_Enumerator_System_Object___Boxed * this_ptr))

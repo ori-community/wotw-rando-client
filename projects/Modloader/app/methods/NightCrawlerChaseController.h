@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/NightCrawlerChaseController.h>
+#include <Modloader/app/structs/IAnimation.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::NightCrawlerChaseController {
     IL2CPP_REGISTER_METHOD(0x00601A30, app::Vector3, get_KnockbackForceDirection, (app::NightCrawlerChaseController * this_ptr))

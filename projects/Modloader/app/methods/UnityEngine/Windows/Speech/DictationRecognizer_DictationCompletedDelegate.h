@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DictationRecognizer_DictationCompletedDelegate.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DictationCompletionCause__Enum.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::UnityEngine::Windows::Speech::DictationRecognizer_DictationCompletedDelegate {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::DictationRecognizer_DictationCompletedDelegate * this_ptr, app::Object* object, void* method_1))

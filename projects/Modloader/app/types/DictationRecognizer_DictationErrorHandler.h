@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DictationRecognizer_DictationErrorHandler__Class.h>
+#include <Modloader/app/structs/DictationRecognizer_DictationErrorHandler.h>
 
 namespace app::classes::types {
     namespace DictationRecognizer_DictationErrorHandler {

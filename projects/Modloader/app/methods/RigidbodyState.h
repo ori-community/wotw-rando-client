@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RigidbodyState.h>
+#include <Modloader/app/structs/GoThroughPlatform.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RigidbodyState {
     IL2CPP_REGISTER_METHOD(0x013527F0, bool, GetGoThroughComponent, (app::RigidbodyState * this_ptr, app::GoThroughPlatform** comp))

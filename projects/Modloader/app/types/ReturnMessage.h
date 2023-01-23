@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ReturnMessage__Class.h>
+#include <Modloader/app/structs/ReturnMessage.h>
 
 namespace app::classes::types {
     namespace ReturnMessage {

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConfirmOrCancel.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::ConfirmOrCancel {
     IL2CPP_REGISTER_METHOD(0x011E49B0, void, add_OnConfirm, (app::ConfirmOrCancel * this_ptr, app::Action* value))

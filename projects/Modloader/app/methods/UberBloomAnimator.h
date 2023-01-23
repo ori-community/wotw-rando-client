@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberBloomAnimator.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::UberBloomAnimator {
     IL2CPP_REGISTER_METHOD(0x01291E10, float, get_IntensityWeight, (app::UberBloomAnimator * this_ptr))

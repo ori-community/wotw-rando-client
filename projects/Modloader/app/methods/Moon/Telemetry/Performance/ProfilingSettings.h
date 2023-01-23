@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IProfilingSetting.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GameController_ProfilingConfiguration__Enum.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum__Array__Array.h>
+#include <Modloader/app/structs/ProfilingSettings_BulkSettings.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum__Array.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingAction__Enum.h>
+#include <Modloader/app/structs/ProfilingSettings.h>
 
 namespace app::classes::Moon::Telemetry::Performance::ProfilingSettings {
     IL2CPP_REGISTER_METHOD(0x00E33C00, void, CacheDefaults, ())

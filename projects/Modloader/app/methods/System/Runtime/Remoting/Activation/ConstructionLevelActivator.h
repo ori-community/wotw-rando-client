@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IActivator.h>
+#include <Modloader/app/structs/ConstructionLevelActivator.h>
+#include <Modloader/app/structs/IConstructionReturnMessage.h>
+#include <Modloader/app/structs/IConstructionCallMessage.h>
 
 namespace app::classes::System::Runtime::Remoting::Activation::ConstructionLevelActivator {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IActivator*, get_NextActivator, (app::ConstructionLevelActivator * this_ptr))

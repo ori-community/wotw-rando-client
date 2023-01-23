@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_AttributeValueCache.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_AttributeValueCache_ItemType__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::XmlWellFormedWriter_AttributeValueCache {
     IL2CPP_REGISTER_METHOD(0x01FD3600, app::String*, get_StringValue, (app::XmlWellFormedWriter_AttributeValueCache * this_ptr))

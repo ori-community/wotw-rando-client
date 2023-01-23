@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPoseUnion__Class.h>
+#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPoseUnion.h>
+#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPoseUnion__Boxed.h>
 
 namespace app::classes::types {
     namespace CVRSystem_GetControllerStateWithPoseUnion {

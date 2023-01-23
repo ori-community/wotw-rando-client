@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_ZenFulcrum_EmbeddedBrowser_IRejectable__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_ZenFulcrum_EmbeddedBrowser_IRejectable__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_ZenFulcrum_EmbeddedBrowser_IRejectable__DEFINED)
+#include <Modloader/app/structs/List_1_ZenFulcrum_EmbeddedBrowser_IRejectable___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_ZenFulcrum_EmbeddedBrowser_IRejectable___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_ZenFulcrum_EmbeddedBrowser_IRejectable__DEFINED
+struct List_1_ZenFulcrum_EmbeddedBrowser_IRejectable___Class;
+struct List_1_ZenFulcrum_EmbeddedBrowser_IRejectable_ {
+    struct List_1_ZenFulcrum_EmbeddedBrowser_IRejectable___Class* klass;
+    MonitorData* monitor;
+    struct List_1_ZenFulcrum_EmbeddedBrowser_IRejectable___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_ZenFulcrum_EmbeddedBrowser_IRejectable__FWDDECL)
+#define IL2CPP_STRUCT_List_1_ZenFulcrum_EmbeddedBrowser_IRejectable__FWDDECL
+#include <Modloader/app/structs/List_1_ZenFulcrum_EmbeddedBrowser_IRejectable___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_ZenFulcrum_EmbeddedBrowser_IRejectable__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_ZenFulcrum_EmbeddedBrowser_IRejectable__DEFINED) && !defined(IL2CPP_STRUCT_List_1_ZenFulcrum_EmbeddedBrowser_IRejectable__FWDDECL)
+#include <Modloader/app/structs/List_1_ZenFulcrum_EmbeddedBrowser_IRejectable_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_ZenFulcrum_EmbeddedBrowser_IRejectable_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

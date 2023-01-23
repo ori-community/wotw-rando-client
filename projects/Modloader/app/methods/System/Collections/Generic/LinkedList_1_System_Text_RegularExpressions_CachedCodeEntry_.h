@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LinkedListNode_1_System_Text_RegularExpressions_CachedCodeEntry_.h>
+#include <Modloader/app/structs/LinkedList_1_System_Text_RegularExpressions_CachedCodeEntry_.h>
+#include <Modloader/app/structs/CachedCodeEntry.h>
 
 namespace app::classes::System::Collections::Generic::LinkedList_1_System_Text_RegularExpressions_CachedCodeEntry_ {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::LinkedListNode_1_System_Text_RegularExpressions_CachedCodeEntry_*, get_First, (app::LinkedList_1_System_Text_RegularExpressions_CachedCodeEntry_ * this_ptr))

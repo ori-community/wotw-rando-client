@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WandererNPC.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GroundEntityLocomotion.h>
+#include <Modloader/app/structs/WandererNPC_State__Enum.h>
+#include <Modloader/app/structs/WandererNPC_InteractionLine.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/WandererEntity.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::WandererNPC {
     IL2CPP_REGISTER_METHOD(0x008C8AB0, bool, get_IsInInteractionRange, (app::WandererNPC * this_ptr))

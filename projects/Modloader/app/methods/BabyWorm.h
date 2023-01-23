@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BabyWorm.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/BabyWorm_BabySandwormState__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
 
 namespace app::classes::BabyWorm {
     IL2CPP_REGISTER_METHOD(0x00F78F20, void, SerializeComponents, (app::BabyWorm * this_ptr))

@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MoonSet_1_EntityReactionBehaviour___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MoonSet_1_EntityReactionBehaviour___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonSet_1_EntityReactionBehaviour___Fields_DEFINED)
+#define IL2CPP_STRUCT_MoonSet_1_EntityReactionBehaviour___Fields_DEFINED
+struct List_1_EntityReactionBehaviour_;
+struct Dictionary_2_System_Type_EntityReactionBehaviour_;
+struct __declspec(align(8)) MoonSet_1_EntityReactionBehaviour___Fields {
+    struct List_1_EntityReactionBehaviour_* m_values;
+    struct Dictionary_2_System_Type_EntityReactionBehaviour_* m_typeToValue;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_MoonSet_1_EntityReactionBehaviour___Fields_FWDDECL)
+#define IL2CPP_STRUCT_MoonSet_1_EntityReactionBehaviour___Fields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_System_Type_EntityReactionBehaviour_.h>
+#include <Modloader/app/structs/List_1_EntityReactionBehaviour_.h>
+#endif
+#undef IL2CPP_STRUCT_MoonSet_1_EntityReactionBehaviour___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonSet_1_EntityReactionBehaviour___Fields_DEFINED) && !defined(IL2CPP_STRUCT_MoonSet_1_EntityReactionBehaviour___Fields_FWDDECL)
+#include <Modloader/app/structs/MoonSet_1_EntityReactionBehaviour___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MoonSet_1_EntityReactionBehaviour___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

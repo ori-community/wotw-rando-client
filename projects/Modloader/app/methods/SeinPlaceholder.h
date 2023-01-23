@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinPlaceholder.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::SeinPlaceholder {
     IL2CPP_REGISTER_METHOD(0x008B8FA0, void, ResetStatics, ())

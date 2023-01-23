@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RawImage.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/VertexHelper.h>
 
 namespace app::classes::UnityEngine::UI::RawImage {
     IL2CPP_REGISTER_METHOD(0x02663790, void, ctor, (app::RawImage * this_ptr))

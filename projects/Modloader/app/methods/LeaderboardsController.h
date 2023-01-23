@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeaderboardsController.h>
+#include <Modloader/app/structs/LeaderboardData.h>
+#include <Modloader/app/structs/Leaderboard__Enum.h>
+#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
+#include <Modloader/app/structs/DifficultyMode__Enum.h>
+#include <Modloader/app/structs/LeaderboardsController_UpdateCallback.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/LeaderboardEntryData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LeaderboardB__Enum.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::LeaderboardsController {
     IL2CPP_REGISTER_METHOD(0x015BF630, app::LeaderboardsController*, get_Instance, ())

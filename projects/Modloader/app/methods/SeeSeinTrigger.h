@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeeSeinTrigger.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeeSeinTrigger {
     IL2CPP_REGISTER_METHOD(0x0106BAA0, void, ProvideComponents, (app::SeeSeinTrigger * this_ptr))

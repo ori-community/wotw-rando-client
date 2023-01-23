@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/JsonPropertyAttribute.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Newtonsoft::Json::JsonPropertyAttribute {
     IL2CPP_REGISTER_METHOD(0x002FBB80, app::Type*, get_ItemConverterType, (app::JsonPropertyAttribute * this_ptr))

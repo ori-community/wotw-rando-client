@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/SceneState__Enum.h>
+#include <Modloader/app/structs/SceneSettingsComponent.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SceneRoot__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Scene.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/AsyncOperation_1.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::SceneRoot {
     IL2CPP_REGISTER_METHOD(0x008519A0, bool, get_HighPriorityEnabling, (app::SceneRoot * this_ptr))

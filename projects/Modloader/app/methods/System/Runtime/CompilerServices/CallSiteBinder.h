@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CallSiteBinder.h>
+#include <Modloader/app/structs/LabelTarget.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CallSite_1_System_Object_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Expression_1_System_Object_.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/CallSiteBinder_LambdaSignature_1_System_Object_.h>
+#include <Modloader/app/structs/RuleCache_1_System_Object_.h>
 
 namespace app::classes::System::Runtime::CompilerServices::CallSiteBinder {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::CallSiteBinder * this_ptr))

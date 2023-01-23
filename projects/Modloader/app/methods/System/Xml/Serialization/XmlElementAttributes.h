@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlElementAttribute.h>
+#include <Modloader/app/structs/XmlElementAttributes.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::Xml::Serialization::XmlElementAttributes {
     IL2CPP_REGISTER_METHOD(0x025A1D20, app::XmlElementAttribute*, get_Item, (app::XmlElementAttributes * this_ptr, int32_t index))

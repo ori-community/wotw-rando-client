@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerable_1_SystemIntegration_CacheData__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerable_1_SystemIntegration_CacheData__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_SystemIntegration_CacheData__DEFINED)
+#define IL2CPP_STRUCT_IEnumerable_1_SystemIntegration_CacheData__DEFINED
+struct IEnumerable_1_SystemIntegration_CacheData___Class;
+struct IEnumerable_1_SystemIntegration_CacheData_ {
+    struct IEnumerable_1_SystemIntegration_CacheData___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_SystemIntegration_CacheData__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerable_1_SystemIntegration_CacheData__FWDDECL
+#include <Modloader/app/structs/IEnumerable_1_SystemIntegration_CacheData___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerable_1_SystemIntegration_CacheData__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerable_1_SystemIntegration_CacheData__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerable_1_SystemIntegration_CacheData__FWDDECL)
+#include <Modloader/app/structs/IEnumerable_1_SystemIntegration_CacheData_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerable_1_SystemIntegration_CacheData_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

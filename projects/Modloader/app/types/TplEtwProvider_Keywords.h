@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TplEtwProvider_Keywords__Class.h>
+#include <Modloader/app/structs/TplEtwProvider_Keywords.h>
 
 namespace app::classes::types {
     namespace TplEtwProvider_Keywords {

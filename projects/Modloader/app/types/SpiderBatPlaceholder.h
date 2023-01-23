@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SpiderBatPlaceholder__Class.h>
+#include <Modloader/app/structs/SpiderBatPlaceholder.h>
 
 namespace app::classes::types {
     namespace SpiderBatPlaceholder {

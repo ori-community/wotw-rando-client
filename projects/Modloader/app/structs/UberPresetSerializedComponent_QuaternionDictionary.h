@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberPresetSerializedComponent_QuaternionDictionary_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_QuaternionDictionary_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_QuaternionDictionary_DEFINED)
+#include <Modloader/app/structs/UberPresetSerializedComponent_QuaternionDictionary__Fields.h>
+#if defined(IL2CPP_STRUCT_UberPresetSerializedComponent_QuaternionDictionary__Fields_DEFINED)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_QuaternionDictionary_DEFINED
+struct UberPresetSerializedComponent_QuaternionDictionary__Class;
+struct UberPresetSerializedComponent_QuaternionDictionary {
+    struct UberPresetSerializedComponent_QuaternionDictionary__Class* klass;
+    MonitorData* monitor;
+    struct UberPresetSerializedComponent_QuaternionDictionary__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_QuaternionDictionary_FWDDECL)
+#define IL2CPP_STRUCT_UberPresetSerializedComponent_QuaternionDictionary_FWDDECL
+#include <Modloader/app/structs/UberPresetSerializedComponent_QuaternionDictionary__Class.h>
+#endif
+#undef IL2CPP_STRUCT_UberPresetSerializedComponent_QuaternionDictionary_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_QuaternionDictionary_DEFINED) && !defined(IL2CPP_STRUCT_UberPresetSerializedComponent_QuaternionDictionary_FWDDECL)
+#include <Modloader/app/structs/UberPresetSerializedComponent_QuaternionDictionary.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberPresetSerializedComponent_QuaternionDictionary.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

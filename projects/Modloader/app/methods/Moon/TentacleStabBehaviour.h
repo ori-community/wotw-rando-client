@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/TentacleStabBehaviour.h>
+#include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::TentacleStabBehaviour {
     IL2CPP_REGISTER_METHOD(0x010B7740, app::Enum__Array*, GetEntries, (app::TentacleStabBehaviour * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/FastHashSet_1_T_FastHashSetEnumerator_1_System_Object_System_Object_.h>
+#include <Modloader/app/structs/FastHashSet_1_System_Object_.h>
 
 namespace app::classes::Motvin::Collections::FastHashSet_1_T__FastHashSetEnumerator_1_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02AF7E80, app::Object*, get_Current, (app::FastHashSet_1_T_FastHashSetEnumerator_1_System_Object_System_Object_ * this_ptr))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CleverMenuItemGroup_CleverMenuItemGroupItem_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CleverMenuItemGroup_CleverMenuItemGroupItem_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CleverMenuItemGroup_CleverMenuItemGroupItem_DEFINED)
+#include <Modloader/app/structs/CleverMenuItemGroup_CleverMenuItemGroupItem__Fields.h>
+#if defined(IL2CPP_STRUCT_CleverMenuItemGroup_CleverMenuItemGroupItem__Fields_DEFINED)
+#define IL2CPP_STRUCT_CleverMenuItemGroup_CleverMenuItemGroupItem_DEFINED
+struct CleverMenuItemGroup_CleverMenuItemGroupItem__Class;
+struct CleverMenuItemGroup_CleverMenuItemGroupItem {
+    struct CleverMenuItemGroup_CleverMenuItemGroupItem__Class* klass;
+    MonitorData* monitor;
+    struct CleverMenuItemGroup_CleverMenuItemGroupItem__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CleverMenuItemGroup_CleverMenuItemGroupItem_FWDDECL)
+#define IL2CPP_STRUCT_CleverMenuItemGroup_CleverMenuItemGroupItem_FWDDECL
+#include <Modloader/app/structs/CleverMenuItemGroup_CleverMenuItemGroupItem__Class.h>
+#endif
+#undef IL2CPP_STRUCT_CleverMenuItemGroup_CleverMenuItemGroupItem_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CleverMenuItemGroup_CleverMenuItemGroupItem_DEFINED) && !defined(IL2CPP_STRUCT_CleverMenuItemGroup_CleverMenuItemGroupItem_FWDDECL)
+#include <Modloader/app/structs/CleverMenuItemGroup_CleverMenuItemGroupItem.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CleverMenuItemGroup_CleverMenuItemGroupItem.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

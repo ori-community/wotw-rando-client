@@ -1,5 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Swing_Int2_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/SrpSampler.h>
+#include <Modloader/app/structs/IEqualityComparer_1_Swing_Int2_.h>
+#include <Modloader/app/structs/IDictionary_2_Swing_Int2_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_Swing_Int2_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/ICollection_1_Swing_Int2_.h>
+#include <Modloader/app/structs/IEnumerable_1_Swing_Int2_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_Swing_Int2_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/ICollection_1_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/KeyValuePair_2_Swing_Int2_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/KeyValuePair_2_Swing_Int2_Moon_Rendering_SrpSampler___Array.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_Swing_Int2_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_Swing_Int2_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/InsertionBehavior__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_Swing_Int2_Moon_Rendering_SrpSampler_ {
     IL2CPP_REGISTER_METHOD(0x02DA9FC0, bool, TryGetValue, (app::Dictionary_2_Swing_Int2_Moon_Rendering_SrpSampler_ * this_ptr, app::Int2 key, app::SrpSampler* value))

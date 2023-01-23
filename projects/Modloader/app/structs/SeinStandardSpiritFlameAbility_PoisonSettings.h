@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SeinStandardSpiritFlameAbility_PoisonSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SeinStandardSpiritFlameAbility_PoisonSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SeinStandardSpiritFlameAbility_PoisonSettings_DEFINED)
+#include <Modloader/app/structs/SeinStandardSpiritFlameAbility_PoisonSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_SeinStandardSpiritFlameAbility_PoisonSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_SeinStandardSpiritFlameAbility_PoisonSettings_DEFINED
+struct SeinStandardSpiritFlameAbility_PoisonSettings__Class;
+struct SeinStandardSpiritFlameAbility_PoisonSettings {
+    struct SeinStandardSpiritFlameAbility_PoisonSettings__Class* klass;
+    MonitorData* monitor;
+    struct SeinStandardSpiritFlameAbility_PoisonSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SeinStandardSpiritFlameAbility_PoisonSettings_FWDDECL)
+#define IL2CPP_STRUCT_SeinStandardSpiritFlameAbility_PoisonSettings_FWDDECL
+#include <Modloader/app/structs/SeinStandardSpiritFlameAbility_PoisonSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SeinStandardSpiritFlameAbility_PoisonSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SeinStandardSpiritFlameAbility_PoisonSettings_DEFINED) && !defined(IL2CPP_STRUCT_SeinStandardSpiritFlameAbility_PoisonSettings_FWDDECL)
+#include <Modloader/app/structs/SeinStandardSpiritFlameAbility_PoisonSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SeinStandardSpiritFlameAbility_PoisonSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

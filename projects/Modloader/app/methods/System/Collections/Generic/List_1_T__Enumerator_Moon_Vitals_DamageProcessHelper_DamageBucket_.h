@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Vitals_DamageProcessHelper_DamageBucket___Boxed.h>
+#include <Modloader/app/structs/List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Moon_Vitals_DamageProcessHelper_DamageBucket_ {
     IL2CPP_REGISTER_METHOD(0x00140C90, app::Vitals_DamageProcessHelper_DamageBucket, get_Current, (app::List_1_T_Enumerator_Moon_Vitals_DamageProcessHelper_DamageBucket___Boxed * this_ptr))

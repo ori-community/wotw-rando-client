@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShrineEntrance.h>
 
 namespace app::classes::ShrineEntrance {
     IL2CPP_REGISTER_METHOD(0x0073DAB0, void, Highlight, (app::ShrineEntrance * this_ptr))

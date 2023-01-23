@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArraySegment_1_Byte___Boxed.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ArraySegment_1_Byte_.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Byte_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::ArraySegment_1_Byte_ {
     IL2CPP_REGISTER_METHOD(0x00221940, void, ctor, (app::ArraySegment_1_Byte___Boxed * this_ptr, app::Byte__Array* array, int32_t offset, int32_t count))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ExpandoObject_ExpandoData.h>
+#include <Modloader/app/structs/ExpandoClass.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Dynamic::ExpandoObject_ExpandoData {
     IL2CPP_REGISTER_METHOD(0x01A92420, app::Object*, get_Item, (app::ExpandoObject_ExpandoData * this_ptr, int32_t index))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationEndedCondition.h>
+#include <Modloader/app/structs/SpriteAnimatorWithTransitions.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::fsm::AnimationEndedCondition {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::AnimationEndedCondition * this_ptr, app::SpriteAnimatorWithTransitions* sprite_animator))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SystemThreading_ThreadLocalDebugView_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/ThreadLocal_1_System_Object_.h>
 
 namespace app::classes::System::Threading::SystemThreading_ThreadLocalDebugView_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x0243AC00, bool, get_IsValueCreated, (app::SystemThreading_ThreadLocalDebugView_1_System_Object_ * this_ptr))

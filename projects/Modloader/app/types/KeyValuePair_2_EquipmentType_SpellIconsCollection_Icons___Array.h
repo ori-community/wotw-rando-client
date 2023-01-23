@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/KeyValuePair_2_EquipmentType_SpellIconsCollection_Icons___Array__Class.h>
+#include <Modloader/app/structs/KeyValuePair_2_EquipmentType_SpellIconsCollection_Icons___Array.h>
 
 namespace app::classes::types {
     namespace KeyValuePair_2_EquipmentType_SpellIconsCollection_Icons___Array {

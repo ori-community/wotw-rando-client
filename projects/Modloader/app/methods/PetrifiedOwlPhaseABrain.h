@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlPhaseABrain.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/BrainBehaviour.h>
 
 namespace app::classes::PetrifiedOwlPhaseABrain {
     IL2CPP_REGISTER_METHOD(0x014E3D60, void, Awake, (app::PetrifiedOwlPhaseABrain * this_ptr))

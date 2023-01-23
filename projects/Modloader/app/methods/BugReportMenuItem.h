@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BugReportMenuItem.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Func_1_String_.h>
 
 namespace app::classes::BugReportMenuItem {
     IL2CPP_REGISTER_METHOD(0x00807A70, app::String*, get_Name, (app::BugReportMenuItem * this_ptr))

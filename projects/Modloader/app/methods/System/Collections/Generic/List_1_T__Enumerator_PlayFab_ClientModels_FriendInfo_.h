@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FriendInfo.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_PlayFab_ClientModels_FriendInfo___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_PlayFab_ClientModels_FriendInfo_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::FriendInfo*, get_Current, (app::List_1_T_Enumerator_PlayFab_ClientModels_FriendInfo___Boxed * this_ptr))

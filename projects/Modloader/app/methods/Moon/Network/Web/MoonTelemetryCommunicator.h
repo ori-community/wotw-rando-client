@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTelemetryCommunicator.h>
+#include <Modloader/app/structs/IRequest.h>
 
 namespace app::classes::Moon::Network::Web::MoonTelemetryCommunicator {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MoonTelemetryCommunicator * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction_.h>
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction_ {
     IL2CPP_REGISTER_METHOD(0x02F3AE00, void, Sort_1, (app::ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_SetSceneHiddenAction_* comparer))

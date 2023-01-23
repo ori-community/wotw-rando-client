@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_Transform_AnimationTester_Group__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_Transform_AnimationTester_Group__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_Transform_AnimationTester_Group__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_Transform_AnimationTester_Group__DEFINED
+struct Transform;
+struct AnimationTester_Group;
+struct Dictionary_2_TKey_TValue_Entry_UnityEngine_Transform_AnimationTester_Group_ {
+    int32_t hashCode;
+    int32_t next;
+    struct Transform* key;
+    struct AnimationTester_Group* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_Transform_AnimationTester_Group__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_Transform_AnimationTester_Group__FWDDECL
+#include <Modloader/app/structs/AnimationTester_Group.h>
+#include <Modloader/app/structs/Transform.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_Transform_AnimationTester_Group__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_Transform_AnimationTester_Group__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_UnityEngine_Transform_AnimationTester_Group__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_UnityEngine_Transform_AnimationTester_Group_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_UnityEngine_Transform_AnimationTester_Group_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

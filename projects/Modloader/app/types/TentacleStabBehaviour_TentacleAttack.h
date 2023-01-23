@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TentacleStabBehaviour_TentacleAttack__Class.h>
+#include <Modloader/app/structs/TentacleStabBehaviour_TentacleAttack.h>
+#include <Modloader/app/structs/TentacleStabBehaviour_TentacleAttack__Boxed.h>
+#include <Modloader/app/structs/TentacleStabBehaviour_TentacleAttack__Array.h>
 
 namespace app::classes::types {
     namespace TentacleStabBehaviour_TentacleAttack {

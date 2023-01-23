@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ArraySegment_1_Byte_.h>
 
 namespace app::classes::System::Net::ValidationHelper {
     IL2CPP_REGISTER_METHOD(0x020AD050, app::String__Array*, MakeEmptyArrayNull, (app::String__Array * string_array))

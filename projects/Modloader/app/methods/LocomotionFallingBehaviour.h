@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocomotionFallingBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Nullable_1_Moon_BehaviourSystem_BehaviourStatus_.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::LocomotionFallingBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, GetShouldPauseTree, (app::LocomotionFallingBehaviour * this_ptr))

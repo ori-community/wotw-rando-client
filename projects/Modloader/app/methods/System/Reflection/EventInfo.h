@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/EventInfo_1.h>
+#include <Modloader/app/structs/MemberTypes__Enum.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RuntimeEventHandle.h>
+#include <Modloader/app/structs/RuntimeTypeHandle.h>
 
 namespace app::classes::System::Reflection::EventInfo {
     IL2CPP_REGISTER_METHOD(0x02689DF0, app::Type*, get_EventHandlerType, (app::EventInfo_1 * this_ptr))

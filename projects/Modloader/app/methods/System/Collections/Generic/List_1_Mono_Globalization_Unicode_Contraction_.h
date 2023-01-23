@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Mono_Globalization_Unicode_Contraction_.h>
+#include <Modloader/app/structs/Contraction.h>
+#include <Modloader/app/structs/IComparer_1_Mono_Globalization_Unicode_Contraction_.h>
+#include <Modloader/app/structs/Contraction__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Mono_Globalization_Unicode_Contraction_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_Mono_Globalization_Unicode_Contraction_ * this_ptr))

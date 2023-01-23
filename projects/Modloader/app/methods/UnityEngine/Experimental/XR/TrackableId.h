@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TrackableId__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TrackableId.h>
 
 namespace app::classes::UnityEngine::Experimental::XR::TrackableId {
     IL2CPP_REGISTER_METHOD(0x0024AF50, app::String*, ToString, (app::TrackableId__Boxed * this_ptr))

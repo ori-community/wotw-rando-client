@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleScripting_GetUsername2_d_7.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::SimpleScripting___GetUsername2_d__7 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::SimpleScripting_GetUsername2_d_7 * this_ptr, int32_t __1__state))

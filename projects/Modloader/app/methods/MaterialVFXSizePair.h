@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MaterialVFXSizePair.h>
+#include <Modloader/app/structs/MaterialTypeVFXSettings_EffectSize__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageRecieverType__Enum.h>
 
 namespace app::classes::MaterialVFXSizePair {
     IL2CPP_REGISTER_METHOD(0x01384E20, void, ctor, (app::MaterialVFXSizePair * this_ptr, app::MaterialTypeVFXSettings_EffectSize__Enum size, app::GameObject* prefab))

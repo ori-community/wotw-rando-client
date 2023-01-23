@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_Moon_FSM_IInterruptState_.h>
+#include <Modloader/app/structs/IInterruptState.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_Moon_FSM_IInterruptState_ {
     IL2CPP_REGISTER_METHOD(0x0243CB70, void, ctor, (app::Stack_1_Moon_FSM_IInterruptState_ * this_ptr))

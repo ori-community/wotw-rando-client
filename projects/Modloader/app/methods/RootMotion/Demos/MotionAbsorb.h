@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MotionAbsorb.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::RootMotion::Demos::MotionAbsorb {
     IL2CPP_REGISTER_METHOD(0x02227A50, void, OnCollisionEnter, (app::MotionAbsorb * this_ptr))

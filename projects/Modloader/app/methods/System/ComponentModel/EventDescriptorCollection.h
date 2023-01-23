@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EventDescriptorCollection.h>
+#include <Modloader/app/structs/EventDescriptor_1__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/EventDescriptor_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::EventDescriptorCollection {
     IL2CPP_REGISTER_METHOD(0x01FE9E20, void, ctor_1, (app::EventDescriptorCollection * this_ptr, app::EventDescriptor_1__Array* events))

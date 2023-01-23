@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/SimpleFPS.h>
+#include <Modloader/app/structs/Metric__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SimpleFPS {
     IL2CPP_REGISTER_METHOD(0x0073ECE0, app::Color, _getColorForLightCount, (app::SimpleFPS * this_ptr, int32_t lights))

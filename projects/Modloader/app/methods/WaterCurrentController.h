@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaterCurrentController.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/WaterCurrentController_State__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::WaterCurrentController {
     IL2CPP_REGISTER_METHOD(0x008D3BB0, app::WaterCurrentController*, get_Instance, ())

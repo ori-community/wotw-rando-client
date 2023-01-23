@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WeaponMasterEntity.h>
+#include <Modloader/app/structs/WeaponMasterIdle.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::WeaponMasterIdle {
     IL2CPP_REGISTER_METHOD(0x008E86A0, app::WeaponMasterEntity*, get_m_weaponMaster, (app::WeaponMasterIdle * this_ptr))

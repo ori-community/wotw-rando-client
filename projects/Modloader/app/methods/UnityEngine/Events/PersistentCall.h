@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PersistentCall.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PersistentListenerMode__Enum.h>
+#include <Modloader/app/structs/ArgumentCache.h>
+#include <Modloader/app/structs/BaseInvokableCall.h>
+#include <Modloader/app/structs/UnityEventBase.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
 
 namespace app::classes::UnityEngine::Events::PersistentCall {
     IL2CPP_REGISTER_METHOD(0x0242F8B0, void, ctor, (app::PersistentCall * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MeleeAttackTimelineBehaviourNew_c_DisplayClass46_0__Class.h>
+#include <Modloader/app/structs/MeleeAttackTimelineBehaviourNew_c_DisplayClass46_0.h>
 
 namespace app::classes::types {
     namespace MeleeAttackTimelineBehaviourNew_c_DisplayClass46_0 {

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_Steamworks_UserAchievementStored_t_.h>
+#include <Modloader/app/structs/UserAchievementStored_t.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Action_1_Steamworks_UserAchievementStored_t_ {
     IL2CPP_REGISTER_METHOD(0x029FD190, void, Invoke, (app::Action_1_Steamworks_UserAchievementStored_t_ * this_ptr, app::UserAchievementStored_t obj))

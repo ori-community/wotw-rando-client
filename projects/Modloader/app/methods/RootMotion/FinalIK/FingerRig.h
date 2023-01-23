@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FingerRig.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Transform__Array.h>
 
 namespace app::classes::RootMotion::FinalIK::FingerRig {
     IL2CPP_REGISTER_METHOD(0x0051DB40, bool, get_initiated, (app::FingerRig * this_ptr))

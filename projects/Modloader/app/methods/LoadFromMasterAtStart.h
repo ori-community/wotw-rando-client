@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LoadFromMasterAtStart.h>
 
 namespace app::classes::LoadFromMasterAtStart {
     IL2CPP_REGISTER_METHOD(0x00FB4120, void, Start, (app::LoadFromMasterAtStart * this_ptr))

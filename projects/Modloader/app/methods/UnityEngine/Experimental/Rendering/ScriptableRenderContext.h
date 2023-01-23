@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScriptableRenderContext__Boxed.h>
+#include <Modloader/app/structs/FilterResults.h>
+#include <Modloader/app/structs/DrawRendererSettings.h>
+#include <Modloader/app/structs/FilterRenderersSettings.h>
+#include <Modloader/app/structs/RenderStateBlock.h>
+#include <Modloader/app/structs/CommandBuffer.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/ScriptableRenderContext.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::ScriptableRenderContext {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::ScriptableRenderContext__Boxed * this_ptr, void* ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SDK_c.h>
+#include <Modloader/app/structs/XGameSaveBlob.h>
+#include <Modloader/app/structs/XGameSaveBlob_1.h>
 
 namespace app::classes::XGamingRuntime::SDK___c {
     IL2CPP_REGISTER_METHOD(0x030B7DA0, void, cctor, ())

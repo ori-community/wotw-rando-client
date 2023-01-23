@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LegacyEntityDamageReciever_ModifyDamageDelegate__Class.h>
+#include <Modloader/app/structs/LegacyEntityDamageReciever_ModifyDamageDelegate.h>
 
 namespace app::classes::types {
     namespace LegacyEntityDamageReciever_ModifyDamageDelegate {

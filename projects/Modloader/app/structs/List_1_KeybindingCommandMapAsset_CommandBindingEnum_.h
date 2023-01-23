@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_KeybindingCommandMapAsset_CommandBindingEnum__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_KeybindingCommandMapAsset_CommandBindingEnum__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_KeybindingCommandMapAsset_CommandBindingEnum__DEFINED)
+#include <Modloader/app/structs/List_1_KeybindingCommandMapAsset_CommandBindingEnum___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_KeybindingCommandMapAsset_CommandBindingEnum___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_KeybindingCommandMapAsset_CommandBindingEnum__DEFINED
+struct List_1_KeybindingCommandMapAsset_CommandBindingEnum___Class;
+struct List_1_KeybindingCommandMapAsset_CommandBindingEnum_ {
+    struct List_1_KeybindingCommandMapAsset_CommandBindingEnum___Class* klass;
+    MonitorData* monitor;
+    struct List_1_KeybindingCommandMapAsset_CommandBindingEnum___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_KeybindingCommandMapAsset_CommandBindingEnum__FWDDECL)
+#define IL2CPP_STRUCT_List_1_KeybindingCommandMapAsset_CommandBindingEnum__FWDDECL
+#include <Modloader/app/structs/List_1_KeybindingCommandMapAsset_CommandBindingEnum___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_KeybindingCommandMapAsset_CommandBindingEnum__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_KeybindingCommandMapAsset_CommandBindingEnum__DEFINED) && !defined(IL2CPP_STRUCT_List_1_KeybindingCommandMapAsset_CommandBindingEnum__FWDDECL)
+#include <Modloader/app/structs/List_1_KeybindingCommandMapAsset_CommandBindingEnum_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_KeybindingCommandMapAsset_CommandBindingEnum_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

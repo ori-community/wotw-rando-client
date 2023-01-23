@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabEventType__Enum.h>
+#include <Modloader/app/structs/PlayFabEvent.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EventContents.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Guid.h>
 
 namespace app::classes::PlayFab::PlayFabEvent {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::PlayFabEventType__Enum, get_EventType, (app::PlayFabEvent * this_ptr))

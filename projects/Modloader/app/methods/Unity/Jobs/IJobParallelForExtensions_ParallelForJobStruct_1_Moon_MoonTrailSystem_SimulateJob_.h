@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTrailSystem_SimulateJob.h>
+#include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::Unity::Jobs::IJobParallelForExtensions_ParallelForJobStruct_1_Moon_MoonTrailSystem_SimulateJob_ {
     IL2CPP_REGISTER_METHOD(0x02AC3D00, void*, Initialize, ())

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IDebugRendererSubscriber.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/MeshCollider.h>
+#include <Modloader/app/structs/CapsuleCollider.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/MoonRenderContext.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/DebugRenderer.h>
+#include <Modloader/app/structs/RenderingType__Enum.h>
+#include <Modloader/app/structs/Material.h>
 
 namespace app::classes::Moon::VisualDebug::DebugRenderer {
     IL2CPP_REGISTER_METHOD(0x0118D920, void, Register, (app::IDebugRendererSubscriber * subscriber))

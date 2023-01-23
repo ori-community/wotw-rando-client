@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Promise_Enumerated.h>
+#include <Modloader/app/structs/Promise.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Promise_Enumerated {
     IL2CPP_REGISTER_METHOD(0x01669060, void, ctor, (app::Promise_Enumerated * this_ptr, app::Promise* promise, bool abort_on_fail))

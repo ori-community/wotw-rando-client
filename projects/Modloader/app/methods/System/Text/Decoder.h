@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Decoder.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/DecoderFallback.h>
+#include <Modloader/app/structs/DecoderFallbackBuffer.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Text::Decoder {
     IL2CPP_REGISTER_METHOD(0x02448100, void, SerializeDecoder, (app::Decoder * this_ptr, app::SerializationInfo* info))

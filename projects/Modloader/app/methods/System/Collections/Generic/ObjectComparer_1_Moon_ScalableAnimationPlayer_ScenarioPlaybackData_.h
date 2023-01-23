@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_Moon_ScalableAnimationPlayer_ScenarioPlaybackData_.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer_ScenarioPlaybackData.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_Moon_ScalableAnimationPlayer_ScenarioPlaybackData_ {
     IL2CPP_REGISTER_METHOD(0x01CC57B0, int32_t, Compare, (app::ObjectComparer_1_Moon_ScalableAnimationPlayer_ScenarioPlaybackData_ * this_ptr, app::ScalableAnimationPlayer_ScenarioPlaybackData x, app::ScalableAnimationPlayer_ScenarioPlaybackData y))

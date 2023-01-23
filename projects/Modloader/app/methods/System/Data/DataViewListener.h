@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataViewListener.h>
+#include <Modloader/app/structs/DataView.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CollectionChangeEventArgs.h>
+#include <Modloader/app/structs/ListChangedType__Enum.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/ListChangedEventArgs.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/Index.h>
 
 namespace app::classes::System::Data::DataViewListener {
     IL2CPP_REGISTER_METHOD(0x01F47680, void, ctor, (app::DataViewListener * this_ptr, app::DataView* dv))

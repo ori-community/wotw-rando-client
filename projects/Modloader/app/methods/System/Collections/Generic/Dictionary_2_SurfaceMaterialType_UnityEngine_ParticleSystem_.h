@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_SurfaceMaterialType_UnityEngine_ParticleSystem_.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/ParticleSystem.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_SurfaceMaterialType_UnityEngine_ParticleSystem_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_SurfaceMaterialType_UnityEngine_ParticleSystem_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_SurfaceMaterialType_UnityEngine_ParticleSystem_ * this_ptr))

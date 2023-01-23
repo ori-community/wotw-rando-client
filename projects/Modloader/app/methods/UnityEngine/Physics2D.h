@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicsScene2D.h>
+#include <Modloader/app/structs/ColliderDistance2D.h>
+#include <Modloader/app/structs/Collider2D.h>
+#include <Modloader/app/structs/RaycastHit2D.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/ContactFilter2D.h>
+#include <Modloader/app/structs/RaycastHit2D__Array.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/ContactPoint2D__Array.h>
+#include <Modloader/app/structs/Collider2D__Array.h>
+#include <Modloader/app/structs/Rigidbody2D.h>
 
 namespace app::classes::UnityEngine::Physics2D {
     IL2CPP_REGISTER_METHOD(0x0316F310, app::PhysicsScene2D, get_defaultPhysicsScene, ())

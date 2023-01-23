@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vertex.h>
+#include <Modloader/app/structs/VertexType__Enum.h>
 
 namespace app::classes::TriangleNet::Geometry::Vertex {
     IL2CPP_REGISTER_METHOD(0x0261E6E0, void, ctor_1, (app::Vertex * this_ptr))

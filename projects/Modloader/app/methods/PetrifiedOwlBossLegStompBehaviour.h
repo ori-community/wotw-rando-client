@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLegStompBehaviour.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/Enum.h>
 
 namespace app::classes::PetrifiedOwlBossLegStompBehaviour {
     IL2CPP_REGISTER_METHOD(0x017774B0, void, CopyData, (app::PetrifiedOwlBossLegStompBehaviour * this_ptr, app::PetrifiedOwlBossBaseBehaviour* other))

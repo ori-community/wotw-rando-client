@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DRSDownscaleSlider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::DRSDownscaleSlider {
     IL2CPP_REGISTER_METHOD(0x00DBFC40, void, Awake, (app::DRSDownscaleSlider * this_ptr))

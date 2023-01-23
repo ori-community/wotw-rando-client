@@ -1,5 +1,44 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EventSource.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EventSourceOptions.h>
+#include <Modloader/app/structs/TraceLoggingEventTypes.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/EventSource_EventData.h>
+#include <Modloader/app/structs/GCHandle.h>
+#include <Modloader/app/structs/List_1_System_Byte_.h>
+#include <Modloader/app/structs/NameInfo_1.h>
+#include <Modloader/app/structs/EventDescriptor.h>
+#include <Modloader/app/structs/EventLevel__Enum.h>
+#include <Modloader/app/structs/EventKeywords__Enum.h>
+#include <Modloader/app/structs/EventChannel__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/EventSourceSettings__Enum.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/EventCommandEventArgs.h>
+#include <Modloader/app/structs/EventListener.h>
+#include <Modloader/app/structs/SessionMask.h>
+#include <Modloader/app/structs/EventManifestOptions__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventDispatcher.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/EventWrittenEventArgs.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/EventSource_EventMetadata.h>
+#include <Modloader/app/structs/EventOpcode__Enum.h>
+#include <Modloader/app/structs/EventCommand__Enum.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Attribute.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/ManifestBuilder.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/EventSource_EventMetadata__Array.h>
+#include <Modloader/app/structs/EventAttribute.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EventSource {
     IL2CPP_REGISTER_METHOD(0x01751690, void, WriteMultiMerge_1, (app::EventSource * this_ptr, app::String* event_name, app::EventSourceOptions* options, app::TraceLoggingEventTypes* event_types, app::Guid* activity_i_d, app::Guid* child_activity_i_d, app::Object__Array* values))

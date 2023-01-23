@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlEntity.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlLinkedNode.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::XmlEntity {
     IL2CPP_REGISTER_METHOD(0x01DB52D0, void, ctor, (app::XmlEntity * this_ptr, app::String* name, app::String* strdata, app::String* public_id, app::String* system_id, app::String* notation_name, app::XmlDocument* doc))

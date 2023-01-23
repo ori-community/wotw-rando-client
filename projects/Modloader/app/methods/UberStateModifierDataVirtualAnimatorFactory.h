@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/SetupStateModifierDataType__Enum.h>
+#include <Modloader/app/structs/NewSetupStateController.h>
+#include <Modloader/app/structs/SetupStateModifier.h>
+#include <Modloader/app/structs/VirtualTimelineEntityPool.h>
+#include <Modloader/app/structs/UberStateModifierDataVirtualAnimatorFactory.h>
 
 namespace app::classes::UberStateModifierDataVirtualAnimatorFactory {
     IL2CPP_REGISTER_METHOD(0x01E96370, app::ITimelineEntity*, CreateAnimatorForType, (app::SetupStateModifierDataType__Enum type, app::NewSetupStateController* state_controller, app::SetupStateModifier* modifier, int32_t state_guid, app::VirtualTimelineEntityPool* pool))

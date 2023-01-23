@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabSignInProvider_c.h>
+#include <Modloader/app/structs/SetEntityProfilePolicyResponse.h>
+#include <Modloader/app/structs/PlayFabError.h>
 
 namespace app::classes::SystemIntegration::PlayFabSignInProvider___c {
     IL2CPP_REGISTER_METHOD(0x00521190, void, cctor, ())

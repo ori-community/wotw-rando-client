@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicsUpdateHandlerManager.h>
+#include <Modloader/app/structs/Component_1__Array.h>
+#include <Modloader/app/structs/PhysicsUpdateHandlerAttribute.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IJobSystem__Array.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_PhysicsUpdateHandlerAttribute_List_1_UnityEngine_Component_.h>
 
 namespace app::classes::Moon::PhysicsUpdateHandlerManager {
     IL2CPP_REGISTER_METHOD(0x00C3B590, void, Reset, (app::PhysicsUpdateHandlerManager * this_ptr))

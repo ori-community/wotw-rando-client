@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderDrivenComponent.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberShaderComponent.h>
 
 namespace app::classes::Moon::UI::UberShaderDrivenComponent {
     IL2CPP_REGISTER_METHOD(0x008009A0, void, Awake, (app::UberShaderDrivenComponent * this_ptr))

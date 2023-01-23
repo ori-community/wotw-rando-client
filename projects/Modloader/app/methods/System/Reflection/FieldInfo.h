@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/MemberTypes__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RuntimeFieldHandle.h>
+#include <Modloader/app/structs/RuntimeTypeHandle.h>
+#include <Modloader/app/structs/TypedReference.h>
+#include <Modloader/app/structs/MarshalAsAttribute.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Reflection::FieldInfo {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::FieldInfo_1 * this_ptr))

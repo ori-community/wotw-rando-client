@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Music_MusicTrack.h>
+#include <Modloader/app/structs/SoundDescriptor.h>
 
 namespace app::classes::Core::Music_MusicTrack {
     IL2CPP_REGISTER_METHOD(0x00DAE690, void, Play_1, (app::Music_MusicTrack * this_ptr, float fade_in_duration, float fade_out_duration))

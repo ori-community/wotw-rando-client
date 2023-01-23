@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WorldMapRemoveObjective.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::WorldMapRemoveObjective {
     IL2CPP_REGISTER_METHOD(0x00582C00, void, Perform, (app::WorldMapRemoveObjective * this_ptr, app::IContext* context))

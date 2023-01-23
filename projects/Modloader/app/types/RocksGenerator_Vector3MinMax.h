@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RocksGenerator_Vector3MinMax__Class.h>
+#include <Modloader/app/structs/RocksGenerator_Vector3MinMax.h>
 
 namespace app::classes::types {
     namespace RocksGenerator_Vector3MinMax {

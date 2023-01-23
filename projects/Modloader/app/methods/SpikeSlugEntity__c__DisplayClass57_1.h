@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpikeSlugEntity_c_DisplayClass57_1.h>
+#include <Modloader/app/structs/SpikeSlugEntity_ShelledUnshelledAnimPair.h>
 
 namespace app::classes::SpikeSlugEntity___c__DisplayClass57_1 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SpikeSlugEntity_c_DisplayClass57_1 * this_ptr))

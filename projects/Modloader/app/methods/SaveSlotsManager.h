@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStateValueStore.h>
+#include <Modloader/app/structs/SaveSlotInfo.h>
+#include <Modloader/app/structs/SaveSlotsManager.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::SaveSlotsManager {
     IL2CPP_REGISTER_METHOD(0x00927F30, app::UberStateValueStore*, get_SelectedSlotUberStateValueStore, ())

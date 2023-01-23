@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Dropdown_DelayedDestroyDropdownList_c_Iterator0__Class.h>
+#include <Modloader/app/structs/Dropdown_DelayedDestroyDropdownList_c_Iterator0.h>
 
 namespace app::classes::types {
     namespace Dropdown_DelayedDestroyDropdownList_c_Iterator0 {

@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RendererCullingParameters_CategoryList_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RendererCullingParameters_CategoryList_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RendererCullingParameters_CategoryList_DEFINED)
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList_masks_FixedBuffer4.h>
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList_needsLists_FixedBuffer5.h>
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList_perSlices_FixedBuffer6.h>
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7.h>
+#if defined(IL2CPP_STRUCT_RendererCullingParameters_CategoryList_masks_FixedBuffer4_DEFINED) && defined(IL2CPP_STRUCT_RendererCullingParameters_CategoryList_needsLists_FixedBuffer5_DEFINED) && defined(IL2CPP_STRUCT_RendererCullingParameters_CategoryList_perSlices_FixedBuffer6_DEFINED) && defined(IL2CPP_STRUCT_RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7_DEFINED)
+#define IL2CPP_STRUCT_RendererCullingParameters_CategoryList_DEFINED
+struct RendererCullingParameters_CategoryList {
+    struct RendererCullingParameters_CategoryList_masks_FixedBuffer4 masks;
+    struct RendererCullingParameters_CategoryList_needsLists_FixedBuffer5 needsLists;
+    struct RendererCullingParameters_CategoryList_perSlices_FixedBuffer6 perSlices;
+    struct RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7 sliceCounts;
+    int32_t count;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_RendererCullingParameters_CategoryList_FWDDECL)
+#define IL2CPP_STRUCT_RendererCullingParameters_CategoryList_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_RendererCullingParameters_CategoryList_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RendererCullingParameters_CategoryList_DEFINED) && !defined(IL2CPP_STRUCT_RendererCullingParameters_CategoryList_FWDDECL)
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

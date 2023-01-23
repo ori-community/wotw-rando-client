@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_System_SByte_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_System_SByte_ {
     IL2CPP_REGISTER_METHOD(0x01CCBE40, int32_t, Compare, (app::ObjectComparer_1_System_SByte_ * this_ptr, int8_t x, int8_t y))

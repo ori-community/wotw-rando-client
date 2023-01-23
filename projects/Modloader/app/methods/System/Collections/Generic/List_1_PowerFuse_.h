@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PowerFuse.h>
+#include <Modloader/app/structs/List_1_PowerFuse_.h>
+#include <Modloader/app/structs/IEnumerable_1_PowerFuse_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_PowerFuse_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::PowerFuse*, get_Item, (app::List_1_PowerFuse_ * this_ptr, int32_t index))

@@ -6,6 +6,7 @@
 #include <Modloader/app/methods/MoonDoorWithSlots.h>
 #include <Modloader/app/methods/MoonCustomDoorWithSlots.h>
 #include <Modloader/app/methods/UberStateValueCondition.h>
+#include <Modloader/app/structs/Boolean__Boxed.h>
 
 using namespace app::classes;
 

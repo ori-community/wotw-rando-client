@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CombinedUpgradeEffectiveness_UpgradableAbility_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CombinedUpgradeEffectiveness_UpgradableAbility_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CombinedUpgradeEffectiveness_UpgradableAbility_DEFINED)
+#include <Modloader/app/structs/CombinedUpgradeEffectiveness_UpgradableAbility__Fields.h>
+#if defined(IL2CPP_STRUCT_CombinedUpgradeEffectiveness_UpgradableAbility__Fields_DEFINED)
+#define IL2CPP_STRUCT_CombinedUpgradeEffectiveness_UpgradableAbility_DEFINED
+struct CombinedUpgradeEffectiveness_UpgradableAbility__Class;
+struct CombinedUpgradeEffectiveness_UpgradableAbility {
+    struct CombinedUpgradeEffectiveness_UpgradableAbility__Class* klass;
+    MonitorData* monitor;
+    struct CombinedUpgradeEffectiveness_UpgradableAbility__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CombinedUpgradeEffectiveness_UpgradableAbility_FWDDECL)
+#define IL2CPP_STRUCT_CombinedUpgradeEffectiveness_UpgradableAbility_FWDDECL
+#include <Modloader/app/structs/CombinedUpgradeEffectiveness_UpgradableAbility__Class.h>
+#endif
+#undef IL2CPP_STRUCT_CombinedUpgradeEffectiveness_UpgradableAbility_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CombinedUpgradeEffectiveness_UpgradableAbility_DEFINED) && !defined(IL2CPP_STRUCT_CombinedUpgradeEffectiveness_UpgradableAbility_FWDDECL)
+#include <Modloader/app/structs/CombinedUpgradeEffectiveness_UpgradableAbility.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CombinedUpgradeEffectiveness_UpgradableAbility.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

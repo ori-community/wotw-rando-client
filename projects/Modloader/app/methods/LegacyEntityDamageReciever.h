@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyEntityDamageReciever.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/LimitedLifetime.h>
 
 namespace app::classes::LegacyEntityDamageReciever {
     IL2CPP_REGISTER_METHOD(0x00A210B0, void, OnValidate, (app::LegacyEntityDamageReciever * this_ptr))

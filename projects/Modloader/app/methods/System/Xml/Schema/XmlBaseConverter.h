@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlBaseConverter.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Uri.h>
 
 namespace app::classes::System::Xml::Schema::XmlBaseConverter {
     IL2CPP_REGISTER_METHOD(0x0223D4D0, void, ctor_1, (app::XmlBaseConverter * this_ptr, app::XmlSchemaType* schema_type))

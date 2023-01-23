@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ToggleAllKinematic.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::ToggleAllKinematic {
     IL2CPP_REGISTER_METHOD(0x00AFBA80, app::String*, get_Path, (app::ToggleAllKinematic * this_ptr))

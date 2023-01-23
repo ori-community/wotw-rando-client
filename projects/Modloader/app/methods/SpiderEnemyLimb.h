@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderEnemyLimb.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::SpiderEnemyLimb {
     IL2CPP_REGISTER_METHOD(0x011BC660, void, Awake, (app::SpiderEnemyLimb * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyTimelineSequence.h>
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry.h>
+#include <Modloader/app/structs/BaseAnimator.h>
 
 namespace app::classes::LegacyTimelineSequence {
     IL2CPP_REGISTER_METHOD(0x0074B530, float, get_UnlockedDuration, (app::LegacyTimelineSequence * this_ptr))

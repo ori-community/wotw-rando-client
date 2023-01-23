@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AppId_t.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CSteamID.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/HAuthTicket.h>
+#include <Modloader/app/structs/EBeginAuthSessionResult__Enum.h>
+#include <Modloader/app/structs/EUserHasLicenseForAppResult__Enum.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
 
 namespace app::classes::Steamworks::SteamGameServer {
     IL2CPP_REGISTER_METHOD(0x027F0650, bool, InitGameServer, (uint32_t un_i_p, uint16_t us_game_port, uint16_t us_query_port, uint32_t un_flags, app::AppId_t n_game_app_id, app::String* pch_version_string))

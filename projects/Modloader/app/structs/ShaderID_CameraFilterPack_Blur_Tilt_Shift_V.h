@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_Tilt_Shift_V_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_Tilt_Shift_V_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_Tilt_Shift_V_DEFINED)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_Tilt_Shift_V_DEFINED
+struct ShaderID_CameraFilterPack_Blur_Tilt_Shift_V__Class;
+struct ShaderID_CameraFilterPack_Blur_Tilt_Shift_V {
+    struct ShaderID_CameraFilterPack_Blur_Tilt_Shift_V__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_Tilt_Shift_V_FWDDECL)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_Tilt_Shift_V_FWDDECL
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blur_Tilt_Shift_V__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_Tilt_Shift_V_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_Tilt_Shift_V_DEFINED) && !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blur_Tilt_Shift_V_FWDDECL)
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blur_Tilt_Shift_V.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blur_Tilt_Shift_V.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

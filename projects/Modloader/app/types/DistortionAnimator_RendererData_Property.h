@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DistortionAnimator_RendererData_Property__Class.h>
+#include <Modloader/app/structs/DistortionAnimator_RendererData_Property.h>
+#include <Modloader/app/structs/DistortionAnimator_RendererData_Property__Boxed.h>
+#include <Modloader/app/structs/DistortionAnimator_RendererData_Property__Array.h>
 
 namespace app::classes::types {
     namespace DistortionAnimator_RendererData_Property {

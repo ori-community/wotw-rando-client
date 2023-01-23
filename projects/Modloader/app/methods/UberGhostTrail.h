@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/UberGhostTrail.h>
+#include <Modloader/app/structs/UberScreenMode__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::UberGhostTrail {
     IL2CPP_REGISTER_METHOD(0x013EE640, app::Renderer*, get_TargetRenderer, (app::UberGhostTrail * this_ptr))

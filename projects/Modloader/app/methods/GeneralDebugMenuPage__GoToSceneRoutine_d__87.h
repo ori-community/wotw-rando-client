@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GeneralDebugMenuPage_GoToSceneRoutine_d_87.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::GeneralDebugMenuPage__GoToSceneRoutine_d__87 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::GeneralDebugMenuPage_GoToSceneRoutine_d_87 * this_ptr, int32_t __1__state))

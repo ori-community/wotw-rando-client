@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IContextProperty__Array.h>
+#include <Modloader/app/structs/List_1_System_Runtime_Remoting_Contexts_IContextProperty_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Runtime_Remoting_Contexts_IContextProperty_.h>
+#include <Modloader/app/structs/IContextProperty.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Runtime_Remoting_Contexts_IContextProperty_ {
     IL2CPP_REGISTER_METHOD(0x025EAEF0, app::IContextProperty__Array*, ToArray, (app::List_1_System_Runtime_Remoting_Contexts_IContextProperty_ * this_ptr))

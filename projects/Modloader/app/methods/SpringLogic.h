@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/SpringLogic.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::SpringLogic {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::IMoonSetupAnimator*, get_MoonSetupAnimator, (app::SpringLogic * this_ptr))

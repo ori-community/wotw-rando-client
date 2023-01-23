@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class.h>
+#include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData_ServerObjectsData.h>
+#include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Array.h>
 
 namespace app::classes::types {
     namespace GhostServerEventsPlugin_ServerEventData_ServerObjectsData {

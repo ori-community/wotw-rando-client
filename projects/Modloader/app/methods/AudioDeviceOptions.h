@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AudioDeviceOptions.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::AudioDeviceOptions {
     IL2CPP_REGISTER_METHOD(0x008584A0, void, OnEnable, (app::AudioDeviceOptions * this_ptr))

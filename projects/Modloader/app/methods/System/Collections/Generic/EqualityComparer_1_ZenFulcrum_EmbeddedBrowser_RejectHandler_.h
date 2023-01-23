@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
+#include <Modloader/app/structs/RejectHandler__Array.h>
+#include <Modloader/app/structs/RejectHandler.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_*, get_Default, ())

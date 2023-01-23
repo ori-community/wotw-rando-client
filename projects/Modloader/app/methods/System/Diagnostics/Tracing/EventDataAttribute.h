@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EventDataAttribute.h>
+#include <Modloader/app/structs/EventLevel__Enum.h>
+#include <Modloader/app/structs/EventOpcode__Enum.h>
+#include <Modloader/app/structs/EventKeywords__Enum.h>
+#include <Modloader/app/structs/EventTags__Enum.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EventDataAttribute {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::String*, get_Name, (app::EventDataAttribute * this_ptr))

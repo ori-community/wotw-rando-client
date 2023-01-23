@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_EntityData_EntityPosition__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_EntityData_EntityPosition__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_EntityData_EntityPosition__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_EntityData_EntityPosition__DEFINED
+struct EntityData_EntityPosition;
+struct KeyValuePair_2_System_Int32_EntityData_EntityPosition_ {
+    int32_t key;
+    struct EntityData_EntityPosition* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_EntityData_EntityPosition__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_EntityData_EntityPosition__FWDDECL
+#include <Modloader/app/structs/EntityData_EntityPosition.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_EntityData_EntityPosition__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_EntityData_EntityPosition__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_EntityData_EntityPosition__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_EntityData_EntityPosition_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_EntityData_EntityPosition_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

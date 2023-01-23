@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConditionValidator.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_ConditionValidator___Boxed.h>
+#include <Modloader/app/structs/List_1_ConditionValidator_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_ConditionValidator_ {
     IL2CPP_REGISTER_METHOD(0x00136440, app::ConditionValidator, get_Current, (app::List_1_T_Enumerator_ConditionValidator___Boxed * this_ptr))

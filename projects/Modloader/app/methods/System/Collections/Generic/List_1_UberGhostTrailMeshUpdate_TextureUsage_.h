@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate_TextureUsage.h>
+#include <Modloader/app/structs/List_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/IEnumerable_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/IComparer_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate_TextureUsage__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/Action_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/IEnumerator_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UberGhostTrailMeshUpdate_TextureUsage_ {
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::UberGhostTrailMeshUpdate_TextureUsage, get_Item, (app::List_1_UberGhostTrailMeshUpdate_TextureUsage_ * this_ptr, int32_t index))

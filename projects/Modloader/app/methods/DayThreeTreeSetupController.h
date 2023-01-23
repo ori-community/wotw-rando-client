@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DayThreeTreeSetupController.h>
+#include <Modloader/app/structs/DayThreeTreeSetupController_State__Enum.h>
+#include <Modloader/app/structs/TextureAnimation.h>
 
 namespace app::classes::DayThreeTreeSetupController {
     IL2CPP_REGISTER_METHOD(0x00DD4D90, void, Start, (app::DayThreeTreeSetupController * this_ptr))

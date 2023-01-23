@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SoundMessages.h>
 
 namespace app::classes::SoundMessages {
     IL2CPP_REGISTER_METHOD(0x00EEB110, void, ShowMessage, (app::String * name))

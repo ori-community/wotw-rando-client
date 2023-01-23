@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SetupStateVirtualAnimator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SetupState.h>
+#include <Modloader/app/structs/NewSetupStateController.h>
+#include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/app/structs/AnimatorPlayState__Enum.h>
+#include <Modloader/app/structs/PlaybackStatus.h>
+#include <Modloader/app/structs/IEventReciever.h>
 
 namespace app::classes::SetupStateVirtualAnimator {
     IL2CPP_REGISTER_METHOD(0x00F9DBA0, int32_t, get_Hash, (app::SetupStateVirtualAnimator * this_ptr))

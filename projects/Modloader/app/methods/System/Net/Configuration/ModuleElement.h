@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ModuleElement.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::Configuration::ModuleElement {
     IL2CPP_REGISTER_METHOD(0x02019CB0, void, ctor, (app::ModuleElement * this_ptr))

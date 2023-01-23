@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimelinePreviewRequirement.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::TimelinePreviewRequirement {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, DoStrip, (app::TimelinePreviewRequirement * this_ptr))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_UnityEngine_Renderer_UberShaderWorldProperty_.h>
+#include <Modloader/app/structs/UberShaderDictionary_2_UnityEngine_Renderer_UberShaderWorldProperty_.h>
+#include <Modloader/app/structs/UberShaderWorldProperty.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_UnityEngine_Renderer_UberShaderWorldProperty_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::UberShaderDictionary_2_UnityEngine_Renderer_UberShaderWorldProperty_ {
     IL2CPP_REGISTER_METHOD(0x0225D7D0, app::Dictionary_2_TKey_TValue_KeyCollection_UnityEngine_Renderer_UberShaderWorldProperty_*, get_Keys, (app::UberShaderDictionary_2_UnityEngine_Renderer_UberShaderWorldProperty_ * this_ptr))

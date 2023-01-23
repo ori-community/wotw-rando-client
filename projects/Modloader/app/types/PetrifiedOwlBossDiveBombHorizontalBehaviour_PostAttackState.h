@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombHorizontalBehaviour_PostAttackState__Class.h>
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombHorizontalBehaviour_PostAttackState.h>
 
 namespace app::classes::types {
     namespace PetrifiedOwlBossDiveBombHorizontalBehaviour_PostAttackState {

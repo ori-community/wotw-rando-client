@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/JapaneseCalendar.h>
+#include <Modloader/app/structs/EraInfo__Array.h>
+#include <Modloader/app/structs/Calendar.h>
+#include <Modloader/app/structs/DayOfWeek__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::Globalization::JapaneseCalendar {
     IL2CPP_REGISTER_METHOD(0x02618350, app::DateTime, get_MinSupportedDateTime, (app::JapaneseCalendar * this_ptr))

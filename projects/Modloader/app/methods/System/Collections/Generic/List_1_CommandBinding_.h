@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_CommandBinding_.h>
+#include <Modloader/app/structs/List_1_CommandBinding_.h>
+#include <Modloader/app/structs/CommandBinding.h>
+#include <Modloader/app/structs/IEnumerable_1_CommandBinding_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CommandBinding_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_CommandBinding_, GetEnumerator, (app::List_1_CommandBinding_ * this_ptr))

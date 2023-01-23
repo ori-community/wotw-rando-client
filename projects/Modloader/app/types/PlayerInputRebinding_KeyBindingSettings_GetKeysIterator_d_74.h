@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PlayerInputRebinding_KeyBindingSettings_GetKeysIterator_d_74__Class.h>
+#include <Modloader/app/structs/PlayerInputRebinding_KeyBindingSettings_GetKeysIterator_d_74.h>
 
 namespace app::classes::types {
     namespace PlayerInputRebinding_KeyBindingSettings_GetKeysIterator_d_74 {

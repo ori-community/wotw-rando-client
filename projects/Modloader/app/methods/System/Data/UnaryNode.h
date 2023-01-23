@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnaryNode.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/ExpressionNode.h>
+#include <Modloader/app/structs/List_1_System_Data_DataColumn_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/DataColumn.h>
 
 namespace app::classes::System::Data::UnaryNode {
     IL2CPP_REGISTER_METHOD(0x0199E410, void, ctor, (app::UnaryNode * this_ptr, app::DataTable* table, int32_t op, app::ExpressionNode* right))

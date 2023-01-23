@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlEventCache_XmlEvent__Boxed.h>
+#include <Modloader/app/structs/XmlEventCache_XmlEventType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::XmlEventCache_XmlEvent {
     IL2CPP_REGISTER_METHOD(0x0010DB80, void, InitEvent_1, (app::XmlEventCache_XmlEvent__Boxed * this_ptr, app::XmlEventCache_XmlEventType__Enum event_type))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinaryAssemblyInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Assembly.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::BinaryAssemblyInfo {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor_1, (app::BinaryAssemblyInfo * this_ptr, app::String* assembly_string))

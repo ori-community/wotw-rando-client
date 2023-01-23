@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpdateManager.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/UpdateManager__Array.h>
+#include <Modloader/app/structs/IUpdateHandlerBase.h>
+#include <Modloader/app/structs/UpdateManager_Entry.h>
+#include <Modloader/app/structs/List_1_Moon_Driver_UpdateManager_Entry_.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Driver_UpdateManager_Entry_.h>
+#include <Modloader/app/structs/UpdateManager_GenericEntry.h>
+#include <Modloader/app/structs/StreamWriter.h>
 
 namespace app::classes::Moon::Driver::UpdateManager {
     IL2CPP_REGISTER_METHOD(0x031371A0, void, ctor, (app::UpdateManager * this_ptr, app::UpdateType__Enum update_type, app::UpdateManager__Array* managers))

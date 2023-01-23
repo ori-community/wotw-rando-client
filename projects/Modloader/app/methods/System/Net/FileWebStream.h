@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FileWebStream.h>
+#include <Modloader/app/structs/FileWebRequest.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FileMode__Enum.h>
+#include <Modloader/app/structs/FileAccess__Enum.h>
+#include <Modloader/app/structs/FileShare__Enum.h>
+#include <Modloader/app/structs/CloseExState__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::FileWebStream {
     IL2CPP_REGISTER_METHOD(0x01D2BB10, void, ctor_1, (app::FileWebStream * this_ptr, app::FileWebRequest* request, app::String* path, app::FileMode__Enum mode, app::FileAccess__Enum access, app::FileShare__Enum sharing))

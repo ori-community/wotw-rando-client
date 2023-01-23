@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeleeComboMoveSword.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/MeleeWeaponSword.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/MoveEventType__Enum.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/EffectSpawn.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::MeleeComboMoveSword {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Awake, (app::MeleeComboMoveSword * this_ptr))

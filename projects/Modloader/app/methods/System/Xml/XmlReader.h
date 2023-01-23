@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/StringWriter.h>
+#include <Modloader/app/structs/XmlTextWriter.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
+#include <Modloader/app/structs/IDtdInfo.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/TextReader.h>
+#include <Modloader/app/structs/XmlParserContext.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::XmlReader {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::XmlReaderSettings*, get_Settings, (app::XmlReader * this_ptr))

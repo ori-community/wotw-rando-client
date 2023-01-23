@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Tentacle.h>
 
 namespace app::classes::Tentacle {
     IL2CPP_REGISTER_METHOD(0x00CEA5E0, void, Awake, (app::Tentacle * this_ptr))

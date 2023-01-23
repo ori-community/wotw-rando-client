@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPoolGroupWarmer.h>
 
 namespace app::classes::UberPoolGroupWarmer {
     IL2CPP_REGISTER_METHOD(0x00449EA0, float, get_Progress, (app::UberPoolGroupWarmer * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ApplyForceToPhysicsSystem.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::ApplyForceToPhysicsSystem {
     IL2CPP_REGISTER_METHOD(0x005061E0, void, OnEnable, (app::ApplyForceToPhysicsSystem * this_ptr))

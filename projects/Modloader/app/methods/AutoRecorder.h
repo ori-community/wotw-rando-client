@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AutoRecorder.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::AutoRecorder {
     IL2CPP_REGISTER_METHOD(0x0085C8C0, void, StartRecording, (app::AutoRecorder * this_ptr, app::String* name))

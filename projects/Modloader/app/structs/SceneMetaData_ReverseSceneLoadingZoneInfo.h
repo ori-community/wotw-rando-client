@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SceneMetaData_ReverseSceneLoadingZoneInfo_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SceneMetaData_ReverseSceneLoadingZoneInfo_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SceneMetaData_ReverseSceneLoadingZoneInfo_DEFINED)
+#include <Modloader/app/structs/SceneMetaData_ReverseSceneLoadingZoneInfo__Fields.h>
+#if defined(IL2CPP_STRUCT_SceneMetaData_ReverseSceneLoadingZoneInfo__Fields_DEFINED)
+#define IL2CPP_STRUCT_SceneMetaData_ReverseSceneLoadingZoneInfo_DEFINED
+struct SceneMetaData_ReverseSceneLoadingZoneInfo__Class;
+struct SceneMetaData_ReverseSceneLoadingZoneInfo {
+    struct SceneMetaData_ReverseSceneLoadingZoneInfo__Class* klass;
+    MonitorData* monitor;
+    struct SceneMetaData_ReverseSceneLoadingZoneInfo__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SceneMetaData_ReverseSceneLoadingZoneInfo_FWDDECL)
+#define IL2CPP_STRUCT_SceneMetaData_ReverseSceneLoadingZoneInfo_FWDDECL
+#include <Modloader/app/structs/SceneMetaData_ReverseSceneLoadingZoneInfo__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SceneMetaData_ReverseSceneLoadingZoneInfo_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SceneMetaData_ReverseSceneLoadingZoneInfo_DEFINED) && !defined(IL2CPP_STRUCT_SceneMetaData_ReverseSceneLoadingZoneInfo_FWDDECL)
+#include <Modloader/app/structs/SceneMetaData_ReverseSceneLoadingZoneInfo.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SceneMetaData_ReverseSceneLoadingZoneInfo.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

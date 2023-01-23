@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonStopSoundArgs__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonStopSoundArgs__INITIALIZING
+#if !defined(IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonStopSoundArgs__DEFINED)
+#define IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonStopSoundArgs__DEFINED
+struct WaapiJsonClassBase_1_WaapiJsonStopSoundArgs___Class;
+struct WaapiJsonClassBase_1_WaapiJsonStopSoundArgs_ {
+    struct WaapiJsonClassBase_1_WaapiJsonStopSoundArgs___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonStopSoundArgs__FWDDECL)
+#define IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonStopSoundArgs__FWDDECL
+#include <Modloader/app/structs/WaapiJsonClassBase_1_WaapiJsonStopSoundArgs___Class.h>
+#endif
+#undef IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonStopSoundArgs__INITIALIZING
+#if !defined(IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonStopSoundArgs__DEFINED) && !defined(IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonStopSoundArgs__FWDDECL)
+#include <Modloader/app/structs/WaapiJsonClassBase_1_WaapiJsonStopSoundArgs_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/WaapiJsonClassBase_1_WaapiJsonStopSoundArgs_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

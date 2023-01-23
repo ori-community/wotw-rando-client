@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_Moon_Timeline_TransformAnimatorSystem_PositionModification___Boxed.h>
+#include <Modloader/app/structs/TransformAnimatorSystem_PositionModification.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_Moon_Timeline_TransformAnimatorSystem_PositionModification_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_Moon_Timeline_TransformAnimatorSystem_PositionModification_ {
     IL2CPP_REGISTER_METHOD(0x001F63D0, bool, get_HasValue, (app::Nullable_1_Moon_Timeline_TransformAnimatorSystem_PositionModification___Boxed * this_ptr))

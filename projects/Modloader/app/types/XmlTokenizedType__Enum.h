@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlTokenizedType__Enum__Class.h>
+#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
 
 namespace app::classes::types {
     namespace XmlTokenizedType__Enum {

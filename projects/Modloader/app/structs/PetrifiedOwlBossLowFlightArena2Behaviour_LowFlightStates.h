@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates_DEFINED
+struct PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates__Class;
+struct PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates {
+    struct PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossLowFlightArena2Behaviour_LowFlightStates.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

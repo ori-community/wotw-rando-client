@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FastHashSet_1_System_UInt32_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_UInt32_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_UInt32_.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/FastHashSet_1_T_TNode_System_UInt32___Array.h>
+#include <Modloader/app/structs/Predicate_1_UInt32_.h>
+#include <Modloader/app/structs/FastHashSet_1_T_FoundType_System_UInt32_.h>
+#include <Modloader/app/structs/List_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_Motvin_Collections_FastHashSet_1__1.h>
+#include <Modloader/app/structs/IEnumerator_1_System_UInt32_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::Motvin::Collections::FastHashSet_1_System_UInt32_ {
     IL2CPP_REGISTER_METHOD(0x02AF8B00, void, ctor_1, (app::FastHashSet_1_System_UInt32_ * this_ptr, int32_t capacity))

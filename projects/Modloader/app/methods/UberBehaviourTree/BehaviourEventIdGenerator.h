@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BehaviourEventIdGenerator.h>
 
 namespace app::classes::UberBehaviourTree::BehaviourEventIdGenerator {
     IL2CPP_REGISTER_METHOD(0x013DF7A0, void, ResetStatics, ())

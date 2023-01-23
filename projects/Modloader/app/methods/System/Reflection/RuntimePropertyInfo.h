@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/RuntimePropertyInfo.h>
+#include <Modloader/app/structs/Module.h>
+#include <Modloader/app/structs/RuntimeType.h>
+#include <Modloader/app/structs/RuntimeModule.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Reflection::RuntimePropertyInfo {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::BindingFlags__Enum, get_BindingFlags, (app::RuntimePropertyInfo * this_ptr))

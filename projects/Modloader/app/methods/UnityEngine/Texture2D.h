@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/GraphicsFormat__Enum.h>
+#include <Modloader/app/structs/TextureCreationFlags__Enum.h>
+#include <Modloader/app/structs/TextureFormat__Enum.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Color__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/Rect__Array.h>
+#include <Modloader/app/structs/Color32__Array.h>
+#include <Modloader/app/structs/Texture2D__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Rect_.h>
 
 namespace app::classes::UnityEngine::Texture2D {
     IL2CPP_REGISTER_METHOD(0x02C66B50, void, ctor_1, (app::Texture2D * this_ptr, int32_t width, int32_t height, app::GraphicsFormat__Enum format, app::TextureCreationFlags__Enum flags, void* native_tex))

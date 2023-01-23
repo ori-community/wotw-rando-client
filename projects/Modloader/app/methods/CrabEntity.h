@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrabEntity.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::CrabEntity {
     IL2CPP_REGISTER_METHOD(0x00DB3EC0, void, set_ShouldReflectArrows, (app::CrabEntity * this_ptr, bool value))

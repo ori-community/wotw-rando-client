@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DisplacementWaveAnimatorEntity.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::DisplacementWaveAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x00765EE0, void, OnStartPlayback, (app::DisplacementWaveAnimatorEntity * this_ptr, app::IContext* context))

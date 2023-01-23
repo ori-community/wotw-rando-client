@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeystoneDoorVisuals.h>
+#include <Modloader/app/structs/DesiredUberStateDoor.h>
+#include <Modloader/app/structs/KeystoneDoorLogic.h>
 
 namespace app::classes::KeystoneDoorVisuals {
     IL2CPP_REGISTER_METHOD(0x00E706B0, void, SetSetupStateControllerState, (app::KeystoneDoorVisuals * this_ptr, app::DesiredUberStateDoor* uber_state))

@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellUIEquipScreen.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
+#include <Modloader/app/structs/SpiritShardUIItem.h>
+#include <Modloader/app/structs/SpellUIConfirmationOverlay_Selection__Enum.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/SpellUIEquipScreen_State__Enum.h>
+#include <Modloader/app/structs/SpellUIItem.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/SpellUIEquipScreen_Category__Enum.h>
+#include <Modloader/app/structs/Input_Command__Enum.h>
 
 namespace app::classes::SpellUIEquipScreen {
     IL2CPP_REGISTER_METHOD(0x009468B0, void, HideExistingHint, (app::SpellUIEquipScreen * this_ptr))

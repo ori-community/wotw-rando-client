@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IKLookPostprocess.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::IKLookPostprocess {
     IL2CPP_REGISTER_METHOD(0x010FFBB0, void, Awake, (app::IKLookPostprocess * this_ptr))

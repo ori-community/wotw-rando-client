@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AesCryptoServiceProvider.h>
+#include <Modloader/app/structs/ICryptoTransform.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CipherMode__Enum.h>
+#include <Modloader/app/structs/PaddingMode__Enum.h>
 
 namespace app::classes::System::Security::Cryptography::AesCryptoServiceProvider {
     IL2CPP_REGISTER_METHOD(0x02FC8400, void, ctor, (app::AesCryptoServiceProvider * this_ptr))

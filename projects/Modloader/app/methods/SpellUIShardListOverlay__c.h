@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellUIShardListOverlay_c.h>
+#include <Modloader/app/structs/SpiritShardUIItem.h>
 
 namespace app::classes::SpellUIShardListOverlay___c {
     IL2CPP_REGISTER_METHOD(0x00951180, void, cctor, ())

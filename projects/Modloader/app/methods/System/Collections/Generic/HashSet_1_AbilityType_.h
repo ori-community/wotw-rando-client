@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_AbilityType_.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_AbilityType_.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_AbilityType_ {
     IL2CPP_REGISTER_METHOD(0x002FD1D0, int32_t, get_Count, (app::HashSet_1_AbilityType_ * this_ptr))

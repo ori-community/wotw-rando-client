@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_FlyStartState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_FlyStartState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_FlyStartState_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_FlyStartState__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_FlyStartState__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_FlyStartState_DEFINED
+struct PetrifiedOwlBossEscape1Behaviour_FlyStartState__Class;
+struct PetrifiedOwlBossEscape1Behaviour_FlyStartState {
+    struct PetrifiedOwlBossEscape1Behaviour_FlyStartState__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossEscape1Behaviour_FlyStartState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_FlyStartState_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_FlyStartState_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_FlyStartState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_FlyStartState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_FlyStartState_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_FlyStartState_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_FlyStartState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_FlyStartState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateValidator__Array.h>
+#include <Modloader/app/structs/IComparer_1_StateValidator_.h>
+#include <Modloader/app/structs/StateValidator.h>
+#include <Modloader/app/structs/Comparison_1_StateValidator_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_StateValidator_ {
     IL2CPP_REGISTER_METHOD(0x02FF33F0, void, Sort_1, (app::StateValidator__Array * keys, int32_t index, int32_t length, app::IComparer_1_StateValidator_* comparer))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/NegativeScaleFixer_TransformAndWorldMatrix.h>
 
 namespace app::classes::NegativeScaleFixer_TransformAndWorldMatrix {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Transform*, get_Transform, (app::NegativeScaleFixer_TransformAndWorldMatrix * this_ptr))

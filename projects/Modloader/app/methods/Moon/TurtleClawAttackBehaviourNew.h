@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TurtleClawAttackBehaviourNew.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::TurtleClawAttackBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x00D201D0, void, OnEnter, (app::TurtleClawAttackBehaviourNew * this_ptr, app::IContext* context))

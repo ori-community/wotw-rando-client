@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BreakablePhysicalSetupHolder.h>
+#include <Modloader/app/structs/BreakablePhysicalSetupData.h>
+#include <Modloader/app/structs/List_1_IIndexedItem_.h>
 
 namespace app::classes::BreakablePhysicalSetupHolder {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_UseMapping, (app::BreakablePhysicalSetupHolder * this_ptr))

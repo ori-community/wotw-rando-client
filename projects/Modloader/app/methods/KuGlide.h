@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuGlide.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 
 namespace app::classes::KuGlide {
     IL2CPP_REGISTER_METHOD(0x003FD650, bool, get_IsStatePerforming, (app::KuGlide * this_ptr))

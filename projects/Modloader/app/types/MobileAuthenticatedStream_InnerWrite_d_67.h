@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream_InnerWrite_d_67__Class.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream_InnerWrite_d_67.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream_InnerWrite_d_67__Boxed.h>
 
 namespace app::classes::types {
     namespace MobileAuthenticatedStream_InnerWrite_d_67 {

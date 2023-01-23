@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ForcedCooperation.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::ForcedCooperation {
     IL2CPP_REGISTER_METHOD(0x01DDE2E0, void, Comply, (app::ForcedCooperation * this_ptr))

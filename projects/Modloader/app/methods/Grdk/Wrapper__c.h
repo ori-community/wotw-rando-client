@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Wrapper_c.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XGameSaveBlobInfo_1.h>
+#include <Modloader/app/structs/XGameSaveBlob__Array.h>
+#include <Modloader/app/structs/XGameSaveProviderHandle.h>
 
 namespace app::classes::Grdk::Wrapper___c {
     IL2CPP_REGISTER_METHOD(0x01089C70, void, cctor, ())

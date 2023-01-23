@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_DynamicInstantiationPrewarmPriorityVisitor__Class.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_DynamicInstantiationPrewarmPriorityVisitor.h>
 
 namespace app::classes::types {
     namespace DynamicInstantiationScanner_DynamicInstantiationPrewarmPriorityVisitor {

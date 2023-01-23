@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EVRInitError__Enum.h>
+#include <Modloader/app/structs/EVRApplicationType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/OpenVRInterop.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::OpenVRInterop {
     IL2CPP_REGISTER_METHOD(0x00F55520, uint32_t, InitInternal, (app::EVRInitError__Enum * pe_error, app::EVRApplicationType__Enum e_application_type))

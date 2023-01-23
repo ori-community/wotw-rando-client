@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/RotationStateModifierData.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::RotationStateModifierData {
     IL2CPP_REGISTER_METHOD(0x01B799C0, app::Vector3, get_RotationEuler, (app::RotationStateModifierData * this_ptr))

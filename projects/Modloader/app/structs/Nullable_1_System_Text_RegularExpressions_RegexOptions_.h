@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Nullable_1_System_Text_RegularExpressions_RegexOptions__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Nullable_1_System_Text_RegularExpressions_RegexOptions__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Nullable_1_System_Text_RegularExpressions_RegexOptions__DEFINED)
+#include <Modloader/app/structs/RegexOptions__Enum.h>
+#if defined(IL2CPP_STRUCT_RegexOptions__Enum_DEFINED)
+#define IL2CPP_STRUCT_Nullable_1_System_Text_RegularExpressions_RegexOptions__DEFINED
+struct Nullable_1_System_Text_RegularExpressions_RegexOptions_ {
+    RegexOptions__Enum value;
+
+    bool has_value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Nullable_1_System_Text_RegularExpressions_RegexOptions__FWDDECL)
+#define IL2CPP_STRUCT_Nullable_1_System_Text_RegularExpressions_RegexOptions__FWDDECL
+#endif
+#undef IL2CPP_STRUCT_Nullable_1_System_Text_RegularExpressions_RegexOptions__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Nullable_1_System_Text_RegularExpressions_RegexOptions__DEFINED) && !defined(IL2CPP_STRUCT_Nullable_1_System_Text_RegularExpressions_RegexOptions__FWDDECL)
+#include <Modloader/app/structs/Nullable_1_System_Text_RegularExpressions_RegexOptions_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Nullable_1_System_Text_RegularExpressions_RegexOptions_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

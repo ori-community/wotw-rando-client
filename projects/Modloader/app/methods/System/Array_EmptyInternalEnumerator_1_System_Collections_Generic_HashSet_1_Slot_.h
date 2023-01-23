@@ -1,5 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot_.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_Moon_Timeline_EntityId_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__1.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_ByteEnum_.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__2.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_Int32_.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__3.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_Int32Enum_.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__4.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_Int64_.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__5.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_Object_.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__6.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_UInt32_.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__7.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_UInt64_.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__8.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot__9.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_UnityEngine_Vector3_.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose_1, (app::Array_EmptyInternalEnumerator_1_System_Collections_Generic_HashSet_1_Slot_ * this_ptr))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DeflateManager.h>
+#include <Modloader/app/structs/Int16__Array.h>
+#include <Modloader/app/structs/SByte__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/BlockState__Enum.h>
+#include <Modloader/app/structs/FlushType__Enum.h>
+#include <Modloader/app/structs/ZlibCodec.h>
+#include <Modloader/app/structs/CompressionLevel__Enum.h>
+#include <Modloader/app/structs/CompressionStrategy__Enum.h>
 
 namespace app::classes::Ionic::Zlib::DeflateManager {
     IL2CPP_REGISTER_METHOD(0x03065460, void, ctor, (app::DeflateManager * this_ptr))

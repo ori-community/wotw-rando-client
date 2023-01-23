@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/HttpWebRequest_c_DisplayClass238_0__Class.h>
+#include <Modloader/app/structs/HttpWebRequest_c_DisplayClass238_0.h>
 
 namespace app::classes::types {
     namespace HttpWebRequest_c_DisplayClass238_0 {

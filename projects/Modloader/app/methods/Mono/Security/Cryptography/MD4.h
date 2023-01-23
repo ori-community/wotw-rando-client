@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MD4.h>
+#include <Modloader/app/structs/MD4_1.h>
 
 namespace app::classes::Mono::Security::Cryptography::MD4 {
     IL2CPP_REGISTER_METHOD(0x020DD3E0, void, ctor_1, (app::MD4 * this_ptr))

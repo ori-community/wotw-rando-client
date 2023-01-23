@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Alien_Vision.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Alien_Vision {
     IL2CPP_REGISTER_METHOD(0x0273E9E0, app::Material*, get_material, (app::CameraFilterPack_Alien_Vision * this_ptr))

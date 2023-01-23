@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlToDatasetMap.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/XmlToDatasetMap_TableSchemaInfo.h>
+#include <Modloader/app/structs/XmlToDatasetMap_XmlNodeIdHashtable.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlReader.h>
 
 namespace app::classes::System::Data::XmlToDatasetMap {
     IL2CPP_REGISTER_METHOD(0x023F2B30, void, ctor_1, (app::XmlToDatasetMap * this_ptr, app::DataSet* data_set, app::XmlNameTable* name_table))

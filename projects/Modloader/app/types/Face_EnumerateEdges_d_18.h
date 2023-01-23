@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Face_EnumerateEdges_d_18__Class.h>
+#include <Modloader/app/structs/Face_EnumerateEdges_d_18.h>
 
 namespace app::classes::types {
     namespace Face_EnumerateEdges_d_18 {

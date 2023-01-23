@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityDamageEvent.h>
+#include <Modloader/app/structs/CrabHitReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::CrabHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00A64230, app::EntityDamageEvent*, get_DamageEvent, (app::CrabHitReactionBehaviour * this_ptr))

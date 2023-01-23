@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HandledEventArgs.h>
 
 namespace app::classes::System::ComponentModel::HandledEventArgs {
     IL2CPP_REGISTER_METHOD(0x01FEE180, void, ctor_1, (app::HandledEventArgs * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DesiredUberStateFloat__Array.h>
+#include <Modloader/app/structs/List_1_DesiredUberStateFloat_.h>
+#include <Modloader/app/structs/DesiredUberStateFloat.h>
 
 namespace app::classes::System::Collections::Generic::List_1_DesiredUberStateFloat_ {
     IL2CPP_REGISTER_METHOD(0x025EAEF0, app::DesiredUberStateFloat__Array*, ToArray, (app::List_1_DesiredUberStateFloat_ * this_ptr))

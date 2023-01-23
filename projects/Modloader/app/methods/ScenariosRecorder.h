@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScenarioRecorderState__Enum.h>
+#include <Modloader/app/structs/ScenariosRecorder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::ScenariosRecorder {
     IL2CPP_REGISTER_METHOD(0x00935960, app::ScenarioRecorderState__Enum, get_State, ())

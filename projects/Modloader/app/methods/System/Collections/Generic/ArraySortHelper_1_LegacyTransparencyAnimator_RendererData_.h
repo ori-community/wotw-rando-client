@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData__Array.h>
+#include <Modloader/app/structs/IComparer_1_LegacyTransparencyAnimator_RendererData_.h>
+#include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData.h>
+#include <Modloader/app/structs/Comparison_1_LegacyTransparencyAnimator_RendererData_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_LegacyTransparencyAnimator_RendererData_ {
     IL2CPP_REGISTER_METHOD(0x02F60910, void, Sort_1, (app::LegacyTransparencyAnimator_RendererData__Array * keys, int32_t index, int32_t length, app::IComparer_1_LegacyTransparencyAnimator_RendererData_* comparer))

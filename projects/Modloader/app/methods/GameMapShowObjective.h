@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameMapShowObjective.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Objective.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GameMapShowObjective_State__Enum.h>
 
 namespace app::classes::GameMapShowObjective {
     IL2CPP_REGISTER_METHOD(0x006A2E90, void, add_OnFinish, (app::GameMapShowObjective * this_ptr, app::Action* value))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormEntity_Segment.h>
+#include <Modloader/app/structs/VerletBody_Point.h>
+#include <Modloader/app/structs/VerletBody_Link.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/CharacterJoint.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/EntityTargetting.h>
 
 namespace app::classes::SandWormEntity_Segment {
     IL2CPP_REGISTER_METHOD(0x004C87B0, float, get_DistanceOffset, (app::SandWormEntity_Segment * this_ptr))

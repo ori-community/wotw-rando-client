@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CustomerContentKind__Enum.h>
+#include <Modloader/app/structs/CustomerContent.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Microsoft::Applications::Events::DataModels::CustomerContent {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::CustomerContentKind__Enum, get_Kind, (app::CustomerContent * this_ptr))

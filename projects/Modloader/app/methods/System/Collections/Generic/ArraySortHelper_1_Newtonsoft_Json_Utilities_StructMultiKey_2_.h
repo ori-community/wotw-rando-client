@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StructMultiKey_2_System_Object_System_Object___Array.h>
+#include <Modloader/app/structs/IComparer_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
+#include <Modloader/app/structs/StructMultiKey_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Comparison_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Newtonsoft_Json_Utilities_StructMultiKey_2_ {
     IL2CPP_REGISTER_METHOD(0x02F7AA10, void, Sort_1, (app::StructMultiKey_2_System_Object_System_Object___Array * keys, int32_t index, int32_t length, app::IComparer_1_Newtonsoft_Json_Utilities_StructMultiKey_2_* comparer))

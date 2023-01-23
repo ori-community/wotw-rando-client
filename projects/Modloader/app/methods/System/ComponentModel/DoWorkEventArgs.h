@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DoWorkEventArgs.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::DoWorkEventArgs {
     IL2CPP_REGISTER_METHOD(0x01FE7810, void, ctor, (app::DoWorkEventArgs * this_ptr, app::Object* argument))

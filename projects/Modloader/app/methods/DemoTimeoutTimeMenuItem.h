@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DemoTimeoutTimeMenuItem.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DemoTimeoutTimeMenuItem_TimeoutType__Enum.h>
 
 namespace app::classes::DemoTimeoutTimeMenuItem {
     IL2CPP_REGISTER_METHOD(0x00B82AD0, void, ctor, (app::DemoTimeoutTimeMenuItem * this_ptr, app::String* path, app::String* str, app::DemoTimeoutTimeMenuItem_TimeoutType__Enum type))

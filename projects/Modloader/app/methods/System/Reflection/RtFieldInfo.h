@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RtFieldInfo.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/Binder.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/TypedReference.h>
 
 namespace app::classes::System::Reflection::RtFieldInfo {
     IL2CPP_REGISTER_METHOD(0x02690A30, app::Object*, UnsafeGetValue, (app::RtFieldInfo * this_ptr, app::Object* obj))

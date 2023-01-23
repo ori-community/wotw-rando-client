@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PushPullBlock_c.h>
 
 namespace app::classes::PushPullBlock___c {
     IL2CPP_REGISTER_METHOD(0x00E84030, void, cctor, ())

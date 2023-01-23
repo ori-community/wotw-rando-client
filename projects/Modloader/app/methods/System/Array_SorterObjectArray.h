@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_SorterObjectArray__Boxed.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IComparer.h>
 
 namespace app::classes::System::Array_SorterObjectArray {
     IL2CPP_REGISTER_METHOD(0x001E14D0, void, ctor, (app::Array_SorterObjectArray__Boxed * this_ptr, app::Object__Array* keys, app::Object__Array* items, app::IComparer* comparer))

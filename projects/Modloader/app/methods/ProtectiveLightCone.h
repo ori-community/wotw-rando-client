@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/ProtectiveLightCone.h>
 
 namespace app::classes::ProtectiveLightCone {
     IL2CPP_REGISTER_METHOD(0x00C7DE20, bool, IsPointUnderLight, (app::Vector2 point))

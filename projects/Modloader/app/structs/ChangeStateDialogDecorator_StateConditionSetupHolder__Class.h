@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ChangeStateDialogDecorator_StateConditionSetupHolder__Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ChangeStateDialogDecorator_StateConditionSetupHolder__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ChangeStateDialogDecorator_StateConditionSetupHolder__Class_DEFINED)
+#include <Modloader/app/structs/ChangeStateDialogDecorator_StateConditionSetupHolder__VTable.h>
+#if defined(IL2CPP_STRUCT_ChangeStateDialogDecorator_StateConditionSetupHolder__VTable_DEFINED)
+#define IL2CPP_STRUCT_ChangeStateDialogDecorator_StateConditionSetupHolder__Class_DEFINED
+struct ChangeStateDialogDecorator_StateConditionSetupHolder__StaticFields;
+struct ChangeStateDialogDecorator_StateConditionSetupHolder__Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct ChangeStateDialogDecorator_StateConditionSetupHolder__StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct ChangeStateDialogDecorator_StateConditionSetupHolder__VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ChangeStateDialogDecorator_StateConditionSetupHolder__Class_FWDDECL)
+#define IL2CPP_STRUCT_ChangeStateDialogDecorator_StateConditionSetupHolder__Class_FWDDECL
+#include <Modloader/app/structs/ChangeStateDialogDecorator_StateConditionSetupHolder__StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_ChangeStateDialogDecorator_StateConditionSetupHolder__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ChangeStateDialogDecorator_StateConditionSetupHolder__Class_DEFINED) && !defined(IL2CPP_STRUCT_ChangeStateDialogDecorator_StateConditionSetupHolder__Class_FWDDECL)
+#include <Modloader/app/structs/ChangeStateDialogDecorator_StateConditionSetupHolder__Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ChangeStateDialogDecorator_StateConditionSetupHolder__Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

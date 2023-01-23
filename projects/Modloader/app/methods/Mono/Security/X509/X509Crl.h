@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509Crl.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/X509Crl_X509CrlEntry.h>
+#include <Modloader/app/structs/X509ExtensionCollection_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/X509Certificate_2.h>
+#include <Modloader/app/structs/DSA.h>
+#include <Modloader/app/structs/RSA.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
 
 namespace app::classes::Mono::Security::X509::X509Crl {
     IL2CPP_REGISTER_METHOD(0x029414D0, void, ctor, (app::X509Crl * this_ptr, app::Byte__Array* crl))

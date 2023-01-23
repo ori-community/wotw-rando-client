@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InputPlugin.h>
+#include <Modloader/app/structs/InputData.h>
+#include <Modloader/app/structs/AnalogueInputData.h>
 
 namespace app::classes::InputPlugin {
     IL2CPP_REGISTER_METHOD(0x00628ED0, void, Awake, (app::InputPlugin * this_ptr))

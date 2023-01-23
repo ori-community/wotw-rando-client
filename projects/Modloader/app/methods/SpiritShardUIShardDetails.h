@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiritShardUIShardDetails.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 
 namespace app::classes::SpiritShardUIShardDetails {
     IL2CPP_REGISTER_METHOD(0x00D6D470, void, Awake, (app::SpiritShardUIShardDetails * this_ptr))

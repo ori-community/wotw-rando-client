@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CachedInput_1_System_Single_.h>
+#include <Modloader/app/structs/InputCacheManager.h>
 
 namespace app::classes::SmartInput::CachedInput_1_System_Single_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::CachedInput_1_System_Single_ * this_ptr))

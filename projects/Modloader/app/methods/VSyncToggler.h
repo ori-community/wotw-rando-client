@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/VSyncToggler.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::VSyncToggler {
     IL2CPP_REGISTER_METHOD(0x013B78C0, app::String*, get_Path, (app::VSyncToggler * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ShaderID_CC_Threshold__Class.h>
+#include <Modloader/app/structs/ShaderID_CC_Threshold.h>
 
 namespace app::classes::types {
     namespace ShaderID_CC_Threshold {

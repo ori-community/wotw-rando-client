@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DoubleLinkAxis.h>
+#include <Modloader/app/structs/ForwardAxis.h>
 
 namespace app::classes::System::Xml::Schema::ForwardAxis {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::DoubleLinkAxis*, get_RootNode, (app::ForwardAxis * this_ptr))

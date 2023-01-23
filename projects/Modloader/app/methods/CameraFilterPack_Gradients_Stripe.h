@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Gradients_Stripe.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Gradients_Stripe {
     IL2CPP_REGISTER_METHOD(0x0247CFC0, app::Material*, get_material, (app::CameraFilterPack_Gradients_Stripe * this_ptr))

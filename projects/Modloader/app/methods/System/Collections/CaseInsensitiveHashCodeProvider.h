@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CaseInsensitiveHashCodeProvider.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::CaseInsensitiveHashCodeProvider {
     IL2CPP_REGISTER_METHOD(0x0201EF80, void, ctor_1, (app::CaseInsensitiveHashCodeProvider * this_ptr))

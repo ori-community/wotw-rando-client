@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MissingMemberException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::MissingMemberException {
     IL2CPP_REGISTER_METHOD(0x0226A340, void, ctor_1, (app::MissingMemberException * this_ptr))

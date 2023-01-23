@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ColorVariationManager_IColorVariationInfluencer_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ColorVariationManager_IColorVariationInfluencer_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ColorVariationManager_IColorVariationInfluencer_DEFINED)
+#define IL2CPP_STRUCT_ColorVariationManager_IColorVariationInfluencer_DEFINED
+struct ColorVariationManager_IColorVariationInfluencer__Class;
+struct ColorVariationManager_IColorVariationInfluencer {
+    struct ColorVariationManager_IColorVariationInfluencer__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ColorVariationManager_IColorVariationInfluencer_FWDDECL)
+#define IL2CPP_STRUCT_ColorVariationManager_IColorVariationInfluencer_FWDDECL
+#include <Modloader/app/structs/ColorVariationManager_IColorVariationInfluencer__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ColorVariationManager_IColorVariationInfluencer_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ColorVariationManager_IColorVariationInfluencer_DEFINED) && !defined(IL2CPP_STRUCT_ColorVariationManager_IColorVariationInfluencer_FWDDECL)
+#include <Modloader/app/structs/ColorVariationManager_IColorVariationInfluencer.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ColorVariationManager_IColorVariationInfluencer.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

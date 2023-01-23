@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/NightCrawlerFightController_FarRetreatState__Class.h>
+#include <Modloader/app/structs/NightCrawlerFightController_FarRetreatState.h>
 
 namespace app::classes::types {
     namespace NightCrawlerFightController_FarRetreatState {

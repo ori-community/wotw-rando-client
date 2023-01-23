@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ChameleonKey__Class.h>
+#include <Modloader/app/structs/ChameleonKey.h>
 
 namespace app::classes::types {
     namespace ChameleonKey {

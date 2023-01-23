@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RenderStateBlock__Boxed.h>
+#include <Modloader/app/structs/RenderStateMask__Enum.h>
+#include <Modloader/app/structs/BlendState.h>
+#include <Modloader/app/structs/RasterState.h>
+#include <Modloader/app/structs/DepthState.h>
+#include <Modloader/app/structs/StencilState.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::RenderStateBlock {
     IL2CPP_REGISTER_METHOD(0x001F0DB0, void, ctor, (app::RenderStateBlock__Boxed * this_ptr, app::RenderStateMask__Enum mask))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebResponse_1.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HttpStatusCode__Enum.h>
 
 namespace app::classes::Moon::Network::Web::WebResponse {
     IL2CPP_REGISTER_METHOD(0x02E99D90, void, ctor_1, (app::WebResponse_1 * this_ptr, app::Byte__Array* data, app::Exception* error))

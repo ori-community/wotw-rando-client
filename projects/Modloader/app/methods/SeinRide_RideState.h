@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinRide_RideState.h>
+#include <Modloader/app/structs/SeinRide.h>
+#include <Modloader/app/structs/IRideable.h>
 
 namespace app::classes::SeinRide_RideState {
     IL2CPP_REGISTER_METHOD(0x005D6970, void, Initialize, (app::SeinRide_RideState * this_ptr, app::SeinRide* sein_ride))

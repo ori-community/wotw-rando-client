@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_Moon_Rendering_MoonRenderPipelineView_FilterBounds___Boxed.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_FilterBounds.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_Moon_Rendering_MoonRenderPipelineView_FilterBounds_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_Moon_Rendering_MoonRenderPipelineView_FilterBounds_ {
     IL2CPP_REGISTER_METHOD(0x001F42C0, bool, get_HasValue, (app::Nullable_1_Moon_Rendering_MoonRenderPipelineView_FilterBounds___Boxed * this_ptr))

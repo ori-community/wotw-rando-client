@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AttachPrefabsToLiannaTongue_TonguePoints.h>
+#include <Modloader/app/structs/List_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+#include <Modloader/app/structs/IEnumerable_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+#include <Modloader/app/structs/IComparer_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+#include <Modloader/app/structs/AttachPrefabsToLiannaTongue_TonguePoints__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+#include <Modloader/app/structs/Action_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+#include <Modloader/app/structs/IEnumerator_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_AttachPrefabsToLiannaTongue_TonguePoints_ {
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::AttachPrefabsToLiannaTongue_TonguePoints, get_Item, (app::List_1_AttachPrefabsToLiannaTongue_TonguePoints_ * this_ptr, int32_t index))

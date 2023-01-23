@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Damage_.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::WaterPoison {
     IL2CPP_REGISTER_METHOD(0x008D8780, int32_t, GetWaterPoisonCount, ())

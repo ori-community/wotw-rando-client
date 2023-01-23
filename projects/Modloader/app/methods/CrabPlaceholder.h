@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/CrabPlaceholder.h>
 
 namespace app::classes::CrabPlaceholder {
     IL2CPP_REGISTER_METHOD(0x006253D0, app::GameObject*, get_Prefab, (app::CrabPlaceholder * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SampleOffsetCaptureAgent.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::SampleOffsetCaptureAgent {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsCaptureAgentValid, (app::SampleOffsetCaptureAgent * this_ptr))

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebClientImpl.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Method__Enum.h>
+#include <Modloader/app/structs/Action_1_Moon_Network_Web_WebResponse_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UploadProgressChangedEventArgs.h>
+#include <Modloader/app/structs/DownloadProgressChangedEventArgs.h>
+#include <Modloader/app/structs/UploadDataCompletedEventArgs.h>
+#include <Modloader/app/structs/DownloadDataCompletedEventArgs.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/X509Chain.h>
+#include <Modloader/app/structs/SslPolicyErrors__Enum.h>
 
 namespace app::classes::Moon::Network::Web::WebClientImpl {
     IL2CPP_REGISTER_METHOD(0x02E98710, void, ctor, (app::WebClientImpl * this_ptr))

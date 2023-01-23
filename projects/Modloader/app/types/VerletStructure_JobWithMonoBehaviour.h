@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/VerletStructure_JobWithMonoBehaviour__Class.h>
+#include <Modloader/app/structs/VerletStructure_JobWithMonoBehaviour.h>
+#include <Modloader/app/structs/VerletStructure_JobWithMonoBehaviour__Boxed.h>
 
 namespace app::classes::types {
     namespace VerletStructure_JobWithMonoBehaviour {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RejectHandler__Array.h>
+#include <Modloader/app/structs/IComparer_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
+#include <Modloader/app/structs/RejectHandler.h>
+#include <Modloader/app/structs/Comparison_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_ {
     IL2CPP_REGISTER_METHOD(0x02C90440, void, Sort_1, (app::RejectHandler__Array * keys, int32_t index, int32_t length, app::IComparer_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_* comparer))

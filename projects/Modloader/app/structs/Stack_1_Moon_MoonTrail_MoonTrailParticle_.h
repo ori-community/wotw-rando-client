@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Stack_1_Moon_MoonTrail_MoonTrailParticle__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Stack_1_Moon_MoonTrail_MoonTrailParticle__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Stack_1_Moon_MoonTrail_MoonTrailParticle__DEFINED)
+#include <Modloader/app/structs/Stack_1_Moon_MoonTrail_MoonTrailParticle___Fields.h>
+#if defined(IL2CPP_STRUCT_Stack_1_Moon_MoonTrail_MoonTrailParticle___Fields_DEFINED)
+#define IL2CPP_STRUCT_Stack_1_Moon_MoonTrail_MoonTrailParticle__DEFINED
+struct Stack_1_Moon_MoonTrail_MoonTrailParticle___Class;
+struct Stack_1_Moon_MoonTrail_MoonTrailParticle_ {
+    struct Stack_1_Moon_MoonTrail_MoonTrailParticle___Class* klass;
+    MonitorData* monitor;
+    struct Stack_1_Moon_MoonTrail_MoonTrailParticle___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Stack_1_Moon_MoonTrail_MoonTrailParticle__FWDDECL)
+#define IL2CPP_STRUCT_Stack_1_Moon_MoonTrail_MoonTrailParticle__FWDDECL
+#include <Modloader/app/structs/Stack_1_Moon_MoonTrail_MoonTrailParticle___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Stack_1_Moon_MoonTrail_MoonTrailParticle__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Stack_1_Moon_MoonTrail_MoonTrailParticle__DEFINED) && !defined(IL2CPP_STRUCT_Stack_1_Moon_MoonTrail_MoonTrailParticle__FWDDECL)
+#include <Modloader/app/structs/Stack_1_Moon_MoonTrail_MoonTrailParticle_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Stack_1_Moon_MoonTrail_MoonTrailParticle_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Pixel_Pixelisation.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Pixel_Pixelisation {
     IL2CPP_REGISTER_METHOD(0x02488710, app::Material*, get_material, (app::CameraFilterPack_Pixel_Pixelisation * this_ptr))

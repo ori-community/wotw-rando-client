@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleTask.h>
+#include <Modloader/app/structs/IOptimizationTask.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TaskState__Enum.h>
 
 namespace app::classes::Moon::ArtOptimization::SimpleTask {
     IL2CPP_REGISTER_METHOD(0x002FB940, void, SetNext, (app::SimpleTask * this_ptr, app::IOptimizationTask* next_task))

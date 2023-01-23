@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShardTraderPlaceholder_ConditionalStockList__Array.h>
+#include <Modloader/app/structs/IComparer_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/ShardTraderPlaceholder_ConditionalStockList.h>
+#include <Modloader/app/structs/Comparison_1_ShardTraderPlaceholder_ConditionalStockList_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_ShardTraderPlaceholder_ConditionalStockList_ {
     IL2CPP_REGISTER_METHOD(0x02FF08F0, void, Sort_1, (app::ShardTraderPlaceholder_ConditionalStockList__Array * keys, int32_t index, int32_t length, app::IComparer_1_ShardTraderPlaceholder_ConditionalStockList_* comparer))

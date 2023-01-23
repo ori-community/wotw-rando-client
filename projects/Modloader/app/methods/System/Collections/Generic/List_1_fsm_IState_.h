@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_fsm_IState_.h>
+#include <Modloader/app/structs/IEnumerable_1_fsm_IState_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_fsm_IState_.h>
+#include <Modloader/app/structs/IState_2.h>
+#include <Modloader/app/structs/Predicate_1_fsm_IState_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_fsm_IState_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_fsm_IState_ * this_ptr))

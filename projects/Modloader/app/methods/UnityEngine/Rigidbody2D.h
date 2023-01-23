@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rigidbody2D.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/PhysicsMaterial2D.h>
+#include <Modloader/app/structs/RigidbodyType2D__Enum.h>
+#include <Modloader/app/structs/RigidbodyConstraints2D__Enum.h>
+#include <Modloader/app/structs/RigidbodyInterpolation2D__Enum.h>
+#include <Modloader/app/structs/RigidbodySleepMode2D__Enum.h>
+#include <Modloader/app/structs/CollisionDetectionMode2D__Enum.h>
+#include <Modloader/app/structs/Collider2D.h>
+#include <Modloader/app/structs/ContactFilter2D.h>
+#include <Modloader/app/structs/ColliderDistance2D.h>
+#include <Modloader/app/structs/ForceMode2D__Enum.h>
+#include <Modloader/app/structs/Collider2D__Array.h>
+#include <Modloader/app/structs/ContactPoint2D__Array.h>
+#include <Modloader/app/structs/RaycastHit2D__Array.h>
 
 namespace app::classes::UnityEngine::Rigidbody2D {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Rigidbody2D * this_ptr))

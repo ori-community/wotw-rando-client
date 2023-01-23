@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/LookupFilter3D.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::Colorful::LookupFilter3D {
     IL2CPP_REGISTER_METHOD(0x03049F70, app::Shader*, get_Shader2DSafe, (app::LookupFilter3D * this_ptr))

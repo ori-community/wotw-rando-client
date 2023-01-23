@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem__Class.h>
+#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem.h>
+#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem__Boxed.h>
+#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem__Array.h>
 
 namespace app::classes::types {
     namespace DynamicDataResolver_SerializedDynamicDataLinkItem {

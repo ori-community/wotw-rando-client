@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SmoothLinesPlugin.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SmoothLinesPlugin {
     IL2CPP_REGISTER_METHOD(0x006D2B30, void, OnEnable, (app::SmoothLinesPlugin * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_WorldMapAreaState_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_Int32_WorldMapAreaState_.h>
+#include <Modloader/app/structs/WorldMapAreaState__Enum.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_WorldMapAreaState_ {
     IL2CPP_REGISTER_METHOD(0x0283B2A0, int32_t, get_Count, (app::Dictionary_2_System_Int32_WorldMapAreaState_ * this_ptr))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HornbugBossHitReactionsBehaviour.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::HornbugBossHitReactionsBehaviour {
     IL2CPP_REGISTER_METHOD(0x00B6F390, void, Awake, (app::HornbugBossHitReactionsBehaviour * this_ptr))

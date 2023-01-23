@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GuiBeginArea.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Gui::GuiBeginArea {
     IL2CPP_REGISTER_METHOD(0x019889A0, void, ctor_1, (app::GuiBeginArea * this_ptr, app::Rect area))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SharpnessVolumeSlider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SharpnessVolumeSlider {
     IL2CPP_REGISTER_METHOD(0x005B1A30, void, Awake, (app::SharpnessVolumeSlider * this_ptr))

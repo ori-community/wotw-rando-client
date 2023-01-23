@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TentacleEnemy_StunState.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BehaviourTreeStatus__Enum.h>
+#include <Modloader/app/structs/TickData.h>
 
 namespace app::classes::TentacleEnemy_StunState {
     IL2CPP_REGISTER_METHOD(0x00CFC770, bool, get_IsStun, (app::TentacleEnemy_StunState * this_ptr))

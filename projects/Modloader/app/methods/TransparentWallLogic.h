@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TransparentWallLogic.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::TransparentWallLogic {
     IL2CPP_REGISTER_METHOD(0x005D6880, bool, get_IsRevealed, (app::TransparentWallLogic * this_ptr))

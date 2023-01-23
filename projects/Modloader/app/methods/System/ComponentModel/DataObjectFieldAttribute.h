@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataObjectFieldAttribute.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::DataObjectFieldAttribute {
     IL2CPP_REGISTER_METHOD(0x01FDE6D0, void, ctor_1, (app::DataObjectFieldAttribute * this_ptr, bool primary_key))

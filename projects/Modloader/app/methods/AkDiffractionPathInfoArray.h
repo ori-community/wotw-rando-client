@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkDiffractionPathInfoArray.h>
+#include <Modloader/app/structs/AkDiffractionPathInfo.h>
 
 namespace app::classes::AkDiffractionPathInfoArray {
     IL2CPP_REGISTER_METHOD(0x026E0B10, void, ctor, (app::AkDiffractionPathInfoArray * this_ptr, int32_t count))

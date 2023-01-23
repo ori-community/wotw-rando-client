@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/EnvironmentLightTexture.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::EnvironmentLightTexture {
     IL2CPP_REGISTER_METHOD(0x00CA7DB0, app::Vector2, Rotate, (app::Vector2 v, float degrees))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XboxOneSave_c.h>
 
 namespace app::classes::XboxOneSave___c {
     IL2CPP_REGISTER_METHOD(0x01C5ABB0, void, cctor, ())

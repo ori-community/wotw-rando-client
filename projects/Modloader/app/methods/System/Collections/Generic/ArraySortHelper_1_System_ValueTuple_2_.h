@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Object___Array.h>
+#include <Modloader/app/structs/IComparer_1_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Object___Array.h>
+#include <Modloader/app/structs/IComparer_1_System_ValueTuple_2__1.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Single___Array.h>
+#include <Modloader/app/structs/IComparer_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Single_.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Object_Single_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_System_ValueTuple_2_ {
     IL2CPP_REGISTER_METHOD(0x02F820C0, void, Sort_1, (app::ValueTuple_2_Int32_Object___Array * keys, int32_t index, int32_t length, app::IComparer_1_System_ValueTuple_2_* comparer))

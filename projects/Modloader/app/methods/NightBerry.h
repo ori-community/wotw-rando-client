@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NightBerry.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::NightBerry {
     IL2CPP_REGISTER_METHOD(0x005FF4C0, float, get_SafeFromDamageRadius, (app::NightBerry * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ToggleGroup.h>
+#include <Modloader/app/structs/Toggle.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_UI_Toggle_.h>
 
 namespace app::classes::UnityEngine::UI::ToggleGroup {
     IL2CPP_REGISTER_METHOD(0x0267C900, void, ctor, (app::ToggleGroup * this_ptr))

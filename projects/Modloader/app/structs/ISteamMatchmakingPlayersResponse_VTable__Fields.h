@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_VTable__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_VTable__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_VTable__Fields_DEFINED)
+#define IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_VTable__Fields_DEFINED
+struct ISteamMatchmakingPlayersResponse_InternalAddPlayerToList;
+struct ISteamMatchmakingPlayersResponse_InternalPlayersFailedToRespond;
+struct ISteamMatchmakingPlayersResponse_InternalPlayersRefreshComplete;
+struct __declspec(align(8)) ISteamMatchmakingPlayersResponse_VTable__Fields {
+    struct ISteamMatchmakingPlayersResponse_InternalAddPlayerToList* m_VTAddPlayerToList;
+    struct ISteamMatchmakingPlayersResponse_InternalPlayersFailedToRespond* m_VTPlayersFailedToRespond;
+    struct ISteamMatchmakingPlayersResponse_InternalPlayersRefreshComplete* m_VTPlayersRefreshComplete;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_VTable__Fields_FWDDECL)
+#define IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_VTable__Fields_FWDDECL
+#include <Modloader/app/structs/ISteamMatchmakingPlayersResponse_InternalAddPlayerToList.h>
+#include <Modloader/app/structs/ISteamMatchmakingPlayersResponse_InternalPlayersFailedToRespond.h>
+#include <Modloader/app/structs/ISteamMatchmakingPlayersResponse_InternalPlayersRefreshComplete.h>
+#endif
+#undef IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_VTable__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_VTable__Fields_DEFINED) && !defined(IL2CPP_STRUCT_ISteamMatchmakingPlayersResponse_VTable__Fields_FWDDECL)
+#include <Modloader/app/structs/ISteamMatchmakingPlayersResponse_VTable__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ISteamMatchmakingPlayersResponse_VTable__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

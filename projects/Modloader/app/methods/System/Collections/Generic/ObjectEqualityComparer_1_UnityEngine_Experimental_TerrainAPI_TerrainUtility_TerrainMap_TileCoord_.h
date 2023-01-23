@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_TileCoord_.h>
+#include <Modloader/app/structs/TerrainUtility_TerrainMap_TileCoord.h>
+#include <Modloader/app/structs/TerrainUtility_TerrainMap_TileCoord__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_TileCoord_ {
     IL2CPP_REGISTER_METHOD(0x01CD1020, bool, Equals_1, (app::ObjectEqualityComparer_1_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_TileCoord_ * this_ptr, app::TerrainUtility_TerrainMap_TileCoord x, app::TerrainUtility_TerrainMap_TileCoord y))

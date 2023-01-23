@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Point.h>
+#include <Modloader/app/structs/Rectangle.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::TriangleNet::Tools::IntersectionHelper {
     IL2CPP_REGISTER_METHOD(0x02A96E40, void, IntersectSegments, (app::Point * p0, app::Point* p1, app::Point* q0, app::Point* q1, app::Point** c0))

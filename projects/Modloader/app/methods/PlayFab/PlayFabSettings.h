@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabSharedSettings.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PlayFabLogLevel__Enum.h>
+#include <Modloader/app/structs/WebRequestType__Enum.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/PlayFabApiSettings.h>
 
 namespace app::classes::PlayFab::PlayFabSettings {
     IL2CPP_REGISTER_METHOD(0x01A455C0, void, cctor, ())

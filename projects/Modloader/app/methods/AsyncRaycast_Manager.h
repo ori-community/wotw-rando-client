@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncRaycast_Manager.h>
+#include <Modloader/app/structs/AsyncRaycast.h>
 
 namespace app::classes::AsyncRaycast_Manager {
     IL2CPP_REGISTER_METHOD(0x00842CF0, app::AsyncRaycast_Manager*, get_Instance, ())

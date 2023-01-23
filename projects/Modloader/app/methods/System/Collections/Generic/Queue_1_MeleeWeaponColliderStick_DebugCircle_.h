@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_MeleeWeaponColliderStick_DebugCircle_.h>
+#include <Modloader/app/structs/MeleeWeaponColliderStick_DebugCircle.h>
+#include <Modloader/app/structs/Queue_1_T_Enumerator_MeleeWeaponColliderStick_DebugCircle_.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_MeleeWeaponColliderStick_DebugCircle_ {
     IL2CPP_REGISTER_METHOD(0x002FD1D0, int32_t, get_Count, (app::Queue_1_MeleeWeaponColliderStick_DebugCircle_ * this_ptr))

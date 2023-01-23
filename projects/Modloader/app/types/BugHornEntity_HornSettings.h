@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BugHornEntity_HornSettings__Class.h>
+#include <Modloader/app/structs/BugHornEntity_HornSettings.h>
+#include <Modloader/app/structs/BugHornEntity_HornSettings__Boxed.h>
 
 namespace app::classes::types {
     namespace BugHornEntity_HornSettings {

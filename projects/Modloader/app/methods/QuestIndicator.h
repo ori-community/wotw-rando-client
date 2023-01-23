@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QuestIndicator.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::QuestIndicator {
     IL2CPP_REGISTER_METHOD(0x00E8A800, bool, get_HasActiveQuest, (app::QuestIndicator * this_ptr))

@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DateTime__Boxed.h>
+#include <Modloader/app/structs/DateTimeKind__Enum.h>
+#include <Modloader/app/structs/Calendar.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DayOfWeek__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/DateTimeStyles__Enum.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::DateTime {
     IL2CPP_REGISTER_METHOD(0x00213D60, void, ctor_1, (app::DateTime__Boxed * this_ptr, int64_t ticks))

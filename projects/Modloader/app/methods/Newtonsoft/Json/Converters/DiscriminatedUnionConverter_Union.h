@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FSharpFunction.h>
+#include <Modloader/app/structs/DiscriminatedUnionConverter_Union.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::DiscriminatedUnionConverter_Union {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::FSharpFunction*, get_TagReader, (app::DiscriminatedUnionConverter_Union * this_ptr))

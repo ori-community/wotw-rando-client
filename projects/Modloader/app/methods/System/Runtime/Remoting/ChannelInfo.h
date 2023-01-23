@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChannelInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Runtime::Remoting::ChannelInfo {
     IL2CPP_REGISTER_METHOD(0x01A9AAA0, void, ctor_1, (app::ChannelInfo * this_ptr))

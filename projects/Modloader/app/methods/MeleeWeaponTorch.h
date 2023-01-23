@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FireStick.h>
+#include <Modloader/app/structs/MeleeWeaponTorch.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/ComboInput.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::MeleeWeaponTorch {
     IL2CPP_REGISTER_METHOD(0x009D4720, app::FireStick*, get_Torch, (app::MeleeWeaponTorch * this_ptr))

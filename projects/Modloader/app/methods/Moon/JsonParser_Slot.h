@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonParser_Slot__Boxed.h>
+#include <Modloader/app/structs/JsonParser.h>
+#include <Modloader/app/structs/JsonToken__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Nullable_1_Double_.h>
+#include <Modloader/app/structs/Nullable_1_Boolean_.h>
+#include <Modloader/app/structs/Nullable_1_Moon_JsonParser_Object_.h>
+#include <Modloader/app/structs/JsonParser_Object.h>
+#include <Modloader/app/structs/Nullable_1_Moon_JsonParser_Array_.h>
+#include <Modloader/app/structs/JsonParser_Array.h>
 
 namespace app::classes::Moon::JsonParser_Slot {
     IL2CPP_REGISTER_METHOD(0x002459D0, void, ctor, (app::JsonParser_Slot__Boxed * this_ptr, app::JsonParser* parser))

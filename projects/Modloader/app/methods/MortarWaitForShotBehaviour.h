@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MortarWaitForShotBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::MortarWaitForShotBehaviour {
     IL2CPP_REGISTER_METHOD(0x0147F7E0, void, OnEntityInitialized, (app::MortarWaitForShotBehaviour * this_ptr))

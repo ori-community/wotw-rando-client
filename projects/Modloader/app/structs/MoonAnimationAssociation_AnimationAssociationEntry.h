@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MoonAnimationAssociation_AnimationAssociationEntry_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MoonAnimationAssociation_AnimationAssociationEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonAnimationAssociation_AnimationAssociationEntry_DEFINED)
+#include <Modloader/app/structs/MoonAnimationAssociation_AnimationAssociationEntry__Fields.h>
+#if defined(IL2CPP_STRUCT_MoonAnimationAssociation_AnimationAssociationEntry__Fields_DEFINED)
+#define IL2CPP_STRUCT_MoonAnimationAssociation_AnimationAssociationEntry_DEFINED
+struct MoonAnimationAssociation_AnimationAssociationEntry__Class;
+struct MoonAnimationAssociation_AnimationAssociationEntry {
+    struct MoonAnimationAssociation_AnimationAssociationEntry__Class* klass;
+    MonitorData* monitor;
+    struct MoonAnimationAssociation_AnimationAssociationEntry__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MoonAnimationAssociation_AnimationAssociationEntry_FWDDECL)
+#define IL2CPP_STRUCT_MoonAnimationAssociation_AnimationAssociationEntry_FWDDECL
+#include <Modloader/app/structs/MoonAnimationAssociation_AnimationAssociationEntry__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MoonAnimationAssociation_AnimationAssociationEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonAnimationAssociation_AnimationAssociationEntry_DEFINED) && !defined(IL2CPP_STRUCT_MoonAnimationAssociation_AnimationAssociationEntry_FWDDECL)
+#include <Modloader/app/structs/MoonAnimationAssociation_AnimationAssociationEntry.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MoonAnimationAssociation_AnimationAssociationEntry.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

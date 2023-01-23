@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/EarlyUpdate_UnityWebRequestUpdate__Class.h>
+#include <Modloader/app/structs/EarlyUpdate_UnityWebRequestUpdate.h>
+#include <Modloader/app/structs/EarlyUpdate_UnityWebRequestUpdate__Boxed.h>
 
 namespace app::classes::types {
     namespace EarlyUpdate_UnityWebRequestUpdate {

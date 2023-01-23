@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MoonTelemetrySceneEvent_SceneData__Class.h>
+#include <Modloader/app/structs/MoonTelemetrySceneEvent_SceneData.h>
+#include <Modloader/app/structs/MoonTelemetrySceneEvent_SceneData__Boxed.h>
 
 namespace app::classes::types {
     namespace MoonTelemetrySceneEvent_SceneData {

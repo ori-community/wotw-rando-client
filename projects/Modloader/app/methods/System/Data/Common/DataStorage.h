@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataStorage.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StorageType__Enum.h>
+#include <Modloader/app/structs/DataSetDateTime__Enum.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/AggregateType__Enum.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlRootAttribute.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/Tuple_4_Boolean_Boolean_Boolean_Boolean_.h>
+#include <Modloader/app/structs/BitArray.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Data::Common::DataStorage {
     IL2CPP_REGISTER_METHOD(0x02159C70, void, ctor_1, (app::DataStorage * this_ptr, app::DataColumn* column, app::Type* type, app::Object* default_value, app::StorageType__Enum storage_type))

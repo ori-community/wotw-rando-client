@@ -1,5 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/fsBaseConverter.h>
+#include <Modloader/app/structs/fsData.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/fsResult.h>
+#include <Modloader/app/structs/fsDataType__Enum__Array.h>
+#include <Modloader/app/structs/fsDataType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_FullSerializer_fsData_.h>
+#include <Modloader/app/structs/Keyframe__Array.h>
+#include <Modloader/app/structs/WrapMode__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/GUIStyleState.h>
+#include <Modloader/app/structs/TextAnchor__Enum.h>
+#include <Modloader/app/structs/RectOffset.h>
+#include <Modloader/app/structs/TextClipping__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Font.h>
+#include <Modloader/app/structs/FontStyle__Enum.h>
+#include <Modloader/app/structs/ImagePosition__Enum.h>
+#include <Modloader/app/structs/GradientAlphaKey__Array.h>
+#include <Modloader/app/structs/GradientColorKey__Array.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::FullSerializer::fsBaseConverter {
     IL2CPP_REGISTER_METHOD(0x01507EA0, app::Object*, CreateInstance, (app::fsBaseConverter * this_ptr, app::fsData* data, app::Type* storage_type))

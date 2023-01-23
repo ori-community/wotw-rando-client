@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CleverValueSliderHideMenu.h>
 
 namespace app::classes::CleverValueSliderHideMenu {
     IL2CPP_REGISTER_METHOD(0x012C4840, float, get_Value, (app::CleverValueSliderHideMenu * this_ptr))

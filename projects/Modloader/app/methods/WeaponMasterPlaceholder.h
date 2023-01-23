@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ICondition.h>
+#include <Modloader/app/structs/WeaponMasterPlaceholder.h>
 
 namespace app::classes::WeaponMasterPlaceholder {
     IL2CPP_REGISTER_METHOD(0x0056FAD0, app::ICondition*, get_ResolvedCondition, (app::WeaponMasterPlaceholder * this_ptr))

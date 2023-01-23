@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UriParser.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/UriFormatException.h>
+#include <Modloader/app/structs/UriComponents__Enum.h>
+#include <Modloader/app/structs/UriFormat__Enum.h>
+#include <Modloader/app/structs/UriSyntaxFlags__Enum.h>
 
 namespace app::classes::System::UriParser {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::String*, get_SchemeName, (app::UriParser * this_ptr))

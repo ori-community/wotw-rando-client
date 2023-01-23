@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Shelf.h>
+#include <Modloader/app/structs/CreateObjectsOnGridTool.h>
 
 namespace app::classes::CreateObjectsOnGridTool {
     IL2CPP_REGISTER_METHOD(0x00DB7310, app::Shelf*, get_CurrentShelf, (app::CreateObjectsOnGridTool * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_JsonWriter_State_.h>
+#include <Modloader/app/structs/JsonWriter_State__Enum__Array.h>
+#include <Modloader/app/structs/JsonWriter_State__Enum__Array__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Newtonsoft_Json_JsonWriter_State___ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_Newtonsoft_Json_JsonWriter_State_ * this_ptr))

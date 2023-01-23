@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TitleScreenManager_WaitToShowFirstTimeQualitySettings_d_48.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::TitleScreenManager__WaitToShowFirstTimeQualitySettings_d__48 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::TitleScreenManager_WaitToShowFirstTimeQualitySettings_d_48 * this_ptr, int32_t __1__state))

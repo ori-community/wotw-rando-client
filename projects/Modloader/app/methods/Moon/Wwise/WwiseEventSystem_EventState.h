@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WwiseEventSystem_EventState.h>
+#include <Modloader/app/structs/WwiseEventSystem_EventStatus__Enum.h>
 
 namespace app::classes::Moon::Wwise::WwiseEventSystem_EventState {
     IL2CPP_REGISTER_METHOD(0x01B67070, bool, get_IsDispatched, (app::WwiseEventSystem_EventState * this_ptr))

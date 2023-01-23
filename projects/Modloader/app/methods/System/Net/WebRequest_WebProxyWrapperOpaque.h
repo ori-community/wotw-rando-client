@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebRequest_WebProxyWrapperOpaque.h>
+#include <Modloader/app/structs/WebProxy.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/ICredentials.h>
+#include <Modloader/app/structs/ProxyChain.h>
 
 namespace app::classes::System::Net::WebRequest_WebProxyWrapperOpaque {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::WebRequest_WebProxyWrapperOpaque * this_ptr, app::WebProxy* web_proxy))

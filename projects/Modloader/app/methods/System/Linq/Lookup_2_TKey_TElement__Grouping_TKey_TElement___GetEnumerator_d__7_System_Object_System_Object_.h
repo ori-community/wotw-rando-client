@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Lookup_2_TKey_TElement_Grouping_TKey_TElement_GetEnumerator_d_7_System_Object_System_Object_.h>
 
 namespace app::classes::System::Linq::Lookup_2_TKey_TElement__Grouping_TKey_TElement___GetEnumerator_d__7_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, System_Collections_Generic_IEnumerator_TElement__get_Current, (app::Lookup_2_TKey_TElement_Grouping_TKey_TElement_GetEnumerator_d_7_System_Object_System_Object_ * this_ptr))

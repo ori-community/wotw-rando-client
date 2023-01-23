@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HServerListRequest.h>
+#include <Modloader/app/structs/AppId_t.h>
+#include <Modloader/app/structs/MatchMakingKeyValuePair_t__Array.h>
+#include <Modloader/app/structs/ISteamMatchmakingServerListResponse.h>
+#include <Modloader/app/structs/gameserveritem_t.h>
+#include <Modloader/app/structs/HServerQuery.h>
+#include <Modloader/app/structs/ISteamMatchmakingPingResponse.h>
+#include <Modloader/app/structs/ISteamMatchmakingPlayersResponse.h>
+#include <Modloader/app/structs/ISteamMatchmakingRulesResponse.h>
 
 namespace app::classes::Steamworks::SteamMatchmakingServers {
     IL2CPP_REGISTER_METHOD(0x0278A110, app::HServerListRequest, RequestInternetServerList, (app::AppId_t i_app, app::MatchMakingKeyValuePair_t__Array* ppch_filters, uint32_t n_filters, app::ISteamMatchmakingServerListResponse* p_request_servers_response))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChangeLeverDirectionAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ChangeLeverDirectionAction {
     IL2CPP_REGISTER_METHOD(0x004994E0, float, get_Duration, (app::ChangeLeverDirectionAction * this_ptr))

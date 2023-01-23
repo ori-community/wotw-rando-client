@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeMethodHandle__Boxed.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RuntimeMethodInfo.h>
+#include <Modloader/app/structs/TypeNameFormatFlags__Enum.h>
 
 namespace app::classes::System::RuntimeMethodHandle {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor_1, (app::RuntimeMethodHandle__Boxed * this_ptr, void* v))

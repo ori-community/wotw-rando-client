@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsKeyValuePairConverter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/fsResult.h>
+#include <Modloader/app/structs/fsData.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::FullSerializer::Internal::fsKeyValuePairConverter {
     IL2CPP_REGISTER_METHOD(0x01657F40, bool, CanProcess, (app::fsKeyValuePairConverter * this_ptr, app::Type* type))

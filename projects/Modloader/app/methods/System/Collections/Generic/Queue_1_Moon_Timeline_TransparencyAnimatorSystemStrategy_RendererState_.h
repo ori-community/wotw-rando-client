@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_RendererState_.h>
+#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_RendererState.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_RendererState_ {
     IL2CPP_REGISTER_METHOD(0x02CA7610, void, Enqueue, (app::Queue_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_RendererState_ * this_ptr, app::TransparencyAnimatorSystemStrategy_RendererState* item))

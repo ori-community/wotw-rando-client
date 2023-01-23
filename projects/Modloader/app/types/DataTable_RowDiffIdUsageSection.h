@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DataTable_RowDiffIdUsageSection__Class.h>
+#include <Modloader/app/structs/DataTable_RowDiffIdUsageSection.h>
+#include <Modloader/app/structs/DataTable_RowDiffIdUsageSection__Boxed.h>
 
 namespace app::classes::types {
     namespace DataTable_RowDiffIdUsageSection {

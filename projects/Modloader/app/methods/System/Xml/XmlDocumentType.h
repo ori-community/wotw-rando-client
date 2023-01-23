@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlDocumentType.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlNamedNodeMap.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/SchemaInfo.h>
 
 namespace app::classes::System::Xml::XmlDocumentType {
     IL2CPP_REGISTER_METHOD(0x01DAB6F0, void, ctor, (app::XmlDocumentType * this_ptr, app::String* name, app::String* public_id, app::String* system_id, app::String* internal_subset, app::XmlDocument* doc))

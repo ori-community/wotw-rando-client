@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XDocument.h>
+#include <Modloader/app/structs/XDeclaration.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XElement.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XAttribute.h>
+#include <Modloader/app/structs/XNode.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::Linq::XDocument {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::XDocument * this_ptr))

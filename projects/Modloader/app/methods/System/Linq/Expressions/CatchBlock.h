@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CatchBlock.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Expressions::CatchBlock {
     IL2CPP_REGISTER_METHOD(0x01FA0FE0, void, ctor, (app::CatchBlock * this_ptr, app::Type* test, app::ParameterExpression* variable, app::Expression* body, app::Expression* filter))

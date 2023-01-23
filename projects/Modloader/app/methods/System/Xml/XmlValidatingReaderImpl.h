@@ -1,5 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
+#include <Modloader/app/structs/ReadState__Enum_1.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
+#include <Modloader/app/structs/ValidationType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaCollection.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/BaseValidator.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/IDtdInfo.h>
+#include <Modloader/app/structs/IDtdDefaultAttributeInfo.h>
+#include <Modloader/app/structs/XmlTextReaderImpl.h>
 
 namespace app::classes::System::Xml::XmlValidatingReaderImpl {
     IL2CPP_REGISTER_METHOD(0x01FC9360, void, ctor, (app::XmlValidatingReaderImpl * this_ptr, app::XmlReader* reader, app::ValidationEventHandler* settings_event_handler, bool process_identity_constraints))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ParticleSystem_VelocityOverLifetimeModule__Class.h>
+#include <Modloader/app/structs/ParticleSystem_VelocityOverLifetimeModule.h>
+#include <Modloader/app/structs/ParticleSystem_VelocityOverLifetimeModule__Boxed.h>
 
 namespace app::classes::types {
     namespace ParticleSystem_VelocityOverLifetimeModule {

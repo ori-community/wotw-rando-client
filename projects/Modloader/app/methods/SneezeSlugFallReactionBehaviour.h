@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SneezeSlugFallReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SneezeSlugFallReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00EDCE30, void, OnEnterLand, (app::SneezeSlugFallReactionBehaviour * this_ptr))

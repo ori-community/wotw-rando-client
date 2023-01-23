@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DropSlugAlertBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::DropSlugAlertBehaviour {
     IL2CPP_REGISTER_METHOD(0x00BE0A40, void, OnEnter, (app::DropSlugAlertBehaviour * this_ptr, app::IContext* context))

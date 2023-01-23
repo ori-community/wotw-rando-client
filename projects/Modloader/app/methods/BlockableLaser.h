@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/BlockableLaser.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/SpherecastCommand.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::BlockableLaser {
     IL2CPP_REGISTER_METHOD(0x00D2CC30, app::Vector3, get_TransformedLaserDirection, (app::BlockableLaser * this_ptr))

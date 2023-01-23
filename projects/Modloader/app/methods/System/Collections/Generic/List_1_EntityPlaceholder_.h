@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityPlaceholder.h>
+#include <Modloader/app/structs/List_1_EntityPlaceholder_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_EntityPlaceholder_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_EntityPlaceholder_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::EntityPlaceholder*, get_Item, (app::List_1_EntityPlaceholder_ * this_ptr, int32_t index))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/KuMeditateSpell.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/KuMeditateSpell_State__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GlowChargeEffect.h>
 
 namespace app::classes::KuMeditateSpell {
     IL2CPP_REGISTER_METHOD(0x01241A30, app::SeinCharacter*, get_Sein, (app::KuMeditateSpell * this_ptr))

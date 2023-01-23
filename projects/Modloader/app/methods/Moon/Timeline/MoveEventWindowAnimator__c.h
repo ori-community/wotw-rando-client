@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoveEventWindowAnimator_c.h>
+#include <Modloader/app/structs/MoveEventType__Enum.h>
 
 namespace app::classes::Moon::Timeline::MoveEventWindowAnimator___c {
     IL2CPP_REGISTER_METHOD(0x00777730, void, cctor, ())

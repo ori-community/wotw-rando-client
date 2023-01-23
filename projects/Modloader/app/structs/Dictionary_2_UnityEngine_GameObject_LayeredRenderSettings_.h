@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings__DEFINED)
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings___Fields.h>
+#if defined(IL2CPP_STRUCT_Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings___Fields_DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings__DEFINED
+struct Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings___Class;
+struct Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings_ {
+    struct Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings___Class* klass;
+    MonitorData* monitor;
+    struct Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings__FWDDECL
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_GameObject_LayeredRenderSettings_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

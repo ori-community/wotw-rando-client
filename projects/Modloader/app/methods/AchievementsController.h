@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Achievement_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Challenge_.h>
+#include <Modloader/app/structs/AchievementsController.h>
+#include <Modloader/app/structs/AchievementAsset.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture.h>
 
 namespace app::classes::AchievementsController {
     IL2CPP_REGISTER_METHOD(0x004B4190, app::ReadOnlyCollection_1_Achievement_*, get_UnlockedAchievements, ())

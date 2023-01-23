@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OriAnimationParametersHandler.h>
+#include <Modloader/app/structs/FloatAnimationParameter.h>
 
 namespace app::classes::OriAnimationParametersHandler {
     IL2CPP_REGISTER_METHOD(0x00620A60, void, Start, (app::OriAnimationParametersHandler * this_ptr))

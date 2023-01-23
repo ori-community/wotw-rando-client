@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_SorterGenericArray__Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IComparer.h>
 
 namespace app::classes::System::Array_SorterGenericArray {
     IL2CPP_REGISTER_METHOD(0x001E1420, void, ctor, (app::Array_SorterGenericArray__Boxed * this_ptr, app::Array* keys, app::Array* items, app::IComparer* comparer))

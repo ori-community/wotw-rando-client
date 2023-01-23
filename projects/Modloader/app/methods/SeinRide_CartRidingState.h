@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinRide_CartRidingState.h>
+#include <Modloader/app/structs/IRideable.h>
 
 namespace app::classes::SeinRide_CartRidingState {
     IL2CPP_REGISTER_METHOD(0x005D3AC0, void, OnBegin, (app::SeinRide_CartRidingState * this_ptr, app::IRideable* rideable, bool skip_mount_animation))

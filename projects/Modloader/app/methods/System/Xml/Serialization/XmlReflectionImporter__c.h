@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlReflectionImporter_c.h>
+#include <Modloader/app/structs/XmlReflectionMember.h>
 
 namespace app::classes::System::Xml::Serialization::XmlReflectionImporter___c {
     IL2CPP_REGISTER_METHOD(0x025AB550, void, cctor, ())

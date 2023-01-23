@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractionObject_AnimatorEvent.h>
+#include <Modloader/app/structs/Animator.h>
+#include <Modloader/app/structs/Animation.h>
 
 namespace app::classes::RootMotion::FinalIK::InteractionObject_AnimatorEvent {
     IL2CPP_REGISTER_METHOD(0x02A0D6B0, void, Activate_1, (app::InteractionObject_AnimatorEvent * this_ptr, bool pick_up))

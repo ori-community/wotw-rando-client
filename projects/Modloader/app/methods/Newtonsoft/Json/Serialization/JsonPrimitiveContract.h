@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PrimitiveTypeCode__Enum.h>
+#include <Modloader/app/structs/JsonPrimitiveContract.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonPrimitiveContract {
     IL2CPP_REGISTER_METHOD(0x003FC380, app::PrimitiveTypeCode__Enum, get_TypeCode, (app::JsonPrimitiveContract * this_ptr))

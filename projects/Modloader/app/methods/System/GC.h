@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Ephemeron__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/GCCollectionMode__Enum.h>
 
 namespace app::classes::System::GC {
     IL2CPP_REGISTER_METHOD(0x01A1CB50, int32_t, GetCollectionCount, (int32_t generation))

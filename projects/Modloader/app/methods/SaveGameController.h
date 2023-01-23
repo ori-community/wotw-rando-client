@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SaveGameController.h>
+#include <Modloader/app/structs/UberStateValueStore.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/SaveFileInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberStateSaveFileHandler_LoadStatus__Enum.h>
+#include <Modloader/app/structs/BinaryReader.h>
 
 namespace app::classes::SaveGameController {
     IL2CPP_REGISTER_METHOD(0x00C2B3D0, int32_t, get_CurrentSlotIndex, (app::SaveGameController * this_ptr))

@@ -1,5 +1,40 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HeaderInfo_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HttpHeaderKind__Enum.h>
+#include <Modloader/app/structs/Func_2_Object_String_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_System_Object_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_System_Object_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_MediaTypeWithQualityHeaderValue_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_StringWithQualityHeaderValue_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_System_String_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_System_TimeSpan_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_AuthenticationHeaderValue_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_CacheControlHeaderValue_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_ContentDispositionHeaderValue_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_System_Int64_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_System_Uri_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_System_Byte_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_ContentRangeHeaderValue_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_MediaTypeHeaderValue_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_System_DateTimeOffset_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_EntityTagHeaderValue_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_NameValueWithParametersHeaderValue_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_System_String_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_EntityTagHeaderValue_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_RangeConditionHeaderValue_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_System_Int32_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_NameValueHeaderValue_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_AuthenticationHeaderValue_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_RangeHeaderValue_.h>
+#include <Modloader/app/structs/TryParseDelegate_1_RetryConditionHeaderValue_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_ProductInfoHeaderValue_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_TransferCodingWithQualityHeaderValue_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_TransferCodingHeaderValue_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_ProductHeaderValue_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_ViaHeaderValue_.h>
+#include <Modloader/app/structs/TryParseListDelegate_1_WarningHeaderValue_.h>
 
 namespace app::classes::System::Net::Http::Headers::HeaderInfo {
     IL2CPP_REGISTER_METHOD(0x02D082C0, void, ctor, (app::HeaderInfo_1 * this_ptr, app::String* name, app::HttpHeaderKind__Enum header_kind))

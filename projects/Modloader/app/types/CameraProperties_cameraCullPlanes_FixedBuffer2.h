@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CameraProperties_cameraCullPlanes_FixedBuffer2__Class.h>
+#include <Modloader/app/structs/CameraProperties_cameraCullPlanes_FixedBuffer2.h>
+#include <Modloader/app/structs/CameraProperties_cameraCullPlanes_FixedBuffer2__Boxed.h>
 
 namespace app::classes::types {
     namespace CameraProperties_cameraCullPlanes_FixedBuffer2 {

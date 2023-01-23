@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CodeAccessPermission.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IPermission.h>
+#include <Modloader/app/structs/SecurityElement.h>
+#include <Modloader/app/structs/PermissionState__Enum.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Security::CodeAccessPermission {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::CodeAccessPermission * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
+#include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_DynamicInstantiationDescriptor_ReflectionInfo_ {
     IL2CPP_REGISTER_METHOD(0x02C2A440, int32_t, Compare, (app::ObjectComparer_1_DynamicInstantiationDescriptor_ReflectionInfo_ * this_ptr, app::DynamicInstantiationDescriptor_ReflectionInfo x, app::DynamicInstantiationDescriptor_ReflectionInfo y))

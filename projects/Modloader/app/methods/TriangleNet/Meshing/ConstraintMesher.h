@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConstraintMesher.h>
+#include <Modloader/app/structs/Mesh_1.h>
+#include <Modloader/app/structs/Configuration_1.h>
+#include <Modloader/app/structs/IPolygon.h>
+#include <Modloader/app/structs/ConstraintOptions.h>
+#include <Modloader/app/structs/FindDirectionResult__Enum.h>
+#include <Modloader/app/structs/Otri.h>
+#include <Modloader/app/structs/Vertex.h>
+#include <Modloader/app/structs/Osub.h>
 
 namespace app::classes::TriangleNet::Meshing::ConstraintMesher {
     IL2CPP_REGISTER_METHOD(0x02639E10, void, ctor, (app::ConstraintMesher * this_ptr, app::Mesh_1* mesh, app::Configuration_1* config))

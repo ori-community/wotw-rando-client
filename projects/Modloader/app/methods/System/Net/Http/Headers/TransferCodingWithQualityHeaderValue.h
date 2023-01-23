@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TransferCodingWithQualityHeaderValue.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_System_Net_Http_Headers_TransferCodingWithQualityHeaderValue_.h>
+#include <Modloader/app/structs/Lexer.h>
+#include <Modloader/app/structs/Token.h>
 
 namespace app::classes::System::Net::Http::Headers::TransferCodingWithQualityHeaderValue {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::TransferCodingWithQualityHeaderValue * this_ptr))

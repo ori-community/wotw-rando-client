@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SoundAnimatorEntity.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SoundDescriptor.h>
 
 namespace app::classes::Moon::Timeline::SoundAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x00D05230, app::GameObject*, get_ExternalTarget, (app::SoundAnimatorEntity * this_ptr))

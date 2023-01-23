@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPoolPerfTest_c.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_String_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_String_.h>
 
 namespace app::classes::UberPoolPerfTest___c {
     IL2CPP_REGISTER_METHOD(0x00FE5290, void, cctor, ())

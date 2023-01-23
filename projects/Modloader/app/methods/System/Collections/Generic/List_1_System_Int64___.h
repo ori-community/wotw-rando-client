@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Int64__Array.h>
+#include <Modloader/app/structs/List_1_System_Int64_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Int64___ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::Int64__Array*, get_Item, (app::List_1_System_Int64_ * this_ptr, int32_t index))

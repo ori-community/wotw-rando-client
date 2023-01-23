@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AttackTokens_Request__Class.h>
+#include <Modloader/app/structs/AttackTokens_Request.h>
+#include <Modloader/app/structs/AttackTokens_Request__Boxed.h>
+#include <Modloader/app/structs/AttackTokens_Request__Array.h>
 
 namespace app::classes::types {
     namespace AttackTokens_Request {

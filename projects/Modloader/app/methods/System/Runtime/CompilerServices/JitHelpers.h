@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ByteEnum__Enum.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/Int64Enum__Enum.h>
 
 namespace app::classes::System::Runtime::CompilerServices::JitHelpers {
     IL2CPP_REGISTER_METHOD(0x0153B7A0, app::Object*, UnsafeCast, (app::Object * o))

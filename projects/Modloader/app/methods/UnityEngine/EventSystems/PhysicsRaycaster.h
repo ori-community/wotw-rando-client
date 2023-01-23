@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicsRaycaster.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/List_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/RaycastHit.h>
 
 namespace app::classes::UnityEngine::EventSystems::PhysicsRaycaster {
     IL2CPP_REGISTER_METHOD(0x01F215C0, void, ctor, (app::PhysicsRaycaster * this_ptr))

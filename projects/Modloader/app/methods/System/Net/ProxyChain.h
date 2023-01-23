@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProxyChain.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Uri_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/HttpWebRequest.h>
+#include <Modloader/app/structs/WebException.h>
+#include <Modloader/app/structs/HttpAbortDelegate.h>
 
 namespace app::classes::System::Net::ProxyChain {
     IL2CPP_REGISTER_METHOD(0x01BCD890, void, ctor, (app::ProxyChain * this_ptr, app::Uri* destination))

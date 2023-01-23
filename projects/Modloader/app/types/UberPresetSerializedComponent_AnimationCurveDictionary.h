@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberPresetSerializedComponent_AnimationCurveDictionary__Class.h>
+#include <Modloader/app/structs/UberPresetSerializedComponent_AnimationCurveDictionary.h>
 
 namespace app::classes::types {
     namespace UberPresetSerializedComponent_AnimationCurveDictionary {

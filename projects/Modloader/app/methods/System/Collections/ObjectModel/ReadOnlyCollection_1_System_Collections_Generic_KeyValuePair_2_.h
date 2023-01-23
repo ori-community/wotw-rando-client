@@ -1,5 +1,48 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Collections_Generic_KeyValuePair_2_.h>
+#include <Modloader/app/structs/IList_1_KeyValuePair_2_System_DateTime_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_DateTime_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_DateTime_System_Object___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_DateTime_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Collections_Generic_KeyValuePair_2__1.h>
+#include <Modloader/app/structs/IList_1_KeyValuePair_2_System_Int32_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_System_Object___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Int32_System_Object_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Collections_Generic_KeyValuePair_2__2.h>
+#include <Modloader/app/structs/IList_1_KeyValuePair_2_System_Object_System_Boolean_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Boolean_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Boolean___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Boolean_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Collections_Generic_KeyValuePair_2__3.h>
+#include <Modloader/app/structs/IList_1_KeyValuePair_2_System_Object_System_Byte_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Byte_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Byte___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Byte_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Collections_Generic_KeyValuePair_2__4.h>
+#include <Modloader/app/structs/IList_1_KeyValuePair_2_System_Object_System_Int32_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Int32_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Int32___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Int32_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Collections_Generic_KeyValuePair_2__5.h>
+#include <Modloader/app/structs/IList_1_KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Collections_Generic_KeyValuePair_2__6.h>
+#include <Modloader/app/structs/IList_1_KeyValuePair_2_System_Object_System_Single_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Single_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Single___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Single_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Collections_Generic_KeyValuePair_2__7.h>
+#include <Modloader/app/structs/IList_1_KeyValuePair_2_System_Object_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_ValueTuple_2___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_ValueTuple_2_.h>
 
 namespace app::classes::System::Collections::ObjectModel::ReadOnlyCollection_1_System_Collections_Generic_KeyValuePair_2_ {
     IL2CPP_REGISTER_METHOD(0x02B7DCF0, void, ctor_1, (app::ReadOnlyCollection_1_System_Collections_Generic_KeyValuePair_2_ * this_ptr, app::IList_1_KeyValuePair_2_System_DateTime_System_Object_* list))

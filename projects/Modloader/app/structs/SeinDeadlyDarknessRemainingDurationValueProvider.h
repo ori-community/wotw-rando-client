@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SeinDeadlyDarknessRemainingDurationValueProvider_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SeinDeadlyDarknessRemainingDurationValueProvider_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SeinDeadlyDarknessRemainingDurationValueProvider_DEFINED)
+#include <Modloader/app/structs/SeinDeadlyDarknessRemainingDurationValueProvider__Fields.h>
+#if defined(IL2CPP_STRUCT_SeinDeadlyDarknessRemainingDurationValueProvider__Fields_DEFINED)
+#define IL2CPP_STRUCT_SeinDeadlyDarknessRemainingDurationValueProvider_DEFINED
+struct SeinDeadlyDarknessRemainingDurationValueProvider__Class;
+struct SeinDeadlyDarknessRemainingDurationValueProvider {
+    struct SeinDeadlyDarknessRemainingDurationValueProvider__Class* klass;
+    MonitorData* monitor;
+    struct SeinDeadlyDarknessRemainingDurationValueProvider__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SeinDeadlyDarknessRemainingDurationValueProvider_FWDDECL)
+#define IL2CPP_STRUCT_SeinDeadlyDarknessRemainingDurationValueProvider_FWDDECL
+#include <Modloader/app/structs/SeinDeadlyDarknessRemainingDurationValueProvider__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SeinDeadlyDarknessRemainingDurationValueProvider_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SeinDeadlyDarknessRemainingDurationValueProvider_DEFINED) && !defined(IL2CPP_STRUCT_SeinDeadlyDarknessRemainingDurationValueProvider_FWDDECL)
+#include <Modloader/app/structs/SeinDeadlyDarknessRemainingDurationValueProvider.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SeinDeadlyDarknessRemainingDurationValueProvider.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

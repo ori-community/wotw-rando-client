@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MD5CryptoServiceProvider.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::MD5CryptoServiceProvider {
     IL2CPP_REGISTER_METHOD(0x020DD610, void, ctor, (app::MD5CryptoServiceProvider * this_ptr))

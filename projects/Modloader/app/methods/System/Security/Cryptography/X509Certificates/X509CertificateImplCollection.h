@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509CertificateImplCollection.h>
+#include <Modloader/app/structs/X509CertificateImpl.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::X509CertificateImplCollection {
     IL2CPP_REGISTER_METHOD(0x021CBED0, void, ctor_1, (app::X509CertificateImplCollection * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterStatePuppet_c.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
 
 namespace app::classes::CharacterStatePuppet___c {
     IL2CPP_REGISTER_METHOD(0x013161D0, void, cctor, ())

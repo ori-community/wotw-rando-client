@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_TriangleNet_Topology_Otri_.h>
+#include <Modloader/app/structs/Otri.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Stack_1_T_Enumerator_TriangleNet_Topology_Otri_.h>
+#include <Modloader/app/structs/IEnumerator_1_TriangleNet_Topology_Otri_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Otri__Array.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_TriangleNet_Topology_Otri_ {
     IL2CPP_REGISTER_METHOD(0x0243CB70, void, ctor_1, (app::Stack_1_TriangleNet_Topology_Otri_ * this_ptr))

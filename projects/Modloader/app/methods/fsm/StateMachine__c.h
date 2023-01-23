@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateMachine_c_1.h>
+#include <Modloader/app/structs/StateMachine_2.h>
 
 namespace app::classes::fsm::StateMachine___c {
     IL2CPP_REGISTER_METHOD(0x00F70970, void, cctor, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChallengesUI.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::ChallengesUI {
     IL2CPP_REGISTER_METHOD(0x010453E0, app::ChallengesUI*, get_Instance, ())

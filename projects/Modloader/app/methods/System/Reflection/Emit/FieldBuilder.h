@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FieldAttributes__Enum.h>
+#include <Modloader/app/structs/FieldBuilder.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RuntimeFieldHandle.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/Binder.h>
+#include <Modloader/app/structs/CultureInfo.h>
 
 namespace app::classes::System::Reflection::Emit::FieldBuilder {
     IL2CPP_REGISTER_METHOD(0x02680210, app::FieldAttributes__Enum, get_Attributes, (app::FieldBuilder * this_ptr))

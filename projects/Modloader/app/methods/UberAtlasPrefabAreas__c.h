@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberAtlasPrefabAreas_c.h>
 
 namespace app::classes::UberAtlasPrefabAreas___c {
     IL2CPP_REGISTER_METHOD(0x013DF5A0, void, cctor, ())

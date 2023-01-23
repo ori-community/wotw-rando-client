@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IkChainSolver_RotationLimitData__Class.h>
+#include <Modloader/app/structs/IkChainSolver_RotationLimitData.h>
+#include <Modloader/app/structs/IkChainSolver_RotationLimitData__Boxed.h>
 
 namespace app::classes::types {
     namespace IkChainSolver_RotationLimitData {

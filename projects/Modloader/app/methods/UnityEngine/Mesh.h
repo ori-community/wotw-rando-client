@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/MeshTopology__Enum.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/VertexAttribute__Enum.h>
+#include <Modloader/app/structs/Mesh_InternalVertexChannelType__Enum.h>
+#include <Modloader/app/structs/BoneWeight__Array.h>
+#include <Modloader/app/structs/Matrix4x4__Array.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/Vector4__Array.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/Color__Array.h>
+#include <Modloader/app/structs/Color32__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/List_1_System_Int32_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
 
 namespace app::classes::UnityEngine::Mesh {
     IL2CPP_REGISTER_METHOD(0x02539620, void, ctor, (app::Mesh * this_ptr))

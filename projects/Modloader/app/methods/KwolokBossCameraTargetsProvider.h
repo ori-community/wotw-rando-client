@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossCameraTargetsProvider.h>
+#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::KwolokBossCameraTargetsProvider {
     IL2CPP_REGISTER_METHOD(0x0124AA20, float, get_KwolokCutOffDistance, (app::KwolokBossCameraTargetsProvider * this_ptr))

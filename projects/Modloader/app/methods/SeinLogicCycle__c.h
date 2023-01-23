@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinLogicCycle_c.h>
 
 namespace app::classes::SeinLogicCycle___c {
     IL2CPP_REGISTER_METHOD(0x008A17B0, void, cctor, ())

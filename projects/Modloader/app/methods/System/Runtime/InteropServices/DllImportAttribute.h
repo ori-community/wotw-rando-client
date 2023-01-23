@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Attribute.h>
+#include <Modloader/app/structs/RuntimeMethodInfo.h>
+#include <Modloader/app/structs/DllImportAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CharSet__Enum.h>
+#include <Modloader/app/structs/CallingConvention__Enum.h>
 
 namespace app::classes::System::Runtime::InteropServices::DllImportAttribute {
     IL2CPP_REGISTER_METHOD(0x01A93F90, app::Attribute*, GetCustomAttribute, (app::RuntimeMethodInfo * method_1))

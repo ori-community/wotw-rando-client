@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SrpSampler_Scope__Enum__Class.h>
+#include <Modloader/app/structs/SrpSampler_Scope__Enum.h>
 
 namespace app::classes::types {
     namespace SrpSampler_Scope__Enum {

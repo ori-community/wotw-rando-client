@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharMetaData_1__Boxed.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/AppliedTextStyle_1.h>
+#include <Modloader/app/structs/BitmapFontChar_1.h>
 
 namespace app::classes::Moon::UI::CharMetaData {
     IL2CPP_REGISTER_METHOD(0x0011E1B0, void, EraseIfVisible, (app::CharMetaData_1__Boxed * this_ptr))

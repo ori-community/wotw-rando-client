@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JumpShootSharkAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::JumpShootSharkAction {
     IL2CPP_REGISTER_METHOD(0x00E4F2A0, void, Perform, (app::JumpShootSharkAction * this_ptr, app::IContext* context))

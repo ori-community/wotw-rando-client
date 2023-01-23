@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ServerObjectComponent__Class.h>
+#include <Modloader/app/structs/ServerObjectComponent.h>
+#include <Modloader/app/structs/ServerObjectComponent__Array.h>
 
 namespace app::classes::types {
     namespace ServerObjectComponent {

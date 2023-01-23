@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseValidator.h>
+#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
+#include <Modloader/app/structs/XmlSchemaCollection.h>
+#include <Modloader/app/structs/IValidationEventHandling.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/SchemaNames.h>
+#include <Modloader/app/structs/PositionInfo.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/SchemaInfo.h>
+#include <Modloader/app/structs/IDtdInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/XmlSchemaException.h>
+#include <Modloader/app/structs/XmlSeverityType__Enum.h>
+#include <Modloader/app/structs/ValidationType__Enum.h>
 
 namespace app::classes::System::Xml::Schema::BaseValidator {
     IL2CPP_REGISTER_METHOD(0x019A5BB0, void, ctor_1, (app::BaseValidator * this_ptr, app::BaseValidator* other))

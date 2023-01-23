@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParticleSystem_ShapeModule__Boxed.h>
+#include <Modloader/app/structs/ParticleSystem.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::ParticleSystem_ShapeModule {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::ParticleSystem_ShapeModule__Boxed * this_ptr, app::ParticleSystem* particle_system))

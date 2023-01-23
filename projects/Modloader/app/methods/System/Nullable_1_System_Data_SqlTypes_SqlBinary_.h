@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_System_Data_SqlTypes_SqlBinary___Boxed.h>
+#include <Modloader/app/structs/SqlBinary.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_System_Data_SqlTypes_SqlBinary_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_System_Data_SqlTypes_SqlBinary_ {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::Nullable_1_System_Data_SqlTypes_SqlBinary___Boxed * this_ptr, app::SqlBinary value))

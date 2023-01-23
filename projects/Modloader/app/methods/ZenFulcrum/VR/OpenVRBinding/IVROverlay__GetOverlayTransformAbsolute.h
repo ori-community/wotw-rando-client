@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IVROverlay_GetOverlayTransformAbsolute.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EVROverlayError__Enum.h>
+#include <Modloader/app/structs/ETrackingUniverseOrigin__Enum.h>
+#include <Modloader/app/structs/HmdMatrix34_t.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVROverlay__GetOverlayTransformAbsolute {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVROverlay_GetOverlayTransformAbsolute * this_ptr, app::Object* object, void* method_1))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GroundSegment_c.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::GroundSegment___c {
     IL2CPP_REGISTER_METHOD(0x01099060, void, cctor, ())

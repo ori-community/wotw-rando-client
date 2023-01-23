@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ForceLightTorchStopChasingZone.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ForceLightTorchStopChasingZone {
     IL2CPP_REGISTER_METHOD(0x01281250, void, Awake, (app::ForceLightTorchStopChasingZone * this_ptr))

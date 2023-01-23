@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringReference__Boxed.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::StringReference {
     IL2CPP_REGISTER_METHOD(0x00240CB0, uint16_t, get_Item, (app::StringReference__Boxed * this_ptr, int32_t i))

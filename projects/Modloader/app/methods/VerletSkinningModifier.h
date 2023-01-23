@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VerletSkinningModifier.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::VerletSkinningModifier {
     IL2CPP_REGISTER_METHOD(0x013C8070, void, Awake, (app::VerletSkinningModifier * this_ptr))

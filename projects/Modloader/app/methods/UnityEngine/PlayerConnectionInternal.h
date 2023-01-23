@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerConnectionInternal.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::PlayerConnectionInternal {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::PlayerConnectionInternal * this_ptr))

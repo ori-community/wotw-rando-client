@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CC_Led.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CC_Led {
     IL2CPP_REGISTER_METHOD(0x03193F40, void, OnRenderImage, (app::CC_Led * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

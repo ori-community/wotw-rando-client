@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::ObjectConstructor_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::ObjectConstructor_1_System_Object_ * this_ptr, app::Object* object, void* method_1))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseState_2_PetrifiedOwlBossFight1DiveLaserBehaviour_PetrifiedOwlBossFight1DiveLaserBehaviour_DiveLaserStates_.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseState_2_PetrifiedOwlBossFight1DiveLaserBehaviour_PetrifiedOwlBossFight1DiveLaserBehaviour_DiveLaserStates_ {
     IL2CPP_REGISTER_METHOD(0x01D14C90, void, ctor, (app::PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseState_2_PetrifiedOwlBossFight1DiveLaserBehaviour_PetrifiedOwlBossFight1DiveLaserBehaviour_DiveLaserStates_ * this_ptr, app::PetrifiedOwlBossBaseBehaviour* behaviour))

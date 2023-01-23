@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EntityPlaceholderScalingData_EntityScalingValues_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EntityPlaceholderScalingData_EntityScalingValues_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EntityPlaceholderScalingData_EntityScalingValues_DEFINED)
+#include <Modloader/app/structs/EntityPlaceholderScalingData_EntityScalingValues__Fields.h>
+#if defined(IL2CPP_STRUCT_EntityPlaceholderScalingData_EntityScalingValues__Fields_DEFINED)
+#define IL2CPP_STRUCT_EntityPlaceholderScalingData_EntityScalingValues_DEFINED
+struct EntityPlaceholderScalingData_EntityScalingValues__Class;
+struct EntityPlaceholderScalingData_EntityScalingValues {
+    struct EntityPlaceholderScalingData_EntityScalingValues__Class* klass;
+    MonitorData* monitor;
+    struct EntityPlaceholderScalingData_EntityScalingValues__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_EntityPlaceholderScalingData_EntityScalingValues_FWDDECL)
+#define IL2CPP_STRUCT_EntityPlaceholderScalingData_EntityScalingValues_FWDDECL
+#include <Modloader/app/structs/EntityPlaceholderScalingData_EntityScalingValues__Class.h>
+#endif
+#undef IL2CPP_STRUCT_EntityPlaceholderScalingData_EntityScalingValues_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EntityPlaceholderScalingData_EntityScalingValues_DEFINED) && !defined(IL2CPP_STRUCT_EntityPlaceholderScalingData_EntityScalingValues_FWDDECL)
+#include <Modloader/app/structs/EntityPlaceholderScalingData_EntityScalingValues.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EntityPlaceholderScalingData_EntityScalingValues.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

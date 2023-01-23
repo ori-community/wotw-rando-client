@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_GenericMappingEntry_.h>
+#include <Modloader/app/structs/IntStateMap.h>
 
 namespace app::classes::IntStateMap {
     IL2CPP_REGISTER_METHOD(0x01B5E220, app::List_1_GenericMappingEntry_*, GetGenericMapping, (app::IntStateMap * this_ptr))

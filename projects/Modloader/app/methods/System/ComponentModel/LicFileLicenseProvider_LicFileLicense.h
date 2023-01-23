@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LicFileLicenseProvider_LicFileLicense.h>
+#include <Modloader/app/structs/LicFileLicenseProvider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ComponentModel::LicFileLicenseProvider_LicFileLicense {
     IL2CPP_REGISTER_METHOD(0x01FF07E0, void, ctor, (app::LicFileLicenseProvider_LicFileLicense * this_ptr, app::LicFileLicenseProvider* owner, app::String* key))

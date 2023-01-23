@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MortarCreep.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::MortarCreep {
     IL2CPP_REGISTER_METHOD(0x01475290, void, OnEnable, (app::MortarCreep * this_ptr))

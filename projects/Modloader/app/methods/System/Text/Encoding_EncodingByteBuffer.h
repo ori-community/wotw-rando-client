@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Encoding_EncodingByteBuffer.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/EncoderNLS.h>
 
 namespace app::classes::System::Text::Encoding_EncodingByteBuffer {
     IL2CPP_REGISTER_METHOD(0x02454840, void, ctor, (app::Encoding_EncodingByteBuffer * this_ptr, app::Encoding* in_encoding, app::EncoderNLS* in_encoder, uint8_t* in_byte_start, int32_t in_byte_count, uint16_t* in_char_start, int32_t in_char_count))

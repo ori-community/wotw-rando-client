@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Attribute.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Reflection_ConstructorInfo_.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Reflection_PropertyInfo_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Reflection_FieldInfo_.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/ReflectionUtils_ConstructorDelegate.h>
+#include <Modloader/app/structs/ReflectionUtils_GetDelegate.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/ReflectionUtils_SetDelegate.h>
+#include <Modloader/app/structs/ReflectionUtils_1.h>
 
 namespace app::classes::PlayFab::Json::ReflectionUtils {
     IL2CPP_REGISTER_METHOD(0x004C50A0, app::Type*, GetTypeInfo, (app::Type * type))

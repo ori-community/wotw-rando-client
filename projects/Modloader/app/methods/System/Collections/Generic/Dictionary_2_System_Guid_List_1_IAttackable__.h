@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Guid_List_1_IAttackable_.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/List_1_IAttackable_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Guid_List_1_IAttackable__ {
     IL2CPP_REGISTER_METHOD(0x0283B9A0, bool, ContainsKey, (app::Dictionary_2_System_Guid_List_1_IAttackable_ * this_ptr, app::Guid key))

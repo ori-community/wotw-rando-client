@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinSoulFlame.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SeinSoulFlame_SoulFlamePlacementSafety__Enum.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SeinSoulFlame {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinSoulFlame * this_ptr))

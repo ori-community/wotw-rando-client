@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/KeystoneDoorSlot.h>
 
 namespace app::classes::KeystoneDoorSlot {
     IL2CPP_REGISTER_METHOD(0x00E70200, app::Color, get_ColorValue, (app::KeystoneDoorSlot * this_ptr))

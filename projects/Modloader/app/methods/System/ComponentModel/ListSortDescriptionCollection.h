@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListSortDescriptionCollection.h>
+#include <Modloader/app/structs/ListSortDescription__Array.h>
+#include <Modloader/app/structs/ListSortDescription.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::ComponentModel::ListSortDescriptionCollection {
     IL2CPP_REGISTER_METHOD(0x01FF4BC0, void, ctor_1, (app::ListSortDescriptionCollection * this_ptr))

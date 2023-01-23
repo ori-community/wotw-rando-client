@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AspectRatioManager.h>
 
 namespace app::classes::AspectRatioManager {
     IL2CPP_REGISTER_METHOD(0x008415E0, float, get_AspectRatio, ())

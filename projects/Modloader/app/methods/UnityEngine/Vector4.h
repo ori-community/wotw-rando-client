@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector4__Boxed.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Vector4 {
     IL2CPP_REGISTER_METHOD(0x00121740, void, ctor_1, (app::Vector4__Boxed * this_ptr, float x, float y, float z, float w))

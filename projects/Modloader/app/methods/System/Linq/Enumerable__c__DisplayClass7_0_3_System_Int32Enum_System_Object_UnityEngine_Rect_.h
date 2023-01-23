@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enumerable_c_DisplayClass7_0_3_System_Int32Enum_System_Object_UnityEngine_Rect_.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::System::Linq::Enumerable___c__DisplayClass7_0_3_System_Int32Enum_System_Object_UnityEngine_Rect_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::Enumerable_c_DisplayClass7_0_3_System_Int32Enum_System_Object_UnityEngine_Rect_ * this_ptr))

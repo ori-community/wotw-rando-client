@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicVitalsHealthProvider.h>
 
 namespace app::classes::DynamicVitalsHealthProvider {
     IL2CPP_REGISTER_METHOD(0x00BED0D0, float, GetFloatValue, (app::DynamicVitalsHealthProvider * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CipherSuiteCode__Enum.h>
+#include <Modloader/app/structs/MonoTlsConnectionInfo.h>
+#include <Modloader/app/structs/TlsProtocols__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Security::Interface::MonoTlsConnectionInfo {
     IL2CPP_REGISTER_METHOD(0x01B67060, app::CipherSuiteCode__Enum, get_CipherSuiteCode, (app::MonoTlsConnectionInfo * this_ptr))

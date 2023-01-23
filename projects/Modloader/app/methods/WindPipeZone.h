@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WindPipeZone.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::WindPipeZone {
     IL2CPP_REGISTER_METHOD(0x00577F30, void, OnTriggerStay, (app::WindPipeZone * this_ptr, app::Collider* col))

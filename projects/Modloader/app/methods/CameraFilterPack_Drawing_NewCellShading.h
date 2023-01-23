@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Drawing_NewCellShading.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Drawing_NewCellShading {
     IL2CPP_REGISTER_METHOD(0x024F8220, app::Material*, get_material, (app::CameraFilterPack_Drawing_NewCellShading * this_ptr))

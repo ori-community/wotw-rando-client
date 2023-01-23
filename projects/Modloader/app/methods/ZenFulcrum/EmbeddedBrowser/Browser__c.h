@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Browser_c.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/JSONNode.h>
+#include <Modloader/app/structs/Browser.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Browser___c {
     IL2CPP_REGISTER_METHOD(0x01C6FC80, void, cctor, ())

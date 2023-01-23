@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/DebugInfoExpression.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/SymbolDocumentInfo.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/ExpressionVisitor.h>
 
 namespace app::classes::System::Linq::Expressions::DebugInfoExpression {
     IL2CPP_REGISTER_METHOD(0x01FA3900, app::Type*, get_Type, (app::DebugInfoExpression * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuDash_c.h>
 
 namespace app::classes::KuDash___c {
     IL2CPP_REGISTER_METHOD(0x012343A0, void, cctor, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SteeringForces.h>
+#include <Modloader/app/structs/SteeringForces_SteeringForcesBuilder.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_Collider_.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::SteeringForces {
     IL2CPP_REGISTER_METHOD(0x0064E550, void, Init, (app::SteeringForces * this_ptr))

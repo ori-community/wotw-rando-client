@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_Moon_Timeline_EntityId_.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/IEqualityComparer_1_Moon_Timeline_EntityId_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_EntityId_.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/EntityId__Array.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_Moon_Timeline_EntityId_.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_EntityId_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Moon_Timeline_EntityId_.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_Moon_Timeline_EntityId_ {
     IL2CPP_REGISTER_METHOD(0x02AB4AF0, bool, Contains, (app::HashSet_1_Moon_Timeline_EntityId_ * this_ptr, app::EntityId item))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_LaserShooterHommingMissleAttackBehaviour_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_LaserShooterHommingMissleAttackBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LaserShooterHommingMissleAttackBehaviour_DEFINED)
+#include <Modloader/app/structs/LaserShooterHommingMissleAttackBehaviour__Fields.h>
+#if defined(IL2CPP_STRUCT_LaserShooterHommingMissleAttackBehaviour__Fields_DEFINED)
+#define IL2CPP_STRUCT_LaserShooterHommingMissleAttackBehaviour_DEFINED
+struct LaserShooterHommingMissleAttackBehaviour__Class;
+struct LaserShooterHommingMissleAttackBehaviour {
+    struct LaserShooterHommingMissleAttackBehaviour__Class* klass;
+    MonitorData* monitor;
+    struct LaserShooterHommingMissleAttackBehaviour__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_LaserShooterHommingMissleAttackBehaviour_FWDDECL)
+#define IL2CPP_STRUCT_LaserShooterHommingMissleAttackBehaviour_FWDDECL
+#include <Modloader/app/structs/LaserShooterHommingMissleAttackBehaviour__Class.h>
+#endif
+#undef IL2CPP_STRUCT_LaserShooterHommingMissleAttackBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LaserShooterHommingMissleAttackBehaviour_DEFINED) && !defined(IL2CPP_STRUCT_LaserShooterHommingMissleAttackBehaviour_FWDDECL)
+#include <Modloader/app/structs/LaserShooterHommingMissleAttackBehaviour.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/LaserShooterHommingMissleAttackBehaviour.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

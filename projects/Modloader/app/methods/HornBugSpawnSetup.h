@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HornBugSpawnSetup.h>
 
 namespace app::classes::HornBugSpawnSetup {
     IL2CPP_REGISTER_METHOD(0x00B6D770, void, TriggerWallBurstTimeline, (app::HornBugSpawnSetup * this_ptr))

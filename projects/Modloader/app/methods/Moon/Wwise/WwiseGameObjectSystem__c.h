@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WwiseGameObjectSystem_c.h>
+#include <Modloader/app/structs/ArtificialSoundHost.h>
 
 namespace app::classes::Moon::Wwise::WwiseGameObjectSystem___c {
     IL2CPP_REGISTER_METHOD(0x02715FB0, void, cctor, ())

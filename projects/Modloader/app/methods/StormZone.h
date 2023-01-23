@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StormZone.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::StormZone {
     IL2CPP_REGISTER_METHOD(0x0065CEC0, void, OnTriggerEnter, (app::StormZone * this_ptr, app::Collider* collider))

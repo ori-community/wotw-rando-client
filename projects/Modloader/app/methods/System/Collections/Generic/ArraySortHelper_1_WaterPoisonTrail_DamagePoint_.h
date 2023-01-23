@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint__Array.h>
+#include <Modloader/app/structs/IComparer_1_WaterPoisonTrail_DamagePoint_.h>
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint.h>
+#include <Modloader/app/structs/Comparison_1_WaterPoisonTrail_DamagePoint_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_WaterPoisonTrail_DamagePoint_ {
     IL2CPP_REGISTER_METHOD(0x02C8CDF0, void, Sort_1, (app::WaterPoisonTrail_DamagePoint__Array * keys, int32_t index, int32_t length, app::IComparer_1_WaterPoisonTrail_DamagePoint_* comparer))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ICollection_1_System_Object_.h>
+#include <Modloader/app/structs/BidirectionalDictionary_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_BidirectionalValuePair_2_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/BidirectionalValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/BidirectionalValuePair_2_System_Object_System_Object___Array.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::Moon::BidirectionalDictionary_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x0243AC00, app::ICollection_1_System_Object_*, get_FirstValues, (app::BidirectionalDictionary_2_System_Object_System_Object_ * this_ptr))

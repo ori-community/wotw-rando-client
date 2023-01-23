@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/LizardLocomotionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 
 namespace app::classes::LizardLocomotionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00FB0BA0, app::Transform*, get_VFXHolder, (app::LizardLocomotionBehaviour * this_ptr))

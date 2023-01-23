@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EndState.h>
+#include <Modloader/app/structs/IState.h>
 
 namespace app::classes::EndState {
     IL2CPP_REGISTER_METHOD(0x00BFDB90, void, OnEnterState, (app::EndState * this_ptr))

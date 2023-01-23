@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AcidSlugEnemy.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::AcidSlugEnemy {
     IL2CPP_REGISTER_METHOD(0x004C2860, void, FixedUpdate, (app::AcidSlugEnemy * this_ptr))

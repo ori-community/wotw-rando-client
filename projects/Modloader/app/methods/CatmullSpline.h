@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/CatmullSpline.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CatmullSpline {
     IL2CPP_REGISTER_METHOD(0x02551F70, app::List_1_UnityEngine_Vector3_*, GetCatmullRomSplinePoints_1, (app::CatmullSpline * this_ptr, app::Vector3 p0, app::Vector3 p1, app::Vector3 p2, app::Vector3 p3))

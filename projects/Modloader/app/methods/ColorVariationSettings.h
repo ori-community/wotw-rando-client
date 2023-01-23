@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ColorVariationSettings.h>
 
 namespace app::classes::ColorVariationSettings {
     IL2CPP_REGISTER_METHOD(0x011DA260, void, Copy, (app::ColorVariationSettings * this_ptr, app::ColorVariationSettings* source))

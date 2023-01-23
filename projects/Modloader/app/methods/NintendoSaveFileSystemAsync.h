@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/NSAsyncQueueInfo.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/NintendoSaveFileSystemAsync.h>
 
 namespace app::classes::NintendoSaveFileSystemAsync {
     IL2CPP_REGISTER_METHOD(0x031120B0, void, SubmitWriteRequestAsync, (app::String * path, app::Byte__Array* data, int32_t file_size_in_bytes, bool overwrite, bool is_from_copy_request))

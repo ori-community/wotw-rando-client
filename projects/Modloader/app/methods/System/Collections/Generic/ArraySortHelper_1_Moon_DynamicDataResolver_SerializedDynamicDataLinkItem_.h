@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem__Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
+#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem.h>
+#include <Modloader/app/structs/Comparison_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_ {
     IL2CPP_REGISTER_METHOD(0x02F35140, void, Sort_1, (app::DynamicDataResolver_SerializedDynamicDataLinkItem__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_* comparer))

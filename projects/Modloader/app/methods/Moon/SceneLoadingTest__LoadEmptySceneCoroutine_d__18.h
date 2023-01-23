@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneLoadingTest_LoadEmptySceneCoroutine_d_18.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::SceneLoadingTest__LoadEmptySceneCoroutine_d__18 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::SceneLoadingTest_LoadEmptySceneCoroutine_d_18 * this_ptr, int32_t __1__state))

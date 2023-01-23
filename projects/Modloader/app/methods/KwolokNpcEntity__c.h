@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokNpcEntity_c.h>
 
 namespace app::classes::KwolokNpcEntity___c {
     IL2CPP_REGISTER_METHOD(0x012FCC50, void, cctor, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo__Array.h>
+#include <Modloader/app/structs/IComparer_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
+#include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo.h>
+#include <Modloader/app/structs/Comparison_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_DynamicInstantiationDescriptor_ReflectionInfo_ {
     IL2CPP_REGISTER_METHOD(0x02F30AB0, void, Sort_1, (app::DynamicInstantiationDescriptor_ReflectionInfo__Array * keys, int32_t index, int32_t length, app::IComparer_1_DynamicInstantiationDescriptor_ReflectionInfo_* comparer))

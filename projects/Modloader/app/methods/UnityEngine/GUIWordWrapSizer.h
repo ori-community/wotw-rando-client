@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GUIWordWrapSizer.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/GUIContent.h>
+#include <Modloader/app/structs/GUILayoutOption__Array.h>
 
 namespace app::classes::UnityEngine::GUIWordWrapSizer {
     IL2CPP_REGISTER_METHOD(0x029F9700, void, ctor, (app::GUIWordWrapSizer * this_ptr, app::GUIStyle* style, app::GUIContent* content, app::GUILayoutOption__Array* options))

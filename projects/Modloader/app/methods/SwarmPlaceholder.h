@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwarmEntity.h>
+#include <Modloader/app/structs/SwarmPlaceholder.h>
 
 namespace app::classes::SwarmPlaceholder {
     IL2CPP_REGISTER_METHOD(0x010D6940, app::SwarmEntity*, get_SwarmEntity, (app::SwarmPlaceholder * this_ptr))

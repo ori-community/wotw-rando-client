@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XboxControllerManager.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Core::Devices::XboxControllerManager {
     IL2CPP_REGISTER_METHOD(0x011F8410, app::XboxControllerManager*, get_CurrentController, ())

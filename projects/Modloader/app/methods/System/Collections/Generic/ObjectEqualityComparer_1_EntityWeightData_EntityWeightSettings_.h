@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_EntityWeightData_EntityWeightSettings_.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeightSettings.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeightSettings__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_EntityWeightData_EntityWeightSettings_ {
     IL2CPP_REGISTER_METHOD(0x01CD27F0, bool, Equals_1, (app::ObjectEqualityComparer_1_EntityWeightData_EntityWeightSettings_ * this_ptr, app::EntityWeightData_EntityWeightSettings x, app::EntityWeightData_EntityWeightSettings y))

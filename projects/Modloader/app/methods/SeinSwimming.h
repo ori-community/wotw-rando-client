@@ -1,5 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinSwimming.h>
+#include <Modloader/app/structs/SeinSwimmingPuppet.h>
+#include <Modloader/app/structs/WaterZone.h>
+#include <Modloader/app/structs/SeinDigging.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/CharacterGravity.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/SeinDamageReceiverPuppet.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/SeinSwimming_State__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/DigZone.h>
+#include <Modloader/app/structs/EffectSpawn.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::SeinSwimming {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinSwimming * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/ReadOnlyCollectionBase.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Collections::ReadOnlyCollectionBase {
     IL2CPP_REGISTER_METHOD(0x0202C980, app::ArrayList*, get_InnerList, (app::ReadOnlyCollectionBase * this_ptr))

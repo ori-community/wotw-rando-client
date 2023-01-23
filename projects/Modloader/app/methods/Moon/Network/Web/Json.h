@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Network::Web::Json {
     IL2CPP_REGISTER_METHOD(0x02E92E60, app::Object*, Deserialize, (app::String * json))

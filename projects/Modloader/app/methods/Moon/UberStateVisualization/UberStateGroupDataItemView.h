@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/UberStateGroupDataItemView.h>
+#include <Modloader/app/structs/UberStateGroupData.h>
+#include <Modloader/app/structs/ListView.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::Moon::UberStateVisualization::UberStateGroupDataItemView {
     IL2CPP_REGISTER_METHOD(0x030C41D0, app::Texture2D*, get_Circle, ())

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossEntity.h>
+#include <Modloader/app/structs/KwolokBossDeathReactionBehaviour.h>
+#include <Modloader/app/structs/KwolokBossLocomotion.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/KwolokBossDeathReactionBehaviour_State__Enum.h>
+#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
 
 namespace app::classes::KwolokBossDeathReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x01252360, app::KwolokBossEntity*, get_Kwolok, (app::KwolokBossDeathReactionBehaviour * this_ptr))

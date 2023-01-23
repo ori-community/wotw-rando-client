@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ClassPropertyWriter_2_System_Int16_System_Int64__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ClassPropertyWriter_2_System_Int16_System_Int64__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ClassPropertyWriter_2_System_Int16_System_Int64__DEFINED)
+#include <Modloader/app/structs/ClassPropertyWriter_2_System_Int16_System_Int64___Fields.h>
+#if defined(IL2CPP_STRUCT_ClassPropertyWriter_2_System_Int16_System_Int64___Fields_DEFINED)
+#define IL2CPP_STRUCT_ClassPropertyWriter_2_System_Int16_System_Int64__DEFINED
+struct ClassPropertyWriter_2_System_Int16_System_Int64___Class;
+struct ClassPropertyWriter_2_System_Int16_System_Int64_ {
+    struct ClassPropertyWriter_2_System_Int16_System_Int64___Class* klass;
+    MonitorData* monitor;
+    struct ClassPropertyWriter_2_System_Int16_System_Int64___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ClassPropertyWriter_2_System_Int16_System_Int64__FWDDECL)
+#define IL2CPP_STRUCT_ClassPropertyWriter_2_System_Int16_System_Int64__FWDDECL
+#include <Modloader/app/structs/ClassPropertyWriter_2_System_Int16_System_Int64___Class.h>
+#endif
+#undef IL2CPP_STRUCT_ClassPropertyWriter_2_System_Int16_System_Int64__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ClassPropertyWriter_2_System_Int16_System_Int64__DEFINED) && !defined(IL2CPP_STRUCT_ClassPropertyWriter_2_System_Int16_System_Int64__FWDDECL)
+#include <Modloader/app/structs/ClassPropertyWriter_2_System_Int16_System_Int64_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ClassPropertyWriter_2_System_Int16_System_Int64_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

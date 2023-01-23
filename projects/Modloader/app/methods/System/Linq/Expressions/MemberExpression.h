@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/MemberExpression.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/PropertyExpression.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/FieldExpression.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/ExpressionVisitor.h>
 
 namespace app::classes::System::Linq::Expressions::MemberExpression {
     IL2CPP_REGISTER_METHOD(0x005D2E60, app::MemberInfo_1*, get_Member, (app::MemberExpression * this_ptr))

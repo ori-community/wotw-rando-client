@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BilateralGaussianBlur.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::BilateralGaussianBlur {
     IL2CPP_REGISTER_METHOD(0x0303E420, void, Start, (app::BilateralGaussianBlur * this_ptr))

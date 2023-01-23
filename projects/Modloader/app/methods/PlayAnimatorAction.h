@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyAnimator__Array.h>
+#include <Modloader/app/structs/PlayAnimatorAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::PlayAnimatorAction {
     IL2CPP_REGISTER_METHOD(0x01175E40, app::LegacyAnimator__Array*, get_Animators, (app::PlayAnimatorAction * this_ptr))

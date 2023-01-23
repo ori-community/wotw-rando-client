@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TermInfoDriver.h>
+#include <Modloader/app/structs/ConsoleKeyInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/TermInfoStrings__Enum.h>
 
 namespace app::classes::System::TermInfoDriver {
     IL2CPP_REGISTER_METHOD(0x0243E7C0, app::String*, TryTermInfoDir, (app::String * dir, app::String* term))

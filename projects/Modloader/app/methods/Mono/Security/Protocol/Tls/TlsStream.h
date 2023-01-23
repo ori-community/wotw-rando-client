@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TlsStream.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::TlsStream {
     IL2CPP_REGISTER_METHOD(0x0291C7C0, bool, get_EOF, (app::TlsStream * this_ptr))

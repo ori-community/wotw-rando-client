@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FfmpegCommandLineBuilder.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::FfmpegCommandLineBuilder {
     IL2CPP_REGISTER_METHOD(0x0099AE60, app::FfmpegCommandLineBuilder*, WithPixelFormatBGRA, (app::FfmpegCommandLineBuilder * this_ptr))

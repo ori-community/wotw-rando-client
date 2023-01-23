@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserShooterRockSpawnPoint.h>
+#include <Modloader/app/structs/LaserShieldDamageReceiver.h>
+#include <Modloader/app/structs/LaserShieldPieceProjectile.h>
+#include <Modloader/app/structs/LaserShieldRotationController.h>
 
 namespace app::classes::LaserShooterRockSpawnPoint {
     IL2CPP_REGISTER_METHOD(0x00F207A0, void, PlaySpawn, (app::LaserShooterRockSpawnPoint * this_ptr, app::LaserShieldDamageReceiver* piece, float projectile_speed, app::LaserShieldPieceProjectile* projectile_prefab, app::LaserShieldRotationController* shield_controller))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_GenericCastManager_1_NativeArrays_.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ObjectComparer_1_GenericCastManager_1_NativeArrays__1.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_RaycastCommand_.h>
+#include <Modloader/app/structs/ObjectComparer_1_GenericCastManager_1_NativeArrays__2.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_SpherecastCommand_.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_GenericCastManager_1_NativeArrays_ {
     IL2CPP_REGISTER_METHOD(0x02C2B110, int32_t, Compare_1, (app::ObjectComparer_1_GenericCastManager_1_NativeArrays_ * this_ptr, app::GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand_ x, app::GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand_ y))

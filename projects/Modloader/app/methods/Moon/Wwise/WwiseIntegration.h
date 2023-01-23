@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WwiseIntegration.h>
+#include <Modloader/app/structs/AkWwiseInitializationSettings.h>
+#include <Modloader/app/structs/WwiseBootstrapConfiguration.h>
+#include <Modloader/app/structs/AKRESULT__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Wwise::WwiseIntegration {
     IL2CPP_REGISTER_METHOD(0x02716110, void, Initialize, (app::WwiseIntegration * this_ptr, app::AkWwiseInitializationSettings* config, app::WwiseBootstrapConfiguration* bootstrap_config))

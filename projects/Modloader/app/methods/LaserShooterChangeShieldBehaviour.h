@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserShooterChangeShieldBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::LaserShooterChangeShieldBehaviour {
     IL2CPP_REGISTER_METHOD(0x00F12F00, void, SetSettings, (app::LaserShooterChangeShieldBehaviour * this_ptr))

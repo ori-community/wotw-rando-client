@@ -2,6 +2,10 @@
 
 #include <Core/macros.h>
 
+#include <Modloader/app/structs/SceneState__Enum.h>
+#include <Modloader/app/structs/SceneManagerScene.h>
+#include <Modloader/app/structs/ScenesManager.h>
+
 #include <Core/utils/event_bus.h>
 #include <set>
 #include <string>

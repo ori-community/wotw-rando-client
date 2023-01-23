@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GZipStream_1.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/CompressionMode__Enum_1.h>
+#include <Modloader/app/structs/CompressionLevel__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
 
 namespace app::classes::Ionic::Zlib::GZipStream {
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::String*, get_Comment, (app::GZipStream_1 * this_ptr))

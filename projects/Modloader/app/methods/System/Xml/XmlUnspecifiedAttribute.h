@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlUnspecifiedAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::XmlUnspecifiedAttribute {
     IL2CPP_REGISTER_METHOD(0x0195AF70, void, ctor, (app::XmlUnspecifiedAttribute * this_ptr, app::String* prefix, app::String* local_name, app::String* namespace_u_r_i, app::XmlDocument* doc))

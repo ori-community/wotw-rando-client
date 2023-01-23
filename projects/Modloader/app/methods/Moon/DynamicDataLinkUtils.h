@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IRuntimeDynamicDataLink.h>
+#include <Modloader/app/structs/DynamicDataLinkSerializedData.h>
+#include <Modloader/app/structs/DynamicDataLinkUtils_InfoStruct.h>
+#include <Modloader/app/structs/DynamicDataLinkUtils_DataTargetMemberType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
 
 namespace app::classes::Moon::DynamicDataLinkUtils {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ResetStatics, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_PauseMenuProgressElements_UberStateToElement___Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/PauseMenuProgressElements_UberStateToElement.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_InternalEnumerator_1_PauseMenuProgressElements_UberStateToElement_ {
     IL2CPP_REGISTER_METHOD(0x00160580, void, ctor, (app::Array_InternalEnumerator_1_PauseMenuProgressElements_UberStateToElement___Boxed * this_ptr, app::Array* array))

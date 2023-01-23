@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ParticleSystem_MainModule__Class.h>
+#include <Modloader/app/structs/ParticleSystem_MainModule.h>
+#include <Modloader/app/structs/ParticleSystem_MainModule__Boxed.h>
 
 namespace app::classes::types {
     namespace ParticleSystem_MainModule {

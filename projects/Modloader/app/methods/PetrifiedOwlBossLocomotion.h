@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLocomotion.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLocomotion_Stance__Enum.h>
+#include <Modloader/app/structs/Entity.h>
 
 namespace app::classes::PetrifiedOwlBossLocomotion {
     IL2CPP_REGISTER_METHOD(0x005B0220, app::Transform*, get_FeetTransform, (app::PetrifiedOwlBossLocomotion * this_ptr))

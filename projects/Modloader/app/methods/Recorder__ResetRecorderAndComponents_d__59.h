@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Recorder_ResetRecorderAndComponents_d_59.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Recorder__ResetRecorderAndComponents_d__59 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::Recorder_ResetRecorderAndComponents_d_59 * this_ptr, int32_t __1__state))

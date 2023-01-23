@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellSwitcher.h>
 
 namespace app::classes::SpellSwitcher {
     IL2CPP_REGISTER_METHOD(0x00944270, void, Start, (app::SpellSwitcher * this_ptr))

@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SortedList_2_System_Int64_System_Object_.h>
+#include <Modloader/app/structs/IComparer_1_System_Int64_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int64_System_Object_.h>
+#include <Modloader/app/structs/ICollection_1_System_Int64_.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Int64_.h>
+#include <Modloader/app/structs/IList_1_System_Object_.h>
+#include <Modloader/app/structs/ICollection_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/SortedList_2_TKey_TValue_KeyList_System_Int64_System_Object_.h>
+#include <Modloader/app/structs/SortedList_2_TKey_TValue_ValueList_System_Int64_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int64_System_Object___Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Int64_System_Object_.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Collections::Generic::SortedList_2_System_Int64_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02CAE5F0, void, ctor_1, (app::SortedList_2_System_Int64_System_Object_ * this_ptr))

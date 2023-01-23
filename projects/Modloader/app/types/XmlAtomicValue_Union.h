@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlAtomicValue_Union__Class.h>
+#include <Modloader/app/structs/XmlAtomicValue_Union.h>
+#include <Modloader/app/structs/XmlAtomicValue_Union__Boxed.h>
 
 namespace app::classes::types {
     namespace XmlAtomicValue_Union {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FrameGraph.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::FrameGraph {
     IL2CPP_REGISTER_METHOD(0x0163ED70, void, Awake, (app::FrameGraph * this_ptr))

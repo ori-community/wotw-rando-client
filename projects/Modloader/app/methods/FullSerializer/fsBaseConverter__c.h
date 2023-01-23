@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsBaseConverter_c.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/fsDataType__Enum.h>
 
 namespace app::classes::FullSerializer::fsBaseConverter___c {
     IL2CPP_REGISTER_METHOD(0x01508F70, void, cctor, ())

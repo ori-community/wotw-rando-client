@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseMeshEffect.h>
+#include <Modloader/app/structs/Graphic.h>
+#include <Modloader/app/structs/Mesh.h>
 
 namespace app::classes::UnityEngine::UI::BaseMeshEffect {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::BaseMeshEffect * this_ptr))

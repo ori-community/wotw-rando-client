@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FastHashSet_1_System_Object_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/FastHashSet_1_T_TNode_System_Object___Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Object_.h>
+#include <Modloader/app/structs/FastHashSet_1_T_FoundType_System_Object_.h>
+#include <Modloader/app/structs/List_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_Motvin_Collections_FastHashSet_1_.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::Motvin::Collections::FastHashSet_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, System_Collections_Generic_ICollection_T__get_IsReadOnly, (app::FastHashSet_1_System_Object_ * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ContactFilter2D.h>
+#include <Modloader/app/structs/ContactFilter2D__Boxed.h>
+#include <Modloader/app/structs/LayerMask.h>
 
 namespace app::classes::UnityEngine::ContactFilter2D {
     IL2CPP_REGISTER_METHOD(0x0024A790, app::ContactFilter2D, NoFilter, (app::ContactFilter2D__Boxed * this_ptr))

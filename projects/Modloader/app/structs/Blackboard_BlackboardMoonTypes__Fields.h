@@ -1,0 +1,44 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Blackboard_BlackboardMoonTypes__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Blackboard_BlackboardMoonTypes__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Blackboard_BlackboardMoonTypes__Fields_DEFINED)
+#define IL2CPP_STRUCT_Blackboard_BlackboardMoonTypes__Fields_DEFINED
+struct List_1_Moon_BehaviourSystem_BlackboardVariableBool_;
+struct List_1_Moon_BehaviourSystem_BlackboardVariableInt_;
+struct List_1_Moon_BehaviourSystem_BlackboardVariableFloat_;
+struct List_1_Moon_BehaviourSystem_BlackboardVariableString_;
+struct List_1_Moon_BehaviourSystem_BlackboardVariableVector3_;
+struct List_1_Moon_BehaviourSystem_BlackboardVariableGameObject_;
+struct List_1_Moon_BehaviourSystem_BlackboardVariableObject_;
+struct __declspec(align(8)) Blackboard_BlackboardMoonTypes__Fields {
+    struct List_1_Moon_BehaviourSystem_BlackboardVariableBool_* Bools;
+    struct List_1_Moon_BehaviourSystem_BlackboardVariableInt_* Ints;
+    struct List_1_Moon_BehaviourSystem_BlackboardVariableFloat_* Floats;
+    struct List_1_Moon_BehaviourSystem_BlackboardVariableString_* Strings;
+    struct List_1_Moon_BehaviourSystem_BlackboardVariableVector3_* Vector3s;
+    struct List_1_Moon_BehaviourSystem_BlackboardVariableGameObject_* GameObjects;
+    struct List_1_Moon_BehaviourSystem_BlackboardVariableObject_* Objects;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Blackboard_BlackboardMoonTypes__Fields_FWDDECL)
+#define IL2CPP_STRUCT_Blackboard_BlackboardMoonTypes__Fields_FWDDECL
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableBool_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableFloat_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableGameObject_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableInt_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableObject_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableString_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BlackboardVariableVector3_.h>
+#endif
+#undef IL2CPP_STRUCT_Blackboard_BlackboardMoonTypes__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Blackboard_BlackboardMoonTypes__Fields_DEFINED) && !defined(IL2CPP_STRUCT_Blackboard_BlackboardMoonTypes__Fields_FWDDECL)
+#include <Modloader/app/structs/Blackboard_BlackboardMoonTypes__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Blackboard_BlackboardMoonTypes__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

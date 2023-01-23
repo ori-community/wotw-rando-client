@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrabPlaceholderGroup.h>
+#include <Modloader/app/structs/BabyCrabEntity.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/CrabEntity.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::BabyCrabEntity {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::CrabPlaceholderGroup*, get_Group, (app::BabyCrabEntity * this_ptr))

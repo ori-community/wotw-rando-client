@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/FacetsChecker_FacetsCompiler_Map__Class.h>
+#include <Modloader/app/structs/FacetsChecker_FacetsCompiler_Map.h>
+#include <Modloader/app/structs/FacetsChecker_FacetsCompiler_Map__Boxed.h>
+#include <Modloader/app/structs/FacetsChecker_FacetsCompiler_Map__Array.h>
 
 namespace app::classes::types {
     namespace FacetsChecker_FacetsCompiler_Map {

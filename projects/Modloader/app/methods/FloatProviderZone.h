@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FloatProviderZone.h>
 
 namespace app::classes::FloatProviderZone {
     IL2CPP_REGISTER_METHOD(0x01270FC0, float, GetValue, (app::FloatProviderZone * this_ptr))

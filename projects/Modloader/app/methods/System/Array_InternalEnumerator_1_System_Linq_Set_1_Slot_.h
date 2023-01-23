@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Linq_Set_1_Slot___Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Set_1_TElement_Slot_System_Char_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_System_Linq_Set_1_Slot__1__Boxed.h>
+#include <Modloader/app/structs/Set_1_TElement_Slot_System_Object_.h>
 
 namespace app::classes::System::Array_InternalEnumerator_1_System_Linq_Set_1_Slot_ {
     IL2CPP_REGISTER_METHOD(0x00160580, void, ctor_1, (app::Array_InternalEnumerator_1_System_Linq_Set_1_Slot___Boxed * this_ptr, app::Array* array))

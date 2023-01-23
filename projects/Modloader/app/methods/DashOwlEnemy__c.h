@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DashOwlEnemy_c.h>
 
 namespace app::classes::DashOwlEnemy___c {
     IL2CPP_REGISTER_METHOD(0x00DD0180, void, cctor, ())

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SettingValueElement.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/ConfigurationElement.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConfigurationSaveMode__Enum.h>
 
 namespace app::classes::System::Configuration::SettingValueElement {
     IL2CPP_REGISTER_METHOD(0x02962710, void, ctor, (app::SettingValueElement * this_ptr))

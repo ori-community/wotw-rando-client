@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellUIBindingItem.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
 
 namespace app::classes::SpellUIBindingItem {
     IL2CPP_REGISTER_METHOD(0x00944D80, void, Awake, (app::SpellUIBindingItem * this_ptr))

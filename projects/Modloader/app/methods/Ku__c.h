@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Ku_c.h>
 
 namespace app::classes::Ku___c {
     IL2CPP_REGISTER_METHOD(0x0122C840, void, cctor, ())

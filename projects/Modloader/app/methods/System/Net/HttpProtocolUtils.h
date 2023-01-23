@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpProtocolUtils.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::HttpProtocolUtils {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::HttpProtocolUtils * this_ptr))

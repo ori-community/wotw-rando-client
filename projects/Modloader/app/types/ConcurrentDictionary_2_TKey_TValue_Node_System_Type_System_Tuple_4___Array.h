@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Array__Class.h>
+#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Array.h>
 
 namespace app::classes::types {
     namespace ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Array {

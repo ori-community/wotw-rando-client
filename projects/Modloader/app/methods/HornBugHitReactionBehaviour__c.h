@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HornBugHitReactionBehaviour_c.h>
 
 namespace app::classes::HornBugHitReactionBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x00B6CE40, void, cctor, ())

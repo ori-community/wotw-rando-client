@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OrderedDictionary_OrderedDictionaryEnumerator.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DictionaryEntry.h>
 
 namespace app::classes::System::Collections::Specialized::OrderedDictionary_OrderedDictionaryEnumerator {
     IL2CPP_REGISTER_METHOD(0x0249D300, void, ctor, (app::OrderedDictionary_OrderedDictionaryEnumerator * this_ptr, app::ArrayList* array, int32_t object_return_type))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Reflection_MethodInfo_.h>
+#include <Modloader/app/structs/SerializationEvents.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/SerializationEventHandler.h>
 
 namespace app::classes::System::Runtime::Serialization::SerializationEvents {
     IL2CPP_REGISTER_METHOD(0x01EDCB70, app::List_1_System_Reflection_MethodInfo_*, GetMethodsWithAttribute, (app::SerializationEvents * this_ptr, app::Type* attribute, app::Type* t))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Toggle.h>
+#include <Modloader/app/structs/ToggleGroup.h>
+#include <Modloader/app/structs/CanvasUpdate__Enum.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/BaseEventData.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UnityEngine::UI::Toggle {
     IL2CPP_REGISTER_METHOD(0x0267BD60, void, ctor, (app::Toggle * this_ptr))

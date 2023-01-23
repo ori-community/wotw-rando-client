@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StomperLogic.h>
+#include <Modloader/app/structs/StomperLogic_State__Enum.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/StomperVisuals_SoundEvent__Enum.h>
 
 namespace app::classes::StomperLogic {
     IL2CPP_REGISTER_METHOD(0x00659560, void, Awake, (app::StomperLogic * this_ptr))

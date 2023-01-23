@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMessageProvider.h>
+#include <Modloader/app/structs/InteractionBinding.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::Moon::InteractionGraph::InteractionBinding {
     IL2CPP_REGISTER_METHOD(0x0198D3F0, app::IMessageProvider*, get_ResolvedMessageProvider, (app::InteractionBinding * this_ptr))

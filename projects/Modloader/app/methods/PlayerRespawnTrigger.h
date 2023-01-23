@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerRespawnTrigger.h>
 
 namespace app::classes::PlayerRespawnTrigger {
     IL2CPP_REGISTER_METHOD(0x01428A10, void, Awake, (app::PlayerRespawnTrigger * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AuthenticationModuleElementCollection.h>
+#include <Modloader/app/structs/AuthenticationModuleElement.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConfigurationElement.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::Configuration::AuthenticationModuleElementCollection {
     IL2CPP_REGISTER_METHOD(0x020181A0, void, ctor, (app::AuthenticationModuleElementCollection * this_ptr))

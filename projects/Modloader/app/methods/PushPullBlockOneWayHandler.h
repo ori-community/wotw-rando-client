@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/PushPullBlockOneWayHandler.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::PushPullBlockOneWayHandler {
     IL2CPP_REGISTER_METHOD(0x00E844A0, app::Rigidbody*, get_Body, (app::PushPullBlockOneWayHandler * this_ptr))

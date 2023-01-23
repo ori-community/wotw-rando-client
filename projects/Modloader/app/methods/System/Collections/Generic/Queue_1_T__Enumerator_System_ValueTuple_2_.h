@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Queue_1_T_Enumerator_System_ValueTuple_2___Boxed.h>
+#include <Modloader/app/structs/Queue_1_T_Enumerator_System_ValueTuple_2__1__Boxed.h>
+#include <Modloader/app/structs/Queue_1_System_ValueTuple_2__1.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_T__Enumerator_System_ValueTuple_2_ {
     IL2CPP_REGISTER_METHOD(0x001EE680, app::ValueTuple_2_Int32_UnityEngine_GameObject_, get_Current_1, (app::Queue_1_T_Enumerator_System_ValueTuple_2___Boxed * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility__Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
+#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility.h>
+#include <Modloader/app/structs/Comparison_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ {
     IL2CPP_REGISTER_METHOD(0x02F33EC0, void, Sort_1, (app::UtilitySelectorNode_NodeUtility__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_* comparer))

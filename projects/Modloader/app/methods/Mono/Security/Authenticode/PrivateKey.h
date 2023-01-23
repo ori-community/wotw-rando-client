@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PrivateKey.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RSA.h>
 
 namespace app::classes::Mono::Security::Authenticode::PrivateKey {
     IL2CPP_REGISTER_METHOD(0x02A38DB0, void, ctor, (app::PrivateKey * this_ptr, app::Byte__Array* data, app::String* password))

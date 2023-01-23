@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FoxHeadHurtZone.h>
+#include <Modloader/app/structs/Action_1_Damage_.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::FoxHeadHurtZone {
     IL2CPP_REGISTER_METHOD(0x01633580, void, add_ReceiveDamageCallback, (app::FoxHeadHurtZone * this_ptr, app::Action_1_Damage_* value))

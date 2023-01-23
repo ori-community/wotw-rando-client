@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PreRecordingData.h>
 
 namespace app::classes::PreRecordingData {
     IL2CPP_REGISTER_METHOD(0x00C6CEA0, void, RemoveInvalidEntries, (app::PreRecordingData * this_ptr))

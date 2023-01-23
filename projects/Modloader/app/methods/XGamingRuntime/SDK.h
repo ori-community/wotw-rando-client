@@ -1,5 +1,31 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NativeBool.h>
+#include <Modloader/app/structs/XGameSaveBlobInfo.h>
+#include <Modloader/app/structs/XUserHandle.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XGameSaveInitializeProviderCompleted.h>
+#include <Modloader/app/structs/XGameSaveProviderHandle.h>
+#include <Modloader/app/structs/XGameSaveContainerHandle.h>
+#include <Modloader/app/structs/XGameSaveBlobInfo_1__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/XGameSaveReadBlobDataCompleted.h>
+#include <Modloader/app/structs/XGameSaveUpdateHandle.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/XGameSaveSubmitUpdateCompleted.h>
+#include <Modloader/app/structs/XUserLocalId.h>
+#include <Modloader/app/structs/XUserChangeEvent__Enum.h>
+#include <Modloader/app/structs/XUserAddOptions__Enum.h>
+#include <Modloader/app/structs/XUserAddCompleted.h>
+#include <Modloader/app/structs/XUserGamertagComponent__Enum.h>
+#include <Modloader/app/structs/XUserGamerPictureSize__Enum.h>
+#include <Modloader/app/structs/XUserGetGamerPictureCompleted.h>
+#include <Modloader/app/structs/XUserGetTokenAndSignatureOptions__Enum.h>
+#include <Modloader/app/structs/XUserGetTokenAndSignatureUtf16HttpHeader__Array.h>
+#include <Modloader/app/structs/XUserGetTokenAndSignatureUtf16Result.h>
+#include <Modloader/app/structs/XUserResolveIssueWithUiUtf16Result.h>
+#include <Modloader/app/structs/XUserChangeEventCallback.h>
+#include <Modloader/app/structs/XRegistrationToken.h>
 
 namespace app::classes::XGamingRuntime::SDK {
     IL2CPP_REGISTER_METHOD(0x030B44F0, app::NativeBool, EnumerateBlobInfoCallback, (app::XGameSaveBlobInfo interop_blob_info, void* context))

@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SqlBytes.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/SqlBinary.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Data::SqlTypes::SqlBytes {
     IL2CPP_REGISTER_METHOD(0x01E518F0, void, ctor_1, (app::SqlBytes * this_ptr))

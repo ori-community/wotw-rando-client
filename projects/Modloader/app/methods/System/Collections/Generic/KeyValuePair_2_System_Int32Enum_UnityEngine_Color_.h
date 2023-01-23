@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32Enum_UnityEngine_Color___Boxed.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_Int32Enum_UnityEngine_Color_ {
     IL2CPP_REGISTER_METHOD(0x0011CE50, void, ctor, (app::KeyValuePair_2_System_Int32Enum_UnityEngine_Color___Boxed * this_ptr, app::Int32Enum__Enum key, app::Color value))

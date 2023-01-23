@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterState_c.h>
 
 namespace app::classes::CharacterState___c {
     IL2CPP_REGISTER_METHOD(0x013159D0, void, cctor, ())

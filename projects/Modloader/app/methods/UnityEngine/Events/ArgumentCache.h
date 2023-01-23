@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArgumentCache.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Events::ArgumentCache {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ArgumentCache * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MinerSpawnTask.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::MinerSpawnTask {
     IL2CPP_REGISTER_METHOD(0x01450410, void, OnInitializeTask, (app::MinerSpawnTask * this_ptr, app::IContext* context))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BindingRestrictions_BindingRestrictionsProxy__Class.h>
+#include <Modloader/app/structs/BindingRestrictions_BindingRestrictionsProxy.h>
 
 namespace app::classes::types {
     namespace BindingRestrictions_BindingRestrictionsProxy {

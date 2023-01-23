@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/WwiseSoundBankRefCountProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::WwiseSoundBankRefCountProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x00E41140, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::WwiseSoundBankRefCountProfilingSetting * this_ptr))

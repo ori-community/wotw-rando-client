@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FileStream.h>
+#include <Modloader/app/structs/FileAccess__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FileMode__Enum.h>
+#include <Modloader/app/structs/FileShare__Enum.h>
+#include <Modloader/app/structs/FileOptions__Enum.h>
+#include <Modloader/app/structs/SafeFileHandle.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/Task_1_System_Int32_.h>
+#include <Modloader/app/structs/SafeHandle.h>
 
 namespace app::classes::System::IO::FileStream {
     IL2CPP_REGISTER_METHOD(0x01E09CF0, void, ctor_1, (app::FileStream * this_ptr, void* handle, app::FileAccess__Enum access, bool owns_handle, int32_t buffer_size))

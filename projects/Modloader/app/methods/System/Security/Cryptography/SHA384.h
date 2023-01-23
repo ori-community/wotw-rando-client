@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SHA384.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::SHA384 {
     IL2CPP_REGISTER_METHOD(0x028F9210, void, ctor, (app::SHA384 * this_ptr))

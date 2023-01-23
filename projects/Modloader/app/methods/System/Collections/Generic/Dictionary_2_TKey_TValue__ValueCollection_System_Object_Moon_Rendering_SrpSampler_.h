@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Object_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Object_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Object_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/SrpSampler__Array.h>
+#include <Modloader/app/structs/SrpSampler.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_System_Object_Moon_Rendering_SrpSampler_ {
     IL2CPP_REGISTER_METHOD(0x026BA5A0, void, ctor, (app::Dictionary_2_TKey_TValue_ValueCollection_System_Object_Moon_Rendering_SrpSampler_ * this_ptr, app::Dictionary_2_System_Object_Moon_Rendering_SrpSampler_* dictionary))

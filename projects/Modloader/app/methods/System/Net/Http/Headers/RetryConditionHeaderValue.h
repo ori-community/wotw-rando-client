@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RetryConditionHeaderValue.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Nullable_1_DateTimeOffset_.h>
+#include <Modloader/app/structs/Nullable_1_TimeSpan_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::Http::Headers::RetryConditionHeaderValue {
     IL2CPP_REGISTER_METHOD(0x02D16BF0, void, ctor_1, (app::RetryConditionHeaderValue * this_ptr, app::DateTimeOffset date))

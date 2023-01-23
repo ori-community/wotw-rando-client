@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Update_ScriptRunDelayedDynamicFrameRate__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Update_ScriptRunDelayedDynamicFrameRate__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Update_ScriptRunDelayedDynamicFrameRate__Boxed_DEFINED)
+#include <Modloader/app/structs/Update_ScriptRunDelayedDynamicFrameRate.h>
+#if defined(IL2CPP_STRUCT_Update_ScriptRunDelayedDynamicFrameRate_DEFINED)
+#define IL2CPP_STRUCT_Update_ScriptRunDelayedDynamicFrameRate__Boxed_DEFINED
+struct Update_ScriptRunDelayedDynamicFrameRate__Class;
+struct Update_ScriptRunDelayedDynamicFrameRate__Boxed {
+    struct Update_ScriptRunDelayedDynamicFrameRate__Class* klass;
+    MonitorData* monitor;
+    struct Update_ScriptRunDelayedDynamicFrameRate fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Update_ScriptRunDelayedDynamicFrameRate__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_Update_ScriptRunDelayedDynamicFrameRate__Boxed_FWDDECL
+#include <Modloader/app/structs/Update_ScriptRunDelayedDynamicFrameRate__Class.h>
+#endif
+#undef IL2CPP_STRUCT_Update_ScriptRunDelayedDynamicFrameRate__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Update_ScriptRunDelayedDynamicFrameRate__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_Update_ScriptRunDelayedDynamicFrameRate__Boxed_FWDDECL)
+#include <Modloader/app/structs/Update_ScriptRunDelayedDynamicFrameRate__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Update_ScriptRunDelayedDynamicFrameRate__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

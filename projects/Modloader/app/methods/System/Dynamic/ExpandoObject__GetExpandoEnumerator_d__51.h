@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExpandoObject_GetExpandoEnumerator_d_51.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_String_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Dynamic::ExpandoObject__GetExpandoEnumerator_d__51 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::ExpandoObject_GetExpandoEnumerator_d_51 * this_ptr, int32_t __1__state))

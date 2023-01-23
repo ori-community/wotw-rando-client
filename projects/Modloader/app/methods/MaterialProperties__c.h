@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MaterialProperties_c.h>
+#include <Modloader/app/structs/OverridableTextureProperty.h>
+#include <Modloader/app/structs/OverridableFloatProperty.h>
+#include <Modloader/app/structs/OverridableColorProperty.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::MaterialProperties___c {
     IL2CPP_REGISTER_METHOD(0x013828C0, void, cctor, ())

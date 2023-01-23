@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypeData.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchemaPatternFacet.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SchemaTypes__Enum.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/InvalidOperationException.h>
 
 namespace app::classes::System::Xml::Serialization::TypeData {
     IL2CPP_REGISTER_METHOD(0x01C903A0, void, ctor_1, (app::TypeData * this_ptr, app::Type* type, app::String* element_name, bool is_primitive))

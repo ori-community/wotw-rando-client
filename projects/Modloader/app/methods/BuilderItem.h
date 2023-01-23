@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/BuilderItem.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Action_1_MessageProvider_.h>
+#include <Modloader/app/structs/UISoundSettingsAsset.h>
+#include <Modloader/app/structs/ShopKeeperHints.h>
+#include <Modloader/app/structs/PurchaseContext.h>
 
 namespace app::classes::BuilderItem {
     IL2CPP_REGISTER_METHOD(0x004173F0, app::MessageProvider*, get_ItemName, (app::BuilderItem * this_ptr))

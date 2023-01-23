@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IO::BinaryWriter {
     IL2CPP_REGISTER_METHOD(0x01DFF690, void, ctor_1, (app::BinaryWriter * this_ptr))

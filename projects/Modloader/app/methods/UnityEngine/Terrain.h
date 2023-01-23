@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Terrain_1.h>
+#include <Modloader/app/structs/TerrainData_1.h>
+#include <Modloader/app/structs/Terrain_1__Array.h>
 
 namespace app::classes::UnityEngine::Terrain {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Terrain_1 * this_ptr))

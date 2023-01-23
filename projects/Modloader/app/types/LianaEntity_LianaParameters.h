@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LianaEntity_LianaParameters__Class.h>
+#include <Modloader/app/structs/LianaEntity_LianaParameters.h>
+#include <Modloader/app/structs/LianaEntity_LianaParameters__Boxed.h>
 
 namespace app::classes::types {
     namespace LianaEntity_LianaParameters {

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TentacleVomitBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/EventTriggerAnimator.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::Moon::TentacleVomitBehaviour {
     IL2CPP_REGISTER_METHOD(0x010BBB10, void, OnEnter, (app::TentacleVomitBehaviour * this_ptr, app::IContext* context))

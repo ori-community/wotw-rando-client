@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/XblAchievement_1__Boxed.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementTitleAssociation_Object_.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementMediaAsset_Object_.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementReward_Object_.h>
+#include <Modloader/app/structs/XblAchievementTitleAssociation__Array.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementTitleAssociation_XGamingRuntime_XblAchievementTitleAssociation_.h>
+#include <Modloader/app/structs/XblAchievementMediaAsset__Array.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementMediaAsset_XGamingRuntime_XblAchievementMediaAsset_.h>
+#include <Modloader/app/structs/XblAchievementReward__Array.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementReward_XGamingRuntime_XblAchievementReward_.h>
 
 namespace app::classes::XGamingRuntime::Interop::XblAchievement {
     IL2CPP_REGISTER_METHOD(0x00244C80, app::String__Array*, GetPlatformsAvailableOn, (app::XblAchievement_1__Boxed * this_ptr))

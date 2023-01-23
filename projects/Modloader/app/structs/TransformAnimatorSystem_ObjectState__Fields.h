@@ -1,0 +1,49 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TransformAnimatorSystem_ObjectState__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TransformAnimatorSystem_ObjectState__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TransformAnimatorSystem_ObjectState__Fields_DEFINED)
+#include <Modloader/app/structs/Nullable_1_Moon_Timeline_TransformAnimatorSystem_PositionModification_.h>
+#include <Modloader/app/structs/Nullable_1_Moon_Timeline_TransformAnimatorSystem_RotationModification_.h>
+#include <Modloader/app/structs/Nullable_1_Moon_Timeline_TransformAnimatorSystem_ScaleModification_.h>
+#if defined(IL2CPP_STRUCT_Nullable_1_Moon_Timeline_TransformAnimatorSystem_PositionModification__DEFINED) && defined(IL2CPP_STRUCT_Nullable_1_Moon_Timeline_TransformAnimatorSystem_RotationModification__DEFINED) && defined(IL2CPP_STRUCT_Nullable_1_Moon_Timeline_TransformAnimatorSystem_ScaleModification__DEFINED)
+#define IL2CPP_STRUCT_TransformAnimatorSystem_ObjectState__Fields_DEFINED
+struct Transform;
+struct Rigidbody;
+struct __declspec(align(8)) TransformAnimatorSystem_ObjectState__Fields {
+    struct Transform* Transform;
+    struct Rigidbody* Rigidbody;
+    struct Nullable_1_Moon_Timeline_TransformAnimatorSystem_PositionModification_ StaticPositionModification;
+    struct Nullable_1_Moon_Timeline_TransformAnimatorSystem_RotationModification_ StaticRotationModification;
+    struct Nullable_1_Moon_Timeline_TransformAnimatorSystem_ScaleModification_ StaticScaleModification;
+    struct Nullable_1_Moon_Timeline_TransformAnimatorSystem_PositionModification_ DynamicPositionModification;
+    struct Nullable_1_Moon_Timeline_TransformAnimatorSystem_RotationModification_ DynamicRotationModification;
+    struct Nullable_1_Moon_Timeline_TransformAnimatorSystem_ScaleModification_ DynamicScaleModification;
+    bool PositionChangedThisFrame;
+    bool RotationChangedThisFrame;
+    bool ScaleChangedThisFrame;
+    struct Nullable_1_Moon_Timeline_TransformAnimatorSystem_PositionModification_ m_handoverPosition;
+    struct Nullable_1_Moon_Timeline_TransformAnimatorSystem_RotationModification_ m_handoverRotation;
+    struct Nullable_1_Moon_Timeline_TransformAnimatorSystem_ScaleModification_ m_handoverScale;
+    bool m_hasValidPositionHandover;
+    bool m_hasValidRotationHandover;
+    bool m_hasValidScaleHandover;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TransformAnimatorSystem_ObjectState__Fields_FWDDECL)
+#define IL2CPP_STRUCT_TransformAnimatorSystem_ObjectState__Fields_FWDDECL
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/Transform.h>
+#endif
+#undef IL2CPP_STRUCT_TransformAnimatorSystem_ObjectState__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TransformAnimatorSystem_ObjectState__Fields_DEFINED) && !defined(IL2CPP_STRUCT_TransformAnimatorSystem_ObjectState__Fields_FWDDECL)
+#include <Modloader/app/structs/TransformAnimatorSystem_ObjectState__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TransformAnimatorSystem_ObjectState__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

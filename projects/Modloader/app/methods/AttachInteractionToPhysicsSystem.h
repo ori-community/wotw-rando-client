@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AttachInteractionToPhysicsSystem.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::AttachInteractionToPhysicsSystem {
     IL2CPP_REGISTER_METHOD(0x00846810, void, ResetStatics, ())

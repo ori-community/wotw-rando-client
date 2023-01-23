@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValueTuple_3_Int32_System_Collections_Generic_List_1_Int32_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3___Boxed.h>
+#include <Modloader/app/structs/ValueTuple_2_String_String_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3__1__Boxed.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/ValueTuple_3_Int32_Object_Int32_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3_ {
     IL2CPP_REGISTER_METHOD(0x00133A80, app::ValueTuple_3_Int32_System_Collections_Generic_List_1_Int32_, get_Value_1, (app::KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3___Boxed * this_ptr))

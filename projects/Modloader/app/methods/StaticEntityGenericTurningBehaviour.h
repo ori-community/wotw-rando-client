@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StaticEntityGenericTurningBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::StaticEntityGenericTurningBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FDD20, float, get_TargetLookDirectionX, (app::StaticEntityGenericTurningBehaviour * this_ptr))

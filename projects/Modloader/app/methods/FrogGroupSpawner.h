@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FrogGroupSpawner.h>
 
 namespace app::classes::FrogGroupSpawner {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, IStrippable_DoStrip, (app::FrogGroupSpawner * this_ptr))

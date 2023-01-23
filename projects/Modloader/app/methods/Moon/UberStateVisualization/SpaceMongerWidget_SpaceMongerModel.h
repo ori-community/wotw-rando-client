@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpaceMongerWidget_SpaceMongerModel.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/SpaceMongerWidget_SpaceMongerModel__Boxed.h>
 
 namespace app::classes::Moon::UberStateVisualization::SpaceMongerWidget_SpaceMongerModel {
     IL2CPP_REGISTER_METHOD(0x030C21C0, app::SpaceMongerWidget_SpaceMongerModel, get_Default, ())

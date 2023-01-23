@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/BoostModeProfilingSetting_CallMoonCleanupWhenNotAwokenProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::BoostModeProfilingSetting_CallMoonCleanupWhenNotAwokenProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x0088EB80, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::BoostModeProfilingSetting_CallMoonCleanupWhenNotAwokenProfilingSetting * this_ptr))

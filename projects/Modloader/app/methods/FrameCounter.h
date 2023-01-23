@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FrameCounter.h>
 
 namespace app::classes::FrameCounter {
     IL2CPP_REGISTER_METHOD(0x0163E720, void, Start, (app::FrameCounter * this_ptr))

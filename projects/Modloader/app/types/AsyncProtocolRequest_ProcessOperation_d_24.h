@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AsyncProtocolRequest_ProcessOperation_d_24__Class.h>
+#include <Modloader/app/structs/AsyncProtocolRequest_ProcessOperation_d_24.h>
+#include <Modloader/app/structs/AsyncProtocolRequest_ProcessOperation_d_24__Boxed.h>
 
 namespace app::classes::types {
     namespace AsyncProtocolRequest_ProcessOperation_d_24 {

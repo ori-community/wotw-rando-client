@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings_DEFINED)
+#include <Modloader/app/structs/JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings_DEFINED
+struct JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings__Class;
+struct JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings {
+    struct JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings__Class* klass;
+    MonitorData* monitor;
+    struct JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings_FWDDECL)
+#define IL2CPP_STRUCT_JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings_FWDDECL
+#include <Modloader/app/structs/JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings_DEFINED) && !defined(IL2CPP_STRUCT_JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings_FWDDECL)
+#include <Modloader/app/structs/JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/JumperEnemyPlaceholder_JumpingSootEnemyPlaceholderSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

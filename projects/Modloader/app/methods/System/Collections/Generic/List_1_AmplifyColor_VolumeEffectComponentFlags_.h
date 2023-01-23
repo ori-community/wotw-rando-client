@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_AmplifyColor_VolumeEffectComponentFlags_.h>
+#include <Modloader/app/structs/List_1_AmplifyColor_VolumeEffectComponentFlags_.h>
+#include <Modloader/app/structs/VolumeEffectComponentFlags.h>
+#include <Modloader/app/structs/Predicate_1_AmplifyColor_VolumeEffectComponentFlags_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_AmplifyColor_VolumeEffectComponentFlags_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_AmplifyColor_VolumeEffectComponentFlags_, GetEnumerator, (app::List_1_AmplifyColor_VolumeEffectComponentFlags_ * this_ptr))

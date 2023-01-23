@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonPosition.h>
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_JsonPosition_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Newtonsoft_Json_JsonPosition_.h>
+#include <Modloader/app/structs/IEnumerable_1_Newtonsoft_Json_JsonPosition_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Newtonsoft_Json_JsonPosition_.h>
+#include <Modloader/app/structs/IComparer_1_Newtonsoft_Json_JsonPosition_.h>
+#include <Modloader/app/structs/JsonPosition__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_Newtonsoft_Json_JsonPosition_.h>
+#include <Modloader/app/structs/Action_1_Newtonsoft_Json_JsonPosition_.h>
+#include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_JsonPosition_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_Newtonsoft_Json_JsonPosition_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Newtonsoft_Json_JsonPosition_ {
     IL2CPP_REGISTER_METHOD(0x025EC760, app::JsonPosition, get_Item, (app::List_1_Newtonsoft_Json_JsonPosition_ * this_ptr, int32_t index))

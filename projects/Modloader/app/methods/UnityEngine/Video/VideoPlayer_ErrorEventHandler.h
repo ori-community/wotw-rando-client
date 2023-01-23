@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VideoPlayer_ErrorEventHandler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/VideoPlayer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::UnityEngine::Video::VideoPlayer_ErrorEventHandler {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::VideoPlayer_ErrorEventHandler * this_ptr, app::Object* object, void* method_1))

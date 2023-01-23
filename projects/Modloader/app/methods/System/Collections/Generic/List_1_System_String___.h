@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_String__1.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_String___ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_System_String__1 * this_ptr))

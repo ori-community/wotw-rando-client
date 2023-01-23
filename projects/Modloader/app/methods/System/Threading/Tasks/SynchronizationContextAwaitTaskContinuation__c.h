@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SynchronizationContextAwaitTaskContinuation_c.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Threading::Tasks::SynchronizationContextAwaitTaskContinuation___c {
     IL2CPP_REGISTER_METHOD(0x02330470, void, cctor, ())

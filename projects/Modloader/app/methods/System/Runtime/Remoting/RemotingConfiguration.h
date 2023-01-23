@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ActivatedClientTypeEntry.h>
+#include <Modloader/app/structs/WellKnownClientTypeEntry.h>
+#include <Modloader/app/structs/ActivatedServiceTypeEntry.h>
+#include <Modloader/app/structs/WellKnownServiceTypeEntry.h>
+#include <Modloader/app/structs/ChannelData.h>
+#include <Modloader/app/structs/ProviderData.h>
+#include <Modloader/app/structs/ArrayList.h>
 
 namespace app::classes::System::Runtime::Remoting::RemotingConfiguration {
     IL2CPP_REGISTER_METHOD(0x02320D70, app::String*, get_ApplicationName, ())

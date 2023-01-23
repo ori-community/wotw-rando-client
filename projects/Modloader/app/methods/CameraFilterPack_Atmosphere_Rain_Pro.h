@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Atmosphere_Rain_Pro.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Atmosphere_Rain_Pro {
     IL2CPP_REGISTER_METHOD(0x02740410, app::Material*, get_material, (app::CameraFilterPack_Atmosphere_Rain_Pro * this_ptr))

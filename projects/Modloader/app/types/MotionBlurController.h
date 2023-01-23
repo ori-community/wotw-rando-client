@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MotionBlurController__Class.h>
+#include <Modloader/app/structs/MotionBlurController.h>
 
 namespace app::classes::types {
     namespace MotionBlurController {

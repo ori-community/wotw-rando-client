@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/BatSwarm.h>
+#include <Modloader/app/structs/BatSwarmPlaceholder_BatSwarmPlaceholderSettings.h>
+#include <Modloader/app/structs/BatEnemy.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::BatSwarm {
     IL2CPP_REGISTER_METHOD(0x00F943E0, app::Vector2, get_MainPOI, (app::BatSwarm * this_ptr))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlDownloadManager_GetNonFileStreamAsync_d_5__Class.h>
+#include <Modloader/app/structs/XmlDownloadManager_GetNonFileStreamAsync_d_5.h>
+#include <Modloader/app/structs/XmlDownloadManager_GetNonFileStreamAsync_d_5__Boxed.h>
 
 namespace app::classes::types {
     namespace XmlDownloadManager_GetNonFileStreamAsync_d_5 {

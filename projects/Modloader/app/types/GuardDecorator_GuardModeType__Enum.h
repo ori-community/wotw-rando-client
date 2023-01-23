@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GuardDecorator_GuardModeType__Enum__Class.h>
+#include <Modloader/app/structs/GuardDecorator_GuardModeType__Enum.h>
 
 namespace app::classes::types {
     namespace GuardDecorator_GuardModeType__Enum {

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SandWormPlaceholder__Class.h>
+#include <Modloader/app/structs/SandWormPlaceholder.h>
 
 namespace app::classes::types {
     namespace SandWormPlaceholder {

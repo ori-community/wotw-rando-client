@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderNpcEntity_c.h>
 
 namespace app::classes::SpiderNpcEntity___c {
     IL2CPP_REGISTER_METHOD(0x011BF690, void, cctor, ())

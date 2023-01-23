@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NativeInputUpdateType__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngineInternal::Input::NativeInputSystem {
     IL2CPP_REGISTER_METHOD(0x031C3320, void, cctor, ())

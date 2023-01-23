@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataKey__Boxed.h>
+#include <Modloader/app/structs/DataColumn__Array.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/DataKey.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/IndexField__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Index.h>
+#include <Modloader/app/structs/DataViewRowState__Enum.h>
 
 namespace app::classes::System::Data::DataKey {
     IL2CPP_REGISTER_METHOD(0x001E9F50, void, ctor, (app::DataKey__Boxed * this_ptr, app::DataColumn__Array* columns, bool copy_columns))

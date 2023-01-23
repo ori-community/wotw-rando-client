@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SearchOption__Enum.h>
+#include <Modloader/app/structs/DirectoryInfo.h>
 
 namespace app::classes::System::IO::Directory {
     IL2CPP_REGISTER_METHOD(0x01E01E10, app::String__Array*, GetFiles_1, (app::String * path))

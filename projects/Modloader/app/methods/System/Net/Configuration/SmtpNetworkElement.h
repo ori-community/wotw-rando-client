@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SmtpNetworkElement.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
 
 namespace app::classes::System::Net::Configuration::SmtpNetworkElement {
     IL2CPP_REGISTER_METHOD(0x01E98CF0, void, ctor, (app::SmtpNetworkElement * this_ptr))

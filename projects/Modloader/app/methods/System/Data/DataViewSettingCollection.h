@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataViewSettingCollection.h>
+#include <Modloader/app/structs/DataViewManager.h>
+#include <Modloader/app/structs/DataViewSetting.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Data::DataViewSettingCollection {
     IL2CPP_REGISTER_METHOD(0x01F4BE20, void, ctor, (app::DataViewSettingCollection * this_ptr, app::DataViewManager* data_view_manager))

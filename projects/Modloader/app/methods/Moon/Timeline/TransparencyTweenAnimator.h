@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TransparencyTweenAnimator.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
 
 namespace app::classes::Moon::Timeline::TransparencyTweenAnimator {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnEntityCreated, (app::TransparencyTweenAnimator * this_ptr))

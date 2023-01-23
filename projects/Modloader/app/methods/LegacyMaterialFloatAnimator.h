@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyMaterialFloatAnimator.h>
 
 namespace app::classes::LegacyMaterialFloatAnimator {
     IL2CPP_REGISTER_METHOD(0x00A2DEC0, int32_t, get_PropertyID, (app::LegacyMaterialFloatAnimator * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActivateWindVentAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ActivateWindVentAction {
     IL2CPP_REGISTER_METHOD(0x004C8F40, void, Perform, (app::ActivateWindVentAction * this_ptr, app::IContext* context))

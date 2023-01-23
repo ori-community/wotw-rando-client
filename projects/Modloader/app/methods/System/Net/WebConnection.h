@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MonoChunkStream.h>
+#include <Modloader/app/structs/WebConnection.h>
+#include <Modloader/app/structs/IWebConnectionState.h>
+#include <Modloader/app/structs/ServicePoint.h>
+#include <Modloader/app/structs/HttpWebRequest.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/WebHeaderCollection.h>
+#include <Modloader/app/structs/WebExceptionStatus__Enum.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/WebConnectionData.h>
+#include <Modloader/app/structs/EventHandler.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventArgs.h>
+#include <Modloader/app/structs/NetworkCredential.h>
 
 namespace app::classes::System::Net::WebConnection {
     IL2CPP_REGISTER_METHOD(0x002FBBA0, app::MonoChunkStream*, get_MonoChunkStream, (app::WebConnection * this_ptr))

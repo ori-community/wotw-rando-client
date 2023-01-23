@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TriggerColliderCallback_OnTrigger_Callback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::TriggerColliderCallback_OnTrigger_Callback {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::TriggerColliderCallback_OnTrigger_Callback * this_ptr, app::Object* object, void* method_1))

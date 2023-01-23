@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_ScriptableObject_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_ScriptableObject_.h>
+#include <Modloader/app/structs/ScriptableObject.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_ScriptableObject_ {
     IL2CPP_REGISTER_METHOD(0x025E9050, app::ReadOnlyCollection_1_UnityEngine_ScriptableObject_*, AsReadOnly, (app::List_1_UnityEngine_ScriptableObject_ * this_ptr))

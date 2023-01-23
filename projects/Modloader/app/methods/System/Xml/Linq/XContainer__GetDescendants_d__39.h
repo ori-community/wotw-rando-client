@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XContainer_GetDescendants_d_39.h>
+#include <Modloader/app/structs/XElement.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Xml_Linq_XElement_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Xml::Linq::XContainer__GetDescendants_d__39 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::XContainer_GetDescendants_d_39 * this_ptr, int32_t __1__state))

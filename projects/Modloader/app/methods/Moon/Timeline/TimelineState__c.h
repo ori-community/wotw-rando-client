@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimelineState_c.h>
 
 namespace app::classes::Moon::Timeline::TimelineState___c {
     IL2CPP_REGISTER_METHOD(0x01E8EFA0, void, cctor, ())

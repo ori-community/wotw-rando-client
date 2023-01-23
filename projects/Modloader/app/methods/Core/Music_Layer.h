@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Music_Layer.h>
+#include <Modloader/app/structs/SoundProvider.h>
 
 namespace app::classes::Core::Music_Layer {
     IL2CPP_REGISTER_METHOD(0x00DAD8C0, bool, UsesGivenSoundProvider, (app::Music_Layer * this_ptr, app::SoundProvider* sound_provider))

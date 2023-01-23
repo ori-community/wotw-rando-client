@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossTendrilStrikeBehaviour_StabRightOutState.h>
+#include <Modloader/app/structs/KwolokBossTendrilStrikeBehaviour.h>
 
 namespace app::classes::KwolokBossTendrilStrikeBehaviour_StabRightOutState {
     IL2CPP_REGISTER_METHOD(0x012F0720, void, ctor, (app::KwolokBossTendrilStrikeBehaviour_StabRightOutState * this_ptr, app::KwolokBossTendrilStrikeBehaviour* behaviour))

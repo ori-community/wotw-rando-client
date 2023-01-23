@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundHideZoneGroup_c_DisplayClass2_0__Class.h>
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundHideZoneGroup_c_DisplayClass2_0.h>
 
 namespace app::classes::types {
     namespace PetrifiedOwlFeedingGroundHideZoneGroup_c_DisplayClass2_0 {

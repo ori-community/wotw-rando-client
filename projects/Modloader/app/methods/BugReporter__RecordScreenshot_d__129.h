@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BugReporter_RecordScreenshot_d_129.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::BugReporter__RecordScreenshot_d__129 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::BugReporter_RecordScreenshot_d_129 * this_ptr, int32_t __1__state))

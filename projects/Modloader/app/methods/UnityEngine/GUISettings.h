@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GUISettings.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::UnityEngine::GUISettings {
     IL2CPP_REGISTER_METHOD(0x029F0090, void, ctor, (app::GUISettings * this_ptr))

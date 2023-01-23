@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/VerletBody_Point.h>
 
 namespace app::classes::Moon::VerletBody_Point {
     IL2CPP_REGISTER_METHOD(0x00C1B1E0, app::Vector3, get_Acceleration, (app::VerletBody_Point * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IVRSystem_GetRecommendedRenderTargetSize__Class.h>
+#include <Modloader/app/structs/IVRSystem_GetRecommendedRenderTargetSize.h>
 
 namespace app::classes::types {
     namespace IVRSystem_GetRecommendedRenderTargetSize {

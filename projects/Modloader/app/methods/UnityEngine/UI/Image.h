@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Image.h>
+#include <Modloader/app/structs/Sprite.h>
+#include <Modloader/app/structs/Image_Type__Enum.h>
+#include <Modloader/app/structs/Image_FillMethod__Enum.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/VertexHelper.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/Color32.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/SpriteAtlas.h>
 
 namespace app::classes::UnityEngine::UI::Image {
     IL2CPP_REGISTER_METHOD(0x024B7660, void, ctor, (app::Image * this_ptr))

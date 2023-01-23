@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChangeStateOnCondition.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::Moon::Setups::ChangeStateOnCondition {
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, ShouldCreateCheckpoint, (app::ChangeStateOnCondition * this_ptr))

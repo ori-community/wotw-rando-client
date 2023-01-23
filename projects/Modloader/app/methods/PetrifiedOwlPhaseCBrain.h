@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlPhaseCBrain.h>
 
 namespace app::classes::PetrifiedOwlPhaseCBrain {
     IL2CPP_REGISTER_METHOD(0x014E6510, void, OnStartPlay, (app::PetrifiedOwlPhaseCBrain * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_RaycastHit___Boxed.h>
+#include <Modloader/app/structs/List_1_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_UnityEngine_RaycastHit_ {
     IL2CPP_REGISTER_METHOD(0x00138150, app::RaycastHit, get_Current, (app::List_1_T_Enumerator_UnityEngine_RaycastHit___Boxed * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadContentAsBinaryHelper.h>
 
 namespace app::classes::System::Xml::ReadContentAsBinaryHelper {
     IL2CPP_REGISTER_METHOD(0x0199F510, void, Finish, (app::ReadContentAsBinaryHelper * this_ptr))

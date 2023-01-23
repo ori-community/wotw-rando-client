@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompareVelocityCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::CompareVelocityCondition {
     IL2CPP_REGISTER_METHOD(0x011DEDF0, void, Awake, (app::CompareVelocityCondition * this_ptr))

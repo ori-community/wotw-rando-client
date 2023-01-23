@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostFrame.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/IGhostFrameData.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
+#include <Modloader/app/structs/IGhostFrameData__Array.h>
+#include <Modloader/app/structs/List_1_IGhostFrameData_.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
 
 namespace app::classes::GhostFrame {
     IL2CPP_REGISTER_METHOD(0x00E199E0, void, SaveToFile, (app::GhostFrame * this_ptr, app::BinaryWriter* binary_writer))

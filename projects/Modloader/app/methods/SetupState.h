@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SetupState.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SetupState {
     IL2CPP_REGISTER_METHOD(0x03144EB0, void, ctor, (app::SetupState * this_ptr, int32_t guid))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CheckpointFunctionality__Class.h>
+#include <Modloader/app/structs/CheckpointFunctionality.h>
+#include <Modloader/app/structs/CheckpointFunctionality__Boxed.h>
 
 namespace app::classes::types {
     namespace CheckpointFunctionality {

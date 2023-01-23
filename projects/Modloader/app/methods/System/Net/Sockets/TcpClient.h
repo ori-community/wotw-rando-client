@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TcpClient.h>
+#include <Modloader/app/structs/AddressFamily__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Socket.h>
+#include <Modloader/app/structs/IPEndPoint.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/NetworkStream.h>
 
 namespace app::classes::System::Net::Sockets::TcpClient {
     IL2CPP_REGISTER_METHOD(0x020A2BC0, void, ctor_1, (app::TcpClient * this_ptr))

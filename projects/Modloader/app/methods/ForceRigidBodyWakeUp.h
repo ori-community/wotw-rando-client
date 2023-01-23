@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ForceRigidBodyWakeUp.h>
 
 namespace app::classes::ForceRigidBodyWakeUp {
     IL2CPP_REGISTER_METHOD(0x012818E0, void, Awake, (app::ForceRigidBodyWakeUp * this_ptr))

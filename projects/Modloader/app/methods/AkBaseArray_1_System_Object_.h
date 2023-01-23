@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkBaseArray_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::AkBaseArray_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_Capacity, (app::AkBaseArray_1_System_Object_ * this_ptr))

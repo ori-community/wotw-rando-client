@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpinLock__Boxed.h>
 
 namespace app::classes::System::Threading::SpinLock {
     IL2CPP_REGISTER_METHOD(0x001E6AC0, void, ctor, (app::SpinLock__Boxed * this_ptr, bool enable_thread_owner_tracking))

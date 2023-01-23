@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HierarchyTestBulkTool.h>
+#include <Modloader/app/structs/List_1_RuntimeSceneMetaData_.h>
+#include <Modloader/app/structs/HierarchyTestBulkTool_State__Enum.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::HierarchyTestBulkTool {
     IL2CPP_REGISTER_METHOD(0x014A0850, app::HierarchyTestBulkTool*, get_Instance, ())

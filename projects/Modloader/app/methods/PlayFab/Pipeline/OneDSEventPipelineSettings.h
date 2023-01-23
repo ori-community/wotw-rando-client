@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OneDSEventPipelineSettings.h>
+#include <Modloader/app/structs/TimeSpan.h>
 
 namespace app::classes::PlayFab::Pipeline::OneDSEventPipelineSettings {
     IL2CPP_REGISTER_METHOD(0x002FD1D0, int32_t, get_EventBufferSize, (app::OneDSEventPipelineSettings * this_ptr))

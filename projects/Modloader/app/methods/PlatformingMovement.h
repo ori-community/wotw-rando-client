@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlatformingMovement.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PlatformingMovement {
     IL2CPP_REGISTER_METHOD(0x01173700, bool, get_IsSuspended, (app::PlatformingMovement * this_ptr))

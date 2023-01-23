@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NtlmClient_1.h>
+#include <Modloader/app/structs/Authorization.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WebRequest.h>
+#include <Modloader/app/structs/ICredentials.h>
 
 namespace app::classes::System::Net::NtlmClient {
     IL2CPP_REGISTER_METHOD(0x01BCAFC0, void, ctor, (app::NtlmClient_1 * this_ptr))

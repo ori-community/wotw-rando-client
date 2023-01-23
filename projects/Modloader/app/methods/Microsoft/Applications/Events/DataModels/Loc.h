@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Loc.h>
 
 namespace app::classes::Microsoft::Applications::Events::DataModels::Loc {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_id, (app::Loc * this_ptr))

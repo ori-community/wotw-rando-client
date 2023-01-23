@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Base64Stream_ReadAsyncResult__Class.h>
+#include <Modloader/app/structs/Base64Stream_ReadAsyncResult.h>
 
 namespace app::classes::types {
     namespace Base64Stream_ReadAsyncResult {

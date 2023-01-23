@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_UnityEngine_Object_.h>
+#include <Modloader/app/structs/Object_1.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_UnityEngine_Object_ {
     IL2CPP_REGISTER_METHOD(0x02AB4370, void, ctor, (app::HashSet_1_UnityEngine_Object_ * this_ptr))

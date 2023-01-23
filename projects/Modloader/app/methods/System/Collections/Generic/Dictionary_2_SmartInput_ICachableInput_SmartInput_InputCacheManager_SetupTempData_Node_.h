@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_.h>
+#include <Modloader/app/structs/Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_.h>
+#include <Modloader/app/structs/ICachableInput.h>
+#include <Modloader/app/structs/InputCacheManager_SetupTempData_Node.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_ {
     IL2CPP_REGISTER_METHOD(0x0283B3E0, app::Dictionary_2_TKey_TValue_ValueCollection_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_*, get_Values, (app::Dictionary_2_SmartInput_ICachableInput_SmartInput_InputCacheManager_SetupTempData_Node_ * this_ptr))

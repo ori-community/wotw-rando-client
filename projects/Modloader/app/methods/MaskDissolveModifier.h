@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/MaskDissolveModifier.h>
 
 namespace app::classes::MaskDissolveModifier {
     IL2CPP_REGISTER_METHOD(0x00A0FE00, app::IEnumerable_1_System_String_*, GetKeywordsForShader, (app::MaskDissolveModifier * this_ptr))

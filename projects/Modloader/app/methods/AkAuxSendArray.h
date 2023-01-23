@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkAuxSendArray.h>
+#include <Modloader/app/structs/AkAuxSendValue.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/AKRESULT__Enum.h>
 
 namespace app::classes::AkAuxSendArray {
     IL2CPP_REGISTER_METHOD(0x026CA1A0, void, ctor, (app::AkAuxSendArray * this_ptr))

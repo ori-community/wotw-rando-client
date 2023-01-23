@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IHitStopReceiver.h>
+#include <Modloader/app/structs/HitStop.h>
+#include <Modloader/app/structs/List_1_Moon_ISuspendable_.h>
 
 namespace app::classes::Moon::HitStop {
     IL2CPP_REGISTER_METHOD(0x014AC1C0, void, SubmitHitStop_1, (app::GameObject * go, float duration))

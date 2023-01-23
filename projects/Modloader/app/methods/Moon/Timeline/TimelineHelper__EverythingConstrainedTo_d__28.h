@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimelineHelper_EverythingConstrainedTo_d_28.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_TimelineEntityRecord_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::Moon::Timeline::TimelineHelper__EverythingConstrainedTo_d__28 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::TimelineHelper_EverythingConstrainedTo_d_28 * this_ptr, int32_t __1__state))

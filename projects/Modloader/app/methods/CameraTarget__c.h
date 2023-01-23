@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraTarget_c.h>
+#include <Modloader/app/structs/CameraTarget_TargetLayer.h>
 
 namespace app::classes::CameraTarget___c {
     IL2CPP_REGISTER_METHOD(0x00B20F60, void, cctor, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Task_c.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Task_ContingentProperties.h>
+#include <Modloader/app/structs/Task.h>
 
 namespace app::classes::System::Threading::Tasks::Task___c {
     IL2CPP_REGISTER_METHOD(0x0233A930, void, cctor, ())

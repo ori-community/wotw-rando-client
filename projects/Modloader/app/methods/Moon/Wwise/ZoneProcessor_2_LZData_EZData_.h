@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ZoneProcessor_2_LZData_EZData_.h>
+#include <Modloader/app/structs/EZData.h>
+#include <Modloader/app/structs/AudioEmitterZone.h>
+#include <Modloader/app/structs/LZData.h>
+#include <Modloader/app/structs/AudioListenerZone.h>
+#include <Modloader/app/structs/AudioListenerZoneReference.h>
+#include <Modloader/app/structs/PositionSyncTask__Array.h>
+#include <Modloader/app/structs/AudioEmitterZoneReference.h>
+#include <Modloader/app/structs/SoundListener.h>
+#include <Modloader/app/structs/AkWwiseInitializationSettings.h>
 
 namespace app::classes::Moon::Wwise::ZoneProcessor_2_LZData_EZData_ {
     IL2CPP_REGISTER_METHOD(0x02AF6B80, void, ctor, (app::ZoneProcessor_2_LZData_EZData_ * this_ptr))

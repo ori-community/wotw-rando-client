@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SplitTurnAnimationMoonTimeline_c.h>
 
 namespace app::classes::SplitTurnAnimationMoonTimeline___c {
     IL2CPP_REGISTER_METHOD(0x009A4C30, void, cctor, ())

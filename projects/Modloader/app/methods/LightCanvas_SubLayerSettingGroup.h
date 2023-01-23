@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightCanvas_SubLayerSettingGroup.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::LightCanvas_SubLayerSettingGroup {
     IL2CPP_REGISTER_METHOD(0x01145B20, bool, Equals_1, (app::LightCanvas_SubLayerSettingGroup * this_ptr, app::LightCanvas_SubLayerSettingGroup* other))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValueWithCondition_1_System_Single_.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::ValueWithCondition_1_System_Single_ {
     IL2CPP_REGISTER_METHOD(0x02ACF2E0, float, get_m_value, (app::ValueWithCondition_1_System_Single_ * this_ptr))

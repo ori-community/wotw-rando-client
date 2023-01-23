@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/StompableFloor.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::StompableFloor {
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::StompableFloor * this_ptr))

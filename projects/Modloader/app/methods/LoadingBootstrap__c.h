@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LoadingBootstrap_c.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IPrewarmOperation.h>
 
 namespace app::classes::LoadingBootstrap___c {
     IL2CPP_REGISTER_METHOD(0x00FBDF10, void, cctor, ())

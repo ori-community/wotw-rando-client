@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SortedList_2_TKey_TValue_SortedListKeyEnumerator_System_Int64_System_Object_.h>
+#include <Modloader/app/structs/SortedList_2_System_Int64_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::SortedList_2_TKey_TValue__SortedListKeyEnumerator_System_Int64_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02CAB870, void, ctor, (app::SortedList_2_TKey_TValue_SortedListKeyEnumerator_System_Int64_System_Object_ * this_ptr, app::SortedList_2_System_Int64_System_Object_* sorted_list))

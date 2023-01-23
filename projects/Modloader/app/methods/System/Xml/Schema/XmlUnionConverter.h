@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlUnionConverter.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlValueConverter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
 
 namespace app::classes::System::Xml::Schema::XmlUnionConverter {
     IL2CPP_REGISTER_METHOD(0x0192FD00, void, ctor, (app::XmlUnionConverter * this_ptr, app::XmlSchemaType* schema_type))

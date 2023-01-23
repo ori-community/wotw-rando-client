@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/DepthOfField_1.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/ComputeBuffer.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UnityStandardAssets::CinematicEffects::DepthOfField {
     IL2CPP_REGISTER_METHOD(0x02500C20, app::Shader*, get_filmicDepthOfFieldShader, (app::DepthOfField_1 * this_ptr))

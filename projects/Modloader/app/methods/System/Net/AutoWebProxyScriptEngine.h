@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AutoWebProxyScriptEngine.h>
+#include <Modloader/app/structs/WebProxy.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/IList_1_System_String_.h>
 
 namespace app::classes::System::Net::AutoWebProxyScriptEngine {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::AutoWebProxyScriptEngine * this_ptr, app::WebProxy* proxy, bool use_registry))

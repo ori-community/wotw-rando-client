@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SslHandshakeHash.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/RSA.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::SslHandshakeHash {
     IL2CPP_REGISTER_METHOD(0x01F81810, void, ctor, (app::SslHandshakeHash * this_ptr, app::Byte__Array* secret))

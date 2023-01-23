@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TraceLoggingEventTypes.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EventTags__Enum.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo__Array.h>
+#include <Modloader/app/structs/NameInfo_1.h>
 
 namespace app::classes::System::Diagnostics::Tracing::TraceLoggingEventTypes {
     IL2CPP_REGISTER_METHOD(0x01A0B7B0, void, ctor_1, (app::TraceLoggingEventTypes * this_ptr, app::String* name, app::EventTags__Enum tags, app::Type__Array* types))

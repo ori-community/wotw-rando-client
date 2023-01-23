@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_Moon_CrossSceneReferenceId_System_Object_.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_CrossSceneReferenceId_System_Object_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_Moon_CrossSceneReferenceId_System_Object_.h>
+#include <Modloader/app/structs/CrossSceneReferenceId__Array.h>
+#include <Modloader/app/structs/CrossSceneReferenceId.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_CrossSceneReferenceId_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__KeyCollection_Moon_CrossSceneReferenceId_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x01D51870, void, ctor, (app::Dictionary_2_TKey_TValue_KeyCollection_Moon_CrossSceneReferenceId_System_Object_ * this_ptr, app::Dictionary_2_Moon_CrossSceneReferenceId_System_Object_* dictionary))

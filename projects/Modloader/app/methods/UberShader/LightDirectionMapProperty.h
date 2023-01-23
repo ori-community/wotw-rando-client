@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompressedLightDirectionMap.h>
+#include <Modloader/app/structs/LightDirectionMapProperty.h>
 
 namespace app::classes::UberShader::LightDirectionMapProperty {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::CompressedLightDirectionMap*, get_CompressedMap, (app::LightDirectionMapProperty * this_ptr))

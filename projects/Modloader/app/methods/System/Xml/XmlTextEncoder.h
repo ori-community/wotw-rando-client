@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlTextEncoder.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::XmlTextEncoder {
     IL2CPP_REGISTER_METHOD(0x01714D10, void, ctor, (app::XmlTextEncoder * this_ptr, app::TextWriter* text_writer))

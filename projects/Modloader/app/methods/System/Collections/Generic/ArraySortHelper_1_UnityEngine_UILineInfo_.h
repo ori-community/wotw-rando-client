@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UILineInfo__Array.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_UILineInfo_.h>
+#include <Modloader/app/structs/UILineInfo.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_UILineInfo_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UnityEngine_UILineInfo_ {
     IL2CPP_REGISTER_METHOD(0x02F6F500, void, Sort_1, (app::UILineInfo__Array * keys, int32_t index, int32_t length, app::IComparer_1_UnityEngine_UILineInfo_* comparer))

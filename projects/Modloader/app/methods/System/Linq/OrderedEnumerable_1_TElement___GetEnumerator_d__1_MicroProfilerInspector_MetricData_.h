@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OrderedEnumerable_1_TElement_GetEnumerator_d_1_MicroProfilerInspector_MetricData_.h>
+#include <Modloader/app/structs/MicroProfilerInspector_MetricData.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Linq::OrderedEnumerable_1_TElement___GetEnumerator_d__1_MicroProfilerInspector_MetricData_ {
     IL2CPP_REGISTER_METHOD(0x01D09710, void, ctor, (app::OrderedEnumerable_1_TElement_GetEnumerator_d_1_MicroProfilerInspector_MetricData_ * this_ptr, int32_t __1__state))

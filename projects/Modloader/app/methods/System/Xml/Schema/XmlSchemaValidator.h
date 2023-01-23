@@ -1,5 +1,39 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSchemaValidator.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/XmlSchemaValidationFlags__Enum.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/IXmlLineInfo.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchemaInfo.h>
+#include <Modloader/app/structs/XmlValueGetter.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
+#include <Modloader/app/structs/IDtdInfo.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaElement.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/SchemaDeclBase.h>
+#include <Modloader/app/structs/SchemaElementDecl.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
+#include <Modloader/app/structs/ValidatorState__Enum.h>
+#include <Modloader/app/structs/ValidationState.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/XmlSeverityType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaValidationException.h>
+#include <Modloader/app/structs/XmlSchemaException.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaValidator {
     IL2CPP_REGISTER_METHOD(0x0191EF60, void, ctor, (app::XmlSchemaValidator * this_ptr, app::XmlNameTable* name_table, app::XmlSchemaSet* schemas, app::IXmlNamespaceResolver* namespace_resolver, app::XmlSchemaValidationFlags__Enum validation_flags))

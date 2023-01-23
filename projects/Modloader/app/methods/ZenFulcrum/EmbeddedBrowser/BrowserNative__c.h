@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BrowserNative_c.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventArgs.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::BrowserNative___c {
     IL2CPP_REGISTER_METHOD(0x01C772D0, void, cctor, ())

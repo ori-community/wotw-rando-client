@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/JTokenWriter.h>
+#include <Modloader/app/structs/JContainer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JsonToken__Enum_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/JValue.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/JsonReader.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JTokenWriter {
     IL2CPP_REGISTER_METHOD(0x01858240, app::JToken*, get_Token, (app::JTokenWriter * this_ptr))

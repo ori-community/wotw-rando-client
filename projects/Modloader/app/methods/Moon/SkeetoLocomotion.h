@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkeetoAirEntityMovementProcessor.h>
+#include <Modloader/app/structs/SkeetoLocomotion.h>
+#include <Modloader/app/structs/MovementProcessor.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/SkeetoAirMoveBehaviour.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/EntityBehaviourNode.h>
 
 namespace app::classes::Moon::SkeetoLocomotion {
     IL2CPP_REGISTER_METHOD(0x00418200, app::SkeetoAirEntityMovementProcessor*, get_SkeetoMovementProcessor, (app::SkeetoLocomotion * this_ptr))

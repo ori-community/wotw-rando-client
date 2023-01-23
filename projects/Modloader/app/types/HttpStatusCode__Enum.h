@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/HttpStatusCode__Enum__Class.h>
+#include <Modloader/app/structs/HttpStatusCode__Enum.h>
 
 namespace app::classes::types {
     namespace HttpStatusCode__Enum {

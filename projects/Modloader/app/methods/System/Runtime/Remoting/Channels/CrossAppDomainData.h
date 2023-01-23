@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrossAppDomainData.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::Remoting::Channels::CrossAppDomainData {
     IL2CPP_REGISTER_METHOD(0x01A9EB20, void, ctor, (app::CrossAppDomainData * this_ptr, int32_t domain_id))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuDash_PreDashDelegateType.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::KuDash_PreDashDelegateType {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::KuDash_PreDashDelegateType * this_ptr, app::Object* object, void* method_1))

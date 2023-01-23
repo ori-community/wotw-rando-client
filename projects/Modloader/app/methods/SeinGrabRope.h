@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinGrabRope.h>
+#include <Modloader/app/structs/IGrabbableRope.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SeinGrabRopePuppet.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/SeinGrabRope_State__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::SeinGrabRope {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinGrabRope * this_ptr))

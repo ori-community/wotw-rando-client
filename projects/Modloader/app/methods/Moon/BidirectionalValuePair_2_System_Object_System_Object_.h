@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/BidirectionalValuePair_2_System_Object_System_Object___Boxed.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::BidirectionalValuePair_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00107C00, app::Object*, get_FirstValue, (app::BidirectionalValuePair_2_System_Object_System_Object___Boxed * this_ptr))

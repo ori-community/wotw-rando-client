@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FromBase64Transform.h>
+#include <Modloader/app/structs/FromBase64TransformMode__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::FromBase64Transform {
     IL2CPP_REGISTER_METHOD(0x020D7E70, void, ctor_1, (app::FromBase64Transform * this_ptr))

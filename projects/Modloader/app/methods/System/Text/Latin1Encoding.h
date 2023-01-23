@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Latin1Encoding.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/EncoderNLS.h>
+#include <Modloader/app/structs/DecoderNLS.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Text::Latin1Encoding {
     IL2CPP_REGISTER_METHOD(0x024594F0, void, ctor_1, (app::Latin1Encoding * this_ptr))

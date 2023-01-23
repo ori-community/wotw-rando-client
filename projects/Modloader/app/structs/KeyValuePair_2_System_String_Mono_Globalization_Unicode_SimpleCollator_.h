@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_String_Mono_Globalization_Unicode_SimpleCollator__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_Mono_Globalization_Unicode_SimpleCollator__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_Mono_Globalization_Unicode_SimpleCollator__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_Mono_Globalization_Unicode_SimpleCollator__DEFINED
+struct String;
+struct SimpleCollator;
+struct KeyValuePair_2_System_String_Mono_Globalization_Unicode_SimpleCollator_ {
+    struct String* key;
+    struct SimpleCollator* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_Mono_Globalization_Unicode_SimpleCollator__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_String_Mono_Globalization_Unicode_SimpleCollator__FWDDECL
+#include <Modloader/app/structs/SimpleCollator.h>
+#include <Modloader/app/structs/String.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_String_Mono_Globalization_Unicode_SimpleCollator__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_Mono_Globalization_Unicode_SimpleCollator__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_String_Mono_Globalization_Unicode_SimpleCollator__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_String_Mono_Globalization_Unicode_SimpleCollator_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_String_Mono_Globalization_Unicode_SimpleCollator_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

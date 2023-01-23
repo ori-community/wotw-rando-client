@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SceneComponent.h>
 
 namespace app::classes::Moon::SceneManagement::SceneComponent {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::String*, get_Path, (app::SceneComponent * this_ptr))

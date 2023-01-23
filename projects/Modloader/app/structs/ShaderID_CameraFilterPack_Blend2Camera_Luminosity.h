@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_Luminosity_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_Luminosity_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_Luminosity_DEFINED)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_Luminosity_DEFINED
+struct ShaderID_CameraFilterPack_Blend2Camera_Luminosity__Class;
+struct ShaderID_CameraFilterPack_Blend2Camera_Luminosity {
+    struct ShaderID_CameraFilterPack_Blend2Camera_Luminosity__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_Luminosity_FWDDECL)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_Luminosity_FWDDECL
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blend2Camera_Luminosity__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_Luminosity_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_Luminosity_DEFINED) && !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Blend2Camera_Luminosity_FWDDECL)
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blend2Camera_Luminosity.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Blend2Camera_Luminosity.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

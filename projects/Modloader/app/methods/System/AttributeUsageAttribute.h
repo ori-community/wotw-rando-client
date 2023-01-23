@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AttributeUsageAttribute.h>
+#include <Modloader/app/structs/AttributeTargets__Enum.h>
 
 namespace app::classes::System::AttributeUsageAttribute {
     IL2CPP_REGISTER_METHOD(0x0229BB60, void, ctor, (app::AttributeUsageAttribute * this_ptr, app::AttributeTargets__Enum valid_on))

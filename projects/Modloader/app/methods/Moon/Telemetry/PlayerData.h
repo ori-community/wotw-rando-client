@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataPointType__Enum.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_Moon_Telemetry_GameSession_.h>
+#include <Modloader/app/structs/List_1_Moon_Telemetry_DataPoint_.h>
+#include <Modloader/app/structs/List_1_Moon_Telemetry_GameSession_.h>
+#include <Modloader/app/structs/Dictionary_2_DataPointType_Dictionary_2_System_String_Moon_Telemetry_GameSession_.h>
 
 namespace app::classes::Moon::Telemetry::PlayerData {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::PlayerData * this_ptr, app::String* key))

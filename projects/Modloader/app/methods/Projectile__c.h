@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Projectile_c.h>
+#include <Modloader/app/structs/Projectile.h>
 
 namespace app::classes::Projectile___c {
     IL2CPP_REGISTER_METHOD(0x00C7B2E0, void, cctor, ())

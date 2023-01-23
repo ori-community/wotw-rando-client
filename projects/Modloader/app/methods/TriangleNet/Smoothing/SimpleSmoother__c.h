@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleSmoother_c.h>
+#include <Modloader/app/structs/IPredicates.h>
 
 namespace app::classes::TriangleNet::Smoothing::SimpleSmoother___c {
     IL2CPP_REGISTER_METHOD(0x02A92E20, void, cctor, ())

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_UnityEngine_Experimental_Rendering_VisibleLight_.h>
+#include <Modloader/app/structs/VisibleLight.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_UnityEngine_Experimental_Rendering_VisibleLight_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose, (app::Array_EmptyInternalEnumerator_1_UnityEngine_Experimental_Rendering_VisibleLight_ * this_ptr))

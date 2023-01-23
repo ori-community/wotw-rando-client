@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListMap.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlTypeMapElementInfoList.h>
+#include <Modloader/app/structs/XmlTypeMapElementInfo.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::Serialization::ListMap {
     IL2CPP_REGISTER_METHOD(0x002FB940, void, set_ChoiceMember, (app::ListMap * this_ptr, app::String* value))

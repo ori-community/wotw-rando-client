@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/StatSettingStrings_EnemyLabels__Class.h>
+#include <Modloader/app/structs/StatSettingStrings_EnemyLabels.h>
+#include <Modloader/app/structs/StatSettingStrings_EnemyLabels__Boxed.h>
+#include <Modloader/app/structs/StatSettingStrings_EnemyLabels__Array.h>
 
 namespace app::classes::types {
     namespace StatSettingStrings_EnemyLabels {

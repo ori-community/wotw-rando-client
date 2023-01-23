@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScalePositionForAspectRatio.h>
 
 namespace app::classes::ScalePositionForAspectRatio {
     IL2CPP_REGISTER_METHOD(0x00933D40, void, OnAspectRatioChanged, (app::ScalePositionForAspectRatio * this_ptr))

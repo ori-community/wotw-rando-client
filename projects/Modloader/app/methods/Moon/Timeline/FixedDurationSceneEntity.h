@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpdateCategory__Enum.h>
+#include <Modloader/app/structs/FixedDurationSceneEntity.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineEntityRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ConstraintsMetaData_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineMarkerRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ExternalTimelineRecord_.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_ITimelineEntity_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__2.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_IEventDescriptor_.h>
+#include <Modloader/app/structs/ITrimController.h>
 
 namespace app::classes::Moon::Timeline::FixedDurationSceneEntity {
     IL2CPP_REGISTER_METHOD(0x00417920, app::UpdateCategory__Enum, get_UpdateCategory, (app::FixedDurationSceneEntity * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SteamSignInProvider.h>
+#include <Modloader/app/structs/INetworkConnectivityChecker.h>
+#include <Modloader/app/structs/IPlatformUser.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::SystemIntegration::SteamSignInProvider {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::SteamSignInProvider * this_ptr, app::INetworkConnectivityChecker* net_connectivity_checker))

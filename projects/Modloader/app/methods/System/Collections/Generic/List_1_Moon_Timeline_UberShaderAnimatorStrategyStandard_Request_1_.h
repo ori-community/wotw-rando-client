@@ -1,5 +1,52 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Single_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Object_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Object___Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
+#include <Modloader/app/structs/Action_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Single___Array.h>
+#include <Modloader/app/structs/Predicate_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/Action_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Color___Array.h>
+#include <Modloader/app/structs/Predicate_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/Action_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Vector4___Array.h>
+#include <Modloader/app/structs/Predicate_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
+#include <Modloader/app/structs/Action_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count_1, (app::List_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_ * this_ptr))

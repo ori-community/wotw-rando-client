@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IKSolver_Point.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolver_Point {
     IL2CPP_REGISTER_METHOD(0x02BE7010, void, StoreDefaultLocalState, (app::IKSolver_Point * this_ptr))

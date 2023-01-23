@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSerializer.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XmlAttributeOverrides.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/XmlRootAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlMapping.h>
+#include <Modloader/app/structs/XmlAttributeEventArgs.h>
+#include <Modloader/app/structs/XmlElementEventArgs.h>
+#include <Modloader/app/structs/XmlNodeEventArgs.h>
+#include <Modloader/app/structs/UnreferencedObjectEventArgs.h>
+#include <Modloader/app/structs/XmlSerializationReader.h>
+#include <Modloader/app/structs/XmlSerializationWriter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TextReader.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlSerializerNamespaces.h>
 
 namespace app::classes::System::Xml::Serialization::XmlSerializer {
     IL2CPP_REGISTER_METHOD(0x01949EF0, void, cctor, ())

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlQualifiedName_HashCodeOfStringDelegate.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
 
 namespace app::classes::System::Xml::XmlQualifiedName {
     IL2CPP_REGISTER_METHOD(0x016FF860, void, ctor_1, (app::XmlQualifiedName * this_ptr))

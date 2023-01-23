@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/CollapsingPlatformAnimator.h>
+#include <Modloader/app/structs/ParticleSystem.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::CollapsingPlatformAnimator {
     IL2CPP_REGISTER_METHOD(0x0040B220, app::GameObject*, get_Platform, (app::CollapsingPlatformAnimator * this_ptr))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/TimeZoneInfo_TransitionTime__Boxed.h>
+#include <Modloader/app/structs/DayOfWeek__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TimeZoneInfo_TransitionTime.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::TimeZoneInfo_TransitionTime {
     IL2CPP_REGISTER_METHOD(0x00107C00, app::DateTime, get_TimeOfDay, (app::TimeZoneInfo_TransitionTime__Boxed * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_HierarchyDebugMenu_GameObjectItem_.h>
+#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_HierarchyDebugMenu_GameObjectItem_.h>
+#include <Modloader/app/structs/Comparison_1_HierarchyDebugMenu_GameObjectItem_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_HierarchyDebugMenu_GameObjectItem_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_HierarchyDebugMenu_GameObjectItem_ * this_ptr))

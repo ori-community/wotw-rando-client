@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Cubemap__Class.h>
+#include <Modloader/app/structs/Cubemap.h>
 
 namespace app::classes::types {
     namespace Cubemap {

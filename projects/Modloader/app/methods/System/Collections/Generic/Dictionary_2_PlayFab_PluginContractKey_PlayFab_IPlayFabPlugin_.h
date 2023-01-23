@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_PlayFab_PluginContractKey_.h>
+#include <Modloader/app/structs/PluginContractKey.h>
+#include <Modloader/app/structs/IPlayFabPlugin.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin_ {
     IL2CPP_REGISTER_METHOD(0x0283AC50, void, ctor, (app::Dictionary_2_PlayFab_PluginContractKey_PlayFab_IPlayFabPlugin_ * this_ptr, app::IEqualityComparer_1_PlayFab_PluginContractKey_* comparer))

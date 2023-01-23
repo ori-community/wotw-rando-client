@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShopkeeperItem__Array.h>
+#include <Modloader/app/structs/WeaponmasterScreen.h>
+#include <Modloader/app/structs/ShopkeeperScreen.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/RTPC.h>
 
 namespace app::classes::WeaponmasterScreen {
     IL2CPP_REGISTER_METHOD(0x00418200, app::ShopkeeperItem__Array*, get_Items, (app::WeaponmasterScreen * this_ptr))

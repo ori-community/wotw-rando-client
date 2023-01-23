@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ByRefNewInstruction.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
+#include <Modloader/app/structs/ByRefUpdater__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::ByRefNewInstruction {
     IL2CPP_REGISTER_METHOD(0x0199E410, void, ctor, (app::ByRefNewInstruction * this_ptr, app::ConstructorInfo* target, int32_t argument_count, app::ByRefUpdater__Array* byref_args))

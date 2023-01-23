@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/VideoTimeReference__Enum__Class.h>
+#include <Modloader/app/structs/VideoTimeReference__Enum.h>
 
 namespace app::classes::types {
     namespace VideoTimeReference__Enum {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/EulerRotationAnimator.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::EulerRotationAnimator {
     IL2CPP_REGISTER_METHOD(0x00982550, app::Transform*, get_m_target, (app::EulerRotationAnimator * this_ptr))

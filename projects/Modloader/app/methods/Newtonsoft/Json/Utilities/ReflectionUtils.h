@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TypeNameAssemblyFormatHandling__Enum.h>
+#include <Modloader/app/structs/ISerializationBinder.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/List_1_System_Reflection_MemberInfo_.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/StructMultiKey_2_System_String_System_String_.h>
+#include <Modloader/app/structs/Nullable_1_Int32_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Reflection_FieldInfo_.h>
+#include <Modloader/app/structs/IList_1_System_Reflection_MemberInfo_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Reflection_PropertyInfo_.h>
+#include <Modloader/app/structs/IList_1_System_Reflection_PropertyInfo_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/JsonExtensionDataAttribute.h>
+#include <Modloader/app/structs/NonSerializedAttribute.h>
+#include <Modloader/app/structs/SerializableAttribute.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::ReflectionUtils {
     IL2CPP_REGISTER_METHOD(0x030208C0, void, cctor, ())

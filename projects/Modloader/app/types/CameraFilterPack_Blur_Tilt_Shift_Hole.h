@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CameraFilterPack_Blur_Tilt_Shift_Hole__Class.h>
+#include <Modloader/app/structs/CameraFilterPack_Blur_Tilt_Shift_Hole.h>
 
 namespace app::classes::types {
     namespace CameraFilterPack_Blur_Tilt_Shift_Hole {

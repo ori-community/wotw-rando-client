@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextBoxLine__Array.h>
+#include <Modloader/app/structs/IComparer_1_CatlikeCoding_TextBox_TextBoxLine_.h>
+#include <Modloader/app/structs/TextBoxLine.h>
+#include <Modloader/app/structs/Comparison_1_CatlikeCoding_TextBox_TextBoxLine_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_CatlikeCoding_TextBox_TextBoxLine_ {
     IL2CPP_REGISTER_METHOD(0x02F2D740, void, Sort_1, (app::TextBoxLine__Array * keys, int32_t index, int32_t length, app::IComparer_1_CatlikeCoding_TextBox_TextBoxLine_* comparer))

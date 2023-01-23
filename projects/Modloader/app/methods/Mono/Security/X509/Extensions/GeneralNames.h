@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GeneralNames.h>
+#include <Modloader/app/structs/ASN1_1.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Security::X509::Extensions::GeneralNames {
     IL2CPP_REGISTER_METHOD(0x0291F640, void, ctor, (app::GeneralNames * this_ptr, app::ASN1_1* sequence))

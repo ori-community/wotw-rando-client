@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WispMessageIcon.h>
+#include <Modloader/app/structs/WispMessageIcon_Wisp__Enum.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/MessageProvider.h>
 
 namespace app::classes::WispMessageIcon {
     IL2CPP_REGISTER_METHOD(0x0057CCD0, void, SetWisp, (app::WispMessageIcon * this_ptr, app::WispMessageIcon_Wisp__Enum wisp))

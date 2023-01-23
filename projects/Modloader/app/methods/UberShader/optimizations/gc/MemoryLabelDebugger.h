@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MemoryLabelDebugger_MemoryManagerDataCache.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MemoryLabelDebugger.h>
 
 namespace app::classes::UberShader::optimizations::gc::MemoryLabelDebugger {
     IL2CPP_REGISTER_METHOD(0x018FDB20, app::MemoryLabelDebugger_MemoryManagerDataCache*, get_LastKnownInfo, ())

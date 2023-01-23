@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CleverMenuItemSelectionManager_NavigationData_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CleverMenuItemSelectionManager_NavigationData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CleverMenuItemSelectionManager_NavigationData_DEFINED)
+#include <Modloader/app/structs/CleverMenuItemSelectionManager_NavigationData__Fields.h>
+#if defined(IL2CPP_STRUCT_CleverMenuItemSelectionManager_NavigationData__Fields_DEFINED)
+#define IL2CPP_STRUCT_CleverMenuItemSelectionManager_NavigationData_DEFINED
+struct CleverMenuItemSelectionManager_NavigationData__Class;
+struct CleverMenuItemSelectionManager_NavigationData {
+    struct CleverMenuItemSelectionManager_NavigationData__Class* klass;
+    MonitorData* monitor;
+    struct CleverMenuItemSelectionManager_NavigationData__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CleverMenuItemSelectionManager_NavigationData_FWDDECL)
+#define IL2CPP_STRUCT_CleverMenuItemSelectionManager_NavigationData_FWDDECL
+#include <Modloader/app/structs/CleverMenuItemSelectionManager_NavigationData__Class.h>
+#endif
+#undef IL2CPP_STRUCT_CleverMenuItemSelectionManager_NavigationData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CleverMenuItemSelectionManager_NavigationData_DEFINED) && !defined(IL2CPP_STRUCT_CleverMenuItemSelectionManager_NavigationData_FWDDECL)
+#include <Modloader/app/structs/CleverMenuItemSelectionManager_NavigationData.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CleverMenuItemSelectionManager_NavigationData.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

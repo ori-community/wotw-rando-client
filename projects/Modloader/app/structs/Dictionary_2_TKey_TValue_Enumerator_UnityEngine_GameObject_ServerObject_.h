@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Enumerator_UnityEngine_GameObject_ServerObject__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Enumerator_UnityEngine_GameObject_ServerObject__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Enumerator_UnityEngine_GameObject_ServerObject__DEFINED)
+#include <Modloader/app/structs/KeyValuePair_2_UnityEngine_GameObject_ServerObject_.h>
+#if defined(IL2CPP_STRUCT_KeyValuePair_2_UnityEngine_GameObject_ServerObject__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Enumerator_UnityEngine_GameObject_ServerObject__DEFINED
+struct Dictionary_2_UnityEngine_GameObject_ServerObject_;
+struct Dictionary_2_TKey_TValue_Enumerator_UnityEngine_GameObject_ServerObject_ {
+    struct Dictionary_2_UnityEngine_GameObject_ServerObject_* dictionary;
+    int32_t version;
+    int32_t index;
+    struct KeyValuePair_2_UnityEngine_GameObject_ServerObject_ current;
+    int32_t getEnumeratorRetType;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Enumerator_UnityEngine_GameObject_ServerObject__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Enumerator_UnityEngine_GameObject_ServerObject__FWDDECL
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_GameObject_ServerObject_.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Enumerator_UnityEngine_GameObject_ServerObject__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Enumerator_UnityEngine_GameObject_ServerObject__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Enumerator_UnityEngine_GameObject_ServerObject__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_UnityEngine_GameObject_ServerObject_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_UnityEngine_GameObject_ServerObject_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

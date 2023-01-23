@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SubsystemDescriptor.h>
+#include <Modloader/app/structs/ISubsystemDescriptorImpl.h>
 
 namespace app::classes::UnityEngine::Experimental::Internal_SubsystemDescriptors {
     IL2CPP_REGISTER_METHOD(0x03175500, bool, Internal_AddDescriptor, (app::SubsystemDescriptor * descriptor))

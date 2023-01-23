@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Tuple_2_UnityEngine_GameObject_Moon_UberTransformFollow___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Tuple_2_UnityEngine_GameObject_Moon_UberTransformFollow___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Tuple_2_UnityEngine_GameObject_Moon_UberTransformFollow___Fields_DEFINED)
+#define IL2CPP_STRUCT_Tuple_2_UnityEngine_GameObject_Moon_UberTransformFollow___Fields_DEFINED
+struct GameObject;
+struct UberTransformFollow;
+struct __declspec(align(8)) Tuple_2_UnityEngine_GameObject_Moon_UberTransformFollow___Fields {
+    struct GameObject* m_Item1;
+    struct UberTransformFollow* m_Item2;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Tuple_2_UnityEngine_GameObject_Moon_UberTransformFollow___Fields_FWDDECL)
+#define IL2CPP_STRUCT_Tuple_2_UnityEngine_GameObject_Moon_UberTransformFollow___Fields_FWDDECL
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/UberTransformFollow.h>
+#endif
+#undef IL2CPP_STRUCT_Tuple_2_UnityEngine_GameObject_Moon_UberTransformFollow___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Tuple_2_UnityEngine_GameObject_Moon_UberTransformFollow___Fields_DEFINED) && !defined(IL2CPP_STRUCT_Tuple_2_UnityEngine_GameObject_Moon_UberTransformFollow___Fields_FWDDECL)
+#include <Modloader/app/structs/Tuple_2_UnityEngine_GameObject_Moon_UberTransformFollow___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Tuple_2_UnityEngine_GameObject_Moon_UberTransformFollow___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

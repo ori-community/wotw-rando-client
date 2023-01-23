@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/DiscriminatedUnionConverter_Union.h>
+#include <Modloader/app/structs/DiscriminatedUnionConverter.h>
+#include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/JsonSerializer.h>
+#include <Modloader/app/structs/JsonReader.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::DiscriminatedUnionConverter {
     IL2CPP_REGISTER_METHOD(0x01A50700, app::Type*, CreateUnionTypeLookup, (app::Type * t))

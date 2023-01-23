@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_Moon_Timeline_TransformAnimatorSystem_ScaleModification___Boxed.h>
+#include <Modloader/app/structs/TransformAnimatorSystem_ScaleModification.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_Moon_Timeline_TransformAnimatorSystem_ScaleModification_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_Moon_Timeline_TransformAnimatorSystem_ScaleModification_ {
     IL2CPP_REGISTER_METHOD(0x001F6D10, bool, get_HasValue, (app::Nullable_1_Moon_Timeline_TransformAnimatorSystem_ScaleModification___Boxed * this_ptr))

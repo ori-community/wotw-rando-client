@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlTypeAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::Xml::Serialization::XmlTypeAttribute {
     IL2CPP_REGISTER_METHOD(0x0052B590, bool, get_IncludeInSchema, (app::XmlTypeAttribute * this_ptr))

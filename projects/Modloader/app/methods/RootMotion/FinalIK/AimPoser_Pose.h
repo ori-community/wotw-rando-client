@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AimPoser_Pose.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::AimPoser_Pose {
     IL2CPP_REGISTER_METHOD(0x0204DED0, bool, IsInDirection, (app::AimPoser_Pose * this_ptr, app::Vector3 d))

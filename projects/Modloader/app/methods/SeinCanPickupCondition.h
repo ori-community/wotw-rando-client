@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCanPickupCondition.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/PlatformBehaviour.h>
 
 namespace app::classes::SeinCanPickupCondition {
     IL2CPP_REGISTER_METHOD(0x00DA2F90, bool, Validate, (app::SeinCanPickupCondition * this_ptr, app::IContext* context))

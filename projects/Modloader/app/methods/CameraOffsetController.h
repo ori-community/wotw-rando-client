@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/CameraOffsetController.h>
+#include <Modloader/app/structs/CameraOffsetController_OffsetLayer.h>
+#include <Modloader/app/structs/CameraOffsetZone.h>
 
 namespace app::classes::CameraOffsetController {
     IL2CPP_REGISTER_METHOD(0x01696F20, void, ResetStatics, ())

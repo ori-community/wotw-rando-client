@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MoonAnimatorSystem_c_DisplayClass27_0_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MoonAnimatorSystem_c_DisplayClass27_0_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonAnimatorSystem_c_DisplayClass27_0_DEFINED)
+#include <Modloader/app/structs/MoonAnimatorSystem_c_DisplayClass27_0__Fields.h>
+#if defined(IL2CPP_STRUCT_MoonAnimatorSystem_c_DisplayClass27_0__Fields_DEFINED)
+#define IL2CPP_STRUCT_MoonAnimatorSystem_c_DisplayClass27_0_DEFINED
+struct MoonAnimatorSystem_c_DisplayClass27_0__Class;
+struct MoonAnimatorSystem_c_DisplayClass27_0 {
+    struct MoonAnimatorSystem_c_DisplayClass27_0__Class* klass;
+    MonitorData* monitor;
+    struct MoonAnimatorSystem_c_DisplayClass27_0__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MoonAnimatorSystem_c_DisplayClass27_0_FWDDECL)
+#define IL2CPP_STRUCT_MoonAnimatorSystem_c_DisplayClass27_0_FWDDECL
+#include <Modloader/app/structs/MoonAnimatorSystem_c_DisplayClass27_0__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MoonAnimatorSystem_c_DisplayClass27_0_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonAnimatorSystem_c_DisplayClass27_0_DEFINED) && !defined(IL2CPP_STRUCT_MoonAnimatorSystem_c_DisplayClass27_0_FWDDECL)
+#include <Modloader/app/structs/MoonAnimatorSystem_c_DisplayClass27_0.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MoonAnimatorSystem_c_DisplayClass27_0.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

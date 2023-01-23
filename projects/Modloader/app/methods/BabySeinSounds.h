@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/BabySeinSounds.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 
 namespace app::classes::BabySeinSounds {
     IL2CPP_REGISTER_METHOD(0x00F77560, app::PlatformMovement*, get_PlatformMovement, (app::BabySeinSounds * this_ptr))

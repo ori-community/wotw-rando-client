@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Door_c_DisplayClass13_0.h>
+#include <Modloader/app/structs/JSONNode.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Door___c__DisplayClass13_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::Door_c_DisplayClass13_0 * this_ptr))

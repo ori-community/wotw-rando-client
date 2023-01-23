@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GregorianCalendar.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Calendar.h>
+#include <Modloader/app/structs/GregorianCalendarTypes__Enum.h>
+#include <Modloader/app/structs/DayOfWeek__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
 
 namespace app::classes::System::Globalization::GregorianCalendar {
     IL2CPP_REGISTER_METHOD(0x02610650, void, OnDeserialized, (app::GregorianCalendar * this_ptr, app::StreamingContext ctx))

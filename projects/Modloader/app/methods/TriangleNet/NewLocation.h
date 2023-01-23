@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NewLocation.h>
+#include <Modloader/app/structs/Mesh_1.h>
+#include <Modloader/app/structs/IPredicates.h>
+#include <Modloader/app/structs/Point.h>
+#include <Modloader/app/structs/Vertex.h>
+#include <Modloader/app/structs/Otri.h>
+#include <Modloader/app/structs/Double__Array.h>
+#include <Modloader/app/structs/Double__Array__Array.h>
 
 namespace app::classes::TriangleNet::NewLocation {
     IL2CPP_REGISTER_METHOD(0x02B16840, void, ctor, (app::NewLocation * this_ptr, app::Mesh_1* mesh, app::IPredicates* predicates))

@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_System_Int64_.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_System_Int64_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_Int64_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Int64_.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Int64__Array.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Int64__1.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Int64_.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_System_Int64_ {
     IL2CPP_REGISTER_METHOD(0x02AB4A90, void, Clear, (app::HashSet_1_System_Int64_ * this_ptr))

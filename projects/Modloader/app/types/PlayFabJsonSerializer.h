@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PlayFabJsonSerializer__Class.h>
+#include <Modloader/app/structs/PlayFabJsonSerializer.h>
 
 namespace app::classes::types {
     namespace PlayFabJsonSerializer {

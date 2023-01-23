@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/StressTestRunHelper__Class.h>
+#include <Modloader/app/structs/StressTestRunHelper.h>
 
 namespace app::classes::types {
     namespace StressTestRunHelper {

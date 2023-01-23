@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IDialogNode.h>
+#include <Modloader/app/structs/LinearDialogTransition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::LinearDialogTransition {
     IL2CPP_REGISTER_METHOD(0x00FA74F0, app::IDialogNode*, get_TransitionDestination, (app::LinearDialogTransition * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MinerPickaxeAttack.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::MinerPickaxeAttack {
     IL2CPP_REGISTER_METHOD(0x0144E540, void, OnEntityInitialized, (app::MinerPickaxeAttack * this_ptr))

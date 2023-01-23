@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimelineDoubleEndQueue.h>
+#include <Modloader/app/structs/Reaction.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::TimelineDoubleEndQueue {
     IL2CPP_REGISTER_METHOD(0x01E84340, int32_t, get_Count, (app::TimelineDoubleEndQueue * this_ptr))

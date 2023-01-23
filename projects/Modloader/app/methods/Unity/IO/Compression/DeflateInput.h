@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/DeflateInput.h>
+#include <Modloader/app/structs/DeflateInput_InputState.h>
 
 namespace app::classes::Unity::IO::Compression::DeflateInput {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Byte__Array*, get_Buffer, (app::DeflateInput * this_ptr))

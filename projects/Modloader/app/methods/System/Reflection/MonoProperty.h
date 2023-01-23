@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MonoProperty.h>
+#include <Modloader/app/structs/PInfo__Enum.h>
+#include <Modloader/app/structs/PropertyAttributes__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MethodInfo_1__Array.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/MonoProperty_GetterAdapter.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/Binder.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeData_.h>
+#include <Modloader/app/structs/MonoProperty_Getter_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/MonoProperty_StaticGetter_1_System_Object_.h>
 
 namespace app::classes::System::Reflection::MonoProperty {
     IL2CPP_REGISTER_METHOD(0x02693030, void, CachePropertyInfo, (app::MonoProperty * this_ptr, app::PInfo__Enum flags))

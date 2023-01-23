@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlSilentWoodsController_StalkCState.h>
+#include <Modloader/app/structs/PetrifiedOwlSilentWoodsController.h>
 
 namespace app::classes::PetrifiedOwlSilentWoodsController_StalkCState {
     IL2CPP_REGISTER_METHOD(0x014E7B90, void, ctor, (app::PetrifiedOwlSilentWoodsController_StalkCState * this_ptr, app::PetrifiedOwlSilentWoodsController* controller))

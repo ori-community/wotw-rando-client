@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StepMovementBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
 
 namespace app::classes::StepMovementBehaviour {
     IL2CPP_REGISTER_METHOD(0x006505D0, void, OnInitialize, (app::StepMovementBehaviour * this_ptr))

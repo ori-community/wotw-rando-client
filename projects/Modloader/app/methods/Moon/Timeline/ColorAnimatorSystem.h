@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ColorAnimatorSystem.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/ColorAnimatorSystem_RendererState.h>
 
 namespace app::classes::Moon::Timeline::ColorAnimatorSystem {
     IL2CPP_REGISTER_METHOD(0x00760690, app::ColorAnimatorSystem*, get_Instance, ())

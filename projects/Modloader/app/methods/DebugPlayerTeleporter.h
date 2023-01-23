@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugPlayerTeleporter.h>
+#include <Modloader/app/structs/DebugPlayerTeleporter_DebugMarkerMode__Enum.h>
+#include <Modloader/app/structs/Entity.h>
 
 namespace app::classes::DebugPlayerTeleporter {
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, get_NoClipParamsEnabled, (app::DebugPlayerTeleporter * this_ptr))

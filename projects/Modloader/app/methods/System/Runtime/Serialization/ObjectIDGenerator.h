@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectIDGenerator.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::Serialization::ObjectIDGenerator {
     IL2CPP_REGISTER_METHOD(0x01ED7280, void, ctor, (app::ObjectIDGenerator * this_ptr))

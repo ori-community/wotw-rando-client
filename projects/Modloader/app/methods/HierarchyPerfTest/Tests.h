@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Transform_.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/Tests_CompoentRunnerID__Enum.h>
+#include <Modloader/app/structs/Tests_UnityFunctionID__Enum.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
 
 namespace app::classes::HierarchyPerfTest::Tests {
     IL2CPP_REGISTER_METHOD(0x019776A0, app::IEnumerator*, RunTests, (app::String * scene_name))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CageStructureTool.h>
+#include <Modloader/app/structs/CageMath.h>
 
 namespace app::classes::CageMath {
     IL2CPP_REGISTER_METHOD(0x00823240, bool, IsPointInsideCage, (app::Vector2 point, app::CageStructureTool* cage))

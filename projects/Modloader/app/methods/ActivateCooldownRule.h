@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActivateCooldownRule.h>
+#include <Modloader/app/structs/IComboMove.h>
 
 namespace app::classes::ActivateCooldownRule {
     IL2CPP_REGISTER_METHOD(0x004C87B0, float, get_CurrentCooldown, (app::ActivateCooldownRule * this_ptr))

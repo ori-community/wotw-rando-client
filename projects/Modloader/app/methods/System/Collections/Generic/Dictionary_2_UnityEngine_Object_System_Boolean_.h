@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_Object_System_Boolean_.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_UnityEngine_Object_System_Boolean_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_UnityEngine_Object_System_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_UnityEngine_Object_System_Boolean_ * this_ptr))

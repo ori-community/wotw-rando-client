@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Func_2_DamageResult_EffectSpawn_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EffectSpawn.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Func_2_DamageResult_EffectSpawn_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::Func_2_DamageResult_EffectSpawn_ * this_ptr, app::Object* object, void* method_1))

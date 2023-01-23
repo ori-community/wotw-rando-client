@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinGlowSpell.h>
+#include <Modloader/app/structs/SeinSpells.h>
+#include <Modloader/app/structs/SeinInvisibilitySpell.h>
+#include <Modloader/app/structs/SeinStickyMineSpell.h>
+#include <Modloader/app/structs/SeinSpiritSpearSpell.h>
+#include <Modloader/app/structs/SeinLifeAbsorbSpell.h>
+#include <Modloader/app/structs/SeinMeditateSpell.h>
+#include <Modloader/app/structs/SeinChargeShotSpell.h>
+#include <Modloader/app/structs/SeinJumpShotSpell.h>
+#include <Modloader/app/structs/SeinChakramSpell.h>
+#include <Modloader/app/structs/SeinBlazeSpell.h>
 
 namespace app::classes::SeinSpells {
     IL2CPP_REGISTER_METHOD(0x004173F0, app::SeinGlowSpell*, get_Glow, (app::SeinSpells * this_ptr))

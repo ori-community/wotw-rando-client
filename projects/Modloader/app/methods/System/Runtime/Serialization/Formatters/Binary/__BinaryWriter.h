@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/_BinaryWriter.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/ObjectWriter.h>
+#include <Modloader/app/structs/FormatterTypeStyle__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/NameInfo.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/WriteObjectInfo__Array.h>
+#include <Modloader/app/structs/WriteObjectInfo.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/InternalPrimitiveTypeE__Enum.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::__BinaryWriter {
     IL2CPP_REGISTER_METHOD(0x01ED1880, void, ctor, (app::_BinaryWriter * this_ptr, app::Stream* sout, app::ObjectWriter* object_writer, app::FormatterTypeStyle__Enum formatter_type_style))

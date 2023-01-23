@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Vision_AuraDistortion_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Vision_AuraDistortion_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Vision_AuraDistortion_DEFINED)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Vision_AuraDistortion_DEFINED
+struct ShaderID_CameraFilterPack_Vision_AuraDistortion__Class;
+struct ShaderID_CameraFilterPack_Vision_AuraDistortion {
+    struct ShaderID_CameraFilterPack_Vision_AuraDistortion__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Vision_AuraDistortion_FWDDECL)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_Vision_AuraDistortion_FWDDECL
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Vision_AuraDistortion__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ShaderID_CameraFilterPack_Vision_AuraDistortion_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Vision_AuraDistortion_DEFINED) && !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_Vision_AuraDistortion_FWDDECL)
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Vision_AuraDistortion.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Vision_AuraDistortion.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ClusterModifierBone1.h>
 
 namespace app::classes::ClusterModifierBone1 {
     IL2CPP_REGISTER_METHOD(0x012C70C0, app::String*, get_BoneName, (app::ClusterModifierBone1 * this_ptr))

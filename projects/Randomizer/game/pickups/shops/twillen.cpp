@@ -26,6 +26,7 @@
 #include <Modloader/app/types/SpiritShardSettings.h>
 #include <Modloader/app/types/Renderer.h>
 #include <Modloader/app/types/MessageBox.h>
+#include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Boxed.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 

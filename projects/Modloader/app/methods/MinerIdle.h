@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MinerIdle.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/MinerIdle_IdleStates__Enum.h>
 
 namespace app::classes::MinerIdle {
     IL2CPP_REGISTER_METHOD(0x0144BA50, void, OnInitializeTask, (app::MinerIdle * this_ptr, app::IContext* context))

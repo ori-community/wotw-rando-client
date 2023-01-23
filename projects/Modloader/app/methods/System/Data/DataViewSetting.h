@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataViewSetting.h>
+#include <Modloader/app/structs/DataViewManager.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataViewRowState__Enum.h>
 
 namespace app::classes::System::Data::DataViewSetting {
     IL2CPP_REGISTER_METHOD(0x01F4BD50, void, ctor, (app::DataViewSetting * this_ptr))

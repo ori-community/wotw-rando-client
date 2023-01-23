@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enumerable_RangeIterator_d_115.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Int32_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Linq::Enumerable__RangeIterator_d__115 {
     IL2CPP_REGISTER_METHOD(0x01F9B3A0, void, ctor, (app::Enumerable_RangeIterator_d_115 * this_ptr, int32_t __1__state))

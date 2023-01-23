@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CspProviderFlags__Enum.h>
+#include <Modloader/app/structs/CspParameters.h>
+#include <Modloader/app/structs/CryptoKeySecurity.h>
+#include <Modloader/app/structs/SecureString.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::CspParameters {
     IL2CPP_REGISTER_METHOD(0x005C3FF0, app::CspProviderFlags__Enum, get_Flags, (app::CspParameters * this_ptr))

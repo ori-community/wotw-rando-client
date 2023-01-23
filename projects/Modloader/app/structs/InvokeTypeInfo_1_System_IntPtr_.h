@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_InvokeTypeInfo_1_System_IntPtr__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_InvokeTypeInfo_1_System_IntPtr__INITIALIZING
+#if !defined(IL2CPP_STRUCT_InvokeTypeInfo_1_System_IntPtr__DEFINED)
+#include <Modloader/app/structs/InvokeTypeInfo_1_System_IntPtr___Fields.h>
+#if defined(IL2CPP_STRUCT_InvokeTypeInfo_1_System_IntPtr___Fields_DEFINED)
+#define IL2CPP_STRUCT_InvokeTypeInfo_1_System_IntPtr__DEFINED
+struct InvokeTypeInfo_1_System_IntPtr___Class;
+struct InvokeTypeInfo_1_System_IntPtr_ {
+    struct InvokeTypeInfo_1_System_IntPtr___Class* klass;
+    MonitorData* monitor;
+    struct InvokeTypeInfo_1_System_IntPtr___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_InvokeTypeInfo_1_System_IntPtr__FWDDECL)
+#define IL2CPP_STRUCT_InvokeTypeInfo_1_System_IntPtr__FWDDECL
+#include <Modloader/app/structs/InvokeTypeInfo_1_System_IntPtr___Class.h>
+#endif
+#undef IL2CPP_STRUCT_InvokeTypeInfo_1_System_IntPtr__INITIALIZING
+#if !defined(IL2CPP_STRUCT_InvokeTypeInfo_1_System_IntPtr__DEFINED) && !defined(IL2CPP_STRUCT_InvokeTypeInfo_1_System_IntPtr__FWDDECL)
+#include <Modloader/app/structs/InvokeTypeInfo_1_System_IntPtr_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/InvokeTypeInfo_1_System_IntPtr_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

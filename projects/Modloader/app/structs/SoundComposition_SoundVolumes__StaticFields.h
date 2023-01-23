@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SoundComposition_SoundVolumes__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SoundComposition_SoundVolumes__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SoundComposition_SoundVolumes__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_SoundComposition_SoundVolumes__StaticFields_DEFINED
+struct Dictionary_2_UnityEngine_AudioClip_System_Single_;
+struct SoundComposition_SoundVolumes__StaticFields {
+    struct Dictionary_2_UnityEngine_AudioClip_System_Single_* Volumes;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_SoundComposition_SoundVolumes__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_SoundComposition_SoundVolumes__StaticFields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_AudioClip_System_Single_.h>
+#endif
+#undef IL2CPP_STRUCT_SoundComposition_SoundVolumes__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SoundComposition_SoundVolumes__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_SoundComposition_SoundVolumes__StaticFields_FWDDECL)
+#include <Modloader/app/structs/SoundComposition_SoundVolumes__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SoundComposition_SoundVolumes__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

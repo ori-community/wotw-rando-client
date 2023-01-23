@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_FloatRequest.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_FloatRequest_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_FloatRequest_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_FloatRequest_.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_FloatRequest_.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_FloatRequest__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_FloatRequest_.h>
+#include <Modloader/app/structs/Action_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_FloatRequest_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyExperimental_FloatRequest_.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_FloatRequest_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_FloatRequest_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_FloatRequest_ {
     IL2CPP_REGISTER_METHOD(0x02D49B80, app::UberShaderAnimatorStrategyExperimental_FloatRequest, get_Item, (app::List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_FloatRequest_ * this_ptr, int32_t index))

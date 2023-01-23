@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ColosseumBase.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::ColosseumBase {
     IL2CPP_REGISTER_METHOD(0x011DA7F0, void, Start, (app::ColosseumBase * this_ptr))

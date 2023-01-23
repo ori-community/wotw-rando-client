@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/Func_2_UnityEngine_UI_ILayoutElement_Single_.h>
+#include <Modloader/app/structs/ILayoutElement.h>
 
 namespace app::classes::UnityEngine::UI::LayoutUtility {
     IL2CPP_REGISTER_METHOD(0x0265DE50, float, GetMinSize, (app::RectTransform * rect, int32_t axis))

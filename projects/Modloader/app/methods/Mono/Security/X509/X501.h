@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ASN1.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/X501_1.h>
+#include <Modloader/app/structs/ASN1_1.h>
+#include <Modloader/app/structs/X520_AttributeTypeAndValue.h>
 
 namespace app::classes::Mono::Security::X509::X501 {
     IL2CPP_REGISTER_METHOD(0x025E4F40, app::String*, ToString_1, (app::ASN1 * seq))

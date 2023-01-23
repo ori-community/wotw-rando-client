@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UIVertex__Array.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_UIVertex_.h>
+#include <Modloader/app/structs/UIVertex.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_UIVertex_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UnityEngine_UIVertex_ {
     IL2CPP_REGISTER_METHOD(0x02F6FB20, void, Sort_1, (app::UIVertex__Array * keys, int32_t index, int32_t length, app::IComparer_1_UnityEngine_UIVertex_* comparer))

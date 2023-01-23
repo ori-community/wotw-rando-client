@@ -1,5 +1,34 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Animator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/AnimatorUpdateMode__Enum.h>
+#include <Modloader/app/structs/AvatarIKGoal__Enum.h>
+#include <Modloader/app/structs/AvatarIKHint__Enum.h>
+#include <Modloader/app/structs/HumanBodyBones__Enum.h>
+#include <Modloader/app/structs/ScriptableObject.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ScriptableObject__Array.h>
+#include <Modloader/app/structs/StateMachineBehaviour__Array.h>
+#include <Modloader/app/structs/StateInfoIndex__Enum.h>
+#include <Modloader/app/structs/AnimatorStateInfo.h>
+#include <Modloader/app/structs/AnimatorTransitionInfo.h>
+#include <Modloader/app/structs/AnimatorClipInfo__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_AnimatorClipInfo_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AnimatorControllerParameter__Array.h>
+#include <Modloader/app/structs/AnimatorControllerParameter.h>
+#include <Modloader/app/structs/MatchTargetWeightMask.h>
+#include <Modloader/app/structs/AvatarTarget__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/AnimatorCullingMode__Enum.h>
+#include <Modloader/app/structs/AnimatorRecorderMode__Enum.h>
+#include <Modloader/app/structs/RuntimeAnimatorController.h>
+#include <Modloader/app/structs/Avatar.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::UnityEngine::Animator {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Animator * this_ptr))

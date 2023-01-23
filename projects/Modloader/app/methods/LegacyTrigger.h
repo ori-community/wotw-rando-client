@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyTrigger.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::LegacyTrigger {
     IL2CPP_REGISTER_METHOD(0x00CA4070, bool, get_IsSuspended, (app::LegacyTrigger * this_ptr))

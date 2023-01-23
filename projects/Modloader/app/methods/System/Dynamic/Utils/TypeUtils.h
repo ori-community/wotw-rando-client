@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/MethodInfo_1__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Assembly.h>
 
 namespace app::classes::System::Dynamic::Utils::TypeUtils {
     IL2CPP_REGISTER_METHOD(0x01F965B0, app::Type*, GetNonNullableType, (app::Type * type))

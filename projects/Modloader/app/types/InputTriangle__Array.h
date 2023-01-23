@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InputTriangle__Array__Class.h>
+#include <Modloader/app/structs/InputTriangle__Array.h>
 
 namespace app::classes::types {
     namespace InputTriangle__Array {

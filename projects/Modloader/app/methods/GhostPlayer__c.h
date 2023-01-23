@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostPlayer_c.h>
 
 namespace app::classes::GhostPlayer___c {
     IL2CPP_REGISTER_METHOD(0x007DF650, void, cctor, ())

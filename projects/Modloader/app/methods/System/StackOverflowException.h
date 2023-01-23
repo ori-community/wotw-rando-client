@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StackOverflowException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::StackOverflowException {
     IL2CPP_REGISTER_METHOD(0x01E26AB0, void, ctor_1, (app::StackOverflowException * this_ptr))

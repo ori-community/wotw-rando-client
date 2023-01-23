@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimatorControllerPlayable__Boxed.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/AnimatorControllerPlayable.h>
 
 namespace app::classes::UnityEngine::Animations::AnimatorControllerPlayable {
     IL2CPP_REGISTER_METHOD(0x00242380, void, ctor, (app::AnimatorControllerPlayable__Boxed * this_ptr, app::PlayableHandle handle))

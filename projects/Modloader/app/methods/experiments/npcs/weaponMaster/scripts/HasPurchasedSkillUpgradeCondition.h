@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HasPurchasedSkillUpgradeCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::experiments::npcs::weaponMaster::scripts::HasPurchasedSkillUpgradeCondition {
     IL2CPP_REGISTER_METHOD(0x00F59B50, bool, Validate, (app::HasPurchasedSkillUpgradeCondition * this_ptr, app::IContext* context))

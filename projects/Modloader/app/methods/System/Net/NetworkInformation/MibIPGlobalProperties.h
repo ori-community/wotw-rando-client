@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MibIPGlobalProperties.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/IPEndPoint__Array.h>
+#include <Modloader/app/structs/List_1_System_String__1.h>
+#include <Modloader/app/structs/IPEndPoint.h>
 
 namespace app::classes::System::Net::NetworkInformation::MibIPGlobalProperties {
     IL2CPP_REGISTER_METHOD(0x01E76A20, void, ctor, (app::MibIPGlobalProperties * this_ptr, app::String* proc_dir))

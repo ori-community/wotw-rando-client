@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/LoremasterReplayController.h>
+#include <Modloader/app/structs/ReplaySetting.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LoremasterReplayController {
     IL2CPP_REGISTER_METHOD(0x009ED850, bool, get_LoreMasterReplayActive, ())

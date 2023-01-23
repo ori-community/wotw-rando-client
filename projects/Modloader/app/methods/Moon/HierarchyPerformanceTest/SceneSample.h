@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneSample.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/HPerfTestResult.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::SceneSample {
     IL2CPP_REGISTER_METHOD(0x014AA890, void, ctor, (app::SceneSample * this_ptr, app::Vector3 pos))

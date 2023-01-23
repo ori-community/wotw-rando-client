@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SneezeSlugDeathReactionBehaviour_DeathState__Enum__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SneezeSlugDeathReactionBehaviour_DeathState__Enum__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SneezeSlugDeathReactionBehaviour_DeathState__Enum__Boxed_DEFINED)
+#include <Modloader/app/structs/SneezeSlugDeathReactionBehaviour_DeathState__Enum.h>
+#if defined(IL2CPP_STRUCT_SneezeSlugDeathReactionBehaviour_DeathState__Enum_DEFINED)
+#define IL2CPP_STRUCT_SneezeSlugDeathReactionBehaviour_DeathState__Enum__Boxed_DEFINED
+struct SneezeSlugDeathReactionBehaviour_DeathState__Enum__Class;
+struct SneezeSlugDeathReactionBehaviour_DeathState__Enum__Boxed {
+    struct SneezeSlugDeathReactionBehaviour_DeathState__Enum__Class* klass;
+    MonitorData* monitor;
+    SneezeSlugDeathReactionBehaviour_DeathState__Enum value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SneezeSlugDeathReactionBehaviour_DeathState__Enum__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_SneezeSlugDeathReactionBehaviour_DeathState__Enum__Boxed_FWDDECL
+#include <Modloader/app/structs/SneezeSlugDeathReactionBehaviour_DeathState__Enum__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SneezeSlugDeathReactionBehaviour_DeathState__Enum__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SneezeSlugDeathReactionBehaviour_DeathState__Enum__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_SneezeSlugDeathReactionBehaviour_DeathState__Enum__Boxed_FWDDECL)
+#include <Modloader/app/structs/SneezeSlugDeathReactionBehaviour_DeathState__Enum__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SneezeSlugDeathReactionBehaviour_DeathState__Enum__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

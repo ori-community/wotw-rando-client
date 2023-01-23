@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JointDrive__Boxed.h>
+#include <Modloader/app/structs/JointDriveMode__Enum.h>
 
 namespace app::classes::UnityEngine::JointDrive {
     IL2CPP_REGISTER_METHOD(0x00002890, void, set_mode, (app::JointDrive__Boxed * this_ptr, app::JointDriveMode__Enum value))

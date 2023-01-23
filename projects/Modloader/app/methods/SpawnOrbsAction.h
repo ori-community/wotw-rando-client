@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpawnOrbsAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SpawnOrbsAction {
     IL2CPP_REGISTER_METHOD(0x00EF5CA0, void, Perform, (app::SpawnOrbsAction * this_ptr, app::IContext* context))

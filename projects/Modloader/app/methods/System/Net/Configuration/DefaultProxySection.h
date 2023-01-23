@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DefaultProxySection.h>
+#include <Modloader/app/structs/BypassElementCollection.h>
+#include <Modloader/app/structs/ModuleElement.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
+#include <Modloader/app/structs/ProxyElement.h>
+#include <Modloader/app/structs/ConfigurationElement.h>
 
 namespace app::classes::System::Net::Configuration::DefaultProxySection {
     IL2CPP_REGISTER_METHOD(0x02018CE0, void, ctor, (app::DefaultProxySection * this_ptr))

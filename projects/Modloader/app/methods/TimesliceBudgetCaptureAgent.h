@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimesliceBudgetCaptureAgent.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/ITimeSlicedJob.h>
+#include <Modloader/app/structs/SliceExecutionStats.h>
 
 namespace app::classes::TimesliceBudgetCaptureAgent {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsCaptureAgentValid, (app::TimesliceBudgetCaptureAgent * this_ptr))

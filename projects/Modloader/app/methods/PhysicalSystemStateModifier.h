@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicalSystemStateModifier.h>
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_System_Type_.h>
 
 namespace app::classes::PhysicalSystemStateModifier {
     IL2CPP_REGISTER_METHOD(0x014FBB70, void, Apply, (app::PhysicalSystemStateModifier * this_ptr, app::MoonReference_1_UnityEngine_GameObject_* target, app::UberStateApplyContext__Enum context))

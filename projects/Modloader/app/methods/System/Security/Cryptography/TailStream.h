@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TailStream.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
 
 namespace app::classes::System::Security::Cryptography::TailStream {
     IL2CPP_REGISTER_METHOD(0x01E112F0, void, ctor, (app::TailStream * this_ptr, int32_t buffer_size))

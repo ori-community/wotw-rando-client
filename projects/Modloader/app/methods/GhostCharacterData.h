@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
+#include <Modloader/app/structs/GhostCharacterData.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/BinaryWriter.h>
 
 namespace app::classes::GhostCharacterData {
     IL2CPP_REGISTER_METHOD(0x00E16AD0, app::GhostFrame_FrameDataTypes__Enum, get_FrameType, (app::GhostCharacterData * this_ptr))

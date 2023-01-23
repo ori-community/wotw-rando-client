@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_UnityEngine_RenderTexture_.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_UnityEngine_RenderTexture_ {
     IL2CPP_REGISTER_METHOD(0x02CF8030, void, Push, (app::Stack_1_UnityEngine_RenderTexture_ * this_ptr, app::RenderTexture* item))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ShaderID_CC_Vibrance__Class.h>
+#include <Modloader/app/structs/ShaderID_CC_Vibrance.h>
 
 namespace app::classes::types {
     namespace ShaderID_CC_Vibrance {

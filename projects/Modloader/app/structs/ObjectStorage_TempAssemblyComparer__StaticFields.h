@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ObjectStorage_TempAssemblyComparer__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ObjectStorage_TempAssemblyComparer__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ObjectStorage_TempAssemblyComparer__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_ObjectStorage_TempAssemblyComparer__StaticFields_DEFINED
+struct IEqualityComparer_1_KeyValuePair_2_System_Type_System_Xml_Serialization_XmlRootAttribute_;
+struct ObjectStorage_TempAssemblyComparer__StaticFields {
+    struct IEqualityComparer_1_KeyValuePair_2_System_Type_System_Xml_Serialization_XmlRootAttribute_* s_default;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ObjectStorage_TempAssemblyComparer__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_ObjectStorage_TempAssemblyComparer__StaticFields_FWDDECL
+#include <Modloader/app/structs/IEqualityComparer_1_KeyValuePair_2_System_Type_System_Xml_Serialization_XmlRootAttribute_.h>
+#endif
+#undef IL2CPP_STRUCT_ObjectStorage_TempAssemblyComparer__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ObjectStorage_TempAssemblyComparer__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_ObjectStorage_TempAssemblyComparer__StaticFields_FWDDECL)
+#include <Modloader/app/structs/ObjectStorage_TempAssemblyComparer__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ObjectStorage_TempAssemblyComparer__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

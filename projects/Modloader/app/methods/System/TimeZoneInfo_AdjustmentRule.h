@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/TimeZoneInfo_AdjustmentRule.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/TimeZoneInfo_TransitionTime.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::TimeZoneInfo_AdjustmentRule {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::DateTime, get_DateStart, (app::TimeZoneInfo_AdjustmentRule * this_ptr))

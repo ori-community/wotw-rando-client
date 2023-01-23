@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/PlayTimelineInteractionNodeDecorator.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::InteractionGraph::PlayTimelineInteractionNodeDecorator {
     IL2CPP_REGISTER_METHOD(0x01990DE0, app::MoonTimeline*, get_ResolvedTimeline, (app::PlayTimelineInteractionNodeDecorator * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_Moon_uberSerializationWisp_PlayerUberStateAreaMapInformation_MapTrailEntry_.h>
+#include <Modloader/app/structs/PlayerUberStateAreaMapInformation_MapTrailEntry.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_Moon_uberSerializationWisp_PlayerUberStateAreaMapInformation_MapTrailEntry_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::Stack_1_Moon_uberSerializationWisp_PlayerUberStateAreaMapInformation_MapTrailEntry_ * this_ptr))

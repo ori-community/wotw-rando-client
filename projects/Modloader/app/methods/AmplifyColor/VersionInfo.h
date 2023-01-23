@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/VersionInfo.h>
 
 namespace app::classes::AmplifyColor::VersionInfo {
     IL2CPP_REGISTER_METHOD(0x030CCAE0, app::String*, StaticToString, ())

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Reflector.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SpiritFlameProjectile.h>
 
 namespace app::classes::Reflector {
     IL2CPP_REGISTER_METHOD(0x008FC8E0, void, OnTriggerEnter, (app::Reflector * this_ptr, app::Collider* collider))

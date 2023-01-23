@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugControls.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::DebugControls {
     IL2CPP_REGISTER_METHOD(0x00DE1650, void, Update, (app::DebugControls * this_ptr))

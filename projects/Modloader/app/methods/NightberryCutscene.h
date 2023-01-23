@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NightberryCutscene.h>
 
 namespace app::classes::NightberryCutscene {
     IL2CPP_REGISTER_METHOD(0x00609340, void, Start, (app::NightberryCutscene * this_ptr))

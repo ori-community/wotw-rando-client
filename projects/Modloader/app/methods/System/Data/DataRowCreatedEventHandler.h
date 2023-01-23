@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataRowCreatedEventHandler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Data::DataRowCreatedEventHandler {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::DataRowCreatedEventHandler * this_ptr, app::Object* object, void* method_1))

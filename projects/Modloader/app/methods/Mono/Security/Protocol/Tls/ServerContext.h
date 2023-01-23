@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SslServerStream.h>
+#include <Modloader/app/structs/ServerContext.h>
+#include <Modloader/app/structs/SecurityProtocolType__Enum_1.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::ServerContext {
     IL2CPP_REGISTER_METHOD(0x005B0220, app::SslServerStream*, get_SslStream, (app::ServerContext * this_ptr))

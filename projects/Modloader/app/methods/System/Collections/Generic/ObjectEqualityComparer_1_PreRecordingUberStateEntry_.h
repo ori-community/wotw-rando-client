@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_PreRecordingUberStateEntry_.h>
+#include <Modloader/app/structs/PreRecordingUberStateEntry.h>
+#include <Modloader/app/structs/PreRecordingUberStateEntry__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_PreRecordingUberStateEntry_ {
     IL2CPP_REGISTER_METHOD(0x01CD0840, bool, Equals_1, (app::ObjectEqualityComparer_1_PreRecordingUberStateEntry_ * this_ptr, app::PreRecordingUberStateEntry x, app::PreRecordingUberStateEntry y))

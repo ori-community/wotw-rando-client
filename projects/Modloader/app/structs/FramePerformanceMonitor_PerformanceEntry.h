@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_FramePerformanceMonitor_PerformanceEntry_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_FramePerformanceMonitor_PerformanceEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_FramePerformanceMonitor_PerformanceEntry_DEFINED)
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceEntry__Fields.h>
+#if defined(IL2CPP_STRUCT_FramePerformanceMonitor_PerformanceEntry__Fields_DEFINED)
+#define IL2CPP_STRUCT_FramePerformanceMonitor_PerformanceEntry_DEFINED
+struct FramePerformanceMonitor_PerformanceEntry__Class;
+struct FramePerformanceMonitor_PerformanceEntry {
+    struct FramePerformanceMonitor_PerformanceEntry__Class* klass;
+    MonitorData* monitor;
+    struct FramePerformanceMonitor_PerformanceEntry__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_FramePerformanceMonitor_PerformanceEntry_FWDDECL)
+#define IL2CPP_STRUCT_FramePerformanceMonitor_PerformanceEntry_FWDDECL
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceEntry__Class.h>
+#endif
+#undef IL2CPP_STRUCT_FramePerformanceMonitor_PerformanceEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_FramePerformanceMonitor_PerformanceEntry_DEFINED) && !defined(IL2CPP_STRUCT_FramePerformanceMonitor_PerformanceEntry_FWDDECL)
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceEntry.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceEntry.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

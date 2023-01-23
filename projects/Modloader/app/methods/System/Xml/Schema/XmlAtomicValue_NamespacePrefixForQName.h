@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlAtomicValue_NamespacePrefixForQName.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
 
 namespace app::classes::System::Xml::Schema::XmlAtomicValue_NamespacePrefixForQName {
     IL2CPP_REGISTER_METHOD(0x02028E40, void, ctor, (app::XmlAtomicValue_NamespacePrefixForQName * this_ptr, app::String* prefix, app::String* ns))

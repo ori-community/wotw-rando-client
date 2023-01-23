@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CacheData__Array.h>
+#include <Modloader/app/structs/PlatformServiceProvider.h>
+#include <Modloader/app/structs/IPlatformUser.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PlayFabRaceServiceProvider.h>
+#include <Modloader/app/structs/ISignInProvider.h>
+#include <Modloader/app/structs/IDataProvider.h>
+#include <Modloader/app/structs/IAchievementData.h>
+#include <Modloader/app/structs/TelemetryEvent__Enum.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Object_.h>
+#include <Modloader/app/structs/MoonTelemetryClientBaseEvent.h>
+#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
+#include <Modloader/app/structs/Action_1_System_Collections_Generic_List_1__2.h>
+#include <Modloader/app/structs/Action_1_System_Collections_Generic_List_1__3.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::SystemIntegration::PlatformServiceProvider {
     IL2CPP_REGISTER_METHOD(0x00518D60, app::CacheData__Array*, get_AchievementData, (app::PlatformServiceProvider * this_ptr))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/EntityHitReactionBehaviour_1_FrogEntity_.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
 
 namespace app::classes::EntityHitReactionBehaviour_1_FrogEntity_ {
     IL2CPP_REGISTER_METHOD(0x00420230, app::BehaviourStatus__Enum, OnExecuteTask, (app::EntityHitReactionBehaviour_1_FrogEntity_ * this_ptr, app::IContext* context))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SecurityElement.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/SecurityElement_SecurityAttribute.h>
 
 namespace app::classes::System::Security::SecurityElement {
     IL2CPP_REGISTER_METHOD(0x01E1ED30, void, ctor_1, (app::SecurityElement * this_ptr, app::String* tag))

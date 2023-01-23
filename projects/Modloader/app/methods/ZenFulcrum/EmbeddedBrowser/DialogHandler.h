@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DialogHandler.h>
+#include <Modloader/app/structs/Browser.h>
+#include <Modloader/app/structs/DialogHandler_DialogCallback.h>
+#include <Modloader/app/structs/DialogHandler_MenuCallback.h>
+#include <Modloader/app/structs/BrowserNative_DialogType__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::DialogHandler {
     IL2CPP_REGISTER_METHOD(0x01DD4430, app::DialogHandler*, Create, (app::Browser * parent, app::DialogHandler_DialogCallback* dialog_callback, app::DialogHandler_MenuCallback* context_callback))

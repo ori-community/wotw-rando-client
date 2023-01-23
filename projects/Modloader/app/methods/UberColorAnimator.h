@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/UberColorAnimator.h>
+#include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
+#include <Modloader/app/structs/UberColorAnimator_ColorName__Enum.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/UberShaderColor.h>
+#include <Modloader/app/structs/UberShaderComponent.h>
 
 namespace app::classes::UberColorAnimator {
     IL2CPP_REGISTER_METHOD(0x013E5540, app::GameObject*, get_CurrentTarget, (app::UberColorAnimator * this_ptr))

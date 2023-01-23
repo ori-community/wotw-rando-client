@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkeetoNestEntity.h>
+#include <Modloader/app/structs/List_1_SkeetoPlaceholder_.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::SkeetoNestEntity {
     IL2CPP_REGISTER_METHOD(0x0075D470, void, ResetStatics, ())

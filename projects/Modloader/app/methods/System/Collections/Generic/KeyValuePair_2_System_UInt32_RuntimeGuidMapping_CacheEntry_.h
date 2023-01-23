@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_UInt32_RuntimeGuidMapping_CacheEntry___Boxed.h>
+#include <Modloader/app/structs/RuntimeGuidMapping_CacheEntry.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_UInt32_RuntimeGuidMapping_CacheEntry_ {
     IL2CPP_REGISTER_METHOD(0x00151E90, void, ctor, (app::KeyValuePair_2_System_UInt32_RuntimeGuidMapping_CacheEntry___Boxed * this_ptr, uint32_t key, app::RuntimeGuidMapping_CacheEntry value))

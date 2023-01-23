@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_LegacyRespawner_.h>
+#include <Modloader/app/structs/LegacyRespawner.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/List_1_System_Action_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/List_1_IInteractable_.h>
+#include <Modloader/app/structs/IInteractable.h>
+#include <Modloader/app/structs/List_1_UberInteractionActor_.h>
+#include <Modloader/app/structs/UberInteractionActor.h>
 
 namespace app::classes::ListExtension {
     IL2CPP_REGISTER_METHOD(0x018F2D30, bool, RemoveAtUnordered, (app::List_1_System_Object_ * list, int32_t index))

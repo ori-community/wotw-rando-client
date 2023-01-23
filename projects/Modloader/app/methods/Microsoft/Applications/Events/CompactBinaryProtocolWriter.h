@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Byte_.h>
+#include <Modloader/app/structs/CompactBinaryProtocolWriter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Microsoft::Applications::Events::CompactBinaryProtocolWriter {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::List_1_System_Byte_*, get_Data, (app::CompactBinaryProtocolWriter * this_ptr))

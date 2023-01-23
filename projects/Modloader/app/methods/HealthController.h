@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HealthController.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::HealthController {
     IL2CPP_REGISTER_METHOD(0x010A16F0, void, Awake, (app::HealthController * this_ptr))

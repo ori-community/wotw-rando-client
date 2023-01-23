@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector3___Boxed.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_UnityEngine_Vector3_ {
     IL2CPP_REGISTER_METHOD(0x001EB610, void, ctor, (app::Nullable_1_UnityEngine_Vector3___Boxed * this_ptr, app::Vector3 value))

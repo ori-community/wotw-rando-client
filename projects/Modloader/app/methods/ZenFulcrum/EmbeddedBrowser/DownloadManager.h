@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DownloadManager.h>
+#include <Modloader/app/structs/Browser.h>
+#include <Modloader/app/structs/JSONNode.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/void.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::DownloadManager {
     IL2CPP_REGISTER_METHOD(0x01DD70D0, void, Awake, (app::DownloadManager * this_ptr))

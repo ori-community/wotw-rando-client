@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XalService_c.h>
+#include <Modloader/app/structs/Task.h>
 
 namespace app::classes::Microsoft::Xbox::Services::Xal::XalService___c {
     IL2CPP_REGISTER_METHOD(0x0143BC30, void, cctor, ())

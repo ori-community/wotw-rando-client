@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SymbolsDictionary.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/NamespaceList.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ICollection.h>
 
 namespace app::classes::System::Xml::Schema::SymbolsDictionary {
     IL2CPP_REGISTER_METHOD(0x01ABB750, void, ctor, (app::SymbolsDictionary * this_ptr))

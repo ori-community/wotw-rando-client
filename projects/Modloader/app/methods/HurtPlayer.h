@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HurtPlayer.h>
 
 namespace app::classes::HurtPlayer {
     IL2CPP_REGISTER_METHOD(0x00B6FEA0, void, Start, (app::HurtPlayer * this_ptr))

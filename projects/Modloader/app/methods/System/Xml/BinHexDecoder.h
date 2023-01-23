@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinHexDecoder.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Xml::BinHexDecoder {
     IL2CPP_REGISTER_METHOD(0x021E17F0, bool, get_IsFull, (app::BinHexDecoder * this_ptr))

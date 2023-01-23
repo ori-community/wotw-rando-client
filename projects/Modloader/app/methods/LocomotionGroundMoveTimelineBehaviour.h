@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocomotionGroundMoveTimelineBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::LocomotionGroundMoveTimelineBehaviour {
     IL2CPP_REGISTER_METHOD(0x00FC6960, bool, get_IsAnimationPlaying, (app::LocomotionGroundMoveTimelineBehaviour * this_ptr))

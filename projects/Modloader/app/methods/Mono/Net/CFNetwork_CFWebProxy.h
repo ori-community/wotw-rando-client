@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CFNetwork_CFWebProxy.h>
+#include <Modloader/app/structs/ICredentials.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/CFProxy.h>
+#include <Modloader/app/structs/NetworkCredential.h>
+#include <Modloader/app/structs/CFProxy__Array.h>
 
 namespace app::classes::Mono::Net::CFNetwork_CFWebProxy {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::CFNetwork_CFWebProxy * this_ptr))

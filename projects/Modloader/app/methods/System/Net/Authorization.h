@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Authorization.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::Net::Authorization {
     IL2CPP_REGISTER_METHOD(0x02010AA0, void, ctor_1, (app::Authorization * this_ptr, app::String* token))

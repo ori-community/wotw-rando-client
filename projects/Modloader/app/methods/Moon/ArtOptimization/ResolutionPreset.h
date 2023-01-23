@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ResolutionPreset.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::ArtOptimization::ResolutionPreset {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_Width, (app::ResolutionPreset * this_ptr))

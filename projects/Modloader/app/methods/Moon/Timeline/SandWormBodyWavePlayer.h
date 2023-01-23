@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormBodyWavePlayer.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::SandWormBodyWavePlayer {
     IL2CPP_REGISTER_METHOD(0x00781E30, void, OnStartPlayback, (app::SandWormBodyWavePlayer * this_ptr, app::IContext* context))

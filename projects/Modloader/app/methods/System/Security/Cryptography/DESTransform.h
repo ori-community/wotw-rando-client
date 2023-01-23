@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DESTransform.h>
+#include <Modloader/app/structs/SymmetricAlgorithm.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/UInt32__Array.h>
 
 namespace app::classes::System::Security::Cryptography::DESTransform {
     IL2CPP_REGISTER_METHOD(0x020D1FF0, void, ctor, (app::DESTransform * this_ptr, app::SymmetricAlgorithm* symm_algo, bool encryption, app::Byte__Array* key, app::Byte__Array* iv))

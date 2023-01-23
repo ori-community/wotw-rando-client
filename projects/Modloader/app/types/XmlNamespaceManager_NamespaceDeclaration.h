@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration__Class.h>
+#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration.h>
+#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration__Boxed.h>
+#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration__Array.h>
 
 namespace app::classes::types {
     namespace XmlNamespaceManager_NamespaceDeclaration {

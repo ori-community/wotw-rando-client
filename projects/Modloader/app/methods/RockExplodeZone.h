@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RockExplodeZone.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RockExplodeZone {
     IL2CPP_REGISTER_METHOD(0x01359090, void, Awake, (app::RockExplodeZone * this_ptr))

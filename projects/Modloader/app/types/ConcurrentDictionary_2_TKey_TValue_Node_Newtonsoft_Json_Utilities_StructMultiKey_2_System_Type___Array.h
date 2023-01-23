@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_Node_Newtonsoft_Json_Utilities_StructMultiKey_2_System_Type___Array__Class.h>
+#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_Node_Newtonsoft_Json_Utilities_StructMultiKey_2_System_Type___Array.h>
 
 namespace app::classes::types {
     namespace ConcurrentDictionary_2_TKey_TValue_Node_Newtonsoft_Json_Utilities_StructMultiKey_2_System_Type___Array {

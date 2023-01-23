@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CultureAwareComparer.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::CultureAwareComparer {
     IL2CPP_REGISTER_METHOD(0x028A0750, void, ctor, (app::CultureAwareComparer * this_ptr, app::CultureInfo* culture, bool ignore_case))

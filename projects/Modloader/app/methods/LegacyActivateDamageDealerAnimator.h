@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyActivateDamageDealerAnimator.h>
 
 namespace app::classes::LegacyActivateDamageDealerAnimator {
     IL2CPP_REGISTER_METHOD(0x004C87D0, void, OnStartPlay, (app::LegacyActivateDamageDealerAnimator * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IContextProperty.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Runtime_Remoting_Contexts_IContextProperty___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_System_Runtime_Remoting_Contexts_IContextProperty_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::IContextProperty*, get_Current, (app::List_1_T_Enumerator_System_Runtime_Remoting_Contexts_IContextProperty___Boxed * this_ptr))

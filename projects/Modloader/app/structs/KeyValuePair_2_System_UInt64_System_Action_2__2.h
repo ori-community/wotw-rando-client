@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_UInt64_System_Action_2__2_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_UInt64_System_Action_2__2_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_UInt64_System_Action_2__2_DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_UInt64_System_Action_2__2_DEFINED
+struct Action_2_Steamworks_UserStatsStored_t_Boolean_;
+struct KeyValuePair_2_System_UInt64_System_Action_2__2 {
+    uint64_t key;
+    struct Action_2_Steamworks_UserStatsStored_t_Boolean_* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_UInt64_System_Action_2__2_FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_UInt64_System_Action_2__2_FWDDECL
+#include <Modloader/app/structs/Action_2_Steamworks_UserStatsStored_t_Boolean_.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_UInt64_System_Action_2__2_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_UInt64_System_Action_2__2_DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_UInt64_System_Action_2__2_FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_UInt64_System_Action_2__2.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_UInt64_System_Action_2__2.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

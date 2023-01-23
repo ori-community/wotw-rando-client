@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCinematicToGameplay.h>
 
 namespace app::classes::SeinCinematicToGameplay {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinCinematicToGameplay * this_ptr))

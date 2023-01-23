@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DamageBasedSoundProvider.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/SoundDamageType__Enum.h>
+#include <Modloader/app/structs/SoundDescriptor.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::DamageBasedSoundProvider {
     IL2CPP_REGISTER_METHOD(0x00DC22A0, bool, Match, (app::DamageBasedSoundProvider * this_ptr, app::Damage* damage, app::SoundDamageType__Enum sound_damage_type))

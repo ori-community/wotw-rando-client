@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpriteAnimatorSerializer.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SpriteAnimatorSerializer {
     IL2CPP_REGISTER_METHOD(0x009AC500, void, OnValidate, (app::SpriteAnimatorSerializer * this_ptr))

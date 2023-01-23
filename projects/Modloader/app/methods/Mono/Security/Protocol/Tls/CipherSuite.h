@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ICryptoTransform.h>
+#include <Modloader/app/structs/CipherSuite.h>
+#include <Modloader/app/structs/KeyedHashAlgorithm.h>
+#include <Modloader/app/structs/CipherAlgorithmType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HashAlgorithm.h>
+#include <Modloader/app/structs/HashAlgorithmType__Enum.h>
+#include <Modloader/app/structs/ExchangeAlgorithmType__Enum.h>
+#include <Modloader/app/structs/CipherMode__Enum.h>
+#include <Modloader/app/structs/Context_1.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::CipherSuite {
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::ICryptoTransform*, get_EncryptionCipher, (app::CipherSuite * this_ptr))

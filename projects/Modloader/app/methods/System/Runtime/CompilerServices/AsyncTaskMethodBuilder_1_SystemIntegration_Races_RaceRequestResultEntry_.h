@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_SystemIntegration_Races_RaceRequestResultEntry_.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_SystemIntegration_Races_RaceRequestResultEntry___Boxed.h>
+#include <Modloader/app/structs/PlayFabRaceServiceProvider_GetRaceResultEntry_d_15.h>
+#include <Modloader/app/structs/Task_1_SystemIntegration_Races_RaceRequestResultEntry_.h>
+#include <Modloader/app/structs/TaskAwaiter_1_System_Byte_.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/RaceRequestResultEntry.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncTaskMethodBuilder_1_SystemIntegration_Races_RaceRequestResultEntry_ {
     IL2CPP_REGISTER_METHOD(0x00C537F0, app::AsyncTaskMethodBuilder_1_SystemIntegration_Races_RaceRequestResultEntry_, Create, ())

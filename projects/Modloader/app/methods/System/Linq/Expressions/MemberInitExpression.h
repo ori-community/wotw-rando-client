@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MemberInitExpression.h>
+#include <Modloader/app/structs/NewExpression.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_MemberBinding_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/ExpressionVisitor.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ElementInit_.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/MemberBinding.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_MemberBinding_.h>
 
 namespace app::classes::System::Linq::Expressions::MemberInitExpression {
     IL2CPP_REGISTER_METHOD(0x02418180, void, ctor, (app::MemberInitExpression * this_ptr, app::NewExpression* new_expression, app::ReadOnlyCollection_1_System_Linq_Expressions_MemberBinding_* bindings))

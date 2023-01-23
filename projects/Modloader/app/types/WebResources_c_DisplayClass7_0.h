@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WebResources_c_DisplayClass7_0__Class.h>
+#include <Modloader/app/structs/WebResources_c_DisplayClass7_0.h>
 
 namespace app::classes::types {
     namespace WebResources_c_DisplayClass7_0 {

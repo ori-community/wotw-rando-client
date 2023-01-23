@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OrderedEnumerable_1_TElement_GetEnumerator_d_1_System_Int32_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Linq::OrderedEnumerable_1_TElement___GetEnumerator_d__1_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x01D09710, void, ctor, (app::OrderedEnumerable_1_TElement_GetEnumerator_d_1_System_Int32_ * this_ptr, int32_t __1__state))

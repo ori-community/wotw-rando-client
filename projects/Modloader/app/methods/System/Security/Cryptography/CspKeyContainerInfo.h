@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CspKeyContainerInfo.h>
+#include <Modloader/app/structs/CspParameters.h>
+#include <Modloader/app/structs/CryptoKeySecurity.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/KeyNumber__Enum.h>
 
 namespace app::classes::System::Security::Cryptography::CspKeyContainerInfo {
     IL2CPP_REGISTER_METHOD(0x020D0390, void, ctor, (app::CspKeyContainerInfo * this_ptr, app::CspParameters* parameters))

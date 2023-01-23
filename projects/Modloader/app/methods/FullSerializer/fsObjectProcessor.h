@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsObjectProcessor.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/fsData.h>
 
 namespace app::classes::FullSerializer::fsObjectProcessor {
     IL2CPP_REGISTER_METHOD(0x015145E0, bool, CanProcess, (app::fsObjectProcessor * this_ptr, app::Type* type))

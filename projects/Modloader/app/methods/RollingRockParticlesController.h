@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RollingRockParticlesController.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::RollingRockParticlesController {
     IL2CPP_REGISTER_METHOD(0x01366C00, void, Start, (app::RollingRockParticlesController * this_ptr))

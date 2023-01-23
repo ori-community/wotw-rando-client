@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XalSignInProvider_SignInSilently_b_30_0_d__Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XalSignInProvider_SignInSilently_b_30_0_d__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XalSignInProvider_SignInSilently_b_30_0_d__Class_DEFINED)
+#include <Modloader/app/structs/XalSignInProvider_SignInSilently_b_30_0_d__VTable.h>
+#if defined(IL2CPP_STRUCT_XalSignInProvider_SignInSilently_b_30_0_d__VTable_DEFINED)
+#define IL2CPP_STRUCT_XalSignInProvider_SignInSilently_b_30_0_d__Class_DEFINED
+struct XalSignInProvider_SignInSilently_b_30_0_d__StaticFields;
+struct XalSignInProvider_SignInSilently_b_30_0_d__Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct XalSignInProvider_SignInSilently_b_30_0_d__StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct XalSignInProvider_SignInSilently_b_30_0_d__VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_XalSignInProvider_SignInSilently_b_30_0_d__Class_FWDDECL)
+#define IL2CPP_STRUCT_XalSignInProvider_SignInSilently_b_30_0_d__Class_FWDDECL
+#include <Modloader/app/structs/XalSignInProvider_SignInSilently_b_30_0_d__StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_XalSignInProvider_SignInSilently_b_30_0_d__Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XalSignInProvider_SignInSilently_b_30_0_d__Class_DEFINED) && !defined(IL2CPP_STRUCT_XalSignInProvider_SignInSilently_b_30_0_d__Class_FWDDECL)
+#include <Modloader/app/structs/XalSignInProvider_SignInSilently_b_30_0_d__Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XalSignInProvider_SignInSilently_b_30_0_d__Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_Moon_MoonAnimatorLayerDefinition_.h>
+#include <Modloader/app/structs/MoonAnimatorLayerDefinition.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_Moon_MoonAnimatorLayerDefinition_ {
     IL2CPP_REGISTER_METHOD(0x01CC5360, int32_t, Compare, (app::ObjectComparer_1_Moon_MoonAnimatorLayerDefinition_ * this_ptr, app::MoonAnimatorLayerDefinition x, app::MoonAnimatorLayerDefinition y))

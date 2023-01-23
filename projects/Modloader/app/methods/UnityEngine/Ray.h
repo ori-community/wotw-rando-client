@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Ray__Boxed.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Ray {
     IL2CPP_REGISTER_METHOD(0x00217910, void, ctor, (app::Ray__Boxed * this_ptr, app::Vector3 origin, app::Vector3 direction))

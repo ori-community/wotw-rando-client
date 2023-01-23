@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SetGameServerInstanceDataResult__Class.h>
+#include <Modloader/app/structs/SetGameServerInstanceDataResult.h>
 
 namespace app::classes::types {
     namespace SetGameServerInstanceDataResult {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_MessageDescriptor_.h>
+#include <Modloader/app/structs/MessageDescriptor.h>
+#include <Modloader/app/structs/MessageDescriptor__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_MessageDescriptor_ {
     IL2CPP_REGISTER_METHOD(0x01CD2410, bool, Equals_1, (app::ObjectEqualityComparer_1_MessageDescriptor_ * this_ptr, app::MessageDescriptor x, app::MessageDescriptor y))

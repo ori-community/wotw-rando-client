@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncMethodBuilderCore__Boxed.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/AsyncMethodBuilderCore_MoveNextRunner.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/SynchronizationContext.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncMethodBuilderCore {
     IL2CPP_REGISTER_METHOD(0x0018ED60, void, SetStateMachine, (app::AsyncMethodBuilderCore__Boxed * this_ptr, app::IAsyncStateMachine* state_machine))

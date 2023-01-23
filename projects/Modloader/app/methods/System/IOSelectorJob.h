@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IOSelectorJob.h>
+#include <Modloader/app/structs/IOOperation__Enum.h>
+#include <Modloader/app/structs/IOAsyncCallback.h>
+#include <Modloader/app/structs/IOAsyncResult.h>
+#include <Modloader/app/structs/ThreadAbortException.h>
 
 namespace app::classes::System::IOSelectorJob {
     IL2CPP_REGISTER_METHOD(0x0200ADC0, void, ctor, (app::IOSelectorJob * this_ptr, app::IOOperation__Enum operation, app::IOAsyncCallback* callback, app::IOAsyncResult* state))

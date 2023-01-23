@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/CapsuleCollider.h>
+#include <Modloader/app/structs/CapsuleCollider__Array.h>
+#include <Modloader/app/structs/Single__Array.h>
 
 namespace app::classes::UnityEngine::CapsuleCollider {
     IL2CPP_REGISTER_METHOD(0x0309DFC0, app::Vector3, get_center, (app::CapsuleCollider * this_ptr))

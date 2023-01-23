@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FieldOfViewOffsetAnimator.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::FieldOfViewOffsetAnimator {
     IL2CPP_REGISTER_METHOD(0x01255970, void, OnUpdateEntity, (app::FieldOfViewOffsetAnimator * this_ptr, float delta_time))

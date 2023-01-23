@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObjectFilter.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::GameObjectFilter {
     IL2CPP_REGISTER_METHOD(0x003F8970, bool, Valid, (app::GameObjectFilter * this_ptr, app::GameObject* game_object))

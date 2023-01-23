@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GoThroughPlatform.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::GoThroughPlatformManager {
     IL2CPP_REGISTER_METHOD(0x007FDF00, void, Register, (app::GoThroughPlatform * platform))

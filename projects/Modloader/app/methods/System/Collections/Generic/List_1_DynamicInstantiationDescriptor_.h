@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
+#include <Modloader/app/structs/IEnumerable_1_DynamicInstantiationDescriptor_.h>
+#include <Modloader/app/structs/DynamicInstantiationDescriptor.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_DynamicInstantiationDescriptor_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_DynamicInstantiationDescriptor_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_DynamicInstantiationDescriptor_ * this_ptr))

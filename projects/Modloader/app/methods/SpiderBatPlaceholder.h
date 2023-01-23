@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBatPlaceholder.h>
 
 namespace app::classes::SpiderBatPlaceholder {
     IL2CPP_REGISTER_METHOD(0x0095C900, void, LateUpdate, (app::SpiderBatPlaceholder * this_ptr))

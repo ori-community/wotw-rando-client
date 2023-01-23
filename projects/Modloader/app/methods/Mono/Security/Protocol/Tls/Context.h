@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Context_1.h>
+#include <Modloader/app/structs/SecurityProtocolType__Enum_1.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/SecurityCompressionType__Enum.h>
+#include <Modloader/app/structs/TlsServerSettings.h>
+#include <Modloader/app/structs/TlsClientSettings.h>
+#include <Modloader/app/structs/HandshakeType__Enum.h>
+#include <Modloader/app/structs/HandshakeState__Enum.h>
+#include <Modloader/app/structs/CipherSuiteCollection.h>
+#include <Modloader/app/structs/TlsStream.h>
+#include <Modloader/app/structs/RecordProtocol.h>
+#include <Modloader/app/structs/SecurityParameters.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::Context {
     IL2CPP_REGISTER_METHOD(0x0051DB40, bool, get_AbbreviatedHandshake, (app::Context_1 * this_ptr))

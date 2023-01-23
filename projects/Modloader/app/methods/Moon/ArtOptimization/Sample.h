@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TexturePoolEntity.h>
+#include <Modloader/app/structs/Sample.h>
+#include <Modloader/app/structs/Texture.h>
 
 namespace app::classes::Moon::ArtOptimization::Sample {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::TexturePoolEntity*, get_MasterTex, (app::Sample * this_ptr))

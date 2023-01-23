@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Resolution__Array.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_Resolution_.h>
+#include <Modloader/app/structs/Resolution.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_Resolution_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UnityEngine_Resolution_ {
     IL2CPP_REGISTER_METHOD(0x02F6E8C0, void, Sort_1, (app::Resolution__Array * keys, int32_t index, int32_t length, app::IComparer_1_UnityEngine_Resolution_* comparer))

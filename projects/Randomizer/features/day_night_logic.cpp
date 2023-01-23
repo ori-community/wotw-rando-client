@@ -8,6 +8,7 @@
 #include <Modloader/app/methods/SwampNightDayTransition.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
 #include <Modloader/app/methods/UnityEngine/Transform.h>
+#include <Modloader/app/structs/Boolean__Boxed.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>

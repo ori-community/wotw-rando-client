@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SslStreamBase.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/X509CertificateCollection_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/ValidationResult.h>
+#include <Modloader/app/structs/X509CertificateCollection_2.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
+#include <Modloader/app/structs/CipherAlgorithmType__Enum.h>
+#include <Modloader/app/structs/HashAlgorithmType__Enum.h>
+#include <Modloader/app/structs/ExchangeAlgorithmType__Enum.h>
+#include <Modloader/app/structs/SecurityProtocolType__Enum_1.h>
+#include <Modloader/app/structs/SslStreamBase_InternalAsyncResult.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::SslStreamBase {
     IL2CPP_REGISTER_METHOD(0x01F83540, void, ctor, (app::SslStreamBase * this_ptr, app::Stream* stream, bool owns_stream))

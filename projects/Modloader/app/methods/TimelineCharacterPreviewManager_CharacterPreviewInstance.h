@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/TimelineCharacterPreviewManager_CharacterPreviewInstance.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::TimelineCharacterPreviewManager_CharacterPreviewInstance {
     IL2CPP_REGISTER_METHOD(0x010F6290, app::Transform*, get_Transform, (app::TimelineCharacterPreviewManager_CharacterPreviewInstance * this_ptr))

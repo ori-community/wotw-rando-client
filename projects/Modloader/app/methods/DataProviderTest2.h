@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/DataProviderTest2.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IMoonResolverContext.h>
+#include <Modloader/app/structs/ITestInterface.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::DataProviderTest2 {
     IL2CPP_REGISTER_METHOD(0x00B8E4A0, app::Vector3, get_TestVector3, (app::DataProviderTest2 * this_ptr))

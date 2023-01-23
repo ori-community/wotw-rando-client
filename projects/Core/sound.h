@@ -3,6 +3,13 @@
 #include <Core/enums/sound.h>
 #include <Core/macros.h>
 
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandle.h>
+#include <Modloader/app/structs/ISoundHost.h>
+#include <Modloader/app/structs/WwiseEventSystem_EventStatus__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/Vector3.h>
+
 #include <string_view>
 
 namespace core::sound {

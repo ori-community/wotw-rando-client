@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ActionMethod.h>
+#include <Modloader/app/structs/Condition_1.h>
+#include <Modloader/app/structs/Object_1.h>
 
 namespace app::classes::ActionHelper {
     IL2CPP_REGISTER_METHOD(0x004C4E30, app::String*, GetName_1, (app::ActionMethod * action))

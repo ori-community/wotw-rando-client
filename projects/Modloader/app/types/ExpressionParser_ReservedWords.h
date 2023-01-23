@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ExpressionParser_ReservedWords__Class.h>
+#include <Modloader/app/structs/ExpressionParser_ReservedWords.h>
+#include <Modloader/app/structs/ExpressionParser_ReservedWords__Boxed.h>
+#include <Modloader/app/structs/ExpressionParser_ReservedWords__Array.h>
 
 namespace app::classes::types {
     namespace ExpressionParser_ReservedWords {

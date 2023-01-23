@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Damage_DamageEffectPositionMode__Enum__Class.h>
+#include <Modloader/app/structs/Damage_DamageEffectPositionMode__Enum.h>
 
 namespace app::classes::types {
     namespace Damage_DamageEffectPositionMode__Enum {

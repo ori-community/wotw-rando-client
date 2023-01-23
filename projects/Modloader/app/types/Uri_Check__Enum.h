@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Uri_Check__Enum__Class.h>
+#include <Modloader/app/structs/Uri_Check__Enum.h>
 
 namespace app::classes::types {
     namespace Uri_Check__Enum {

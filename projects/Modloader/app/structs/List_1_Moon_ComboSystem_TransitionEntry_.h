@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_Moon_ComboSystem_TransitionEntry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_Moon_ComboSystem_TransitionEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_ComboSystem_TransitionEntry__DEFINED)
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_TransitionEntry___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_Moon_ComboSystem_TransitionEntry___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_Moon_ComboSystem_TransitionEntry__DEFINED
+struct List_1_Moon_ComboSystem_TransitionEntry___Class;
+struct List_1_Moon_ComboSystem_TransitionEntry_ {
+    struct List_1_Moon_ComboSystem_TransitionEntry___Class* klass;
+    MonitorData* monitor;
+    struct List_1_Moon_ComboSystem_TransitionEntry___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_Moon_ComboSystem_TransitionEntry__FWDDECL)
+#define IL2CPP_STRUCT_List_1_Moon_ComboSystem_TransitionEntry__FWDDECL
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_TransitionEntry___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_Moon_ComboSystem_TransitionEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_ComboSystem_TransitionEntry__DEFINED) && !defined(IL2CPP_STRUCT_List_1_Moon_ComboSystem_TransitionEntry__FWDDECL)
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_TransitionEntry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_TransitionEntry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

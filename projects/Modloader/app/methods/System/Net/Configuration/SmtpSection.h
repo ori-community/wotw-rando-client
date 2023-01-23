@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SmtpSection.h>
+#include <Modloader/app/structs/SmtpDeliveryFormat__Enum.h>
+#include <Modloader/app/structs/SmtpDeliveryMethod__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SmtpNetworkElement.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
+#include <Modloader/app/structs/SmtpSpecifiedPickupDirectoryElement.h>
 
 namespace app::classes::System::Net::Configuration::SmtpSection {
     IL2CPP_REGISTER_METHOD(0x01E99080, void, ctor, (app::SmtpSection * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CameraFilterPack_Drawing_Curve__Class.h>
+#include <Modloader/app/structs/CameraFilterPack_Drawing_Curve.h>
 
 namespace app::classes::types {
     namespace CameraFilterPack_Drawing_Curve {

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator_DEFINED)
+#include <Modloader/app/structs/XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator__Fields.h>
+#if defined(IL2CPP_STRUCT_XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator__Fields_DEFINED)
+#define IL2CPP_STRUCT_XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator_DEFINED
+struct XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator__Class;
+struct XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator {
+    struct XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator__Class* klass;
+    MonitorData* monitor;
+    struct XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator_FWDDECL)
+#define IL2CPP_STRUCT_XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator_FWDDECL
+#include <Modloader/app/structs/XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator__Class.h>
+#endif
+#undef IL2CPP_STRUCT_XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator_DEFINED) && !defined(IL2CPP_STRUCT_XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator_FWDDECL)
+#include <Modloader/app/structs/XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XmlNamedNodeMap_SmallXmlNodeList_SingleObjectEnumerator.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

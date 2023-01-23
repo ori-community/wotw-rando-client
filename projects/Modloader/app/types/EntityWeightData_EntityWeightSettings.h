@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeightSettings__Class.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeightSettings.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeightSettings__Boxed.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeightSettings__Array.h>
 
 namespace app::classes::types {
     namespace EntityWeightData_EntityWeightSettings {

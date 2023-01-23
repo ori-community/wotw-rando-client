@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BreakPhysicsSystemAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::BreakPhysicsSystemAction {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnValidate, (app::BreakPhysicsSystemAction * this_ptr))

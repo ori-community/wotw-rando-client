@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CageStructureTool_Edge.h>
+#include <Modloader/app/structs/List_1_CageStructureTool_Edge_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_CageStructureTool_Edge_.h>
+#include <Modloader/app/structs/Predicate_1_CageStructureTool_Edge_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CageStructureTool_Edge_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::CageStructureTool_Edge*, get_Item, (app::List_1_CageStructureTool_Edge_ * this_ptr, int32_t index))

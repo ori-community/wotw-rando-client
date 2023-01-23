@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XboxQualityModeManager_QualityMode__Enum.h>
+#include <Modloader/app/structs/XboxQualityModeManager.h>
 
 namespace app::classes::MoonDataPlatform::XboxQualityModeManager {
     IL2CPP_REGISTER_METHOD(0x00F49900, bool, get_DisableVsyncForPerformanceMode, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BrightnessVolumeSlider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::BrightnessVolumeSlider {
     IL2CPP_REGISTER_METHOD(0x00D51180, void, Awake, (app::BrightnessVolumeSlider * this_ptr))

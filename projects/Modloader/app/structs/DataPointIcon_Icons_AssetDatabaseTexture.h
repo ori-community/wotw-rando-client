@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DataPointIcon_Icons_AssetDatabaseTexture_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DataPointIcon_Icons_AssetDatabaseTexture_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DataPointIcon_Icons_AssetDatabaseTexture_DEFINED)
+#include <Modloader/app/structs/DataPointIcon_Icons_AssetDatabaseTexture__Fields.h>
+#if defined(IL2CPP_STRUCT_DataPointIcon_Icons_AssetDatabaseTexture__Fields_DEFINED)
+#define IL2CPP_STRUCT_DataPointIcon_Icons_AssetDatabaseTexture_DEFINED
+struct DataPointIcon_Icons_AssetDatabaseTexture__Class;
+struct DataPointIcon_Icons_AssetDatabaseTexture {
+    struct DataPointIcon_Icons_AssetDatabaseTexture__Class* klass;
+    MonitorData* monitor;
+    struct DataPointIcon_Icons_AssetDatabaseTexture__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_DataPointIcon_Icons_AssetDatabaseTexture_FWDDECL)
+#define IL2CPP_STRUCT_DataPointIcon_Icons_AssetDatabaseTexture_FWDDECL
+#include <Modloader/app/structs/DataPointIcon_Icons_AssetDatabaseTexture__Class.h>
+#endif
+#undef IL2CPP_STRUCT_DataPointIcon_Icons_AssetDatabaseTexture_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DataPointIcon_Icons_AssetDatabaseTexture_DEFINED) && !defined(IL2CPP_STRUCT_DataPointIcon_Icons_AssetDatabaseTexture_FWDDECL)
+#include <Modloader/app/structs/DataPointIcon_Icons_AssetDatabaseTexture.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DataPointIcon_Icons_AssetDatabaseTexture.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

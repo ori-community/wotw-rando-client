@@ -3,6 +3,9 @@
 #include <string>
 #include <string_view>
 
+#include <Modloader/app/structs/EntityTargetting.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+
 namespace randomizer {
     namespace conditions {
         using targetable_intercept = bool (*)(app::EntityTargetting* target);

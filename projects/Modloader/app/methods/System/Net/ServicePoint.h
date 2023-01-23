@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServicePoint.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/BindIPEndPoint.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Version.h>
+#include <Modloader/app/structs/Socket.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/WebConnectionGroup.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IPHostEntry.h>
+#include <Modloader/app/structs/EventHandler.h>
+#include <Modloader/app/structs/HttpWebRequest.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/IPEndPoint.h>
+#include <Modloader/app/structs/PooledStream.h>
+#include <Modloader/app/structs/IPAddress.h>
+#include <Modloader/app/structs/EventArgs.h>
 
 namespace app::classes::System::Net::ServicePoint {
     IL2CPP_REGISTER_METHOD(0x01BD4A90, void, ctor_1, (app::ServicePoint * this_ptr, app::Uri* uri, int32_t connection_limit, int32_t max_idle_time))

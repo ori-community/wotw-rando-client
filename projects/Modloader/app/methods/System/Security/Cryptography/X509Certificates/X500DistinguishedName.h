@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X500DistinguishedName.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/X500DistinguishedNameFlags__Enum.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::X500DistinguishedName {
     IL2CPP_REGISTER_METHOD(0x021C26E0, void, ctor, (app::X500DistinguishedName * this_ptr, app::Byte__Array* encoded_distinguished_name))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnityTls_unitytls_interface_struct_unitytls_tlsctx_notify_close_t.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UnityTls_unitytls_tlsctx.h>
+#include <Modloader/app/structs/UnityTls_unitytls_errorstate.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Mono::Unity::UnityTls_unitytls_interface_struct_unitytls_tlsctx_notify_close_t {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::UnityTls_unitytls_interface_struct_unitytls_tlsctx_notify_close_t * this_ptr, app::Object* object, void* method_1))

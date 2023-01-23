@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ASN1.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ASN1_1.h>
 
 namespace app::classes::Mono::Security::ASN1 {
     IL2CPP_REGISTER_METHOD(0x023CF080, void, ctor_1, (app::ASN1 * this_ptr, uint8_t tag))

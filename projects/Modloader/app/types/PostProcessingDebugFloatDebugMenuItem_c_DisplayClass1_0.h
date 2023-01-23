@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PostProcessingDebugFloatDebugMenuItem_c_DisplayClass1_0__Class.h>
+#include <Modloader/app/structs/PostProcessingDebugFloatDebugMenuItem_c_DisplayClass1_0.h>
 
 namespace app::classes::types {
     namespace PostProcessingDebugFloatDebugMenuItem_c_DisplayClass1_0 {

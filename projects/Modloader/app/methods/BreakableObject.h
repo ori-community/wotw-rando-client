@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BreakableObject.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::BreakableObject {
     IL2CPP_REGISTER_METHOD(0x00D4B5A0, void, Start, (app::BreakableObject * this_ptr))

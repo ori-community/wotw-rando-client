@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StencilMaterial_MatEntry.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UI_StencilMaterial_MatEntry_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_UI_StencilMaterial_MatEntry_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::StencilMaterial_MatEntry*, get_Item, (app::List_1_UnityEngine_UI_StencilMaterial_MatEntry_ * this_ptr, int32_t index))

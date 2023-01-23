@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonSerializerInternalReader_c.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JsonProperty.h>
+#include <Modloader/app/structs/JsonSerializerInternalReader_PropertyPresence__Enum.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonSerializerInternalReader___c {
     IL2CPP_REGISTER_METHOD(0x01BF1D40, void, cctor, ())

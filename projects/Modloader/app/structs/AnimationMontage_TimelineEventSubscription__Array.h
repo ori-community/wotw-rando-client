@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription__Array_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription__Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription__Array_DEFINED)
+#define IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription__Array_DEFINED
+struct AnimationMontage_TimelineEventSubscription__Array__Class;
+struct AnimationMontage_TimelineEventSubscription;
+struct AnimationMontage_TimelineEventSubscription__Array {
+    struct AnimationMontage_TimelineEventSubscription__Array__Class* klass;
+    MonitorData* monitor;
+    Il2CppArrayBounds* bounds;
+    il2cpp_array_size_t max_length;
+    struct AnimationMontage_TimelineEventSubscription* vector[32];
+};
+#endif
+#if !defined(IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription__Array_FWDDECL)
+#define IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription__Array_FWDDECL
+#include <Modloader/app/structs/AnimationMontage_TimelineEventSubscription.h>
+#include <Modloader/app/structs/AnimationMontage_TimelineEventSubscription__Array__Class.h>
+#endif
+#undef IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription__Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription__Array_DEFINED) && !defined(IL2CPP_STRUCT_AnimationMontage_TimelineEventSubscription__Array_FWDDECL)
+#include <Modloader/app/structs/AnimationMontage_TimelineEventSubscription__Array.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AnimationMontage_TimelineEventSubscription__Array.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

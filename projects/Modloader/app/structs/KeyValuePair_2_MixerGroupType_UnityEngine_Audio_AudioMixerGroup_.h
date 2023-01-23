@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_MixerGroupType_UnityEngine_Audio_AudioMixerGroup__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_MixerGroupType_UnityEngine_Audio_AudioMixerGroup__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_MixerGroupType_UnityEngine_Audio_AudioMixerGroup__DEFINED)
+#include <Modloader/app/structs/MixerGroupType__Enum.h>
+#if defined(IL2CPP_STRUCT_MixerGroupType__Enum_DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_MixerGroupType_UnityEngine_Audio_AudioMixerGroup__DEFINED
+struct AudioMixerGroup;
+struct KeyValuePair_2_MixerGroupType_UnityEngine_Audio_AudioMixerGroup_ {
+    MixerGroupType__Enum key;
+
+    struct AudioMixerGroup* value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_MixerGroupType_UnityEngine_Audio_AudioMixerGroup__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_MixerGroupType_UnityEngine_Audio_AudioMixerGroup__FWDDECL
+#include <Modloader/app/structs/AudioMixerGroup.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_MixerGroupType_UnityEngine_Audio_AudioMixerGroup__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_MixerGroupType_UnityEngine_Audio_AudioMixerGroup__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_MixerGroupType_UnityEngine_Audio_AudioMixerGroup__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_MixerGroupType_UnityEngine_Audio_AudioMixerGroup_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_MixerGroupType_UnityEngine_Audio_AudioMixerGroup_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

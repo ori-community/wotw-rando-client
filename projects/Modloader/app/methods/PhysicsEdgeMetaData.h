@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicsEdgeMetaData.h>
+#include <Modloader/app/structs/CageStructureTool_Edge.h>
 
 namespace app::classes::PhysicsEdgeMetaData {
     IL2CPP_REGISTER_METHOD(0x014FEE30, void, OnAddEdge, (app::PhysicsEdgeMetaData * this_ptr, app::CageStructureTool_Edge* edge))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceStateMachineContext.h>
+#include <Modloader/app/structs/BossRaceHandler.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::BossRaceHandler {
     IL2CPP_REGISTER_METHOD(0x00D3D980, app::RaceStateMachineContext*, get_Context, (app::BossRaceHandler * this_ptr))

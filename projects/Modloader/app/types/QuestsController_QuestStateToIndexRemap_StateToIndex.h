@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/QuestsController_QuestStateToIndexRemap_StateToIndex__Class.h>
+#include <Modloader/app/structs/QuestsController_QuestStateToIndexRemap_StateToIndex.h>
+#include <Modloader/app/structs/QuestsController_QuestStateToIndexRemap_StateToIndex__Array.h>
 
 namespace app::classes::types {
     namespace QuestsController_QuestStateToIndexRemap_StateToIndex {

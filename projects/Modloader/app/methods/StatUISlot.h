@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StatSetting.h>
+#include <Modloader/app/structs/StatUISlot.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::StatUISlot {
     IL2CPP_REGISTER_METHOD(0x002FBBA0, app::StatSetting*, get_StatSetting, (app::StatUISlot * this_ptr))

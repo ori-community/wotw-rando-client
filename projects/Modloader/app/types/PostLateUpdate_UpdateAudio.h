@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PostLateUpdate_UpdateAudio__Class.h>
+#include <Modloader/app/structs/PostLateUpdate_UpdateAudio.h>
+#include <Modloader/app/structs/PostLateUpdate_UpdateAudio__Boxed.h>
 
 namespace app::classes::types {
     namespace PostLateUpdate_UpdateAudio {

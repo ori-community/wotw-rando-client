@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StackTrace.h>
+#include <Modloader/app/structs/StackFrame__Array.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/StackFrame.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/StackTrace_TraceFormat__Enum.h>
 
 namespace app::classes::System::Diagnostics::StackTrace {
     IL2CPP_REGISTER_METHOD(0x01741770, void, ctor_1, (app::StackTrace * this_ptr))

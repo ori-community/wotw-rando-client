@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FishingMiniGameController.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/VerletStructure_VerletJoint.h>
 
 namespace app::classes::FishingMiniGameController {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_IsSuspended, (app::FishingMiniGameController * this_ptr))

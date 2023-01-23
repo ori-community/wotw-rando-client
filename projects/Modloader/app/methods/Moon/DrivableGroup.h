@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DrivableGroup.h>
+#include <Modloader/app/structs/IDrivable.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::DrivableGroup {
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, get_IsActive, (app::DrivableGroup * this_ptr))

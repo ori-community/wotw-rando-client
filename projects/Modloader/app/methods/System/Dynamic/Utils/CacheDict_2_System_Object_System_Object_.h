@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CacheDict_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Dynamic::Utils::CacheDict_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x028796E0, void, set_Item, (app::CacheDict_2_System_Object_System_Object_ * this_ptr, app::Object* key, app::Object* value))

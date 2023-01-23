@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Encoding_DefaultEncoder__Class.h>
+#include <Modloader/app/structs/Encoding_DefaultEncoder.h>
 
 namespace app::classes::types {
     namespace Encoding_DefaultEncoder {

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/YogaNode.h>
+#include <Modloader/app/structs/YogaSize.h>
+#include <Modloader/app/structs/YogaMeasureMode__Enum.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Yoga_YogaNode_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::UnityEngine::Yoga::YogaNode {
     IL2CPP_REGISTER_METHOD(0x031BE740, void, Finalize, (app::YogaNode * this_ptr))

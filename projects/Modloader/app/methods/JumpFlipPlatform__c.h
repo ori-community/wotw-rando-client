@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JumpFlipPlatform_c.h>
 
 namespace app::classes::JumpFlipPlatform___c {
     IL2CPP_REGISTER_METHOD(0x00E4C540, void, cctor, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_ByteStateMap_Mapping___Boxed.h>
+#include <Modloader/app/structs/List_1_ByteStateMap_Mapping_.h>
+#include <Modloader/app/structs/ByteStateMap_Mapping.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_ByteStateMap_Mapping_ {
     IL2CPP_REGISTER_METHOD(0x0014CC40, void, ctor, (app::List_1_T_Enumerator_ByteStateMap_Mapping___Boxed * this_ptr, app::List_1_ByteStateMap_Mapping_* list))

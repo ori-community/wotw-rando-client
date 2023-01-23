@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_IDebugMenuItem_.h>
+#include <Modloader/app/structs/IDebugMenuItem.h>
+#include <Modloader/app/structs/Comparison_1_IDebugMenuItem_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_IDebugMenuItem_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_IDebugMenuItem_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor, (app::List_1_IDebugMenuItem_ * this_ptr, int32_t capacity))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GoToTrialEndAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::GoToTrialEndAction {
     IL2CPP_REGISTER_METHOD(0x008004E0, void, Perform, (app::GoToTrialEndAction * this_ptr, app::IContext* context))

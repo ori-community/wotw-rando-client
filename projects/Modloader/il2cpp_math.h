@@ -2,6 +2,11 @@
 
 #include <cmath>
 
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Rect.h>
+
 inline app::Vector2 operator-(app::Vector2 const& a, app::Vector2 const& b) {
     return app::Vector2{
         a.x - b.x,

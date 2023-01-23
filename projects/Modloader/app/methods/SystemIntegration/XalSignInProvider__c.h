@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XalSignInProvider_c.h>
 
 namespace app::classes::SystemIntegration::XalSignInProvider___c {
     IL2CPP_REGISTER_METHOD(0x00CDE730, void, cctor, ())

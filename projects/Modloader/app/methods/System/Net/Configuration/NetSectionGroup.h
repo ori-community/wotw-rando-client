@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NetSectionGroup.h>
+#include <Modloader/app/structs/AuthenticationModulesSection.h>
+#include <Modloader/app/structs/ConnectionManagementSection.h>
+#include <Modloader/app/structs/DefaultProxySection.h>
+#include <Modloader/app/structs/MailSettingsSectionGroup.h>
+#include <Modloader/app/structs/RequestCachingSection.h>
+#include <Modloader/app/structs/SettingsSection.h>
+#include <Modloader/app/structs/WebRequestModulesSection.h>
+#include <Modloader/app/structs/Configuration.h>
 
 namespace app::classes::System::Net::Configuration::NetSectionGroup {
     IL2CPP_REGISTER_METHOD(0x02019D70, void, ctor, (app::NetSectionGroup * this_ptr))

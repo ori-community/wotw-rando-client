@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationMixerPlayable__Boxed.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/AnimationMixerPlayable.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/Playable.h>
 
 namespace app::classes::UnityEngine::Animations::AnimationMixerPlayable {
     IL2CPP_REGISTER_METHOD(0x00120520, void, ctor, (app::AnimationMixerPlayable__Boxed * this_ptr, app::PlayableHandle handle))

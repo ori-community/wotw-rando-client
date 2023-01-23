@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkBankManager_AsyncBankHandle.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AkCallbackManager_BankCallback.h>
+#include <Modloader/app/structs/AKRESULT__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::AkBankManager_AsyncBankHandle {
     IL2CPP_REGISTER_METHOD(0x0239A1A0, void, ctor, (app::AkBankManager_AsyncBankHandle * this_ptr, app::String* name, app::AkCallbackManager_BankCallback* callback))

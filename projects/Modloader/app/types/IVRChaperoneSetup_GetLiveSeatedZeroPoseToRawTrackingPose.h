@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_GetLiveSeatedZeroPoseToRawTrackingPose__Class.h>
+#include <Modloader/app/structs/IVRChaperoneSetup_GetLiveSeatedZeroPoseToRawTrackingPose.h>
 
 namespace app::classes::types {
     namespace IVRChaperoneSetup_GetLiveSeatedZeroPoseToRawTrackingPose {

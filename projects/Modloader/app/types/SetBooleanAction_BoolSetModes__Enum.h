@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SetBooleanAction_BoolSetModes__Enum__Class.h>
+#include <Modloader/app/structs/SetBooleanAction_BoolSetModes__Enum.h>
 
 namespace app::classes::types {
     namespace SetBooleanAction_BoolSetModes__Enum {

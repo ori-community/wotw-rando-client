@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostRecorder.h>
+#include <Modloader/app/structs/IGhostRecorderPlugin.h>
+#include <Modloader/app/structs/GhostPlayer.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
+#include <Modloader/app/structs/PreRecordingData.h>
 
 namespace app::classes::IGhostRecorderPlugin {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::GhostRecorder*, get_Recorder, (app::IGhostRecorderPlugin * this_ptr))

@@ -1,5 +1,32 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightCompiler.h>
+#include <Modloader/app/structs/InstructionList.h>
+#include <Modloader/app/structs/LightDelegateCreator.h>
+#include <Modloader/app/structs/LambdaExpression.h>
+#include <Modloader/app/structs/Interpreter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/LocalVariable.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/LocalDefinition__Array.h>
+#include <Modloader/app/structs/BlockExpression.h>
+#include <Modloader/app/structs/IndexExpression.h>
+#include <Modloader/app/structs/BinaryExpression.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/UnaryExpression.h>
+#include <Modloader/app/structs/SwitchExpression.h>
+#include <Modloader/app/structs/LabelScopeKind__Enum.h>
+#include <Modloader/app/structs/LabelInfo.h>
+#include <Modloader/app/structs/LabelTarget.h>
+#include <Modloader/app/structs/TryExpression.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/IArgumentProvider.h>
+#include <Modloader/app/structs/ByRefUpdater.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ElementInit_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_MemberBinding_.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LightCompiler {
     IL2CPP_REGISTER_METHOD(0x01CEBBD0, void, ctor_1, (app::LightCompiler * this_ptr))

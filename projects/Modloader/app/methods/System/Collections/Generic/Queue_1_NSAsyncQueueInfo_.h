@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_NSAsyncQueueInfo_.h>
+#include <Modloader/app/structs/NSAsyncQueueInfo.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_NSAsyncQueueInfo_ {
     IL2CPP_REGISTER_METHOD(0x02CA7610, void, Enqueue, (app::Queue_1_NSAsyncQueueInfo_ * this_ptr, app::NSAsyncQueueInfo* item))

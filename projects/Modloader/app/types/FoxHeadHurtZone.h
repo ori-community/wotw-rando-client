@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/FoxHeadHurtZone__Class.h>
+#include <Modloader/app/structs/FoxHeadHurtZone.h>
 
 namespace app::classes::types {
     namespace FoxHeadHurtZone {

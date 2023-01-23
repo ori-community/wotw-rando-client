@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossGroundPiece.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PetrifiedOwlBossGroundPiece {
     IL2CPP_REGISTER_METHOD(0x017727F0, void, Awake, (app::PetrifiedOwlBossGroundPiece * this_ptr))

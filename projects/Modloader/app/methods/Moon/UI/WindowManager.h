@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WindowManager_1.h>
+#include <Modloader/app/structs/Window.h>
 
 namespace app::classes::Moon::UI::WindowManager {
     IL2CPP_REGISTER_METHOD(0x0118C190, app::WindowManager_1*, get_Instance, ())

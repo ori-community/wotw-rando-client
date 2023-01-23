@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Range__Boxed.h>
 
 namespace app::classes::System::Data::Range {
     IL2CPP_REGISTER_METHOD(0x001D5BC0, void, ctor, (app::Range__Boxed * this_ptr, int32_t min, int32_t max))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LanguageOptions.h>
+#include <Modloader/app/structs/Language__Enum.h>
 
 namespace app::classes::LanguageOptions {
     IL2CPP_REGISTER_METHOD(0x00F03A20, void, OnEnable, (app::LanguageOptions * this_ptr))

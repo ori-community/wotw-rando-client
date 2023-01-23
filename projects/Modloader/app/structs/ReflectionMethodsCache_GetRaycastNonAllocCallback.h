@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ReflectionMethodsCache_GetRaycastNonAllocCallback_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ReflectionMethodsCache_GetRaycastNonAllocCallback_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ReflectionMethodsCache_GetRaycastNonAllocCallback_DEFINED)
+#include <Modloader/app/structs/ReflectionMethodsCache_GetRaycastNonAllocCallback__Fields.h>
+#if defined(IL2CPP_STRUCT_ReflectionMethodsCache_GetRaycastNonAllocCallback__Fields_DEFINED)
+#define IL2CPP_STRUCT_ReflectionMethodsCache_GetRaycastNonAllocCallback_DEFINED
+struct ReflectionMethodsCache_GetRaycastNonAllocCallback__Class;
+struct ReflectionMethodsCache_GetRaycastNonAllocCallback {
+    struct ReflectionMethodsCache_GetRaycastNonAllocCallback__Class* klass;
+    MonitorData* monitor;
+    struct ReflectionMethodsCache_GetRaycastNonAllocCallback__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ReflectionMethodsCache_GetRaycastNonAllocCallback_FWDDECL)
+#define IL2CPP_STRUCT_ReflectionMethodsCache_GetRaycastNonAllocCallback_FWDDECL
+#include <Modloader/app/structs/ReflectionMethodsCache_GetRaycastNonAllocCallback__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ReflectionMethodsCache_GetRaycastNonAllocCallback_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ReflectionMethodsCache_GetRaycastNonAllocCallback_DEFINED) && !defined(IL2CPP_STRUCT_ReflectionMethodsCache_GetRaycastNonAllocCallback_FWDDECL)
+#include <Modloader/app/structs/ReflectionMethodsCache_GetRaycastNonAllocCallback.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ReflectionMethodsCache_GetRaycastNonAllocCallback.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

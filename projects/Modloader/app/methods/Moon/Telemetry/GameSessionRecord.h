@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameSessionRecord.h>
+#include <Modloader/app/structs/EnvironmentInfo.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::Moon::Telemetry::GameSessionRecord {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::GameSessionRecord * this_ptr))

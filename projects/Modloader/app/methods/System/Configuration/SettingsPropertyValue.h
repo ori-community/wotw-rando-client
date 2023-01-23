@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SettingsPropertyValue.h>
+#include <Modloader/app/structs/SettingsProperty.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Configuration::SettingsPropertyValue {
     IL2CPP_REGISTER_METHOD(0x01FFDB70, void, ctor, (app::SettingsPropertyValue * this_ptr, app::SettingsProperty* property))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharEntityEncoderFallback.h>
+#include <Modloader/app/structs/EncoderFallbackBuffer.h>
+#include <Modloader/app/structs/Int32__Array.h>
 
 namespace app::classes::System::Xml::CharEntityEncoderFallback {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::CharEntityEncoderFallback * this_ptr))

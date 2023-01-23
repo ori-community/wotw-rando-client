@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConcurrentDictionary_2_System_Runtime_Serialization_MemberHolder_System_Reflection_MemberInfo_.h>
+#include <Modloader/app/structs/MemberInfo_1__Array.h>
+#include <Modloader/app/structs/MemberHolder.h>
+#include <Modloader/app/structs/Func_2_System_Runtime_Serialization_MemberHolder_System_Reflection_MemberInfo_.h>
 
 namespace app::classes::System::Collections::Concurrent::ConcurrentDictionary_2_System_Runtime_Serialization_MemberHolder_System_Reflection_MemberInfo___ {
     IL2CPP_REGISTER_METHOD(0x02ADDC30, void, ctor, (app::ConcurrentDictionary_2_System_Runtime_Serialization_MemberHolder_System_Reflection_MemberInfo_ * this_ptr))

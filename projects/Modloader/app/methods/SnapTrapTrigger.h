@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SnapTrapTrigger.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::SnapTrapTrigger {
     IL2CPP_REGISTER_METHOD(0x00ED3B60, void, Awake, (app::SnapTrapTrigger * this_ptr))

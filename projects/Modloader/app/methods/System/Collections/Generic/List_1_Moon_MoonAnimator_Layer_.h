@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimator_Layer.h>
+#include <Modloader/app/structs/List_1_Moon_MoonAnimator_Layer_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_MoonAnimator_Layer_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::MoonAnimator_Layer*, get_Item, (app::List_1_Moon_MoonAnimator_Layer_ * this_ptr, int32_t index))

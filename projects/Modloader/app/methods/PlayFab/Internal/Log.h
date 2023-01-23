@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::PlayFab::Internal::Log {
     IL2CPP_REGISTER_METHOD(0x01835C20, void, Debug, (app::String * text, app::Object__Array* args))

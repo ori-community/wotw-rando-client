@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_UberAtlasExclusions_SceneExclusion_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberAtlasExclusions_SceneExclusion.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_UberAtlasExclusions_SceneExclusion_ {
     IL2CPP_REGISTER_METHOD(0x0283B2A0, int32_t, get_Count, (app::Dictionary_2_System_String_UberAtlasExclusions_SceneExclusion_ * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BloomOptimized_BlurType__Enum__Class.h>
+#include <Modloader/app/structs/BloomOptimized_BlurType__Enum.h>
 
 namespace app::classes::types {
     namespace BloomOptimized_BlurType__Enum {

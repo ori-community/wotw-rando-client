@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Promise_c.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ExceptionEventArgs.h>
+#include <Modloader/app/structs/IPromise.h>
+#include <Modloader/app/structs/Func_1_ZenFulcrum_EmbeddedBrowser_IPromise_.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Promise___c {
     IL2CPP_REGISTER_METHOD(0x01667CE0, void, cctor, ())

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/OneDSEventsAPI_WaitWhile_d_13__Class.h>
+#include <Modloader/app/structs/OneDSEventsAPI_WaitWhile_d_13.h>
+#include <Modloader/app/structs/OneDSEventsAPI_WaitWhile_d_13__Boxed.h>
 
 namespace app::classes::types {
     namespace OneDSEventsAPI_WaitWhile_d_13 {

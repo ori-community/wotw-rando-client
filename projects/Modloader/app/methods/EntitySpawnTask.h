@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntitySpawnSetup.h>
+#include <Modloader/app/structs/EntitySpawnTask.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::EntitySpawnTask {
     IL2CPP_REGISTER_METHOD(0x002FBC00, app::EntitySpawnSetup*, get_SpawnSetup, (app::EntitySpawnTask * this_ptr))

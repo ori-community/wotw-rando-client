@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Class.h>
+#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedHorizontalMovementSetting.h>
+#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Boxed.h>
+#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Array.h>
 
 namespace app::classes::types {
     namespace SeinAbilityRestrictZone_LerpedHorizontalMovementSetting {

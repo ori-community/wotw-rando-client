@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TaskToApm_TaskWrapperAsyncResult.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::System::Threading::Tasks::TaskToApm_TaskWrapperAsyncResult {
     IL2CPP_REGISTER_METHOD(0x010415E0, void, ctor, (app::TaskToApm_TaskWrapperAsyncResult * this_ptr, app::Task* task, app::Object* state, bool completed_synchronously))

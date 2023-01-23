@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/TimelineEntityReference.h>
+#include <Modloader/app/structs/MonoBehaviour.h>
 
 namespace app::classes::Moon::Timeline::TimelineEntityReference {
     IL2CPP_REGISTER_METHOD(0x01E87760, app::ITimelineEntity*, ResolveReference, (app::TimelineEntityReference * this_ptr))

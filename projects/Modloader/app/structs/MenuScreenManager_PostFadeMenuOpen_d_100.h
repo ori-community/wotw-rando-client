@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MenuScreenManager_PostFadeMenuOpen_d_100_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MenuScreenManager_PostFadeMenuOpen_d_100_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MenuScreenManager_PostFadeMenuOpen_d_100_DEFINED)
+#include <Modloader/app/structs/MenuScreenManager_PostFadeMenuOpen_d_100__Fields.h>
+#if defined(IL2CPP_STRUCT_MenuScreenManager_PostFadeMenuOpen_d_100__Fields_DEFINED)
+#define IL2CPP_STRUCT_MenuScreenManager_PostFadeMenuOpen_d_100_DEFINED
+struct MenuScreenManager_PostFadeMenuOpen_d_100__Class;
+struct MenuScreenManager_PostFadeMenuOpen_d_100 {
+    struct MenuScreenManager_PostFadeMenuOpen_d_100__Class* klass;
+    MonitorData* monitor;
+    struct MenuScreenManager_PostFadeMenuOpen_d_100__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MenuScreenManager_PostFadeMenuOpen_d_100_FWDDECL)
+#define IL2CPP_STRUCT_MenuScreenManager_PostFadeMenuOpen_d_100_FWDDECL
+#include <Modloader/app/structs/MenuScreenManager_PostFadeMenuOpen_d_100__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MenuScreenManager_PostFadeMenuOpen_d_100_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MenuScreenManager_PostFadeMenuOpen_d_100_DEFINED) && !defined(IL2CPP_STRUCT_MenuScreenManager_PostFadeMenuOpen_d_100_FWDDECL)
+#include <Modloader/app/structs/MenuScreenManager_PostFadeMenuOpen_d_100.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MenuScreenManager_PostFadeMenuOpen_d_100.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

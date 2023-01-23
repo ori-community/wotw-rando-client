@@ -1,5 +1,32 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__6.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2_.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__1.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__2.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__3.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__4.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__5.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__8.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_DateTime_System_Object_.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Guid_System_Int32_.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__9.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_System_Object_.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__10.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Boolean_.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__11.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Byte_.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__7.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Int32_.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__12.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__13.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Single_.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__14.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_ValueTuple_2_.h>
 
 namespace app::classes::System::Comparison_1_System_Collections_Generic_KeyValuePair_2_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor_1, (app::Comparison_1_System_Collections_Generic_KeyValuePair_2__6 * this_ptr, app::Object* object, void* method_1))

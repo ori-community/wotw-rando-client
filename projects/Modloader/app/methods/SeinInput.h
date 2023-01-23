@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinInput.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/Input_Command__Enum.h>
 
 namespace app::classes::SeinInput {
     IL2CPP_REGISTER_METHOD(0x0100E930, void, ctor, (app::SeinInput * this_ptr, app::SeinCharacter* sein))

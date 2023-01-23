@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkDurationCallbackInfo.h>
 
 namespace app::classes::AkDurationCallbackInfo {
     IL2CPP_REGISTER_METHOD(0x026E0E40, void, ctor_1, (app::AkDurationCallbackInfo * this_ptr, void* c_ptr, bool c_memory_own))

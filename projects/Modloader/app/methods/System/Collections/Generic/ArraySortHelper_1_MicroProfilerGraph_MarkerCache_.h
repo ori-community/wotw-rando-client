@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MicroProfilerGraph_MarkerCache__Array.h>
+#include <Modloader/app/structs/IComparer_1_MicroProfilerGraph_MarkerCache_.h>
+#include <Modloader/app/structs/MicroProfilerGraph_MarkerCache.h>
+#include <Modloader/app/structs/Comparison_1_MicroProfilerGraph_MarkerCache_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_MicroProfilerGraph_MarkerCache_ {
     IL2CPP_REGISTER_METHOD(0x02F627D0, void, Sort_1, (app::MicroProfilerGraph_MarkerCache__Array * keys, int32_t index, int32_t length, app::IComparer_1_MicroProfilerGraph_MarkerCache_* comparer))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_InteractionSystem_InteractionEventDelegate_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_InteractionSystem_InteractionEventDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_InteractionSystem_InteractionEventDelegate_DEFINED)
+#include <Modloader/app/structs/InteractionSystem_InteractionEventDelegate__Fields.h>
+#if defined(IL2CPP_STRUCT_InteractionSystem_InteractionEventDelegate__Fields_DEFINED)
+#define IL2CPP_STRUCT_InteractionSystem_InteractionEventDelegate_DEFINED
+struct InteractionSystem_InteractionEventDelegate__Class;
+struct InteractionSystem_InteractionEventDelegate {
+    struct InteractionSystem_InteractionEventDelegate__Class* klass;
+    MonitorData* monitor;
+    struct InteractionSystem_InteractionEventDelegate__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_InteractionSystem_InteractionEventDelegate_FWDDECL)
+#define IL2CPP_STRUCT_InteractionSystem_InteractionEventDelegate_FWDDECL
+#include <Modloader/app/structs/InteractionSystem_InteractionEventDelegate__Class.h>
+#endif
+#undef IL2CPP_STRUCT_InteractionSystem_InteractionEventDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_InteractionSystem_InteractionEventDelegate_DEFINED) && !defined(IL2CPP_STRUCT_InteractionSystem_InteractionEventDelegate_FWDDECL)
+#include <Modloader/app/structs/InteractionSystem_InteractionEventDelegate.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/InteractionSystem_InteractionEventDelegate.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

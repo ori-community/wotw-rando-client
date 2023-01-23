@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_LightCanvas_SubLayerSettingGroup_.h>
+#include <Modloader/app/structs/LightCanvas_SubLayerSettingGroup.h>
+#include <Modloader/app/structs/Comparison_1_LightCanvas_SubLayerSettingGroup_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_LightCanvas_SubLayerSettingGroup_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_LightCanvas_SubLayerSettingGroup_ * this_ptr))

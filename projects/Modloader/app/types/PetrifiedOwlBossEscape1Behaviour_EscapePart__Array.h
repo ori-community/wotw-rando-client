@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_EscapePart__Array__Class.h>
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_EscapePart__Array.h>
 
 namespace app::classes::types {
     namespace PetrifiedOwlBossEscape1Behaviour_EscapePart__Array {

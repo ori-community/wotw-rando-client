@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PerformanceDebugMenuPage.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_List_1_IDebugMenuItem_.h>
+#include <Modloader/app/structs/List_1_IDebugMenuItem_.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_WaterSimulationUpdateMode__Enum.h>
 
 namespace app::classes::PerformanceDebugMenuPage {
     IL2CPP_REGISTER_METHOD(0x00420EE0, int32_t, get_ColumnOffset, (app::PerformanceDebugMenuPage * this_ptr))

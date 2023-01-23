@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PotatoModeDebugger.h>
 
 namespace app::classes::PotatoModeDebugger {
     IL2CPP_REGISTER_METHOD(0x00C6A910, app::String*, get_Label, (app::PotatoModeDebugger * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_T_Enumerator_UberWaterControl_ImpactBuf___Boxed.h>
+#include <Modloader/app/structs/Queue_1_UberWaterControl_ImpactBuf_.h>
+#include <Modloader/app/structs/UberWaterControl_ImpactBuf.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_T__Enumerator_UberWaterControl_ImpactBuf_ {
     IL2CPP_REGISTER_METHOD(0x001ECB90, void, ctor, (app::Queue_1_T_Enumerator_UberWaterControl_ImpactBuf___Boxed * this_ptr, app::Queue_1_UberWaterControl_ImpactBuf_* q))

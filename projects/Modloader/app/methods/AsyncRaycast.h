@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncRaycast.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/LayerMask.h>
 
 namespace app::classes::AsyncRaycast {
     IL2CPP_REGISTER_METHOD(0x00842A00, void, ctor, (app::AsyncRaycast * this_ptr))

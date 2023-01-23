@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_IsMemberResponse__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_IsMemberResponse__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_IsMemberResponse__DEFINED)
+#include <Modloader/app/structs/Action_1_PlayFab_GroupsModels_IsMemberResponse___Fields.h>
+#if defined(IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_IsMemberResponse___Fields_DEFINED)
+#define IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_IsMemberResponse__DEFINED
+struct Action_1_PlayFab_GroupsModels_IsMemberResponse___Class;
+struct Action_1_PlayFab_GroupsModels_IsMemberResponse_ {
+    struct Action_1_PlayFab_GroupsModels_IsMemberResponse___Class* klass;
+    MonitorData* monitor;
+    struct Action_1_PlayFab_GroupsModels_IsMemberResponse___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_IsMemberResponse__FWDDECL)
+#define IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_IsMemberResponse__FWDDECL
+#include <Modloader/app/structs/Action_1_PlayFab_GroupsModels_IsMemberResponse___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_IsMemberResponse__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_IsMemberResponse__DEFINED) && !defined(IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_IsMemberResponse__FWDDECL)
+#include <Modloader/app/structs/Action_1_PlayFab_GroupsModels_IsMemberResponse_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Action_1_PlayFab_GroupsModels_IsMemberResponse_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

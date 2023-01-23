@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TargetInSpiderBossBehaviourZoneCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::TargetInSpiderBossBehaviourZoneCondition {
     IL2CPP_REGISTER_METHOD(0x00CE24B0, app::String*, get_Info, (app::TargetInSpiderBossBehaviourZoneCondition * this_ptr))

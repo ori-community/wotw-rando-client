@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FPSPlugin.h>
 
 namespace app::classes::FPSPlugin {
     IL2CPP_REGISTER_METHOD(0x0098AD90, void, Awake, (app::FPSPlugin * this_ptr))

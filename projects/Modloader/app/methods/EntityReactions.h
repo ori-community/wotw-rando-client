@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityOwnedInitOrder__Enum.h>
+#include <Modloader/app/structs/EntityReactions.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour.h>
+#include <Modloader/app/structs/EntityReactionBehaviour__Array.h>
 
 namespace app::classes::EntityReactions {
     IL2CPP_REGISTER_METHOD(0x00420230, app::EntityOwnedInitOrder__Enum, get_InitOrder, (app::EntityReactions * this_ptr))

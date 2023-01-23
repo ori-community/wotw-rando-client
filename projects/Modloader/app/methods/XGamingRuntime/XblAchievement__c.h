@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XblAchievement_c.h>
+#include <Modloader/app/structs/XblAchievementTitleAssociation.h>
+#include <Modloader/app/structs/XblAchievementTitleAssociation_1.h>
+#include <Modloader/app/structs/XblAchievementMediaAsset.h>
+#include <Modloader/app/structs/XblAchievementMediaAsset_1.h>
+#include <Modloader/app/structs/XblAchievementReward.h>
+#include <Modloader/app/structs/XblAchievementReward_1.h>
 
 namespace app::classes::XGamingRuntime::XblAchievement___c {
     IL2CPP_REGISTER_METHOD(0x030BCCA0, void, cctor, ())

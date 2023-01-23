@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HomingProjectile.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/DamageLayerMask__Enum.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::HomingProjectile {
     IL2CPP_REGISTER_METHOD(0x00B5D330, void, FixedUpdate, (app::HomingProjectile * this_ptr))

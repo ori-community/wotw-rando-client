@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossShriekArena2Behaviour_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossShriekArena2Behaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossShriekArena2Behaviour_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossShriekArena2Behaviour__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossShriekArena2Behaviour__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossShriekArena2Behaviour_DEFINED
+struct PetrifiedOwlBossShriekArena2Behaviour__Class;
+struct PetrifiedOwlBossShriekArena2Behaviour {
+    struct PetrifiedOwlBossShriekArena2Behaviour__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossShriekArena2Behaviour__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossShriekArena2Behaviour_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossShriekArena2Behaviour_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossShriekArena2Behaviour__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossShriekArena2Behaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossShriekArena2Behaviour_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossShriekArena2Behaviour_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossShriekArena2Behaviour.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossShriekArena2Behaviour.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

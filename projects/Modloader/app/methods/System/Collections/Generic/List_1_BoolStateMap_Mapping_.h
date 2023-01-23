@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BoolStateMap_Mapping.h>
+#include <Modloader/app/structs/List_1_BoolStateMap_Mapping_.h>
+#include <Modloader/app/structs/IEnumerable_1_BoolStateMap_Mapping_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_BoolStateMap_Mapping_.h>
+#include <Modloader/app/structs/IComparer_1_BoolStateMap_Mapping_.h>
+#include <Modloader/app/structs/BoolStateMap_Mapping__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_BoolStateMap_Mapping_.h>
+#include <Modloader/app/structs/Action_1_BoolStateMap_Mapping_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_BoolStateMap_Mapping_.h>
+#include <Modloader/app/structs/IEnumerator_1_BoolStateMap_Mapping_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_BoolStateMap_Mapping_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_BoolStateMap_Mapping_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::BoolStateMap_Mapping, get_Item, (app::List_1_BoolStateMap_Mapping_ * this_ptr, int32_t index))

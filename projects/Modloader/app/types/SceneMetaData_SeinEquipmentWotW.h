@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SceneMetaData_SeinEquipmentWotW__Class.h>
+#include <Modloader/app/structs/SceneMetaData_SeinEquipmentWotW.h>
+#include <Modloader/app/structs/SceneMetaData_SeinEquipmentWotW__Array.h>
 
 namespace app::classes::types {
     namespace SceneMetaData_SeinEquipmentWotW {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecordingTransformTracker.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/TrackingExclusions.h>
 
 namespace app::classes::RecordingTransformTracker {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_TrackTranformChangesForRecording, (app::RecordingTransformTracker * this_ptr))

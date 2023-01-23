@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CsvReader.h>
+#include <Modloader/app/structs/TextReader.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_CsvReader_Cell_.h>
+#include <Modloader/app/structs/CsvReader_Cell.h>
 
 namespace app::classes::Moon::CsvReader {
     IL2CPP_REGISTER_METHOD(0x030E8D60, void, ctor, (app::CsvReader * this_ptr, app::TextReader* reader, bool should_dispose_reader))

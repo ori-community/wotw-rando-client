@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinaryArray.h>
+#include <Modloader/app/structs/BinaryHeaderEnum__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/BinaryTypeEnum__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/BinaryArrayTypeEnum__Enum.h>
+#include <Modloader/app/structs/_BinaryWriter.h>
+#include <Modloader/app/structs/_BinaryParser.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::BinaryArray {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::BinaryArray * this_ptr))

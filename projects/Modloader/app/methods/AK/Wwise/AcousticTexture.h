@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WwiseObjectType__Enum.h>
+#include <Modloader/app/structs/AcousticTexture.h>
 
 namespace app::classes::AK::Wwise::AcousticTexture {
     IL2CPP_REGISTER_METHOD(0x00D51450, app::WwiseObjectType__Enum, get_WwiseObjectType, (app::AcousticTexture * this_ptr))

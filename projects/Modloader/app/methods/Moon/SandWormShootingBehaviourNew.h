@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormShootingBehaviourNew.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::SandWormShootingBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x00EC3C60, void, OnEnter, (app::SandWormShootingBehaviourNew * this_ptr, app::IContext* context))

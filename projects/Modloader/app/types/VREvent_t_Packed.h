@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/VREvent_t_Packed__Class.h>
+#include <Modloader/app/structs/VREvent_t_Packed.h>
+#include <Modloader/app/structs/VREvent_t_Packed__Boxed.h>
 
 namespace app::classes::types {
     namespace VREvent_t_Packed {

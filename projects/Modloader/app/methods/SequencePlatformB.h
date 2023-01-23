@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SequencePlatformB.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::SequencePlatformB {
     IL2CPP_REGISTER_METHOD(0x00AB7340, void, SetToAppear, (app::SequencePlatformB * this_ptr, float delay))

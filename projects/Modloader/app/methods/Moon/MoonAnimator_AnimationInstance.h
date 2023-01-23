@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/MoonAnimator_AnimationInstance.h>
+#include <Modloader/app/structs/IAnimation.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::Moon::MoonAnimator_AnimationInstance {
     IL2CPP_REGISTER_METHOD(0x02110310, app::PlayableGraph, get_PlayableGraph, (app::MoonAnimator_AnimationInstance * this_ptr))

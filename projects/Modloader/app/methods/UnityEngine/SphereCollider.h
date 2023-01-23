@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SphereCollider.h>
 
 namespace app::classes::UnityEngine::SphereCollider {
     IL2CPP_REGISTER_METHOD(0x030AF4E0, app::Vector3, get_center, (app::SphereCollider * this_ptr))

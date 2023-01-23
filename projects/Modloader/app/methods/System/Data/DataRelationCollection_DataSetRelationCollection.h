@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataRelationCollection_DataSetRelationCollection.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/DataRelation.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Data::DataRelationCollection_DataSetRelationCollection {
     IL2CPP_REGISTER_METHOD(0x023A7010, void, ctor, (app::DataRelationCollection_DataSetRelationCollection * this_ptr, app::DataSet* data_set))

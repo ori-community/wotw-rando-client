@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StickyMine.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/StickyMine_State__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::StickyMine {
     IL2CPP_REGISTER_METHOD(0x006513C0, bool, get_IsLockOnTargetValid, (app::StickyMine * this_ptr))

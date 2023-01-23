@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowPagesAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
 
 namespace app::classes::ShowPagesAction {
     IL2CPP_REGISTER_METHOD(0x005C51A0, void, Perform, (app::ShowPagesAction * this_ptr, app::IContext* context))

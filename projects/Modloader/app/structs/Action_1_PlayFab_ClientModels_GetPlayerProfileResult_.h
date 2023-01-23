@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_GetPlayerProfileResult__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_GetPlayerProfileResult__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_GetPlayerProfileResult__DEFINED)
+#include <Modloader/app/structs/Action_1_PlayFab_ClientModels_GetPlayerProfileResult___Fields.h>
+#if defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_GetPlayerProfileResult___Fields_DEFINED)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_GetPlayerProfileResult__DEFINED
+struct Action_1_PlayFab_ClientModels_GetPlayerProfileResult___Class;
+struct Action_1_PlayFab_ClientModels_GetPlayerProfileResult_ {
+    struct Action_1_PlayFab_ClientModels_GetPlayerProfileResult___Class* klass;
+    MonitorData* monitor;
+    struct Action_1_PlayFab_ClientModels_GetPlayerProfileResult___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_GetPlayerProfileResult__FWDDECL)
+#define IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_GetPlayerProfileResult__FWDDECL
+#include <Modloader/app/structs/Action_1_PlayFab_ClientModels_GetPlayerProfileResult___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_GetPlayerProfileResult__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_GetPlayerProfileResult__DEFINED) && !defined(IL2CPP_STRUCT_Action_1_PlayFab_ClientModels_GetPlayerProfileResult__FWDDECL)
+#include <Modloader/app/structs/Action_1_PlayFab_ClientModels_GetPlayerProfileResult_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Action_1_PlayFab_ClientModels_GetPlayerProfileResult_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

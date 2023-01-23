@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Mesh__Array.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/Quads.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::Quads {
     IL2CPP_REGISTER_METHOD(0x02D5FE80, bool, HasMeshes, ())

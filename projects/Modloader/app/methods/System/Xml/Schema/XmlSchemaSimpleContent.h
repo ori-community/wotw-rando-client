@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSchemaContent.h>
+#include <Modloader/app/structs/XmlSchemaSimpleContent.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaSimpleContent {
     IL2CPP_REGISTER_METHOD(0x002FBB40, app::XmlSchemaContent*, get_Content, (app::XmlSchemaSimpleContent * this_ptr))

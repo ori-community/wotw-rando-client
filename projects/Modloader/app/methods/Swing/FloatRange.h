@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FloatRange__Boxed.h>
+#include <Modloader/app/structs/FloatRange.h>
 
 namespace app::classes::Swing::FloatRange {
     IL2CPP_REGISTER_METHOD(0x00125480, void, ctor, (app::FloatRange__Boxed * this_ptr, float _min, float _max))

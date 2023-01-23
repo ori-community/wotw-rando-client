@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ActivityFilter_GetFilterAsTuple_d_7__Class.h>
+#include <Modloader/app/structs/ActivityFilter_GetFilterAsTuple_d_7.h>
 
 namespace app::classes::types {
     namespace ActivityFilter_GetFilterAsTuple_d_7 {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EndOfStreamException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::IO::EndOfStreamException {
     IL2CPP_REGISTER_METHOD(0x01E051C0, void, ctor_1, (app::EndOfStreamException * this_ptr))

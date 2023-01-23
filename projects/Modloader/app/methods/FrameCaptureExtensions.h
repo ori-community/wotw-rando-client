@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/IFrameCaptureAgent_1_EntityDataCaptureAgent_EntityDataHeader_.h>
+#include <Modloader/app/structs/IFrameCaptureAgent_1_NvnMemoryCaptureAgent_MemoryHeader_.h>
+#include <Modloader/app/structs/IFrameCaptureAgent_1_ObjectInstantiationCaptureAgent_ObjectInstantiationHeader_.h>
+#include <Modloader/app/structs/IFrameCaptureAgent_1_ObjectProfilingCaptureAgent_ObjectProfilingHeader_.h>
+#include <Modloader/app/structs/IFrameCaptureAgent_1_SampleOffsetCaptureAgent_FrameSummaryHeader_.h>
+#include <Modloader/app/structs/IFrameCaptureAgent_1_TimesliceBudgetCaptureAgent_TimeSliceBudgetHeader_.h>
+#include <Modloader/app/structs/IFrameCaptureAgent_1_System_Int32Enum_.h>
 
 namespace app::classes::FrameCaptureExtensions {
     IL2CPP_REGISTER_METHOD(0x01542520, app::String__Array*, HeaderNames_1, (app::IFrameCaptureAgent_1_EntityDataCaptureAgent_EntityDataHeader_ * agent))

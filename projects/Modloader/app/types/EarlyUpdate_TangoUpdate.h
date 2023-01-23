@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/EarlyUpdate_TangoUpdate__Class.h>
+#include <Modloader/app/structs/EarlyUpdate_TangoUpdate.h>
+#include <Modloader/app/structs/EarlyUpdate_TangoUpdate__Boxed.h>
 
 namespace app::classes::types {
     namespace EarlyUpdate_TangoUpdate {

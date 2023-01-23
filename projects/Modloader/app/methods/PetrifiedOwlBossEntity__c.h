@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossEntity_c.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::PetrifiedOwlBossEntity___c {
     IL2CPP_REGISTER_METHOD(0x017611C0, void, cctor, ())

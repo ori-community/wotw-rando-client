@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeQuest.h>
+#include <Modloader/app/structs/QuestsController.h>
+#include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/app/structs/SerializedIntUberState.h>
+#include <Modloader/app/structs/QuestReward.h>
+#include <Modloader/app/structs/List_1_RuntimeQuest_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/QuestItemReward.h>
 
 namespace app::classes::QuestsController {
     IL2CPP_REGISTER_METHOD(0x00E8D950, void, ResetStatics, ())

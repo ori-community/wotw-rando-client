@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinEventsDebugger_c.h>
+#include <Modloader/app/structs/SeinEventsDebugger_Entry.h>
 
 namespace app::classes::SeinEventsDebugger___c {
     IL2CPP_REGISTER_METHOD(0x00AD47E0, void, cctor, ())

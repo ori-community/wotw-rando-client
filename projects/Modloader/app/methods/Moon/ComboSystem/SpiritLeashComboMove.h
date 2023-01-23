@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ComboMoveState__Enum.h>
+#include <Modloader/app/structs/SpiritLeashComboMove.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/CharacterState.h>
 
 namespace app::classes::Moon::ComboSystem::SpiritLeashComboMove {
     IL2CPP_REGISTER_METHOD(0x003FC7F0, app::ComboMoveState__Enum, get_m_comboMoveState, (app::SpiritLeashComboMove * this_ptr))

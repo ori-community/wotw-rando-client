@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_SeinEvent_SeinEventsDebugger_Entry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_SeinEvent_SeinEventsDebugger_Entry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_SeinEvent_SeinEventsDebugger_Entry__DEFINED)
+#include <Modloader/app/structs/SeinEvent__Enum.h>
+#if defined(IL2CPP_STRUCT_SeinEvent__Enum_DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_SeinEvent_SeinEventsDebugger_Entry__DEFINED
+struct SeinEventsDebugger_Entry;
+struct KeyValuePair_2_SeinEvent_SeinEventsDebugger_Entry_ {
+    SeinEvent__Enum key;
+
+    struct SeinEventsDebugger_Entry* value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_SeinEvent_SeinEventsDebugger_Entry__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_SeinEvent_SeinEventsDebugger_Entry__FWDDECL
+#include <Modloader/app/structs/SeinEventsDebugger_Entry.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_SeinEvent_SeinEventsDebugger_Entry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_SeinEvent_SeinEventsDebugger_Entry__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_SeinEvent_SeinEventsDebugger_Entry__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_SeinEvent_SeinEventsDebugger_Entry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_SeinEvent_SeinEventsDebugger_Entry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

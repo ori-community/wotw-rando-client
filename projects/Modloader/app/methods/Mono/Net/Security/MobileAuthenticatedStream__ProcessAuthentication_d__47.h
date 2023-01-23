@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream_ProcessAuthentication_d_47__Boxed.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::Mono::Net::Security::MobileAuthenticatedStream__ProcessAuthentication_d__47 {
     IL2CPP_REGISTER_METHOD(0x001DCF70, void, MoveNext, (app::MobileAuthenticatedStream_ProcessAuthentication_d_47__Boxed * this_ptr))

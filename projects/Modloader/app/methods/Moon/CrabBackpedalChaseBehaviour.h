@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrabBackpedalChaseBehaviour.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::CrabBackpedalChaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x00CC95D0, float, get_EffectiveTraversalSpeed, (app::CrabBackpedalChaseBehaviour * this_ptr))

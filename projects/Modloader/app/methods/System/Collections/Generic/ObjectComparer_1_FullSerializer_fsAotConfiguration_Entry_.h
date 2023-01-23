@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_FullSerializer_fsAotConfiguration_Entry_.h>
+#include <Modloader/app/structs/fsAotConfiguration_Entry.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_FullSerializer_fsAotConfiguration_Entry_ {
     IL2CPP_REGISTER_METHOD(0x02C2ACE0, int32_t, Compare, (app::ObjectComparer_1_FullSerializer_fsAotConfiguration_Entry_ * this_ptr, app::fsAotConfiguration_Entry x, app::fsAotConfiguration_Entry y))

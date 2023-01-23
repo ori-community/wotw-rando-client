@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FishingMiniGameController_IdleState.h>
+#include <Modloader/app/structs/FishingMiniGameController.h>
 
 namespace app::classes::FishingMiniGameController_IdleState {
     IL2CPP_REGISTER_METHOD(0x0126E300, void, ctor, (app::FishingMiniGameController_IdleState * this_ptr, app::FishingMiniGameController* fishing_game))

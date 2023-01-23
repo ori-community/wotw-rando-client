@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XdrBuilder.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
+#include <Modloader/app/structs/SchemaInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/SchemaNames.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/XmlNode__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/ParticleContentValidator.h>
+#include <Modloader/app/structs/XdrBuilder_DeclBaseInfo.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/XmlSeverityType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaException.h>
 
 namespace app::classes::System::Xml::Schema::XdrBuilder {
     IL2CPP_REGISTER_METHOD(0x01ABDE40, void, ctor, (app::XdrBuilder * this_ptr, app::XmlReader* reader, app::XmlNamespaceManager* curmgr, app::SchemaInfo* sinfo, app::String* target_namspace, app::XmlNameTable* name_table, app::SchemaNames* schema_names, app::ValidationEventHandler* eventhandler))

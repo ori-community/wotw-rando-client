@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/GasballSpotOriBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::GasballSpotOriBehaviour {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::BehaviourStatus__Enum, get_StatusWhenPlaying, (app::GasballSpotOriBehaviour * this_ptr))

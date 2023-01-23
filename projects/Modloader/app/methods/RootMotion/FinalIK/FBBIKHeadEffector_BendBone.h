@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FBBIKHeadEffector_BendBone.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::FBBIKHeadEffector_BendBone {
     IL2CPP_REGISTER_METHOD(0x0205C030, void, ctor_1, (app::FBBIKHeadEffector_BendBone * this_ptr))

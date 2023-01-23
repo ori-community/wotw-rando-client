@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/XblAchievementProgression_1__Boxed.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementRequirement_Object_.h>
+#include <Modloader/app/structs/XblAchievementRequirement__Array.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementRequirement_XGamingRuntime_XblAchievementRequirement_.h>
 
 namespace app::classes::XGamingRuntime::Interop::XblAchievementProgression {
     IL2CPP_REGISTER_METHOD(0x002406A0, app::Object__Array*, GetRequirements_1, (app::XblAchievementProgression_1__Boxed * this_ptr, app::Func_2_XGamingRuntime_Interop_XblAchievementRequirement_Object_* ctor))

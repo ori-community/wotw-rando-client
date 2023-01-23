@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebugUI_c.h>
+#include <Modloader/app/structs/IRenderPostprocessor.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderPipelineDebugUI___c {
     IL2CPP_REGISTER_METHOD(0x007A2B90, void, cctor, ())

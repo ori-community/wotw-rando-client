@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyEntityDamageReciever_c.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/LegacyEntity.h>
 
 namespace app::classes::LegacyEntityDamageReciever___c {
     IL2CPP_REGISTER_METHOD(0x00A23F60, void, cctor, ())

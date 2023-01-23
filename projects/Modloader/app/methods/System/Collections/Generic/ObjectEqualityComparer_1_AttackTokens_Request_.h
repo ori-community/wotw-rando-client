@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_AttackTokens_Request_.h>
+#include <Modloader/app/structs/AttackTokens_Request.h>
+#include <Modloader/app/structs/AttackTokens_Request__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_AttackTokens_Request_ {
     IL2CPP_REGISTER_METHOD(0x01CD0C40, bool, Equals_1, (app::ObjectEqualityComparer_1_AttackTokens_Request_ * this_ptr, app::AttackTokens_Request x, app::AttackTokens_Request y))

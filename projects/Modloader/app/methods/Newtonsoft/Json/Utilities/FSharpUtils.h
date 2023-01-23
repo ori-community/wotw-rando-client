@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/MethodCall_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::FSharpUtils {
     IL2CPP_REGISTER_METHOD(0x01C11750, void, set_FSharpCoreAssembly, (app::Assembly * value))

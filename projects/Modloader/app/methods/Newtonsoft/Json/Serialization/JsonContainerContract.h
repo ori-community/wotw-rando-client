@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonContract.h>
+#include <Modloader/app/structs/JsonContainerContract.h>
+#include <Modloader/app/structs/JsonConverter.h>
+#include <Modloader/app/structs/Nullable_1_Boolean_.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_ReferenceLoopHandling_.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_TypeNameHandling_.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonContainerContract {
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::JsonContract*, get_ItemContract, (app::JsonContainerContract * this_ptr))

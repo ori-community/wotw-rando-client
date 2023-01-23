@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBehaviourZoneCageMetaDataGen_1_System_Object_.h>
+#include <Modloader/app/structs/CageStructureTool_Face.h>
 
 namespace app::classes::SpiderBehaviourZoneCageMetaDataGen_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x01D18A10, void, OnEnable, (app::SpiderBehaviourZoneCageMetaDataGen_1_System_Object_ * this_ptr))

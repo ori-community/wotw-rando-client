@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_NativeArray_1_UnityEngine_Bounds___Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_NativeArray_1_UnityEngine_Bounds___Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NativeArray_1_UnityEngine_Bounds___Boxed_DEFINED)
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds_.h>
+#if defined(IL2CPP_STRUCT_NativeArray_1_UnityEngine_Bounds__DEFINED)
+#define IL2CPP_STRUCT_NativeArray_1_UnityEngine_Bounds___Boxed_DEFINED
+struct NativeArray_1_UnityEngine_Bounds___Class;
+struct NativeArray_1_UnityEngine_Bounds___Boxed {
+    struct NativeArray_1_UnityEngine_Bounds___Class* klass;
+    MonitorData* monitor;
+    struct NativeArray_1_UnityEngine_Bounds_ fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_NativeArray_1_UnityEngine_Bounds___Boxed_FWDDECL)
+#define IL2CPP_STRUCT_NativeArray_1_UnityEngine_Bounds___Boxed_FWDDECL
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds___Class.h>
+#endif
+#undef IL2CPP_STRUCT_NativeArray_1_UnityEngine_Bounds___Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NativeArray_1_UnityEngine_Bounds___Boxed_DEFINED) && !defined(IL2CPP_STRUCT_NativeArray_1_UnityEngine_Bounds___Boxed_FWDDECL)
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds___Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds___Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

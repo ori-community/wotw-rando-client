@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HoloLensController.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 
 namespace app::classes::HoloLensController {
     IL2CPP_REGISTER_METHOD(0x00B5B280, void, Start, (app::HoloLensController * this_ptr))

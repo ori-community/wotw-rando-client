@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IsXboxSeriesSorXCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::IsXboxSeriesSorXCondition {
     IL2CPP_REGISTER_METHOD(0x006490C0, bool, Validate, (app::IsXboxSeriesSorXCondition * this_ptr, app::IContext* context))

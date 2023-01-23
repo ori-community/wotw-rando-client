@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RequestCacheBinding.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::Cache::RequestCacheManager {
     IL2CPP_REGISTER_METHOD(0x020157B0, app::RequestCacheBinding*, GetBinding, (app::String * interned_scheme))

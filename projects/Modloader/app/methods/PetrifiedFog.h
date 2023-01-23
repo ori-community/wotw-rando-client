@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedFog.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::PetrifiedFog {
     IL2CPP_REGISTER_METHOD(0x0049ABF0, float, get_RemainingDuration, ())

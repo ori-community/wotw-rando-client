@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_TV_VHS_Rewind.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_TV_VHS_Rewind {
     IL2CPP_REGISTER_METHOD(0x020EEDE0, app::Material*, get_material, (app::CameraFilterPack_TV_VHS_Rewind * this_ptr))

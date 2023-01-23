@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LogicalCallContext.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Hashtable.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::LogicalCallContext {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::LogicalCallContext * this_ptr))

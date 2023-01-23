@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CipherSuite.h>
+#include <Modloader/app/structs/CipherSuiteCollection.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SecurityProtocolType__Enum_1.h>
+#include <Modloader/app/structs/CipherAlgorithmType__Enum.h>
+#include <Modloader/app/structs/HashAlgorithmType__Enum.h>
+#include <Modloader/app/structs/ExchangeAlgorithmType__Enum.h>
+#include <Modloader/app/structs/IList_1_System_String_.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::CipherSuiteCollection {
     IL2CPP_REGISTER_METHOD(0x01F65030, app::CipherSuite*, get_Item_1, (app::CipherSuiteCollection * this_ptr, app::String* name))

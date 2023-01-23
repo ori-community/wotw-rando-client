@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateValidator.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_StateValidator___Boxed.h>
+#include <Modloader/app/structs/List_1_StateValidator_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_StateValidator_ {
     IL2CPP_REGISTER_METHOD(0x00133A80, app::StateValidator, get_Current, (app::List_1_T_Enumerator_StateValidator___Boxed * this_ptr))

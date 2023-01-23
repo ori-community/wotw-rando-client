@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AcidBlob.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::AcidBlob {
     IL2CPP_REGISTER_METHOD(0x004C15C0, void, OnPoolSpawned, (app::AcidBlob * this_ptr))

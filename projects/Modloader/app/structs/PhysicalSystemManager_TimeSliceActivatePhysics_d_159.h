@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PhysicalSystemManager_TimeSliceActivatePhysics_d_159_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PhysicalSystemManager_TimeSliceActivatePhysics_d_159_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PhysicalSystemManager_TimeSliceActivatePhysics_d_159_DEFINED)
+#include <Modloader/app/structs/PhysicalSystemManager_TimeSliceActivatePhysics_d_159__Fields.h>
+#if defined(IL2CPP_STRUCT_PhysicalSystemManager_TimeSliceActivatePhysics_d_159__Fields_DEFINED)
+#define IL2CPP_STRUCT_PhysicalSystemManager_TimeSliceActivatePhysics_d_159_DEFINED
+struct PhysicalSystemManager_TimeSliceActivatePhysics_d_159__Class;
+struct PhysicalSystemManager_TimeSliceActivatePhysics_d_159 {
+    struct PhysicalSystemManager_TimeSliceActivatePhysics_d_159__Class* klass;
+    MonitorData* monitor;
+    struct PhysicalSystemManager_TimeSliceActivatePhysics_d_159__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PhysicalSystemManager_TimeSliceActivatePhysics_d_159_FWDDECL)
+#define IL2CPP_STRUCT_PhysicalSystemManager_TimeSliceActivatePhysics_d_159_FWDDECL
+#include <Modloader/app/structs/PhysicalSystemManager_TimeSliceActivatePhysics_d_159__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PhysicalSystemManager_TimeSliceActivatePhysics_d_159_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PhysicalSystemManager_TimeSliceActivatePhysics_d_159_DEFINED) && !defined(IL2CPP_STRUCT_PhysicalSystemManager_TimeSliceActivatePhysics_d_159_FWDDECL)
+#include <Modloader/app/structs/PhysicalSystemManager_TimeSliceActivatePhysics_d_159.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PhysicalSystemManager_TimeSliceActivatePhysics_d_159.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

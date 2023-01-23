@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CookieTokenizer_RecognizedAttribute__Class.h>
+#include <Modloader/app/structs/CookieTokenizer_RecognizedAttribute.h>
+#include <Modloader/app/structs/CookieTokenizer_RecognizedAttribute__Boxed.h>
+#include <Modloader/app/structs/CookieTokenizer_RecognizedAttribute__Array.h>
 
 namespace app::classes::types {
     namespace CookieTokenizer_RecognizedAttribute {

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ContactPoint__Class.h>
+#include <Modloader/app/structs/ContactPoint.h>
+#include <Modloader/app/structs/ContactPoint__Boxed.h>
+#include <Modloader/app/structs/ContactPoint__Array.h>
 
 namespace app::classes::types {
     namespace ContactPoint {

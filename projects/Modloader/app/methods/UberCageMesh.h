@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberCageMesh.h>
 
 namespace app::classes::UberCageMesh {
     IL2CPP_REGISTER_METHOD(0x013E5270, void, OnEnable, (app::UberCageMesh * this_ptr))

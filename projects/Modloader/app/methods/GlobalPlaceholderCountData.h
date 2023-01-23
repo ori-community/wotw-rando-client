@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GlobalPlaceholderCountData.h>
+#include <Modloader/app/structs/ScreenshotIcon_EnemyType__Enum.h>
 
 namespace app::classes::GlobalPlaceholderCountData {
     IL2CPP_REGISTER_METHOD(0x007F7B50, void, Reset, (app::GlobalPlaceholderCountData * this_ptr))

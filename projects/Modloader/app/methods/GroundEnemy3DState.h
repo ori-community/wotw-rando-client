@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GroundEnemy3DState.h>
+#include <Modloader/app/structs/GroundEnemy3D.h>
 
 namespace app::classes::GroundEnemy3DState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::GroundEnemy3DState * this_ptr, app::GroundEnemy3D* enemy3_d))

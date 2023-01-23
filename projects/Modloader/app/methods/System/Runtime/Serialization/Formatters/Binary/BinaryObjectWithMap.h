@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinaryObjectWithMap.h>
+#include <Modloader/app/structs/BinaryHeaderEnum__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/_BinaryWriter.h>
+#include <Modloader/app/structs/_BinaryParser.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::BinaryObjectWithMap {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::BinaryObjectWithMap * this_ptr))

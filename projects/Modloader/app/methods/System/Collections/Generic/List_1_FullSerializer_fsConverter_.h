@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_FullSerializer_fsConverter_.h>
+#include <Modloader/app/structs/fsConverter.h>
 
 namespace app::classes::System::Collections::Generic::List_1_FullSerializer_fsConverter_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_FullSerializer_fsConverter_ * this_ptr))

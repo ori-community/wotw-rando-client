@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AmbienceZone_WiseAuxSend__Array.h>
+#include <Modloader/app/structs/IComparer_1_AmbienceZone_WiseAuxSend_.h>
+#include <Modloader/app/structs/AmbienceZone_WiseAuxSend.h>
+#include <Modloader/app/structs/Comparison_1_AmbienceZone_WiseAuxSend_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_AmbienceZone_WiseAuxSend_ {
     IL2CPP_REGISTER_METHOD(0x02F294A0, void, Sort_1, (app::AmbienceZone_WiseAuxSend__Array * keys, int32_t index, int32_t length, app::IComparer_1_AmbienceZone_WiseAuxSend_* comparer))

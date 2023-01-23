@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XblAchievementProgression_c.h>
+#include <Modloader/app/structs/XblAchievementRequirement.h>
+#include <Modloader/app/structs/XblAchievementRequirement_1.h>
 
 namespace app::classes::XGamingRuntime::XblAchievementProgression___c {
     IL2CPP_REGISTER_METHOD(0x030BD610, void, cctor, ())

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SqlDecimal__Class.h>
+#include <Modloader/app/structs/SqlDecimal.h>
+#include <Modloader/app/structs/SqlDecimal__Boxed.h>
+#include <Modloader/app/structs/SqlDecimal__Array.h>
 
 namespace app::classes::types {
     namespace SqlDecimal {

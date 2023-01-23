@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GainMaxEnergyContainerTrigger.h>
 
 namespace app::classes::GainMaxEnergyContainerTrigger {
     IL2CPP_REGISTER_METHOD(0x0151E570, void, OnTriggerEnable, (app::GainMaxEnergyContainerTrigger * this_ptr))

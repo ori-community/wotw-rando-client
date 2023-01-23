@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/AreaMapUI.h>
+#include <Modloader/app/structs/AreaMapDebugNavigation.h>
+#include <Modloader/app/structs/AreaMapNavigation.h>
+#include <Modloader/app/structs/AreaMapIconManager.h>
+#include <Modloader/app/structs/IconPlacementScaler.h>
+#include <Modloader/app/structs/AreaMapIconFilter__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/AreaMapCanvas.h>
+#include <Modloader/app/structs/GameWorldArea.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::AreaMapUI {
     IL2CPP_REGISTER_METHOD(0x002FBCE0, app::GameObject*, get_PlayerPositionMarker, (app::AreaMapUI * this_ptr))

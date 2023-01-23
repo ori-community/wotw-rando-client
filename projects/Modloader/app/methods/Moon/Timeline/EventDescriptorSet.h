@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_System_Int32_.h>
+#include <Modloader/app/structs/EventDescriptorSet.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_IEventDescriptor_.h>
+#include <Modloader/app/structs/IEventDescriptor.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GennadiysDice_DiceEvents__Enum.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::Moon::Timeline::EventDescriptorSet {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::HashSet_1_System_Int32_*, get_m_ids, (app::EventDescriptorSet * this_ptr))

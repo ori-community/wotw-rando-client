@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Threading::Tasks::TaskToApm {
     IL2CPP_REGISTER_METHOD(0x023401B0, app::IAsyncResult*, Begin, (app::Task * task, app::AsyncCallback* callback, app::Object* state))

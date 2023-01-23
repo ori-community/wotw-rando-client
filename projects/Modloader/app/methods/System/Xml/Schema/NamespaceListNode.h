@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NamespaceListNode.h>
+#include <Modloader/app/structs/NamespaceList.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/SymbolsDictionary.h>
+#include <Modloader/app/structs/InteriorNode.h>
+#include <Modloader/app/structs/Positions.h>
+#include <Modloader/app/structs/BitSet.h>
+#include <Modloader/app/structs/BitSet__Array.h>
 
 namespace app::classes::System::Xml::Schema::NamespaceListNode {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::NamespaceListNode * this_ptr, app::NamespaceList* namespace_list, app::Object* particle))

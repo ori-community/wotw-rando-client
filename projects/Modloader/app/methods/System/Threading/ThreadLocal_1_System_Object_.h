@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ThreadLocal_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Func_1_Object_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ThreadLocal_1_T_LinkedSlotVolatile_System_Object___Array.h>
 
 namespace app::classes::System::Threading::ThreadLocal_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02A60590, app::Object*, get_Value, (app::ThreadLocal_1_System_Object_ * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProviderCollection.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ProviderBase.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Configuration::Provider::ProviderCollection {
     IL2CPP_REGISTER_METHOD(0x031BC020, int32_t, get_Count, (app::ProviderCollection * this_ptr))

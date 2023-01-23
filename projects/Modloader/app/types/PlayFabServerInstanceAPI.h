@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PlayFabServerInstanceAPI__Class.h>
+#include <Modloader/app/structs/PlayFabServerInstanceAPI.h>
 
 namespace app::classes::types {
     namespace PlayFabServerInstanceAPI {

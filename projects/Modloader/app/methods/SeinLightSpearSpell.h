@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinLightSpearSpell.h>
+#include <Modloader/app/structs/PlatformMovement.h>
 
 namespace app::classes::SeinLightSpearSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinLightSpearSpell * this_ptr))

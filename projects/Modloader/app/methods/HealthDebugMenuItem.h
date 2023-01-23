@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HealthDebugMenuItem.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::HealthDebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x010A1E60, void, ctor, (app::HealthDebugMenuItem * this_ptr, app::String* path, app::String* str))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LabelTarget.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Expressions::LabelTarget {
     IL2CPP_REGISTER_METHOD(0x0231B8E0, void, ctor, (app::LabelTarget * this_ptr, app::Type* type, app::String* name))

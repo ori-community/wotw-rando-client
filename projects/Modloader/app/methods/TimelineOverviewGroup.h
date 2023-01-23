@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimelineOverviewGroup.h>
 
 namespace app::classes::TimelineOverviewGroup {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_InvalidateParentTimelineCache, (app::TimelineOverviewGroup * this_ptr))

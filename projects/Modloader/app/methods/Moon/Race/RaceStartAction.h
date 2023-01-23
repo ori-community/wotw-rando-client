@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceStartAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Race::RaceStartAction {
     IL2CPP_REGISTER_METHOD(0x00C498E0, void, Perform, (app::RaceStartAction * this_ptr, app::IContext* context))

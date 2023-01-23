@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array__Class.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array.h>
 
 namespace app::classes::types {
     namespace UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array {

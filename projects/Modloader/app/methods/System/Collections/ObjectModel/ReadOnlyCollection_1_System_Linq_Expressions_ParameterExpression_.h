@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/IList_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Linq_Expressions_ParameterExpression_.h>
 
 namespace app::classes::System::Collections::ObjectModel::ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_ {
     IL2CPP_REGISTER_METHOD(0x02B7DD20, int32_t, get_Count, (app::ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_ * this_ptr))

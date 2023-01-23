@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacySwarmEnemyManager.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/OrbSpawner.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/LegacySwarmEnemyPlaceholder.h>
 
 namespace app::classes::LegacySwarmEnemyManager {
     IL2CPP_REGISTER_METHOD(0x00A3AA30, void, Awake, (app::LegacySwarmEnemyManager * this_ptr))

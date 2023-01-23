@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractionLightModifier_GetKeywordsForShader_d_10.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_String_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::InteractionLightModifier__GetKeywordsForShader_d__10 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::InteractionLightModifier_GetKeywordsForShader_d_10 * this_ptr, int32_t __1__state))

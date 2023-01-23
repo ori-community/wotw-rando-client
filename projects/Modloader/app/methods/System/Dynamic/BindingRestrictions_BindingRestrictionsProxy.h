@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BindingRestrictions_BindingRestrictionsProxy.h>
+#include <Modloader/app/structs/BindingRestrictions.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/BindingRestrictions__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Dynamic::BindingRestrictions_BindingRestrictionsProxy {
     IL2CPP_REGISTER_METHOD(0x01F88CD0, void, ctor, (app::BindingRestrictions_BindingRestrictionsProxy * this_ptr, app::BindingRestrictions* node))

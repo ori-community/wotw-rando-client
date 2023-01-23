@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/State_1.h>
 
 namespace app::classes::Moon::InteractionGraph::State {
     IL2CPP_REGISTER_METHOD(0x00B8BEC0, void, UpdateState, (app::State_1 * this_ptr))

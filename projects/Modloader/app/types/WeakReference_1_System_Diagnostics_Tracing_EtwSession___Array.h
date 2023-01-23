@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WeakReference_1_System_Diagnostics_Tracing_EtwSession___Array__Class.h>
+#include <Modloader/app/structs/WeakReference_1_System_Diagnostics_Tracing_EtwSession___Array.h>
 
 namespace app::classes::types {
     namespace WeakReference_1_System_Diagnostics_Tracing_EtwSession___Array {

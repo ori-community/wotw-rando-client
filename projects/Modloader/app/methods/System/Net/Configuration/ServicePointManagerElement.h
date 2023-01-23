@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServicePointManagerElement.h>
+#include <Modloader/app/structs/EncryptionPolicy__Enum.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
 
 namespace app::classes::System::Net::Configuration::ServicePointManagerElement {
     IL2CPP_REGISTER_METHOD(0x01E985D0, void, ctor, (app::ServicePointManagerElement * this_ptr))

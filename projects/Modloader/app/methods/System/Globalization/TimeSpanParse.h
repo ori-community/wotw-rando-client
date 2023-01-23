@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanToken.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanStandardStyles__Enum.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanResult.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanRawInfo.h>
 
 namespace app::classes::System::Globalization::TimeSpanParse {
     IL2CPP_REGISTER_METHOD(0x01DF2000, bool, TryTimeToTicks, (bool positive, app::TimeSpanParse_TimeSpanToken days, app::TimeSpanParse_TimeSpanToken hours, app::TimeSpanParse_TimeSpanToken minutes, app::TimeSpanParse_TimeSpanToken seconds, app::TimeSpanParse_TimeSpanToken fraction, int64_t* result))

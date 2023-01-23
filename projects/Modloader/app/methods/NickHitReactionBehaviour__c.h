@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NickHitReactionBehaviour_c.h>
 
 namespace app::classes::NickHitReactionBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x005FF160, void, cctor, ())

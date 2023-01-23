@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AmbientValueAttribute.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::AmbientValueAttribute {
     IL2CPP_REGISTER_METHOD(0x0249ED40, void, ctor_1, (app::AmbientValueAttribute * this_ptr, app::Type* type, app::String* value))

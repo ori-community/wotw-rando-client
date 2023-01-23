@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Configuration_c.h>
+#include <Modloader/app/structs/IPredicates.h>
+#include <Modloader/app/structs/TrianglePool.h>
 
 namespace app::classes::TriangleNet::Configuration___c {
     IL2CPP_REGISTER_METHOD(0x0261A290, void, cctor, ())

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListenerSoundZone.h>
+#include <Modloader/app/structs/ISoundListener.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::ListenerSoundZone {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnListenerEnteredZone, (app::ListenerSoundZone * this_ptr, app::ISoundListener* listener))

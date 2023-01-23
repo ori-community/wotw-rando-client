@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CancellationCallbackCoreWorkArguments_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CancellationCallbackCoreWorkArguments_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CancellationCallbackCoreWorkArguments_DEFINED)
+#define IL2CPP_STRUCT_CancellationCallbackCoreWorkArguments_DEFINED
+struct SparselyPopulatedArrayFragment_1_CancellationCallbackInfo_;
+struct CancellationCallbackCoreWorkArguments {
+    struct SparselyPopulatedArrayFragment_1_CancellationCallbackInfo_* m_currArrayFragment;
+    int32_t m_currArrayIndex;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_CancellationCallbackCoreWorkArguments_FWDDECL)
+#define IL2CPP_STRUCT_CancellationCallbackCoreWorkArguments_FWDDECL
+#include <Modloader/app/structs/SparselyPopulatedArrayFragment_1_CancellationCallbackInfo_.h>
+#endif
+#undef IL2CPP_STRUCT_CancellationCallbackCoreWorkArguments_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CancellationCallbackCoreWorkArguments_DEFINED) && !defined(IL2CPP_STRUCT_CancellationCallbackCoreWorkArguments_FWDDECL)
+#include <Modloader/app/structs/CancellationCallbackCoreWorkArguments.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CancellationCallbackCoreWorkArguments.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

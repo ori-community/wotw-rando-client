@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
+#include <Modloader/app/structs/XmlSchemaComplexType.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlSchemaDerivationMethod__Enum.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
+#include <Modloader/app/structs/XmlValueConverter.h>
+#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
+#include <Modloader/app/structs/SchemaElementDecl.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaType {
     IL2CPP_REGISTER_METHOD(0x0191E340, app::XmlSchemaSimpleType*, GetBuiltInSimpleType_1, (app::XmlQualifiedName * qualified_name))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_SeinEvent_SeinEventsDebugger_Entry_.h>
+#include <Modloader/app/structs/SeinEvent__Enum.h>
+#include <Modloader/app/structs/SeinEventsDebugger_Entry.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_SeinEvent_SeinEventsDebugger_Entry_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_SeinEvent_SeinEventsDebugger_Entry_ {
     IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_SeinEvent_SeinEventsDebugger_Entry_ * this_ptr, app::SeinEvent__Enum key, app::SeinEventsDebugger_Entry** value))

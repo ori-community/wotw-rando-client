@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokTongueSyncGroup.h>
+#include <Modloader/app/structs/KwolokTongueStatue.h>
 
 namespace app::classes::KwolokTongueSyncGroup {
     IL2CPP_REGISTER_METHOD(0x00EFB910, void, OnEnable, (app::KwolokTongueSyncGroup * this_ptr))

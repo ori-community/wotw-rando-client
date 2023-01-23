@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/CurrentCameraTransformProvider.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::CurrentCameraTransformProvider {
     IL2CPP_REGISTER_METHOD(0x00DB9D20, app::Transform*, get_CurrentCameraTransform, (app::CurrentCameraTransformProvider * this_ptr))

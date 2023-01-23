@@ -1,5 +1,34 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/ITimelineEntityParent.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/CustomPlaybackSettings.h>
+#include <Modloader/app/structs/Reaction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IConstrainedEntityWithChildren.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ConstraintsMetaData_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineEntityRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineMarkerRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ExternalTimelineRecord_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/TimelineConstraint.h>
+#include <Modloader/app/structs/IConstraint.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/IConstrainedEntity.h>
+#include <Modloader/app/structs/Nullable_1_Single_.h>
+#include <Modloader/app/structs/ITrimController.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_IEventDescriptor_.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_EventTriggerGameplayAnimator_.h>
+#include <Modloader/app/structs/List_1_Moon_ScalableAnimationPlayer_.h>
+#include <Modloader/app/structs/List_1_Moon_AnimationPlayer_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ReadyToFinishAnimator_.h>
 
 namespace app::classes::Moon::Timeline::MoonTimeline {
     IL2CPP_REGISTER_METHOD(0x01BC1B00, void, PostEvent, (app::MoonTimeline * this_ptr, app::ITimelineEntityParent* scope, app::EntityId id, int32_t event_id))

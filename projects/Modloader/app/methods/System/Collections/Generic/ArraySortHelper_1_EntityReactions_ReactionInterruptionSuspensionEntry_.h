@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityReactions_ReactionInterruptionSuspensionEntry__Array.h>
+#include <Modloader/app/structs/IComparer_1_EntityReactions_ReactionInterruptionSuspensionEntry_.h>
+#include <Modloader/app/structs/EntityReactions_ReactionInterruptionSuspensionEntry.h>
+#include <Modloader/app/structs/Comparison_1_EntityReactions_ReactionInterruptionSuspensionEntry_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_EntityReactions_ReactionInterruptionSuspensionEntry_ {
     IL2CPP_REGISTER_METHOD(0x02F310D0, void, Sort_1, (app::EntityReactions_ReactionInterruptionSuspensionEntry__Array * keys, int32_t index, int32_t length, app::IComparer_1_EntityReactions_ReactionInterruptionSuspensionEntry_* comparer))

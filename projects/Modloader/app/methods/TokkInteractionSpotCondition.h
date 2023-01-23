@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TokkInteractionSpotCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::TokkInteractionSpotCondition {
     IL2CPP_REGISTER_METHOD(0x00AFE590, bool, Validate, (app::TokkInteractionSpotCondition * this_ptr, app::IContext* context))

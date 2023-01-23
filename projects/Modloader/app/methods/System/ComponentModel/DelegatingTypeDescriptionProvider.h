@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DelegatingTypeDescriptionProvider.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeDescriptionProvider.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IServiceProvider.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ICustomTypeDescriptor.h>
+#include <Modloader/app/structs/IExtenderProvider__Array.h>
 
 namespace app::classes::System::ComponentModel::DelegatingTypeDescriptionProvider {
     IL2CPP_REGISTER_METHOD(0x002FB960, void, ctor, (app::DelegatingTypeDescriptionProvider * this_ptr, app::Type* type))

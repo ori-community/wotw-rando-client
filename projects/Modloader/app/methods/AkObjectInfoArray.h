@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkObjectInfoArray.h>
+#include <Modloader/app/structs/AkObjectInfo.h>
 
 namespace app::classes::AkObjectInfoArray {
     IL2CPP_REGISTER_METHOD(0x01885120, void, ctor, (app::AkObjectInfoArray * this_ptr, int32_t count))

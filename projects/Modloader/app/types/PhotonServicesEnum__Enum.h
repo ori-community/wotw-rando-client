@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PhotonServicesEnum__Enum__Class.h>
+#include <Modloader/app/structs/PhotonServicesEnum__Enum.h>
 
 namespace app::classes::types {
     namespace PhotonServicesEnum__Enum {

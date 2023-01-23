@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::QuaTools {
     IL2CPP_REGISTER_METHOD(0x02A2C380, app::Quaternion, LinearBlend, (app::Quaternion q, float weight))

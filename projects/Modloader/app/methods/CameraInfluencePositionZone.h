@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/CameraInfluencePositionZone.h>
 
 namespace app::classes::CameraInfluencePositionZone {
     IL2CPP_REGISTER_METHOD(0x016927A0, app::Vector3, get_Offset, (app::CameraInfluencePositionZone * this_ptr))

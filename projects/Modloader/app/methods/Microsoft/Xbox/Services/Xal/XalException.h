@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XalException.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Microsoft::Xbox::Services::Xal::XalException {
     IL2CPP_REGISTER_METHOD(0x00989BF0, int32_t, get_ErrorCode, (app::XalException * this_ptr))

@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncLocalValueChangedArgs_1_System_Globalization_CultureInfo_.h>
+#include <Modloader/app/structs/Thread.h>
+#include <Modloader/app/structs/ThreadStart.h>
+#include <Modloader/app/structs/ParameterizedThreadStart.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/ExecutionContext_Reader.h>
+#include <Modloader/app/structs/ExecutionContext.h>
+#include <Modloader/app/structs/ThreadPriority__Enum.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/InternalThread.h>
+#include <Modloader/app/structs/Context.h>
+#include <Modloader/app/structs/MulticastDelegate.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ThreadState__Enum.h>
+#include <Modloader/app/structs/IPrincipal.h>
 
 namespace app::classes::System::Threading::Thread {
     IL2CPP_REGISTER_METHOD(0x023417A0, void, AsyncLocalSetCurrentCulture, (app::AsyncLocalValueChangedArgs_1_System_Globalization_CultureInfo_ args))

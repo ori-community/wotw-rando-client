@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FPSMonitor.h>
+#include <Modloader/app/structs/DroppedFrameMonitor.h>
+#include <Modloader/app/structs/FPSMonitor_FrameTimingData.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::FPSMonitor {
     IL2CPP_REGISTER_METHOD(0x004994E0, float, get_FrameTime, (app::FPSMonitor * this_ptr))

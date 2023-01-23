@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CategoryAttribute_2.h>
 
 namespace app::classes::CategoryAttribute {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_Category, (app::CategoryAttribute_2 * this_ptr))

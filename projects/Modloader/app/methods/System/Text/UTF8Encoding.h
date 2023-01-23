@@ -1,6 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
+#include <Modloader/app/structs/UTF8Encoding.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/EncoderNLS.h>
+#include <Modloader/app/structs/DecoderNLS.h>
+
+#include <Modloader/app/structs/DecoderFallbackBuffer.h>
+
+#include <Modloader/app/structs/Decoder.h>
+#include <Modloader/app/structs/Encoder.h>
+#include <Modloader/app/structs/Object.h>
+
 namespace app::classes::System::Text::UTF8Encoding {
     IL2CPP_REGISTER_METHOD(0x027CE2E0, void, ctor_1, (app::UTF8Encoding * this_ptr))
     IL2CPP_REGISTER_METHOD(0x027CE2F0, void, ctor_2, (app::UTF8Encoding * this_ptr, bool encoder_should_emit_u_t_f8_identifier))

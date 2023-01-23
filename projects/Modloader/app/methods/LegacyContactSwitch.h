@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/LegacyContactSwitch.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::LegacyContactSwitch {
     IL2CPP_REGISTER_METHOD(0x00A170C0, app::Renderer*, get_Renderer, (app::LegacyContactSwitch * this_ptr))

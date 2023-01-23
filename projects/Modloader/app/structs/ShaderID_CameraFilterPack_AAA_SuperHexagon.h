@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_SuperHexagon_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_SuperHexagon_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_SuperHexagon_DEFINED)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_SuperHexagon_DEFINED
+struct ShaderID_CameraFilterPack_AAA_SuperHexagon__Class;
+struct ShaderID_CameraFilterPack_AAA_SuperHexagon {
+    struct ShaderID_CameraFilterPack_AAA_SuperHexagon__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_SuperHexagon_FWDDECL)
+#define IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_SuperHexagon_FWDDECL
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_AAA_SuperHexagon__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_SuperHexagon_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_SuperHexagon_DEFINED) && !defined(IL2CPP_STRUCT_ShaderID_CameraFilterPack_AAA_SuperHexagon_FWDDECL)
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_AAA_SuperHexagon.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_AAA_SuperHexagon.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

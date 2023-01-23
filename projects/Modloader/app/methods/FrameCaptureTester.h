@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FrameCaptureTester.h>
+#include <Modloader/app/structs/FrameCaptureTester_FrameCaptureTestType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::FrameCaptureTester {
     IL2CPP_REGISTER_METHOD(0x016375D0, bool, get_EnableObjectProfiling, ())

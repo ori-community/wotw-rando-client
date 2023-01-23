@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FaderB_c.h>
 
 namespace app::classes::FaderB___c {
     IL2CPP_REGISTER_METHOD(0x00993930, void, cctor, ())

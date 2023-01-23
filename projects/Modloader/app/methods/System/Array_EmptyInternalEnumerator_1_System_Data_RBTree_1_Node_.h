@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Data_RBTree_1_Node_.h>
+#include <Modloader/app/structs/RBTree_1_K_Node_System_Int32_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Data_RBTree_1_Node__1.h>
+#include <Modloader/app/structs/RBTree_1_K_Node_System_Object_.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_System_Data_RBTree_1_Node_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose_1, (app::Array_EmptyInternalEnumerator_1_System_Data_RBTree_1_Node_ * this_ptr))

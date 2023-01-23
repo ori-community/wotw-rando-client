@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_ComponentModel_MaskedTextProvider_CharDescriptor_.h>
+#include <Modloader/app/structs/MaskedTextProvider_CharDescriptor.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ComponentModel_MaskedTextProvider_CharDescriptor_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_ComponentModel_MaskedTextProvider_CharDescriptor_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_System_ComponentModel_MaskedTextProvider_CharDescriptor_ * this_ptr))

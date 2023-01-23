@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RenderTargetIdentifier__Class.h>
+#include <Modloader/app/structs/RenderTargetIdentifier.h>
+#include <Modloader/app/structs/RenderTargetIdentifier__Boxed.h>
+#include <Modloader/app/structs/RenderTargetIdentifier__Array.h>
 
 namespace app::classes::types {
     namespace RenderTargetIdentifier {

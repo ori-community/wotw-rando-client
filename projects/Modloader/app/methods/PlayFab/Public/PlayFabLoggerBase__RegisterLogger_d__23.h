@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabLoggerBase_RegisterLogger_d_23.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::PlayFab::Public::PlayFabLoggerBase__RegisterLogger_d__23 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::PlayFabLoggerBase_RegisterLogger_d_23 * this_ptr, int32_t __1__state))

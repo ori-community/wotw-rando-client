@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SettingsScreen.h>
 
 namespace app::classes::SettingsScreen {
     IL2CPP_REGISTER_METHOD(0x005A5280, void, ResetStatics, ())

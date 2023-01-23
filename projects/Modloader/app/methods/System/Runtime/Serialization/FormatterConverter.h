@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FormatterConverter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::Serialization::FormatterConverter {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::FormatterConverter * this_ptr))

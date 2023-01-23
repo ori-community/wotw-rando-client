@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+#include <Modloader/app/structs/AttachPrefabsToLiannaTongue_TonguePoints.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_AttachPrefabsToLiannaTongue_TonguePoints_ {
     IL2CPP_REGISTER_METHOD(0x02C290D0, int32_t, Compare, (app::ObjectComparer_1_AttachPrefabsToLiannaTongue_TonguePoints_ * this_ptr, app::AttachPrefabsToLiannaTongue_TonguePoints x, app::AttachPrefabsToLiannaTongue_TonguePoints y))

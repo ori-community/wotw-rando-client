@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TempBrigthnessContributionAgent__Boxed.h>
+#include <Modloader/app/structs/IBrigthnessContributionAgent.h>
+#include <Modloader/app/structs/Ease_Easing__Enum.h>
+#include <Modloader/app/structs/WeightController.h>
+#include <Modloader/app/structs/GlobalBrightnessController_BrigthnessContributionOrder__Enum.h>
 
 namespace app::classes::TempBrigthnessContributionAgent {
     IL2CPP_REGISTER_METHOD(0x0011DCE0, void, ctor_1, (app::TempBrigthnessContributionAgent__Boxed * this_ptr, app::IBrigthnessContributionAgent* agent, app::Ease_Easing__Enum easing, float speed, float timer))

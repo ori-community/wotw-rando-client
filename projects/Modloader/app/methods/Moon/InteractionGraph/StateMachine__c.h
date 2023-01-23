@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateMachine_c.h>
+#include <Modloader/app/structs/StateMachine_1.h>
 
 namespace app::classes::Moon::InteractionGraph::StateMachine___c {
     IL2CPP_REGISTER_METHOD(0x01993950, void, cctor, ())

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShopkeeperItem.h>
+#include <Modloader/app/structs/ShopkeeperUIItem.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ShopkeeperUIItem {
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::ShopkeeperItem*, get_Item, (app::ShopkeeperUIItem * this_ptr))

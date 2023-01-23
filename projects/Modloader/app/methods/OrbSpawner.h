@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OrbSpawner.h>
+#include <Modloader/app/structs/EventTriggerAnimator.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/OrbSpawnerManager_ItemType__Enum.h>
 
 namespace app::classes::OrbSpawner {
     IL2CPP_REGISTER_METHOD(0x0061AEE0, void, CopySettings, (app::OrbSpawner * this_ptr, app::OrbSpawner* other))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DistanceToPointCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::DistanceToPointCondition {
     IL2CPP_REGISTER_METHOD(0x0300D7B0, app::String*, get_Info, (app::DistanceToPointCondition * this_ptr))

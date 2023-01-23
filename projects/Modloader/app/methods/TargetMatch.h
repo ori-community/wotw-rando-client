@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TargetMatch.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::TargetMatch {
     IL2CPP_REGISTER_METHOD(0x031B6D90, void, Awake, (app::TargetMatch * this_ptr))

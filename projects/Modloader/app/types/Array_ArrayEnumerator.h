@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Array_ArrayEnumerator__Class.h>
+#include <Modloader/app/structs/Array_ArrayEnumerator.h>
 
 namespace app::classes::types {
     namespace Array_ArrayEnumerator {

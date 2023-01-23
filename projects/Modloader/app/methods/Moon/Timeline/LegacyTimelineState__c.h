@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyTimelineState_c.h>
 
 namespace app::classes::Moon::Timeline::LegacyTimelineState___c {
     IL2CPP_REGISTER_METHOD(0x00775C00, void, cctor, ())

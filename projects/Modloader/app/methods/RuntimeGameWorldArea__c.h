@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeGameWorldArea_c.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_WorldMapAreaState_.h>
+#include <Modloader/app/structs/SerializedBooleanUberState.h>
+#include <Modloader/app/structs/SerializedIntUberState.h>
+#include <Modloader/app/structs/GameWorldArea_PlayerAbilityInfo.h>
+#include <Modloader/app/structs/RuntimeWorldMapIcon.h>
 
 namespace app::classes::RuntimeGameWorldArea___c {
     IL2CPP_REGISTER_METHOD(0x0137A610, void, cctor, ())

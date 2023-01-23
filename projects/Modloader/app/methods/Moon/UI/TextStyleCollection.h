@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextStyleCollection_1.h>
+#include <Modloader/app/structs/Text_1.h>
+#include <Modloader/app/structs/TextRenderer_1__Array.h>
 
 namespace app::classes::Moon::UI::TextStyleCollection {
     IL2CPP_REGISTER_METHOD(0x0118AC20, void, ComputeRendererCount, (app::TextStyleCollection_1 * this_ptr))

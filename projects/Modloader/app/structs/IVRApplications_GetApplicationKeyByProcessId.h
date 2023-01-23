@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRApplications_GetApplicationKeyByProcessId_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRApplications_GetApplicationKeyByProcessId_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRApplications_GetApplicationKeyByProcessId_DEFINED)
+#include <Modloader/app/structs/IVRApplications_GetApplicationKeyByProcessId__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRApplications_GetApplicationKeyByProcessId__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRApplications_GetApplicationKeyByProcessId_DEFINED
+struct IVRApplications_GetApplicationKeyByProcessId__Class;
+struct IVRApplications_GetApplicationKeyByProcessId {
+    struct IVRApplications_GetApplicationKeyByProcessId__Class* klass;
+    MonitorData* monitor;
+    struct IVRApplications_GetApplicationKeyByProcessId__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRApplications_GetApplicationKeyByProcessId_FWDDECL)
+#define IL2CPP_STRUCT_IVRApplications_GetApplicationKeyByProcessId_FWDDECL
+#include <Modloader/app/structs/IVRApplications_GetApplicationKeyByProcessId__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRApplications_GetApplicationKeyByProcessId_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRApplications_GetApplicationKeyByProcessId_DEFINED) && !defined(IL2CPP_STRUCT_IVRApplications_GetApplicationKeyByProcessId_FWDDECL)
+#include <Modloader/app/structs/IVRApplications_GetApplicationKeyByProcessId.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRApplications_GetApplicationKeyByProcessId.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

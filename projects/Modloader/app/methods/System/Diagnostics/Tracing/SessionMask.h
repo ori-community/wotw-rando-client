@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SessionMask__Boxed.h>
+#include <Modloader/app/structs/SessionMask.h>
 
 namespace app::classes::System::Diagnostics::Tracing::SessionMask {
     IL2CPP_REGISTER_METHOD(0x00154CB0, void, ctor, (app::SessionMask__Boxed * this_ptr, uint32_t mask))

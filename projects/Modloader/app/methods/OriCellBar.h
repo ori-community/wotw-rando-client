@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OriCellBar.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 
 namespace app::classes::OriCellBar {
     IL2CPP_REGISTER_METHOD(0x00437A00, void, SetShowCondition, (app::OriCellBar * this_ptr, app::Func_1_Boolean_* should_show_now))

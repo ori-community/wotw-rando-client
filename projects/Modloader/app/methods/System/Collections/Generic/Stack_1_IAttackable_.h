@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_IAttackable_.h>
+#include <Modloader/app/structs/IAttackable.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_IAttackable_ {
     IL2CPP_REGISTER_METHOD(0x02CF7B70, bool, Contains, (app::Stack_1_IAttackable_ * this_ptr, app::IAttackable* item))

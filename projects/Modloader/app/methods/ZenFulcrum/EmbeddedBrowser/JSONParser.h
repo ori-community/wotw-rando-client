@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JSONNode.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/IEnumerable_1_ZenFulcrum_EmbeddedBrowser_JSONNode_.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::JSONParser {
     IL2CPP_REGISTER_METHOD(0x01DE3CA0, void, cctor, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ScreenCapture_StereoScreenCaptureMode__Enum.h>
 
 namespace app::classes::UnityEngine::ScreenCapture {
     IL2CPP_REGISTER_METHOD(0x031C4D80, void, CaptureScreenshot_1, (app::String * filename))

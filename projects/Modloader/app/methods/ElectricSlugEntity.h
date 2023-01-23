@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ElectricSlugEntity.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/DamageDealer.h>
 
 namespace app::classes::ElectricSlugEntity {
     IL2CPP_REGISTER_METHOD(0x00BF8A10, void, ResolveDamage, (app::ElectricSlugEntity * this_ptr, app::DamageResult* damage_result))

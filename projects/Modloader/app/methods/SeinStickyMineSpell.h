@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinStickyMineSpell.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinStickyMineSpell {
     IL2CPP_REGISTER_METHOD(0x00A7E680, void, Awake, (app::SeinStickyMineSpell * this_ptr))

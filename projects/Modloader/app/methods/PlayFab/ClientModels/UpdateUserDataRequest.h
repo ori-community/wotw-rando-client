@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UpdateUserDataRequest.h>
 
 namespace app::classes::PlayFab::ClientModels::UpdateUserDataRequest {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::String*, get_PlayFabId, (app::UpdateUserDataRequest * this_ptr))

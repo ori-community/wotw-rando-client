@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MovingPlatformController_ProjectedObjectEntry_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MovingPlatformController_ProjectedObjectEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MovingPlatformController_ProjectedObjectEntry_DEFINED)
+#include <Modloader/app/structs/MovingPlatformController_ProjectedObjectEntry__Fields.h>
+#if defined(IL2CPP_STRUCT_MovingPlatformController_ProjectedObjectEntry__Fields_DEFINED)
+#define IL2CPP_STRUCT_MovingPlatformController_ProjectedObjectEntry_DEFINED
+struct MovingPlatformController_ProjectedObjectEntry__Class;
+struct MovingPlatformController_ProjectedObjectEntry {
+    struct MovingPlatformController_ProjectedObjectEntry__Class* klass;
+    MonitorData* monitor;
+    struct MovingPlatformController_ProjectedObjectEntry__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MovingPlatformController_ProjectedObjectEntry_FWDDECL)
+#define IL2CPP_STRUCT_MovingPlatformController_ProjectedObjectEntry_FWDDECL
+#include <Modloader/app/structs/MovingPlatformController_ProjectedObjectEntry__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MovingPlatformController_ProjectedObjectEntry_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MovingPlatformController_ProjectedObjectEntry_DEFINED) && !defined(IL2CPP_STRUCT_MovingPlatformController_ProjectedObjectEntry_FWDDECL)
+#include <Modloader/app/structs/MovingPlatformController_ProjectedObjectEntry.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MovingPlatformController_ProjectedObjectEntry.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

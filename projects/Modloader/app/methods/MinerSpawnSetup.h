@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MinerSpawnSetup.h>
 
 namespace app::classes::MinerSpawnSetup {
     IL2CPP_REGISTER_METHOD(0x0144FAF0, void, TriggerWallBurstTimeline, (app::MinerSpawnSetup * this_ptr))

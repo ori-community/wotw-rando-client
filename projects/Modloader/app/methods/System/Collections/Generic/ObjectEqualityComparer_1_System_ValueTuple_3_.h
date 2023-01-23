@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_System_ValueTuple_3_.h>
+#include <Modloader/app/structs/ValueTuple_3_Int32_Object_Int32_.h>
+#include <Modloader/app/structs/ValueTuple_3_Int32_Object_Int32___Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_System_ValueTuple_3_ {
     IL2CPP_REGISTER_METHOD(0x024377C0, bool, Equals_1, (app::ObjectEqualityComparer_1_System_ValueTuple_3_ * this_ptr, app::ValueTuple_3_Int32_Object_Int32_ x, app::ValueTuple_3_Int32_Object_Int32_ y))

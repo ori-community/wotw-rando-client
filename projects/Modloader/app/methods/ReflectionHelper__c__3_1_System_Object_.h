@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReflectionHelper_c_3_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Type_.h>
+#include <Modloader/app/structs/Assembly.h>
 
 namespace app::classes::ReflectionHelper___c__3_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x019DE4F0, void, cctor, ())

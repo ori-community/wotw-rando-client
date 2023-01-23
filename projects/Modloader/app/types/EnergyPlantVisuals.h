@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/EnergyPlantVisuals__Class.h>
+#include <Modloader/app/structs/EnergyPlantVisuals.h>
 
 namespace app::classes::types {
     namespace EnergyPlantVisuals {

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer_Event.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::ScalableAnimationPlayer_Event {
     IL2CPP_REGISTER_METHOD(0x00418FC0, float, get_SimulatedTime, (app::ScalableAnimationPlayer_Event * this_ptr))

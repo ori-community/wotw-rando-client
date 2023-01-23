@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SetRigidBodyPropertiesAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SetRigidBodyPropertiesAction {
     IL2CPP_REGISTER_METHOD(0x005A3710, void, Perform, (app::SetRigidBodyPropertiesAction * this_ptr, app::IContext* context))

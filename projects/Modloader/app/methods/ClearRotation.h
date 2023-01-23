@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/ClearRotation.h>
 
 namespace app::classes::ClearRotation {
     IL2CPP_REGISTER_METHOD(0x01326B20, app::Quaternion, get_EffectiveRotation, (app::ClearRotation * this_ptr))

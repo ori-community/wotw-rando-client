@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MonoTlsStream__Class.h>
+#include <Modloader/app/structs/MonoTlsStream.h>
 
 namespace app::classes::types {
     namespace MonoTlsStream {

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CalendarData.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Globalization::CalendarData {
     IL2CPP_REGISTER_METHOD(0x01A1EEA0, void, ctor_1, (app::CalendarData * this_ptr))

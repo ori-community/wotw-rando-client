@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TransformFollower.h>
 
 namespace app::classes::TransformFollower {
     IL2CPP_REGISTER_METHOD(0x00B06EE0, void, Start, (app::TransformFollower * this_ptr))

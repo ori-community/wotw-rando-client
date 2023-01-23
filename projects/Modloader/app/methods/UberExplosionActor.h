@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberExplosionActor.h>
 
 namespace app::classes::UberExplosionActor {
     IL2CPP_REGISTER_METHOD(0x013E84D0, void, Start, (app::UberExplosionActor * this_ptr))

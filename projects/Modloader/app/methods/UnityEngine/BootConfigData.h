@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BootConfigData.h>
 
 namespace app::classes::UnityEngine::BootConfigData {
     IL2CPP_REGISTER_METHOD(0x0241F730, void, ctor, (app::BootConfigData * this_ptr, void* native_handle))

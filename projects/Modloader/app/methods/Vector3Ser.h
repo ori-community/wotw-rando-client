@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3Ser.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Vector3Ser {
     IL2CPP_REGISTER_METHOD(0x00CFCF00, void, ctor_1, (app::Vector3Ser * this_ptr, float x, float y, float z))

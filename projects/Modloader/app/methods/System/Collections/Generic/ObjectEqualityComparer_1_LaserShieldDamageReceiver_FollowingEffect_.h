@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/LaserShieldDamageReceiver_FollowingEffect.h>
+#include <Modloader/app/structs/LaserShieldDamageReceiver_FollowingEffect__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_LaserShieldDamageReceiver_FollowingEffect_ {
     IL2CPP_REGISTER_METHOD(0x01CD0C40, bool, Equals_1, (app::ObjectEqualityComparer_1_LaserShieldDamageReceiver_FollowingEffect_ * this_ptr, app::LaserShieldDamageReceiver_FollowingEffect x, app::LaserShieldDamageReceiver_FollowingEffect y))

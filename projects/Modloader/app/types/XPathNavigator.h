@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XPathNavigator__Class.h>
+#include <Modloader/app/structs/XPathNavigator.h>
+#include <Modloader/app/structs/XPathNavigator__Array.h>
 
 namespace app::classes::types {
     namespace XPathNavigator {

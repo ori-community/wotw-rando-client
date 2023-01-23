@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MovePivotAlert__Class.h>
+#include <Modloader/app/structs/MovePivotAlert.h>
 
 namespace app::classes::types {
     namespace MovePivotAlert {

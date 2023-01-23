@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlUrlResolver_GetEntityAsync_d_15__Class.h>
+#include <Modloader/app/structs/XmlUrlResolver_GetEntityAsync_d_15.h>
+#include <Modloader/app/structs/XmlUrlResolver_GetEntityAsync_d_15__Boxed.h>
 
 namespace app::classes::types {
     namespace XmlUrlResolver_GetEntityAsync_d_15 {

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserShooterBeamAttackWithCycleRepetitionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/LaserShooterBeamAttackWithCycleRepetitionBehaviour_State__Enum.h>
 
 namespace app::classes::LaserShooterBeamAttackWithCycleRepetitionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00F115E0, void, OnEntityInitialized, (app::LaserShooterBeamAttackWithCycleRepetitionBehaviour * this_ptr))

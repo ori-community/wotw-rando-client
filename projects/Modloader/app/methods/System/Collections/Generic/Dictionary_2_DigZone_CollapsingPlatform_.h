@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_DigZone_CollapsingPlatform_.h>
+#include <Modloader/app/structs/DigZone.h>
+#include <Modloader/app/structs/CollapsingPlatform.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_DigZone_CollapsingPlatform_ {
     IL2CPP_REGISTER_METHOD(0x02BAC170, void, Add, (app::Dictionary_2_DigZone_CollapsingPlatform_ * this_ptr, app::DigZone* key, app::CollapsingPlatform* value))

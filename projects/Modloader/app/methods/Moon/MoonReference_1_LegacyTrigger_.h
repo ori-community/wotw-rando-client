@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyTrigger.h>
+#include <Modloader/app/structs/MoonReference_1_LegacyTrigger_.h>
+#include <Modloader/app/structs/IMoonResolverContext.h>
 
 namespace app::classes::Moon::MoonReference_1_LegacyTrigger_ {
     IL2CPP_REGISTER_METHOD(0x02720AC0, app::LegacyTrigger*, Resolve, (app::MoonReference_1_LegacyTrigger_ * this_ptr, app::IMoonResolverContext* context))

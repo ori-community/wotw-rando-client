@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement_c.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 
 namespace app::classes::CharacterLeftRightMovement___c {
     IL2CPP_REGISTER_METHOD(0x01302F50, void, cctor, ())

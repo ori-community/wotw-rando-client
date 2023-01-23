@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Collection_1_System_Object_.h>
+#include <Modloader/app/structs/IList_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::ObjectModel::Collection_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02B7DF30, int32_t, get_Count, (app::Collection_1_System_Object_ * this_ptr))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AdvancedDebugMenuPage_c.h>
+#include <Modloader/app/structs/ResoucesUnloadingMode__Enum.h>
+#include <Modloader/app/structs/UberStateValueGroup.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_UberID_System_Boolean_.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_UberID_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_UberID_System_Int32_.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_UberID_System_Single_.h>
+#include <Modloader/app/structs/KeyValuePair_2_Moon_UberID_System_Byte_.h>
+#include <Modloader/app/structs/CacheData.h>
 
 namespace app::classes::AdvancedDebugMenuPage___c {
     IL2CPP_REGISTER_METHOD(0x004E5A40, void, cctor, ())

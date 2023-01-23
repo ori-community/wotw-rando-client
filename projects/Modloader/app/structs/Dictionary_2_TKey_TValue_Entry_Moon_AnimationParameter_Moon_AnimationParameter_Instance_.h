@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_AnimationParameter_Moon_AnimationParameter_Instance__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_AnimationParameter_Moon_AnimationParameter_Instance__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_AnimationParameter_Moon_AnimationParameter_Instance__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_AnimationParameter_Moon_AnimationParameter_Instance__DEFINED
+struct AnimationParameter;
+struct AnimationParameter_Instance;
+struct Dictionary_2_TKey_TValue_Entry_Moon_AnimationParameter_Moon_AnimationParameter_Instance_ {
+    int32_t hashCode;
+    int32_t next;
+    struct AnimationParameter* key;
+    struct AnimationParameter_Instance* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_AnimationParameter_Moon_AnimationParameter_Instance__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_AnimationParameter_Moon_AnimationParameter_Instance__FWDDECL
+#include <Modloader/app/structs/AnimationParameter.h>
+#include <Modloader/app/structs/AnimationParameter_Instance.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_AnimationParameter_Moon_AnimationParameter_Instance__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_AnimationParameter_Moon_AnimationParameter_Instance__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_AnimationParameter_Moon_AnimationParameter_Instance__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_Moon_AnimationParameter_Moon_AnimationParameter_Instance_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_Moon_AnimationParameter_Moon_AnimationParameter_Instance_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_XboxOneController_Axis_System_String_.h>
+#include <Modloader/app/structs/XboxOneController_Axis__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_XboxOneController_Axis_System_String_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_XboxOneController_Axis_System_String_ * this_ptr, app::XboxOneController_Axis__Enum key))

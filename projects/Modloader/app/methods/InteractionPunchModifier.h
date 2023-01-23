@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractionPunchModifier.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberInteractionManager_PropertyIDCache.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::InteractionPunchModifier {
     IL2CPP_REGISTER_METHOD(0x005E8360, float, get_OverrideDifficulty, (app::InteractionPunchModifier * this_ptr))

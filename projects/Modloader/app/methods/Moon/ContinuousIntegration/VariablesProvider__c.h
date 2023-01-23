@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VariablesProvider_c.h>
+#include <Modloader/app/structs/Match.h>
 
 namespace app::classes::Moon::ContinuousIntegration::VariablesProvider___c {
     IL2CPP_REGISTER_METHOD(0x0318F7A0, void, cctor, ())

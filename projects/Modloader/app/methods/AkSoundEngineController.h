@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AkSoundEngineController.h>
 
 namespace app::classes::AkSoundEngineController {
     IL2CPP_REGISTER_METHOD(0x018B7960, app::String*, GetDecodedBankFolder, ())

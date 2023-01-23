@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneManagementSystem.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
+#include <Modloader/app/structs/FixedDurationSceneEntity.h>
+#include <Modloader/app/structs/ScenesManager_SceneManagementMode__Enum.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::Moon::Timeline::Systems::SceneManagementSystem {
     IL2CPP_REGISTER_METHOD(0x00D094B0, void, IncreaseSceneEntityPlayCount, (app::SceneManagementSystem * this_ptr))

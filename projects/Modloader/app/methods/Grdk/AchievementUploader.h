@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XblAchievement__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Grdk::AchievementUploader {
     IL2CPP_REGISTER_METHOD(0x01083270, app::XblAchievement__Array*, get_Achievements, ())

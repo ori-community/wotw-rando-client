@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_DamageRecieverType_BloodVFXPair__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_DamageRecieverType_BloodVFXPair__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_DamageRecieverType_BloodVFXPair__DEFINED)
+#include <Modloader/app/structs/DamageRecieverType__Enum.h>
+#if defined(IL2CPP_STRUCT_DamageRecieverType__Enum_DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_DamageRecieverType_BloodVFXPair__DEFINED
+struct BloodVFXPair;
+struct Dictionary_2_TKey_TValue_Entry_DamageRecieverType_BloodVFXPair_ {
+    int32_t hashCode;
+    int32_t next;
+    DamageRecieverType__Enum key;
+
+    struct BloodVFXPair* value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_DamageRecieverType_BloodVFXPair__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_DamageRecieverType_BloodVFXPair__FWDDECL
+#include <Modloader/app/structs/BloodVFXPair.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_DamageRecieverType_BloodVFXPair__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_DamageRecieverType_BloodVFXPair__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_DamageRecieverType_BloodVFXPair__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_DamageRecieverType_BloodVFXPair_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_DamageRecieverType_BloodVFXPair_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

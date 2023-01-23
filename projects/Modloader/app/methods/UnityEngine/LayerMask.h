@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/LayerMask__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::UnityEngine::LayerMask {
     IL2CPP_REGISTER_METHOD(0x0252E560, int32_t, op_Implicit_1, (app::LayerMask mask))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ValueTuple_4_String_Int32_Int32_Single___Array__Class.h>
+#include <Modloader/app/structs/ValueTuple_4_String_Int32_Int32_Single___Array.h>
 
 namespace app::classes::types {
     namespace ValueTuple_4_String_Int32_Int32_Single___Array {

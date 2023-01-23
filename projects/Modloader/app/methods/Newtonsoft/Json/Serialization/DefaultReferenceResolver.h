@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BidirectionalDictionary_2_System_String_System_Object_.h>
+#include <Modloader/app/structs/DefaultReferenceResolver.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::DefaultReferenceResolver {
     IL2CPP_REGISTER_METHOD(0x0186A530, app::BidirectionalDictionary_2_System_String_System_Object_*, GetMappings, (app::DefaultReferenceResolver * this_ptr, app::Object* context))

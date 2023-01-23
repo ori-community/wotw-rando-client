@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GZipStream_2.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/CompressionMode__Enum_2.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Unity::IO::Compression::GZipStream {
     IL2CPP_REGISTER_METHOD(0x02B78E60, void, ctor_1, (app::GZipStream_2 * this_ptr, app::Stream* stream, app::CompressionMode__Enum_2 mode))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IPushable.h>
+#include <Modloader/app/structs/Pushables.h>
 
 namespace app::classes::Pushables {
     IL2CPP_REGISTER_METHOD(0x00E86C50, void, ResetStatics, ())

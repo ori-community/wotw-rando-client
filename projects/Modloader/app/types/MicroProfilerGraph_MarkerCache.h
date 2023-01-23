@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MicroProfilerGraph_MarkerCache__Class.h>
+#include <Modloader/app/structs/MicroProfilerGraph_MarkerCache.h>
+#include <Modloader/app/structs/MicroProfilerGraph_MarkerCache__Boxed.h>
+#include <Modloader/app/structs/MicroProfilerGraph_MarkerCache__Array.h>
 
 namespace app::classes::types {
     namespace MicroProfilerGraph_MarkerCache {

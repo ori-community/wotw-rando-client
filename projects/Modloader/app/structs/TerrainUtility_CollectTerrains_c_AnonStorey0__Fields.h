@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TerrainUtility_CollectTerrains_c_AnonStorey0__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TerrainUtility_CollectTerrains_c_AnonStorey0__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TerrainUtility_CollectTerrains_c_AnonStorey0__Fields_DEFINED)
+#define IL2CPP_STRUCT_TerrainUtility_CollectTerrains_c_AnonStorey0__Fields_DEFINED
+struct Terrain_1;
+struct TerrainUtility_CollectTerrains_c_AnonStorey1;
+struct __declspec(align(8)) TerrainUtility_CollectTerrains_c_AnonStorey0__Fields {
+    struct Terrain_1* t;
+    struct TerrainUtility_CollectTerrains_c_AnonStorey1* __f__ref_1;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_TerrainUtility_CollectTerrains_c_AnonStorey0__Fields_FWDDECL)
+#define IL2CPP_STRUCT_TerrainUtility_CollectTerrains_c_AnonStorey0__Fields_FWDDECL
+#include <Modloader/app/structs/TerrainUtility_CollectTerrains_c_AnonStorey1.h>
+#include <Modloader/app/structs/Terrain_1.h>
+#endif
+#undef IL2CPP_STRUCT_TerrainUtility_CollectTerrains_c_AnonStorey0__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TerrainUtility_CollectTerrains_c_AnonStorey0__Fields_DEFINED) && !defined(IL2CPP_STRUCT_TerrainUtility_CollectTerrains_c_AnonStorey0__Fields_FWDDECL)
+#include <Modloader/app/structs/TerrainUtility_CollectTerrains_c_AnonStorey0__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TerrainUtility_CollectTerrains_c_AnonStorey0__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

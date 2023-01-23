@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WWiseCinematicScopeAnimatorEntity.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::WWiseCinematicScopeAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x00D1D560, void, OnStartPlayback, (app::WWiseCinematicScopeAnimatorEntity * this_ptr, app::IContext* context))

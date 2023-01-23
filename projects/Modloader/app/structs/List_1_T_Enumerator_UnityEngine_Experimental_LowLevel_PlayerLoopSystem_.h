@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystem__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystem__DEFINED)
+#include <Modloader/app/structs/PlayerLoopSystem.h>
+#if defined(IL2CPP_STRUCT_PlayerLoopSystem_DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystem__DEFINED
+struct List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystem_;
+struct List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystem_ {
+    struct List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystem_* list;
+    int32_t index;
+    int32_t version;
+    struct PlayerLoopSystem current;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystem__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystem__FWDDECL
+#include <Modloader/app/structs/List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystem_.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystem__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystem__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystem__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystem_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystem_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowWispTextAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
 
 namespace app::classes::ShowWispTextAction {
     IL2CPP_REGISTER_METHOD(0x00739260, void, Perform, (app::ShowWispTextAction * this_ptr, app::IContext* context))

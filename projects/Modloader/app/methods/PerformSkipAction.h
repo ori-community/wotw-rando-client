@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PerformSkipAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::PerformSkipAction {
     IL2CPP_REGISTER_METHOD(0x0044CDF0, void, Perform, (app::PerformSkipAction * this_ptr, app::IContext* context))

@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry__DEFINED)
+#define IL2CPP_STRUCT_Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry__DEFINED
+struct Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry___Class;
+struct Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry_ {
+    struct Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry__FWDDECL)
+#define IL2CPP_STRUCT_Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry__FWDDECL
+#include <Modloader/app/structs/Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry__DEFINED) && !defined(IL2CPP_STRUCT_Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry__FWDDECL)
+#include <Modloader/app/structs/Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Comparer_1_EntityReactions_ReactionInterruptionSuspensionEntry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

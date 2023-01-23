@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UnicodeCategory__Enum.h>
 
 namespace app::classes::System::Globalization::CharUnicodeInfo {
     IL2CPP_REGISTER_METHOD(0x01A21B10, int32_t, InternalConvertToUtf32, (app::String * s, int32_t index))

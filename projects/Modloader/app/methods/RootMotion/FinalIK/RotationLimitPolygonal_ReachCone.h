@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/RotationLimitPolygonal_ReachCone.h>
 
 namespace app::classes::RootMotion::FinalIK::RotationLimitPolygonal_ReachCone {
     IL2CPP_REGISTER_METHOD(0x02A25710, app::Vector3, get_o, (app::RotationLimitPolygonal_ReachCone * this_ptr))

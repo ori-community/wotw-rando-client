@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
+#include <Modloader/app/structs/HPerfTestResult.h>
+#include <Modloader/app/structs/IComparer_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_ * this_ptr))

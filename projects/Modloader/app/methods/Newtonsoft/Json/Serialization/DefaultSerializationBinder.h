@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DefaultSerializationBinder.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/StructMultiKey_2_System_String_System_String_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Assembly.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::DefaultSerializationBinder {
     IL2CPP_REGISTER_METHOD(0x0186AAF0, void, ctor, (app::DefaultSerializationBinder * this_ptr))

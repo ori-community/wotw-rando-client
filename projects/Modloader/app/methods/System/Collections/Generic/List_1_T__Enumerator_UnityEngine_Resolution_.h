@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Resolution.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Resolution___Boxed.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Resolution_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_UnityEngine_Resolution_ {
     IL2CPP_REGISTER_METHOD(0x00140C90, app::Resolution, get_Current, (app::List_1_T_Enumerator_UnityEngine_Resolution___Boxed * this_ptr))

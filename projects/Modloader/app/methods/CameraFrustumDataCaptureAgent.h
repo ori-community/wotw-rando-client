@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraFrustumDataCaptureAgent.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/FrameCaptureTester_AgentOutput.h>
 
 namespace app::classes::CameraFrustumDataCaptureAgent {
     IL2CPP_REGISTER_METHOD(0x01689D10, bool, get_IsCaptureAgentValid, (app::CameraFrustumDataCaptureAgent * this_ptr))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MeshTrail_MeshTrailParticle__Class.h>
+#include <Modloader/app/structs/MeshTrail_MeshTrailParticle.h>
+#include <Modloader/app/structs/MeshTrail_MeshTrailParticle__Boxed.h>
 
 namespace app::classes::types {
     namespace MeshTrail_MeshTrailParticle {

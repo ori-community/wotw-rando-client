@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProtectiveLightRadial.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::ProtectiveLightRadial {
     IL2CPP_REGISTER_METHOD(0x00C7EA80, void, ResetStatics, ())

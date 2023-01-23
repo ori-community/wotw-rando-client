@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HierarchyPerfTest_FirstRunner.h>
 
 namespace app::classes::HierarchyPerfTest::HierarchyPerfTest_FirstRunner {
     IL2CPP_REGISTER_METHOD(0x01973970, void, Awake, (app::HierarchyPerfTest_FirstRunner * this_ptr))

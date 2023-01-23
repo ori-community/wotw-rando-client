@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StressTestDataCaptureAgent.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/FrameCaptureTester_AgentOutput.h>
 
 namespace app::classes::StressTestDataCaptureAgent {
     IL2CPP_REGISTER_METHOD(0x0065DBB0, bool, get_IsCaptureAgentValid, (app::StressTestDataCaptureAgent * this_ptr))

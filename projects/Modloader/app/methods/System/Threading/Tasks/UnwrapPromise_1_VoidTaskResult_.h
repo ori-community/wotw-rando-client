@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnwrapPromise_1_VoidTaskResult_.h>
+#include <Modloader/app/structs/Task.h>
 
 namespace app::classes::System::Threading::Tasks::UnwrapPromise_1_VoidTaskResult_ {
     IL2CPP_REGISTER_METHOD(0x02A5E7F0, void, ctor, (app::UnwrapPromise_1_VoidTaskResult_ * this_ptr, app::Task* outer_task, bool look_for_oce))

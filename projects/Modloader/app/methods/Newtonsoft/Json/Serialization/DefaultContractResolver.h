@@ -1,5 +1,40 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IContractResolver.h>
+#include <Modloader/app/structs/DefaultContractResolver.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/NamingStrategy.h>
+#include <Modloader/app/structs/JsonContract.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/List_1_System_Reflection_MemberInfo_.h>
+#include <Modloader/app/structs/JsonObjectContract.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
+#include <Modloader/app/structs/JsonPropertyCollection.h>
+#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
+#include <Modloader/app/structs/JsonProperty.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ParameterInfo_1.h>
+#include <Modloader/app/structs/JsonConverter.h>
+#include <Modloader/app/structs/Func_1_Object_.h>
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_Serialization_SerializationCallback_.h>
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_Serialization_SerializationErrorCallback_.h>
+#include <Modloader/app/structs/List_1_System_Type_.h>
+#include <Modloader/app/structs/JsonDictionaryContract.h>
+#include <Modloader/app/structs/JsonArrayContract.h>
+#include <Modloader/app/structs/JsonPrimitiveContract.h>
+#include <Modloader/app/structs/JsonLinqContract.h>
+#include <Modloader/app/structs/JsonISerializableContract.h>
+#include <Modloader/app/structs/JsonDynamicContract.h>
+#include <Modloader/app/structs/JsonStringContract.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/MemberSerialization__Enum.h>
+#include <Modloader/app/structs/DefaultJsonNameTable.h>
+#include <Modloader/app/structs/IValueProvider.h>
+#include <Modloader/app/structs/Predicate_1_Object_.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::DefaultContractResolver {
     IL2CPP_REGISTER_METHOD(0x0185DEC0, app::IContractResolver*, get_Instance, ())

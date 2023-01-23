@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InvisibleOnStartUnlessDebug.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::InvisibleOnStartUnlessDebug {
     IL2CPP_REGISTER_METHOD(0x00645B00, void, Start, (app::InvisibleOnStartUnlessDebug * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DashableSwitch.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/DashableSwitchSetupData.h>
 
 namespace app::classes::Game::DashableSwitch {
     IL2CPP_REGISTER_METHOD(0x00A09730, void, Reset, (app::DashableSwitch * this_ptr))

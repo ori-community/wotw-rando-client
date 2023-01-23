@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VertexHelper.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/UIVertex.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color32.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/UIVertex__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UIVertex_.h>
+#include <Modloader/app/structs/List_1_System_Int32_.h>
 
 namespace app::classes::UnityEngine::UI::VertexHelper {
     IL2CPP_REGISTER_METHOD(0x009A3B50, void, ctor_1, (app::VertexHelper * this_ptr))

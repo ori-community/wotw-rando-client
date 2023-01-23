@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Link_Link_.h>
+#include <Modloader/app/structs/Link.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_Link_Link_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_Link_Link_ * this_ptr))

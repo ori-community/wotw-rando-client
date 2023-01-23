@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsPortableReflection_GetFlattenedMethods_d_18.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Reflection_MethodInfo_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::FullSerializer::Internal::fsPortableReflection__GetFlattenedMethods_d__18 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::fsPortableReflection_GetFlattenedMethods_d_18 * this_ptr, int32_t __1__state))

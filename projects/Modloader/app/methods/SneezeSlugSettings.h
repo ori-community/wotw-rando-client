@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SneezeSlugSettings.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::SneezeSlugSettings {
     IL2CPP_REGISTER_METHOD(0x00449EA0, float, get_GetSneezingSpeed, (app::SneezeSlugSettings * this_ptr))

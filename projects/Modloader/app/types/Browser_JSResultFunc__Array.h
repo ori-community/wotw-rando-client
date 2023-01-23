@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Browser_JSResultFunc__Array__Class.h>
+#include <Modloader/app/structs/Browser_JSResultFunc__Array.h>
 
 namespace app::classes::types {
     namespace Browser_JSResultFunc__Array {

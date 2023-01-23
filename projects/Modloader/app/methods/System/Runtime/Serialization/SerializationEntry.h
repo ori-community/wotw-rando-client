@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationEntry__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Runtime::Serialization::SerializationEntry {
     IL2CPP_REGISTER_METHOD(0x00107C10, app::Object*, get_Value, (app::SerializationEntry__Boxed * this_ptr))

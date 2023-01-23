@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActionNode_c.h>
+#include <Modloader/app/structs/Action_1.h>
 
 namespace app::classes::Moon::BehaviourSystem::ActionNode___c {
     IL2CPP_REGISTER_METHOD(0x03004440, void, cctor, ())

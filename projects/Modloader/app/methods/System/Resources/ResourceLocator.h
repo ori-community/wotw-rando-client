@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ResourceLocator__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ResourceTypeCode__Enum.h>
 
 namespace app::classes::System::Resources::ResourceLocator {
     IL2CPP_REGISTER_METHOD(0x0018ED30, void, ctor, (app::ResourceLocator__Boxed * this_ptr, int32_t data_pos, app::Object* value))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExplosionDemo.h>
 
 namespace app::classes::RootMotion::Demos::ExplosionDemo {
     IL2CPP_REGISTER_METHOD(0x022188A0, void, Start, (app::ExplosionDemo * this_ptr))

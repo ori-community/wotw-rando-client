@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AimIK.h>
+#include <Modloader/app/structs/IKSolver.h>
 
 namespace app::classes::RootMotion::FinalIK::AimIK {
     IL2CPP_REGISTER_METHOD(0x0204D730, void, OpenUserManual, (app::AimIK * this_ptr))

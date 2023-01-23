@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BsonWriter.h>
+#include <Modloader/app/structs/JsonToken__Enum_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BsonToken.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/BsonType__Enum.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Uri.h>
 
 namespace app::classes::Newtonsoft::Json::Bson::BsonWriter {
     IL2CPP_REGISTER_METHOD(0x01A4ABC0, void, WriteEnd, (app::BsonWriter * this_ptr, app::JsonToken__Enum_1 token))

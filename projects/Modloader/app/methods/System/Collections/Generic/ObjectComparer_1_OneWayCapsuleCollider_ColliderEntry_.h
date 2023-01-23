@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_OneWayCapsuleCollider_ColliderEntry_.h>
+#include <Modloader/app/structs/OneWayCapsuleCollider_ColliderEntry.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_OneWayCapsuleCollider_ColliderEntry_ {
     IL2CPP_REGISTER_METHOD(0x01CC8150, int32_t, Compare, (app::ObjectComparer_1_OneWayCapsuleCollider_ColliderEntry_ * this_ptr, app::OneWayCapsuleCollider_ColliderEntry x, app::OneWayCapsuleCollider_ColliderEntry y))

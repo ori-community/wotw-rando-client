@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UIInteractable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Window.h>
+#include <Modloader/app/structs/ItemSelectionManager.h>
 
 namespace app::classes::Moon::UI::UIInteractable {
     IL2CPP_REGISTER_METHOD(0x0118B670, void, Awake, (app::UIInteractable * this_ptr))

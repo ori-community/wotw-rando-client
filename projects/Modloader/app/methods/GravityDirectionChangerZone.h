@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GravityDirectionChangerZone.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::GravityDirectionChangerZone {
     IL2CPP_REGISTER_METHOD(0x01082F70, void, OnTriggerEnter, (app::GravityDirectionChangerZone * this_ptr, app::Collider* other))

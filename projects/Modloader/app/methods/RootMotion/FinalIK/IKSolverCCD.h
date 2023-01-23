@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IKSolverCCD.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IKSolver_Bone__Array.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolverCCD {
     IL2CPP_REGISTER_METHOD(0x02BEA260, void, FadeOutBoneWeights, (app::IKSolverCCD * this_ptr))

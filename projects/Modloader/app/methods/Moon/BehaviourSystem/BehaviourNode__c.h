@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BehaviourNode_c.h>
+#include <Modloader/app/structs/DecoratorNode.h>
+#include <Modloader/app/structs/TreeBehaviour.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::Moon::BehaviourSystem::BehaviourNode___c {
     IL2CPP_REGISTER_METHOD(0x03006440, void, cctor, ())

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/AnimationPlayer.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::AnimationPlayer {
     IL2CPP_REGISTER_METHOD(0x01BA4D70, app::GameObject*, get_ExternalTarget, (app::AnimationPlayer * this_ptr))

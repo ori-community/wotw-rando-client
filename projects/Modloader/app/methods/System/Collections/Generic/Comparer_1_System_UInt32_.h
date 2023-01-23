@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Comparer_1_System_UInt32_.h>
+#include <Modloader/app/structs/Comparison_1_UInt32_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Comparer_1_System_UInt32_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::Comparer_1_System_UInt32_*, get_Default, ())

@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate__DEFINED)
+#define IL2CPP_STRUCT_ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate__DEFINED
+struct ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate___Class;
+struct ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate_ {
+    struct ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate__FWDDECL)
+#define IL2CPP_STRUCT_ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate__FWDDECL
+#include <Modloader/app/structs/ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate___Class.h>
+#endif
+#undef IL2CPP_STRUCT_ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate__DEFINED) && !defined(IL2CPP_STRUCT_ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate__FWDDECL)
+#include <Modloader/app/structs/ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ICollection_1_PlayFab_Json_ReflectionUtils_GetDelegate_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

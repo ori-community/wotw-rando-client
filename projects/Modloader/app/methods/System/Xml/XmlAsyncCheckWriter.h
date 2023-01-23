@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlAsyncCheckWriter.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/WriteState__Enum.h>
+#include <Modloader/app/structs/XmlReader.h>
 
 namespace app::classes::System::Xml::XmlAsyncCheckWriter {
     IL2CPP_REGISTER_METHOD(0x0195A260, void, ctor, (app::XmlAsyncCheckWriter * this_ptr, app::XmlWriter* writer))

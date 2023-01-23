@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ConcurrentSet_2_System_Collections_Generic_KeyValuePair_2_NameInfo__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ConcurrentSet_2_System_Collections_Generic_KeyValuePair_2_NameInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ConcurrentSet_2_System_Collections_Generic_KeyValuePair_2_NameInfo__DEFINED)
+#define IL2CPP_STRUCT_ConcurrentSet_2_System_Collections_Generic_KeyValuePair_2_NameInfo__DEFINED
+struct NameInfo_1__Array;
+struct ConcurrentSet_2_System_Collections_Generic_KeyValuePair_2_NameInfo_ {
+    struct NameInfo_1__Array* items;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ConcurrentSet_2_System_Collections_Generic_KeyValuePair_2_NameInfo__FWDDECL)
+#define IL2CPP_STRUCT_ConcurrentSet_2_System_Collections_Generic_KeyValuePair_2_NameInfo__FWDDECL
+#include <Modloader/app/structs/NameInfo_1__Array.h>
+#endif
+#undef IL2CPP_STRUCT_ConcurrentSet_2_System_Collections_Generic_KeyValuePair_2_NameInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_ConcurrentSet_2_System_Collections_Generic_KeyValuePair_2_NameInfo__DEFINED) && !defined(IL2CPP_STRUCT_ConcurrentSet_2_System_Collections_Generic_KeyValuePair_2_NameInfo__FWDDECL)
+#include <Modloader/app/structs/ConcurrentSet_2_System_Collections_Generic_KeyValuePair_2_NameInfo_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ConcurrentSet_2_System_Collections_Generic_KeyValuePair_2_NameInfo_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

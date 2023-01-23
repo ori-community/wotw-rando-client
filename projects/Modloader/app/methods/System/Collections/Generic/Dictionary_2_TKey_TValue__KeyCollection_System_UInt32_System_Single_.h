@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_System_UInt32_System_Single_.h>
+#include <Modloader/app/structs/Dictionary_2_System_UInt32_System_Single_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_System_UInt32_System_Single_.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/IEnumerator_1_System_UInt32_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__KeyCollection_System_UInt32_System_Single_ {
     IL2CPP_REGISTER_METHOD(0x01A79560, void, ctor, (app::Dictionary_2_TKey_TValue_KeyCollection_System_UInt32_System_Single_ * this_ptr, app::Dictionary_2_System_UInt32_System_Single_* dictionary))

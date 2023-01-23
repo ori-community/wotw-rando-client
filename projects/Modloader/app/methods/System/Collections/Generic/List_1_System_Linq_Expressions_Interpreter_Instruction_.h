@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Linq_Expressions_Interpreter_Instruction_.h>
+#include <Modloader/app/structs/Instruction.h>
+#include <Modloader/app/structs/Instruction__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Linq_Expressions_Interpreter_Instruction_ {
     IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_System_Linq_Expressions_Interpreter_Instruction_ * this_ptr, app::Instruction* item))

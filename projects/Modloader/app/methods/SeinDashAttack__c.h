@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDashAttack_c.h>
 
 namespace app::classes::SeinDashAttack___c {
     IL2CPP_REGISTER_METHOD(0x006F3F50, void, cctor, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleSwayAnimPostprocess_Job.h>
+#include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::Unity::Jobs::IJobExtensions_JobStruct_1_Moon_SimpleSwayAnimPostprocess_Job_ {
     IL2CPP_REGISTER_METHOD(0x02265970, void*, Initialize, ())

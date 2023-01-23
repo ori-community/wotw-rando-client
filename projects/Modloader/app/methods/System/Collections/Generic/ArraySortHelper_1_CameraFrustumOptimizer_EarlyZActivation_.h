@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraFrustumOptimizer_EarlyZActivation__Array.h>
+#include <Modloader/app/structs/IComparer_1_CameraFrustumOptimizer_EarlyZActivation_.h>
+#include <Modloader/app/structs/CameraFrustumOptimizer_EarlyZActivation.h>
+#include <Modloader/app/structs/Comparison_1_CameraFrustumOptimizer_EarlyZActivation_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_CameraFrustumOptimizer_EarlyZActivation_ {
     IL2CPP_REGISTER_METHOD(0x02F2C4E0, void, Sort_1, (app::CameraFrustumOptimizer_EarlyZActivation__Array * keys, int32_t index, int32_t length, app::IComparer_1_CameraFrustumOptimizer_EarlyZActivation_* comparer))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowStoryTextAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
 
 namespace app::classes::ShowStoryTextAction {
     IL2CPP_REGISTER_METHOD(0x00737F30, void, Perform, (app::ShowStoryTextAction * this_ptr, app::IContext* context))

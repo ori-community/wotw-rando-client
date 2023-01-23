@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParticleSystem_Particle__Boxed.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color32.h>
 
 namespace app::classes::UnityEngine::ParticleSystem_Particle {
     IL2CPP_REGISTER_METHOD(0x002487A0, void, set_lifetime, (app::ParticleSystem_Particle__Boxed * this_ptr, float value))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_Object_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/Action_2_Object_Object_.h>
+#include <Modloader/app/structs/Action_3_Object_Object_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/Func_3_Object_Object_Object_.h>
+#include <Modloader/app/structs/Func_4_Object_Object_Object_Object_.h>
 
 namespace app::classes::Moon::ReflectionHelpers {
     IL2CPP_REGISTER_METHOD(0x018F11E0, app::Action_1_Object_*, CreateReflectedStaticFuncDelegate_1, (app::Type * type, app::String* method_name, app::BindingFlags__Enum binding_flags))

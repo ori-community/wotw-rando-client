@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Quaternion___Boxed.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_UnityEngine_Quaternion_ {
     IL2CPP_REGISTER_METHOD(0x0014CA00, void, ctor, (app::List_1_T_Enumerator_UnityEngine_Quaternion___Boxed * this_ptr, app::List_1_UnityEngine_Quaternion_* list))

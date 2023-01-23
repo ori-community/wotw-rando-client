@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MonoBehaviour.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Rect__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Rect_.h>
+#include <Modloader/app/structs/Utility_MoveDirection__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/Utility.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IList_1_System_Object_.h>
+#include <Modloader/app/structs/IList_1_UnityEngine_Material_.h>
+#include <Modloader/app/structs/RenderTarget.h>
+#include <Modloader/app/structs/List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+#include <Modloader/app/structs/HashSet_1_UberWaterReflectionView_Group_.h>
 
 namespace app::classes::Utility {
     IL2CPP_REGISTER_METHOD(0x013B1C70, void, Initialize, ())

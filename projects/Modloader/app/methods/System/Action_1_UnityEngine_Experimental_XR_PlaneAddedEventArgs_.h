@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Experimental_XR_PlaneAddedEventArgs_.h>
+#include <Modloader/app/structs/PlaneAddedEventArgs.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Action_1_UnityEngine_Experimental_XR_PlaneAddedEventArgs_ {
     IL2CPP_REGISTER_METHOD(0x02C0AFB0, void, Invoke, (app::Action_1_UnityEngine_Experimental_XR_PlaneAddedEventArgs_ * this_ptr, app::PlaneAddedEventArgs obj))

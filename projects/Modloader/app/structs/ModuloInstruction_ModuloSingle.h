@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ModuloInstruction_ModuloSingle_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ModuloInstruction_ModuloSingle_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ModuloInstruction_ModuloSingle_DEFINED)
+#define IL2CPP_STRUCT_ModuloInstruction_ModuloSingle_DEFINED
+struct ModuloInstruction_ModuloSingle__Class;
+struct ModuloInstruction_ModuloSingle {
+    struct ModuloInstruction_ModuloSingle__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ModuloInstruction_ModuloSingle_FWDDECL)
+#define IL2CPP_STRUCT_ModuloInstruction_ModuloSingle_FWDDECL
+#include <Modloader/app/structs/ModuloInstruction_ModuloSingle__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ModuloInstruction_ModuloSingle_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ModuloInstruction_ModuloSingle_DEFINED) && !defined(IL2CPP_STRUCT_ModuloInstruction_ModuloSingle_FWDDECL)
+#include <Modloader/app/structs/ModuloInstruction_ModuloSingle.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ModuloInstruction_ModuloSingle.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

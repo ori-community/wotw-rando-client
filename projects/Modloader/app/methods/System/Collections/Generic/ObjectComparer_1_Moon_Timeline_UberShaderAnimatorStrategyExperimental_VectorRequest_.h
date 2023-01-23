@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_VectorRequest_.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorRequest.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_VectorRequest_ {
     IL2CPP_REGISTER_METHOD(0x01CC65C0, int32_t, Compare, (app::ObjectComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_VectorRequest_ * this_ptr, app::UberShaderAnimatorStrategyExperimental_VectorRequest x, app::UberShaderAnimatorStrategyExperimental_VectorRequest y))

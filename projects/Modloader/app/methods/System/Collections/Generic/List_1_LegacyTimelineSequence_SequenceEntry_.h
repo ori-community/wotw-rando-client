@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_LegacyTimelineSequence_SequenceEntry_.h>
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry.h>
+#include <Modloader/app/structs/Predicate_1_LegacyTimelineSequence_SequenceEntry_.h>
+#include <Modloader/app/structs/Comparison_1_LegacyTimelineSequence_SequenceEntry_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_LegacyTimelineSequence_SequenceEntry_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_LegacyTimelineSequence_SequenceEntry_ * this_ptr))

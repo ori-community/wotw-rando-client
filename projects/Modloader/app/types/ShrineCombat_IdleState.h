@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ShrineCombat_IdleState__Class.h>
+#include <Modloader/app/structs/ShrineCombat_IdleState.h>
 
 namespace app::classes::types {
     namespace ShrineCombat_IdleState {

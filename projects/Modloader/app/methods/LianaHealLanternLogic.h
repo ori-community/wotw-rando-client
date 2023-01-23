@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LianaHealLanternLogic.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/FixedJoint.h>
 
 namespace app::classes::LianaHealLanternLogic {
     IL2CPP_REGISTER_METHOD(0x0113DB90, void, Start, (app::LianaHealLanternLogic * this_ptr))

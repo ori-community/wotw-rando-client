@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChameleonKey.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::Schema::ChameleonKey {
     IL2CPP_REGISTER_METHOD(0x019A9360, void, ctor, (app::ChameleonKey * this_ptr, app::String* ns, app::XmlSchema* original_schema))

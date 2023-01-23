@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/XmlWriterSettings.h>
+#include <Modloader/app/structs/TextWriter.h>
 
 namespace app::classes::System::Xml::XmlWriter {
     IL2CPP_REGISTER_METHOD(0x01FD5540, void, WriteStartElement, (app::XmlWriter * this_ptr, app::String* local_name, app::String* ns))

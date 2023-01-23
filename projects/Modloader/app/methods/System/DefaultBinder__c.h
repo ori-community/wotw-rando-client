@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DefaultBinder_c.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::DefaultBinder___c {
     IL2CPP_REGISTER_METHOD(0x0173D5C0, void, cctor, ())

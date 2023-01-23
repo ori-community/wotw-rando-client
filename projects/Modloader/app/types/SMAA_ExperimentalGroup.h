@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SMAA_ExperimentalGroup__Class.h>
+#include <Modloader/app/structs/SMAA_ExperimentalGroup.h>
 
 namespace app::classes::types {
     namespace SMAA_ExperimentalGroup {

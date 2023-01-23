@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinMeditateSpell.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/SeinMeditateSpell_State__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GlowChargeEffect.h>
 
 namespace app::classes::SeinMeditateSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinMeditateSpell * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UInt32__Array.h>
 
 namespace app::classes::System::Numerics::NumericsHelpers {
     IL2CPP_REGISTER_METHOD(0x03101C80, void, GetDoubleParts, (double dbl, int32_t* sign, int32_t* exp, uint64_t* man, bool* f_finite))

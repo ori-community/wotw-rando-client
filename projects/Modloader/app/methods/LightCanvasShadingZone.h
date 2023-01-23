@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightCanvasShadingZone.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IMoonShadingZoneTarget.h>
 
 namespace app::classes::LightCanvasShadingZone {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_LightCanvasShadingZoneSelected, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CVRResources.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRResources {
     IL2CPP_REGISTER_METHOD(0x0167B320, void, ctor, (app::CVRResources * this_ptr, void* p_interface))

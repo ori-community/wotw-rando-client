@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TileData__Boxed.h>
+#include <Modloader/app/structs/Sprite.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/TileFlags__Enum.h>
+#include <Modloader/app/structs/Tile_ColliderType__Enum.h>
 
 namespace app::classes::UnityEngine::Tilemaps::TileData {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, set_sprite, (app::TileData__Boxed * this_ptr, app::Sprite* value))

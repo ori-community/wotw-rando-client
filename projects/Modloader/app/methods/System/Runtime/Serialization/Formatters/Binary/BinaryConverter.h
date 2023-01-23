@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinaryTypeEnum__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/WriteObjectInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ObjectWriter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/_BinaryWriter.h>
+#include <Modloader/app/structs/_BinaryParser.h>
+#include <Modloader/app/structs/ObjectReader.h>
+#include <Modloader/app/structs/BinaryAssemblyInfo.h>
+#include <Modloader/app/structs/InternalPrimitiveTypeE__Enum.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::BinaryConverter {
     IL2CPP_REGISTER_METHOD(0x01D8C320, app::BinaryTypeEnum__Enum, GetBinaryTypeInfo, (app::Type * type, app::WriteObjectInfo* object_info, app::String* type_name, app::ObjectWriter* object_writer, app::Object** type_information, int32_t* assem_id))

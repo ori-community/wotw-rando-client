@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandTrailModifier.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 
 namespace app::classes::SandTrailModifier {
     IL2CPP_REGISTER_METHOD(0x00C08450, void, SetProperties, (app::SandTrailModifier * this_ptr))

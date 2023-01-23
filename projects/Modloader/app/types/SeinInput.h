@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinInput__Class.h>
+#include <Modloader/app/structs/SeinInput.h>
 
 namespace app::classes::types {
     namespace SeinInput {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CookieParser.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Cookie.h>
 
 namespace app::classes::System::Net::CookieParser {
     IL2CPP_REGISTER_METHOD(0x01EA7850, void, ctor, (app::CookieParser * this_ptr, app::String* cookie_string))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LayerMask.h>
 
 namespace app::classes::BitLayer {
     IL2CPP_REGISTER_METHOD(0x01156D60, bool, ContainsLayer, (app::LayerMask layer_mask, int32_t layer))

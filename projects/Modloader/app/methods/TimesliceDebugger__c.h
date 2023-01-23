@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimesliceDebugger_c.h>
+#include <Modloader/app/structs/ITimeSlicedJob.h>
 
 namespace app::classes::TimesliceDebugger___c {
     IL2CPP_REGISTER_METHOD(0x00AF3790, void, cctor, ())

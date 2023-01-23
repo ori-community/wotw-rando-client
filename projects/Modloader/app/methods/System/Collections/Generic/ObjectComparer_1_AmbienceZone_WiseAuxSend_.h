@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_AmbienceZone_WiseAuxSend_.h>
+#include <Modloader/app/structs/AmbienceZone_WiseAuxSend.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_AmbienceZone_WiseAuxSend_ {
     IL2CPP_REGISTER_METHOD(0x02C28F70, int32_t, Compare, (app::ObjectComparer_1_AmbienceZone_WiseAuxSend_ * this_ptr, app::AmbienceZone_WiseAuxSend x, app::AmbienceZone_WiseAuxSend y))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FloatAnimationParameter.h>
+#include <Modloader/app/structs/List_1_Moon_FloatAnimationParameter_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_FloatAnimationParameter_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_FloatAnimationParameter_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::FloatAnimationParameter*, get_Item, (app::List_1_Moon_FloatAnimationParameter_ * this_ptr, int32_t index))

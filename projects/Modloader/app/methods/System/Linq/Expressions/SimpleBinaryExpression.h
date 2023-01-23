@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleBinaryExpression.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::SimpleBinaryExpression {
     IL2CPP_REGISTER_METHOD(0x02FBFAE0, void, ctor, (app::SimpleBinaryExpression * this_ptr, app::ExpressionType__Enum node_type, app::Expression* left, app::Expression* right, app::Type* type))

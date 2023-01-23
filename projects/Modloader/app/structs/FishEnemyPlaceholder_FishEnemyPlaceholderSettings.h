@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_FishEnemyPlaceholder_FishEnemyPlaceholderSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_FishEnemyPlaceholder_FishEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_FishEnemyPlaceholder_FishEnemyPlaceholderSettings_DEFINED)
+#include <Modloader/app/structs/FishEnemyPlaceholder_FishEnemyPlaceholderSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_FishEnemyPlaceholder_FishEnemyPlaceholderSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_FishEnemyPlaceholder_FishEnemyPlaceholderSettings_DEFINED
+struct FishEnemyPlaceholder_FishEnemyPlaceholderSettings__Class;
+struct FishEnemyPlaceholder_FishEnemyPlaceholderSettings {
+    struct FishEnemyPlaceholder_FishEnemyPlaceholderSettings__Class* klass;
+    MonitorData* monitor;
+    struct FishEnemyPlaceholder_FishEnemyPlaceholderSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_FishEnemyPlaceholder_FishEnemyPlaceholderSettings_FWDDECL)
+#define IL2CPP_STRUCT_FishEnemyPlaceholder_FishEnemyPlaceholderSettings_FWDDECL
+#include <Modloader/app/structs/FishEnemyPlaceholder_FishEnemyPlaceholderSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_FishEnemyPlaceholder_FishEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_FishEnemyPlaceholder_FishEnemyPlaceholderSettings_DEFINED) && !defined(IL2CPP_STRUCT_FishEnemyPlaceholder_FishEnemyPlaceholderSettings_FWDDECL)
+#include <Modloader/app/structs/FishEnemyPlaceholder_FishEnemyPlaceholderSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/FishEnemyPlaceholder_FishEnemyPlaceholderSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

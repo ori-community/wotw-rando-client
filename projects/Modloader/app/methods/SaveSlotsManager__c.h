@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SaveSlotsManager_c.h>
+#include <Modloader/app/structs/SaveSlotInfo.h>
 
 namespace app::classes::SaveSlotsManager___c {
     IL2CPP_REGISTER_METHOD(0x0092AAA0, void, cctor, ())

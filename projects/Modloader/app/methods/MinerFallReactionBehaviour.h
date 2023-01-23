@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MinerFallReactionBehaviour.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::MinerFallReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x014497D0, void, StartTimeline, (app::MinerFallReactionBehaviour * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop))

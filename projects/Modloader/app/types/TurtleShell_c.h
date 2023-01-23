@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TurtleShell_c__Class.h>
+#include <Modloader/app/structs/TurtleShell_c.h>
 
 namespace app::classes::types {
     namespace TurtleShell_c {

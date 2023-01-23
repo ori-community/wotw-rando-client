@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataRowCollection_DataRowTree.h>
+#include <Modloader/app/structs/DataRow.h>
 
 namespace app::classes::System::Data::DataRowCollection_DataRowTree {
     IL2CPP_REGISTER_METHOD(0x017E11B0, void, ctor, (app::DataRowCollection_DataRowTree * this_ptr))

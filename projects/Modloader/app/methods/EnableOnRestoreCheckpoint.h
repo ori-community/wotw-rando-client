@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnableOnRestoreCheckpoint.h>
 
 namespace app::classes::EnableOnRestoreCheckpoint {
     IL2CPP_REGISTER_METHOD(0x00BFC8A0, void, Awake, (app::EnableOnRestoreCheckpoint * this_ptr))

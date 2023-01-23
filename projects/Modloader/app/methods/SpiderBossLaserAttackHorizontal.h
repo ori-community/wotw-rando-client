@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBossLaserAttackHorizontal.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBossLaserAttackHorizontal {
     IL2CPP_REGISTER_METHOD(0x011B2120, void, OnEnter, (app::SpiderBossLaserAttackHorizontal * this_ptr, app::IContext* context))

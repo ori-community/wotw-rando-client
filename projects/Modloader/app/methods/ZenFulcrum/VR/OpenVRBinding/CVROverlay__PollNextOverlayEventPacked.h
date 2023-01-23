@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CVROverlay_PollNextOverlayEventPacked.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/VREvent_t_Packed.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVROverlay__PollNextOverlayEventPacked {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::CVROverlay_PollNextOverlayEventPacked * this_ptr, app::Object* object, void* method_1))

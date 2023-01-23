@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CapsulecastCommand.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/GenericCastManager_1_UnityEngine_CapsulecastCommand_.h>
+#include <Modloader/app/structs/CapsulecastCommand__Array.h>
+#include <Modloader/app/structs/RaycastHit__Array.h>
+#include <Modloader/app/structs/Boolean__Array.h>
 
 namespace app::classes::GenericCastManager_1_UnityEngine_CapsulecastCommand_ {
     IL2CPP_REGISTER_METHOD(0x019EBC30, bool, PerformCastInternal, (app::CapsulecastCommand cmd, app::RaycastHit* hit, int32_t* request_i_d, bool guarantee_immediate_result))

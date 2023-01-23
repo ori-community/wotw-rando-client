@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ThreadPoolWorkQueue_WorkStealingQueue__Array.h>
+#include <Modloader/app/structs/ThreadPoolWorkQueue_SparseArray_1_ThreadPoolWorkQueue_WorkStealingQueue_.h>
+#include <Modloader/app/structs/ThreadPoolWorkQueue_WorkStealingQueue.h>
 
 namespace app::classes::System::Threading::ThreadPoolWorkQueue_SparseArray_1_ThreadPoolWorkQueue_WorkStealingQueue_ {
     IL2CPP_REGISTER_METHOD(0x02775660, app::ThreadPoolWorkQueue_WorkStealingQueue__Array*, get_Current, (app::ThreadPoolWorkQueue_SparseArray_1_ThreadPoolWorkQueue_WorkStealingQueue_ * this_ptr))

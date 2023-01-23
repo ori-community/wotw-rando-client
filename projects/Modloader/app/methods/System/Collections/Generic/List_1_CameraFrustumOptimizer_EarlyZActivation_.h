@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_CameraFrustumOptimizer_EarlyZActivation_.h>
+#include <Modloader/app/structs/CameraFrustumOptimizer_EarlyZActivation.h>
+#include <Modloader/app/structs/IEnumerable_1_CameraFrustumOptimizer_EarlyZActivation_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_CameraFrustumOptimizer_EarlyZActivation_.h>
+#include <Modloader/app/structs/IComparer_1_CameraFrustumOptimizer_EarlyZActivation_.h>
+#include <Modloader/app/structs/CameraFrustumOptimizer_EarlyZActivation__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_CameraFrustumOptimizer_EarlyZActivation_.h>
+#include <Modloader/app/structs/Action_1_CameraFrustumOptimizer_EarlyZActivation_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_CameraFrustumOptimizer_EarlyZActivation_.h>
+#include <Modloader/app/structs/IEnumerator_1_CameraFrustumOptimizer_EarlyZActivation_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_CameraFrustumOptimizer_EarlyZActivation_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CameraFrustumOptimizer_EarlyZActivation_ {
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add, (app::List_1_CameraFrustumOptimizer_EarlyZActivation_ * this_ptr, app::CameraFrustumOptimizer_EarlyZActivation item))

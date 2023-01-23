@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberDelegate.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::UberDelegate {
     IL2CPP_REGISTER_METHOD(0x013E5FA0, void, Clear, (app::UberDelegate * this_ptr))

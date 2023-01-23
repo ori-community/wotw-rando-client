@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrabPlaceholderGroup.h>
 
 namespace app::classes::CrabPlaceholderGroup {
     IL2CPP_REGISTER_METHOD(0x00DB6880, void, Awake, (app::CrabPlaceholderGroup * this_ptr))

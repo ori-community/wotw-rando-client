@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Cubemap.h>
+#include <Modloader/app/structs/GraphicsFormat__Enum.h>
+#include <Modloader/app/structs/TextureCreationFlags__Enum.h>
+#include <Modloader/app/structs/TextureFormat__Enum.h>
 
 namespace app::classes::UnityEngine::Cubemap {
     IL2CPP_REGISTER_METHOD(0x0242AE70, void, ctor_1, (app::Cubemap * this_ptr, int32_t width, app::GraphicsFormat__Enum format, app::TextureCreationFlags__Enum flags))

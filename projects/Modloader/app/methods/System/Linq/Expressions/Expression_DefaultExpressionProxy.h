@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Expression_DefaultExpressionProxy.h>
+#include <Modloader/app/structs/DefaultExpression.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_DefaultExpressionProxy {
     IL2CPP_REGISTER_METHOD(0x029D4C10, void, ctor, (app::Expression_DefaultExpressionProxy * this_ptr, app::DefaultExpression* node))

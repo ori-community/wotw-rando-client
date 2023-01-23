@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData_ServerObjectsData_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData_ServerObjectsData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData_ServerObjectsData_DEFINED)
+#include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Fields.h>
+#if defined(IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Fields_DEFINED)
+#define IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData_ServerObjectsData_DEFINED
+struct GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class;
+struct GhostServerEventsPlugin_ServerEventData_ServerObjectsData {
+    struct GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class* klass;
+    MonitorData* monitor;
+    struct GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData_ServerObjectsData_FWDDECL)
+#define IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData_ServerObjectsData_FWDDECL
+#include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData_ServerObjectsData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData_ServerObjectsData_DEFINED) && !defined(IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData_ServerObjectsData_FWDDECL)
+#include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData_ServerObjectsData.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData_ServerObjectsData.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

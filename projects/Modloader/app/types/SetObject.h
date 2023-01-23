@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SetObject__Class.h>
+#include <Modloader/app/structs/SetObject.h>
+#include <Modloader/app/structs/SetObject__Array.h>
 
 namespace app::classes::types {
     namespace SetObject {

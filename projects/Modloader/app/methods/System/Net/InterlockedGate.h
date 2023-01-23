@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InterlockedGate__Boxed.h>
 
 namespace app::classes::System::Net::InterlockedGate {
     IL2CPP_REGISTER_METHOD(0x001267F0, void, Reset, (app::InterlockedGate__Boxed * this_ptr))

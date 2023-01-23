@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MenuScreenManager.h>
 
 namespace app::classes::Game::UI {
     IL2CPP_REGISTER_METHOD(0x00685400, void, ResetStatics, ())

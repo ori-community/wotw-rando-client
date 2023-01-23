@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/FreezeShaderTimeProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::FreezeShaderTimeProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x00D5A0A0, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::FreezeShaderTimeProfilingSetting * this_ptr))

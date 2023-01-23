@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Single__Array.h>
 
 namespace app::classes::Moon::Extensions::MathExtensions {
     IL2CPP_REGISTER_METHOD(0x031B5BA0, float, GetMax, (app::Single__Array * values))

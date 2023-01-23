@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SkeetoAirMoveBehaviour.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/SkeetoAirMoveBehaviour_State__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::SkeetoAirMoveBehaviour {
     IL2CPP_REGISTER_METHOD(0x0074C3A0, app::Vector3, get_TargetPosition, (app::SkeetoAirMoveBehaviour * this_ptr))

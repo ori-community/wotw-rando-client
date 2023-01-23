@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArtOptimizer_c.h>
 
 namespace app::classes::Moon::ArtOptimization::ArtOptimizer___c {
     IL2CPP_REGISTER_METHOD(0x01344F00, void, cctor, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinaryMethodReturn.h>
+#include <Modloader/app/structs/_BinaryWriter.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::BinaryMethodReturn {
     IL2CPP_REGISTER_METHOD(0x01D8E680, void, cctor, ())

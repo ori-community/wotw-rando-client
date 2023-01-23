@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange__DEFINED)
+#include <Modloader/app/structs/List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange__DEFINED
+struct List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange___Class;
+struct List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange_ {
+    struct List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange___Class* klass;
+    MonitorData* monitor;
+    struct List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange__FWDDECL)
+#define IL2CPP_STRUCT_List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange__FWDDECL
+#include <Modloader/app/structs/List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange__DEFINED) && !defined(IL2CPP_STRUCT_List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange__FWDDECL)
+#include <Modloader/app/structs/List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_Moon_EditorTools_SceneTracking_SceneTrackingChange_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

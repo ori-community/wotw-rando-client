@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DealDamageOverTime.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::DealDamageOverTime {
     IL2CPP_REGISTER_METHOD(0x00DDD550, void, OnDisable, (app::DealDamageOverTime * this_ptr))

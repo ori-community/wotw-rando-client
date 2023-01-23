@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnityWebRequest.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DownloadHandler.h>
+#include <Modloader/app/structs/UploadHandler.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/UnityWebRequest_UnityWebRequestError__Enum.h>
+#include <Modloader/app/structs/UnityWebRequestAsyncOperation.h>
+#include <Modloader/app/structs/AsyncOperation_1.h>
+#include <Modloader/app/structs/UnityWebRequest_UnityWebRequestMethod__Enum.h>
+#include <Modloader/app/structs/CertificateHandler.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Encoding.h>
 
 namespace app::classes::UnityEngine::Networking::UnityWebRequest {
     IL2CPP_REGISTER_METHOD(0x0317E420, void, ctor_1, (app::UnityWebRequest * this_ptr, app::String* url))

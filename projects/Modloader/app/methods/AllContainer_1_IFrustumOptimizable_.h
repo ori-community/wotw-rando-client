@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IFrustumOptimizable.h>
+#include <Modloader/app/structs/AllContainer_1_IFrustumOptimizable_.h>
+#include <Modloader/app/structs/List_1_IFrustumOptimizable_.h>
 
 namespace app::classes::AllContainer_1_IFrustumOptimizable_ {
     IL2CPP_REGISTER_METHOD(0x019D7800, app::IFrustumOptimizable*, get_Item, (app::AllContainer_1_IFrustumOptimizable_ * this_ptr, int32_t index))

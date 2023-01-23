@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VolumeEffectComponentFlags_c_DisplayClass6_0.h>
+#include <Modloader/app/structs/VolumeEffectFieldFlags.h>
 
 namespace app::classes::AmplifyColor::VolumeEffectComponentFlags___c__DisplayClass6_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::VolumeEffectComponentFlags_c_DisplayClass6_0 * this_ptr))

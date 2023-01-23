@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_DEFINED
+struct PetrifiedOwlBossDiveBombVerticalBehaviour__Class;
+struct PetrifiedOwlBossDiveBombVerticalBehaviour {
+    struct PetrifiedOwlBossDiveBombVerticalBehaviour__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossDiveBombVerticalBehaviour__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossDiveBombVerticalBehaviour_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlCharacterData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlDocument.h>
 
 namespace app::classes::System::Xml::XmlCharacterData {
     IL2CPP_REGISTER_METHOD(0x01714A90, void, ctor, (app::XmlCharacterData * this_ptr, app::String* data, app::XmlDocument* doc))

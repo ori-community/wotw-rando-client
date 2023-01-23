@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IntUberStateMatcher.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/GenericDataContainer.h>
+#include <Modloader/app/structs/IntUberStateMatcher_IntRangeUberStatePair.h>
 
 namespace app::classes::IntUberStateMatcher {
     IL2CPP_REGISTER_METHOD(0x01B5F170, void, ctor, (app::IntUberStateMatcher * this_ptr))

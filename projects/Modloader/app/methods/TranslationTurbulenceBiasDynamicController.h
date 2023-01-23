@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TranslationTurbulenceBiasDynamicController.h>
 
 namespace app::classes::TranslationTurbulenceBiasDynamicController {
     IL2CPP_REGISTER_METHOD(0x00B0B7C0, void, AddSpringVelocityX, (app::TranslationTurbulenceBiasDynamicController * this_ptr, float velocity))

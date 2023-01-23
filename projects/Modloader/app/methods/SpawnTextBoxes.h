@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpawnTextBoxes.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SpawnTextBoxes {
     IL2CPP_REGISTER_METHOD(0x00EF66A0, void, Perform, (app::SpawnTextBoxes * this_ptr, app::IContext* context))

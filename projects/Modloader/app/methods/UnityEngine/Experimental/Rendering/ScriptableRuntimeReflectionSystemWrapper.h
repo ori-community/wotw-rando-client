@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScriptableRuntimeReflectionSystemWrapper.h>
+#include <Modloader/app/structs/IScriptableRuntimeReflectionSystem.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::ScriptableRuntimeReflectionSystemWrapper {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ScriptableRuntimeReflectionSystemWrapper * this_ptr))

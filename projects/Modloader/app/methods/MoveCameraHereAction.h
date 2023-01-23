@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoveCameraHereAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::MoveCameraHereAction {
     IL2CPP_REGISTER_METHOD(0x00867DF0, void, Perform, (app::MoveCameraHereAction * this_ptr, app::IContext* context))

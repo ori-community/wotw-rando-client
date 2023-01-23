@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonDriverExecutionOrderMap.h>
+#include <Modloader/app/structs/ExecutionOrderMap.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Moon::ExecutionOrderMap {
     IL2CPP_REGISTER_METHOD(0x01221A00, app::IMoonDriverExecutionOrderMap*, Get, ())

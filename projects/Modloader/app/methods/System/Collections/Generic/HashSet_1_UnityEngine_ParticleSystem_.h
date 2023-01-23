@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_UnityEngine_ParticleSystem_.h>
+#include <Modloader/app/structs/ParticleSystem.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_UnityEngine_ParticleSystem_ {
     IL2CPP_REGISTER_METHOD(0x02AB4A90, void, Clear, (app::HashSet_1_UnityEngine_ParticleSystem_ * this_ptr))

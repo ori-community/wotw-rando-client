@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_LeakedSceneObjectDetector_ObjectData_.h>
+#include <Modloader/app/structs/IEnumerable_1_LeakedSceneObjectDetector_ObjectData_.h>
+#include <Modloader/app/structs/Predicate_1_LeakedSceneObjectDetector_ObjectData_.h>
+#include <Modloader/app/structs/Comparison_1_LeakedSceneObjectDetector_ObjectData_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_LeakedSceneObjectDetector_ObjectData_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_LeakedSceneObjectDetector_ObjectData_ {
     IL2CPP_REGISTER_METHOD(0x02FE8360, void, ctor, (app::List_1_LeakedSceneObjectDetector_ObjectData_ * this_ptr, app::IEnumerable_1_LeakedSceneObjectDetector_ObjectData_* collection))

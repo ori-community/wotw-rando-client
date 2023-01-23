@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListParameterProvider.h>
+#include <Modloader/app/structs/IParameterProvider.h>
+#include <Modloader/app/structs/ParameterExpression.h>
 
 namespace app::classes::System::Dynamic::Utils::ListParameterProvider {
     IL2CPP_REGISTER_METHOD(0x01F95C40, void, ctor, (app::ListParameterProvider * this_ptr, app::IParameterProvider* provider, app::ParameterExpression* arg0))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_Request.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request___Boxed.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_ {
     IL2CPP_REGISTER_METHOD(0x00140C90, app::ExperimentalTransparencyAnimatorSystemStrategy_Request, get_Current, (app::List_1_T_Enumerator_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request___Boxed * this_ptr))

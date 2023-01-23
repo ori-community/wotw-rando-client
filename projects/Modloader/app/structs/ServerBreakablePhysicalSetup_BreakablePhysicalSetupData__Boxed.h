@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Boxed_DEFINED)
+#include <Modloader/app/structs/ServerBreakablePhysicalSetup_BreakablePhysicalSetupData.h>
+#if defined(IL2CPP_STRUCT_ServerBreakablePhysicalSetup_BreakablePhysicalSetupData_DEFINED)
+#define IL2CPP_STRUCT_ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Boxed_DEFINED
+struct ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Class;
+struct ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Boxed {
+    struct ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Class* klass;
+    MonitorData* monitor;
+    struct ServerBreakablePhysicalSetup_BreakablePhysicalSetupData fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Boxed_FWDDECL
+#include <Modloader/app/structs/ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Class.h>
+#endif
+#undef IL2CPP_STRUCT_ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Boxed_FWDDECL)
+#include <Modloader/app/structs/ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ServerBreakablePhysicalSetup_BreakablePhysicalSetupData__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

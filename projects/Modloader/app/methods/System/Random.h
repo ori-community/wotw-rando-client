@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Random.h>
 
 namespace app::classes::System::Random {
     IL2CPP_REGISTER_METHOD(0x022806C0, void, ctor_1, (app::Random * this_ptr))

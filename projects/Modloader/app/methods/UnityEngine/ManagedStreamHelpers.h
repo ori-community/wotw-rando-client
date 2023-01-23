@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::UnityEngine::ManagedStreamHelpers {
     IL2CPP_REGISTER_METHOD(0x02530BF0, void, ValidateLoadFromStream, (app::Stream * stream))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NightCrawlerReveal.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Animator.h>
+#include <Modloader/app/structs/AnimatorStateInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::NightCrawlerReveal {
     IL2CPP_REGISTER_METHOD(0x0051DB40, bool, get_IsSuspended, (app::NightCrawlerReveal * this_ptr))

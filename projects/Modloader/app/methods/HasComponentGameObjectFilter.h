@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HasComponentGameObjectFilter.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::HasComponentGameObjectFilter {
     IL2CPP_REGISTER_METHOD(0x0109DFE0, void, Start, (app::HasComponentGameObjectFilter * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ARC4Managed.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/ICryptoTransform.h>
+#include <Modloader/app/structs/ARC4Managed_1.h>
 
 namespace app::classes::Mono::Security::Cryptography::ARC4Managed {
     IL2CPP_REGISTER_METHOD(0x025C4640, void, ctor_1, (app::ARC4Managed * this_ptr))

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/XmlDateTimeSerializationMode__Enum.h>
+#include <Modloader/app/structs/DateTimeKind__Enum.h>
+#include <Modloader/app/structs/DateTimeZoneHandling__Enum.h>
+#include <Modloader/app/structs/StringReference.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/DateTimeParser.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/DateFormatHandling__Enum.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Nullable_1_TimeSpan_.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::DateTimeUtils {
     IL2CPP_REGISTER_METHOD(0x01C089A0, void, cctor, ())

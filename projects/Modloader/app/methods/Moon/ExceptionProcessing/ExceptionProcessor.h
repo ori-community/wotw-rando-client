@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_ExceptionProcessing_ExceptionEntry_.h>
+#include <Modloader/app/structs/ExceptionProcessor.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LogType__Enum.h>
 
 namespace app::classes::Moon::ExceptionProcessing::ExceptionProcessor {
     IL2CPP_REGISTER_METHOD(0x01987530, app::Dictionary_2_System_Int32_Moon_ExceptionProcessing_ExceptionEntry_*, Process, (app::ExceptionProcessor * this_ptr, app::String* log_path))

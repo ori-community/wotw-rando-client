@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XName.h>
+#include <Modloader/app/structs/XStreamingElement.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/SaveOptions__Enum.h>
 
 namespace app::classes::System::Xml::Linq::XStreamingElement {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::XName*, get_Name, (app::XStreamingElement * this_ptr))

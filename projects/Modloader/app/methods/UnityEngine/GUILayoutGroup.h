@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GUILayoutGroup.h>
+#include <Modloader/app/structs/GUILayoutOption__Array.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/GUILayoutEntry.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::GUILayoutGroup {
     IL2CPP_REGISTER_METHOD(0x029E8300, void, ctor, (app::GUILayoutGroup * this_ptr))

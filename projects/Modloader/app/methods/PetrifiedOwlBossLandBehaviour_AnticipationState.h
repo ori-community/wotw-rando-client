@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLandBehaviour_AnticipationState.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLandBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossLandBehaviour_AnticipationState {
     IL2CPP_REGISTER_METHOD(0x01775FB0, void, ctor, (app::PetrifiedOwlBossLandBehaviour_AnticipationState * this_ptr, app::PetrifiedOwlBossLandBehaviour* behaviour))

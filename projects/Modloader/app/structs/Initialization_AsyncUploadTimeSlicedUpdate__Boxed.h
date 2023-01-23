@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate__Boxed_DEFINED)
+#include <Modloader/app/structs/Initialization_AsyncUploadTimeSlicedUpdate.h>
+#if defined(IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate_DEFINED)
+#define IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate__Boxed_DEFINED
+struct Initialization_AsyncUploadTimeSlicedUpdate__Class;
+struct Initialization_AsyncUploadTimeSlicedUpdate__Boxed {
+    struct Initialization_AsyncUploadTimeSlicedUpdate__Class* klass;
+    MonitorData* monitor;
+    struct Initialization_AsyncUploadTimeSlicedUpdate fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate__Boxed_FWDDECL
+#include <Modloader/app/structs/Initialization_AsyncUploadTimeSlicedUpdate__Class.h>
+#endif
+#undef IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate__Boxed_FWDDECL)
+#include <Modloader/app/structs/Initialization_AsyncUploadTimeSlicedUpdate__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Initialization_AsyncUploadTimeSlicedUpdate__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

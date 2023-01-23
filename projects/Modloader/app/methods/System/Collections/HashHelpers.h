@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConditionalWeakTable_2_System_Object_System_Runtime_Serialization_SerializationInfo_.h>
 
 namespace app::classes::System::Collections::HashHelpers {
     IL2CPP_REGISTER_METHOD(0x02022AD0, app::ConditionalWeakTable_2_System_Object_System_Runtime_Serialization_SerializationInfo_*, get_SerializationInfoTable, ())

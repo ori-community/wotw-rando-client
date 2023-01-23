@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserObstacle.h>
 
 namespace app::classes::LaserObstacle {
     IL2CPP_REGISTER_METHOD(0x00F06D80, void, Start, (app::LaserObstacle * this_ptr))

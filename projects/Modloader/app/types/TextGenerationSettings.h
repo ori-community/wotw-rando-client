@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TextGenerationSettings__Class.h>
+#include <Modloader/app/structs/TextGenerationSettings.h>
+#include <Modloader/app/structs/TextGenerationSettings__Boxed.h>
 
 namespace app::classes::types {
     namespace TextGenerationSettings {

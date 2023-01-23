@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BigInteger_ModulusRing.h>
+#include <Modloader/app/structs/BigInteger.h>
+#include <Modloader/app/structs/BigInteger_ModulusRing_1.h>
+#include <Modloader/app/structs/BigInteger_1.h>
 
 namespace app::classes::Mono::Math::BigInteger_ModulusRing {
     IL2CPP_REGISTER_METHOD(0x023CC160, void, ctor_1, (app::BigInteger_ModulusRing * this_ptr, app::BigInteger* modulus))

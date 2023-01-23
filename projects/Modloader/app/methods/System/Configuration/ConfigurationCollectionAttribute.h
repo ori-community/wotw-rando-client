@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConfigurationCollectionAttribute.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConfigurationElementCollectionType__Enum.h>
 
 namespace app::classes::System::Configuration::ConfigurationCollectionAttribute {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ConfigurationCollectionAttribute * this_ptr, app::Type* item_type))

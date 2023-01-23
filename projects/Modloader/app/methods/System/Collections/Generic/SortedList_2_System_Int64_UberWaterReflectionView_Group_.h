@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SortedList_2_System_Int64_UberWaterReflectionView_Group_.h>
+#include <Modloader/app/structs/UberWaterReflectionView_Group.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Int64_UberWaterReflectionView_Group_.h>
 
 namespace app::classes::System::Collections::Generic::SortedList_2_System_Int64_UberWaterReflectionView_Group_ {
     IL2CPP_REGISTER_METHOD(0x02CAF300, void, Clear, (app::SortedList_2_System_Int64_UberWaterReflectionView_Group_ * this_ptr))

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SqlString__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SqlCompareOptions__Enum.h>
+#include <Modloader/app/structs/CompareInfo.h>
+#include <Modloader/app/structs/SqlString.h>
+#include <Modloader/app/structs/SqlBoolean.h>
+#include <Modloader/app/structs/EComparison__Enum.h>
+#include <Modloader/app/structs/CompareOptions__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
 
 namespace app::classes::System::Data::SqlTypes::SqlString {
     IL2CPP_REGISTER_METHOD(0x001E6070, void, ctor_1, (app::SqlString__Boxed * this_ptr, bool f_null))

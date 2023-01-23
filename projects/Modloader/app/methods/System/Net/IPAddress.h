@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IPAddress.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/UInt16__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AddressFamily__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::IPAddress {
     IL2CPP_REGISTER_METHOD(0x01E66070, void, ctor_1, (app::IPAddress * this_ptr, int64_t new_address))

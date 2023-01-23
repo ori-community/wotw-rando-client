@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecorderTester.h>
 
 namespace app::classes::RecorderTester {
     IL2CPP_REGISTER_METHOD(0x008F9B70, void, Awake, (app::RecorderTester * this_ptr))

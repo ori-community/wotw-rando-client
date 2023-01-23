@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinSpiritSpearSpell.h>
+#include <Modloader/app/structs/ButtonInputType__Enum.h>
+#include <Modloader/app/structs/SeinSpiritSpearSpellPuppet.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/SeinSpiritSpearSpell_FlyingSpear.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/SeinSpiritSpearSpell_State__Enum.h>
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/ComboInput.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::SeinSpiritSpearSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinSpiritSpearSpell * this_ptr))

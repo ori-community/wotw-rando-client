@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberWaterReflectionView_AutomaticGroup.h>
+#include <Modloader/app/structs/List_1_UberWaterReflectionView_AutomaticGroup_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UberWaterReflectionView_AutomaticGroup_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::UberWaterReflectionView_AutomaticGroup*, get_Item, (app::List_1_UberWaterReflectionView_AutomaticGroup_ * this_ptr, int32_t index))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StreamReader_NullStreamReader.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IO::StreamReader_NullStreamReader {
     IL2CPP_REGISTER_METHOD(0x02381F00, void, ctor, (app::StreamReader_NullStreamReader * this_ptr))

@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/IBrainController_1_BrainEntityTester_BrainTesterEntries_.h>
+#include <Modloader/app/structs/IBrainController_1_ConditionBasedBrainController_BranchingBoolEntries_.h>
+#include <Modloader/app/structs/IBrainController_1_InWaterMode_.h>
+#include <Modloader/app/structs/IBrainController_1_KwolokBossEntity_AnimationDirections_.h>
+#include <Modloader/app/structs/IBrainController_1_KwolokBossTendril_DurationType_.h>
+#include <Modloader/app/structs/IBrainController_1_KwolokBossTendril_VariationType_.h>
+#include <Modloader/app/structs/IBrainController_1_TentacleStabOutcome_.h>
+#include <Modloader/app/structs/IBrainController_1_NightCrawlerBackAttackBranches_.h>
+#include <Modloader/app/structs/IBrainController_1_NightCrawlerChaseIntroBranches_.h>
+#include <Modloader/app/structs/IBrainController_1_NightCrawlerRetaliationBranches_.h>
+#include <Modloader/app/structs/IBrainController_1_PetrifiedOwlBossEntity_AnimationDirections_.h>
+#include <Modloader/app/structs/IBrainController_1_SpiderBossAnimationDirection_.h>
+#include <Modloader/app/structs/IBrainController_1_SpiderBossLocationZone_.h>
+#include <Modloader/app/structs/IBrainController_1_TimelineBranchingControllerTest_BranchingTestEntries_.h>
+#include <Modloader/app/structs/IBrainController_1_System_Int32Enum_.h>
 
 namespace app::classes::Moon::IBrainControllerExtensions {
     IL2CPP_REGISTER_METHOD(0x01BAA500, int32_t, ToInt, (app::Enum e))

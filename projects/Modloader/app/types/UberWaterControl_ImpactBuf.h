@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberWaterControl_ImpactBuf__Class.h>
+#include <Modloader/app/structs/UberWaterControl_ImpactBuf.h>
+#include <Modloader/app/structs/UberWaterControl_ImpactBuf__Boxed.h>
+#include <Modloader/app/structs/UberWaterControl_ImpactBuf__Array.h>
 
 namespace app::classes::types {
     namespace UberWaterControl_ImpactBuf {

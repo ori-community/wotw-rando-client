@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Data_DataRow_System_Data_DataRowView_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_Data_DataRow_.h>
+#include <Modloader/app/structs/DataRowView.h>
+#include <Modloader/app/structs/DataRow.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Data_DataRow_System_Data_DataRowView_ {
     IL2CPP_REGISTER_METHOD(0x0283AC50, void, ctor_1, (app::Dictionary_2_System_Data_DataRow_System_Data_DataRowView_ * this_ptr, app::IEqualityComparer_1_System_Data_DataRow_* comparer))

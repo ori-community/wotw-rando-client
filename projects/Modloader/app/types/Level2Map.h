@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Level2Map__Class.h>
+#include <Modloader/app/structs/Level2Map.h>
+#include <Modloader/app/structs/Level2Map__Array.h>
 
 namespace app::classes::types {
     namespace Level2Map {

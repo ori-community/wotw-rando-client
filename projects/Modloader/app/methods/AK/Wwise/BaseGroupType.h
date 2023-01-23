@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseGroupType.h>
 
 namespace app::classes::AK::Wwise::BaseGroupType {
     IL2CPP_REGISTER_METHOD(0x026C1420, uint32_t, get_GroupGuidHash2, (app::BaseGroupType * this_ptr))

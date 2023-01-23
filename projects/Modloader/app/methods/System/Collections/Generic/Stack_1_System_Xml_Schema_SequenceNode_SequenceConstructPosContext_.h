@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_System_Xml_Schema_SequenceNode_SequenceConstructPosContext_.h>
+#include <Modloader/app/structs/SequenceNode_SequenceConstructPosContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Stack_1_T_Enumerator_System_Xml_Schema_SequenceNode_SequenceConstructPosContext_.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Xml_Schema_SequenceNode_SequenceConstructPosContext_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/SequenceNode_SequenceConstructPosContext__Array.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_System_Xml_Schema_SequenceNode_SequenceConstructPosContext_ {
     IL2CPP_REGISTER_METHOD(0x0243CB70, void, ctor_1, (app::Stack_1_System_Xml_Schema_SequenceNode_SequenceConstructPosContext_ * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityNestedPrefab.h>
 
 namespace app::classes::EntityNestedPrefab {
     IL2CPP_REGISTER_METHOD(0x00C93010, void, OnValidate, (app::EntityNestedPrefab * this_ptr))

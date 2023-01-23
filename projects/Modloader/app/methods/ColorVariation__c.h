@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ColorVariation_c.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::ColorVariation___c {
     IL2CPP_REGISTER_METHOD(0x011D8C70, void, cctor, ())

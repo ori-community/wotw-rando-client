@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightLambda.h>
+#include <Modloader/app/structs/LightDelegateCreator.h>
+#include <Modloader/app/structs/IStrongBox__Array.h>
+#include <Modloader/app/structs/Func_2_System_Linq_Expressions_Interpreter_LightLambda_Delegate_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LightLambda {
     IL2CPP_REGISTER_METHOD(0x023F7180, void, RunVoid0, (app::LightLambda * this_ptr))

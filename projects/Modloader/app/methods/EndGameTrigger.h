@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EndGameTrigger.h>
 
 namespace app::classes::EndGameTrigger {
     IL2CPP_REGISTER_METHOD(0x00BFD600, void, OnValidate, (app::EndGameTrigger * this_ptr))

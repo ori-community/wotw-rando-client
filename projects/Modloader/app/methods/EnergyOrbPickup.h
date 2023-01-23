@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnergyOrbPickup.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::EnergyOrbPickup {
     IL2CPP_REGISTER_METHOD(0x00C895A0, void, Awake, (app::EnergyOrbPickup * this_ptr))

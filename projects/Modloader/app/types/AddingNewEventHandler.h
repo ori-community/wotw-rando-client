@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AddingNewEventHandler__Class.h>
+#include <Modloader/app/structs/AddingNewEventHandler.h>
 
 namespace app::classes::types {
     namespace AddingNewEventHandler {

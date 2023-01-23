@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState_DEFINED
+struct PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState__Class;
+struct PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState {
+    struct PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_DiveHorizontalState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

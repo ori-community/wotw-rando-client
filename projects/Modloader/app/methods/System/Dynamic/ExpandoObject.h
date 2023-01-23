@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExpandoObject.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ExpandoClass.h>
+#include <Modloader/app/structs/ExpandoObject_ExpandoData.h>
+#include <Modloader/app/structs/DynamicMetaObject.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/ICollection_1_System_String_.h>
+#include <Modloader/app/structs/ICollection_1_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_String_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_String_System_Object___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_String_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/PropertyChangedEventHandler.h>
 
 namespace app::classes::System::Dynamic::ExpandoObject {
     IL2CPP_REGISTER_METHOD(0x01F8CA20, void, ctor, (app::ExpandoObject * this_ptr))

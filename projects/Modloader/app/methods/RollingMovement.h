@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RollingMovement.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Action_3_UnityEngine_Vector3_Single_UnityEngine_Collider_.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RollingMovement {
     IL2CPP_REGISTER_METHOD(0x00724040, float, get_SpeedY, (app::RollingMovement * this_ptr))

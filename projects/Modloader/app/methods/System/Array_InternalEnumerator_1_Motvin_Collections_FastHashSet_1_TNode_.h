@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_Motvin_Collections_FastHashSet_1_TNode___Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/FastHashSet_1_T_TNode_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_Motvin_Collections_FastHashSet_1_TNode__1__Boxed.h>
+#include <Modloader/app/structs/FastHashSet_1_T_TNode_System_UInt32_.h>
 
 namespace app::classes::System::Array_InternalEnumerator_1_Motvin_Collections_FastHashSet_1_TNode_ {
     IL2CPP_REGISTER_METHOD(0x00160580, void, ctor_1, (app::Array_InternalEnumerator_1_Motvin_Collections_FastHashSet_1_TNode___Boxed * this_ptr, app::Array* array))

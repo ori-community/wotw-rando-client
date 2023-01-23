@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterStateComboAdapter.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
 
 namespace app::classes::Moon::ComboSystem::CharacterStateComboAdapter {
     IL2CPP_REGISTER_METHOD(0x00CC50C0, void, OnInitialize, (app::CharacterStateComboAdapter * this_ptr))

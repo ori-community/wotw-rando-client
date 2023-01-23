@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ArrayConverter.h>
+#include <Modloader/app/structs/ITypeDescriptorContext.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/Attribute__Array.h>
 
 namespace app::classes::System::ComponentModel::ArrayConverter {
     IL2CPP_REGISTER_METHOD(0x0249F430, app::Object*, ConvertTo, (app::ArrayConverter * this_ptr, app::ITypeDescriptorContext* context, app::CultureInfo* culture, app::Object* value, app::Type* destination_type))

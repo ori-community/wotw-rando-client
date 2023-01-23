@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AuxiliarySendZone.h>
+#include <Modloader/app/structs/ISoundHost.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::AuxiliarySendZone {
     IL2CPP_REGISTER_METHOD(0x0085EA80, app::String*, get_GizmoText, (app::AuxiliarySendZone * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AntiAliasing.h>
+#include <Modloader/app/structs/IAntiAliasing.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/PostProcessRenderContext.h>
 
 namespace app::classes::UnityStandardAssets::CinematicEffects::AntiAliasing {
     IL2CPP_REGISTER_METHOD(0x004E57A0, int32_t, get_method, (app::AntiAliasing * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Instruction__Array.h>
+#include <Modloader/app/structs/BranchFalseInstruction.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::BranchFalseInstruction {
     IL2CPP_REGISTER_METHOD(0x022D5F90, app::Instruction__Array*, get_Cache, (app::BranchFalseInstruction * this_ptr))

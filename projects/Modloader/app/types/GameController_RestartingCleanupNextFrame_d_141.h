@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GameController_RestartingCleanupNextFrame_d_141__Class.h>
+#include <Modloader/app/structs/GameController_RestartingCleanupNextFrame_d_141.h>
 
 namespace app::classes::types {
     namespace GameController_RestartingCleanupNextFrame_d_141 {

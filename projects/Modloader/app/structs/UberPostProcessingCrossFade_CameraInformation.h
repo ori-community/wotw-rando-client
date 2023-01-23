@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberPostProcessingCrossFade_CameraInformation_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberPostProcessingCrossFade_CameraInformation_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPostProcessingCrossFade_CameraInformation_DEFINED)
+#include <Modloader/app/structs/UberPostProcessingCrossFade_CameraInformation__Fields.h>
+#if defined(IL2CPP_STRUCT_UberPostProcessingCrossFade_CameraInformation__Fields_DEFINED)
+#define IL2CPP_STRUCT_UberPostProcessingCrossFade_CameraInformation_DEFINED
+struct UberPostProcessingCrossFade_CameraInformation__Class;
+struct UberPostProcessingCrossFade_CameraInformation {
+    struct UberPostProcessingCrossFade_CameraInformation__Class* klass;
+    MonitorData* monitor;
+    struct UberPostProcessingCrossFade_CameraInformation__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberPostProcessingCrossFade_CameraInformation_FWDDECL)
+#define IL2CPP_STRUCT_UberPostProcessingCrossFade_CameraInformation_FWDDECL
+#include <Modloader/app/structs/UberPostProcessingCrossFade_CameraInformation__Class.h>
+#endif
+#undef IL2CPP_STRUCT_UberPostProcessingCrossFade_CameraInformation_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberPostProcessingCrossFade_CameraInformation_DEFINED) && !defined(IL2CPP_STRUCT_UberPostProcessingCrossFade_CameraInformation_FWDDECL)
+#include <Modloader/app/structs/UberPostProcessingCrossFade_CameraInformation.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberPostProcessingCrossFade_CameraInformation.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

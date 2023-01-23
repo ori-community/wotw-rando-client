@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkObstructionOcclusionValuesArray.h>
+#include <Modloader/app/structs/AkObstructionOcclusionValues.h>
 
 namespace app::classes::AkObstructionOcclusionValuesArray {
     IL2CPP_REGISTER_METHOD(0x01886020, void, ctor, (app::AkObstructionOcclusionValuesArray * this_ptr, int32_t count))

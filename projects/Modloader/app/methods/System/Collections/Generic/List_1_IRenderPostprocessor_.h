@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IRenderPostprocessor.h>
+#include <Modloader/app/structs/List_1_IRenderPostprocessor_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_IRenderPostprocessor_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::IRenderPostprocessor*, get_Item, (app::List_1_IRenderPostprocessor_ * this_ptr, int32_t index))

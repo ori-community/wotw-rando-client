@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WWW.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/AssetBundle.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::UnityEngine::WWW {
     IL2CPP_REGISTER_METHOD(0x031BC190, void, ctor_1, (app::WWW * this_ptr, app::String* url))

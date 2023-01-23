@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShorterHintZone.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::ShorterHintZone {
     IL2CPP_REGISTER_METHOD(0x005C3A20, bool, get_IsInside, ())

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DisableGameObjectWhenOutOfFrustrum.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::DisableGameObjectWhenOutOfFrustrum {
     IL2CPP_REGISTER_METHOD(0x00B953C0, void, AutoGenerate_1, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))

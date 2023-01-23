@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyTimedTrigger.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::LegacyTimedTrigger {
     IL2CPP_REGISTER_METHOD(0x00A3C560, void, Awake, (app::LegacyTimedTrigger * this_ptr))

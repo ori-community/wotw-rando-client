@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_JUnitReporter_Failure_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_JUnitReporter_Failure_.h>
+#include <Modloader/app/structs/JUnitReporter_Failure.h>
 
 namespace app::classes::System::Collections::Generic::List_1_JUnitReporter_Failure_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_JUnitReporter_Failure_ * this_ptr))

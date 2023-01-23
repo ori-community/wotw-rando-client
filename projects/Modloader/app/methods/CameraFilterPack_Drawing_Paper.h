@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Drawing_Paper.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Drawing_Paper {
     IL2CPP_REGISTER_METHOD(0x024F89F0, app::Material*, get_material, (app::CameraFilterPack_Drawing_Paper * this_ptr))

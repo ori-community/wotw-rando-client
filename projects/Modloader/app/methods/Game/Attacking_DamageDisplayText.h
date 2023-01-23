@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageText.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::Game::Attacking_DamageDisplayText {
     IL2CPP_REGISTER_METHOD(0x01521900, app::GameObject*, get_DamageText, ())

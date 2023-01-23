@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BooleanSwitch.h>
+#include <Modloader/app/structs/TraceSwitch.h>
 
 namespace app::classes::System::ComponentModel::CompModSwitches {
     IL2CPP_REGISTER_METHOD(0x024A86E0, app::BooleanSwitch*, get_CommonDesignerServices, ())

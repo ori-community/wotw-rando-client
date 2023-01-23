@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Socket.h>
+#include <Modloader/app/structs/SocketAsyncEventArgs.h>
+#include <Modloader/app/structs/IList_1_System_ArraySegment_1_.h>
+#include <Modloader/app/structs/SocketAsyncOperation__Enum.h>
+#include <Modloader/app/structs/SocketError__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventHandler_1_System_Net_Sockets_SocketAsyncEventArgs_.h>
 
 namespace app::classes::System::Net::Sockets::SocketAsyncEventArgs {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::Socket*, get_AcceptSocket, (app::SocketAsyncEventArgs * this_ptr))

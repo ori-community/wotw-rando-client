@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_System_Numerics_BigInteger___Boxed.h>
+#include <Modloader/app/structs/BigInteger_2.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_System_Numerics_BigInteger_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_System_Numerics_BigInteger_ {
     IL2CPP_REGISTER_METHOD(0x00120520, void, ctor, (app::Nullable_1_System_Numerics_BigInteger___Boxed * this_ptr, app::BigInteger_2 value))

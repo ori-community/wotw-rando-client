@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ManifestEnvelope_ManifestFormats__Enum__Class.h>
+#include <Modloader/app/structs/ManifestEnvelope_ManifestFormats__Enum.h>
 
 namespace app::classes::types {
     namespace ManifestEnvelope_ManifestFormats__Enum {

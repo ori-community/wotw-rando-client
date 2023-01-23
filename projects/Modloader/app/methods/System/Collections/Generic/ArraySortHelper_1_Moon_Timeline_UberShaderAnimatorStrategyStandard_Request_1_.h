@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Object___Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Object_.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Single___Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Single_.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Color___Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Vector4___Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_ {
     IL2CPP_REGISTER_METHOD(0x02F71FB0, void, Sort_1, (app::UberShaderAnimatorStrategyStandard_Request_1_System_Object___Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_* comparer))

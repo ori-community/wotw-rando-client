@@ -1,5 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/MappingType__Enum.h>
+#include <Modloader/app/structs/StorageType__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AutoIncrementValue.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/DataExpression.h>
+#include <Modloader/app/structs/DataSetDateTime__Enum.h>
+#include <Modloader/app/structs/PropertyCollection.h>
+#include <Modloader/app/structs/Index.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/SimpleType.h>
+#include <Modloader/app/structs/DataRowAction__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/AggregateType__Enum.h>
+#include <Modloader/app/structs/PropertyChangedEventArgs.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlRootAttribute.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/BitArray.h>
 
 namespace app::classes::System::Data::DataColumn {
     IL2CPP_REGISTER_METHOD(0x02392480, void, ctor_1, (app::DataColumn * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkDynamicSequenceItemCallbackInfo.h>
 
 namespace app::classes::AkDynamicSequenceItemCallbackInfo {
     IL2CPP_REGISTER_METHOD(0x026E19F0, void, ctor_1, (app::AkDynamicSequenceItemCallbackInfo * this_ptr, void* c_ptr, bool c_memory_own))

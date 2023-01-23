@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ClaimsIdentity_get_Claims_d_51.h>
+#include <Modloader/app/structs/Claim.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Security_Claims_Claim_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Security::Claims::ClaimsIdentity__get_Claims_d__51 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::ClaimsIdentity_get_Claims_d_51 * this_ptr, int32_t __1__state))

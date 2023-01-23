@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SinMovingPlatform.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SinMovingPlatform {
     IL2CPP_REGISTER_METHOD(0x0074AB10, bool, get_IsSuspended, (app::SinMovingPlatform * this_ptr))

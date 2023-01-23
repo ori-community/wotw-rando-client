@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArtificialSoundHostReference.h>
+#include <Modloader/app/structs/Ambience_AmbienceTrack.h>
+#include <Modloader/app/structs/Event_1.h>
 
 namespace app::classes::Core::Ambience_AmbienceTrack {
     IL2CPP_REGISTER_METHOD(0x00CB5CD0, app::ArtificialSoundHostReference, get_SoundHost, (app::Ambience_AmbienceTrack * this_ptr))

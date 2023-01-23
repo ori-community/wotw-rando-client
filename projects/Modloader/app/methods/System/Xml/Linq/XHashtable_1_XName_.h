@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XHashtable_1_XName_.h>
+#include <Modloader/app/structs/XHashtable_1_TValue_ExtractKeyDelegate_XName_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XName.h>
 
 namespace app::classes::System::Xml::Linq::XHashtable_1_XName_ {
     IL2CPP_REGISTER_METHOD(0x0225AE80, void, ctor, (app::XHashtable_1_XName_ * this_ptr, app::XHashtable_1_TValue_ExtractKeyDelegate_XName_* extract_key, int32_t capacity))

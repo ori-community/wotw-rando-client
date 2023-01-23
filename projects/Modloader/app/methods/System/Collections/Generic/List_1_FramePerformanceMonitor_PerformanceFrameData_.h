@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_FramePerformanceMonitor_PerformanceFrameData_.h>
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_FramePerformanceMonitor_PerformanceFrameData_.h>
+#include <Modloader/app/structs/IEnumerable_1_FramePerformanceMonitor_PerformanceFrameData_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_FramePerformanceMonitor_PerformanceFrameData_.h>
+#include <Modloader/app/structs/IComparer_1_FramePerformanceMonitor_PerformanceFrameData_.h>
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_FramePerformanceMonitor_PerformanceFrameData_.h>
+#include <Modloader/app/structs/Action_1_FramePerformanceMonitor_PerformanceFrameData_.h>
+#include <Modloader/app/structs/IEnumerator_1_FramePerformanceMonitor_PerformanceFrameData_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_FramePerformanceMonitor_PerformanceFrameData_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_FramePerformanceMonitor_PerformanceFrameData_ {
     IL2CPP_REGISTER_METHOD(0x025ECB30, void, Add, (app::List_1_FramePerformanceMonitor_PerformanceFrameData_ * this_ptr, app::FramePerformanceMonitor_PerformanceFrameData item))

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/uber_states/uber_state_interface.h>
+#include <Modloader/app/structs/ConditionUberState.h>
 
 #include <optional>
 

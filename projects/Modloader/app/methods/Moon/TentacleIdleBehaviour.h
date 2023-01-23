@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/TentacleIdleBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::TentacleIdleBehaviour {
     IL2CPP_REGISTER_METHOD(0x010AD3F0, app::Vector2, get_EffectiveRandomTargetCenter, (app::TentacleIdleBehaviour * this_ptr))

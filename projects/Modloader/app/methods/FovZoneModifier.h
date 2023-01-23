@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FovZoneModifier.h>
 
 namespace app::classes::FovZoneModifier {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_VisibleOnInspector, (app::FovZoneModifier * this_ptr))

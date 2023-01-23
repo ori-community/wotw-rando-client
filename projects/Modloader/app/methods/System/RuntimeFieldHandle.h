@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeFieldHandle__Boxed.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/RtFieldInfo.h>
+#include <Modloader/app/structs/RuntimeType.h>
+#include <Modloader/app/structs/FieldAttributes__Enum.h>
+#include <Modloader/app/structs/Void.h>
 
 namespace app::classes::System::RuntimeFieldHandle {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor_1, (app::RuntimeFieldHandle__Boxed * this_ptr, void* v))

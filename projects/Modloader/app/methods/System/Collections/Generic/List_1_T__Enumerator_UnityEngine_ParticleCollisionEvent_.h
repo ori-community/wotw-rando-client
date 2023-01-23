@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_ParticleCollisionEvent___Boxed.h>
+#include <Modloader/app/structs/List_1_UnityEngine_ParticleCollisionEvent_.h>
+#include <Modloader/app/structs/ParticleCollisionEvent.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_UnityEngine_ParticleCollisionEvent_ {
     IL2CPP_REGISTER_METHOD(0x00152840, void, ctor, (app::List_1_T_Enumerator_UnityEngine_ParticleCollisionEvent___Boxed * this_ptr, app::List_1_UnityEngine_ParticleCollisionEvent_* list))

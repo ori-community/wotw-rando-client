@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BigInteger.h>
+#include <Modloader/app/structs/SequentialSearchPrimeGeneratorBase.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/BigInteger_1.h>
+#include <Modloader/app/structs/SequentialSearchPrimeGeneratorBase_1.h>
 
 namespace app::classes::Mono::Math::Prime::Generator::SequentialSearchPrimeGeneratorBase {
     IL2CPP_REGISTER_METHOD(0x023CD2B0, app::BigInteger*, GenerateSearchBase_1, (app::SequentialSearchPrimeGeneratorBase * this_ptr, int32_t bits, app::Object* context))

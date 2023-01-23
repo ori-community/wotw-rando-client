@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_SpiderBossLocationZone_.h>
+#include <Modloader/app/structs/SpiderBossLocationZone__Enum.h>
 
 namespace app::classes::System::Collections::Generic::List_1_SpiderBossLocationZone_ {
     IL2CPP_REGISTER_METHOD(0x02F1CC20, bool, Contains, (app::List_1_SpiderBossLocationZone_ * this_ptr, app::SpiderBossLocationZone__Enum item))

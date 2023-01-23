@@ -1,6 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
+#include <Modloader/app/structs/EncoderFallbackBuffer.h>
+#include <Modloader/app/structs/EncoderNLS.h>
+
+
 namespace app::classes::System::Text::EncoderFallbackBuffer {
     IL2CPP_REGISTER_METHOD(0x0244D220, void, Reset, (app::EncoderFallbackBuffer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0244D250, void, InternalReset, (app::EncoderFallbackBuffer * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScenesManager_HandleSceneLoadedEvent_d_216.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ScenesManager__HandleSceneLoadedEvent_d__216 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::ScenesManager_HandleSceneLoadedEvent_d_216 * this_ptr, int32_t __1__state))

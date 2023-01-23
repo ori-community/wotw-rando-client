@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScenarioRoot.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/VirtualClipsBuilder.h>
+#include <Modloader/app/structs/List_1_ITimelineParentOwner_.h>
+#include <Modloader/app/structs/ITimelineParentOwner.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::ScenarioRoot {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_InvalidateParentTimelineCache, (app::ScenarioRoot * this_ptr))

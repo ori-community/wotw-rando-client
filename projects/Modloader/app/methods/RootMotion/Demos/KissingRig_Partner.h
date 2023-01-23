@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KissingRig_Partner.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::Demos::KissingRig_Partner {
     IL2CPP_REGISTER_METHOD(0x02053D20, void, Initiate, (app::KissingRig_Partner * this_ptr))

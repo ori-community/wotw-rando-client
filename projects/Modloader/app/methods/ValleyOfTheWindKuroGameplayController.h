@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValleyOfTheWindKuroGameplayController.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::ValleyOfTheWindKuroGameplayController {
     IL2CPP_REGISTER_METHOD(0x013B8420, void, Awake, (app::ValleyOfTheWindKuroGameplayController * this_ptr))

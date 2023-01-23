@@ -1,5 +1,31 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/SslStream.h>
+#include <Modloader/app/structs/MonoTlsSettings.h>
+#include <Modloader/app/structs/MonoTlsProvider.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ExceptionDispatchInfo.h>
+#include <Modloader/app/structs/X509CertificateCollection_1.h>
+#include <Modloader/app/structs/SslProtocols__Enum.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/AuthenticatedStream.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Task_1_System_Int32_.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream_OperationType__Enum.h>
+#include <Modloader/app/structs/AsyncProtocolRequest.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Boolean_.h>
+#include <Modloader/app/structs/BufferOffsetSize.h>
+#include <Modloader/app/structs/BufferOffsetSize2.h>
+#include <Modloader/app/structs/AsyncOperationStatus__Enum.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
 
 namespace app::classes::Mono::Net::Security::MobileAuthenticatedStream {
     IL2CPP_REGISTER_METHOD(0x0217E0D0, void, ctor, (app::MobileAuthenticatedStream * this_ptr, app::Stream* inner_stream, bool leave_inner_stream_open, app::SslStream* owner, app::MonoTlsSettings* settings, app::MonoTlsProvider* provider))

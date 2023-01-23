@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_Action_.h>
+#include <Modloader/app/structs/Action_1.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_BehaviourSystem_Action_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_BehaviourSystem_Action_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_Moon_BehaviourSystem_Action_ * this_ptr))

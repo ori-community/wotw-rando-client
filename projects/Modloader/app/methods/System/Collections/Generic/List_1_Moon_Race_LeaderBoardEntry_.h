@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_Race_LeaderBoardEntry_.h>
+#include <Modloader/app/structs/LeaderBoardEntry.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Race_LeaderBoardEntry_.h>
+#include <Modloader/app/structs/Predicate_1_Moon_Race_LeaderBoardEntry_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Race_LeaderBoardEntry_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Race_LeaderBoardEntry_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Race_LeaderBoardEntry_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_Moon_Race_LeaderBoardEntry_ * this_ptr, int32_t capacity))

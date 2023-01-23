@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CharacterPlatformMovementManager_LateFrameUpdater__Class.h>
+#include <Modloader/app/structs/CharacterPlatformMovementManager_LateFrameUpdater.h>
 
 namespace app::classes::types {
     namespace CharacterPlatformMovementManager_LateFrameUpdater {

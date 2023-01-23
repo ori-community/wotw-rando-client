@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AllContainer_1_ISenseInteractable_.h>
+#include <Modloader/app/structs/ISenseInteractable.h>
 
 namespace app::classes::AllContainer_1_ISenseInteractable_ {
     IL2CPP_REGISTER_METHOD(0x019D79F0, bool, Contains, (app::AllContainer_1_ISenseInteractable_ * this_ptr, app::ISenseInteractable* item))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_UI_Navigation_.h>
+#include <Modloader/app/structs/Navigation.h>
+#include <Modloader/app/structs/Navigation__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_UnityEngine_UI_Navigation_ {
     IL2CPP_REGISTER_METHOD(0x01CD2D60, bool, Equals_1, (app::ObjectEqualityComparer_1_UnityEngine_UI_Navigation_ * this_ptr, app::Navigation x, app::Navigation y))

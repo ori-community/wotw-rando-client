@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceBaseState.h>
+#include <Modloader/app/structs/RaceSystem.h>
+#include <Modloader/app/structs/RaceStateMachineContext.h>
+#include <Modloader/app/structs/RaceConfiguration.h>
+#include <Modloader/app/structs/RaceData.h>
+#include <Modloader/app/structs/RaceHandler.h>
+#include <Modloader/app/structs/ITrialData.h>
+#include <Modloader/app/structs/ITrialHandler.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::RaceBaseState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::RaceBaseState * this_ptr, app::RaceSystem* race_system))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegisteredWaitHandle.h>
+#include <Modloader/app/structs/WaitHandle.h>
+#include <Modloader/app/structs/WaitOrTimerCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TimeSpan.h>
 
 namespace app::classes::System::Threading::RegisteredWaitHandle {
     IL2CPP_REGISTER_METHOD(0x0232A0F0, void, ctor, (app::RegisteredWaitHandle * this_ptr, app::WaitHandle* wait_object, app::WaitOrTimerCallback* callback, app::Object* state, app::TimeSpan timeout, bool execute_only_once))

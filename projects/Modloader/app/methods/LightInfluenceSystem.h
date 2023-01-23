@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightInfluenceSettings.h>
+#include <Modloader/app/structs/LightInfluenceSystem.h>
 
 namespace app::classes::LightInfluenceSystem {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ResetStatics, ())

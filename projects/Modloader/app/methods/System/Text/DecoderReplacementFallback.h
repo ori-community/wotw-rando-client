@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DecoderReplacementFallback.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DecoderFallbackBuffer.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Text::DecoderReplacementFallback {
     IL2CPP_REGISTER_METHOD(0x0244B250, void, ctor_1, (app::DecoderReplacementFallback * this_ptr))

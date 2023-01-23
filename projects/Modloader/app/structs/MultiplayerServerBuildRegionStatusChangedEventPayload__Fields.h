@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MultiplayerServerBuildRegionStatusChangedEventPayload__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MultiplayerServerBuildRegionStatusChangedEventPayload__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerBuildRegionStatusChangedEventPayload__Fields_DEFINED)
+#include <Modloader/app/structs/Nullable_1_PlayFab_PlayStreamModels_AzureRegion_.h>
+#if defined(IL2CPP_STRUCT_Nullable_1_PlayFab_PlayStreamModels_AzureRegion__DEFINED)
+#define IL2CPP_STRUCT_MultiplayerServerBuildRegionStatusChangedEventPayload__Fields_DEFINED
+struct String;
+struct __declspec(align(8)) MultiplayerServerBuildRegionStatusChangedEventPayload__Fields {
+    struct String* BuildId;
+    double MinutesInOldStatus;
+    struct String* NewStatus;
+    struct String* OldStatus;
+    struct Nullable_1_PlayFab_PlayStreamModels_AzureRegion_ Region_1;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MultiplayerServerBuildRegionStatusChangedEventPayload__Fields_FWDDECL)
+#define IL2CPP_STRUCT_MultiplayerServerBuildRegionStatusChangedEventPayload__Fields_FWDDECL
+#include <Modloader/app/structs/String.h>
+#endif
+#undef IL2CPP_STRUCT_MultiplayerServerBuildRegionStatusChangedEventPayload__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerBuildRegionStatusChangedEventPayload__Fields_DEFINED) && !defined(IL2CPP_STRUCT_MultiplayerServerBuildRegionStatusChangedEventPayload__Fields_FWDDECL)
+#include <Modloader/app/structs/MultiplayerServerBuildRegionStatusChangedEventPayload__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MultiplayerServerBuildRegionStatusChangedEventPayload__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SoundAction {
     IL2CPP_REGISTER_METHOD(0x00EE4B60, void, Perform, (app::SoundAction * this_ptr, app::IContext* context))

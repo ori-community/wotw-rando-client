@@ -1,5 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/XmlSchemaCompilationSettings.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchema__Array.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/DictionaryEntry__Array.h>
+#include <Modloader/app/structs/XmlSchemaSubstitutionGroup.h>
+#include <Modloader/app/structs/SchemaInfo.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/SchemaNames.h>
+#include <Modloader/app/structs/SortedList.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/ValidationEventArgs.h>
+#include <Modloader/app/structs/XmlSchemaException.h>
+#include <Modloader/app/structs/XmlSeverityType__Enum.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaSet {
     IL2CPP_REGISTER_METHOD(0x01CBA8C0, app::Object*, get_InternalSyncObject, (app::XmlSchemaSet * this_ptr))

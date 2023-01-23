@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DifficultyToggler.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::DifficultyToggler {
     IL2CPP_REGISTER_METHOD(0x00B92A20, app::String*, get_Path, (app::DifficultyToggler * this_ptr))

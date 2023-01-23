@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RenderPipeline.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Camera_.h>
+#include <Modloader/app/structs/ScriptableRenderContext.h>
+#include <Modloader/app/structs/Camera__Array.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::RenderPipeline {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::RenderPipeline * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_Steamworks_UserStatsStored_t_.h>
+#include <Modloader/app/structs/UserStatsStored_t.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Action_1_Steamworks_UserStatsStored_t_ {
     IL2CPP_REGISTER_METHOD(0x01D247B0, void, Invoke, (app::Action_1_Steamworks_UserStatsStored_t_ * this_ptr, app::UserStatsStored_t obj))

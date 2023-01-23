@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Real_VHS.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Real_VHS {
     IL2CPP_REGISTER_METHOD(0x0248A920, app::Material*, get_material, (app::CameraFilterPack_Real_VHS * this_ptr))

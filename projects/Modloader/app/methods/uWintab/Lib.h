@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/CursorType__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::uWintab::Lib {
     IL2CPP_REGISTER_METHOD(0x00F72B30, bool, IsAvailable, ())

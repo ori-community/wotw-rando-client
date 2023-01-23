@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TaskExceptionHolder.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventArgs.h>
+#include <Modloader/app/structs/AggregateException.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Runtime_ExceptionServices_ExceptionDispatchInfo_.h>
+#include <Modloader/app/structs/ExceptionDispatchInfo.h>
 
 namespace app::classes::System::Threading::Tasks::TaskExceptionHolder {
     IL2CPP_REGISTER_METHOD(0x0233C210, void, ctor, (app::TaskExceptionHolder * this_ptr, app::Task* task))

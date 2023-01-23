@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PlatformStorageReadEventHandler__Class.h>
+#include <Modloader/app/structs/PlatformStorageReadEventHandler.h>
 
 namespace app::classes::types {
     namespace PlatformStorageReadEventHandler {

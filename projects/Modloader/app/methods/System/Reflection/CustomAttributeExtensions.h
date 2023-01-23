@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Attribute.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/NeutralResourcesLanguageAttribute.h>
+#include <Modloader/app/structs/XmlTypeConvertorAttribute.h>
+#include <Modloader/app/structs/DynamicInstantiationProviderAttribute.h>
+#include <Modloader/app/structs/DynamicInstantiationAttribute.h>
+#include <Modloader/app/structs/SerializeField.h>
+#include <Modloader/app/structs/NonSerializedAttribute.h>
+#include <Modloader/app/structs/DynamicInstantiationIgnoreAttribute.h>
+#include <Modloader/app/structs/SerializableAttribute.h>
+#include <Modloader/app/structs/DynamicInstantiationPrewarmPriorityAttribute.h>
+#include <Modloader/app/structs/PhysicsUpdateHandlerAttribute.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_UserConfigurable.h>
 
 namespace app::classes::System::Reflection::CustomAttributeExtensions {
     IL2CPP_REGISTER_METHOD(0x0229B200, app::Attribute*, GetCustomAttribute_1, (app::Assembly * element, app::Type* attribute_type))

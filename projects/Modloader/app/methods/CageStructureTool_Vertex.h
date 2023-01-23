@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CageStructureTool_Vertex.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CageStructureTool_Vertex {
     IL2CPP_REGISTER_METHOD(0x0167FE70, void, ctor, (app::CageStructureTool_Vertex * this_ptr, app::Vector3 position, int32_t id))

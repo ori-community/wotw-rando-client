@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/VoronoiRegion__Class.h>
+#include <Modloader/app/structs/VoronoiRegion.h>
+#include <Modloader/app/structs/VoronoiRegion__Array.h>
 
 namespace app::classes::types {
     namespace VoronoiRegion {

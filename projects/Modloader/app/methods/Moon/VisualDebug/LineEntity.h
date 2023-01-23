@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LineEntity.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::Moon::VisualDebug::LineEntity {
     IL2CPP_REGISTER_METHOD(0x00417920, int32_t, get_Mode, (app::LineEntity * this_ptr))

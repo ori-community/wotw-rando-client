@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpawnPrefabOnAccelerationChange.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::SpawnPrefabOnAccelerationChange {
     IL2CPP_REGISTER_METHOD(0x00EF6040, void, Awake, (app::SpawnPrefabOnAccelerationChange * this_ptr))

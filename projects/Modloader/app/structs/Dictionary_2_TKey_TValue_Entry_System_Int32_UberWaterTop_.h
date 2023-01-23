@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberWaterTop__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberWaterTop__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberWaterTop__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberWaterTop__DEFINED
+struct UberWaterTop;
+struct Dictionary_2_TKey_TValue_Entry_System_Int32_UberWaterTop_ {
+    int32_t hashCode;
+    int32_t next;
+    int32_t key;
+    struct UberWaterTop* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberWaterTop__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberWaterTop__FWDDECL
+#include <Modloader/app/structs/UberWaterTop.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberWaterTop__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberWaterTop__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Int32_UberWaterTop__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Int32_UberWaterTop_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Int32_UberWaterTop_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

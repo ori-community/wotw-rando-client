@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringComparer.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::StringComparer {
     IL2CPP_REGISTER_METHOD(0x0243D830, app::StringComparer*, get_InvariantCultureIgnoreCase, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MirroringData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MirroringData_Axis__Enum.h>
+#include <Modloader/app/structs/Single__Array.h>
 
 namespace app::classes::MirroringData {
     IL2CPP_REGISTER_METHOD(0x01452F50, void, ctor_1, (app::MirroringData * this_ptr))

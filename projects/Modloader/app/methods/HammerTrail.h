@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HammerTrail.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::HammerTrail {
     IL2CPP_REGISTER_METHOD(0x0109C420, void, Initialize, (app::HammerTrail * this_ptr, app::Transform* traced_point, app::Transform* rotation_center))

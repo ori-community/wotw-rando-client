@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicInstantiationPrewarmPriorityAttribute.h>
 
 namespace app::classes::DynamicInstantiationPrewarmPriorityAttribute {
     IL2CPP_REGISTER_METHOD(0x004C87B0, float, get_NormalPriorityRatio, (app::DynamicInstantiationPrewarmPriorityAttribute * this_ptr))

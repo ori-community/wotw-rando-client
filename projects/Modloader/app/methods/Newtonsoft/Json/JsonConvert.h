@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Func_1_Newtonsoft_Json_JsonSerializerSettings_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FloatFormatHandling__Enum.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/StringEscapeHandling__Enum.h>
 
 namespace app::classes::Newtonsoft::Json::JsonConvert {
     IL2CPP_REGISTER_METHOD(0x01A64830, app::Func_1_Newtonsoft_Json_JsonSerializerSettings_*, get_DefaultSettings, ())

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncGPUReadbackRequest.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Rendering_AsyncGPUReadbackRequest_.h>
+#include <Modloader/app/structs/Texture.h>
 
 namespace app::classes::UnityEngine::Rendering::AsyncGPUReadback {
     IL2CPP_REGISTER_METHOD(0x02973830, void, SetUpScriptingRequest, (app::AsyncGPUReadbackRequest request, app::Action_1_UnityEngine_Rendering_AsyncGPUReadbackRequest_* callback))

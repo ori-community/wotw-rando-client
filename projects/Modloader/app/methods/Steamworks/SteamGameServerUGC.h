@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UGCQueryHandle_t.h>
+#include <Modloader/app/structs/AccountID_t.h>
+#include <Modloader/app/structs/EUserUGCList__Enum.h>
+#include <Modloader/app/structs/EUGCMatchingUGCType__Enum.h>
+#include <Modloader/app/structs/EUserUGCListSortOrder__Enum.h>
+#include <Modloader/app/structs/AppId_t.h>
+#include <Modloader/app/structs/EUGCQuery__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PublishedFileId_t__Array.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
+#include <Modloader/app/structs/SteamUGCDetails_t.h>
+#include <Modloader/app/structs/EItemStatistic__Enum.h>
+#include <Modloader/app/structs/EItemPreviewType__Enum.h>
+#include <Modloader/app/structs/PublishedFileId_t.h>
+#include <Modloader/app/structs/EWorkshopFileType__Enum.h>
+#include <Modloader/app/structs/UGCUpdateHandle_t.h>
+#include <Modloader/app/structs/ERemoteStoragePublishedFileVisibility__Enum.h>
+#include <Modloader/app/structs/IList_1_System_String_.h>
+#include <Modloader/app/structs/EItemUpdateStatus__Enum.h>
+#include <Modloader/app/structs/DepotId_t.h>
 
 namespace app::classes::Steamworks::SteamGameServerUGC {
     IL2CPP_REGISTER_METHOD(0x027FEBA0, app::UGCQueryHandle_t, CreateQueryUserUGCRequest, (app::AccountID_t un_account_i_d, app::EUserUGCList__Enum e_list_type, app::EUGCMatchingUGCType__Enum e_matching_u_g_c_type, app::EUserUGCListSortOrder__Enum e_sort_order, app::AppId_t n_creator_app_i_d, app::AppId_t n_consumer_app_i_d, uint32_t un_page))

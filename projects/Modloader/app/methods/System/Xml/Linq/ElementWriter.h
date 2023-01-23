@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ElementWriter__Boxed.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XElement.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XNamespace.h>
 
 namespace app::classes::System::Xml::Linq::ElementWriter {
     IL2CPP_REGISTER_METHOD(0x002411A0, void, ctor, (app::ElementWriter__Boxed * this_ptr, app::XmlWriter* writer))

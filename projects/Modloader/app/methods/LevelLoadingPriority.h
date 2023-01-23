@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LevelLoadingPriority.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::LevelLoadingPriority {
     IL2CPP_REGISTER_METHOD(0x011328E0, app::String*, get_Path, (app::LevelLoadingPriority * this_ptr))

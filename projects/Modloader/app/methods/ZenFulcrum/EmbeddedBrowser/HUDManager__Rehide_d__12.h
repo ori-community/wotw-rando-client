@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HUDManager_Rehide_d_12.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::HUDManager__Rehide_d__12 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::HUDManager_Rehide_d_12 * this_ptr, int32_t __1__state))

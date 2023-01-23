@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Component.h>
+#include <Modloader/app/structs/EventHandler.h>
+#include <Modloader/app/structs/EventHandlerList.h>
+#include <Modloader/app/structs/ISite.h>
+#include <Modloader/app/structs/IContainer.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ComponentModel::Component {
     IL2CPP_REGISTER_METHOD(0x024A8C90, void, Finalize, (app::Component * this_ptr))

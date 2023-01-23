@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AdditiveLayerDistortedModifier.h>
 
 namespace app::classes::AdditiveLayerDistortedModifier {
     IL2CPP_REGISTER_METHOD(0x004CA140, void, ApplyMultipliers, (app::AdditiveLayerDistortedModifier * this_ptr, float strength, float speed))

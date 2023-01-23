@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NumericConvertInstruction_ToUnderlying.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::NumericConvertInstruction_ToUnderlying {
     IL2CPP_REGISTER_METHOD(0x02409F50, app::String*, get_InstructionName, (app::NumericConvertInstruction_ToUnderlying * this_ptr))

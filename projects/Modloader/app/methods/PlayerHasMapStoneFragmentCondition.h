@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerHasMapStoneFragmentCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::PlayerHasMapStoneFragmentCondition {
     IL2CPP_REGISTER_METHOD(0x0140F520, bool, Validate, (app::PlayerHasMapStoneFragmentCondition * this_ptr, app::IContext* context))

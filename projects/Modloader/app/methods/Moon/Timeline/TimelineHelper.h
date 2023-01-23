@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/ITimelineEntityParent.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/TimelineConstraint.h>
+#include <Modloader/app/structs/IConstraint.h>
+#include <Modloader/app/structs/TimelineMarkerRecord.h>
+#include <Modloader/app/structs/ExternalTimelineRecord.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_TimelineEntityRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_MoonTimeline_.h>
+#include <Modloader/app/structs/IDictionary_2_Moon_Timeline_ITimelineEntity_Moon_Timeline_ITimelineEntityParent_.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_Timeline_ITimelineEntity_Moon_Timeline_ITimelineEntityParent_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::Timeline::TimelineHelper {
     IL2CPP_REGISTER_METHOD(0x01E88350, app::EntityId, GetEntityId, (app::ITimelineEntityParent * timeline, app::ITimelineEntity* entity))

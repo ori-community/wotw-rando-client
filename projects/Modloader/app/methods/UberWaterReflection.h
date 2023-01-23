@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberWaterReflectionView.h>
+#include <Modloader/app/structs/MoonRenderPipelineView.h>
+#include <Modloader/app/structs/UberWaterReflection.h>
 
 namespace app::classes::UberWaterReflection {
     IL2CPP_REGISTER_METHOD(0x012A1000, app::UberWaterReflectionView*, GetView, (app::MoonRenderPipelineView * view))

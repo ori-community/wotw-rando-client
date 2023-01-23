@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ISteamMatchmakingRulesResponse_InternalRulesRefreshComplete__Class.h>
+#include <Modloader/app/structs/ISteamMatchmakingRulesResponse_InternalRulesRefreshComplete.h>
 
 namespace app::classes::types {
     namespace ISteamMatchmakingRulesResponse_InternalRulesRefreshComplete {

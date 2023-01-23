@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlatformStorageWriteEventHandler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Microsoft::Xbox::Services::Xal::PlatformStorageWriteEventHandler {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::PlatformStorageWriteEventHandler * this_ptr, app::Object* object, void* method_1))

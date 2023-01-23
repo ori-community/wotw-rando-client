@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProgressReport.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::ContinuousIntegration::ProgressReport {
     IL2CPP_REGISTER_METHOD(0x0318B700, void, ctor_1, (app::ProgressReport * this_ptr, app::String* task_name))

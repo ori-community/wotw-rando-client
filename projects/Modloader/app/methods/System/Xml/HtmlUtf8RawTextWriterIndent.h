@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HtmlUtf8RawTextWriterIndent.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/XmlWriterSettings.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::HtmlUtf8RawTextWriterIndent {
     IL2CPP_REGISTER_METHOD(0x0199D3E0, void, ctor, (app::HtmlUtf8RawTextWriterIndent * this_ptr, app::Stream* stream, app::XmlWriterSettings* settings))

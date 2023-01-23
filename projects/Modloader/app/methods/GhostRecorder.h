@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/GhostRecorder.h>
+#include <Modloader/app/structs/GhostFrame.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/IGhostRecorderPlugin.h>
+#include <Modloader/app/structs/GenericPuppet.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IRecordable.h>
+#include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/GhostServerEventsPlugin.h>
+#include <Modloader/app/structs/GhostGenericEventsPlugin.h>
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin.h>
+#include <Modloader/app/structs/GhostUberStatePlugin.h>
 
 namespace app::classes::GhostRecorder {
     IL2CPP_REGISTER_METHOD(0x002FBBC0, app::BinaryWriter*, get_RecorderStream, (app::GhostRecorder * this_ptr))

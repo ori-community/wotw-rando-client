@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Inertia_Body.h>
+#include <Modloader/app/structs/IKSolverFullBodyBiped.h>
 
 namespace app::classes::RootMotion::FinalIK::Inertia_Body {
     IL2CPP_REGISTER_METHOD(0x02A06890, void, Reset, (app::Inertia_Body * this_ptr))

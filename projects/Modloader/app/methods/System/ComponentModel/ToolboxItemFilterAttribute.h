@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ToolboxItemFilterAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ToolboxItemFilterType__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::ToolboxItemFilterAttribute {
     IL2CPP_REGISTER_METHOD(0x02943E10, void, ctor_1, (app::ToolboxItemFilterAttribute * this_ptr, app::String* filter_string))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SmoothTransformFollower.h>
 
 namespace app::classes::SmoothTransformFollower {
     IL2CPP_REGISTER_METHOD(0x006D39F0, app::Vector3, get_CurrentFollowedPosition, (app::SmoothTransformFollower * this_ptr))

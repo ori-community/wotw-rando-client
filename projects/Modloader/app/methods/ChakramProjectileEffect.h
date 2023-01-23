@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChakramProjectileEffect.h>
+#include <Modloader/app/structs/ChakramProjectile.h>
 
 namespace app::classes::ChakramProjectileEffect {
     IL2CPP_REGISTER_METHOD(0x01040E70, void, Initialize, (app::ChakramProjectileEffect * this_ptr, app::ChakramProjectile* chakram))

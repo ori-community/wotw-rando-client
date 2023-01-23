@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebug_ReflectionStats__Class.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebug_ReflectionStats.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebug_ReflectionStats__Boxed.h>
 
 namespace app::classes::types {
     namespace MoonRenderPipelineDebug_ReflectionStats {

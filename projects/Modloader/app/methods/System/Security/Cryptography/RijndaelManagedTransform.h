@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RijndaelManagedTransform.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CipherMode__Enum.h>
+#include <Modloader/app/structs/PaddingMode__Enum.h>
+#include <Modloader/app/structs/RijndaelManagedTransformMode__Enum.h>
 
 namespace app::classes::System::Security::Cryptography::RijndaelManagedTransform {
     IL2CPP_REGISTER_METHOD(0x028F0620, void, ctor_1, (app::RijndaelManagedTransform * this_ptr, app::Byte__Array* rgb_key, app::CipherMode__Enum mode, app::Byte__Array* rgb_i_v, int32_t block_size, int32_t feedback_size, app::PaddingMode__Enum padding_value, app::RijndaelManagedTransformMode__Enum transform_mode))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimatorDriver.h>
+#include <Modloader/app/structs/BaseAnimator.h>
+#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::BaseAnimator {
     IL2CPP_REGISTER_METHOD(0x00F83CB0, app::AnimatorDriver*, get_AnimatorDriver, (app::BaseAnimator * this_ptr))

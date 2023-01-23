@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vitals_DamageProcessHelper.h>
+#include <Modloader/app/structs/DamageReceiver__Array.h>
+#include <Modloader/app/structs/HashSet_1_System_Int32_.h>
 
 namespace app::classes::Moon::Vitals_DamageProcessHelper {
     IL2CPP_REGISTER_METHOD(0x01198760, void, CountDamagesPerID, (app::Vitals_DamageProcessHelper * this_ptr, app::DamageReceiver__Array* receivers))

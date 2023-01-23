@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WaterZone__Array__Class.h>
+#include <Modloader/app/structs/WaterZone__Array.h>
 
 namespace app::classes::types {
     namespace WaterZone__Array {

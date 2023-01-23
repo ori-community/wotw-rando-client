@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlDataLoader.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Data::XmlDataLoader {
     IL2CPP_REGISTER_METHOD(0x023E8760, void, ctor_1, (app::XmlDataLoader * this_ptr, app::DataSet* dataset, bool is_xdr, bool ignore_schema))

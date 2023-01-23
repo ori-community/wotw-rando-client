@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Enumerable_ConcatIterator_d_59_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Linq::Enumerable__ConcatIterator_d__59_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, System_Collections_Generic_IEnumerator_TSource__get_Current, (app::Enumerable_ConcatIterator_d_59_1_System_Object_ * this_ptr))

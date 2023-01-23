@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTelemetryWeaponUpgradeEvent.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JsonBuilder_Object.h>
 
 namespace app::classes::MoonTelemetryWeaponUpgradeEvent {
     IL2CPP_REGISTER_METHOD(0x01472F90, void, ctor, (app::MoonTelemetryWeaponUpgradeEvent * this_ptr, app::AbilityType__Enum type, int32_t new_level, int32_t exp_spent))

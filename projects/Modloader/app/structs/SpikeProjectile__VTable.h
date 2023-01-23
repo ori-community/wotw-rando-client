@@ -1,0 +1,112 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SpikeProjectile__VTable_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SpikeProjectile__VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpikeProjectile__VTable_DEFINED)
+#define IL2CPP_STRUCT_SpikeProjectile__VTable_DEFINED
+struct SpikeProjectile__VTable {
+    VirtualInvokeData Equals;
+    VirtualInvokeData Finalize;
+    VirtualInvokeData GetHashCode;
+    VirtualInvokeData ToString;
+    VirtualInvokeData get_Position;
+    VirtualInvokeData IsDead;
+    VirtualInvokeData CanBeChargeFlamed;
+    VirtualInvokeData CanBeChargeDashed;
+    VirtualInvokeData CanBeGrenaded;
+    VirtualInvokeData CanBeStomped;
+    VirtualInvokeData CanBeBashed;
+    VirtualInvokeData CanBeSpiritFlamed;
+    VirtualInvokeData IsStompBouncable;
+    VirtualInvokeData CanBeLevelUpBlasted;
+    VirtualInvokeData CanBeSpiritSlashed;
+    VirtualInvokeData CanBeHitByBow;
+    VirtualInvokeData CanBeHitByMelee;
+    VirtualInvokeData CanBeHitByHammerHandle;
+    VirtualInvokeData CanBeHeavySpiritSlashed;
+    VirtualInvokeData CanBeSpiritLeashed;
+    VirtualInvokeData CanBeHomingMissiled;
+    VirtualInvokeData CanBeTrapped;
+    VirtualInvokeData CanBeSpiritSpeared;
+    VirtualInvokeData CanBeTeleportedByBeacon;
+    VirtualInvokeData CanBeGlowed;
+    VirtualInvokeData get_AffectedReceivers;
+    VirtualInvokeData get_Mask;
+    VirtualInvokeData set_Mask;
+    VirtualInvokeData get_IsSuspended;
+    VirtualInvokeData set_IsSuspended;
+    VirtualInvokeData get_BashPriority;
+    VirtualInvokeData OnEnterBash;
+    VirtualInvokeData OnBashHighlight;
+    VirtualInvokeData OnBashDehighlight;
+    VirtualInvokeData CountsTowardsPowerOfLightAchievement;
+    VirtualInvokeData IDamageReciever_get_gameObject;
+    VirtualInvokeData IDamageReciever_get_transform;
+    VirtualInvokeData OnRecieveDamage;
+    VirtualInvokeData get_Direction;
+    VirtualInvokeData set_Direction;
+    VirtualInvokeData get_Speed;
+    VirtualInvokeData set_Speed;
+    VirtualInvokeData get_LastReflector;
+    VirtualInvokeData set_LastReflector;
+    VirtualInvokeData CanBeReflected;
+    VirtualInvokeData OnGrabbed;
+    VirtualInvokeData OnReleased;
+    VirtualInvokeData OnReflected;
+    VirtualInvokeData get_Position_1;
+    VirtualInvokeData set_Position;
+    VirtualInvokeData IPortalVisitor_get_Speed;
+    VirtualInvokeData IPortalVisitor_set_Speed;
+    VirtualInvokeData OnGoThroughPortal;
+    VirtualInvokeData OnPortalOverlapEnter;
+    VirtualInvokeData OnPortalOverlapExit;
+    VirtualInvokeData CountsTowardsSuperJumpAchievement;
+    VirtualInvokeData OnPoolSpawned;
+    VirtualInvokeData OnPoolDespawned;
+    VirtualInvokeData get_HeavySpiritSlashPriority;
+    VirtualInvokeData OnHeavySpiritSlashHighlight;
+    VirtualInvokeData OnHeavySpiritSlashDehighlight;
+    VirtualInvokeData get_HammerPriority;
+    VirtualInvokeData get_HammerEnableAutoTarget;
+    VirtualInvokeData get_TrackTranformChangesForRecording;
+    VirtualInvokeData get_TrackingExclusions;
+    VirtualInvokeData get_ParsingGroup;
+    VirtualInvokeData OnBeforeTeleportation;
+    VirtualInvokeData Teleport;
+    VirtualInvokeData OnAfterTeleportation;
+    VirtualInvokeData ITeleportBeaconAttackable_get_Position;
+    VirtualInvokeData get_CanGoThroughPortals;
+    VirtualInvokeData CanBeBashed_1;
+    VirtualInvokeData OnRecieveDamage_1;
+    VirtualInvokeData OnBashed;
+    VirtualInvokeData OnPoolSpawned_1;
+    VirtualInvokeData OnPoolDespawned_1;
+    VirtualInvokeData OnGoThroughPortal_1;
+    VirtualInvokeData Awake;
+    VirtualInvokeData OnEnable;
+    VirtualInvokeData OnDisable;
+    VirtualInvokeData OnDamageDealt;
+    VirtualInvokeData FixedUpdate;
+    VirtualInvokeData OnBeforeExplodeOnWater;
+    VirtualInvokeData Launch;
+    VirtualInvokeData ExplodeProjectile;
+    VirtualInvokeData OnRicochet;
+    VirtualInvokeData OnCollisionEnter;
+    VirtualInvokeData UpdateVelocity;
+    VirtualInvokeData HandleGravity;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_SpikeProjectile__VTable_FWDDECL)
+#define IL2CPP_STRUCT_SpikeProjectile__VTable_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_SpikeProjectile__VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpikeProjectile__VTable_DEFINED) && !defined(IL2CPP_STRUCT_SpikeProjectile__VTable_FWDDECL)
+#include <Modloader/app/structs/SpikeProjectile__VTable.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SpikeProjectile__VTable.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

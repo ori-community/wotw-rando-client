@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KamikazeLizardHitReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::KamikazeLizardHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00E5BE20, void, OnInitializeTask, (app::KamikazeLizardHitReactionBehaviour * this_ptr, app::IContext* context))

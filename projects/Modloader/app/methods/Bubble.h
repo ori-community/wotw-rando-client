@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Bubble.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Collider__Array.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::Bubble {
     IL2CPP_REGISTER_METHOD(0x00654950, app::SuspendableMask__Enum, get_Mask, (app::Bubble * this_ptr))

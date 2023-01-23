@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IComparer_1_System_String_.h>
+#include <Modloader/app/structs/SortedList_2_System_String_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_String_System_Object_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::SortedList_2_System_String_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FBB00, app::IComparer_1_System_String_*, get_Comparer, (app::SortedList_2_System_String_System_Object_ * this_ptr))

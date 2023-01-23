@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HideWhenMainMenuOpen.h>
 
 namespace app::classes::HideWhenMainMenuOpen {
     IL2CPP_REGISTER_METHOD(0x00B4AC90, void, ResetStatics, ())

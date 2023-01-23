@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_KeybindingCommandMapAsset_ExclusiveCommandList_.h>
+#include <Modloader/app/structs/KeybindingCommandMapAsset.h>
+#include <Modloader/app/structs/KeybindingCommandMapAsset_CommandBindingEnum__Enum.h>
+#include <Modloader/app/structs/PlayerInputRebinding_KeyBindingSettings.h>
+#include <Modloader/app/structs/KeyCode__Enum__Array.h>
+#include <Modloader/app/structs/CompoundButtonInput.h>
+#include <Modloader/app/structs/IEnumerable_1_CommandBinding_.h>
+#include <Modloader/app/structs/List_1_CommandBinding_.h>
+#include <Modloader/app/structs/ControlsScreen_ControlListEnum__Enum.h>
 
 namespace app::classes::KeybindingCommandMapAsset {
     IL2CPP_REGISTER_METHOD(0x00E65250, app::List_1_KeybindingCommandMapAsset_ExclusiveCommandList_*, GetExclusiveKeyLists, (app::KeybindingCommandMapAsset * this_ptr, app::KeybindingCommandMapAsset_CommandBindingEnum__Enum bind))

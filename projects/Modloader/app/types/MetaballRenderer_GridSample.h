@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MetaballRenderer_GridSample__Class.h>
+#include <Modloader/app/structs/MetaballRenderer_GridSample.h>
+#include <Modloader/app/structs/MetaballRenderer_GridSample__Array.h>
 
 namespace app::classes::types {
     namespace MetaballRenderer_GridSample {

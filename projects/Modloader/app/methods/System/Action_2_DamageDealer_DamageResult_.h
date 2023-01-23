@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_2_DamageDealer_DamageResult_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::System::Action_2_DamageDealer_DamageResult_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::Action_2_DamageDealer_DamageResult_ * this_ptr, app::Object* object, void* method_1))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/BlackboardVariable_1_UnityEngine_Quaternion_.h>
 
 namespace app::classes::Moon::BehaviourSystem::BlackboardVariable_1_UnityEngine_Quaternion_ {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_UnityEngine_Quaternion_*, GetMoonType, (app::BlackboardVariable_1_UnityEngine_Quaternion_ * this_ptr))

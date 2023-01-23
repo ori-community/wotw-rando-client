@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/RockyEnemy.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/IPressurePlate.h>
 
 namespace app::classes::RockyEnemy {
     IL2CPP_REGISTER_METHOD(0x0135B560, app::Vector2, get_ThrownDirection, (app::RockyEnemy * this_ptr))

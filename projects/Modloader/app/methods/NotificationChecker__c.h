@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NotificationChecker_c.h>
+#include <Modloader/app/structs/LeaderBoardEntry.h>
 
 namespace app::classes::NotificationChecker___c {
     IL2CPP_REGISTER_METHOD(0x0060CD50, void, cctor, ())

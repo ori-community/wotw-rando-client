@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicsUtils_c.h>
+#include <Modloader/app/structs/RaycastHit.h>
 
 namespace app::classes::PhysicsUtils___c {
     IL2CPP_REGISTER_METHOD(0x011573A0, void, cctor, ())

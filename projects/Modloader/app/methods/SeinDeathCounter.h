@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDeathCounter.h>
+#include <Modloader/app/structs/UberStateValueStore.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SeinDeathCounter {
     IL2CPP_REGISTER_METHOD(0x006FF030, int32_t, get_Count, ())

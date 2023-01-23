@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SqlXmlStreamWrapper.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Data::SqlTypes::SqlXmlStreamWrapper {
     IL2CPP_REGISTER_METHOD(0x022BD630, void, ctor, (app::SqlXmlStreamWrapper * this_ptr, app::Stream* stream))

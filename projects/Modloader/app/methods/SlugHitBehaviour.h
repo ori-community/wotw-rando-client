@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SlugHitBehaviour.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
 
 namespace app::classes::SlugHitBehaviour {
     IL2CPP_REGISTER_METHOD(0x006C5B70, void, OnInitialize, (app::SlugHitBehaviour * this_ptr))

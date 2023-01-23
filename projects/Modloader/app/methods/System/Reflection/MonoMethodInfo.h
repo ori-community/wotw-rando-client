@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MonoMethodInfo.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/MethodAttributes__Enum.h>
+#include <Modloader/app/structs/CallingConventions__Enum.h>
+#include <Modloader/app/structs/MethodImplAttributes__Enum.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
 
 namespace app::classes::System::Reflection::MonoMethodInfo {
     IL2CPP_REGISTER_METHOD(0x02692400, void, get_method_info, (void* handle, app::MonoMethodInfo* info))

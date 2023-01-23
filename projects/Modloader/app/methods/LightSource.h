@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightSource.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::LightSource {
     IL2CPP_REGISTER_METHOD(0x0114F2A0, bool, get_AnyExist, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object_1.h>
 
 namespace app::classes::UnityEngine::Profiling::Profiler {
     IL2CPP_REGISTER_METHOD(0x02969510, void, set_logFile, (app::String * value))

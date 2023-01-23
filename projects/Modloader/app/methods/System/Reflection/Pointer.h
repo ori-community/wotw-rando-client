@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Pointer_1.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Void.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Reflection::Pointer {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::Pointer_1 * this_ptr))

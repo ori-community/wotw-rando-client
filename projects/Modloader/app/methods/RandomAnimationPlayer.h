@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RandomAnimationPlayer.h>
 
 namespace app::classes::RandomAnimationPlayer {
     IL2CPP_REGISTER_METHOD(0x0072EA30, void, Awake, (app::RandomAnimationPlayer * this_ptr))

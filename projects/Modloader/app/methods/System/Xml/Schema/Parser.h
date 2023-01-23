@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Parser_1.h>
+#include <Modloader/app/structs/SchemaType__Enum.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/SchemaNames.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/SchemaInfo.h>
+#include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/XmlAttribute.h>
+#include <Modloader/app/structs/XmlEntityReference.h>
 
 namespace app::classes::System::Xml::Schema::Parser {
     IL2CPP_REGISTER_METHOD(0x016D2ED0, void, ctor, (app::Parser_1 * this_ptr, app::SchemaType__Enum schema_type, app::XmlNameTable* name_table, app::SchemaNames* schema_names, app::ValidationEventHandler* event_handler))

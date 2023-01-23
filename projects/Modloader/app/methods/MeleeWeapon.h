@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/WeaponJoint__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Transform__Array.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/ComboInput.h>
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/MeleeComboMove.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/TrackingExclusions.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::MeleeWeapon {
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::MoonAnimator*, get_WeaponAnimator, (app::MeleeWeapon * this_ptr))

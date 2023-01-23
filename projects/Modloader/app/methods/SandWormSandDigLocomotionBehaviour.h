@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormSandDigLocomotionBehaviour.h>
+#include <Modloader/app/structs/SandWormLocomotion.h>
+#include <Modloader/app/structs/SandWormEntity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SandWormSandDigLocomotionBehaviour_SpeedEntry.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::SandWormSandDigLocomotionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C24D60, float, get_LastAvoidancePower, (app::SandWormSandDigLocomotionBehaviour * this_ptr))

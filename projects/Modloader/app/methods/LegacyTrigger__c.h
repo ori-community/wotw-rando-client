@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyTrigger_c.h>
+#include <Modloader/app/structs/LegacyTrigger.h>
 
 namespace app::classes::LegacyTrigger___c {
     IL2CPP_REGISTER_METHOD(0x0112C9F0, void, cctor, ())

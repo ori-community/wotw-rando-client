@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/StandaloneWebResources_IndexEntry__Class.h>
+#include <Modloader/app/structs/StandaloneWebResources_IndexEntry.h>
+#include <Modloader/app/structs/StandaloneWebResources_IndexEntry__Boxed.h>
+#include <Modloader/app/structs/StandaloneWebResources_IndexEntry__Array.h>
 
 namespace app::classes::types {
     namespace StandaloneWebResources_IndexEntry {

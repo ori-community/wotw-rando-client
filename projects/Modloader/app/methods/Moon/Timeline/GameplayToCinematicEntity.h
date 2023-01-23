@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameplayToCinematicEntity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::GameplayToCinematicEntity {
     IL2CPP_REGISTER_METHOD(0x003FC5D0, float, get_Time, (app::GameplayToCinematicEntity * this_ptr))

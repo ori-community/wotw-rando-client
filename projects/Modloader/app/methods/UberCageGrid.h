@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberCageGrid.h>
 
 namespace app::classes::UberCageGrid {
     IL2CPP_REGISTER_METHOD(0x013E4880, void, OnEnable, (app::UberCageGrid * this_ptr))

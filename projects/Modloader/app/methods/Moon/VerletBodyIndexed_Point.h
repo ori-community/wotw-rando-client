@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VerletBodyIndexed_Point__Boxed.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::VerletBodyIndexed_Point {
     IL2CPP_REGISTER_METHOD(0x001DC800, float, get_Mass, (app::VerletBodyIndexed_Point__Boxed * this_ptr))

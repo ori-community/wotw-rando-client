@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Threading_Thread_System_Diagnostics_StackTrace_.h>
+#include <Modloader/app/structs/StackTrace.h>
+#include <Modloader/app/structs/Thread.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Threading_Thread_System_Diagnostics_StackTrace_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_System_Threading_Thread_System_Diagnostics_StackTrace_ * this_ptr))

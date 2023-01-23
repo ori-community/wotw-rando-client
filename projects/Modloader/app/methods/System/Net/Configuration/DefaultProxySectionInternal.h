@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IWebProxy.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DefaultProxySectionInternal.h>
 
 namespace app::classes::System::Net::Configuration::DefaultProxySectionInternal {
     IL2CPP_REGISTER_METHOD(0x02018EF0, app::IWebProxy*, GetDefaultProxy_UsingOldMonoCode, ())

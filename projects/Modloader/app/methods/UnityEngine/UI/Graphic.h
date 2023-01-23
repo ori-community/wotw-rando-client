@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Graphic.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/Canvas.h>
+#include <Modloader/app/structs/CanvasRenderer.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/CanvasUpdate__Enum.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UIVertex_.h>
+#include <Modloader/app/structs/VertexHelper.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/UnityAction.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UnityEngine::UI::Graphic {
     IL2CPP_REGISTER_METHOD(0x024AE070, void, ctor, (app::Graphic * this_ptr))

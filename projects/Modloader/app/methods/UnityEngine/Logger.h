@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Logger.h>
+#include <Modloader/app/structs/ILogHandler.h>
+#include <Modloader/app/structs/LogType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::UnityEngine::Logger {
     IL2CPP_REGISTER_METHOD(0x02530570, void, ctor, (app::Logger * this_ptr, app::ILogHandler* log_handler))

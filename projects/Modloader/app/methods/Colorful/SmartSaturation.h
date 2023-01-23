@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/SmartSaturation.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::SmartSaturation {
     IL2CPP_REGISTER_METHOD(0x03053130, app::Texture2D*, get_m_CurveTexture, (app::SmartSaturation * this_ptr))

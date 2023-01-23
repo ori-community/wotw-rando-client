@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Queue_QueueDebugView__Class.h>
+#include <Modloader/app/structs/Queue_QueueDebugView.h>
 
 namespace app::classes::types {
     namespace Queue_QueueDebugView {

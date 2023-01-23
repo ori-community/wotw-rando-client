@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AllContainer_1_SpecialAbilityZone_.h>
+#include <Modloader/app/structs/SpecialAbilityZone.h>
 
 namespace app::classes::AllContainer_1_SpecialAbilityZone_ {
     IL2CPP_REGISTER_METHOD(0x019D79D0, void, Clear, (app::AllContainer_1_SpecialAbilityZone_ * this_ptr))

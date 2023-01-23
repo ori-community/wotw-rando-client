@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseLoggingObject.h>
+#include <Modloader/app/structs/ThreadKinds__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Net::GlobalLog {
     IL2CPP_REGISTER_METHOD(0x01D383E0, app::BaseLoggingObject*, LoggingInitialize, ())

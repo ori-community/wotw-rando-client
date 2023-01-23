@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MicroProfiler_c.h>
 
 namespace app::classes::MicroProfiler___c {
     IL2CPP_REGISTER_METHOD(0x03156E10, void, cctor, ())

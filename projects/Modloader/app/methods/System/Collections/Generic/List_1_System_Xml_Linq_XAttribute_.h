@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Xml_Linq_XAttribute_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Xml_Linq_XAttribute_.h>
+#include <Modloader/app/structs/XAttribute.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Xml_Linq_XAttribute_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_System_Xml_Linq_XAttribute_ * this_ptr))

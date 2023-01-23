@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Expression_CatchBlockProxy.h>
+#include <Modloader/app/structs/CatchBlock.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ParameterExpression.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_CatchBlockProxy {
     IL2CPP_REGISTER_METHOD(0x029D4990, void, ctor, (app::Expression_CatchBlockProxy * this_ptr, app::CatchBlock* node))

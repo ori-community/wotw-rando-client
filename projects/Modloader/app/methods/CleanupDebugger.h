@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/CleanupDebugger.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::CleanupDebugger {
     IL2CPP_REGISTER_METHOD(0x01324D40, app::GUIStyle*, get_LabelStyle, (app::CleanupDebugger * this_ptr))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabLocalizationInstanceAPI.h>
+#include <Modloader/app/structs/PlayFabApiSettings.h>
+#include <Modloader/app/structs/PlayFabAuthenticationContext.h>
+#include <Modloader/app/structs/GetLanguageListRequest.h>
+#include <Modloader/app/structs/Action_1_PlayFab_LocalizationModels_GetLanguageListResponse_.h>
+#include <Modloader/app/structs/Action_1_PlayFab_PlayFabError_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
 
 namespace app::classes::PlayFab::PlayFabLocalizationInstanceAPI {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::PlayFabLocalizationInstanceAPI * this_ptr))

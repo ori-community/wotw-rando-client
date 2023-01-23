@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VideoProgressBar.h>
+#include <Modloader/app/structs/PointerEventData.h>
 
 namespace app::classes::VideoProgressBar {
     IL2CPP_REGISTER_METHOD(0x008C04B0, void, Awake, (app::VideoProgressBar * this_ptr))

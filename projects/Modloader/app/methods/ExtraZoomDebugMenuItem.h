@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExtraZoomDebugMenuItem.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ExtraZoomDebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x00987D40, void, ctor, (app::ExtraZoomDebugMenuItem * this_ptr, app::String* path, app::String* str))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationType__Enum.h>
+#include <Modloader/app/structs/ClipAnimation.h>
+#include <Modloader/app/structs/AnimationParameterSet.h>
+#include <Modloader/app/structs/HashSet_1_UnityEngine_AnimationClip_.h>
+#include <Modloader/app/structs/MoonAnimation_RootMotionSample.h>
 
 namespace app::classes::Moon::ClipAnimation {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::AnimationType__Enum, get_Type, (app::ClipAnimation * this_ptr))

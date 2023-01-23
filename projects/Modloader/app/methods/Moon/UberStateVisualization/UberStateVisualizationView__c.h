@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStateVisualizationView_c.h>
+#include <Modloader/app/structs/UberStateGroupData.h>
+#include <Modloader/app/structs/UberStateData.h>
 
 namespace app::classes::Moon::UberStateVisualization::UberStateVisualizationView___c {
     IL2CPP_REGISTER_METHOD(0x030CB390, void, cctor, ())

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RaceStateMachineContext_MessagesConfiguration_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RaceStateMachineContext_MessagesConfiguration_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RaceStateMachineContext_MessagesConfiguration_DEFINED)
+#include <Modloader/app/structs/RaceStateMachineContext_MessagesConfiguration__Fields.h>
+#if defined(IL2CPP_STRUCT_RaceStateMachineContext_MessagesConfiguration__Fields_DEFINED)
+#define IL2CPP_STRUCT_RaceStateMachineContext_MessagesConfiguration_DEFINED
+struct RaceStateMachineContext_MessagesConfiguration__Class;
+struct RaceStateMachineContext_MessagesConfiguration {
+    struct RaceStateMachineContext_MessagesConfiguration__Class* klass;
+    MonitorData* monitor;
+    struct RaceStateMachineContext_MessagesConfiguration__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_RaceStateMachineContext_MessagesConfiguration_FWDDECL)
+#define IL2CPP_STRUCT_RaceStateMachineContext_MessagesConfiguration_FWDDECL
+#include <Modloader/app/structs/RaceStateMachineContext_MessagesConfiguration__Class.h>
+#endif
+#undef IL2CPP_STRUCT_RaceStateMachineContext_MessagesConfiguration_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RaceStateMachineContext_MessagesConfiguration_DEFINED) && !defined(IL2CPP_STRUCT_RaceStateMachineContext_MessagesConfiguration_FWDDECL)
+#include <Modloader/app/structs/RaceStateMachineContext_MessagesConfiguration.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RaceStateMachineContext_MessagesConfiguration.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

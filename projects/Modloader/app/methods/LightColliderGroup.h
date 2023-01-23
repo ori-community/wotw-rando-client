@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightColliderGroup.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::LightColliderGroup {
     IL2CPP_REGISTER_METHOD(0x0114A750, void, Awake, (app::LightColliderGroup * this_ptr))

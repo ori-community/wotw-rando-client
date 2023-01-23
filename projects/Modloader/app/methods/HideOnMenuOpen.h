@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HideOnMenuOpen.h>
 
 namespace app::classes::HideOnMenuOpen {
     IL2CPP_REGISTER_METHOD(0x00B4A180, void, Awake, (app::HideOnMenuOpen * this_ptr))

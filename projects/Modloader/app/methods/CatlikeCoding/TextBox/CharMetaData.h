@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CharMetaData__Boxed.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/AppliedTextStyle.h>
+#include <Modloader/app/structs/BitmapFontChar.h>
 
 namespace app::classes::CatlikeCoding::TextBox::CharMetaData {
     IL2CPP_REGISTER_METHOD(0x00123DF0, app::String*, ToString, (app::CharMetaData__Boxed * this_ptr))

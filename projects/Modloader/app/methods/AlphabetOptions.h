@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AlphabetOptions.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
 
 namespace app::classes::AlphabetOptions {
     IL2CPP_REGISTER_METHOD(0x002FBBE0, app::String*, get_CurrentlySelected, (app::AlphabetOptions * this_ptr))

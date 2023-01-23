@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Listeners_1_DataViewListener_.h>
+#include <Modloader/app/structs/Listeners_1_TElem_Func_2_DataViewListener_DataViewListener_System_Boolean_.h>
+#include <Modloader/app/structs/DataViewListener.h>
+#include <Modloader/app/structs/ListChangedEventArgs.h>
+#include <Modloader/app/structs/Listeners_1_TElem_Action_4_DataViewListener_DataViewListener_System_ComponentModel_ListChangedEventArgs_System_Boolean_System_Boolean_.h>
+#include <Modloader/app/structs/ListChangedType__Enum.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/Listeners_1_TElem_Action_4_DataViewListener_DataViewListener_System_ComponentModel_ListChangedType_DataRow_System_Boolean_.h>
 
 namespace app::classes::System::Data::Listeners_1_DataViewListener_ {
     IL2CPP_REGISTER_METHOD(0x02FAEC80, void, ctor, (app::Listeners_1_DataViewListener_ * this_ptr, int32_t object_i_d, app::Listeners_1_TElem_Func_2_DataViewListener_DataViewListener_System_Boolean_* notify_filter))

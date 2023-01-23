@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HitReaction_HitPointBone.h>
+#include <Modloader/app/structs/IKSolverFullBodyBiped.h>
 
 namespace app::classes::RootMotion::FinalIK::HitReaction_HitPointBone {
     IL2CPP_REGISTER_METHOD(0x02076790, float, GetLength, (app::HitReaction_HitPointBone * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FoxEnemy2.h>
+#include <Modloader/app/structs/IPinnable.h>
+#include <Modloader/app/structs/Animator.h>
+#include <Modloader/app/structs/AnimatorStateInfo.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::FoxEnemy2 {
     IL2CPP_REGISTER_METHOD(0x01283220, void, Awake, (app::FoxEnemy2 * this_ptr))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AllElementsContentValidator.h>
+#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ValidationState.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
 
 namespace app::classes::System::Xml::Schema::AllElementsContentValidator {
     IL2CPP_REGISTER_METHOD(0x019A0650, void, ctor, (app::AllElementsContentValidator * this_ptr, app::XmlSchemaContentType__Enum content_type, int32_t size, bool is_emptiable))

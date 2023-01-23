@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossCameraTargetsProvider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
 
 namespace app::classes::PetrifiedOwlBossCameraTargetsProvider {
     IL2CPP_REGISTER_METHOD(0x0049CF20, float, get_PowlCutOffDistance, (app::PetrifiedOwlBossCameraTargetsProvider * this_ptr))

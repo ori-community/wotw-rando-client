@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState_DEFINED
+struct PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState__Class;
+struct PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState {
+    struct PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

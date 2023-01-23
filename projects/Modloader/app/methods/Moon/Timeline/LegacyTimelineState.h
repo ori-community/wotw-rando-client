@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_Single_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/ILegacyTimelineStateObserver.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Animator.h>
+#include <Modloader/app/structs/GenericPuppet.h>
+#include <Modloader/app/structs/LegacyTimelineState.h>
 
 namespace app::classes::Moon::Timeline::LegacyTimelineState {
     IL2CPP_REGISTER_METHOD(0x00773A10, bool, get_InPreviewMode, ())

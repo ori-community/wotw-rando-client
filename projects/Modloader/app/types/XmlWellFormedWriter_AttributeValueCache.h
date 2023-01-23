@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_AttributeValueCache__Class.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_AttributeValueCache.h>
 
 namespace app::classes::types {
     namespace XmlWellFormedWriter_AttributeValueCache {

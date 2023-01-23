@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse__DEFINED)
+#include <Modloader/app/structs/Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse___Fields.h>
+#if defined(IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse___Fields_DEFINED)
+#define IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse__DEFINED
+struct Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse___Class;
+struct Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse_ {
+    struct Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse___Class* klass;
+    MonitorData* monitor;
+    struct Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse__FWDDECL)
+#define IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse__FWDDECL
+#include <Modloader/app/structs/Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse__DEFINED) && !defined(IL2CPP_STRUCT_Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse__FWDDECL)
+#include <Modloader/app/structs/Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Action_1_PlayFab_GroupsModels_CreateGroupRoleResponse_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

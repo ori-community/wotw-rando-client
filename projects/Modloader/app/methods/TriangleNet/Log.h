@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Log.h>
+#include <Modloader/app/structs/ILog_1_LogItem_.h>
+#include <Modloader/app/structs/LogItem.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IList_1_TriangleNet_Logging_LogItem_.h>
+#include <Modloader/app/structs/LogLevel__Enum.h>
 
 namespace app::classes::TriangleNet::Log {
     IL2CPP_REGISTER_METHOD(0x026294B0, bool, get_Verbose, ())

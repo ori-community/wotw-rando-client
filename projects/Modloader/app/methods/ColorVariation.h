@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ColorVariation.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/LayeredRenderSettings.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Vector4__Array.h>
 
 namespace app::classes::ColorVariation {
     IL2CPP_REGISTER_METHOD(0x00CFBCF0, bool, get_IsVisible, (app::ColorVariation * this_ptr))

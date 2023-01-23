@@ -15,6 +15,7 @@ namespace utils {
     app::MoonGuid* MoodGuid::to_moon_guid() {
         return moon_guid(A, B, C, D);
     }
+
     MoodGuid::MoodGuid() {
         this->A = rng();
         this->B = rng();

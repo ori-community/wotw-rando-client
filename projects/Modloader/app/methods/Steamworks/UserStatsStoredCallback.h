@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_Steamworks_UserStatsStored_t_.h>
+#include <Modloader/app/structs/Action_2_Steamworks_UserStatsStored_t_Boolean_.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
 
 namespace app::classes::Steamworks::UserStatsStoredCallback {
     IL2CPP_REGISTER_METHOD(0x027A9760, int32_t, get_CallbackCount, ())

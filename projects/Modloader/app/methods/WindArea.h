@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/WindArea.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::WindArea {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::Transform*, get_Transform, (app::WindArea * this_ptr))

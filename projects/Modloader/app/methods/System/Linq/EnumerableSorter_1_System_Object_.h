@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/EnumerableSorter_1_System_Object_.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Linq::EnumerableSorter_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x0289C870, app::Int32__Array*, Sort, (app::EnumerableSorter_1_System_Object_ * this_ptr, app::Object__Array* elements, int32_t count))

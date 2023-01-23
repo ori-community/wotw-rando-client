@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SslStreamBase_InternalAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::SslStreamBase_InternalAsyncResult {
     IL2CPP_REGISTER_METHOD(0x0291A490, void, ctor, (app::SslStreamBase_InternalAsyncResult * this_ptr, app::AsyncCallback* user_callback, app::Object* user_state, app::Byte__Array* buffer, int32_t offset, int32_t count, bool from_write, bool proceed_after_handshake))

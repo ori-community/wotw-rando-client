@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConfigurableJoint.h>
+#include <Modloader/app/structs/AttachToRope.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::AttachToRope {
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::ConfigurableJoint*, get_GeneratedConfigurableJoint, (app::AttachToRope * this_ptr))

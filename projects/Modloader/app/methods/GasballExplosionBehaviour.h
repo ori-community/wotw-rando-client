@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GasballExplosionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::GasballExplosionBehaviour {
     IL2CPP_REGISTER_METHOD(0x0041F950, void, OnEnterTask, (app::GasballExplosionBehaviour * this_ptr, app::IContext* context))

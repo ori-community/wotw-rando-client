@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnableComponentAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::EnableComponentAction {
     IL2CPP_REGISTER_METHOD(0x00BFC2A0, void, Perform, (app::EnableComponentAction * this_ptr, app::IContext* context))

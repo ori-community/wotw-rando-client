@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BitVector32__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BitVector32.h>
 
 namespace app::classes::System::Collections::Specialized::BitVector32 {
     IL2CPP_REGISTER_METHOD(0x001EF440, bool, get_Item, (app::BitVector32__Boxed * this_ptr, int32_t bit))

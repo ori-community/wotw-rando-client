@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TransformStreamHandle__Boxed.h>
+#include <Modloader/app/structs/AnimationStream.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/TransformStreamHandle.h>
 
 namespace app::classes::UnityEngine::Experimental::Animations::TransformStreamHandle {
     IL2CPP_REGISTER_METHOD(0x002431E0, bool, IsValidInternal, (app::TransformStreamHandle__Boxed * this_ptr, app::AnimationStream* stream))

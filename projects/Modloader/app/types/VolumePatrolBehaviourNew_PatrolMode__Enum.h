@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/VolumePatrolBehaviourNew_PatrolMode__Enum__Class.h>
+#include <Modloader/app/structs/VolumePatrolBehaviourNew_PatrolMode__Enum.h>
 
 namespace app::classes::types {
     namespace VolumePatrolBehaviourNew_PatrolMode__Enum {

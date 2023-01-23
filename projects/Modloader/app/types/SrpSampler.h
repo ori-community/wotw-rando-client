@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SrpSampler__Class.h>
+#include <Modloader/app/structs/SrpSampler.h>
+#include <Modloader/app/structs/SrpSampler__Boxed.h>
+#include <Modloader/app/structs/SrpSampler__Array.h>
 
 namespace app::classes::types {
     namespace SrpSampler {

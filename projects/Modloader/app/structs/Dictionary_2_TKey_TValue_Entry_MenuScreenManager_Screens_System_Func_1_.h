@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_MenuScreenManager_Screens_System_Func_1__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_MenuScreenManager_Screens_System_Func_1__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_MenuScreenManager_Screens_System_Func_1__DEFINED)
+#include <Modloader/app/structs/MenuScreenManager_Screens__Enum.h>
+#if defined(IL2CPP_STRUCT_MenuScreenManager_Screens__Enum_DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_MenuScreenManager_Screens_System_Func_1__DEFINED
+struct Func_1_MenuScreen_;
+struct Dictionary_2_TKey_TValue_Entry_MenuScreenManager_Screens_System_Func_1_ {
+    int32_t hashCode;
+    int32_t next;
+    MenuScreenManager_Screens__Enum key;
+
+    struct Func_1_MenuScreen_* value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_MenuScreenManager_Screens_System_Func_1__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_MenuScreenManager_Screens_System_Func_1__FWDDECL
+#include <Modloader/app/structs/Func_1_MenuScreen_.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_MenuScreenManager_Screens_System_Func_1__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_MenuScreenManager_Screens_System_Func_1__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_MenuScreenManager_Screens_System_Func_1__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_MenuScreenManager_Screens_System_Func_1_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_MenuScreenManager_Screens_System_Func_1_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

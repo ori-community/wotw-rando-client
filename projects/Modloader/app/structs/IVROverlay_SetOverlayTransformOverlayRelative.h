@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVROverlay_SetOverlayTransformOverlayRelative_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVROverlay_SetOverlayTransformOverlayRelative_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVROverlay_SetOverlayTransformOverlayRelative_DEFINED)
+#include <Modloader/app/structs/IVROverlay_SetOverlayTransformOverlayRelative__Fields.h>
+#if defined(IL2CPP_STRUCT_IVROverlay_SetOverlayTransformOverlayRelative__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVROverlay_SetOverlayTransformOverlayRelative_DEFINED
+struct IVROverlay_SetOverlayTransformOverlayRelative__Class;
+struct IVROverlay_SetOverlayTransformOverlayRelative {
+    struct IVROverlay_SetOverlayTransformOverlayRelative__Class* klass;
+    MonitorData* monitor;
+    struct IVROverlay_SetOverlayTransformOverlayRelative__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVROverlay_SetOverlayTransformOverlayRelative_FWDDECL)
+#define IL2CPP_STRUCT_IVROverlay_SetOverlayTransformOverlayRelative_FWDDECL
+#include <Modloader/app/structs/IVROverlay_SetOverlayTransformOverlayRelative__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVROverlay_SetOverlayTransformOverlayRelative_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVROverlay_SetOverlayTransformOverlayRelative_DEFINED) && !defined(IL2CPP_STRUCT_IVROverlay_SetOverlayTransformOverlayRelative_FWDDECL)
+#include <Modloader/app/structs/IVROverlay_SetOverlayTransformOverlayRelative.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVROverlay_SetOverlayTransformOverlayRelative.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

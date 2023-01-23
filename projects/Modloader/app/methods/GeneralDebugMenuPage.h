@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GeneralDebugMenuPage.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_IDebugMenuItem_.h>
+#include <Modloader/app/structs/List_1_List_1_IDebugMenuItem_.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/List_1_EquipmentType_.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/List_1_AbilityType_.h>
+#include <Modloader/app/structs/List_1_DebugTeleportSettings_.h>
+#include <Modloader/app/structs/GeneralDebugMenuPage_SceneInfo__Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::GeneralDebugMenuPage {
     IL2CPP_REGISTER_METHOD(0x00420EE0, int32_t, get_ColumnOffset, (app::GeneralDebugMenuPage * this_ptr))

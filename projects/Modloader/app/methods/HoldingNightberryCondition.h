@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HoldingNightberryCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::HoldingNightberryCondition {
     IL2CPP_REGISTER_METHOD(0x00B5ADC0, bool, Validate, (app::HoldingNightberryCondition * this_ptr, app::IContext* context))

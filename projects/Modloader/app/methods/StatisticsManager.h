@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_StatSetting_.h>
+#include <Modloader/app/structs/StatisticsManager.h>
+#include <Modloader/app/structs/StatisticsManager_StatType__Enum.h>
+#include <Modloader/app/structs/UberStateValueStore.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::StatisticsManager {
     IL2CPP_REGISTER_METHOD(0x002FB9D0, app::List_1_StatSetting_*, get_StatSettings, (app::StatisticsManager * this_ptr))

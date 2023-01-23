@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
+#include <Modloader/app/structs/TerrainUtility_TerrainMap.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
+#include <Modloader/app/structs/ICollection_1_System_Int32_.h>
+#include <Modloader/app/structs/ICollection_1_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Int32_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_ * this_ptr, int32_t key))

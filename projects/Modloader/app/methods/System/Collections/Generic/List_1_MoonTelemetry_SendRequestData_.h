@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTelemetry_SendRequestData.h>
+#include <Modloader/app/structs/List_1_MoonTelemetry_SendRequestData_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_MoonTelemetry_SendRequestData_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::MoonTelemetry_SendRequestData*, get_Item, (app::List_1_MoonTelemetry_SendRequestData_ * this_ptr, int32_t index))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DestroyObjectAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::DestroyObjectAction {
     IL2CPP_REGISTER_METHOD(0x00B8C140, void, Perform, (app::DestroyObjectAction * this_ptr, app::IContext* context))

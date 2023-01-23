@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_FinalPost__Class.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_FinalPost.h>
 
 namespace app::classes::types {
     namespace MoonRenderPipelineView_FinalPost {

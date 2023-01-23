@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MemberTypes__Enum.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::TypeExtensions {
     IL2CPP_REGISTER_METHOD(0x019E35B0, app::MemberTypes__Enum, MemberType, (app::MemberInfo_1 * member_info))

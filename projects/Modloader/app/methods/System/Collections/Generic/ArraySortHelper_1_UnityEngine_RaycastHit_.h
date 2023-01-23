@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaycastHit__Array.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_RaycastHit_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UnityEngine_RaycastHit_ {
     IL2CPP_REGISTER_METHOD(0x02F6CC60, void, Sort_1, (app::RaycastHit__Array * keys, int32_t index, int32_t length, app::IComparer_1_UnityEngine_RaycastHit_* comparer))

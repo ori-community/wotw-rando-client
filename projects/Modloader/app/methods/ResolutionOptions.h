@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ResolutionOptions.h>
+#include <Modloader/app/structs/Resolution.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/List_1_ResolutionOptions_ResolutionEntry_.h>
 
 namespace app::classes::ResolutionOptions {
     IL2CPP_REGISTER_METHOD(0x00905930, void, Awake, (app::ResolutionOptions * this_ptr))

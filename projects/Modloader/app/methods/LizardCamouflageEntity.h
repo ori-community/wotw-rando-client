@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LizardCamouflageEntity.h>
 
 namespace app::classes::LizardCamouflageEntity {
     IL2CPP_REGISTER_METHOD(0x00FA9530, void, OnPoolSpawned, (app::LizardCamouflageEntity * this_ptr))

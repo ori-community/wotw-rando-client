@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonEffectPool_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/MoonEffectGenericRevertibleData_MoonEffectRevertibleData.h>
+#include <Modloader/app/structs/IMoonEffectPool_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleData_.h>
+#include <Modloader/app/structs/MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData.h>
+#include <Modloader/app/structs/IMoonEffectPool_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData_.h>
+#include <Modloader/app/structs/IMoonEffectPool_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleRendererData_.h>
+#include <Modloader/app/structs/MoonEffectGenericRevertibleData_MoonEffectRevertibleRendererData.h>
+#include <Modloader/app/structs/MoonEffectRevertHandle.h>
+#include <Modloader/app/structs/IMoonEffectPool_1_Moon_EffectsFramework_MoonEffectRevertHandle_.h>
 
 namespace app::classes::IMoonEffectPoolExtensions {
     IL2CPP_REGISTER_METHOD(0x0154A080, void, ReturnToPool_1, (app::IMoonEffectPool_1_System_Object_ * pool, app::Object* instance))

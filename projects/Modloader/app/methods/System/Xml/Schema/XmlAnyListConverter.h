@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlAnyListConverter.h>
+#include <Modloader/app/structs/XmlBaseConverter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
 
 namespace app::classes::System::Xml::Schema::XmlAnyListConverter {
     IL2CPP_REGISTER_METHOD(0x0223B440, void, ctor, (app::XmlAnyListConverter * this_ptr, app::XmlBaseConverter* atomic_converter))

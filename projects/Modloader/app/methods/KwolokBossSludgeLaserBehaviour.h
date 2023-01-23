@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossSludgeLaserBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::KwolokBossSludgeLaserBehaviour {
     IL2CPP_REGISTER_METHOD(0x012EA390, bool, get_IsInShootinWindow, (app::KwolokBossSludgeLaserBehaviour * this_ptr))

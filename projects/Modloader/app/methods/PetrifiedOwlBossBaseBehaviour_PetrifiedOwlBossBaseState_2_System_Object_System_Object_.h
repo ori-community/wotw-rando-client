@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseState_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseState_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x01D14C90, void, ctor, (app::PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseState_2_System_Object_System_Object_ * this_ptr, app::PetrifiedOwlBossBaseBehaviour* behaviour))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_BrowserNative_Calltype_zfb_flatColorTexture_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_BrowserNative_Calltype_zfb_flatColorTexture_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_flatColorTexture_DEFINED)
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_flatColorTexture__Fields.h>
+#if defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_flatColorTexture__Fields_DEFINED)
+#define IL2CPP_STRUCT_BrowserNative_Calltype_zfb_flatColorTexture_DEFINED
+struct BrowserNative_Calltype_zfb_flatColorTexture__Class;
+struct BrowserNative_Calltype_zfb_flatColorTexture {
+    struct BrowserNative_Calltype_zfb_flatColorTexture__Class* klass;
+    MonitorData* monitor;
+    struct BrowserNative_Calltype_zfb_flatColorTexture__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_flatColorTexture_FWDDECL)
+#define IL2CPP_STRUCT_BrowserNative_Calltype_zfb_flatColorTexture_FWDDECL
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_flatColorTexture__Class.h>
+#endif
+#undef IL2CPP_STRUCT_BrowserNative_Calltype_zfb_flatColorTexture_INITIALIZING
+#if !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_flatColorTexture_DEFINED) && !defined(IL2CPP_STRUCT_BrowserNative_Calltype_zfb_flatColorTexture_FWDDECL)
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_flatColorTexture.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_flatColorTexture.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

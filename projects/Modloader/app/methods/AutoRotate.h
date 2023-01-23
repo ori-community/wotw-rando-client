@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AutoRotate.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::AutoRotate {
     IL2CPP_REGISTER_METHOD(0x0085CEE0, void, Awake, (app::AutoRotate * this_ptr))

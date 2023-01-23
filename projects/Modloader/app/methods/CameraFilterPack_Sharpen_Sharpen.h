@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Sharpen_Sharpen.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Sharpen_Sharpen {
     IL2CPP_REGISTER_METHOD(0x020E1BF0, app::Material*, get_material, (app::CameraFilterPack_Sharpen_Sharpen * this_ptr))

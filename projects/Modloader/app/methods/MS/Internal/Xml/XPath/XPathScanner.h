@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XPathScanner.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XPathScanner_LexKind__Enum.h>
 
 namespace app::classes::MS::Internal::Xml::XPath::XPathScanner {
     IL2CPP_REGISTER_METHOD(0x021DFD20, void, ctor, (app::XPathScanner * this_ptr, app::String* xpath_expr))

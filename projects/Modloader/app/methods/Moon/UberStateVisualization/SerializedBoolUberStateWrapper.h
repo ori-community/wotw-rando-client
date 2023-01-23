@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SerializedBoolUberStateWrapper.h>
+#include <Modloader/app/structs/ISerializedUberState.h>
+#include <Modloader/app/structs/ControllerInput.h>
 
 namespace app::classes::Moon::UberStateVisualization::SerializedBoolUberStateWrapper {
     IL2CPP_REGISTER_METHOD(0x01999FC0, void, ctor, (app::SerializedBoolUberStateWrapper * this_ptr, app::ISerializedUberState* state))

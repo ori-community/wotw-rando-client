@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CC_Base.h>
+#include <Modloader/app/structs/Material.h>
 
 namespace app::classes::CC_Base {
     IL2CPP_REGISTER_METHOD(0x031922C0, void, Start, (app::CC_Base * this_ptr))

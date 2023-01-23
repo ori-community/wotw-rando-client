@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Playable__Boxed.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::UnityEngine::Playables::Playable {
     IL2CPP_REGISTER_METHOD(0x00120520, void, ctor, (app::Playable__Boxed * this_ptr, app::PlayableHandle handle))

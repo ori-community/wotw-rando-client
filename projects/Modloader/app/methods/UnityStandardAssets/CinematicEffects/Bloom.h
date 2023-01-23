@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/Bloom_1.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::CinematicEffects::Bloom {
     IL2CPP_REGISTER_METHOD(0x02500450, app::Shader*, get_shader, (app::Bloom_1 * this_ptr))

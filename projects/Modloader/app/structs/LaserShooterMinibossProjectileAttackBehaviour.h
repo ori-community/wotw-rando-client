@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_LaserShooterMinibossProjectileAttackBehaviour_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_LaserShooterMinibossProjectileAttackBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LaserShooterMinibossProjectileAttackBehaviour_DEFINED)
+#include <Modloader/app/structs/LaserShooterMinibossProjectileAttackBehaviour__Fields.h>
+#if defined(IL2CPP_STRUCT_LaserShooterMinibossProjectileAttackBehaviour__Fields_DEFINED)
+#define IL2CPP_STRUCT_LaserShooterMinibossProjectileAttackBehaviour_DEFINED
+struct LaserShooterMinibossProjectileAttackBehaviour__Class;
+struct LaserShooterMinibossProjectileAttackBehaviour {
+    struct LaserShooterMinibossProjectileAttackBehaviour__Class* klass;
+    MonitorData* monitor;
+    struct LaserShooterMinibossProjectileAttackBehaviour__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_LaserShooterMinibossProjectileAttackBehaviour_FWDDECL)
+#define IL2CPP_STRUCT_LaserShooterMinibossProjectileAttackBehaviour_FWDDECL
+#include <Modloader/app/structs/LaserShooterMinibossProjectileAttackBehaviour__Class.h>
+#endif
+#undef IL2CPP_STRUCT_LaserShooterMinibossProjectileAttackBehaviour_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LaserShooterMinibossProjectileAttackBehaviour_DEFINED) && !defined(IL2CPP_STRUCT_LaserShooterMinibossProjectileAttackBehaviour_FWDDECL)
+#include <Modloader/app/structs/LaserShooterMinibossProjectileAttackBehaviour.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/LaserShooterMinibossProjectileAttackBehaviour.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

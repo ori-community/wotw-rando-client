@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
+#include <Modloader/app/structs/ERemoteStoragePlatform__Enum.h>
+#include <Modloader/app/structs/UGCFileWriteStreamHandle_t.h>
+#include <Modloader/app/structs/UGCHandle_t.h>
+#include <Modloader/app/structs/AppId_t.h>
+#include <Modloader/app/structs/CSteamID.h>
+#include <Modloader/app/structs/EUGCReadAction__Enum.h>
+#include <Modloader/app/structs/ERemoteStoragePublishedFileVisibility__Enum.h>
+#include <Modloader/app/structs/IList_1_System_String_.h>
+#include <Modloader/app/structs/EWorkshopFileType__Enum.h>
+#include <Modloader/app/structs/PublishedFileUpdateHandle_t.h>
+#include <Modloader/app/structs/PublishedFileId_t.h>
+#include <Modloader/app/structs/EWorkshopVideoProvider__Enum.h>
+#include <Modloader/app/structs/EWorkshopFileAction__Enum.h>
+#include <Modloader/app/structs/EWorkshopEnumerationType__Enum.h>
 
 namespace app::classes::Steamworks::SteamRemoteStorage {
     IL2CPP_REGISTER_METHOD(0x02790310, bool, FileWrite, (app::String * pch_file, app::Byte__Array* pv_data, int32_t cub_data))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MaxEnergyHalfContainerPickup.h>
 
 namespace app::classes::MaxEnergyHalfContainerPickup {
     IL2CPP_REGISTER_METHOD(0x01385BC0, app::GameObject*, get_EffectiveCollectedEffect, (app::MaxEnergyHalfContainerPickup * this_ptr))

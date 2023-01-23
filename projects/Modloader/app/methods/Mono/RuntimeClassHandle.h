@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeClassHandle__Boxed.h>
+#include <Modloader/app/structs/RuntimeStructs_MonoClass.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RuntimeTypeHandle.h>
 
 namespace app::classes::Mono::RuntimeClassHandle {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor_1, (app::RuntimeClassHandle__Boxed * this_ptr, app::RuntimeStructs_MonoClass* value))

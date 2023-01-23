@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataTableCollection.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CollectionChangeEventHandler.h>
+#include <Modloader/app/structs/DataTable__Array.h>
+#include <Modloader/app/structs/List_1_System_Data_DataTable_.h>
+#include <Modloader/app/structs/CollectionChangeEventArgs.h>
 
 namespace app::classes::System::Data::DataTableCollection {
     IL2CPP_REGISTER_METHOD(0x01F3AE00, void, ctor, (app::DataTableCollection * this_ptr, app::DataSet* data_set))

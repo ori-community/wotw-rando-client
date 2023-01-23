@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Condition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::Condition {
     IL2CPP_REGISTER_METHOD(0x01E16610, app::String*, get_Info, (app::Condition * this_ptr))

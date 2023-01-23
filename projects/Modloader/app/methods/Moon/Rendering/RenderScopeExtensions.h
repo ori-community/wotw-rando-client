@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RenderScope__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineViewType__Enum.h>
 
 namespace app::classes::Moon::Rendering::RenderScopeExtensions {
     IL2CPP_REGISTER_METHOD(0x00EB1A50, bool, match, (app::RenderScope__Enum scope, app::MoonRenderPipelineViewType__Enum type))

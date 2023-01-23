@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkAuxSendArray_c.h>
 
 namespace app::classes::AkAuxSendArray___c {
     IL2CPP_REGISTER_METHOD(0x026CAEA0, void, cctor, ())

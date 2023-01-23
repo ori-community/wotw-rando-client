@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArriveBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::ArriveBehaviour {
     IL2CPP_REGISTER_METHOD(0x0133CA10, void, OnExecute, (app::ArriveBehaviour * this_ptr, app::IBlackboard* blackboard))

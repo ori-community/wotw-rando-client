@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SnowBall.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::SnowBall {
     IL2CPP_REGISTER_METHOD(0x00EE2210, void, Awake, (app::SnowBall * this_ptr))

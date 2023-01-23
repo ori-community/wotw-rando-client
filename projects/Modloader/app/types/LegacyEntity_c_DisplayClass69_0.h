@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LegacyEntity_c_DisplayClass69_0__Class.h>
+#include <Modloader/app/structs/LegacyEntity_c_DisplayClass69_0.h>
 
 namespace app::classes::types {
     namespace LegacyEntity_c_DisplayClass69_0 {

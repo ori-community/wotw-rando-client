@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProductInfoHeaderValue.h>
+#include <Modloader/app/structs/ProductHeaderValue.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Net_Http_Headers_ProductInfoHeaderValue_.h>
+#include <Modloader/app/structs/Lexer.h>
 
 namespace app::classes::System::Net::Http::Headers::ProductInfoHeaderValue {
     IL2CPP_REGISTER_METHOD(0x02D13B10, void, ctor_1, (app::ProductInfoHeaderValue * this_ptr, app::ProductHeaderValue* product))

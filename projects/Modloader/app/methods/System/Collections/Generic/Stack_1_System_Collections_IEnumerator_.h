@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_System_Collections_IEnumerator_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_System_Collections_IEnumerator_ {
     IL2CPP_REGISTER_METHOD(0x02CF8030, void, Push, (app::Stack_1_System_Collections_IEnumerator_ * this_ptr, app::IEnumerator* item))

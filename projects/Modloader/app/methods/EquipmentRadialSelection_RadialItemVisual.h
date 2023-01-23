@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/EquipmentRadialSelection_RadialItemVisual.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CleverMenuItem.h>
 
 namespace app::classes::EquipmentRadialSelection_RadialItemVisual {
     IL2CPP_REGISTER_METHOD(0x00971A60, app::Vector3, get_Position, (app::EquipmentRadialSelection_RadialItemVisual * this_ptr))

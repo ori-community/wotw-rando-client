@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaterInteraction.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::WaterInteraction {
     IL2CPP_REGISTER_METHOD(0x008D6C00, void, add_OnWaterZoneEnterAction, (app::WaterInteraction * this_ptr, app::Action* value))

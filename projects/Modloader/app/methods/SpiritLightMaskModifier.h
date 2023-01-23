@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/SpiritLightMaskModifier.h>
 
 namespace app::classes::SpiritLightMaskModifier {
     IL2CPP_REGISTER_METHOD(0x00D62090, app::IEnumerable_1_System_String_*, GetKeywordsForShader, (app::SpiritLightMaskModifier * this_ptr))

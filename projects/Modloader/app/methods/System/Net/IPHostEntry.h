@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IPHostEntry.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/IPAddress__Array.h>
 
 namespace app::classes::System::Net::IPHostEntry {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_HostName, (app::IPHostEntry * this_ptr))

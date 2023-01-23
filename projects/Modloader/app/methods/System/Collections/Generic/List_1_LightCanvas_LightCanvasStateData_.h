@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightCanvas_LightCanvasStateData.h>
+#include <Modloader/app/structs/List_1_LightCanvas_LightCanvasStateData_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_LightCanvas_LightCanvasStateData_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::LightCanvas_LightCanvasStateData*, get_Item, (app::List_1_LightCanvas_LightCanvasStateData_ * this_ptr, int32_t index))

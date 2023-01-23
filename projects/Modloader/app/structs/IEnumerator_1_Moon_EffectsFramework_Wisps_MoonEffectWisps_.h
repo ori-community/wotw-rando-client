@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps__DEFINED)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps__DEFINED
+struct IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps___Class;
+struct IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps_ {
+    struct IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps__FWDDECL)
+#define IL2CPP_STRUCT_IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps__FWDDECL
+#include <Modloader/app/structs/IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps__DEFINED) && !defined(IL2CPP_STRUCT_IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps__FWDDECL)
+#include <Modloader/app/structs/IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IEnumerator_1_Moon_EffectsFramework_Wisps_MoonEffectWisps_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

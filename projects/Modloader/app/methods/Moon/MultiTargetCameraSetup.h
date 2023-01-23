@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MultiTargetCameraSetup.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/CameraTargetSettings.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Rect_.h>
 
 namespace app::classes::Moon::MultiTargetCameraSetup {
     IL2CPP_REGISTER_METHOD(0x00615270, bool, get_IsSuspended, (app::MultiTargetCameraSetup * this_ptr))

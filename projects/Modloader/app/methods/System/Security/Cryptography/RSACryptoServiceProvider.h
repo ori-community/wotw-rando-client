@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RSACryptoServiceProvider.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/HashAlgorithmName.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/RSAEncryptionPadding.h>
+#include <Modloader/app/structs/RSASignaturePadding.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/CspParameters.h>
+#include <Modloader/app/structs/RSAParameters.h>
+#include <Modloader/app/structs/HashAlgorithm.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventArgs.h>
+#include <Modloader/app/structs/CspKeyContainerInfo.h>
 
 namespace app::classes::System::Security::Cryptography::RSACryptoServiceProvider {
     IL2CPP_REGISTER_METHOD(0x028E6670, app::String*, get_SignatureAlgorithm, (app::RSACryptoServiceProvider * this_ptr))

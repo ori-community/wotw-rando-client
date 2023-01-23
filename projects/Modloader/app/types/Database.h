@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Database__Class.h>
+#include <Modloader/app/structs/Database.h>
+#include <Modloader/app/structs/DataBase__Class.h>
+#include <Modloader/app/structs/DataBase.h>
 
 namespace app::classes::types {
     namespace Database {
@@ -18,18 +22,4 @@ namespace app::classes::types {
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
-
-namespace app::classes::types {
-    namespace DataBase {
-        namespace {
-            inline app::DataBase__Class* type_info_ref = nullptr;
-        }
-        inline app::DataBase__Class** type_info = &type_info_ref;
-        inline app::DataBase__Class* get_class() {
-            return il2cpp::get_class<app::DataBase__Class>(type_info, "Moon.Telemetry", "DataBase");
-        }
-        inline app::DataBase* create() {
-            return il2cpp::create_object<app::DataBase>(get_class());
-        }
-    } // namespace DataBase
-} // namespace app::classes::types
+

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Int32_Moon_Timeline_EventHistoryItem_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_Timeline_EventHistoryItem_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Int32_Moon_Timeline_EventHistoryItem_.h>
+#include <Modloader/app/structs/EventHistoryItem__Array.h>
+#include <Modloader/app/structs/EventHistoryItem.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_EventHistoryItem_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_System_Int32_Moon_Timeline_EventHistoryItem_ {
     IL2CPP_REGISTER_METHOD(0x01AE1780, void, ctor, (app::Dictionary_2_TKey_TValue_ValueCollection_System_Int32_Moon_Timeline_EventHistoryItem_ * this_ptr, app::Dictionary_2_System_Int32_Moon_Timeline_EventHistoryItem_* dictionary))

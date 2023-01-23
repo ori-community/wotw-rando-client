@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberWaterTop_CullingCategoryManager__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberWaterTop_CullingCategoryManager__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberWaterTop_CullingCategoryManager__Fields_DEFINED)
+#include <Modloader/app/structs/CullingCategoryManager_1_UberWaterTop___Fields.h>
+#if defined(IL2CPP_STRUCT_CullingCategoryManager_1_UberWaterTop___Fields_DEFINED)
+#define IL2CPP_STRUCT_UberWaterTop_CullingCategoryManager__Fields_DEFINED
+struct UberWaterTop_CullingCategoryManager__Fields {
+    struct CullingCategoryManager_1_UberWaterTop___Fields _;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberWaterTop_CullingCategoryManager__Fields_FWDDECL)
+#define IL2CPP_STRUCT_UberWaterTop_CullingCategoryManager__Fields_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_UberWaterTop_CullingCategoryManager__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberWaterTop_CullingCategoryManager__Fields_DEFINED) && !defined(IL2CPP_STRUCT_UberWaterTop_CullingCategoryManager__Fields_FWDDECL)
+#include <Modloader/app/structs/UberWaterTop_CullingCategoryManager__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberWaterTop_CullingCategoryManager__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

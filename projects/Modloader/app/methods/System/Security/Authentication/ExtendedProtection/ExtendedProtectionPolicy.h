@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExtendedProtectionPolicy.h>
+#include <Modloader/app/structs/PolicyEnforcement__Enum.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/ChannelBinding.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Authentication::ExtendedProtection::ExtendedProtectionPolicy {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::ExtendedProtectionPolicy * this_ptr, app::PolicyEnforcement__Enum policy_enforcement))

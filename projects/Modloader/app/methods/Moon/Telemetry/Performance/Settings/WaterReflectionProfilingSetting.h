@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/WaterReflectionProfilingSetting.h>
+#include <Modloader/app/structs/RenderScope__Enum.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::WaterReflectionProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x005D6E50, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::WaterReflectionProfilingSetting * this_ptr))

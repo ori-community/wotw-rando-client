@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
+#include <Modloader/app/structs/ReflectionObject.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_Newtonsoft_Json_Utilities_ReflectionMember_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/MethodBase.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::ReflectionObject {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::ObjectConstructor_1_System_Object_*, get_Creator, (app::ReflectionObject * this_ptr))

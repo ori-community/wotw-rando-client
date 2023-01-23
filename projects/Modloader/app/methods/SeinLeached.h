@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinLeached.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SeinLeached {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinLeached * this_ptr))

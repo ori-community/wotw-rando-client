@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DelegatedStream.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/Task_1_System_Int32_.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
 
 namespace app::classes::System::Net::DelegatedStream {
     IL2CPP_REGISTER_METHOD(0x01EACA50, void, ctor_1, (app::DelegatedStream * this_ptr))

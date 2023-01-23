@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseProcessor.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/SchemaNames.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlSchemaCompilationSettings.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/XmlSeverityType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaException.h>
 
 namespace app::classes::System::Xml::Schema::BaseProcessor {
     IL2CPP_REGISTER_METHOD(0x019A3F00, void, ctor_1, (app::BaseProcessor * this_ptr, app::XmlNameTable* name_table, app::SchemaNames* schema_names, app::ValidationEventHandler* event_handler))

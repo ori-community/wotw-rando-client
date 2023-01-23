@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerConnection.h>
+#include <Modloader/app/structs/IPlayerEditorConnectionNative.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/UnityAction_1_UnityEngine_Networking_PlayerConnection_MessageEventArgs_.h>
+#include <Modloader/app/structs/UnityAction_1_System_Int32_.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Networking::PlayerConnection::PlayerConnection {
     IL2CPP_REGISTER_METHOD(0x0253D780, void, ctor, (app::PlayerConnection * this_ptr))

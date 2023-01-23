@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HammerComboMoveBase_BalancingData.h>
+#include <Modloader/app/structs/MeleeComboMoveHammerChargeable.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MoveEventType__Enum.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MeleeComboMoveHammerChargeable_State__Enum.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/EffectSpawn.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::MeleeComboMoveHammerChargeable {
     IL2CPP_REGISTER_METHOD(0x006FB810, app::HammerComboMoveBase_BalancingData*, get_BalancingBase, (app::MeleeComboMoveHammerChargeable * this_ptr))

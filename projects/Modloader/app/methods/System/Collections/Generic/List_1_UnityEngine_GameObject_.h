@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/GameObject__Array.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_GameObject_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_UnityEngine_GameObject_ * this_ptr, int32_t capacity))

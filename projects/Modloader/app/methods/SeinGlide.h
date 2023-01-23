@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinGlide.h>
+#include <Modloader/app/structs/CharacterGravity.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/SeinGlidePuppet.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SeinGlide_State__Enum.h>
 
 namespace app::classes::SeinGlide {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinGlide * this_ptr))

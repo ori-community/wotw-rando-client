@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NtlmClient_c.h>
+#include <Modloader/app/structs/NtlmSession.h>
+#include <Modloader/app/structs/HttpWebRequest.h>
 
 namespace app::classes::Mono::Http::NtlmClient___c {
     IL2CPP_REGISTER_METHOD(0x02172AF0, void, cctor, ())

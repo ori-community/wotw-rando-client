@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ArgumentOutOfRangeException.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::ArgumentOutOfRangeException {
     IL2CPP_REGISTER_METHOD(0x022907B0, app::String*, get_RangeMessage, ())

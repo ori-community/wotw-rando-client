@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FPSTestOutput.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/FPSTestResult.h>
 
 namespace app::classes::FPSTestOutput {
     IL2CPP_REGISTER_METHOD(0x0098DE70, void, ctor, (app::FPSTestOutput * this_ptr, app::String* output_file_name))

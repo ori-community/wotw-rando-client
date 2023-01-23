@@ -1,5 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeConverter.h>
+#include <Modloader/app/structs/DataContractAttribute.h>
+#include <Modloader/app/structs/DataMemberAttribute.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/MemberSerialization__Enum.h>
+#include <Modloader/app/structs/JsonConverter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/NamingStrategy.h>
+#include <Modloader/app/structs/JsonContainerAttribute.h>
+#include <Modloader/app/structs/Func_2_Object_Object__1.h>
+#include <Modloader/app/structs/ReflectionDelegateFactory.h>
+#include <Modloader/app/structs/JsonPropertyAttribute.h>
+#include <Modloader/app/structs/JsonRequiredAttribute.h>
+#include <Modloader/app/structs/JsonObjectAttribute.h>
+#include <Modloader/app/structs/JsonIgnoreAttribute.h>
+#include <Modloader/app/structs/JsonExtensionDataAttribute.h>
+#include <Modloader/app/structs/IgnoreDataMemberAttribute.h>
+#include <Modloader/app/structs/DefaultValueAttribute.h>
+#include <Modloader/app/structs/JsonConverterAttribute.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonTypeReflector {
     IL2CPP_REGISTER_METHOD(0x01BF8DD0, bool, CanTypeDescriptorConvertString, (app::Type * type, app::TypeConverter** type_converter))

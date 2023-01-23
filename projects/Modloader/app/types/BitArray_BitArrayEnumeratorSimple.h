@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BitArray_BitArrayEnumeratorSimple__Class.h>
+#include <Modloader/app/structs/BitArray_BitArrayEnumeratorSimple.h>
 
 namespace app::classes::types {
     namespace BitArray_BitArrayEnumeratorSimple {

@@ -1,5 +1,51 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/ValueTuple_2_Action_UberPoolItem_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_String_.h>
+#include <Modloader/app/structs/Predicate_1_ValueTuple_2_Int32_String_.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__1.h>
+#include <Modloader/app/structs/ValueTuple_2_String_Single_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__1.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__3.h>
+#include <Modloader/app/structs/IEnumerable_1_System_ValueTuple_2__4.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/IComparer_1_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Object___Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/Action_1_ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__3.h>
+#include <Modloader/app/structs/IEnumerator_1_System_ValueTuple_2__7.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__4.h>
+#include <Modloader/app/structs/IEnumerable_1_System_ValueTuple_2__5.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_ValueTuple_2__1.h>
+#include <Modloader/app/structs/IComparer_1_System_ValueTuple_2__1.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Object___Array.h>
+#include <Modloader/app/structs/Predicate_1_ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/Action_1_ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__4.h>
+#include <Modloader/app/structs/IEnumerator_1_System_ValueTuple_2__8.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__5.h>
+#include <Modloader/app/structs/IEnumerable_1_System_ValueTuple_2__6.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Single_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/IComparer_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Single___Array.h>
+#include <Modloader/app/structs/Predicate_1_ValueTuple_2_Object_Single_.h>
+#include <Modloader/app/structs/Action_1_ValueTuple_2_Object_Single_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__5.h>
+#include <Modloader/app/structs/IEnumerator_1_System_ValueTuple_2__9.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Object_Single_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_ValueTuple_2_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count_1, (app::List_1_System_ValueTuple_2_ * this_ptr))

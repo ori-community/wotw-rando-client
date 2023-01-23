@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeekerSlugShootingState.h>
+#include <Modloader/app/structs/SlugEnemy.h>
+#include <Modloader/app/structs/SlugDirectionalAnimation.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SoundSource.h>
 
 namespace app::classes::SeekerSlugShootingState {
     IL2CPP_REGISTER_METHOD(0x0106C6F0, void, ctor, (app::SeekerSlugShootingState * this_ptr, app::SlugEnemy* slug, app::SlugDirectionalAnimation* animation, app::GameObject* spike_prefab, app::SoundSource* shooting_sound))

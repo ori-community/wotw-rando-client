@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyNotFoundException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Collections::Generic::KeyNotFoundException {
     IL2CPP_REGISTER_METHOD(0x02022640, void, ctor_1, (app::KeyNotFoundException * this_ptr))

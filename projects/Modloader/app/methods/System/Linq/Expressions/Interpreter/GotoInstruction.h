@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GotoInstruction.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::GotoInstruction {
     IL2CPP_REGISTER_METHOD(0x022E63D0, app::String*, get_InstructionName, (app::GotoInstruction * this_ptr))

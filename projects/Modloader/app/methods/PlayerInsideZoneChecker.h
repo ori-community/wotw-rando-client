@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerInsideZoneChecker.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::PlayerInsideZoneChecker {
     IL2CPP_REGISTER_METHOD(0x014270D0, bool, get_IsInside, (app::PlayerInsideZoneChecker * this_ptr))

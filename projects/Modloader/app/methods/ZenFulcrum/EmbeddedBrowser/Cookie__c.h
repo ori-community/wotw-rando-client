@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Cookie_c.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Cookie___c {
     IL2CPP_REGISTER_METHOD(0x01DD09D0, void, cctor, ())

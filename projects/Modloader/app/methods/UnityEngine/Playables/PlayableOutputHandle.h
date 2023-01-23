@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayableOutputHandle.h>
+#include <Modloader/app/structs/PlayableOutputHandle__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/PlayableHandle.h>
 
 namespace app::classes::UnityEngine::Playables::PlayableOutputHandle {
     IL2CPP_REGISTER_METHOD(0x02966B30, app::PlayableOutputHandle, get_Null, ())

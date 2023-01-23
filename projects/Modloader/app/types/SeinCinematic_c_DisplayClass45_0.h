@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinCinematic_c_DisplayClass45_0__Class.h>
+#include <Modloader/app/structs/SeinCinematic_c_DisplayClass45_0.h>
 
 namespace app::classes::types {
     namespace SeinCinematic_c_DisplayClass45_0 {

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CryptoAPITransform.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::CryptoAPITransform {
     IL2CPP_REGISTER_METHOD(0x00531660, void, ctor, (app::CryptoAPITransform * this_ptr))

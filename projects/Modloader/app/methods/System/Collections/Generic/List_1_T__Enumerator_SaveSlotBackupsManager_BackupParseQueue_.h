@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SaveSlotBackupsManager_BackupParseQueue.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue___Boxed.h>
+#include <Modloader/app/structs/List_1_SaveSlotBackupsManager_BackupParseQueue_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_SaveSlotBackupsManager_BackupParseQueue_ {
     IL2CPP_REGISTER_METHOD(0x00136440, app::SaveSlotBackupsManager_BackupParseQueue, get_Current, (app::List_1_T_Enumerator_SaveSlotBackupsManager_BackupParseQueue___Boxed * this_ptr))

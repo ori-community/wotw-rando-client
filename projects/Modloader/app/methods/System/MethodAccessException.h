@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MethodAccessException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::MethodAccessException {
     IL2CPP_REGISTER_METHOD(0x0226A010, void, ctor_1, (app::MethodAccessException * this_ptr))

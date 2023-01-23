@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaSimpleContentExtension.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlSchemaAnyAttribute.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaSimpleContentExtension {
     IL2CPP_REGISTER_METHOD(0x002FBB80, app::XmlQualifiedName*, get_BaseTypeName, (app::XmlSchemaSimpleContentExtension * this_ptr))

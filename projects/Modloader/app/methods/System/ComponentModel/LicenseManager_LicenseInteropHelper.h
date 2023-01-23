@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RuntimeTypeHandle.h>
+#include <Modloader/app/structs/void.h>
+#include <Modloader/app/structs/LicenseManager_LicenseInteropHelper.h>
 
 namespace app::classes::System::ComponentModel::LicenseManager_LicenseInteropHelper {
     IL2CPP_REGISTER_METHOD(0x01FF34B0, app::Object*, AllocateAndValidateLicense, (app::RuntimeTypeHandle rth, void* bstr_key, int32_t f_design_time))

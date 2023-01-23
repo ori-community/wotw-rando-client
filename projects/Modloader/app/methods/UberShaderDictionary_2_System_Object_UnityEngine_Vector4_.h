@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderDictionary_2_System_Object_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Object_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_System_Object_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UberShaderDictionary_2_System_Object_UnityEngine_Vector4_ {
     IL2CPP_REGISTER_METHOD(0x02262820, void, OnBeforeSerialize, (app::UberShaderDictionary_2_System_Object_UnityEngine_Vector4_ * this_ptr))

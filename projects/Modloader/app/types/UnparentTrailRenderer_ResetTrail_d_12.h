@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UnparentTrailRenderer_ResetTrail_d_12__Class.h>
+#include <Modloader/app/structs/UnparentTrailRenderer_ResetTrail_d_12.h>
 
 namespace app::classes::types {
     namespace UnparentTrailRenderer_ResetTrail_d_12 {

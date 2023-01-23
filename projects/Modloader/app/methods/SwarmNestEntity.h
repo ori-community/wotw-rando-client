@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwarmNestEntity.h>
+#include <Modloader/app/structs/SwarmEntity.h>
 
 namespace app::classes::SwarmNestEntity {
     IL2CPP_REGISTER_METHOD(0x002FBB90, void, BindSwarm, (app::SwarmNestEntity * this_ptr, app::SwarmEntity* swarm))

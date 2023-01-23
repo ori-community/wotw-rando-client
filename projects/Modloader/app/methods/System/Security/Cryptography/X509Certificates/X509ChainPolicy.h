@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509ChainPolicy.h>
+#include <Modloader/app/structs/X509CertificateCollection_1.h>
+#include <Modloader/app/structs/X509Certificate2Collection.h>
+#include <Modloader/app/structs/X509RevocationFlag__Enum.h>
+#include <Modloader/app/structs/X509RevocationMode__Enum.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/X509VerificationFlags__Enum.h>
+#include <Modloader/app/structs/DateTime.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::X509ChainPolicy {
     IL2CPP_REGISTER_METHOD(0x021D3F90, void, ctor_1, (app::X509ChainPolicy * this_ptr))

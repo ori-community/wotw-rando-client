@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GraphicRaycaster.h>
+#include <Modloader/app/structs/GraphicRaycaster_BlockingObjects__Enum.h>
+#include <Modloader/app/structs/Canvas.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/List_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/IList_1_UnityEngine_UI_Graphic_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UI_Graphic_.h>
+#include <Modloader/app/structs/Graphic.h>
 
 namespace app::classes::UnityEngine::UI::GraphicRaycaster {
     IL2CPP_REGISTER_METHOD(0x024B1F60, void, ctor, (app::GraphicRaycaster * this_ptr))

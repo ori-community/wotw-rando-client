@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IInteractionActor.h>
+#include <Modloader/app/structs/InteractionNode.h>
+#include <Modloader/app/structs/Action_1_IContext_.h>
+#include <Modloader/app/structs/List_1_Moon_InteractionGraph_IInteractionTransition_.h>
+#include <Modloader/app/structs/List_1_Moon_InteractionGraph_IInteractionNodeDecorator_.h>
+#include <Modloader/app/structs/InteractionNodeStatus__Enum.h>
+#include <Modloader/app/structs/InteractionSettings.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::InteractionGraph::InteractionNode {
     IL2CPP_REGISTER_METHOD(0x0198ECE0, app::IInteractionActor*, get_Actor, (app::InteractionNode * this_ptr))

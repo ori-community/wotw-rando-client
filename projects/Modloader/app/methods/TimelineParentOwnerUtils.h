@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/VirtualClipsBuilder.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/TimelineParentOwnerUtils.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_Boolean_.h>
+#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_MoonTimeline_.h>
+#include <Modloader/app/structs/Func_2_Moon_Timeline_MoonTimeline_Boolean_.h>
+#include <Modloader/app/structs/List_1_IVirtualTimelineGameObject_.h>
+#include <Modloader/app/structs/Func_2_IVirtualTimelineGameObject_Boolean_.h>
 
 namespace app::classes::TimelineParentOwnerUtils {
     IL2CPP_REGISTER_METHOD(0x01E947F0, void, AddChildrenTimelines, (app::GameObject * source, app::VirtualClipsBuilder* builder, bool add_state_requirements))

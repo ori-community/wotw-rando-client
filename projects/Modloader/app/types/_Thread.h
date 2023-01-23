@@ -2,6 +2,7 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/_Thread__Class.h>
 
 namespace app::classes::types {
     namespace _Thread {

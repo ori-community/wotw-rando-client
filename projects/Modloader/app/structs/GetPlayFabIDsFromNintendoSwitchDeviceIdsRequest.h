@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest_DEFINED)
+#include <Modloader/app/structs/GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest__Fields.h>
+#if defined(IL2CPP_STRUCT_GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest__Fields_DEFINED)
+#define IL2CPP_STRUCT_GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest_DEFINED
+struct GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest__Class;
+struct GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest {
+    struct GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest__Class* klass;
+    MonitorData* monitor;
+    struct GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest_FWDDECL)
+#define IL2CPP_STRUCT_GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest_FWDDECL
+#include <Modloader/app/structs/GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest_DEFINED) && !defined(IL2CPP_STRUCT_GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest_FWDDECL)
+#include <Modloader/app/structs/GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GetPlayFabIDsFromNintendoSwitchDeviceIdsRequest.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

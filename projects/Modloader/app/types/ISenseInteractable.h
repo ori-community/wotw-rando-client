@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ISenseInteractable__Class.h>
+#include <Modloader/app/structs/ISenseInteractable__Array.h>
+#include <Modloader/app/structs/ISenseInteractable.h>
 
 namespace app::classes::types {
     namespace ISenseInteractable {

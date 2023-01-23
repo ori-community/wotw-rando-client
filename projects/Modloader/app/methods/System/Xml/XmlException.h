@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlException.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/IXmlLineInfo.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::XmlException {
     IL2CPP_REGISTER_METHOD(0x01DB7C90, void, ctor_1, (app::XmlException * this_ptr, app::SerializationInfo* info, app::StreamingContext context))

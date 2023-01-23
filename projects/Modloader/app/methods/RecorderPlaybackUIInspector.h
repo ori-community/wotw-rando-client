@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecorderPlaybackUIInspector.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/AbilitiesData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RecorderPlaybackUIInspector {
     IL2CPP_REGISTER_METHOD(0x008F7CD0, void, PlayCycle, (app::RecorderPlaybackUIInspector * this_ptr, int32_t frame))

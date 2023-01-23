@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WormHole.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::WormHole {
     IL2CPP_REGISTER_METHOD(0x0058DF50, void, Start, (app::WormHole * this_ptr))

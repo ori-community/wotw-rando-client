@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PerfTestTimer_TestData.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimeSpan.h>
 
 namespace app::classes::HierarchyPerfTest::PerfTestTimer_TestData {
     IL2CPP_REGISTER_METHOD(0x01974EF0, void, ctor, (app::PerfTestTimer_TestData * this_ptr))

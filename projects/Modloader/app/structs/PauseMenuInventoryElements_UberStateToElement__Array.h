@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PauseMenuInventoryElements_UberStateToElement__Array_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PauseMenuInventoryElements_UberStateToElement__Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PauseMenuInventoryElements_UberStateToElement__Array_DEFINED)
+#include <Modloader/app/structs/PauseMenuInventoryElements_UberStateToElement.h>
+#if defined(IL2CPP_STRUCT_PauseMenuInventoryElements_UberStateToElement_DEFINED)
+#define IL2CPP_STRUCT_PauseMenuInventoryElements_UberStateToElement__Array_DEFINED
+struct PauseMenuInventoryElements_UberStateToElement__Array__Class;
+struct PauseMenuInventoryElements_UberStateToElement__Array {
+    struct PauseMenuInventoryElements_UberStateToElement__Array__Class* klass;
+    MonitorData* monitor;
+    Il2CppArrayBounds* bounds;
+    il2cpp_array_size_t max_length;
+    struct PauseMenuInventoryElements_UberStateToElement vector[32];
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PauseMenuInventoryElements_UberStateToElement__Array_FWDDECL)
+#define IL2CPP_STRUCT_PauseMenuInventoryElements_UberStateToElement__Array_FWDDECL
+#include <Modloader/app/structs/PauseMenuInventoryElements_UberStateToElement__Array__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PauseMenuInventoryElements_UberStateToElement__Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PauseMenuInventoryElements_UberStateToElement__Array_DEFINED) && !defined(IL2CPP_STRUCT_PauseMenuInventoryElements_UberStateToElement__Array_FWDDECL)
+#include <Modloader/app/structs/PauseMenuInventoryElements_UberStateToElement__Array.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PauseMenuInventoryElements_UberStateToElement__Array.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneLoadingTest_Execute_d_19__Boxed.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::Moon::SceneLoadingTest__Execute_d__19 {
     IL2CPP_REGISTER_METHOD(0x00120540, void, MoveNext, (app::SceneLoadingTest_Execute_d_19__Boxed * this_ptr))

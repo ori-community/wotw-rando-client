@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InflateBlocks.h>
+#include <Modloader/app/structs/ZlibCodec.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Ionic::Zlib::InflateBlocks {
     IL2CPP_REGISTER_METHOD(0x0306FF50, void, ctor, (app::InflateBlocks * this_ptr, app::ZlibCodec* codec, app::Object* checkfn, int32_t w))

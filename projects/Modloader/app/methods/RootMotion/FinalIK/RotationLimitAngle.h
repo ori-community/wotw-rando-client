@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RotationLimitAngle.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::RootMotion::FinalIK::RotationLimitAngle {
     IL2CPP_REGISTER_METHOD(0x02A21000, void, OpenUserManual, (app::RotationLimitAngle * this_ptr))

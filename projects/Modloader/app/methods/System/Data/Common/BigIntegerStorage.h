@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BigIntegerStorage.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/AggregateType__Enum.h>
+#include <Modloader/app/structs/BigInteger_2.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BitArray.h>
 
 namespace app::classes::System::Data::Common::BigIntegerStorage {
     IL2CPP_REGISTER_METHOD(0x02154A20, void, ctor, (app::BigIntegerStorage * this_ptr, app::DataColumn* column))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_CrossSceneReferenceImportData_.h>
+#include <Modloader/app/structs/CrossSceneReferenceImportRegistry.h>
 
 namespace app::classes::Moon::CrossSceneReferenceImportRegistry {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::List_1_Moon_CrossSceneReferenceImportData_*, get_ImportedObjects, (app::CrossSceneReferenceImportRegistry * this_ptr))

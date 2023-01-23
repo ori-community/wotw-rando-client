@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlSqlBinaryReader_QName__Class.h>
+#include <Modloader/app/structs/XmlSqlBinaryReader_QName.h>
+#include <Modloader/app/structs/XmlSqlBinaryReader_QName__Boxed.h>
+#include <Modloader/app/structs/XmlSqlBinaryReader_QName__Array.h>
 
 namespace app::classes::types {
     namespace XmlSqlBinaryReader_QName {

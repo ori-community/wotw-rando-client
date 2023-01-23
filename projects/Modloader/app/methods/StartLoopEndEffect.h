@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StartLoopEndEffect.h>
+#include <Modloader/app/structs/StartLoopEndEffect_State__Enum.h>
 
 namespace app::classes::StartLoopEndEffect {
     IL2CPP_REGISTER_METHOD(0x009B19A0, void, OnEnable, (app::StartLoopEndEffect * this_ptr))

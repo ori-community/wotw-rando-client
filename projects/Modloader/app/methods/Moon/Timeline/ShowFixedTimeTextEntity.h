@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowFixedTimeTextEntity.h>
+#include <Modloader/app/structs/Action_1_MessageBox_HideAction_.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/MessageControllerB_NpcMessageStyle__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/TextBox.h>
+#include <Modloader/app/structs/ShowFixedTimeTextEntity_TextVisuals.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::ShowFixedTimeTextEntity {
     IL2CPP_REGISTER_METHOD(0x00785D10, void, ResetStatics, ())

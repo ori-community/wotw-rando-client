@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ClassMap.h>
+#include <Modloader/app/structs/XmlTypeMapMember.h>
+#include <Modloader/app/structs/XmlTypeMapMemberExpandable.h>
+#include <Modloader/app/structs/XmlTypeMapMemberAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlTypeMapElementInfo.h>
+#include <Modloader/app/structs/XmlTypeMapMemberAnyElement.h>
+#include <Modloader/app/structs/XmlTypeMapMemberAnyAttribute.h>
+#include <Modloader/app/structs/XmlTypeMapMemberNamespaces.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
 
 namespace app::classes::System::Xml::Serialization::ClassMap {
     IL2CPP_REGISTER_METHOD(0x01C8AE50, void, AddMember, (app::ClassMap * this_ptr, app::XmlTypeMapMember* member))

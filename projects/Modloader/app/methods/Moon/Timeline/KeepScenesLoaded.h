@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeepScenesLoaded.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::Moon::Timeline::KeepScenesLoaded {
     IL2CPP_REGISTER_METHOD(0x00772AB0, void, OnEnable, (app::KeepScenesLoaded * this_ptr))

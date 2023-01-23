@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNodeList.h>
+#include <Modloader/app/structs/XmlAttributeCollection.h>
+#include <Modloader/app/structs/XmlLinkedNode.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
+#include <Modloader/app/structs/XmlNodeChangedEventArgs.h>
+#include <Modloader/app/structs/XmlNodeChangedAction__Enum.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
 
 namespace app::classes::System::Xml::XmlNode {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::XmlNode * this_ptr))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LoremasterScreen.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/LoremasterUISlot.h>
+#include <Modloader/app/structs/ReplaySetting__Array.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::LoremasterScreen {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanInterruptTab, (app::LoremasterScreen * this_ptr))

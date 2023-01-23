@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Comparer_1_KeyValuePair_2_System_Guid_System_Int32_.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__6.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Comparer_1_KeyValuePair_2_System_Guid_System_Int32__ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::Comparer_1_KeyValuePair_2_System_Guid_System_Int32_*, get_Default, ())

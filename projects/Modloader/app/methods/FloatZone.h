@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FloatZone.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::FloatZone {
     IL2CPP_REGISTER_METHOD(0x01271F20, void, Awake, (app::FloatZone * this_ptr))

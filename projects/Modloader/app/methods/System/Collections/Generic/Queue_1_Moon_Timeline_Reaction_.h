@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_Moon_Timeline_Reaction_.h>
+#include <Modloader/app/structs/Reaction.h>
+#include <Modloader/app/structs/Queue_1_T_Enumerator_Moon_Timeline_Reaction_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_Reaction_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Reaction__Array.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_Moon_Timeline_Reaction_ {
     IL2CPP_REGISTER_METHOD(0x02CA44B0, void, Enqueue, (app::Queue_1_Moon_Timeline_Reaction_ * this_ptr, app::Reaction item))

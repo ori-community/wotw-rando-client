@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/UberGhostTrail.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/Color32__Array.h>
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate_Quad__Array.h>
+#include <Modloader/app/structs/Boolean__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
 
 namespace app::classes::UberGhostTrailMeshUpdate {
     IL2CPP_REGISTER_METHOD(0x002FBC60, app::Mesh*, get_TrailMesh, (app::UberGhostTrailMeshUpdate * this_ptr))

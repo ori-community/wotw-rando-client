@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationCurve.h>
 
 namespace app::classes::AnimationCurveStaticFunction {
     IL2CPP_REGISTER_METHOD(0x004FC620, float, CurveDuration, (app::AnimationCurve * curve))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TitleScreenPressStartLogic.h>
 
 namespace app::classes::TitleScreenPressStartLogic {
     IL2CPP_REGISTER_METHOD(0x004C15C0, void, OnEnable, (app::TitleScreenPressStartLogic * this_ptr))

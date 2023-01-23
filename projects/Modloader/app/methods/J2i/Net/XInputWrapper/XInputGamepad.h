@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XInputGamepad__Boxed.h>
+#include <Modloader/app/structs/XInputGamepad.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::J2i::Net::XInputWrapper::XInputGamepad {
     IL2CPP_REGISTER_METHOD(0x0024B610, bool, IsButtonPressed, (app::XInputGamepad__Boxed * this_ptr, int32_t button_flags))

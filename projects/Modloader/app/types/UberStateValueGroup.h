@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberStateValueGroup__Class.h>
+#include <Modloader/app/structs/UberStateValueGroup.h>
+#include <Modloader/app/structs/UberStateValueGroup__Array.h>
 
 namespace app::classes::types {
     namespace UberStateValueGroup {

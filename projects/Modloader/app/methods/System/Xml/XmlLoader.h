@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlLoader.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlAttribute.h>
+#include <Modloader/app/structs/XmlEntityReference.h>
+#include <Modloader/app/structs/XmlDeclaration.h>
+#include <Modloader/app/structs/XmlDocumentType.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/IDtdInfo.h>
+#include <Modloader/app/structs/XmlParserContext.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/XmlEntity.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Xml::XmlLoader {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::XmlLoader * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NullableMethodCallInstruction_GetValueOrDefault.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::NullableMethodCallInstruction_GetValueOrDefault {
     IL2CPP_REGISTER_METHOD(0x02408530, void, ctor, (app::NullableMethodCallInstruction_GetValueOrDefault * this_ptr, app::MethodInfo_1* mi))

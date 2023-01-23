@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IRenderPipeline.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
+#include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_XboxResolution__Enum.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_ClearSceneRT__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_DofBlurType__Enum.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderPipelineAsset {
     IL2CPP_REGISTER_METHOD(0x007929C0, app::IRenderPipeline*, InternalCreatePipeline, (app::MoonRenderPipelineAsset * this_ptr))

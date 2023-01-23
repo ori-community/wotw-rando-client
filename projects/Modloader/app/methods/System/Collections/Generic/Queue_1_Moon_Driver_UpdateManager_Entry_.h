@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_Moon_Driver_UpdateManager_Entry_.h>
+#include <Modloader/app/structs/UpdateManager_Entry.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_Moon_Driver_UpdateManager_Entry_ {
     IL2CPP_REGISTER_METHOD(0x02CA7080, void, ctor, (app::Queue_1_Moon_Driver_UpdateManager_Entry_ * this_ptr, int32_t capacity))

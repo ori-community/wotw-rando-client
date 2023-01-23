@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ErrorContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::ErrorContext {
     IL2CPP_REGISTER_METHOD(0x0186BD10, void, ctor, (app::ErrorContext * this_ptr, app::Object* original_object, app::Object* member, app::String* path, app::Exception* error))

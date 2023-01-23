@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShrineCombat.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/PassiveSetupInfo_State__Enum.h>
+#include <Modloader/app/structs/Func_2_ShrineCombat_WaveProgressMarker_Boolean_.h>
+#include <Modloader/app/structs/ShrineCombat_WaveProgressMarker.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ShrineCombat {
     IL2CPP_REGISTER_METHOD(0x00739A80, bool, get_IsSuspended, (app::ShrineCombat * this_ptr))

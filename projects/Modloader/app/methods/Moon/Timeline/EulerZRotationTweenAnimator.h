@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/EulerZRotationTweenAnimator.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::EulerZRotationTweenAnimator {
     IL2CPP_REGISTER_METHOD(0x002FBC20, app::Transform*, get_TransformTarget, (app::EulerZRotationTweenAnimator * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DefaultJsonNameTable.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::Newtonsoft::Json::DefaultJsonNameTable {
     IL2CPP_REGISTER_METHOD(0x01A63F40, void, cctor, ())

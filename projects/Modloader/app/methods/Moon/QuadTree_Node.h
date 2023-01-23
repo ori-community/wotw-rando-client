@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QuadTree_Node.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/IRectProvider.h>
 
 namespace app::classes::Moon::QuadTree_Node {
     IL2CPP_REGISTER_METHOD(0x01996640, void, ctor_1, (app::QuadTree_Node * this_ptr, app::Rect rect, int32_t depth))

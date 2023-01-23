@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Text_RegularExpressions_RegexCharClass_LowerCaseMapping_.h>
+#include <Modloader/app/structs/RegexCharClass_LowerCaseMapping.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_System_Text_RegularExpressions_RegexCharClass_LowerCaseMapping_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose, (app::Array_EmptyInternalEnumerator_1_System_Text_RegularExpressions_RegexCharClass_LowerCaseMapping_ * this_ptr))

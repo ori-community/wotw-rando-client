@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TerrainData_1.h>
+#include <Modloader/app/structs/TerrainData_BoundaryValueType__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::TerrainData {
     IL2CPP_REGISTER_METHOD(0x0319A460, void, ctor, (app::TerrainData_1 * this_ptr))

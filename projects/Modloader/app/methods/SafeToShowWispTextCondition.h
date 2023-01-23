@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SafeToShowWispTextCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SafeToShowWispTextCondition {
     IL2CPP_REGISTER_METHOD(0x00C07E40, bool, Validate, (app::SafeToShowWispTextCondition * this_ptr, app::IContext* context))

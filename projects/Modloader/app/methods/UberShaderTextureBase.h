@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderTextureBase.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberShaderBlock.h>
 
 namespace app::classes::UberShaderTextureBase {
     IL2CPP_REGISTER_METHOD(0x012885A0, bool, get_IsTransformed, (app::UberShaderTextureBase * this_ptr))

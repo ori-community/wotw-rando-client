@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PauseMenuInventoryElements.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
 
 namespace app::classes::PauseMenuInventoryElements {
     IL2CPP_REGISTER_METHOD(0x0044A0F0, void, Setup, (app::PauseMenuInventoryElements * this_ptr))

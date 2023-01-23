@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SnakeSolver_JointEntry__Class.h>
+#include <Modloader/app/structs/SnakeSolver_JointEntry.h>
+#include <Modloader/app/structs/SnakeSolver_JointEntry__Array.h>
 
 namespace app::classes::types {
     namespace SnakeSolver_JointEntry {

@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/AkWwiseInitializationSettings_WwiseOverrideSettings.h>
+#include <Modloader/app/structs/AkWwiseInitializationSettings_WwiseOutputDeviceOverrideSettings.h>
+#include <Modloader/app/structs/GameParameters.h>
+#include <Modloader/app/structs/ReplayValidatorData.h>
+#include <Modloader/app/structs/NameOptions_NameDatabase.h>
+#include <Modloader/app/structs/RuntimeBuildInformation.h>
+#include <Modloader/app/structs/XAchievements.h>
+#include <Modloader/app/structs/UberPoolPerfTest_Settings.h>
+#include <Modloader/app/structs/SwitchController_VibrationData.h>
 
 namespace app::classes::UnityEngine::JsonUtility {
     IL2CPP_REGISTER_METHOD(0x031C2D00, app::String*, ToJsonInternal, (app::Object * obj, bool pretty_print))

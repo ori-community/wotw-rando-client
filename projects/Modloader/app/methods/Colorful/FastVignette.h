@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FastVignette.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::FastVignette {
     IL2CPP_REGISTER_METHOD(0x030435A0, void, OnRenderImage, (app::FastVignette * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

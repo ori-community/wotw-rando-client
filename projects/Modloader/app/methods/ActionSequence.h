@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActionSequence.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/ActionMethod.h>
+#include <Modloader/app/structs/List_1_ActionMethod_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::ActionSequence {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_IsRunning, (app::ActionSequence * this_ptr))

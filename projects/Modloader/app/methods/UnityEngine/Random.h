@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::UnityEngine::Random {
     IL2CPP_REGISTER_METHOD(0x0296D100, float, Range_1, (float min, float max))

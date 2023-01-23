@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpherecastCommand__Boxed.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/JobHandle.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_SpherecastCommand_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/JobsUtility_JobScheduleParameters.h>
+#include <Modloader/app/structs/Void.h>
 
 namespace app::classes::UnityEngine::SpherecastCommand {
     IL2CPP_REGISTER_METHOD(0x00244720, void, ctor, (app::SpherecastCommand__Boxed * this_ptr, app::Vector3 origin, float radius, app::Vector3 direction, float distance, int32_t layer_mask))

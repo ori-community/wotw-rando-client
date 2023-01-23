@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Bootstring.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Globalization::Bootstring {
     IL2CPP_REGISTER_METHOD(0x01A1D930, void, ctor, (app::Bootstring * this_ptr, uint16_t delimiter, int32_t base_num, int32_t tmin, int32_t tmax, int32_t skew, int32_t damp, int32_t initial_bias, int32_t initial_n))

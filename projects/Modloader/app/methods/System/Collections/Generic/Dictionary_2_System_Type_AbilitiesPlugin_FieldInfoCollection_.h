@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Type_AbilitiesPlugin_FieldInfoCollection_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/AbilitiesPlugin_FieldInfoCollection.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Type_AbilitiesPlugin_FieldInfoCollection_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_System_Type_AbilitiesPlugin_FieldInfoCollection_ * this_ptr, app::Type* key))

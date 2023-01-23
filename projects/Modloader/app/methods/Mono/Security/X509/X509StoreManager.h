@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509StoreManager.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/X509Stores.h>
+#include <Modloader/app/structs/X509CertificateCollection_2.h>
+#include <Modloader/app/structs/ArrayList.h>
 
 namespace app::classes::Mono::Security::X509::X509StoreManager {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::X509StoreManager * this_ptr))

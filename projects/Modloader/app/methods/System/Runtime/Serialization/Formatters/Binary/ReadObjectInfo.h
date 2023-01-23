@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadObjectInfo.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ISurrogateSelector.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/ObjectManager.h>
+#include <Modloader/app/structs/SerObjectInfoInit.h>
+#include <Modloader/app/structs/IFormatterConverter.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::ReadObjectInfo {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ReadObjectInfo * this_ptr))

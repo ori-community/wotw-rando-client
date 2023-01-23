@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rectangle.h>
+#include <Modloader/app/structs/Mesh_1.h>
+#include <Modloader/app/structs/ICollection_1_TriangleNet_Geometry_Vertex_.h>
+#include <Modloader/app/structs/IList_1_TriangleNet_Geometry_Point_.h>
+#include <Modloader/app/structs/ICollection_1_TriangleNet_Topology_Triangle_.h>
+#include <Modloader/app/structs/ICollection_1_TriangleNet_Topology_SubSegment_.h>
+#include <Modloader/app/structs/IEnumerable_1_TriangleNet_Geometry_Edge_.h>
+#include <Modloader/app/structs/NodeNumbering__Enum.h>
+#include <Modloader/app/structs/Configuration_1.h>
+#include <Modloader/app/structs/QualityOptions.h>
+#include <Modloader/app/structs/QualityMesher.h>
+#include <Modloader/app/structs/IList_1_TriangleNet_Geometry_Vertex_.h>
+#include <Modloader/app/structs/Otri.h>
+#include <Modloader/app/structs/Osub.h>
+#include <Modloader/app/structs/InsertVertexResult__Enum.h>
+#include <Modloader/app/structs/Vertex.h>
+#include <Modloader/app/structs/Triangle.h>
+#include <Modloader/app/structs/SubSegment.h>
 
 namespace app::classes::TriangleNet::Mesh {
     IL2CPP_REGISTER_METHOD(0x002FBBA0, app::Rectangle*, get_Bounds, (app::Mesh_1 * this_ptr))

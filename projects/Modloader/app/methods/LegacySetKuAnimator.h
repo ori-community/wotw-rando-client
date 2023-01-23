@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacySetKuAnimator.h>
 
 namespace app::classes::LegacySetKuAnimator {
     IL2CPP_REGISTER_METHOD(0x0061E2F0, bool, get_IsLooping, (app::LegacySetKuAnimator * this_ptr))

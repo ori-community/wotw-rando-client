@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Linq_Set_1_Slot_.h>
+#include <Modloader/app/structs/Set_1_TElement_Slot_System_Char_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Linq_Set_1_Slot__1.h>
+#include <Modloader/app/structs/Set_1_TElement_Slot_System_Object_.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_System_Linq_Set_1_Slot_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose_1, (app::Array_EmptyInternalEnumerator_1_System_Linq_Set_1_Slot_ * this_ptr))

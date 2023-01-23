@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterController3rdPerson.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::Demos::CharacterController3rdPerson {
     IL2CPP_REGISTER_METHOD(0x02211BC0, void, Start, (app::CharacterController3rdPerson * this_ptr))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlDocumentFragment.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlLinkedNode.h>
+#include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::XmlDocumentFragment {
     IL2CPP_REGISTER_METHOD(0x01DAAEE0, void, ctor, (app::XmlDocumentFragment * this_ptr, app::XmlDocument* owner_document))

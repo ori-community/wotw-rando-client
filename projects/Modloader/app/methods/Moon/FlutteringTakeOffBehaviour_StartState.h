@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FlutteringTakeOffBehaviour_StartState.h>
+#include <Modloader/app/structs/FlutteringTakeOffBehaviour.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::FlutteringTakeOffBehaviour_StartState {
     IL2CPP_REGISTER_METHOD(0x01488500, void, ctor, (app::FlutteringTakeOffBehaviour_StartState * this_ptr, app::FlutteringTakeOffBehaviour* behaviour))

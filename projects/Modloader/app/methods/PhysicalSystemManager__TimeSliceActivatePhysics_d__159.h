@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicalSystemManager_TimeSliceActivatePhysics_d_159.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::PhysicalSystemManager__TimeSliceActivatePhysics_d__159 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::PhysicalSystemManager_TimeSliceActivatePhysics_d_159 * this_ptr, int32_t __1__state))

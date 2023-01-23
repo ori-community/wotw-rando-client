@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PKCS8_EncryptedPrivateKeyInfo.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PKCS8_EncryptedPrivateKeyInfo_1.h>
 
 namespace app::classes::Mono::Security::Cryptography::PKCS8_EncryptedPrivateKeyInfo {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::PKCS8_EncryptedPrivateKeyInfo * this_ptr))

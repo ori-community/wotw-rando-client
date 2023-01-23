@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinHealthController.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::SeinHealthController {
     IL2CPP_REGISTER_METHOD(0x00FFBA80, bool, get_IsHealthFull, (app::SeinHealthController * this_ptr))

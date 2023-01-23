@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceLeaderboardEntry.h>
+#include <Modloader/app/structs/RaceLeaderboardScreen.h>
+#include <Modloader/app/structs/Action_2_String_Boolean_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Race_LeaderBoardEntry_.h>
+#include <Modloader/app/structs/RaceContentType__Enum.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::RaceLeaderboardScreen {
     IL2CPP_REGISTER_METHOD(0x00E9FCC0, app::RaceLeaderboardEntry*, get_SelectedEntry, (app::RaceLeaderboardScreen * this_ptr))

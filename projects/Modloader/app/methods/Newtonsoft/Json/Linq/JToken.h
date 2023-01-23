@@ -1,5 +1,49 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JContainer.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JEnumerable_1_JToken_.h>
+#include <Modloader/app/structs/Formatting__Enum_1.h>
+#include <Modloader/app/structs/JsonConverter__Array.h>
+#include <Modloader/app/structs/JValue.h>
+#include <Modloader/app/structs/JTokenType__Enum__Array.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Nullable_1_Boolean_.h>
+#include <Modloader/app/structs/Nullable_1_DateTime_.h>
+#include <Modloader/app/structs/Nullable_1_DateTimeOffset_.h>
+#include <Modloader/app/structs/Nullable_1_Decimal_.h>
+#include <Modloader/app/structs/Nullable_1_Double_.h>
+#include <Modloader/app/structs/Nullable_1_Char_.h>
+#include <Modloader/app/structs/Nullable_1_Int32_.h>
+#include <Modloader/app/structs/Nullable_1_Int16_.h>
+#include <Modloader/app/structs/Nullable_1_UInt16_.h>
+#include <Modloader/app/structs/Nullable_1_Byte_.h>
+#include <Modloader/app/structs/Nullable_1_SByte_.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Nullable_1_Int64_.h>
+#include <Modloader/app/structs/Nullable_1_Single_.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/Nullable_1_UInt32_.h>
+#include <Modloader/app/structs/Nullable_1_UInt64_.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Nullable_1_Guid_.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Nullable_1_TimeSpan_.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/BigInteger_2.h>
+#include <Modloader/app/structs/Nullable_1_System_Numerics_BigInteger_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/JsonSerializer.h>
+#include <Modloader/app/structs/JsonLoadSettings.h>
+#include <Modloader/app/structs/IJsonLineInfo.h>
+#include <Modloader/app/structs/DynamicMetaObject.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/JToken_LineInfoAnnotation.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JToken {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::JContainer*, get_Parent, (app::JToken * this_ptr))

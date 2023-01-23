@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProxyChain_ProxyEnumerator.h>
+#include <Modloader/app/structs/ProxyChain.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::ProxyChain_ProxyEnumerator {
     IL2CPP_REGISTER_METHOD(0x01BCDD10, void, ctor, (app::ProxyChain_ProxyEnumerator * this_ptr, app::ProxyChain* chain))

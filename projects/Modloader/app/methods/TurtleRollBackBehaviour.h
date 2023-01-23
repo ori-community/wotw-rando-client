@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TurtleRollBackBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::TurtleRollBackBehaviour {
     IL2CPP_REGISTER_METHOD(0x013D85F0, void, OnEnterTask, (app::TurtleRollBackBehaviour * this_ptr, app::IContext* context))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MenuScreen.h>
+#include <Modloader/app/structs/MenuScreenStack.h>
 
 namespace app::classes::MenuScreenStack {
     IL2CPP_REGISTER_METHOD(0x009E6BB0, app::MenuScreen*, get_Top, (app::MenuScreenStack * this_ptr))

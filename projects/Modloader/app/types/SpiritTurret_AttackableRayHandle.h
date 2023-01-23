@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle__Class.h>
+#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle.h>
+#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle__Boxed.h>
+#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle__Array.h>
 
 namespace app::classes::types {
     namespace SpiritTurret_AttackableRayHandle {

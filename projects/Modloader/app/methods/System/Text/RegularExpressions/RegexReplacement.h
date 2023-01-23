@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegexReplacement.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RegexNode.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Match.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/Regex.h>
 
 namespace app::classes::System::Text::RegularExpressions::RegexReplacement {
     IL2CPP_REGISTER_METHOD(0x02A76300, void, ctor, (app::RegexReplacement * this_ptr, app::String* rep, app::RegexNode* concat, app::Hashtable* _caps))

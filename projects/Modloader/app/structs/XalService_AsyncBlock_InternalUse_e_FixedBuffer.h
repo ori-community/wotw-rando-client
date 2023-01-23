@@ -1,0 +1,24 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XalService_AsyncBlock_InternalUse_e_FixedBuffer_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XalService_AsyncBlock_InternalUse_e_FixedBuffer_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XalService_AsyncBlock_InternalUse_e_FixedBuffer_DEFINED)
+#define IL2CPP_STRUCT_XalService_AsyncBlock_InternalUse_e_FixedBuffer_DEFINED
+struct XalService_AsyncBlock_InternalUse_e_FixedBuffer {
+    uint8_t FixedElementField;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_XalService_AsyncBlock_InternalUse_e_FixedBuffer_FWDDECL)
+#define IL2CPP_STRUCT_XalService_AsyncBlock_InternalUse_e_FixedBuffer_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_XalService_AsyncBlock_InternalUse_e_FixedBuffer_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XalService_AsyncBlock_InternalUse_e_FixedBuffer_DEFINED) && !defined(IL2CPP_STRUCT_XalService_AsyncBlock_InternalUse_e_FixedBuffer_FWDDECL)
+#include <Modloader/app/structs/XalService_AsyncBlock_InternalUse_e_FixedBuffer.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XalService_AsyncBlock_InternalUse_e_FixedBuffer.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

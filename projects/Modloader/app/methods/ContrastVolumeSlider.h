@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ContrastVolumeSlider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ContrastVolumeSlider {
     IL2CPP_REGISTER_METHOD(0x011E7F70, float, get_Value, (app::ContrastVolumeSlider * this_ptr))

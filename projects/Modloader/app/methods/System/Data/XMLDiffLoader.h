@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XMLDiffLoader.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Data::XMLDiffLoader {
     IL2CPP_REGISTER_METHOD(0x023D0AD0, void, LoadDiffGram_1, (app::XMLDiffLoader * this_ptr, app::DataSet* ds, app::XmlReader* data_text_reader))

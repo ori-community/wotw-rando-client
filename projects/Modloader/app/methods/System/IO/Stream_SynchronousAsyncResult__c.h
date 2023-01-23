@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stream_SynchronousAsyncResult_c.h>
+#include <Modloader/app/structs/ManualResetEvent.h>
 
 namespace app::classes::System::IO::Stream_SynchronousAsyncResult___c {
     IL2CPP_REGISTER_METHOD(0x0237F570, void, cctor, ())

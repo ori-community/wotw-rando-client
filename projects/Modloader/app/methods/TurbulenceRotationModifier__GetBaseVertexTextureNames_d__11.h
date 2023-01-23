@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TurbulenceRotationModifier_GetBaseVertexTextureNames_d_11.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_String_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::TurbulenceRotationModifier__GetBaseVertexTextureNames_d__11 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::TurbulenceRotationModifier_GetBaseVertexTextureNames_d_11 * this_ptr, int32_t __1__state))

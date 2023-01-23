@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PreLateUpdate_UpdateNetworkManager__Class.h>
+#include <Modloader/app/structs/PreLateUpdate_UpdateNetworkManager.h>
+#include <Modloader/app/structs/PreLateUpdate_UpdateNetworkManager__Boxed.h>
 
 namespace app::classes::types {
     namespace PreLateUpdate_UpdateNetworkManager {

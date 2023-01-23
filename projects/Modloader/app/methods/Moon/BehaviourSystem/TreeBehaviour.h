@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TreeBehaviour.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IMoonType_1_System_Object_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Boolean_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Single_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Int32_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::Moon::BehaviourSystem::TreeBehaviour {
     IL2CPP_REGISTER_METHOD(0x030120C0, void, OnValidate, (app::TreeBehaviour * this_ptr))

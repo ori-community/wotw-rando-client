@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocatedActiveAxis.h>
+#include <Modloader/app/structs/Asttree.h>
+#include <Modloader/app/structs/KeySequence.h>
 
 namespace app::classes::System::Xml::Schema::LocatedActiveAxis {
     IL2CPP_REGISTER_METHOD(0x002FB970, int32_t, get_Column, (app::LocatedActiveAxis * this_ptr))

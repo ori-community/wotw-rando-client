@@ -1,5 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeleeComboMove.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/MaterialBasedSeinEffectsMap.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
+#include <Modloader/app/structs/ButtonInputType__Enum.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/ComboInput.h>
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/MoveEventType__Enum.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/IAttackable.h>
 
 namespace app::classes::MeleeComboMove {
     IL2CPP_REGISTER_METHOD(0x01386280, void, ResetHitTracking, (app::MeleeComboMove * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QuestsController_c_DisplayClass53_0.h>
 
 namespace app::classes::QuestsController___c__DisplayClass53_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::QuestsController_c_DisplayClass53_0 * this_ptr))

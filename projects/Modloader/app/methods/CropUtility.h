@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/CropUtility.h>
 
 namespace app::classes::CropUtility {
     IL2CPP_REGISTER_METHOD(0x00DB8610, void, CropMaterial, (app::Material * material))

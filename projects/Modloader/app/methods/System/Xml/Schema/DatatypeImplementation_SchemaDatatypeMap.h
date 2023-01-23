@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DatatypeImplementation_SchemaDatatypeMap.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DatatypeImplementation.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::Schema::DatatypeImplementation_SchemaDatatypeMap {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor_1, (app::DatatypeImplementation_SchemaDatatypeMap * this_ptr, app::String* name, app::DatatypeImplementation* type))

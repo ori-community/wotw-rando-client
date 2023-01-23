@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimatorController3rdPersonIK.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::Demos::AnimatorController3rdPersonIK {
     IL2CPP_REGISTER_METHOD(0x02209C80, void, OnGUI, (app::AnimatorController3rdPersonIK * this_ptr))

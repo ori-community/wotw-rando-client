@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AttachSoundToPhysicsSystem_SoundTypes__Enum__Class.h>
+#include <Modloader/app/structs/AttachSoundToPhysicsSystem_SoundTypes__Enum.h>
 
 namespace app::classes::types {
     namespace AttachSoundToPhysicsSystem_SoundTypes__Enum {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IPromise.h>
+#include <Modloader/app/structs/PromiseTimer.h>
+#include <Modloader/app/structs/Func_2_ZenFulcrum_EmbeddedBrowser_TimeData_Boolean_.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::PromiseTimer {
     IL2CPP_REGISTER_METHOD(0x01669140, app::IPromise*, WaitFor, (app::PromiseTimer * this_ptr, float seconds))

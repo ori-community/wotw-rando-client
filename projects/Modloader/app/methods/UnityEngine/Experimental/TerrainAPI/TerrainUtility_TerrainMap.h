@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TerrainUtility_TerrainMap.h>
+#include <Modloader/app/structs/Terrain_1.h>
+#include <Modloader/app/structs/TerrainUtility_TerrainMap_TerrainFilter.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/TerrainUtility_TerrainMap_ErrorCode__Enum.h>
 
 namespace app::classes::UnityEngine::Experimental::TerrainAPI::TerrainUtility_TerrainMap {
     IL2CPP_REGISTER_METHOD(0x031981E0, void, ctor, (app::TerrainUtility_TerrainMap * this_ptr))

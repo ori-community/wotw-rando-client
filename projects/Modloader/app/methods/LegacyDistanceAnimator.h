@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyDistanceAnimator.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::LegacyDistanceAnimator {
     IL2CPP_REGISTER_METHOD(0x00A19E90, void, Start, (app::LegacyDistanceAnimator * this_ptr))

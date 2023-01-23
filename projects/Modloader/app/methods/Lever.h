@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Lever.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/LeverDirections__Enum.h>
+#include <Modloader/app/structs/LeverMode__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::Lever {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_InRange, (app::Lever * this_ptr))

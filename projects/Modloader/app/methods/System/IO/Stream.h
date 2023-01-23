@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SemaphoreSlim.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Task_1_System_Int32_.h>
+#include <Modloader/app/structs/Stream_ReadWriteTask.h>
 
 namespace app::classes::System::IO::Stream {
     IL2CPP_REGISTER_METHOD(0x0237B350, app::SemaphoreSlim*, EnsureAsyncActiveSemaphoreInitialized, (app::Stream * this_ptr))

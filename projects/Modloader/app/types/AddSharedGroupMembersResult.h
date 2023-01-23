@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AddSharedGroupMembersResult__Class.h>
+#include <Modloader/app/structs/AddSharedGroupMembersResult.h>
 
 namespace app::classes::types {
     namespace AddSharedGroupMembersResult {

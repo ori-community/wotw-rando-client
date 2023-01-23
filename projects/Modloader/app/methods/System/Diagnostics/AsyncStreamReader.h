@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncStreamReader.h>
 
 namespace app::classes::System::Diagnostics::AsyncStreamReader {
     IL2CPP_REGISTER_METHOD(0x01A8DC40, void, Close, (app::AsyncStreamReader * this_ptr))

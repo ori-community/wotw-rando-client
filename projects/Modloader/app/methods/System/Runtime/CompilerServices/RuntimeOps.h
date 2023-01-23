@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExpandoObject.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::CompilerServices::RuntimeOps {
     IL2CPP_REGISTER_METHOD(0x02FC8220, bool, ExpandoTryGetValue, (app::ExpandoObject * expando, app::Object* index_class, int32_t index, app::String* name, bool ignore_case, app::Object** value))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DelegateHelpers_c.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::DelegateHelpers___c {
     IL2CPP_REGISTER_METHOD(0x022DCD10, void, cctor, ())

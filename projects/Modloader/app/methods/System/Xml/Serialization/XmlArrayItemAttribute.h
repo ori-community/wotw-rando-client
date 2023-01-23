@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlArrayItemAttribute.h>
+#include <Modloader/app/structs/XmlSchemaForm__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::Xml::Serialization::XmlArrayItemAttribute {
     IL2CPP_REGISTER_METHOD(0x01C9A8B0, app::String*, get_DataType, (app::XmlArrayItemAttribute * this_ptr))

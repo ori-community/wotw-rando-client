@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyedCollection_2_System_String_Newtonsoft_Json_Serialization_JsonProperty_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_String_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JsonProperty.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_Newtonsoft_Json_Serialization_JsonProperty_.h>
 
 namespace app::classes::System::Collections::ObjectModel::KeyedCollection_2_System_String_Newtonsoft_Json_Serialization_JsonProperty_ {
     IL2CPP_REGISTER_METHOD(0x02259DF0, void, ctor, (app::KeyedCollection_2_System_String_Newtonsoft_Json_Serialization_JsonProperty_ * this_ptr, app::IEqualityComparer_1_System_String_* comparer))

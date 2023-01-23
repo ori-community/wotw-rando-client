@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LayeredRenderSettings.h>
+#include <Modloader/app/structs/DepthOfFieldAnimator.h>
+#include <Modloader/app/structs/SliceRenderSettings.h>
+#include <Modloader/app/structs/SliceRenderSettingsInfluencerOrder__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::DepthOfFieldAnimator {
     IL2CPP_REGISTER_METHOD(0x002FBC20, app::LayeredRenderSettings*, get_LayeredRenderSettings, (app::DepthOfFieldAnimator * this_ptr))

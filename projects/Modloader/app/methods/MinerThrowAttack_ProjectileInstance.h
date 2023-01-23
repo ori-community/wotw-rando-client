@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MinerThrowAttack_ProjectileInstance.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/EnemyEntity.h>
 
 namespace app::classes::MinerThrowAttack_ProjectileInstance {
     IL2CPP_REGISTER_METHOD(0x014524A0, void, Clear, (app::MinerThrowAttack_ProjectileInstance * this_ptr))

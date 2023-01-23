@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CultureInfoConverter.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/ITypeDescriptorContext.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TypeConverter_StandardValuesCollection.h>
 
 namespace app::classes::System::ComponentModel::CultureInfoConverter {
     IL2CPP_REGISTER_METHOD(0x01FDA1E0, app::String*, get_DefaultCultureString, (app::CultureInfoConverter * this_ptr))

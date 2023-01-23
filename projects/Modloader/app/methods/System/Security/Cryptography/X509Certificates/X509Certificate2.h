@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509Certificate2Impl.h>
+#include <Modloader/app/structs/X509Certificate2.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/X509ExtensionCollection_2.h>
+#include <Modloader/app/structs/X500DistinguishedName.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
+#include <Modloader/app/structs/PublicKey.h>
+#include <Modloader/app/structs/Oid.h>
+#include <Modloader/app/structs/X509NameType__Enum.h>
+#include <Modloader/app/structs/X509KeyStorageFlags__Enum.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/X509Certificate_2.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::X509Certificate2 {
     IL2CPP_REGISTER_METHOD(0x021C47A0, app::X509Certificate2Impl*, get_Impl, (app::X509Certificate2 * this_ptr))

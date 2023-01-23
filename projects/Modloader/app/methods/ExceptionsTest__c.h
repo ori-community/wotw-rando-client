@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExceptionsTest_c.h>
 
 namespace app::classes::ExceptionsTest___c {
     IL2CPP_REGISTER_METHOD(0x009860E0, void, cctor, ())

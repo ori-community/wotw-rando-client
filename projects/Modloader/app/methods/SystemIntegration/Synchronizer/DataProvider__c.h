@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataProvider_c.h>
+#include <Modloader/app/structs/Task.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::DataProvider___c {
     IL2CPP_REGISTER_METHOD(0x005348B0, void, cctor, ())

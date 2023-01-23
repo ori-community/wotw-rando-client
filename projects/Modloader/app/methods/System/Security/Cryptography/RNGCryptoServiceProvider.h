@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RNGCryptoServiceProvider.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CspParameters.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::RNGCryptoServiceProvider {
     IL2CPP_REGISTER_METHOD(0x028E3DB0, void, cctor, ())

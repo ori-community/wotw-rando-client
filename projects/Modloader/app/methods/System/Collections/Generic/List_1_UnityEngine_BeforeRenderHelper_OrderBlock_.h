@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock.h>
+#include <Modloader/app/structs/List_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_BeforeRenderHelper_OrderBlock_ {
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::BeforeRenderHelper_OrderBlock, get_Item, (app::List_1_UnityEngine_BeforeRenderHelper_OrderBlock_ * this_ptr, int32_t index))

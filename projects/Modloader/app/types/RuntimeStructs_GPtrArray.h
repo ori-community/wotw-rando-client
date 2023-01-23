@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RuntimeStructs_GPtrArray__Class.h>
+#include <Modloader/app/structs/RuntimeStructs_GPtrArray.h>
+#include <Modloader/app/structs/RuntimeStructs_GPtrArray__Boxed.h>
 
 namespace app::classes::types {
     namespace RuntimeStructs_GPtrArray {

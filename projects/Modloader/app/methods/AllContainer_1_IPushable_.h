@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AllContainer_1_IPushable_.h>
+#include <Modloader/app/structs/IPushable.h>
 
 namespace app::classes::AllContainer_1_IPushable_ {
     IL2CPP_REGISTER_METHOD(0x019D79D0, void, Clear, (app::AllContainer_1_IPushable_ * this_ptr))

@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReflectEventDescriptor.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/EventInfo_1.h>
+#include <Modloader/app/structs/EventDescriptor_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/IList.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
 
 namespace app::classes::System::ComponentModel::ReflectEventDescriptor {
     IL2CPP_REGISTER_METHOD(0x0299A110, void, ctor_1, (app::ReflectEventDescriptor * this_ptr, app::Type* component_class, app::String* name, app::Type* type, app::Attribute__Array* attributes))

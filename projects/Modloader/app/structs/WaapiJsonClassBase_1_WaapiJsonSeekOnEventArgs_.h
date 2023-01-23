@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs__INITIALIZING
+#if !defined(IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs__DEFINED)
+#define IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs__DEFINED
+struct WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs___Class;
+struct WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs_ {
+    struct WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs__FWDDECL)
+#define IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs__FWDDECL
+#include <Modloader/app/structs/WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs___Class.h>
+#endif
+#undef IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs__INITIALIZING
+#if !defined(IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs__DEFINED) && !defined(IL2CPP_STRUCT_WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs__FWDDECL)
+#include <Modloader/app/structs/WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/WaapiJsonClassBase_1_WaapiJsonSeekOnEventArgs_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

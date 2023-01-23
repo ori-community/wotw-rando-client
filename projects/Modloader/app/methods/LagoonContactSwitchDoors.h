@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LagoonContactSwitchDoors.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::LagoonContactSwitchDoors {
     IL2CPP_REGISTER_METHOD(0x00F00170, void, Awake, (app::LagoonContactSwitchDoors * this_ptr))

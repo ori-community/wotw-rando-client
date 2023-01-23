@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScatterGatherBuffers.h>
+#include <Modloader/app/structs/BufferOffsetSize_1__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/ScatterGatherBuffers_MemoryChunk.h>
 
 namespace app::classes::System::Net::ScatterGatherBuffers {
     IL2CPP_REGISTER_METHOD(0x01BD0570, void, ctor_1, (app::ScatterGatherBuffers * this_ptr))

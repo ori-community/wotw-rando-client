@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/SpiritLightDarknessZone.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SpiritLightDarknessZone {
     IL2CPP_REGISTER_METHOD(0x00D619D0, app::Bounds, get_WorldSpaceBoundingBox, (app::SpiritLightDarknessZone * this_ptr))

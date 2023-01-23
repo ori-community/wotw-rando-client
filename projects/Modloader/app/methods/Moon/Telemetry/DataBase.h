@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataBase.h>
 
 namespace app::classes::Moon::Telemetry::DataBase {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_PlayerKey, (app::DataBase * this_ptr))

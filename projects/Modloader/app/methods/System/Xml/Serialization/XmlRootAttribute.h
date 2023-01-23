@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlRootAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::Xml::Serialization::XmlRootAttribute {
     IL2CPP_REGISTER_METHOD(0x00447ED0, void, ctor_1, (app::XmlRootAttribute * this_ptr))

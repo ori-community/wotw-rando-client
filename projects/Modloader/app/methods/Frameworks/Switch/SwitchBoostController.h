@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwitchBoostController_HandheldGPUBoostMode__Enum.h>
+#include <Modloader/app/structs/SwitchBoostController.h>
 
 namespace app::classes::frameworks::Switch::SwitchBoostController {
     IL2CPP_REGISTER_METHOD(0x00F5A010, bool, get_GPUBoostAutoMode, ())

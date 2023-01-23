@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RangeContentValidator.h>
+#include <Modloader/app/structs/BitSet.h>
+#include <Modloader/app/structs/BitSet__Array.h>
+#include <Modloader/app/structs/SymbolsDictionary.h>
+#include <Modloader/app/structs/Positions.h>
+#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
+#include <Modloader/app/structs/ValidationState.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
 
 namespace app::classes::System::Xml::Schema::RangeContentValidator {
     IL2CPP_REGISTER_METHOD(0x016E5D30, void, ctor, (app::RangeContentValidator * this_ptr, app::BitSet* firstpos, app::BitSet__Array* followpos, app::SymbolsDictionary* symbols, app::Positions* positions, int32_t end_marker_pos, app::XmlSchemaContentType__Enum content_type, bool is_emptiable, app::BitSet* positions_with_range_terminals, int32_t minmax_nodes_count))

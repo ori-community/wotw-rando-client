@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/MonoModule.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/RuntimeAssembly.h>
 
 namespace app::classes::System::Reflection::MonoModule {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Assembly*, get_Assembly, (app::MonoModule * this_ptr))

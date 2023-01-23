@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SimpleGenericPool_1_InstantiateUtility_InstantiateInfo__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SimpleGenericPool_1_InstantiateUtility_InstantiateInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_SimpleGenericPool_1_InstantiateUtility_InstantiateInfo__DEFINED)
+#include <Modloader/app/structs/SimpleGenericPool_1_InstantiateUtility_InstantiateInfo___Fields.h>
+#if defined(IL2CPP_STRUCT_SimpleGenericPool_1_InstantiateUtility_InstantiateInfo___Fields_DEFINED)
+#define IL2CPP_STRUCT_SimpleGenericPool_1_InstantiateUtility_InstantiateInfo__DEFINED
+struct SimpleGenericPool_1_InstantiateUtility_InstantiateInfo___Class;
+struct SimpleGenericPool_1_InstantiateUtility_InstantiateInfo_ {
+    struct SimpleGenericPool_1_InstantiateUtility_InstantiateInfo___Class* klass;
+    MonitorData* monitor;
+    struct SimpleGenericPool_1_InstantiateUtility_InstantiateInfo___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SimpleGenericPool_1_InstantiateUtility_InstantiateInfo__FWDDECL)
+#define IL2CPP_STRUCT_SimpleGenericPool_1_InstantiateUtility_InstantiateInfo__FWDDECL
+#include <Modloader/app/structs/SimpleGenericPool_1_InstantiateUtility_InstantiateInfo___Class.h>
+#endif
+#undef IL2CPP_STRUCT_SimpleGenericPool_1_InstantiateUtility_InstantiateInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_SimpleGenericPool_1_InstantiateUtility_InstantiateInfo__DEFINED) && !defined(IL2CPP_STRUCT_SimpleGenericPool_1_InstantiateUtility_InstantiateInfo__FWDDECL)
+#include <Modloader/app/structs/SimpleGenericPool_1_InstantiateUtility_InstantiateInfo_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SimpleGenericPool_1_InstantiateUtility_InstantiateInfo_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

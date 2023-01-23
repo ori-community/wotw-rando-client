@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NetworkTest.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UnityWebRequest.h>
+#include <Modloader/app/structs/ReplayModel.h>
+#include <Modloader/app/structs/GetReplayCallback.h>
+#include <Modloader/app/structs/GetReplaysCallback.h>
 
 namespace app::classes::NetworkTest {
     IL2CPP_REGISTER_METHOD(0x0088CA60, void, SubscribeOnRemoteAction, (app::NetworkTest * this_ptr))

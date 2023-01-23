@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimelineConstrainedTimelineEntity.h>
+#include <Modloader/app/structs/IConstrainedEntity.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/IConstrainedEntityWithChildren.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/ITimelineEntityParent.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::TimelineConstrainedTimelineEntity {
     IL2CPP_REGISTER_METHOD(0x01E83830, int32_t, get_ConstrainedEntitiesCount, (app::TimelineConstrainedTimelineEntity * this_ptr))

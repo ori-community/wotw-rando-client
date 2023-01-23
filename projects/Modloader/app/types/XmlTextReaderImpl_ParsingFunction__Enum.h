@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlTextReaderImpl_ParsingFunction__Enum__Class.h>
+#include <Modloader/app/structs/XmlTextReaderImpl_ParsingFunction__Enum.h>
 
 namespace app::classes::types {
     namespace XmlTextReaderImpl_ParsingFunction__Enum {

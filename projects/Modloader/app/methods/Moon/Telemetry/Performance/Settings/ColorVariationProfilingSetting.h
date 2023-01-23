@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/ColorVariationProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::ColorVariationProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x00910BD0, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::ColorVariationProfilingSetting * this_ptr))

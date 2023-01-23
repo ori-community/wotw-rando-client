@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExpText.h>
 
 namespace app::classes::ExpText {
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, get_IsSuspended, (app::ExpText * this_ptr))

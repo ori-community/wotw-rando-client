@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VerletStructure_VerletLink.h>
+#include <Modloader/app/structs/VerletStructure.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::VerletStructure_VerletLink {
     IL2CPP_REGISTER_METHOD(0x013D0CC0, void, Init, (app::VerletStructure_VerletLink * this_ptr, app::VerletStructure* verlet_structure))

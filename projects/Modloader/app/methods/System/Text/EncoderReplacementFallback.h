@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EncoderReplacementFallback.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EncoderFallbackBuffer.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Text::EncoderReplacementFallback {
     IL2CPP_REGISTER_METHOD(0x0244E990, void, ctor_1, (app::EncoderReplacementFallback * this_ptr))

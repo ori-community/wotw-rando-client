@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlTypeMapping.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TypeData.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
 
 namespace app::classes::System::Xml::Serialization::XmlTypeMapping {
     IL2CPP_REGISTER_METHOD(0x0194FA20, void, ctor, (app::XmlTypeMapping * this_ptr, app::String* element_name, app::String* ns, app::TypeData* type_data, app::String* xml_type, app::String* xml_type_namespace))

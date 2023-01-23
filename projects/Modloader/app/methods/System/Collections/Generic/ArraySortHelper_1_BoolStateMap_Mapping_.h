@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BoolStateMap_Mapping__Array.h>
+#include <Modloader/app/structs/IComparer_1_BoolStateMap_Mapping_.h>
+#include <Modloader/app/structs/BoolStateMap_Mapping.h>
+#include <Modloader/app/structs/Comparison_1_BoolStateMap_Mapping_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_BoolStateMap_Mapping_ {
     IL2CPP_REGISTER_METHOD(0x02F2AD20, void, Sort_1, (app::BoolStateMap_Mapping__Array * keys, int32_t index, int32_t length, app::IComparer_1_BoolStateMap_Mapping_* comparer))

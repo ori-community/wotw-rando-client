@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerUberStateShards.h>
+#include <Modloader/app/structs/PlayerSpiritShards.h>
+#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/SpiritShardType__Enum__Array.h>
+#include <Modloader/app/structs/UpgradablePropertyType__Enum.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/List_1_SpiritShardType_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::PlayerSpiritShards {
     IL2CPP_REGISTER_METHOD(0x01428CF0, app::PlayerUberStateShards*, get_PlayerUberStateShards, (app::PlayerSpiritShards * this_ptr))

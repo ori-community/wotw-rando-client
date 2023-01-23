@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/EquipmentRadialSelection.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/EquipmentUIInventoryItem.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::EquipmentRadialSelection {
     IL2CPP_REGISTER_METHOD(0x00CAB820, app::CleverMenuItemSelectionManager*, get_NavigationManager, (app::EquipmentRadialSelection * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MapMakerMoveOriToPositionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::MapMakerMoveOriToPositionBehaviour {
     IL2CPP_REGISTER_METHOD(0x0110EC90, void, OnEnter, (app::MapMakerMoveOriToPositionBehaviour * this_ptr, app::IContext* context))

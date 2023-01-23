@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FirewhirlBeam.h>
+#include <Modloader/app/structs/List_1_FirewhirlBeam_.h>
+#include <Modloader/app/structs/Predicate_1_FirewhirlBeam_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_FirewhirlBeam_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_FirewhirlBeam_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::FirewhirlBeam*, get_Item, (app::List_1_FirewhirlBeam_ * this_ptr, int32_t index))

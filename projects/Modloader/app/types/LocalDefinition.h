@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LocalDefinition__Class.h>
+#include <Modloader/app/structs/LocalDefinition.h>
+#include <Modloader/app/structs/LocalDefinition__Boxed.h>
+#include <Modloader/app/structs/LocalDefinition__Array.h>
 
 namespace app::classes::types {
     namespace LocalDefinition {

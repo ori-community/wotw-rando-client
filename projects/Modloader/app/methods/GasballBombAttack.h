@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AirEntityLocomotion.h>
+#include <Modloader/app/structs/GasballBombAttack.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::GasballBombAttack {
     IL2CPP_REGISTER_METHOD(0x0041B3F0, app::AirEntityLocomotion*, get_Locomotion, (app::GasballBombAttack * this_ptr))

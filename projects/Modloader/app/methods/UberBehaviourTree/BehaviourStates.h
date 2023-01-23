@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BehaviourStates.h>
+#include <Modloader/app/structs/IBehaviourState.h>
+#include <Modloader/app/structs/BehaviourTreeStatus__Enum.h>
+#include <Modloader/app/structs/TickData.h>
 
 namespace app::classes::UberBehaviourTree::BehaviourStates {
     IL2CPP_REGISTER_METHOD(0x013E0160, app::String*, get_CurrentStateName, (app::BehaviourStates * this_ptr))

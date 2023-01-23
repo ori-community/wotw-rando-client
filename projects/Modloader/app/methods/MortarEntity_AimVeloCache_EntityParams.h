@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MortarEntity_AimVeloCache_EntityParams.h>
+#include <Modloader/app/structs/MortarEntity.h>
+#include <Modloader/app/structs/MortarPlaceholder.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MortarSpitAttackSettings.h>
 
 namespace app::classes::MortarEntity_AimVeloCache_EntityParams {
     IL2CPP_REGISTER_METHOD(0x014797A0, void, ctor, (app::MortarEntity_AimVeloCache_EntityParams * this_ptr, app::MortarEntity* entity))

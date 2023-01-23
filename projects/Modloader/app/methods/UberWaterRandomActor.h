@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberWaterRandomActor.h>
 
 namespace app::classes::UberWaterRandomActor {
     IL2CPP_REGISTER_METHOD(0x0129F710, void, OnValidate, (app::UberWaterRandomActor * this_ptr))

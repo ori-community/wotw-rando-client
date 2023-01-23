@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Trail_1.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::Trail {
     IL2CPP_REGISTER_METHOD(0x00B02030, void, OnPoolSpawned, (app::Trail_1 * this_ptr))

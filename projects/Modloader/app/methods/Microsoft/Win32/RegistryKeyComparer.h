@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegistryKeyComparer.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Microsoft::Win32::RegistryKeyComparer {
     IL2CPP_REGISTER_METHOD(0x023B61A0, bool, Equals, (app::RegistryKeyComparer * this_ptr, app::Object* x, app::Object* y))

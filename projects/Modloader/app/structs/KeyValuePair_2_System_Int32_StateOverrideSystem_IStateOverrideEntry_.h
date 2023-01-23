@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_StateOverrideSystem_IStateOverrideEntry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_StateOverrideSystem_IStateOverrideEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_StateOverrideSystem_IStateOverrideEntry__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_StateOverrideSystem_IStateOverrideEntry__DEFINED
+struct StateOverrideSystem_IStateOverrideEntry;
+struct KeyValuePair_2_System_Int32_StateOverrideSystem_IStateOverrideEntry_ {
+    int32_t key;
+    struct StateOverrideSystem_IStateOverrideEntry* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_StateOverrideSystem_IStateOverrideEntry__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_StateOverrideSystem_IStateOverrideEntry__FWDDECL
+#include <Modloader/app/structs/StateOverrideSystem_IStateOverrideEntry.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_StateOverrideSystem_IStateOverrideEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_StateOverrideSystem_IStateOverrideEntry__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_StateOverrideSystem_IStateOverrideEntry__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_StateOverrideSystem_IStateOverrideEntry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_StateOverrideSystem_IStateOverrideEntry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

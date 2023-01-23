@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_ColliderAnimatorSystem_SphereColliderAnimationState_.h>
+#include <Modloader/app/structs/ColliderAnimatorSystem_SphereColliderAnimationState.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_ColliderAnimatorSystem_SphereColliderAnimationState_ {
     IL2CPP_REGISTER_METHOD(0x002FD1D0, int32_t, get_Count, (app::Queue_1_ColliderAnimatorSystem_SphereColliderAnimationState_ * this_ptr))

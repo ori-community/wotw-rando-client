@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Array.h>
+#include <Modloader/app/structs/IComparer_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_.h>
+#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData.h>
+#include <Modloader/app/structs/Comparison_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_ {
     IL2CPP_REGISTER_METHOD(0x02F60F30, void, Sort_1, (app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Array * keys, int32_t index, int32_t length, app::IComparer_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_* comparer))

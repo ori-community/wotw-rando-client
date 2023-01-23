@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RaceGetReadyState__Class.h>
+#include <Modloader/app/structs/RaceGetReadyState.h>
 
 namespace app::classes::types {
     namespace RaceGetReadyState {

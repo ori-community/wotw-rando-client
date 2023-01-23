@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IWebProxy.h>
+#include <Modloader/app/structs/GlobalProxySelection.h>
 
 namespace app::classes::System::Net::GlobalProxySelection {
     IL2CPP_REGISTER_METHOD(0x01D389E0, app::IWebProxy*, get_Select, ())

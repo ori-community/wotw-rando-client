@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationRemoveScalePlayable__Boxed.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/AnimationRemoveScalePlayable.h>
 
 namespace app::classes::UnityEngine::Animations::AnimationRemoveScalePlayable {
     IL2CPP_REGISTER_METHOD(0x00241EC0, void, ctor, (app::AnimationRemoveScalePlayable__Boxed * this_ptr, app::PlayableHandle handle))

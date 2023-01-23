@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeshFilter.h>
+#include <Modloader/app/structs/Mesh.h>
 
 namespace app::classes::UnityEngine::MeshFilter {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, DontStripMeshFilter, (app::MeshFilter * this_ptr))

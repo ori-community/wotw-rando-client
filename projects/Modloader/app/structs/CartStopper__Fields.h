@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CartStopper__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CartStopper__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CartStopper__Fields_DEFINED)
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/MonoBehaviour__Fields.h>
+#include <Modloader/app/structs/Rect.h>
+#if defined(IL2CPP_STRUCT_MonoBehaviour__Fields_DEFINED) && defined(IL2CPP_STRUCT_Rect_DEFINED) && defined(IL2CPP_STRUCT_LayerMask_DEFINED)
+#define IL2CPP_STRUCT_CartStopper__Fields_DEFINED
+struct Collider__Array;
+struct CartStopper__Fields {
+    struct MonoBehaviour__Fields _;
+    struct Rect Bounds;
+    struct Collider__Array* m_overlapBuffer;
+    struct LayerMask CartLayer;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CartStopper__Fields_FWDDECL)
+#define IL2CPP_STRUCT_CartStopper__Fields_FWDDECL
+#include <Modloader/app/structs/Collider__Array.h>
+#endif
+#undef IL2CPP_STRUCT_CartStopper__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CartStopper__Fields_DEFINED) && !defined(IL2CPP_STRUCT_CartStopper__Fields_FWDDECL)
+#include <Modloader/app/structs/CartStopper__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CartStopper__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

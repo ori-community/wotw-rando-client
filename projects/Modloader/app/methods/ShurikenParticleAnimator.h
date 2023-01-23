@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParticleSystem.h>
+#include <Modloader/app/structs/ShurikenParticleAnimator.h>
 
 namespace app::classes::ShurikenParticleAnimator {
     IL2CPP_REGISTER_METHOD(0x0073E1F0, app::ParticleSystem*, get_ParticleSystem, (app::ShurikenParticleAnimator * this_ptr))

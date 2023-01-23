@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpringSeinAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SpringSeinAction {
     IL2CPP_REGISTER_METHOD(0x009A8670, void, Perform, (app::SpringSeinAction * this_ptr, app::IContext* context))

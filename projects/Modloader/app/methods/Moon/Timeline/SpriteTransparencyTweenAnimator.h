@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SpriteTransparencyTweenAnimator.h>
+#include <Modloader/app/structs/SpriteRenderer.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::SpriteTransparencyTweenAnimator {
     IL2CPP_REGISTER_METHOD(0x00D07AA0, app::GameObject*, get_ExternalTarget, (app::SpriteTransparencyTweenAnimator * this_ptr))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeTypeHandle__Boxed.h>
+#include <Modloader/app/structs/RuntimeType.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TypeAttributes__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/RuntimeAssembly.h>
+#include <Modloader/app/structs/RuntimeModule.h>
 
 namespace app::classes::System::RuntimeTypeHandle {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor_1, (app::RuntimeTypeHandle__Boxed * this_ptr, void* val))

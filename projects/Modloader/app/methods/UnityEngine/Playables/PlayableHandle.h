@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/PlayableHandle__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/PlayableGraph.h>
 
 namespace app::classes::UnityEngine::Playables::PlayableHandle {
     IL2CPP_REGISTER_METHOD(0x02964F40, app::PlayableHandle, get_Null, ())

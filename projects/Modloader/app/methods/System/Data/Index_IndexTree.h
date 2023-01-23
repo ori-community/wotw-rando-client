@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Index_IndexTree.h>
+#include <Modloader/app/structs/Index.h>
 
 namespace app::classes::System::Data::Index_IndexTree {
     IL2CPP_REGISTER_METHOD(0x01E3F860, void, ctor, (app::Index_IndexTree * this_ptr, app::Index* index))

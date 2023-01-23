@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SaveSlotsScreenshotManager_ScreenshotPair__Class.h>
+#include <Modloader/app/structs/SaveSlotsScreenshotManager_ScreenshotPair.h>
+#include <Modloader/app/structs/SaveSlotsScreenshotManager_ScreenshotPair__Array.h>
 
 namespace app::classes::types {
     namespace SaveSlotsScreenshotManager_ScreenshotPair {

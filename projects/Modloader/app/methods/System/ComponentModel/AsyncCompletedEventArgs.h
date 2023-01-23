@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncCompletedEventArgs.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::AsyncCompletedEventArgs {
     IL2CPP_REGISTER_METHOD(0x024A0290, void, ctor_1, (app::AsyncCompletedEventArgs * this_ptr))

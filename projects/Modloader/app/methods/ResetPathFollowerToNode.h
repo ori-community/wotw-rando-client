@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ResetPathFollowerToNode.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ResetPathFollowerToNode {
     IL2CPP_REGISTER_METHOD(0x00904D90, void, Perform, (app::ResetPathFollowerToNode * this_ptr, app::IContext* context))

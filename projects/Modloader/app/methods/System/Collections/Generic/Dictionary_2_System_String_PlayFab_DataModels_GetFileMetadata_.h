@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_PlayFab_DataModels_GetFileMetadata_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GetFileMetadata.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_PlayFab_DataModels_GetFileMetadata_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_System_String_PlayFab_DataModels_GetFileMetadata_ * this_ptr))

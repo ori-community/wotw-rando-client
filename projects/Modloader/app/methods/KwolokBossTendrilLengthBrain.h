@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossTendrilLengthBrain.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/Enum.h>
 
 namespace app::classes::KwolokBossTendrilLengthBrain {
     IL2CPP_REGISTER_METHOD(0x012EE510, void, Start, (app::KwolokBossTendrilLengthBrain * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/SnapTrapHookLogic.h>
 
 namespace app::classes::SnapTrapHookLogic {
     IL2CPP_REGISTER_METHOD(0x007008C0, app::IMoonSetupAnimator*, get_MoonSetupAnimator, (app::SnapTrapHookLogic * this_ptr))

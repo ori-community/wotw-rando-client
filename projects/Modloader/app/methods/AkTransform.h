@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkTransform.h>
+#include <Modloader/app/structs/AkVector.h>
 
 namespace app::classes::AkTransform {
     IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkTransform * this_ptr, void* c_ptr, bool c_memory_own))

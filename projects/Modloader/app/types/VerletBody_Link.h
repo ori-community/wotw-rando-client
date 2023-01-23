@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/VerletBody_Link__Class.h>
+#include <Modloader/app/structs/VerletBody_Link.h>
+#include <Modloader/app/structs/VerletBody_Link__Array.h>
 
 namespace app::classes::types {
     namespace VerletBody_Link {

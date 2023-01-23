@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DefaultControls_Resources__Class.h>
+#include <Modloader/app/structs/DefaultControls_Resources.h>
+#include <Modloader/app/structs/DefaultControls_Resources__Boxed.h>
 
 namespace app::classes::types {
     namespace DefaultControls_Resources {

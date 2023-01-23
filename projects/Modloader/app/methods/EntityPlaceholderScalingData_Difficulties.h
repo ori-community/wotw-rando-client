@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityPlaceholderScalingData_EntityScalingValues.h>
+#include <Modloader/app/structs/EntityPlaceholderScalingData_Difficulties.h>
 
 namespace app::classes::EntityPlaceholderScalingData_Difficulties {
     IL2CPP_REGISTER_METHOD(0x00C9DFE0, app::EntityPlaceholderScalingData_EntityScalingValues*, GetDifficultyMulti, (app::EntityPlaceholderScalingData_Difficulties * this_ptr, int32_t difficulty))

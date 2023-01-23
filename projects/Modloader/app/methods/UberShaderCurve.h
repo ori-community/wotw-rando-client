@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/UberShaderCurve.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberShaderBlock.h>
 
 namespace app::classes::UberShaderCurve {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::AnimationCurve*, get_Curve, (app::UberShaderCurve * this_ptr))

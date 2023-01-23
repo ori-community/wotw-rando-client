@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_IDebugMenuPage_.h>
+#include <Modloader/app/structs/IDebugMenuPage.h>
 
 namespace app::classes::System::Collections::Generic::List_1_IDebugMenuPage_ {
     IL2CPP_REGISTER_METHOD(0x025F0BE0, int32_t, IndexOf, (app::List_1_IDebugMenuPage_ * this_ptr, app::IDebugMenuPage* item))

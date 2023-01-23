@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TessellationModifier.h>
 
 namespace app::classes::TessellationModifier {
     IL2CPP_REGISTER_METHOD(0x010D9050, void, ApplyMultipliers, (app::TessellationModifier * this_ptr, float strength, float speed))

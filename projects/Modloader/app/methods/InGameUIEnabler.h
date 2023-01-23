@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InGameUIEnabler.h>
 
 namespace app::classes::InGameUIEnabler {
     IL2CPP_REGISTER_METHOD(0x00627EC0, void, Awake, (app::InGameUIEnabler * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EmissiveSettings.h>
 
 namespace app::classes::EmissiveSettings {
     IL2CPP_REGISTER_METHOD(0x00BFBB50, app::EmissiveSettings*, Clone, (app::EmissiveSettings * this_ptr))

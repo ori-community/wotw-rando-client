@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EditorBrowsableAttribute.h>
+#include <Modloader/app/structs/EditorBrowsableState__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::EditorBrowsableAttribute {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor_1, (app::EditorBrowsableAttribute * this_ptr, app::EditorBrowsableState__Enum state))

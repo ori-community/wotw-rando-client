@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CADMessageBase.h>
+#include <Modloader/app/structs/IMethodMessage.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/LogicalCallContext.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::CADMessageBase {
     IL2CPP_REGISTER_METHOD(0x0230A5E0, void, ctor, (app::CADMessageBase * this_ptr, app::IMethodMessage* msg))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OffsetSpriteWhenGrabbingBlock.h>
 
 namespace app::classes::OffsetSpriteWhenGrabbingBlock {
     IL2CPP_REGISTER_METHOD(0x00610C30, void, FixedUpdate, (app::OffsetSpriteWhenGrabbingBlock * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WaitForKeyTimelineEntity__Class.h>
+#include <Modloader/app/structs/WaitForKeyTimelineEntity.h>
 
 namespace app::classes::types {
     namespace WaitForKeyTimelineEntity {

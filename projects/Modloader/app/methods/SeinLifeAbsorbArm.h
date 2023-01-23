@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinLifeAbsorbSpell.h>
+#include <Modloader/app/structs/SeinLifeAbsorbArm.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/SoundProvider.h>
 
 namespace app::classes::SeinLifeAbsorbArm {
     IL2CPP_REGISTER_METHOD(0x0088EB90, app::SeinLifeAbsorbSpell*, get_Spell, (app::SeinLifeAbsorbArm * this_ptr))

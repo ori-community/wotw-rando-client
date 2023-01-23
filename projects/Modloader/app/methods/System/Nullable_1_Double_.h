@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_Double___Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_Double_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_Double_ {
     IL2CPP_REGISTER_METHOD(0x00155570, double, GetValueOrDefault_1, (app::Nullable_1_Double___Boxed * this_ptr))

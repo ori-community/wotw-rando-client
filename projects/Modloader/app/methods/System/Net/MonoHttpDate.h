@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MonoHttpDate.h>
 
 namespace app::classes::System::Net::MonoHttpDate {
     IL2CPP_REGISTER_METHOD(0x01E708E0, app::DateTime, Parse, (app::String * date_str))

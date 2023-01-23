@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ValueTuple_2_Action_UberPoolItem___Array__Class.h>
+#include <Modloader/app/structs/ValueTuple_2_Action_UberPoolItem___Array.h>
 
 namespace app::classes::types {
     namespace ValueTuple_2_Action_UberPoolItem___Array {

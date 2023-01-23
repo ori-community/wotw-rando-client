@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ISteamMatchmakingRulesResponse_VTable__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ISteamMatchmakingRulesResponse_VTable__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingRulesResponse_VTable__Fields_DEFINED)
+#define IL2CPP_STRUCT_ISteamMatchmakingRulesResponse_VTable__Fields_DEFINED
+struct ISteamMatchmakingRulesResponse_InternalRulesResponded;
+struct ISteamMatchmakingRulesResponse_InternalRulesFailedToRespond;
+struct ISteamMatchmakingRulesResponse_InternalRulesRefreshComplete;
+struct __declspec(align(8)) ISteamMatchmakingRulesResponse_VTable__Fields {
+    struct ISteamMatchmakingRulesResponse_InternalRulesResponded* m_VTRulesResponded;
+    struct ISteamMatchmakingRulesResponse_InternalRulesFailedToRespond* m_VTRulesFailedToRespond;
+    struct ISteamMatchmakingRulesResponse_InternalRulesRefreshComplete* m_VTRulesRefreshComplete;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingRulesResponse_VTable__Fields_FWDDECL)
+#define IL2CPP_STRUCT_ISteamMatchmakingRulesResponse_VTable__Fields_FWDDECL
+#include <Modloader/app/structs/ISteamMatchmakingRulesResponse_InternalRulesFailedToRespond.h>
+#include <Modloader/app/structs/ISteamMatchmakingRulesResponse_InternalRulesRefreshComplete.h>
+#include <Modloader/app/structs/ISteamMatchmakingRulesResponse_InternalRulesResponded.h>
+#endif
+#undef IL2CPP_STRUCT_ISteamMatchmakingRulesResponse_VTable__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ISteamMatchmakingRulesResponse_VTable__Fields_DEFINED) && !defined(IL2CPP_STRUCT_ISteamMatchmakingRulesResponse_VTable__Fields_FWDDECL)
+#include <Modloader/app/structs/ISteamMatchmakingRulesResponse_VTable__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ISteamMatchmakingRulesResponse_VTable__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

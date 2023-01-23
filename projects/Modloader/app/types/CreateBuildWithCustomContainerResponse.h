@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CreateBuildWithCustomContainerResponse__Class.h>
+#include <Modloader/app/structs/CreateBuildWithCustomContainerResponse.h>
 
 namespace app::classes::types {
     namespace CreateBuildWithCustomContainerResponse {

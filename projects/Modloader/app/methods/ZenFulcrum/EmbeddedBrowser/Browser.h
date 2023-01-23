@@ -1,5 +1,33 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Browser.h>
+#include <Modloader/app/structs/Action_2_String_String_.h>
+#include <Modloader/app/structs/INewWindowHandler.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Texture2D_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IBrowserUI.h>
+#include <Modloader/app/structs/CookieManager.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/BrowserNative_ReadyFunc.h>
+#include <Modloader/app/structs/Action_1_ZenFulcrum_EmbeddedBrowser_JSONNode_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Action_2_Int32_ZenFulcrum_EmbeddedBrowser_JSONNode_.h>
+#include <Modloader/app/structs/Action_3_String_Boolean_String_.h>
+#include <Modloader/app/structs/Action_2_Boolean_Boolean_.h>
+#include <Modloader/app/structs/Action_1_ZenFulcrum_EmbeddedBrowser_Browser_.h>
+#include <Modloader/app/structs/BrowserNative_ChangeType__Enum.h>
+#include <Modloader/app/structs/Browser_NewWindowAction__Enum.h>
+#include <Modloader/app/structs/BrowserNative_FrameCommand__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/IPromise_1_JSONNode_.h>
+#include <Modloader/app/structs/JSONNode__Array.h>
+#include <Modloader/app/structs/Browser_JSCallback.h>
+#include <Modloader/app/structs/BrowserNative_DownloadAction__Enum.h>
+#include <Modloader/app/structs/KeyCode__Enum.h>
+#include <Modloader/app/structs/KeyAction__Enum.h>
+#include <Modloader/app/structs/BrowserNative_DialogType__Enum.h>
+#include <Modloader/app/structs/BrowserNative_ContextMenuOrigin__Enum.h>
+#include <Modloader/app/structs/JSONNode.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Browser {
     IL2CPP_REGISTER_METHOD(0x01C61210, void, add_onConsoleMessage, (app::Browser * this_ptr, app::Action_2_String_String_* value))

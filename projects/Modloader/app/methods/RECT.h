@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RECT__Boxed.h>
+#include <Modloader/app/structs/RECT.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::RECT {
     IL2CPP_REGISTER_METHOD(0x0011FC50, void, ctor, (app::RECT__Boxed * this_ptr, int32_t left, int32_t top, int32_t right, int32_t bottom))

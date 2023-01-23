@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DestroyOnScrollLock.h>
 
 namespace app::classes::DestroyOnScrollLock {
     IL2CPP_REGISTER_METHOD(0x00B8CF40, void, Awake, (app::DestroyOnScrollLock * this_ptr))

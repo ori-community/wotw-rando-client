@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RegexCharClass_SingleRangeComparer__Class.h>
+#include <Modloader/app/structs/RegexCharClass_SingleRangeComparer.h>
 
 namespace app::classes::types {
     namespace RegexCharClass_SingleRangeComparer {

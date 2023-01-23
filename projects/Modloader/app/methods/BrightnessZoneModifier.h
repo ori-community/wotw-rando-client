@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GlobalBrightnessController_BrigthnessContributionOrder__Enum.h>
+#include <Modloader/app/structs/BrightnessZoneModifier.h>
 
 namespace app::classes::BrightnessZoneModifier {
     IL2CPP_REGISTER_METHOD(0x00D51450, app::GlobalBrightnessController_BrigthnessContributionOrder__Enum, get_BrightnessInfluceOrder, (app::BrightnessZoneModifier * this_ptr))

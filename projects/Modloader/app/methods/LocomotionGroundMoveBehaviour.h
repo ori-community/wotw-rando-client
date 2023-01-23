@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/LocomotionGroundMoveBehaviour.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::LocomotionGroundMoveBehaviour {
     IL2CPP_REGISTER_METHOD(0x00A1FBC0, app::Vector3, get_TargetPosition, (app::LocomotionGroundMoveBehaviour * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FABRIK.h>
+#include <Modloader/app/structs/IKSolver.h>
 
 namespace app::classes::RootMotion::FinalIK::FABRIK {
     IL2CPP_REGISTER_METHOD(0x020537B0, void, OpenUserManual, (app::FABRIK * this_ptr))

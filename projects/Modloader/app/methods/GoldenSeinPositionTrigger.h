@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GoldenSeinPositionTrigger.h>
 
 namespace app::classes::GoldenSeinPositionTrigger {
     IL2CPP_REGISTER_METHOD(0x01078E90, void, FixedUpdate, (app::GoldenSeinPositionTrigger * this_ptr))

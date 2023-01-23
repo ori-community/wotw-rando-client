@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Inflater.h>
+#include <Modloader/app/structs/IFileFormatReader.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Unity::IO::Compression::Inflater {
     IL2CPP_REGISTER_METHOD(0x02B7AD40, void, ctor, (app::Inflater * this_ptr))

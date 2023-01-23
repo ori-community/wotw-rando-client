@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InteractionTrigger_Range_Interaction__Array__Class.h>
+#include <Modloader/app/structs/InteractionTrigger_Range_Interaction__Array.h>
 
 namespace app::classes::types {
     namespace InteractionTrigger_Range_Interaction__Array {

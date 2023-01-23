@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RuntimeGuidMapping_CacheEntry__Class.h>
+#include <Modloader/app/structs/RuntimeGuidMapping_CacheEntry.h>
+#include <Modloader/app/structs/RuntimeGuidMapping_CacheEntry__Boxed.h>
+#include <Modloader/app/structs/RuntimeGuidMapping_CacheEntry__Array.h>
 
 namespace app::classes::types {
     namespace RuntimeGuidMapping_CacheEntry {

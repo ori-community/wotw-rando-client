@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Button.h>
+#include <Modloader/app/structs/Button_ButtonClickedEvent.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/BaseEventData.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::UnityEngine::UI::Button {
     IL2CPP_REGISTER_METHOD(0x01F2BB30, void, ctor, (app::Button * this_ptr))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PublicKey.h>
+#include <Modloader/app/structs/X509Certificate_2.h>
+#include <Modloader/app/structs/AsnEncodedData.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
+#include <Modloader/app/structs/Oid.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/DSA.h>
+#include <Modloader/app/structs/RSA.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::PublicKey {
     IL2CPP_REGISTER_METHOD(0x021C10B0, void, ctor, (app::PublicKey * this_ptr, app::X509Certificate_2* certificate))

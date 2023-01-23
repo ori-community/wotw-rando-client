@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ITimelineEntityParent.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/IConstraint.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/TimelineConstraint.h>
+#include <Modloader/app/structs/ConstraintsMetaData.h>
+#include <Modloader/app/structs/ConstraintFlag__Enum.h>
 
 namespace app::classes::Moon::Timeline::ConstraintOperation {
     IL2CPP_REGISTER_METHOD(0x01BB0A00, bool, IsEntityPadding, (app::ITimelineEntityParent * timeline, app::EntityId entity_id))

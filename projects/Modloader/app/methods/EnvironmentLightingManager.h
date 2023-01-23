@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnvironmentLightingManager.h>
+#include <Modloader/app/structs/EnvironmentLight.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::EnvironmentLightingManager {
     IL2CPP_REGISTER_METHOD(0x00CA8560, void, ResetStatics, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataBundle.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataBundleEntry.h>
+#include <Modloader/app/structs/IReadOnlyDictionary_2_System_String_Moon_Telemetry_Performance_DataBundleEntry_.h>
 
 namespace app::classes::Moon::Telemetry::Performance::DataBundle {
     IL2CPP_REGISTER_METHOD(0x00E338F0, void, ctor, (app::DataBundle * this_ptr, app::String* path))

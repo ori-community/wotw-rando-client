@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ModularZone.h>
+#include <Modloader/app/structs/IModularZoneModifier__Array.h>
+#include <Modloader/app/structs/List_1_ICondition_.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/IModularZoneModifier.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ModularZone {
     IL2CPP_REGISTER_METHOD(0x0132F750, float, get_TimeSinceLastActive, (app::ModularZone * this_ptr))

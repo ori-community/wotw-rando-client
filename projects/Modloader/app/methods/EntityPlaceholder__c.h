@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityPlaceholder_c.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::EntityPlaceholder___c {
     IL2CPP_REGISTER_METHOD(0x00C9D930, void, cctor, ())

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KwolokBossEntity_OnDamageReceivedDelegate_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KwolokBossEntity_OnDamageReceivedDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossEntity_OnDamageReceivedDelegate_DEFINED)
+#include <Modloader/app/structs/KwolokBossEntity_OnDamageReceivedDelegate__Fields.h>
+#if defined(IL2CPP_STRUCT_KwolokBossEntity_OnDamageReceivedDelegate__Fields_DEFINED)
+#define IL2CPP_STRUCT_KwolokBossEntity_OnDamageReceivedDelegate_DEFINED
+struct KwolokBossEntity_OnDamageReceivedDelegate__Class;
+struct KwolokBossEntity_OnDamageReceivedDelegate {
+    struct KwolokBossEntity_OnDamageReceivedDelegate__Class* klass;
+    MonitorData* monitor;
+    struct KwolokBossEntity_OnDamageReceivedDelegate__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KwolokBossEntity_OnDamageReceivedDelegate_FWDDECL)
+#define IL2CPP_STRUCT_KwolokBossEntity_OnDamageReceivedDelegate_FWDDECL
+#include <Modloader/app/structs/KwolokBossEntity_OnDamageReceivedDelegate__Class.h>
+#endif
+#undef IL2CPP_STRUCT_KwolokBossEntity_OnDamageReceivedDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossEntity_OnDamageReceivedDelegate_DEFINED) && !defined(IL2CPP_STRUCT_KwolokBossEntity_OnDamageReceivedDelegate_FWDDECL)
+#include <Modloader/app/structs/KwolokBossEntity_OnDamageReceivedDelegate.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KwolokBossEntity_OnDamageReceivedDelegate.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

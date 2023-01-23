@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Hashtable_HashtableEnumerator__Class.h>
+#include <Modloader/app/structs/Hashtable_HashtableEnumerator.h>
 
 namespace app::classes::types {
     namespace Hashtable_HashtableEnumerator {

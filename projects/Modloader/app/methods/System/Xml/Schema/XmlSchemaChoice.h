@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlSchemaChoice.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaChoice {
     IL2CPP_REGISTER_METHOD(0x002FBBE0, app::XmlSchemaObjectCollection*, get_Items, (app::XmlSchemaChoice * this_ptr))

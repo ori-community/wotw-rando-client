@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_HierarchyPerformanceTester_Old_HPerfTestResultComparer_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_HierarchyPerformanceTester_Old_HPerfTestResultComparer_INITIALIZING
+#if !defined(IL2CPP_STRUCT_HierarchyPerformanceTester_Old_HPerfTestResultComparer_DEFINED)
+#include <Modloader/app/structs/HierarchyPerformanceTester_Old_HPerfTestResultComparer__Fields.h>
+#if defined(IL2CPP_STRUCT_HierarchyPerformanceTester_Old_HPerfTestResultComparer__Fields_DEFINED)
+#define IL2CPP_STRUCT_HierarchyPerformanceTester_Old_HPerfTestResultComparer_DEFINED
+struct HierarchyPerformanceTester_Old_HPerfTestResultComparer__Class;
+struct HierarchyPerformanceTester_Old_HPerfTestResultComparer {
+    struct HierarchyPerformanceTester_Old_HPerfTestResultComparer__Class* klass;
+    MonitorData* monitor;
+    struct HierarchyPerformanceTester_Old_HPerfTestResultComparer__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_HierarchyPerformanceTester_Old_HPerfTestResultComparer_FWDDECL)
+#define IL2CPP_STRUCT_HierarchyPerformanceTester_Old_HPerfTestResultComparer_FWDDECL
+#include <Modloader/app/structs/HierarchyPerformanceTester_Old_HPerfTestResultComparer__Class.h>
+#endif
+#undef IL2CPP_STRUCT_HierarchyPerformanceTester_Old_HPerfTestResultComparer_INITIALIZING
+#if !defined(IL2CPP_STRUCT_HierarchyPerformanceTester_Old_HPerfTestResultComparer_DEFINED) && !defined(IL2CPP_STRUCT_HierarchyPerformanceTester_Old_HPerfTestResultComparer_FWDDECL)
+#include <Modloader/app/structs/HierarchyPerformanceTester_Old_HPerfTestResultComparer.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/HierarchyPerformanceTester_Old_HPerfTestResultComparer.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

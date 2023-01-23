@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleIKSolver.h>
+#include <Modloader/app/structs/SimpleIKSolver_JointEntity.h>
 
 namespace app::classes::SimpleIKSolver {
     IL2CPP_REGISTER_METHOD(0x00748750, void, Start, (app::SimpleIKSolver * this_ptr))

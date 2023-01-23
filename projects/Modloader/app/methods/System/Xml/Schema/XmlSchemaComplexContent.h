@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSchemaComplexContent.h>
+#include <Modloader/app/structs/XmlSchemaContent.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaComplexContent {
     IL2CPP_REGISTER_METHOD(0x00585310, bool, get_IsMixed, (app::XmlSchemaComplexContent * this_ptr))

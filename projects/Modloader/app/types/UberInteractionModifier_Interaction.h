@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberInteractionModifier_Interaction__Class.h>
+#include <Modloader/app/structs/UberInteractionModifier_Interaction.h>
+#include <Modloader/app/structs/UberInteractionModifier_Interaction__Boxed.h>
 
 namespace app::classes::types {
     namespace UberInteractionModifier_Interaction {

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/FixedUpdate_ScriptRunBehaviourFixedUpdate__Class.h>
+#include <Modloader/app/structs/FixedUpdate_ScriptRunBehaviourFixedUpdate.h>
+#include <Modloader/app/structs/FixedUpdate_ScriptRunBehaviourFixedUpdate__Boxed.h>
 
 namespace app::classes::types {
     namespace FixedUpdate_ScriptRunBehaviourFixedUpdate {

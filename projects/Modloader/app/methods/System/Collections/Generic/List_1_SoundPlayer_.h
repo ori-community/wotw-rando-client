@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundPlayer.h>
+#include <Modloader/app/structs/List_1_SoundPlayer_.h>
+#include <Modloader/app/structs/IEnumerable_1_SoundPlayer_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_SoundPlayer_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::SoundPlayer*, get_Item, (app::List_1_SoundPlayer_ * this_ptr, int32_t index))

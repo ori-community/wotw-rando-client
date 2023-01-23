@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/AVProWindowsMediaMovie.h>
+#include <Modloader/app/structs/AVProWindowsMedia.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FilterMode__Enum.h>
+#include <Modloader/app/structs/TextureWrapMode__Enum.h>
 
 namespace app::classes::AVProWindowsMediaMovie {
     IL2CPP_REGISTER_METHOD(0x0312E3B0, app::Texture*, get_OutputTexture, (app::AVProWindowsMediaMovie * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MetaBallWaterZone.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MetaBallWaterZone {
     IL2CPP_REGISTER_METHOD(0x0159E290, void, FixedUpdate, (app::MetaBallWaterZone * this_ptr))

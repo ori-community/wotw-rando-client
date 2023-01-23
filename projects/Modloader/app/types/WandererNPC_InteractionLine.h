@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WandererNPC_InteractionLine__Class.h>
+#include <Modloader/app/structs/WandererNPC_InteractionLine.h>
+#include <Modloader/app/structs/WandererNPC_InteractionLine__Array.h>
 
 namespace app::classes::types {
     namespace WandererNPC_InteractionLine {

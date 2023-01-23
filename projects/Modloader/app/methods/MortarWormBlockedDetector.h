@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MortarWormBlockedDetector.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::MortarWormBlockedDetector {
     IL2CPP_REGISTER_METHOD(0x0147FAE0, void, OnValidate, (app::MortarWormBlockedDetector * this_ptr))

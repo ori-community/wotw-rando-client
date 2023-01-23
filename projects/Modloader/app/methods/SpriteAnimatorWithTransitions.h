@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpriteAnimatorWithTransitions.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/TextureAnimator.h>
+#include <Modloader/app/structs/TextureAnimation.h>
+#include <Modloader/app/structs/Action_1_TextureAnimation_.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions.h>
+#include <Modloader/app/structs/Atlas.h>
+#include <Modloader/app/structs/UberScreenMode__Enum.h>
 
 namespace app::classes::SpriteAnimatorWithTransitions {
     IL2CPP_REGISTER_METHOD(0x00938890, bool, get_IsTransitionPlaying, (app::SpriteAnimatorWithTransitions * this_ptr))

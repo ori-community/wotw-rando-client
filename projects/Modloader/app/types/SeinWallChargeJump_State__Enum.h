@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinWallChargeJump_State__Enum__Class.h>
+#include <Modloader/app/structs/SeinWallChargeJump_State__Enum.h>
 
 namespace app::classes::types {
     namespace SeinWallChargeJump_State__Enum {

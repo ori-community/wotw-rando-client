@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PiranhaChaseBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::PiranhaChaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x0115D4E0, void, OnEntityInitialized, (app::PiranhaChaseBehaviour * this_ptr))

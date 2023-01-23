@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_TRACE_GUID_INFO__Class.h>
+#include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_TRACE_GUID_INFO.h>
+#include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_TRACE_GUID_INFO__Boxed.h>
 
 namespace app::classes::types {
     namespace UnsafeNativeMethods_ManifestEtw_TRACE_GUID_INFO {

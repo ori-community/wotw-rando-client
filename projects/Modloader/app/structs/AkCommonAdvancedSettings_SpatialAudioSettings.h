@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AkCommonAdvancedSettings_SpatialAudioSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AkCommonAdvancedSettings_SpatialAudioSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkCommonAdvancedSettings_SpatialAudioSettings_DEFINED)
+#include <Modloader/app/structs/AkCommonAdvancedSettings_SpatialAudioSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_AkCommonAdvancedSettings_SpatialAudioSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_AkCommonAdvancedSettings_SpatialAudioSettings_DEFINED
+struct AkCommonAdvancedSettings_SpatialAudioSettings__Class;
+struct AkCommonAdvancedSettings_SpatialAudioSettings {
+    struct AkCommonAdvancedSettings_SpatialAudioSettings__Class* klass;
+    MonitorData* monitor;
+    struct AkCommonAdvancedSettings_SpatialAudioSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AkCommonAdvancedSettings_SpatialAudioSettings_FWDDECL)
+#define IL2CPP_STRUCT_AkCommonAdvancedSettings_SpatialAudioSettings_FWDDECL
+#include <Modloader/app/structs/AkCommonAdvancedSettings_SpatialAudioSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_AkCommonAdvancedSettings_SpatialAudioSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkCommonAdvancedSettings_SpatialAudioSettings_DEFINED) && !defined(IL2CPP_STRUCT_AkCommonAdvancedSettings_SpatialAudioSettings_FWDDECL)
+#include <Modloader/app/structs/AkCommonAdvancedSettings_SpatialAudioSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AkCommonAdvancedSettings_SpatialAudioSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

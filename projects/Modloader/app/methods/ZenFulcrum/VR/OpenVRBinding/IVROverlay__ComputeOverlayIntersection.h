@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IVROverlay_ComputeOverlayIntersection.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/VROverlayIntersectionParams_t.h>
+#include <Modloader/app/structs/VROverlayIntersectionResults_t.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVROverlay__ComputeOverlayIntersection {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVROverlay_ComputeOverlayIntersection * this_ptr, app::Object* object, void* method_1))

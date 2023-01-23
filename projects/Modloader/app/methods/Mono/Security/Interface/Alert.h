@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AlertLevel__Enum_1.h>
+#include <Modloader/app/structs/Alert_1.h>
+#include <Modloader/app/structs/AlertDescription__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Security::Interface::Alert {
     IL2CPP_REGISTER_METHOD(0x0052B590, app::AlertLevel__Enum_1, get_Level, (app::Alert_1 * this_ptr))

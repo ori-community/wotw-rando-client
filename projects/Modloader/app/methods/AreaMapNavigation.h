@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AreaMapNavigation.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/AreaMapNavigation_State__Enum.h>
+#include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector2_.h>
 
 namespace app::classes::AreaMapNavigation {
     IL2CPP_REGISTER_METHOD(0x0050F110, float, get_ZoomTime, (app::AreaMapNavigation * this_ptr))

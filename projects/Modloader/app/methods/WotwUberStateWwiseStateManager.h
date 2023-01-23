@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WotwUberStateWwiseStateManager.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/List_1_System_UInt32_.h>
 
 namespace app::classes::WotwUberStateWwiseStateManager {
     IL2CPP_REGISTER_METHOD(0x00590130, void, CopyDataFromMap, (app::WotwUberStateWwiseStateManager * this_ptr))

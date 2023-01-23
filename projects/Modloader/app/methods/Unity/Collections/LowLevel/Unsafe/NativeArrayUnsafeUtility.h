@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Void.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds_.h>
+#include <Modloader/app/structs/NativeArray_1_System_Byte_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_CapsulecastCommand_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastCommand_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_SpherecastCommand_.h>
+#include <Modloader/app/structs/Allocator__Enum.h>
 
 namespace app::classes::Unity::Collections::LowLevel::Unsafe::NativeArrayUnsafeUtility {
     IL2CPP_REGISTER_METHOD(0x015E7A50, app::Void*, GetUnsafeBufferPointerWithoutChecks_1, (app::NativeArray_1_UnityEngine_Bounds_ native_array))

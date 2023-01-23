@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_.h>
+#include <Modloader/app/structs/ListenerSoundZoneTaskData.h>
+#include <Modloader/app/structs/AudioListenerZoneReference.h>
 
 namespace app::classes::Moon::Wwise::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData__ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_ {
     IL2CPP_REGISTER_METHOD(0x02AF4E70, bool, get_IsValid, (app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_ * this_ptr))

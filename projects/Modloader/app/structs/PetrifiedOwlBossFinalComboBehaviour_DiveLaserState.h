@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveLaserState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveLaserState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveLaserState_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_DiveLaserState__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveLaserState__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveLaserState_DEFINED
+struct PetrifiedOwlBossFinalComboBehaviour_DiveLaserState__Class;
+struct PetrifiedOwlBossFinalComboBehaviour_DiveLaserState {
+    struct PetrifiedOwlBossFinalComboBehaviour_DiveLaserState__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossFinalComboBehaviour_DiveLaserState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveLaserState_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveLaserState_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_DiveLaserState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveLaserState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveLaserState_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_DiveLaserState_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_DiveLaserState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_DiveLaserState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

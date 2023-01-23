@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabServerInstanceAPI_c_DisplayClass25_0_1_System_Object_.h>
+#include <Modloader/app/structs/ExecuteCloudScriptResult_2.h>
 
 namespace app::classes::PlayFab::PlayFabServerInstanceAPI___c__DisplayClass25_0_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::PlayFabServerInstanceAPI_c_DisplayClass25_0_1_System_Object_ * this_ptr))

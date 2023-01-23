@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CinematicCharacterAnimator_Character__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/TimelineCharacterPreviewManager_CharacterPreviewInstance.h>
+#include <Modloader/app/structs/SeinController3D.h>
+#include <Modloader/app/structs/GhostPlayer.h>
+#include <Modloader/app/structs/TimelineCharacterPreviewManager.h>
 
 namespace app::classes::TimelineCharacterPreviewManager {
     IL2CPP_REGISTER_METHOD(0x010F5790, bool, HasInstance, (app::CinematicCharacterAnimator_Character__Enum character))

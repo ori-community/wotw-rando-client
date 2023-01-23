@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MessageDictionary.h>
+#include <Modloader/app/structs/IMethodMessage.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::MessageDictionary {
     IL2CPP_REGISTER_METHOD(0x002FB940, void, ctor, (app::MessageDictionary * this_ptr, app::IMethodMessage* message))

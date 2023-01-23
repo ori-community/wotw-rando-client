@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Flammable_c.h>
+#include <Modloader/app/structs/Flammable.h>
 
 namespace app::classes::Moon::Flammable___c {
     IL2CPP_REGISTER_METHOD(0x01225AE0, void, cctor, ())

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_ArtOptimization_Sample_.h>
+#include <Modloader/app/structs/Sample.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_Int32_Moon_ArtOptimization_Sample_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_Moon_ArtOptimization_Sample_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_System_Int32_Moon_ArtOptimization_Sample_ * this_ptr))

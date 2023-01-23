@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSchemaInferenceException.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaInferenceException {
     IL2CPP_REGISTER_METHOD(0x0191EC50, void, ctor_1, (app::XmlSchemaInferenceException * this_ptr, app::SerializationInfo* info, app::StreamingContext context))

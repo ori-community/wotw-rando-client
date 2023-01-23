@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LicenseManager_LicenseInteropHelper_CLRLicenseContext__Class.h>
+#include <Modloader/app/structs/LicenseManager_LicenseInteropHelper_CLRLicenseContext.h>
 
 namespace app::classes::types {
     namespace LicenseManager_LicenseInteropHelper_CLRLicenseContext {

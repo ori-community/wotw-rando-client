@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RobustPredicates.h>
+#include <Modloader/app/structs/Point.h>
+#include <Modloader/app/structs/Double__Array.h>
 
 namespace app::classes::TriangleNet::RobustPredicates {
     IL2CPP_REGISTER_METHOD(0x02B277F0, app::RobustPredicates*, get_Default, ())

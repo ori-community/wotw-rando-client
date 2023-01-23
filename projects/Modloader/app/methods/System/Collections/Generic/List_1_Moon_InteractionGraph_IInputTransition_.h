@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_InteractionGraph_IInputTransition_.h>
+#include <Modloader/app/structs/IInputTransition.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_InteractionGraph_IInputTransition_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_Moon_InteractionGraph_IInputTransition_ * this_ptr))

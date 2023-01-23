@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextBoxIconsFontGenerator_IconData.h>
+#include <Modloader/app/structs/TextBoxIconsFontGenerator.h>
 
 namespace app::classes::TextBoxIconsFontGenerator {
     IL2CPP_REGISTER_METHOD(0x010E43C0, app::TextBoxIconsFontGenerator_IconData*, FindIcon, (app::TextBoxIconsFontGenerator * this_ptr, int32_t id))

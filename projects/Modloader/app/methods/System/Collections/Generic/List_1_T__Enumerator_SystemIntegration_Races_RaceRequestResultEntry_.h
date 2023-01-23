@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceRequestResultEntry.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_SystemIntegration_Races_RaceRequestResultEntry___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_SystemIntegration_Races_RaceRequestResultEntry_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::RaceRequestResultEntry*, get_Current, (app::List_1_T_Enumerator_SystemIntegration_Races_RaceRequestResultEntry___Boxed * this_ptr))

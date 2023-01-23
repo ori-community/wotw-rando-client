@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpikeSlugDeathReaction.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpikeSlugDeathReaction {
     IL2CPP_REGISTER_METHOD(0x011C7BD0, void, OnCacheSerializedComponents, (app::SpikeSlugDeathReaction * this_ptr, app::Entity* owner))

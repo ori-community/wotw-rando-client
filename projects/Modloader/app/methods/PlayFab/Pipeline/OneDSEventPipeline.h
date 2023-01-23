@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OneDSEventPipelineSettings.h>
+#include <Modloader/app/structs/OneDSEventPipeline.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/ILogger_1.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/IPlayFabEmitEventRequest.h>
+#include <Modloader/app/structs/Task_1_PlayFab_IPlayFabEmitEventResponse_.h>
 
 namespace app::classes::PlayFab::Pipeline::OneDSEventPipeline {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::OneDSEventPipelineSettings*, get_Settings, (app::OneDSEventPipeline * this_ptr))

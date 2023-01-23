@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/_BinaryParser.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/ObjectReader.h>
+#include <Modloader/app/structs/BinaryAssemblyInfo.h>
+#include <Modloader/app/structs/SizedArray.h>
+#include <Modloader/app/structs/ParseRecord.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/BinaryHeaderEnum__Enum.h>
+#include <Modloader/app/structs/BinaryObjectWithMap.h>
+#include <Modloader/app/structs/BinaryObjectWithMapTyped.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/InternalPrimitiveTypeE__Enum.h>
+#include <Modloader/app/structs/ObjectProgress.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::__BinaryParser {
     IL2CPP_REGISTER_METHOD(0x01DA46A0, void, ctor, (app::_BinaryParser * this_ptr, app::Stream* stream, app::ObjectReader* object_reader))

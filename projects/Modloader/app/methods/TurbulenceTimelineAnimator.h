@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TurbulenceManager.h>
+#include <Modloader/app/structs/TurbulenceTimelineAnimator.h>
 
 namespace app::classes::TurbulenceTimelineAnimator {
     IL2CPP_REGISTER_METHOD(0x013D5840, app::TurbulenceManager*, get_Manager, (app::TurbulenceTimelineAnimator * this_ptr))

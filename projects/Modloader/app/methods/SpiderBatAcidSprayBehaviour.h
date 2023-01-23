@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBatAcidSprayBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IEntityBehaviour.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBatAcidSprayBehaviour {
     IL2CPP_REGISTER_METHOD(0x00953E70, void, OnEnter, (app::SpiderBatAcidSprayBehaviour * this_ptr, app::IContext* context))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectHolderList.h>
+#include <Modloader/app/structs/ObjectHolder.h>
+#include <Modloader/app/structs/ObjectHolderListEnumerator.h>
 
 namespace app::classes::System::Runtime::Serialization::ObjectHolderList {
     IL2CPP_REGISTER_METHOD(0x01ED6C70, void, ctor_1, (app::ObjectHolderList * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberWaterControl_SplashInfo__Array__Class.h>
+#include <Modloader/app/structs/UberWaterControl_SplashInfo__Array.h>
 
 namespace app::classes::types {
     namespace UberWaterControl_SplashInfo__Array {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_Moon_SceneUberStateGroup_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SceneUberStateGroup.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_Moon_SceneUberStateGroup_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_System_String_Moon_SceneUberStateGroup_ * this_ptr))

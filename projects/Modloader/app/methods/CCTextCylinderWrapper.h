@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CCTextCylinderWrapper.h>
+#include <Modloader/app/structs/CCText.h>
 
 namespace app::classes::CCTextCylinderWrapper {
     IL2CPP_REGISTER_METHOD(0x03160D50, void, Modify, (app::CCTextCylinderWrapper * this_ptr, app::CCText* text))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderlingHitReactionBehaviour_c.h>
 
 namespace app::classes::SpiderlingHitReactionBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x011C57E0, void, cctor, ())

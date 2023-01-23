@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSchemaCollectionEnumerator.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlSchemaCollectionNode.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaCollectionEnumerator {
     IL2CPP_REGISTER_METHOD(0x01CA2E60, void, ctor, (app::XmlSchemaCollectionEnumerator * this_ptr, app::Hashtable* collection))

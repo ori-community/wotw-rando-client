@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/OriLayeredAnimationsController.h>
+#include <Modloader/app/structs/List_1_ICondition_.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 
 namespace app::classes::OriLayeredAnimationsController {
     IL2CPP_REGISTER_METHOD(0x0043DA30, app::MoonAnimator*, get_OriAnimator, (app::OriLayeredAnimationsController * this_ptr))

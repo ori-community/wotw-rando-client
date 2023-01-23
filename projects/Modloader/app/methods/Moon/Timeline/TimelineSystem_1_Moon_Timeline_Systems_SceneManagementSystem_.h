@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneManagementSystem.h>
+#include <Modloader/app/structs/TimelineSystem_1_Moon_Timeline_Systems_SceneManagementSystem_.h>
 
 namespace app::classes::Moon::Timeline::TimelineSystem_1_Moon_Timeline_Systems_SceneManagementSystem_ {
     IL2CPP_REGISTER_METHOD(0x02AF3ED0, app::SceneManagementSystem*, get_Instance, ())

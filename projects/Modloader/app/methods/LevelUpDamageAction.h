@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LevelUpDamageAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::LevelUpDamageAction {
     IL2CPP_REGISTER_METHOD(0x01132D30, void, Perform, (app::LevelUpDamageAction * this_ptr, app::IContext* context))

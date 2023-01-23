@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XboxOneStatistics_StatisticReading__Array.h>
+#include <Modloader/app/structs/IComparer_1_XboxOneStatistics_StatisticReading_.h>
+#include <Modloader/app/structs/XboxOneStatistics_StatisticReading.h>
+#include <Modloader/app/structs/Comparison_1_XboxOneStatistics_StatisticReading_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_XboxOneStatistics_StatisticReading_ {
     IL2CPP_REGISTER_METHOD(0x02C8E1F0, void, Sort_1, (app::XboxOneStatistics_StatisticReading__Array * keys, int32_t index, int32_t length, app::IComparer_1_XboxOneStatistics_StatisticReading_* comparer))

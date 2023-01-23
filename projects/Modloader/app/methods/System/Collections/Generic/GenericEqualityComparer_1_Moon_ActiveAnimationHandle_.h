@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericEqualityComparer_1_Moon_ActiveAnimationHandle_.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/ActiveAnimationHandle__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::GenericEqualityComparer_1_Moon_ActiveAnimationHandle_ {
     IL2CPP_REGISTER_METHOD(0x02B604A0, bool, Equals_1, (app::GenericEqualityComparer_1_Moon_ActiveAnimationHandle_ * this_ptr, app::ActiveAnimationHandle x, app::ActiveAnimationHandle y))

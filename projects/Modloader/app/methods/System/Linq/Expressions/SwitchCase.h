@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwitchCase.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_Expression_.h>
 
 namespace app::classes::System::Linq::Expressions::SwitchCase {
     IL2CPP_REGISTER_METHOD(0x0231B8E0, void, ctor, (app::SwitchCase * this_ptr, app::Expression* body, app::ReadOnlyCollection_1_System_Linq_Expressions_Expression_* test_values))

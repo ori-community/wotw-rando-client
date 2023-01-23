@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ListViewItem.h>
+#include <Modloader/app/structs/ListView.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Event.h>
 
 namespace app::classes::Moon::UberStateVisualization::ListViewItem {
     IL2CPP_REGISTER_METHOD(0x019995A0, app::GUIStyle*, get_CenteredLabelStyle, ())

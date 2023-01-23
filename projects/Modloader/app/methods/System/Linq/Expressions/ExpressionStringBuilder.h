@@ -1,5 +1,45 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExpressionStringBuilder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LabelTarget.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/CatchBlock.h>
+#include <Modloader/app/structs/SwitchCase.h>
+#include <Modloader/app/structs/MemberBinding.h>
+#include <Modloader/app/structs/ElementInit.h>
+#include <Modloader/app/structs/BinaryExpression.h>
+#include <Modloader/app/structs/ListInitExpression.h>
+#include <Modloader/app/structs/ConditionalExpression.h>
+#include <Modloader/app/structs/ConstantExpression.h>
+#include <Modloader/app/structs/DebugInfoExpression.h>
+#include <Modloader/app/structs/RuntimeVariablesExpression.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/MemberExpression.h>
+#include <Modloader/app/structs/MemberInitExpression.h>
+#include <Modloader/app/structs/MemberAssignment.h>
+#include <Modloader/app/structs/MemberListBinding.h>
+#include <Modloader/app/structs/MemberMemberBinding.h>
+#include <Modloader/app/structs/InvocationExpression.h>
+#include <Modloader/app/structs/MethodCallExpression.h>
+#include <Modloader/app/structs/NewArrayExpression.h>
+#include <Modloader/app/structs/NewExpression.h>
+#include <Modloader/app/structs/TypeBinaryExpression.h>
+#include <Modloader/app/structs/UnaryExpression.h>
+#include <Modloader/app/structs/BlockExpression.h>
+#include <Modloader/app/structs/DefaultExpression.h>
+#include <Modloader/app/structs/LabelExpression.h>
+#include <Modloader/app/structs/GotoExpression.h>
+#include <Modloader/app/structs/LoopExpression.h>
+#include <Modloader/app/structs/SwitchExpression.h>
+#include <Modloader/app/structs/TryExpression.h>
+#include <Modloader/app/structs/IndexExpression.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Object_.h>
+#include <Modloader/app/structs/Expression_1_System_Object_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Expression_.h>
 
 namespace app::classes::System::Linq::Expressions::ExpressionStringBuilder {
     IL2CPP_REGISTER_METHOD(0x022C78D0, void, ctor, (app::ExpressionStringBuilder * this_ptr))

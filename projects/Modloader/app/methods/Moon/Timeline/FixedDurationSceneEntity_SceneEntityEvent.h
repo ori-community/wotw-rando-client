@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FixedDurationSceneEntity_SceneEntityEvent.h>
+#include <Modloader/app/structs/FixedDurationSceneEntity_Markers__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Timeline::FixedDurationSceneEntity_SceneEntityEvent {
     IL2CPP_REGISTER_METHOD(0x0076CEF0, void, ctor, (app::FixedDurationSceneEntity_SceneEntityEvent * this_ptr, app::FixedDurationSceneEntity_Markers__Enum event))

@@ -16,6 +16,7 @@
 #include <Modloader/app/types/SerializedIntUberState.h>
 #include <Modloader/app/types/UberID.h>
 #include <Modloader/app/types/PlayerInput.h>
+#include <Modloader/app/types/UberStateGroup.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
@@ -87,7 +88,7 @@ namespace {
         auto state = il2cpp::unity::instantiate_object<T>(reinterpret_cast<T*>(uber_state_so_cache[klass]));
 
         if (group_so_cache == nullptr) {
-            group_so_cache = il2cpp::unity::create_scriptable_object<app::UberStateGroup>(app::UberStateGroup__TypeInfo, "Moon", "UberStateGroup");
+            group_so_cache = il2cpp::unity::create_scriptable_object<app::UberStateGroup>(types::UberStateGroup::get_class());
         }
 
         state->fields.Group = il2cpp::unity::instantiate_object<app::UberStateGroup>(group_so_cache);

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFight1StartBehaviour__Class.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFight1StartBehaviour.h>
 
 namespace app::classes::types {
     namespace PetrifiedOwlBossFight1StartBehaviour {

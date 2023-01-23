@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonQuaternion.h>
+#include <Modloader/app/structs/CrossSceneReferenceId.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/IMoonResolverContext.h>
+#include <Modloader/app/structs/MoonTypeData.h>
 
 namespace app::classes::Moon::MoonQuaternion {
     IL2CPP_REGISTER_METHOD(0x02F972C0, bool, get_IsCrossSceneReference, (app::MoonQuaternion * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IsXboxSeriesSCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::IsXboxSeriesSCondition {
     IL2CPP_REGISTER_METHOD(0x00649020, bool, Validate, (app::IsXboxSeriesSCondition * this_ptr, app::IContext* context))

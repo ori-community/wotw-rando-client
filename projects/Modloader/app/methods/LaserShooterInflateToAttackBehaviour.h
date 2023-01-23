@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserShooterInflateToAttackBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/LaserShooterInflateToAttackBehaviour_State__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::LaserShooterInflateToAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00F155B0, bool, get_WasHitDuringAttack, (app::LaserShooterInflateToAttackBehaviour * this_ptr))

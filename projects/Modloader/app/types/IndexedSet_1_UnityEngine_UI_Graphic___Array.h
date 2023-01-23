@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IndexedSet_1_UnityEngine_UI_Graphic___Array__Class.h>
+#include <Modloader/app/structs/IndexedSet_1_UnityEngine_UI_Graphic___Array.h>
 
 namespace app::classes::types {
     namespace IndexedSet_1_UnityEngine_UI_Graphic___Array {

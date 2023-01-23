@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TurningBehaviour.h>
+#include <Modloader/app/structs/TurningAnimation.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::TurningBehaviour {
     IL2CPP_REGISTER_METHOD(0x0073EDA0, int32_t, get_TurningAnimationEntry, (app::TurningBehaviour * this_ptr))

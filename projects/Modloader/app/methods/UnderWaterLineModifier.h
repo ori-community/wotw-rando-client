@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnderWaterLineModifier.h>
 
 namespace app::classes::UnderWaterLineModifier {
     IL2CPP_REGISTER_METHOD(0x012AB640, void, SetProperties, (app::UnderWaterLineModifier * this_ptr))

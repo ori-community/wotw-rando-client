@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormChaseBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/SandWormChaseBehaviour_State__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::SandWormChaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C09740, void, OnEntityInitialized, (app::SandWormChaseBehaviour * this_ptr))

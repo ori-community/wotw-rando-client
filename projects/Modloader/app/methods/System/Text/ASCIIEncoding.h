@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ASCIIEncoding.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/EncoderNLS.h>
+#include <Modloader/app/structs/DecoderNLS.h>
+#include <Modloader/app/structs/Decoder.h>
+#include <Modloader/app/structs/Encoder.h>
 
 namespace app::classes::System::Text::ASCIIEncoding {
     IL2CPP_REGISTER_METHOD(0x02445830, void, ctor, (app::ASCIIEncoding * this_ptr))

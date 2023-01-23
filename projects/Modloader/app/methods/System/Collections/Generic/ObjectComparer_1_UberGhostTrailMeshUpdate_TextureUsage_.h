@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate_TextureUsage.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_UberGhostTrailMeshUpdate_TextureUsage_ {
     IL2CPP_REGISTER_METHOD(0x01CCD3C0, int32_t, Compare, (app::ObjectComparer_1_UberGhostTrailMeshUpdate_TextureUsage_ * this_ptr, app::UberGhostTrailMeshUpdate_TextureUsage x, app::UberGhostTrailMeshUpdate_TextureUsage y))

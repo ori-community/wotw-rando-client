@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SocketAsyncResult_c.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::Sockets::SocketAsyncResult___c {
     IL2CPP_REGISTER_METHOD(0x020A24F0, void, cctor, ())

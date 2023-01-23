@@ -1,5 +1,38 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationFormat__Enum_1.h>
+#include <Modloader/app/structs/SchemaSerializationMode__Enum.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/DataViewManager.h>
+#include <Modloader/app/structs/PropertyCollection.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/ISite.h>
+#include <Modloader/app/structs/DataRelationCollection.h>
+#include <Modloader/app/structs/DataTableCollection.h>
+#include <Modloader/app/structs/EventHandler.h>
+#include <Modloader/app/structs/IList.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/SchemaFormat__Enum.h>
+#include <Modloader/app/structs/Converter_2_Type_String_.h>
+#include <Modloader/app/structs/XmlReadMode__Enum.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/XmlWriteMode__Enum.h>
+#include <Modloader/app/structs/MissingSchemaAction__Enum.h>
+#include <Modloader/app/structs/PropertyChangedEventArgs.h>
+#include <Modloader/app/structs/MergeFailedEventArgs.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRelation.h>
+#include <Modloader/app/structs/DataTable__Array.h>
+#include <Modloader/app/structs/PropertyDescriptor__Array.h>
+#include <Modloader/app/structs/XmlSchemaComplexType.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
+#include <Modloader/app/structs/XmlSchema.h>
 
 namespace app::classes::System::Data::DataSet {
     IL2CPP_REGISTER_METHOD(0x017E2750, void, ctor_1, (app::DataSet * this_ptr))

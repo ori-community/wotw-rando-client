@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FPSAiming.h>
 
 namespace app::classes::RootMotion::Demos::FPSAiming {
     IL2CPP_REGISTER_METHOD(0x0221B3C0, void, Start, (app::FPSAiming * this_ptr))

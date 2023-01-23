@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceLeaderboardState.h>
+#include <Modloader/app/structs/RaceSystem.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RaceConfiguration.h>
 
 namespace app::classes::RaceLeaderboardState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::RaceLeaderboardState * this_ptr, app::RaceSystem* race_system))

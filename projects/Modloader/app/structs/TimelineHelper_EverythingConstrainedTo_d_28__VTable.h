@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TimelineHelper_EverythingConstrainedTo_d_28__VTable_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TimelineHelper_EverythingConstrainedTo_d_28__VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TimelineHelper_EverythingConstrainedTo_d_28__VTable_DEFINED)
+#define IL2CPP_STRUCT_TimelineHelper_EverythingConstrainedTo_d_28__VTable_DEFINED
+struct TimelineHelper_EverythingConstrainedTo_d_28__VTable {
+    VirtualInvokeData Equals;
+    VirtualInvokeData Finalize;
+    VirtualInvokeData GetHashCode;
+    VirtualInvokeData ToString;
+    VirtualInvokeData System_Collections_Generic_IEnumerable_Moon_Timeline_TimelineEntityRecord__GetEnumerator;
+    VirtualInvokeData System_Collections_IEnumerable_GetEnumerator;
+    VirtualInvokeData System_Collections_Generic_IEnumerator_Moon_Timeline_TimelineEntityRecord__get_Current;
+    VirtualInvokeData System_IDisposable_Dispose;
+    VirtualInvokeData MoveNext;
+    VirtualInvokeData System_Collections_IEnumerator_get_Current;
+    VirtualInvokeData System_Collections_IEnumerator_Reset;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_TimelineHelper_EverythingConstrainedTo_d_28__VTable_FWDDECL)
+#define IL2CPP_STRUCT_TimelineHelper_EverythingConstrainedTo_d_28__VTable_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_TimelineHelper_EverythingConstrainedTo_d_28__VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TimelineHelper_EverythingConstrainedTo_d_28__VTable_DEFINED) && !defined(IL2CPP_STRUCT_TimelineHelper_EverythingConstrainedTo_d_28__VTable_FWDDECL)
+#include <Modloader/app/structs/TimelineHelper_EverythingConstrainedTo_d_28__VTable.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TimelineHelper_EverythingConstrainedTo_d_28__VTable.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

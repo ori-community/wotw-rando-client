@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParticleSystem_MinMaxGradient__Boxed.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/ParticleSystemGradientMode__Enum.h>
+#include <Modloader/app/structs/Gradient.h>
+#include <Modloader/app/structs/ParticleSystem_MinMaxGradient.h>
 
 namespace app::classes::UnityEngine::ParticleSystem_MinMaxGradient {
     IL2CPP_REGISTER_METHOD(0x00248760, void, ctor, (app::ParticleSystem_MinMaxGradient__Boxed * this_ptr, app::Color color))

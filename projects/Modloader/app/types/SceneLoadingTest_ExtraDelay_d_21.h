@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SceneLoadingTest_ExtraDelay_d_21__Class.h>
+#include <Modloader/app/structs/SceneLoadingTest_ExtraDelay_d_21.h>
+#include <Modloader/app/structs/SceneLoadingTest_ExtraDelay_d_21__Boxed.h>
 
 namespace app::classes::types {
     namespace SceneLoadingTest_ExtraDelay_d_21 {

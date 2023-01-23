@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TrianglePool.h>
+#include <Modloader/app/structs/Triangle.h>
+#include <Modloader/app/structs/IEnumerable_1_TriangleNet_Topology_Triangle_.h>
+#include <Modloader/app/structs/Random.h>
+#include <Modloader/app/structs/Triangle__Array.h>
+#include <Modloader/app/structs/IEnumerator_1_TriangleNet_Topology_Triangle_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::TriangleNet::TrianglePool {
     IL2CPP_REGISTER_METHOD(0x02AA5EB0, void, ctor, (app::TrianglePool * this_ptr))

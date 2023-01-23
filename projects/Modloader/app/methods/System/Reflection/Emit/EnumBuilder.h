@@ -1,5 +1,31 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/EnumBuilder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Module.h>
+#include <Modloader/app/structs/TypeAttributes__Enum.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/Binder.h>
+#include <Modloader/app/structs/CallingConventions__Enum.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/ParameterModifier__Array.h>
+#include <Modloader/app/structs/ConstructorInfo__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/EventInfo_1.h>
+#include <Modloader/app/structs/EventInfo_1__Array.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/FieldInfo_1__Array.h>
+#include <Modloader/app/structs/MemberInfo_1__Array.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/MethodInfo_1__Array.h>
+#include <Modloader/app/structs/PropertyInfo_1__Array.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::Reflection::Emit::EnumBuilder {
     IL2CPP_REGISTER_METHOD(0x0267FAB0, app::Assembly*, get_Assembly, (app::EnumBuilder * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MapStone.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::MapStone {
     IL2CPP_REGISTER_METHOD(0x00A09730, void, Awake, (app::MapStone * this_ptr))

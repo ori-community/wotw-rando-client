@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlLookStateAnimator.h>
 
 namespace app::classes::Moon::PetrifiedOwlLookStateAnimator {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsLooping, (app::PetrifiedOwlLookStateAnimator * this_ptr))

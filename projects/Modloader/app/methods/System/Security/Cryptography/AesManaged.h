@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AesManaged.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CipherMode__Enum.h>
+#include <Modloader/app/structs/PaddingMode__Enum.h>
+#include <Modloader/app/structs/ICryptoTransform.h>
 
 namespace app::classes::System::Security::Cryptography::AesManaged {
     IL2CPP_REGISTER_METHOD(0x02FC8A30, void, ctor, (app::AesManaged * this_ptr))

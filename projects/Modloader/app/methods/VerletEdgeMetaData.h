@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VerletEdgeMetaData.h>
+#include <Modloader/app/structs/CageStructureTool_Edge.h>
 
 namespace app::classes::VerletEdgeMetaData {
     IL2CPP_REGISTER_METHOD(0x013C4400, void, OnAddEdge, (app::VerletEdgeMetaData * this_ptr, app::CageStructureTool_Edge* edge))

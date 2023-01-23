@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParticleSystem_CollisionModule__Boxed.h>
+#include <Modloader/app/structs/ParticleSystem.h>
 
 namespace app::classes::UnityEngine::ParticleSystem_CollisionModule {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::ParticleSystem_CollisionModule__Boxed * this_ptr, app::ParticleSystem* particle_system))

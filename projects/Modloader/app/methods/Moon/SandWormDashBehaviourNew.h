@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SandWormDashBehaviourNew.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/SandWormSandDigLocomotionBehaviour_SpeedEntry.h>
+#include <Modloader/app/structs/SandWormDashBehaviourNew_State__Enum.h>
 
 namespace app::classes::Moon::SandWormDashBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x00EC1200, app::Vector3, get_DashTargetPosition, (app::SandWormDashBehaviourNew * this_ptr))

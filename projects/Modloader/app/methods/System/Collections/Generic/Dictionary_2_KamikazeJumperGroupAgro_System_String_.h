@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_KamikazeJumperGroupAgro_System_String_.h>
+#include <Modloader/app/structs/KamikazeJumperGroupAgro.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_KamikazeJumperGroupAgro_System_String_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_KamikazeJumperGroupAgro_System_String_ {
     IL2CPP_REGISTER_METHOD(0x02BAC170, void, Add, (app::Dictionary_2_KamikazeJumperGroupAgro_System_String_ * this_ptr, app::KamikazeJumperGroupAgro* key, app::String* value))

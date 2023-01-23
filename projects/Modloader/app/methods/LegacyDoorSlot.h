@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyDoorSlot.h>
 
 namespace app::classes::LegacyDoorSlot {
     IL2CPP_REGISTER_METHOD(0x00A1A7E0, void, Awake, (app::LegacyDoorSlot * this_ptr))

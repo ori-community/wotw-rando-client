@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MethodReturnDictionary.h>
+#include <Modloader/app/structs/IMethodReturnMessage.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::MethodReturnDictionary {
     IL2CPP_REGISTER_METHOD(0x02317BE0, void, ctor, (app::MethodReturnDictionary * this_ptr, app::IMethodReturnMessage* message))

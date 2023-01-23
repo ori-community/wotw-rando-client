@@ -1,0 +1,23 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_InvokeTypeInfo_1_System_SByte___StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_InvokeTypeInfo_1_System_SByte___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_InvokeTypeInfo_1_System_SByte___StaticFields_DEFINED)
+#define IL2CPP_STRUCT_InvokeTypeInfo_1_System_SByte___StaticFields_DEFINED
+struct InvokeTypeInfo_1_System_SByte___StaticFields {
+};
+#endif
+#if !defined(IL2CPP_STRUCT_InvokeTypeInfo_1_System_SByte___StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_InvokeTypeInfo_1_System_SByte___StaticFields_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_InvokeTypeInfo_1_System_SByte___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_InvokeTypeInfo_1_System_SByte___StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_InvokeTypeInfo_1_System_SByte___StaticFields_FWDDECL)
+#include <Modloader/app/structs/InvokeTypeInfo_1_System_SByte___StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/InvokeTypeInfo_1_System_SByte___StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

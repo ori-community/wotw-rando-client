@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IMoonType_1_Moon_Timeline_ITimelineEntityParent__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IMoonType_1_Moon_Timeline_ITimelineEntityParent__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IMoonType_1_Moon_Timeline_ITimelineEntityParent__DEFINED)
+#define IL2CPP_STRUCT_IMoonType_1_Moon_Timeline_ITimelineEntityParent__DEFINED
+struct IMoonType_1_Moon_Timeline_ITimelineEntityParent___Class;
+struct IMoonType_1_Moon_Timeline_ITimelineEntityParent_ {
+    struct IMoonType_1_Moon_Timeline_ITimelineEntityParent___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IMoonType_1_Moon_Timeline_ITimelineEntityParent__FWDDECL)
+#define IL2CPP_STRUCT_IMoonType_1_Moon_Timeline_ITimelineEntityParent__FWDDECL
+#include <Modloader/app/structs/IMoonType_1_Moon_Timeline_ITimelineEntityParent___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IMoonType_1_Moon_Timeline_ITimelineEntityParent__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IMoonType_1_Moon_Timeline_ITimelineEntityParent__DEFINED) && !defined(IL2CPP_STRUCT_IMoonType_1_Moon_Timeline_ITimelineEntityParent__FWDDECL)
+#include <Modloader/app/structs/IMoonType_1_Moon_Timeline_ITimelineEntityParent_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IMoonType_1_Moon_Timeline_ITimelineEntityParent_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

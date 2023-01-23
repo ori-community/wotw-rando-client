@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LinkedList_1_System_Object_.h>
+#include <Modloader/app/structs/LinkedListNode_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/LinkedList_1_T_Enumerator_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Collections::Generic::LinkedList_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::LinkedList_1_System_Object_ * this_ptr))

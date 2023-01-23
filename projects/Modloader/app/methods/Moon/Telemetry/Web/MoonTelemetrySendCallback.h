@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTelemetrySendCallback.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Moon::Telemetry::Web::MoonTelemetrySendCallback {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnResult, (app::MoonTelemetrySendCallback * this_ptr, app::Byte__Array* data))

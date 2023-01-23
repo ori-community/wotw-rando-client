@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BsonBinaryType__Enum.h>
+#include <Modloader/app/structs/BsonBinary.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Newtonsoft::Json::Bson::BsonBinary {
     IL2CPP_REGISTER_METHOD(0x0052A050, app::BsonBinaryType__Enum, get_BinaryType, (app::BsonBinary * this_ptr))

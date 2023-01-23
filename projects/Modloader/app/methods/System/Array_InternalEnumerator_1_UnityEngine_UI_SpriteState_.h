@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_UnityEngine_UI_SpriteState___Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/SpriteState.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_InternalEnumerator_1_UnityEngine_UI_SpriteState_ {
     IL2CPP_REGISTER_METHOD(0x00160580, void, ctor, (app::Array_InternalEnumerator_1_UnityEngine_UI_SpriteState___Boxed * this_ptr, app::Array* array))

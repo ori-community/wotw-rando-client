@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DesiredUberStateBoolBase.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::DesiredUberStateBoolBase {
     IL2CPP_REGISTER_METHOD(0x01B578E0, void, WriteDesiredStates, (app::DesiredUberStateBoolBase * this_ptr))

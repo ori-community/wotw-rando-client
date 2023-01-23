@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CageVertexMetaData_1_System_Object_.h>
+#include <Modloader/app/structs/CageStructureTool_Vertex.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::CageVertexMetaData_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x019DE6D0, void, OnEnable, (app::CageVertexMetaData_1_System_Object_ * this_ptr))

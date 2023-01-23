@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IKSolverHeuristic.h>
+#include <Modloader/app/structs/IKLimb.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::IKLimb {
     IL2CPP_REGISTER_METHOD(0x002FBC60, app::IKSolverHeuristic*, get_Solver, (app::IKLimb * this_ptr))

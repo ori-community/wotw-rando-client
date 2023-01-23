@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReplayValidator_c.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/IGhostFrameData.h>
 
 namespace app::classes::Moon::Race::ReplayValidator___c {
     IL2CPP_REGISTER_METHOD(0x00C4C240, void, cctor, ())

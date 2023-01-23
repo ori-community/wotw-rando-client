@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnumHelper_1_UnderlyingType_Transformer_1_System_SByte_EmptyStruct_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EmptyStruct.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EnumHelper_1_UnderlyingType__Transformer_1_System_SByte_EmptyStruct_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::EnumHelper_1_UnderlyingType_Transformer_1_System_SByte_EmptyStruct_ * this_ptr, app::Object* object, void* method_1))

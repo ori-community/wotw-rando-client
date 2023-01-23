@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Blend2DVertex_1_BlendAnimation2D_Input___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Blend2DVertex_1_BlendAnimation2D_Input___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Blend2DVertex_1_BlendAnimation2D_Input___Fields_DEFINED)
+#include <Modloader/app/structs/Vertex__Fields.h>
+#if defined(IL2CPP_STRUCT_Vertex__Fields_DEFINED)
+#define IL2CPP_STRUCT_Blend2DVertex_1_BlendAnimation2D_Input___Fields_DEFINED
+struct BlendAnimation2D_Input;
+struct Blend2DVertex_1_BlendAnimation2D_Input___Fields {
+    struct Vertex__Fields _;
+    struct BlendAnimation2D_Input* m_data;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Blend2DVertex_1_BlendAnimation2D_Input___Fields_FWDDECL)
+#define IL2CPP_STRUCT_Blend2DVertex_1_BlendAnimation2D_Input___Fields_FWDDECL
+#include <Modloader/app/structs/BlendAnimation2D_Input.h>
+#endif
+#undef IL2CPP_STRUCT_Blend2DVertex_1_BlendAnimation2D_Input___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Blend2DVertex_1_BlendAnimation2D_Input___Fields_DEFINED) && !defined(IL2CPP_STRUCT_Blend2DVertex_1_BlendAnimation2D_Input___Fields_FWDDECL)
+#include <Modloader/app/structs/Blend2DVertex_1_BlendAnimation2D_Input___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Blend2DVertex_1_BlendAnimation2D_Input___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

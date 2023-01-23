@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InflateManager.h>
+#include <Modloader/app/structs/ZlibCodec.h>
+#include <Modloader/app/structs/FlushType__Enum.h>
 
 namespace app::classes::Ionic::Zlib::InflateManager {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_HandleRfc1950HeaderBytes, (app::InflateManager * this_ptr))

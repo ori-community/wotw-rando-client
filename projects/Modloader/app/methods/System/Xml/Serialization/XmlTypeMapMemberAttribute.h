@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlTypeMapMemberAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchemaForm__Enum.h>
+#include <Modloader/app/structs/XmlTypeMapping.h>
 
 namespace app::classes::System::Xml::Serialization::XmlTypeMapMemberAttribute {
     IL2CPP_REGISTER_METHOD(0x0194F2F0, void, ctor, (app::XmlTypeMapMemberAttribute * this_ptr))

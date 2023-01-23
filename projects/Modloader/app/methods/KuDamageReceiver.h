@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Ku.h>
+#include <Modloader/app/structs/KuDamageReceiver.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::KuDamageReceiver {
     IL2CPP_REGISTER_METHOD(0x002FBBA0, app::Ku*, get_Ku, (app::KuDamageReceiver * this_ptr))

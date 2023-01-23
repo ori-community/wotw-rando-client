@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GrabbableSurfaceMovingWheel.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::GrabbableSurfaceMovingWheel {
     IL2CPP_REGISTER_METHOD(0x01081AA0, bool, get_IsMoving, (app::GrabbableSurfaceMovingWheel * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecorderPlaybackUITimeline.h>
 
 namespace app::classes::RecorderPlaybackUITimeline {
     IL2CPP_REGISTER_METHOD(0x008F92D0, void, ResetStatics, ())

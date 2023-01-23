@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HMACSHA1.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::HMACSHA1 {
     IL2CPP_REGISTER_METHOD(0x020D9E60, void, ctor_1, (app::HMACSHA1 * this_ptr))

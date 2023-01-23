@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UriSection.h>
+#include <Modloader/app/structs/IdnElement.h>
+#include <Modloader/app/structs/IriParsingElement.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
+#include <Modloader/app/structs/SchemeSettingElementCollection.h>
 
 namespace app::classes::System::Configuration::UriSection {
     IL2CPP_REGISTER_METHOD(0x01FFE320, void, ctor, (app::UriSection * this_ptr))

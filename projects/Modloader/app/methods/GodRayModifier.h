@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GodRayModifier.h>
+#include <Modloader/app/structs/Renderer.h>
 
 namespace app::classes::GodRayModifier {
     IL2CPP_REGISTER_METHOD(0x003FD650, bool, get_Renderered, (app::GodRayModifier * this_ptr))

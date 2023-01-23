@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XsdDateTime_Parser__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XsdDateTimeFlags__Enum.h>
 
 namespace app::classes::System::Xml::Schema::XsdDateTime_Parser {
     IL2CPP_REGISTER_METHOD(0x001C6160, bool, Parse, (app::XsdDateTime_Parser__Boxed * this_ptr, app::String* text, app::XsdDateTimeFlags__Enum kinds))

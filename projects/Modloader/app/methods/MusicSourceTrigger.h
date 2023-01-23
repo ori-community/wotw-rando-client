@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MusicSourceTrigger.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::MusicSourceTrigger {
     IL2CPP_REGISTER_METHOD(0x0087EA30, void, OnTriggerEnter, (app::MusicSourceTrigger * this_ptr, app::Collider* collider))

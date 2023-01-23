@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameDVRPerformanceMonitor.h>
 
 namespace app::classes::GameDVRPerformanceMonitor {
     IL2CPP_REGISTER_METHOD(0x0069D7D0, bool, get_Enabled, ())

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParamsArray__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::ParamsArray {
     IL2CPP_REGISTER_METHOD(0x001E11D0, void, ctor_1, (app::ParamsArray__Boxed * this_ptr, app::Object* arg0))

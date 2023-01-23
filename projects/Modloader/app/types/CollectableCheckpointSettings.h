@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CollectableCheckpointSettings__Class.h>
+#include <Modloader/app/structs/CollectableCheckpointSettings.h>
 
 namespace app::classes::types {
     namespace CollectableCheckpointSettings {

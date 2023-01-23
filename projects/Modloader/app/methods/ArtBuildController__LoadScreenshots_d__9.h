@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArtBuildController_LoadScreenshots_d_9.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ArtBuildController__LoadScreenshots_d__9 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::ArtBuildController_LoadScreenshots_d_9 * this_ptr, int32_t __1__state))

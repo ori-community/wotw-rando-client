@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundHostReference__Boxed.h>
+#include <Modloader/app/structs/ISoundHost.h>
+#include <Modloader/app/structs/SoundHostReference.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::Wwise::SoundHostReference {
     IL2CPP_REGISTER_METHOD(0x001FE930, void, ctor, (app::SoundHostReference__Boxed * this_ptr, app::ISoundHost* host))

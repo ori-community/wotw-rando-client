@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GPUAutoProfilerReportRenderer__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GPUAutoProfilerReportRenderer__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GPUAutoProfilerReportRenderer__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_GPUAutoProfilerReportRenderer__StaticFields_DEFINED
+struct GPUAutoProfilerReportRenderer;
+struct Dictionary_2_Moon_Profile_Metric_System_String_;
+struct GPUAutoProfilerReportRenderer__StaticFields {
+    struct GPUAutoProfilerReportRenderer* s_instance;
+    struct Dictionary_2_Moon_Profile_Metric_System_String_* s_metricShortNames;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_GPUAutoProfilerReportRenderer__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_GPUAutoProfilerReportRenderer__StaticFields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_Moon_Profile_Metric_System_String_.h>
+#include <Modloader/app/structs/GPUAutoProfilerReportRenderer.h>
+#endif
+#undef IL2CPP_STRUCT_GPUAutoProfilerReportRenderer__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GPUAutoProfilerReportRenderer__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_GPUAutoProfilerReportRenderer__StaticFields_FWDDECL)
+#include <Modloader/app/structs/GPUAutoProfilerReportRenderer__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GPUAutoProfilerReportRenderer__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

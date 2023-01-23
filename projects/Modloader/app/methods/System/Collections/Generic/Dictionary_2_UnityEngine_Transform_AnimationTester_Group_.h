@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_Transform_AnimationTester_Group_.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/AnimationTester_Group.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_UnityEngine_Transform_AnimationTester_Group_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_UnityEngine_Transform_AnimationTester_Group_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_UnityEngine_Transform_AnimationTester_Group_ * this_ptr))

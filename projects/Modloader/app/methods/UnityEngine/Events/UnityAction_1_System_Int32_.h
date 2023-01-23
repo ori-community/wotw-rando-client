@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnityAction_1_System_Int32_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::UnityEngine::Events::UnityAction_1_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x01C77D40, void, Invoke, (app::UnityAction_1_System_Int32_ * this_ptr, int32_t arg0))

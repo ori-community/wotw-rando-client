@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/ConfigurableJoint.h>
+#include <Modloader/app/structs/ConfigurableJointMotion__Enum.h>
+#include <Modloader/app/structs/SoftJointLimitSpring.h>
+#include <Modloader/app/structs/SoftJointLimit.h>
+#include <Modloader/app/structs/JointDrive.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/RotationDriveMode__Enum.h>
+#include <Modloader/app/structs/JointProjectionMode__Enum.h>
+#include <Modloader/app/structs/ConfigurableJoint__Array.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 
 namespace app::classes::UnityEngine::ConfigurableJoint {
     IL2CPP_REGISTER_METHOD(0x030A0540, app::Vector3, get_secondaryAxis, (app::ConfigurableJoint * this_ptr))

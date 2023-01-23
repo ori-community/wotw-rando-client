@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkExternalSourceInfoArray.h>
+#include <Modloader/app/structs/AkExternalSourceInfo.h>
 
 namespace app::classes::AkExternalSourceInfoArray {
     IL2CPP_REGISTER_METHOD(0x026E5F20, void, ctor, (app::AkExternalSourceInfoArray * this_ptr, int32_t count))

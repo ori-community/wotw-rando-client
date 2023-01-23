@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyHandler.h>
+#include <Modloader/app/structs/RegistryKey.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SecurityElement.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RegistryValueOptions__Enum.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::Microsoft::Win32::KeyHandler {
     IL2CPP_REGISTER_METHOD(0x023AE8E0, void, cctor, ())

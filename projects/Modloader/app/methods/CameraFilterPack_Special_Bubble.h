@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Special_Bubble.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Special_Bubble {
     IL2CPP_REGISTER_METHOD(0x020E24C0, app::Material*, get_material, (app::CameraFilterPack_Special_Bubble * this_ptr))

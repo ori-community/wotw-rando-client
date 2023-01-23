@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CCText.h>
+#include <Modloader/app/structs/CCText_AlignmentMode__Enum.h>
+#include <Modloader/app/structs/CCText_BoundingMode__Enum.h>
+#include <Modloader/app/structs/CCText_HorizontalAnchorMode__Enum.h>
+#include <Modloader/app/structs/CCText_VerticalAnchorMode__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/CCFont.h>
+#include <Modloader/app/structs/CCTextModifier.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/CCFont_Char.h>
 
 namespace app::classes::CCText {
     IL2CPP_REGISTER_METHOD(0x0315D530, uint16_t, get_Item, (app::CCText * this_ptr, int32_t index))

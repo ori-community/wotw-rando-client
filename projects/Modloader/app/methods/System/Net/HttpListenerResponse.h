@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpListenerResponse.h>
+#include <Modloader/app/structs/HttpListenerContext.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CookieCollection.h>
+#include <Modloader/app/structs/WebHeaderCollection.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Version.h>
+#include <Modloader/app/structs/Cookie.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/MemoryStream.h>
 
 namespace app::classes::System::Net::HttpListenerResponse {
     IL2CPP_REGISTER_METHOD(0x01E55510, void, ctor_1, (app::HttpListenerResponse * this_ptr, app::HttpListenerContext* context))

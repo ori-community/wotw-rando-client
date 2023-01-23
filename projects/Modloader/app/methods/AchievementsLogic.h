@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_AchievementAsset_.h>
+#include <Modloader/app/structs/AchievementsLogic.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/AchievementAsset.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/List_1_AbilityType_.h>
+#include <Modloader/app/structs/List_1_SpiritShardType_.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/RaceConfiguration.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/EnemyEntity.h>
+#include <Modloader/app/structs/AchievementsLogic_Func_3_System_Int32_System_Int32_System_Boolean_.h>
 
 namespace app::classes::AchievementsLogic {
     IL2CPP_REGISTER_METHOD(0x004B6340, app::List_1_AchievementAsset_*, get_WispsAchievements, (app::AchievementsLogic * this_ptr))

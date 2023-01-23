@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConstraintFlag__Enum.h>
+#include <Modloader/app/structs/DesertEscapeWorm_States__Enum.h>
+#include <Modloader/app/structs/FixedDurationSceneEntity_Markers__Enum.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::EnumTools {
     IL2CPP_REGISTER_METHOD(0x02552CE0, void, cctor, ())

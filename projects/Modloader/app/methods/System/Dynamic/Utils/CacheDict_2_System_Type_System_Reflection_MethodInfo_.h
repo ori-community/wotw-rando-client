@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CacheDict_2_System_Type_System_Reflection_MethodInfo_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
 
 namespace app::classes::System::Dynamic::Utils::CacheDict_2_System_Type_System_Reflection_MethodInfo_ {
     IL2CPP_REGISTER_METHOD(0x028793D0, bool, TryGetValue, (app::CacheDict_2_System_Type_System_Reflection_MethodInfo_ * this_ptr, app::Type* key, app::MethodInfo_1** value))

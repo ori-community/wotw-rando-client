@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NewGameSetDifficultyAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::NewGameSetDifficultyAction {
     IL2CPP_REGISTER_METHOD(0x005FC120, void, Perform, (app::NewGameSetDifficultyAction * this_ptr, app::IContext* context))

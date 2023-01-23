@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinFeatherFlap.h>
+#include <Modloader/app/structs/CharacterGravity.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/SeinFeatherFlapPuppet.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SeinFeatherFlap_State__Enum.h>
 
 namespace app::classes::SeinFeatherFlap {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinFeatherFlap * this_ptr))

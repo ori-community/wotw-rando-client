@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/ScreenSpaceAmbientOcclusion.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::ScreenSpaceAmbientOcclusion {
     IL2CPP_REGISTER_METHOD(0x02D61AB0, app::Material*, CreateMaterial, (app::Shader * shader))

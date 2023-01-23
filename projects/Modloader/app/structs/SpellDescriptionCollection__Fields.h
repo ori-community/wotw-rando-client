@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SpellDescriptionCollection__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SpellDescriptionCollection__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpellDescriptionCollection__Fields_DEFINED)
+#include <Modloader/app/structs/EnumDictionary_2_EquipmentType_SpellDescription___Fields.h>
+#if defined(IL2CPP_STRUCT_EnumDictionary_2_EquipmentType_SpellDescription___Fields_DEFINED)
+#define IL2CPP_STRUCT_SpellDescriptionCollection__Fields_DEFINED
+struct SpellDescriptionCollection__Fields {
+    struct EnumDictionary_2_EquipmentType_SpellDescription___Fields _;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SpellDescriptionCollection__Fields_FWDDECL)
+#define IL2CPP_STRUCT_SpellDescriptionCollection__Fields_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_SpellDescriptionCollection__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpellDescriptionCollection__Fields_DEFINED) && !defined(IL2CPP_STRUCT_SpellDescriptionCollection__Fields_FWDDECL)
+#include <Modloader/app/structs/SpellDescriptionCollection__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SpellDescriptionCollection__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

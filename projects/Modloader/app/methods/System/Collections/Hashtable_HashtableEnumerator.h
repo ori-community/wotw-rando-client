@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Hashtable_HashtableEnumerator.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DictionaryEntry.h>
 
 namespace app::classes::System::Collections::Hashtable_HashtableEnumerator {
     IL2CPP_REGISTER_METHOD(0x020270A0, void, ctor, (app::Hashtable_HashtableEnumerator * this_ptr, app::Hashtable* hashtable, int32_t get_obj_ret_type))

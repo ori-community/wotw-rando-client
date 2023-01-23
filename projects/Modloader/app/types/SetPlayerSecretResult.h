@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SetPlayerSecretResult__Class.h>
+#include <Modloader/app/structs/SetPlayerSecretResult.h>
 
 namespace app::classes::types {
     namespace SetPlayerSecretResult {

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Ex_Chunk_d_0_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_List_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::Achievements::Ex__Chunk_d__0_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::List_1_System_Object_*, System_Collections_Generic_IEnumerator_System_Collections_Generic_List_TValue___get_Current, (app::Ex_Chunk_d_0_1_System_Object_ * this_ptr))

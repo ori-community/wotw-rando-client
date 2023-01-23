@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Rfc2898DeriveBytes__Class.h>
+#include <Modloader/app/structs/Rfc2898DeriveBytes.h>
 
 namespace app::classes::types {
     namespace Rfc2898DeriveBytes {

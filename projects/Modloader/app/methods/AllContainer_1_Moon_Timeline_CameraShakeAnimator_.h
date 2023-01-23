@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraShakeAnimator.h>
+#include <Modloader/app/structs/AllContainer_1_Moon_Timeline_CameraShakeAnimator_.h>
 
 namespace app::classes::AllContainer_1_Moon_Timeline_CameraShakeAnimator_ {
     IL2CPP_REGISTER_METHOD(0x019D7800, app::CameraShakeAnimator*, get_Item, (app::AllContainer_1_Moon_Timeline_CameraShakeAnimator_ * this_ptr, int32_t index))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SecurityElement_SecurityAttribute.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::SecurityElement_SecurityAttribute {
     IL2CPP_REGISTER_METHOD(0x01E216B0, void, ctor, (app::SecurityElement_SecurityAttribute * this_ptr, app::String* name, app::String* value))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AttachToVerletStructure.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::AttachToVerletStructure {
     IL2CPP_REGISTER_METHOD(0x008519A0, bool, ISuspendable_get_IsSuspended, (app::AttachToVerletStructure * this_ptr))

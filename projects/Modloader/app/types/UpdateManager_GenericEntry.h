@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UpdateManager_GenericEntry__Class.h>
+#include <Modloader/app/structs/UpdateManager_GenericEntry.h>
+#include <Modloader/app/structs/UpdateManager_GenericEntry__Array.h>
 
 namespace app::classes::types {
     namespace UpdateManager_GenericEntry {

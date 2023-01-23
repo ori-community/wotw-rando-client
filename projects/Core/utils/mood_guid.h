@@ -4,6 +4,8 @@
 #include <Core/macros.h>
 #include <nlohmann/json.hpp>
 
+#include <Modloader/app/structs/MoonGuid.h>
+
 namespace utils {
     struct CORE_DLLEXPORT MoodGuid {
         int A;

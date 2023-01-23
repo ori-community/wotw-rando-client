@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Pixelate.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::Pixelate {
     IL2CPP_REGISTER_METHOD(0x0304C960, void, OnRenderImage, (app::Pixelate * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

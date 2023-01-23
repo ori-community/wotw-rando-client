@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_T_Enumerator_System_Single___Boxed.h>
+#include <Modloader/app/structs/Stack_1_System_Single_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_T__Enumerator_System_Single_ {
     IL2CPP_REGISTER_METHOD(0x00233C30, void, ctor, (app::Stack_1_T_Enumerator_System_Single___Boxed * this_ptr, app::Stack_1_System_Single_* stack))

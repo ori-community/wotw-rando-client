@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextGenerator.h>
+#include <Modloader/app/structs/TextGenerationSettings.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UICharInfo_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UILineInfo_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UIVertex_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/TextGenerationError__Enum.h>
+#include <Modloader/app/structs/IList_1_UnityEngine_UIVertex_.h>
+#include <Modloader/app/structs/IList_1_UnityEngine_UICharInfo_.h>
+#include <Modloader/app/structs/IList_1_UnityEngine_UILineInfo_.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Font.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/FontStyle__Enum.h>
+#include <Modloader/app/structs/TextAnchor__Enum.h>
+#include <Modloader/app/structs/VerticalWrapMode__Enum.h>
+#include <Modloader/app/structs/HorizontalWrapMode__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::TextGenerator {
     IL2CPP_REGISTER_METHOD(0x0319B620, void, ctor_1, (app::TextGenerator * this_ptr))

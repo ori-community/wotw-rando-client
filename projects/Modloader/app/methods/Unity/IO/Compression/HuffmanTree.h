@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HuffmanTree.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/InputBuffer.h>
 
 namespace app::classes::Unity::IO::Compression::HuffmanTree {
     IL2CPP_REGISTER_METHOD(0x02B79C90, void, cctor, ())

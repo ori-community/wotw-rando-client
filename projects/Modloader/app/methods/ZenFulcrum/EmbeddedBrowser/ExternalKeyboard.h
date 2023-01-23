@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Browser.h>
+#include <Modloader/app/structs/ExternalKeyboard.h>
+#include <Modloader/app/structs/Action_2_ZenFulcrum_EmbeddedBrowser_Browser_Boolean_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/JSONNode.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::ExternalKeyboard {
     IL2CPP_REGISTER_METHOD(0x002FBB80, app::Browser*, get_ActiveBrowser, (app::ExternalKeyboard * this_ptr))

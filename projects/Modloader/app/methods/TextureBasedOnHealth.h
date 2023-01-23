@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextureBasedOnHealth.h>
 
 namespace app::classes::TextureBasedOnHealth {
     IL2CPP_REGISTER_METHOD(0x010EAD70, void, Awake, (app::TextureBasedOnHealth * this_ptr))

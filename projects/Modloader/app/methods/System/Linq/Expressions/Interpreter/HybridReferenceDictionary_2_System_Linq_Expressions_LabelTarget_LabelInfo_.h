@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HybridReferenceDictionary_2_System_Linq_Expressions_LabelTarget_LabelInfo_.h>
+#include <Modloader/app/structs/LabelTarget.h>
+#include <Modloader/app/structs/LabelInfo.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Linq_Expressions_LabelTarget_System_Linq_Expressions_Interpreter_LabelInfo_.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::HybridReferenceDictionary_2_System_Linq_Expressions_LabelTarget_LabelInfo_ {
     IL2CPP_REGISTER_METHOD(0x02545910, bool, ContainsKey, (app::HybridReferenceDictionary_2_System_Linq_Expressions_LabelTarget_LabelInfo_ * this_ptr, app::LabelTarget* key))

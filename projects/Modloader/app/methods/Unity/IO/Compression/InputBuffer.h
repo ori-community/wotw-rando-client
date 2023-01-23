@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InputBuffer.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Unity::IO::Compression::InputBuffer {
     IL2CPP_REGISTER_METHOD(0x00529E80, int32_t, get_AvailableBits, (app::InputBuffer * this_ptr))

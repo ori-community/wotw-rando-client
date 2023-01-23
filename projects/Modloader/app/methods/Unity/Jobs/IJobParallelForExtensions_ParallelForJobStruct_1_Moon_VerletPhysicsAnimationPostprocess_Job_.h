@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_Job.h>
+#include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::Unity::Jobs::IJobParallelForExtensions_ParallelForJobStruct_1_Moon_VerletPhysicsAnimationPostprocess_Job_ {
     IL2CPP_REGISTER_METHOD(0x02AC4160, void*, Initialize, ())

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/FallingRocksGroup_AnticSpawnInfo__Class.h>
+#include <Modloader/app/structs/FallingRocksGroup_AnticSpawnInfo.h>
+#include <Modloader/app/structs/FallingRocksGroup_AnticSpawnInfo__Array.h>
 
 namespace app::classes::types {
     namespace FallingRocksGroup_AnticSpawnInfo {

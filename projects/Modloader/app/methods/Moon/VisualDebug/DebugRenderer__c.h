@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugRenderer_c.h>
+#include <Modloader/app/structs/LineEntity.h>
 
 namespace app::classes::Moon::VisualDebug::DebugRenderer___c {
     IL2CPP_REGISTER_METHOD(0x011924A0, void, cctor, ())

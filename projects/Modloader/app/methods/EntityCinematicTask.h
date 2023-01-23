@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityCinematicData.h>
+#include <Modloader/app/structs/EntityCinematicTask.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Nullable_1_Moon_BehaviourSystem_BehaviourStatus_.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::EntityCinematicTask {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::EntityCinematicData*, get_Data, (app::EntityCinematicTask * this_ptr))

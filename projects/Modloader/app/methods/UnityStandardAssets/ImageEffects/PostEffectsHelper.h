@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PostEffectsHelper.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Camera.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::PostEffectsHelper {
     IL2CPP_REGISTER_METHOD(0x02D5EF20, void, OnRenderImage, (app::PostEffectsHelper * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

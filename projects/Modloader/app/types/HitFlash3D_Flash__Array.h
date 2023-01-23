@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/HitFlash3D_Flash__Array__Class.h>
+#include <Modloader/app/structs/HitFlash3D_Flash__Array.h>
 
 namespace app::classes::types {
     namespace HitFlash3D_Flash__Array {

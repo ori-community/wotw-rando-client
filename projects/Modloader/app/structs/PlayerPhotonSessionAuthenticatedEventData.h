@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PlayerPhotonSessionAuthenticatedEventData_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PlayerPhotonSessionAuthenticatedEventData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PlayerPhotonSessionAuthenticatedEventData_DEFINED)
+#include <Modloader/app/structs/PlayerPhotonSessionAuthenticatedEventData__Fields.h>
+#if defined(IL2CPP_STRUCT_PlayerPhotonSessionAuthenticatedEventData__Fields_DEFINED)
+#define IL2CPP_STRUCT_PlayerPhotonSessionAuthenticatedEventData_DEFINED
+struct PlayerPhotonSessionAuthenticatedEventData__Class;
+struct PlayerPhotonSessionAuthenticatedEventData {
+    struct PlayerPhotonSessionAuthenticatedEventData__Class* klass;
+    MonitorData* monitor;
+    struct PlayerPhotonSessionAuthenticatedEventData__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PlayerPhotonSessionAuthenticatedEventData_FWDDECL)
+#define IL2CPP_STRUCT_PlayerPhotonSessionAuthenticatedEventData_FWDDECL
+#include <Modloader/app/structs/PlayerPhotonSessionAuthenticatedEventData__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PlayerPhotonSessionAuthenticatedEventData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PlayerPhotonSessionAuthenticatedEventData_DEFINED) && !defined(IL2CPP_STRUCT_PlayerPhotonSessionAuthenticatedEventData_FWDDECL)
+#include <Modloader/app/structs/PlayerPhotonSessionAuthenticatedEventData.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PlayerPhotonSessionAuthenticatedEventData.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

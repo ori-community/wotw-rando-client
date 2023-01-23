@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XsdDateTime__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XsdDateTimeFlags__Enum.h>
+#include <Modloader/app/structs/XsdDateTime_Parser.h>
+#include <Modloader/app/structs/XsdDateTime.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/XsdDateTime_DateTimeTypeCode__Enum.h>
+#include <Modloader/app/structs/XsdDateTime_XsdDateTimeKind__Enum.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::Schema::XsdDateTime {
     IL2CPP_REGISTER_METHOD(0x001C5CD0, void, ctor_1, (app::XsdDateTime__Boxed * this_ptr, app::String* text, app::XsdDateTimeFlags__Enum kinds))

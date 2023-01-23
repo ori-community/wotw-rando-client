@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7__Class.h>
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7.h>
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7__Boxed.h>
 
 namespace app::classes::types {
     namespace RendererCullingParameters_CategoryList_sliceCounts_FixedBuffer7 {

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DesignerSerializationVisibilityAttribute_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DesignerSerializationVisibilityAttribute_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DesignerSerializationVisibilityAttribute_DEFINED)
+#include <Modloader/app/structs/DesignerSerializationVisibilityAttribute__Fields.h>
+#if defined(IL2CPP_STRUCT_DesignerSerializationVisibilityAttribute__Fields_DEFINED)
+#define IL2CPP_STRUCT_DesignerSerializationVisibilityAttribute_DEFINED
+struct DesignerSerializationVisibilityAttribute__Class;
+struct DesignerSerializationVisibilityAttribute {
+    struct DesignerSerializationVisibilityAttribute__Class* klass;
+    MonitorData* monitor;
+    struct DesignerSerializationVisibilityAttribute__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_DesignerSerializationVisibilityAttribute_FWDDECL)
+#define IL2CPP_STRUCT_DesignerSerializationVisibilityAttribute_FWDDECL
+#include <Modloader/app/structs/DesignerSerializationVisibilityAttribute__Class.h>
+#endif
+#undef IL2CPP_STRUCT_DesignerSerializationVisibilityAttribute_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DesignerSerializationVisibilityAttribute_DEFINED) && !defined(IL2CPP_STRUCT_DesignerSerializationVisibilityAttribute_FWDDECL)
+#include <Modloader/app/structs/DesignerSerializationVisibilityAttribute.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DesignerSerializationVisibilityAttribute.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

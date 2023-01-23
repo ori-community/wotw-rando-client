@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationPosePlayable__Boxed.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/AnimationPosePlayable.h>
 
 namespace app::classes::UnityEngine::Animations::AnimationPosePlayable {
     IL2CPP_REGISTER_METHOD(0x00241DC0, void, ctor, (app::AnimationPosePlayable__Boxed * this_ptr, app::PlayableHandle handle))

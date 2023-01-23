@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CRC32.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Ionic::Crc::CRC32 {
     IL2CPP_REGISTER_METHOD(0x002FB930, int64_t, get_TotalBytesRead, (app::CRC32 * this_ptr))

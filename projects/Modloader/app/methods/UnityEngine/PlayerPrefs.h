@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::PlayerPrefs {
     IL2CPP_REGISTER_METHOD(0x02967A40, bool, TrySetInt, (app::String * key, int32_t value))

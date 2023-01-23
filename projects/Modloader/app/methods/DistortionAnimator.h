@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DistortionAnimator.h>
+#include <Modloader/app/structs/Renderer.h>
 
 namespace app::classes::DistortionAnimator {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, CanBeAnimated, (app::DistortionAnimator * this_ptr, app::Renderer* r))

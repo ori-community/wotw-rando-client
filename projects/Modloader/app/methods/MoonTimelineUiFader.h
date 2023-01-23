@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTimelineUiFader.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::MoonTimelineUiFader {
     IL2CPP_REGISTER_METHOD(0x01473C40, bool, get_IsPlaying, (app::MoonTimelineUiFader * this_ptr))

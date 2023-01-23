@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::Serialization::CodeIdentifier {
     IL2CPP_REGISTER_METHOD(0x01C8D190, app::String*, MakePascal, (app::String * identifier))

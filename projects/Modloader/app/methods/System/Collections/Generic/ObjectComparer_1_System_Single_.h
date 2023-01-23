@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_System_Single_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_System_Single_ {
     IL2CPP_REGISTER_METHOD(0x01CCBF80, int32_t, Compare, (app::ObjectComparer_1_System_Single_ * this_ptr, float x, float y))

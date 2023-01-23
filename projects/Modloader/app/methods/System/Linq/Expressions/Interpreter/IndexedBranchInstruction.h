@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IndexedBranchInstruction.h>
+#include <Modloader/app/structs/RuntimeLabel.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Func_2_Int32_Int32_.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Object_.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::IndexedBranchInstruction {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::IndexedBranchInstruction * this_ptr, int32_t label_index))

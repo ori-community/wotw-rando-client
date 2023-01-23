@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowType__Enum.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowLightInfo.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowLightState__Enum.h>
 
 namespace app::classes::SeinGlowSpell_GlowLightInfo {
     IL2CPP_REGISTER_METHOD(0x003FC830, app::SeinGlowSpell_GlowType__Enum, get_GlowType, (app::SeinGlowSpell_GlowLightInfo * this_ptr))

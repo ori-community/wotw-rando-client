@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SharedJsonParser_c.h>
+#include <Modloader/app/structs/JsonParser.h>
 
 namespace app::classes::Moon::SharedJsonParser___c {
     IL2CPP_REGISTER_METHOD(0x030F26A0, void, cctor, ())

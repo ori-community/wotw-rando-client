@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_UberStateVisualization_UberStateData___Boxed.h>
+#include <Modloader/app/structs/List_1_Moon_UberStateVisualization_UberStateData_.h>
+#include <Modloader/app/structs/UberStateData.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Moon_UberStateVisualization_UberStateData_ {
     IL2CPP_REGISTER_METHOD(0x0014DD20, void, ctor, (app::List_1_T_Enumerator_Moon_UberStateVisualization_UberStateData___Boxed * this_ptr, app::List_1_Moon_UberStateVisualization_UberStateData_* list))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VoronoiFactory_ObjectPool_1_System_Object_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::TriangleNet::Smoothing::VoronoiFactory_ObjectPool_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00CC59E0, int32_t, get_Count, (app::VoronoiFactory_ObjectPool_1_System_Object_ * this_ptr))

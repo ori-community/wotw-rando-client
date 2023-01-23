@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AkAudioAPI__Enum.h>
+#include <Modloader/app/structs/AkWwiseInitializationSettings_WwiseOutputDeviceOverrideSettings_OutputSettings.h>
+#include <Modloader/app/structs/AkPanningRule__Enum.h>
+#include <Modloader/app/structs/AkWwiseInitializationSettings_WwiseOutputDeviceOverrideSettings.h>
 
 namespace app::classes::AkWwiseInitializationSettings_WwiseOutputDeviceOverrideSettings {
     IL2CPP_REGISTER_METHOD(0x027078B0, app::String*, get_FilePath, ())

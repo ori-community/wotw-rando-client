@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WWiseSoundAnimatorEntity_TriggeringState__Enum__Class.h>
+#include <Modloader/app/structs/WWiseSoundAnimatorEntity_TriggeringState__Enum.h>
 
 namespace app::classes::types {
     namespace WWiseSoundAnimatorEntity_TriggeringState__Enum {

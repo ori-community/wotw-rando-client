@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwampNightDayTransition.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GameObject__Array.h>
 
 namespace app::classes::SwampNightDayTransition {
     IL2CPP_REGISTER_METHOD(0x00675960, bool, get_DayTime, (app::SwampNightDayTransition * this_ptr))

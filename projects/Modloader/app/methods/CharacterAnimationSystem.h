@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterAnimationSystem.h>
+#include <Modloader/app/structs/CharacterAnimationSystem_CharacterAnimationState.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions__Array.h>
+#include <Modloader/app/structs/TextureAnimation.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CharacterAnimationSystem {
     IL2CPP_REGISTER_METHOD(0x010475F0, void, RemoveState, (app::CharacterAnimationSystem * this_ptr, int32_t index))

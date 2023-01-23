@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_BoolStateMap_Mapping_.h>
+#include <Modloader/app/structs/BoolStateMap_Mapping.h>
+#include <Modloader/app/structs/BoolStateMap_Mapping__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_BoolStateMap_Mapping_ {
     IL2CPP_REGISTER_METHOD(0x01CD1020, bool, Equals_1, (app::ObjectEqualityComparer_1_BoolStateMap_Mapping_ * this_ptr, app::BoolStateMap_Mapping x, app::BoolStateMap_Mapping y))

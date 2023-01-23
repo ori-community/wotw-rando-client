@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Block3.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/BlockExpression.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/Expression__Array.h>
 
 namespace app::classes::System::Linq::Expressions::Block3 {
     IL2CPP_REGISTER_METHOD(0x01F9E6B0, void, ctor, (app::Block3 * this_ptr, app::Expression* arg0, app::Expression* arg1, app::Expression* arg2))

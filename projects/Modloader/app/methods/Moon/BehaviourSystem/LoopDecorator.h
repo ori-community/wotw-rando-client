@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LoopDecorator.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::BehaviourSystem::LoopDecorator {
     IL2CPP_REGISTER_METHOD(0x0300E920, void, OnEnter, (app::LoopDecorator * this_ptr, app::IContext* context))

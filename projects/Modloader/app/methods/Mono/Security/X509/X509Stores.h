@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509Stores.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/X509Store_1.h>
 
 namespace app::classes::Mono::Security::X509::X509Stores {
     IL2CPP_REGISTER_METHOD(0x01669060, void, ctor, (app::X509Stores * this_ptr, app::String* path, bool new_format))

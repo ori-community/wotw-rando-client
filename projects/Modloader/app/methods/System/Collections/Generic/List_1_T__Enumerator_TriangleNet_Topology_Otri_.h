@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Otri.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_TriangleNet_Topology_Otri___Boxed.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Topology_Otri_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_TriangleNet_Topology_Otri_ {
     IL2CPP_REGISTER_METHOD(0x00136440, app::Otri, get_Current, (app::List_1_T_Enumerator_TriangleNet_Topology_Otri___Boxed * this_ptr))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListenerAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/HttpListenerContext.h>
+#include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::System::Net::ListenerAsyncResult {
     IL2CPP_REGISTER_METHOD(0x01E6C530, void, ctor, (app::ListenerAsyncResult * this_ptr, app::AsyncCallback* cb, app::Object* state))

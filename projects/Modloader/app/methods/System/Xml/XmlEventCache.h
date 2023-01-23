@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlEventCache.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/XmlStandalone__Enum.h>
+#include <Modloader/app/structs/XmlEventCache_XmlEventType__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::XmlEventCache {
     IL2CPP_REGISTER_METHOD(0x01DB6180, void, ctor, (app::XmlEventCache * this_ptr, app::String* base_uri, bool has_root_node))

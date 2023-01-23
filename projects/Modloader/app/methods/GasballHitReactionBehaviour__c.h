@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GasballHitReactionBehaviour_c.h>
 
 namespace app::classes::GasballHitReactionBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x004209D0, void, cctor, ())

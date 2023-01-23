@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DelayJointPostprocess_JointData__Array__Class.h>
+#include <Modloader/app/structs/DelayJointPostprocess_JointData__Array.h>
 
 namespace app::classes::types {
     namespace DelayJointPostprocess_JointData__Array {

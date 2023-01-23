@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SocketElement.h>
+#include <Modloader/app/structs/IPProtectionLevel__Enum.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
 
 namespace app::classes::System::Net::Configuration::SocketElement {
     IL2CPP_REGISTER_METHOD(0x01E99320, void, ctor, (app::SocketElement * this_ptr))

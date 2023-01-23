@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FocusType__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/GUISkin.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::GUIUtility {
     IL2CPP_REGISTER_METHOD(0x029F7D30, float, get_pixelsPerPoint, ())

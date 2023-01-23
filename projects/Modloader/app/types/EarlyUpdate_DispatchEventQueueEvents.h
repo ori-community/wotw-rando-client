@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/EarlyUpdate_DispatchEventQueueEvents__Class.h>
+#include <Modloader/app/structs/EarlyUpdate_DispatchEventQueueEvents.h>
+#include <Modloader/app/structs/EarlyUpdate_DispatchEventQueueEvents__Boxed.h>
 
 namespace app::classes::types {
     namespace EarlyUpdate_DispatchEventQueueEvents {

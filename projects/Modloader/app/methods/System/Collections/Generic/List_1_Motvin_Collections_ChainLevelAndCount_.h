@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/ChainLevelAndCount.h>
+#include <Modloader/app/structs/IEnumerable_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/IComparer_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/ChainLevelAndCount__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/Action_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/IEnumerator_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_Motvin_Collections_ChainLevelAndCount_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Motvin_Collections_ChainLevelAndCount_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_Motvin_Collections_ChainLevelAndCount_ * this_ptr, int32_t capacity))

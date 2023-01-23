@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TrajectoryLoggerGizmo.h>
 
 namespace app::classes::TrajectoryLoggerGizmo {
     IL2CPP_REGISTER_METHOD(0x00B05870, void, OnDrawGizmos, (app::TrajectoryLoggerGizmo * this_ptr))

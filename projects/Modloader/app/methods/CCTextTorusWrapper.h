@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CCTextTorusWrapper.h>
+#include <Modloader/app/structs/CCText.h>
 
 namespace app::classes::CCTextTorusWrapper {
     IL2CPP_REGISTER_METHOD(0x03162340, void, Modify, (app::CCTextTorusWrapper * this_ptr, app::CCText* text))

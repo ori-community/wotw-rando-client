@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DefaultContractResolver_c_DisplayClass42_0__Class.h>
+#include <Modloader/app/structs/DefaultContractResolver_c_DisplayClass42_0.h>
 
 namespace app::classes::types {
     namespace DefaultContractResolver_c_DisplayClass42_0 {

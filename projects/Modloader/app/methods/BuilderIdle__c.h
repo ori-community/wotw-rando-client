@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BuilderIdle_c.h>
 
 namespace app::classes::BuilderIdle___c {
     IL2CPP_REGISTER_METHOD(0x00817650, void, cctor, ())

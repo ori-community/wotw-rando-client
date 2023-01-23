@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ILever.h>
+#include <Modloader/app/structs/LegacyActionLeverSystem.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::LegacyActionLeverSystem {
     IL2CPP_REGISTER_METHOD(0x015C8CA0, app::ILever*, get_Lever, (app::LegacyActionLeverSystem * this_ptr))

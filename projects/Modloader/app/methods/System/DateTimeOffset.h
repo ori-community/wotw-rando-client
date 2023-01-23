@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DateTimeOffset__Boxed.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Calendar.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/DayOfWeek__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/DateTimeStyles__Enum.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::DateTimeOffset {
     IL2CPP_REGISTER_METHOD(0x00214B90, void, ctor_1, (app::DateTimeOffset__Boxed * this_ptr, int64_t ticks, app::TimeSpan offset))

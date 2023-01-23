@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/RigidbodyStateModifier.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::RigidbodyStateModifier {
     IL2CPP_REGISTER_METHOD(0x01B789A0, app::Vector3, get_Position, (app::RigidbodyStateModifier * this_ptr))

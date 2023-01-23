@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/LinkedList_1_T_Enumerator_System_Object___Boxed.h>
+#include <Modloader/app/structs/LinkedList_1_System_Object_.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Collections::Generic::LinkedList_1_T__Enumerator_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00107C30, app::Object*, get_Current, (app::LinkedList_1_T_Enumerator_System_Object___Boxed * this_ptr))

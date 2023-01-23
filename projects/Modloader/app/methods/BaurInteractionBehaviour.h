@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaurInteractionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/BaurInteractionBehaviour_InteractionStates__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::BaurInteractionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00F9A690, void, OnEntityInitialized, (app::BaurInteractionBehaviour * this_ptr))

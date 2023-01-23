@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNodeConverter.h>
+#include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/JsonSerializer.h>
+#include <Modloader/app/structs/IXmlNode.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_Converters_IXmlNode_.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IXmlDocument.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/IXmlElement.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::XmlNodeConverter {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_DeserializeRootElementName, (app::XmlNodeConverter * this_ptr))

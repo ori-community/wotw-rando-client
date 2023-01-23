@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinSpiritSlash.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/SeinSpiritSlash_State__Enum.h>
+#include <Modloader/app/structs/ISpiritSlashAttackable.h>
 
 namespace app::classes::SeinSpiritSlash {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinSpiritSlash * this_ptr))

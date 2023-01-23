@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/NormalizationCheck__Enum.h>
+#include <Modloader/app/structs/NormalizationForm__Enum.h>
+#include <Modloader/app/structs/void.h>
 
 namespace app::classes::System::Text::Normalization {
     IL2CPP_REGISTER_METHOD(0x0245A300, uint32_t, PropValue, (int32_t cp))

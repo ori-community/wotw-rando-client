@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BreadCrumbPositionTracker.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::BreadCrumbPositionTracker {
     IL2CPP_REGISTER_METHOD(0x00D4A100, bool, get_HasPath, (app::BreadCrumbPositionTracker * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/DynamicTextProvider.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::DynamicTextProvider {
     IL2CPP_REGISTER_METHOD(0x00BECF10, app::MessageProvider*, get_Message, (app::DynamicTextProvider * this_ptr))

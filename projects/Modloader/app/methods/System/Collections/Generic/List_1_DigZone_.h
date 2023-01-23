@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_DigZone_.h>
+#include <Modloader/app/structs/List_1_DigZone_.h>
+#include <Modloader/app/structs/DigZone.h>
+#include <Modloader/app/structs/List_1_UnityEngine_MonoBehaviour_.h>
+#include <Modloader/app/structs/Converter_2_DigZone_UnityEngine_MonoBehaviour_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_DigZone_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_DigZone_, GetEnumerator, (app::List_1_DigZone_ * this_ptr))

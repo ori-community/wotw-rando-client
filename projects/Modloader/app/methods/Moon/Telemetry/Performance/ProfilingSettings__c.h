@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_c.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Type_.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Moon::Telemetry::Performance::ProfilingSettings___c {
     IL2CPP_REGISTER_METHOD(0x00E39930, void, cctor, ())

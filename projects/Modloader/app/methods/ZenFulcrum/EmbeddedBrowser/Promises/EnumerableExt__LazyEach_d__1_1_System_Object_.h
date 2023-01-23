@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EnumerableExt_LazyEach_d_1_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Promises::EnumerableExt__LazyEach_d__1_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, System_Collections_Generic_IEnumerator_T__get_Current, (app::EnumerableExt_LazyEach_d_1_1_System_Object_ * this_ptr))

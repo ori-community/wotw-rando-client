@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
+#include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/BinaryWriter.h>
 
 namespace app::classes::GhostServerEventsPlugin_ServerEventData {
     IL2CPP_REGISTER_METHOD(0x007E7250, app::GhostFrame_FrameDataTypes__Enum, get_FrameType, (app::GhostServerEventsPlugin_ServerEventData * this_ptr))

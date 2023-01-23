@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Mutex.h>
+#include <Modloader/app/structs/ConnectionPool.h>
+#include <Modloader/app/structs/ManualResetEvent.h>
+#include <Modloader/app/structs/Semaphore_1.h>
+#include <Modloader/app/structs/ServicePoint.h>
+#include <Modloader/app/structs/CreateConnectionDelegate.h>
+#include <Modloader/app/structs/ConnectionPool_AsyncConnectionPoolRequest.h>
+#include <Modloader/app/structs/TimerThread_Timer.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PooledStream.h>
+#include <Modloader/app/structs/WaitHandle__Array.h>
+#include <Modloader/app/structs/GeneralAsyncDelegate.h>
 
 namespace app::classes::System::Net::ConnectionPool {
     IL2CPP_REGISTER_METHOD(0x01E99BC0, app::Mutex*, get_CreationMutex, (app::ConnectionPool * this_ptr))

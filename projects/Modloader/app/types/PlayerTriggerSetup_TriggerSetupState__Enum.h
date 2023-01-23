@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PlayerTriggerSetup_TriggerSetupState__Enum__Class.h>
+#include <Modloader/app/structs/PlayerTriggerSetup_TriggerSetupState__Enum.h>
 
 namespace app::classes::types {
     namespace PlayerTriggerSetup_TriggerSetupState__Enum {

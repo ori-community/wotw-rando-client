@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CryptoStream_WriteAsyncInternal_d_37__Class.h>
+#include <Modloader/app/structs/CryptoStream_WriteAsyncInternal_d_37.h>
+#include <Modloader/app/structs/CryptoStream_WriteAsyncInternal_d_37__Boxed.h>
 
 namespace app::classes::types {
     namespace CryptoStream_WriteAsyncInternal_d_37 {

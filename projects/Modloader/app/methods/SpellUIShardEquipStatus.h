@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellUIShardEquipStatus.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
 
 namespace app::classes::SpellUIShardEquipStatus {
     IL2CPP_REGISTER_METHOD(0x0094F5D0, void, Awake, (app::SpellUIShardEquipStatus * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/KeyValuePair_2_AbilityType_UnityEngine_Texture2D___Array__Class.h>
+#include <Modloader/app/structs/KeyValuePair_2_AbilityType_UnityEngine_Texture2D___Array.h>
 
 namespace app::classes::types {
     namespace KeyValuePair_2_AbilityType_UnityEngine_Texture2D___Array {

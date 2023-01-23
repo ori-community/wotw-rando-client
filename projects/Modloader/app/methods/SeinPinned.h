@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinPinned.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SeinPinned {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinPinned * this_ptr))

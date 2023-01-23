@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ICollection_1_System_Object_.h>
+#include <Modloader/app/structs/IList_1_System_Object_.h>
+#include <Modloader/app/structs/IList_1_KeyValuePair_2_System_String_System_Object_.h>
+#include <Modloader/app/structs/IList_1_System_String_.h>
+#include <Modloader/app/structs/ICollection_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/IList_1_System_Linq_Expressions_SwitchCase_.h>
+#include <Modloader/app/structs/IList_1_System_Linq_Expressions_CatchBlock_.h>
+#include <Modloader/app/structs/IList_1_KeyValuePair_2_System_Object_System_Object_.h>
 
 namespace app::classes::System::Dynamic::Utils::ContractUtils {
     IL2CPP_REGISTER_METHOD(0x01F93C70, app::Exception*, get_Unreachable, ())

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CollisionContext.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::CollisionContext {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::CollisionContext * this_ptr, app::Collision* collision, app::Collider* collision_reciever))

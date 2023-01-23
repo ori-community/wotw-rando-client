@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CsvWriter.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Decimal.h>
 
 namespace app::classes::Moon::CsvWriter {
     IL2CPP_REGISTER_METHOD(0x01669060, void, ctor, (app::CsvWriter * this_ptr, app::TextWriter* writer, bool should_dispose_writer))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStateController_c.h>
+#include <Modloader/app/structs/IGenericUberState.h>
 
 namespace app::classes::Moon::UberStateController___c {
     IL2CPP_REGISTER_METHOD(0x01B6CDA0, void, cctor, ())

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ParameterizedStrings_FormatParam__Class.h>
+#include <Modloader/app/structs/ParameterizedStrings_FormatParam.h>
+#include <Modloader/app/structs/ParameterizedStrings_FormatParam__Boxed.h>
+#include <Modloader/app/structs/ParameterizedStrings_FormatParam__Array.h>
 
 namespace app::classes::types {
     namespace ParameterizedStrings_FormatParam {

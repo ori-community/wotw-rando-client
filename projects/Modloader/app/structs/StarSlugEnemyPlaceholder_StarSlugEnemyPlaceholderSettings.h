@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings_DEFINED)
+#include <Modloader/app/structs/StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings_DEFINED
+struct StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings__Class;
+struct StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings {
+    struct StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings__Class* klass;
+    MonitorData* monitor;
+    struct StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings_FWDDECL)
+#define IL2CPP_STRUCT_StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings_FWDDECL
+#include <Modloader/app/structs/StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings_DEFINED) && !defined(IL2CPP_STRUCT_StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings_FWDDECL)
+#include <Modloader/app/structs/StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/StarSlugEnemyPlaceholder_StarSlugEnemyPlaceholderSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

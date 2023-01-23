@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonType_1_System_Single_.h>
+#include <Modloader/app/structs/BlackboardVariableFloat.h>
 
 namespace app::classes::Moon::BehaviourSystem::BlackboardVariableFloat {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::IMoonType_1_System_Single_*, GetMoonType, (app::BlackboardVariableFloat * this_ptr))

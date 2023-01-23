@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MortarWormEnemy.h>
+#include <Modloader/app/structs/WormHoleManager.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::WormHoleManager {
     IL2CPP_REGISTER_METHOD(0x0058E420, app::MortarWormEnemy*, FindMortarWorm, (app::WormHoleManager * this_ptr))

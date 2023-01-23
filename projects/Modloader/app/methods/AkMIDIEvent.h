@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkMIDIEvent.h>
+#include <Modloader/app/structs/AkMIDIEvent_tGen.h>
+#include <Modloader/app/structs/AkMIDIEvent_tCc.h>
+#include <Modloader/app/structs/AkMIDIEvent_tNoteOnOff.h>
+#include <Modloader/app/structs/AkMIDIEvent_tPitchBend.h>
+#include <Modloader/app/structs/AkMIDIEvent_tNoteAftertouch.h>
+#include <Modloader/app/structs/AkMIDIEvent_tChanAftertouch.h>
+#include <Modloader/app/structs/AkMIDIEvent_tProgramChange.h>
+#include <Modloader/app/structs/AkMIDIEventTypes__Enum.h>
+#include <Modloader/app/structs/AkMIDICcTypes__Enum.h>
 
 namespace app::classes::AkMIDIEvent {
     IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkMIDIEvent * this_ptr, void* c_ptr, bool c_memory_own))

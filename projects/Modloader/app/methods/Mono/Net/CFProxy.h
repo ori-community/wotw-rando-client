@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CFProxy.h>
+#include <Modloader/app/structs/CFDictionary.h>
+#include <Modloader/app/structs/CFProxyType__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Net::CFProxy {
     IL2CPP_REGISTER_METHOD(0x02178A10, void, cctor, ())

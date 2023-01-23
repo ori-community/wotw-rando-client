@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChangeStateOnSceneEvent.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::Moon::Setups::ChangeStateOnSceneEvent {
     IL2CPP_REGISTER_METHOD(0x00E24CB0, void, Awake, (app::ChangeStateOnSceneEvent * this_ptr))

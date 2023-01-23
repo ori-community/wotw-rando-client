@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_T_Enumerator_GhostTimelineEventsPlugin_PendingEvent___Boxed.h>
+#include <Modloader/app/structs/Queue_1_GhostTimelineEventsPlugin_PendingEvent_.h>
+#include <Modloader/app/structs/GhostTimelineEventsPlugin_PendingEvent.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_T__Enumerator_GhostTimelineEventsPlugin_PendingEvent_ {
     IL2CPP_REGISTER_METHOD(0x001ECDC0, void, ctor, (app::Queue_1_T_Enumerator_GhostTimelineEventsPlugin_PendingEvent___Boxed * this_ptr, app::Queue_1_GhostTimelineEventsPlugin_PendingEvent_* q))

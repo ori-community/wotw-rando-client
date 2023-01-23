@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnparentTrailRenderer.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/TrailRenderer.h>
 
 namespace app::classes::UnparentTrailRenderer {
     IL2CPP_REGISTER_METHOD(0x013AC5C0, void, Awake, (app::UnparentTrailRenderer * this_ptr))

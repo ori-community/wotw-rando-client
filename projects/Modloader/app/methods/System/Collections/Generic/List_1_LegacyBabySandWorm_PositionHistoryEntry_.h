@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_LegacyBabySandWorm_PositionHistoryEntry_.h>
+#include <Modloader/app/structs/LegacyBabySandWorm_PositionHistoryEntry.h>
+#include <Modloader/app/structs/IEnumerable_1_LegacyBabySandWorm_PositionHistoryEntry_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_LegacyBabySandWorm_PositionHistoryEntry_.h>
+#include <Modloader/app/structs/IComparer_1_LegacyBabySandWorm_PositionHistoryEntry_.h>
+#include <Modloader/app/structs/LegacyBabySandWorm_PositionHistoryEntry__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_LegacyBabySandWorm_PositionHistoryEntry_.h>
+#include <Modloader/app/structs/Action_1_LegacyBabySandWorm_PositionHistoryEntry_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_LegacyBabySandWorm_PositionHistoryEntry_.h>
+#include <Modloader/app/structs/IEnumerator_1_LegacyBabySandWorm_PositionHistoryEntry_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_LegacyBabySandWorm_PositionHistoryEntry_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_LegacyBabySandWorm_PositionHistoryEntry_ {
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add, (app::List_1_LegacyBabySandWorm_PositionHistoryEntry_ * this_ptr, app::LegacyBabySandWorm_PositionHistoryEntry item))

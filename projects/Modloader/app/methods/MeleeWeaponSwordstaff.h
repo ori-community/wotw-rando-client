@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeleeWeaponSwordstaff.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 
 namespace app::classes::MeleeWeaponSwordstaff {
     IL2CPP_REGISTER_METHOD(0x009D2BA0, bool, get_IsAllowed, (app::MeleeWeaponSwordstaff * this_ptr))

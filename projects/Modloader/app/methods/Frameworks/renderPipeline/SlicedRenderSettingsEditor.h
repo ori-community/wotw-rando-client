@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DepthOfFieldController.h>
+#include <Modloader/app/structs/SlicedRenderSettingsEditor.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayerParams__Array.h>
+#include <Modloader/app/structs/LayeredRenderSettings.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebug_Slice__Array.h>
+#include <Modloader/app/structs/SceneSettingsComponent.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::frameworks::renderPipeline::SlicedRenderSettingsEditor {
     IL2CPP_REGISTER_METHOD(0x00F62DD0, bool, get_IsEnabled, ())

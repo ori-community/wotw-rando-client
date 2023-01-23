@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QualityProfile.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebugUI.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebugUI_Quality__Enum.h>
+#include <Modloader/app/structs/RenderScope__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FloatRange.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_XboxResolution__Enum.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderPipelineDebugUI {
     IL2CPP_REGISTER_METHOD(0x007940D0, app::QualityProfile*, getProfile, (app::MoonRenderPipelineDebugUI * this_ptr, app::MoonRenderPipelineDebugUI_Quality__Enum quality))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostUberStatePlugin_UberStateData.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
 
 namespace app::classes::GhostUberStatePlugin_UberStateData {
     IL2CPP_REGISTER_METHOD(0x007EC4E0, void, Save, (app::GhostUberStatePlugin_UberStateData * this_ptr, app::BinaryWriter* binary_writer))

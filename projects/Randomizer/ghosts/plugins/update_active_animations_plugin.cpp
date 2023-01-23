@@ -1,13 +1,11 @@
 #include <Common/ext.h>
 #include <Modloader/app/methods/GenericPuppet.h>
 #include <Modloader/app/methods/Moon/ActiveAnimationHandle.h>
-#include <Modloader/app/methods/GenericPuppet.h>
-#include <Modloader/app/methods/GhostPlayer.h>
-#include <Modloader/app/methods/Moon/MoonAnimator.h>
 #include <Modloader/app/methods/System/Collections/Generic/HashSet_1_GenericPuppet_.h>
 #include <Modloader/app/types/MoonAnimator_ActiveAnimation.h>
 #include <Modloader/app/types/ActiveAnimationHandle.h>
 #include <Modloader/app/types/GenericPuppet.h>
+#include <Modloader/app/structs/Int32__Boxed.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/windows_api/console.h>
 

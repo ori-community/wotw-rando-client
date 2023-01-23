@@ -1,5 +1,33 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonSerializerInternalWriter.h>
+#include <Modloader/app/structs/JsonSerializer.h>
+#include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/JsonSerializerProxy.h>
+#include <Modloader/app/structs/JsonContract.h>
+#include <Modloader/app/structs/JsonPrimitiveContract.h>
+#include <Modloader/app/structs/JsonProperty.h>
+#include <Modloader/app/structs/JsonContainerContract.h>
+#include <Modloader/app/structs/Nullable_1_Boolean_.h>
+#include <Modloader/app/structs/JsonObjectContract.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JsonStringContract.h>
+#include <Modloader/app/structs/DefaultValueHandling__Enum.h>
+#include <Modloader/app/structs/PreserveReferencesHandling__Enum.h>
+#include <Modloader/app/structs/TypeNameHandling__Enum.h>
+#include <Modloader/app/structs/JsonConverter.h>
+#include <Modloader/app/structs/IEnumerable.h>
+#include <Modloader/app/structs/JsonArrayContract.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/ISerializable.h>
+#include <Modloader/app/structs/JsonISerializableContract.h>
+#include <Modloader/app/structs/IDynamicMetaObjectProvider.h>
+#include <Modloader/app/structs/JsonDynamicContract.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/JsonDictionaryContract.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonSerializerInternalWriter {
     IL2CPP_REGISTER_METHOD(0x01BF1EA0, void, ctor, (app::JsonSerializerInternalWriter * this_ptr, app::JsonSerializer* serializer))

@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MessageControllerB.h>
+#include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MessageDescriptor.h>
+#include <Modloader/app/structs/MessageBox.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/PickupContext.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/MessageControllerB_NpcMessageStyle__Enum.h>
+#include <Modloader/app/structs/ShowFixedTimeTextEntity_TextVisuals.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/TextBox.h>
+#include <Modloader/app/structs/InteractionSettings.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/WispMessageIcon_Wisp__Enum.h>
 
 namespace app::classes::MessageControllerB {
     IL2CPP_REGISTER_METHOD(0x01202300, bool, get_LastMessageWasShard, (app::MessageControllerB * this_ptr))

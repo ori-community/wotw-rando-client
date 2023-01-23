@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Object_SneezeSlugEntity_HitProtectionState_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SneezeSlugEntity_HitProtectionState__Enum.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_Object_SneezeSlugEntity_HitProtectionState_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Object_SneezeSlugEntity_HitProtectionState_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_System_Object_SneezeSlugEntity_HitProtectionState_ * this_ptr, app::Object* key))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/DelegateHelpers_TypeInfo.h>
 
 namespace app::classes::System::Linq::Expressions::Compiler::DelegateHelpers {
     IL2CPP_REGISTER_METHOD(0x01FA1130, app::Type*, MakeDelegateType, (app::Type__Array * types))

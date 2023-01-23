@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KamikazeLizardDamageDealer.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::KamikazeLizardDamageDealer {
     IL2CPP_REGISTER_METHOD(0x00E5B6C0, void, OnEnable, (app::KamikazeLizardDamageDealer * this_ptr))

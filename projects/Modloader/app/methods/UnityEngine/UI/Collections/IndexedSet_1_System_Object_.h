@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IndexedSet_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Predicate_1_Object_.h>
+#include <Modloader/app/structs/Comparison_1_Object_.h>
 
 namespace app::classes::UnityEngine::UI::Collections::IndexedSet_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02ACD5F0, int32_t, get_Count, (app::IndexedSet_1_System_Object_ * this_ptr))

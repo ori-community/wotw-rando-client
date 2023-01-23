@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Boid.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Boid {
     IL2CPP_REGISTER_METHOD(0x00D34C70, void, ResetStatics, ())

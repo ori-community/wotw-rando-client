@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonShadingZoneController.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/IMoonShadingZone.h>
+#include <Modloader/app/structs/MoonShadingZoneController_TargetData.h>
+#include <Modloader/app/structs/IMoonShadingZoneTarget.h>
+#include <Modloader/app/structs/Renderer.h>
 
 namespace app::classes::MoonShadingZoneController {
     IL2CPP_REGISTER_METHOD(0x0145FFA0, app::MoonShadingZoneController*, get_Instance, ())

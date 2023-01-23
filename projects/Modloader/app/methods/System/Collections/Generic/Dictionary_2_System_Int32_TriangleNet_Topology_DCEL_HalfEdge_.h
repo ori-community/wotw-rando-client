@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge_.h>
+#include <Modloader/app/structs/HalfEdge.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Int32_TriangleNet_Topology_DCEL_HalfEdge_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_System_Int32_TriangleNet_Topology_DCEL_HalfEdge_ * this_ptr))

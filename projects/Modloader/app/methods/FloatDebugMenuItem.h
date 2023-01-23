@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FloatDebugMenuItem.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Func_1_Single_.h>
+#include <Modloader/app/structs/Action_1_Single_.h>
+#include <Modloader/app/structs/Func_1_String_.h>
 
 namespace app::classes::FloatDebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x01270930, void, ctor_1, (app::FloatDebugMenuItem * this_ptr))

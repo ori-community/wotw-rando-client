@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Xml_XmlSqlBinaryReader_AttrInfo_.h>
+#include <Modloader/app/structs/XmlSqlBinaryReader_AttrInfo.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_System_Xml_XmlSqlBinaryReader_AttrInfo_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose, (app::Array_EmptyInternalEnumerator_1_System_Xml_XmlSqlBinaryReader_AttrInfo_ * this_ptr))

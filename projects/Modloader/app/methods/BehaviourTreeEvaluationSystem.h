@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/BehaviourTreeEvaluationSystem.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/BehaviourTreeEvaluationSystem_BehaviourTreeEvaluationEntry.h>
+#include <Modloader/app/structs/BehaviourTreeEvaluationSystem_AllowedEvaluationSkips__Enum.h>
 
 namespace app::classes::BehaviourTreeEvaluationSystem {
     IL2CPP_REGISTER_METHOD(0x00998570, app::UpdateType__Enum, get_UpdateType, (app::BehaviourTreeEvaluationSystem * this_ptr))

@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_HierarchyDebugMenu_GameObjectItem___StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_HierarchyDebugMenu_GameObjectItem___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_HierarchyDebugMenu_GameObjectItem___StaticFields_DEFINED)
+#define IL2CPP_STRUCT_List_1_HierarchyDebugMenu_GameObjectItem___StaticFields_DEFINED
+struct HierarchyDebugMenu_GameObjectItem__Array;
+struct List_1_HierarchyDebugMenu_GameObjectItem___StaticFields {
+    struct HierarchyDebugMenu_GameObjectItem__Array* _emptyArray;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_HierarchyDebugMenu_GameObjectItem___StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_List_1_HierarchyDebugMenu_GameObjectItem___StaticFields_FWDDECL
+#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem__Array.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_HierarchyDebugMenu_GameObjectItem___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_HierarchyDebugMenu_GameObjectItem___StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_List_1_HierarchyDebugMenu_GameObjectItem___StaticFields_FWDDECL)
+#include <Modloader/app/structs/List_1_HierarchyDebugMenu_GameObjectItem___StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_HierarchyDebugMenu_GameObjectItem___StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

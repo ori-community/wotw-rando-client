@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/EActivateGameOverlayToWebPageMode__Enum__Class.h>
+#include <Modloader/app/structs/EActivateGameOverlayToWebPageMode__Enum.h>
 
 namespace app::classes::types {
     namespace EActivateGameOverlayToWebPageMode__Enum {

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ParticleSystem_MinMaxGradient__Class.h>
+#include <Modloader/app/structs/ParticleSystem_MinMaxGradient.h>
+#include <Modloader/app/structs/ParticleSystem_MinMaxGradient__Boxed.h>
 
 namespace app::classes::types {
     namespace ParticleSystem_MinMaxGradient {

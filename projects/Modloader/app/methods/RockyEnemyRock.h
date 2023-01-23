@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RockyEnemyRock.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RockyEnemyRock {
     IL2CPP_REGISTER_METHOD(0x01362520, void, Awake, (app::RockyEnemyRock * this_ptr))

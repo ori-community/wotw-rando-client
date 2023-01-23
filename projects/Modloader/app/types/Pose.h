@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Pose__Class.h>
+#include <Modloader/app/structs/Pose.h>
+#include <Modloader/app/structs/Pose__Boxed.h>
 
 namespace app::classes::types {
     namespace Pose {

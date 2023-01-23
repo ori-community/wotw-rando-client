@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RotateRoomAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::RotateRoomAction {
     IL2CPP_REGISTER_METHOD(0x0136E940, void, Perform, (app::RotateRoomAction * this_ptr, app::IContext* context))

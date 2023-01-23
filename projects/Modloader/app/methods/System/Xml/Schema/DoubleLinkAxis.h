@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Axis.h>
+#include <Modloader/app/structs/DoubleLinkAxis.h>
 
 namespace app::classes::System::Xml::Schema::DoubleLinkAxis {
     IL2CPP_REGISTER_METHOD(0x002FB9D0, app::Axis*, get_Next, (app::DoubleLinkAxis * this_ptr))

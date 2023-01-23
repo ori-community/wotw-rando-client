@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Context_1.h>
+#include <Modloader/app/structs/RecordProtocol.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/HandshakeType__Enum.h>
+#include <Modloader/app/structs/HandshakeMessage.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/AlertLevel__Enum.h>
+#include <Modloader/app/structs/AlertDescription__Enum_1.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Alert.h>
+#include <Modloader/app/structs/ContentType__Enum.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::RecordProtocol {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Context_1*, get_Context, (app::RecordProtocol * this_ptr))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameTimer.h>
+#include <Modloader/app/structs/UberStateValueStore.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::GameTimer {
     IL2CPP_REGISTER_METHOD(0x00404DA0, void, Awake, (app::GameTimer * this_ptr))

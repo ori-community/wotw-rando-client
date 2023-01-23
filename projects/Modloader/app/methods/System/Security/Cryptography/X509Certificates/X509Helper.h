@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/INativeCertificateHelper.h>
+#include <Modloader/app/structs/X509CertificateImpl.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/X509Certificate.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/X509KeyStorageFlags__Enum.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::X509Helper {
     IL2CPP_REGISTER_METHOD(0x01E178B0, void, InstallNativeHelper, (app::INativeCertificateHelper * helper))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GuideStone.h>
 
 namespace app::classes::GuideStone {
     IL2CPP_REGISTER_METHOD(0x01099960, void, Awake, (app::GuideStone * this_ptr))

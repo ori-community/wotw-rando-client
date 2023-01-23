@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BuildSummary__Array__Class.h>
+#include <Modloader/app/structs/BuildSummary__Array.h>
 
 namespace app::classes::types {
     namespace BuildSummary__Array {

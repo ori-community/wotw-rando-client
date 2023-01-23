@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MortarWormEnemy_c.h>
+#include <Modloader/app/structs/MortarWormEnemy.h>
 
 namespace app::classes::MortarWormEnemy___c {
     IL2CPP_REGISTER_METHOD(0x00863220, void, cctor, ())

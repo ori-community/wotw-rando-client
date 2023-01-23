@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TriangleQuadTree_QuadNode.h>
+#include <Modloader/app/structs/Rectangle.h>
+#include <Modloader/app/structs/TriangleQuadTree.h>
+#include <Modloader/app/structs/List_1_System_Int32_.h>
+#include <Modloader/app/structs/Point.h>
+#include <Modloader/app/structs/Point__Array.h>
 
 namespace app::classes::TriangleNet::Tools::TriangleQuadTree_QuadNode {
     IL2CPP_REGISTER_METHOD(0x02A9CB50, void, ctor_1, (app::TriangleQuadTree_QuadNode * this_ptr, app::Rectangle* box, app::TriangleQuadTree* tree))

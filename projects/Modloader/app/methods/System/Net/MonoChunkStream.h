@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MonoChunkStream.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/WebHeaderCollection.h>
+#include <Modloader/app/structs/MonoChunkStream_State__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::MonoChunkStream {
     IL2CPP_REGISTER_METHOD(0x01E6F210, void, ctor_1, (app::MonoChunkStream * this_ptr, app::Byte__Array* buffer, int32_t offset, int32_t size, app::WebHeaderCollection* headers))

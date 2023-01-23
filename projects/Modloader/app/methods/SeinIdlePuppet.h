@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinIdlePuppet.h>
+#include <Modloader/app/structs/IPuppet.h>
+#include <Modloader/app/structs/GhostPlayer.h>
+#include <Modloader/app/structs/GhostRecorder.h>
+#include <Modloader/app/structs/FloatAnimationParameter.h>
+#include <Modloader/app/structs/VectorAnimationParameter.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::SeinIdlePuppet {
     IL2CPP_REGISTER_METHOD(0x0100D080, void, InstantiateLeaveTrails, (app::SeinIdlePuppet * this_ptr))

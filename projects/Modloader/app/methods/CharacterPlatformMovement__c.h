@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterPlatformMovement_c.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::CharacterPlatformMovement___c {
     IL2CPP_REGISTER_METHOD(0x01311AB0, void, cctor, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypedReference.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/FieldInfo_1__Array.h>
+#include <Modloader/app/structs/TypedReference__Boxed.h>
 
 namespace app::classes::System::TypedReference {
     IL2CPP_REGISTER_METHOD(0x027C42F0, app::TypedReference, MakeTypedReference, (app::Object * target, app::FieldInfo_1__Array* flds))

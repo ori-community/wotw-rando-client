@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/EnergyPlantLogic.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::EnergyPlantLogic {
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::IMoonSetupAnimator*, get_MoonSetupAnimator, (app::EnergyPlantLogic * this_ptr))

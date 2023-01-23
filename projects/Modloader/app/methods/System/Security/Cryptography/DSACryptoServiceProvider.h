@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DSACryptoServiceProvider.h>
+#include <Modloader/app/structs/CspParameters.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DSAParameters.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/HashAlgorithmName.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventArgs.h>
+#include <Modloader/app/structs/CspKeyContainerInfo.h>
 
 namespace app::classes::System::Security::Cryptography::DSACryptoServiceProvider {
     IL2CPP_REGISTER_METHOD(0x020D5A60, void, ctor_1, (app::DSACryptoServiceProvider * this_ptr))

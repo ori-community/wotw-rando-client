@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostManager.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/GhostPlayer.h>
+#include <Modloader/app/structs/GhostRecorder.h>
+#include <Modloader/app/structs/RaceTimer.h>
+#include <Modloader/app/structs/ScoreResult__Enum.h>
+#include <Modloader/app/structs/ITrialData.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IRecordable.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/IGenericUberState.h>
 
 namespace app::classes::GhostManager {
     IL2CPP_REGISTER_METHOD(0x00E22090, bool, get_IsPreRecordTrackingEnabled, ())

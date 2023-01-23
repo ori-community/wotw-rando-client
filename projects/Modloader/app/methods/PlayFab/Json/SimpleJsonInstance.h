@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SimpleJsonInstance.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::PlayFab::Json::SimpleJsonInstance {
     IL2CPP_REGISTER_METHOD(0x01852E30, app::Object*, DeserializeObject_1, (app::SimpleJsonInstance * this_ptr, app::String* json))

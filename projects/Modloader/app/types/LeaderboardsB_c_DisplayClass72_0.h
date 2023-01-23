@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LeaderboardsB_c_DisplayClass72_0__Class.h>
+#include <Modloader/app/structs/LeaderboardsB_c_DisplayClass72_0.h>
 
 namespace app::classes::types {
     namespace LeaderboardsB_c_DisplayClass72_0 {

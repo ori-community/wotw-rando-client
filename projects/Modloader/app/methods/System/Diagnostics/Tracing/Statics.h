@@ -1,5 +1,44 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TraceLoggingDataType__Enum.h>
+#include <Modloader/app/structs/EventFieldFormat__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Reflection_PropertyInfo_.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo.h>
+#include <Modloader/app/structs/List_1_System_Type_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_Object__1.h>
+#include <Modloader/app/structs/EventFieldAttribute.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_Boolean_.h>
+#include <Modloader/app/structs/EventDataAttribute.h>
+#include <Modloader/app/structs/CompilerGeneratedAttribute.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_Byte_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_Char_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_Collections_Generic_KeyValuePair_2_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_DateTime_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_DateTimeOffset_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_Decimal_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_EmptyStruct_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_Double_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_Guid_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_Int16_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_Int32_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_Int64_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_IntPtr_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_SByte_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_Single_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_TimeSpan_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_UInt16_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_UInt32_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_UInt64_.h>
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_UIntPtr_.h>
 
 namespace app::classes::System::Diagnostics::Tracing::Statics {
     IL2CPP_REGISTER_METHOD(0x01A07C40, app::Byte__Array*, MetadataForString, (app::String * name, int32_t prefix_size, int32_t suffix_size, int32_t additional_size))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Colors_Adjust_FullColors.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Colors_Adjust_FullColors {
     IL2CPP_REGISTER_METHOD(0x024DDBF0, app::Material*, get_material, (app::CameraFilterPack_Colors_Adjust_FullColors * this_ptr))

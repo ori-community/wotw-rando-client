@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChargeShotCollider_c.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::ChargeShotCollider___c {
     IL2CPP_REGISTER_METHOD(0x0131A5D0, void, cctor, ())

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/Binder.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/InstantiateUtility_InstantiateInfo.h>
 
 namespace app::classes::System::Activator {
     IL2CPP_REGISTER_METHOD(0x0228AE50, app::Object*, CreateInstance_1, (app::Type * type, app::BindingFlags__Enum binding_attr, app::Binder* binder, app::Object__Array* args, app::CultureInfo* culture))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MantisSpawnTask.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::MantisSpawnTask {
     IL2CPP_REGISTER_METHOD(0x00A09410, void, OnEnterTask, (app::MantisSpawnTask * this_ptr, app::IContext* context))

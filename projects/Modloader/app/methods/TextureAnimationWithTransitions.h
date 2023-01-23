@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions_TextureAnimationPair.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions.h>
+#include <Modloader/app/structs/TextureAnimation.h>
 
 namespace app::classes::TextureAnimationWithTransitions {
     IL2CPP_REGISTER_METHOD(0x010E9EE0, app::TextureAnimationWithTransitions_TextureAnimationPair*, GetTransition, (app::TextureAnimationWithTransitions * this_ptr, int32_t current_frame, app::TextureAnimationWithTransitions* from, app::TextureAnimation* from_animation, bool flip))

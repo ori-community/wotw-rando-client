@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SmallInteractivesPlaceholder.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::SmallInteractivesPlaceholder {
     IL2CPP_REGISTER_METHOD(0x006C8990, void, OnValidate, (app::SmallInteractivesPlaceholder * this_ptr))

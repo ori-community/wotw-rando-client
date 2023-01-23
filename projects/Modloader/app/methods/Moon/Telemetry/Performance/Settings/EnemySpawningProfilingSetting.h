@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/EnemySpawningProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::EnemySpawningProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x00E16AE0, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::EnemySpawningProfilingSetting * this_ptr))

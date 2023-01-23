@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation__DEFINED)
+#include <Modloader/app/structs/Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation___Fields.h>
+#if defined(IL2CPP_STRUCT_Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation___Fields_DEFINED)
+#define IL2CPP_STRUCT_Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation__DEFINED
+struct Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation___Class;
+struct Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation_ {
+    struct Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation___Class* klass;
+    MonitorData* monitor;
+    struct Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation__FWDDECL)
+#define IL2CPP_STRUCT_Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation__FWDDECL
+#include <Modloader/app/structs/Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation__DEFINED) && !defined(IL2CPP_STRUCT_Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation__FWDDECL)
+#include <Modloader/app/structs/Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Queue_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SweepLine_SplayNode__Class.h>
+#include <Modloader/app/structs/SweepLine_SplayNode.h>
+#include <Modloader/app/structs/SweepLine_SplayNode__Array.h>
 
 namespace app::classes::types {
     namespace SweepLine_SplayNode {

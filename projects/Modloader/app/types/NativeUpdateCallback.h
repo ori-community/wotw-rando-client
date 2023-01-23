@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/NativeUpdateCallback__Class.h>
+#include <Modloader/app/structs/NativeUpdateCallback.h>
 
 namespace app::classes::types {
     namespace NativeUpdateCallback {

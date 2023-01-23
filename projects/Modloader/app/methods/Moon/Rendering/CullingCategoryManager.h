@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CullingCategoryManager.h>
+#include <Modloader/app/structs/CullingCategory__Enum.h>
+#include <Modloader/app/structs/RendererCullingCategoryParameters.h>
+#include <Modloader/app/structs/RendererCullingCategoryResults.h>
+#include <Modloader/app/structs/MoonRenderPipelineView.h>
 
 namespace app::classes::Moon::Rendering::CullingCategoryManager {
     IL2CPP_REGISTER_METHOD(0x00C53A00, void, ctor, (app::CullingCategoryManager * this_ptr, app::CullingCategory__Enum mask, bool needs_list, bool per_slice))

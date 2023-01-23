@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberShaderCurveBake_CurveData__Class.h>
+#include <Modloader/app/structs/UberShaderCurveBake_CurveData.h>
+#include <Modloader/app/structs/UberShaderCurveBake_CurveData__Boxed.h>
+#include <Modloader/app/structs/UberShaderCurveBake_CurveData__Array.h>
 
 namespace app::classes::types {
     namespace UberShaderCurveBake_CurveData {

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SpikeSlugFallReactionBehaviour__Class.h>
+#include <Modloader/app/structs/SpikeSlugFallReactionBehaviour.h>
 
 namespace app::classes::types {
     namespace SpikeSlugFallReactionBehaviour {

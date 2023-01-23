@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TplEtwProvider.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Guid.h>
 
 namespace app::classes::System::Diagnostics::Tracing::TplEtwProvider {
     IL2CPP_REGISTER_METHOD(0x01A09360, bool, get_Debug, (app::TplEtwProvider * this_ptr))

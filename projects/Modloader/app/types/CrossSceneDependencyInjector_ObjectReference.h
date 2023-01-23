@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CrossSceneDependencyInjector_ObjectReference__Class.h>
+#include <Modloader/app/structs/CrossSceneDependencyInjector_ObjectReference.h>
+#include <Modloader/app/structs/CrossSceneDependencyInjector_ObjectReference__Array.h>
 
 namespace app::classes::types {
     namespace CrossSceneDependencyInjector_ObjectReference {

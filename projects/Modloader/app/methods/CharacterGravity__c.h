@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterGravity_c.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 
 namespace app::classes::CharacterGravity___c {
     IL2CPP_REGISTER_METHOD(0x01300560, void, cctor, ())

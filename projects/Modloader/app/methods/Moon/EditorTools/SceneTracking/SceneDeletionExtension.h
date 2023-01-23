@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneDeletionFlags__Enum.h>
 
 namespace app::classes::Moon::EditorTools::SceneTracking::SceneDeletionExtension {
     IL2CPP_REGISTER_METHOD(0x012083D0, app::SceneDeletionFlags__Enum, Add, (app::SceneDeletionFlags__Enum me, app::SceneDeletionFlags__Enum to_add))

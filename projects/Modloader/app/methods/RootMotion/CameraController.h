@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraController.h>
 
 namespace app::classes::RootMotion::CameraController {
     IL2CPP_REGISTER_METHOD(0x00623240, float, get_x, (app::CameraController * this_ptr))

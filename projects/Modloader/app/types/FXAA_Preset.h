@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/FXAA_Preset__Class.h>
+#include <Modloader/app/structs/FXAA_Preset.h>
+#include <Modloader/app/structs/FXAA_Preset__Boxed.h>
+#include <Modloader/app/structs/FXAA_Preset__Array.h>
 
 namespace app::classes::types {
     namespace FXAA_Preset {

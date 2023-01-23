@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkMusicPlaylistCallbackInfo.h>
 
 namespace app::classes::AkMusicPlaylistCallbackInfo {
     IL2CPP_REGISTER_METHOD(0x01881EE0, void, ctor_1, (app::AkMusicPlaylistCallbackInfo * this_ptr, void* c_ptr, bool c_memory_own))

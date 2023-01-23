@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate_DEFINED)
+#include <Modloader/app/structs/KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate__Fields.h>
+#if defined(IL2CPP_STRUCT_KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate__Fields_DEFINED)
+#define IL2CPP_STRUCT_KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate_DEFINED
+struct KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate__Class;
+struct KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate {
+    struct KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate__Class* klass;
+    MonitorData* monitor;
+    struct KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate_FWDDECL)
+#define IL2CPP_STRUCT_KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate_FWDDECL
+#include <Modloader/app/structs/KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate__Class.h>
+#endif
+#undef IL2CPP_STRUCT_KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate_DEFINED) && !defined(IL2CPP_STRUCT_KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate_FWDDECL)
+#include <Modloader/app/structs/KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

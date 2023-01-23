@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Film_ColorPerfection.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Film_ColorPerfection {
     IL2CPP_REGISTER_METHOD(0x02476090, app::Material*, get_material, (app::CameraFilterPack_Film_ColorPerfection * this_ptr))

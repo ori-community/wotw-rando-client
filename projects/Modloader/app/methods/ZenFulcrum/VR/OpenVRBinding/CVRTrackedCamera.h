@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CVRTrackedCamera.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EVRTrackedCameraError__Enum.h>
+#include <Modloader/app/structs/EVRTrackedCameraFrameType__Enum.h>
+#include <Modloader/app/structs/HmdVector2_t.h>
+#include <Modloader/app/structs/HmdMatrix44_t.h>
+#include <Modloader/app/structs/CameraVideoStreamFrameHeader_t.h>
+#include <Modloader/app/structs/VRTextureBounds_t.h>
+#include <Modloader/app/structs/void.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRTrackedCamera {
     IL2CPP_REGISTER_METHOD(0x0167E230, void, ctor, (app::CVRTrackedCamera * this_ptr, void* p_interface))

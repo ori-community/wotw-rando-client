@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NewDiffgramGen.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Data::NewDiffgramGen {
     IL2CPP_REGISTER_METHOD(0x01E44CB0, void, ctor_1, (app::NewDiffgramGen * this_ptr, app::DataSet* ds))

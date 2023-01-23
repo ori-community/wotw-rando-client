@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_Int32_Moon_IRuntimeDynamicDataLink_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_IRuntimeDynamicDataLink_.h>
+#include <Modloader/app/structs/IRuntimeDynamicDataLink.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_Int32_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_Moon_IRuntimeDynamicDataLink_ {
     IL2CPP_REGISTER_METHOD(0x02BA5400, app::Dictionary_2_TKey_TValue_Enumerator_System_Int32_Moon_IRuntimeDynamicDataLink_, GetEnumerator, (app::Dictionary_2_System_Int32_Moon_IRuntimeDynamicDataLink_ * this_ptr))

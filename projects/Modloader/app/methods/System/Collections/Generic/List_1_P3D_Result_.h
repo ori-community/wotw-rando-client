@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/P3D_Result.h>
+#include <Modloader/app/structs/List_1_P3D_Result_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_P3D_Result_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::P3D_Result*, get_Item, (app::List_1_P3D_Result_ * this_ptr, int32_t index))

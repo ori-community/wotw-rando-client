@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object_1__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AsyncOperation_1.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Font.h>
+#include <Modloader/app/structs/UberStateCollection.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/ComputeShader.h>
+#include <Modloader/app/structs/PlayFabSharedSettings__Array.h>
+#include <Modloader/app/structs/AkWwiseInitializationSettings.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/EntityWeightData.h>
+#include <Modloader/app/structs/GameObject__Array.h>
+#include <Modloader/app/structs/HitReactionSettings.h>
+#include <Modloader/app/structs/InstantiateDebugIgnore.h>
+#include <Modloader/app/structs/TextAsset.h>
 
 namespace app::classes::UnityEngine::Resources {
     IL2CPP_REGISTER_METHOD(0x02542670, app::Object_1__Array*, FindObjectsOfTypeAll_1, (app::Type * type))

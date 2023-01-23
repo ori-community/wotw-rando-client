@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocalDefinition.h>
+#include <Modloader/app/structs/LocalVariables.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/InstructionList.h>
+#include <Modloader/app/structs/LocalVariable.h>
+#include <Modloader/app/structs/Dictionary_2_System_Linq_Expressions_ParameterExpression_System_Linq_Expressions_Interpreter_LocalVariable_.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LocalVariables {
     IL2CPP_REGISTER_METHOD(0x023FAA70, app::LocalDefinition, DefineLocal, (app::LocalVariables * this_ptr, app::ParameterExpression* variable, int32_t start))

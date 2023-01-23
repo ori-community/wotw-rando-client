@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/OriAnimator.h>
 
 namespace app::classes::OriAnimator {
     IL2CPP_REGISTER_METHOD(0x00621460, app::MoonAnimator*, GetMoonAnimator, (app::OriAnimator * this_ptr))

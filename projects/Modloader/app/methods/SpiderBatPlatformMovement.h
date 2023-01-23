@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBatPlatformMovement.h>
 
 namespace app::classes::SpiderBatPlatformMovement {
     IL2CPP_REGISTER_METHOD(0x0095DF10, void, set_IsDeathFalling, (app::SpiderBatPlatformMovement * this_ptr, bool value))

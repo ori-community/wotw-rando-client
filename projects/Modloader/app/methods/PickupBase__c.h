@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PickupBase_c.h>
 
 namespace app::classes::PickupBase___c {
     IL2CPP_REGISTER_METHOD(0x011589F0, void, cctor, ())

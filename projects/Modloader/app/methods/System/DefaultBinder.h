@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/DefaultBinder.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/MethodBase__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/ParameterModifier__Array.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/FieldInfo_1__Array.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/PropertyInfo_1__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/RuntimeType.h>
 
 namespace app::classes::System::DefaultBinder {
     IL2CPP_REGISTER_METHOD(0x01737180, app::MethodBase*, BindToMethod, (app::DefaultBinder * this_ptr, app::BindingFlags__Enum binding_attr, app::MethodBase__Array* match, app::Object__Array** args, app::ParameterModifier__Array* modifiers, app::CultureInfo* culture_info, app::String__Array* names, app::Object** state))

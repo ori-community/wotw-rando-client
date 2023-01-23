@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RequestCachingSection.h>
+#include <Modloader/app/structs/FtpCachePolicyElement.h>
+#include <Modloader/app/structs/HttpCachePolicyElement.h>
+#include <Modloader/app/structs/RequestCacheLevel__Enum.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/XmlReader.h>
 
 namespace app::classes::System::Net::Configuration::RequestCachingSection {
     IL2CPP_REGISTER_METHOD(0x01E98330, void, ctor, (app::RequestCachingSection * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HasEnoughExperienceCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::HasEnoughExperienceCondition {
     IL2CPP_REGISTER_METHOD(0x0109E710, bool, Validate, (app::HasEnoughExperienceCondition * this_ptr, app::IContext* context))

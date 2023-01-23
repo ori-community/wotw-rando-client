@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AirMovementTimelineBehaviourNew.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::AirMovementTimelineBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x004F19A0, void, OnEntityInitialized, (app::AirMovementTimelineBehaviourNew * this_ptr))

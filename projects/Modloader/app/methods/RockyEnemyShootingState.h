@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RockyEnemyShootingState.h>
+#include <Modloader/app/structs/RockyEnemy.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RockyEnemyShootingState {
     IL2CPP_REGISTER_METHOD(0x004C1E90, void, ctor, (app::RockyEnemyShootingState * this_ptr, app::RockyEnemy* enemy))

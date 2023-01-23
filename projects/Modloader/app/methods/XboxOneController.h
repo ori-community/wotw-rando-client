@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Action_1_Int32_.h>
+#include <Modloader/app/structs/XboxOneController_Axis__Enum.h>
+#include <Modloader/app/structs/XboxOneController.h>
 
 namespace app::classes::XboxOneController {
     IL2CPP_REGISTER_METHOD(0x005977E0, app::Action*, get_OnLastControllerDisconnect, ())

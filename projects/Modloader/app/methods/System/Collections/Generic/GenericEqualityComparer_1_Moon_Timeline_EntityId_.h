@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericEqualityComparer_1_Moon_Timeline_EntityId_.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/EntityId__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::GenericEqualityComparer_1_Moon_Timeline_EntityId_ {
     IL2CPP_REGISTER_METHOD(0x01B64A20, bool, Equals_1, (app::GenericEqualityComparer_1_Moon_Timeline_EntityId_ * this_ptr, app::EntityId x, app::EntityId y))

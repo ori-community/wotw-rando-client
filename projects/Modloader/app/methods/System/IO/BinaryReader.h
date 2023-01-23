@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::IO::BinaryReader {
     IL2CPP_REGISTER_METHOD(0x01DFD6B0, void, ctor_1, (app::BinaryReader * this_ptr, app::Stream* input))

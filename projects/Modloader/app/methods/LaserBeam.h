@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserBeam.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::LaserBeam {
     IL2CPP_REGISTER_METHOD(0x00F06300, void, SurfaceEffectsPrefabInstantiation, (app::LaserBeam * this_ptr, app::List_1_DynamicInstantiationDescriptor_* instantiations))

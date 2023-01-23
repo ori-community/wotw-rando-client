@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_Moon_DesiredStateTransitionInfo_.h>
+#include <Modloader/app/structs/DesiredStateTransitionInfo.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_Moon_DesiredStateTransitionInfo_ {
     IL2CPP_REGISTER_METHOD(0x01CC4D50, int32_t, Compare, (app::ObjectComparer_1_Moon_DesiredStateTransitionInfo_ * this_ptr, app::DesiredStateTransitionInfo x, app::DesiredStateTransitionInfo y))

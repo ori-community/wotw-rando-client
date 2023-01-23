@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrabClawAttackBehaviourNew.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::CrabClawAttackBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x00CCAD00, void, OnEntityInitialized, (app::CrabClawAttackBehaviourNew * this_ptr))

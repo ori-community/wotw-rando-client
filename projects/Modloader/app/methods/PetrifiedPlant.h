@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedPlant.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::PetrifiedPlant {
     IL2CPP_REGISTER_METHOD(0x014E92D0, void, Awake, (app::PetrifiedPlant * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBossLocationTurningTimelineBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBossLocationTurningTimelineBehaviour {
     IL2CPP_REGISTER_METHOD(0x011B3D10, void, OnEnter, (app::SpiderBossLocationTurningTimelineBehaviour * this_ptr, app::IContext* context))

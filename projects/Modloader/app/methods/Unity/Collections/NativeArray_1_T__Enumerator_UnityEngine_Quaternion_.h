@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_Quaternion___Boxed.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Unity::Collections::NativeArray_1_T__Enumerator_UnityEngine_Quaternion_ {
     IL2CPP_REGISTER_METHOD(0x001DF020, void, ctor, (app::NativeArray_1_T_Enumerator_UnityEngine_Quaternion___Boxed * this_ptr, app::NativeArray_1_UnityEngine_Quaternion_* array))

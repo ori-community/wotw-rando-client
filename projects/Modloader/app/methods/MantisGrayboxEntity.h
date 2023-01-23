@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MantisGrayboxEntity.h>
+#include <Modloader/app/structs/MantisSpawnType__Enum.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MantisGrayboxEntity {
     IL2CPP_REGISTER_METHOD(0x009FC180, bool, get_IgnoreGoThroughs, (app::MantisGrayboxEntity * this_ptr))

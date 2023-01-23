@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509Certificate2Collection.h>
+#include <Modloader/app/structs/X509Certificate2.h>
+#include <Modloader/app/structs/X509FindType__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/X509Certificate2Enumerator.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::X509Certificate2Collection {
     IL2CPP_REGISTER_METHOD(0x01C9A650, void, ctor_1, (app::X509Certificate2Collection * this_ptr))

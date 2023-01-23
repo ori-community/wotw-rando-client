@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundCompositionPlayer.h>
+#include <Modloader/app/structs/SoundComposition.h>
 
 namespace app::classes::SoundCompositionPlayer {
     IL2CPP_REGISTER_METHOD(0x00EE6150, void, Awake, (app::SoundCompositionPlayer * this_ptr))

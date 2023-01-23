@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Task_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TaskFactory_1_System_Object_.h>
+#include <Modloader/app/structs/TaskCreationOptions__Enum.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/Func_1_Object_.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/InternalTaskOptions__Enum.h>
+#include <Modloader/app/structs/TaskScheduler.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/TaskAwaiter_1_System_Object_.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_1_System_Object_.h>
+#include <Modloader/app/structs/Action_1_System_Threading_Tasks_Task_1__2.h>
+#include <Modloader/app/structs/TaskContinuationOptions__Enum.h>
+#include <Modloader/app/structs/Func_2_System_Threading_Tasks_Task_1_Object_.h>
 
 namespace app::classes::System::Threading::Tasks::Task_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02A5BCF0, app::String*, get_DebuggerDisplayResultDescription, (app::Task_1_System_Object_ * this_ptr))

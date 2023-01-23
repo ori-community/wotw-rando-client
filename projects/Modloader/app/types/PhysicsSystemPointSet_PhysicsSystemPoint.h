@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PhysicsSystemPointSet_PhysicsSystemPoint__Class.h>
+#include <Modloader/app/structs/PhysicsSystemPointSet_PhysicsSystemPoint.h>
+#include <Modloader/app/structs/PhysicsSystemPointSet_PhysicsSystemPoint__Array.h>
 
 namespace app::classes::types {
     namespace PhysicsSystemPointSet_PhysicsSystemPoint {

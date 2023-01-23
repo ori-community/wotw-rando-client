@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CaptureCollection.h>
+#include <Modloader/app/structs/Capture.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Text::RegularExpressions::CaptureCollection {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Object*, get_SyncRoot, (app::CaptureCollection * this_ptr))

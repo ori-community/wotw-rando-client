@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CustomAttributeTypedArgument__Boxed.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Reflection::CustomAttributeTypedArgument {
     IL2CPP_REGISTER_METHOD(0x001FC9A0, void, ctor, (app::CustomAttributeTypedArgument__Boxed * this_ptr, app::Type* argument_type, app::Object* value))

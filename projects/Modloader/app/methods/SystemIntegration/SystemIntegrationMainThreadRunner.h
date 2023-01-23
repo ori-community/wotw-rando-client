@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SystemIntegrationMainThreadRunner.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IUpdateable.h>
 
 namespace app::classes::SystemIntegration::SystemIntegrationMainThreadRunner {
     IL2CPP_REGISTER_METHOD(0x00CDA850, void, Update, (app::SystemIntegrationMainThreadRunner * this_ptr))

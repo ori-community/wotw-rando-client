@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AkCommonAdvancedSettings_SpatialAudioSettings__Class.h>
+#include <Modloader/app/structs/AkCommonAdvancedSettings_SpatialAudioSettings.h>
 
 namespace app::classes::types {
     namespace AkCommonAdvancedSettings_SpatialAudioSettings {

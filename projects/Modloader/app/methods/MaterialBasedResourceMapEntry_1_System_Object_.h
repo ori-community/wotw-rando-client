@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/MaterialBasedResourceMapEntry_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::MaterialBasedResourceMapEntry_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x019FA100, app::Type*, get_ResourceType, (app::MaterialBasedResourceMapEntry_1_System_Object_ * this_ptr))

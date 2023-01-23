@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkIterator.h>
+#include <Modloader/app/structs/AkPlaylistItem.h>
 
 namespace app::classes::AkIterator {
     IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkIterator * this_ptr, void* c_ptr, bool c_memory_own))

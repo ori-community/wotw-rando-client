@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceMenuScreen.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/RaceMenuScreenUISlot.h>
+#include <Modloader/app/structs/RaceSettings__Array.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/RaceSettings.h>
+#include <Modloader/app/structs/UberStateValueStore.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/DifficultyMode__Enum.h>
+#include <Modloader/app/structs/ReplaySetting.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::RaceMenuScreen {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanInterruptTab, (app::RaceMenuScreen * this_ptr))

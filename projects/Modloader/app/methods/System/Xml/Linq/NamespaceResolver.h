@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NamespaceResolver__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XNamespace.h>
 
 namespace app::classes::System::Xml::Linq::NamespaceResolver {
     IL2CPP_REGISTER_METHOD(0x00241310, void, PushScope, (app::NamespaceResolver__Boxed * this_ptr))

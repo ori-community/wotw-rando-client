@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSerializerNamespaces.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlQualifiedName__Array.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Hashtable.h>
 
 namespace app::classes::System::Xml::Serialization::XmlSerializerNamespaces {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::XmlSerializerNamespaces * this_ptr))

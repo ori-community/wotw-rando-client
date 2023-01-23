@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AllContainer_1_TransformRecordable_.h>
+#include <Modloader/app/structs/TransformRecordable.h>
 
 namespace app::classes::AllContainer_1_TransformRecordable_ {
     IL2CPP_REGISTER_METHOD(0x019D77E0, int32_t, get_Count, (app::AllContainer_1_TransformRecordable_ * this_ptr))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyTimelineSequence.h>
+#include <Modloader/app/structs/MantisFallReactionBehaviour.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/MantisFallReactionBehaviour_FallState__Enum.h>
 
 namespace app::classes::MantisFallReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FBC60, app::LegacyTimelineSequence*, get_EffectiveLandSequence, (app::MantisFallReactionBehaviour * this_ptr))

@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration__Fields_DEFINED)
+#include <Modloader/app/structs/AkCommonOutputSettings_ChannelConfiguration_ChannelConfigType__Enum.h>
+#include <Modloader/app/structs/AkCommonOutputSettings_ChannelConfiguration_ChannelMask__Enum.h>
+#if defined(IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration_ChannelConfigType__Enum_DEFINED) && defined(IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration_ChannelMask__Enum_DEFINED)
+#define IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration__Fields_DEFINED
+struct __declspec(align(8)) AkCommonOutputSettings_ChannelConfiguration__Fields {
+    AkCommonOutputSettings_ChannelConfiguration_ChannelConfigType__Enum m_ChannelConfigType;
+
+    AkCommonOutputSettings_ChannelConfiguration_ChannelMask__Enum m_ChannelMask;
+
+    uint32_t m_NumberOfChannels;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration__Fields_FWDDECL)
+#define IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration__Fields_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration__Fields_DEFINED) && !defined(IL2CPP_STRUCT_AkCommonOutputSettings_ChannelConfiguration__Fields_FWDDECL)
+#include <Modloader/app/structs/AkCommonOutputSettings_ChannelConfiguration__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AkCommonOutputSettings_ChannelConfiguration__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

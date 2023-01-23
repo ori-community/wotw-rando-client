@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ParticleCollisionEvent__Class.h>
+#include <Modloader/app/structs/ParticleCollisionEvent.h>
+#include <Modloader/app/structs/ParticleCollisionEvent__Boxed.h>
+#include <Modloader/app/structs/ParticleCollisionEvent__Array.h>
 
 namespace app::classes::types {
     namespace ParticleCollisionEvent {

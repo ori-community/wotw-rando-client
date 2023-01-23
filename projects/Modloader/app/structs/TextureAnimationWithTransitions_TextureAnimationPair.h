@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TextureAnimationWithTransitions_TextureAnimationPair_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TextureAnimationWithTransitions_TextureAnimationPair_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TextureAnimationWithTransitions_TextureAnimationPair_DEFINED)
+#include <Modloader/app/structs/TextureAnimationWithTransitions_TextureAnimationPair__Fields.h>
+#if defined(IL2CPP_STRUCT_TextureAnimationWithTransitions_TextureAnimationPair__Fields_DEFINED)
+#define IL2CPP_STRUCT_TextureAnimationWithTransitions_TextureAnimationPair_DEFINED
+struct TextureAnimationWithTransitions_TextureAnimationPair__Class;
+struct TextureAnimationWithTransitions_TextureAnimationPair {
+    struct TextureAnimationWithTransitions_TextureAnimationPair__Class* klass;
+    MonitorData* monitor;
+    struct TextureAnimationWithTransitions_TextureAnimationPair__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TextureAnimationWithTransitions_TextureAnimationPair_FWDDECL)
+#define IL2CPP_STRUCT_TextureAnimationWithTransitions_TextureAnimationPair_FWDDECL
+#include <Modloader/app/structs/TextureAnimationWithTransitions_TextureAnimationPair__Class.h>
+#endif
+#undef IL2CPP_STRUCT_TextureAnimationWithTransitions_TextureAnimationPair_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TextureAnimationWithTransitions_TextureAnimationPair_DEFINED) && !defined(IL2CPP_STRUCT_TextureAnimationWithTransitions_TextureAnimationPair_FWDDECL)
+#include <Modloader/app/structs/TextureAnimationWithTransitions_TextureAnimationPair.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TextureAnimationWithTransitions_TextureAnimationPair.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

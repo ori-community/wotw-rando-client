@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Music_Layer.h>
+#include <Modloader/app/structs/Music_MusicTrack.h>
+#include <Modloader/app/structs/SoundDescriptor.h>
 
 namespace app::classes::Core::Music {
     IL2CPP_REGISTER_METHOD(0x00DAC8A0, app::Music_Layer*, get_CurrentMusicLayer, ())

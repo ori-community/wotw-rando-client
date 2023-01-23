@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinKeystonesFloatProvider.h>
 
 namespace app::classes::SeinKeystonesFloatProvider {
     IL2CPP_REGISTER_METHOD(0x01020A90, float, GetFloatValue, (app::SeinKeystonesFloatProvider * this_ptr))

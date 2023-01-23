@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/ProjectileSpawner.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Projectile.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::ProjectileSpawner {
     IL2CPP_REGISTER_METHOD(0x00C7C010, app::Vector3, get_Position, (app::ProjectileSpawner * this_ptr))

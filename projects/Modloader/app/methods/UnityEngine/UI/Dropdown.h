@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dropdown.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/Text.h>
+#include <Modloader/app/structs/Image.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UI_Dropdown_OptionData_.h>
+#include <Modloader/app/structs/Dropdown_DropdownEvent.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Sprite_.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/BaseEventData.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Canvas.h>
+#include <Modloader/app/structs/Dropdown_DropdownItem.h>
+#include <Modloader/app/structs/Dropdown_OptionData.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UI_Dropdown_DropdownItem_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Toggle.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/GraphicRaycaster.h>
+#include <Modloader/app/structs/CanvasGroup.h>
 
 namespace app::classes::UnityEngine::UI::Dropdown {
     IL2CPP_REGISTER_METHOD(0x01F36670, void, ctor, (app::Dropdown * this_ptr))

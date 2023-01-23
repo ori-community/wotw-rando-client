@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaurEntity.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BaurEntity_State__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/ICharacter.h>
 
 namespace app::classes::BaurEntity {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CameraTargetActive, (app::BaurEntity * this_ptr))

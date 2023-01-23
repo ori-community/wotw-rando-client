@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_ICondition_.h>
+#include <Modloader/app/structs/SkipCutscene.h>
+#include <Modloader/app/structs/List_1_ISkipCutsceneAction_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::SkipCutscene {
     IL2CPP_REGISTER_METHOD(0x006C0B30, app::List_1_ICondition_*, get_ResolvedConditions, (app::SkipCutscene * this_ptr))

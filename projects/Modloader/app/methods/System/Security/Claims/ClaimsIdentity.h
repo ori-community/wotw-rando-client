@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ClaimsIdentity.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Security_Claims_Claim_.h>
+#include <Modloader/app/structs/IIdentity.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Claim.h>
 
 namespace app::classes::System::Security::Claims::ClaimsIdentity {
     IL2CPP_REGISTER_METHOD(0x01E1C300, void, ctor_1, (app::ClaimsIdentity * this_ptr))

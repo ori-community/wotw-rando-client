@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UInt16Storage.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/AggregateType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BitArray.h>
 
 namespace app::classes::System::Data::Common::UInt16Storage {
     IL2CPP_REGISTER_METHOD(0x02866120, void, ctor, (app::UInt16Storage * this_ptr, app::DataColumn* column))

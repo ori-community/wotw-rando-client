@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayCharacterAnimation.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::PlayCharacterAnimation {
     IL2CPP_REGISTER_METHOD(0x01176D90, void, Perform, (app::PlayCharacterAnimation * this_ptr, app::IContext* context))

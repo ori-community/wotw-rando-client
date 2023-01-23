@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ParticleSystem_MinMaxCurve__Class.h>
+#include <Modloader/app/structs/ParticleSystem_MinMaxCurve.h>
+#include <Modloader/app/structs/ParticleSystem_MinMaxCurve__Boxed.h>
 
 namespace app::classes::types {
     namespace ParticleSystem_MinMaxCurve {

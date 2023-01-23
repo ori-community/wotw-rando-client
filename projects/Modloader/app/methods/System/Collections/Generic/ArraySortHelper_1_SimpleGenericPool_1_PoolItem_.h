@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo___Array.h>
+#include <Modloader/app/structs/IComparer_1_SimpleGenericPool_1_PoolItem_.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_.h>
+#include <Modloader/app/structs/Comparison_1_SimpleGenericPool_1_PoolItem_.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_System_Object___Array.h>
+#include <Modloader/app/structs/IComparer_1_SimpleGenericPool_1_PoolItem__1.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_System_Object_.h>
+#include <Modloader/app/structs/Comparison_1_SimpleGenericPool_1_PoolItem__1.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_SimpleGenericPool_1_PoolItem_ {
     IL2CPP_REGISTER_METHOD(0x02FF0F10, void, Sort_1, (app::SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo___Array * keys, int32_t index, int32_t length, app::IComparer_1_SimpleGenericPool_1_PoolItem_* comparer))

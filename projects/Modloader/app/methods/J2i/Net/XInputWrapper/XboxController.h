@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XboxController.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/XInputVibration.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::J2i::Net::XInputWrapper::XboxController {
     IL2CPP_REGISTER_METHOD(0x031B8910, void, set_UpdateFrequency, (int32_t value))

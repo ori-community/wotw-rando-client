@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraAnimator.h>
 
 namespace app::classes::CameraAnimator {
     IL2CPP_REGISTER_METHOD(0x00933870, bool, get_IsLooping, (app::CameraAnimator * this_ptr))

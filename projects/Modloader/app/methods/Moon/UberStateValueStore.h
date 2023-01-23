@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStateValueStore.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/UberStateSaveFileHandler_LoadStatus__Enum.h>
+#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_Moon_UberStateValueGroup_.h>
+#include <Modloader/app/structs/ISerializedUberState.h>
+#include <Modloader/app/structs/UberStateValueGroup.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::UberStateValueStore {
     IL2CPP_REGISTER_METHOD(0x00CC59E0, int32_t, get_Version, (app::UberStateValueStore * this_ptr))

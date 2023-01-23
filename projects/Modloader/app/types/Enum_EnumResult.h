@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Enum_EnumResult__Class.h>
+#include <Modloader/app/structs/Enum_EnumResult.h>
+#include <Modloader/app/structs/Enum_EnumResult__Boxed.h>
 
 namespace app::classes::types {
     namespace Enum_EnumResult {

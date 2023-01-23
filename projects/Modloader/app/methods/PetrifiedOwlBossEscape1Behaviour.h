@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_EscapePart.h>
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseStatesSet.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::PetrifiedOwlBossEscape1Behaviour {
     IL2CPP_REGISTER_METHOD(0x005FDE00, app::PetrifiedOwlBossEscape1Behaviour_EscapePart*, get_CurrentEscapePart, (app::PetrifiedOwlBossEscape1Behaviour * this_ptr))

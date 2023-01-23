@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Xml_Linq_XElement_.h>
+#include <Modloader/app/structs/XElement.h>
+#include <Modloader/app/structs/XName.h>
+#include <Modloader/app/structs/XStreamingElement.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XAttribute.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Xml_Linq_XAttribute_.h>
+#include <Modloader/app/structs/XNamespace.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XNode.h>
+#include <Modloader/app/structs/LoadOptions__Enum.h>
 
 namespace app::classes::System::Xml::Linq::XElement {
     IL2CPP_REGISTER_METHOD(0x03036610, app::IEnumerable_1_System_Xml_Linq_XElement_*, get_EmptySequence, ())

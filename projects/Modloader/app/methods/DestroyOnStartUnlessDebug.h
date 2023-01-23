@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DestroyOnStartUnlessDebug.h>
 
 namespace app::classes::DestroyOnStartUnlessDebug {
     IL2CPP_REGISTER_METHOD(0x00B8D370, void, Start, (app::DestroyOnStartUnlessDebug * this_ptr))

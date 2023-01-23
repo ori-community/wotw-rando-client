@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_RailType_UnityEngine_Color___Array__Class.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_RailType_UnityEngine_Color___Array.h>
 
 namespace app::classes::types {
     namespace Dictionary_2_TKey_TValue_Entry_RailType_UnityEngine_Color___Array {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_RuntimeSceneMetaData_.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_RuntimeSceneMetaData_.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_RuntimeSceneMetaData_ {
     IL2CPP_REGISTER_METHOD(0x02AB4A90, void, Clear, (app::HashSet_1_RuntimeSceneMetaData_ * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Plane__Boxed.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Plane {
     IL2CPP_REGISTER_METHOD(0x00216460, void, ctor_1, (app::Plane__Boxed * this_ptr, app::Vector3 in_normal, app::Vector3 in_point))

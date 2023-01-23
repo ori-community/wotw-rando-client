@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_WorldEvents_.h>
+#include <Modloader/app/structs/WorldEvents.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_WorldEvents_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_WorldEvents_ {
     IL2CPP_REGISTER_METHOD(0x02FE8D00, bool, Contains, (app::List_1_WorldEvents_ * this_ptr, app::WorldEvents* item))

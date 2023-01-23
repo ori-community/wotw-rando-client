@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vertex_EnumerateEdges_d_6.h>
+#include <Modloader/app/structs/HalfEdge.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_TriangleNet_Topology_DCEL_HalfEdge_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::TriangleNet::Topology::DCEL::Vertex__EnumerateEdges_d__6 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::Vertex_EnumerateEdges_d_6 * this_ptr, int32_t __1__state))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowInventoryAction_c.h>
 
 namespace app::classes::ShowInventoryAction___c {
     IL2CPP_REGISTER_METHOD(0x005C4BC0, void, cctor, ())

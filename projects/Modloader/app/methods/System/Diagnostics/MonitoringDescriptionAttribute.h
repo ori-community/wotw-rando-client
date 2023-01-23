@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MonitoringDescriptionAttribute.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Diagnostics::MonitoringDescriptionAttribute {
     IL2CPP_REGISTER_METHOD(0x01FFE790, void, ctor, (app::MonitoringDescriptionAttribute * this_ptr, app::String* description))

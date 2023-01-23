@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XUserGetTokenAndSignatureUtf16Data__Class.h>
+#include <Modloader/app/structs/XUserGetTokenAndSignatureUtf16Data.h>
 
 namespace app::classes::types {
     namespace XUserGetTokenAndSignatureUtf16Data {

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MovingPlatformController.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::MovingPlatformController {
     IL2CPP_REGISTER_METHOD(0x0086D7E0, void, Awake, (app::MovingPlatformController * this_ptr))

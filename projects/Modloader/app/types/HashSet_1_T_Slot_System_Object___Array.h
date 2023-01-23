@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_Object___Array__Class.h>
+#include <Modloader/app/structs/HashSet_1_T_Slot_System_Object___Array.h>
 
 namespace app::classes::types {
     namespace HashSet_1_T_Slot_System_Object___Array {

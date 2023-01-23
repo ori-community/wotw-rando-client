@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3__DEFINED)
+#include <Modloader/app/structs/ValueTuple_2_String_String_.h>
+#include <Modloader/app/structs/ValueTuple_3_Int32_System_Collections_Generic_List_1_Int32_.h>
+#if defined(IL2CPP_STRUCT_ValueTuple_2_String_String__DEFINED) && defined(IL2CPP_STRUCT_ValueTuple_3_Int32_System_Collections_Generic_List_1_Int32__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3__DEFINED
+struct KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3_ {
+    struct ValueTuple_2_String_String_ key;
+    struct ValueTuple_3_Int32_System_Collections_Generic_List_1_Int32_ value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3__FWDDECL
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_ValueTuple_2_System_ValueTuple_3_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_CatlikeCoding_TextBox_MoonIconRenderer_IconObject_.h>
+#include <Modloader/app/structs/MoonIconRenderer_IconObject.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_CatlikeCoding_TextBox_MoonIconRenderer_IconObject_ {
     IL2CPP_REGISTER_METHOD(0x02C29A60, int32_t, Compare, (app::ObjectComparer_1_CatlikeCoding_TextBox_MoonIconRenderer_IconObject_ * this_ptr, app::MoonIconRenderer_IconObject x, app::MoonIconRenderer_IconObject y))

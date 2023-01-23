@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/WaterPoisonTrail.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint.h>
 
 namespace app::classes::WaterPoisonTrail {
     IL2CPP_REGISTER_METHOD(0x008DE010, app::Damage*, GetDamageForPosition, (app::WaterPoisonTrail * this_ptr, app::Vector3 position))

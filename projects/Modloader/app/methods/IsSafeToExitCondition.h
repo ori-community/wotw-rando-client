@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IsSafeToExitCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::IsSafeToExitCondition {
     IL2CPP_REGISTER_METHOD(0x00647810, bool, Validate, (app::IsSafeToExitCondition * this_ptr, app::IContext* context))

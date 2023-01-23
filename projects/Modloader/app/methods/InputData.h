@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InputData.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/RecorderFrame_FrameDataTypes__Enum.h>
 
 namespace app::classes::InputData {
     IL2CPP_REGISTER_METHOD(0x00628710, void, Initialize, (app::InputData * this_ptr))

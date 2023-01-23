@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Color__Array.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::Frameworks::Shader_Globals {
     IL2CPP_REGISTER_METHOD(0x01644DB0, void, SetFogGradient, (app::Color__Array * gradient))

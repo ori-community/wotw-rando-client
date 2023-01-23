@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Int16Converter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/NumberFormatInfo.h>
 
 namespace app::classes::System::ComponentModel::Int16Converter {
     IL2CPP_REGISTER_METHOD(0x01FEEFA0, app::Type*, get_TargetType, (app::Int16Converter * this_ptr))

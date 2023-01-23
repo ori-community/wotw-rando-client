@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ManifestBuilder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/ResourceManager.h>
+#include <Modloader/app/structs/EventManifestOptions__Enum.h>
+#include <Modloader/app/structs/EventAttribute.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IList_1_System_String_.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/List_1_System_Globalization_CultureInfo_.h>
+#include <Modloader/app/structs/EventLevel__Enum.h>
+#include <Modloader/app/structs/EventTask__Enum.h>
+#include <Modloader/app/structs/EventOpcode__Enum.h>
 
 namespace app::classes::System::Diagnostics::Tracing::ManifestBuilder {
     IL2CPP_REGISTER_METHOD(0x019FF750, void, ctor, (app::ManifestBuilder * this_ptr, app::String* provider_name, app::Guid provider_guid, app::String* dll_name, app::ResourceManager* resources, app::EventManifestOptions__Enum flags))

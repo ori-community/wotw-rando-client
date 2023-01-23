@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XRPlaneSubsystem.h>
+#include <Modloader/app/structs/BoundedPlane.h>
 
 namespace app::classes::UnityEngine::Experimental::XR::XRPlaneSubsystem {
     IL2CPP_REGISTER_METHOD(0x03176D20, void, ctor, (app::XRPlaneSubsystem * this_ptr))

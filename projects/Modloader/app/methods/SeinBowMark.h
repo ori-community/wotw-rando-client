@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinBowMark.h>
+#include <Modloader/app/structs/SeinBowMark_State__Enum.h>
 
 namespace app::classes::SeinBowMark {
     IL2CPP_REGISTER_METHOD(0x00405F50, bool, get_IsSuspended, (app::SeinBowMark * this_ptr))

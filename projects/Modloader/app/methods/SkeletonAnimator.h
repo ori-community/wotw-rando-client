@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/SkeletonAnimator.h>
 
 namespace app::classes::SkeletonAnimator {
     IL2CPP_REGISTER_METHOD(0x002FBCA0, app::MoonAnimator*, get_MoonAnimator, (app::SkeletonAnimator * this_ptr))

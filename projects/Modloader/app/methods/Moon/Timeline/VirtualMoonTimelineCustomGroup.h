@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
+#include <Modloader/app/structs/VirtualMoonTimelineCustomGroup.h>
 
 namespace app::classes::Moon::Timeline::VirtualMoonTimelineCustomGroup {
     IL2CPP_REGISTER_METHOD(0x003FF8B0, app::VirtualTimelineRepresentationGroup__Enum, get_Group, (app::VirtualMoonTimelineCustomGroup * this_ptr))

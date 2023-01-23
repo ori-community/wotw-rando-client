@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CleverMenuItemGroupBase.h>
+#include <Modloader/app/structs/List_1_CleverMenuItemGroupBase_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CleverMenuItemGroupBase_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::CleverMenuItemGroupBase*, get_Item, (app::List_1_CleverMenuItemGroupBase_ * this_ptr, int32_t index))

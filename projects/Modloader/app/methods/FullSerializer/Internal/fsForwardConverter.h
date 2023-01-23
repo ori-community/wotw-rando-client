@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsForwardConverter.h>
+#include <Modloader/app/structs/fsForwardAttribute.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/fsResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/fsMetaProperty.h>
+#include <Modloader/app/structs/fsData.h>
 
 namespace app::classes::FullSerializer::Internal::fsForwardConverter {
     IL2CPP_REGISTER_METHOD(0x01655A90, void, ctor, (app::fsForwardConverter * this_ptr, app::fsForwardAttribute* attribute))

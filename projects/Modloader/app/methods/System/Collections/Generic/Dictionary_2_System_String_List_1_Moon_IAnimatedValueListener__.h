@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_List_1_Moon_IAnimatedValueListener_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_Moon_IAnimatedValueListener_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_List_1_Moon_IAnimatedValueListener__ {
     IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_System_String_List_1_Moon_IAnimatedValueListener_ * this_ptr, app::String* key, app::List_1_Moon_IAnimatedValueListener_** value))

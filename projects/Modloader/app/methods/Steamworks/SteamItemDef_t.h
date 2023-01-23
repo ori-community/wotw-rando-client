@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SteamItemDef_t__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SteamItemDef_t.h>
 
 namespace app::classes::Steamworks::SteamItemDef_t {
     IL2CPP_REGISTER_METHOD(0x0010DB80, void, ctor, (app::SteamItemDef_t__Boxed * this_ptr, int32_t value))

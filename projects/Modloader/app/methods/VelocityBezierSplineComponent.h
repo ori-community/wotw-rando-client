@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VelocityBezierSplineComponent.h>
+#include <Modloader/app/structs/SplineEventHandler.h>
+#include <Modloader/app/structs/BaseSpline_SplineIterator.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/BaseSpline_SplinePointType__Enum.h>
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplinePoint.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 
 namespace app::classes::VelocityBezierSplineComponent {
     IL2CPP_REGISTER_METHOD(0x013C0A10, void, add_spline_event, (app::VelocityBezierSplineComponent * this_ptr, app::SplineEventHandler* value))

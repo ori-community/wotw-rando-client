@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OutputBuffer.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/OutputBuffer_BufferState.h>
 
 namespace app::classes::Unity::IO::Compression::OutputBuffer {
     IL2CPP_REGISTER_METHOD(0x00E464D0, void, UpdateBuffer, (app::OutputBuffer * this_ptr, app::Byte__Array* output))

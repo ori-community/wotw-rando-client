@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/QuestNodeWisps.h>
+#include <Modloader/app/structs/NPCEventTriggerAnimator.h>
+#include <Modloader/app/structs/NPCEntity.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/MessageProvider.h>
 
 namespace app::classes::QuestNodeWisps {
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::MoonTimeline*, get_IntroTimeline, (app::QuestNodeWisps * this_ptr))

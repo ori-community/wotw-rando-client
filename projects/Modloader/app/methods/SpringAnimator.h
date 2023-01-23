@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SpringAnimator.h>
+#include <Modloader/app/structs/IMoonSetupVisuals.h>
 
 namespace app::classes::SpringAnimator {
     IL2CPP_REGISTER_METHOD(0x009A6540, app::MoonTimeline*, get_OnLandCharacter, (app::SpringAnimator * this_ptr))

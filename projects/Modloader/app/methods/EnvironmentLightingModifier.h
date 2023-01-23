@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnvironmentLightingModifier.h>
+#include <Modloader/app/structs/EnvironmentLight.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::EnvironmentLightingModifier {
     IL2CPP_REGISTER_METHOD(0x00CA8BA0, void, OnEnable, (app::EnvironmentLightingModifier * this_ptr))

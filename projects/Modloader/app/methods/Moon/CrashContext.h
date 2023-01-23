@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CrashContext_Data.h>
 
 namespace app::classes::Moon::CrashContext {
     IL2CPP_REGISTER_METHOD(0x00CCE450, bool, get_IsDoingCleanup, ())

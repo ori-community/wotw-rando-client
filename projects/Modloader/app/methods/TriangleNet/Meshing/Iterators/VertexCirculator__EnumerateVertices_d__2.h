@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VertexCirculator_EnumerateVertices_d_2.h>
+#include <Modloader/app/structs/Vertex.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_TriangleNet_Geometry_Vertex_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::TriangleNet::Meshing::Iterators::VertexCirculator__EnumerateVertices_d__2 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::VertexCirculator_EnumerateVertices_d_2 * this_ptr, int32_t __1__state))

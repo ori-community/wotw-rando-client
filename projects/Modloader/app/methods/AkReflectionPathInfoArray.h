@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkReflectionPathInfoArray.h>
+#include <Modloader/app/structs/AkReflectionPathInfo.h>
 
 namespace app::classes::AkReflectionPathInfoArray {
     IL2CPP_REGISTER_METHOD(0x01894BF0, void, ctor, (app::AkReflectionPathInfoArray * this_ptr, int32_t count))

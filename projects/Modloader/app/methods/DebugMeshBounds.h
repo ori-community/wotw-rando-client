@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugMeshBounds.h>
 
 namespace app::classes::DebugMeshBounds {
     IL2CPP_REGISTER_METHOD(0x00DF8860, void, OnEnable, (app::DebugMeshBounds * this_ptr))

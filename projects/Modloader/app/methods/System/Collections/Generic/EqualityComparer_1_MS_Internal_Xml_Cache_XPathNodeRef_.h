@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef_.h>
+#include <Modloader/app/structs/XPathNodeRef__Array.h>
+#include <Modloader/app/structs/XPathNodeRef.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_MS_Internal_Xml_Cache_XPathNodeRef_*, get_Default, ())

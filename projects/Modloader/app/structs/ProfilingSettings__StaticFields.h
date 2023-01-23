@@ -1,0 +1,41 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ProfilingSettings__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ProfilingSettings__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ProfilingSettings__StaticFields_DEFINED)
+#include <Modloader/app/structs/GameController_ProfilingConfiguration__Enum.h>
+#if defined(IL2CPP_STRUCT_GameController_ProfilingConfiguration__Enum_DEFINED)
+#define IL2CPP_STRUCT_ProfilingSettings__StaticFields_DEFINED
+struct ProfilingSettings_SettingType__Enum__Array;
+struct Dictionary_2_GameController_ProfilingConfiguration_Moon_Telemetry_Performance_ProfilingSettings_Setting_;
+struct Dictionary_2_Moon_Telemetry_Performance_ProfilingSettings_SettingType_Moon_Telemetry_Performance_Settings_IProfilingSetting_;
+struct List_1_Moon_Telemetry_Performance_ProfilingSettings_SettingType_;
+struct ProfilingSettings__StaticFields {
+    bool DisableProfilingSettingApplication;
+    struct ProfilingSettings_SettingType__Enum__Array* DebugOverlaySettings;
+    GameController_ProfilingConfiguration__Enum m_configuration;
+
+    struct Dictionary_2_GameController_ProfilingConfiguration_Moon_Telemetry_Performance_ProfilingSettings_Setting_* ms_settings;
+    struct Dictionary_2_Moon_Telemetry_Performance_ProfilingSettings_SettingType_Moon_Telemetry_Performance_Settings_IProfilingSetting_* s_settingInstances;
+    struct List_1_Moon_Telemetry_Performance_ProfilingSettings_SettingType_* SupportedSettings;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_ProfilingSettings__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_ProfilingSettings__StaticFields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_GameController_ProfilingConfiguration_Moon_Telemetry_Performance_ProfilingSettings_Setting_.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_Telemetry_Performance_ProfilingSettings_SettingType_Moon_Telemetry_Performance_Settings_IProfilingSetting_.h>
+#include <Modloader/app/structs/List_1_Moon_Telemetry_Performance_ProfilingSettings_SettingType_.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum__Array.h>
+#endif
+#undef IL2CPP_STRUCT_ProfilingSettings__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ProfilingSettings__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_ProfilingSettings__StaticFields_FWDDECL)
+#include <Modloader/app/structs/ProfilingSettings__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ProfilingSettings__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

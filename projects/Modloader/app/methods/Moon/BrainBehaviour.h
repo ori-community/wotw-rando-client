@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BrainBehaviour.h>
+#include <Modloader/app/structs/Brain.h>
 
 namespace app::classes::Moon::BrainBehaviour {
     IL2CPP_REGISTER_METHOD(0x00CC04B0, bool, get_IsOnCooldown, (app::BrainBehaviour * this_ptr))

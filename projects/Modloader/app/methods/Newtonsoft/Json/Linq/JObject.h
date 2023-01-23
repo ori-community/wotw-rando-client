@@ -1,5 +1,35 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/JObject.h>
+#include <Modloader/app/structs/PropertyChangedEventHandler.h>
+#include <Modloader/app/structs/PropertyChangingEventHandler.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/JProperty.h>
+#include <Modloader/app/structs/JTokenType__Enum.h>
+#include <Modloader/app/structs/IEnumerable_1_Newtonsoft_Json_Linq_JProperty_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringComparison__Enum.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/JsonLoadSettings.h>
+#include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/JsonConverter__Array.h>
+#include <Modloader/app/structs/ICollection_1_System_String_.h>
+#include <Modloader/app/structs/ICollection_1_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_String_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_String_Newtonsoft_Json_Linq_JToken___Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_String_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/AttributeCollection.h>
+#include <Modloader/app/structs/TypeConverter.h>
+#include <Modloader/app/structs/EventDescriptor_1.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/EventDescriptorCollection.h>
+#include <Modloader/app/structs/DynamicMetaObject.h>
+#include <Modloader/app/structs/Expression.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JObject {
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::IList_1_Newtonsoft_Json_Linq_JToken_*, get_ChildrenTokens, (app::JObject * this_ptr))

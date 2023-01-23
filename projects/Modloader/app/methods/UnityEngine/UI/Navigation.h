@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Navigation_Mode__Enum.h>
+#include <Modloader/app/structs/Navigation__Boxed.h>
+#include <Modloader/app/structs/Selectable.h>
+#include <Modloader/app/structs/Navigation.h>
 
 namespace app::classes::UnityEngine::UI::Navigation {
     IL2CPP_REGISTER_METHOD(0x001EBC90, app::Navigation_Mode__Enum, get_mode, (app::Navigation__Boxed * this_ptr))

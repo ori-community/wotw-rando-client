@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebRequestModuleElement.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
 
 namespace app::classes::System::Net::Configuration::WebRequestModuleElement {
     IL2CPP_REGISTER_METHOD(0x01E995C0, void, ctor_1, (app::WebRequestModuleElement * this_ptr))

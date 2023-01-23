@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AddingNewEventHandler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AddingNewEventArgs.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::ComponentModel::AddingNewEventHandler {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::AddingNewEventHandler * this_ptr, app::Object* object, void* method_1))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MethodInfoCallInstruction.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::MethodInfoCallInstruction {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_ArgumentCount, (app::MethodInfoCallInstruction * this_ptr))

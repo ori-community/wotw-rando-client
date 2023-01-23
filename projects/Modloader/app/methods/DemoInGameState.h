@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DemoInGameState.h>
+#include <Modloader/app/structs/IState.h>
 
 namespace app::classes::DemoInGameState {
     IL2CPP_REGISTER_METHOD(0x00B81060, void, OnEnterState, (app::DemoInGameState * this_ptr))

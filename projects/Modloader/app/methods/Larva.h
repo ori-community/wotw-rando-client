@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Larva.h>
 
 namespace app::classes::Larva {
     IL2CPP_REGISTER_METHOD(0x00F05EF0, void, Awake, (app::Larva * this_ptr))

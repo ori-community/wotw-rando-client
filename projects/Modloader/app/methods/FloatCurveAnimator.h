@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FloatCurveAnimator.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::FloatCurveAnimator {
     IL2CPP_REGISTER_METHOD(0x01270690, void, CacheOriginals, (app::FloatCurveAnimator * this_ptr))

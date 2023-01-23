@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BindingRestrictions_TestBuilder_AndNode__Class.h>
+#include <Modloader/app/structs/BindingRestrictions_TestBuilder_AndNode.h>
+#include <Modloader/app/structs/BindingRestrictions_TestBuilder_AndNode__Boxed.h>
+#include <Modloader/app/structs/BindingRestrictions_TestBuilder_AndNode__Array.h>
 
 namespace app::classes::types {
     namespace BindingRestrictions_TestBuilder_AndNode {

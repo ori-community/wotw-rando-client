@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseEventData.h>
+#include <Modloader/app/structs/EventSystem.h>
+#include <Modloader/app/structs/BaseInputModule.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::UnityEngine::EventSystems::BaseEventData {
     IL2CPP_REGISTER_METHOD(0x002FB940, void, ctor, (app::BaseEventData * this_ptr, app::EventSystem* event_system))

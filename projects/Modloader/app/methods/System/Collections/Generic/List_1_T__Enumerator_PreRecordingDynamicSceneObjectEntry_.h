@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_PreRecordingDynamicSceneObjectEntry___Boxed.h>
+#include <Modloader/app/structs/List_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/PreRecordingDynamicSceneObjectEntry.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_PreRecordingDynamicSceneObjectEntry_ {
     IL2CPP_REGISTER_METHOD(0x0014CC40, void, ctor, (app::List_1_T_Enumerator_PreRecordingDynamicSceneObjectEntry___Boxed * this_ptr, app::List_1_PreRecordingDynamicSceneObjectEntry_* list))

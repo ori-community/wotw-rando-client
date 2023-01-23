@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/TextureMaskEntry.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Color_.h>
 
 namespace app::classes::TextureMaskEntry {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::Texture2D*, get_SourceTexture, (app::TextureMaskEntry * this_ptr))

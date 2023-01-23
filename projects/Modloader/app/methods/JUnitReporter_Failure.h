@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JUnitReporter_Failure.h>
 
 namespace app::classes::JUnitReporter_Failure {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_Message, (app::JUnitReporter_Failure * this_ptr))

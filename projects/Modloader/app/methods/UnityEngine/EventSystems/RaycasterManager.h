@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseRaycaster.h>
+#include <Modloader/app/structs/List_1_UnityEngine_EventSystems_BaseRaycaster_.h>
 
 namespace app::classes::UnityEngine::EventSystems::RaycasterManager {
     IL2CPP_REGISTER_METHOD(0x01F26A40, void, AddRaycaster, (app::BaseRaycaster * base_raycaster))

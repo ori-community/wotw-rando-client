@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterAnimationSystem_CharacterAnimationState.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::CharacterAnimationSystem_CharacterAnimationState {
     IL2CPP_REGISTER_METHOD(0x01049E40, void, ctor_1, (app::CharacterAnimationSystem_CharacterAnimationState * this_ptr, app::TextureAnimationWithTransitions* animation, app::Func_1_Boolean_* condition, int32_t layer, bool play_once, bool keep_frame))

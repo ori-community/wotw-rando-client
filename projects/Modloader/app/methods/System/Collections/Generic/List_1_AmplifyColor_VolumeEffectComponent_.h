@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_AmplifyColor_VolumeEffectComponent_.h>
+#include <Modloader/app/structs/VolumeEffectComponent.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_AmplifyColor_VolumeEffectComponent_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_AmplifyColor_VolumeEffectComponent_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_AmplifyColor_VolumeEffectComponent_ * this_ptr))

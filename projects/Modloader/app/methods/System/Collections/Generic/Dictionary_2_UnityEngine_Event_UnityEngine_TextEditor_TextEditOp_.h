@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_Event_UnityEngine_TextEditor_TextEditOp_.h>
+#include <Modloader/app/structs/Event.h>
+#include <Modloader/app/structs/TextEditor_TextEditOp__Enum.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_UnityEngine_Event_UnityEngine_TextEditor_TextEditOp_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_UnityEngine_Event_UnityEngine_TextEditor_TextEditOp_ * this_ptr, app::Event* key))

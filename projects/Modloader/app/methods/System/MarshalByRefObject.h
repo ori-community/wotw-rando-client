@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MarshalByRefObject.h>
+#include <Modloader/app/structs/ServerIdentity.h>
+#include <Modloader/app/structs/ObjRef.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::MarshalByRefObject {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MarshalByRefObject * this_ptr))

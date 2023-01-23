@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_FullSerializer_fsAotConfiguration_Entry_.h>
+#include <Modloader/app/structs/fsAotConfiguration_Entry__Array.h>
+#include <Modloader/app/structs/fsAotConfiguration_Entry.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_FullSerializer_fsAotConfiguration_Entry_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_FullSerializer_fsAotConfiguration_Entry_*, get_Default, ())

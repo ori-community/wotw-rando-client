@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_System_Linq_Expressions_ParameterExpression_System_Linq_Expressions_Interpreter_LocalVariable___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__KeyCollection_TKey_TValue__Enumerator_System_Linq_Expressions_ParameterExpression_System_Linq_Expressions_Interpreter_LocalVariable_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::ParameterExpression*, get_Current, (app::Dictionary_2_TKey_TValue_KeyCollection_TKey_TValue_Enumerator_System_Linq_Expressions_ParameterExpression_System_Linq_Expressions_Interpreter_LocalVariable___Boxed * this_ptr))

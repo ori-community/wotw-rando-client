@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MechSpiderLeg_Step_d_24__Class.h>
+#include <Modloader/app/structs/MechSpiderLeg_Step_d_24.h>
 
 namespace app::classes::types {
     namespace MechSpiderLeg_Step_d_24 {

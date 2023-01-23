@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FoxHeadHurtZone_c.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::FoxHeadHurtZone___c {
     IL2CPP_REGISTER_METHOD(0x016339E0, void, cctor, ())

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PreLateUpdate_DirectorUpdateAnimationEnd__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PreLateUpdate_DirectorUpdateAnimationEnd__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PreLateUpdate_DirectorUpdateAnimationEnd__Boxed_DEFINED)
+#include <Modloader/app/structs/PreLateUpdate_DirectorUpdateAnimationEnd.h>
+#if defined(IL2CPP_STRUCT_PreLateUpdate_DirectorUpdateAnimationEnd_DEFINED)
+#define IL2CPP_STRUCT_PreLateUpdate_DirectorUpdateAnimationEnd__Boxed_DEFINED
+struct PreLateUpdate_DirectorUpdateAnimationEnd__Class;
+struct PreLateUpdate_DirectorUpdateAnimationEnd__Boxed {
+    struct PreLateUpdate_DirectorUpdateAnimationEnd__Class* klass;
+    MonitorData* monitor;
+    struct PreLateUpdate_DirectorUpdateAnimationEnd fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PreLateUpdate_DirectorUpdateAnimationEnd__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_PreLateUpdate_DirectorUpdateAnimationEnd__Boxed_FWDDECL
+#include <Modloader/app/structs/PreLateUpdate_DirectorUpdateAnimationEnd__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PreLateUpdate_DirectorUpdateAnimationEnd__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PreLateUpdate_DirectorUpdateAnimationEnd__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_PreLateUpdate_DirectorUpdateAnimationEnd__Boxed_FWDDECL)
+#include <Modloader/app/structs/PreLateUpdate_DirectorUpdateAnimationEnd__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PreLateUpdate_DirectorUpdateAnimationEnd__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CrushPlayer.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/MovingPlatformSettings.h>
+#include <Modloader/app/structs/IDashAtackable.h>
+#include <Modloader/app/structs/IPushable.h>
+#include <Modloader/app/structs/GrabbableSurface.h>
 
 namespace app::classes::Moon::MoonFlags {
     IL2CPP_REGISTER_METHOD(0x01119B40, bool, HasFlag, (app::GameObject * go, uint32_t flag))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Guid.h>
 
 namespace app::classes::Moon::StringBuilderExtensions {
     IL2CPP_REGISTER_METHOD(0x030F27E0, void, AppendGuid, (app::StringBuilder * sb, app::Guid value))

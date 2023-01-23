@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_NotEqualInstruction_NotEqualDoubleLiftedToNull_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_NotEqualInstruction_NotEqualDoubleLiftedToNull_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NotEqualInstruction_NotEqualDoubleLiftedToNull_DEFINED)
+#define IL2CPP_STRUCT_NotEqualInstruction_NotEqualDoubleLiftedToNull_DEFINED
+struct NotEqualInstruction_NotEqualDoubleLiftedToNull__Class;
+struct NotEqualInstruction_NotEqualDoubleLiftedToNull {
+    struct NotEqualInstruction_NotEqualDoubleLiftedToNull__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_NotEqualInstruction_NotEqualDoubleLiftedToNull_FWDDECL)
+#define IL2CPP_STRUCT_NotEqualInstruction_NotEqualDoubleLiftedToNull_FWDDECL
+#include <Modloader/app/structs/NotEqualInstruction_NotEqualDoubleLiftedToNull__Class.h>
+#endif
+#undef IL2CPP_STRUCT_NotEqualInstruction_NotEqualDoubleLiftedToNull_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NotEqualInstruction_NotEqualDoubleLiftedToNull_DEFINED) && !defined(IL2CPP_STRUCT_NotEqualInstruction_NotEqualDoubleLiftedToNull_FWDDECL)
+#include <Modloader/app/structs/NotEqualInstruction_NotEqualDoubleLiftedToNull.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/NotEqualInstruction_NotEqualDoubleLiftedToNull.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

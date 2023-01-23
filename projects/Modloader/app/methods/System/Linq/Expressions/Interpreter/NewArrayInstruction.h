@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NewArrayInstruction.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::NewArrayInstruction {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::NewArrayInstruction * this_ptr, app::Type* element_type))

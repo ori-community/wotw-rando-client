@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeInitializeOnLoadMethodAttribute.h>
+#include <Modloader/app/structs/RuntimeInitializeLoadType__Enum.h>
 
 namespace app::classes::UnityEngine::RuntimeInitializeOnLoadMethodAttribute {
     IL2CPP_REGISTER_METHOD(0x002FC780, void, ctor_1, (app::RuntimeInitializeOnLoadMethodAttribute * this_ptr))

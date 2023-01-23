@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RC4.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/RC4_1.h>
 
 namespace app::classes::Mono::Security::Cryptography::RC4 {
     IL2CPP_REGISTER_METHOD(0x025D48D0, void, ctor_1, (app::RC4 * this_ptr))

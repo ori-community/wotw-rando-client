@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DamageDealer_TweakDamageDelegate.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/IDamageReciever.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::DamageDealer_TweakDamageDelegate {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::DamageDealer_TweakDamageDelegate * this_ptr, app::Object* object, void* method_1))

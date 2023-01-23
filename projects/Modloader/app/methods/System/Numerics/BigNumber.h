@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NumberStyles__Enum.h>
+#include <Modloader/app/structs/ArgumentException.h>
+#include <Modloader/app/structs/ReadOnlySpan_1_Char_.h>
+#include <Modloader/app/structs/NumberFormatInfo.h>
+#include <Modloader/app/structs/BigInteger_2.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BigNumber_BigNumberBuffer.h>
 
 namespace app::classes::System::Numerics::BigNumber {
     IL2CPP_REGISTER_METHOD(0x030FFC60, bool, TryValidateParseStyleInteger, (app::NumberStyles__Enum style, app::ArgumentException** e))

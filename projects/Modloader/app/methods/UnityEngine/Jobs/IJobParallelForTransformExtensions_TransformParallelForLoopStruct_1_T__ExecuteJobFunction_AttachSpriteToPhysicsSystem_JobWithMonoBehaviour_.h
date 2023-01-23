@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IJobParallelForTransformExtensions_TransformParallelForLoopStruct_1_T_ExecuteJobFunction_AttachSpriteToPhysicsSystem_JobWithMonoBehaviour_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AttachSpriteToPhysicsSystem_JobWithMonoBehaviour.h>
+#include <Modloader/app/structs/JobRanges.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::UnityEngine::Jobs::IJobParallelForTransformExtensions_TransformParallelForLoopStruct_1_T__ExecuteJobFunction_AttachSpriteToPhysicsSystem_JobWithMonoBehaviour_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IJobParallelForTransformExtensions_TransformParallelForLoopStruct_1_T_ExecuteJobFunction_AttachSpriteToPhysicsSystem_JobWithMonoBehaviour_ * this_ptr, app::Object* object, void* method_1))

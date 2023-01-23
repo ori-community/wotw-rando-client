@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AllowedEntityArea.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Rect_.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::AllowedEntityArea {
     IL2CPP_REGISTER_METHOD(0x004F4CE0, bool, get_Forgotten, (app::AllowedEntityArea * this_ptr))

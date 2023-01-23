@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BehaviourEvent_1_UberBehaviourTree_Events_BatPeerDeath_.h>
 
 namespace app::classes::UberBehaviourTree::BehaviourEvent_1_UberBehaviourTree_Events_BatPeerDeath_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::BehaviourEvent_1_UberBehaviourTree_Events_BatPeerDeath_ * this_ptr))

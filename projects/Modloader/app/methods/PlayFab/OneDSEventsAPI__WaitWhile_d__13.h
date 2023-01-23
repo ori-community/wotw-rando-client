@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OneDSEventsAPI_WaitWhile_d_13__Boxed.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::PlayFab::OneDSEventsAPI__WaitWhile_d__13 {
     IL2CPP_REGISTER_METHOD(0x0014EC50, void, MoveNext, (app::OneDSEventsAPI_WaitWhile_d_13__Boxed * this_ptr))

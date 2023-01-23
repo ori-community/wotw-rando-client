@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IgnitableSpiritTorch_c.h>
 
 namespace app::classes::IgnitableSpiritTorch___c {
     IL2CPP_REGISTER_METHOD(0x00626670, void, cctor, ())

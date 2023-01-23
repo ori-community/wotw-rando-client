@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerUberStateAreaMapInformation_MapTrailEntry.h>
+#include <Modloader/app/structs/PlayerUberStateAreaMapInformation_MapTrailEntryPool.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation_MapTrailEntryPool {
     IL2CPP_REGISTER_METHOD(0x00F37DA0, app::PlayerUberStateAreaMapInformation_MapTrailEntry*, GetEntry, (app::PlayerUberStateAreaMapInformation_MapTrailEntryPool * this_ptr))

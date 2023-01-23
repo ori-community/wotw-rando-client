@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimelineActionTrigger.h>
 
 namespace app::classes::TimelineActionTrigger {
     IL2CPP_REGISTER_METHOD(0x010F4900, void, OnStartPlay, (app::TimelineActionTrigger * this_ptr))

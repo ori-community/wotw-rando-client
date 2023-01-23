@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/RigidbodyParametersAnimator.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_Transform_.h>
 
 namespace app::classes::Moon::Timeline::RigidbodyParametersAnimator {
     IL2CPP_REGISTER_METHOD(0x007808F0, app::GameObject*, get_ExternalTarget, (app::RigidbodyParametersAnimator * this_ptr))

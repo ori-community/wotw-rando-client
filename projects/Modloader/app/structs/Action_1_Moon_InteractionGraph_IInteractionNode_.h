@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Action_1_Moon_InteractionGraph_IInteractionNode__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Action_1_Moon_InteractionGraph_IInteractionNode__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_Moon_InteractionGraph_IInteractionNode__DEFINED)
+#include <Modloader/app/structs/Action_1_Moon_InteractionGraph_IInteractionNode___Fields.h>
+#if defined(IL2CPP_STRUCT_Action_1_Moon_InteractionGraph_IInteractionNode___Fields_DEFINED)
+#define IL2CPP_STRUCT_Action_1_Moon_InteractionGraph_IInteractionNode__DEFINED
+struct Action_1_Moon_InteractionGraph_IInteractionNode___Class;
+struct Action_1_Moon_InteractionGraph_IInteractionNode_ {
+    struct Action_1_Moon_InteractionGraph_IInteractionNode___Class* klass;
+    MonitorData* monitor;
+    struct Action_1_Moon_InteractionGraph_IInteractionNode___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Action_1_Moon_InteractionGraph_IInteractionNode__FWDDECL)
+#define IL2CPP_STRUCT_Action_1_Moon_InteractionGraph_IInteractionNode__FWDDECL
+#include <Modloader/app/structs/Action_1_Moon_InteractionGraph_IInteractionNode___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Action_1_Moon_InteractionGraph_IInteractionNode__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Action_1_Moon_InteractionGraph_IInteractionNode__DEFINED) && !defined(IL2CPP_STRUCT_Action_1_Moon_InteractionGraph_IInteractionNode__FWDDECL)
+#include <Modloader/app/structs/Action_1_Moon_InteractionGraph_IInteractionNode_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Action_1_Moon_InteractionGraph_IInteractionNode_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

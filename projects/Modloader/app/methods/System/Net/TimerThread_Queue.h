@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimerThread_Queue.h>
+#include <Modloader/app/structs/TimerThread_Timer.h>
 
 namespace app::classes::System::Net::TimerThread_Queue {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::TimerThread_Queue * this_ptr, int32_t duration_milliseconds))

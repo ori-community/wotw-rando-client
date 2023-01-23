@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicalInteractable.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/UberInteractionActor.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/FloatRange_1.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Event_1.h>
 
 namespace app::classes::PhysicalInteractable {
     IL2CPP_REGISTER_METHOD(0x014EB3D0, bool, get_CanInteract, (app::PhysicalInteractable * this_ptr))

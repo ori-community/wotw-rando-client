@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DigestHeaderParser.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::DigestHeaderParser {
     IL2CPP_REGISTER_METHOD(0x01EAEAB0, void, ctor, (app::DigestHeaderParser * this_ptr, app::String* header))

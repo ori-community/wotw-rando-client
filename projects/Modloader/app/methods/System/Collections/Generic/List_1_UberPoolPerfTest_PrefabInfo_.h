@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPoolPerfTest_PrefabInfo.h>
+#include <Modloader/app/structs/List_1_UberPoolPerfTest_PrefabInfo_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UberPoolPerfTest_PrefabInfo_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::UberPoolPerfTest_PrefabInfo*, get_Item, (app::List_1_UberPoolPerfTest_PrefabInfo_ * this_ptr, int32_t index))

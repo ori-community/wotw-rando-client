@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BrowserInput.h>
+#include <Modloader/app/structs/Browser.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Event_.h>
+#include <Modloader/app/structs/Event.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::BrowserInput {
     IL2CPP_REGISTER_METHOD(0x01C72D70, void, ctor, (app::BrowserInput * this_ptr, app::Browser* browser))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossCleanWaterPhaseStartBehaviour_MoveToCenterState.h>
+#include <Modloader/app/structs/KwolokBossCleanWaterPhaseStartBehaviour.h>
 
 namespace app::classes::KwolokBossCleanWaterPhaseStartBehaviour_MoveToCenterState {
     IL2CPP_REGISTER_METHOD(0x01251B60, void, ctor, (app::KwolokBossCleanWaterPhaseStartBehaviour_MoveToCenterState * this_ptr, app::KwolokBossCleanWaterPhaseStartBehaviour* behaviour))

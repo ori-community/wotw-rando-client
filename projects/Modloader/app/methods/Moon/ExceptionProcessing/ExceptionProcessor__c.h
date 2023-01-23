@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExceptionProcessor_c.h>
+#include <Modloader/app/structs/ExceptionEntry.h>
 
 namespace app::classes::Moon::ExceptionProcessing::ExceptionProcessor___c {
     IL2CPP_REGISTER_METHOD(0x01988700, void, cctor, ())

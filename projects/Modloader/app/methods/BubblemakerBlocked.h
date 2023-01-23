@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BubblemakerBlocked.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::BubblemakerBlocked {
     IL2CPP_REGISTER_METHOD(0x00805460, void, Start, (app::BubblemakerBlocked * this_ptr))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateConfigurator_1.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/IState_2.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/ICondition.h>
+#include <Modloader/app/structs/IAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 
 namespace app::classes::fsm::StateConfigurator {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::StateConfigurator_1 * this_ptr, app::StateMachine_2* state_machine, app::IState_2* state))

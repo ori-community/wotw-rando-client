@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/NameCache.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::NameCache {
     IL2CPP_REGISTER_METHOD(0x01D93230, app::Object*, GetCachedValue, (app::NameCache * this_ptr, app::String* name))

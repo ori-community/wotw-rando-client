@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterThirdPerson.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::RootMotion::Demos::CharacterThirdPerson {
     IL2CPP_REGISTER_METHOD(0x02212520, bool, get_onGround, (app::CharacterThirdPerson * this_ptr))

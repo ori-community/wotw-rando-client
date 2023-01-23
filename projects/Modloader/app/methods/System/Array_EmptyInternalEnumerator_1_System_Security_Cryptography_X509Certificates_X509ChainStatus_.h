@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_System_Security_Cryptography_X509Certificates_X509ChainStatus_.h>
+#include <Modloader/app/structs/X509ChainStatus.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_System_Security_Cryptography_X509Certificates_X509ChainStatus_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose, (app::Array_EmptyInternalEnumerator_1_System_Security_Cryptography_X509Certificates_X509ChainStatus_ * this_ptr))

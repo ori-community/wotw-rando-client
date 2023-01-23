@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NightberryPlaceholder.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::NightberryPlaceholder {
     IL2CPP_REGISTER_METHOD(0x00609740, void, FixedUpdate, (app::NightberryPlaceholder * this_ptr))

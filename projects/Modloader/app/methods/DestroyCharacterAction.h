@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DestroyCharacterAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::DestroyCharacterAction {
     IL2CPP_REGISTER_METHOD(0x00B8A400, void, Perform, (app::DestroyCharacterAction * this_ptr, app::IContext* context))

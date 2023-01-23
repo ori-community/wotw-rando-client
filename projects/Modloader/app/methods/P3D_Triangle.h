@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/P3D_Triangle.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::P3D_Triangle {
     IL2CPP_REGISTER_METHOD(0x0309C9B0, app::P3D_Triangle*, Spawn, ())

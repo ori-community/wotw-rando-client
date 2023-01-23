@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompoundState.h>
+#include <Modloader/app/structs/IState_1__Array.h>
 
 namespace app::classes::Moon::InteractionGraph::CompoundState {
     IL2CPP_REGISTER_METHOD(0x0198C3C0, void, ctor, (app::CompoundState * this_ptr, app::IState_1__Array* states))

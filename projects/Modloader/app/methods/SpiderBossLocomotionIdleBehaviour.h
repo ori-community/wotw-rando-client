@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SpiderBossLocomotionIdleBehaviour.h>
+#include <Modloader/app/structs/SpiderBossLocationZone__Enum.h>
+#include <Modloader/app/structs/MirroredTimelineSet.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBossLocomotionIdleBehaviour {
     IL2CPP_REGISTER_METHOD(0x011B5740, app::MoonTimeline*, GetIdleAnimation, (app::SpiderBossLocomotionIdleBehaviour * this_ptr, app::SpiderBossLocationZone__Enum location_zone))

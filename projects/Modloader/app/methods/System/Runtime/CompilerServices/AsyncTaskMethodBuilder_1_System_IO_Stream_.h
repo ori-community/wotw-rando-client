@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_IO_Stream_.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_IO_Stream___Boxed.h>
+#include <Modloader/app/structs/XmlDownloadManager_GetNonFileStreamAsync_d_5.h>
+#include <Modloader/app/structs/Task_1_System_IO_Stream_.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_1_TResult_ConfiguredTaskAwaiter_System_Net_WebResponse_.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncTaskMethodBuilder_1_System_IO_Stream_ {
     IL2CPP_REGISTER_METHOD(0x00C537F0, app::AsyncTaskMethodBuilder_1_System_IO_Stream_, Create, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeScaleDebugMenuItem.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::TimeScaleDebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x010F0780, void, ctor, (app::TimeScaleDebugMenuItem * this_ptr, app::String* path, app::String* str))

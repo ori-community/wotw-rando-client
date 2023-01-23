@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundDescriptor.h>
+#include <Modloader/app/structs/SoundAnimator.h>
 
 namespace app::classes::SoundAnimator {
     IL2CPP_REGISTER_METHOD(0x00EE4F90, app::SoundDescriptor*, GetSoundDescriptor, (app::SoundAnimator * this_ptr))

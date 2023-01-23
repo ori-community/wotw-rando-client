@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AutoScrollTexture.h>
 
 namespace app::classes::AutoScrollTexture {
     IL2CPP_REGISTER_METHOD(0x0085DDA0, void, Awake, (app::AutoScrollTexture * this_ptr))

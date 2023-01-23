@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericComparer_1_System_DateTime_.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::GenericComparer_1_System_DateTime_ {
     IL2CPP_REGISTER_METHOD(0x02B60280, int32_t, Compare, (app::GenericComparer_1_System_DateTime_ * this_ptr, app::DateTime x, app::DateTime y))

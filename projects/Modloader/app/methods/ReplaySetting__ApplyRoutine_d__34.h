@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReplaySetting_ApplyRoutine_d_34.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ReplaySetting__ApplyRoutine_d__34 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::ReplaySetting_ApplyRoutine_d_34 * this_ptr, int32_t __1__state))

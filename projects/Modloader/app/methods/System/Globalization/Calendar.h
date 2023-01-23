@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Calendar.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Globalization::Calendar {
     IL2CPP_REGISTER_METHOD(0x01A1E410, app::DateTime, get_MinSupportedDateTime, (app::Calendar * this_ptr))

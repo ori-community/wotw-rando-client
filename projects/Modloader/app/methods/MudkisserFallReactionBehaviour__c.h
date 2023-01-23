@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MudkisserFallReactionBehaviour_c.h>
 
 namespace app::classes::MudkisserFallReactionBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x008757C0, void, cctor, ())

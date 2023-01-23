@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Ori.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Ori_State__Enum.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::Ori {
     IL2CPP_REGISTER_METHOD(0x0061E140, app::Transform*, get_m_target, (app::Ori * this_ptr))

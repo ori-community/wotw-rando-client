@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AudioSourceExtension.h>
+#include <Modloader/app/structs/AudioSource.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AudioListenerExtension.h>
+#include <Modloader/app/structs/AudioListener.h>
+#include <Modloader/app/structs/Object_1.h>
 
 namespace app::classes::UnityEngine::AudioExtensionManager {
     IL2CPP_REGISTER_METHOD(0x0313EDD0, app::AudioSourceExtension*, AddSpatializerExtension_1, (app::AudioSource * source))

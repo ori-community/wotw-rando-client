@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SecurityPermission.h>
+#include <Modloader/app/structs/PermissionState__Enum.h>
+#include <Modloader/app/structs/SecurityPermissionFlag__Enum.h>
+#include <Modloader/app/structs/IPermission.h>
+#include <Modloader/app/structs/SecurityElement.h>
 
 namespace app::classes::System::Security::Permissions::SecurityPermission {
     IL2CPP_REGISTER_METHOD(0x01E1B0F0, void, ctor_1, (app::SecurityPermission * this_ptr, app::PermissionState__Enum state))

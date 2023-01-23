@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonDriver.h>
+#include <Modloader/app/structs/IMoonDriverExecutionOrderMap.h>
+#include <Modloader/app/structs/IUpdateHandler.h>
+#include <Modloader/app/structs/IUpdateHandlerWithExecutionOrderOffset.h>
+#include <Modloader/app/structs/IExplicitUpdateHandlerBase.h>
+#include <Modloader/app/structs/IUpdateHandlerBase.h>
+#include <Modloader/app/structs/UpdateManager.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/StreamWriter.h>
 
 namespace app::classes::Moon::MoonDriver {
     IL2CPP_REGISTER_METHOD(0x0313ADF0, void, RuntimeInitializeOnLoad, ())

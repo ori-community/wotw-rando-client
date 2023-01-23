@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LambdaExpression.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/DebugInfoGenerator.h>
 
 namespace app::classes::System::Linq::Expressions::LambdaExpression {
     IL2CPP_REGISTER_METHOD(0x024172C0, void, ctor, (app::LambdaExpression * this_ptr, app::Expression* body))

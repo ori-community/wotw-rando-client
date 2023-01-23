@@ -2,6 +2,8 @@
 
 #include <Randomizer/macros.h>
 
+#include <Modloader/app/structs/Vector2.h>
+
 using collision_handler = void (*)(int id);
 
 RANDOMIZER_C_DLLEXPORT int collision_reserve_id();

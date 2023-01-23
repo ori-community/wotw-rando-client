@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain__DEFINED)
+#include <Modloader/app/structs/List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain__DEFINED
+struct List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain___Class;
+struct List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain_ {
+    struct List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain___Class* klass;
+    MonitorData* monitor;
+    struct List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain__FWDDECL)
+#define IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain__FWDDECL
+#include <Modloader/app/structs/List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain__DEFINED) && !defined(IL2CPP_STRUCT_List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain__FWDDECL)
+#include <Modloader/app/structs/List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_Moon_VerletPhysicsAnimationPostprocess_VerletChain_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

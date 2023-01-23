@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeleeWeaponHammer.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/TrackingExclusions.h>
 
 namespace app::classes::MeleeWeaponHammer {
     IL2CPP_REGISTER_METHOD(0x009CD4A0, float, get_MoveDurationDept, (app::MeleeWeaponHammer * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringReader.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::IO::StringReader {
     IL2CPP_REGISTER_METHOD(0x02383B30, void, ctor, (app::StringReader * this_ptr, app::String* s))

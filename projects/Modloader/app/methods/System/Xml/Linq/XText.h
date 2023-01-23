@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XText.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/XNode.h>
 
 namespace app::classes::System::Xml::Linq::XText {
     IL2CPP_REGISTER_METHOD(0x0303D1D0, void, ctor_1, (app::XText * this_ptr, app::String* value))

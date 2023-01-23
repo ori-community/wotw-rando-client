@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeleeWeaponColliderStick.h>
+#include <Modloader/app/structs/Action_2_UnityEngine_Collider_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Action_4_UnityEngine_Collider_UnityEngine_Vector3_UnityEngine_Vector3_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Action_4_UnityEngine_Vector3_UnityEngine_Vector3_UnityEngine_Vector3_SurfaceMaterialType_.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/GroundEntityLocomotion.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/MeleeWeaponColliderStick_DebugCircle.h>
 
 namespace app::classes::MeleeWeaponColliderStick {
     IL2CPP_REGISTER_METHOD(0x009C8F20, void, add_OnCollision, (app::MeleeWeaponColliderStick * this_ptr, app::Action_2_UnityEngine_Collider_UnityEngine_Vector3_* value))

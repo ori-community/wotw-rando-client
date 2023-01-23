@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GlobalRecordingTable.h>
+#include <Modloader/app/structs/GhostTimelineEventsPlugin.h>
+#include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
+#include <Modloader/app/structs/PreRecordingData.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimelineNotifier_Action__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer.h>
+#include <Modloader/app/structs/AnimationContext.h>
 
 namespace app::classes::GhostTimelineEventsPlugin {
     IL2CPP_REGISTER_METHOD(0x002FBB80, app::GlobalRecordingTable*, get_GlobalRecordingTable, (app::GhostTimelineEventsPlugin * this_ptr))

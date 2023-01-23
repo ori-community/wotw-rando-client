@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowRaceFinishMessageAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ShowRaceFinishMessageAction {
     IL2CPP_REGISTER_METHOD(0x00736CF0, void, Perform, (app::ShowRaceFinishMessageAction * this_ptr, app::IContext* context))

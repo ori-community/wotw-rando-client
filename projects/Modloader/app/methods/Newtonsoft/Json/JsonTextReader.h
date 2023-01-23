@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonNameTable.h>
+#include <Modloader/app/structs/JsonTextReader.h>
+#include <Modloader/app/structs/ReadType__Enum.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Nullable_1_Int32_.h>
+#include <Modloader/app/structs/Nullable_1_DateTime_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/JsonReaderException.h>
+#include <Modloader/app/structs/Nullable_1_Boolean_.h>
+#include <Modloader/app/structs/Nullable_1_DateTimeOffset_.h>
+#include <Modloader/app/structs/Nullable_1_Decimal_.h>
+#include <Modloader/app/structs/Nullable_1_Double_.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/CultureInfo.h>
 
 namespace app::classes::Newtonsoft::Json::JsonTextReader {
     IL2CPP_REGISTER_METHOD(0x002FBD20, app::JsonNameTable*, get_PropertyNameTable, (app::JsonTextReader * this_ptr))

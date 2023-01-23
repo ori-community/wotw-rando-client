@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TentacleDeath.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::TentacleDeath {
     IL2CPP_REGISTER_METHOD(0x00CED840, void, OnCacheSerializedComponents, (app::TentacleDeath * this_ptr, app::Entity* owner))

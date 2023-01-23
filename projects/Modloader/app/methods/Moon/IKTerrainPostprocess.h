@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IKTerrainPostprocess.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::Moon::IKTerrainPostprocess {
     IL2CPP_REGISTER_METHOD(0x003FF7B0, int32_t, get_Order, (app::IKTerrainPostprocess * this_ptr))

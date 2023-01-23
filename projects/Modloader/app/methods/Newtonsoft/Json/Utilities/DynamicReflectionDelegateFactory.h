@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicReflectionDelegateFactory.h>
+#include <Modloader/app/structs/DynamicMethod.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/ILGenerator.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/MethodCall_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Func_1_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/Action_2_Object_Object_.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::DynamicReflectionDelegateFactory {
     IL2CPP_REGISTER_METHOD(0x01C0C750, app::DynamicReflectionDelegateFactory*, get_Instance, ())

@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT__PrivateImplementationDetails__10_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT__PrivateImplementationDetails__10_INITIALIZING
+#if !defined(IL2CPP_STRUCT__PrivateImplementationDetails__10_DEFINED)
+#define IL2CPP_STRUCT__PrivateImplementationDetails__10_DEFINED
+struct _PrivateImplementationDetails__10__Class;
+struct _PrivateImplementationDetails__10 {
+    struct _PrivateImplementationDetails__10__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT__PrivateImplementationDetails__10_FWDDECL)
+#define IL2CPP_STRUCT__PrivateImplementationDetails__10_FWDDECL
+#include <Modloader/app/structs/_PrivateImplementationDetails__10__Class.h>
+#endif
+#undef IL2CPP_STRUCT__PrivateImplementationDetails__10_INITIALIZING
+#if !defined(IL2CPP_STRUCT__PrivateImplementationDetails__10_DEFINED) && !defined(IL2CPP_STRUCT__PrivateImplementationDetails__10_FWDDECL)
+#include <Modloader/app/structs/_PrivateImplementationDetails__10.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/_PrivateImplementationDetails__10.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

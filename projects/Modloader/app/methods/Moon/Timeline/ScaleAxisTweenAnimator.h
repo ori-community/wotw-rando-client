@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/ScaleAxisTweenAnimator.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::ScaleAxisTweenAnimator {
     IL2CPP_REGISTER_METHOD(0x01E7F860, app::Transform*, get_TransformTarget, (app::ScaleAxisTweenAnimator * this_ptr))

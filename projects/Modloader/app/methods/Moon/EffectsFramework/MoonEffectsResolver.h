@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IInstantiationHandler.h>
+#include <Modloader/app/structs/IMoonEffectComposition.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/MoonEffectRevertHandle.h>
+#include <Modloader/app/structs/MoonEffectsResolver.h>
 
 namespace app::classes::Moon::EffectsFramework::MoonEffectsResolver {
     IL2CPP_REGISTER_METHOD(0x019865F0, app::GameObject*, Resolve, (app::IInstantiationHandler * instantiation_handler, app::IMoonEffectComposition* effect_composition, app::Vector3 position, app::Quaternion rotation, app::MoonEffectRevertHandle* revert_handle, bool record))

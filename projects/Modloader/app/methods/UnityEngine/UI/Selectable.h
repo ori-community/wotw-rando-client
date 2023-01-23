@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Selectable.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UI_Selectable_.h>
+#include <Modloader/app/structs/Navigation.h>
+#include <Modloader/app/structs/Selectable_Transition__Enum.h>
+#include <Modloader/app/structs/ColorBlock.h>
+#include <Modloader/app/structs/SpriteState.h>
+#include <Modloader/app/structs/AnimationTriggers.h>
+#include <Modloader/app/structs/Graphic.h>
+#include <Modloader/app/structs/Image.h>
+#include <Modloader/app/structs/Animator.h>
+#include <Modloader/app/structs/Selectable_SelectionState__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/AxisEventData.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Sprite.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BaseEventData.h>
+#include <Modloader/app/structs/PointerEventData.h>
 
 namespace app::classes::UnityEngine::UI::Selectable {
     IL2CPP_REGISTER_METHOD(0x026714F0, void, ctor, (app::Selectable * this_ptr))

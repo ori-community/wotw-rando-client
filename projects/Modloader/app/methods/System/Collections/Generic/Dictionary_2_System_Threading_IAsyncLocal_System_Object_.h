@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Threading_IAsyncLocal_System_Object_.h>
+#include <Modloader/app/structs/IAsyncLocal.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IDictionary_2_System_Threading_IAsyncLocal_System_Object_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Threading_IAsyncLocal_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_System_Threading_IAsyncLocal_System_Object_ * this_ptr, app::IAsyncLocal* key, app::Object** value))

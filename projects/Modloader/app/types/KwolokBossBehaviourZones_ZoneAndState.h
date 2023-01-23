@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/KwolokBossBehaviourZones_ZoneAndState__Class.h>
+#include <Modloader/app/structs/KwolokBossBehaviourZones_ZoneAndState.h>
+#include <Modloader/app/structs/KwolokBossBehaviourZones_ZoneAndState__Array.h>
 
 namespace app::classes::types {
     namespace KwolokBossBehaviourZones_ZoneAndState {

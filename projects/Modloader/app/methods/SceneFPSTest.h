@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_RuntimeSceneMetaData_.h>
+#include <Modloader/app/structs/SceneFPSTest.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SceneFPSTest_State__Enum.h>
+#include <Modloader/app/structs/MoonProfilerFrame.h>
+#include <Modloader/app/structs/LogType__Enum.h>
+#include <Modloader/app/structs/IMoonTest.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::SceneFPSTest {
     IL2CPP_REGISTER_METHOD(0x00939BC0, app::List_1_RuntimeSceneMetaData_*, get_SceneList, (app::SceneFPSTest * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectReader_TopLevelAssemblyTypeResolver.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::ObjectReader_TopLevelAssemblyTypeResolver {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::ObjectReader_TopLevelAssemblyTypeResolver * this_ptr, app::Assembly* top_level_assembly))

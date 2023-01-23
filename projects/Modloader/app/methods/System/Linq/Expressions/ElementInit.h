@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ElementInit.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_Expression_.h>
 
 namespace app::classes::System::Linq::Expressions::ElementInit {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::ElementInit * this_ptr, app::MethodInfo_1* add_method, app::ReadOnlyCollection_1_System_Linq_Expressions_Expression_* arguments))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_Bounds_.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Bounds__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_UnityEngine_Bounds_ {
     IL2CPP_REGISTER_METHOD(0x02437C20, bool, Equals_1, (app::ObjectEqualityComparer_1_UnityEngine_Bounds_ * this_ptr, app::Bounds x, app::Bounds y))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/XmlSchemaSubstitutionGroup.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaSubstitutionGroup {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::ArrayList*, get_Members, (app::XmlSchemaSubstitutionGroup * this_ptr))

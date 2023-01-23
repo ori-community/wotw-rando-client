@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameplayCameraTargetEntry__Array.h>
+#include <Modloader/app/structs/IComparer_1_GameplayCameraTargetEntry_.h>
+#include <Modloader/app/structs/GameplayCameraTargetEntry.h>
+#include <Modloader/app/structs/Comparison_1_GameplayCameraTargetEntry_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_GameplayCameraTargetEntry_ {
     IL2CPP_REGISTER_METHOD(0x02F5BF30, void, Sort_1, (app::GameplayCameraTargetEntry__Array * keys, int32_t index, int32_t length, app::IComparer_1_GameplayCameraTargetEntry_* comparer))

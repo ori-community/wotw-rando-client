@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Noise.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::Noise {
     IL2CPP_REGISTER_METHOD(0x0304C090, void, Update, (app::Noise * this_ptr))

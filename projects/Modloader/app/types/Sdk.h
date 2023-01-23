@@ -2,6 +2,11 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Sdk__Class.h>
+#include <Modloader/app/structs/Sdk.h>
+#include <Modloader/app/structs/Sdk__Array.h>
+#include <Modloader/app/structs/SDK__Class.h>
+#include <Modloader/app/structs/SDK.h>
 
 namespace app::classes::types {
     namespace Sdk {
@@ -27,15 +32,4 @@ namespace app::classes::types {
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
-
-namespace app::classes::types {
-    namespace SDK {
-        inline app::SDK__Class** type_info = (app::SDK__Class**)(modloader::win::memory::resolve_rva(0x04787F60));
-        inline app::SDK__Class* get_class() {
-            return il2cpp::get_class<app::SDK__Class>(type_info, "XGamingRuntime", "SDK");
-        }
-        inline app::SDK* create() {
-            return il2cpp::create_object<app::SDK>(get_class());
-        }
-    } // namespace SDK
-} // namespace app::classes::types
+

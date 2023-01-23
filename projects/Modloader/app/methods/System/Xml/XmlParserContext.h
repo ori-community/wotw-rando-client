@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlParserContext.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
+#include <Modloader/app/structs/Encoding.h>
 
 namespace app::classes::System::Xml::XmlParserContext {
     IL2CPP_REGISTER_METHOD(0x016FF100, void, ctor_1, (app::XmlParserContext * this_ptr, app::XmlNameTable* nt, app::XmlNamespaceManager* ns_mgr, app::String* xml_lang, app::XmlSpace__Enum xml_space))

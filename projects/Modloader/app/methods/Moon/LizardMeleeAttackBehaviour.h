@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LizardMeleeAttackBehaviour.h>
+#include <Modloader/app/structs/EffectSpawn.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Moon::LizardMeleeAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x01107F30, void, OnEntityInitialized, (app::LizardMeleeAttackBehaviour * this_ptr))

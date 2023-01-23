@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyDiscoverWorldMapAreasAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/AreaMapCanvas.h>
 
 namespace app::classes::LegacyDiscoverWorldMapAreasAction {
     IL2CPP_REGISTER_METHOD(0x00A18BA0, void, Perform, (app::LegacyDiscoverWorldMapAreasAction * this_ptr, app::IContext* context))

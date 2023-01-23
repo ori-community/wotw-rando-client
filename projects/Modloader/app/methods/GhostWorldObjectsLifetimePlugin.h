@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GlobalRecordingTable.h>
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin.h>
+#include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
+#include <Modloader/app/structs/PreRecordingData.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IRecordable.h>
+#include <Modloader/app/structs/RecordableIdData.h>
+#include <Modloader/app/structs/Int64__Array.h>
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData.h>
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry.h>
 
 namespace app::classes::GhostWorldObjectsLifetimePlugin {
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::GlobalRecordingTable*, get_GlobalRecordingTable, (app::GhostWorldObjectsLifetimePlugin * this_ptr))

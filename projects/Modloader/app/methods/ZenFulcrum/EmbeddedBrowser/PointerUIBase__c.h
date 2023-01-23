@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PointerUIBase_c.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::PointerUIBase___c {
     IL2CPP_REGISTER_METHOD(0x016618F0, void, cctor, ())

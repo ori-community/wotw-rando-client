@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CVRNotifications.h>
+#include <Modloader/app/structs/EVRNotificationError__Enum.h>
+#include <Modloader/app/structs/EVRNotificationType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EVRNotificationStyle__Enum.h>
+#include <Modloader/app/structs/NotificationBitmap_t.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRNotifications {
     IL2CPP_REGISTER_METHOD(0x016788C0, void, ctor, (app::CVRNotifications * this_ptr, void* p_interface))

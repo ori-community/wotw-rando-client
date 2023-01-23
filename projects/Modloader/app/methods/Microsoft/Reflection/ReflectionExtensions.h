@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
 
 namespace app::classes::Microsoft::Reflection::ReflectionExtensions {
     IL2CPP_REGISTER_METHOD(0x01A084B0, bool, IsEnum, (app::Type * type))

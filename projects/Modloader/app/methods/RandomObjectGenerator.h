@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RandomObjectGenerator.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::RandomObjectGenerator {
     IL2CPP_REGISTER_METHOD(0x0072EDE0, void, Start, (app::RandomObjectGenerator * this_ptr))

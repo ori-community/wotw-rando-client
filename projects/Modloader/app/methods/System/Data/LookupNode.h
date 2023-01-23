@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LookupNode.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_System_Data_DataColumn_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/ExpressionNode.h>
 
 namespace app::classes::System::Data::LookupNode {
     IL2CPP_REGISTER_METHOD(0x01E40A50, void, ctor, (app::LookupNode * this_ptr, app::DataTable* table, app::String* column_name, app::String* relation_name))

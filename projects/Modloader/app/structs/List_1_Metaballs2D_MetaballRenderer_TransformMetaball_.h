@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_Metaballs2D_MetaballRenderer_TransformMetaball__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_Metaballs2D_MetaballRenderer_TransformMetaball__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Metaballs2D_MetaballRenderer_TransformMetaball__DEFINED)
+#include <Modloader/app/structs/List_1_Metaballs2D_MetaballRenderer_TransformMetaball___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_Metaballs2D_MetaballRenderer_TransformMetaball___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_Metaballs2D_MetaballRenderer_TransformMetaball__DEFINED
+struct List_1_Metaballs2D_MetaballRenderer_TransformMetaball___Class;
+struct List_1_Metaballs2D_MetaballRenderer_TransformMetaball_ {
+    struct List_1_Metaballs2D_MetaballRenderer_TransformMetaball___Class* klass;
+    MonitorData* monitor;
+    struct List_1_Metaballs2D_MetaballRenderer_TransformMetaball___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_Metaballs2D_MetaballRenderer_TransformMetaball__FWDDECL)
+#define IL2CPP_STRUCT_List_1_Metaballs2D_MetaballRenderer_TransformMetaball__FWDDECL
+#include <Modloader/app/structs/List_1_Metaballs2D_MetaballRenderer_TransformMetaball___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_Metaballs2D_MetaballRenderer_TransformMetaball__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Metaballs2D_MetaballRenderer_TransformMetaball__DEFINED) && !defined(IL2CPP_STRUCT_List_1_Metaballs2D_MetaballRenderer_TransformMetaball__FWDDECL)
+#include <Modloader/app/structs/List_1_Metaballs2D_MetaballRenderer_TransformMetaball_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_Metaballs2D_MetaballRenderer_TransformMetaball_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

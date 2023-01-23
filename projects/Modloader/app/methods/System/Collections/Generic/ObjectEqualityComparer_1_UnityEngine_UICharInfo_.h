@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_UICharInfo_.h>
+#include <Modloader/app/structs/UICharInfo.h>
+#include <Modloader/app/structs/UICharInfo__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_UnityEngine_UICharInfo_ {
     IL2CPP_REGISTER_METHOD(0x01CD3170, bool, Equals_1, (app::ObjectEqualityComparer_1_UnityEngine_UICharInfo_ * this_ptr, app::UICharInfo x, app::UICharInfo y))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecordProtocol_ReceiveRecordAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::RecordProtocol_ReceiveRecordAsyncResult {
     IL2CPP_REGISTER_METHOD(0x01F7A930, void, ctor, (app::RecordProtocol_ReceiveRecordAsyncResult * this_ptr, app::AsyncCallback* user_callback, app::Object* user_state, app::Byte__Array* initial_buffer, app::Stream* record))

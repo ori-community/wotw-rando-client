@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GlobalAlphaCutoffMenuItem.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::GlobalAlphaCutoffMenuItem {
     IL2CPP_REGISTER_METHOD(0x007F5460, void, ctor, (app::GlobalAlphaCutoffMenuItem * this_ptr, app::String* path, app::String* str))

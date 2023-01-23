@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DesignerSerializationVisibilityAttribute.h>
+#include <Modloader/app/structs/DesignerSerializationVisibility__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::DesignerSerializationVisibilityAttribute {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::DesignerSerializationVisibilityAttribute * this_ptr, app::DesignerSerializationVisibility__Enum visibility))

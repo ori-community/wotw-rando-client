@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EditorAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::EditorAttribute {
     IL2CPP_REGISTER_METHOD(0x01FE7CE0, void, ctor_1, (app::EditorAttribute * this_ptr))

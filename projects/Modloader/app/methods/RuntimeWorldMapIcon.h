@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeWorldMapIcon.h>
+#include <Modloader/app/structs/GameWorldArea_WorldMapIcon.h>
+#include <Modloader/app/structs/RuntimeGameWorldArea.h>
+#include <Modloader/app/structs/AreaMapUI.h>
+#include <Modloader/app/structs/WorldMapIconType__Enum.h>
 
 namespace app::classes::RuntimeWorldMapIcon {
     IL2CPP_REGISTER_METHOD(0x00C058E0, void, ctor, (app::RuntimeWorldMapIcon * this_ptr, app::GameWorldArea_WorldMapIcon* icon, app::RuntimeGameWorldArea* area))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CookieContainer.h>
+#include <Modloader/app/structs/Cookie.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PathList.h>
+#include <Modloader/app/structs/CookieCollection.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
 
 namespace app::classes::System::Net::CookieContainer {
     IL2CPP_REGISTER_METHOD(0x01EA24B0, void, ctor_1, (app::CookieContainer * this_ptr))

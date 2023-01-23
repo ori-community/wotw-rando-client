@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BugReporter.h>
+#include <Modloader/app/structs/ExceptionEntry.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/List_1_BugReporter_Attachment_.h>
+#include <Modloader/app/structs/BugReporter_State__Enum.h>
+#include <Modloader/app/structs/List_1_System_Byte__1.h>
 
 namespace app::classes::BugReporter {
     IL2CPP_REGISTER_METHOD(0x00807ED0, uint32_t, Execute, (app::String * path, app::String* parameters, app::String* working_dir))

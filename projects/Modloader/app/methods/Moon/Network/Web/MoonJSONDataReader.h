@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonJSONDataReader.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Moon::Network::Web::MoonJSONDataReader {
     IL2CPP_REGISTER_METHOD(0x00447ED0, void, ctor_1, (app::MoonJSONDataReader * this_ptr))

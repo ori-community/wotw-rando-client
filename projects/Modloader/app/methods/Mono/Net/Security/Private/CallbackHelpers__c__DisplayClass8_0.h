@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CallbackHelpers_c_DisplayClass8_0.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/X509CertificateCollection_1.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::Mono::Net::Security::Private::CallbackHelpers___c__DisplayClass8_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::CallbackHelpers_c_DisplayClass8_0 * this_ptr))

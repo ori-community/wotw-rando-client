@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStateMatcher_UberStateMatcherTypeIds__Enum.h>
+#include <Modloader/app/structs/UberStateMatcher.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_System_Type_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UberStateMatcher {
     IL2CPP_REGISTER_METHOD(0x00529FF0, app::UberStateMatcher_UberStateMatcherTypeIds__Enum, get_MatcherTypeID, (app::UberStateMatcher * this_ptr))

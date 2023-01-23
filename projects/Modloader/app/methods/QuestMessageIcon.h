@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QuestMessageIcon.h>
+#include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/QuestMessageIcon_QuestMode__Enum.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/MessageDescriptor.h>
 
 namespace app::classes::QuestMessageIcon {
     IL2CPP_REGISTER_METHOD(0x00E8B100, void, SetQuest, (app::QuestMessageIcon * this_ptr, app::Quest* quest, app::QuestMessageIcon_QuestMode__Enum mode))

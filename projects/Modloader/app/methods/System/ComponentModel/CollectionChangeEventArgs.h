@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CollectionChangeEventArgs.h>
+#include <Modloader/app/structs/CollectionChangeAction__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::CollectionChangeEventArgs {
     IL2CPP_REGISTER_METHOD(0x024A84B0, void, ctor, (app::CollectionChangeEventArgs * this_ptr, app::CollectionChangeAction__Enum action, app::Object* element))

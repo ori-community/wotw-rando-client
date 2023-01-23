@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameWorldArea.h>
+#include <Modloader/app/structs/List_1_GameWorldArea_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_GameWorldArea_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_GameWorldArea_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::GameWorldArea*, get_Item, (app::List_1_GameWorldArea_ * this_ptr, int32_t index))

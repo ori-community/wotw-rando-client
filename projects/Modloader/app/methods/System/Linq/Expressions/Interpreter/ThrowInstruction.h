@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ThrowInstruction.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RuntimeWrappedException.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::ThrowInstruction {
     IL2CPP_REGISTER_METHOD(0x023BA2B0, void, ctor, (app::ThrowInstruction * this_ptr, bool has_result, bool is_rethrow))

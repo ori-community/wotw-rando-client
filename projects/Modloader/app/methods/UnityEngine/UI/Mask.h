@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Mask_1.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/Graphic.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/Material.h>
 
 namespace app::classes::UnityEngine::UI::Mask {
     IL2CPP_REGISTER_METHOD(0x008223A0, void, ctor, (app::Mask_1 * this_ptr))

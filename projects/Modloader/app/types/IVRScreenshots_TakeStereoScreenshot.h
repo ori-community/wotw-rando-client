@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IVRScreenshots_TakeStereoScreenshot__Class.h>
+#include <Modloader/app/structs/IVRScreenshots_TakeStereoScreenshot.h>
 
 namespace app::classes::types {
     namespace IVRScreenshots_TakeStereoScreenshot {

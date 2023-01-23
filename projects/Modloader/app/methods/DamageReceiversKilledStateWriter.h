@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DamageReceiversKilledStateWriter.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::DamageReceiversKilledStateWriter {
     IL2CPP_REGISTER_METHOD(0x00DC8E30, void, OnEnable, (app::DamageReceiversKilledStateWriter * this_ptr))

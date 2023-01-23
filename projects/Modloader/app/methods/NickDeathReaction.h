@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NickDeathReaction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/NickDeathReaction_DeathState__Enum.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::NickDeathReaction {
     IL2CPP_REGISTER_METHOD(0x005FC700, void, OnInitializeTask, (app::NickDeathReaction * this_ptr, app::IContext* context))

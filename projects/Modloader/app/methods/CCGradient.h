@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/CCGradient.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::CCGradient {
     IL2CPP_REGISTER_METHOD(0x0315B1B0, app::Color, get_Item, (app::CCGradient * this_ptr, float p))

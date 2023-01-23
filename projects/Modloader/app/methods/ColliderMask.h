@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ColliderMask.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::ColliderMask {
     IL2CPP_REGISTER_METHOD(0x012CF6E0, void, OnEnable, (app::ColliderMask * this_ptr))

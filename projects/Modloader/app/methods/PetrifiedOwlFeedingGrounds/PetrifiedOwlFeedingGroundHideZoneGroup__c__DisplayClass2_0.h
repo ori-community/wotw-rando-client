@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundHideZoneGroup_c_DisplayClass2_0.h>
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundHideZone.h>
 
 namespace app::classes::PetrifiedOwlFeedingGrounds::PetrifiedOwlFeedingGroundHideZoneGroup___c__DisplayClass2_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::PetrifiedOwlFeedingGroundHideZoneGroup_c_DisplayClass2_0 * this_ptr))

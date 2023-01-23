@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XRReferencePointSubsystem.h>
+#include <Modloader/app/structs/ReferencePoint.h>
+#include <Modloader/app/structs/TrackingState__Enum.h>
+#include <Modloader/app/structs/Pose.h>
 
 namespace app::classes::UnityEngine::Experimental::XR::XRReferencePointSubsystem {
     IL2CPP_REGISTER_METHOD(0x031771B0, void, ctor, (app::XRReferencePointSubsystem * this_ptr))

@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/KwolokTongueSyncGroup_KwolokTongueGroupEntry__Class.h>
+#include <Modloader/app/structs/KwolokTongueSyncGroup_KwolokTongueGroupEntry.h>
+#include <Modloader/app/structs/KwolokTongueSyncGroup_KwolokTongueGroupEntry__Array.h>
 
 namespace app::classes::types {
     namespace KwolokTongueSyncGroup_KwolokTongueGroupEntry {

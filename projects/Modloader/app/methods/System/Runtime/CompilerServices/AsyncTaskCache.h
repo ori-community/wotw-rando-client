@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Task_1_System_Int32___Array.h>
+#include <Modloader/app/structs/Task_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Task_1_System_Int32_.h>
+#include <Modloader/app/structs/Task_1_System_Boolean_.h>
+#include <Modloader/app/structs/Task_1_System_Nullable_1_.h>
+#include <Modloader/app/structs/Nullable_1_Int32_.h>
+#include <Modloader/app/structs/Task_1_VoidTaskResult_.h>
+#include <Modloader/app/structs/VoidTaskResult.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncTaskCache {
     IL2CPP_REGISTER_METHOD(0x01A91550, app::Task_1_System_Int32___Array*, CreateInt32Tasks, ())

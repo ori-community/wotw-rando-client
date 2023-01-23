@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DashOwlDashAlertState.h>
+#include <Modloader/app/structs/DashOwlEnemy.h>
 
 namespace app::classes::DashOwlDashAlertState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::DashOwlDashAlertState * this_ptr, app::DashOwlEnemy* dash_owl))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SettingsPropertyCollection.h>
+#include <Modloader/app/structs/SettingsProperty.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Configuration::SettingsPropertyCollection {
     IL2CPP_REGISTER_METHOD(0x02963130, void, ctor, (app::SettingsPropertyCollection * this_ptr))

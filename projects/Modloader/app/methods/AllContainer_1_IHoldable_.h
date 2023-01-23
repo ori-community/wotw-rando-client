@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AllContainer_1_IHoldable_.h>
+#include <Modloader/app/structs/IHoldable.h>
 
 namespace app::classes::AllContainer_1_IHoldable_ {
     IL2CPP_REGISTER_METHOD(0x019D79D0, void, Clear, (app::AllContainer_1_IHoldable_ * this_ptr))

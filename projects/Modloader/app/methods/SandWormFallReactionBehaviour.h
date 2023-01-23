@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormFallReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SandWormFallReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C1B210, void, OnInitializeTask, (app::SandWormFallReactionBehaviour * this_ptr, app::IContext* context))

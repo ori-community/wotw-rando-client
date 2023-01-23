@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GradientRampDynamic.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::GradientRampDynamic {
     IL2CPP_REGISTER_METHOD(0x03045A90, void, Start, (app::GradientRampDynamic * this_ptr))

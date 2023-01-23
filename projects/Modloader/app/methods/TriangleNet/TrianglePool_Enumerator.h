@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TrianglePool_Enumerator.h>
+#include <Modloader/app/structs/TrianglePool.h>
+#include <Modloader/app/structs/Triangle.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::TriangleNet::TrianglePool_Enumerator {
     IL2CPP_REGISTER_METHOD(0x02AA7420, void, ctor, (app::TrianglePool_Enumerator * this_ptr, app::TrianglePool* pool))

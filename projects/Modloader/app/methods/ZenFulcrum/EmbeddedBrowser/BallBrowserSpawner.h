@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BallBrowserSpawner.h>
+#include <Modloader/app/structs/Browser.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::BallBrowserSpawner {
     IL2CPP_REGISTER_METHOD(0x01C60D90, void, Start, (app::BallBrowserSpawner * this_ptr))

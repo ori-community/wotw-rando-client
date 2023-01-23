@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimerThread_InfiniteTimerQueue.h>
+#include <Modloader/app/structs/TimerThread_Timer.h>
+#include <Modloader/app/structs/TimerThread_Callback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::TimerThread_InfiniteTimerQueue {
     IL2CPP_REGISTER_METHOD(0x01D1D120, void, ctor, (app::TimerThread_InfiniteTimerQueue * this_ptr))

@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicMethod.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Module.h>
+#include <Modloader/app/structs/MethodAttributes__Enum.h>
+#include <Modloader/app/structs/RuntimeMethodHandle.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/ILGenerator.h>
+#include <Modloader/app/structs/MethodImplAttributes__Enum.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/Binder.h>
+#include <Modloader/app/structs/CultureInfo.h>
 
 namespace app::classes::System::Reflection::Emit::DynamicMethod {
     IL2CPP_REGISTER_METHOD(0x0267F7B0, void, ctor_1, (app::DynamicMethod * this_ptr, app::String* name, app::Type* return_type, app::Type__Array* parameter_types, app::Module* m, bool skip_visibility))

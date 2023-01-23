@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TriggerActionAnimator.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::TriggerActionAnimator {
     IL2CPP_REGISTER_METHOD(0x00D123E0, void, OnStartPlayback, (app::TriggerActionAnimator * this_ptr, app::IContext* context))

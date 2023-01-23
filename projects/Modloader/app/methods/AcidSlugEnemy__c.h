@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AcidSlugEnemy_c.h>
 
 namespace app::classes::AcidSlugEnemy___c {
     IL2CPP_REGISTER_METHOD(0x004C4120, void, cctor, ())

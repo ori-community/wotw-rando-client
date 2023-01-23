@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonReference_1_System_Object_.h>
+#include <Modloader/app/structs/CrossSceneReferenceId.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IMoonResolverContext.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/MoonTypeData.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::Moon::MoonReference_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02720740, bool, get_IsCrossSceneReference, (app::MoonReference_1_System_Object_ * this_ptr))

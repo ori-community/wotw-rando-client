@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompositeNode.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_BehaviourNode_.h>
+#include <Modloader/app/structs/BehaviourNode.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::CompositeNode {
     IL2CPP_REGISTER_METHOD(0x0300A940, void, OnValidate, (app::CompositeNode * this_ptr))

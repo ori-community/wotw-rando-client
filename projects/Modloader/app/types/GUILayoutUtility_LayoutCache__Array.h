@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GUILayoutUtility_LayoutCache__Array__Class.h>
+#include <Modloader/app/structs/GUILayoutUtility_LayoutCache__Array.h>
 
 namespace app::classes::types {
     namespace GUILayoutUtility_LayoutCache__Array {

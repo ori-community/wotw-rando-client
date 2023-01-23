@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecorderFrame_FrameDataTypes__Enum.h>
+#include <Modloader/app/structs/EntityData.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/BinaryReader.h>
 
 namespace app::classes::EntityData {
     IL2CPP_REGISTER_METHOD(0x00C8F220, app::RecorderFrame_FrameDataTypes__Enum, FrameType, (app::EntityData * this_ptr))

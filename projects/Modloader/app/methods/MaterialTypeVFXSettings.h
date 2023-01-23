@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MaterialTypeVFXSettings.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/MaterialTypeVFXSettings_EffectSize__Enum.h>
 
 namespace app::classes::MaterialTypeVFXSettings {
     IL2CPP_REGISTER_METHOD(0x01383400, void, Initialize, (app::MaterialTypeVFXSettings * this_ptr))

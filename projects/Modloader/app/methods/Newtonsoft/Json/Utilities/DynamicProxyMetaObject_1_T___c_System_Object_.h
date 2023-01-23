@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicProxyMetaObject_1_T_c_System_Object_.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/DynamicMetaObject.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::DynamicProxyMetaObject_1_T____c_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x019DE4F0, void, cctor, ())

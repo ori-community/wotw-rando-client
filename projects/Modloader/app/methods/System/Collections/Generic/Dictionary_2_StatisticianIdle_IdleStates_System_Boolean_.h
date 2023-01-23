@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_StatisticianIdle_IdleStates_System_Boolean_.h>
+#include <Modloader/app/structs/StatisticianIdle_IdleStates__Enum.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_StatisticianIdle_IdleStates_System_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x02BAC170, void, Add, (app::Dictionary_2_StatisticianIdle_IdleStates_System_Boolean_ * this_ptr, app::StatisticianIdle_IdleStates__Enum key, bool value))

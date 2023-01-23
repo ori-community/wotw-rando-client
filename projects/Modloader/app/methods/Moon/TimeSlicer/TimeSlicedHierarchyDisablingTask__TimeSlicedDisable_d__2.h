@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeSlicedHierarchyDisablingTask_TimeSlicedDisable_d_2.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::TimeSlicer::TimeSlicedHierarchyDisablingTask__TimeSlicedDisable_d__2 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::TimeSlicedHierarchyDisablingTask_TimeSlicedDisable_d_2 * this_ptr, int32_t __1__state))

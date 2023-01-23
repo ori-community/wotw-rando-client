@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StandaloneInputModule.h>
+#include <Modloader/app/structs/StandaloneInputModule_InputMode__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/PointerInputModule_MouseButtonEventData.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::UnityEngine::EventSystems::StandaloneInputModule {
     IL2CPP_REGISTER_METHOD(0x01F26E70, void, ctor, (app::StandaloneInputModule * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayLoopAnimationWisps_c.h>
 
 namespace app::classes::PlayLoopAnimationWisps___c {
     IL2CPP_REGISTER_METHOD(0x01179DE0, void, cctor, ())

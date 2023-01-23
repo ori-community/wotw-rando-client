@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MistTorch.h>
+#include <Modloader/app/structs/IPressurePlate.h>
 
 namespace app::classes::MistTorch {
     IL2CPP_REGISTER_METHOD(0x01327220, void, Awake, (app::MistTorch * this_ptr))

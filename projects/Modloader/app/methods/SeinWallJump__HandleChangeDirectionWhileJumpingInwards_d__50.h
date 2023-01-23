@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::SeinWallJump__HandleChangeDirectionWhileJumpingInwards_d__50 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50 * this_ptr, int32_t __1__state))

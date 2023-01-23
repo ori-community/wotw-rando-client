@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BrainScript.h>
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry.h>
+#include <Modloader/app/structs/BaseAnimator.h>
+#include <Modloader/app/structs/List_1_LegacyTimelineSequence_SequenceEntry_.h>
 
 namespace app::classes::BrainScript {
     IL2CPP_REGISTER_METHOD(0x00D486C0, float, get_Duration, (app::BrainScript * this_ptr))

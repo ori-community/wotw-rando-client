@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/AnimationPostprocess.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::Moon::AnimationPostprocess {
     IL2CPP_REGISTER_METHOD(0x00597B10, app::UpdateType__Enum, get_UpdateType, (app::AnimationPostprocess * this_ptr))

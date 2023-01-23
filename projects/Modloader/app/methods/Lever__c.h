@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Lever_c.h>
 
 namespace app::classes::Lever___c {
     IL2CPP_REGISTER_METHOD(0x01136C00, void, cctor, ())

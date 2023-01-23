@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegionInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Globalization::RegionInfo {
     IL2CPP_REGISTER_METHOD(0x01DEB470, app::RegionInfo*, get_CurrentRegion, ())

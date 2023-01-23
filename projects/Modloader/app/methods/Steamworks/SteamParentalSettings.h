@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AppId_t.h>
+#include <Modloader/app/structs/EParentalFeature__Enum.h>
 
 namespace app::classes::Steamworks::SteamParentalSettings {
     IL2CPP_REGISTER_METHOD(0x0278E930, bool, BIsParentalLockEnabled, ())

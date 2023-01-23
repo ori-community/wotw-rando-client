@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/OriPredictionHelper_Settings__Class.h>
+#include <Modloader/app/structs/OriPredictionHelper_Settings.h>
 
 namespace app::classes::types {
     namespace OriPredictionHelper_Settings {

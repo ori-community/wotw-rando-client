@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StreamWriter.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::IO::StreamWriter {
     IL2CPP_REGISTER_METHOD(0x02382180, void, CheckAsyncTaskInProgress, (app::StreamWriter * this_ptr))

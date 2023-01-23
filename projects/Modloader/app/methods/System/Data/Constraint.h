@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Constraint_1.h>
+#include <Modloader/app/structs/PropertyCollection.h>
+#include <Modloader/app/structs/DataSet.h>
 
 namespace app::classes::System::Data::Constraint {
     IL2CPP_REGISTER_METHOD(0x002FBB00, app::String*, get_ConstraintName, (app::Constraint_1 * this_ptr))

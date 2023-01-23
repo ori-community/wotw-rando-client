@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AngularSpring.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::AngularSpring {
     IL2CPP_REGISTER_METHOD(0x004FA050, void, Awake, (app::AngularSpring * this_ptr))

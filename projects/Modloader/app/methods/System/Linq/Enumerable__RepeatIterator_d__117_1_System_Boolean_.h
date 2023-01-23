@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enumerable_RepeatIterator_d_117_1_System_Boolean_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Boolean_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Linq::Enumerable__RepeatIterator_d__117_1_System_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x02984B50, void, ctor, (app::Enumerable_RepeatIterator_d_117_1_System_Boolean_ * this_ptr, int32_t __1__state))

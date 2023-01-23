@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExposedPropertyGroup.h>
+#include <Modloader/app/structs/ExposedProperty.h>
 
 namespace app::classes::Moon::ExposedPropertiesInspector::ExposedPropertyGroup {
     IL2CPP_REGISTER_METHOD(0x031C2460, bool, HasProperty, (app::ExposedPropertyGroup * this_ptr, app::ExposedProperty* property))

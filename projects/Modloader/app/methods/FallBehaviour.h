@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FallBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::FallBehaviour {
     IL2CPP_REGISTER_METHOD(0x00994900, void, OnInitialize, (app::FallBehaviour * this_ptr))

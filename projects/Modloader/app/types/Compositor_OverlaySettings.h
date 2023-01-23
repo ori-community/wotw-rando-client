@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Compositor_OverlaySettings__Class.h>
+#include <Modloader/app/structs/Compositor_OverlaySettings.h>
+#include <Modloader/app/structs/Compositor_OverlaySettings__Boxed.h>
 
 namespace app::classes::types {
     namespace Compositor_OverlaySettings {

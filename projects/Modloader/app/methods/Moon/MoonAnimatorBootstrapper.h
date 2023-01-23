@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimatorBootstrapper.h>
 
 namespace app::classes::Moon::MoonAnimatorBootstrapper {
     IL2CPP_REGISTER_METHOD(0x011199A0, void, Awake, (app::MoonAnimatorBootstrapper * this_ptr))

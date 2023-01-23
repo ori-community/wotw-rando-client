@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnvironmentTintModifier.h>
+#include <Modloader/app/structs/EnvironmentLight.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::EnvironmentTintModifier {
     IL2CPP_REGISTER_METHOD(0x00CAA750, int32_t, GetEnvTintColorID, (app::EnvironmentTintModifier * this_ptr))

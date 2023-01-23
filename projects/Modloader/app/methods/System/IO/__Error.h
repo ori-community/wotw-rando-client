@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IO::__Error {
     IL2CPP_REGISTER_METHOD(0x0238B580, void, EndOfFile, ())

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyCode__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Touch.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/IMECompositionMode__Enum.h>
 
 namespace app::classes::UnityEngine::Input {
     IL2CPP_REGISTER_METHOD(0x0145B390, bool, GetKeyInt, (app::KeyCode__Enum key))

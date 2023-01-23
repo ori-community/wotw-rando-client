@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ZoneDamageSettings.h>
+#include <Modloader/app/structs/SeinPetrifiedFogController.h>
 
 namespace app::classes::SeinPetrifiedFogController {
     IL2CPP_REGISTER_METHOD(0x008B0120, app::ZoneDamageSettings*, get_DamageSettings, (app::SeinPetrifiedFogController * this_ptr))

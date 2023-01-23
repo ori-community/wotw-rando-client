@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
+#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility.h>
+#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ {
     IL2CPP_REGISTER_METHOD(0x01CD0840, bool, Equals_1, (app::ObjectEqualityComparer_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ * this_ptr, app::UtilitySelectorNode_NodeUtility x, app::UtilitySelectorNode_NodeUtility y))

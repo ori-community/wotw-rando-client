@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/Joint.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::Joint {
     IL2CPP_REGISTER_METHOD(0x030A2DB0, app::Rigidbody*, get_connectedBody, (app::Joint * this_ptr))

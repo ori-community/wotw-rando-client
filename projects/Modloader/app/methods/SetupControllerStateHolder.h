@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SetupControllerStateHolder.h>
+#include <Modloader/app/structs/List_1_IIndexedItem_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_SetupStateModifier_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/SetupStateModifier.h>
+#include <Modloader/app/structs/SetupState.h>
+#include <Modloader/app/structs/List_1_SetupStateModifierData_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::SetupControllerStateHolder {
     IL2CPP_REGISTER_METHOD(0x00AEDE10, bool, get_UseMapping, (app::SetupControllerStateHolder * this_ptr))

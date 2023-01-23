@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CertificateHandler.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::UnityEngine::Networking::CertificateHandler {
     IL2CPP_REGISTER_METHOD(0x0317DB70, void, Release, (app::CertificateHandler * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ChangeStateSetupHolder.h>
+#include <Modloader/app/structs/ChangeStateSetupData.h>
+#include <Modloader/app/structs/List_1_IIndexedItem_.h>
 
 namespace app::classes::Moon::Setups::ChangeStateSetupHolder {
     IL2CPP_REGISTER_METHOD(0x00E253C0, app::String*, get_NewStateName, (app::ChangeStateSetupHolder * this_ptr))

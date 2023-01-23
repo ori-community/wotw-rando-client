@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FriendsGroupID_t__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/FriendsGroupID_t.h>
 
 namespace app::classes::Steamworks::FriendsGroupID_t {
     IL2CPP_REGISTER_METHOD(0x00113CD0, void, ctor, (app::FriendsGroupID_t__Boxed * this_ptr, int16_t value))

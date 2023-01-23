@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::Moon::DamageOwner {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::Entity*, get_Entity, (app::DamageOwner * this_ptr))

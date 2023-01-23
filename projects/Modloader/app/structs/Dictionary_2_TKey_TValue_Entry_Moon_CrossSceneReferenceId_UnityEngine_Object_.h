@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_CrossSceneReferenceId_UnityEngine_Object__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_CrossSceneReferenceId_UnityEngine_Object__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_CrossSceneReferenceId_UnityEngine_Object__DEFINED)
+#include <Modloader/app/structs/CrossSceneReferenceId.h>
+#if defined(IL2CPP_STRUCT_CrossSceneReferenceId_DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_CrossSceneReferenceId_UnityEngine_Object__DEFINED
+struct Object_1;
+struct Dictionary_2_TKey_TValue_Entry_Moon_CrossSceneReferenceId_UnityEngine_Object_ {
+    int32_t hashCode;
+    int32_t next;
+    struct CrossSceneReferenceId key;
+    struct Object_1* value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_CrossSceneReferenceId_UnityEngine_Object__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_CrossSceneReferenceId_UnityEngine_Object__FWDDECL
+#include <Modloader/app/structs/Object_1.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_CrossSceneReferenceId_UnityEngine_Object__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_CrossSceneReferenceId_UnityEngine_Object__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_Moon_CrossSceneReferenceId_UnityEngine_Object__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_Moon_CrossSceneReferenceId_UnityEngine_Object_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_Moon_CrossSceneReferenceId_UnityEngine_Object_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

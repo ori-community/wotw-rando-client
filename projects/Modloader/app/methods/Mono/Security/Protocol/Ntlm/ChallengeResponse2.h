@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type2Message.h>
+#include <Modloader/app/structs/NtlmAuthLevel__Enum.h>
 
 namespace app::classes::Mono::Security::Protocol::Ntlm::ChallengeResponse2 {
     IL2CPP_REGISTER_METHOD(0x02A497B0, app::Byte__Array*, Compute_LM, (app::String * password, app::Byte__Array* challenge))

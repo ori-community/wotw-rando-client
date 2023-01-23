@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugMenuWorldEventActionMenuItem.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WorldEvents.h>
 
 namespace app::classes::DebugMenuWorldEventActionMenuItem {
     IL2CPP_REGISTER_METHOD(0x00DF83C0, void, ctor, (app::DebugMenuWorldEventActionMenuItem * this_ptr, app::String* path, app::WorldEvents* world_event))

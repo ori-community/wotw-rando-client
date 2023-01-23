@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object_1__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/HierarchyPerfTestsSceneRoot__Array.h>
+#include <Modloader/app/structs/Entity__Array.h>
+#include <Modloader/app/structs/EnvironmentLight__Array.h>
+#include <Modloader/app/structs/GameObject__Array.h>
+#include <Modloader/app/structs/ParticleSystem__Array.h>
+#include <Modloader/app/structs/EntityPlaceholder__Array.h>
+#include <Modloader/app/structs/LightCanvasEditorTextureCache__Array.h>
+#include <Modloader/app/structs/SkinnedMeshRenderer__Array.h>
+#include <Modloader/app/structs/Texture2D__Array.h>
+#include <Modloader/app/structs/Rigidbody__Array.h>
+#include <Modloader/app/structs/ActionSequence__Array.h>
+#include <Modloader/app/structs/SceneRoot__Array.h>
+#include <Modloader/app/structs/Texture__Array.h>
+#include <Modloader/app/structs/AudioClip__Array.h>
 
 namespace app::classes::Moon::FindObjectsWrapper {
     IL2CPP_REGISTER_METHOD(0x02559930, app::Object_1__Array*, FindObjectsOfType_1, (app::Type * t, bool runtime_ok))

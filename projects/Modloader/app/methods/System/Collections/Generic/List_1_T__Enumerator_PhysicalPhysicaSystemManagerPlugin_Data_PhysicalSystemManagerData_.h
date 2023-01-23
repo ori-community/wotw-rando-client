@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData*, get_Current, (app::List_1_T_Enumerator_PhysicalPhysicaSystemManagerPlugin_Data_PhysicalSystemManagerData___Boxed * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Exception_ExceptionMessageKind__Enum__Class.h>
+#include <Modloader/app/structs/Exception_ExceptionMessageKind__Enum.h>
 
 namespace app::classes::types {
     namespace Exception_ExceptionMessageKind__Enum {

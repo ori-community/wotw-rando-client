@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlNotation.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::XmlNotation {
     IL2CPP_REGISTER_METHOD(0x016FEF80, void, ctor, (app::XmlNotation * this_ptr, app::String* name, app::String* public_id, app::String* system_id, app::XmlDocument* doc))

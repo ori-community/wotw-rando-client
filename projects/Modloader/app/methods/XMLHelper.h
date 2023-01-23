@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XMLHelper.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_TimesliceJobTracker_TimesliceJobSample_.h>
 
 namespace app::classes::XMLHelper {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::XMLHelper * this_ptr))

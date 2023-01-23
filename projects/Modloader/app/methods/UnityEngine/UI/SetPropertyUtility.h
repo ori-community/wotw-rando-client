@@ -1,5 +1,31 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AspectRatioFitter_AspectMode__Enum.h>
+#include <Modloader/app/structs/ContentSizeFitter_FitMode__Enum.h>
+#include <Modloader/app/structs/Sprite.h>
+#include <Modloader/app/structs/Image_Type__Enum.h>
+#include <Modloader/app/structs/Image_FillMethod__Enum.h>
+#include <Modloader/app/structs/Text.h>
+#include <Modloader/app/structs/Graphic.h>
+#include <Modloader/app/structs/InputField_SubmitEvent.h>
+#include <Modloader/app/structs/InputField_OnChangeEvent.h>
+#include <Modloader/app/structs/InputField_OnValidateInput.h>
+#include <Modloader/app/structs/InputField_ContentType__Enum.h>
+#include <Modloader/app/structs/InputField_LineType__Enum.h>
+#include <Modloader/app/structs/InputField_InputType__Enum.h>
+#include <Modloader/app/structs/TouchScreenKeyboardType__Enum.h>
+#include <Modloader/app/structs/InputField_CharacterValidation__Enum.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/Scrollbar_Direction__Enum.h>
+#include <Modloader/app/structs/Navigation.h>
+#include <Modloader/app/structs/Selectable_Transition__Enum.h>
+#include <Modloader/app/structs/ColorBlock.h>
+#include <Modloader/app/structs/SpriteState.h>
+#include <Modloader/app/structs/AnimationTriggers.h>
+#include <Modloader/app/structs/Slider_Direction__Enum.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::UnityEngine::UI::SetPropertyUtility {
     IL2CPP_REGISTER_METHOD(0x02674F40, bool, SetColor, (app::Color * current_value, app::Color new_value))

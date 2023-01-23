@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TentacleTest_Segment__Array__Class.h>
+#include <Modloader/app/structs/TentacleTest_Segment__Array.h>
 
 namespace app::classes::types {
     namespace TentacleTest_Segment__Array {

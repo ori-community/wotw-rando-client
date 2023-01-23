@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Stream_ReadWriteParameters__Class.h>
+#include <Modloader/app/structs/Stream_ReadWriteParameters.h>
+#include <Modloader/app/structs/Stream_ReadWriteParameters__Boxed.h>
 
 namespace app::classes::types {
     namespace Stream_ReadWriteParameters {

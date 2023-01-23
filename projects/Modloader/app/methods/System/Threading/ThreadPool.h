@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegisteredWaitHandle.h>
+#include <Modloader/app/structs/WaitHandle.h>
+#include <Modloader/app/structs/WaitOrTimerCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/WaitCallback.h>
+#include <Modloader/app/structs/IThreadPoolWorkItem.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Threading_IThreadPoolWorkItem_.h>
+#include <Modloader/app/structs/ThreadPoolWorkQueue_WorkStealingQueue__Array.h>
+#include <Modloader/app/structs/ThreadPoolWorkQueue_QueueSegment.h>
 
 namespace app::classes::System::Threading::ThreadPool {
     IL2CPP_REGISTER_METHOD(0x023449C0, void, GetAvailableThreads, (int32_t * worker_threads, int32_t* completion_port_threads))

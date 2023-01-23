@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnumDictionary_2_System_Int32Enum_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::EnumDictionary_2_System_Int32Enum_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBeforeSerialize, (app::EnumDictionary_2_System_Int32Enum_System_Object_ * this_ptr))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Boxed_DEFINED)
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_FloatValue.h>
+#if defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue_DEFINED)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Boxed_DEFINED
+struct UberShaderAnimatorStrategyExperimental_FloatValue__Class;
+struct UberShaderAnimatorStrategyExperimental_FloatValue__Boxed {
+    struct UberShaderAnimatorStrategyExperimental_FloatValue__Class* klass;
+    MonitorData* monitor;
+    struct UberShaderAnimatorStrategyExperimental_FloatValue fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Boxed_FWDDECL
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_FloatValue__Class.h>
+#endif
+#undef IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_FloatValue__Boxed_FWDDECL)
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_FloatValue__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_FloatValue__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

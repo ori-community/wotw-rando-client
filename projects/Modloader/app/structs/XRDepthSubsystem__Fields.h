@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XRDepthSubsystem__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XRDepthSubsystem__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XRDepthSubsystem__Fields_DEFINED)
+#include <Modloader/app/structs/IntegratedSubsystem_1_UnityEngine_Experimental_XR_XRDepthSubsystemDescriptor___Fields.h>
+#if defined(IL2CPP_STRUCT_IntegratedSubsystem_1_UnityEngine_Experimental_XR_XRDepthSubsystemDescriptor___Fields_DEFINED)
+#define IL2CPP_STRUCT_XRDepthSubsystem__Fields_DEFINED
+struct Action_1_UnityEngine_Experimental_XR_PointCloudUpdatedEventArgs_;
+struct XRDepthSubsystem__Fields {
+    struct IntegratedSubsystem_1_UnityEngine_Experimental_XR_XRDepthSubsystemDescriptor___Fields _;
+    struct Action_1_UnityEngine_Experimental_XR_PointCloudUpdatedEventArgs_* PointCloudUpdated;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_XRDepthSubsystem__Fields_FWDDECL)
+#define IL2CPP_STRUCT_XRDepthSubsystem__Fields_FWDDECL
+#include <Modloader/app/structs/Action_1_UnityEngine_Experimental_XR_PointCloudUpdatedEventArgs_.h>
+#endif
+#undef IL2CPP_STRUCT_XRDepthSubsystem__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XRDepthSubsystem__Fields_DEFINED) && !defined(IL2CPP_STRUCT_XRDepthSubsystem__Fields_FWDDECL)
+#include <Modloader/app/structs/XRDepthSubsystem__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XRDepthSubsystem__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_TimeZoneInfo_.h>
+#include <Modloader/app/structs/TimeZoneInfo.h>
+#include <Modloader/app/structs/IEnumerable_1_System_TimeZoneInfo_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_TimeZoneInfo_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_System_TimeZoneInfo_ * this_ptr))

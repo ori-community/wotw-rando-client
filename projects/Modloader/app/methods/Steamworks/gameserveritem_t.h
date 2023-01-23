@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/gameserveritem_t.h>
 
 namespace app::classes::Steamworks::gameserveritem_t {
     IL2CPP_REGISTER_METHOD(0x027AACA0, app::String*, GetGameDir, (app::gameserveritem_t * this_ptr))

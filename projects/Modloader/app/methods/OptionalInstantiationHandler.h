@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OptionalInstantiationHandler.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::OptionalInstantiationHandler {
     IL2CPP_REGISTER_METHOD(0x006178F0, void, Awake, (app::OptionalInstantiationHandler * this_ptr))

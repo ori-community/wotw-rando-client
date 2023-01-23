@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinJumpShotSpell.h>
+#include <Modloader/app/structs/SeinJumpShotSpell_State__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
 
 namespace app::classes::SeinJumpShotSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinJumpShotSpell * this_ptr))

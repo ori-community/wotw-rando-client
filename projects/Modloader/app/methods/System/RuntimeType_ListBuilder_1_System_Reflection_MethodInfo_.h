@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeType_ListBuilder_1_System_Reflection_MethodInfo___Boxed.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/MethodInfo_1__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::RuntimeType_ListBuilder_1_System_Reflection_MethodInfo_ {
     IL2CPP_REGISTER_METHOD(0x001FF7C0, void, ctor, (app::RuntimeType_ListBuilder_1_System_Reflection_MethodInfo___Boxed * this_ptr, int32_t capacity))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/DrillZone.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SeinDrill.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::DrillZone {
     IL2CPP_REGISTER_METHOD(0x00BDBE30, app::Collider*, get_GetCollider, (app::DrillZone * this_ptr))

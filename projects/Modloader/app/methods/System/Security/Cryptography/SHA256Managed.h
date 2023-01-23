@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SHA256Managed.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::SHA256Managed {
     IL2CPP_REGISTER_METHOD(0x028F7DA0, void, ctor, (app::SHA256Managed * this_ptr))

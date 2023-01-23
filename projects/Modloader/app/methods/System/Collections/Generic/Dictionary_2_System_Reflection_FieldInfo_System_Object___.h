@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Reflection_FieldInfo_System_Object_.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Reflection_FieldInfo_System_Object___ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_System_Reflection_FieldInfo_System_Object_ * this_ptr))

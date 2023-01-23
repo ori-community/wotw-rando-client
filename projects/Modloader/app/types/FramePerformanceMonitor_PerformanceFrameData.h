@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData__Class.h>
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData.h>
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData__Boxed.h>
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData__Array.h>
 
 namespace app::classes::types {
     namespace FramePerformanceMonitor_PerformanceFrameData {

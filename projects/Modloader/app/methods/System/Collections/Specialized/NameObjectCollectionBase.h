@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NameObjectCollectionBase.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/DBNull.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/NameObjectCollectionBase_NameObjectEntry.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/NameObjectCollectionBase_KeysCollection.h>
 
 namespace app::classes::System::Collections::Specialized::NameObjectCollectionBase {
     IL2CPP_REGISTER_METHOD(0x02496680, void, ctor_1, (app::NameObjectCollectionBase * this_ptr))

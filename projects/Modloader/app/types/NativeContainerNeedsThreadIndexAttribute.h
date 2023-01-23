@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/NativeContainerNeedsThreadIndexAttribute__Class.h>
+#include <Modloader/app/structs/NativeContainerNeedsThreadIndexAttribute.h>
 
 namespace app::classes::types {
     namespace NativeContainerNeedsThreadIndexAttribute {

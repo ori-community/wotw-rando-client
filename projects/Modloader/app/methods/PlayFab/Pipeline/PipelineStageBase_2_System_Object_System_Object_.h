@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PipelineStageBase_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/BlockingCollection_1_System_Object_.h>
+#include <Modloader/app/structs/CancellationTokenSource.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::PlayFab::Pipeline::PipelineStageBase_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, InitStage, (app::PipelineStageBase_2_System_Object_System_Object_ * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MistyWoodsAreaMapCanvas.h>
 
 namespace app::classes::MistyWoodsAreaMapCanvas {
     IL2CPP_REGISTER_METHOD(0x01327DF0, void, OnEnable, (app::MistyWoodsAreaMapCanvas * this_ptr))

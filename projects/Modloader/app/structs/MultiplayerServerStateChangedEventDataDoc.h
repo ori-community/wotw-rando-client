@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MultiplayerServerStateChangedEventDataDoc_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MultiplayerServerStateChangedEventDataDoc_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerStateChangedEventDataDoc_DEFINED)
+#include <Modloader/app/structs/MultiplayerServerStateChangedEventDataDoc__Fields.h>
+#if defined(IL2CPP_STRUCT_MultiplayerServerStateChangedEventDataDoc__Fields_DEFINED)
+#define IL2CPP_STRUCT_MultiplayerServerStateChangedEventDataDoc_DEFINED
+struct MultiplayerServerStateChangedEventDataDoc__Class;
+struct MultiplayerServerStateChangedEventDataDoc {
+    struct MultiplayerServerStateChangedEventDataDoc__Class* klass;
+    MonitorData* monitor;
+    struct MultiplayerServerStateChangedEventDataDoc__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MultiplayerServerStateChangedEventDataDoc_FWDDECL)
+#define IL2CPP_STRUCT_MultiplayerServerStateChangedEventDataDoc_FWDDECL
+#include <Modloader/app/structs/MultiplayerServerStateChangedEventDataDoc__Class.h>
+#endif
+#undef IL2CPP_STRUCT_MultiplayerServerStateChangedEventDataDoc_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MultiplayerServerStateChangedEventDataDoc_DEFINED) && !defined(IL2CPP_STRUCT_MultiplayerServerStateChangedEventDataDoc_FWDDECL)
+#include <Modloader/app/structs/MultiplayerServerStateChangedEventDataDoc.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MultiplayerServerStateChangedEventDataDoc.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

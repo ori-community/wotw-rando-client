@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArtBuildController.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::ArtBuildController {
     IL2CPP_REGISTER_METHOD(0x0083FD30, void, Awake, (app::ArtBuildController * this_ptr))

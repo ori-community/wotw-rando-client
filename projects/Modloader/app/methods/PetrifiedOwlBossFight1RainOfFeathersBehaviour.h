@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFight1RainOfFeathersBehaviour.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Projectile.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/ProjectileSpawner.h>
 
 namespace app::classes::PetrifiedOwlBossFight1RainOfFeathersBehaviour {
     IL2CPP_REGISTER_METHOD(0x017694F0, float, get_TimeBetweenProjectiles, (app::PetrifiedOwlBossFight1RainOfFeathersBehaviour * this_ptr))

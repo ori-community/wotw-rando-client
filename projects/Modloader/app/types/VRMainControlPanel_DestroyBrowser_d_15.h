@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/VRMainControlPanel_DestroyBrowser_d_15__Class.h>
+#include <Modloader/app/structs/VRMainControlPanel_DestroyBrowser_d_15.h>
 
 namespace app::classes::types {
     namespace VRMainControlPanel_DestroyBrowser_d_15 {

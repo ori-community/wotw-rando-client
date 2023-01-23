@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NetRes.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WebExceptionStatus__Enum.h>
+#include <Modloader/app/structs/HttpStatusCode__Enum.h>
+#include <Modloader/app/structs/FtpStatusCode__Enum.h>
 
 namespace app::classes::System::Net::NetRes {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::NetRes * this_ptr))

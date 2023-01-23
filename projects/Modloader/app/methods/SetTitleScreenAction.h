@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SetTitleScreenAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SetTitleScreenAction {
     IL2CPP_REGISTER_METHOD(0x005A4CD0, void, Perform, (app::SetTitleScreenAction * this_ptr, app::IContext* context))

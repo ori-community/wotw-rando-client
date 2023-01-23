@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GoldenSein_UndrainRoutine_d_60.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::GoldenSein__UndrainRoutine_d__60 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::GoldenSein_UndrainRoutine_d_60 * this_ptr, int32_t __1__state))

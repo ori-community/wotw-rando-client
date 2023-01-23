@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicInstantiationScanner_EvaluationCtx_c.h>
+#include <Modloader/app/structs/KeyValuePair_2_UnityEngine_ScriptableObject_System_Int32_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::DynamicInstantiationScanner_EvaluationCtx___c {
     IL2CPP_REGISTER_METHOD(0x030E5970, void, cctor, ())

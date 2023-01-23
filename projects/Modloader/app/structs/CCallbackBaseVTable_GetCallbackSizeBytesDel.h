@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CCallbackBaseVTable_GetCallbackSizeBytesDel_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CCallbackBaseVTable_GetCallbackSizeBytesDel_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CCallbackBaseVTable_GetCallbackSizeBytesDel_DEFINED)
+#include <Modloader/app/structs/CCallbackBaseVTable_GetCallbackSizeBytesDel__Fields.h>
+#if defined(IL2CPP_STRUCT_CCallbackBaseVTable_GetCallbackSizeBytesDel__Fields_DEFINED)
+#define IL2CPP_STRUCT_CCallbackBaseVTable_GetCallbackSizeBytesDel_DEFINED
+struct CCallbackBaseVTable_GetCallbackSizeBytesDel__Class;
+struct CCallbackBaseVTable_GetCallbackSizeBytesDel {
+    struct CCallbackBaseVTable_GetCallbackSizeBytesDel__Class* klass;
+    MonitorData* monitor;
+    struct CCallbackBaseVTable_GetCallbackSizeBytesDel__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CCallbackBaseVTable_GetCallbackSizeBytesDel_FWDDECL)
+#define IL2CPP_STRUCT_CCallbackBaseVTable_GetCallbackSizeBytesDel_FWDDECL
+#include <Modloader/app/structs/CCallbackBaseVTable_GetCallbackSizeBytesDel__Class.h>
+#endif
+#undef IL2CPP_STRUCT_CCallbackBaseVTable_GetCallbackSizeBytesDel_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CCallbackBaseVTable_GetCallbackSizeBytesDel_DEFINED) && !defined(IL2CPP_STRUCT_CCallbackBaseVTable_GetCallbackSizeBytesDel_FWDDECL)
+#include <Modloader/app/structs/CCallbackBaseVTable_GetCallbackSizeBytesDel.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CCallbackBaseVTable_GetCallbackSizeBytesDel.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

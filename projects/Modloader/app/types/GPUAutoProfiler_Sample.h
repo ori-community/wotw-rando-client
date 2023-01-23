@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GPUAutoProfiler_Sample__Class.h>
+#include <Modloader/app/structs/GPUAutoProfiler_Sample.h>
+#include <Modloader/app/structs/GPUAutoProfiler_Sample__Array.h>
 
 namespace app::classes::types {
     namespace GPUAutoProfiler_Sample {

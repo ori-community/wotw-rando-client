@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Modloader/app/methods/UnityEngine/Object.h>
+#include <Modloader/app/structs/UberShaderColor.h>
 #include <Core/macros.h>
 
 using namespace app::classes;

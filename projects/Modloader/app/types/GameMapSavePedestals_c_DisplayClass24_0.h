@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GameMapSavePedestals_c_DisplayClass24_0__Class.h>
+#include <Modloader/app/structs/GameMapSavePedestals_c_DisplayClass24_0.h>
 
 namespace app::classes::types {
     namespace GameMapSavePedestals_c_DisplayClass24_0 {

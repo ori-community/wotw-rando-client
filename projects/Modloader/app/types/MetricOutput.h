@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MetricOutput__Class.h>
+#include <Modloader/app/structs/MetricOutput.h>
+#include <Modloader/app/structs/MetricOutput__Boxed.h>
+#include <Modloader/app/structs/MetricOutput__Array.h>
 
 namespace app::classes::types {
     namespace MetricOutput {

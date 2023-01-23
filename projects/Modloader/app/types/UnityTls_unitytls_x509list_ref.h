@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UnityTls_unitytls_x509list_ref__Class.h>
+#include <Modloader/app/structs/UnityTls_unitytls_x509list_ref.h>
+#include <Modloader/app/structs/UnityTls_unitytls_x509list_ref__Boxed.h>
 
 namespace app::classes::types {
     namespace UnityTls_unitytls_x509list_ref {

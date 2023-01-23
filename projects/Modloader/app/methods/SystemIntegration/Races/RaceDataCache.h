@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_SystemIntegration_Races_RaceEntry_.h>
+#include <Modloader/app/structs/RaceDataCache.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_PlayFab_ClientModels_PlayerLeaderboardEntry_.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/RaceEntry.h>
+#include <Modloader/app/structs/Task_1_System_Byte_.h>
 
 namespace app::classes::SystemIntegration::Races::RaceDataCache {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::Dictionary_2_System_String_SystemIntegration_Races_RaceEntry_*, get_Entries, (app::RaceDataCache * this_ptr))

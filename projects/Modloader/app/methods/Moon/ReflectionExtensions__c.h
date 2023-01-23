@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReflectionExtensions_c.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Moon::ReflectionExtensions___c {
     IL2CPP_REGISTER_METHOD(0x025663F0, void, cctor, ())

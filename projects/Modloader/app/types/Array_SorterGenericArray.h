@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Array_SorterGenericArray__Class.h>
+#include <Modloader/app/structs/Array_SorterGenericArray.h>
+#include <Modloader/app/structs/Array_SorterGenericArray__Boxed.h>
 
 namespace app::classes::types {
     namespace Array_SorterGenericArray {

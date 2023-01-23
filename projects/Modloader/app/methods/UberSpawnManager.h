@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberSpawnManager.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_.h>
 
 namespace app::classes::UberSpawnManager {
     IL2CPP_REGISTER_METHOD(0x00446960, float, get_FrameBudgetSpent, (app::UberSpawnManager * this_ptr))

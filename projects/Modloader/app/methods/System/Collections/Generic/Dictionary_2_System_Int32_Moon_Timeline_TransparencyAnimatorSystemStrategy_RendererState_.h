@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_Timeline_TransparencyAnimatorSystemStrategy_RendererState_.h>
+#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_RendererState.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_Moon_Timeline_TransparencyAnimatorSystemStrategy_RendererState_ {
     IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_System_Int32_Moon_Timeline_TransparencyAnimatorSystemStrategy_RendererState_ * this_ptr, int32_t key, app::TransparencyAnimatorSystemStrategy_RendererState** value))

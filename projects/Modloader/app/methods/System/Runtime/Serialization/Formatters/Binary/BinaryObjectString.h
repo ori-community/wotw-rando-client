@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinaryObjectString.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/_BinaryWriter.h>
+#include <Modloader/app/structs/_BinaryParser.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::BinaryObjectString {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::BinaryObjectString * this_ptr))

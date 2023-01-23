@@ -1,5 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberShaderComponent.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/UberShaderBlock.h>
+#include <Modloader/app/structs/UberShaderBlockTextured.h>
+#include <Modloader/app/structs/UberShaderBlockGrabPass.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/UberShaderModifier.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TintModifier.h>
+#include <Modloader/app/structs/AdditiveLayerModifier.h>
+#include <Modloader/app/structs/AdditiveLayerDistortedModifier.h>
+#include <Modloader/app/structs/AdditiveLayerExtraModifier.h>
+#include <Modloader/app/structs/MaskModifier.h>
+#include <Modloader/app/structs/MaskExtraModifier.h>
+#include <Modloader/app/structs/DistortModifier.h>
+#include <Modloader/app/structs/DistortExtraModifier.h>
+#include <Modloader/app/structs/MultiplyLayerModifier.h>
+#include <Modloader/app/structs/MultiplyLayerExtraModifier.h>
+#include <Modloader/app/structs/MultiplyLayerThirdModifier.h>
+#include <Modloader/app/structs/DodgeLayerModifier.h>
+#include <Modloader/app/structs/MaskDissolveModifier.h>
 
 namespace app::classes::UberShaderComponent {
     IL2CPP_REGISTER_METHOD(0x0190CF90, app::Transform*, get_TransformCache, (app::UberShaderComponent * this_ptr))

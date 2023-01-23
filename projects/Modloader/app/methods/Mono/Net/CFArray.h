@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CFArray.h>
 
 namespace app::classes::Mono::Net::CFArray {
     IL2CPP_REGISTER_METHOD(0x02173690, void, ctor, (app::CFArray * this_ptr, void* handle, bool own))

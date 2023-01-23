@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/XboxOneLive.h>
 
 namespace app::classes::XboxOneLive {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_LiveOnline, ())

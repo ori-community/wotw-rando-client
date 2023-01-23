@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HornBugBossEntity.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/HornbugBossBaseBehaviour.h>
 
 namespace app::classes::HornBugBossEntity {
     IL2CPP_REGISTER_METHOD(0x00B62280, void, BlockedHitEffectPrefabInstantiation, (app::HornBugBossEntity * this_ptr, app::List_1_DynamicInstantiationDescriptor_* instantiations))

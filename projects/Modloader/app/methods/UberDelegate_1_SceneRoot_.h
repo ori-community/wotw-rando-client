@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberDelegate_1_SceneRoot_.h>
+#include <Modloader/app/structs/Action_1_SceneRoot_.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::UberDelegate_1_SceneRoot_ {
     IL2CPP_REGISTER_METHOD(0x0225C400, void, Add, (app::UberDelegate_1_SceneRoot_ * this_ptr, app::Action_1_SceneRoot_* act))

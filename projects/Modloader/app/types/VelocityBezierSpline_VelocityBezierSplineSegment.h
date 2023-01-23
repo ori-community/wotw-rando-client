@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment__Class.h>
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment.h>
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment__Array.h>
 
 namespace app::classes::types {
     namespace VelocityBezierSpline_VelocityBezierSplineSegment {

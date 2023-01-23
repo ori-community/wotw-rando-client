@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/IConvertible.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Base64FormattingOptions__Enum.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Convert {
     IL2CPP_REGISTER_METHOD(0x02035400, app::TypeCode__Enum, GetTypeCode, (app::Object * value))

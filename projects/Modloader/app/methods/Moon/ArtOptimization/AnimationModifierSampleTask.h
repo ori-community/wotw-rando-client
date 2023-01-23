@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/AnimationModifierSampleTask.h>
+#include <Modloader/app/structs/ArtOptimizationDataModel.h>
+#include <Modloader/app/structs/UberShaderComponent.h>
+#include <Modloader/app/structs/UberShaderModifier.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IOptimizationTask.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::ArtOptimization::AnimationModifierSampleTask {
     IL2CPP_REGISTER_METHOD(0x0133CF00, app::RenderTexture*, get_RenderTex, ())

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationPlayableOutput__Boxed.h>
+#include <Modloader/app/structs/PlayableOutputHandle.h>
+#include <Modloader/app/structs/AnimationPlayableOutput.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Animator.h>
 
 namespace app::classes::UnityEngine::Animations::AnimationPlayableOutput {
     IL2CPP_REGISTER_METHOD(0x00241D30, void, ctor, (app::AnimationPlayableOutput__Boxed * this_ptr, app::PlayableOutputHandle handle))

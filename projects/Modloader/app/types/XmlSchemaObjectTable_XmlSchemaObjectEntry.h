@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry__Class.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry__Boxed.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry__Array.h>
 
 namespace app::classes::types {
     namespace XmlSchemaObjectTable_XmlSchemaObjectEntry {

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkinningEdge_SkinningCapsule.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SkinningEdge_SkinningCapsule {
     IL2CPP_REGISTER_METHOD(0x006BE9E0, void, Set, (app::SkinningEdge_SkinningCapsule * this_ptr, app::SkinningEdge_SkinningCapsule* cap))

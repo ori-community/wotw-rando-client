@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/HMAC_1.h>
+#include <Modloader/app/structs/HashAlgorithm.h>
 
 namespace app::classes::Mono::Security::Cryptography::HMAC {
     IL2CPP_REGISTER_METHOD(0x02A3C290, app::Byte__Array*, get_Key, (app::HMAC_1 * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ScreenshotRecorder.h>
 
 namespace app::classes::moonTools::recording::ScreenshotRecorder {
     IL2CPP_REGISTER_METHOD(0x00F717F0, bool, get_Enabled, ())

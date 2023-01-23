@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InputInfo__Class.h>
+#include <Modloader/app/structs/InputInfo.h>
+#include <Modloader/app/structs/InputInfo__Array.h>
 
 namespace app::classes::types {
     namespace InputInfo {

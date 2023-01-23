@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode__INITIALIZING
+#if !defined(IL2CPP_STRUCT_WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode__DEFINED)
+#include <Modloader/app/structs/WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode___Fields.h>
+#if defined(IL2CPP_STRUCT_WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode___Fields_DEFINED)
+#define IL2CPP_STRUCT_WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode__DEFINED
+struct WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode___Class;
+struct WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode_ {
+    struct WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode___Class* klass;
+    MonitorData* monitor;
+    struct WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode__FWDDECL)
+#define IL2CPP_STRUCT_WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode__FWDDECL
+#include <Modloader/app/structs/WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode___Class.h>
+#endif
+#undef IL2CPP_STRUCT_WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode__INITIALIZING
+#if !defined(IL2CPP_STRUCT_WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode__DEFINED) && !defined(IL2CPP_STRUCT_WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode__FWDDECL)
+#include <Modloader/app/structs/WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/WeightedGroup_1_Moon_BehaviourSystem_BehaviourNode_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

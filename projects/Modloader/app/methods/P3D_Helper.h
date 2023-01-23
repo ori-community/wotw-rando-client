@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextureFormat__Enum.h>
+#include <Modloader/app/structs/P3D_Format__Enum.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/P3D_CoordType__Enum.h>
+#include <Modloader/app/structs/P3D_Matrix.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/P3D_Triangle.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::P3D_Helper {
     IL2CPP_REGISTER_METHOD(0x03091AD0, app::TextureFormat__Enum, GetTextureFormat, (app::P3D_Format__Enum format))

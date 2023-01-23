@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SneezeSlugDeathReactionBehaviour_c.h>
 
 namespace app::classes::SneezeSlugDeathReactionBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x00EDAEA0, void, cctor, ())

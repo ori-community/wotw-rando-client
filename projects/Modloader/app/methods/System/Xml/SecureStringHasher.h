@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SecureStringHasher.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SecureStringHasher_HashCodeOfStringDelegate.h>
 
 namespace app::classes::System::Xml::SecureStringHasher {
     IL2CPP_REGISTER_METHOD(0x01C8A800, void, ctor, (app::SecureStringHasher * this_ptr))

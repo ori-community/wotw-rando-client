@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Metric__Enum.h>
+#include <Modloader/app/structs/MicroProfilerGraph_MetricCache__Boxed.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::MicroProfilerGraph_MetricCache {
     IL2CPP_REGISTER_METHOD(0x0010E170, app::Metric__Enum, get_Metric, (app::MicroProfilerGraph_MetricCache__Boxed * this_ptr))

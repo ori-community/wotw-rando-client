@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeasureTask.h>
+#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
+#include <Modloader/app/structs/SceneSample.h>
+#include <Modloader/app/structs/IProfilingDataProvider.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::MeasureTask {
     IL2CPP_REGISTER_METHOD(0x014A89A0, void, ctor, (app::MeasureTask * this_ptr, app::HierarchyDebugMenu_GameObjectItem* item, app::SceneSample* model, app::IProfilingDataProvider* data_provider, app::Action* on_complete))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CursorType__Enum.h>
 
 namespace app::classes::uWintab::Tablet {
     IL2CPP_REGISTER_METHOD(0x00F74130, bool, get_Initialized, ())

@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EnumInt16TypeInfo_1_System_Decimal___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EnumInt16TypeInfo_1_System_Decimal___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EnumInt16TypeInfo_1_System_Decimal___Fields_DEFINED)
+#include <Modloader/app/structs/TraceLoggingTypeInfo_1_System_Decimal___Fields.h>
+#if defined(IL2CPP_STRUCT_TraceLoggingTypeInfo_1_System_Decimal___Fields_DEFINED)
+#define IL2CPP_STRUCT_EnumInt16TypeInfo_1_System_Decimal___Fields_DEFINED
+struct EnumInt16TypeInfo_1_System_Decimal___Fields {
+    struct TraceLoggingTypeInfo_1_System_Decimal___Fields _;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_EnumInt16TypeInfo_1_System_Decimal___Fields_FWDDECL)
+#define IL2CPP_STRUCT_EnumInt16TypeInfo_1_System_Decimal___Fields_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_EnumInt16TypeInfo_1_System_Decimal___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EnumInt16TypeInfo_1_System_Decimal___Fields_DEFINED) && !defined(IL2CPP_STRUCT_EnumInt16TypeInfo_1_System_Decimal___Fields_FWDDECL)
+#include <Modloader/app/structs/EnumInt16TypeInfo_1_System_Decimal___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EnumInt16TypeInfo_1_System_Decimal___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

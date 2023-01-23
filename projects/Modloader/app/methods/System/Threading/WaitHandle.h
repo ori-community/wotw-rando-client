@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaitHandle.h>
+#include <Modloader/app/structs/SafeWaitHandle.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/SafeHandle.h>
+#include <Modloader/app/structs/WaitHandle__Array.h>
+#include <Modloader/app/structs/void.h>
 
 namespace app::classes::System::Threading::WaitHandle {
     IL2CPP_REGISTER_METHOD(0x0234B740, void, ctor, (app::WaitHandle * this_ptr))

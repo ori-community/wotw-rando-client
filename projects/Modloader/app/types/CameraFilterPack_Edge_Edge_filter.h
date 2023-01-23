@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CameraFilterPack_Edge_Edge_filter__Class.h>
+#include <Modloader/app/structs/CameraFilterPack_Edge_Edge_filter.h>
 
 namespace app::classes::types {
     namespace CameraFilterPack_Edge_Edge_filter {

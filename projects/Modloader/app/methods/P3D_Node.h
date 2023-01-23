@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/P3D_Node.h>
+#include <Modloader/app/structs/List_1_P3D_Triangle_.h>
 
 namespace app::classes::P3D_Node {
     IL2CPP_REGISTER_METHOD(0x030959C0, app::P3D_Node*, Spawn, ())

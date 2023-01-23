@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossRainOfFeathersBehaviour_StartState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossRainOfFeathersBehaviour_StartState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossRainOfFeathersBehaviour_StartState_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossRainOfFeathersBehaviour_StartState__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossRainOfFeathersBehaviour_StartState__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossRainOfFeathersBehaviour_StartState_DEFINED
+struct PetrifiedOwlBossRainOfFeathersBehaviour_StartState__Class;
+struct PetrifiedOwlBossRainOfFeathersBehaviour_StartState {
+    struct PetrifiedOwlBossRainOfFeathersBehaviour_StartState__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossRainOfFeathersBehaviour_StartState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossRainOfFeathersBehaviour_StartState_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossRainOfFeathersBehaviour_StartState_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossRainOfFeathersBehaviour_StartState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossRainOfFeathersBehaviour_StartState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossRainOfFeathersBehaviour_StartState_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossRainOfFeathersBehaviour_StartState_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossRainOfFeathersBehaviour_StartState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossRainOfFeathersBehaviour_StartState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

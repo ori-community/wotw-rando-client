@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MechSpider.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::Demos::MechSpider {
     IL2CPP_REGISTER_METHOD(0x02222FA0, void, Update, (app::MechSpider * this_ptr))

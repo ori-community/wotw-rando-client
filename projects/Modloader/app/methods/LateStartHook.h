@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/UberPoolItem.h>
+#include <Modloader/app/structs/LateStartHook.h>
 
 namespace app::classes::LateStartHook {
     IL2CPP_REGISTER_METHOD(0x00F21F90, void, AddLateStartMethod, (app::Action * method_1))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SuspendWhenOutOfFrustrumWithCondition.h>
+#include <Modloader/app/structs/Object_1.h>
 
 namespace app::classes::SuspendWhenOutOfFrustrumWithCondition {
     IL2CPP_REGISTER_METHOD(0x006753C0, bool, get_IsBlockedFromSuspending, (app::SuspendWhenOutOfFrustrumWithCondition * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Xml::Serialization::KeyHelper {
     IL2CPP_REGISTER_METHOD(0x01C8E310, void, AddField_1, (app::StringBuilder * sb, int32_t n, app::String* val))

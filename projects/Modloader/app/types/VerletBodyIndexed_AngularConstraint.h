@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/VerletBodyIndexed_AngularConstraint__Class.h>
+#include <Modloader/app/structs/VerletBodyIndexed_AngularConstraint.h>
+#include <Modloader/app/structs/VerletBodyIndexed_AngularConstraint__Boxed.h>
+#include <Modloader/app/structs/VerletBodyIndexed_AngularConstraint__Array.h>
 
 namespace app::classes::types {
     namespace VerletBodyIndexed_AngularConstraint {

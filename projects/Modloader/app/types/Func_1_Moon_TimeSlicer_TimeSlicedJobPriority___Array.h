@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Func_1_Moon_TimeSlicer_TimeSlicedJobPriority___Array__Class.h>
+#include <Modloader/app/structs/Func_1_Moon_TimeSlicer_TimeSlicedJobPriority___Array.h>
 
 namespace app::classes::types {
     namespace Func_1_Moon_TimeSlicer_TimeSlicedJobPriority___Array {

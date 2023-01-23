@@ -1,5 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GhostPlayer.h>
+#include <Modloader/app/structs/GhostRecordingMetaDataData.h>
+#include <Modloader/app/structs/OriGhostRigVisuals_GhostVisualSettings.h>
+#include <Modloader/app/structs/IGhostRecorderPlugin.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/CharacterStatePuppet.h>
+#include <Modloader/app/structs/RecordableObjectPuppet.h>
+#include <Modloader/app/structs/IGhostFrameData.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
+#include <Modloader/app/structs/GhostCharacterData.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/CharacterAnimationSystem.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/CharacterState.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/GhostGenericEventsPlugin.h>
+#include <Modloader/app/structs/GhostCharacterPlugin.h>
 
 namespace app::classes::GhostPlayer {
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::String*, get_GhostReplay, (app::GhostPlayer * this_ptr))

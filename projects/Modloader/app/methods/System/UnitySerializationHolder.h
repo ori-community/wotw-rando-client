@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/Missing.h>
+#include <Modloader/app/structs/RuntimeType.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/UnitySerializationHolder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RuntimeAssembly.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::UnitySerializationHolder {
     IL2CPP_REGISTER_METHOD(0x027C5C80, void, GetUnitySerializationInfo_1, (app::SerializationInfo * info, app::Missing* missing))

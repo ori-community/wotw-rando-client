@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BabyWormSand.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::BabyWormSand {
     IL2CPP_REGISTER_METHOD(0x00F7FED0, void, Awake, (app::BabyWormSand * this_ptr))

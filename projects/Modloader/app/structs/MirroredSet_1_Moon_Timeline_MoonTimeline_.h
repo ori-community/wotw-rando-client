@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MirroredSet_1_Moon_Timeline_MoonTimeline__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MirroredSet_1_Moon_Timeline_MoonTimeline__INITIALIZING
+#if !defined(IL2CPP_STRUCT_MirroredSet_1_Moon_Timeline_MoonTimeline__DEFINED)
+#include <Modloader/app/structs/MirroredSet_1_Moon_Timeline_MoonTimeline___Fields.h>
+#if defined(IL2CPP_STRUCT_MirroredSet_1_Moon_Timeline_MoonTimeline___Fields_DEFINED)
+#define IL2CPP_STRUCT_MirroredSet_1_Moon_Timeline_MoonTimeline__DEFINED
+struct MirroredSet_1_Moon_Timeline_MoonTimeline___Class;
+struct MirroredSet_1_Moon_Timeline_MoonTimeline_ {
+    struct MirroredSet_1_Moon_Timeline_MoonTimeline___Class* klass;
+    MonitorData* monitor;
+    struct MirroredSet_1_Moon_Timeline_MoonTimeline___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MirroredSet_1_Moon_Timeline_MoonTimeline__FWDDECL)
+#define IL2CPP_STRUCT_MirroredSet_1_Moon_Timeline_MoonTimeline__FWDDECL
+#include <Modloader/app/structs/MirroredSet_1_Moon_Timeline_MoonTimeline___Class.h>
+#endif
+#undef IL2CPP_STRUCT_MirroredSet_1_Moon_Timeline_MoonTimeline__INITIALIZING
+#if !defined(IL2CPP_STRUCT_MirroredSet_1_Moon_Timeline_MoonTimeline__DEFINED) && !defined(IL2CPP_STRUCT_MirroredSet_1_Moon_Timeline_MoonTimeline__FWDDECL)
+#include <Modloader/app/structs/MirroredSet_1_Moon_Timeline_MoonTimeline_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MirroredSet_1_Moon_Timeline_MoonTimeline_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

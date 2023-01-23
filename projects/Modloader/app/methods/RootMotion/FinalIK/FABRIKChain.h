@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FABRIKChain.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FABRIKChain__Array.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::FABRIKChain {
     IL2CPP_REGISTER_METHOD(0x02053C10, bool, IsValid, (app::FABRIKChain * this_ptr, app::String** message))

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_OneWayCapsuleCollider_ColliderEntry_.h>
+#include <Modloader/app/structs/OneWayCapsuleCollider_ColliderEntry.h>
+#include <Modloader/app/structs/IEnumerable_1_OneWayCapsuleCollider_ColliderEntry_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_OneWayCapsuleCollider_ColliderEntry_.h>
+#include <Modloader/app/structs/IComparer_1_OneWayCapsuleCollider_ColliderEntry_.h>
+#include <Modloader/app/structs/OneWayCapsuleCollider_ColliderEntry__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_OneWayCapsuleCollider_ColliderEntry_.h>
+#include <Modloader/app/structs/Action_1_OneWayCapsuleCollider_ColliderEntry_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_OneWayCapsuleCollider_ColliderEntry_.h>
+#include <Modloader/app/structs/IEnumerator_1_OneWayCapsuleCollider_ColliderEntry_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_OneWayCapsuleCollider_ColliderEntry_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_OneWayCapsuleCollider_ColliderEntry_ {
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add, (app::List_1_OneWayCapsuleCollider_ColliderEntry_ * this_ptr, app::OneWayCapsuleCollider_ColliderEntry item))

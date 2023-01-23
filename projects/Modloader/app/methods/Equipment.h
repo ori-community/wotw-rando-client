@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Equipment_Category__Enum.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::Equipment {
     IL2CPP_REGISTER_METHOD(0x00CAAF90, app::Equipment_Category__Enum, EquipmentTypeToCategory, (app::EquipmentType__Enum type))

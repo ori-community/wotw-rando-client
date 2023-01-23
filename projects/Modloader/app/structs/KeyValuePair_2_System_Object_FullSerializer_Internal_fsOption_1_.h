@@ -1,0 +1,30 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1__DEFINED)
+#include <Modloader/app/structs/fsOption_1_fsVersionedType_.h>
+#if defined(IL2CPP_STRUCT_fsOption_1_fsVersionedType__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1__DEFINED
+struct Object;
+struct KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1_ {
+    struct Object* key;
+    struct fsOption_1_fsVersionedType_ value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1__FWDDECL
+#include <Modloader/app/structs/Object.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

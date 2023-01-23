@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ComputeBuffer.h>
+#include <Modloader/app/structs/ComputeBufferType__Enum.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/List_1_MeshTrail_MeshTrailEmitter_.h>
 
 namespace app::classes::UnityEngine::ComputeBuffer {
     IL2CPP_REGISTER_METHOD(0x024296E0, void, ctor_1, (app::ComputeBuffer * this_ptr, int32_t count, int32_t stride))

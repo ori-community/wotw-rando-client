@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RopeReeler.h>
 
 namespace app::classes::RopeReeler {
     IL2CPP_REGISTER_METHOD(0x006A45A0, float, get_LastLinkPercentage, (app::RopeReeler * this_ptr))

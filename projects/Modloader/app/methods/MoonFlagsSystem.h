@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonFlagsSystem.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Renderer__Array.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/MoonFlagsSystem_ObjectState.h>
+#include <Modloader/app/structs/List_1_System_Int32_.h>
 
 namespace app::classes::MoonFlagsSystem {
     IL2CPP_REGISTER_METHOD(0x03121190, app::MoonFlagsSystem*, get_Instance, ())

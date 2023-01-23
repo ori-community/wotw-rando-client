@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_VectorParamenterTracker__Class.h>
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_VectorParamenterTracker.h>
+#include <Modloader/app/structs/GhostAnimationParameterPlugin_VectorParamenterTracker__Array.h>
 
 namespace app::classes::types {
     namespace GhostAnimationParameterPlugin_VectorParamenterTracker {

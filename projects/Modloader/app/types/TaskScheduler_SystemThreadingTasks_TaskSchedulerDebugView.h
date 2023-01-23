@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TaskScheduler_SystemThreadingTasks_TaskSchedulerDebugView__Class.h>
+#include <Modloader/app/structs/TaskScheduler_SystemThreadingTasks_TaskSchedulerDebugView.h>
 
 namespace app::classes::types {
     namespace TaskScheduler_SystemThreadingTasks_TaskSchedulerDebugView {

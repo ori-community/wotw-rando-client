@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossSimpleLookAt.h>
 
 namespace app::classes::KwolokBossSimpleLookAt {
     IL2CPP_REGISTER_METHOD(0x012E9B00, void, Start, (app::KwolokBossSimpleLookAt * this_ptr))

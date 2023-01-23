@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BulletHole_DestroyDelayed_d_2__Class.h>
+#include <Modloader/app/structs/BulletHole_DestroyDelayed_d_2.h>
 
 namespace app::classes::types {
     namespace BulletHole_DestroyDelayed_d_2 {

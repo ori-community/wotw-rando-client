@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ListProvider_1_T_GetEnumerator_d_20_System_Object_.h>
 
 namespace app::classes::System::Dynamic::Utils::ListProvider_1_T___GetEnumerator_d__20_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, System_Collections_Generic_IEnumerator_T__get_Current, (app::ListProvider_1_T_GetEnumerator_d_20_System_Object_ * this_ptr))

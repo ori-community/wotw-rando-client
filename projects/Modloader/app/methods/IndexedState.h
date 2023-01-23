@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IndexedState__Boxed.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::IndexedState {
     IL2CPP_REGISTER_METHOD(0x0010E170, int32_t, get_Index, (app::IndexedState__Boxed * this_ptr))

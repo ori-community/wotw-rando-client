@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberUIPostProcess.h>
 
 namespace app::classes::UberUIPostProcess {
     IL2CPP_REGISTER_METHOD(0x01292530, void, set_Instance, (app::UberUIPostProcess * value))

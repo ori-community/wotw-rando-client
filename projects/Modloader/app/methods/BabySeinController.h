@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BabySeinController.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::BabySeinController {
     IL2CPP_REGISTER_METHOD(0x008616A0, bool, get_LockedInput, (app::BabySeinController * this_ptr))

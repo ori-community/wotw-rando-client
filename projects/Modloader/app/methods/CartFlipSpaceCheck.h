@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CartFlipSpaceCheck.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::CartFlipSpaceCheck {
     IL2CPP_REGISTER_METHOD(0x00B38BC0, void, OnDisable, (app::CartFlipSpaceCheck * this_ptr))

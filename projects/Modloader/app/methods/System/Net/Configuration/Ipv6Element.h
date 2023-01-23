@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Ipv6Element.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
 
 namespace app::classes::System::Net::Configuration::Ipv6Element {
     IL2CPP_REGISTER_METHOD(0x02019B90, void, ctor, (app::Ipv6Element * this_ptr))

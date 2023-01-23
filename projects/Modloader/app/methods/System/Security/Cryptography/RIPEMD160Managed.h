@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RIPEMD160Managed.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::RIPEMD160Managed {
     IL2CPP_REGISTER_METHOD(0x028E0A70, void, ctor, (app::RIPEMD160Managed * this_ptr))

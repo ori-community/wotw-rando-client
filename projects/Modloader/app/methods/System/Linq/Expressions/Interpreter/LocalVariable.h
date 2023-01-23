@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocalVariable.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LocalVariable {
     IL2CPP_REGISTER_METHOD(0x023FA920, bool, get_IsBoxed, (app::LocalVariable * this_ptr))

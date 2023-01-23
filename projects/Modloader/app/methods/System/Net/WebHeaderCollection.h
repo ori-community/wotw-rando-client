@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WebHeaderCollection.h>
+#include <Modloader/app/structs/NameValueCollection.h>
+#include <Modloader/app/structs/HttpRequestHeader__Enum.h>
+#include <Modloader/app/structs/HttpResponseHeader__Enum.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/WebHeaderCollectionType__Enum.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DataParseStatus__Enum.h>
+#include <Modloader/app/structs/WebParseError.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/NameObjectCollectionBase_KeysCollection.h>
 
 namespace app::classes::System::Net::WebHeaderCollection {
     IL2CPP_REGISTER_METHOD(0x01D70310, app::String*, get_ContentLength, (app::WebHeaderCollection * this_ptr))

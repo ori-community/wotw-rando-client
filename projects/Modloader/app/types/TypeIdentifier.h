@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TypeIdentifier__Class.h>
+#include <Modloader/app/structs/TypeIdentifier__Array.h>
+#include <Modloader/app/structs/TypeIdentifier.h>
 
 namespace app::classes::types {
     namespace TypeIdentifier {

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AllContainer_1_ICarryable_.h>
+#include <Modloader/app/structs/ICarryable.h>
 
 namespace app::classes::AllContainer_1_ICarryable_ {
     IL2CPP_REGISTER_METHOD(0x019D7830, void, Add, (app::AllContainer_1_ICarryable_ * this_ptr, app::ICarryable* item))

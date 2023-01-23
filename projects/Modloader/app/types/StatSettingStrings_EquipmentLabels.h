@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/StatSettingStrings_EquipmentLabels__Class.h>
+#include <Modloader/app/structs/StatSettingStrings_EquipmentLabels.h>
+#include <Modloader/app/structs/StatSettingStrings_EquipmentLabels__Boxed.h>
+#include <Modloader/app/structs/StatSettingStrings_EquipmentLabels__Array.h>
 
 namespace app::classes::types {
     namespace StatSettingStrings_EquipmentLabels {

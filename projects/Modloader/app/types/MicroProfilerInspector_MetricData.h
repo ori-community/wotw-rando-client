@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MicroProfilerInspector_MetricData__Class.h>
+#include <Modloader/app/structs/MicroProfilerInspector_MetricData.h>
+#include <Modloader/app/structs/MicroProfilerInspector_MetricData__Boxed.h>
+#include <Modloader/app/structs/MicroProfilerInspector_MetricData__Array.h>
 
 namespace app::classes::types {
     namespace MicroProfilerInspector_MetricData {

@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MonoMethod.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/MethodImplAttributes__Enum.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/Binder.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/RuntimeMethodHandle.h>
+#include <Modloader/app/structs/MethodAttributes__Enum.h>
+#include <Modloader/app/structs/CallingConventions__Enum.h>
+#include <Modloader/app/structs/PInvokeAttributes__Enum.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/MethodBody.h>
+#include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeData_.h>
 
 namespace app::classes::System::Reflection::MonoMethod {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MonoMethod * this_ptr))

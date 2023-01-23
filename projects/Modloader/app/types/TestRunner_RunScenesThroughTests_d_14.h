@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TestRunner_RunScenesThroughTests_d_14__Class.h>
+#include <Modloader/app/structs/TestRunner_RunScenesThroughTests_d_14.h>
 
 namespace app::classes::types {
     namespace TestRunner_RunScenesThroughTests_d_14 {

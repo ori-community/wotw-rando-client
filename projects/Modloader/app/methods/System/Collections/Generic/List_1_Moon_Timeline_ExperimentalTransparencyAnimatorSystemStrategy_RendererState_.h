@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_RendererState_.h>
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_RendererState.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_RendererState_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_RendererState_ * this_ptr))

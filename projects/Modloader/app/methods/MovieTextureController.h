@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MovieTextureController.h>
 
 namespace app::classes::MovieTextureController {
     IL2CPP_REGISTER_METHOD(0x00869A60, void, StartMovieSequence, (app::MovieTextureController * this_ptr))

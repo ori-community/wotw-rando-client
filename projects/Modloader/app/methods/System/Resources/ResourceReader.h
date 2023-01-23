@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ResourceReader.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Resources_ResourceLocator_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
+#include <Modloader/app/structs/ResourceReader_ResourceEnumerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ResourceTypeCode__Enum.h>
+#include <Modloader/app/structs/RuntimeType.h>
 
 namespace app::classes::System::Resources::ResourceReader {
     IL2CPP_REGISTER_METHOD(0x01A887D0, void, ctor, (app::ResourceReader * this_ptr, app::Stream* stream, app::Dictionary_2_System_String_System_Resources_ResourceLocator_* res_cache))

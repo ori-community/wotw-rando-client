@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListChangedEventArgs.h>
+#include <Modloader/app/structs/ListChangedType__Enum.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
 
 namespace app::classes::System::ComponentModel::ListChangedEventArgs {
     IL2CPP_REGISTER_METHOD(0x01FF49E0, void, ctor_1, (app::ListChangedEventArgs * this_ptr, app::ListChangedType__Enum list_changed_type, int32_t new_index))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeakedSceneObjectDetector_c.h>
+#include <Modloader/app/structs/LeakedSceneObjectDetector_ObjectData.h>
 
 namespace app::classes::LeakedSceneObjectDetector___c {
     IL2CPP_REGISTER_METHOD(0x015C5130, void, cctor, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer_c.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer_ScalingInterval.h>
 
 namespace app::classes::Moon::ScalableAnimationPlayer___c {
     IL2CPP_REGISTER_METHOD(0x01BAEFA0, void, cctor, ())

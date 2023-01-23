@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Mesh_1.h>
+#include <Modloader/app/structs/IPolygon.h>
 
 namespace app::classes::TriangleNet::IO::DebugWriter {
     IL2CPP_REGISTER_METHOD(0x0261E810, void, cctor, ())

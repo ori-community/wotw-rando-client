@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BackupSaveCleverMenuItem.h>
+#include <Modloader/app/structs/SaveSlotInfo.h>
 
 namespace app::classes::BackupSaveCleverMenuItem {
     IL2CPP_REGISTER_METHOD(0x00F814B0, void, OnDisable, (app::BackupSaveCleverMenuItem * this_ptr))

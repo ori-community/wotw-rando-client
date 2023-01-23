@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AkUtilities_ShortIDGenerator.h>
 
 namespace app::classes::AkUtilities_ShortIDGenerator {
     IL2CPP_REGISTER_METHOD(0x027009B0, void, cctor, ())

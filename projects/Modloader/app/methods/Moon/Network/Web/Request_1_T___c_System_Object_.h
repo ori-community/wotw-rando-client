@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Request_1_T_c_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::Network::Web::Request_1_T____c_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x019DE4F0, void, cctor, ())

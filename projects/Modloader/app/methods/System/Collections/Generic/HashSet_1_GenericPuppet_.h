@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_GenericPuppet_.h>
+#include <Modloader/app/structs/HashSet_1_GenericPuppet_.h>
+#include <Modloader/app/structs/GenericPuppet.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_GenericPuppet_ {
     IL2CPP_REGISTER_METHOD(0x02ABCD80, app::HashSet_1_T_Enumerator_GenericPuppet_, GetEnumerator, (app::HashSet_1_GenericPuppet_ * this_ptr))

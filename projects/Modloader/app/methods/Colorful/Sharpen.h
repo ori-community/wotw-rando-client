@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Sharpen.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/PostProcessRenderContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::Sharpen {
     IL2CPP_REGISTER_METHOD(0x03052960, bool, IRenderPostprocessor_get_enabled, (app::Sharpen * this_ptr))

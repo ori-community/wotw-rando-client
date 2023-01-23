@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ClaimsIdentity.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Security_Claims_ClaimsIdentity_.h>
+#include <Modloader/app/structs/Func_1_System_Security_Claims_ClaimsPrincipal_.h>
+#include <Modloader/app/structs/ClaimsPrincipal.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Claims::ClaimsPrincipal {
     IL2CPP_REGISTER_METHOD(0x020C58A0, app::ClaimsIdentity*, SelectPrimaryIdentity, (app::IEnumerable_1_System_Security_Claims_ClaimsIdentity_ * identities))

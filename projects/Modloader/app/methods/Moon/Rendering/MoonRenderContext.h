@@ -1,5 +1,43 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonRenderContext.h>
+#include <Modloader/app/structs/RenderTargetIdentifier.h>
+#include <Modloader/app/structs/Nullable_1_Moon_Rendering_Viewport_.h>
+#include <Modloader/app/structs/ClearSettings.h>
+#include <Modloader/app/structs/RenderTarget.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Rendering_RenderTargetIdentifier_.h>
+#include <Modloader/app/structs/RenderTargetIdentifier__Array.h>
+#include <Modloader/app/structs/ClearFlags__Enum.h>
+#include <Modloader/app/structs/ClearFlagMode__Enum.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Rect_.h>
+#include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Vector4__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/ComputeBuffer.h>
+#include <Modloader/app/structs/ComputeShader.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/CommandBuffer.h>
+#include <Modloader/app/structs/ScriptableRenderContext.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
+#include <Modloader/app/structs/CustomSampler.h>
+#include <Modloader/app/structs/MoonRenderContext_Sample.h>
+#include <Modloader/app/structs/SrpSampler.h>
+#include <Modloader/app/structs/SrpSampler_Scope__Enum.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/ScriptableCullingParameters.h>
+#include <Modloader/app/structs/CullResults.h>
+#include <Modloader/app/structs/FilterResults.h>
+#include <Modloader/app/structs/DrawRendererSettings.h>
+#include <Modloader/app/structs/FilterRenderersSettings.h>
+#include <Modloader/app/structs/RenderStateBlock.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderContext {
     IL2CPP_REGISTER_METHOD(0x0078DB50, void, SetRenderTargetArray, (app::MoonRenderContext * this_ptr, app::RenderTargetIdentifier color, int32_t slice, app::Nullable_1_Moon_Rendering_Viewport_ viewport, app::ClearSettings clear))

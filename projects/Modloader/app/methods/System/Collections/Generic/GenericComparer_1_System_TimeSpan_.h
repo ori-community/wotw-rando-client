@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericComparer_1_System_TimeSpan_.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::GenericComparer_1_System_TimeSpan_ {
     IL2CPP_REGISTER_METHOD(0x02B60440, int32_t, Compare, (app::GenericComparer_1_System_TimeSpan_ * this_ptr, app::TimeSpan x, app::TimeSpan y))

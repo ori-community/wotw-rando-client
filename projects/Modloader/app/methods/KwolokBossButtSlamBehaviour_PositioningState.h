@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossButtSlamBehaviour_PositioningState.h>
+#include <Modloader/app/structs/KwolokBossButtSlamBehaviour.h>
 
 namespace app::classes::KwolokBossButtSlamBehaviour_PositioningState {
     IL2CPP_REGISTER_METHOD(0x0124A2D0, void, ctor, (app::KwolokBossButtSlamBehaviour_PositioningState * this_ptr, app::KwolokBossButtSlamBehaviour* behaviour))

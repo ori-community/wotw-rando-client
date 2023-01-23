@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Compositor_FrameTiming__Class.h>
+#include <Modloader/app/structs/Compositor_FrameTiming.h>
+#include <Modloader/app/structs/Compositor_FrameTiming__Boxed.h>
 
 namespace app::classes::types {
     namespace Compositor_FrameTiming {

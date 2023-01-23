@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RendererCullingParameters_SliceList__Class.h>
+#include <Modloader/app/structs/RendererCullingParameters_SliceList.h>
+#include <Modloader/app/structs/RendererCullingParameters_SliceList__Boxed.h>
 
 namespace app::classes::types {
     namespace RendererCullingParameters_SliceList {

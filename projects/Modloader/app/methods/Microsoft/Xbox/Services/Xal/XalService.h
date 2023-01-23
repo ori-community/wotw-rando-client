@@ -1,5 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XalService.h>
+#include <Modloader/app/structs/InitArgs.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PlatformStorageWriteEventHandler.h>
+#include <Modloader/app/structs/PlatformStorageReadEventHandler.h>
+#include <Modloader/app/structs/PlatformStorageClearEventHandler.h>
+#include <Modloader/app/structs/WebShowUrlEventHandler.h>
+#include <Modloader/app/structs/XalPlatformOperationResult__Enum.h>
+#include <Modloader/app/structs/PlatformRemoteConnectShowPromptEventHandler.h>
+#include <Modloader/app/structs/PlatformRemoteConnectClosePromptEventHandler.h>
+#include <Modloader/app/structs/Task_1_Microsoft_Xbox_Services_Xal_XalUser_.h>
+#include <Modloader/app/structs/XalService_AsyncCompletionRoutine.h>
+#include <Modloader/app/structs/XalTraceLevel__Enum.h>
+#include <Modloader/app/structs/void.h>
+#include <Modloader/app/structs/XalService_CommonArgs.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/XalService_DeviceInfoArgs.h>
+#include <Modloader/app/structs/XalService_TelemetryInfoArgs.h>
+#include <Modloader/app/structs/XalService_AsyncQueueCallbackType__Enum.h>
+#include <Modloader/app/structs/XalService_XalPlatformWebShowUrlEventHandler.h>
+#include <Modloader/app/structs/XalService_XalPlatformStorageEventHandlers.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/XalService_XalPlatformRemoteConnectEventHandlers.h>
+#include <Modloader/app/structs/XalService_XalLogCallback.h>
 
 namespace app::classes::Microsoft::Xbox::Services::Xal::XalService {
     IL2CPP_REGISTER_METHOD(0x014359F0, app::XalService*, get_Instance, ())

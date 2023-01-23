@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_NegativeScaleFixer_TransformAndWorldMatrix_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_NegativeScaleFixer_TransformAndWorldMatrix_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NegativeScaleFixer_TransformAndWorldMatrix_DEFINED)
+#include <Modloader/app/structs/NegativeScaleFixer_TransformAndWorldMatrix__Fields.h>
+#if defined(IL2CPP_STRUCT_NegativeScaleFixer_TransformAndWorldMatrix__Fields_DEFINED)
+#define IL2CPP_STRUCT_NegativeScaleFixer_TransformAndWorldMatrix_DEFINED
+struct NegativeScaleFixer_TransformAndWorldMatrix__Class;
+struct NegativeScaleFixer_TransformAndWorldMatrix {
+    struct NegativeScaleFixer_TransformAndWorldMatrix__Class* klass;
+    MonitorData* monitor;
+    struct NegativeScaleFixer_TransformAndWorldMatrix__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_NegativeScaleFixer_TransformAndWorldMatrix_FWDDECL)
+#define IL2CPP_STRUCT_NegativeScaleFixer_TransformAndWorldMatrix_FWDDECL
+#include <Modloader/app/structs/NegativeScaleFixer_TransformAndWorldMatrix__Class.h>
+#endif
+#undef IL2CPP_STRUCT_NegativeScaleFixer_TransformAndWorldMatrix_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NegativeScaleFixer_TransformAndWorldMatrix_DEFINED) && !defined(IL2CPP_STRUCT_NegativeScaleFixer_TransformAndWorldMatrix_FWDDECL)
+#include <Modloader/app/structs/NegativeScaleFixer_TransformAndWorldMatrix.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/NegativeScaleFixer_TransformAndWorldMatrix.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

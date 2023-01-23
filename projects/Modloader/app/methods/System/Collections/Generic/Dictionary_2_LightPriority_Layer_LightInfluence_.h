@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_LightPriority_Layer_LightInfluence_.h>
+#include <Modloader/app/structs/LightPriority_Layer__Enum.h>
+#include <Modloader/app/structs/LightInfluence.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_LightPriority_Layer_LightInfluence_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_LightPriority_Layer_LightInfluence_ * this_ptr))

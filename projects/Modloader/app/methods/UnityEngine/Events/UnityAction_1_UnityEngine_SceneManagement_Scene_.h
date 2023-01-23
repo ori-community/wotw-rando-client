@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnityAction_1_UnityEngine_SceneManagement_Scene_.h>
+#include <Modloader/app/structs/Scene.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::UnityEngine::Events::UnityAction_1_UnityEngine_SceneManagement_Scene_ {
     IL2CPP_REGISTER_METHOD(0x02AC77B0, void, Invoke, (app::UnityAction_1_UnityEngine_SceneManagement_Scene_ * this_ptr, app::Scene arg0))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BackupSaveCleverMenuItemSelectionManager.h>
 
 namespace app::classes::BackupSaveCleverMenuItemSelectionManager {
     IL2CPP_REGISTER_METHOD(0x00F81DA0, void, Awake, (app::BackupSaveCleverMenuItemSelectionManager * this_ptr))

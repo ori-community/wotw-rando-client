@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericDamageTrigger_DamageTriggerSetupHolder.h>
+#include <Modloader/app/structs/GenericDamageTrigger_DamageTriggerSetupData.h>
+#include <Modloader/app/structs/List_1_IIndexedItem_.h>
 
 namespace app::classes::GenericDamageTrigger_DamageTriggerSetupHolder {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_UseMapping, (app::GenericDamageTrigger_DamageTriggerSetupHolder * this_ptr))

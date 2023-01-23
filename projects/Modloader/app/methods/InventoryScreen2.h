@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InventoryScreenItem.h>
+#include <Modloader/app/structs/InventoryScreen2.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
 
 namespace app::classes::InventoryScreen2 {
     IL2CPP_REGISTER_METHOD(0x00640F90, void, ResetStatics, ())

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MotionBlurSlider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::MotionBlurSlider {
     IL2CPP_REGISTER_METHOD(0x00867500, void, Awake, (app::MotionBlurSlider * this_ptr))

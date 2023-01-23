@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokBossBehaviourZones.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/List_1_KwolokBossBehaviourZones_ZoneAndState_.h>
+#include <Modloader/app/structs/Dictionary_2_CageStructureTool_KwolokBossBehaviourZones_ZoneAndState_.h>
+#include <Modloader/app/structs/CageStructureTool.h>
 
 namespace app::classes::KwolokBossBehaviourZones {
     IL2CPP_REGISTER_METHOD(0x01247530, void, OnEnable, (app::KwolokBossBehaviourZones * this_ptr))

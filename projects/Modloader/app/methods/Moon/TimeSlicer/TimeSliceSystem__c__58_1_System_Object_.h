@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeSliceSystem_c_58_1_System_Object_.h>
+#include <Modloader/app/structs/ITimeSlicedJob.h>
 
 namespace app::classes::Moon::TimeSlicer::TimeSliceSystem___c__58_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x019DE4F0, void, cctor, ())

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GroundAreaPatrolBehaviourNew_GroundAreaPatrolModeType__Enum__Class.h>
+#include <Modloader/app/structs/GroundAreaPatrolBehaviourNew_GroundAreaPatrolModeType__Enum.h>
 
 namespace app::classes::types {
     namespace GroundAreaPatrolBehaviourNew_GroundAreaPatrolModeType__Enum {

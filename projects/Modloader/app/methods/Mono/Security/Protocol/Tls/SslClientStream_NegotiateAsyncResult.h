@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SslClientStream_NegotiateAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SslClientStream_NegotiateState__Enum.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::SslClientStream_NegotiateAsyncResult {
     IL2CPP_REGISTER_METHOD(0x01F81210, void, ctor, (app::SslClientStream_NegotiateAsyncResult * this_ptr, app::AsyncCallback* user_callback, app::Object* user_state, app::SslClientStream_NegotiateState__Enum state))

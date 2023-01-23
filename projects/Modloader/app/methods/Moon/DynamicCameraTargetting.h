@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicCameraTargetting.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/ICameraTarget.h>
+#include <Modloader/app/structs/CameraTargetData.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/CameraTargetSettings.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Rect_.h>
+#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/GlobalBrightnessController_BrigthnessContributionOrder__Enum.h>
 
 namespace app::classes::Moon::DynamicCameraTargetting {
     IL2CPP_REGISTER_METHOD(0x01202300, bool, get_Bypass, (app::DynamicCameraTargetting * this_ptr))

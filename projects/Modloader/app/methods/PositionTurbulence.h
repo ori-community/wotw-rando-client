@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PositionTurbulence.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::PositionTurbulence {
     IL2CPP_REGISTER_METHOD(0x00B1B670, bool, get_CanUpdateInEditor, (app::PositionTurbulence * this_ptr))

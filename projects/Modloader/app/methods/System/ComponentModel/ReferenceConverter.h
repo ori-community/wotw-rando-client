@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReferenceConverter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ITypeDescriptorContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/TypeConverter_StandardValuesCollection.h>
 
 namespace app::classes::System::ComponentModel::ReferenceConverter {
     IL2CPP_REGISTER_METHOD(0x02999290, void, ctor, (app::ReferenceConverter * this_ptr, app::Type* type))

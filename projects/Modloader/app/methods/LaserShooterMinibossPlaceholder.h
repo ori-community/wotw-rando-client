@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/LaserShooterMinibossPlaceholder.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LaserShooterMinibossPlaceholder {
     IL2CPP_REGISTER_METHOD(0x006253D0, app::GameObject*, get_Prefab, (app::LaserShooterMinibossPlaceholder * this_ptr))

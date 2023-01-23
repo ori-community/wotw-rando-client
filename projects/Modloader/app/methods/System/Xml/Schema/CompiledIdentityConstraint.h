@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompiledIdentityConstraint_ConstraintRole__Enum.h>
+#include <Modloader/app/structs/CompiledIdentityConstraint.h>
+#include <Modloader/app/structs/Asttree.h>
+#include <Modloader/app/structs/Asttree__Array.h>
+#include <Modloader/app/structs/XmlSchemaIdentityConstraint.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
 
 namespace app::classes::System::Xml::Schema::CompiledIdentityConstraint {
     IL2CPP_REGISTER_METHOD(0x00529FF0, app::CompiledIdentityConstraint_ConstraintRole__Enum, get_Role, (app::CompiledIdentityConstraint * this_ptr))

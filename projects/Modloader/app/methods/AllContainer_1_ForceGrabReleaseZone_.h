@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AllContainer_1_ForceGrabReleaseZone_.h>
+#include <Modloader/app/structs/ForceGrabReleaseZone.h>
 
 namespace app::classes::AllContainer_1_ForceGrabReleaseZone_ {
     IL2CPP_REGISTER_METHOD(0x019D79D0, void, Clear, (app::AllContainer_1_ForceGrabReleaseZone_ * this_ptr))

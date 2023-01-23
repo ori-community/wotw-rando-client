@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaterReflectionRenderer.h>
 
 namespace app::classes::WaterReflectionRenderer {
     IL2CPP_REGISTER_METHOD(0x008DFF60, void, Start, (app::WaterReflectionRenderer * this_ptr))

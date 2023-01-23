@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Int64__Class.h>
+#include <Modloader/app/structs/Int64.h>
+#include <Modloader/app/structs/Int64__Boxed.h>
+#include <Modloader/app/structs/Int64__Array.h>
 
 namespace app::classes::types {
     namespace Int64 {

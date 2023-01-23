@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JumperEnemyStunnedState.h>
+#include <Modloader/app/structs/JumperEnemy.h>
 
 namespace app::classes::JumperEnemyStunnedState {
     IL2CPP_REGISTER_METHOD(0x004C1E90, void, ctor, (app::JumperEnemyStunnedState * this_ptr, app::JumperEnemy* jumper_enemy))

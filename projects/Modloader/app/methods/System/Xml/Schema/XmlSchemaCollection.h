@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSchemaCollection.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/XmlSchemaCollectionEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SchemaInfo.h>
+#include <Modloader/app/structs/SchemaNames.h>
+#include <Modloader/app/structs/XmlSchemaCollectionNode.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaCollection {
     IL2CPP_REGISTER_METHOD(0x01CA1F70, void, ctor, (app::XmlSchemaCollection * this_ptr, app::XmlNameTable* nametable))

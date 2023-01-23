@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinWallJumpPuppet.h>
+#include <Modloader/app/structs/SeinWallJumpPuppet_Event__Enum.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/MoonAnimation__Array.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::SeinWallJumpPuppet {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnLeftJump, (app::SeinWallJumpPuppet * this_ptr))

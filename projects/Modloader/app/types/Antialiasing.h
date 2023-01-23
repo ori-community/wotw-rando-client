@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Antialiasing__Class.h>
+#include <Modloader/app/structs/Antialiasing.h>
+#include <Modloader/app/structs/AntiAliasing__Class.h>
+#include <Modloader/app/structs/AntiAliasing.h>
 
 namespace app::classes::types {
     namespace Antialiasing {
@@ -21,18 +25,4 @@ namespace app::classes::types {
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
-
-namespace app::classes::types {
-    namespace AntiAliasing {
-        namespace {
-            inline app::AntiAliasing__Class* type_info_ref = nullptr;
-        }
-        inline app::AntiAliasing__Class** type_info = &type_info_ref;
-        inline app::AntiAliasing__Class* get_class() {
-            return il2cpp::get_class<app::AntiAliasing__Class>(type_info, "UnityStandardAssets.CinematicEffects", "AntiAliasing");
-        }
-        inline app::AntiAliasing* create() {
-            return il2cpp::create_object<app::AntiAliasing>(get_class());
-        }
-    } // namespace AntiAliasing
-} // namespace app::classes::types
+

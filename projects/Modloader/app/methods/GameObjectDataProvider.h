@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GameObjectDataProvider.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::GameObjectDataProvider {
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::GameObjectDataProvider * this_ptr))

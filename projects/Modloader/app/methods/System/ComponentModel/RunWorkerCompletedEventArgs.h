@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RunWorkerCompletedEventArgs.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::ComponentModel::RunWorkerCompletedEventArgs {
     IL2CPP_REGISTER_METHOD(0x029AC5C0, void, ctor, (app::RunWorkerCompletedEventArgs * this_ptr, app::Object* result, app::Exception* error, bool cancelled))

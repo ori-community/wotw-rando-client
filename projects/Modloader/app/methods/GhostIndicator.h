@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostIndicator.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::GhostIndicator {
     IL2CPP_REGISTER_METHOD(0x002FD750, int32_t, get_Index, (app::GhostIndicator * this_ptr))

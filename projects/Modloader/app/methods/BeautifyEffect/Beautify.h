@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BEAUTIFY_PRESET__Enum.h>
+#include <Modloader/app/structs/Beautify.h>
+#include <Modloader/app/structs/BEAUTIFY_QUALITY__Enum.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::BeautifyEffect::Beautify {
     IL2CPP_REGISTER_METHOD(0x00654950, app::BEAUTIFY_PRESET__Enum, get_preset, (app::Beautify * this_ptr))

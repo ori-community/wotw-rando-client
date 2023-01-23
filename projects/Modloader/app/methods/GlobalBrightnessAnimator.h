@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GlobalBrightnessAnimator.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/GlobalBrightnessController_BrigthnessContributionOrder__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::GlobalBrightnessAnimator {
     IL2CPP_REGISTER_METHOD(0x007F5790, float, get_CurrentWeight, (app::GlobalBrightnessAnimator * this_ptr))

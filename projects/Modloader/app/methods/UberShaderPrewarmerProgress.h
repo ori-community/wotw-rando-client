@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderPrewarmerProgress.h>
 
 namespace app::classes::UberShaderPrewarmerProgress {
     IL2CPP_REGISTER_METHOD(0x01917060, float, GetFloatValue, (app::UberShaderPrewarmerProgress * this_ptr))

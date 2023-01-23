@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_QueueEnumerator.h>
+#include <Modloader/app/structs/Queue.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Queue_QueueEnumerator {
     IL2CPP_REGISTER_METHOD(0x0202C5A0, void, ctor, (app::Queue_QueueEnumerator * this_ptr, app::Queue* q))

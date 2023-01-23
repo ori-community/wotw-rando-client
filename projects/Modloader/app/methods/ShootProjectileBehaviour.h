@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShootProjectileBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
 
 namespace app::classes::ShootProjectileBehaviour {
     IL2CPP_REGISTER_METHOD(0x005B67B0, void, OnInitialize, (app::ShootProjectileBehaviour * this_ptr))

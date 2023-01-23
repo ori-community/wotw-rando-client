@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EventListener.h>
+#include <Modloader/app/structs/EventSource.h>
+#include <Modloader/app/structs/EventWrittenEventArgs.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventArgs.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EventListener {
     IL2CPP_REGISTER_METHOD(0x0174AE50, void, Dispose, (app::EventListener * this_ptr))

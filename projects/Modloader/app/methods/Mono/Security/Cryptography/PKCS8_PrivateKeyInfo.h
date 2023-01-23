@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PKCS8_PrivateKeyInfo.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/RSA.h>
+#include <Modloader/app/structs/DSA.h>
+#include <Modloader/app/structs/DSAParameters.h>
+#include <Modloader/app/structs/PKCS8_PrivateKeyInfo_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
 
 namespace app::classes::Mono::Security::Cryptography::PKCS8_PrivateKeyInfo {
     IL2CPP_REGISTER_METHOD(0x025D3650, void, ctor_1, (app::PKCS8_PrivateKeyInfo * this_ptr))

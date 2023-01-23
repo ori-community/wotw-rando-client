@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SortKey.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CompareOptions__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Globalization::SortKey {
     IL2CPP_REGISTER_METHOD(0x01DEBF40, int32_t, Compare, (app::SortKey * sortkey1, app::SortKey* sortkey2))

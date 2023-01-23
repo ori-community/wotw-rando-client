@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HUDManager.h>
+#include <Modloader/app/structs/Browser.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JSONNode.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::HUDManager {
     IL2CPP_REGISTER_METHOD(0x01DE0590, app::HUDManager*, get_Instance, ())

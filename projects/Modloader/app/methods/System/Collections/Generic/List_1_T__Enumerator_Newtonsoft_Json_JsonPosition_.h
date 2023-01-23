@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonPosition.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Newtonsoft_Json_JsonPosition___Boxed.h>
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_JsonPosition_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Newtonsoft_Json_JsonPosition_ {
     IL2CPP_REGISTER_METHOD(0x00133A80, app::JsonPosition, get_Current, (app::List_1_T_Enumerator_Newtonsoft_Json_JsonPosition___Boxed * this_ptr))

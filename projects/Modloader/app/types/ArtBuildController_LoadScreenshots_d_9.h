@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ArtBuildController_LoadScreenshots_d_9__Class.h>
+#include <Modloader/app/structs/ArtBuildController_LoadScreenshots_d_9.h>
 
 namespace app::classes::types {
     namespace ArtBuildController_LoadScreenshots_d_9 {

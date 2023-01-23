@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
+#include <Modloader/app/structs/ConfigurationElement.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConfigurationSaveMode__Enum.h>
 
 namespace app::classes::System::Configuration::ConfigurationElement {
     IL2CPP_REGISTER_METHOD(0x031BB900, app::ConfigurationPropertyCollection*, get_Properties, (app::ConfigurationElement * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RectExtensions_c.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::Sini::Unity::RectExtensions___c {
     IL2CPP_REGISTER_METHOD(0x03117B60, void, cctor, ())

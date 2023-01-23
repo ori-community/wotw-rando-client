@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
+#include <Modloader/app/structs/KuDash.h>
+#include <Modloader/app/structs/ButtonInputType__Enum.h>
+#include <Modloader/app/structs/KuDash_PreDashDelegateType.h>
+#include <Modloader/app/structs/KuDashPuppet.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/IComboMove__Array.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
 
 namespace app::classes::KuDash {
     IL2CPP_REGISTER_METHOD(0x00417920, app::ComboMoveType__Enum, get_ComboMoveType, (app::KuDash * this_ptr))

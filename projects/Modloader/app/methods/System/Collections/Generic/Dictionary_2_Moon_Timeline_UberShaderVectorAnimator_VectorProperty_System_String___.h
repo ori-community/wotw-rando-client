@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_Timeline_UberShaderVectorAnimator_VectorProperty_System_String_.h>
+#include <Modloader/app/structs/UberShaderVectorAnimator_VectorProperty__Enum.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_Moon_Timeline_UberShaderVectorAnimator_VectorProperty_System_String___ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_Moon_Timeline_UberShaderVectorAnimator_VectorProperty_System_String_ * this_ptr, app::UberShaderVectorAnimator_VectorProperty__Enum key))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StretchGameObject.h>
 
 namespace app::classes::StretchGameObject {
     IL2CPP_REGISTER_METHOD(0x00670970, void, OnPoolSpawned, (app::StretchGameObject * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowTrialsAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ShowTrialsAction {
     IL2CPP_REGISTER_METHOD(0x00739170, void, Perform, (app::ShowTrialsAction * this_ptr, app::IContext* context))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NightCrawlerFightController_DefeatRetreatState.h>
+#include <Modloader/app/structs/NightCrawlerFightController.h>
 
 namespace app::classes::NightCrawlerFightController_DefeatRetreatState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::NightCrawlerFightController_DefeatRetreatState * this_ptr, app::NightCrawlerFightController* controller))

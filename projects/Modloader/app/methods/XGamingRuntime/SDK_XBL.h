@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XblAchievementsResultHandle.h>
+#include <Modloader/app/structs/XblAchievement__Array.h>
+#include <Modloader/app/structs/XblContextHandle.h>
+#include <Modloader/app/structs/XblAchievementType__Enum.h>
+#include <Modloader/app/structs/XblAchievementOrderBy__Enum.h>
+#include <Modloader/app/structs/SDK_XBL_XblAchievementsGetAchievementsForTitleIdResult.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SDK_XBL_XblAchievementsUpdateAchievementForTitleIdResult.h>
+#include <Modloader/app/structs/SDK_XBL_XblCleanupResult.h>
+#include <Modloader/app/structs/XUserHandle.h>
 
 namespace app::classes::XGamingRuntime::SDK_XBL {
     IL2CPP_REGISTER_METHOD(0x030B9230, int32_t, XblAchievementsResultGetAchievements, (app::XblAchievementsResultHandle * result_handle, app::XblAchievement__Array** achievements))

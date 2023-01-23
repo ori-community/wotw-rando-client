@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CriticalFinalizerObject.h>
 
 namespace app::classes::System::Runtime::ConstrainedExecution::CriticalFinalizerObject {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::CriticalFinalizerObject * this_ptr))

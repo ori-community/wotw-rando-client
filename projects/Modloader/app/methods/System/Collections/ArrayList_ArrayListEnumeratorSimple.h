@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArrayList_ArrayListEnumeratorSimple.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::ArrayList_ArrayListEnumeratorSimple {
     IL2CPP_REGISTER_METHOD(0x0201A310, void, ctor, (app::ArrayList_ArrayListEnumeratorSimple * this_ptr, app::ArrayList* list))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/LocomotionAirMoveBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::LocomotionAirMoveBehaviour {
     IL2CPP_REGISTER_METHOD(0x009EB5F0, app::Vector3, get_TargetPosition, (app::LocomotionAirMoveBehaviour * this_ptr))

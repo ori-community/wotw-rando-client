@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombHorizontalBehaviour_PostAttackState.h>
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombHorizontalBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossDiveBombHorizontalBehaviour_PostAttackState {
     IL2CPP_REGISTER_METHOD(0x004A0500, void, ctor, (app::PetrifiedOwlBossDiveBombHorizontalBehaviour_PostAttackState * this_ptr, app::PetrifiedOwlBossDiveBombHorizontalBehaviour* behaviour))

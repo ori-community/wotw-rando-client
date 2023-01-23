@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TestSpiderColliderManager__Class.h>
+#include <Modloader/app/structs/TestSpiderColliderManager.h>
 
 namespace app::classes::types {
     namespace TestSpiderColliderManager {

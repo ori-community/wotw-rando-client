@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Datadog_ThresholdItem__Array.h>
+#include <Modloader/app/structs/IComparer_1_Datadog_ThresholdItem_.h>
+#include <Modloader/app/structs/Datadog_ThresholdItem.h>
+#include <Modloader/app/structs/Comparison_1_Datadog_ThresholdItem_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Datadog_ThresholdItem_ {
     IL2CPP_REGISTER_METHOD(0x02F2F230, void, Sort_1, (app::Datadog_ThresholdItem__Array * keys, int32_t index, int32_t length, app::IComparer_1_Datadog_ThresholdItem_* comparer))

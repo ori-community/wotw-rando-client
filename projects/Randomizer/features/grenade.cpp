@@ -2,6 +2,7 @@
 #include <Modloader/app/methods/SeinGrenadeAttack.h>
 #include <Modloader/app/methods/SpiritGrenade.h>
 #include <Modloader/app/methods/SeinCharacter.h>
+#include <Modloader/app/structs/Int32__Boxed.h>
 #include <constants.h>
 #include <Randomizer/macros.h>
 

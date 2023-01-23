@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IDictionary_2_PlayFab_EventPipelineKey_PlayFab_Pipeline_IEventPipeline_.h>
+#include <Modloader/app/structs/PlayFabEventRouter.h>
+#include <Modloader/app/structs/ILogger_1.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/EventPipelineKey__Enum.h>
+#include <Modloader/app/structs/IEventPipeline.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Threading_Tasks_Task_1_.h>
+#include <Modloader/app/structs/IPlayFabEmitEventRequest.h>
 
 namespace app::classes::PlayFab::PlayFabEventRouter {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::IDictionary_2_PlayFab_EventPipelineKey_PlayFab_Pipeline_IEventPipeline_*, get_Pipelines, (app::PlayFabEventRouter * this_ptr))

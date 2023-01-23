@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProgressChangedEventArgs.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::ProgressChangedEventArgs {
     IL2CPP_REGISTER_METHOD(0x029923D0, void, ctor, (app::ProgressChangedEventArgs * this_ptr, int32_t progress_percentage, app::Object* user_state))

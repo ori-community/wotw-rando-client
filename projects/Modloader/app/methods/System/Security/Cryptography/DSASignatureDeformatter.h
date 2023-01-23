@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DSASignatureDeformatter.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::DSASignatureDeformatter {
     IL2CPP_REGISTER_METHOD(0x020D72C0, void, ctor_1, (app::DSASignatureDeformatter * this_ptr))

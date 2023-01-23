@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Polygon_1.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Polygon {
     IL2CPP_REGISTER_METHOD(0x00C58D80, bool, ContainsPoint, (app::Polygon_1 * this_ptr, app::Vector2 p, app::Matrix4x4 m))

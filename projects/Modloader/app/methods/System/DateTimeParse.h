@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DateTimeFormatInfo.h>
+#include <Modloader/app/structs/DateTimeStyles__Enum.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/DateTimeResult.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/_DTString.h>
+#include <Modloader/app/structs/DateTimeParse_DS__Enum.h>
+#include <Modloader/app/structs/DateTimeToken.h>
+#include <Modloader/app/structs/DateTimeRawInfo.h>
+#include <Modloader/app/structs/DateTimeParse_TM__Enum.h>
+#include <Modloader/app/structs/Calendar.h>
+#include <Modloader/app/structs/ParsingInfo.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::DateTimeParse {
     IL2CPP_REGISTER_METHOD(0x028ACE80, app::DateTime, ParseExact, (app::String * s, app::String* format, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum style))

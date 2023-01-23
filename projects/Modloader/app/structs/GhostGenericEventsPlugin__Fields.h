@@ -1,0 +1,40 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GhostGenericEventsPlugin__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GhostGenericEventsPlugin__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostGenericEventsPlugin__Fields_DEFINED)
+#include <Modloader/app/structs/IGhostRecorderPlugin__Fields.h>
+#if defined(IL2CPP_STRUCT_IGhostRecorderPlugin__Fields_DEFINED)
+#define IL2CPP_STRUCT_GhostGenericEventsPlugin__Fields_DEFINED
+struct Dictionary_2_System_Int32_RecordableObjectPuppet_;
+struct Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1_;
+struct Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__1;
+struct Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__2;
+struct GhostGenericEventsPlugin__Fields {
+    struct IGhostRecorderPlugin__Fields _;
+    struct Dictionary_2_System_Int32_RecordableObjectPuppet_* RecordableObjects;
+    int32_t m_recordableObjectIdCounter;
+    struct Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1_* SettersFloat;
+    struct Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__1* SettersInt;
+    struct Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__2* SettersBool;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GhostGenericEventsPlugin__Fields_FWDDECL)
+#define IL2CPP_STRUCT_GhostGenericEventsPlugin__Fields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__1.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_Dictionary_2_System_Int32_System_Action_1__2.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_RecordableObjectPuppet_.h>
+#endif
+#undef IL2CPP_STRUCT_GhostGenericEventsPlugin__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostGenericEventsPlugin__Fields_DEFINED) && !defined(IL2CPP_STRUCT_GhostGenericEventsPlugin__Fields_FWDDECL)
+#include <Modloader/app/structs/GhostGenericEventsPlugin__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GhostGenericEventsPlugin__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

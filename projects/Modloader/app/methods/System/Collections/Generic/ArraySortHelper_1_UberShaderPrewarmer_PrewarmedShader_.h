@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderPrewarmer_PrewarmedShader__Array.h>
+#include <Modloader/app/structs/IComparer_1_UberShaderPrewarmer_PrewarmedShader_.h>
+#include <Modloader/app/structs/UberShaderPrewarmer_PrewarmedShader.h>
+#include <Modloader/app/structs/Comparison_1_UberShaderPrewarmer_PrewarmedShader_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UberShaderPrewarmer_PrewarmedShader_ {
     IL2CPP_REGISTER_METHOD(0x02F63410, void, Sort_1, (app::UberShaderPrewarmer_PrewarmedShader__Array * keys, int32_t index, int32_t length, app::IComparer_1_UberShaderPrewarmer_PrewarmedShader_* comparer))

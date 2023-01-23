@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ServerAnimatorHelper_SequenceEntryData__Class.h>
+#include <Modloader/app/structs/ServerAnimatorHelper_SequenceEntryData.h>
+#include <Modloader/app/structs/ServerAnimatorHelper_SequenceEntryData__Boxed.h>
+#include <Modloader/app/structs/ServerAnimatorHelper_SequenceEntryData__Array.h>
 
 namespace app::classes::types {
     namespace ServerAnimatorHelper_SequenceEntryData {

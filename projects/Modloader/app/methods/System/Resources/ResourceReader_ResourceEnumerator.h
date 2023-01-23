@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ResourceReader_ResourceEnumerator.h>
+#include <Modloader/app/structs/ResourceReader.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DictionaryEntry.h>
 
 namespace app::classes::System::Resources::ResourceReader_ResourceEnumerator {
     IL2CPP_REGISTER_METHOD(0x01A8D130, void, ctor, (app::ResourceReader_ResourceEnumerator * this_ptr, app::ResourceReader* reader))

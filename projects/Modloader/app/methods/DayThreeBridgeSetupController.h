@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DayThreeBridgeSetupController.h>
 
 namespace app::classes::DayThreeBridgeSetupController {
     IL2CPP_REGISTER_METHOD(0x00DD42F0, void, NaruTrigger, (app::DayThreeBridgeSetupController * this_ptr))

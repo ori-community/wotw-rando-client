@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Color__Array.h>
+#include <Modloader/app/structs/CCMoonTextColorer.h>
+#include <Modloader/app/structs/CCText.h>
 
 namespace app::classes::CCMoonTextColorer {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::Color__Array*, get_Colors, (app::CCMoonTextColorer * this_ptr))

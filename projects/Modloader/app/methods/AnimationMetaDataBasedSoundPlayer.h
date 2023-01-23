@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationMetaDataBasedSoundPlayer.h>
+#include <Modloader/app/structs/AnimationMetaData_AnimationData.h>
 
 namespace app::classes::AnimationMetaDataBasedSoundPlayer {
     IL2CPP_REGISTER_METHOD(0x004FF0C0, void, FixedUpdate, (app::AnimationMetaDataBasedSoundPlayer * this_ptr))

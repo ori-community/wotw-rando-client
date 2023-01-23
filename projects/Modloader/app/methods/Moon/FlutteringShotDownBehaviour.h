@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FlutteringShotDownBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::Moon::FlutteringShotDownBehaviour {
     IL2CPP_REGISTER_METHOD(0x014829B0, void, OnEntityInitialized, (app::FlutteringShotDownBehaviour * this_ptr))

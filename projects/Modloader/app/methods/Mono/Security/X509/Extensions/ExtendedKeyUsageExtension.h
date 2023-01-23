@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExtendedKeyUsageExtension.h>
+#include <Modloader/app/structs/X509Extension_2.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Security::X509::Extensions::ExtendedKeyUsageExtension {
     IL2CPP_REGISTER_METHOD(0x0291D710, void, ctor, (app::ExtendedKeyUsageExtension * this_ptr, app::X509Extension_2* extension))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream.h>
+#include <Modloader/app/structs/AsyncProtocolRequest.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Task_1_Mono_Net_Security_AsyncProtocolResult_.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Task_1_System_Nullable_1_.h>
 
 namespace app::classes::Mono::Net::Security::AsyncProtocolRequest {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::MobileAuthenticatedStream*, get_Parent, (app::AsyncProtocolRequest * this_ptr))

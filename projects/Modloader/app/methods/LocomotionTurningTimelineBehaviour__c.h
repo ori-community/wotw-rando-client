@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocomotionTurningTimelineBehaviour_c.h>
 
 namespace app::classes::LocomotionTurningTimelineBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x00FCA0B0, void, cctor, ())

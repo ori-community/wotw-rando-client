@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/PiranhaLocomotionSwimmingBehaviour.h>
+#include <Modloader/app/structs/PiranhaLocomotionSwimmingBehaviour_SpeedSetting.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/PiranhaLocomotionSwimmingBehaviour_State__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::PiranhaLocomotionSwimmingBehaviour {
     IL2CPP_REGISTER_METHOD(0x01160790, app::Vector3, get_TargetPosition, (app::PiranhaLocomotionSwimmingBehaviour * this_ptr))

@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Fields_DEFINED)
+#define IL2CPP_STRUCT_ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Fields_DEFINED
+struct Type;
+struct Tuple_4_Boolean_Boolean_Boolean_Boolean_;
+struct ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4_;
+struct __declspec(align(8)) ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Fields {
+    struct Type* _key;
+    struct Tuple_4_Boolean_Boolean_Boolean_Boolean_* _value;
+    struct ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4_* _next;
+    int32_t _hashcode;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Fields_FWDDECL)
+#define IL2CPP_STRUCT_ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Fields_FWDDECL
+#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4_.h>
+#include <Modloader/app/structs/Tuple_4_Boolean_Boolean_Boolean_Boolean_.h>
+#include <Modloader/app/structs/Type.h>
+#endif
+#undef IL2CPP_STRUCT_ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Fields_DEFINED) && !defined(IL2CPP_STRUCT_ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Fields_FWDDECL)
+#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_Node_System_Type_System_Tuple_4___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OffsetModifier_OffsetLimits.h>
+#include <Modloader/app/structs/IKEffector.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::RootMotion::FinalIK::OffsetModifier_OffsetLimits {
     IL2CPP_REGISTER_METHOD(0x02A18C50, void, Apply, (app::OffsetModifier_OffsetLimits * this_ptr, app::IKEffector* e, app::Quaternion root_rotation))

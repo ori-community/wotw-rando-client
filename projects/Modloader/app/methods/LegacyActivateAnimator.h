@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyActivateAnimator.h>
 
 namespace app::classes::LegacyActivateAnimator {
     IL2CPP_REGISTER_METHOD(0x015C9FE0, void, OnStartPlay, (app::LegacyActivateAnimator * this_ptr))

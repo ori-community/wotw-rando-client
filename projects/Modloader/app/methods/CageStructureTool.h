@@ -1,5 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CageStructureTool.h>
+#include <Modloader/app/structs/Action_1_CageStructureTool_Vertex_.h>
+#include <Modloader/app/structs/Action_1_CageStructureTool_Edge_.h>
+#include <Modloader/app/structs/Action_3_CageStructureTool_Edge_CageStructureTool_Edge_CageStructureTool_Edge_.h>
+#include <Modloader/app/structs/Action_1_CageStructureTool_Face_.h>
+#include <Modloader/app/structs/List_1_CageStructureTool_Vertex_.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/CageStructureTool_Vertex.h>
+#include <Modloader/app/structs/CageStructureTool_Edge.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/List_1_System_Int32_.h>
+#include <Modloader/app/structs/CageStructureTool_Face.h>
+#include <Modloader/app/structs/ICageMetaData.h>
+#include <Modloader/app/structs/Rect__Array.h>
+#include <Modloader/app/structs/List_1_CageStructureTool_Face_.h>
+#include <Modloader/app/structs/List_1_CageStructureTool_Edge_.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/List_1_List_1_System_Int32_.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/HashSet_1_CageStructureTool_Vertex_.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IList_1_System_Object_.h>
+#include <Modloader/app/structs/IList_1_System_Int32_.h>
 
 namespace app::classes::CageStructureTool {
     IL2CPP_REGISTER_METHOD(0x00824770, void, add_OnAddVertex, (app::CageStructureTool * this_ptr, app::Action_1_CageStructureTool_Vertex_* value))

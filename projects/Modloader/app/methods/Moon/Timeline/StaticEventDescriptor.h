@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StaticEventDescriptor.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Timeline::StaticEventDescriptor {
     IL2CPP_REGISTER_METHOD(0x01E83110, void, ctor, (app::StaticEventDescriptor * this_ptr, int32_t event_id, float static_time, app::String* name, bool is_constrainable, bool is_deletable))

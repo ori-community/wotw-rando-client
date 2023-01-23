@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnicodeCategory__Enum.h>
+#include <Modloader/app/structs/Char__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Char {
     IL2CPP_REGISTER_METHOD(0x022A0120, bool, IsLatin1, (uint16_t ch))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_InitializeLocalInstruction_ImmutableValue_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_InitializeLocalInstruction_ImmutableValue_INITIALIZING
+#if !defined(IL2CPP_STRUCT_InitializeLocalInstruction_ImmutableValue_DEFINED)
+#include <Modloader/app/structs/InitializeLocalInstruction_ImmutableValue__Fields.h>
+#if defined(IL2CPP_STRUCT_InitializeLocalInstruction_ImmutableValue__Fields_DEFINED)
+#define IL2CPP_STRUCT_InitializeLocalInstruction_ImmutableValue_DEFINED
+struct InitializeLocalInstruction_ImmutableValue__Class;
+struct InitializeLocalInstruction_ImmutableValue {
+    struct InitializeLocalInstruction_ImmutableValue__Class* klass;
+    MonitorData* monitor;
+    struct InitializeLocalInstruction_ImmutableValue__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_InitializeLocalInstruction_ImmutableValue_FWDDECL)
+#define IL2CPP_STRUCT_InitializeLocalInstruction_ImmutableValue_FWDDECL
+#include <Modloader/app/structs/InitializeLocalInstruction_ImmutableValue__Class.h>
+#endif
+#undef IL2CPP_STRUCT_InitializeLocalInstruction_ImmutableValue_INITIALIZING
+#if !defined(IL2CPP_STRUCT_InitializeLocalInstruction_ImmutableValue_DEFINED) && !defined(IL2CPP_STRUCT_InitializeLocalInstruction_ImmutableValue_FWDDECL)
+#include <Modloader/app/structs/InitializeLocalInstruction_ImmutableValue.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/InitializeLocalInstruction_ImmutableValue.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

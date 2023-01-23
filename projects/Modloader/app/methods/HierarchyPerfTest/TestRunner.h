@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TestRunner.h>
+#include <Modloader/app/structs/PerfTestTimer.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_HierarchyPerfTest_PerfTestTimer_TestData_.h>
+#include <Modloader/app/structs/AsyncOperation_1.h>
 
 namespace app::classes::HierarchyPerfTest::TestRunner {
     IL2CPP_REGISTER_METHOD(0x019753C0, bool, Run, ())

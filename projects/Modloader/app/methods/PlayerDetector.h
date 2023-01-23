@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerDetector.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::PlayerDetector {
     IL2CPP_REGISTER_METHOD(0x0140E450, void, OnTriggerStay, (app::PlayerDetector * this_ptr, app::Collider* col))

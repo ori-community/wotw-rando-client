@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RectMask2D.h>
+#include <Modloader/app/structs/Canvas.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/IClippable.h>
 
 namespace app::classes::UnityEngine::UI::RectMask2D {
     IL2CPP_REGISTER_METHOD(0x02664160, void, ctor, (app::RectMask2D * this_ptr))

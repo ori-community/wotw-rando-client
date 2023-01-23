@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinBow.h>
 
 namespace app::classes::SeinBow {
     IL2CPP_REGISTER_METHOD(0x00447340, float, get_Bend, (app::SeinBow * this_ptr))

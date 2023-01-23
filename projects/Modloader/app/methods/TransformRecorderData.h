@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecorderFrame_FrameDataTypes__Enum.h>
+#include <Modloader/app/structs/TransformRecorderData.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/BinaryReader.h>
 
 namespace app::classes::TransformRecorderData {
     IL2CPP_REGISTER_METHOD(0x0043D9A0, app::RecorderFrame_FrameDataTypes__Enum, FrameType, (app::TransformRecorderData * this_ptr))

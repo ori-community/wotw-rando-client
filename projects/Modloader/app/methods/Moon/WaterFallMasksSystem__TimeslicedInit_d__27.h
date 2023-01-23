@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaterFallMasksSystem_TimeslicedInit_d_27.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::WaterFallMasksSystem__TimeslicedInit_d__27 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::WaterFallMasksSystem_TimeslicedInit_d_27 * this_ptr, int32_t __1__state))

@@ -5,6 +5,9 @@
 #include <vector>
 #include <Core/macros.h>
 
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Scene.h>
+
 namespace dev {
     struct CORE_DLLEXPORT Visualizer {
         struct CORE_DLLEXPORT State {

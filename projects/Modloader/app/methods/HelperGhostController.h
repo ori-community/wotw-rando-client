@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HelperGhostController.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::HelperGhostController {
     IL2CPP_REGISTER_METHOD(0x010A32F0, void, Start, (app::HelperGhostController * this_ptr))

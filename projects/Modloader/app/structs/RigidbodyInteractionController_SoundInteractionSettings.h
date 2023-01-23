@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_RigidbodyInteractionController_SoundInteractionSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_RigidbodyInteractionController_SoundInteractionSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RigidbodyInteractionController_SoundInteractionSettings_DEFINED)
+#include <Modloader/app/structs/RigidbodyInteractionController_SoundInteractionSettings__Fields.h>
+#if defined(IL2CPP_STRUCT_RigidbodyInteractionController_SoundInteractionSettings__Fields_DEFINED)
+#define IL2CPP_STRUCT_RigidbodyInteractionController_SoundInteractionSettings_DEFINED
+struct RigidbodyInteractionController_SoundInteractionSettings__Class;
+struct RigidbodyInteractionController_SoundInteractionSettings {
+    struct RigidbodyInteractionController_SoundInteractionSettings__Class* klass;
+    MonitorData* monitor;
+    struct RigidbodyInteractionController_SoundInteractionSettings__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_RigidbodyInteractionController_SoundInteractionSettings_FWDDECL)
+#define IL2CPP_STRUCT_RigidbodyInteractionController_SoundInteractionSettings_FWDDECL
+#include <Modloader/app/structs/RigidbodyInteractionController_SoundInteractionSettings__Class.h>
+#endif
+#undef IL2CPP_STRUCT_RigidbodyInteractionController_SoundInteractionSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_RigidbodyInteractionController_SoundInteractionSettings_DEFINED) && !defined(IL2CPP_STRUCT_RigidbodyInteractionController_SoundInteractionSettings_FWDDECL)
+#include <Modloader/app/structs/RigidbodyInteractionController_SoundInteractionSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/RigidbodyInteractionController_SoundInteractionSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

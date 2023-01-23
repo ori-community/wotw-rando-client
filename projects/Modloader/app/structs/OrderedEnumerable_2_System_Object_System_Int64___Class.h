@@ -1,0 +1,34 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_OrderedEnumerable_2_System_Object_System_Int64___Class_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_OrderedEnumerable_2_System_Object_System_Int64___Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_OrderedEnumerable_2_System_Object_System_Int64___Class_DEFINED)
+#include <Modloader/app/structs/OrderedEnumerable_2_System_Object_System_Int64___VTable.h>
+#if defined(IL2CPP_STRUCT_OrderedEnumerable_2_System_Object_System_Int64___VTable_DEFINED)
+#define IL2CPP_STRUCT_OrderedEnumerable_2_System_Object_System_Int64___Class_DEFINED
+struct OrderedEnumerable_2_System_Object_System_Int64___StaticFields;
+struct OrderedEnumerable_2_System_Object_System_Int64___Class {
+    Il2CppClass_0 _0;
+    Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+    struct OrderedEnumerable_2_System_Object_System_Int64___StaticFields* static_fields;
+    const Il2CppRGCTXData* rgctx_data;
+    Il2CppClass_1 _1;
+    struct OrderedEnumerable_2_System_Object_System_Int64___VTable vtable;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_OrderedEnumerable_2_System_Object_System_Int64___Class_FWDDECL)
+#define IL2CPP_STRUCT_OrderedEnumerable_2_System_Object_System_Int64___Class_FWDDECL
+#include <Modloader/app/structs/OrderedEnumerable_2_System_Object_System_Int64___StaticFields.h>
+#endif
+#undef IL2CPP_STRUCT_OrderedEnumerable_2_System_Object_System_Int64___Class_INITIALIZING
+#if !defined(IL2CPP_STRUCT_OrderedEnumerable_2_System_Object_System_Int64___Class_DEFINED) && !defined(IL2CPP_STRUCT_OrderedEnumerable_2_System_Object_System_Int64___Class_FWDDECL)
+#include <Modloader/app/structs/OrderedEnumerable_2_System_Object_System_Int64___Class.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/OrderedEnumerable_2_System_Object_System_Int64___Class.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

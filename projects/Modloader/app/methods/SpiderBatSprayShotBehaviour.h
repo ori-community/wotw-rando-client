@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBatSprayShotBehaviour.h>
 
 namespace app::classes::SpiderBatSprayShotBehaviour {
     IL2CPP_REGISTER_METHOD(0x00961CF0, void, Shoot, (app::SpiderBatSprayShotBehaviour * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IntStateTransition.h>
 
 namespace app::classes::IntStateTransition {
     IL2CPP_REGISTER_METHOD(0x006375F0, void, FixedUpdate, (app::IntStateTransition * this_ptr))

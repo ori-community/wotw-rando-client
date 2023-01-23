@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraMotionBlur.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Camera.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::CameraMotionBlur {
     IL2CPP_REGISTER_METHOD(0x025171C0, void, CalculateViewProjection, (app::CameraMotionBlur * this_ptr))

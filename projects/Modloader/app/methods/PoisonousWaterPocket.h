@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PoisonousWaterPocket.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::PoisonousWaterPocket {
     IL2CPP_REGISTER_METHOD(0x003FD650, bool, get_DamageDealt, (app::PoisonousWaterPocket * this_ptr))

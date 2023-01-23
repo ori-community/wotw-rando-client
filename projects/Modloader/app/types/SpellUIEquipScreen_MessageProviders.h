@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SpellUIEquipScreen_MessageProviders__Class.h>
+#include <Modloader/app/structs/SpellUIEquipScreen_MessageProviders.h>
+#include <Modloader/app/structs/SpellUIEquipScreen_MessageProviders__Boxed.h>
 
 namespace app::classes::types {
     namespace SpellUIEquipScreen_MessageProviders {

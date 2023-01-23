@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NameValueCollection.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/DBNull.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::Collections::Specialized::NameValueCollection {
     IL2CPP_REGISTER_METHOD(0x024997A0, void, ctor_1, (app::NameValueCollection * this_ptr))

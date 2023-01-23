@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Ucs4Encoding.h>
+#include <Modloader/app/structs/Decoder.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Encoder.h>
+#include <Modloader/app/structs/Encoding.h>
 
 namespace app::classes::System::Xml::Ucs4Encoding {
     IL2CPP_REGISTER_METHOD(0x0173D7B0, app::String*, get_WebName, (app::Ucs4Encoding * this_ptr))

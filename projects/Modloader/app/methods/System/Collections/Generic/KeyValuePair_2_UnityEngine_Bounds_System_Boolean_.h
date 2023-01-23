@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyValuePair_2_UnityEngine_Bounds_System_Boolean___Boxed.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_UnityEngine_Bounds_System_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x001520E0, void, ctor, (app::KeyValuePair_2_UnityEngine_Bounds_System_Boolean___Boxed * this_ptr, app::Bounds key, bool value))

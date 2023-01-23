@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PiranhaLocomotionIdleBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/PiranhaLocomotionIdleBehaviour_State__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::PiranhaLocomotionIdleBehaviour {
     IL2CPP_REGISTER_METHOD(0x0115FA80, void, OnInitializeTask, (app::PiranhaLocomotionIdleBehaviour * this_ptr, app::IContext* context))

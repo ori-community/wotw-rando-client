@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateMachineBehaviourProxy.h>
+#include <Modloader/app/structs/Action_1_Int32_.h>
+#include <Modloader/app/structs/Action_1_String_.h>
+#include <Modloader/app/structs/StateMachineBehaviourProxy_IReceiver.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::StateMachineBehaviourProxy {
     IL2CPP_REGISTER_METHOD(0x009B53C0, void, add_OnIntEventAction, (app::StateMachineBehaviourProxy * this_ptr, app::Action_1_Int32_* value))

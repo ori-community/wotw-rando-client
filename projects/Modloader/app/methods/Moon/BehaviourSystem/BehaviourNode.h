@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/BehaviourNode.h>
+#include <Modloader/app/structs/Nullable_1_Moon_BehaviourSystem_BehaviourStatus_.h>
+#include <Modloader/app/structs/Action_1_Moon_BehaviourSystem_DecoratorNode_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Action_2_Moon_BehaviourSystem_TreeBehaviour_Exception_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_DecoratorNode_.h>
+#include <Modloader/app/structs/DecoratorNode.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_IUtilityProvider_.h>
 
 namespace app::classes::Moon::BehaviourSystem::BehaviourNode {
     IL2CPP_REGISTER_METHOD(0x004E57A0, app::BehaviourStatus__Enum, get_Status, (app::BehaviourNode * this_ptr))

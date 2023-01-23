@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EscapeRaceData.h>
+#include <Modloader/app/structs/Condition_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DesiredUberStateComposite.h>
+#include <Modloader/app/structs/List_1_EquipmentType_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__13.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/RaceSettings.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/TriggerColliderCallback.h>
+#include <Modloader/app/structs/List_1_SceneMetaData_.h>
+#include <Modloader/app/structs/PlayerInsideZoneChecker__Array.h>
 
 namespace app::classes::Moon::Race::EscapeRaceData {
     IL2CPP_REGISTER_METHOD(0x00C41510, float, get_TimeLimit, (app::EscapeRaceData * this_ptr))

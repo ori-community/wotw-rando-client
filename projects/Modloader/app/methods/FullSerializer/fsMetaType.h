@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsMetaType.h>
+#include <Modloader/app/structs/fsConfig.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/List_1_FullSerializer_Internal_fsMetaProperty_.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/MemberInfo_1__Array.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/fsMetaProperty__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::FullSerializer::fsMetaType {
     IL2CPP_REGISTER_METHOD(0x015113F0, app::fsMetaType*, Get, (app::fsConfig * config, app::Type* type))

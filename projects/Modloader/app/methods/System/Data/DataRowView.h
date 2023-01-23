@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataRowView.h>
+#include <Modloader/app/structs/DataView.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/DataRelation.h>
+#include <Modloader/app/structs/PropertyChangedEventHandler.h>
+#include <Modloader/app/structs/AttributeCollection.h>
+#include <Modloader/app/structs/TypeConverter.h>
+#include <Modloader/app/structs/EventDescriptor_1.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/EventDescriptorCollection.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
 
 namespace app::classes::System::Data::DataRowView {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::DataRowView * this_ptr, app::DataView* data_view, app::DataRow* row))

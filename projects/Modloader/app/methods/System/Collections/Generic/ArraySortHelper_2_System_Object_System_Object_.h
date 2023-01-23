@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArraySortHelper_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IComparer_1_System_Object_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02C90A60, app::ArraySortHelper_2_System_Object_System_Object_*, get_Default, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_GameObject_GrabbableSurface_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GrabbableSurface.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_UnityEngine_GameObject_GrabbableSurface_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_UnityEngine_GameObject_GrabbableSurface_ {
     IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_UnityEngine_GameObject_GrabbableSurface_ * this_ptr, app::GameObject* key, app::GrabbableSurface** value))

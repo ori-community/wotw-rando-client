@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XsdDateTime_Parser__Class.h>
+#include <Modloader/app/structs/XsdDateTime_Parser.h>
+#include <Modloader/app/structs/XsdDateTime_Parser__Boxed.h>
 
 namespace app::classes::types {
     namespace XsdDateTime_Parser {

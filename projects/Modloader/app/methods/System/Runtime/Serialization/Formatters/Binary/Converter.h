@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InternalPrimitiveTypeE__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::Converter {
     IL2CPP_REGISTER_METHOD(0x01D8F4D0, app::InternalPrimitiveTypeE__Enum, ToCode, (app::Type * type))

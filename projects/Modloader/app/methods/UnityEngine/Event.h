@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Event.h>
+#include <Modloader/app/structs/EventType__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/EventModifiers__Enum.h>
+#include <Modloader/app/structs/KeyCode__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::Event {
     IL2CPP_REGISTER_METHOD(0x029D52C0, void, ctor_1, (app::Event * this_ptr))

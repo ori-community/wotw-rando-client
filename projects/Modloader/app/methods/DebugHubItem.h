@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DebugHubItem.h>
+#include <Modloader/app/structs/Input_Button__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/DebugHubItem_DebugHubItemLayout.h>
 
 namespace app::classes::DebugHubItem {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_Name, (app::DebugHubItem * this_ptr))

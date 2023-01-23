@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SoundLog.h>
 
 namespace app::classes::SoundLog {
     IL2CPP_REGISTER_METHOD(0x00EE9DE0, void, AddSoundCall, (app::String * clip_name, app::String* provider_name))

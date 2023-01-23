@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ChannelSwapper_Channel__Enum__Class.h>
+#include <Modloader/app/structs/ChannelSwapper_Channel__Enum.h>
 
 namespace app::classes::types {
     namespace ChannelSwapper_Channel__Enum {

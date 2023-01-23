@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Listeners_1_TElem_Action_4_System_Object_System_Object_System_Int32Enum_System_Object_System_Boolean_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Data::Listeners_1_TElem__Action_4_System_Object_System_Object_System_Int32Enum_System_Object_System_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::Listeners_1_TElem_Action_4_System_Object_System_Object_System_Int32Enum_System_Object_System_Boolean_ * this_ptr, app::Object* object, void* method_1))

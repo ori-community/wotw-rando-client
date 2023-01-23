@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EventPayload_GetEnumerator_d_17.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_String_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EventPayload__GetEnumerator_d__17 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::EventPayload_GetEnumerator_d_17 * this_ptr, int32_t __1__state))

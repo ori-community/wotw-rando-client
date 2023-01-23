@@ -1,0 +1,28 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache__DEFINED)
+#include <Modloader/app/structs/UberShaderTextureBase_SubBindIdCache.h>
+#if defined(IL2CPP_STRUCT_UberShaderTextureBase_SubBindIdCache_DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache__DEFINED
+struct KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache_ {
+    int32_t key;
+    struct UberShaderTextureBase_SubBindIdCache value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache__FWDDECL
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

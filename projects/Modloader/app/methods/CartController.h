@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CartController.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/IPressurePlate.h>
 
 namespace app::classes::CartController {
     IL2CPP_REGISTER_METHOD(0x00738690, float, get_ControllerExtraSpeed, (app::CartController * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Xml::ValidateNames {
     IL2CPP_REGISTER_METHOD(0x019536B0, int32_t, ParseNmtoken, (app::String * s, int32_t offset))

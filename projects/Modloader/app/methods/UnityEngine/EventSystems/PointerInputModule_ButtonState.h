@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PointerInputModule_ButtonState.h>
+#include <Modloader/app/structs/PointerInputModule_MouseButtonEventData.h>
+#include <Modloader/app/structs/PointerEventData_InputButton__Enum.h>
 
 namespace app::classes::UnityEngine::EventSystems::PointerInputModule_ButtonState {
     IL2CPP_REGISTER_METHOD(0x002FC780, void, ctor, (app::PointerInputModule_ButtonState * this_ptr))

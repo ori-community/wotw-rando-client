@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderlingLocomotion.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::SpiderlingLocomotion {
     IL2CPP_REGISTER_METHOD(0x011C5920, float, get_ContinousRotationSpeed, (app::SpiderlingLocomotion * this_ptr))

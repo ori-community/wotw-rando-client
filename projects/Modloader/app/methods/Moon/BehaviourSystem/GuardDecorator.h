@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_GuardDecorator_.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GuardDecorator.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::GuardDecorator {
     IL2CPP_REGISTER_METHOD(0x0300DE30, app::List_1_Moon_BehaviourSystem_GuardDecorator_*, AgentGuards, (app::Component_1 * agent))

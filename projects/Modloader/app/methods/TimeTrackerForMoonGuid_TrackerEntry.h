@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeTrackerForMoonGuid_TrackerEntry.h>
+#include <Modloader/app/structs/MoonGuid.h>
 
 namespace app::classes::TimeTrackerForMoonGuid_TrackerEntry {
     IL2CPP_REGISTER_METHOD(0x010F23A0, void, ctor, (app::TimeTrackerForMoonGuid_TrackerEntry * this_ptr, app::MoonGuid* guid, float timeout))

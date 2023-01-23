@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/SpiderBossLocomotion.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/EntityBehaviourNode.h>
 
 namespace app::classes::SpiderBossLocomotion {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::Transform*, get_FeetTransform, (app::SpiderBossLocomotion * this_ptr))

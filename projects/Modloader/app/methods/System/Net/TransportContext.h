@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Security_Authentication_ExtendedProtection_TokenBinding_.h>
+#include <Modloader/app/structs/TransportContext.h>
 
 namespace app::classes::System::Net::TransportContext {
     IL2CPP_REGISTER_METHOD(0x020AAA60, app::IEnumerable_1_System_Security_Authentication_ExtendedProtection_TokenBinding_*, GetTlsTokenBindings, (app::TransportContext * this_ptr))

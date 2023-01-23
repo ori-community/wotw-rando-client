@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberWaterReflectionView_PlaneGroupInfo__Class.h>
+#include <Modloader/app/structs/UberWaterReflectionView_PlaneGroupInfo.h>
+#include <Modloader/app/structs/UberWaterReflectionView_PlaneGroupInfo__Boxed.h>
 
 namespace app::classes::types {
     namespace UberWaterReflectionView_PlaneGroupInfo {

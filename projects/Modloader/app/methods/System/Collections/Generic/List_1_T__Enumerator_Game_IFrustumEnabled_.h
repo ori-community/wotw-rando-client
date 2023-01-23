@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IFrustumEnabled.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Game_IFrustumEnabled___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Game_IFrustumEnabled_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::IFrustumEnabled*, get_Current, (app::List_1_T_Enumerator_Game_IFrustumEnabled___Boxed * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Newtonsoft_Json_Utilities_StructMultiKey_2___Boxed.h>
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
+#include <Modloader/app/structs/StructMultiKey_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Newtonsoft_Json_Utilities_StructMultiKey_2_ {
     IL2CPP_REGISTER_METHOD(0x0014CA00, void, ctor, (app::List_1_T_Enumerator_Newtonsoft_Json_Utilities_StructMultiKey_2___Boxed * this_ptr, app::List_1_Newtonsoft_Json_Utilities_StructMultiKey_2_* list))

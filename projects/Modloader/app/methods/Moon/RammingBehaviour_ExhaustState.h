@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RammingBehaviour_ExhaustState.h>
+#include <Modloader/app/structs/RammingBehaviour.h>
 
 namespace app::classes::Moon::RammingBehaviour_ExhaustState {
     IL2CPP_REGISTER_METHOD(0x00C52540, app::String*, get_StateName, (app::RammingBehaviour_ExhaustState * this_ptr))

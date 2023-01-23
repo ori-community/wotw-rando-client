@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WandererTurningBehaviour_c.h>
 
 namespace app::classes::WandererTurningBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x008D3500, void, cctor, ())

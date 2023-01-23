@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_AkAudioInputManager_AudioSamplesDelegate_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_AkAudioInputManager_AudioSamplesDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkAudioInputManager_AudioSamplesDelegate_DEFINED)
+#include <Modloader/app/structs/AkAudioInputManager_AudioSamplesDelegate__Fields.h>
+#if defined(IL2CPP_STRUCT_AkAudioInputManager_AudioSamplesDelegate__Fields_DEFINED)
+#define IL2CPP_STRUCT_AkAudioInputManager_AudioSamplesDelegate_DEFINED
+struct AkAudioInputManager_AudioSamplesDelegate__Class;
+struct AkAudioInputManager_AudioSamplesDelegate {
+    struct AkAudioInputManager_AudioSamplesDelegate__Class* klass;
+    MonitorData* monitor;
+    struct AkAudioInputManager_AudioSamplesDelegate__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_AkAudioInputManager_AudioSamplesDelegate_FWDDECL)
+#define IL2CPP_STRUCT_AkAudioInputManager_AudioSamplesDelegate_FWDDECL
+#include <Modloader/app/structs/AkAudioInputManager_AudioSamplesDelegate__Class.h>
+#endif
+#undef IL2CPP_STRUCT_AkAudioInputManager_AudioSamplesDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_AkAudioInputManager_AudioSamplesDelegate_DEFINED) && !defined(IL2CPP_STRUCT_AkAudioInputManager_AudioSamplesDelegate_FWDDECL)
+#include <Modloader/app/structs/AkAudioInputManager_AudioSamplesDelegate.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/AkAudioInputManager_AudioSamplesDelegate.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

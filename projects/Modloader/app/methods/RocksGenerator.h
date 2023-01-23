@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RocksGenerator.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::RocksGenerator {
     IL2CPP_REGISTER_METHOD(0x0135A190, void, Awake, (app::RocksGenerator * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Spider3Controller__Class.h>
+#include <Modloader/app/structs/Spider3Controller.h>
 
 namespace app::classes::types {
     namespace Spider3Controller {

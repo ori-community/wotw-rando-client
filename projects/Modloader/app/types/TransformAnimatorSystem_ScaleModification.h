@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TransformAnimatorSystem_ScaleModification__Class.h>
+#include <Modloader/app/structs/TransformAnimatorSystem_ScaleModification.h>
+#include <Modloader/app/structs/TransformAnimatorSystem_ScaleModification__Boxed.h>
 
 namespace app::classes::types {
     namespace TransformAnimatorSystem_ScaleModification {

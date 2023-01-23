@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JobHandle__Boxed.h>
+#include <Modloader/app/structs/JobHandle.h>
 
 namespace app::classes::Unity::Jobs::JobHandle {
     IL2CPP_REGISTER_METHOD(0x001EAEC0, void, Complete, (app::JobHandle__Boxed * this_ptr))

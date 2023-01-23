@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConfigurationElementCollectionType__Enum.h>
+#include <Modloader/app/structs/ConfigurationElementCollection.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/ConfigurationElement.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/ConfigurationSaveMode__Enum.h>
 
 namespace app::classes::System::Configuration::ConfigurationElementCollection {
     IL2CPP_REGISTER_METHOD(0x031BBAB0, app::ConfigurationElementCollectionType__Enum, get_CollectionType, (app::ConfigurationElementCollection * this_ptr))

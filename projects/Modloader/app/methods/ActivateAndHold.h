@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ILever.h>
+#include <Modloader/app/structs/ActivateAndHold.h>
+#include <Modloader/app/structs/ActivateAndHold_State__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::ActivateAndHold {
     IL2CPP_REGISTER_METHOD(0x004C7770, app::ILever*, get_ResolvedLever, (app::ActivateAndHold * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/SpiderBossDirectionBrainController.h>
+#include <Modloader/app/structs/Enum.h>
 
 namespace app::classes::SpiderBossDirectionBrainController {
     IL2CPP_REGISTER_METHOD(0x0096C060, app::Enum__Array*, GetEntries, (app::SpiderBossDirectionBrainController * this_ptr))

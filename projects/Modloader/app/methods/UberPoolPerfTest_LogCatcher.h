@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPoolPerfTest_LogCatcher.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LogType__Enum.h>
 
 namespace app::classes::UberPoolPerfTest_LogCatcher {
     IL2CPP_REGISTER_METHOD(0x00FEC180, void, ctor, (app::UberPoolPerfTest_LogCatcher * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OrderedDictionary_OrderedDictionaryKeyValueCollection.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Collections::Specialized::OrderedDictionary_OrderedDictionaryKeyValueCollection {
     IL2CPP_REGISTER_METHOD(0x01669060, void, ctor, (app::OrderedDictionary_OrderedDictionaryKeyValueCollection * this_ptr, app::ArrayList* array, bool is_keys))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_DebugMenu_ExternalItem_.h>
+#include <Modloader/app/structs/DebugMenu_ExternalItem.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_DebugMenu_ExternalItem_ {
     IL2CPP_REGISTER_METHOD(0x02C2A010, int32_t, Compare, (app::ObjectComparer_1_DebugMenu_ExternalItem_ * this_ptr, app::DebugMenu_ExternalItem x, app::DebugMenu_ExternalItem y))

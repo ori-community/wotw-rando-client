@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExtensionDataGetter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::ExtensionDataGetter {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::ExtensionDataGetter * this_ptr, app::Object* object, void* method_1))

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MicroProfiler_MetricStats__Class.h>
+#include <Modloader/app/structs/MicroProfiler_MetricStats.h>
+#include <Modloader/app/structs/MicroProfiler_MetricStats__Boxed.h>
+#include <Modloader/app/structs/MicroProfiler_MetricStats__Array.h>
 
 namespace app::classes::types {
     namespace MicroProfiler_MetricStats {

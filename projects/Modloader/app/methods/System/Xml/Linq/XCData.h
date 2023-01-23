@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XCData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XNode.h>
 
 namespace app::classes::System::Xml::Linq::XCData {
     IL2CPP_REGISTER_METHOD(0x0302F340, void, ctor_1, (app::XCData * this_ptr, app::String* value))

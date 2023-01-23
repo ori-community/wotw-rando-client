@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CredentialCache.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NetworkCredential.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/ICredentials.h>
 
 namespace app::classes::System::Net::CredentialCache {
     IL2CPP_REGISTER_METHOD(0x01EA98F0, bool, get_IsDefaultInCache, (app::CredentialCache * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_AnimationMetaData_AnimationData_.h>
+#include <Modloader/app/structs/List_1_AnimationMetaData_AnimationData_.h>
+#include <Modloader/app/structs/AnimationMetaData_AnimationData.h>
+#include <Modloader/app/structs/Predicate_1_AnimationMetaData_AnimationData_.h>
+#include <Modloader/app/structs/IEnumerable_1_AnimationMetaData_AnimationData_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_AnimationMetaData_AnimationData_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_AnimationMetaData_AnimationData_, GetEnumerator, (app::List_1_AnimationMetaData_AnimationData_ * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GetPickupOnCondition.h>
 
 namespace app::classes::GetPickupOnCondition {
     IL2CPP_REGISTER_METHOD(0x00446590, bool, ShouldCreateCheckpointOnPickup, (app::GetPickupOnCondition * this_ptr))

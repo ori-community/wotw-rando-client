@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Vector2__Array.h>
 
 namespace app::classes::MoonNavigation::Generator::AreaGeneratorHelper {
     IL2CPP_REGISTER_METHOD(0x0145B5C0, bool, LineIntersection, (app::Vector2 p1, app::Vector2 p2, app::Vector2 p3, app::Vector2 p4, app::Vector2* intersection))

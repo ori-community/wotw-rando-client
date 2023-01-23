@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraChaseTargetSpeedRatioController.h>
+#include <Modloader/app/structs/CameraChaseTarget.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CameraChaseTarget {
     IL2CPP_REGISTER_METHOD(0x01683250, app::CameraChaseTargetSpeedRatioController*, get_SpeedRatioController, (app::CameraChaseTarget * this_ptr))

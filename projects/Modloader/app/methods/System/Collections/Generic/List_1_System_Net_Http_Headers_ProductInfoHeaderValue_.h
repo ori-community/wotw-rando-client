@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Net_Http_Headers_ProductInfoHeaderValue_.h>
+#include <Modloader/app/structs/ProductInfoHeaderValue.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Net_Http_Headers_ProductInfoHeaderValue_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_System_Net_Http_Headers_ProductInfoHeaderValue_ * this_ptr))

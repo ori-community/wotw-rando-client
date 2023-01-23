@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RemotingException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Runtime::Remoting::RemotingException {
     IL2CPP_REGISTER_METHOD(0x01E25790, void, ctor_1, (app::RemotingException * this_ptr))

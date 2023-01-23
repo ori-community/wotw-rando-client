@@ -1,0 +1,36 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_XRPlaneSubsystem__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_XRPlaneSubsystem__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XRPlaneSubsystem__Fields_DEFINED)
+#include <Modloader/app/structs/IntegratedSubsystem_1_UnityEngine_Experimental_XR_XRPlaneSubsystemDescriptor___Fields.h>
+#if defined(IL2CPP_STRUCT_IntegratedSubsystem_1_UnityEngine_Experimental_XR_XRPlaneSubsystemDescriptor___Fields_DEFINED)
+#define IL2CPP_STRUCT_XRPlaneSubsystem__Fields_DEFINED
+struct Action_1_UnityEngine_Experimental_XR_PlaneAddedEventArgs_;
+struct Action_1_UnityEngine_Experimental_XR_PlaneUpdatedEventArgs_;
+struct Action_1_UnityEngine_Experimental_XR_PlaneRemovedEventArgs_;
+struct XRPlaneSubsystem__Fields {
+    struct IntegratedSubsystem_1_UnityEngine_Experimental_XR_XRPlaneSubsystemDescriptor___Fields _;
+    struct Action_1_UnityEngine_Experimental_XR_PlaneAddedEventArgs_* PlaneAdded;
+    struct Action_1_UnityEngine_Experimental_XR_PlaneUpdatedEventArgs_* PlaneUpdated;
+    struct Action_1_UnityEngine_Experimental_XR_PlaneRemovedEventArgs_* PlaneRemoved;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_XRPlaneSubsystem__Fields_FWDDECL)
+#define IL2CPP_STRUCT_XRPlaneSubsystem__Fields_FWDDECL
+#include <Modloader/app/structs/Action_1_UnityEngine_Experimental_XR_PlaneAddedEventArgs_.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Experimental_XR_PlaneRemovedEventArgs_.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Experimental_XR_PlaneUpdatedEventArgs_.h>
+#endif
+#undef IL2CPP_STRUCT_XRPlaneSubsystem__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_XRPlaneSubsystem__Fields_DEFINED) && !defined(IL2CPP_STRUCT_XRPlaneSubsystem__Fields_FWDDECL)
+#include <Modloader/app/structs/XRPlaneSubsystem__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/XRPlaneSubsystem__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

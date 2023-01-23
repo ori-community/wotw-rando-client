@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/UberTextureSettingsAnimator.h>
+#include <Modloader/app/structs/UberShaderProperty_Texture__Enum.h>
+#include <Modloader/app/structs/UberTextureSettingsAnimator_TextureName__Enum.h>
+#include <Modloader/app/structs/UberShaderTextureBase.h>
+#include <Modloader/app/structs/UberShaderComponent.h>
 
 namespace app::classes::UberTextureSettingsAnimator {
     IL2CPP_REGISTER_METHOD(0x012902E0, app::Vector2, get_OriginalOffset, (app::UberTextureSettingsAnimator * this_ptr))

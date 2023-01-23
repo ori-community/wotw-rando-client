@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/Xbl.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Nullable_1_Int64_.h>
 
 namespace app::classes::Microsoft::Applications::Events::DataModels::Xbl {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Dictionary_2_System_String_System_String_*, get_claims, (app::Xbl * this_ptr))

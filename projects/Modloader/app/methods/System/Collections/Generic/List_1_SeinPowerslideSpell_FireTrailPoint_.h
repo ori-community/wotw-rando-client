@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinPowerslideSpell_FireTrailPoint.h>
+#include <Modloader/app/structs/List_1_SeinPowerslideSpell_FireTrailPoint_.h>
+#include <Modloader/app/structs/Predicate_1_SeinPowerslideSpell_FireTrailPoint_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_SeinPowerslideSpell_FireTrailPoint_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::SeinPowerslideSpell_FireTrailPoint*, get_Item, (app::List_1_SeinPowerslideSpell_FireTrailPoint_ * this_ptr, int32_t index))

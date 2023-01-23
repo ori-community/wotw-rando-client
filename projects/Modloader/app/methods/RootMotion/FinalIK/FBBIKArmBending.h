@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FBBIKArmBending.h>
 
 namespace app::classes::RootMotion::FinalIK::FBBIKArmBending {
     IL2CPP_REGISTER_METHOD(0x02054C60, void, LateUpdate, (app::FBBIKArmBending * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_PreRecordingInstantiationEntry_.h>
+#include <Modloader/app/structs/PreRecordingInstantiationEntry.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_PreRecordingInstantiationEntry_ {
     IL2CPP_REGISTER_METHOD(0x01CC83F0, int32_t, Compare, (app::ObjectComparer_1_PreRecordingInstantiationEntry_ * this_ptr, app::PreRecordingInstantiationEntry x, app::PreRecordingInstantiationEntry y))

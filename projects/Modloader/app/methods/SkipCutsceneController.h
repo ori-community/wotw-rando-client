@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkipCutsceneController.h>
+#include <Modloader/app/structs/ISkipCutscene.h>
+#include <Modloader/app/structs/SceneManagerScene.h>
 
 namespace app::classes::SkipCutsceneController {
     IL2CPP_REGISTER_METHOD(0x006C3090, void, ResetStatics, ())

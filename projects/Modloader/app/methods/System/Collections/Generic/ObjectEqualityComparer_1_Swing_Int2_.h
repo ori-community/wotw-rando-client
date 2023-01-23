@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Swing_Int2_.h>
+#include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/Int2__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_Swing_Int2_ {
     IL2CPP_REGISTER_METHOD(0x0265A4E0, bool, Equals_1, (app::ObjectEqualityComparer_1_Swing_Int2_ * this_ptr, app::Int2 x, app::Int2 y))

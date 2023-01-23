@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ApplicationSettingsBase.h>
+#include <Modloader/app/structs/IComponent.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SettingsContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SettingsPropertyCollection.h>
+#include <Modloader/app/structs/SettingsPropertyValueCollection.h>
+#include <Modloader/app/structs/SettingsProviderCollection.h>
+#include <Modloader/app/structs/PropertyChangedEventHandler.h>
+#include <Modloader/app/structs/SettingChangingEventHandler.h>
+#include <Modloader/app/structs/SettingsLoadedEventHandler.h>
+#include <Modloader/app/structs/SettingsSavingEventHandler.h>
+#include <Modloader/app/structs/PropertyChangedEventArgs.h>
+#include <Modloader/app/structs/SettingChangingEventArgs.h>
+#include <Modloader/app/structs/SettingsLoadedEventArgs.h>
+#include <Modloader/app/structs/CancelEventArgs.h>
 
 namespace app::classes::System::Configuration::ApplicationSettingsBase {
     IL2CPP_REGISTER_METHOD(0x02961000, void, ctor_1, (app::ApplicationSettingsBase * this_ptr))

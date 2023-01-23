@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Constraints.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::Constraints {
     IL2CPP_REGISTER_METHOD(0x02052E00, bool, IsValid, (app::Constraints * this_ptr))

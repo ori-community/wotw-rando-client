@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlatformingFXFunctionality.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/TimeDistanceGate.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::PlatformingFXFunctionality {
     IL2CPP_REGISTER_METHOD(0x011720B0, void, ctor, (app::PlatformingFXFunctionality * this_ptr))

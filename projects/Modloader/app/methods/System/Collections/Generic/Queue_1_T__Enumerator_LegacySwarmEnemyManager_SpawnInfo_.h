@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_T_Enumerator_LegacySwarmEnemyManager_SpawnInfo___Boxed.h>
+#include <Modloader/app/structs/Queue_1_LegacySwarmEnemyManager_SpawnInfo_.h>
+#include <Modloader/app/structs/LegacySwarmEnemyManager_SpawnInfo.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_T__Enumerator_LegacySwarmEnemyManager_SpawnInfo_ {
     IL2CPP_REGISTER_METHOD(0x001ED400, void, ctor, (app::Queue_1_T_Enumerator_LegacySwarmEnemyManager_SpawnInfo___Boxed * this_ptr, app::Queue_1_LegacySwarmEnemyManager_SpawnInfo_* q))

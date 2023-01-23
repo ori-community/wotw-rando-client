@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DisableScale.h>
 
 namespace app::classes::DisableScale {
     IL2CPP_REGISTER_METHOD(0x00B98A70, void, Start, (app::DisableScale * this_ptr))

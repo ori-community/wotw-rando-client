@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityFreezeController.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::EntityFreezeController {
     IL2CPP_REGISTER_METHOD(0x00C90FE0, void, Awake, (app::EntityFreezeController * this_ptr))

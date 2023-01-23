@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HornBugDeathReaction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/HornBugDeathReaction_State__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::HornBugDeathReaction {
     IL2CPP_REGISTER_METHOD(0x00B69260, void, OnInitializeTask, (app::HornBugDeathReaction * this_ptr, app::IContext* context))

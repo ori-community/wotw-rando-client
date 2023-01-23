@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocalDataStoreHolder.h>
+#include <Modloader/app/structs/LocalDataStoreMgr.h>
+#include <Modloader/app/structs/LocalDataStore.h>
+#include <Modloader/app/structs/LocalDataStoreSlot.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::LocalDataStoreMgr {
     IL2CPP_REGISTER_METHOD(0x02266C80, app::LocalDataStoreHolder*, CreateLocalDataStore, (app::LocalDataStoreMgr * this_ptr))

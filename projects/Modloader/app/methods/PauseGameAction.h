@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PauseGameAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::PauseGameAction {
     IL2CPP_REGISTER_METHOD(0x004494A0, void, Perform, (app::PauseGameAction * this_ptr, app::IContext* context))

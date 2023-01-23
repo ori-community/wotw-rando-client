@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_Object_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_Int32_.h>
 
 namespace app::classes::UnityEngine::Assertions::Assert {
     IL2CPP_REGISTER_METHOD(0x0241D4C0, void, Fail, (app::String * message, app::String* user_message))

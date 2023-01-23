@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/Enumerable_WhereSelectListIterator_2_System_Collections_DictionaryEntry_System_Collections_Generic_KeyValuePair_2_.h>
+#include <Modloader/app/structs/Func_2_System_Collections_Generic_KeyValuePair_2_Object_.h>
+#include <Modloader/app/structs/List_1_System_Collections_DictionaryEntry_.h>
+#include <Modloader/app/structs/Func_2_System_Collections_DictionaryEntry_Boolean_.h>
+#include <Modloader/app/structs/Func_2_System_Collections_DictionaryEntry_System_Collections_Generic_KeyValuePair_2_.h>
+#include <Modloader/app/structs/Enumerable_Iterator_1_System_Collections_Generic_KeyValuePair_2_.h>
+#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Func_2_System_Collections_Generic_KeyValuePair_2_Boolean__3.h>
 
 namespace app::classes::System::Linq::Enumerable_WhereSelectListIterator_2_System_Collections_DictionaryEntry_System_Collections_Generic_KeyValuePair_2_ {
     IL2CPP_REGISTER_METHOD(0x00E776D0, app::IEnumerable_1_System_Object_*, Select, (app::Enumerable_WhereSelectListIterator_2_System_Collections_DictionaryEntry_System_Collections_Generic_KeyValuePair_2_ * this_ptr, app::Func_2_System_Collections_Generic_KeyValuePair_2_Object_* selector))

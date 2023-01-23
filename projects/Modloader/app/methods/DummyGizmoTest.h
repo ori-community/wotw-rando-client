@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DummyGizmoTest.h>
 
 namespace app::classes::DummyGizmoTest {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Start, (app::DummyGizmoTest * this_ptr))

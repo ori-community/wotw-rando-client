@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PerformBackOutAction_AbandonChallange_d_8__Class.h>
+#include <Modloader/app/structs/PerformBackOutAction_AbandonChallange_d_8.h>
 
 namespace app::classes::types {
     namespace PerformBackOutAction_AbandonChallange_d_8 {

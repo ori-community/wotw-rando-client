@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AutoIncrementInt64.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/BigInteger_2.h>
 
 namespace app::classes::System::Data::AutoIncrementInt64 {
     IL2CPP_REGISTER_METHOD(0x02149EB0, app::Object*, get_Current, (app::AutoIncrementInt64 * this_ptr))

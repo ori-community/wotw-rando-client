@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FadeWhileSceneLoading.h>
+#include <Modloader/app/structs/SceneManagerScene.h>
 
 namespace app::classes::FadeWhileSceneLoading {
     IL2CPP_REGISTER_METHOD(0x0098FAC0, void, FixedUpdate, (app::FadeWhileSceneLoading * this_ptr))

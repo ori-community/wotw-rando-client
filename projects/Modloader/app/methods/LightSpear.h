@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightSpear.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::LightSpear {
     IL2CPP_REGISTER_METHOD(0x0114F810, void, Awake, (app::LightSpear * this_ptr))

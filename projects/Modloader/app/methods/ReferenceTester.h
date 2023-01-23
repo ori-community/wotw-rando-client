@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReferenceTester.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_Moon_MoonInt_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IMoonType_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__17.h>
+#include <Modloader/app/structs/Stopwatch.h>
+#include <Modloader/app/structs/IMoonType_1_System_Int32_.h>
+#include <Modloader/app/structs/IMoonType_1_System_String_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/ITestInterface.h>
+#include <Modloader/app/structs/IMoonType_1_ITestInterface_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1_.h>
 
 namespace app::classes::ReferenceTester {
     IL2CPP_REGISTER_METHOD(0x02F9C010, void, Start, (app::ReferenceTester * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Animation_Enumerator.h>
+#include <Modloader/app/structs/Animation.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::Animation_Enumerator {
     IL2CPP_REGISTER_METHOD(0x01DC2A00, void, ctor, (app::Animation_Enumerator * this_ptr, app::Animation* outer))

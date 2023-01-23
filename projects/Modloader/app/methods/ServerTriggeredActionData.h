@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServerTriggeredActionData.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ServerTriggeredActionData {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ServerTriggeredActionData * this_ptr))

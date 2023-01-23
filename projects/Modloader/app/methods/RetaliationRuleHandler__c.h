@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RetaliationRuleHandler_c.h>
 
 namespace app::classes::RetaliationRuleHandler___c {
     IL2CPP_REGISTER_METHOD(0x0090F7C0, void, cctor, ())

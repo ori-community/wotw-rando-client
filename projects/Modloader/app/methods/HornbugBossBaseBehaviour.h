@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GroundEntityLocomotion.h>
+#include <Modloader/app/structs/HornbugBossBaseBehaviour.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/ITask.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_EventTriggerAnimator_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::HornbugBossBaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x00B6E7F0, app::GroundEntityLocomotion*, get_Locomotion, (app::HornbugBossBaseBehaviour * this_ptr))

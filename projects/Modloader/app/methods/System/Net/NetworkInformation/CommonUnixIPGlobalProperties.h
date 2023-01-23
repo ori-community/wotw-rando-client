@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CommonUnixIPGlobalProperties.h>
 
 namespace app::classes::System::Net::NetworkInformation::CommonUnixIPGlobalProperties {
     IL2CPP_REGISTER_METHOD(0x01E762B0, int32_t, getdomainname, (app::Byte__Array * name, int32_t len))

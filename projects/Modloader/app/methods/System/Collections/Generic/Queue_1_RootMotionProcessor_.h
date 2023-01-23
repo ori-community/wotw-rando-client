@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_RootMotionProcessor_.h>
+#include <Modloader/app/structs/RootMotionProcessor.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_RootMotionProcessor_ {
     IL2CPP_REGISTER_METHOD(0x0243CE40, void, Clear, (app::Queue_1_RootMotionProcessor_ * this_ptr))

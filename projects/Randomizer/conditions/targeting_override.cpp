@@ -6,6 +6,9 @@
 #include <Modloader/common.h>
 #include <Modloader/interception_macros.h>
 
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+
 #include <optional>
 #include <unordered_map>
 

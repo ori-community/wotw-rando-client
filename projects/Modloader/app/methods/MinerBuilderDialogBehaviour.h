@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BuilderNPC_State__Enum.h>
+#include <Modloader/app/structs/MinerBuilderDialogBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
+#include <Modloader/app/structs/EntityTask.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::MinerBuilderDialogBehaviour {
     IL2CPP_REGISTER_METHOD(0x008519C0, app::BuilderNPC_State__Enum, get_DialogState, (app::MinerBuilderDialogBehaviour * this_ptr))

@@ -1,5 +1,47 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonRenderPipelineView.h>
+#include <Modloader/app/structs/MoonRenderPipelineViewType__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
+#include <Modloader/app/structs/MoonRenderPipelineSettings.h>
+#include <Modloader/app/structs/CommandBuffer.h>
+#include <Modloader/app/structs/ScriptableRenderContext.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_CachedCBType__Enum.h>
+#include <Modloader/app/structs/FilterResults.h>
+#include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/RenderTargetDescriptor.h>
+#include <Modloader/app/structs/RenderTargetType__Enum.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/FilterMode__Enum.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/List_1_IRenderPostprocessor_.h>
+#include <Modloader/app/structs/RenderTarget.h>
+#include <Modloader/app/structs/DrawRendererSettings.h>
+#include <Modloader/app/structs/ShaderPassName.h>
+#include <Modloader/app/structs/CullResults.h>
+#include <Modloader/app/structs/Nullable_1_Moon_Rendering_MoonRenderPipelineView_FilterBounds_.h>
+#include <Modloader/app/structs/RenderFlags__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_RenderQueues__Enum.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Experimental_Rendering_RenderStateBlock_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_ReleaseReason__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_FilterBounds.h>
+#include <Modloader/app/structs/Viewport.h>
+#include <Modloader/app/structs/List_1_GodRayModifier_.h>
+#include <Modloader/app/structs/RenderingSettingsPerScene.h>
+#include <Modloader/app/structs/RendererCullingCategoryResults__Array.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_SrpProfilerFrame.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/MoonRenderPipelineSettings_Slice__Array.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebug_Slice__Array.h>
+#include <Modloader/app/structs/Dictionary_2_Swing_Int2_Moon_Rendering_SrpSampler___Array.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderPipelineView {
     IL2CPP_REGISTER_METHOD(0x007A3190, bool, get_isGameView, (app::MoonRenderPipelineView * this_ptr))

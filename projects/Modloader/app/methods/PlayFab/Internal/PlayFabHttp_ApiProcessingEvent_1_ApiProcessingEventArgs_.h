@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabHttp_ApiProcessingEvent_1_ApiProcessingEventArgs_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ApiProcessingEventArgs.h>
 
 namespace app::classes::PlayFab::Internal::PlayFabHttp_ApiProcessingEvent_1_ApiProcessingEventArgs_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::PlayFabHttp_ApiProcessingEvent_1_ApiProcessingEventArgs_ * this_ptr, app::Object* object, void* method_1))

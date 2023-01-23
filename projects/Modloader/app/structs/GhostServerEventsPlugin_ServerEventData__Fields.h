@@ -1,0 +1,35 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData__Fields_DEFINED)
+#include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData_ActionType__Enum.h>
+#if defined(IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData_ActionType__Enum_DEFINED)
+#define IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData__Fields_DEFINED
+struct List_1_GhostServerEventsPlugin_ServerEventData_ServerObjectsData_;
+struct Byte__Array;
+struct __declspec(align(8)) GhostServerEventsPlugin_ServerEventData__Fields {
+    struct List_1_GhostServerEventsPlugin_ServerEventData_ServerObjectsData_* ObjectsData;
+    GhostServerEventsPlugin_ServerEventData_ActionType__Enum Action;
+
+    struct Byte__Array* Value;
+    bool _Executed_k__BackingField;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData__Fields_FWDDECL)
+#define IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData__Fields_FWDDECL
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/List_1_GhostServerEventsPlugin_ServerEventData_ServerObjectsData_.h>
+#endif
+#undef IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData__Fields_DEFINED) && !defined(IL2CPP_STRUCT_GhostServerEventsPlugin_ServerEventData__Fields_FWDDECL)
+#include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

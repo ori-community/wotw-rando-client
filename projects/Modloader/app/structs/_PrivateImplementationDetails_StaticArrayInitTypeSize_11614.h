@@ -1,0 +1,23 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_11614_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_11614_INITIALIZING
+#if !defined(IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_11614_DEFINED)
+#define IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_11614_DEFINED
+struct _PrivateImplementationDetails_StaticArrayInitTypeSize_11614 {
+};
+#endif
+#if !defined(IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_11614_FWDDECL)
+#define IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_11614_FWDDECL
+#endif
+#undef IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_11614_INITIALIZING
+#if !defined(IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_11614_DEFINED) && !defined(IL2CPP_STRUCT__PrivateImplementationDetails_StaticArrayInitTypeSize_11614_FWDDECL)
+#include <Modloader/app/structs/_PrivateImplementationDetails_StaticArrayInitTypeSize_11614.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/_PrivateImplementationDetails_StaticArrayInitTypeSize_11614.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

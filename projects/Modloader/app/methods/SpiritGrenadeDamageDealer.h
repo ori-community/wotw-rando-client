@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiritGrenadeDamageDealer.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::SpiritGrenadeDamageDealer {
     IL2CPP_REGISTER_METHOD(0x00D58E60, void, Awake, (app::SpiritGrenadeDamageDealer * this_ptr))

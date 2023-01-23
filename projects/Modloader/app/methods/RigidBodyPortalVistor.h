@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RigidBodyPortalVistor.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RigidBodyPortalVistor {
     IL2CPP_REGISTER_METHOD(0x00911BE0, void, Awake, (app::RigidBodyPortalVistor * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Tests_SetupPosition_d_16.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::HierarchyPerfTest::Tests__SetupPosition_d__16 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::Tests_SetupPosition_d_16 * this_ptr, int32_t __1__state))

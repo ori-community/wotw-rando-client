@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlDateTimeConverter.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlValueConverter.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Xml::Schema::XmlDateTimeConverter {
     IL2CPP_REGISTER_METHOD(0x02246B80, void, ctor, (app::XmlDateTimeConverter * this_ptr, app::XmlSchemaType* schema_type))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LiannaStickyTongue.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::LiannaStickyTongue {
     IL2CPP_REGISTER_METHOD(0x0113F7E0, void, FixedUpdate, (app::LiannaStickyTongue * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecorderTimelineManager.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/AsyncRenderCapture.h>
+#include <Modloader/app/structs/Action_1_Int32_.h>
 
 namespace app::classes::RecorderTimelineManager {
     IL2CPP_REGISTER_METHOD(0x008FA1E0, void, ResetStatics, ())

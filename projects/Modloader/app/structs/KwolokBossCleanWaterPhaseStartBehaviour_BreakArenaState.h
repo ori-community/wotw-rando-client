@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState_DEFINED)
+#include <Modloader/app/structs/KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState__Fields.h>
+#if defined(IL2CPP_STRUCT_KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState__Fields_DEFINED)
+#define IL2CPP_STRUCT_KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState_DEFINED
+struct KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState__Class;
+struct KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState {
+    struct KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState__Class* klass;
+    MonitorData* monitor;
+    struct KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState_FWDDECL)
+#define IL2CPP_STRUCT_KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState_FWDDECL
+#include <Modloader/app/structs/KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState_DEFINED) && !defined(IL2CPP_STRUCT_KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState_FWDDECL)
+#include <Modloader/app/structs/KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KwolokBossCleanWaterPhaseStartBehaviour_BreakArenaState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

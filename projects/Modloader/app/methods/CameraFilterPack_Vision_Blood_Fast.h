@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Vision_Blood_Fast.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Vision_Blood_Fast {
     IL2CPP_REGISTER_METHOD(0x020F5F10, app::Material*, get_material, (app::CameraFilterPack_Vision_Blood_Fast * this_ptr))

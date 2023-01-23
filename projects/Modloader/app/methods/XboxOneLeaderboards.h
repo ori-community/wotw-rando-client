@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeaderboardData.h>
+#include <Modloader/app/structs/LeaderboardB__Enum.h>
+#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XboxOneLeaderboards.h>
 
 namespace app::classes::XboxOneLeaderboards {
     IL2CPP_REGISTER_METHOD(0x01C58D80, bool, get_EnableLeaderboards, ())

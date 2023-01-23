@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MoonIconRenderer_IconObject__Class.h>
+#include <Modloader/app/structs/MoonIconRenderer_IconObject.h>
+#include <Modloader/app/structs/MoonIconRenderer_IconObject__Boxed.h>
+#include <Modloader/app/structs/MoonIconRenderer_IconObject__Array.h>
 
 namespace app::classes::types {
     namespace MoonIconRenderer_IconObject {

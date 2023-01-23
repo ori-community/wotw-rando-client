@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRTrackedCamera_GetVideoStreamFrameBuffer_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRTrackedCamera_GetVideoStreamFrameBuffer_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRTrackedCamera_GetVideoStreamFrameBuffer_DEFINED)
+#include <Modloader/app/structs/IVRTrackedCamera_GetVideoStreamFrameBuffer__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRTrackedCamera_GetVideoStreamFrameBuffer__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRTrackedCamera_GetVideoStreamFrameBuffer_DEFINED
+struct IVRTrackedCamera_GetVideoStreamFrameBuffer__Class;
+struct IVRTrackedCamera_GetVideoStreamFrameBuffer {
+    struct IVRTrackedCamera_GetVideoStreamFrameBuffer__Class* klass;
+    MonitorData* monitor;
+    struct IVRTrackedCamera_GetVideoStreamFrameBuffer__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRTrackedCamera_GetVideoStreamFrameBuffer_FWDDECL)
+#define IL2CPP_STRUCT_IVRTrackedCamera_GetVideoStreamFrameBuffer_FWDDECL
+#include <Modloader/app/structs/IVRTrackedCamera_GetVideoStreamFrameBuffer__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRTrackedCamera_GetVideoStreamFrameBuffer_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRTrackedCamera_GetVideoStreamFrameBuffer_DEFINED) && !defined(IL2CPP_STRUCT_IVRTrackedCamera_GetVideoStreamFrameBuffer_FWDDECL)
+#include <Modloader/app/structs/IVRTrackedCamera_GetVideoStreamFrameBuffer.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRTrackedCamera_GetVideoStreamFrameBuffer.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

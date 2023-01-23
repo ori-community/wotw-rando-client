@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TentacleHead_c.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::TentacleHead___c {
     IL2CPP_REGISTER_METHOD(0x00D00760, void, cctor, ())

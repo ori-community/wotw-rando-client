@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FloatingRockTurretEnemyEffects.h>
 
 namespace app::classes::FloatingRockTurretEnemyEffects {
     IL2CPP_REGISTER_METHOD(0x01279B70, void, BeginCharge, (app::FloatingRockTurretEnemyEffects * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Objective.h>
+#include <Modloader/app/structs/AllContainer_1_Objective_.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::Game::Objectives {
     IL2CPP_REGISTER_METHOD(0x01525FA0, bool, ObjectiveExists, (app::Objective * objective))

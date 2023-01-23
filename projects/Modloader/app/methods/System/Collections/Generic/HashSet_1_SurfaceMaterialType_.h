@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_SurfaceMaterialType_.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/IEnumerable_1_SurfaceMaterialType_.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_SurfaceMaterialType_ {
     IL2CPP_REGISTER_METHOD(0x02AB4370, void, ctor_1, (app::HashSet_1_SurfaceMaterialType_ * this_ptr))

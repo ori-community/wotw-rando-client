@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FBBIKHeadEffector.h>
+#include <Modloader/app/structs/IKEffector.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::FBBIKHeadEffector {
     IL2CPP_REGISTER_METHOD(0x02055F30, void, Awake, (app::FBBIKHeadEffector * this_ptr))

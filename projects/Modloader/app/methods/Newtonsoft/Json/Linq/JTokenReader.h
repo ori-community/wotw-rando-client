@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/JTokenReader.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_JsonToken_.h>
+#include <Modloader/app/structs/JContainer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JTokenReader {
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::JToken*, get_CurrentToken, (app::JTokenReader * this_ptr))

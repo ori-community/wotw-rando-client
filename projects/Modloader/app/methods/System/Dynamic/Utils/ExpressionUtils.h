@@ -1,5 +1,34 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/IParameterProvider.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/IArgumentProvider.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/ParameterInfo_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Object_.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/ICollection_1_System_Object_.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_ElementInit_.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_ElementInit_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_MemberBinding_.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_MemberBinding_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_SwitchCase_.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_SwitchCase_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_CatchBlock_.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_CatchBlock_.h>
+#include <Modloader/app/structs/ParameterExpression.h>
 
 namespace app::classes::System::Dynamic::Utils::ExpressionUtils {
     IL2CPP_REGISTER_METHOD(0x01F940F0, app::ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_*, ReturnReadOnly_1, (app::IParameterProvider * provider, app::Object** collection))

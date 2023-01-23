@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProtectedByShellCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ProtectedByShellCondition {
     IL2CPP_REGISTER_METHOD(0x00C7DC80, bool, Validate, (app::ProtectedByShellCondition * this_ptr, app::IContext* context))

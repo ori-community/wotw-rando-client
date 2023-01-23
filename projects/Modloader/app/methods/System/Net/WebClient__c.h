@@ -1,5 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebClient_c.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DownloadStringCompletedEventArgs.h>
+#include <Modloader/app/structs/WebClient.h>
+#include <Modloader/app/structs/DownloadStringCompletedEventHandler.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/OpenReadCompletedEventArgs.h>
+#include <Modloader/app/structs/OpenReadCompletedEventHandler.h>
+#include <Modloader/app/structs/OpenWriteCompletedEventArgs.h>
+#include <Modloader/app/structs/OpenWriteCompletedEventHandler.h>
+#include <Modloader/app/structs/UploadStringCompletedEventArgs.h>
+#include <Modloader/app/structs/UploadStringCompletedEventHandler.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/DownloadDataCompletedEventArgs.h>
+#include <Modloader/app/structs/DownloadDataCompletedEventHandler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AsyncCompletedEventArgs.h>
+#include <Modloader/app/structs/AsyncCompletedEventHandler.h>
+#include <Modloader/app/structs/UploadDataCompletedEventArgs.h>
+#include <Modloader/app/structs/UploadDataCompletedEventHandler.h>
+#include <Modloader/app/structs/UploadFileCompletedEventArgs.h>
+#include <Modloader/app/structs/UploadFileCompletedEventHandler.h>
+#include <Modloader/app/structs/UploadValuesCompletedEventArgs.h>
+#include <Modloader/app/structs/UploadValuesCompletedEventHandler.h>
 
 namespace app::classes::System::Net::WebClient___c {
     IL2CPP_REGISTER_METHOD(0x01D5DF80, void, cctor, ())

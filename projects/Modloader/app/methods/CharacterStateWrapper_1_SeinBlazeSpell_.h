@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterStateWrapper_1_SeinBlazeSpell_.h>
 
 namespace app::classes::CharacterStateWrapper_1_SeinBlazeSpell_ {
     IL2CPP_REGISTER_METHOD(0x019DF410, bool, get_IsPerforming, (app::CharacterStateWrapper_1_SeinBlazeSpell_ * this_ptr))

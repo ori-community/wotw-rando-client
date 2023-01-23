@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkipCreditsAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SkipCreditsAction {
     IL2CPP_REGISTER_METHOD(0x00447380, void, Awake, (app::SkipCreditsAction * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExceptionEventArgs.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::ExceptionEventArgs {
     IL2CPP_REGISTER_METHOD(0x01DD9AD0, void, ctor, (app::ExceptionEventArgs * this_ptr, app::Exception* exception))

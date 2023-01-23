@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_System_UInt32___Boxed.h>
+#include <Modloader/app/structs/HashSet_1_System_UInt32_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_T__Enumerator_System_UInt32_ {
     IL2CPP_REGISTER_METHOD(0x0021FC60, void, ctor, (app::HashSet_1_T_Enumerator_System_UInt32___Boxed * this_ptr, app::HashSet_1_System_UInt32_* set))

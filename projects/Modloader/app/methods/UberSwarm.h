@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberSwarm.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UberSwarm_SwarmerEvent__Enum.h>
+#include <Modloader/app/structs/UberSwarmer.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UberSwarm {
     IL2CPP_REGISTER_METHOD(0x00A1A3B0, bool, get_IsSuspended, (app::UberSwarm * this_ptr))

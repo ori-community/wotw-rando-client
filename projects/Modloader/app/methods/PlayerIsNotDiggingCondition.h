@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerIsNotDiggingCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::PlayerIsNotDiggingCondition {
     IL2CPP_REGISTER_METHOD(0x01427390, bool, Validate, (app::PlayerIsNotDiggingCondition * this_ptr, app::IContext* context))

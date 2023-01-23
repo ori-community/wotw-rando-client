@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CausalityTraceLevel__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AsyncCausalityStatus__Enum.h>
+#include <Modloader/app/structs/CausalityRelation__Enum.h>
+#include <Modloader/app/structs/CausalitySynchronousWork__Enum.h>
 
 namespace app::classes::System::Threading::Tasks::AsyncCausalityTracer {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_LoggingOn, ())

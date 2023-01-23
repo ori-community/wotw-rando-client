@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TrianglePool_Sample_d_9.h>
+#include <Modloader/app/structs/Triangle.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_TriangleNet_Topology_Triangle_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::TriangleNet::TrianglePool__Sample_d__9 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::TrianglePool_Sample_d_9 * this_ptr, int32_t __1__state))

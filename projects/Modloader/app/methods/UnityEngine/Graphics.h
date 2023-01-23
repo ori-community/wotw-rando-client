@@ -1,5 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RenderBuffer.h>
+#include <Modloader/app/structs/CubemapFace__Enum.h>
+#include <Modloader/app/structs/RenderBuffer__Array.h>
+#include <Modloader/app/structs/ComputeBuffer.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Internal_DrawTextureArguments.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/MaterialPropertyBlock.h>
+#include <Modloader/app/structs/ShadowCastingMode__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/LightProbeUsage__Enum.h>
+#include <Modloader/app/structs/LightProbeProxyVolume.h>
+#include <Modloader/app/structs/MeshTopology__Enum.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/CommandBuffer.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::UnityEngine::Graphics {
     IL2CPP_REGISTER_METHOD(0x0252A790, int32_t, Internal_GetMaxDrawMeshInstanceCount, ())

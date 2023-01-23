@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_AttrName__Class.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_AttrName.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_AttrName__Boxed.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_AttrName__Array.h>
 
 namespace app::classes::types {
     namespace XmlWellFormedWriter_AttrName {

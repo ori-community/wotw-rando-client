@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayerParams.h>
 
 namespace app::classes::LayeredRenderSettings_LayerParams {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::LayeredRenderSettings_LayerParams * this_ptr))

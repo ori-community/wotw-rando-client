@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CCFont_Char.h>
+#include <Modloader/app/structs/CCFont.h>
 
 namespace app::classes::CCFont {
     IL2CPP_REGISTER_METHOD(0x0315ACC0, app::CCFont_Char*, get_Item, (app::CCFont * this_ptr, uint16_t c))

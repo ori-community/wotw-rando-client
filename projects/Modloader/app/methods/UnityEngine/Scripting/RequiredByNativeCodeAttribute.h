@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RequiredByNativeCodeAttribute.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Scripting::RequiredByNativeCodeAttribute {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::RequiredByNativeCodeAttribute * this_ptr))

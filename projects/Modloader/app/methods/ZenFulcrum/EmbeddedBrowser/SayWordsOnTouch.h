@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SayWordsOnTouch.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::SayWordsOnTouch {
     IL2CPP_REGISTER_METHOD(0x01669C40, int32_t, get_ActiveSpeakers, ())

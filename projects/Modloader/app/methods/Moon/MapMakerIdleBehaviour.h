@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MapMakerIdleBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::MapMakerIdleBehaviour {
     IL2CPP_REGISTER_METHOD(0x0110E7E0, void, OnEnter, (app::MapMakerIdleBehaviour * this_ptr, app::IContext* context))

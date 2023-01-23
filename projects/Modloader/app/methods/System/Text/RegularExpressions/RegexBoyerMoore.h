@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegexBoyerMoore.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CultureInfo.h>
 
 namespace app::classes::System::Text::RegularExpressions::RegexBoyerMoore {
     IL2CPP_REGISTER_METHOD(0x025878B0, void, ctor, (app::RegexBoyerMoore * this_ptr, app::String* pattern, bool case_insensitive, bool right_to_left, app::CultureInfo* culture))

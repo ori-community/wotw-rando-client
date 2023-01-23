@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostCharacterPlugin.h>
+#include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
 
 namespace app::classes::GhostCharacterPlugin {
     IL2CPP_REGISTER_METHOD(0x00E17FF0, void, PlayCycle, (app::GhostCharacterPlugin * this_ptr, float time))

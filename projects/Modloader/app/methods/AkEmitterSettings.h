@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkEmitterSettings.h>
 
 namespace app::classes::AkEmitterSettings {
     IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkEmitterSettings * this_ptr, void* c_ptr, bool c_memory_own))

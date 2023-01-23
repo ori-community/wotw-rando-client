@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/PetrifiedOwlBossEntity.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLavaController.h>
+#include <Modloader/app/structs/DamageReceiver_OverrideInfo.h>
+#include <Modloader/app/structs/PetrifiedOwlBossEntity_Phases__Enum.h>
+#include <Modloader/app/structs/PetrifiedOwlBossEntity_OnDamageReceivedDelegate.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/List_1_PetrifiedOwlBossBaseBehaviour_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLocomotion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/PetrifiedOwlBossGroundPiece.h>
+#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
+#include <Modloader/app/structs/IBrainController_1_PetrifiedOwlBossEntity_AnimationDirections_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::PetrifiedOwlBossEntity {
     IL2CPP_REGISTER_METHOD(0x004A21A0, app::Vector2, get_ArenaBoundsX, (app::PetrifiedOwlBossEntity * this_ptr))

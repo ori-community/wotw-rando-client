@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BossRaceHandler_StartMenuRaceNextFrame_d_20.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::BossRaceHandler__StartMenuRaceNextFrame_d__20 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::BossRaceHandler_StartMenuRaceNextFrame_d_20 * this_ptr, int32_t __1__state))

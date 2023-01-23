@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_RootMotionProcessor_.h>
+#include <Modloader/app/structs/RootMotionProcessor.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_Int32_RootMotionProcessor_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_RootMotionProcessor_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_System_Int32_RootMotionProcessor_ * this_ptr))

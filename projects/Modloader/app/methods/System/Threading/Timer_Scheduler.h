@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Timer_Scheduler.h>
+#include <Modloader/app/structs/Timer.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Threading_Timer_.h>
 
 namespace app::classes::System::Threading::Timer_Scheduler {
     IL2CPP_REGISTER_METHOD(0x02349F50, void, cctor, ())

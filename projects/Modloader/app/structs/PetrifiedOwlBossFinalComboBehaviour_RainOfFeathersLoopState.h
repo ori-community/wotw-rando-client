@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState_DEFINED
+struct PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState__Class;
+struct PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState {
+    struct PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersLoopState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

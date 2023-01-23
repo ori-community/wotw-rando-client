@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightCanvasEditorTextureCache_c.h>
+#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData.h>
 
 namespace app::classes::LightCanvasEditorTextureCache___c {
     IL2CPP_REGISTER_METHOD(0x011482F0, void, cctor, ())

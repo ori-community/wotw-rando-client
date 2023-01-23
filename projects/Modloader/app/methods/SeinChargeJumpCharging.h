@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinChargeJumpCharging.h>
+#include <Modloader/app/structs/PlayerAbilities.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/SeinChargeJump.h>
+#include <Modloader/app/structs/SeinChargeJumpCharging_State__Enum.h>
 
 namespace app::classes::SeinChargeJumpCharging {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinChargeJumpCharging * this_ptr))

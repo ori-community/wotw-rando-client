@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Grounding_Leg__Array.h>
+#include <Modloader/app/structs/Grounding.h>
+#include <Modloader/app/structs/Grounding_Pelvis.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform__Array.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::Grounding {
     IL2CPP_REGISTER_METHOD(0x002FBB40, app::Grounding_Leg__Array*, get_legs, (app::Grounding * this_ptr))

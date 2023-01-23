@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActiveAxis.h>
+#include <Modloader/app/structs/Asttree.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::Schema::ActiveAxis {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_CurrentDepth, (app::ActiveAxis * this_ptr))

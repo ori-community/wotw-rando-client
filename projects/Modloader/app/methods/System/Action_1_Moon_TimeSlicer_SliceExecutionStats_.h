@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_Moon_TimeSlicer_SliceExecutionStats_.h>
+#include <Modloader/app/structs/SliceExecutionStats.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Action_1_Moon_TimeSlicer_SliceExecutionStats_ {
     IL2CPP_REGISTER_METHOD(0x029FFDB0, void, Invoke, (app::Action_1_Moon_TimeSlicer_SliceExecutionStats_ * this_ptr, app::SliceExecutionStats obj))

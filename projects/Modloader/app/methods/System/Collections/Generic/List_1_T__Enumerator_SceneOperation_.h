@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneOperation.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_SceneOperation___Boxed.h>
+#include <Modloader/app/structs/List_1_SceneOperation_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_SceneOperation_ {
     IL2CPP_REGISTER_METHOD(0x00136440, app::SceneOperation, get_Current, (app::List_1_T_Enumerator_SceneOperation___Boxed * this_ptr))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/PhysicMaterial.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/Ray.h>
 
 namespace app::classes::UnityEngine::Collider {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Collider * this_ptr))

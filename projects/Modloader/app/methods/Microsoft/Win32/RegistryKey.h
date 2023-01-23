@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegistryKey.h>
+#include <Modloader/app/structs/RegistryHive__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SafeRegistryHandle.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IOException.h>
 
 namespace app::classes::Microsoft::Win32::RegistryKey {
     IL2CPP_REGISTER_METHOD(0x023B4890, void, cctor, ())

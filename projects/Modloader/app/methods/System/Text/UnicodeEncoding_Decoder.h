@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnicodeEncoding_Decoder.h>
+#include <Modloader/app/structs/UnicodeEncoding.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Text::UnicodeEncoding_Decoder {
     IL2CPP_REGISTER_METHOD(0x027D7930, void, ctor_1, (app::UnicodeEncoding_Decoder * this_ptr, app::UnicodeEncoding* encoding))

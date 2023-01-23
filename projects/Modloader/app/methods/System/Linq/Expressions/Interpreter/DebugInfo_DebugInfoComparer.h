@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugInfo_DebugInfoComparer.h>
+#include <Modloader/app/structs/DebugInfo.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::DebugInfo_DebugInfoComparer {
     IL2CPP_REGISTER_METHOD(0x022DAB90, int32_t, IComparer_DebugInfo__Compare, (app::DebugInfo_DebugInfoComparer * this_ptr, app::DebugInfo* d1, app::DebugInfo* d2))

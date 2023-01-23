@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuLookUp.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 
 namespace app::classes::KuLookUp {
     IL2CPP_REGISTER_METHOD(0x01241070, void, OnSetReferenceToKu, (app::KuLookUp * this_ptr))

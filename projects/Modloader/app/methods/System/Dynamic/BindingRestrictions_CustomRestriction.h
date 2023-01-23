@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BindingRestrictions_CustomRestriction.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Dynamic::BindingRestrictions_CustomRestriction {
     IL2CPP_REGISTER_METHOD(0x01F89130, void, ctor, (app::BindingRestrictions_CustomRestriction * this_ptr, app::Expression* expression))

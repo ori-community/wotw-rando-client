@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyEntity.h>
+#include <Modloader/app/structs/JumperEnemyPlaceholder.h>
 
 namespace app::classes::JumperEnemyPlaceholder {
     IL2CPP_REGISTER_METHOD(0x00E59010, app::LegacyEntity*, Instantiate, (app::JumperEnemyPlaceholder * this_ptr))

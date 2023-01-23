@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CallbackIdentityAttribute.h>
 
 namespace app::classes::Steamworks::CallbackIdentityAttribute {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_Identity, (app::CallbackIdentityAttribute * this_ptr))

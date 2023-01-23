@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DeflateManager_CompressFunc__Class.h>
+#include <Modloader/app/structs/DeflateManager_CompressFunc.h>
 
 namespace app::classes::types {
     namespace DeflateManager_CompressFunc {

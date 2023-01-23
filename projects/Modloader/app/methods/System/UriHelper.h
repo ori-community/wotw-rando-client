@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UnescapeMode__Enum.h>
+#include <Modloader/app/structs/UriParser.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::UriHelper {
     IL2CPP_REGISTER_METHOD(0x02A8F680, app::Char__Array*, EscapeString, (app::String * input, int32_t start, int32_t end, app::Char__Array* dest, int32_t* dest_pos, bool is_uri_string, uint16_t force1, uint16_t force2, uint16_t rsvd))

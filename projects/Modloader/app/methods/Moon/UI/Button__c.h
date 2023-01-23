@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Button_c.h>
+#include <Modloader/app/structs/UIContext.h>
 
 namespace app::classes::Moon::UI::Button___c {
     IL2CPP_REGISTER_METHOD(0x00D24A70, void, cctor, ())

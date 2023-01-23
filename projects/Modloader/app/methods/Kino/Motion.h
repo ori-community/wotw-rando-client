@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Motion_1.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::Kino::Motion {
     IL2CPP_REGISTER_METHOD(0x00446960, float, get_shutterAngle, (app::Motion_1 * this_ptr))

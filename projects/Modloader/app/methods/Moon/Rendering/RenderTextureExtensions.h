@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/RenderTextureDescriptor.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::Moon::Rendering::RenderTextureExtensions {
     IL2CPP_REGISTER_METHOD(0x00EB3120, int32_t, bpp, (app::RenderTextureFormat__Enum format))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkinnedMeshLod.h>
+#include <Modloader/app/structs/SkinnedMeshRenderer.h>
+#include <Modloader/app/structs/SkinnedMeshRenderer__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SkinnedMeshLod {
     IL2CPP_REGISTER_METHOD(0x004E57A0, int32_t, get_CurrentLevel, (app::SkinnedMeshLod * this_ptr))

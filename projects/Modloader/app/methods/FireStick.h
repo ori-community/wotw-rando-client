@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FireStick.h>
+#include <Modloader/app/structs/FireStick_Usability__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Flammable_FlameColor__Enum.h>
+#include <Modloader/app/structs/Flammable_FlameState__Enum.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Flammable.h>
+#include <Modloader/app/structs/ThrowAnimationType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/WaterfallIntersectionMode__Enum.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::FireStick {
     IL2CPP_REGISTER_METHOD(0x01256710, bool, get_IsLit, (app::FireStick * this_ptr))

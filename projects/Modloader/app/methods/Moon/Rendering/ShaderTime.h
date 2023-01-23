@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CommandBuffer.h>
 
 namespace app::classes::Moon::Rendering::ShaderTime {
     IL2CPP_REGISTER_METHOD(0x00EBB200, bool, get_freezeAll, ())

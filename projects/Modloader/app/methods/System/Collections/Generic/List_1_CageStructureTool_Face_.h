@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_CageStructureTool_Face_.h>
+#include <Modloader/app/structs/List_1_CageStructureTool_Face_.h>
+#include <Modloader/app/structs/CageStructureTool_Face.h>
+#include <Modloader/app/structs/Predicate_1_CageStructureTool_Face_.h>
+#include <Modloader/app/structs/CageStructureTool_Face__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CageStructureTool_Face_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_CageStructureTool_Face_, GetEnumerator, (app::List_1_CageStructureTool_Face_ * this_ptr))

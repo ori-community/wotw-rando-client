@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TestReporter.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::TestReporter {
     IL2CPP_REGISTER_METHOD(0x010DA6C0, void, ctor, (app::TestReporter * this_ptr, app::String* report_path))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListProvider_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/ParameterExpression__Array.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Dynamic::Utils::ListProvider_1_System_Linq_Expressions_ParameterExpression_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::ListProvider_1_System_Linq_Expressions_ParameterExpression_ * this_ptr))

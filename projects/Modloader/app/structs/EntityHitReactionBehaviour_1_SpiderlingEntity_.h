@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EntityHitReactionBehaviour_1_SpiderlingEntity__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EntityHitReactionBehaviour_1_SpiderlingEntity__INITIALIZING
+#if !defined(IL2CPP_STRUCT_EntityHitReactionBehaviour_1_SpiderlingEntity__DEFINED)
+#include <Modloader/app/structs/EntityHitReactionBehaviour_1_SpiderlingEntity___Fields.h>
+#if defined(IL2CPP_STRUCT_EntityHitReactionBehaviour_1_SpiderlingEntity___Fields_DEFINED)
+#define IL2CPP_STRUCT_EntityHitReactionBehaviour_1_SpiderlingEntity__DEFINED
+struct EntityHitReactionBehaviour_1_SpiderlingEntity___Class;
+struct EntityHitReactionBehaviour_1_SpiderlingEntity_ {
+    struct EntityHitReactionBehaviour_1_SpiderlingEntity___Class* klass;
+    MonitorData* monitor;
+    struct EntityHitReactionBehaviour_1_SpiderlingEntity___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_EntityHitReactionBehaviour_1_SpiderlingEntity__FWDDECL)
+#define IL2CPP_STRUCT_EntityHitReactionBehaviour_1_SpiderlingEntity__FWDDECL
+#include <Modloader/app/structs/EntityHitReactionBehaviour_1_SpiderlingEntity___Class.h>
+#endif
+#undef IL2CPP_STRUCT_EntityHitReactionBehaviour_1_SpiderlingEntity__INITIALIZING
+#if !defined(IL2CPP_STRUCT_EntityHitReactionBehaviour_1_SpiderlingEntity__DEFINED) && !defined(IL2CPP_STRUCT_EntityHitReactionBehaviour_1_SpiderlingEntity__FWDDECL)
+#include <Modloader/app/structs/EntityHitReactionBehaviour_1_SpiderlingEntity_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EntityHitReactionBehaviour_1_SpiderlingEntity_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

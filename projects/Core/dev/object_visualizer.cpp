@@ -13,6 +13,21 @@
 #include <Modloader/app/types/Quaternion.h>
 #include <Modloader/app/types/IUberState.h>
 #include <Modloader/app/types/Object.h>
+#include <Modloader/app/structs/IUberStateGroup.h>
+#include <Modloader/app/structs/Int32__Boxed.h>
+#include <Modloader/app/structs/Color32.h>
+#include <Modloader/app/structs/Boolean__Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/UInt32__Boxed.h>
+#include <Modloader/app/structs/Int32__Boxed.h>
+#include <Modloader/app/structs/Single__Boxed.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/StateCondition.h>
+#include <Modloader/app/structs/UberStateBoolCondition.h>
+#include <Modloader/app/structs/UberStateValueCondition.h>
+#include <Modloader/app/structs/Respawner.h>
 
 #include <unordered_map>
 

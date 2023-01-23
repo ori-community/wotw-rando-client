@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GameFolders__Class.h>
+#include <Modloader/app/structs/GameFolders.h>
 
 namespace app::classes::types {
     namespace GameFolders {

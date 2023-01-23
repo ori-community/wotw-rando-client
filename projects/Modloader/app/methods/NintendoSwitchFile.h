@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/NintendoSwitchFile.h>
 
 namespace app::classes::NintendoSwitchFile {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, Exists, (app::String * path))

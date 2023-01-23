@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleScripting_c.h>
+#include <Modloader/app/structs/JSONNode.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::SimpleScripting___c {
     IL2CPP_REGISTER_METHOD(0x0166C800, void, cctor, ())

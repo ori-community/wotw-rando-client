@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValidatingReaderNodeData.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/AttributePSVIInfo.h>
+#include <Modloader/app/structs/IXmlLineInfo.h>
 
 namespace app::classes::System::Xml::ValidatingReaderNodeData {
     IL2CPP_REGISTER_METHOD(0x01954890, void, ctor_1, (app::ValidatingReaderNodeData * this_ptr))

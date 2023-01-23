@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_System_Char_.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_System_Char_ {
     IL2CPP_REGISTER_METHOD(0x0265AF00, bool, Equals_1, (app::ObjectEqualityComparer_1_System_Char_ * this_ptr, uint16_t x, uint16_t y))

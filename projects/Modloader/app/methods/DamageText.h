@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DamageText.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::DamageText {
     IL2CPP_REGISTER_METHOD(0x00DC9AD0, void, Awake, (app::DamageText * this_ptr))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExpandoObject_ValueCollection.h>
+#include <Modloader/app/structs/ExpandoObject.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Dynamic::ExpandoObject_ValueCollection {
     IL2CPP_REGISTER_METHOD(0x01F92B00, void, ctor, (app::ExpandoObject_ValueCollection * this_ptr, app::ExpandoObject* expando))

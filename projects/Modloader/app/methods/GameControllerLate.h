@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/GameControllerLate.h>
+#include <Modloader/app/structs/PlayerLoopSystem.h>
 
 namespace app::classes::GameControllerLate {
     IL2CPP_REGISTER_METHOD(0x0069C710, app::IEnumerator*, Start, (app::GameControllerLate * this_ptr))

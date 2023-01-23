@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabFileDownloader.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RaceDataLeaderBoardType__Enum.h>
+#include <Modloader/app/structs/Task_1_System_Byte_.h>
+#include <Modloader/app/structs/GetFilesResponse.h>
+#include <Modloader/app/structs/GetFileMetadata.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/PlayFabError.h>
 
 namespace app::classes::SystemIntegration::Races::PlayFabFileDownloader {
     IL2CPP_REGISTER_METHOD(0x00521550, void, ctor, (app::PlayFabFileDownloader * this_ptr, app::String* owner_id, app::String* file_name, app::RaceDataLeaderBoardType__Enum data, int32_t max_size))

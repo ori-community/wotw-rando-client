@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeaderboardEntryData.h>
 
 namespace app::classes::LeaderboardEntryData {
     IL2CPP_REGISTER_METHOD(0x015B77D0, int32_t, get_Time, (app::LeaderboardEntryData * this_ptr))

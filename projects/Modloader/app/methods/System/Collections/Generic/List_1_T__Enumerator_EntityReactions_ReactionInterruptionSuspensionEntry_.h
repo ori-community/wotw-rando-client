@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_EntityReactions_ReactionInterruptionSuspensionEntry___Boxed.h>
+#include <Modloader/app/structs/List_1_EntityReactions_ReactionInterruptionSuspensionEntry_.h>
+#include <Modloader/app/structs/EntityReactions_ReactionInterruptionSuspensionEntry.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_EntityReactions_ReactionInterruptionSuspensionEntry_ {
     IL2CPP_REGISTER_METHOD(0x0014CA00, void, ctor, (app::List_1_T_Enumerator_EntityReactions_ReactionInterruptionSuspensionEntry___Boxed * this_ptr, app::List_1_EntityReactions_ReactionInterruptionSuspensionEntry_* list))

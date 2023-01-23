@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MessageBox_c_1.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum_1.h>
 
 namespace app::classes::Moon::UI::MessageBox___c {
     IL2CPP_REGISTER_METHOD(0x01181EE0, void, cctor, ())

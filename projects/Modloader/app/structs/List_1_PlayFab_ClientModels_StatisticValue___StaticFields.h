@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_PlayFab_ClientModels_StatisticValue___StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_PlayFab_ClientModels_StatisticValue___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_PlayFab_ClientModels_StatisticValue___StaticFields_DEFINED)
+#define IL2CPP_STRUCT_List_1_PlayFab_ClientModels_StatisticValue___StaticFields_DEFINED
+struct StatisticValue__Array;
+struct List_1_PlayFab_ClientModels_StatisticValue___StaticFields {
+    struct StatisticValue__Array* _emptyArray;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_PlayFab_ClientModels_StatisticValue___StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_List_1_PlayFab_ClientModels_StatisticValue___StaticFields_FWDDECL
+#include <Modloader/app/structs/StatisticValue__Array.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_PlayFab_ClientModels_StatisticValue___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_PlayFab_ClientModels_StatisticValue___StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_List_1_PlayFab_ClientModels_StatisticValue___StaticFields_FWDDECL)
+#include <Modloader/app/structs/List_1_PlayFab_ClientModels_StatisticValue___StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_PlayFab_ClientModels_StatisticValue___StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

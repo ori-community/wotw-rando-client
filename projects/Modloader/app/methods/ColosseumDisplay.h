@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ColosseumDisplay.h>
 
 namespace app::classes::ColosseumDisplay {
     IL2CPP_REGISTER_METHOD(0x011DAFD0, void, SetRemainingTime, (app::ColosseumDisplay * this_ptr, float seconds))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Int2__Boxed.h>
+#include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Swing::Int2 {
     IL2CPP_REGISTER_METHOD(0x00115520, void, ctor, (app::Int2__Boxed * this_ptr, int32_t x, int32_t y))

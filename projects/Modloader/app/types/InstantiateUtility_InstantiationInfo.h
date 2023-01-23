@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InstantiateUtility_InstantiationInfo__Class.h>
+#include <Modloader/app/structs/InstantiateUtility_InstantiationInfo.h>
+#include <Modloader/app/structs/InstantiateUtility_InstantiationInfo__Boxed.h>
+#include <Modloader/app/structs/InstantiateUtility_InstantiationInfo__Array.h>
 
 namespace app::classes::types {
     namespace InstantiateUtility_InstantiationInfo {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncMethodBuilderCore_MoveNextRunner.h>
+#include <Modloader/app/structs/ExecutionContext.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncMethodBuilderCore_MoveNextRunner {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::AsyncMethodBuilderCore_MoveNextRunner * this_ptr, app::ExecutionContext* context, app::IAsyncStateMachine* state_machine))

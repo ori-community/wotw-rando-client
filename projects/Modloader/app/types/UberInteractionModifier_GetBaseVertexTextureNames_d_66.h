@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberInteractionModifier_GetBaseVertexTextureNames_d_66__Class.h>
+#include <Modloader/app/structs/UberInteractionModifier_GetBaseVertexTextureNames_d_66.h>
 
 namespace app::classes::types {
     namespace UberInteractionModifier_GetBaseVertexTextureNames_d_66 {

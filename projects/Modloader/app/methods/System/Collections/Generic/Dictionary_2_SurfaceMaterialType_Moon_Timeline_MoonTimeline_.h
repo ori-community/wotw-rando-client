@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_SurfaceMaterialType_Moon_Timeline_MoonTimeline_.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_SurfaceMaterialType_Moon_Timeline_MoonTimeline_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_SurfaceMaterialType_Moon_Timeline_MoonTimeline_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_SurfaceMaterialType_Moon_Timeline_MoonTimeline_ * this_ptr, app::SurfaceMaterialType__Enum key))

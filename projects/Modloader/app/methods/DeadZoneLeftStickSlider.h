@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DeadZoneLeftStickSlider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::DeadZoneLeftStickSlider {
     IL2CPP_REGISTER_METHOD(0x00DDC490, float, get_Value, (app::DeadZoneLeftStickSlider * this_ptr))

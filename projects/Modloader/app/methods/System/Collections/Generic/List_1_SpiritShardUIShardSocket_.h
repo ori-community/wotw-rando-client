@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_SpiritShardUIShardSocket_.h>
+#include <Modloader/app/structs/IEnumerable_1_SpiritShardUIShardSocket_.h>
+#include <Modloader/app/structs/SpiritShardUIShardSocket.h>
+#include <Modloader/app/structs/SpiritShardUIShardSocket__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_SpiritShardUIShardSocket_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_SpiritShardUIShardSocket_ * this_ptr))

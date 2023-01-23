@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScaleAnimator.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ScaleAnimator {
     IL2CPP_REGISTER_METHOD(0x00932DC0, void, CacheOriginals, (app::ScaleAnimator * this_ptr))

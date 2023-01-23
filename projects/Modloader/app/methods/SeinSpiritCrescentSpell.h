@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinSpiritCrescentSpell.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::SeinSpiritCrescentSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinSpiritCrescentSpell * this_ptr))

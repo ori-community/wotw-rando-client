@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ToolboxItemAttribute.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::ToolboxItemAttribute {
     IL2CPP_REGISTER_METHOD(0x029ADF90, bool, IsDefaultAttribute, (app::ToolboxItemAttribute * this_ptr))

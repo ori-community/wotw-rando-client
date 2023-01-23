@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/NewObjectiveMessageProvider_GetMessages_d_3__Class.h>
+#include <Modloader/app/structs/NewObjectiveMessageProvider_GetMessages_d_3.h>
 
 namespace app::classes::types {
     namespace NewObjectiveMessageProvider_GetMessages_d_3 {

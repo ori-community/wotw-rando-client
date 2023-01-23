@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaitForTimeTimelineEntity.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::WaitForTimeTimelineEntity {
     IL2CPP_REGISTER_METHOD(0x008693A0, float, get_CurrentTime, (app::WaitForTimeTimelineEntity * this_ptr))

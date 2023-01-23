@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AtomicBoolean.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Threading::AtomicBoolean {
     IL2CPP_REGISTER_METHOD(0x027D82B0, bool, TryRelaxedSet, (app::AtomicBoolean * this_ptr))

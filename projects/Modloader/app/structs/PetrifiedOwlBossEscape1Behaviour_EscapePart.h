@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_EscapePart_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_EscapePart_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_EscapePart_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_EscapePart__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_EscapePart__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_EscapePart_DEFINED
+struct PetrifiedOwlBossEscape1Behaviour_EscapePart__Class;
+struct PetrifiedOwlBossEscape1Behaviour_EscapePart {
+    struct PetrifiedOwlBossEscape1Behaviour_EscapePart__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossEscape1Behaviour_EscapePart__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_EscapePart_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_EscapePart_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_EscapePart__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_EscapePart_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_EscapePart_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossEscape1Behaviour_EscapePart_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_EscapePart.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_EscapePart.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

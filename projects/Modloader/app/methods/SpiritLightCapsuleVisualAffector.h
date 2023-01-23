@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SpiritLightCapsuleVisualAffector.h>
+#include <Modloader/app/structs/GameplayCamera.h>
 
 namespace app::classes::SpiritLightCapsuleVisualAffector {
     IL2CPP_REGISTER_METHOD(0x00D61010, app::Vector3, get_StartPointPosition, (app::SpiritLightCapsuleVisualAffector * this_ptr))

@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParameterInfo_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/CallingConventions__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ParameterAttributes__Enum.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Reflection::ParameterInfo {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ParameterInfo_1 * this_ptr))

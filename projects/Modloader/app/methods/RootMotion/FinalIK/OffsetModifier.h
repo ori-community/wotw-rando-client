@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OffsetModifier.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/OffsetModifier_OffsetLimits__Array.h>
 
 namespace app::classes::RootMotion::FinalIK::OffsetModifier {
     IL2CPP_REGISTER_METHOD(0x02A18130, float, get_deltaTime, (app::OffsetModifier * this_ptr))

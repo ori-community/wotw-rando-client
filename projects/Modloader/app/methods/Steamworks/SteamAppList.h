@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AppId_t__Array.h>
+#include <Modloader/app/structs/AppId_t.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::SteamAppList {
     IL2CPP_REGISTER_METHOD(0x027E2260, uint32_t, GetNumInstalledApps, ())

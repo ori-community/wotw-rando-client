@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/DataColumn__Array.h>
+#include <Modloader/app/structs/UniqueConstraint.h>
+#include <Modloader/app/structs/ForeignKeyConstraint.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/Constraint_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DataSetDateTime__Enum.h>
+#include <Modloader/app/structs/DataRowState__Enum.h>
+#include <Modloader/app/structs/SerializationFormat__Enum_1.h>
+#include <Modloader/app/structs/AggregateType__Enum.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
+#include <Modloader/app/structs/RBTreeError__Enum.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::System::Data::ExceptionBuilder {
     IL2CPP_REGISTER_METHOD(0x01F4D2B0, void, TraceException, (app::String * trace, app::Exception* e))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_VerletChain_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_VerletChain_INITIALIZING
+#if !defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_VerletChain_DEFINED)
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_VerletChain__Fields.h>
+#if defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_VerletChain__Fields_DEFINED)
+#define IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_VerletChain_DEFINED
+struct VerletPhysicsAnimationPostprocess_VerletChain__Class;
+struct VerletPhysicsAnimationPostprocess_VerletChain {
+    struct VerletPhysicsAnimationPostprocess_VerletChain__Class* klass;
+    MonitorData* monitor;
+    struct VerletPhysicsAnimationPostprocess_VerletChain__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_VerletChain_FWDDECL)
+#define IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_VerletChain_FWDDECL
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_VerletChain__Class.h>
+#endif
+#undef IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_VerletChain_INITIALIZING
+#if !defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_VerletChain_DEFINED) && !defined(IL2CPP_STRUCT_VerletPhysicsAnimationPostprocess_VerletChain_FWDDECL)
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_VerletChain.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_VerletChain.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

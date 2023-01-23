@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PropertyAttributes__Enum.h>
+#include <Modloader/app/structs/PropertyBuilder.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/MethodInfo_1__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/Binder.h>
+#include <Modloader/app/structs/CultureInfo.h>
 
 namespace app::classes::System::Reflection::Emit::PropertyBuilder {
     IL2CPP_REGISTER_METHOD(0x02689220, app::PropertyAttributes__Enum, get_Attributes, (app::PropertyBuilder * this_ptr))

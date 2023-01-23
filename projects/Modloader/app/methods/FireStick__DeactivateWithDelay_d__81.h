@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FireStick_DeactivateWithDelay_d_81.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::FireStick__DeactivateWithDelay_d__81 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::FireStick_DeactivateWithDelay_d_81 * this_ptr, int32_t __1__state))

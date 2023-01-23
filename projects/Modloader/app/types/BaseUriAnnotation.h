@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BaseUriAnnotation__Class.h>
+#include <Modloader/app/structs/BaseUriAnnotation.h>
 
 namespace app::classes::types {
     namespace BaseUriAnnotation {

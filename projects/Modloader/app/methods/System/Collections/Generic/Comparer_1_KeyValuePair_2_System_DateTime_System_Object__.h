@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Comparer_1_KeyValuePair_2_System_DateTime_System_Object_.h>
+#include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__8.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Comparer_1_KeyValuePair_2_System_DateTime_System_Object__ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::Comparer_1_KeyValuePair_2_System_DateTime_System_Object_*, get_Default, ())

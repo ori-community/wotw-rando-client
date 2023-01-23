@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMonoSslStream.h>
+#include <Modloader/app/structs/SslStream.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/MonoTlsProvider.h>
+#include <Modloader/app/structs/MonoTlsSettings.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/SslProtocols__Enum.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::Security::SslStream {
     IL2CPP_REGISTER_METHOD(0x01BD1C90, app::IMonoSslStream*, get_Impl, (app::SslStream * this_ptr))

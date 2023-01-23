@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XboxOneRichPresence_RichPresence__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XboxOneRichPresence_Level__Enum.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/XboxOneRichPresence.h>
 
 namespace app::classes::XboxOneRichPresence {
     IL2CPP_REGISTER_METHOD(0x01C591D0, bool, get_EnableRichPresence, ())

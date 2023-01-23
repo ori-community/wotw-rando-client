@@ -1,5 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiritLightRadialVisualAffector.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CharacterAnimationSystem.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/CharacterState.h>
+#include <Modloader/app/structs/NavigationType__Enum.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/WaterfallIntersectionMode__Enum.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/CharacterCapsuleController.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::SeinCharacter {
     IL2CPP_REGISTER_METHOD(0x006A63A0, app::SpiritLightRadialVisualAffector*, get_LightAffector, (app::SeinCharacter * this_ptr))

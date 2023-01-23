@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEvent__Array.h>
+#include <Modloader/app/structs/IComparer_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
+#include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEvent.h>
+#include <Modloader/app/structs/Comparison_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_SoundZoneProcessor_Job_PositionZoneEvent_ {
     IL2CPP_REGISTER_METHOD(0x02FF2190, void, Sort_1, (app::SoundZoneProcessor_Job_PositionZoneEvent__Array * keys, int32_t index, int32_t length, app::IComparer_1_SoundZoneProcessor_Job_PositionZoneEvent_* comparer))

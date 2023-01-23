@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ThreadPoolTaskScheduler_FilterTasksFromWorkItems_d_7.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Threading_Tasks_Task_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Threading::Tasks::ThreadPoolTaskScheduler__FilterTasksFromWorkItems_d__7 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::ThreadPoolTaskScheduler_FilterTasksFromWorkItems_d_7 * this_ptr, int32_t __1__state))

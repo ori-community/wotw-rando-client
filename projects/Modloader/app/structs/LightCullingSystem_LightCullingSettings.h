@@ -1,0 +1,26 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_LightCullingSystem_LightCullingSettings_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_LightCullingSystem_LightCullingSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LightCullingSystem_LightCullingSettings_DEFINED)
+#define IL2CPP_STRUCT_LightCullingSystem_LightCullingSettings_DEFINED
+struct LightCullingSystem_LightCullingConfigPerType__Array;
+struct LightCullingSystem_LightCullingSettings {
+    struct LightCullingSystem_LightCullingConfigPerType__Array* ConfigPerType;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_LightCullingSystem_LightCullingSettings_FWDDECL)
+#define IL2CPP_STRUCT_LightCullingSystem_LightCullingSettings_FWDDECL
+#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType__Array.h>
+#endif
+#undef IL2CPP_STRUCT_LightCullingSystem_LightCullingSettings_INITIALIZING
+#if !defined(IL2CPP_STRUCT_LightCullingSystem_LightCullingSettings_DEFINED) && !defined(IL2CPP_STRUCT_LightCullingSystem_LightCullingSettings_FWDDECL)
+#include <Modloader/app/structs/LightCullingSystem_LightCullingSettings.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/LightCullingSystem_LightCullingSettings.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

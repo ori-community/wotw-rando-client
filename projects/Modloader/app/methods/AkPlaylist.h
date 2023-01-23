@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkPlaylist.h>
+#include <Modloader/app/structs/AKRESULT__Enum.h>
+#include <Modloader/app/structs/AkExternalSourceInfoArray.h>
 
 namespace app::classes::AkPlaylist {
     IL2CPP_REGISTER_METHOD(0x0188A780, void, ctor_1, (app::AkPlaylist * this_ptr, void* c_ptr, bool c_memory_own))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DashableSwitchPhysics.h>
+#include <Modloader/app/structs/IMoonSetupLogic.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::DashableSwitchPhysics {
     IL2CPP_REGISTER_METHOD(0x00DD2EE0, bool, get_IsOn, (app::DashableSwitchPhysics * this_ptr))

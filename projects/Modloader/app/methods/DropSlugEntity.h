@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DropSlugEntity.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::DropSlugEntity {
     IL2CPP_REGISTER_METHOD(0x00BE3E30, float, get_ExposedFallRange, (app::DropSlugEntity * this_ptr))

@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_1_System_Object___Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_1_System_Object___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_1_System_Object___Fields_DEFINED)
+#define IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_1_System_Object___Fields_DEFINED
+struct AtomicBoolean;
+struct TaskFactory_1_TResult_c_DisplayClass35_0_System_Object_;
+struct __declspec(align(8)) TaskFactory_1_TResult_c_DisplayClass35_1_System_Object___Fields {
+    struct AtomicBoolean* invoked;
+    struct TaskFactory_1_TResult_c_DisplayClass35_0_System_Object_* CS___8__locals1;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_1_System_Object___Fields_FWDDECL)
+#define IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_1_System_Object___Fields_FWDDECL
+#include <Modloader/app/structs/AtomicBoolean.h>
+#include <Modloader/app/structs/TaskFactory_1_TResult_c_DisplayClass35_0_System_Object_.h>
+#endif
+#undef IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_1_System_Object___Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_1_System_Object___Fields_DEFINED) && !defined(IL2CPP_STRUCT_TaskFactory_1_TResult_c_DisplayClass35_1_System_Object___Fields_FWDDECL)
+#include <Modloader/app/structs/TaskFactory_1_TResult_c_DisplayClass35_1_System_Object___Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TaskFactory_1_TResult_c_DisplayClass35_1_System_Object___Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

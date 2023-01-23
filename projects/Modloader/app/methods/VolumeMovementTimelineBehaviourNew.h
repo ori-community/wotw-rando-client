@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VolumeMovementTimelineBehaviourNew.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::VolumeMovementTimelineBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x00877D80, void, OnEntityInitialized, (app::VolumeMovementTimelineBehaviourNew * this_ptr))

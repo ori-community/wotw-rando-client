@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BoneWeight__Class.h>
+#include <Modloader/app/structs/BoneWeight.h>
+#include <Modloader/app/structs/BoneWeight__Boxed.h>
+#include <Modloader/app/structs/BoneWeight__Array.h>
 
 namespace app::classes::types {
     namespace BoneWeight {

@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XdrValidator.h>
+#include <Modloader/app/structs/BaseValidator.h>
+#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
+#include <Modloader/app/structs/XmlSchemaCollection.h>
+#include <Modloader/app/structs/IValidationEventHandling.h>
+#include <Modloader/app/structs/SchemaElementDecl.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/SchemaInfo.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
 
 namespace app::classes::System::Xml::Schema::XdrValidator {
     IL2CPP_REGISTER_METHOD(0x022325B0, void, ctor_1, (app::XdrValidator * this_ptr, app::BaseValidator* validator))

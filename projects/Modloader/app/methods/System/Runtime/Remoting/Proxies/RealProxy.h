@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RealProxy.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ClientIdentity.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Identity.h>
+#include <Modloader/app/structs/IMessage.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MarshalByRefObject.h>
+#include <Modloader/app/structs/IMethodReturnMessage.h>
+#include <Modloader/app/structs/MonoMethodMessage.h>
 
 namespace app::classes::System::Runtime::Remoting::Proxies::RealProxy {
     IL2CPP_REGISTER_METHOD(0x0231D520, void, ctor_1, (app::RealProxy * this_ptr, app::Type* class_to_proxy))

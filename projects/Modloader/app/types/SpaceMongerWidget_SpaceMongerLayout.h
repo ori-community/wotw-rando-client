@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SpaceMongerWidget_SpaceMongerLayout__Class.h>
+#include <Modloader/app/structs/SpaceMongerWidget_SpaceMongerLayout.h>
+#include <Modloader/app/structs/SpaceMongerWidget_SpaceMongerLayout__Boxed.h>
 
 namespace app::classes::types {
     namespace SpaceMongerWidget_SpaceMongerLayout {

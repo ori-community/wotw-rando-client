@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Shadow.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UIVertex_.h>
+#include <Modloader/app/structs/Color32.h>
+#include <Modloader/app/structs/VertexHelper.h>
 
 namespace app::classes::UnityEngine::UI::Shadow {
     IL2CPP_REGISTER_METHOD(0x02662FD0, void, ctor, (app::Shadow * this_ptr))

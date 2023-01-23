@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/MicroProfilerGraph_MetricCache__Class.h>
+#include <Modloader/app/structs/MicroProfilerGraph_MetricCache.h>
+#include <Modloader/app/structs/MicroProfilerGraph_MetricCache__Boxed.h>
+#include <Modloader/app/structs/MicroProfilerGraph_MetricCache__Array.h>
 
 namespace app::classes::types {
     namespace MicroProfilerGraph_MetricCache {

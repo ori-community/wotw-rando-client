@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enum_EnumResult__Boxed.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Enum_ParseFailureKind__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Enum_EnumResult {
     IL2CPP_REGISTER_METHOD(0x001557F0, void, Init, (app::Enum_EnumResult__Boxed * this_ptr, bool can_method_throw))

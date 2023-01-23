@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Rendering_SrpSampler_.h>
+#include <Modloader/app/structs/SrpSampler.h>
+#include <Modloader/app/structs/SrpSampler__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_Moon_Rendering_SrpSampler_ {
     IL2CPP_REGISTER_METHOD(0x01CD2D60, bool, Equals_1, (app::ObjectEqualityComparer_1_Moon_Rendering_SrpSampler_ * this_ptr, app::SrpSampler x, app::SrpSampler y))

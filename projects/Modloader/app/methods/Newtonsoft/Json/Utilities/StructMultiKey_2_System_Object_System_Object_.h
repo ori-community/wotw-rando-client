@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StructMultiKey_2_System_Object_System_Object___Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StructMultiKey_2_System_Object_System_Object_.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::StructMultiKey_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00110270, void, ctor, (app::StructMultiKey_2_System_Object_System_Object___Boxed * this_ptr, app::Object* v1, app::Object* v2))

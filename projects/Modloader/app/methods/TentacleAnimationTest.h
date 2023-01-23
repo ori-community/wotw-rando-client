@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TentacleAnimationTest.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::TentacleAnimationTest {
     IL2CPP_REGISTER_METHOD(0x00CEB810, void, Start, (app::TentacleAnimationTest * this_ptr))

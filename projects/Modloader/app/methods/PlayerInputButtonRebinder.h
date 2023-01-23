@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerInputButtonRebinder.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Input_Command__Enum.h>
+#include <Modloader/app/structs/PlayerInputButtonRebinder_Request__Enum.h>
 
 namespace app::classes::PlayerInputButtonRebinder {
     IL2CPP_REGISTER_METHOD(0x0141CC70, bool, IsAbilityBlocked, (app::PlayerInputButtonRebinder * this_ptr, app::AbilityType__Enum ability))

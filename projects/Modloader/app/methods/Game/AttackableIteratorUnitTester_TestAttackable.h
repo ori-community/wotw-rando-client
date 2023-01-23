@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/AttackableIteratorUnitTester_TestAttackable.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
 
 namespace app::classes::Game::AttackableIteratorUnitTester_TestAttackable {
     IL2CPP_REGISTER_METHOD(0x01521270, app::Vector3, get_Position, (app::AttackableIteratorUnitTester_TestAttackable * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HasLineOfSightCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::HasLineOfSightCondition {
     IL2CPP_REGISTER_METHOD(0x00CB90A0, app::String*, get_Info, (app::HasLineOfSightCondition * this_ptr))

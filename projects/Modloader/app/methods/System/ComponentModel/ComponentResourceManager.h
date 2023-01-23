@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ComponentResourceManager.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SortedList_2_System_String_System_Object_.h>
+#include <Modloader/app/structs/ResourceSet.h>
 
 namespace app::classes::System::ComponentModel::ComponentResourceManager {
     IL2CPP_REGISTER_METHOD(0x024A9E60, void, ctor_1, (app::ComponentResourceManager * this_ptr))

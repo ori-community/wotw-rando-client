@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AchievementsUI.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::AchievementsUI {
     IL2CPP_REGISTER_METHOD(0x004BDC70, app::AchievementsUI*, get_Instance, ())

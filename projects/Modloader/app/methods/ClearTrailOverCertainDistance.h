@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ClearTrailOverCertainDistance.h>
 
 namespace app::classes::ClearTrailOverCertainDistance {
     IL2CPP_REGISTER_METHOD(0x012AD3E0, void, Awake, (app::ClearTrailOverCertainDistance * this_ptr))

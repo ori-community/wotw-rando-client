@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XboxControllerRenderer.h>
+#include <Modloader/app/structs/XboxControllerRenderer_ButtonContainer.h>
 
 namespace app::classes::XboxControllerRenderer {
     IL2CPP_REGISTER_METHOD(0x00593980, void, Start, (app::XboxControllerRenderer * this_ptr))

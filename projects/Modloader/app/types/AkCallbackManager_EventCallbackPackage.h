@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AkCallbackManager_EventCallbackPackage__Class.h>
+#include <Modloader/app/structs/AkCallbackManager_EventCallbackPackage.h>
+#include <Modloader/app/structs/AkCallbackManager_EventCallbackPackage__Array.h>
 
 namespace app::classes::types {
     namespace AkCallbackManager_EventCallbackPackage {

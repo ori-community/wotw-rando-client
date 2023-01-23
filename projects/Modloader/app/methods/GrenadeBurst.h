@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DamageLayerMask__Enum.h>
+#include <Modloader/app/structs/GrenadeBurst.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::GrenadeBurst {
     IL2CPP_REGISTER_METHOD(0x002FD750, app::DamageLayerMask__Enum, get_DamageLayerMask, (app::GrenadeBurst * this_ptr))

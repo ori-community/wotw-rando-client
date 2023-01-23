@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataPoint.h>
+#include <Modloader/app/structs/DataPointType__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::Telemetry::DataPoint {
     IL2CPP_REGISTER_METHOD(0x002FBB00, app::String*, get_Level, (app::DataPoint * this_ptr))

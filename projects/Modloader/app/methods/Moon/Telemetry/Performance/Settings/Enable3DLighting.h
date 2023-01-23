@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/Enable3DLighting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::Enable3DLighting {
     IL2CPP_REGISTER_METHOD(0x00E3C140, app::ProfilingSettings_SettingType__Enum, get_SettingType, (app::Enable3DLighting * this_ptr))

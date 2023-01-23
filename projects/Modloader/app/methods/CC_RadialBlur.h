@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CC_RadialBlur.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Material.h>
 
 namespace app::classes::CC_RadialBlur {
     IL2CPP_REGISTER_METHOD(0x03194F40, void, Start, (app::CC_RadialBlur * this_ptr))

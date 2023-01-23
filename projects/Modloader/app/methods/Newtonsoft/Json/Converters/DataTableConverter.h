@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataTableConverter.h>
+#include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/JsonSerializer.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/DataTable.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::DataTableConverter {
     IL2CPP_REGISTER_METHOD(0x01A4F350, void, WriteJson, (app::DataTableConverter * this_ptr, app::JsonWriter* writer, app::Object* value, app::JsonSerializer* serializer))

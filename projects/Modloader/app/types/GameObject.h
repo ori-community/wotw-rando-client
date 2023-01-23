@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GameObject__Class.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GameObject__Array.h>
 
 namespace app::classes::types {
     namespace GameObject {

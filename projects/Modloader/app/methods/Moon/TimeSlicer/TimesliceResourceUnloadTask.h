@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimesliceResourceUnloadTask.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
 
 namespace app::classes::Moon::TimeSlicer::TimesliceResourceUnloadTask {
     IL2CPP_REGISTER_METHOD(0x002FBBC0, app::String*, get_SceneName, (app::TimesliceResourceUnloadTask * this_ptr))

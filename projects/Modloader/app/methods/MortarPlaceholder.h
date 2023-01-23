@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MortarPlaceholder.h>
+#include <Modloader/app/structs/MortarEntity.h>
 
 namespace app::classes::MortarPlaceholder {
     IL2CPP_REGISTER_METHOD(0x0147DF40, void, ResetStatics, ())

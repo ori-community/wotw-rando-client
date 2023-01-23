@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CollapsingPlatform.h>
+#include <Modloader/app/structs/CageStructureTool.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/NamedValue_1_System_Boolean___Array.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Nullable_1_Single_.h>
+#include <Modloader/app/structs/DigZone.h>
 
 namespace app::classes::CollapsingPlatform {
     IL2CPP_REGISTER_METHOD(0x012C71C0, bool, get_IsCollapsed, (app::CollapsingPlatform * this_ptr))

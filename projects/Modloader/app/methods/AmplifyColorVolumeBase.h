@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AmplifyColorVolumeBase.h>
 
 namespace app::classes::AmplifyColorVolumeBase {
     IL2CPP_REGISTER_METHOD(0x030DBA20, void, OnDrawGizmos, (app::AmplifyColorVolumeBase * this_ptr))

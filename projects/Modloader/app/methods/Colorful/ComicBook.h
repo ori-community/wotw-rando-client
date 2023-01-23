@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ComicBook.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::ComicBook {
     IL2CPP_REGISTER_METHOD(0x03041040, void, OnRenderImage, (app::ComicBook * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

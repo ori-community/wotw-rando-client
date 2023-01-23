@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpListenerContext.h>
+#include <Modloader/app/structs/HttpConnection.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HttpListenerRequest.h>
+#include <Modloader/app/structs/HttpListenerResponse.h>
+#include <Modloader/app/structs/IPrincipal.h>
+#include <Modloader/app/structs/AuthenticationSchemes__Enum.h>
+#include <Modloader/app/structs/Task_1_System_Net_WebSockets_HttpListenerWebSocketContext_.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/ArraySegment_1_Byte_.h>
 
 namespace app::classes::System::Net::HttpListenerContext {
     IL2CPP_REGISTER_METHOD(0x01D44CE0, void, ctor_1, (app::HttpListenerContext * this_ptr, app::HttpConnection* cnc))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SandWormJumpAttackBehaviour_c_DisplayClass40_0__Class.h>
+#include <Modloader/app/structs/SandWormJumpAttackBehaviour_c_DisplayClass40_0.h>
 
 namespace app::classes::types {
     namespace SandWormJumpAttackBehaviour_c_DisplayClass40_0 {

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypeListConverter.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/ITypeDescriptorContext.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/TypeConverter_StandardValuesCollection.h>
 
 namespace app::classes::System::ComponentModel::TypeListConverter {
     IL2CPP_REGISTER_METHOD(0x0295C510, void, ctor, (app::TypeListConverter * this_ptr, app::Type__Array* types))

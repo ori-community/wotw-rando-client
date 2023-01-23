@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DayFourBushSetupController.h>
 
 namespace app::classes::DayFourBushSetupController {
     IL2CPP_REGISTER_METHOD(0x00DD38D0, void, FixedUpdate, (app::DayFourBushSetupController * this_ptr))

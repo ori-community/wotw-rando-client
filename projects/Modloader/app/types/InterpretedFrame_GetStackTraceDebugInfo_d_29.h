@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InterpretedFrame_GetStackTraceDebugInfo_d_29__Class.h>
+#include <Modloader/app/structs/InterpretedFrame_GetStackTraceDebugInfo_d_29.h>
 
 namespace app::classes::types {
     namespace InterpretedFrame_GetStackTraceDebugInfo_d_29 {

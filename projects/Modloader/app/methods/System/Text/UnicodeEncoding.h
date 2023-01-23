@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnicodeEncoding.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/EncoderNLS.h>
+#include <Modloader/app/structs/DecoderNLS.h>
+#include <Modloader/app/structs/Encoder.h>
+#include <Modloader/app/structs/Decoder.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Text::UnicodeEncoding {
     IL2CPP_REGISTER_METHOD(0x027D2EB0, void, ctor_1, (app::UnicodeEncoding * this_ptr))

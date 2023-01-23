@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractionGraph.h>
+#include <Modloader/app/structs/NPCEntity.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/CharacterInteractableType__Enum.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/StaticEntityLocomotion.h>
+#include <Modloader/app/structs/ICharacter.h>
+#include <Modloader/app/structs/CharacterInteractableActivationMode__Enum.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/CameraOffsetZone.h>
+#include <Modloader/app/structs/CameraTargetData.h>
+#include <Modloader/app/structs/CameraTargetType__Enum.h>
 
 namespace app::classes::Moon::NPCEntity {
     IL2CPP_REGISTER_METHOD(0x01121E00, app::InteractionGraph*, get_CurrentInteractionGraph, (app::NPCEntity * this_ptr))

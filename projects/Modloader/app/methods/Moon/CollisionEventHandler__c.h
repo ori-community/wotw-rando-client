@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CollisionEventHandler_c.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::Moon::CollisionEventHandler___c {
     IL2CPP_REGISTER_METHOD(0x02558630, void, cctor, ())

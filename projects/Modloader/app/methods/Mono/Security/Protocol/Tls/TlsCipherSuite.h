@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TlsCipherSuite.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CipherAlgorithmType__Enum.h>
+#include <Modloader/app/structs/HashAlgorithmType__Enum.h>
+#include <Modloader/app/structs/ExchangeAlgorithmType__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/ContentType__Enum.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::TlsCipherSuite {
     IL2CPP_REGISTER_METHOD(0x0291AB10, void, ctor, (app::TlsCipherSuite * this_ptr, int16_t code, app::String* name, app::CipherAlgorithmType__Enum cipher_algorithm_type, app::HashAlgorithmType__Enum hash_algorithm_type, app::ExchangeAlgorithmType__Enum exchange_algorithm_type, bool exportable, bool block_mode, uint8_t key_material_size, uint8_t expanded_key_material_size, int16_t effective_key_bytes, uint8_t iv_size, uint8_t block_size))

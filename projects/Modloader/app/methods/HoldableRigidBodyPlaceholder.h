@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HoldableRigidBodyPlaceholder.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::HoldableRigidBodyPlaceholder {
     IL2CPP_REGISTER_METHOD(0x00B5A730, void, FixedUpdate, (app::HoldableRigidBodyPlaceholder * this_ptr))

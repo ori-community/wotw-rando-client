@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Boolean_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_System_String_System_Boolean_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_String_System_Boolean_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_System_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x02BAC140, void, set_Item, (app::Dictionary_2_System_String_System_Boolean_ * this_ptr, app::String* key, bool value))

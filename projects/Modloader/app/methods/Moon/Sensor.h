@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Sensor.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/Sensor_CanSeeCharacterHelper.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::Moon::Sensor {
     IL2CPP_REGISTER_METHOD(0x00ECCB90, void, ResetStatics, ())

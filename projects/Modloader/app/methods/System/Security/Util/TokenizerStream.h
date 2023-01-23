@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TokenizerStream.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Util::TokenizerStream {
     IL2CPP_REGISTER_METHOD(0x01E24D80, void, ctor, (app::TokenizerStream * this_ptr))

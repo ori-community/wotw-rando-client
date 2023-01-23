@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SimpleJsonInstance_PlayFabSimpleJsonCuztomization_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SimpleJsonInstance_PlayFabSimpleJsonCuztomization_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SimpleJsonInstance_PlayFabSimpleJsonCuztomization_DEFINED)
+#include <Modloader/app/structs/SimpleJsonInstance_PlayFabSimpleJsonCuztomization__Fields.h>
+#if defined(IL2CPP_STRUCT_SimpleJsonInstance_PlayFabSimpleJsonCuztomization__Fields_DEFINED)
+#define IL2CPP_STRUCT_SimpleJsonInstance_PlayFabSimpleJsonCuztomization_DEFINED
+struct SimpleJsonInstance_PlayFabSimpleJsonCuztomization__Class;
+struct SimpleJsonInstance_PlayFabSimpleJsonCuztomization {
+    struct SimpleJsonInstance_PlayFabSimpleJsonCuztomization__Class* klass;
+    MonitorData* monitor;
+    struct SimpleJsonInstance_PlayFabSimpleJsonCuztomization__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SimpleJsonInstance_PlayFabSimpleJsonCuztomization_FWDDECL)
+#define IL2CPP_STRUCT_SimpleJsonInstance_PlayFabSimpleJsonCuztomization_FWDDECL
+#include <Modloader/app/structs/SimpleJsonInstance_PlayFabSimpleJsonCuztomization__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SimpleJsonInstance_PlayFabSimpleJsonCuztomization_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SimpleJsonInstance_PlayFabSimpleJsonCuztomization_DEFINED) && !defined(IL2CPP_STRUCT_SimpleJsonInstance_PlayFabSimpleJsonCuztomization_FWDDECL)
+#include <Modloader/app/structs/SimpleJsonInstance_PlayFabSimpleJsonCuztomization.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SimpleJsonInstance_PlayFabSimpleJsonCuztomization.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

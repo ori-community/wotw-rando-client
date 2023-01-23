@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_Object_.h>
+#include <Modloader/app/structs/IMoonResolverContext.h>
 
 namespace app::classes::Moon::MoonReference_1_UnityEngine_Object_ {
     IL2CPP_REGISTER_METHOD(0x02720EB0, app::Object_1*, SafeResolve, (app::MoonReference_1_UnityEngine_Object_ * this_ptr, app::IMoonResolverContext* context))

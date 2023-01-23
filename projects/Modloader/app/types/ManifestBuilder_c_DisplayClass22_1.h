@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ManifestBuilder_c_DisplayClass22_1__Class.h>
+#include <Modloader/app/structs/ManifestBuilder_c_DisplayClass22_1.h>
 
 namespace app::classes::types {
     namespace ManifestBuilder_c_DisplayClass22_1 {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBossEntity.h>
+#include <Modloader/app/structs/SpiderBossLocomotionTurningBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SpiderBossLocomotionTurningBehaviour {
     IL2CPP_REGISTER_METHOD(0x011B6B40, app::SpiderBossEntity*, get_SpiderBoss, (app::SpiderBossLocomotionTurningBehaviour * this_ptr))

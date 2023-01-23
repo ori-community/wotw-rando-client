@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array_DEFINED)
+#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_SetSceneHiddenAction.h>
+#if defined(IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_DEFINED)
+#define IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array_DEFINED
+struct TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array__Class;
+struct TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array {
+    struct TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array__Class* klass;
+    MonitorData* monitor;
+    Il2CppArrayBounds* bounds;
+    il2cpp_array_size_t max_length;
+    struct TransparencyAnimatorSystemStrategy_SetSceneHiddenAction vector[32];
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array_FWDDECL)
+#define IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array_FWDDECL
+#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array__Class.h>
+#endif
+#undef IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array_DEFINED) && !defined(IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array_FWDDECL)
+#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

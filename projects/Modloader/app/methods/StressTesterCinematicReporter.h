@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraController_1.h>
+#include <Modloader/app/structs/StressTesterCinematicReporter.h>
 
 namespace app::classes::StressTesterCinematicReporter {
     IL2CPP_REGISTER_METHOD(0x0066EB20, app::CameraController_1*, get_Controller, (app::StressTesterCinematicReporter * this_ptr))

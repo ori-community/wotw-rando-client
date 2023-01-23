@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_SetupStateModifier_.h>
+#include <Modloader/app/structs/SetupStateModifier.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_SetupStateModifier_ {
     IL2CPP_REGISTER_METHOD(0x0283B2A0, int32_t, get_Count, (app::Dictionary_2_System_Int32_SetupStateModifier_ * this_ptr))

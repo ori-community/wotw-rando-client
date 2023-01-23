@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayMoonTimelineAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::PlayMoonTimelineAction {
     IL2CPP_REGISTER_METHOD(0x01179F20, void, Perform, (app::PlayMoonTimelineAction * this_ptr, app::IContext* context))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MonoTlsProvider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Net::Security::MonoTlsProviderFactory {
     IL2CPP_REGISTER_METHOD(0x021834F0, app::MonoTlsProvider*, GetProviderInternal, ())

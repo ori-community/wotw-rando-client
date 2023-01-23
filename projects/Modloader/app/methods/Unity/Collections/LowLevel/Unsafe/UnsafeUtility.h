@@ -1,5 +1,37 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Void.h>
+#include <Modloader/app/structs/Allocator__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/BatchQueryJob_2_UnityEngine_CapsulecastCommand_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/BatchQueryJob_2_UnityEngine_RaycastCommand_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/BatchQueryJob_2_UnityEngine_SpherecastCommand_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/void.h>
+#include <Modloader/app/structs/AnimationStream.h>
+#include <Modloader/app/structs/DelayJointPostprocessJob.h>
+#include <Modloader/app/structs/MatchJointsJob.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/CapsulecastCommand.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/TransformStreamHandle.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/RaycastCommand.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/SpherecastCommand.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/AttachSpriteToPhysicsSystem_JobWithMonoBehaviour.h>
+#include <Modloader/app/structs/BlendGradientColorsJob.h>
+#include <Modloader/app/structs/XboxControllerManager_VibrationJob.h>
+#include <Modloader/app/structs/MoonTrailSystem_SimulateJob.h>
+#include <Modloader/app/structs/SimpleSwayAnimPostprocess_Job.h>
+#include <Modloader/app/structs/SimpleSwayBossAnimPostprocess_Job.h>
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_Job.h>
+#include <Modloader/app/structs/SoundZoneProcessor_Job.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/VerletStructure_JobWithMonoBehaviour.h>
 
 namespace app::classes::Unity::Collections::LowLevel::Unsafe::UnsafeUtility {
     IL2CPP_REGISTER_METHOD(0x02418CB0, app::Void*, Malloc, (int64_t size, int32_t alignment, app::Allocator__Enum allocator))

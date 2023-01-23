@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/DynamicLightsManager.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::DynamicLightsManager {
     IL2CPP_REGISTER_METHOD(0x00BEC850, app::SceneRoot*, SceneRootFromPosition, (app::DynamicLightsManager * this_ptr, app::Vector3 position))

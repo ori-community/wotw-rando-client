@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MistyWoodsKuroGameplayController.h>
+#include <Modloader/app/structs/MistyWoodsKuroGameplayController_State__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::MistyWoodsKuroGameplayController {
     IL2CPP_REGISTER_METHOD(0x01328EF0, bool, get_IsHidden, (app::MistyWoodsKuroGameplayController * this_ptr))

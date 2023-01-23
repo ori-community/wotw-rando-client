@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebResources.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FileInfo.h>
+#include <Modloader/app/structs/WebResources_ResponsePreamble.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::WebResources {
     IL2CPP_REGISTER_METHOD(0x01674140, void, SendResponse_1, (app::WebResources * this_ptr, int32_t id, app::Byte__Array* data, app::String* mime_type))

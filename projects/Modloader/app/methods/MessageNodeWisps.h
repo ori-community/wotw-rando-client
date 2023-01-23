@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IMessageBox.h>
+#include <Modloader/app/structs/MessageNodeWisps.h>
 
 namespace app::classes::MessageNodeWisps {
     IL2CPP_REGISTER_METHOD(0x002FBC60, app::IMessageBox*, get_MessageBox, (app::MessageNodeWisps * this_ptr))

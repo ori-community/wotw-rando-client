@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MovedFromAttribute.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Scripting::APIUpdating::MovedFromAttribute {
     IL2CPP_REGISTER_METHOD(0x01248670, void, ctor_1, (app::MovedFromAttribute * this_ptr, app::String* source_namespace))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_DataRelationCollection_DataTableRelationCollection_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_DataRelationCollection_DataTableRelationCollection_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DataRelationCollection_DataTableRelationCollection_DEFINED)
+#include <Modloader/app/structs/DataRelationCollection_DataTableRelationCollection__Fields.h>
+#if defined(IL2CPP_STRUCT_DataRelationCollection_DataTableRelationCollection__Fields_DEFINED)
+#define IL2CPP_STRUCT_DataRelationCollection_DataTableRelationCollection_DEFINED
+struct DataRelationCollection_DataTableRelationCollection__Class;
+struct DataRelationCollection_DataTableRelationCollection {
+    struct DataRelationCollection_DataTableRelationCollection__Class* klass;
+    MonitorData* monitor;
+    struct DataRelationCollection_DataTableRelationCollection__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_DataRelationCollection_DataTableRelationCollection_FWDDECL)
+#define IL2CPP_STRUCT_DataRelationCollection_DataTableRelationCollection_FWDDECL
+#include <Modloader/app/structs/DataRelationCollection_DataTableRelationCollection__Class.h>
+#endif
+#undef IL2CPP_STRUCT_DataRelationCollection_DataTableRelationCollection_INITIALIZING
+#if !defined(IL2CPP_STRUCT_DataRelationCollection_DataTableRelationCollection_DEFINED) && !defined(IL2CPP_STRUCT_DataRelationCollection_DataTableRelationCollection_FWDDECL)
+#include <Modloader/app/structs/DataRelationCollection_DataTableRelationCollection.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/DataRelationCollection_DataTableRelationCollection.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

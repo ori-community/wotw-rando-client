@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FPSLimitSlider.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::FPSLimitSlider {
     IL2CPP_REGISTER_METHOD(0x00988D00, void, Awake, (app::FPSLimitSlider * this_ptr))

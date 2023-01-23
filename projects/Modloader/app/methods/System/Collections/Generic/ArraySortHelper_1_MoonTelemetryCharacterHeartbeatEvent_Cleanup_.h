@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup__Array.h>
+#include <Modloader/app/structs/IComparer_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup.h>
+#include <Modloader/app/structs/Comparison_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_ {
     IL2CPP_REGISTER_METHOD(0x02F797C0, void, Sort_1, (app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Array * keys, int32_t index, int32_t length, app::IComparer_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_* comparer))

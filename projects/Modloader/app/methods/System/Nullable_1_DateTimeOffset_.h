@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_DateTimeOffset___Boxed.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_DateTimeOffset_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_DateTimeOffset_ {
     IL2CPP_REGISTER_METHOD(0x00120520, void, ctor, (app::Nullable_1_DateTimeOffset___Boxed * this_ptr, app::DateTimeOffset value))

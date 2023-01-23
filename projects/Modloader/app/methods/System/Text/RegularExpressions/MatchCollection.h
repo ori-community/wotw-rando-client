@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MatchCollection.h>
+#include <Modloader/app/structs/Regex.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Match.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Text::RegularExpressions::MatchCollection {
     IL2CPP_REGISTER_METHOD(0x02583680, void, ctor_1, (app::MatchCollection * this_ptr, app::Regex* regex, app::String* input, int32_t beginning, int32_t length, int32_t startat))

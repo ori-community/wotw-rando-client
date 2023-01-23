@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XDRSchema.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/XDRSchema_NameType.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ArrayList.h>
 
 namespace app::classes::System::Data::XDRSchema {
     IL2CPP_REGISTER_METHOD(0x022C1A50, void, ctor, (app::XDRSchema * this_ptr, app::DataSet* ds, bool f_inline))

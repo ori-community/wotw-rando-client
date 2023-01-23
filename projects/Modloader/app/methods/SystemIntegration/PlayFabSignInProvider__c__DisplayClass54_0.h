@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabSignInProvider_c_DisplayClass54_0.h>
+#include <Modloader/app/structs/LinkXboxAccountResult.h>
+#include <Modloader/app/structs/PlayFabError.h>
+#include <Modloader/app/structs/LinkSteamAccountResult.h>
 
 namespace app::classes::SystemIntegration::PlayFabSignInProvider___c__DisplayClass54_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::PlayFabSignInProvider_c_DisplayClass54_0 * this_ptr))

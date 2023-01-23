@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CageStructureToolStressTester.h>
 
 namespace app::classes::CageStructureToolStressTester {
     IL2CPP_REGISTER_METHOD(0x0167FEC0, void, OnValidate, (app::CageStructureToolStressTester * this_ptr))

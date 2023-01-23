@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Convolution3x3.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::Convolution3x3 {
     IL2CPP_REGISTER_METHOD(0x03041A40, void, OnRenderImage, (app::Convolution3x3 * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

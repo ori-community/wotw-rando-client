@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ConcurrentDictionary_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/ICollection_1_System_Object_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object___Array.h>
+#include <Modloader/app/structs/DictionaryEntry__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_Tables_System_Object_System_Object_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Object_.h>
 
 namespace app::classes::System::Collections::Concurrent::ConcurrentDictionary_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02AF0340, app::Object*, get_Item, (app::ConcurrentDictionary_2_System_Object_System_Object_ * this_ptr, app::Object* key))

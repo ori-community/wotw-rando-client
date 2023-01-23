@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IsNotRunningBehaviourCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::IsNotRunningBehaviourCondition {
     IL2CPP_REGISTER_METHOD(0x006469D0, void, Awake, (app::IsNotRunningBehaviourCondition * this_ptr))

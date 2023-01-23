@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/XalUser_InternalXalUserLocalId__Class.h>
+#include <Modloader/app/structs/XalUser_InternalXalUserLocalId.h>
+#include <Modloader/app/structs/XalUser_InternalXalUserLocalId__Boxed.h>
 
 namespace app::classes::types {
     namespace XalUser_InternalXalUserLocalId {

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimelineSequenceLabel.h>
 
 namespace app::classes::TimelineSequenceLabel {
     IL2CPP_REGISTER_METHOD(0x010F7A00, void, Awake, (app::TimelineSequenceLabel * this_ptr))

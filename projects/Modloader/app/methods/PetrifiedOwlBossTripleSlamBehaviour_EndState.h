@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossTripleSlamBehaviour_EndState.h>
+#include <Modloader/app/structs/PetrifiedOwlBossTripleSlamBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossTripleSlamBehaviour_EndState {
     IL2CPP_REGISTER_METHOD(0x01780F60, void, ctor, (app::PetrifiedOwlBossTripleSlamBehaviour_EndState * this_ptr, app::PetrifiedOwlBossTripleSlamBehaviour* behaviour))

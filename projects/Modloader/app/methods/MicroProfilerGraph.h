@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MicroProfilerGraph.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Metric__Enum.h>
+#include <Modloader/app/structs/Metric__Enum__Array.h>
 
 namespace app::classes::MicroProfilerGraph {
     IL2CPP_REGISTER_METHOD(0x006142D0, bool, get_IsExpanded, (app::MicroProfilerGraph * this_ptr))

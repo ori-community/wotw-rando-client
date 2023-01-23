@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BlockingCollection_1_PlayFab_IPlayFabEmitEventRequest_.h>
+#include <Modloader/app/structs/IPlayFabEmitEventRequest.h>
+#include <Modloader/app/structs/CancellationToken.h>
 
 namespace app::classes::System::Collections::Concurrent::BlockingCollection_1_PlayFab_IPlayFabEmitEventRequest_ {
     IL2CPP_REGISTER_METHOD(0x02AD9130, bool, TryTake, (app::BlockingCollection_1_PlayFab_IPlayFabEmitEventRequest_ * this_ptr, app::IPlayFabEmitEventRequest** item, int32_t milliseconds_timeout, app::CancellationToken cancellation_token))

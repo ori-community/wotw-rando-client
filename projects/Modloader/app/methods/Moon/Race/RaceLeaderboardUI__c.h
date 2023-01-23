@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceLeaderboardUI_c.h>
+#include <Modloader/app/structs/LeaderBoardEntry.h>
 
 namespace app::classes::Moon::Race::RaceLeaderboardUI___c {
     IL2CPP_REGISTER_METHOD(0x00C490D0, void, cctor, ())

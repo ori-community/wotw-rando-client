@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MapStonesDebugMenuItem.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::MapStonesDebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x00A0ACA0, void, ctor, (app::MapStonesDebugMenuItem * this_ptr, app::String* path, app::String* str))

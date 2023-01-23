@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UberDofTextureGenerator {
     IL2CPP_REGISTER_METHOD(0x013E6B30, app::Material*, GetBlurMaterial, ())

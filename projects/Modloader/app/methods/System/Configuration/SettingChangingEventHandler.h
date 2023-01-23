@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SettingChangingEventHandler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SettingChangingEventArgs.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Configuration::SettingChangingEventHandler {
     IL2CPP_REGISTER_METHOD(0x029622F0, void, ctor, (app::SettingChangingEventHandler * this_ptr, app::Object* object, void* method_1))

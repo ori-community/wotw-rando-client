@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypeConverter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlAttributeCollection.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/XMLSchema.h>
 
 namespace app::classes::System::Data::XMLSchema {
     IL2CPP_REGISTER_METHOD(0x023D3700, app::TypeConverter*, GetConverter, (app::Type * type))

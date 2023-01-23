@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CustomSampler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/BuiltinCategory__Enum.h>
 
 namespace app::classes::UnityEngine::Profiling::CustomSampler {
     IL2CPP_REGISTER_METHOD(0x02968310, void, ctor_1, (app::CustomSampler * this_ptr))

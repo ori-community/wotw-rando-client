@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_EquipmentType_EquipmentRadialSelection_ItemCache__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_EquipmentType_EquipmentRadialSelection_ItemCache__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_EquipmentType_EquipmentRadialSelection_ItemCache__DEFINED)
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#if defined(IL2CPP_STRUCT_EquipmentType__Enum_DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_EquipmentType_EquipmentRadialSelection_ItemCache__DEFINED
+struct EquipmentRadialSelection_ItemCache;
+struct Dictionary_2_TKey_TValue_Entry_EquipmentType_EquipmentRadialSelection_ItemCache_ {
+    int32_t hashCode;
+    int32_t next;
+    EquipmentType__Enum key;
+
+    struct EquipmentRadialSelection_ItemCache* value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_EquipmentType_EquipmentRadialSelection_ItemCache__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_EquipmentType_EquipmentRadialSelection_ItemCache__FWDDECL
+#include <Modloader/app/structs/EquipmentRadialSelection_ItemCache.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_EquipmentType_EquipmentRadialSelection_ItemCache__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_EquipmentType_EquipmentRadialSelection_ItemCache__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_EquipmentType_EquipmentRadialSelection_ItemCache__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_EquipmentType_EquipmentRadialSelection_ItemCache_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_EquipmentType_EquipmentRadialSelection_ItemCache_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

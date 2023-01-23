@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IsOnCollisionState.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::IsOnCollisionState {
     IL2CPP_REGISTER_METHOD(0x006472F0, bool, get_IsOnOrFutureOn, (app::IsOnCollisionState * this_ptr))

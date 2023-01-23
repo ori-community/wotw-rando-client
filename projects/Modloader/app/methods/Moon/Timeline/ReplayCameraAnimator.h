@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/ReplayCameraAnimator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AnimationCurve3D.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::Moon::Timeline::ReplayCameraAnimator {
     IL2CPP_REGISTER_METHOD(0x0077FA40, bool, get_IsControllingCamera, ())

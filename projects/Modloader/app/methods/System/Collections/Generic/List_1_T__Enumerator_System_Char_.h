@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Char___Boxed.h>
+#include <Modloader/app/structs/List_1_System_Char_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_System_Char_ {
     IL2CPP_REGISTER_METHOD(0x0014E580, void, ctor, (app::List_1_T_Enumerator_System_Char___Boxed * this_ptr, app::List_1_System_Char_* list))

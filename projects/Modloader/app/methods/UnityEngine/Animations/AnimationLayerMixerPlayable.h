@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationLayerMixerPlayable__Boxed.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/AnimationLayerMixerPlayable.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/AvatarMask.h>
 
 namespace app::classes::UnityEngine::Animations::AnimationLayerMixerPlayable {
     IL2CPP_REGISTER_METHOD(0x002417B0, void, ctor, (app::AnimationLayerMixerPlayable__Boxed * this_ptr, app::PlayableHandle handle))

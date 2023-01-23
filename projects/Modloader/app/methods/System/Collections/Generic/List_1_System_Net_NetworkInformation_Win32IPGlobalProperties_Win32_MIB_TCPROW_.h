@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Net_NetworkInformation_Win32IPGlobalProperties_Win32_MIB_TCPROW_.h>
+#include <Modloader/app/structs/Win32IPGlobalProperties_Win32_MIB_TCPROW.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Net_NetworkInformation_Win32IPGlobalProperties_Win32_MIB_TCPROW_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_System_Net_NetworkInformation_Win32IPGlobalProperties_Win32_MIB_TCPROW_ * this_ptr))

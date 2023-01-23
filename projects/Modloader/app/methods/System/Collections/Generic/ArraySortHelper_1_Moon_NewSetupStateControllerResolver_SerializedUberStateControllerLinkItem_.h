@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem__Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem_.h>
+#include <Modloader/app/structs/NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem.h>
+#include <Modloader/app/structs/Comparison_1_Moon_NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem_ {
     IL2CPP_REGISTER_METHOD(0x02F38F70, void, Sort_1, (app::NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem_* comparer))

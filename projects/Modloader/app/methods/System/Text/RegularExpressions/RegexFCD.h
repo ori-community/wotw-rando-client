@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegexPrefix.h>
+#include <Modloader/app/structs/RegexTree.h>
+#include <Modloader/app/structs/RegexFCD.h>
+#include <Modloader/app/structs/RegexFC.h>
+#include <Modloader/app/structs/RegexNode.h>
 
 namespace app::classes::System::Text::RegularExpressions::RegexFCD {
     IL2CPP_REGISTER_METHOD(0x02591660, app::RegexPrefix*, FirstChars, (app::RegexTree * t))

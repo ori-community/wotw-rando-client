@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ComponentCollection.h>
+#include <Modloader/app/structs/IComponent__Array.h>
+#include <Modloader/app/structs/IComponent.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ComponentModel::ComponentCollection {
     IL2CPP_REGISTER_METHOD(0x024A97C0, void, ctor, (app::ComponentCollection * this_ptr, app::IComponent__Array* components))

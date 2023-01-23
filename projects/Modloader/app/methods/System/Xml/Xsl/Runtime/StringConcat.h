@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringConcat__Boxed.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::Xsl::Runtime::StringConcat {
     IL2CPP_REGISTER_METHOD(0x00246B70, void, Clear, (app::StringConcat__Boxed * this_ptr))

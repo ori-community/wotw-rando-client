@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility.h>
+#include <Modloader/app/structs/HookFlingPlant.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::HookFlingPlant {
     IL2CPP_REGISTER_METHOD(0x00B5D6D0, app::SeinSpiritLeashAbility*, get_Leash, (app::HookFlingPlant * this_ptr))

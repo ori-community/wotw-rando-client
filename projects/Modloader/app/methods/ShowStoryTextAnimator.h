@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowStoryTextAnimator.h>
 
 namespace app::classes::ShowStoryTextAnimator {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, CacheOriginals, (app::ShowStoryTextAnimator * this_ptr))

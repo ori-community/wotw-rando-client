@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/InstantiateUtility.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Naru.h>
+#include <Modloader/app/structs/BabySein.h>
+#include <Modloader/app/structs/HealthBar.h>
+#include <Modloader/app/structs/LeaderboardRowUI.h>
+#include <Modloader/app/structs/RaceLeaderboardEntry.h>
+#include <Modloader/app/structs/RaceLeaderboardScreen.h>
+#include <Modloader/app/structs/RaceTargetIndicator.h>
+#include <Modloader/app/structs/ConfirmOrCancel.h>
+#include <Modloader/app/structs/SoundSource.h>
 
 namespace app::classes::InstantiateUtility {
     IL2CPP_REGISTER_METHOD(0x0062FA00, app::GameObject*, CreateNewGameObject, (app::String * name))

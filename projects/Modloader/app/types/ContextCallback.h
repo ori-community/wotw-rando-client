@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ContextCallback__Class.h>
+#include <Modloader/app/structs/ContextCallback.h>
 
 namespace app::classes::types {
     namespace ContextCallback {

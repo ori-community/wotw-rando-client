@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SaveSlotUI.h>
+#include <Modloader/app/structs/SaveSlotsUI.h>
+#include <Modloader/app/structs/List_1_SaveSlotUI_.h>
+#include <Modloader/app/structs/ConfirmOrCancel.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/DifficultyMode__Enum.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SaveSlotsUI {
     IL2CPP_REGISTER_METHOD(0x0092B260, app::SaveSlotUI*, get_CurrentSaveSlot, (app::SaveSlotsUI * this_ptr))

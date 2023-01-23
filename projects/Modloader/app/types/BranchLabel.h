@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BranchLabel__Class.h>
+#include <Modloader/app/structs/BranchLabel.h>
+#include <Modloader/app/structs/BranchLabel__Array.h>
 
 namespace app::classes::types {
     namespace BranchLabel {

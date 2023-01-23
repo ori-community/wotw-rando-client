@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WorldEventsManager.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/WorldEventsRuntime.h>
+#include <Modloader/app/structs/WorldEvents.h>
 
 namespace app::classes::WorldEventsManager {
     IL2CPP_REGISTER_METHOD(0x005819F0, void, OnGameReset, (app::WorldEventsManager * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Sensor_CanSeeCharacterHelper__Boxed.h>
+#include <Modloader/app/structs/Sensor.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Moon::Sensor_CanSeeCharacterHelper {
     IL2CPP_REGISTER_METHOD(0x00120590, void, Init, (app::Sensor_CanSeeCharacterHelper__Boxed * this_ptr, app::Sensor* sensor))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserShooterMinibossPath.h>
+#include <Modloader/app/structs/LaserShooterMinibossPathMover.h>
+#include <Modloader/app/structs/LaserShooterMinibossEntity.h>
 
 namespace app::classes::LaserShooterMinibossPathMover {
     IL2CPP_REGISTER_METHOD(0x00F1B330, app::LaserShooterMinibossPath*, get_Paths, (app::LaserShooterMinibossPathMover * this_ptr))

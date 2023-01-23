@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/OnSeinNearEnter__Class.h>
+#include <Modloader/app/structs/OnSeinNearEnter.h>
 
 namespace app::classes::types {
     namespace OnSeinNearEnter {

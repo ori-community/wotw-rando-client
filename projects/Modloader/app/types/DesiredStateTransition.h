@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DesiredStateTransition__Class.h>
+#include <Modloader/app/structs/DesiredStateTransition.h>
+#include <Modloader/app/structs/DesiredStateTransition__Boxed.h>
 
 namespace app::classes::types {
     namespace DesiredStateTransition {

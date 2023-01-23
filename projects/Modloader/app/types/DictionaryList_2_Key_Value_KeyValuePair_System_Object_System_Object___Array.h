@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DictionaryList_2_Key_Value_KeyValuePair_System_Object_System_Object___Array__Class.h>
+#include <Modloader/app/structs/DictionaryList_2_Key_Value_KeyValuePair_System_Object_System_Object___Array.h>
 
 namespace app::classes::types {
     namespace DictionaryList_2_Key_Value_KeyValuePair_System_Object_System_Object___Array {

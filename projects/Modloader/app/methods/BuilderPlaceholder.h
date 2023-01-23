@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BuilderPlaceholder.h>
 
 namespace app::classes::BuilderPlaceholder {
     IL2CPP_REGISTER_METHOD(0x0081BCA0, bool, get_IsEventValid, (app::BuilderPlaceholder * this_ptr))

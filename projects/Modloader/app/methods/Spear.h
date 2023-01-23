@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Spear.h>
 
 namespace app::classes::Spear {
     IL2CPP_REGISTER_METHOD(0x00EF6FA0, void, Start, (app::Spear * this_ptr))

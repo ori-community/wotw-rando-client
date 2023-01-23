@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterSpriteMirror.h>
+#include <Modloader/app/structs/Enemy2D.h>
+#include <Modloader/app/structs/SpriteAnimatorWithTransitions.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions.h>
+#include <Modloader/app/structs/CharacterAnimationSystem.h>
 
 namespace app::classes::Enemy2D {
     IL2CPP_REGISTER_METHOD(0x00B39300, app::CharacterSpriteMirror*, get_SpriteMirror, (app::Enemy2D * this_ptr))

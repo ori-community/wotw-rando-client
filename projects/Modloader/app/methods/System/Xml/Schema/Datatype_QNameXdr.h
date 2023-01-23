@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
+#include <Modloader/app/structs/Datatype_QNameXdr.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Xml::Schema::Datatype_QNameXdr {
     IL2CPP_REGISTER_METHOD(0x008556D0, app::XmlTokenizedType__Enum, get_TokenizedType, (app::Datatype_QNameXdr * this_ptr))

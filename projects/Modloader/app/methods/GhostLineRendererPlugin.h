@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LineRenderer.h>
+#include <Modloader/app/structs/GhostLineRendererPlugin.h>
+#include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
 
 namespace app::classes::GhostLineRendererPlugin {
     IL2CPP_REGISTER_METHOD(0x00E21430, void, StartTracking, (app::LineRenderer * line_renderer))

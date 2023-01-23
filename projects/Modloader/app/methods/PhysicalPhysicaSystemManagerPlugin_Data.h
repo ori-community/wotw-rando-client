@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
+#include <Modloader/app/structs/PhysicalPhysicaSystemManagerPlugin_Data.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/GlobalRecordingTable.h>
+#include <Modloader/app/structs/PhysicalSystemManager.h>
 
 namespace app::classes::PhysicalPhysicaSystemManagerPlugin_Data {
     IL2CPP_REGISTER_METHOD(0x014ED2B0, app::GhostFrame_FrameDataTypes__Enum, get_FrameType, (app::PhysicalPhysicaSystemManagerPlugin_Data * this_ptr))

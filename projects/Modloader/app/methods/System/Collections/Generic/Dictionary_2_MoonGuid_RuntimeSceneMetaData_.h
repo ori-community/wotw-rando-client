@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_MoonGuid_RuntimeSceneMetaData_.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_MoonGuid_RuntimeSceneMetaData_ {
     IL2CPP_REGISTER_METHOD(0x02BBA760, bool, TryGetValue, (app::Dictionary_2_MoonGuid_RuntimeSceneMetaData_ * this_ptr, app::MoonGuid* key, app::RuntimeSceneMetaData** value))

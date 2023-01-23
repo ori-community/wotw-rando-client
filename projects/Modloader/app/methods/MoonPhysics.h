@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/BoxCollider.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/QueryTriggerInteraction__Enum.h>
+#include <Modloader/app/structs/RaycastHit__Array.h>
+#include <Modloader/app/structs/Collider__Array.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/SphereCollider.h>
+#include <Modloader/app/structs/CapsuleCollider.h>
 
 namespace app::classes::MoonPhysics {
     IL2CPP_REGISTER_METHOD(0x0145C220, void, IgnoreLayerCollision, (int32_t layer1, int32_t layer2, bool ignore))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XsdBuilder_XsdBuildFunction.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XsdBuilder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Xml::Schema::XsdBuilder_XsdBuildFunction {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::XsdBuilder_XsdBuildFunction * this_ptr, app::Object* object, void* method_1))

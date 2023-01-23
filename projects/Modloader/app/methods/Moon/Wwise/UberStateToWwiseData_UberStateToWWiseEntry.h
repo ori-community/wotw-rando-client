@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberStateToWwiseData_UberStateToWWiseEntry.h>
 
 namespace app::classes::Moon::Wwise::UberStateToWwiseData_UberStateToWWiseEntry {
     IL2CPP_REGISTER_METHOD(0x0270D350, bool, IsFulfilled, (app::UberStateToWwiseData_UberStateToWWiseEntry * this_ptr))

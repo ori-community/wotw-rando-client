@@ -1,5 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceSystem.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/RaceTimer.h>
+#include <Modloader/app/structs/GhostRecorder.h>
+#include <Modloader/app/structs/RaceLeaderboardScreen.h>
+#include <Modloader/app/structs/RaceTargetIndicator.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/List_1_SceneMetaData_.h>
+#include <Modloader/app/structs/RaceStateMachineContext.h>
+#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
+#include <Modloader/app/structs/RaceSystem_PrimaryFilter__Enum.h>
+#include <Modloader/app/structs/RaceSystem_SecondaryFilter__Enum.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/RaceBaseState.h>
+#include <Modloader/app/structs/GhostService.h>
+#include <Modloader/app/structs/IState_2.h>
+#include <Modloader/app/structs/ITrialData.h>
+#include <Modloader/app/structs/RaceConfiguration.h>
+#include <Modloader/app/structs/ITrialHandler.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/RaceSettings.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::RaceSystem {
     IL2CPP_REGISTER_METHOD(0x0071E490, app::RaceSystem*, get_Instance, ())

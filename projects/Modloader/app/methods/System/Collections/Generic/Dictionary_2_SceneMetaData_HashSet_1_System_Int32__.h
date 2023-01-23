@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_SceneMetaData_HashSet_1_System_Int32_.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/HashSet_1_System_Int32_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_SceneMetaData_HashSet_1_System_Int32__ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_SceneMetaData_HashSet_1_System_Int32_ * this_ptr))

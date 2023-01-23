@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IUberStateGroup.h>
+#include <Modloader/app/structs/SceneBasedUberState.h>
+#include <Modloader/app/structs/UberID.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::uberSerializationWisp::SceneBasedUberState {
     IL2CPP_REGISTER_METHOD(0x00F44E70, app::IUberStateGroup*, get_UberStateGroup, (app::SceneBasedUberState * this_ptr))

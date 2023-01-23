@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::Mono::Runtime {
     IL2CPP_REGISTER_METHOD(0x023CE6E0, void, mono_runtime_install_handlers, ())

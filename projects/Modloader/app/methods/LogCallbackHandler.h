@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LogCallbackHandler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LogType__Enum.h>
 
 namespace app::classes::LogCallbackHandler {
     IL2CPP_REGISTER_METHOD(0x0318F920, void, ctor, (app::LogCallbackHandler * this_ptr))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MixerManager.h>
+#include <Modloader/app/structs/MixerSnapshotZone.h>
+#include <Modloader/app/structs/MixerSnapshot.h>
+#include <Modloader/app/structs/AudioMixer.h>
+#include <Modloader/app/structs/AudioMixerGroup.h>
+#include <Modloader/app/structs/MixerGroupType__Enum.h>
 
 namespace app::classes::MixerManager {
     IL2CPP_REGISTER_METHOD(0x0132C7D0, void, RegisterSnapshotZone, (app::MixerManager * this_ptr, app::MixerSnapshotZone* mixer_snapshot_zone))

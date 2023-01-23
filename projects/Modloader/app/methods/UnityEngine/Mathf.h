@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
 
 namespace app::classes::UnityEngine::Mathf {
     IL2CPP_REGISTER_METHOD(0x02534340, int32_t, ClosestPowerOfTwo, (int32_t value))

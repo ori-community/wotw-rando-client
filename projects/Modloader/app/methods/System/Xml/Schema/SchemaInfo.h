@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SchemaInfo.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Dictionary_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaElementDecl_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity_.h>
+#include <Modloader/app/structs/SchemaType__Enum.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Boolean_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaAttDef_.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Xml_Schema_SchemaNotation_.h>
+#include <Modloader/app/structs/SchemaElementDecl.h>
+#include <Modloader/app/structs/XmlSchemaElement.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/AttributeMatchState__Enum.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/IDtdAttributeListInfo.h>
+#include <Modloader/app/structs/IDtdEntityInfo.h>
 
 namespace app::classes::System::Xml::Schema::SchemaInfo {
     IL2CPP_REGISTER_METHOD(0x01AB00D0, void, ctor, (app::SchemaInfo * this_ptr))

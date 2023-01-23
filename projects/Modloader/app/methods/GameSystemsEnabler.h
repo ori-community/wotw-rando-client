@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameSystemsEnabler.h>
 
 namespace app::classes::GameSystemsEnabler {
     IL2CPP_REGISTER_METHOD(0x004046C0, void, Awake, (app::GameSystemsEnabler * this_ptr))

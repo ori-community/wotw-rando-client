@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DesaturationSettings.h>
 
 namespace app::classes::DesaturationSettings {
     IL2CPP_REGISTER_METHOD(0x00B83F30, float, get_DebugOverrideAmount, (app::DesaturationSettings * this_ptr))

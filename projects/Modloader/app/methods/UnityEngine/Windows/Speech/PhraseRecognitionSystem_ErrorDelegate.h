@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhraseRecognitionSystem_ErrorDelegate.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SpeechError__Enum.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::UnityEngine::Windows::Speech::PhraseRecognitionSystem_ErrorDelegate {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::PhraseRecognitionSystem_ErrorDelegate * this_ptr, app::Object* object, void* method_1))

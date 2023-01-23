@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyTransparancyAnimator.h>
 
 namespace app::classes::LegacyTransparancyAnimator {
     IL2CPP_REGISTER_METHOD(0x011283E0, void, LinearFadeOut, (app::LegacyTransparancyAnimator * this_ptr, float time))

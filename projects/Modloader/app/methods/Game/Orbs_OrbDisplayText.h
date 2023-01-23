@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/ExpText.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Game::Orbs_OrbDisplayText {
     IL2CPP_REGISTER_METHOD(0x015267E0, app::GameObject*, get_OrbText, ())

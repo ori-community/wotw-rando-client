@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrossSceneDependencyInjector_ObjectReference.h>
 
 namespace app::classes::Moon::CrossSceneDependencyInjector_ObjectReference {
     IL2CPP_REGISTER_METHOD(0x00CD0AE0, bool, get_IsValid, (app::CrossSceneDependencyInjector_ObjectReference * this_ptr))

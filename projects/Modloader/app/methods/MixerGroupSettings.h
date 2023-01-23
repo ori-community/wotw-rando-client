@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MixerGroupSettings__Boxed.h>
+#include <Modloader/app/structs/MixerGroupSettings.h>
+#include <Modloader/app/structs/AudioMixer.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::MixerGroupSettings {
     IL2CPP_REGISTER_METHOD(0x00126320, void, MultiplyBlendWith, (app::MixerGroupSettings__Boxed * this_ptr, app::MixerGroupSettings settings, float weight))

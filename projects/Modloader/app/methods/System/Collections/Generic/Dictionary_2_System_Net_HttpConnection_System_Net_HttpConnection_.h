@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Net_HttpConnection_System_Net_HttpConnection_.h>
+#include <Modloader/app/structs/HttpConnection.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_System_Net_HttpConnection_System_Net_HttpConnection_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Net_HttpConnection_System_Net_HttpConnection_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_System_Net_HttpConnection_System_Net_HttpConnection_ * this_ptr))

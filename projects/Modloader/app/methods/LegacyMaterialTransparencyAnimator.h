@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyMaterialTransparencyAnimator.h>
+#include <Modloader/app/structs/Material.h>
 
 namespace app::classes::LegacyMaterialTransparencyAnimator {
     IL2CPP_REGISTER_METHOD(0x00A24880, int32_t, get_PropertyID, (app::LegacyMaterialTransparencyAnimator * this_ptr))

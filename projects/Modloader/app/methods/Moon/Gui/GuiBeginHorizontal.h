@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GuiBeginHorizontal.h>
+#include <Modloader/app/structs/GUILayoutOption__Array.h>
+#include <Modloader/app/structs/GUIStyle.h>
 
 namespace app::classes::Moon::Gui::GuiBeginHorizontal {
     IL2CPP_REGISTER_METHOD(0x01988C20, void, ctor_1, (app::GuiBeginHorizontal * this_ptr))

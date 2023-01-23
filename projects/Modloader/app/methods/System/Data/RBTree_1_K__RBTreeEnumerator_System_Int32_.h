@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RBTree_1_K_RBTreeEnumerator_System_Int32___Boxed.h>
+#include <Modloader/app/structs/RBTree_1_System_Int32_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Data::RBTree_1_K__RBTreeEnumerator_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x00115920, int32_t, get_Current, (app::RBTree_1_K_RBTreeEnumerator_System_Int32___Boxed * this_ptr))

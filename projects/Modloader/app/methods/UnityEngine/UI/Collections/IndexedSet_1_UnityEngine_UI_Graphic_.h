@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IndexedSet_1_UnityEngine_UI_Graphic_.h>
+#include <Modloader/app/structs/Graphic.h>
 
 namespace app::classes::UnityEngine::UI::Collections::IndexedSet_1_UnityEngine_UI_Graphic_ {
     IL2CPP_REGISTER_METHOD(0x02ACD3D0, bool, AddUnique, (app::IndexedSet_1_UnityEngine_UI_Graphic_ * this_ptr, app::Graphic* item))

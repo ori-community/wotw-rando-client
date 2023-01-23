@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Point.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::TriangleNet::Geometry::Point {
     IL2CPP_REGISTER_METHOD(0x0261CAF0, void, ctor_1, (app::Point * this_ptr))

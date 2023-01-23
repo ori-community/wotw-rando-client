@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OidEnumerator.h>
+#include <Modloader/app/structs/OidCollection.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Security::Cryptography::OidEnumerator {
     IL2CPP_REGISTER_METHOD(0x021C1000, void, ctor, (app::OidEnumerator * this_ptr, app::OidCollection* oids))

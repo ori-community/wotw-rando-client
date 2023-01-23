@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GoThroughPlatform.h>
+#include <Modloader/app/structs/AllContainer_1_GoThroughPlatform_.h>
 
 namespace app::classes::AllContainer_1_GoThroughPlatform_ {
     IL2CPP_REGISTER_METHOD(0x019D7800, app::GoThroughPlatform*, get_Item, (app::AllContainer_1_GoThroughPlatform_ * this_ptr, int32_t index))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocalFileSettingsProvider.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SettingsPropertyValue.h>
+#include <Modloader/app/structs/SettingsContext.h>
+#include <Modloader/app/structs/SettingsProperty.h>
+#include <Modloader/app/structs/SettingsPropertyValueCollection.h>
+#include <Modloader/app/structs/SettingsPropertyCollection.h>
+#include <Modloader/app/structs/NameValueCollection.h>
 
 namespace app::classes::System::Configuration::LocalFileSettingsProvider {
     IL2CPP_REGISTER_METHOD(0x02961D20, void, ctor, (app::LocalFileSettingsProvider * this_ptr))

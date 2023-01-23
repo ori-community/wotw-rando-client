@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Void.h>
 
 namespace app::classes::System::Buffer {
     IL2CPP_REGISTER_METHOD(0x0229E780, bool, InternalBlockCopy, (app::Array * src, int32_t src_offset_bytes, app::Array* dst, int32_t dst_offset_bytes, int32_t byte_count))

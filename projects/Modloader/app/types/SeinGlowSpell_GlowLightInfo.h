@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowLightInfo__Class.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowLightInfo.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowLightInfo__Array.h>
 
 namespace app::classes::types {
     namespace SeinGlowSpell_GlowLightInfo {

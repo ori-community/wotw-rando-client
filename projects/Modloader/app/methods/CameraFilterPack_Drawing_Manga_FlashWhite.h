@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Drawing_Manga_FlashWhite.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Drawing_Manga_FlashWhite {
     IL2CPP_REGISTER_METHOD(0x024F6E30, app::Material*, get_material, (app::CameraFilterPack_Drawing_Manga_FlashWhite * this_ptr))

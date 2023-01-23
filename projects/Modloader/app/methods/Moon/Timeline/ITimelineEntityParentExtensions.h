@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ITimelineEntityParent.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/TimelineConstraint.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/IConstraint.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::ITimelineEntityParentExtensions {
     IL2CPP_REGISTER_METHOD(0x01BC0C90, bool, IsExternalRecord, (app::ITimelineEntityParent * registry, app::EntityId entity_id))

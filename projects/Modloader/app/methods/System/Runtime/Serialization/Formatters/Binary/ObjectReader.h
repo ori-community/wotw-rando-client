@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SerStack.h>
+#include <Modloader/app/structs/ObjectReader.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/ISurrogateSelector.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/InternalFE.h>
+#include <Modloader/app/structs/SerializationBinder.h>
+#include <Modloader/app/structs/HeaderHandler.h>
+#include <Modloader/app/structs/_BinaryParser.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ReadObjectInfo.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/ParseRecord.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/AssemblyName.h>
+#include <Modloader/app/structs/BinaryAssemblyInfo.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::ObjectReader {
     IL2CPP_REGISTER_METHOD(0x01D94A90, app::SerStack*, get_ValueFixupStack, (app::ObjectReader * this_ptr))

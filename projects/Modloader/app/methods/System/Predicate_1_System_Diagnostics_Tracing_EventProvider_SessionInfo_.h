@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Predicate_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventProvider_SessionInfo.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Predicate_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::Predicate_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_ * this_ptr, app::Object* object, void* method_1))

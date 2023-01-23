@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BinXmlSqlMoney__Boxed.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::BinXmlSqlMoney {
     IL2CPP_REGISTER_METHOD(0x001DE610, void, ctor_1, (app::BinXmlSqlMoney__Boxed * this_ptr, int32_t v))

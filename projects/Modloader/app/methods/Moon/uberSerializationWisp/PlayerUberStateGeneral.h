@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/PlayerUberStateGeneral.h>
+#include <Modloader/app/structs/GameWorldAreaID__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/UberStateArchive.h>
+#include <Modloader/app/structs/NavigableOnGUI.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateGeneral {
     IL2CPP_REGISTER_METHOD(0x007EC230, app::Vector3, get_WorldPosition, (app::PlayerUberStateGeneral * this_ptr))

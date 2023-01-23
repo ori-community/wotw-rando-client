@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CartographerIdleBehaviour_c.h>
 
 namespace app::classes::CartographerIdleBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x00B41D20, void, cctor, ())

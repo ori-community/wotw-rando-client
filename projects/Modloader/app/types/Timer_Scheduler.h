@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Timer_Scheduler__Class.h>
+#include <Modloader/app/structs/Timer_Scheduler.h>
 
 namespace app::classes::types {
     namespace Timer_Scheduler {

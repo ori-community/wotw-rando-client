@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Door.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::Door {
     IL2CPP_REGISTER_METHOD(0x00B9C830, app::GameObject*, get_Target, (app::Door * this_ptr))

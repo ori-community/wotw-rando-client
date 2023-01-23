@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DeathsPlugin.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/RecorderData.h>
 
 namespace app::classes::DeathsPlugin {
     IL2CPP_REGISTER_METHOD(0x00DE0FB0, void, Awake, (app::DeathsPlugin * this_ptr))

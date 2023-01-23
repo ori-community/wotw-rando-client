@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BashAttackCritical.h>
+#include <Modloader/app/structs/BashAttackCritical_State__Enum.h>
 
 namespace app::classes::BashAttackCritical {
     IL2CPP_REGISTER_METHOD(0x00F8CC30, void, OnPoolSpawned, (app::BashAttackCritical * this_ptr))

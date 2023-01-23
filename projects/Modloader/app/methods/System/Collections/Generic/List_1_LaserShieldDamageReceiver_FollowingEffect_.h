@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserShieldDamageReceiver_FollowingEffect.h>
+#include <Modloader/app/structs/List_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/IEnumerable_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/IComparer_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/LaserShieldDamageReceiver_FollowingEffect__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/Action_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/IEnumerator_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_LaserShieldDamageReceiver_FollowingEffect_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_LaserShieldDamageReceiver_FollowingEffect_ {
     IL2CPP_REGISTER_METHOD(0x025EC760, app::LaserShieldDamageReceiver_FollowingEffect, get_Item, (app::List_1_LaserShieldDamageReceiver_FollowingEffect_ * this_ptr, int32_t index))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InternalsVisibleToAttribute.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::CompilerServices::InternalsVisibleToAttribute {
     IL2CPP_REGISTER_METHOD(0x00BA6CF0, void, ctor, (app::InternalsVisibleToAttribute * this_ptr, app::String* assembly_name))

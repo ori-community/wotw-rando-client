@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TaskFactory_1_System_Nullable_1_.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/TaskCreationOptions__Enum.h>
+#include <Modloader/app/structs/TaskContinuationOptions__Enum.h>
+#include <Modloader/app/structs/TaskScheduler.h>
+#include <Modloader/app/structs/Task_1_System_Nullable_1_.h>
+#include <Modloader/app/structs/Func_1_Nullable_1_Int32_.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Func_2_IAsyncResult_Nullable_1_Int32_.h>
+#include <Modloader/app/structs/Action_1_IAsyncResult_.h>
+#include <Modloader/app/structs/Func_3_AsyncCallback_Object_IAsyncResult_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Threading::Tasks::TaskFactory_1_System_Nullable_1_ {
     IL2CPP_REGISTER_METHOD(0x02778BD0, void, ctor_1, (app::TaskFactory_1_System_Nullable_1_ * this_ptr))

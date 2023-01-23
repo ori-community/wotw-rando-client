@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HeaderInfo.h>
+#include <Modloader/app/structs/HeaderInfoTable.h>
 
 namespace app::classes::System::Net::HeaderInfoTable {
     IL2CPP_REGISTER_METHOD(0x01D38EE0, app::String__Array*, ParseSingleValue, (app::String * value))

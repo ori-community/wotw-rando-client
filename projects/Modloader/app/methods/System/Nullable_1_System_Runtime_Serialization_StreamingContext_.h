@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_System_Runtime_Serialization_StreamingContext___Boxed.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_System_Runtime_Serialization_StreamingContext_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_System_Runtime_Serialization_StreamingContext_ {
     IL2CPP_REGISTER_METHOD(0x001F4750, bool, get_HasValue, (app::Nullable_1_System_Runtime_Serialization_StreamingContext___Boxed * this_ptr))

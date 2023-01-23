@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AudioAPIOptions.h>
+#include <Modloader/app/structs/AkAudioAPI__Enum.h>
 
 namespace app::classes::AudioAPIOptions {
     IL2CPP_REGISTER_METHOD(0x00856B40, void, OnEnable, (app::AudioAPIOptions * this_ptr))

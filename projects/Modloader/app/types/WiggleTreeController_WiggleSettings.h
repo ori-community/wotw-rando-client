@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WiggleTreeController_WiggleSettings__Class.h>
+#include <Modloader/app/structs/WiggleTreeController_WiggleSettings.h>
+#include <Modloader/app/structs/WiggleTreeController_WiggleSettings__Array.h>
 
 namespace app::classes::types {
     namespace WiggleTreeController_WiggleSettings {

@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CrossSceneDependencyDatabase__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CrossSceneDependencyDatabase__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CrossSceneDependencyDatabase__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_CrossSceneDependencyDatabase__StaticFields_DEFINED
+struct Dictionary_2_System_Int32_Moon_CrossSceneDependency_;
+struct Dictionary_2_System_Int32_List_1_Moon_CrossSceneDependencyInjector_;
+struct CrossSceneDependencyDatabase__StaticFields {
+    struct Dictionary_2_System_Int32_Moon_CrossSceneDependency_* s_crossSceneDependencies;
+    struct Dictionary_2_System_Int32_List_1_Moon_CrossSceneDependencyInjector_* s_injectorsByDependency;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_CrossSceneDependencyDatabase__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_CrossSceneDependencyDatabase__StaticFields_FWDDECL
+#include <Modloader/app/structs/Dictionary_2_System_Int32_List_1_Moon_CrossSceneDependencyInjector_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_CrossSceneDependency_.h>
+#endif
+#undef IL2CPP_STRUCT_CrossSceneDependencyDatabase__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CrossSceneDependencyDatabase__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_CrossSceneDependencyDatabase__StaticFields_FWDDECL)
+#include <Modloader/app/structs/CrossSceneDependencyDatabase__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CrossSceneDependencyDatabase__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/DynamicCameraWeightZone.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::DynamicCameraWeightZone {
     IL2CPP_REGISTER_METHOD(0x00BE9CE0, float, GetWeight, (app::Vector3 primary_target_position))

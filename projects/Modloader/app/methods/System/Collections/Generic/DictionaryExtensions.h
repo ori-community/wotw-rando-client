@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_PhysicsUpdateHandlerAttribute_List_1_UnityEngine_Component_.h>
+#include <Modloader/app/structs/PhysicsUpdateHandlerAttribute.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Component_.h>
+#include <Modloader/app/structs/Dictionary_2_SmartInput_IButtonInput_Core_Input_InputButtonProcessor_.h>
+#include <Modloader/app/structs/IButtonInput.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_UberPoolItem_.h>
+#include <Modloader/app/structs/UberPoolItem.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_System_Object_.h>
 
 namespace app::classes::System::Collections::Generic::DictionaryExtensions {
     IL2CPP_REGISTER_METHOD(0x01565240, bool, TryAdd_1, (app::Dictionary_2_System_Object_System_Object_ * _this, app::Object* key, app::Object* value))

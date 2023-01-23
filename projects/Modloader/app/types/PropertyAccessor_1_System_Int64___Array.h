@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PropertyAccessor_1_System_Int64___Array__Class.h>
+#include <Modloader/app/structs/PropertyAccessor_1_System_Int64___Array.h>
 
 namespace app::classes::types {
     namespace PropertyAccessor_1_System_Int64___Array {

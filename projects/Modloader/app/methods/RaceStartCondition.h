@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceStartCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::RaceStartCondition {
     IL2CPP_REGISTER_METHOD(0x007198D0, bool, Validate, (app::RaceStartCondition * this_ptr, app::IContext* context))

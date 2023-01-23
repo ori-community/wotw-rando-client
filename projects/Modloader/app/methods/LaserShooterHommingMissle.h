@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LaserShooterHommingMissle.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::LaserShooterHommingMissle {
     IL2CPP_REGISTER_METHOD(0x00F14000, void, MisslePrefabInstantiation, (app::LaserShooterHommingMissle * this_ptr, app::List_1_DynamicInstantiationDescriptor_* instantiations))

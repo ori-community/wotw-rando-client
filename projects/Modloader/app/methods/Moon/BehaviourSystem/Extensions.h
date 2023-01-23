@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IList_1_System_Object_.h>
+#include <Modloader/app/structs/IList_1_Moon_BehaviourSystem_BehaviourNode_.h>
+#include <Modloader/app/structs/IList_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_.h>
+#include <Modloader/app/structs/IList_1_EntityPlaceholder_.h>
+#include <Modloader/app/structs/IList_1_SwarmAgent_.h>
 
 namespace app::classes::Moon::BehaviourSystem::Extensions {
     IL2CPP_REGISTER_METHOD(0x0154F200, void, Shuffle_1, (app::IList_1_System_Object_ * list))

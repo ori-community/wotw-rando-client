@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpikeSlugLocomotion.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::SpikeSlugLocomotion {
     IL2CPP_REGISTER_METHOD(0x011D1110, float, get_ContinousRotationSpeed, (app::SpikeSlugLocomotion * this_ptr))

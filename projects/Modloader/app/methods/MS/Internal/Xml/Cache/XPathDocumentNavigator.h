@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XPathDocumentNavigator.h>
+#include <Modloader/app/structs/XPathNode__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XPathNavigator.h>
+#include <Modloader/app/structs/XPathNodeType__Enum.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XPathNamespaceScope__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::MS::Internal::Xml::Cache::XPathDocumentNavigator {
     IL2CPP_REGISTER_METHOD(0x021D6E20, void, ctor, (app::XPathDocumentNavigator * this_ptr, app::XPathNode__Array* page_current, int32_t idx_current, app::XPathNode__Array* page_parent, int32_t idx_parent))

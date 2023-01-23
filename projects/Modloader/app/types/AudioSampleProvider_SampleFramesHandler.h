@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AudioSampleProvider_SampleFramesHandler__Class.h>
+#include <Modloader/app/structs/AudioSampleProvider_SampleFramesHandler.h>
 
 namespace app::classes::types {
     namespace AudioSampleProvider_SampleFramesHandler {

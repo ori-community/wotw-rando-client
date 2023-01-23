@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/PlaymodeUpdateDelegate.h>
 
 namespace app::classes::PlaymodeUpdateDelegate {
     IL2CPP_REGISTER_METHOD(0x02EA08A0, void, add_OnPlaymodeUpdate, (app::Action * value))

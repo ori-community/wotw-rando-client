@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RenderTarget.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RenderTargetType__Enum.h>
+#include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/RenderTargetDescriptor.h>
+#include <Modloader/app/structs/RenderTargetIdentifier.h>
+#include <Modloader/app/structs/RenderTextureDescriptor.h>
+#include <Modloader/app/structs/FilterMode__Enum.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/MoonRenderContext.h>
+#include <Modloader/app/structs/CommandBuffer.h>
 
 namespace app::classes::Moon::Rendering::RenderTarget {
     IL2CPP_REGISTER_METHOD(0x00EB1BB0, void, ctor_1, (app::RenderTarget * this_ptr))

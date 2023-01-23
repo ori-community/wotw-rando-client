@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NightCrawlerEscapeController.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::NightCrawlerEscapeController {
     IL2CPP_REGISTER_METHOD(0x00603D40, bool, Validate, (app::NightCrawlerEscapeController * this_ptr, app::IContext* context))

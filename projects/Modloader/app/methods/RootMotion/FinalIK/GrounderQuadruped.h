@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GrounderQuadruped.h>
+#include <Modloader/app/structs/IK__Array.h>
+#include <Modloader/app/structs/Transform__Array.h>
+#include <Modloader/app/structs/GrounderQuadruped_Foot__Array.h>
+#include <Modloader/app/structs/GrounderQuadruped_Foot.h>
 
 namespace app::classes::RootMotion::FinalIK::GrounderQuadruped {
     IL2CPP_REGISTER_METHOD(0x0206BC80, void, OpenUserManual, (app::GrounderQuadruped * this_ptr))

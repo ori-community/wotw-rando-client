@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Collections::Queue {
     IL2CPP_REGISTER_METHOD(0x0202B250, void, ctor_1, (app::Queue * this_ptr))

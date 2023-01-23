@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/SkillUpgradeScreen.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/SkillUpgradeShopUIItem.h>
+#include <Modloader/app/structs/UpgradeAbilityItem.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/RTPC.h>
 
 namespace app::classes::SkillUpgradeScreen {
     IL2CPP_REGISTER_METHOD(0x006B88C0, void, ResetStatics, ())

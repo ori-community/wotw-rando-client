@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBatDeathReaction_c.h>
 
 namespace app::classes::SpiderBatDeathReaction___c {
     IL2CPP_REGISTER_METHOD(0x00956920, void, cctor, ())

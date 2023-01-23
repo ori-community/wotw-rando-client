@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Net_Http_Headers_HttpHeaders_HeaderBucket_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_String_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_String_System_Net_Http_Headers_HttpHeaders_HeaderBucket_.h>
+#include <Modloader/app/structs/HttpHeaders_HeaderBucket.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_System_Net_Http_Headers_HttpHeaders_HeaderBucket_ {
     IL2CPP_REGISTER_METHOD(0x0283AC50, void, ctor, (app::Dictionary_2_System_String_System_Net_Http_Headers_HttpHeaders_HeaderBucket_ * this_ptr, app::IEqualityComparer_1_System_String_* comparer))

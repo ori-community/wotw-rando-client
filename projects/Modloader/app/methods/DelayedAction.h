@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DelayedAction.h>
+#include <Modloader/app/structs/DelayedAction_Action.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/Component_1.h>
 
 namespace app::classes::DelayedAction {
     IL2CPP_REGISTER_METHOD(0x00B7FB70, float, get_DonePercentage, (app::DelayedAction * this_ptr))

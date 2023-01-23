@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/fsPortableReflection_AttributeQuery__Class.h>
+#include <Modloader/app/structs/fsPortableReflection_AttributeQuery.h>
+#include <Modloader/app/structs/fsPortableReflection_AttributeQuery__Boxed.h>
+#include <Modloader/app/structs/fsPortableReflection_AttributeQuery__Array.h>
 
 namespace app::classes::types {
     namespace fsPortableReflection_AttributeQuery {

@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlTextWriter.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/Formatting__Enum.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/WriteState__Enum.h>
+#include <Modloader/app/structs/XmlTextWriter_Token__Enum.h>
 
 namespace app::classes::System::Xml::XmlTextWriter {
     IL2CPP_REGISTER_METHOD(0x01FBCAE0, void, ctor_1, (app::XmlTextWriter * this_ptr))

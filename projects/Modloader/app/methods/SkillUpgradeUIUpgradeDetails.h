@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkillUpgradeUIUpgradeDetails.h>
+#include <Modloader/app/structs/UpgradeAbilityItem.h>
 
 namespace app::classes::SkillUpgradeUIUpgradeDetails {
     IL2CPP_REGISTER_METHOD(0x006BCC10, void, Awake, (app::SkillUpgradeUIUpgradeDetails * this_ptr))

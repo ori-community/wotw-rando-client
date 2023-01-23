@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberShaderAreaNameFinder__Class.h>
+#include <Modloader/app/structs/UberShaderAreaNameFinder.h>
 
 namespace app::classes::types {
     namespace UberShaderAreaNameFinder {

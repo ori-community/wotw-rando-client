@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IList_1_Moon_MoonTrail_SimulationFrameData__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IList_1_Moon_MoonTrail_SimulationFrameData__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IList_1_Moon_MoonTrail_SimulationFrameData__DEFINED)
+#define IL2CPP_STRUCT_IList_1_Moon_MoonTrail_SimulationFrameData__DEFINED
+struct IList_1_Moon_MoonTrail_SimulationFrameData___Class;
+struct IList_1_Moon_MoonTrail_SimulationFrameData_ {
+    struct IList_1_Moon_MoonTrail_SimulationFrameData___Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IList_1_Moon_MoonTrail_SimulationFrameData__FWDDECL)
+#define IL2CPP_STRUCT_IList_1_Moon_MoonTrail_SimulationFrameData__FWDDECL
+#include <Modloader/app/structs/IList_1_Moon_MoonTrail_SimulationFrameData___Class.h>
+#endif
+#undef IL2CPP_STRUCT_IList_1_Moon_MoonTrail_SimulationFrameData__INITIALIZING
+#if !defined(IL2CPP_STRUCT_IList_1_Moon_MoonTrail_SimulationFrameData__DEFINED) && !defined(IL2CPP_STRUCT_IList_1_Moon_MoonTrail_SimulationFrameData__FWDDECL)
+#include <Modloader/app/structs/IList_1_Moon_MoonTrail_SimulationFrameData_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IList_1_Moon_MoonTrail_SimulationFrameData_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

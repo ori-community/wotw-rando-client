@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InvocationExpression.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/ExpressionVisitor.h>
+#include <Modloader/app/structs/Expression__Array.h>
 
 namespace app::classes::System::Linq::Expressions::InvocationExpression {
     IL2CPP_REGISTER_METHOD(0x02415D40, void, ctor, (app::InvocationExpression * this_ptr, app::Expression* expression, app::Type* return_type))

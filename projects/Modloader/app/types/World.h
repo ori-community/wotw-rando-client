@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/World__Class.h>
+#include <Modloader/app/structs/World.h>
 
 namespace app::classes::types {
     namespace World {

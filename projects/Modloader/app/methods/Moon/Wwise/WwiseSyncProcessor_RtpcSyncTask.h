@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Func_1_Single_.h>
+#include <Modloader/app/structs/WwiseSyncProcessor_RtpcSyncTask.h>
+#include <Modloader/app/structs/SoundHostReference.h>
+#include <Modloader/app/structs/RTPC.h>
 
 namespace app::classes::Moon::Wwise::WwiseSyncProcessor_RtpcSyncTask {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Func_1_Single_*, get_Getter, (app::WwiseSyncProcessor_RtpcSyncTask * this_ptr))

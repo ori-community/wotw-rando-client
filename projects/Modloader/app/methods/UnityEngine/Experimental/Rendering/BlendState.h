@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BlendState__Boxed.h>
+#include <Modloader/app/structs/BlendState.h>
+#include <Modloader/app/structs/RenderTargetBlendState.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::BlendState {
     IL2CPP_REGISTER_METHOD(0x001EC6F0, void, ctor, (app::BlendState__Boxed * this_ptr, bool separate_m_r_t_blend, bool alpha_to_mask))

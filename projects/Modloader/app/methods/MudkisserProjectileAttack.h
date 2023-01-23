@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MudkisserProjectileAttack.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::MudkisserProjectileAttack {
     IL2CPP_REGISTER_METHOD(0x00877830, void, Shoot, (app::MudkisserProjectileAttack * this_ptr))

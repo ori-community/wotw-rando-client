@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/ReverseSceneLoadingZone.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::ReverseSceneLoadingZone {
     IL2CPP_REGISTER_METHOD(0x00910830, app::SceneRoot*, get_SceneRoot, (app::ReverseSceneLoadingZone * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinChargeJumpLegacy_c.h>
 
 namespace app::classes::SeinChargeJumpLegacy___c {
     IL2CPP_REGISTER_METHOD(0x00A53C40, void, cctor, ())

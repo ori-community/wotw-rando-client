@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WindupSwitch.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/BaseAnimator.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::WindupSwitch {
     IL2CPP_REGISTER_METHOD(0x0057BBF0, bool, CanBeSpiritSlashed, (app::WindupSwitch * this_ptr))

@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Task_1_System_Int32_.h>
+#include <Modloader/app/structs/TaskAwaiter_1_System_Int32_.h>
+#include <Modloader/app/structs/TaskCreationOptions__Enum.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/Func_2_Object_Int32_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_1_System_Int32_.h>
+#include <Modloader/app/structs/Func_1_Int32_.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/InternalTaskOptions__Enum.h>
+#include <Modloader/app/structs/TaskScheduler.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TaskFactory_1_System_Int32_.h>
+#include <Modloader/app/structs/Action_1_System_Threading_Tasks_Task_1__7.h>
+#include <Modloader/app/structs/TaskContinuationOptions__Enum.h>
 
 namespace app::classes::System::Threading::Tasks::Task_1_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x02A58F00, int32_t, get_Result, (app::Task_1_System_Int32_ * this_ptr))

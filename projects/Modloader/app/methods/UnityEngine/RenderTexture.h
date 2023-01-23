@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/RenderTextureDescriptor.h>
+#include <Modloader/app/structs/GraphicsFormat__Enum.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/RenderTextureReadWrite__Enum.h>
+#include <Modloader/app/structs/TextureDimension__Enum.h>
+#include <Modloader/app/structs/RenderBuffer.h>
+#include <Modloader/app/structs/RenderTextureMemoryless__Enum.h>
+#include <Modloader/app/structs/VRTextureUsage__Enum.h>
 
 namespace app::classes::UnityEngine::RenderTexture {
     IL2CPP_REGISTER_METHOD(0x02970C30, void, ctor_1, (app::RenderTexture * this_ptr))

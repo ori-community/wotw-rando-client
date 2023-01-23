@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MulticastNotSupportedException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::MulticastNotSupportedException {
     IL2CPP_REGISTER_METHOD(0x0226F1C0, void, ctor_1, (app::MulticastNotSupportedException * this_ptr))

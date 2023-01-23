@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VerletStructureAttachForceAnimator.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::VerletStructureAttachForceAnimator {
     IL2CPP_REGISTER_METHOD(0x00D1C240, void, OnStartPlayback, (app::VerletStructureAttachForceAnimator * this_ptr, app::IContext* context))

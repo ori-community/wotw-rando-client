@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompositeTriggerCollider.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Collider_.h>
+#include <Modloader/app/structs/Func_2_UnityEngine_Collider_Boolean_.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::CompositeTriggerCollider {
     IL2CPP_REGISTER_METHOD(0x011DF060, void, Start, (app::CompositeTriggerCollider * this_ptr))

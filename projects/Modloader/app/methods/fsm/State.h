@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/State_2.h>
 
 namespace app::classes::fsm::State {
     IL2CPP_REGISTER_METHOD(0x00B8BEC0, void, UpdateState, (app::State_2 * this_ptr))

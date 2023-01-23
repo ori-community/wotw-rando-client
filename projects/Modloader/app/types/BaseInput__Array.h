@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BaseInput__Array__Class.h>
+#include <Modloader/app/structs/BaseInput__Array.h>
 
 namespace app::classes::types {
     namespace BaseInput__Array {

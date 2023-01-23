@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameplayMovementOverrideAnimator.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/UpdateCategory__Enum.h>
+#include <Modloader/app/structs/CharacterGravity.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/AnimationSwapSet.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 
 namespace app::classes::Moon::Timeline::GameplayMovementOverrideAnimator {
     IL2CPP_REGISTER_METHOD(0x0076D140, void, OnStartPlayback, (app::GameplayMovementOverrideAnimator * this_ptr, app::IContext* context))

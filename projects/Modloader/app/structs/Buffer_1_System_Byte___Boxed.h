@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Buffer_1_System_Byte___Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Buffer_1_System_Byte___Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Buffer_1_System_Byte___Boxed_DEFINED)
+#include <Modloader/app/structs/Buffer_1_System_Byte_.h>
+#if defined(IL2CPP_STRUCT_Buffer_1_System_Byte__DEFINED)
+#define IL2CPP_STRUCT_Buffer_1_System_Byte___Boxed_DEFINED
+struct Buffer_1_System_Byte___Class;
+struct Buffer_1_System_Byte___Boxed {
+    struct Buffer_1_System_Byte___Class* klass;
+    MonitorData* monitor;
+    struct Buffer_1_System_Byte_ fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Buffer_1_System_Byte___Boxed_FWDDECL)
+#define IL2CPP_STRUCT_Buffer_1_System_Byte___Boxed_FWDDECL
+#include <Modloader/app/structs/Buffer_1_System_Byte___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Buffer_1_System_Byte___Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Buffer_1_System_Byte___Boxed_DEFINED) && !defined(IL2CPP_STRUCT_Buffer_1_System_Byte___Boxed_FWDDECL)
+#include <Modloader/app/structs/Buffer_1_System_Byte___Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Buffer_1_System_Byte___Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

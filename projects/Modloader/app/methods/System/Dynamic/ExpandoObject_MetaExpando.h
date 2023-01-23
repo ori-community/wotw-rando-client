@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExpandoObject_MetaExpando.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/ExpandoObject.h>
+#include <Modloader/app/structs/DynamicMetaObject.h>
+#include <Modloader/app/structs/DynamicMetaObjectBinder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Func_2_System_Dynamic_DynamicMetaObject_System_Dynamic_DynamicMetaObject_.h>
+#include <Modloader/app/structs/GetMemberBinder.h>
+#include <Modloader/app/structs/SetMemberBinder.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/ExpandoClass.h>
+#include <Modloader/app/structs/BindingRestrictions.h>
 
 namespace app::classes::System::Dynamic::ExpandoObject_MetaExpando {
     IL2CPP_REGISTER_METHOD(0x01F90A70, void, ctor, (app::ExpandoObject_MetaExpando * this_ptr, app::Expression* expression, app::ExpandoObject* value))

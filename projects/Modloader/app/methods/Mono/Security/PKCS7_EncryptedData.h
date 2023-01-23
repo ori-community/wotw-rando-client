@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PKCS7_EncryptedData.h>
+#include <Modloader/app/structs/ASN1.h>
+#include <Modloader/app/structs/PKCS7_ContentInfo.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/PKCS7_EncryptedData_1.h>
+#include <Modloader/app/structs/ASN1_1.h>
+#include <Modloader/app/structs/PKCS7_ContentInfo_1.h>
 
 namespace app::classes::Mono::Security::PKCS7_EncryptedData {
     IL2CPP_REGISTER_METHOD(0x00531660, void, ctor_1, (app::PKCS7_EncryptedData * this_ptr))

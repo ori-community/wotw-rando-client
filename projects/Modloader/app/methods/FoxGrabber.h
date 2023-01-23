@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FoxGrabber.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::FoxGrabber {
     IL2CPP_REGISTER_METHOD(0x016331B0, void, Awake, (app::FoxGrabber * this_ptr))

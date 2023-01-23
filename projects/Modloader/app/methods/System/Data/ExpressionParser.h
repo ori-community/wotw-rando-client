@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExpressionParser.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ExpressionNode.h>
+#include <Modloader/app/structs/FunctionId__Enum.h>
+#include <Modloader/app/structs/Tokens__Enum.h>
 
 namespace app::classes::System::Data::ExpressionParser {
     IL2CPP_REGISTER_METHOD(0x01F5A8B0, void, ctor, (app::ExpressionParser * this_ptr, app::DataTable* table))

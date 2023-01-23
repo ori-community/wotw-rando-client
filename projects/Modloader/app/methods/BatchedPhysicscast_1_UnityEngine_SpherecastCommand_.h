@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BatchedPhysicscast_1_UnityEngine_SpherecastCommand_.h>
+#include <Modloader/app/structs/SpherecastCommand__Array.h>
+#include <Modloader/app/structs/RaycastHit__Array.h>
 
 namespace app::classes::BatchedPhysicscast_1_UnityEngine_SpherecastCommand_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::BatchedPhysicscast_1_UnityEngine_SpherecastCommand_ * this_ptr))

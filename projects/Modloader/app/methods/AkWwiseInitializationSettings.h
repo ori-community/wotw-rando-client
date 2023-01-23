@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkWwiseInitializationSettings.h>
+#include <Modloader/app/structs/AkCommonUserSettings.h>
+#include <Modloader/app/structs/AkCommonAdvancedSettings.h>
+#include <Modloader/app/structs/AkCommonCommSettings.h>
+#include <Modloader/app/structs/AkBasePlatformSettings.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WwiseBootstrapConfiguration.h>
 
 namespace app::classes::AkWwiseInitializationSettings {
     IL2CPP_REGISTER_METHOD(0x02702E30, uint32_t, get_DefaultDeviceSharesetId, ())

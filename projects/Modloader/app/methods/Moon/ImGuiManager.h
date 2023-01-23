@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ImGuiManager.h>
 
 namespace app::classes::Moon::ImGuiManager {
     IL2CPP_REGISTER_METHOD(0x01989CA0, void, Awake, (app::ImGuiManager * this_ptr))

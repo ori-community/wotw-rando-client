@@ -2,6 +2,13 @@
 
 #include <Core/api/graphics/textures.h>
 
+#include <Modloader/app/structs/ShopkeeperItem.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/WeaponmasterItem.h>
+#include <Modloader/app/structs/BuilderItem.h>
+#include <Modloader/app/structs/UpgradableShardItem.h>
+#include <Modloader/app/structs/MapmakerItem.h>
+
 namespace shops {
     enum class ShopType {
         None,

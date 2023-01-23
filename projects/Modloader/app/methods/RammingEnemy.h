@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RammingEnemy.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::RammingEnemy {
     IL2CPP_REGISTER_METHOD(0x00728C30, bool, CanBeOptimized, (app::RammingEnemy * this_ptr))

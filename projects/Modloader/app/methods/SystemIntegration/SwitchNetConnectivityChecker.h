@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwitchNetConnectivityChecker.h>
 
 namespace app::classes::SystemIntegration::SwitchNetConnectivityChecker {
     IL2CPP_REGISTER_METHOD(0x0052B120, void, ctor, (app::SwitchNetConnectivityChecker * this_ptr))

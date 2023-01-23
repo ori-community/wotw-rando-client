@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_NearbySceneData_.h>
+#include <Modloader/app/structs/NearbySceneData.h>
+#include <Modloader/app/structs/NearbySceneData__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_NearbySceneData_ {
     IL2CPP_REGISTER_METHOD(0x01CD0C40, bool, Equals_1, (app::ObjectEqualityComparer_1_NearbySceneData_ * this_ptr, app::NearbySceneData x, app::NearbySceneData y))

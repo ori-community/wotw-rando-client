@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/QualityMeasure_Q_Measure__Class.h>
+#include <Modloader/app/structs/QualityMeasure_Q_Measure.h>
 
 namespace app::classes::types {
     namespace QualityMeasure_Q_Measure {

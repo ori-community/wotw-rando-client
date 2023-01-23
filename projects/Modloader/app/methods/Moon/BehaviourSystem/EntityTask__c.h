@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityTask_c.h>
+#include <Modloader/app/structs/EntityTask.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::BehaviourSystem::EntityTask___c {
     IL2CPP_REGISTER_METHOD(0x00CB7060, void, cctor, ())

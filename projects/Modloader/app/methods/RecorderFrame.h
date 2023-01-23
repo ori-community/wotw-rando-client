@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecorderFrame.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/CharacterData.h>
+#include <Modloader/app/structs/CameraData.h>
+#include <Modloader/app/structs/CheckpointData.h>
+#include <Modloader/app/structs/InputData.h>
+#include <Modloader/app/structs/AnalogueInputData.h>
+#include <Modloader/app/structs/DeathsData.h>
+#include <Modloader/app/structs/EntityData.h>
+#include <Modloader/app/structs/CursorInputData.h>
+#include <Modloader/app/structs/List_1_CharacterData_.h>
+#include <Modloader/app/structs/List_1_BuildData_.h>
+#include <Modloader/app/structs/List_1_CheckpointData_.h>
+#include <Modloader/app/structs/List_1_AbilitiesData_.h>
+#include <Modloader/app/structs/List_1_InputData_.h>
 
 namespace app::classes::RecorderFrame {
     IL2CPP_REGISTER_METHOD(0x008EFBB0, void, SaveToFile, (app::RecorderFrame * this_ptr, app::BinaryWriter* binary_writer))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/ServerObject.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/ServerObjectReferences.h>
 
 namespace app::classes::ServerObjectReferences {
     IL2CPP_REGISTER_METHOD(0x00AC06E0, void, AddReferenceToObject_1, (int32_t id, app::GameObject* obj, app::ServerObject* server_obj))

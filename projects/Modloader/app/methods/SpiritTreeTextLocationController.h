@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiritTreeTextLocationController.h>
 
 namespace app::classes::SpiritTreeTextLocationController {
     IL2CPP_REGISTER_METHOD(0x00D7BED0, void, Start, (app::SpiritTreeTextLocationController * this_ptr))

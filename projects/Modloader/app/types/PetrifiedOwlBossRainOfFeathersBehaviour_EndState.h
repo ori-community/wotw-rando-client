@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PetrifiedOwlBossRainOfFeathersBehaviour_EndState__Class.h>
+#include <Modloader/app/structs/PetrifiedOwlBossRainOfFeathersBehaviour_EndState.h>
 
 namespace app::classes::types {
     namespace PetrifiedOwlBossRainOfFeathersBehaviour_EndState {

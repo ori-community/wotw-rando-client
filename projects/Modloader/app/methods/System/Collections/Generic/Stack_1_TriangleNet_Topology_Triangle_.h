@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Stack_1_TriangleNet_Topology_Triangle_.h>
+#include <Modloader/app/structs/Triangle.h>
+#include <Modloader/app/structs/Stack_1_T_Enumerator_TriangleNet_Topology_Triangle_.h>
 
 namespace app::classes::System::Collections::Generic::Stack_1_TriangleNet_Topology_Triangle_ {
     IL2CPP_REGISTER_METHOD(0x02CF78E0, void, ctor_1, (app::Stack_1_TriangleNet_Topology_Triangle_ * this_ptr, int32_t capacity))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecorderPostRender.h>
 
 namespace app::classes::RecorderPostRender {
     IL2CPP_REGISTER_METHOD(0x008F99F0, void, OnPostRender, (app::RecorderPostRender * this_ptr))

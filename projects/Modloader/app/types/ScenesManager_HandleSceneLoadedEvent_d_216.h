@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ScenesManager_HandleSceneLoadedEvent_d_216__Class.h>
+#include <Modloader/app/structs/ScenesManager_HandleSceneLoadedEvent_d_216.h>
 
 namespace app::classes::types {
     namespace ScenesManager_HandleSceneLoadedEvent_d_216 {

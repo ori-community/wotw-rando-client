@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/OrbSpawnerManager_ItemToSpawn__Class.h>
+#include <Modloader/app/structs/OrbSpawnerManager_ItemToSpawn.h>
+#include <Modloader/app/structs/OrbSpawnerManager_ItemToSpawn__Boxed.h>
+#include <Modloader/app/structs/OrbSpawnerManager_ItemToSpawn__Array.h>
 
 namespace app::classes::types {
     namespace OrbSpawnerManager_ItemToSpawn {

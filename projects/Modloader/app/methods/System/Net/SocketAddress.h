@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AddressFamily__Enum.h>
+#include <Modloader/app/structs/SocketAddress.h>
+#include <Modloader/app/structs/IPAddress.h>
+#include <Modloader/app/structs/IPEndPoint.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::SocketAddress {
     IL2CPP_REGISTER_METHOD(0x01BDB850, app::AddressFamily__Enum, get_Family, (app::SocketAddress * this_ptr))

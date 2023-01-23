@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AchievementToDisplay__Class.h>
+#include <Modloader/app/structs/AchievementToDisplay.h>
+#include <Modloader/app/structs/AchievementToDisplay__Boxed.h>
+#include <Modloader/app/structs/AchievementToDisplay__Array.h>
 
 namespace app::classes::types {
     namespace AchievementToDisplay {

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_Moon_SerializedBooleanUberState__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_Moon_SerializedBooleanUberState__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_SerializedBooleanUberState__DEFINED)
+#include <Modloader/app/structs/List_1_Moon_SerializedBooleanUberState___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_Moon_SerializedBooleanUberState___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_Moon_SerializedBooleanUberState__DEFINED
+struct List_1_Moon_SerializedBooleanUberState___Class;
+struct List_1_Moon_SerializedBooleanUberState_ {
+    struct List_1_Moon_SerializedBooleanUberState___Class* klass;
+    MonitorData* monitor;
+    struct List_1_Moon_SerializedBooleanUberState___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_Moon_SerializedBooleanUberState__FWDDECL)
+#define IL2CPP_STRUCT_List_1_Moon_SerializedBooleanUberState__FWDDECL
+#include <Modloader/app/structs/List_1_Moon_SerializedBooleanUberState___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_Moon_SerializedBooleanUberState__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_SerializedBooleanUberState__DEFINED) && !defined(IL2CPP_STRUCT_List_1_Moon_SerializedBooleanUberState__FWDDECL)
+#include <Modloader/app/structs/List_1_Moon_SerializedBooleanUberState_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_Moon_SerializedBooleanUberState_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

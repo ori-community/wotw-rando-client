@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PlayableGraph__Boxed.h>
+#include <Modloader/app/structs/DirectorUpdateMode__Enum.h>
+#include <Modloader/app/structs/PlayableOutputHandle.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/AnimationLayerMixerPlayable.h>
+#include <Modloader/app/structs/AnimationPlayableOutput.h>
+#include <Modloader/app/structs/AnimationMixerPlayable.h>
+#include <Modloader/app/structs/AnimationClipPlayable.h>
 
 namespace app::classes::UnityEngine::Playables::PlayableGraph {
     IL2CPP_REGISTER_METHOD(0x02964A30, app::PlayableGraph, Create_1, ())

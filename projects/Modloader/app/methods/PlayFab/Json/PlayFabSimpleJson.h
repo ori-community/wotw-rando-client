@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IJsonSerializerStrategy.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_Object_.h>
+#include <Modloader/app/structs/JsonArray.h>
+#include <Modloader/app/structs/PlayFabSimpleJson_TokenType__Enum.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/IEnumerable.h>
+#include <Modloader/app/structs/PocoJsonSerializerStrategy.h>
+#include <Modloader/app/structs/JsonObject.h>
 
 namespace app::classes::PlayFab::Json::PlayFabSimpleJson {
     IL2CPP_REGISTER_METHOD(0x01848270, void, cctor, ())

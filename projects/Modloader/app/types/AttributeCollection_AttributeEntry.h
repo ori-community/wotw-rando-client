@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AttributeCollection_AttributeEntry__Class.h>
+#include <Modloader/app/structs/AttributeCollection_AttributeEntry.h>
+#include <Modloader/app/structs/AttributeCollection_AttributeEntry__Boxed.h>
+#include <Modloader/app/structs/AttributeCollection_AttributeEntry__Array.h>
 
 namespace app::classes::types {
     namespace AttributeCollection_AttributeEntry {

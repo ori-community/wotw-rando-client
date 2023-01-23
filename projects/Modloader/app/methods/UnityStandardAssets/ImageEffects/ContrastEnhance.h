@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ContrastEnhance.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::ContrastEnhance {
     IL2CPP_REGISTER_METHOD(0x0251DAC0, bool, CheckResources, (app::ContrastEnhance * this_ptr))

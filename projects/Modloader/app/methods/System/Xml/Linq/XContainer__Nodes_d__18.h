@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XContainer_Nodes_d_18.h>
+#include <Modloader/app/structs/XNode.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Xml_Linq_XNode_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Xml::Linq::XContainer__Nodes_d__18 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::XContainer_Nodes_d_18 * this_ptr, int32_t __1__state))

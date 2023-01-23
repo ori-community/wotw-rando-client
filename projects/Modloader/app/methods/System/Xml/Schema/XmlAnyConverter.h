@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlAnyConverter.h>
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/XPathNavigator.h>
 
 namespace app::classes::System::Xml::Schema::XmlAnyConverter {
     IL2CPP_REGISTER_METHOD(0x02236CC0, void, ctor, (app::XmlAnyConverter * this_ptr, app::XmlTypeCode__Enum type_code))

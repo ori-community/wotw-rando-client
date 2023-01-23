@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Recoil_RecoilOffset_EffectorLink__Class.h>
+#include <Modloader/app/structs/Recoil_RecoilOffset_EffectorLink.h>
+#include <Modloader/app/structs/Recoil_RecoilOffset_EffectorLink__Array.h>
 
 namespace app::classes::types {
     namespace Recoil_RecoilOffset_EffectorLink {

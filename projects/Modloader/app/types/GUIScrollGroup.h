@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GUIScrollGroup__Class.h>
+#include <Modloader/app/structs/GUIScrollGroup.h>
 
 namespace app::classes::types {
     namespace GUIScrollGroup {

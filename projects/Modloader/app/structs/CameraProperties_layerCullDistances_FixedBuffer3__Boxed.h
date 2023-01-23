@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3__Boxed_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3__Boxed_DEFINED)
+#include <Modloader/app/structs/CameraProperties_layerCullDistances_FixedBuffer3.h>
+#if defined(IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3_DEFINED)
+#define IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3__Boxed_DEFINED
+struct CameraProperties_layerCullDistances_FixedBuffer3__Class;
+struct CameraProperties_layerCullDistances_FixedBuffer3__Boxed {
+    struct CameraProperties_layerCullDistances_FixedBuffer3__Class* klass;
+    MonitorData* monitor;
+    struct CameraProperties_layerCullDistances_FixedBuffer3 fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3__Boxed_FWDDECL)
+#define IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3__Boxed_FWDDECL
+#include <Modloader/app/structs/CameraProperties_layerCullDistances_FixedBuffer3__Class.h>
+#endif
+#undef IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3__Boxed_INITIALIZING
+#if !defined(IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3__Boxed_DEFINED) && !defined(IL2CPP_STRUCT_CameraProperties_layerCullDistances_FixedBuffer3__Boxed_FWDDECL)
+#include <Modloader/app/structs/CameraProperties_layerCullDistances_FixedBuffer3__Boxed.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CameraProperties_layerCullDistances_FixedBuffer3__Boxed.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

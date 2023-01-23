@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DropCurrentlyHeldItem.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::DropCurrentlyHeldItem {
     IL2CPP_REGISTER_METHOD(0x00BDCEE0, void, Perform, (app::DropCurrentlyHeldItem * this_ptr, app::IContext* context))

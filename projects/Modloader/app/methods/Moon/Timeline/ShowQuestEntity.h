@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowQuestEntity.h>
+#include <Modloader/app/structs/ShowQuestEntity_State__Enum.h>
+#include <Modloader/app/structs/QuestIconMode__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::ShowQuestEntity {
     IL2CPP_REGISTER_METHOD(0x00D02D50, void, OnEnable, (app::ShowQuestEntity * this_ptr))

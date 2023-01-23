@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CacheBaseAnimatorAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::CacheBaseAnimatorAction {
     IL2CPP_REGISTER_METHOD(0x008230C0, void, Perform, (app::CacheBaseAnimatorAction * this_ptr, app::IContext* context))

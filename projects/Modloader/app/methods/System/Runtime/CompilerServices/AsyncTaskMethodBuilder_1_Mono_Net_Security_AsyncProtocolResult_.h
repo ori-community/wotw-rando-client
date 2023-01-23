@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_Mono_Net_Security_AsyncProtocolResult_.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_Mono_Net_Security_AsyncProtocolResult___Boxed.h>
+#include <Modloader/app/structs/AsyncProtocolRequest_StartOperation_d_23.h>
+#include <Modloader/app/structs/Task_1_Mono_Net_Security_AsyncProtocolResult_.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_ConfiguredTaskAwaiter.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/AsyncProtocolResult.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncTaskMethodBuilder_1_Mono_Net_Security_AsyncProtocolResult_ {
     IL2CPP_REGISTER_METHOD(0x00C537F0, app::AsyncTaskMethodBuilder_1_Mono_Net_Security_AsyncProtocolResult_, Create, ())

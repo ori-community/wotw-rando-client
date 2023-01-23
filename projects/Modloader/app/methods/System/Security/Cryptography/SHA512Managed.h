@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SHA512Managed.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::SHA512Managed {
     IL2CPP_REGISTER_METHOD(0x01E0E5F0, void, ctor, (app::SHA512Managed * this_ptr))

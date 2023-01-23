@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerUberStateAbilities.h>
+#include <Modloader/app/structs/PlayerAbilities.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/HashSet_1_AbilityType_.h>
 
 namespace app::classes::PlayerAbilities {
     IL2CPP_REGISTER_METHOD(0x0117BB70, app::PlayerUberStateAbilities*, get_Abilities, (app::PlayerAbilities * this_ptr))

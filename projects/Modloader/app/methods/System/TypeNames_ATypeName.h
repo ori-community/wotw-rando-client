@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TypeNames_ATypeName.h>
+#include <Modloader/app/structs/TypeName.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::TypeNames_ATypeName {
     IL2CPP_REGISTER_METHOD(0x027C1720, bool, Equals_1, (app::TypeNames_ATypeName * this_ptr, app::TypeName* other))

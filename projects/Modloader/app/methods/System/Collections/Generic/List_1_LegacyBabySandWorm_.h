@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_LegacyBabySandWorm_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_LegacyBabySandWorm_.h>
+#include <Modloader/app/structs/LegacyBabySandWorm.h>
 
 namespace app::classes::System::Collections::Generic::List_1_LegacyBabySandWorm_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_LegacyBabySandWorm_ * this_ptr))

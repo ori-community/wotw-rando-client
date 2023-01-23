@@ -1,5 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormEntity.h>
+#include <Modloader/app/structs/NavigationType__Enum.h>
+#include <Modloader/app/structs/SandTrail.h>
+#include <Modloader/app/structs/SandWormEntity_BodyPhysicsMode__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/DigZone.h>
+#include <Modloader/app/structs/WaterZone.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/SandWormEntity_SandWormBodyAnimation.h>
+#include <Modloader/app/structs/SandWormEntity_SandWormBodyWave.h>
+#include <Modloader/app/structs/SandWormEntity_SandWormSquetch.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/EntityTask.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::SandWormEntity {
     IL2CPP_REGISTER_METHOD(0x00C0C9D0, void, ResetStatics, ())

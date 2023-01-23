@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParticleSystemEmissionRateOverDistance.h>
 
 namespace app::classes::ParticleSystemEmissionRateOverDistance {
     IL2CPP_REGISTER_METHOD(0x00444FB0, void, OnPoolSpawned, (app::ParticleSystemEmissionRateOverDistance * this_ptr))

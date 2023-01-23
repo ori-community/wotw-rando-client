@@ -1,5 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TrueReadOnlyCollection_1_System_Object_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ElementInit_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_ElementInit_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_MemberBinding_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_MemberBinding_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Reflection_MemberInfo_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Reflection_MemberInfo_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_SwitchCase_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_SwitchCase_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_CatchBlock_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_CatchBlock_.h>
+#include <Modloader/app/structs/TrueReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/ParameterExpression__Array.h>
 
 namespace app::classes::System::Dynamic::Utils::CollectionExtensions {
     IL2CPP_REGISTER_METHOD(0x0153E7E0, app::TrueReadOnlyCollection_1_System_Object_*, AddFirst_1, (app::ReadOnlyCollection_1_System_Object_ * list, app::Object* item))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NPCMessageBox.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/NPCMessageBox_State__Enum.h>
+#include <Modloader/app/structs/InteractionBinding.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::NPCMessageBox {
     IL2CPP_REGISTER_METHOD(0x00880590, void, Awake, (app::NPCMessageBox * this_ptr))

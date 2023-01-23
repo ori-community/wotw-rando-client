@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_EntityReactions_ReactionInterruptionSuspensionEntry_.h>
+#include <Modloader/app/structs/EntityReactions_ReactionInterruptionSuspensionEntry.h>
+#include <Modloader/app/structs/EntityReactions_ReactionInterruptionSuspensionEntry__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_EntityReactions_ReactionInterruptionSuspensionEntry_ {
     IL2CPP_REGISTER_METHOD(0x01CD0840, bool, Equals_1, (app::ObjectEqualityComparer_1_EntityReactions_ReactionInterruptionSuspensionEntry_ * this_ptr, app::EntityReactions_ReactionInterruptionSuspensionEntry x, app::EntityReactions_ReactionInterruptionSuspensionEntry y))

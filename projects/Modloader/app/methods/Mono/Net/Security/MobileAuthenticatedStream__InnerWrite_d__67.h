@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream_InnerWrite_d_67__Boxed.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::Mono::Net::Security::MobileAuthenticatedStream__InnerWrite_d__67 {
     IL2CPP_REGISTER_METHOD(0x001DCF60, void, MoveNext, (app::MobileAuthenticatedStream_InnerWrite_d_67__Boxed * this_ptr))

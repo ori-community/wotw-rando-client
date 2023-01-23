@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Timer_2.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Timer {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::Timer_2 * this_ptr))

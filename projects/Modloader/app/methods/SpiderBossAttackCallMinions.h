@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityPlaceholder__Array.h>
+#include <Modloader/app/structs/SpiderBossAttackCallMinions.h>
+#include <Modloader/app/structs/EntityPlaceholder.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/SpiderBossAttackCallMinions_State__Enum.h>
 
 namespace app::classes::SpiderBossAttackCallMinions {
     IL2CPP_REGISTER_METHOD(0x00966940, app::EntityPlaceholder__Array*, get_Spawners, (app::SpiderBossAttackCallMinions * this_ptr))

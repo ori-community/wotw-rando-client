@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SnakeAnimator.h>
+#include <Modloader/app/structs/SnakeAnimatorConfiguration.h>
+#include <Modloader/app/structs/SnakeAnimatorJointConfiguration.h>
 
 namespace app::classes::UnityEngine::SnakeAnimator {
     IL2CPP_REGISTER_METHOD(0x03087460, void, BeginChain, (app::SnakeAnimator * this_ptr, app::SnakeAnimatorConfiguration configuration))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParticleSystem.h>
+#include <Modloader/app/structs/List_1_UnityEngine_ParticleSystem_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_ParticleSystem_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_ParticleSystem_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_ParticleSystem_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::ParticleSystem*, get_Item, (app::List_1_UnityEngine_ParticleSystem_ * this_ptr, int32_t index))

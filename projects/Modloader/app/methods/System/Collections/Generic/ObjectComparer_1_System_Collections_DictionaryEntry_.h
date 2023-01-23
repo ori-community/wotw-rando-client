@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_System_Collections_DictionaryEntry_.h>
+#include <Modloader/app/structs/DictionaryEntry.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_System_Collections_DictionaryEntry_ {
     IL2CPP_REGISTER_METHOD(0x01CC9FE0, int32_t, Compare, (app::ObjectComparer_1_System_Collections_DictionaryEntry_ * this_ptr, app::DictionaryEntry x, app::DictionaryEntry y))

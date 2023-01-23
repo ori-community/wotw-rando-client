@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ThreadPoolWorkQueue_WorkStealingQueue__Class.h>
+#include <Modloader/app/structs/ThreadPoolWorkQueue_WorkStealingQueue.h>
+#include <Modloader/app/structs/ThreadPoolWorkQueue_WorkStealingQueue__Array.h>
 
 namespace app::classes::types {
     namespace ThreadPoolWorkQueue_WorkStealingQueue {

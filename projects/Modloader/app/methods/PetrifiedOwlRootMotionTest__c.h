@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlRootMotionTest_c.h>
 
 namespace app::classes::PetrifiedOwlRootMotionTest___c {
     IL2CPP_REGISTER_METHOD(0x014E6C90, void, cctor, ())

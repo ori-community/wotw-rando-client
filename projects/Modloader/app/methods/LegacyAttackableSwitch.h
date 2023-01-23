@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyAttackableSwitch.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/LegacyAttackableSwitch_AttackTypes__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/ArrowHitData.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::LegacyAttackableSwitch {
     IL2CPP_REGISTER_METHOD(0x015CD510, void, ToggleSwitch, (app::LegacyAttackableSwitch * this_ptr))

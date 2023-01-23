@@ -1,6 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
+
+
+
+
+#include <Modloader/app/structs/NumberFormatter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Thread.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/NumberFormatInfo.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Int32__Array.h>
+
 namespace app::classes::System::NumberFormatter {
     IL2CPP_REGISTER_METHOD(0x02273730, void, GetFormatterTables, (app::uint64_t * *mantissa_bits_table, app::int32_t** tens_exponent_table, app::uint16_t** digit_lower_table, app::uint16_t** digit_upper_table, app::int64_t** ten_powers_list, app::int32_t** dec_hex_digits))
     IL2CPP_REGISTER_METHOD(0x02273780, void, cctor, ())

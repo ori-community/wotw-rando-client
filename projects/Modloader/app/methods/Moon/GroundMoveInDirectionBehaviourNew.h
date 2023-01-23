@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GroundMoveInDirectionBehaviourNew.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IEntityLocomotion.h>
 
 namespace app::classes::Moon::GroundMoveInDirectionBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x014919F0, void, OnEnter, (app::GroundMoveInDirectionBehaviourNew * this_ptr, app::IContext* context))

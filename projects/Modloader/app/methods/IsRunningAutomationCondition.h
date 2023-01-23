@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IsRunningAutomationCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::IsRunningAutomationCondition {
     IL2CPP_REGISTER_METHOD(0x00647660, bool, Validate, (app::IsRunningAutomationCondition * this_ptr, app::IContext* context))

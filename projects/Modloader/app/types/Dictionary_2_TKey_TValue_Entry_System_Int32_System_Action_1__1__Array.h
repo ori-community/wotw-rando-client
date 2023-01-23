@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Int32_System_Action_1__1__Array__Class.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Int32_System_Action_1__1__Array.h>
 
 namespace app::classes::types {
     namespace Dictionary_2_TKey_TValue_Entry_System_Int32_System_Action_1__1__Array {

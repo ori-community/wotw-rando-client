@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CanRestartLoremasterReplayCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::CanRestartLoremasterReplayCondition {
     IL2CPP_REGISTER_METHOD(0x00B21FD0, bool, Validate, (app::CanRestartLoremasterReplayCondition * this_ptr, app::IContext* context))

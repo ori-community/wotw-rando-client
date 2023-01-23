@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FadeOut.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::FadeOut {
     IL2CPP_REGISTER_METHOD(0x0098F310, void, Perform, (app::FadeOut * this_ptr, app::IContext* context))

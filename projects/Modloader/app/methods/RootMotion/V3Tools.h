@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::V3Tools {
     IL2CPP_REGISTER_METHOD(0x02A2E3A0, app::Vector3, ExtractVertical, (app::Vector3 v, app::Vector3 vertical_axis, float weight))

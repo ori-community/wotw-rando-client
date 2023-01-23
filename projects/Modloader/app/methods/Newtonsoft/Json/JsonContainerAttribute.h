@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/JsonContainerAttribute.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/NamingStrategy.h>
 
 namespace app::classes::Newtonsoft::Json::JsonContainerAttribute {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Type*, get_ItemConverterType, (app::JsonContainerAttribute * this_ptr))

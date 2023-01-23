@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PerformanceCountersElement.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
 
 namespace app::classes::System::Net::Configuration::PerformanceCountersElement {
     IL2CPP_REGISTER_METHOD(0x02019F20, void, ctor, (app::PerformanceCountersElement * this_ptr))

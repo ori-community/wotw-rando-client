@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HasPurchasedMapPinCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::HasPurchasedMapPinCondition {
     IL2CPP_REGISTER_METHOD(0x0109ED90, bool, Validate, (app::HasPurchasedMapPinCondition * this_ptr, app::IContext* context))

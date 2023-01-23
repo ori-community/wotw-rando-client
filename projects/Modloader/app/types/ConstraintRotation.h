@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ConstraintRotation__Class.h>
+#include <Modloader/app/structs/ConstraintRotation.h>
 
 namespace app::classes::types {
     namespace ConstraintRotation {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/EnemyStopper.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::EnemyStopper {
     IL2CPP_REGISTER_METHOD(0x00C85E40, void, ResetStatics, ())

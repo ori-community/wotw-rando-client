@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AudioSourceSuspendable.h>
 
 namespace app::classes::AudioSourceSuspendable {
     IL2CPP_REGISTER_METHOD(0x00858E30, void, Awake, (app::AudioSourceSuspendable * this_ptr))

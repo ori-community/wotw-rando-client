@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PoolToggler.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::PoolToggler {
     IL2CPP_REGISTER_METHOD(0x00C60A90, app::String*, get_Path, (app::PoolToggler * this_ptr))

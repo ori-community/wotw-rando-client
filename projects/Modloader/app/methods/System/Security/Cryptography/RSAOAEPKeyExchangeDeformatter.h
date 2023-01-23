@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RSAOAEPKeyExchangeDeformatter.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::RSAOAEPKeyExchangeDeformatter {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::RSAOAEPKeyExchangeDeformatter * this_ptr))

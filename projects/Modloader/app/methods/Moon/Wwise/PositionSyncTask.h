@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundListenerReference.h>
+#include <Modloader/app/structs/PositionSyncTask.h>
+#include <Modloader/app/structs/SoundHostReference.h>
 
 namespace app::classes::Moon::Wwise::PositionSyncTask {
     IL2CPP_REGISTER_METHOD(0x00ABE2D0, app::SoundListenerReference, get_AsListener, (app::PositionSyncTask * this_ptr))

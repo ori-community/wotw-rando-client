@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegexTree.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RegexOptions__Enum.h>
+#include <Modloader/app/structs/RegexReplacement.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/RegexParser.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/RegexNode.h>
+#include <Modloader/app/structs/RegexCharClass.h>
+#include <Modloader/app/structs/ArgumentException.h>
 
 namespace app::classes::System::Text::RegularExpressions::RegexParser {
     IL2CPP_REGISTER_METHOD(0x02597B50, app::RegexTree*, Parse, (app::String * re, app::RegexOptions__Enum op))

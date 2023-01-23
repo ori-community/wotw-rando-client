@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OrbSpawnerManager.h>
+#include <Modloader/app/structs/OrbSpawnerManager_ItemType__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/DropPickup_State__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::OrbSpawnerManager {
     IL2CPP_REGISTER_METHOD(0x002FD750, int32_t, get_SmallOrbXPAmount, (app::OrbSpawnerManager * this_ptr))

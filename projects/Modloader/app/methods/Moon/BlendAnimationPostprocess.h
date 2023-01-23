@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/BlendAnimationPostprocess.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::Moon::BlendAnimationPostprocess {
     IL2CPP_REGISTER_METHOD(0x01B0B210, app::Transform*, DuplicateHierarchy, (app::Transform * transform, app::Transform* mask_transform, app::Transform* parent))

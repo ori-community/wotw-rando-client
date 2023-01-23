@@ -1,5 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XsdValidatingReader.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ReadState__Enum_1.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlSchemaValidity__Enum.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlSchemaElement.h>
+#include <Modloader/app/structs/XmlSchemaAttribute.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchemaInfo.h>
+#include <Modloader/app/structs/AttributePSVIInfo.h>
+#include <Modloader/app/structs/ValidatingReaderNodeData.h>
+#include <Modloader/app/structs/XsdCachingReader.h>
 
 namespace app::classes::System::Xml::XsdValidatingReader {
     IL2CPP_REGISTER_METHOD(0x03102080, void, ctor_1, (app::XsdValidatingReader * this_ptr, app::XmlReader* reader, app::XmlResolver* xml_resolver, app::XmlReaderSettings* reader_settings, app::XmlSchemaObject* partial_validation_type))

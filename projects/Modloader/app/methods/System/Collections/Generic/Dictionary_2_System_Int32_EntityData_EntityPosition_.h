@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_EntityData_EntityPosition_.h>
+#include <Modloader/app/structs/EntityData_EntityPosition.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_System_Int32_EntityData_EntityPosition_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_EntityData_EntityPosition_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_System_Int32_EntityData_EntityPosition_ * this_ptr, int32_t key))

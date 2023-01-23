@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/UtilitySelectorNode.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility.h>
+#include <Modloader/app/structs/BehaviourNode.h>
 
 namespace app::classes::Moon::BehaviourSystem::UtilitySelectorNode {
     IL2CPP_REGISTER_METHOD(0x002FBCA0, app::Single__Array*, get_Utilities, (app::UtilitySelectorNode * this_ptr))

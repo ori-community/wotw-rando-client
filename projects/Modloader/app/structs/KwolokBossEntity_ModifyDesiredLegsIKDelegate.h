@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLegsIKDelegate_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLegsIKDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLegsIKDelegate_DEFINED)
+#include <Modloader/app/structs/KwolokBossEntity_ModifyDesiredLegsIKDelegate__Fields.h>
+#if defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLegsIKDelegate__Fields_DEFINED)
+#define IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLegsIKDelegate_DEFINED
+struct KwolokBossEntity_ModifyDesiredLegsIKDelegate__Class;
+struct KwolokBossEntity_ModifyDesiredLegsIKDelegate {
+    struct KwolokBossEntity_ModifyDesiredLegsIKDelegate__Class* klass;
+    MonitorData* monitor;
+    struct KwolokBossEntity_ModifyDesiredLegsIKDelegate__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLegsIKDelegate_FWDDECL)
+#define IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLegsIKDelegate_FWDDECL
+#include <Modloader/app/structs/KwolokBossEntity_ModifyDesiredLegsIKDelegate__Class.h>
+#endif
+#undef IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLegsIKDelegate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLegsIKDelegate_DEFINED) && !defined(IL2CPP_STRUCT_KwolokBossEntity_ModifyDesiredLegsIKDelegate_FWDDECL)
+#include <Modloader/app/structs/KwolokBossEntity_ModifyDesiredLegsIKDelegate.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KwolokBossEntity_ModifyDesiredLegsIKDelegate.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

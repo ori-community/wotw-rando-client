@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericPoser.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform__Array.h>
 
 namespace app::classes::RootMotion::FinalIK::GenericPoser {
     IL2CPP_REGISTER_METHOD(0x02064540, void, AutoMapping, (app::GenericPoser * this_ptr))

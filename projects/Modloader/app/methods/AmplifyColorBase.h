@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/AmplifyColorBase.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/AmplifyColorVolumeBase.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::AmplifyColorBase {
     IL2CPP_REGISTER_METHOD(0x030D48D0, app::Texture2D*, get_DefaultLut, (app::AmplifyColorBase * this_ptr))

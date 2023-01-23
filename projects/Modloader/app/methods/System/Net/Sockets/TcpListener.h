@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TcpListener.h>
+#include <Modloader/app/structs/IPEndPoint.h>
+#include <Modloader/app/structs/IPAddress.h>
+#include <Modloader/app/structs/Socket.h>
+#include <Modloader/app/structs/TcpClient.h>
 
 namespace app::classes::System::Net::Sockets::TcpListener {
     IL2CPP_REGISTER_METHOD(0x020A4480, void, ctor_1, (app::TcpListener * this_ptr, app::IPEndPoint* local_e_p))

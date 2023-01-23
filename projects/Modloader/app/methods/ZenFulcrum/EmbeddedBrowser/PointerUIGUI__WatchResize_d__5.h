@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PointerUIGUI_WatchResize_d_5.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::PointerUIGUI__WatchResize_d__5 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::PointerUIGUI_WatchResize_d_5 * this_ptr, int32_t __1__state))

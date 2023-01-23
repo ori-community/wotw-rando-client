@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WandererIdleBehaviour_c.h>
 
 namespace app::classes::WandererIdleBehaviour___c {
     IL2CPP_REGISTER_METHOD(0x008C84C0, void, cctor, ())

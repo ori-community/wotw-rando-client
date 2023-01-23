@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/CameraScrollLock.h>
+#include <Modloader/app/structs/CameraScrollLock_Type__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::CameraScrollLock {
     IL2CPP_REGISTER_METHOD(0x00C3DF40, app::Vector3, get_ScrollCenter, (app::CameraScrollLock * this_ptr))

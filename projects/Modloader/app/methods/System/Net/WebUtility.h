@@ -1,6 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/UnicodeDecodingConformance__Enum.h>
+#include <Modloader/app/structs/UnicodeEncodingConformance__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Encoding.h>
+
+
 namespace app::classes::System::Net::WebUtility {
     IL2CPP_REGISTER_METHOD(0x021B8A50, app::String*, HtmlEncode_1, (app::String * value))
     IL2CPP_REGISTER_METHOD(0x021B8C70, void, HtmlEncode_2, (app::String * value, app::TextWriter* output))

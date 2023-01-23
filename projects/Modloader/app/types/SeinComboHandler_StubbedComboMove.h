@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinComboHandler_StubbedComboMove__Class.h>
+#include <Modloader/app/structs/SeinComboHandler_StubbedComboMove.h>
 
 namespace app::classes::types {
     namespace SeinComboHandler_StubbedComboMove {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/DataTablePropertyDescriptor.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Data::DataTablePropertyDescriptor {
     IL2CPP_REGISTER_METHOD(0x002FBC20, app::DataTable*, get_Table, (app::DataTablePropertyDescriptor * this_ptr))

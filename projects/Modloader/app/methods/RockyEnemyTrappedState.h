@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RockyEnemyTrappedState.h>
+#include <Modloader/app/structs/RockyEnemy.h>
 
 namespace app::classes::RockyEnemyTrappedState {
     IL2CPP_REGISTER_METHOD(0x009A1A40, void, ctor, (app::RockyEnemyTrappedState * this_ptr, app::RockyEnemy* enemy))

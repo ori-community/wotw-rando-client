@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LightCanvasEditorTextureCache.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/LightCanvas.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData.h>
 
 namespace app::classes::LightCanvasEditorTextureCache {
     IL2CPP_REGISTER_METHOD(0x011469D0, app::LightCanvasEditorTextureCache*, get_Instance, ())

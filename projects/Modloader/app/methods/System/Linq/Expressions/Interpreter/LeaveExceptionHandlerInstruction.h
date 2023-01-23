@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeaveExceptionHandlerInstruction.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LeaveExceptionHandlerInstruction {
     IL2CPP_REGISTER_METHOD(0x01CE4920, void, ctor, (app::LeaveExceptionHandlerInstruction * this_ptr, int32_t label_index, bool has_value))

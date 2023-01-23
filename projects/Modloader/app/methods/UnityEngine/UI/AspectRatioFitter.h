@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AspectRatioFitter.h>
+#include <Modloader/app/structs/AspectRatioFitter_AspectMode__Enum.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::UI::AspectRatioFitter {
     IL2CPP_REGISTER_METHOD(0x01F2AB50, void, ctor, (app::AspectRatioFitter * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicalSoftInteraction.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/UberInteractionActor.h>
 
 namespace app::classes::PhysicalSoftInteraction {
     IL2CPP_REGISTER_METHOD(0x003FF610, int32_t, get_Index, (app::PhysicalSoftInteraction * this_ptr))

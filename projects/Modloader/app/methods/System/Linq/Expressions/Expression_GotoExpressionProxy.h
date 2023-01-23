@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Expression_GotoExpressionProxy.h>
+#include <Modloader/app/structs/GotoExpression.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GotoExpressionKind__Enum.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/LabelTarget.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Expression.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_GotoExpressionProxy {
     IL2CPP_REGISTER_METHOD(0x029D4CB0, void, ctor, (app::Expression_GotoExpressionProxy * this_ptr, app::GotoExpression* node))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TVVignette.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::TVVignette {
     IL2CPP_REGISTER_METHOD(0x030541D0, void, OnRenderImage, (app::TVVignette * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

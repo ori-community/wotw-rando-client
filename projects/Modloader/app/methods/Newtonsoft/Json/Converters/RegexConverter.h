@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RegexConverter.h>
+#include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/JsonSerializer.h>
+#include <Modloader/app/structs/RegexOptions__Enum.h>
+#include <Modloader/app/structs/BsonWriter.h>
+#include <Modloader/app/structs/Regex.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::RegexConverter {
     IL2CPP_REGISTER_METHOD(0x01A54DE0, void, WriteJson_1, (app::RegexConverter * this_ptr, app::JsonWriter* writer, app::Object* value, app::JsonSerializer* serializer))

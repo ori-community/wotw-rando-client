@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/HitFlash3DNew__Class.h>
+#include <Modloader/app/structs/HitFlash3DNew.h>
 
 namespace app::classes::types {
     namespace HitFlash3DNew {

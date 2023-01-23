@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::SceneMetaData {
     IL2CPP_REGISTER_METHOD(0x00BAB250, app::String*, get_SceneName, (app::SceneMetaData * this_ptr))

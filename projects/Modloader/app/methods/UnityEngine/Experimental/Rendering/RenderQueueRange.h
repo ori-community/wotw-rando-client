@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RenderQueueRange.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::RenderQueueRange {
     IL2CPP_REGISTER_METHOD(0x02523CE0, app::RenderQueueRange, get_all, ())

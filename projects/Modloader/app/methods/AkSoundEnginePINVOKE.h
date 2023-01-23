@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/AkLogger_ErrorLoggerInteropDelegate.h>
+#include <Modloader/app/structs/AkAudioInputManager_AudioSamplesInteropDelegate.h>
+#include <Modloader/app/structs/AkAudioInputManager_AudioFormatInteropDelegate.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/UInt64__Array.h>
+#include <Modloader/app/structs/AkSoundEnginePINVOKE.h>
 
 namespace app::classes::AkSoundEnginePINVOKE {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())

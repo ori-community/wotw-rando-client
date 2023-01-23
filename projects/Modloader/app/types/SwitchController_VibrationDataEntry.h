@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SwitchController_VibrationDataEntry__Class.h>
+#include <Modloader/app/structs/SwitchController_VibrationDataEntry.h>
+#include <Modloader/app/structs/SwitchController_VibrationDataEntry__Array.h>
 
 namespace app::classes::types {
     namespace SwitchController_VibrationDataEntry {

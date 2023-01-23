@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BigInteger_2__Class.h>
+#include <Modloader/app/structs/BigInteger_2.h>
+#include <Modloader/app/structs/BigInteger_2__Boxed.h>
+#include <Modloader/app/structs/BigInteger_2__Array.h>
 
 namespace app::classes::types {
     namespace BigInteger_2 {

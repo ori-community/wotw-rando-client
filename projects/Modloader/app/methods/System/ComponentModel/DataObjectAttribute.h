@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataObjectAttribute.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::DataObjectAttribute {
     IL2CPP_REGISTER_METHOD(0x00B80D80, void, ctor_1, (app::DataObjectAttribute * this_ptr))

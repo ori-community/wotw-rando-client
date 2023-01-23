@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBossEscapeBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBossEscapeBehaviour {
     IL2CPP_REGISTER_METHOD(0x011ABC60, bool, get_IsAttacking, (app::SpiderBossEscapeBehaviour * this_ptr))

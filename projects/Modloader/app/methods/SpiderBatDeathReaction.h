@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBatDeathReaction.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/EntityTask.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBatDeathReaction {
     IL2CPP_REGISTER_METHOD(0x00955A30, void, OnCacheSerializedComponents, (app::SpiderBatDeathReaction * this_ptr, app::Entity* owner))

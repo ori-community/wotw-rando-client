@@ -1,5 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CVRSystem.h>
+#include <Modloader/app/structs/HmdMatrix44_t.h>
+#include <Modloader/app/structs/EVREye__Enum.h>
+#include <Modloader/app/structs/DistortionCoordinates_t.h>
+#include <Modloader/app/structs/HmdMatrix34_t.h>
+#include <Modloader/app/structs/ETextureType__Enum.h>
+#include <Modloader/app/structs/ETrackingUniverseOrigin__Enum.h>
+#include <Modloader/app/structs/TrackedDevicePose_t__Array.h>
+#include <Modloader/app/structs/ETrackedDeviceClass__Enum.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/EDeviceActivityLevel__Enum.h>
+#include <Modloader/app/structs/TrackedDevicePose_t.h>
+#include <Modloader/app/structs/ETrackedControllerRole__Enum.h>
+#include <Modloader/app/structs/ETrackedDeviceProperty__Enum.h>
+#include <Modloader/app/structs/ETrackedPropertyError__Enum.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/VREvent_t.h>
+#include <Modloader/app/structs/EVREventType__Enum.h>
+#include <Modloader/app/structs/HiddenAreaMesh_t.h>
+#include <Modloader/app/structs/EHiddenAreaMeshType__Enum.h>
+#include <Modloader/app/structs/VRControllerState_t.h>
+#include <Modloader/app/structs/EVRButtonId__Enum.h>
+#include <Modloader/app/structs/EVRControllerAxisType__Enum.h>
+#include <Modloader/app/structs/EVRFirmwareError__Enum.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRSystem {
     IL2CPP_REGISTER_METHOD(0x0167BAF0, void, ctor, (app::CVRSystem * this_ptr, void* p_interface))

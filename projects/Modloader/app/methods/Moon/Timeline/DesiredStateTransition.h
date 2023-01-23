@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/app/structs/DesiredStateTransition__Boxed.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Timeline::DesiredStateTransition {
     IL2CPP_REGISTER_METHOD(0x00107C30, app::IGenericUberState*, get_GenericUberState, (app::DesiredStateTransition__Boxed * this_ptr))

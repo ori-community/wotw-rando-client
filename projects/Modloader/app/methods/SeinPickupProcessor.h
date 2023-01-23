@@ -1,5 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinPickupProcessor.h>
+#include <Modloader/app/structs/SeinPickupProcessor_PickupProcessorState__Enum.h>
+#include <Modloader/app/structs/SeinPickupProcessor_CollectableInfo.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/SkillPointPickup.h>
+#include <Modloader/app/structs/QuestItemPickup.h>
+#include <Modloader/app/structs/ShardSlotUpgradePickup.h>
+#include <Modloader/app/structs/EnergyOrbPickup.h>
+#include <Modloader/app/structs/MaxEnergyContainerPickup.h>
+#include <Modloader/app/structs/MaxEnergyHalfContainerPickup.h>
+#include <Modloader/app/structs/OrePickup.h>
+#include <Modloader/app/structs/PickupBase.h>
+#include <Modloader/app/structs/ExpOrbPickup.h>
+#include <Modloader/app/structs/KeystonePickup.h>
+#include <Modloader/app/structs/MaxHealthContainerPickup.h>
+#include <Modloader/app/structs/MaxHealthHalfContainerPickup.h>
+#include <Modloader/app/structs/RestoreHealthPickup.h>
+#include <Modloader/app/structs/MapStonePickup.h>
+#include <Modloader/app/structs/SpiritShardPickup.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SeinPickupProcessor {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_AreFirstTimeHintsEnabled, (app::SeinPickupProcessor * this_ptr))

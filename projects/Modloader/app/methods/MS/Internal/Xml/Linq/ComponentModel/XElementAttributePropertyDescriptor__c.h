@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XElementAttributePropertyDescriptor_c.h>
+#include <Modloader/app/structs/XAttribute.h>
+#include <Modloader/app/structs/XElement.h>
+#include <Modloader/app/structs/XName.h>
 
 namespace app::classes::MS::Internal::Xml::Linq::ComponentModel::XElementAttributePropertyDescriptor___c {
     IL2CPP_REGISTER_METHOD(0x030297B0, void, cctor, ())

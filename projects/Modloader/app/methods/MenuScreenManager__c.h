@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MenuScreenManager_c.h>
+#include <Modloader/app/structs/MenuScreen.h>
 
 namespace app::classes::MenuScreenManager___c {
     IL2CPP_REGISTER_METHOD(0x009E5840, void, cctor, ())

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::KnownTerminals {
     IL2CPP_REGISTER_METHOD(0x02266240, app::Byte__Array*, get_linux, ())

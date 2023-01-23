@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GroundEntityLocomotion.h>
+#include <Modloader/app/structs/GroundMovingEntity.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
 
 namespace app::classes::GroundMovingEntity {
     IL2CPP_REGISTER_METHOD(0x00864A60, app::GroundEntityLocomotion*, get_GroundLocomotion, (app::GroundMovingEntity * this_ptr))

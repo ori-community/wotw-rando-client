@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpWebResponse.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WebConnectionData.h>
+#include <Modloader/app/structs/CookieContainer.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/CookieCollection.h>
+#include <Modloader/app/structs/WebHeaderCollection.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Version.h>
+#include <Modloader/app/structs/HttpStatusCode__Enum.h>
+#include <Modloader/app/structs/Stream.h>
 
 namespace app::classes::System::Net::HttpWebResponse {
     IL2CPP_REGISTER_METHOD(0x01E64990, void, ctor_1, (app::HttpWebResponse * this_ptr, app::Uri* uri, app::String* method_1, app::WebConnectionData* data, app::CookieContainer* container))

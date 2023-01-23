@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request__Array.h>
+#include <Modloader/app/structs/IComparer_1_BlockableLaser_ActivationTimeslicer_Request_.h>
+#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request.h>
+#include <Modloader/app/structs/Comparison_1_BlockableLaser_ActivationTimeslicer_Request_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_BlockableLaser_ActivationTimeslicer_Request_ {
     IL2CPP_REGISTER_METHOD(0x02F2A700, void, Sort_1, (app::BlockableLaser_ActivationTimeslicer_Request__Array * keys, int32_t index, int32_t length, app::IComparer_1_BlockableLaser_ActivationTimeslicer_Request_* comparer))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShardTraderNPC.h>
+#include <Modloader/app/structs/ShardTraderNPC_State__Enum.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::ShardTraderNPC {
     IL2CPP_REGISTER_METHOD(0x003FFBD0, int32_t, get_CurrentState, (app::ShardTraderNPC * this_ptr))

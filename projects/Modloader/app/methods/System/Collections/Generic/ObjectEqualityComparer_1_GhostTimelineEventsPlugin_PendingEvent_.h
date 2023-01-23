@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_GhostTimelineEventsPlugin_PendingEvent_.h>
+#include <Modloader/app/structs/GhostTimelineEventsPlugin_PendingEvent.h>
+#include <Modloader/app/structs/GhostTimelineEventsPlugin_PendingEvent__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_GhostTimelineEventsPlugin_PendingEvent_ {
     IL2CPP_REGISTER_METHOD(0x01CD0C40, bool, Equals_1, (app::ObjectEqualityComparer_1_GhostTimelineEventsPlugin_PendingEvent_ * this_ptr, app::GhostTimelineEventsPlugin_PendingEvent x, app::GhostTimelineEventsPlugin_PendingEvent y))

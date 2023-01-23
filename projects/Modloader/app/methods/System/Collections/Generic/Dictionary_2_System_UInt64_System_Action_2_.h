@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_UInt64_System_Action_2_.h>
+#include <Modloader/app/structs/Action_2_Steamworks_UserAchievementStored_t_Boolean_.h>
+#include <Modloader/app/structs/Dictionary_2_System_UInt64_System_Action_2__1.h>
+#include <Modloader/app/structs/Action_2_Steamworks_UserStatsReceived_t_Boolean_.h>
+#include <Modloader/app/structs/Dictionary_2_System_UInt64_System_Action_2__2.h>
+#include <Modloader/app/structs/Action_2_Steamworks_UserStatsStored_t_Boolean_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_UInt64_System_Action_2_ {
     IL2CPP_REGISTER_METHOD(0x02BAC170, void, Add_1, (app::Dictionary_2_System_UInt64_System_Action_2_ * this_ptr, uint64_t key, app::Action_2_Steamworks_UserAchievementStored_t_Boolean_* value))

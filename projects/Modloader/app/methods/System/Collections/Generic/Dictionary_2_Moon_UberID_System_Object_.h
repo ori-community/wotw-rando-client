@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_UberID_System_Object_.h>
+#include <Modloader/app/structs/UberID.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_Moon_UberID_System_Object_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_Moon_UberID_System_Object_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_Moon_UberID_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_Moon_UberID_System_Object_ * this_ptr))

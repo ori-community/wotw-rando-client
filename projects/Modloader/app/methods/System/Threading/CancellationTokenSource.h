@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CancellationTokenSource.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/CancellationCallbackInfo.h>
+#include <Modloader/app/structs/CancellationTokenRegistration.h>
+#include <Modloader/app/structs/Action_1_Object_.h>
+#include <Modloader/app/structs/SynchronizationContext.h>
+#include <Modloader/app/structs/ExecutionContext.h>
+#include <Modloader/app/structs/CancellationCallbackCoreWorkArguments.h>
+#include <Modloader/app/structs/CancellationToken__Array.h>
 
 namespace app::classes::System::Threading::CancellationTokenSource {
     IL2CPP_REGISTER_METHOD(0x027D94A0, void, LinkedTokenCancelDelegate, (app::Object * source))

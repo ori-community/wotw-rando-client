@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DestroyManager_CountAndCallback.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::DestroyManager_CountAndCallback {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_Count, (app::DestroyManager_CountAndCallback * this_ptr))

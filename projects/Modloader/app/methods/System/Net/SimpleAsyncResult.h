@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleAsyncResult.h>
+#include <Modloader/app/structs/SimpleAsyncCallback.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Func_2_System_Net_SimpleAsyncResult_Boolean_.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::System::Net::SimpleAsyncResult {
     IL2CPP_REGISTER_METHOD(0x01BDA2F0, void, ctor_1, (app::SimpleAsyncResult * this_ptr, app::SimpleAsyncCallback* cb))

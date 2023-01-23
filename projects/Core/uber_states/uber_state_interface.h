@@ -3,6 +3,13 @@
 #include <Core/enums/uber_state.h>
 #include <functional>
 #include <Core/macros.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/SerializedBooleanUberState.h>
+#include <Modloader/app/structs/SerializedByteUberState.h>
+#include <Modloader/app/structs/SerializedIntUberState.h>
+#include <Modloader/app/structs/SerializedFloatUberState.h>
+#include <Modloader/app/structs/IUberState.h>
 
 namespace uber_states {
     class CORE_DLLEXPORT UberState {

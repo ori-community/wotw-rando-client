@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/StateOverrideSystem_PassiveStateOverride__Class.h>
+#include <Modloader/app/structs/StateOverrideSystem_PassiveStateOverride.h>
+#include <Modloader/app/structs/StateOverrideSystem_PassiveStateOverride__Boxed.h>
 
 namespace app::classes::types {
     namespace StateOverrideSystem_PassiveStateOverride {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundListenerReference__Boxed.h>
+#include <Modloader/app/structs/ISoundListener.h>
+#include <Modloader/app/structs/SoundListenerReference.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::Wwise::SoundListenerReference {
     IL2CPP_REGISTER_METHOD(0x001FEA80, void, ctor, (app::SoundListenerReference__Boxed * this_ptr, app::ISoundListener* listener))

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneLoadingQueue_QueueSceneToLoad.h>
+#include <Modloader/app/structs/List_1_SceneLoadingQueue_QueueSceneToLoad_.h>
+#include <Modloader/app/structs/IComparer_1_SceneLoadingQueue_QueueSceneToLoad_.h>
+#include <Modloader/app/structs/IEnumerable_1_SceneLoadingQueue_QueueSceneToLoad_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_SceneLoadingQueue_QueueSceneToLoad_.h>
+#include <Modloader/app/structs/SceneLoadingQueue_QueueSceneToLoad__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_SceneLoadingQueue_QueueSceneToLoad_.h>
+#include <Modloader/app/structs/Action_1_SceneLoadingQueue_QueueSceneToLoad_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_SceneLoadingQueue_QueueSceneToLoad_.h>
+#include <Modloader/app/structs/IEnumerator_1_SceneLoadingQueue_QueueSceneToLoad_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_SceneLoadingQueue_QueueSceneToLoad_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_SceneLoadingQueue_QueueSceneToLoad_ {
     IL2CPP_REGISTER_METHOD(0x025EC760, app::SceneLoadingQueue_QueueSceneToLoad, get_Item, (app::List_1_SceneLoadingQueue_QueueSceneToLoad_ * this_ptr, int32_t index))

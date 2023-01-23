@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_MoonTrail_SimulationFrameData_.h>
+#include <Modloader/app/structs/IList_1_Moon_MoonTrail_SimulationFrameData_.h>
+#include <Modloader/app/structs/MoonTrail_SimulationFrameData.h>
+#include <Modloader/app/structs/MoonTrail_SimulationFrameData__Array.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_MoonTrail_SimulationFrameData_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::ObjectModel::ReadOnlyCollection_1_Moon_MoonTrail_SimulationFrameData_ {
     IL2CPP_REGISTER_METHOD(0x02B7DCF0, void, ctor, (app::ReadOnlyCollection_1_Moon_MoonTrail_SimulationFrameData_ * this_ptr, app::IList_1_Moon_MoonTrail_SimulationFrameData_* list))

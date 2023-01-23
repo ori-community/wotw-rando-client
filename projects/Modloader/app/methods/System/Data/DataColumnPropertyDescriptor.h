@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataColumnPropertyDescriptor.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/AttributeCollection.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Data::DataColumnPropertyDescriptor {
     IL2CPP_REGISTER_METHOD(0x0239E050, void, ctor, (app::DataColumnPropertyDescriptor * this_ptr, app::DataColumn* data_column))

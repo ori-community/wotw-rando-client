@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPoolPerfTest_BenchmarkSinglePrefabProfiler_d_38__Boxed.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::UberPoolPerfTest__BenchmarkSinglePrefabProfiler_d__38 {
     IL2CPP_REGISTER_METHOD(0x00123890, void, MoveNext, (app::UberPoolPerfTest_BenchmarkSinglePrefabProfiler_d_38__Boxed * this_ptr))

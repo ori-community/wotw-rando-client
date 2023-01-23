@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncResult.h>
+#include <Modloader/app/structs/WaitCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/WaitHandle.h>
+#include <Modloader/app/structs/IMessageSink.h>
+#include <Modloader/app/structs/IMessageCtrl.h>
+#include <Modloader/app/structs/IMessage.h>
+#include <Modloader/app/structs/MonoMethodMessage.h>
+#include <Modloader/app/structs/ThreadAbortException.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::AsyncResult {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::AsyncResult * this_ptr))

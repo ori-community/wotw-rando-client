@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation_.h>
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_PendingInstantiation.h>
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_PendingInstantiation__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation_ {
     IL2CPP_REGISTER_METHOD(0x01CD0840, bool, Equals_1, (app::ObjectEqualityComparer_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation_ * this_ptr, app::GhostWorldObjectsLifetimePlugin_PendingInstantiation x, app::GhostWorldObjectsLifetimePlugin_PendingInstantiation y))

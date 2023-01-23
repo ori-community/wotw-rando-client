@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TransferCodingHeaderValue.h>
+#include <Modloader/app/structs/ICollection_1_System_Net_Http_Headers_NameValueHeaderValue_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_System_Net_Http_Headers_TransferCodingHeaderValue_.h>
+#include <Modloader/app/structs/Lexer.h>
+#include <Modloader/app/structs/Token.h>
 
 namespace app::classes::System::Net::Http::Headers::TransferCodingHeaderValue {
     IL2CPP_REGISTER_METHOD(0x02D18450, void, ctor_1, (app::TransferCodingHeaderValue * this_ptr, app::TransferCodingHeaderValue* source))

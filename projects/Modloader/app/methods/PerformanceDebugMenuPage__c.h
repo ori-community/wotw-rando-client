@@ -1,5 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PerformanceDebugMenuPage_c.h>
+#include <Modloader/app/structs/UberGCLogic_ResourceCollectPriorityMode__Enum.h>
+#include <Modloader/app/structs/GameplaySoundManager_AudioQualitySetting__Enum.h>
+#include <Modloader/app/structs/ThreadPriority__Enum_1.h>
+#include <Modloader/app/structs/LoadingBoostController_BoostModeLevel__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebugUI_Quality__Enum.h>
+#include <Modloader/app/structs/XboxQualityModeManager_QualityMode__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_DofBlurType__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebugUI_TextureQuality__Enum.h>
+#include <Modloader/app/structs/FilterMode__Enum.h>
+#include <Modloader/app/structs/BehaviourTreeEvaluationSystem_EvaluationMode__Enum.h>
+#include <Modloader/app/structs/GraphicsJobsSyncPoint__Enum.h>
+#include <Modloader/app/structs/WaitForPresentSyncPoint__Enum.h>
+#include <Modloader/app/structs/DeltaTimeManager_ControllerType__Enum.h>
+#include <Modloader/app/structs/MainThreadWorkStealer_WorkStealingMode__Enum.h>
+#include <Modloader/app/structs/MainThreadWorkStealer_TimeBudgetMode__Enum.h>
+#include <Modloader/app/structs/JobMode__Enum.h>
 
 namespace app::classes::PerformanceDebugMenuPage___c {
     IL2CPP_REGISTER_METHOD(0x0047F3F0, void, cctor, ())

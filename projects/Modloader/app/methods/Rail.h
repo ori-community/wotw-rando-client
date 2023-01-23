@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rail.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Cart.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::Rail {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_Activated, (app::Rail * this_ptr))

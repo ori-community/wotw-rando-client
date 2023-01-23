@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlNodeChangedEventHandler.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlNodeChangedEventArgs.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Xml::XmlNodeChangedEventHandler {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::XmlNodeChangedEventHandler * this_ptr, app::Object* object, void* method_1))

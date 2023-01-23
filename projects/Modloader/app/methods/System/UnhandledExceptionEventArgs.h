@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnhandledExceptionEventArgs.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::UnhandledExceptionEventArgs {
     IL2CPP_REGISTER_METHOD(0x027C5BD0, void, ctor, (app::UnhandledExceptionEventArgs * this_ptr, app::Object* exception, bool is_terminating))

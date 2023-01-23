@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StatScreenDisplayFilter.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_StatScreenDisplayFilter___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_StatScreenDisplayFilter_ {
     IL2CPP_REGISTER_METHOD(0x00107C20, app::StatScreenDisplayFilter*, get_Current, (app::List_1_T_Enumerator_StatScreenDisplayFilter___Boxed * this_ptr))

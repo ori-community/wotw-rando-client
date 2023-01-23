@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LensAberrations_ChromaticAberrationSettings__Class.h>
+#include <Modloader/app/structs/LensAberrations_ChromaticAberrationSettings.h>
+#include <Modloader/app/structs/LensAberrations_ChromaticAberrationSettings__Boxed.h>
 
 namespace app::classes::types {
     namespace LensAberrations_ChromaticAberrationSettings {

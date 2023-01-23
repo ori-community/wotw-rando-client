@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SoundPlayer.h>
+#include <Modloader/app/structs/SoundDescriptor.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/AudioClip.h>
+#include <Modloader/app/structs/SoundSize.h>
+#include <Modloader/app/structs/LowPassFilterSettings.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/ArtificialSoundHostReference.h>
+#include <Modloader/app/structs/IGenericResourceEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::Core::Sound {
     IL2CPP_REGISTER_METHOD(0x00DAEE90, app::GameObject*, GetAudioObjectsParent, ())

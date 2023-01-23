@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HalfEdge.h>
+#include <Modloader/app/structs/Vertex_1.h>
+#include <Modloader/app/structs/IEnumerable_1_TriangleNet_Topology_DCEL_HalfEdge_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::TriangleNet::Topology::DCEL::Vertex {
     IL2CPP_REGISTER_METHOD(0x002FBB00, app::HalfEdge*, get_Leaving, (app::Vertex_1 * this_ptr))

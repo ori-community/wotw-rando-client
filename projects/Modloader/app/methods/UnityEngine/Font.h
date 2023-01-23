@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Font.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Font_.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Font {
     IL2CPP_REGISTER_METHOD(0x0319AA50, void, ctor, (app::Font * this_ptr))

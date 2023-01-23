@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Timer_1.h>
+#include <Modloader/app/structs/ElapsedEventHandler.h>
+#include <Modloader/app/structs/ISite.h>
+#include <Modloader/app/structs/ISynchronizeInvoke.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Timers::Timer {
     IL2CPP_REGISTER_METHOD(0x02A7AED0, void, ctor_1, (app::Timer_1 * this_ptr))

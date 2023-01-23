@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/UpgradablePropertyType__Enum.h>
+#include <Modloader/app/structs/ShardLogic.h>
 
 namespace app::classes::ShardLogic {
     IL2CPP_REGISTER_METHOD(0x005AAD40, float, CalculateCooldown, (float cooldown, app::AbilityType__Enum ability_type))

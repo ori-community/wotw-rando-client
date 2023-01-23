@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ResetInteractionObject_ResetObject_d_7.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::RootMotion::Demos::ResetInteractionObject__ResetObject_d__7 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::ResetInteractionObject_ResetObject_d_7 * this_ptr, int32_t __1__state))

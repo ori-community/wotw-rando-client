@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnableParticleEmitterOnStart_Start_d_1.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::EnableParticleEmitterOnStart__Start_d__1 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::EnableParticleEmitterOnStart_Start_d_1 * this_ptr, int32_t __1__state))

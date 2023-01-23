@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DownloadHandler.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Encoding.h>
 
 namespace app::classes::UnityEngine::Networking::DownloadHandler {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::DownloadHandler * this_ptr))

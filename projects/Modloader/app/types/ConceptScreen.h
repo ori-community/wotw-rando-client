@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ConceptScreen__Class.h>
+#include <Modloader/app/structs/ConceptScreen.h>
 
 namespace app::classes::types {
     namespace ConceptScreen {

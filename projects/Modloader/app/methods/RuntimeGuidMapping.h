@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeGuidMapping.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::RuntimeGuidMapping {
     IL2CPP_REGISTER_METHOD(0x02719EB0, void, ForceRefresh, ())

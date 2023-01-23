@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Sprite.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/SpriteMeshType__Enum.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/SpritePackingMode__Enum.h>
+#include <Modloader/app/structs/SpritePackingRotation__Enum.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/UInt16__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/IList_1_UnityEngine_Vector2_.h>
 
 namespace app::classes::UnityEngine::Sprite {
     IL2CPP_REGISTER_METHOD(0x02C60CC0, void, ctor, (app::Sprite * this_ptr))

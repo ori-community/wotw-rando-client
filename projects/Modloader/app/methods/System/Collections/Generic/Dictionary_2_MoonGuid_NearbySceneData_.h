@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_MoonGuid_NearbySceneData_.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/NearbySceneData.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_MoonGuid_NearbySceneData_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_MoonGuid_NearbySceneData_ {
     IL2CPP_REGISTER_METHOD(0x02259DF0, void, ctor, (app::Dictionary_2_MoonGuid_NearbySceneData_ * this_ptr, int32_t capacity))

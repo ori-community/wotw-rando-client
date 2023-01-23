@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SafeStringMarshal.h>
+#include <Modloader/app/structs/void.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/MonoAssemblyName.h>
 
 namespace app::classes::Mono::RuntimeMarshal {
     IL2CPP_REGISTER_METHOD(0x023CEA70, app::String*, PtrToUtf8String, (void* ptr))

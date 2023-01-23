@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiritShardTypeListProvider_c.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
 
 namespace app::classes::SpiritShardTypeListProvider___c {
     IL2CPP_REGISTER_METHOD(0x00D6B1B0, void, cctor, ())

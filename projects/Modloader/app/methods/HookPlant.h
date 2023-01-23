@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility.h>
+#include <Modloader/app/structs/HookPlant.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/HookPlant_State__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/VirtualClipsBuilder.h>
 
 namespace app::classes::HookPlant {
     IL2CPP_REGISTER_METHOD(0x00B5E490, app::SeinSpiritLeashAbility*, get_Leash, (app::HookPlant * this_ptr))

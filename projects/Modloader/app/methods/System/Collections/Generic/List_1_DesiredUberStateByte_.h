@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DesiredUberStateByte__Array.h>
+#include <Modloader/app/structs/List_1_DesiredUberStateByte_.h>
+#include <Modloader/app/structs/DesiredUberStateByte.h>
 
 namespace app::classes::System::Collections::Generic::List_1_DesiredUberStateByte_ {
     IL2CPP_REGISTER_METHOD(0x025EAEF0, app::DesiredUberStateByte__Array*, ToArray, (app::List_1_DesiredUberStateByte_ * this_ptr))

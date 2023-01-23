@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BooleanConverter.h>
+#include <Modloader/app/structs/ITypeDescriptorContext.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/TypeConverter_StandardValuesCollection.h>
 
 namespace app::classes::System::ComponentModel::BooleanConverter {
     IL2CPP_REGISTER_METHOD(0x024A5150, bool, CanConvertFrom, (app::BooleanConverter * this_ptr, app::ITypeDescriptorContext* context, app::Type* source_type))

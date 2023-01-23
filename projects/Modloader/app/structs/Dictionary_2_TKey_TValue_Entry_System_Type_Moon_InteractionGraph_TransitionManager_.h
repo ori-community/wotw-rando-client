@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_Moon_InteractionGraph_TransitionManager__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_Moon_InteractionGraph_TransitionManager__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_Moon_InteractionGraph_TransitionManager__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_Moon_InteractionGraph_TransitionManager__DEFINED
+struct Type;
+struct TransitionManager;
+struct Dictionary_2_TKey_TValue_Entry_System_Type_Moon_InteractionGraph_TransitionManager_ {
+    int32_t hashCode;
+    int32_t next;
+    struct Type* key;
+    struct TransitionManager* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_Moon_InteractionGraph_TransitionManager__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_Moon_InteractionGraph_TransitionManager__FWDDECL
+#include <Modloader/app/structs/TransitionManager.h>
+#include <Modloader/app/structs/Type.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_Moon_InteractionGraph_TransitionManager__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_Moon_InteractionGraph_TransitionManager__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_Type_Moon_InteractionGraph_TransitionManager__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Type_Moon_InteractionGraph_TransitionManager_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Type_Moon_InteractionGraph_TransitionManager_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

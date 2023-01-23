@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BsonString.h>
+#include <Modloader/app/structs/BsonProperty.h>
+#include <Modloader/app/structs/BsonToken.h>
 
 namespace app::classes::Newtonsoft::Json::Bson::BsonProperty {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::BsonString*, get_Name, (app::BsonProperty * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AutomationRunWrapper.h>
+#include <Modloader/app/structs/AutomationRunType__Enum.h>
 
 namespace app::classes::AutomationRunWrapper {
     IL2CPP_REGISTER_METHOD(0x0085E380, void, ctor, (app::AutomationRunWrapper * this_ptr, app::AutomationRunType__Enum type))

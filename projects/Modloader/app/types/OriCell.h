@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/OriCell__Class.h>
+#include <Modloader/app/structs/OriCell.h>
+#include <Modloader/app/structs/OriCell__Array.h>
 
 namespace app::classes::types {
     namespace OriCell {

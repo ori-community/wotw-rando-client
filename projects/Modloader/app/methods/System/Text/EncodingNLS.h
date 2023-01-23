@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EncodingNLS.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Decoder.h>
+#include <Modloader/app/structs/Encoder.h>
 
 namespace app::classes::System::Text::EncodingNLS {
     IL2CPP_REGISTER_METHOD(0x02455F00, void, ctor, (app::EncodingNLS * this_ptr, int32_t code_page))

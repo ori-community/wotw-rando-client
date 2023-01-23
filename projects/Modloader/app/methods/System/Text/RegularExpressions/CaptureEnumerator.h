@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CaptureEnumerator.h>
+#include <Modloader/app/structs/CaptureCollection.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Capture.h>
 
 namespace app::classes::System::Text::RegularExpressions::CaptureEnumerator {
     IL2CPP_REGISTER_METHOD(0x01DC2A00, void, ctor, (app::CaptureEnumerator * this_ptr, app::CaptureCollection* rcc))

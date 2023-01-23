@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeleeComboMoveSwordstaff_c.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::MeleeComboMoveSwordstaff___c {
     IL2CPP_REGISTER_METHOD(0x009C0AA0, void, cctor, ())

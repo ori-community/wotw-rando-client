@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_EntityBehaviourNode_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_BehaviourSystem_EntityBehaviourNode_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_BehaviourSystem_EntityBehaviourNode_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::EntityBehaviourNode*, get_Item, (app::List_1_Moon_BehaviourSystem_EntityBehaviourNode_ * this_ptr, int32_t index))

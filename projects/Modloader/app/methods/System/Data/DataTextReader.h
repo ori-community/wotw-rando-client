@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/DataTextReader.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
+#include <Modloader/app/structs/ReadState__Enum_1.h>
+#include <Modloader/app/structs/XmlNameTable.h>
 
 namespace app::classes::System::Data::DataTextReader {
     IL2CPP_REGISTER_METHOD(0x01F3E890, app::XmlReader*, CreateReader, (app::XmlReader * xr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PIIKind__Enum.h>
+#include <Modloader/app/structs/PII.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
 
 namespace app::classes::Microsoft::Applications::Events::DataModels::PII {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::PIIKind__Enum, get_Kind, (app::PII * this_ptr))

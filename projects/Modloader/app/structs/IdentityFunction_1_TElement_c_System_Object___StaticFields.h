@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IdentityFunction_1_TElement_c_System_Object___StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IdentityFunction_1_TElement_c_System_Object___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IdentityFunction_1_TElement_c_System_Object___StaticFields_DEFINED)
+#define IL2CPP_STRUCT_IdentityFunction_1_TElement_c_System_Object___StaticFields_DEFINED
+struct IdentityFunction_1_TElement_c_System_Object_;
+struct Func_2_Object_Object_;
+struct IdentityFunction_1_TElement_c_System_Object___StaticFields {
+    struct IdentityFunction_1_TElement_c_System_Object_* __9;
+    struct Func_2_Object_Object_* __9__1_0;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_IdentityFunction_1_TElement_c_System_Object___StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_IdentityFunction_1_TElement_c_System_Object___StaticFields_FWDDECL
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/IdentityFunction_1_TElement_c_System_Object_.h>
+#endif
+#undef IL2CPP_STRUCT_IdentityFunction_1_TElement_c_System_Object___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IdentityFunction_1_TElement_c_System_Object___StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_IdentityFunction_1_TElement_c_System_Object___StaticFields_FWDDECL)
+#include <Modloader/app/structs/IdentityFunction_1_TElement_c_System_Object___StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IdentityFunction_1_TElement_c_System_Object___StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

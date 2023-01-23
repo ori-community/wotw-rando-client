@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsResult.h>
+#include <Modloader/app/structs/Rect_DirectConverter.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_FullSerializer_fsData_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/fsData.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::FullSerializer::Internal::DirectConverters::Rect_DirectConverter {
     IL2CPP_REGISTER_METHOD(0x016508F0, app::fsResult, DoSerialize, (app::Rect_DirectConverter * this_ptr, app::Rect model, app::Dictionary_2_System_String_FullSerializer_fsData_* serialized))

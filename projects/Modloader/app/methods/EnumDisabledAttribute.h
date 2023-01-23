@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnumDisabledAttribute.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/ByteEnum__Enum.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::EnumDisabledAttribute {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::EnumDisabledAttribute * this_ptr))

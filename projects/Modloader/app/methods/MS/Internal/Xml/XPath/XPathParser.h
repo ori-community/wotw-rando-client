@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XPathParser.h>
+#include <Modloader/app/structs/XPathScanner.h>
+#include <Modloader/app/structs/AstNode.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XPathScanner_LexKind__Enum.h>
+#include <Modloader/app/structs/Axis_AxisType__Enum.h>
+#include <Modloader/app/structs/XPathNodeType__Enum.h>
+#include <Modloader/app/structs/XPathResultType__Enum.h>
+#include <Modloader/app/structs/Hashtable.h>
 
 namespace app::classes::MS::Internal::Xml::XPath::XPathParser {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::XPathParser * this_ptr, app::XPathScanner* scanner))

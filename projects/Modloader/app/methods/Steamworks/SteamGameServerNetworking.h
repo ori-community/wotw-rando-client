@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CSteamID.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/EP2PSend__Enum.h>
+#include <Modloader/app/structs/P2PSessionState_t.h>
+#include <Modloader/app/structs/SNetListenSocket_t.h>
+#include <Modloader/app/structs/SNetSocket_t.h>
+#include <Modloader/app/structs/ESNetSocketConnectionType__Enum.h>
 
 namespace app::classes::Steamworks::SteamGameServerNetworking {
     IL2CPP_REGISTER_METHOD(0x027FCA50, bool, SendP2PPacket, (app::CSteamID steam_i_d_remote, app::Byte__Array* pub_data, uint32_t cub_data, app::EP2PSend__Enum e_p2_p_send_type, int32_t n_channel))

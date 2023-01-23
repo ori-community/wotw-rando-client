@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimatorLayerDefinition__Array.h>
+#include <Modloader/app/structs/MoonAnimatorDefinition.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MoonAnimatorLayerDefinition.h>
+#include <Modloader/app/structs/MoonAnimatorLayerName.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::MoonAnimatorDefinition {
     IL2CPP_REGISTER_METHOD(0x0211B730, app::MoonAnimatorLayerDefinition__Array*, get_AdditionalLayers, (app::MoonAnimatorDefinition * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FishIdleState.h>
+#include <Modloader/app/structs/FishEnemy.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::FishIdleState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::FishIdleState * this_ptr, app::FishEnemy* fish))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPoolScenePrewarmer.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::pooling::UberPoolScenePrewarmer {
     IL2CPP_REGISTER_METHOD(0x00F310D0, void, Awake, (app::UberPoolScenePrewarmer * this_ptr))

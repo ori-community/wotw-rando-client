@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MenuTabManager.h>
+#include <Modloader/app/structs/MenuTabEntry.h>
+#include <Modloader/app/structs/MenuScreenManager_Screens__Enum.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
 
 namespace app::classes::MenuTabManager {
     IL2CPP_REGISTER_METHOD(0x003FFE10, bool, get_WasPaused, (app::MenuTabManager * this_ptr))

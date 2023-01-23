@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberPoolPerfTest_LoadPrefabInfos_d_41__Class.h>
+#include <Modloader/app/structs/UberPoolPerfTest_LoadPrefabInfos_d_41.h>
+#include <Modloader/app/structs/UberPoolPerfTest_LoadPrefabInfos_d_41__Boxed.h>
 
 namespace app::classes::types {
     namespace UberPoolPerfTest_LoadPrefabInfos_d_41 {

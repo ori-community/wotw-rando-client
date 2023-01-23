@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActivateLianaTongueAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ActivateLianaTongueAction {
     IL2CPP_REGISTER_METHOD(0x004C8B80, void, Perform, (app::ActivateLianaTongueAction * this_ptr, app::IContext* context))

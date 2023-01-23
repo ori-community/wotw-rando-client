@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FixupHolderList.h>
+#include <Modloader/app/structs/FixupHolder.h>
 
 namespace app::classes::System::Runtime::Serialization::FixupHolderList {
     IL2CPP_REGISTER_METHOD(0x01D87CC0, void, ctor_1, (app::FixupHolderList * this_ptr))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_EscapeRaceHandler_StartMenuRaceNextFrame_d_21_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_EscapeRaceHandler_StartMenuRaceNextFrame_d_21_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EscapeRaceHandler_StartMenuRaceNextFrame_d_21_DEFINED)
+#include <Modloader/app/structs/EscapeRaceHandler_StartMenuRaceNextFrame_d_21__Fields.h>
+#if defined(IL2CPP_STRUCT_EscapeRaceHandler_StartMenuRaceNextFrame_d_21__Fields_DEFINED)
+#define IL2CPP_STRUCT_EscapeRaceHandler_StartMenuRaceNextFrame_d_21_DEFINED
+struct EscapeRaceHandler_StartMenuRaceNextFrame_d_21__Class;
+struct EscapeRaceHandler_StartMenuRaceNextFrame_d_21 {
+    struct EscapeRaceHandler_StartMenuRaceNextFrame_d_21__Class* klass;
+    MonitorData* monitor;
+    struct EscapeRaceHandler_StartMenuRaceNextFrame_d_21__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_EscapeRaceHandler_StartMenuRaceNextFrame_d_21_FWDDECL)
+#define IL2CPP_STRUCT_EscapeRaceHandler_StartMenuRaceNextFrame_d_21_FWDDECL
+#include <Modloader/app/structs/EscapeRaceHandler_StartMenuRaceNextFrame_d_21__Class.h>
+#endif
+#undef IL2CPP_STRUCT_EscapeRaceHandler_StartMenuRaceNextFrame_d_21_INITIALIZING
+#if !defined(IL2CPP_STRUCT_EscapeRaceHandler_StartMenuRaceNextFrame_d_21_DEFINED) && !defined(IL2CPP_STRUCT_EscapeRaceHandler_StartMenuRaceNextFrame_d_21_FWDDECL)
+#include <Modloader/app/structs/EscapeRaceHandler_StartMenuRaceNextFrame_d_21.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/EscapeRaceHandler_StartMenuRaceNextFrame_d_21.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

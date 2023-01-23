@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_EquipmentType___Boxed.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_EquipmentType_ {
     IL2CPP_REGISTER_METHOD(0x00114150, app::EquipmentType__Enum, get_Current, (app::List_1_T_Enumerator_EquipmentType___Boxed * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompoundButtonInput_c.h>
+#include <Modloader/app/structs/IButtonInput.h>
 
 namespace app::classes::SmartInput::CompoundButtonInput___c {
     IL2CPP_REGISTER_METHOD(0x006CB200, void, cctor, ())

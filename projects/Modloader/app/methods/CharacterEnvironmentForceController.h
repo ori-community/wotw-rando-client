@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterEnvironmentForceController.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::CharacterEnvironmentForceController {
     IL2CPP_REGISTER_METHOD(0x0104E000, void, Start, (app::CharacterEnvironmentForceController * this_ptr))

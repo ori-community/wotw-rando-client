@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IKMapping_BoneMap__Class.h>
+#include <Modloader/app/structs/IKMapping_BoneMap.h>
+#include <Modloader/app/structs/IKMapping_BoneMap__Array.h>
 
 namespace app::classes::types {
     namespace IKMapping_BoneMap {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AchievementsTestMessageProvider.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerable_1_MessageDescriptor_.h>
 
 namespace app::classes::AchievementsTestMessageProvider {
     IL2CPP_REGISTER_METHOD(0x002FB960, void, SetText, (app::AchievementsTestMessageProvider * this_ptr, app::String* text))

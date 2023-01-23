@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EventSource_Sha1ForNonSecretPurposes__Boxed.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EventSource_Sha1ForNonSecretPurposes {
     IL2CPP_REGISTER_METHOD(0x00154C30, void, Start, (app::EventSource_Sha1ForNonSecretPurposes__Boxed * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugMenuToggler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::DebugMenuToggler {
     IL2CPP_REGISTER_METHOD(0x00DF7260, void, SetCurrentToggleOption, (app::DebugMenuToggler * this_ptr, int32_t toggle_option_id))

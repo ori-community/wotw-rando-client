@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/FrogEntity__Class.h>
+#include <Modloader/app/structs/FrogEntity.h>
+#include <Modloader/app/structs/FrogEntity__Array.h>
 
 namespace app::classes::types {
     namespace FrogEntity {

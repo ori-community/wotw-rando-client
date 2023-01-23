@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StickToMovingPlatforms.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::StickToMovingPlatforms {
     IL2CPP_REGISTER_METHOD(0x00650850, void, Awake, (app::StickToMovingPlatforms * this_ptr))

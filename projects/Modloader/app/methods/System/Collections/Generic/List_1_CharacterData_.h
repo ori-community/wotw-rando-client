@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_CharacterData_.h>
+#include <Modloader/app/structs/CharacterData.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CharacterData_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_CharacterData_ * this_ptr))

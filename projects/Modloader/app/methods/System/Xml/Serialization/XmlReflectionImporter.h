@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlReflectionImporter.h>
+#include <Modloader/app/structs/XmlAttributeOverrides.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlTypeMapping.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XmlRootAttribute.h>
+#include <Modloader/app/structs/TypeData.h>
+#include <Modloader/app/structs/XmlAttributes.h>
+#include <Modloader/app/structs/List_1_System_Xml_Serialization_XmlReflectionMember_.h>
+#include <Modloader/app/structs/XmlTypeMapMember.h>
+#include <Modloader/app/structs/XmlReflectionMember.h>
+#include <Modloader/app/structs/XmlTypeMapElementInfoList.h>
+#include <Modloader/app/structs/XmlTypeMapMemberElement.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::Serialization::XmlReflectionImporter {
     IL2CPP_REGISTER_METHOD(0x025A25A0, void, ctor, (app::XmlReflectionImporter * this_ptr, app::XmlAttributeOverrides* attribute_overrides, app::String* default_namespace))

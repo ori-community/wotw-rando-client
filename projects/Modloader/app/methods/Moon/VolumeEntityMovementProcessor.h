@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VolumeEntityMovementProcessor.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/ILocomotionTurningHandler.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/MovementSettings.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::Moon::VolumeEntityMovementProcessor {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_DrawObstacleHitAvoidanceGizmos, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
+#include <Modloader/app/structs/InterpretedFrameInfo.h>
+#include <Modloader/app/structs/InterpretedFrameInfo__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_ {
     IL2CPP_REGISTER_METHOD(0x01CD0840, bool, Equals_1, (app::ObjectEqualityComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_ * this_ptr, app::InterpretedFrameInfo x, app::InterpretedFrameInfo y))

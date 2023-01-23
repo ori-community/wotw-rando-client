@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UTF8Encoding_UTF8Decoder__Class.h>
+#include <Modloader/app/structs/UTF8Encoding_UTF8Decoder.h>
 
 namespace app::classes::types {
     namespace UTF8Encoding_UTF8Decoder {

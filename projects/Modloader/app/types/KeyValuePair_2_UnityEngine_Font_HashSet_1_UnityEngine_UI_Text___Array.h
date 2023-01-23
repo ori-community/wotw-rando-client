@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/KeyValuePair_2_UnityEngine_Font_HashSet_1_UnityEngine_UI_Text___Array__Class.h>
+#include <Modloader/app/structs/KeyValuePair_2_UnityEngine_Font_HashSet_1_UnityEngine_UI_Text___Array.h>
 
 namespace app::classes::types {
     namespace KeyValuePair_2_UnityEngine_Font_HashSet_1_UnityEngine_UI_Text___Array {

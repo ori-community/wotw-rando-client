@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XPathNode__Array.h>
 
 namespace app::classes::MS::Internal::Xml::Cache::XPathNodeHelper {
     IL2CPP_REGISTER_METHOD(0x021D8020, int32_t, GetLocalNamespaces, (app::XPathNode__Array * page_elem, int32_t idx_elem, app::XPathNode__Array** page_nmsp))

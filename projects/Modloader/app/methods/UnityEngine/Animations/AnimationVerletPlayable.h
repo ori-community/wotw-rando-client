@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationVerletPlayable__Boxed.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/AnimationVerletPlayableConfiguration.h>
+#include <Modloader/app/structs/AnimationVerletPlayable.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/Transform__Array.h>
+#include <Modloader/app/structs/AnimationVerletPlayableParametersAsset.h>
 
 namespace app::classes::UnityEngine::Animations::AnimationVerletPlayable {
     IL2CPP_REGISTER_METHOD(0x00241FC0, void, ctor, (app::AnimationVerletPlayable__Boxed * this_ptr, app::PlayableHandle handle))

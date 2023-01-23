@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderDictionary_2_TK_TV_c_System_Object_System_Int32_.h>
 
 namespace app::classes::UberShaderDictionary_2_TK_TV____c_System_Object_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x019DE4F0, void, cctor, ())

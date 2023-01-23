@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NoSoulFlameZone.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::NoSoulFlameZone {
     IL2CPP_REGISTER_METHOD(0x0060A400, void, OnEnable, (app::NoSoulFlameZone * this_ptr))

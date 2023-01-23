@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SpiderBossLocomotionMoveBehaviour_SpiderBossTransition_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SpiderBossLocomotionMoveBehaviour_SpiderBossTransition_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpiderBossLocomotionMoveBehaviour_SpiderBossTransition_DEFINED)
+#include <Modloader/app/structs/SpiderBossLocomotionMoveBehaviour_SpiderBossTransition__Fields.h>
+#if defined(IL2CPP_STRUCT_SpiderBossLocomotionMoveBehaviour_SpiderBossTransition__Fields_DEFINED)
+#define IL2CPP_STRUCT_SpiderBossLocomotionMoveBehaviour_SpiderBossTransition_DEFINED
+struct SpiderBossLocomotionMoveBehaviour_SpiderBossTransition__Class;
+struct SpiderBossLocomotionMoveBehaviour_SpiderBossTransition {
+    struct SpiderBossLocomotionMoveBehaviour_SpiderBossTransition__Class* klass;
+    MonitorData* monitor;
+    struct SpiderBossLocomotionMoveBehaviour_SpiderBossTransition__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SpiderBossLocomotionMoveBehaviour_SpiderBossTransition_FWDDECL)
+#define IL2CPP_STRUCT_SpiderBossLocomotionMoveBehaviour_SpiderBossTransition_FWDDECL
+#include <Modloader/app/structs/SpiderBossLocomotionMoveBehaviour_SpiderBossTransition__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SpiderBossLocomotionMoveBehaviour_SpiderBossTransition_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpiderBossLocomotionMoveBehaviour_SpiderBossTransition_DEFINED) && !defined(IL2CPP_STRUCT_SpiderBossLocomotionMoveBehaviour_SpiderBossTransition_FWDDECL)
+#include <Modloader/app/structs/SpiderBossLocomotionMoveBehaviour_SpiderBossTransition.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SpiderBossLocomotionMoveBehaviour_SpiderBossTransition.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyBase.h>
+#include <Modloader/app/structs/UberShaderAnimatorSystem.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/UberShaderProperty_Vector__Enum.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/UberShaderProperty_Float__Enum.h>
+#include <Modloader/app/structs/Renderer__Array.h>
 
 namespace app::classes::Moon::Timeline::UberShaderAnimatorSystem {
     IL2CPP_REGISTER_METHOD(0x00D19A50, app::UberShaderAnimatorStrategyBase*, get_Strategy, ())

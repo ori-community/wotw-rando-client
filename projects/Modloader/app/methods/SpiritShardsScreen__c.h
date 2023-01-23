@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiritShardsScreen_c.h>
+#include <Modloader/app/structs/CleverMenuItem.h>
 
 namespace app::classes::SpiritShardsScreen___c {
     IL2CPP_REGISTER_METHOD(0x00D76530, void, cctor, ())

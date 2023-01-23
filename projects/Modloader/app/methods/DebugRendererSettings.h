@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DebugRendererSettings.h>
+#include <Modloader/app/structs/RenderingType__Enum.h>
+#include <Modloader/app/structs/List_1_SceneManagerScene_.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/DebugRendererSettings_ColliderType__Enum.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/InvisibleCheckpoint.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/MeshFilter.h>
+#include <Modloader/app/structs/VerletStructure.h>
+#include <Modloader/app/structs/CheckpointRestrictZone.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/Camera.h>
 
 namespace app::classes::DebugRendererSettings {
     IL2CPP_REGISTER_METHOD(0x00B73C20, app::DebugRendererSettings*, get_Instance, ())

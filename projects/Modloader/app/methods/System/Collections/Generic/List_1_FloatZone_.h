@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_FloatZone_.h>
+#include <Modloader/app/structs/FloatZone.h>
 
 namespace app::classes::System::Collections::Generic::List_1_FloatZone_ {
     IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_FloatZone_ * this_ptr, app::FloatZone* item))

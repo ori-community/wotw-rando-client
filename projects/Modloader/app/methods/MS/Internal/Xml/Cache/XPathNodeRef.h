@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XPathNodeRef__Boxed.h>
+#include <Modloader/app/structs/XPathNode__Array.h>
 
 namespace app::classes::MS::Internal::Xml::Cache::XPathNodeRef {
     IL2CPP_REGISTER_METHOD(0x0011D2D0, void, ctor, (app::XPathNodeRef__Boxed * this_ptr, app::XPathNode__Array* page, int32_t idx))

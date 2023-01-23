@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceMenuScreenNotificationSystem.h>
+#include <Modloader/app/structs/RaceSettings__Array.h>
+#include <Modloader/app/structs/UberStateValueStore.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
 
 namespace app::classes::RaceMenuScreenNotificationSystem {
     IL2CPP_REGISTER_METHOD(0x0070EBC0, void, ctor, (app::RaceMenuScreenNotificationSystem * this_ptr))

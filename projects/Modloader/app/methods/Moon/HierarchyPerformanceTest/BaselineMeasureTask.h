@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaselineMeasureTask.h>
+#include <Modloader/app/structs/Action_1_String_.h>
+#include <Modloader/app/structs/SceneSample.h>
+#include <Modloader/app/structs/BaselineMeasureTask_BaselineMeasureState__Enum.h>
+#include <Modloader/app/structs/HPerfTestResult.h>
+#include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::BaselineMeasureTask {
     IL2CPP_REGISTER_METHOD(0x0149A2C0, void, add_OnFailed, (app::BaselineMeasureTask * this_ptr, app::Action_1_String_* value))

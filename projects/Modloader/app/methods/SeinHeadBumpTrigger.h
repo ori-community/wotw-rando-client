@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinHeadBumpTrigger.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::SeinHeadBumpTrigger {
     IL2CPP_REGISTER_METHOD(0x00FFB710, void, OnTriggerEnter, (app::SeinHeadBumpTrigger * this_ptr, app::Collider* collider))

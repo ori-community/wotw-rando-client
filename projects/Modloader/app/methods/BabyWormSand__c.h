@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BabyWormSand_c.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::BabyWormSand___c {
     IL2CPP_REGISTER_METHOD(0x00F809B0, void, cctor, ())

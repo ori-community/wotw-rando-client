@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CameraPositionTracker_CameraPosition__Class.h>
+#include <Modloader/app/structs/CameraPositionTracker_CameraPosition.h>
+#include <Modloader/app/structs/CameraPositionTracker_CameraPosition__Array.h>
 
 namespace app::classes::types {
     namespace CameraPositionTracker_CameraPosition {

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_SpiritShardIconsCollection_Icons_.h>
+#include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Array.h>
+#include <Modloader/app/structs/SpiritShardIconsCollection_Icons.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_SpiritShardIconsCollection_Icons_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_SpiritShardIconsCollection_Icons_*, get_Default, ())

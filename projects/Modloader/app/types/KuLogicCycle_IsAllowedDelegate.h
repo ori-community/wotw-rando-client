@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/KuLogicCycle_IsAllowedDelegate__Class.h>
+#include <Modloader/app/structs/KuLogicCycle_IsAllowedDelegate.h>
+#include <Modloader/app/structs/KuLogicCycle_IsAllowedDelegate__Array.h>
 
 namespace app::classes::types {
     namespace KuLogicCycle_IsAllowedDelegate {

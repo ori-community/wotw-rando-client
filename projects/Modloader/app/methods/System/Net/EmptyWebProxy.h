@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EmptyWebProxy.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/ICredentials.h>
+#include <Modloader/app/structs/ProxyChain.h>
 
 namespace app::classes::System::Net::EmptyWebProxy {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::EmptyWebProxy * this_ptr))

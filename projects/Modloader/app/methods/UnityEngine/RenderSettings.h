@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FogMode__Enum.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::UnityEngine::RenderSettings {
     IL2CPP_REGISTER_METHOD(0x02970990, float, get_fogStartDistance, ())

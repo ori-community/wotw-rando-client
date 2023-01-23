@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicPropertyCollection.h>
+#include <Modloader/app/structs/IDynamicProperty.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IMessage.h>
 
 namespace app::classes::System::Runtime::Remoting::Contexts::DynamicPropertyCollection {
     IL2CPP_REGISTER_METHOD(0x02305550, bool, get_HasProperties, (app::DynamicPropertyCollection * this_ptr))

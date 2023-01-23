@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MapmakerScreen_c.h>
+#include <Modloader/app/structs/CleverMenuItem.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::MapmakerScreen___c {
     IL2CPP_REGISTER_METHOD(0x00A0E150, void, cctor, ())

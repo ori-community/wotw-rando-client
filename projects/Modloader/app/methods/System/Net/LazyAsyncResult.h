@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LazyAsyncResult_ThreadContext.h>
+#include <Modloader/app/structs/LazyAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/WaitHandle.h>
+#include <Modloader/app/structs/ManualResetEvent.h>
 
 namespace app::classes::System::Net::LazyAsyncResult {
     IL2CPP_REGISTER_METHOD(0x01E6B520, app::LazyAsyncResult_ThreadContext*, get_CurrentThreadContext, ())

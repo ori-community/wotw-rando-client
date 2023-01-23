@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SymmetricTransform.h>
+#include <Modloader/app/structs/SymmetricAlgorithm.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/PaddingMode__Enum.h>
 
 namespace app::classes::Mono::Security::Cryptography::SymmetricTransform {
     IL2CPP_REGISTER_METHOD(0x025D7EF0, void, ctor, (app::SymmetricTransform * this_ptr, app::SymmetricAlgorithm* symm_algo, bool encryption, app::Byte__Array* rgb_i_v))

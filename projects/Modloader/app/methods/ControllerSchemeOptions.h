@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ControllerSchemeOptions.h>
+#include <Modloader/app/structs/ControlScheme__Enum.h>
 
 namespace app::classes::ControllerSchemeOptions {
     IL2CPP_REGISTER_METHOD(0x011F1170, void, ResetStatics, ())

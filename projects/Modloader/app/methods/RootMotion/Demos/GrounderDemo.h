@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GrounderDemo.h>
 
 namespace app::classes::RootMotion::Demos::GrounderDemo {
     IL2CPP_REGISTER_METHOD(0x0221F540, void, OnGUI, (app::GrounderDemo * this_ptr))

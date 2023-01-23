@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyEventTriggerAnimator.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::LegacyEventTriggerAnimator {
     IL2CPP_REGISTER_METHOD(0x00A242F0, void, add_Started, (app::LegacyEventTriggerAnimator * this_ptr, app::Action* value))

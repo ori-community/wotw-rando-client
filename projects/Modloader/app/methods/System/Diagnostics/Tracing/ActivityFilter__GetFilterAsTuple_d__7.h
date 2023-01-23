@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActivityFilter_GetFilterAsTuple_d_7.h>
+#include <Modloader/app/structs/Tuple_2_Int32_Int32_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Tuple_2__1.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Diagnostics::Tracing::ActivityFilter__GetFilterAsTuple_d__7 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::ActivityFilter_GetFilterAsTuple_d_7 * this_ptr, int32_t __1__state))

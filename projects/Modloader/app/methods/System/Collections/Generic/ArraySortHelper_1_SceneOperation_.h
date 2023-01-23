@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneOperation__Array.h>
+#include <Modloader/app/structs/IComparer_1_SceneOperation_.h>
+#include <Modloader/app/structs/SceneOperation.h>
+#include <Modloader/app/structs/Comparison_1_SceneOperation_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_SceneOperation_ {
     IL2CPP_REGISTER_METHOD(0x02FEF030, void, Sort_1, (app::SceneOperation__Array * keys, int32_t index, int32_t length, app::IComparer_1_SceneOperation_* comparer))

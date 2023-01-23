@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_DEFINED)
+#define IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_DEFINED
+struct MoonGuid;
+struct TransparencyAnimatorSystemStrategy_SetSceneHiddenAction {
+    struct MoonGuid* SceneGuid;
+    bool Hidden;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_FWDDECL)
+#define IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_FWDDECL
+#include <Modloader/app/structs/MoonGuid.h>
+#endif
+#undef IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_DEFINED) && !defined(IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_FWDDECL)
+#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_SetSceneHiddenAction.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_SetSceneHiddenAction.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

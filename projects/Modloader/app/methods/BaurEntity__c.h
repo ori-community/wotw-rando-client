@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaurEntity_c.h>
 
 namespace app::classes::BaurEntity___c {
     IL2CPP_REGISTER_METHOD(0x00F9A1B0, void, cctor, ())

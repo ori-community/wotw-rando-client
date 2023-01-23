@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShopkeeperScreen.h>
+#include <Modloader/app/structs/ShopkeeperItem__Array.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/ShopkeeperUIItem.h>
+#include <Modloader/app/structs/ShopkeeperItem.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/RTPC.h>
 
 namespace app::classes::ShopkeeperScreen {
     IL2CPP_REGISTER_METHOD(0x002FBBC0, app::ShopkeeperScreen*, get_ShopInstance, (app::ShopkeeperScreen * this_ptr))

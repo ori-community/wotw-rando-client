@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Nullable_1_Moon_UberStateVisualization_UberStateData___Boxed.h>
+#include <Modloader/app/structs/UberStateData.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Nullable_1_Moon_UberStateVisualization_UberStateData_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_Moon_UberStateVisualization_UberStateData_ {
     IL2CPP_REGISTER_METHOD(0x001F7170, void, ctor, (app::Nullable_1_Moon_UberStateVisualization_UberStateData___Boxed * this_ptr, app::UberStateData value))

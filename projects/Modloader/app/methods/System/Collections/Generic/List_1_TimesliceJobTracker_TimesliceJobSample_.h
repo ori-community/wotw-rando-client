@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_TimesliceJobTracker_TimesliceJobSample_.h>
+#include <Modloader/app/structs/TimesliceJobTracker_TimesliceJobSample.h>
 
 namespace app::classes::System::Collections::Generic::List_1_TimesliceJobTracker_TimesliceJobSample_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_TimesliceJobTracker_TimesliceJobSample_ * this_ptr))

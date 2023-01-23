@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameMapShowObjective.h>
+#include <Modloader/app/structs/GameMapUI.h>
+#include <Modloader/app/structs/GameMapObjectiveIcons.h>
+#include <Modloader/app/structs/GameMapSavePedestals.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/RuntimeGameWorldArea.h>
+#include <Modloader/app/structs/GameMapUI_WorldMapStates__Enum.h>
+#include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/RuntimeWorldMapIcon.h>
+#include <Modloader/app/structs/MessageProvider.h>
 
 namespace app::classes::GameMapUI {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::GameMapShowObjective*, get_ShowObjective, (app::GameMapUI * this_ptr))

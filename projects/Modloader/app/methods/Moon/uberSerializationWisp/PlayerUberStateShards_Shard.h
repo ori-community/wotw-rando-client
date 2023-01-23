@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/UberStateArchive.h>
+#include <Modloader/app/structs/State.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateShards_Shard {
     IL2CPP_REGISTER_METHOD(0x00F41E60, void, ctor, (app::PlayerUberStateShards_Shard * this_ptr, app::SpiritShardType__Enum type, app::Action* set_dirty_callback))

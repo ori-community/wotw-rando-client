@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PrefabSpawner.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::PrefabSpawner {
     IL2CPP_REGISTER_METHOD(0x00C6EA00, void, DynamicPrefabProvider, (app::PrefabSpawner * this_ptr, app::List_1_DynamicInstantiationDescriptor_* descriptors))

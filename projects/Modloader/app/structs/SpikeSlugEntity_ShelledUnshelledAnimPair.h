@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SpikeSlugEntity_ShelledUnshelledAnimPair_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SpikeSlugEntity_ShelledUnshelledAnimPair_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpikeSlugEntity_ShelledUnshelledAnimPair_DEFINED)
+#include <Modloader/app/structs/SpikeSlugEntity_ShelledUnshelledAnimPair__Fields.h>
+#if defined(IL2CPP_STRUCT_SpikeSlugEntity_ShelledUnshelledAnimPair__Fields_DEFINED)
+#define IL2CPP_STRUCT_SpikeSlugEntity_ShelledUnshelledAnimPair_DEFINED
+struct SpikeSlugEntity_ShelledUnshelledAnimPair__Class;
+struct SpikeSlugEntity_ShelledUnshelledAnimPair {
+    struct SpikeSlugEntity_ShelledUnshelledAnimPair__Class* klass;
+    MonitorData* monitor;
+    struct SpikeSlugEntity_ShelledUnshelledAnimPair__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SpikeSlugEntity_ShelledUnshelledAnimPair_FWDDECL)
+#define IL2CPP_STRUCT_SpikeSlugEntity_ShelledUnshelledAnimPair_FWDDECL
+#include <Modloader/app/structs/SpikeSlugEntity_ShelledUnshelledAnimPair__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SpikeSlugEntity_ShelledUnshelledAnimPair_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SpikeSlugEntity_ShelledUnshelledAnimPair_DEFINED) && !defined(IL2CPP_STRUCT_SpikeSlugEntity_ShelledUnshelledAnimPair_FWDDECL)
+#include <Modloader/app/structs/SpikeSlugEntity_ShelledUnshelledAnimPair.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SpikeSlugEntity_ShelledUnshelledAnimPair.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

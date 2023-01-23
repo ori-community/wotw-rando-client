@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MeshRendererFrustrumOptimiser.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::MeshRendererFrustrumOptimiser {
     IL2CPP_REGISTER_METHOD(0x009EB2E0, void, ctor, (app::MeshRendererFrustrumOptimiser * this_ptr, app::GameObject* game_object))

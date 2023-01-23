@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingPlayAreaSize_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingPlayAreaSize_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingPlayAreaSize_DEFINED)
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingPlayAreaSize__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingPlayAreaSize__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingPlayAreaSize_DEFINED
+struct IVRChaperoneSetup_SetWorkingPlayAreaSize__Class;
+struct IVRChaperoneSetup_SetWorkingPlayAreaSize {
+    struct IVRChaperoneSetup_SetWorkingPlayAreaSize__Class* klass;
+    MonitorData* monitor;
+    struct IVRChaperoneSetup_SetWorkingPlayAreaSize__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingPlayAreaSize_FWDDECL)
+#define IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingPlayAreaSize_FWDDECL
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingPlayAreaSize__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingPlayAreaSize_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingPlayAreaSize_DEFINED) && !defined(IL2CPP_STRUCT_IVRChaperoneSetup_SetWorkingPlayAreaSize_FWDDECL)
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingPlayAreaSize.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRChaperoneSetup_SetWorkingPlayAreaSize.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

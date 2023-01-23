@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/JProperty_JPropertyList.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/JToken__Array.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JProperty_JPropertyList {
     IL2CPP_REGISTER_METHOD(0x01F0E2D0, app::IEnumerator_1_Newtonsoft_Json_Linq_JToken_*, GetEnumerator, (app::JProperty_JPropertyList * this_ptr))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PlayerEditorConnectionEvents_MessageTypeSubscribers_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PlayerEditorConnectionEvents_MessageTypeSubscribers_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PlayerEditorConnectionEvents_MessageTypeSubscribers_DEFINED)
+#include <Modloader/app/structs/PlayerEditorConnectionEvents_MessageTypeSubscribers__Fields.h>
+#if defined(IL2CPP_STRUCT_PlayerEditorConnectionEvents_MessageTypeSubscribers__Fields_DEFINED)
+#define IL2CPP_STRUCT_PlayerEditorConnectionEvents_MessageTypeSubscribers_DEFINED
+struct PlayerEditorConnectionEvents_MessageTypeSubscribers__Class;
+struct PlayerEditorConnectionEvents_MessageTypeSubscribers {
+    struct PlayerEditorConnectionEvents_MessageTypeSubscribers__Class* klass;
+    MonitorData* monitor;
+    struct PlayerEditorConnectionEvents_MessageTypeSubscribers__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PlayerEditorConnectionEvents_MessageTypeSubscribers_FWDDECL)
+#define IL2CPP_STRUCT_PlayerEditorConnectionEvents_MessageTypeSubscribers_FWDDECL
+#include <Modloader/app/structs/PlayerEditorConnectionEvents_MessageTypeSubscribers__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PlayerEditorConnectionEvents_MessageTypeSubscribers_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PlayerEditorConnectionEvents_MessageTypeSubscribers_DEFINED) && !defined(IL2CPP_STRUCT_PlayerEditorConnectionEvents_MessageTypeSubscribers_FWDDECL)
+#include <Modloader/app/structs/PlayerEditorConnectionEvents_MessageTypeSubscribers.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PlayerEditorConnectionEvents_MessageTypeSubscribers.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

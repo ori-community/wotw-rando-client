@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509ChainImplMono.h>
+#include <Modloader/app/structs/X509ChainPolicy.h>
+#include <Modloader/app/structs/X509ChainStatus__Array.h>
+#include <Modloader/app/structs/X509Certificate2.h>
+#include <Modloader/app/structs/X509Certificate2Collection.h>
+#include <Modloader/app/structs/X509Store.h>
+#include <Modloader/app/structs/X509ChainStatusFlags__Enum.h>
+#include <Modloader/app/structs/X509ChainElement.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/X509Crl.h>
+#include <Modloader/app/structs/X509Extension_2.h>
+#include <Modloader/app/structs/X509Store_1.h>
+#include <Modloader/app/structs/X509Crl_X509CrlEntry.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::X509ChainImplMono {
     IL2CPP_REGISTER_METHOD(0x021CE9B0, void, ctor, (app::X509ChainImplMono * this_ptr, bool use_machine_context))

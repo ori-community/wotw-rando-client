@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Modloader/app/structs/UI__Class.h>
+
 namespace game::ui {
     CORE_DLLEXPORT bool is_manually_shaking_resource_ui();
 

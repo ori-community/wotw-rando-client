@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IriParsingElement.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
 
 namespace app::classes::System::Configuration::IriParsingElement {
     IL2CPP_REGISTER_METHOD(0x02961C60, void, ctor, (app::IriParsingElement * this_ptr))

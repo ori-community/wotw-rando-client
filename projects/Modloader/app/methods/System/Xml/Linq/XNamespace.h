@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XNamespace.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XName.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/WeakReference.h>
 
 namespace app::classes::System::Xml::Linq::XNamespace {
     IL2CPP_REGISTER_METHOD(0x030390C0, void, ctor, (app::XNamespace * this_ptr, app::String* namespace_name))

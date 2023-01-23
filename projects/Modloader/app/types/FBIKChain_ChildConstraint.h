@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/FBIKChain_ChildConstraint__Class.h>
+#include <Modloader/app/structs/FBIKChain_ChildConstraint.h>
+#include <Modloader/app/structs/FBIKChain_ChildConstraint__Array.h>
 
 namespace app::classes::types {
     namespace FBIKChain_ChildConstraint {

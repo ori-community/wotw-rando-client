@@ -7,6 +7,9 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/app/methods/CharacterAirNoDeceleration.h>
 
+#include <Modloader/app/structs/Boolean__Boxed.h>
+#include <Modloader/app/structs/Single__Boxed.h>
+
 extern void handle_launch_no_deceleration(app::CharacterAirNoDeceleration* this_ptr);
 
 using namespace app::classes;

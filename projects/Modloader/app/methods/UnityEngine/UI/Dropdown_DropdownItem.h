@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dropdown_DropdownItem.h>
+#include <Modloader/app/structs/Text.h>
+#include <Modloader/app/structs/Image.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/Toggle.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/BaseEventData.h>
 
 namespace app::classes::UnityEngine::UI::Dropdown_DropdownItem {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Dropdown_DropdownItem * this_ptr))

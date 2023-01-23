@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BindingList_1_System_Object_.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/ListSortDirection__Enum.h>
+#include <Modloader/app/structs/IList_1_System_Object_.h>
+#include <Modloader/app/structs/AddingNewEventHandler.h>
+#include <Modloader/app/structs/AddingNewEventArgs.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ListChangedEventHandler.h>
+#include <Modloader/app/structs/ListChangedEventArgs.h>
+#include <Modloader/app/structs/ListChangedType__Enum.h>
+#include <Modloader/app/structs/PropertyChangedEventArgs.h>
 
 namespace app::classes::System::ComponentModel::BindingList_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02FAC160, bool, get_ItemTypeHasDefaultConstructor, (app::BindingList_1_System_Object_ * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XboxOneFileBasedStorageHandler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Task_1_System_Byte_.h>
 
 namespace app::classes::frameworks::xboxLive::XboxOneFileBasedStorageHandler {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::XboxOneFileBasedStorageHandler * this_ptr, app::String* source_key))

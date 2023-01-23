@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler_DEFINED)
+#include <Modloader/app/structs/GPUAutoProfiler_BaselineMeasurementHandler__Fields.h>
+#if defined(IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler__Fields_DEFINED)
+#define IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler_DEFINED
+struct GPUAutoProfiler_BaselineMeasurementHandler__Class;
+struct GPUAutoProfiler_BaselineMeasurementHandler {
+    struct GPUAutoProfiler_BaselineMeasurementHandler__Class* klass;
+    MonitorData* monitor;
+    struct GPUAutoProfiler_BaselineMeasurementHandler__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler_FWDDECL)
+#define IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler_FWDDECL
+#include <Modloader/app/structs/GPUAutoProfiler_BaselineMeasurementHandler__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler_DEFINED) && !defined(IL2CPP_STRUCT_GPUAutoProfiler_BaselineMeasurementHandler_FWDDECL)
+#include <Modloader/app/structs/GPUAutoProfiler_BaselineMeasurementHandler.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GPUAutoProfiler_BaselineMeasurementHandler.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

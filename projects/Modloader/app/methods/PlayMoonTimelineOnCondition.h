@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/PlayMoonTimelineOnCondition.h>
 
 namespace app::classes::PlayMoonTimelineOnCondition {
     IL2CPP_REGISTER_METHOD(0x0117A020, app::MoonTimeline*, get_CachedTimeline, (app::PlayMoonTimelineOnCondition * this_ptr))

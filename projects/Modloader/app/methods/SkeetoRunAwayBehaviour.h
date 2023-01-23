@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkeetoLocomotion.h>
+#include <Modloader/app/structs/SkeetoRunAwayBehaviour.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SkeetoRunAwayBehaviour {
     IL2CPP_REGISTER_METHOD(0x006AF270, app::SkeetoLocomotion*, get_Locomotion, (app::SkeetoRunAwayBehaviour * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TesterPlugin.h>
 
 namespace app::classes::TesterPlugin {
     IL2CPP_REGISTER_METHOD(0x010E2B80, void, Awake, (app::TesterPlugin * this_ptr))

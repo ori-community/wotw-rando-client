@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Ambience_Layer.h>
+#include <Modloader/app/structs/Ambience_AmbienceTrack.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/AmbienceZone.h>
+#include <Modloader/app/structs/AkCurveInterpolation__Enum.h>
 
 namespace app::classes::Core::Ambience {
     IL2CPP_REGISTER_METHOD(0x011F6690, app::Ambience_Layer*, get_CurrentAmbienceLayer, ())

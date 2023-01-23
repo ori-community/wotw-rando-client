@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LegacyEntity.h>
+#include <Modloader/app/structs/JumpShootSharkPlaceholder.h>
 
 namespace app::classes::JumpShootSharkPlaceholder {
     IL2CPP_REGISTER_METHOD(0x00E4F470, app::LegacyEntity*, Instantiate, (app::JumpShootSharkPlaceholder * this_ptr))

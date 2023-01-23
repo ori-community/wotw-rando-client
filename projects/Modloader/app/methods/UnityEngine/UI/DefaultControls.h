@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Text.h>
+#include <Modloader/app/structs/Selectable.h>
+#include <Modloader/app/structs/DefaultControls_Resources.h>
 
 namespace app::classes::UnityEngine::UI::DefaultControls {
     IL2CPP_REGISTER_METHOD(0x01F31160, app::GameObject*, CreateUIElementRoot, (app::String * name, app::Vector2 size))

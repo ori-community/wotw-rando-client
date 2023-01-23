@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/GrantItemsToUsersResult__Class.h>
+#include <Modloader/app/structs/GrantItemsToUsersResult.h>
 
 namespace app::classes::types {
     namespace GrantItemsToUsersResult {

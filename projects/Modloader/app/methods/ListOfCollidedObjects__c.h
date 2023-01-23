@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListOfCollidedObjects_c.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::ListOfCollidedObjects___c {
     IL2CPP_REGISTER_METHOD(0x00FA90A0, void, cctor, ())

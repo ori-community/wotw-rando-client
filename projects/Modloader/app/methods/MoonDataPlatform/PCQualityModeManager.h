@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PCQualityModeManager_QualityMode__Enum.h>
+#include <Modloader/app/structs/PCQualityModeManager.h>
 
 namespace app::classes::MoonDataPlatform::PCQualityModeManager {
     IL2CPP_REGISTER_METHOD(0x00F485D0, app::PCQualityModeManager_QualityMode__Enum, get_CurrentMode, ())

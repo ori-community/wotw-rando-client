@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Predicate_1_UberPoolGroupWarmer_PrewarmItem_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberPoolGroupWarmer_PrewarmItem.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Predicate_1_UberPoolGroupWarmer_PrewarmItem_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::Predicate_1_UberPoolGroupWarmer_PrewarmItem_ * this_ptr, app::Object* object, void* method_1))

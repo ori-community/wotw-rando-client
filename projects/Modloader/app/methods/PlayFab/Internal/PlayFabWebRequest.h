@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RemoteCertificateValidationCallback.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PlayFabWebRequest.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/X509Chain.h>
+#include <Modloader/app/structs/SslPolicyErrors__Enum.h>
+#include <Modloader/app/structs/Action_1_Byte_.h>
+#include <Modloader/app/structs/Action_1_String_.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CallRequestContainer.h>
+#include <Modloader/app/structs/WebResponse.h>
 
 namespace app::classes::PlayFab::Internal::PlayFabWebRequest {
     IL2CPP_REGISTER_METHOD(0x01841290, void, SkipCertificateValidation, ())

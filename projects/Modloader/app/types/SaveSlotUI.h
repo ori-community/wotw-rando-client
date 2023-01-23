@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SaveSlotUI__Class.h>
+#include <Modloader/app/structs/SaveSlotUI.h>
+#include <Modloader/app/structs/SaveSlotUI__Array.h>
 
 namespace app::classes::types {
     namespace SaveSlotUI {

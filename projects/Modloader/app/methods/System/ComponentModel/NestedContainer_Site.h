@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NestedContainer_Site.h>
+#include <Modloader/app/structs/IComponent.h>
+#include <Modloader/app/structs/NestedContainer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IContainer.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::ComponentModel::NestedContainer_Site {
     IL2CPP_REGISTER_METHOD(0x00522850, void, ctor, (app::NestedContainer_Site * this_ptr, app::IComponent* component, app::NestedContainer* container, app::String* name))

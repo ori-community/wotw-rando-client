@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SetSpriteAnimator.h>
 
 namespace app::classes::SetSpriteAnimator {
     IL2CPP_REGISTER_METHOD(0x005A48A0, void, CacheOriginals, (app::SetSpriteAnimator * this_ptr))

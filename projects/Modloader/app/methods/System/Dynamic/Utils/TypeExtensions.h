@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
 
 namespace app::classes::System::Dynamic::Utils::TypeExtensions {
     IL2CPP_REGISTER_METHOD(0x01F95E10, app::MethodInfo_1*, GetAnyStaticMethodValidated, (app::Type * type, app::String* name, app::Type__Array* types))

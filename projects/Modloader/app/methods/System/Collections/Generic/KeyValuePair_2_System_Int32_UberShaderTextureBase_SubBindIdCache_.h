@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache___Boxed.h>
+#include <Modloader/app/structs/UberShaderTextureBase_SubBindIdCache.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache_ {
     IL2CPP_REGISTER_METHOD(0x00150620, void, ctor, (app::KeyValuePair_2_System_Int32_UberShaderTextureBase_SubBindIdCache___Boxed * this_ptr, int32_t key, app::UberShaderTextureBase_SubBindIdCache value))

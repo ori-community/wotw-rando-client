@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeaderBoardService_c.h>
+#include <Modloader/app/structs/LeaderBoardEntry.h>
 
 namespace app::classes::Moon::Race::LeaderBoardService___c {
     IL2CPP_REGISTER_METHOD(0x00C440C0, void, cctor, ())

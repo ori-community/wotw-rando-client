@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MinerDeathReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MinerDeathReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x01447940, void, OnInitializeTask, (app::MinerDeathReactionBehaviour * this_ptr, app::IContext* context))

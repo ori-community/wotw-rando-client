@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WebConnectionGroup_ConnectionState__Class.h>
+#include <Modloader/app/structs/WebConnectionGroup_ConnectionState.h>
+#include <Modloader/app/structs/WebConnectionGroup_ConnectionState__Array.h>
 
 namespace app::classes::types {
     namespace WebConnectionGroup_ConnectionState {

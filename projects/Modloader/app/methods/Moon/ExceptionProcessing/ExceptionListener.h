@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExceptionProcessor.h>
+#include <Modloader/app/structs/ExceptionListener.h>
 
 namespace app::classes::Moon::ExceptionProcessing::ExceptionListener {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::ExceptionProcessor*, get_Processor, (app::ExceptionListener * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/KeyValuePair_2_ZenFulcrum_EmbeddedBrowser_BrowserNative_CursorType_ZenFulcrum_EmbeddedBrowser_BrowserCursor_CursorInfo___Array__Class.h>
+#include <Modloader/app/structs/KeyValuePair_2_ZenFulcrum_EmbeddedBrowser_BrowserNative_CursorType_ZenFulcrum_EmbeddedBrowser_BrowserCursor_CursorInfo___Array.h>
 
 namespace app::classes::types {
     namespace KeyValuePair_2_ZenFulcrum_EmbeddedBrowser_BrowserNative_CursorType_ZenFulcrum_EmbeddedBrowser_BrowserCursor_CursorInfo___Array {

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InstructionList_DebugView_InstructionView__Class.h>
+#include <Modloader/app/structs/InstructionList_DebugView_InstructionView.h>
+#include <Modloader/app/structs/InstructionList_DebugView_InstructionView__Boxed.h>
+#include <Modloader/app/structs/InstructionList_DebugView_InstructionView__Array.h>
 
 namespace app::classes::types {
     namespace InstructionList_DebugView_InstructionView {

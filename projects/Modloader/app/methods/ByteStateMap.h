@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_GenericMappingEntry_.h>
+#include <Modloader/app/structs/ByteStateMap.h>
 
 namespace app::classes::ByteStateMap {
     IL2CPP_REGISTER_METHOD(0x01B56660, app::List_1_GenericMappingEntry_*, GetGenericMapping, (app::ByteStateMap * this_ptr))

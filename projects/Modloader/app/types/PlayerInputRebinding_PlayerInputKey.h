@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PlayerInputRebinding_PlayerInputKey__Class.h>
+#include <Modloader/app/structs/PlayerInputRebinding_PlayerInputKey.h>
+#include <Modloader/app/structs/PlayerInputRebinding_PlayerInputKey__Boxed.h>
+#include <Modloader/app/structs/PlayerInputRebinding_PlayerInputKey__Array.h>
 
 namespace app::classes::types {
     namespace PlayerInputRebinding_PlayerInputKey {

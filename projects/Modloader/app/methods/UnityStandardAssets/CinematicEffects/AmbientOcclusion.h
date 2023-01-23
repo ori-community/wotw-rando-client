@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AmbientOcclusion.h>
+#include <Modloader/app/structs/AmbientOcclusion_SampleCount__Enum.h>
+#include <Modloader/app/structs/AmbientOcclusion_OcclusionSource__Enum.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CommandBuffer.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/AmbientOcclusion_PropertyObserver.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::CinematicEffects::AmbientOcclusion {
     IL2CPP_REGISTER_METHOD(0x024FC710, bool, get_isAmbientOnlySupported, (app::AmbientOcclusion * this_ptr))

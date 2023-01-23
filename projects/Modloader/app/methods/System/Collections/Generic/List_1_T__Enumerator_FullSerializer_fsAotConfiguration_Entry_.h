@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsAotConfiguration_Entry.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_FullSerializer_fsAotConfiguration_Entry___Boxed.h>
+#include <Modloader/app/structs/List_1_FullSerializer_fsAotConfiguration_Entry_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_FullSerializer_fsAotConfiguration_Entry_ {
     IL2CPP_REGISTER_METHOD(0x00136440, app::fsAotConfiguration_Entry, get_Current, (app::List_1_T_Enumerator_FullSerializer_fsAotConfiguration_Entry___Boxed * this_ptr))

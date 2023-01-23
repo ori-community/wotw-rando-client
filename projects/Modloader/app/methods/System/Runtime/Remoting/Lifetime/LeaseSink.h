@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeaseSink.h>
+#include <Modloader/app/structs/IMessageSink.h>
+#include <Modloader/app/structs/IMessage.h>
+#include <Modloader/app/structs/IMessageCtrl.h>
 
 namespace app::classes::System::Runtime::Remoting::Lifetime::LeaseSink {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::LeaseSink * this_ptr, app::IMessageSink* next_sink))

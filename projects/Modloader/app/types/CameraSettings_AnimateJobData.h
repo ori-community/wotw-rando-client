@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CameraSettings_AnimateJobData__Class.h>
+#include <Modloader/app/structs/CameraSettings_AnimateJobData.h>
 
 namespace app::classes::types {
     namespace CameraSettings_AnimateJobData {

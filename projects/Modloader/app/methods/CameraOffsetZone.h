@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraOffsetZone.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CameraOffsetZone {
     IL2CPP_REGISTER_METHOD(0x003FF790, bool, get_IsPerformingZoomOutAndDisable, (app::CameraOffsetZone * this_ptr))

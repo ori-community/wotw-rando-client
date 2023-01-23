@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LockQueue.h>
+#include <Modloader/app/structs/ReaderWriterLock.h>
 
 namespace app::classes::System::Threading::LockQueue {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::LockQueue * this_ptr, app::ReaderWriterLock* rwlock))

@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayFabSignInProvider.h>
+#include <Modloader/app/structs/IPlatformUser.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/INetworkConnectivityChecker.h>
+#include <Modloader/app/structs/ISignInProvider.h>
+#include <Modloader/app/structs/LoginResult.h>
+#include <Modloader/app/structs/PlayFabError.h>
+#include <Modloader/app/structs/UpdateUserTitleDisplayNameResult.h>
 
 namespace app::classes::SystemIntegration::PlayFabSignInProvider {
     IL2CPP_REGISTER_METHOD(0x0051DAB0, bool, get_IsSignedIn, (app::PlayFabSignInProvider * this_ptr))

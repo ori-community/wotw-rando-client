@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ComparisonComparer_1_UberWaterControl_SplashInfo_.h>
+#include <Modloader/app/structs/Comparison_1_UberWaterControl_SplashInfo_.h>
+#include <Modloader/app/structs/UberWaterControl_SplashInfo.h>
 
 namespace app::classes::System::Collections::Generic::ComparisonComparer_1_UberWaterControl_SplashInfo_ {
     IL2CPP_REGISTER_METHOD(0x0162A010, void, ctor, (app::ComparisonComparer_1_UberWaterControl_SplashInfo_ * this_ptr, app::Comparison_1_UberWaterControl_SplashInfo_* comparison))

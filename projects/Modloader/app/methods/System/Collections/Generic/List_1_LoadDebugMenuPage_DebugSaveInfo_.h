@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/List_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/IComparer_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/LoadDebugMenuPage_DebugSaveInfo.h>
+#include <Modloader/app/structs/IEnumerable_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/LoadDebugMenuPage_DebugSaveInfo__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/Action_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/IEnumerator_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_LoadDebugMenuPage_DebugSaveInfo_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_LoadDebugMenuPage_DebugSaveInfo_ {
     IL2CPP_REGISTER_METHOD(0x02C1F070, app::List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo_, GetEnumerator, (app::List_1_LoadDebugMenuPage_DebugSaveInfo_ * this_ptr))

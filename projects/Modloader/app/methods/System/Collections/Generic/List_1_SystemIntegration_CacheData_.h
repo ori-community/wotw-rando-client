@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CacheData__Array.h>
+#include <Modloader/app/structs/List_1_SystemIntegration_CacheData_.h>
+#include <Modloader/app/structs/CacheData.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_SystemIntegration_CacheData_.h>
+#include <Modloader/app/structs/IEnumerable_1_SystemIntegration_CacheData_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_SystemIntegration_CacheData_ {
     IL2CPP_REGISTER_METHOD(0x025EAEF0, app::CacheData__Array*, ToArray, (app::List_1_SystemIntegration_CacheData_ * this_ptr))

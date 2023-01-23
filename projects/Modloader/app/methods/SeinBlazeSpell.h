@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinBlazeSpell.h>
+#include <Modloader/app/structs/SeinBlazeSpell_BlazeSetupInfo.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SeinBlazeSpell_BlazeTypes__Enum.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/GlowChargeEffect.h>
 
 namespace app::classes::SeinBlazeSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinBlazeSpell * this_ptr))

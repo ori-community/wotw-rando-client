@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RockTreeSetup.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::RockTreeSetup {
     IL2CPP_REGISTER_METHOD(0x01359810, void, Start, (app::RockTreeSetup * this_ptr))

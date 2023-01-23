@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpListenerRequest.h>
+#include <Modloader/app/structs/HttpListenerContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/CookieCollection.h>
+#include <Modloader/app/structs/NameValueCollection.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/IPEndPoint.h>
+#include <Modloader/app/structs/Version.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/X509Certificate2.h>
+#include <Modloader/app/structs/TransportContext.h>
+#include <Modloader/app/structs/Task_1_System_Security_Cryptography_X509Certificates_X509Certificate2_.h>
 
 namespace app::classes::System::Net::HttpListenerRequest {
     IL2CPP_REGISTER_METHOD(0x01D464E0, void, ctor_1, (app::HttpListenerRequest * this_ptr, app::HttpListenerContext* context))

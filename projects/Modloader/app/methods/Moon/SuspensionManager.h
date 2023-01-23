@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_ISuspendable_System_Int32_.h>
+#include <Modloader/app/structs/ISuspendable.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/HashSet_1_Moon_ISuspendable_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GameObject__Array.h>
+#include <Modloader/app/structs/List_1_Moon_ISuspendable_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_ISuspendable_.h>
 
 namespace app::classes::Moon::SuspensionManager {
     IL2CPP_REGISTER_METHOD(0x031AC220, void, ResetStatics, ())

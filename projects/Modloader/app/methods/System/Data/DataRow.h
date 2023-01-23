@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRowBuilder.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DataRowState__Enum.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/DataRelation.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/DataColumn__Array.h>
+#include <Modloader/app/structs/DataRow__Array.h>
+#include <Modloader/app/structs/DataKey.h>
+#include <Modloader/app/structs/DataViewRowState__Enum.h>
+#include <Modloader/app/structs/ArrayList.h>
 
 namespace app::classes::System::Data::DataRow {
     IL2CPP_REGISTER_METHOD(0x023A95B0, void, ctor, (app::DataRow * this_ptr, app::DataRowBuilder* builder))

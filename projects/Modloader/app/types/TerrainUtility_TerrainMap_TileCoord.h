@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TerrainUtility_TerrainMap_TileCoord__Class.h>
+#include <Modloader/app/structs/TerrainUtility_TerrainMap_TileCoord.h>
+#include <Modloader/app/structs/TerrainUtility_TerrainMap_TileCoord__Boxed.h>
+#include <Modloader/app/structs/TerrainUtility_TerrainMap_TileCoord__Array.h>
 
 namespace app::classes::types {
     namespace TerrainUtility_TerrainMap_TileCoord {

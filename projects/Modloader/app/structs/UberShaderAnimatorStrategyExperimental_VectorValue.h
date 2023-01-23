@@ -1,0 +1,28 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_VectorValue_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_VectorValue_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_VectorValue_DEFINED)
+#include <Modloader/app/structs/Vector4.h>
+#if defined(IL2CPP_STRUCT_Vector4_DEFINED)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_VectorValue_DEFINED
+struct UberShaderAnimatorStrategyExperimental_VectorValue {
+    struct Vector4 Value;
+    bool Set;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_VectorValue_FWDDECL)
+#define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_VectorValue_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_VectorValue_INITIALIZING
+#if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_VectorValue_DEFINED) && !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental_VectorValue_FWDDECL)
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorValue.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorValue.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

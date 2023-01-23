@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocomotionTurningBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::LocomotionTurningBehaviour {
     IL2CPP_REGISTER_METHOD(0x00FC9020, bool, get_IsPlaying, (app::LocomotionTurningBehaviour * this_ptr))

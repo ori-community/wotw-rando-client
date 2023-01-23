@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExceptionsTest.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/ExceptionsTest_State__Enum.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::ExceptionsTest {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Awake, (app::ExceptionsTest * this_ptr))

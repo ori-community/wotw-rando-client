@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PlayFabStatistics.h>
+#include <Modloader/app/structs/ISignInProvider.h>
+#include <Modloader/app/structs/CacheData__Array.h>
+#include <Modloader/app/structs/CacheData.h>
+#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
+#include <Modloader/app/structs/Action_1_System_Collections_Generic_List_1__2.h>
+#include <Modloader/app/structs/Action_1_System_Collections_Generic_List_1__3.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::Statistics::PlayFabStatistics {
     IL2CPP_REGISTER_METHOD(0x00535A80, app::String*, get_Name, (app::PlayFabStatistics * this_ptr))

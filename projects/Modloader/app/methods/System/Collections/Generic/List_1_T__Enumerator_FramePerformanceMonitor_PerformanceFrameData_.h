@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_FramePerformanceMonitor_PerformanceFrameData___Boxed.h>
+#include <Modloader/app/structs/List_1_FramePerformanceMonitor_PerformanceFrameData_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_FramePerformanceMonitor_PerformanceFrameData_ {
     IL2CPP_REGISTER_METHOD(0x00133A80, app::FramePerformanceMonitor_PerformanceFrameData, get_Current, (app::List_1_T_Enumerator_FramePerformanceMonitor_PerformanceFrameData___Boxed * this_ptr))

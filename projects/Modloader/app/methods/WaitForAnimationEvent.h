@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaitForAnimationEvent.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::WaitForAnimationEvent {
     IL2CPP_REGISTER_METHOD(0x008C5AC0, void, Start, (app::WaitForAnimationEvent * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberWaterTop.h>
+#include <Modloader/app/structs/UberWaterReflectionPlane.h>
+#include <Modloader/app/structs/UberWaterReflectionView.h>
 
 namespace app::classes::UberWaterTop {
     IL2CPP_REGISTER_METHOD(0x004430B0, bool, get_UseQuadSubdivision, (app::UberWaterTop * this_ptr))

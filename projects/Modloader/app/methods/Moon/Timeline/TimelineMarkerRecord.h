@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimelineMarkerRecord.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Timeline::TimelineMarkerRecord {
     IL2CPP_REGISTER_METHOD(0x01E8CB90, void, ctor, (app::TimelineMarkerRecord * this_ptr, app::EntityId id))

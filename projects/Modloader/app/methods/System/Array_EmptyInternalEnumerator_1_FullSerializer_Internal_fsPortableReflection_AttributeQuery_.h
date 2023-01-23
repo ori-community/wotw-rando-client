@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_FullSerializer_Internal_fsPortableReflection_AttributeQuery_.h>
+#include <Modloader/app/structs/fsPortableReflection_AttributeQuery.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_EmptyInternalEnumerator_1_FullSerializer_Internal_fsPortableReflection_AttributeQuery_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose, (app::Array_EmptyInternalEnumerator_1_FullSerializer_Internal_fsPortableReflection_AttributeQuery_ * this_ptr))

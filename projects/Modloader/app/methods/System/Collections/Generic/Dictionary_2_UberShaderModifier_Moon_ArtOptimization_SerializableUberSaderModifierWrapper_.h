@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_UberShaderModifier_Moon_ArtOptimization_SerializableUberSaderModifierWrapper_.h>
+#include <Modloader/app/structs/UberShaderModifier.h>
+#include <Modloader/app/structs/SerializableUberSaderModifierWrapper.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_UberShaderModifier_Moon_ArtOptimization_SerializableUberSaderModifierWrapper_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_UberShaderModifier_Moon_ArtOptimization_SerializableUberSaderModifierWrapper_ * this_ptr, app::UberShaderModifier* key))

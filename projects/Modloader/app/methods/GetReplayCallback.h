@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GetReplayCallback.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/ReplayModel.h>
 
 namespace app::classes::GetReplayCallback {
     IL2CPP_REGISTER_METHOD(0x02E91930, void, OnResult, (app::GetReplayCallback * this_ptr, app::Byte__Array* data))

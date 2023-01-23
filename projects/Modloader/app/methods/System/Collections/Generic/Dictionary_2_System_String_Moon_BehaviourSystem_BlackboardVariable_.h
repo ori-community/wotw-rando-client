@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_Moon_BehaviourSystem_BlackboardVariable_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_String_Moon_BehaviourSystem_BlackboardVariable_.h>
+#include <Modloader/app/structs/BlackboardVariable.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_String_Moon_BehaviourSystem_BlackboardVariable_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_Moon_BehaviourSystem_BlackboardVariable_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_System_String_Moon_BehaviourSystem_BlackboardVariable_ * this_ptr, app::String* key))

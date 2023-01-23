@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Tile.h>
+#include <Modloader/app/structs/Sprite.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/TileFlags__Enum.h>
+#include <Modloader/app/structs/Tile_ColliderType__Enum.h>
+#include <Modloader/app/structs/Vector3Int.h>
+#include <Modloader/app/structs/ITilemap.h>
+#include <Modloader/app/structs/TileData.h>
 
 namespace app::classes::UnityEngine::Tilemaps::Tile {
     IL2CPP_REGISTER_METHOD(0x031BEEA0, void, ctor, (app::Tile * this_ptr))

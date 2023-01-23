@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScenesToSkip.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ScenesToSkip {
     IL2CPP_REGISTER_METHOD(0x010683F0, void, ctor_1, (app::ScenesToSkip * this_ptr))

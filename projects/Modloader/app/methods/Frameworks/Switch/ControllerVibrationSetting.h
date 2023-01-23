@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ControllerVibrationSetting__Boxed.h>
+#include <Modloader/app/structs/ControllerVibrationSetting.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::frameworks::Switch::ControllerVibrationSetting {
     IL2CPP_REGISTER_METHOD(0x001215B0, bool, Equals_1, (app::ControllerVibrationSetting__Boxed * this_ptr, app::ControllerVibrationSetting other))

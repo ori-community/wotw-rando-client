@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpitterEnemyStunnedState.h>
+#include <Modloader/app/structs/SpitterEnemy.h>
 
 namespace app::classes::SpitterEnemyStunnedState {
     IL2CPP_REGISTER_METHOD(0x00418FC0, float, get_StunnedTimeLeft, (app::SpitterEnemyStunnedState * this_ptr))

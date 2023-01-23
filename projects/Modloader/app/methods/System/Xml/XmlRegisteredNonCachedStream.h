@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlRegisteredNonCachedStream.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/XmlDownloadManager.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
 
 namespace app::classes::System::Xml::XmlRegisteredNonCachedStream {
     IL2CPP_REGISTER_METHOD(0x01706880, void, ctor, (app::XmlRegisteredNonCachedStream * this_ptr, app::Stream* stream, app::XmlDownloadManager* download_manager, app::String* host))

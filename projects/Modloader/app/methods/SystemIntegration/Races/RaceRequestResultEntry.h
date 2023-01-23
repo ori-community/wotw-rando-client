@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RaceRequestResultEntry.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::SystemIntegration::Races::RaceRequestResultEntry {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_DisplayName, (app::RaceRequestResultEntry * this_ptr))

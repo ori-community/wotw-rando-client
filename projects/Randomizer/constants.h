@@ -2,6 +2,8 @@
 
 #include <set>
 
+#include <Modloader/app/structs/AbilityType__Enum.h>
+
 const std::set<app::AbilityType__Enum> tree_abilities{
     app::AbilityType__Enum::Bash,
     app::AbilityType__Enum::DoubleJump,

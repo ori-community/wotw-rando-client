@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneTeleportDebugMenuItem.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 
 namespace app::classes::SceneTeleportDebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x002FB9C0, void, ctor_1, (app::SceneTeleportDebugMenuItem * this_ptr, app::String* path))

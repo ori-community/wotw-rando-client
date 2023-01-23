@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBossLocationZoneCageMetaData.h>
+#include <Modloader/app/structs/CageStructureTool_Face.h>
 
 namespace app::classes::SpiderBossLocationZoneCageMetaData {
     IL2CPP_REGISTER_METHOD(0x011B3F60, void, OnEnable, (app::SpiderBossLocationZoneCageMetaData * this_ptr))

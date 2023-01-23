@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TelemetryHeatMap.h>
 
 namespace app::classes::TelemetryHeatMap {
     IL2CPP_REGISTER_METHOD(0x00CE4AA0, void, Awake, (app::TelemetryHeatMap * this_ptr))

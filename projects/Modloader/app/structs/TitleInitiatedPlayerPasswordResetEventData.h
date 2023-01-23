@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TitleInitiatedPlayerPasswordResetEventData_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TitleInitiatedPlayerPasswordResetEventData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TitleInitiatedPlayerPasswordResetEventData_DEFINED)
+#include <Modloader/app/structs/TitleInitiatedPlayerPasswordResetEventData__Fields.h>
+#if defined(IL2CPP_STRUCT_TitleInitiatedPlayerPasswordResetEventData__Fields_DEFINED)
+#define IL2CPP_STRUCT_TitleInitiatedPlayerPasswordResetEventData_DEFINED
+struct TitleInitiatedPlayerPasswordResetEventData__Class;
+struct TitleInitiatedPlayerPasswordResetEventData {
+    struct TitleInitiatedPlayerPasswordResetEventData__Class* klass;
+    MonitorData* monitor;
+    struct TitleInitiatedPlayerPasswordResetEventData__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TitleInitiatedPlayerPasswordResetEventData_FWDDECL)
+#define IL2CPP_STRUCT_TitleInitiatedPlayerPasswordResetEventData_FWDDECL
+#include <Modloader/app/structs/TitleInitiatedPlayerPasswordResetEventData__Class.h>
+#endif
+#undef IL2CPP_STRUCT_TitleInitiatedPlayerPasswordResetEventData_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TitleInitiatedPlayerPasswordResetEventData_DEFINED) && !defined(IL2CPP_STRUCT_TitleInitiatedPlayerPasswordResetEventData_FWDDECL)
+#include <Modloader/app/structs/TitleInitiatedPlayerPasswordResetEventData.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TitleInitiatedPlayerPasswordResetEventData.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

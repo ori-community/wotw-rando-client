@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HSteamUser.h>
+#include <Modloader/app/structs/CSteamID.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CGameID.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EVoiceResult__Enum.h>
+#include <Modloader/app/structs/HAuthTicket.h>
+#include <Modloader/app/structs/EBeginAuthSessionResult__Enum.h>
+#include <Modloader/app/structs/EUserHasLicenseForAppResult__Enum.h>
+#include <Modloader/app/structs/AppId_t.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
 
 namespace app::classes::Steamworks::SteamUser {
     IL2CPP_REGISTER_METHOD(0x0279D8F0, app::HSteamUser, GetHSteamUser, ())

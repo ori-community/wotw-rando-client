@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Array_InternalEnumerator_1_SeinAbilityRestrictZone_LerpedHorizontalMovementSetting___Boxed.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedHorizontalMovementSetting.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Array_InternalEnumerator_1_SeinAbilityRestrictZone_LerpedHorizontalMovementSetting_ {
     IL2CPP_REGISTER_METHOD(0x00160580, void, ctor, (app::Array_InternalEnumerator_1_SeinAbilityRestrictZone_LerpedHorizontalMovementSetting___Boxed * this_ptr, app::Array* array))

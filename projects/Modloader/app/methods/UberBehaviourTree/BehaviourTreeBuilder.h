@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BehaviourTreeBuilder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IBehaviourState.h>
+#include <Modloader/app/structs/Func_2_UberBehaviourTree_TickData_UberBehaviourTree_BehaviourTreeStatus_.h>
+#include <Modloader/app/structs/Func_2_UberBehaviourTree_TickData_Boolean_.h>
+#include <Modloader/app/structs/IBehaviourTreeNode.h>
 
 namespace app::classes::UberBehaviourTree::BehaviourTreeBuilder {
     IL2CPP_REGISTER_METHOD(0x013E07F0, app::BehaviourTreeBuilder*, DoState, (app::BehaviourTreeBuilder * this_ptr, app::String* name, app::IBehaviourState* state))

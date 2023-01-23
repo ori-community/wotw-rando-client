@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WorldProgression__Enum__Class.h>
+#include <Modloader/app/structs/WorldProgression__Enum.h>
 
 namespace app::classes::types {
     namespace WorldProgression__Enum {

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/NickDeathReaction_DeathState__Enum__Class.h>
+#include <Modloader/app/structs/NickDeathReaction_DeathState__Enum.h>
 
 namespace app::classes::types {
     namespace NickDeathReaction_DeathState__Enum {

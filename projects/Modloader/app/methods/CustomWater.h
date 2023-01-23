@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CustomWater.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CustomWater {
     IL2CPP_REGISTER_METHOD(0x00DBB390, void, Start, (app::CustomWater * this_ptr))

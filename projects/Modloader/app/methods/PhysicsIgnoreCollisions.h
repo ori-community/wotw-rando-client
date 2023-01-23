@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicsIgnoreCollisions.h>
 
 namespace app::classes::PhysicsIgnoreCollisions {
     IL2CPP_REGISTER_METHOD(0x011525D0, void, OnEnable, (app::PhysicsIgnoreCollisions * this_ptr))

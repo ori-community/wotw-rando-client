@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlNamedNodeMap_SmallXmlNodeList__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Xml::XmlNamedNodeMap_SmallXmlNodeList {
     IL2CPP_REGISTER_METHOD(0x001CFBF0, int32_t, get_Count, (app::XmlNamedNodeMap_SmallXmlNodeList__Boxed * this_ptr))

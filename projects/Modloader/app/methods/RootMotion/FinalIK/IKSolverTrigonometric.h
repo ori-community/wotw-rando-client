@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IKSolverTrigonometric.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/IKSolver_Point__Array.h>
+#include <Modloader/app/structs/IKSolver_Point.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IKSolver_Bone__Array.h>
+#include <Modloader/app/structs/IKSolver_Bone.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolverTrigonometric {
     IL2CPP_REGISTER_METHOD(0x02C02BB0, void, SetBendGoalPosition, (app::IKSolverTrigonometric * this_ptr, app::Vector3 goal_position, float weight))

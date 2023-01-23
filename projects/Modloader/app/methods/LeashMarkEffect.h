@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeashMarkEffect.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/LeashMarkEffect_State__Enum.h>
 
 namespace app::classes::LeashMarkEffect {
     IL2CPP_REGISTER_METHOD(0x0049C020, bool, get_IsSuspended, (app::LeashMarkEffect * this_ptr))

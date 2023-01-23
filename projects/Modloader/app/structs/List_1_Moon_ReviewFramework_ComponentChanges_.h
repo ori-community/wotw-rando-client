@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_Moon_ReviewFramework_ComponentChanges__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_Moon_ReviewFramework_ComponentChanges__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_ReviewFramework_ComponentChanges__DEFINED)
+#include <Modloader/app/structs/List_1_Moon_ReviewFramework_ComponentChanges___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_Moon_ReviewFramework_ComponentChanges___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_Moon_ReviewFramework_ComponentChanges__DEFINED
+struct List_1_Moon_ReviewFramework_ComponentChanges___Class;
+struct List_1_Moon_ReviewFramework_ComponentChanges_ {
+    struct List_1_Moon_ReviewFramework_ComponentChanges___Class* klass;
+    MonitorData* monitor;
+    struct List_1_Moon_ReviewFramework_ComponentChanges___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_Moon_ReviewFramework_ComponentChanges__FWDDECL)
+#define IL2CPP_STRUCT_List_1_Moon_ReviewFramework_ComponentChanges__FWDDECL
+#include <Modloader/app/structs/List_1_Moon_ReviewFramework_ComponentChanges___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_Moon_ReviewFramework_ComponentChanges__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_Moon_ReviewFramework_ComponentChanges__DEFINED) && !defined(IL2CPP_STRUCT_List_1_Moon_ReviewFramework_ComponentChanges__FWDDECL)
+#include <Modloader/app/structs/List_1_Moon_ReviewFramework_ComponentChanges_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_Moon_ReviewFramework_ComponentChanges_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

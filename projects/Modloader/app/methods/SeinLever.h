@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinLever.h>
+#include <Modloader/app/structs/SeinLeverPuppet.h>
+#include <Modloader/app/structs/ILever.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SeinLever {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinLever * this_ptr))

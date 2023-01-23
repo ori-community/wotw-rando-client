@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/fsConfig__Class.h>
+#include <Modloader/app/structs/fsConfig.h>
+#include <Modloader/app/structs/fsConfig__Array.h>
 
 namespace app::classes::types {
     namespace fsConfig {

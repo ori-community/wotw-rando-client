@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture3D.h>
+#include <Modloader/app/structs/GraphicsFormat__Enum.h>
+#include <Modloader/app/structs/TextureCreationFlags__Enum.h>
+#include <Modloader/app/structs/TextureFormat__Enum.h>
+#include <Modloader/app/structs/Color__Array.h>
 
 namespace app::classes::UnityEngine::Texture3D {
     IL2CPP_REGISTER_METHOD(0x02C69E50, void, ctor_1, (app::Texture3D * this_ptr, int32_t width, int32_t height, int32_t depth, app::GraphicsFormat__Enum format, app::TextureCreationFlags__Enum flags))

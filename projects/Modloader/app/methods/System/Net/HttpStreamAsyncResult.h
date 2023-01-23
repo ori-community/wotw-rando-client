@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpStreamAsyncResult.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::System::Net::HttpStreamAsyncResult {
     IL2CPP_REGISTER_METHOD(0x01E59310, void, Complete_1, (app::HttpStreamAsyncResult * this_ptr, app::Exception* e))

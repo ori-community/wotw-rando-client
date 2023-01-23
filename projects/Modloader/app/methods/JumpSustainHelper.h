@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JumpSustainHelper.h>
 
 namespace app::classes::JumpSustainHelper {
     IL2CPP_REGISTER_METHOD(0x00E50E70, void, Awake, (app::JumpSustainHelper * this_ptr))

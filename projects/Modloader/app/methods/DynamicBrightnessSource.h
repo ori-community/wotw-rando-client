@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/DynamicBrightnessSource.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/GlobalBrightnessController_BrigthnessContributionOrder__Enum.h>
 
 namespace app::classes::DynamicBrightnessSource {
     IL2CPP_REGISTER_METHOD(0x00BE8F10, app::Vector2, get_CameraPosition, (app::DynamicBrightnessSource * this_ptr))

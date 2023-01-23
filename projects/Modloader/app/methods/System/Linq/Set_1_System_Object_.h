@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Set_1_System_Object_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Linq::Set_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x0254B120, void, ctor, (app::Set_1_System_Object_ * this_ptr, app::IEqualityComparer_1_System_Object_* comparer))

@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Internal_SubsystemDescriptors__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Internal_SubsystemDescriptors__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Internal_SubsystemDescriptors__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_Internal_SubsystemDescriptors__StaticFields_DEFINED
+struct List_1_UnityEngine_Experimental_ISubsystemDescriptorImpl_;
+struct List_1_UnityEngine_Experimental_ISubsystemDescriptor_;
+struct Internal_SubsystemDescriptors__StaticFields {
+    struct List_1_UnityEngine_Experimental_ISubsystemDescriptorImpl_* s_IntegratedSubsystemDescriptors;
+    struct List_1_UnityEngine_Experimental_ISubsystemDescriptor_* s_StandaloneSubsystemDescriptors;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Internal_SubsystemDescriptors__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_Internal_SubsystemDescriptors__StaticFields_FWDDECL
+#include <Modloader/app/structs/List_1_UnityEngine_Experimental_ISubsystemDescriptorImpl_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Experimental_ISubsystemDescriptor_.h>
+#endif
+#undef IL2CPP_STRUCT_Internal_SubsystemDescriptors__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Internal_SubsystemDescriptors__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_Internal_SubsystemDescriptors__StaticFields_FWDDECL)
+#include <Modloader/app/structs/Internal_SubsystemDescriptors__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Internal_SubsystemDescriptors__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

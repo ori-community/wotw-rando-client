@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JPropertyKeyedCollection.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/ICollection_1_System_String_.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JPropertyKeyedCollection {
     IL2CPP_REGISTER_METHOD(0x01F0EA40, void, ctor, (app::JPropertyKeyedCollection * this_ptr))

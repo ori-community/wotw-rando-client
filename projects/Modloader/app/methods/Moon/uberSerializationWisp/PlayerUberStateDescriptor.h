@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberID.h>
+#include <Modloader/app/structs/PlayerUberStateDescriptor.h>
+#include <Modloader/app/structs/IUberStateGroup.h>
+#include <Modloader/app/structs/PlayerUberState.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberStateArchive.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberStateHeader_UberStateType__Enum.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateDescriptor {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::UberID*, get_StateID, (app::PlayerUberStateDescriptor * this_ptr))

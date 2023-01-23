@@ -1,5 +1,35 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicDataResolver.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IMoonResolverContext.h>
+#include <Modloader/app/structs/MoonTypeExtraData.h>
+#include <Modloader/app/structs/IMoonType_1_System_Object_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Boolean_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Int32_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Single_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Int16_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Int64_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Double_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Matrix4x4_.h>
+#include <Modloader/app/structs/IMoonType_1_System_String_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Char_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Bounds_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Byte_.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Color32.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::Moon::DynamicDataResolver {
     IL2CPP_REGISTER_METHOD(0x02F8DF20, void, OnBeforeSerialize, (app::DynamicDataResolver * this_ptr))

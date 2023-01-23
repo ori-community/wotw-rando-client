@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBossFight1ClawSlamBehaviour.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::PetrifiedOwlBossFight1ClawSlamBehaviour {
     IL2CPP_REGISTER_METHOD(0x01765620, void, CopyData, (app::PetrifiedOwlBossFight1ClawSlamBehaviour * this_ptr, app::PetrifiedOwlBossBaseBehaviour* other))

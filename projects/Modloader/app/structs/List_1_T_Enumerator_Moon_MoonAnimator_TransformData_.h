@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_Moon_MoonAnimator_TransformData__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_MoonAnimator_TransformData__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_MoonAnimator_TransformData__DEFINED)
+#include <Modloader/app/structs/MoonAnimator_TransformData.h>
+#if defined(IL2CPP_STRUCT_MoonAnimator_TransformData_DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_MoonAnimator_TransformData__DEFINED
+struct List_1_Moon_MoonAnimator_TransformData_;
+struct List_1_T_Enumerator_Moon_MoonAnimator_TransformData_ {
+    struct List_1_Moon_MoonAnimator_TransformData_* list;
+    int32_t index;
+    int32_t version;
+    struct MoonAnimator_TransformData current;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_MoonAnimator_TransformData__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_Moon_MoonAnimator_TransformData__FWDDECL
+#include <Modloader/app/structs/List_1_Moon_MoonAnimator_TransformData_.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_Moon_MoonAnimator_TransformData__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_MoonAnimator_TransformData__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_Moon_MoonAnimator_TransformData__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_MoonAnimator_TransformData_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_MoonAnimator_TransformData_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

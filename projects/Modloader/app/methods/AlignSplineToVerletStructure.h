@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AlignSplineToVerletStructure.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::AlignSplineToVerletStructure {
     IL2CPP_REGISTER_METHOD(0x004F1E60, void, FindJoints, (app::AlignSplineToVerletStructure * this_ptr))

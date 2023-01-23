@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MoonReference_1_Moon_BehaviourSystem_ITask__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MoonReference_1_Moon_BehaviourSystem_ITask__INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonReference_1_Moon_BehaviourSystem_ITask__DEFINED)
+#include <Modloader/app/structs/MoonReference_1_Moon_BehaviourSystem_ITask___Fields.h>
+#if defined(IL2CPP_STRUCT_MoonReference_1_Moon_BehaviourSystem_ITask___Fields_DEFINED)
+#define IL2CPP_STRUCT_MoonReference_1_Moon_BehaviourSystem_ITask__DEFINED
+struct MoonReference_1_Moon_BehaviourSystem_ITask___Class;
+struct MoonReference_1_Moon_BehaviourSystem_ITask_ {
+    struct MoonReference_1_Moon_BehaviourSystem_ITask___Class* klass;
+    MonitorData* monitor;
+    struct MoonReference_1_Moon_BehaviourSystem_ITask___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_MoonReference_1_Moon_BehaviourSystem_ITask__FWDDECL)
+#define IL2CPP_STRUCT_MoonReference_1_Moon_BehaviourSystem_ITask__FWDDECL
+#include <Modloader/app/structs/MoonReference_1_Moon_BehaviourSystem_ITask___Class.h>
+#endif
+#undef IL2CPP_STRUCT_MoonReference_1_Moon_BehaviourSystem_ITask__INITIALIZING
+#if !defined(IL2CPP_STRUCT_MoonReference_1_Moon_BehaviourSystem_ITask__DEFINED) && !defined(IL2CPP_STRUCT_MoonReference_1_Moon_BehaviourSystem_ITask__FWDDECL)
+#include <Modloader/app/structs/MoonReference_1_Moon_BehaviourSystem_ITask_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MoonReference_1_Moon_BehaviourSystem_ITask_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

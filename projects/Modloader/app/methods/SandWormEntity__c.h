@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormEntity_c.h>
 
 namespace app::classes::SandWormEntity___c {
     IL2CPP_REGISTER_METHOD(0x00C1A720, void, cctor, ())

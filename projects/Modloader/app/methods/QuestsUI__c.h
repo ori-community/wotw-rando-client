@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QuestsUI_c.h>
 
 namespace app::classes::QuestsUI___c {
     IL2CPP_REGISTER_METHOD(0x00E96DA0, void, cctor, ())

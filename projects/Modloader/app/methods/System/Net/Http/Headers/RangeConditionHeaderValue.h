@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RangeConditionHeaderValue.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/EntityTagHeaderValue.h>
+#include <Modloader/app/structs/Nullable_1_DateTimeOffset_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::Http::Headers::RangeConditionHeaderValue {
     IL2CPP_REGISTER_METHOD(0x02D14520, void, ctor_1, (app::RangeConditionHeaderValue * this_ptr, app::DateTimeOffset date))

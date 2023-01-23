@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TlsClientCertificate_1.h>
+#include <Modloader/app/structs/Context_1.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::Handshake::Client::TlsClientCertificate {
     IL2CPP_REGISTER_METHOD(0x01F6A2D0, void, ctor, (app::TlsClientCertificate_1 * this_ptr, app::Context_1* context))

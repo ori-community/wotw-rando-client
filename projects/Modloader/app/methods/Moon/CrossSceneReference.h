@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CrossSceneReferenceId.h>
+#include <Modloader/app/structs/Object_1.h>
 
 namespace app::classes::Moon::CrossSceneReference {
     IL2CPP_REGISTER_METHOD(0x031BA200, void, AddCrossSceneObject, (app::CrossSceneReferenceId reference_id, app::Object_1* cross_scene_object))

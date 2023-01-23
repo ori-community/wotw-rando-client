@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiritShardDescription.h>
+#include <Modloader/app/structs/EnumDictionary_2_SpiritShardType_SpiritShardDescription_.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
 
 namespace app::classes::EnumDictionary_2_SpiritShardType_SpiritShardDescription_ {
     IL2CPP_REGISTER_METHOD(0x019E3FA0, app::SpiritShardDescription*, GetValue, (app::EnumDictionary_2_SpiritShardType_SpiritShardDescription_ * this_ptr, app::SpiritShardType__Enum key))

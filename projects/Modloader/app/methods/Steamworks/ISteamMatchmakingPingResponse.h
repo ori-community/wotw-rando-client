@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ISteamMatchmakingPingResponse.h>
+#include <Modloader/app/structs/ISteamMatchmakingPingResponse_ServerResponded.h>
+#include <Modloader/app/structs/ISteamMatchmakingPingResponse_ServerFailedToRespond.h>
+#include <Modloader/app/structs/gameserveritem_t.h>
 
 namespace app::classes::Steamworks::ISteamMatchmakingPingResponse {
     IL2CPP_REGISTER_METHOD(0x015FBE40, void, ctor, (app::ISteamMatchmakingPingResponse * this_ptr, app::ISteamMatchmakingPingResponse_ServerResponded* on_server_responded, app::ISteamMatchmakingPingResponse_ServerFailedToRespond* on_server_failed_to_respond))

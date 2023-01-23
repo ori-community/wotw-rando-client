@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SandWormPatrolBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SandWormPatrolBehaviour {
     IL2CPP_REGISTER_METHOD(0x00413160, bool, get_IsWaterWorm, (app::SandWormPatrolBehaviour * this_ptr))

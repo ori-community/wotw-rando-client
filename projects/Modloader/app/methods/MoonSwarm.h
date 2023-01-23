@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonSwarm.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/MoonSwarmer.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::MoonSwarm {
     IL2CPP_REGISTER_METHOD(0x00CA25B0, bool, get_IsSuspended, (app::MoonSwarm * this_ptr))

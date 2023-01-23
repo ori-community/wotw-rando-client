@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/MemberTypes__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Delegate.h>
 
 namespace app::classes::System::Reflection::MethodInfo {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MethodInfo_1 * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_uberSerializationWisp_PlayerStateMap_Mapping_.h>
+#include <Modloader/app/structs/PlayerStateMap_Mapping.h>
+#include <Modloader/app/structs/PlayerStateMap_Mapping__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_Moon_uberSerializationWisp_PlayerStateMap_Mapping_ {
     IL2CPP_REGISTER_METHOD(0x01CD3170, bool, Equals_1, (app::ObjectEqualityComparer_1_Moon_uberSerializationWisp_PlayerStateMap_Mapping_ * this_ptr, app::PlayerStateMap_Mapping x, app::PlayerStateMap_Mapping y))

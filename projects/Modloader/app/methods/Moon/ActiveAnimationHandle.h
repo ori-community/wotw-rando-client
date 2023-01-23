@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ActiveAnimationHandle__Boxed.h>
+#include <Modloader/app/structs/IActiveAnimation.h>
+#include <Modloader/app/structs/IAnimation.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Nullable_1_Single_.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::ActiveAnimationHandle {
     IL2CPP_REGISTER_METHOD(0x001B48E0, void, ctor, (app::ActiveAnimationHandle__Boxed * this_ptr, app::IActiveAnimation* active_animation))

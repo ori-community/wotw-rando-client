@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TentacleEnemy_Joint.h>
+#include <Modloader/app/structs/TentacleEnemy.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/TentacleEnemy_WiggleData.h>
+#include <Modloader/app/structs/BehaviourTreeStatus__Enum.h>
+#include <Modloader/app/structs/TickData.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::TentacleEnemy {
     IL2CPP_REGISTER_METHOD(0x00CEF030, app::TentacleEnemy_Joint*, get_HeadJoint, (app::TentacleEnemy * this_ptr))

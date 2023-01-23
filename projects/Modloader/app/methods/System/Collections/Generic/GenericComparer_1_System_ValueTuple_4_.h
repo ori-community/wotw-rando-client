@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericComparer_1_System_ValueTuple_4_.h>
+#include <Modloader/app/structs/ValueTuple_4_Object_Int32_Int32_Single_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::GenericComparer_1_System_ValueTuple_4_ {
     IL2CPP_REGISTER_METHOD(0x02AB2250, int32_t, Compare, (app::GenericComparer_1_System_ValueTuple_4_ * this_ptr, app::ValueTuple_4_Object_Int32_Int32_Single_ x, app::ValueTuple_4_Object_Int32_Int32_Single_ y))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnalogueInputData.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/RecorderFrame_FrameDataTypes__Enum.h>
 
 namespace app::classes::AnalogueInputData {
     IL2CPP_REGISTER_METHOD(0x004F9CE0, void, Initialize, (app::AnalogueInputData * this_ptr))

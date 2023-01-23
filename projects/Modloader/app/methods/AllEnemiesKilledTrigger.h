@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AllEnemiesKilledTrigger.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::AllEnemiesKilledTrigger {
     IL2CPP_REGISTER_METHOD(0x004F2830, void, OnValidate, (app::AllEnemiesKilledTrigger * this_ptr))

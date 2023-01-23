@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_System_Byte__1.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Byte__1.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Byte___ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_System_Byte__1 * this_ptr, int32_t capacity))

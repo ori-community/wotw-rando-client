@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HierarchySuspensionTest.h>
+#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
+#include <Modloader/app/structs/HierarchySuspensionTest_State__Enum.h>
 
 namespace app::classes::HierarchySuspensionTest {
     IL2CPP_REGISTER_METHOD(0x00B54420, void, Scan, (app::HierarchySuspensionTest * this_ptr, app::HierarchyDebugMenu_GameObjectItem* item))

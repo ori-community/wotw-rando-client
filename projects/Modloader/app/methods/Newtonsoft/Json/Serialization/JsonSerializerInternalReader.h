@@ -1,5 +1,31 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JsonSerializerInternalReader.h>
+#include <Modloader/app/structs/JsonSerializer.h>
+#include <Modloader/app/structs/JsonContract.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/JsonSerializerProxy.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/JsonProperty.h>
+#include <Modloader/app/structs/JsonContainerContract.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/JsonConverter.h>
+#include <Modloader/app/structs/JTokenReader.h>
+#include <Modloader/app/structs/JsonArrayContract.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/DefaultValueHandling__Enum.h>
+#include <Modloader/app/structs/JsonObjectContract.h>
+#include <Modloader/app/structs/IList.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/JsonDictionaryContract.h>
+#include <Modloader/app/structs/JsonISerializableContract.h>
+#include <Modloader/app/structs/JsonDynamicContract.h>
+#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_Serialization_JsonSerializerInternalReader_CreatorPropertyContext_.h>
+#include <Modloader/app/structs/JsonSerializerInternalReader_PropertyPresence__Enum.h>
+#include <Modloader/app/structs/Dictionary_2_Newtonsoft_Json_Serialization_JsonProperty_Newtonsoft_Json_Serialization_JsonSerializerInternalReader_PropertyPresence_.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonSerializerInternalReader {
     IL2CPP_REGISTER_METHOD(0x018748F0, void, ctor, (app::JsonSerializerInternalReader * this_ptr, app::JsonSerializer* serializer))

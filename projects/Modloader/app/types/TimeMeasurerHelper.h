@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TimeMeasurerHelper__Class.h>
+#include <Modloader/app/structs/TimeMeasurerHelper.h>
 
 namespace app::classes::types {
     namespace TimeMeasurerHelper {

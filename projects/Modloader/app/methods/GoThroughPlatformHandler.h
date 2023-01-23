@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GoThroughPlatformHandler.h>
 
 namespace app::classes::GoThroughPlatformHandler {
     IL2CPP_REGISTER_METHOD(0x007FC330, void, ProvideComponent, (app::GoThroughPlatformHandler * this_ptr))

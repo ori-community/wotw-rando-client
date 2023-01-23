@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SteamLeaderboard_t__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SteamLeaderboard_t.h>
 
 namespace app::classes::Steamworks::SteamLeaderboard_t {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::SteamLeaderboard_t__Boxed * this_ptr, uint64_t value))

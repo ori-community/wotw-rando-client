@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReflectionTypeLoadException.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Exception__Array.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Reflection::ReflectionTypeLoadException {
     IL2CPP_REGISTER_METHOD(0x02695FF0, void, ctor_1, (app::ReflectionTypeLoadException * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SafeWaitHandle.h>
 
 namespace app::classes::System::Threading::NativeEventCalls {
     IL2CPP_REGISTER_METHOD(0x027E1250, void*, CreateEvent_internal, (bool manual, bool initial, app::String* name, int32_t* error_code))

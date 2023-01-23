@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TerrainTracer.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::TerrainTracer {
     IL2CPP_REGISTER_METHOD(0x010D85E0, void, Init, (app::TerrainTracer * this_ptr, app::PlatformMovement* plataform_movement, app::Transform* origin))

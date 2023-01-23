@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Mirror.h>
 
 namespace app::classes::RootMotion::Demos::Mirror {
     IL2CPP_REGISTER_METHOD(0x02227160, void, Start, (app::Mirror * this_ptr))

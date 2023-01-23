@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Resources_ResourceLocator_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ResourceLocator.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_String_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_String_System_Resources_ResourceLocator_ {
     IL2CPP_REGISTER_METHOD(0x02BC76A0, bool, TryGetValue, (app::Dictionary_2_System_String_System_Resources_ResourceLocator_ * this_ptr, app::String* key, app::ResourceLocator* value))

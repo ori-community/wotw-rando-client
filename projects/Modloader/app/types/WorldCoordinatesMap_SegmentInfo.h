@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WorldCoordinatesMap_SegmentInfo__Class.h>
+#include <Modloader/app/structs/WorldCoordinatesMap_SegmentInfo.h>
+#include <Modloader/app/structs/WorldCoordinatesMap_SegmentInfo__Array.h>
 
 namespace app::classes::types {
     namespace WorldCoordinatesMap_SegmentInfo {

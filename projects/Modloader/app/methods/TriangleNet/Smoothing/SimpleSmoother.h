@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleSmoother.h>
+#include <Modloader/app/structs/IVoronoiFactory.h>
+#include <Modloader/app/structs/Configuration_1.h>
+#include <Modloader/app/structs/IMesh.h>
+#include <Modloader/app/structs/Mesh_1.h>
+#include <Modloader/app/structs/IPredicates.h>
+#include <Modloader/app/structs/Face.h>
+#include <Modloader/app/structs/Polygon.h>
+#include <Modloader/app/structs/TrianglePool.h>
 
 namespace app::classes::TriangleNet::Smoothing::SimpleSmoother {
     IL2CPP_REGISTER_METHOD(0x02A91950, void, ctor_1, (app::SimpleSmoother * this_ptr))

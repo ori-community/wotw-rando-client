@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SecurityException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Security::SecurityException {
     IL2CPP_REGISTER_METHOD(0x01E219C0, void, ctor_1, (app::SecurityException * this_ptr))

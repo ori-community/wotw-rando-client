@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_DistortionAnimator_RendererData_Property_.h>
+#include <Modloader/app/structs/DistortionAnimator_RendererData_Property.h>
+#include <Modloader/app/structs/DistortionAnimator_RendererData_Property__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_DistortionAnimator_RendererData_Property_ {
     IL2CPP_REGISTER_METHOD(0x01CD2040, bool, Equals_1, (app::ObjectEqualityComparer_1_DistortionAnimator_RendererData_Property_ * this_ptr, app::DistortionAnimator_RendererData_Property x, app::DistortionAnimator_RendererData_Property y))

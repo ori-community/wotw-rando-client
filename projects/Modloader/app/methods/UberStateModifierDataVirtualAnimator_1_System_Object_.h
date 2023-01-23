@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimatorPlayState__Enum.h>
+#include <Modloader/app/structs/UberStateModifierDataVirtualAnimator_1_System_Object_.h>
+#include <Modloader/app/structs/PlaybackStatus.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NewSetupStateController.h>
+#include <Modloader/app/structs/SetupControllerStateHolder.h>
+#include <Modloader/app/structs/SetupStateModifier.h>
+#include <Modloader/app/structs/SetupStateModifierData.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IEventReciever.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UberStateModifierDataVirtualAnimator_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::AnimatorPlayState__Enum, get_PlayState, (app::UberStateModifierDataVirtualAnimator_1_System_Object_ * this_ptr))

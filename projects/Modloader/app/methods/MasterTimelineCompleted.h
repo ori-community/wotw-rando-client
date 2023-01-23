@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MasterTimelineCompleted.h>
 
 namespace app::classes::MasterTimelineCompleted {
     IL2CPP_REGISTER_METHOD(0x00A11820, void, FixedUpdate, (app::MasterTimelineCompleted * this_ptr))

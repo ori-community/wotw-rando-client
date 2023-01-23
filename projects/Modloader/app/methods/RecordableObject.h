@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecordableObjectPuppet.h>
+#include <Modloader/app/structs/RecordableObject.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::RecordableObject {
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::RecordableObjectPuppet*, get_Puppet, (app::RecordableObject * this_ptr))

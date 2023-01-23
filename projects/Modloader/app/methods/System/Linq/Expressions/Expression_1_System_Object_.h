@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Expression_1_System_Object_.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ParameterExpression__Array.h>
+#include <Modloader/app/structs/ExpressionVisitor.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02544990, app::Type*, get_TypeCore, (app::Expression_1_System_Object_ * this_ptr))

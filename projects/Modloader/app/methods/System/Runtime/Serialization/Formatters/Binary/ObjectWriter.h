@@ -1,5 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectWriter.h>
+#include <Modloader/app/structs/ISurrogateSelector.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/InternalFE.h>
+#include <Modloader/app/structs/SerializationBinder.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Header__Array.h>
+#include <Modloader/app/structs/_BinaryWriter.h>
+#include <Modloader/app/structs/SerializationObjectManager.h>
+#include <Modloader/app/structs/WriteObjectInfo.h>
+#include <Modloader/app/structs/NameInfo.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/WriteObjectInfo__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/InternalPrimitiveTypeE__Enum.h>
+#include <Modloader/app/structs/FormatterTypeStyle__Enum.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::ObjectWriter {
     IL2CPP_REGISTER_METHOD(0x01D9A180, void, ctor, (app::ObjectWriter * this_ptr, app::ISurrogateSelector* selector, app::StreamingContext context, app::InternalFE* formatter_enums, app::SerializationBinder* binder))

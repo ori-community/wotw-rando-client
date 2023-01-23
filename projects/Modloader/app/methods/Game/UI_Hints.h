@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/HintLayer__Enum.h>
+#include <Modloader/app/structs/MessageBox.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/ManagedHintConfiguration.h>
 
 namespace app::classes::Game::UI_Hints {
     IL2CPP_REGISTER_METHOD(0x00686040, void, ResetStatics, ())

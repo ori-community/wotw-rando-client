@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiritLeashHook.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SpiritLeashMode__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CameraTargetType__Enum.h>
+#include <Modloader/app/structs/CameraTargetData.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
 
 namespace app::classes::SpiritLeashHook {
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, get_Activated, (app::SpiritLeashHook * this_ptr))

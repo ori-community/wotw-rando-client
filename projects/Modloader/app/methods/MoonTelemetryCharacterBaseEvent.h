@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Reflection_FieldInfo_.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/JsonBuilder_Object.h>
 
 namespace app::classes::MoonTelemetryCharacterBaseEvent {
     IL2CPP_REGISTER_METHOD(0x01288790, app::Vector2, get_Position, (app::MoonTelemetryCharacterBaseEvent * this_ptr))

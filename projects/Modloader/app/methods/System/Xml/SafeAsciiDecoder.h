@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SafeAsciiDecoder.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::SafeAsciiDecoder {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SafeAsciiDecoder * this_ptr))

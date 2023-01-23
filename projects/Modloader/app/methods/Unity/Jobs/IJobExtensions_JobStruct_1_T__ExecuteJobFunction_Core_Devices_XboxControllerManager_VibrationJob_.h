@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IJobExtensions_JobStruct_1_T_ExecuteJobFunction_Core_Devices_XboxControllerManager_VibrationJob_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XboxControllerManager_VibrationJob.h>
+#include <Modloader/app/structs/JobRanges.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Unity::Jobs::IJobExtensions_JobStruct_1_T__ExecuteJobFunction_Core_Devices_XboxControllerManager_VibrationJob_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IJobExtensions_JobStruct_1_T_ExecuteJobFunction_Core_Devices_XboxControllerManager_VibrationJob_ * this_ptr, app::Object* object, void* method_1))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_frameworks_Switch_Button_System_String_.h>
+#include <Modloader/app/structs/Button__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_frameworks_Switch_Button_System_String_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_frameworks_Switch_Button_System_String_ * this_ptr, app::Button__Enum key))

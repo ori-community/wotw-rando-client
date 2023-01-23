@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MemberTypes__Enum.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/NotImplementedException.h>
+#include <Modloader/app/structs/RuntimePropertyHandle.h>
+#include <Modloader/app/structs/RuntimeTypeHandle.h>
 
 namespace app::classes::System::Reflection::PropertyInfo {
     IL2CPP_REGISTER_METHOD(0x007E3F10, app::MemberTypes__Enum, get_MemberType, (app::PropertyInfo_1 * this_ptr))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/QueryOutputWriter.h>
+#include <Modloader/app/structs/XmlRawWriter.h>
+#include <Modloader/app/structs/XmlWriterSettings.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/XmlStandalone__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::QueryOutputWriter {
     IL2CPP_REGISTER_METHOD(0x0199E650, void, ctor, (app::QueryOutputWriter * this_ptr, app::XmlRawWriter* writer, app::XmlWriterSettings* settings))

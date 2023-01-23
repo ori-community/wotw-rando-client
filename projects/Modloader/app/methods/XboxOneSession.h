@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/XboxOneSession.h>
 
 namespace app::classes::XboxOneSession {
     IL2CPP_REGISTER_METHOD(0x01C5AF60, app::Action*, get_OnSessionStarted, ())

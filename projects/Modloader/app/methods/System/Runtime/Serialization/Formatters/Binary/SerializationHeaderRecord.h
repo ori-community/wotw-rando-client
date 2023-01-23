@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SerializationHeaderRecord.h>
+#include <Modloader/app/structs/BinaryHeaderEnum__Enum.h>
+#include <Modloader/app/structs/_BinaryWriter.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/_BinaryParser.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::SerializationHeaderRecord {
     IL2CPP_REGISTER_METHOD(0x00D34AF0, void, ctor_1, (app::SerializationHeaderRecord * this_ptr))

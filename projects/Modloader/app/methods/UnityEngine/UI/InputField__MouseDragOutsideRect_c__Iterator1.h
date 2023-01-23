@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InputField_MouseDragOutsideRect_c_Iterator1.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::UI::InputField__MouseDragOutsideRect_c__Iterator1 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::InputField_MouseDragOutsideRect_c_Iterator1 * this_ptr))

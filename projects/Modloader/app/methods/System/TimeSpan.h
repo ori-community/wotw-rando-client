@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeSpan__Boxed.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IFormatProvider.h>
 
 namespace app::classes::System::TimeSpan {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor_1, (app::TimeSpan__Boxed * this_ptr, int64_t ticks))

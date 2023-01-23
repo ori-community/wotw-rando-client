@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/UpdateHandle.h>
+#include <Modloader/app/structs/Action_1_Single_.h>
 
 namespace app::classes::Moon::UpdateHandle {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::UpdateType__Enum, get_UpdateType, (app::UpdateHandle * this_ptr))

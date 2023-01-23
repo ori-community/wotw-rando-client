@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExceptionsDebugText.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LogType__Enum.h>
 
 namespace app::classes::ExceptionsDebugText {
     IL2CPP_REGISTER_METHOD(0x009836C0, void, EnsureImguiRegistered, (app::ExceptionsDebugText * this_ptr, bool registered))

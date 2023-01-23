@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/BuilderEntity.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ICharacter.h>
 
 namespace app::classes::BuilderEntity {
     IL2CPP_REGISTER_METHOD(0x00816030, app::ITimelineEntity*, get_CurrentProject, (app::BuilderEntity * this_ptr))

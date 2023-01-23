@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShoulderRotator.h>
+#include <Modloader/app/structs/FullBodyBipedChain__Enum.h>
+#include <Modloader/app/structs/IKMapping_BoneMap.h>
 
 namespace app::classes::RootMotion::FinalIK::ShoulderRotator {
     IL2CPP_REGISTER_METHOD(0x02A26CD0, void, Start, (app::ShoulderRotator * this_ptr))

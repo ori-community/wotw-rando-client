@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SolverManager.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::SolverManager {
     IL2CPP_REGISTER_METHOD(0x02A2D7E0, void, Disable, (app::SolverManager * this_ptr))

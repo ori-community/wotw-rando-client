@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberShaderVector_ScalingMode__Enum__Class.h>
+#include <Modloader/app/structs/UberShaderVector_ScalingMode__Enum.h>
 
 namespace app::classes::types {
     namespace UberShaderVector_ScalingMode__Enum {

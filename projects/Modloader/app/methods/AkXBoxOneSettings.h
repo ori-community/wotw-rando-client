@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AkXBoxOneSettings.h>
+#include <Modloader/app/structs/AkCommonUserSettings.h>
+#include <Modloader/app/structs/AkCommonAdvancedSettings.h>
+#include <Modloader/app/structs/AkCommonCommSettings.h>
 
 namespace app::classes::AkXBoxOneSettings {
     IL2CPP_REGISTER_METHOD(0x027084F0, void, ctor, (app::AkXBoxOneSettings * this_ptr))

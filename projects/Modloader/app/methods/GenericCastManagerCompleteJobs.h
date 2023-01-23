@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericCastManagerCompleteJobs.h>
 
 namespace app::classes::GenericCastManagerCompleteJobs {
     IL2CPP_REGISTER_METHOD(0x00E05DE0, void, FixedUpdate, (app::GenericCastManagerCompleteJobs * this_ptr))

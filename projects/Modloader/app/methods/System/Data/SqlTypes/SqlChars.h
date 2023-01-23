@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SqlChars.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/SqlString.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Data::SqlTypes::SqlChars {
     IL2CPP_REGISTER_METHOD(0x01E518F0, void, ctor_1, (app::SqlChars * this_ptr))

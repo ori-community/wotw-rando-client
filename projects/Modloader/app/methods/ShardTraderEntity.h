@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ShardTraderEntity.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/ICharacter.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::ShardTraderEntity {
     IL2CPP_REGISTER_METHOD(0x005AC370, app::String*, get_DialogActorName, (app::ShardTraderEntity * this_ptr))

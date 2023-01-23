@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataRelationCollection_DataTableRelationCollection.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/DataRelation.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CollectionChangeEventHandler.h>
 
 namespace app::classes::System::Data::DataRelationCollection_DataTableRelationCollection {
     IL2CPP_REGISTER_METHOD(0x023A8560, void, ctor, (app::DataRelationCollection_DataTableRelationCollection * this_ptr, app::DataTable* table, bool f_parent_collection))

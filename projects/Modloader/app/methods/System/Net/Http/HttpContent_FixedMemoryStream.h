@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpContent_FixedMemoryStream.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Net::Http::HttpContent_FixedMemoryStream {
     IL2CPP_REGISTER_METHOD(0x02D1B5E0, void, CheckOverflow, (app::HttpContent_FixedMemoryStream * this_ptr, int32_t count))

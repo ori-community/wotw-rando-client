@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneScreenshotExporter.h>
+#include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::SceneScreenshotExporter {
     IL2CPP_REGISTER_METHOD(0x00BBA740, void, OnDrawGizmosSelected, (app::SceneScreenshotExporter * this_ptr))

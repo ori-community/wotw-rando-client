@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExplainUnzip_c.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::ExplainUnzip___c {
     IL2CPP_REGISTER_METHOD(0x01DD9ED0, void, cctor, ())

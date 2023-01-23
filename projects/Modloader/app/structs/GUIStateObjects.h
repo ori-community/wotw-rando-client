@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GUIStateObjects_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GUIStateObjects_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GUIStateObjects_DEFINED)
+#define IL2CPP_STRUCT_GUIStateObjects_DEFINED
+struct GUIStateObjects__Class;
+struct GUIStateObjects {
+    struct GUIStateObjects__Class* klass;
+    MonitorData* monitor;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_GUIStateObjects_FWDDECL)
+#define IL2CPP_STRUCT_GUIStateObjects_FWDDECL
+#include <Modloader/app/structs/GUIStateObjects__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GUIStateObjects_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GUIStateObjects_DEFINED) && !defined(IL2CPP_STRUCT_GUIStateObjects_FWDDECL)
+#include <Modloader/app/structs/GUIStateObjects.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GUIStateObjects.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

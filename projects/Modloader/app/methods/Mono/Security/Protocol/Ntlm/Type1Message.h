@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type1Message.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Mono::Security::Protocol::Ntlm::Type1Message {
     IL2CPP_REGISTER_METHOD(0x02A4B920, void, ctor, (app::Type1Message * this_ptr))

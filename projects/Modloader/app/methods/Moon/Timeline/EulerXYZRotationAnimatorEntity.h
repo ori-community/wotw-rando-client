@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/EulerXYZRotationAnimatorEntity.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_Transform_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/SetupStateModifierDataType__Enum.h>
+#include <Modloader/app/structs/SetupControllerStateHolder.h>
+#include <Modloader/app/structs/SetupStateModifier.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::Moon::Timeline::EulerXYZRotationAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x01BB8900, app::Transform*, get_TransformTarget, (app::EulerXYZRotationAnimatorEntity * this_ptr))

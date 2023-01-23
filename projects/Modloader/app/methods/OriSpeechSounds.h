@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OriSpeechSounds.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/OriSpeechSounds_EmotionSounds.h>
+#include <Modloader/app/structs/EmotionType__Enum.h>
 
 namespace app::classes::OriSpeechSounds {
     IL2CPP_REGISTER_METHOD(0x00440050, void, Awake, (app::OriSpeechSounds * this_ptr))

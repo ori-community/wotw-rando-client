@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IComboMoveProvider.h>
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMoveProvider_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_ComboSystem_IComboMoveProvider_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::IComboMoveProvider*, get_Item, (app::List_1_Moon_ComboSystem_IComboMoveProvider_ * this_ptr, int32_t index))

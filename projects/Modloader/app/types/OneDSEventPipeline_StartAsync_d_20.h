@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/OneDSEventPipeline_StartAsync_d_20__Class.h>
+#include <Modloader/app/structs/OneDSEventPipeline_StartAsync_d_20.h>
+#include <Modloader/app/structs/OneDSEventPipeline_StartAsync_d_20__Boxed.h>
 
 namespace app::classes::types {
     namespace OneDSEventPipeline_StartAsync_d_20 {

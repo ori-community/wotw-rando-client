@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Component_1.h>
 
 namespace app::classes::Moon::TransformExtensions {
     IL2CPP_REGISTER_METHOD(0x031B5CF0, app::String*, fullName_1, (app::Transform * _this))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterPlugin.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/RecorderData.h>
 
 namespace app::classes::CharacterPlugin {
     IL2CPP_REGISTER_METHOD(0x013139C0, void, Awake, (app::CharacterPlugin * this_ptr))

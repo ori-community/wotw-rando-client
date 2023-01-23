@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SepiaTone.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::SepiaTone {
     IL2CPP_REGISTER_METHOD(0x02D62DA0, void, OnRenderImage, (app::SepiaTone * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

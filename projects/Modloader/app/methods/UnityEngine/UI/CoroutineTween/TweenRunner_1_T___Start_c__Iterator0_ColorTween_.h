@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TweenRunner_1_T_Start_c_Iterator0_ColorTween_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::UI::CoroutineTween::TweenRunner_1_T___Start_c__Iterator0_ColorTween_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::TweenRunner_1_T_Start_c_Iterator0_ColorTween_ * this_ptr))

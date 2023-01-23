@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_BaseAnimator_LegacyTimelineSequence_SequenceEntry__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_BaseAnimator_LegacyTimelineSequence_SequenceEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_BaseAnimator_LegacyTimelineSequence_SequenceEntry__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_BaseAnimator_LegacyTimelineSequence_SequenceEntry__DEFINED
+struct BaseAnimator;
+struct LegacyTimelineSequence_SequenceEntry;
+struct Dictionary_2_TKey_TValue_Entry_BaseAnimator_LegacyTimelineSequence_SequenceEntry_ {
+    int32_t hashCode;
+    int32_t next;
+    struct BaseAnimator* key;
+    struct LegacyTimelineSequence_SequenceEntry* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_BaseAnimator_LegacyTimelineSequence_SequenceEntry__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_BaseAnimator_LegacyTimelineSequence_SequenceEntry__FWDDECL
+#include <Modloader/app/structs/BaseAnimator.h>
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_BaseAnimator_LegacyTimelineSequence_SequenceEntry__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_BaseAnimator_LegacyTimelineSequence_SequenceEntry__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_BaseAnimator_LegacyTimelineSequence_SequenceEntry__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_BaseAnimator_LegacyTimelineSequence_SequenceEntry_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_BaseAnimator_LegacyTimelineSequence_SequenceEntry_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

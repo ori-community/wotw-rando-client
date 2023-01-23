@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/ChainLevelAndCount.h>
+#include <Modloader/app/structs/ChainLevelAndCount__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_Motvin_Collections_ChainLevelAndCount_ {
     IL2CPP_REGISTER_METHOD(0x01CD1020, bool, Equals_1, (app::ObjectEqualityComparer_1_Motvin_Collections_ChainLevelAndCount_ * this_ptr, app::ChainLevelAndCount x, app::ChainLevelAndCount y))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValueTuple_4_String_Int32_Int32_Single_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_4___Boxed.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_4__1__Boxed.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_4__1.h>
+#include <Modloader/app/structs/ValueTuple_4_Object_Int32_Int32_Single_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_System_ValueTuple_4_ {
     IL2CPP_REGISTER_METHOD(0x00133A80, app::ValueTuple_4_String_Int32_Int32_Single_, get_Current_1, (app::List_1_T_Enumerator_System_ValueTuple_4___Boxed * this_ptr))

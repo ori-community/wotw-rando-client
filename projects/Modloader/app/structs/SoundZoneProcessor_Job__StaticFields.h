@@ -1,0 +1,47 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SoundZoneProcessor_Job__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SoundZoneProcessor_Job__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SoundZoneProcessor_Job__StaticFields_DEFINED)
+#include <Modloader/app/structs/JobHandle.h>
+#if defined(IL2CPP_STRUCT_JobHandle_DEFINED)
+#define IL2CPP_STRUCT_SoundZoneProcessor_Job__StaticFields_DEFINED
+struct PositionSyncTask__Array__Array;
+struct Int32__Array;
+struct ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array__Array;
+struct ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array__Array;
+struct List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array;
+struct SoundZoneProcessor_Job__StaticFields {
+    struct PositionSyncTask__Array__Array* m_positionSyncTasks;
+    struct Int32__Array* m_positionSyncTaskCounts;
+    struct ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array__Array* m_listenerZoneTasks;
+    struct Int32__Array* m_listenerZoneTaskCounts;
+    struct ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array__Array* m_emitterZoneTasks;
+    struct Int32__Array* m_emitterZoneTaskCounts;
+    struct List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array* m_events;
+    struct JobHandle m_lastJobHandle;
+    int32_t m_currentReadIndex;
+    int32_t m_currentWriteIndex;
+    bool m_executedOnce;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SoundZoneProcessor_Job__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_SoundZoneProcessor_Job__StaticFields_FWDDECL
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/List_1_SoundZoneProcessor_Job_PositionZoneEvent___Array__Array.h>
+#include <Modloader/app/structs/PositionSyncTask__Array__Array.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array__Array.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array__Array.h>
+#endif
+#undef IL2CPP_STRUCT_SoundZoneProcessor_Job__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SoundZoneProcessor_Job__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_SoundZoneProcessor_Job__StaticFields_FWDDECL)
+#include <Modloader/app/structs/SoundZoneProcessor_Job__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SoundZoneProcessor_Job__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SetGameModeAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SetGameModeAction {
     IL2CPP_REGISTER_METHOD(0x005A2B60, void, Perform, (app::SetGameModeAction * this_ptr, app::IContext* context))

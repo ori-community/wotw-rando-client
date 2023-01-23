@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EGameSearchErrorCode_t__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CSteamID.h>
+#include <Modloader/app/structs/EPlayerResult_t__Enum.h>
 
 namespace app::classes::Steamworks::SteamGameSearch {
     IL2CPP_REGISTER_METHOD(0x027EF190, app::EGameSearchErrorCode_t__Enum, AddGameSearchParams, (app::String * pch_key_to_find, app::String* pch_values_to_find))

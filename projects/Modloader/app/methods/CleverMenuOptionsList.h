@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CleverMenuOptionsList.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Language__Enum.h>
 
 namespace app::classes::CleverMenuOptionsList {
     IL2CPP_REGISTER_METHOD(0x012BFF60, void, ClearItems, (app::CleverMenuOptionsList * this_ptr))

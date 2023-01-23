@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CleverMenuItemGroup.h>
 
 namespace app::classes::CleverMenuItemGroup {
     IL2CPP_REGISTER_METHOD(0x012B08D0, bool, get_AutoSelectFirstItemOnEnable, (app::CleverMenuItemGroup * this_ptr))

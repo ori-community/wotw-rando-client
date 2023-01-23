@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VRBrowserPanel.h>
+#include <Modloader/app/structs/Browser.h>
+#include <Modloader/app/structs/JSONNode.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::VRBrowserPanel {
     IL2CPP_REGISTER_METHOD(0x016702B0, void, Awake, (app::VRBrowserPanel * this_ptr))

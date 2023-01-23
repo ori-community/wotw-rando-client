@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DigZoneHandler.h>
+#include <Modloader/app/structs/DigZone.h>
 
 namespace app::classes::Moon::DigZoneHandler {
     IL2CPP_REGISTER_METHOD(0x00446590, bool, get_PassThroughDigZones, (app::DigZoneHandler * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum.h>
+#include <Modloader/app/structs/UberGCLogic_CleanupTrigger__Enum.h>
 
 namespace app::classes::UberGCManager {
     IL2CPP_REGISTER_METHOD(0x013E9690, float, get_AvailableMemory, ())

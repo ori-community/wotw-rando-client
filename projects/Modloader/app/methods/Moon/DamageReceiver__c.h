@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DamageReceiver_c.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::Moon::DamageReceiver___c {
     IL2CPP_REGISTER_METHOD(0x01200B50, void, cctor, ())

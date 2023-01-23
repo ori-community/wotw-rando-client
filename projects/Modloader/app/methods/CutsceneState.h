@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CutsceneState.h>
+#include <Modloader/app/structs/CutsceneTransition.h>
 
 namespace app::classes::CutsceneState {
     IL2CPP_REGISTER_METHOD(0x00DBECE0, void, OnUpdate, (app::CutsceneState * this_ptr))

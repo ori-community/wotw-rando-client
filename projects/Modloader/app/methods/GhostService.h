@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GhostService.h>
+#include <Modloader/app/structs/GhostPlayer.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/List_1_GhostPlayer_.h>
+#include <Modloader/app/structs/GhostPlayer__Array.h>
 
 namespace app::classes::GhostService {
     IL2CPP_REGISTER_METHOD(0x007E85E0, int32_t, get_TotalGhosts, (app::GhostService * this_ptr))

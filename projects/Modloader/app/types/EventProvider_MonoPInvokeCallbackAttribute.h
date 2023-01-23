@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/EventProvider_MonoPInvokeCallbackAttribute__Class.h>
+#include <Modloader/app/structs/EventProvider_MonoPInvokeCallbackAttribute.h>
 
 namespace app::classes::types {
     namespace EventProvider_MonoPInvokeCallbackAttribute {

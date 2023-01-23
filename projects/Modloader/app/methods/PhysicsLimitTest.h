@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PhysicsLimitTest.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::PhysicsLimitTest {
     IL2CPP_REGISTER_METHOD(0x01152C10, app::String*, get_Path, (app::PhysicsLimitTest * this_ptr))

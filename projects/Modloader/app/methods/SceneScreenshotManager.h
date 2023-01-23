@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_SceneScreenshotManager_.h>
+#include <Modloader/app/structs/Action_1_System_Collections_Generic_List_1_.h>
+#include <Modloader/app/structs/SceneScreenshotManager.h>
 
 namespace app::classes::SceneScreenshotManager {
     IL2CPP_REGISTER_METHOD(0x00BBC8E0, void, add_OnAfterCreate, (app::Action_1_SceneScreenshotManager_ * value))

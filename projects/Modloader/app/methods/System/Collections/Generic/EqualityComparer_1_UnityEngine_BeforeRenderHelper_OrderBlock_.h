@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock__Array.h>
+#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_UnityEngine_BeforeRenderHelper_OrderBlock_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_UnityEngine_BeforeRenderHelper_OrderBlock_*, get_Default, ())

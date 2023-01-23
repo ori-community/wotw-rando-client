@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectProgress.h>
+#include <Modloader/app/structs/BinaryTypeEnum__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::ObjectProgress {
     IL2CPP_REGISTER_METHOD(0x01D94700, void, ctor, (app::ObjectProgress * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_.h>
+#include <Modloader/app/structs/Promise_ResolveHandler.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_ {
     IL2CPP_REGISTER_METHOD(0x01CD0580, int32_t, Compare, (app::ObjectComparer_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_ * this_ptr, app::Promise_ResolveHandler x, app::Promise_ResolveHandler y))

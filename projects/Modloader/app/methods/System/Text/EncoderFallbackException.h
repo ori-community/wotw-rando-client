@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EncoderFallbackException.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Text::EncoderFallbackException {
     IL2CPP_REGISTER_METHOD(0x0244D5B0, void, ctor_1, (app::EncoderFallbackException * this_ptr))

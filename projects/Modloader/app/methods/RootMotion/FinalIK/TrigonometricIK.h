@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TrigonometricIK.h>
+#include <Modloader/app/structs/IKSolver.h>
 
 namespace app::classes::RootMotion::FinalIK::TrigonometricIK {
     IL2CPP_REGISTER_METHOD(0x02A27E40, void, OpenUserManual, (app::TrigonometricIK * this_ptr))

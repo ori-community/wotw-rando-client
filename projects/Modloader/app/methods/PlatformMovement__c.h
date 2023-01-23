@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlatformMovement_c.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::PlatformMovement___c {
     IL2CPP_REGISTER_METHOD(0x0116EDB0, void, cctor, ())

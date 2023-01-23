@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Int64ArrayTypeInfo__Class.h>
+#include <Modloader/app/structs/Int64ArrayTypeInfo.h>
 
 namespace app::classes::types {
     namespace Int64ArrayTypeInfo {

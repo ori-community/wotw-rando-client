@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DoubleLinkAxis.h>
+#include <Modloader/app/structs/AxisElement.h>
+#include <Modloader/app/structs/ForwardAxis.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::Schema::AxisElement {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::DoubleLinkAxis*, get_CurNode, (app::AxisElement * this_ptr))

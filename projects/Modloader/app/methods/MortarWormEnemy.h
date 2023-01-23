@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MortarWormEnemy.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::MortarWormEnemy {
     IL2CPP_REGISTER_METHOD(0x01480330, bool, CanBeOptimized, (app::MortarWormEnemy * this_ptr))

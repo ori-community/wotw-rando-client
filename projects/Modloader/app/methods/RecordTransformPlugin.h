@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RecordTransformPlugin.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::RecordTransformPlugin {
     IL2CPP_REGISTER_METHOD(0x00735C80, void, Awake, (app::RecordTransformPlugin * this_ptr))

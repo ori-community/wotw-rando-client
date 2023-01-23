@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Queue_1_OrbSpawnerManager_ItemToSpawn_.h>
+#include <Modloader/app/structs/OrbSpawnerManager_ItemToSpawn.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Queue_1_T_Enumerator_OrbSpawnerManager_ItemToSpawn_.h>
+#include <Modloader/app/structs/IEnumerator_1_OrbSpawnerManager_ItemToSpawn_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/OrbSpawnerManager_ItemToSpawn__Array.h>
 
 namespace app::classes::System::Collections::Generic::Queue_1_OrbSpawnerManager_ItemToSpawn_ {
     IL2CPP_REGISTER_METHOD(0x0243CE40, void, Clear, (app::Queue_1_OrbSpawnerManager_ItemToSpawn_ * this_ptr))

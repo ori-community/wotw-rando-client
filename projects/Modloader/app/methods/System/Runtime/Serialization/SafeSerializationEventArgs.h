@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SafeSerializationEventArgs.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/IList_1_System_Object_.h>
 
 namespace app::classes::System::Runtime::Serialization::SafeSerializationEventArgs {
     IL2CPP_REGISTER_METHOD(0x01EDBB50, void, ctor, (app::SafeSerializationEventArgs * this_ptr, app::StreamingContext streaming_context))

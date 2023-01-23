@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MaskedTextProvider.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/MaskedTextResultHint__Enum.h>
+#include <Modloader/app/structs/MaskedTextProvider_CharType__Enum.h>
+#include <Modloader/app/structs/MaskedTextProvider_CharDescriptor.h>
 
 namespace app::classes::System::ComponentModel::MaskedTextProvider {
     IL2CPP_REGISTER_METHOD(0x01FF6640, void, ctor_1, (app::MaskedTextProvider * this_ptr, app::String* mask))

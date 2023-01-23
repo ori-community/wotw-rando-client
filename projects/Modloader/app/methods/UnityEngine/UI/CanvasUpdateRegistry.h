@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CanvasUpdateRegistry.h>
+#include <Modloader/app/structs/ICanvasElement.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UnityEngine::UI::CanvasUpdateRegistry {
     IL2CPP_REGISTER_METHOD(0x01F2CEB0, void, ctor, (app::CanvasUpdateRegistry * this_ptr))

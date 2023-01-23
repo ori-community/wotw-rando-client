@@ -1,0 +1,23 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate_DEFINED)
+#define IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate_DEFINED
+struct Initialization_AsyncUploadTimeSlicedUpdate {
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate_FWDDECL)
+#define IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate_INITIALIZING
+#if !defined(IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate_DEFINED) && !defined(IL2CPP_STRUCT_Initialization_AsyncUploadTimeSlicedUpdate_FWDDECL)
+#include <Modloader/app/structs/Initialization_AsyncUploadTimeSlicedUpdate.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Initialization_AsyncUploadTimeSlicedUpdate.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

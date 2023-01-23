@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JObject_GetEnumerator_d_63.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_String_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JObject__GetEnumerator_d__63 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::JObject_GetEnumerator_d_63 * this_ptr, int32_t __1__state))

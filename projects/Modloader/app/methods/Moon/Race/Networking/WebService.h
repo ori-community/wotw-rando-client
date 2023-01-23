@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReplayData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LeaderboadData.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Moon::Race::Networking::WebService {
     IL2CPP_REGISTER_METHOD(0x00C454F0, app::ReplayData*, GetReplay, (app::String * race_name, app::String* player_id))

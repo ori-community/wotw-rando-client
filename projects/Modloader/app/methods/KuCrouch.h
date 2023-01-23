@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuCrouch.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 
 namespace app::classes::KuCrouch {
     IL2CPP_REGISTER_METHOD(0x0122EAF0, void, OnSetReferenceToKu, (app::KuCrouch * this_ptr))

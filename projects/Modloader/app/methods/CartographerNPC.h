@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CartographerNPC.h>
+#include <Modloader/app/structs/CartographerNPC_State__Enum.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/BuyMapUIConfirmationOverlay_Selection__Enum.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::CartographerNPC {
     IL2CPP_REGISTER_METHOD(0x00B41E60, int32_t, get_CurrentState, (app::CartographerNPC * this_ptr))

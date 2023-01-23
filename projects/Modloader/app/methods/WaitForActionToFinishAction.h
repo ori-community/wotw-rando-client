@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaitForActionToFinishAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::WaitForActionToFinishAction {
     IL2CPP_REGISTER_METHOD(0x008C5A90, bool, get_IsPerforming, (app::WaitForActionToFinishAction * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConstantExpression.h>
 
 namespace app::classes::System::Linq::Expressions::Utils {
     IL2CPP_REGISTER_METHOD(0x02FC77C0, app::ConstantExpression*, Constant_1, (bool value))

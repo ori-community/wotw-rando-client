@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraTargetSettings__Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_CameraTargetSettings_.h>
+#include <Modloader/app/structs/CameraTargetSettings.h>
+#include <Modloader/app/structs/Comparison_1_Moon_CameraTargetSettings_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_CameraTargetSettings_ {
     IL2CPP_REGISTER_METHOD(0x02F344E0, void, Sort_1, (app::CameraTargetSettings__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_CameraTargetSettings_* comparer))

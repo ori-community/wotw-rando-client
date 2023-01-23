@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SunShafts.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::SunShafts {
     IL2CPP_REGISTER_METHOD(0x02D67860, bool, CheckResources, (app::SunShafts * this_ptr))

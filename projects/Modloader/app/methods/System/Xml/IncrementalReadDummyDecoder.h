@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IncrementalReadDummyDecoder.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::IncrementalReadDummyDecoder {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsFull, (app::IncrementalReadDummyDecoder * this_ptr))

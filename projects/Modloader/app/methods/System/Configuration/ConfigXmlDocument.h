@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ConfigXmlDocument.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlTextReader.h>
 
 namespace app::classes::System::Configuration::ConfigXmlDocument {
     IL2CPP_REGISTER_METHOD(0x02961630, void, ctor, (app::ConfigXmlDocument * this_ptr))

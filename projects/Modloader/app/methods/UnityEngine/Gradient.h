@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Gradient.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/GradientColorKey__Array.h>
+#include <Modloader/app/structs/GradientAlphaKey__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::Gradient {
     IL2CPP_REGISTER_METHOD(0x02529FC0, void, ctor, (app::Gradient * this_ptr))

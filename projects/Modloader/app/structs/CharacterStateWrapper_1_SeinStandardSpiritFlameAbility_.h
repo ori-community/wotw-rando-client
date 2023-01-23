@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CharacterStateWrapper_1_SeinStandardSpiritFlameAbility__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CharacterStateWrapper_1_SeinStandardSpiritFlameAbility__INITIALIZING
+#if !defined(IL2CPP_STRUCT_CharacterStateWrapper_1_SeinStandardSpiritFlameAbility__DEFINED)
+#include <Modloader/app/structs/CharacterStateWrapper_1_SeinStandardSpiritFlameAbility___Fields.h>
+#if defined(IL2CPP_STRUCT_CharacterStateWrapper_1_SeinStandardSpiritFlameAbility___Fields_DEFINED)
+#define IL2CPP_STRUCT_CharacterStateWrapper_1_SeinStandardSpiritFlameAbility__DEFINED
+struct CharacterStateWrapper_1_SeinStandardSpiritFlameAbility___Class;
+struct CharacterStateWrapper_1_SeinStandardSpiritFlameAbility_ {
+    struct CharacterStateWrapper_1_SeinStandardSpiritFlameAbility___Class* klass;
+    MonitorData* monitor;
+    struct CharacterStateWrapper_1_SeinStandardSpiritFlameAbility___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CharacterStateWrapper_1_SeinStandardSpiritFlameAbility__FWDDECL)
+#define IL2CPP_STRUCT_CharacterStateWrapper_1_SeinStandardSpiritFlameAbility__FWDDECL
+#include <Modloader/app/structs/CharacterStateWrapper_1_SeinStandardSpiritFlameAbility___Class.h>
+#endif
+#undef IL2CPP_STRUCT_CharacterStateWrapper_1_SeinStandardSpiritFlameAbility__INITIALIZING
+#if !defined(IL2CPP_STRUCT_CharacterStateWrapper_1_SeinStandardSpiritFlameAbility__DEFINED) && !defined(IL2CPP_STRUCT_CharacterStateWrapper_1_SeinStandardSpiritFlameAbility__FWDDECL)
+#include <Modloader/app/structs/CharacterStateWrapper_1_SeinStandardSpiritFlameAbility_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CharacterStateWrapper_1_SeinStandardSpiritFlameAbility_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/WaapiJsonProjectInfo_ProjectInfoDirectories__Class.h>
+#include <Modloader/app/structs/WaapiJsonProjectInfo_ProjectInfoDirectories.h>
 
 namespace app::classes::types {
     namespace WaapiJsonProjectInfo_ProjectInfoDirectories {

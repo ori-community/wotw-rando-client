@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Base64Stream.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Base64WriteStateInfo.h>
+#include <Modloader/app/structs/Base64Stream_ReadStateInfo.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::Base64Stream {
     IL2CPP_REGISTER_METHOD(0x02010F00, void, ctor_1, (app::Base64Stream * this_ptr, app::Stream* stream, app::Base64WriteStateInfo* write_state_info))

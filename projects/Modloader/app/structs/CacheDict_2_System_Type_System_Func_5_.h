@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_5__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_5__INITIALIZING
+#if !defined(IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_5__DEFINED)
+#include <Modloader/app/structs/CacheDict_2_System_Type_System_Func_5___Fields.h>
+#if defined(IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_5___Fields_DEFINED)
+#define IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_5__DEFINED
+struct CacheDict_2_System_Type_System_Func_5___Class;
+struct CacheDict_2_System_Type_System_Func_5_ {
+    struct CacheDict_2_System_Type_System_Func_5___Class* klass;
+    MonitorData* monitor;
+    struct CacheDict_2_System_Type_System_Func_5___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_5__FWDDECL)
+#define IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_5__FWDDECL
+#include <Modloader/app/structs/CacheDict_2_System_Type_System_Func_5___Class.h>
+#endif
+#undef IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_5__INITIALIZING
+#if !defined(IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_5__DEFINED) && !defined(IL2CPP_STRUCT_CacheDict_2_System_Type_System_Func_5__FWDDECL)
+#include <Modloader/app/structs/CacheDict_2_System_Type_System_Func_5_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/CacheDict_2_System_Type_System_Func_5_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

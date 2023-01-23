@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/BrowserNative_ZFBInitialSettings__Class.h>
+#include <Modloader/app/structs/BrowserNative_ZFBInitialSettings.h>
+#include <Modloader/app/structs/BrowserNative_ZFBInitialSettings__Boxed.h>
 
 namespace app::classes::types {
     namespace BrowserNative_ZFBInitialSettings {

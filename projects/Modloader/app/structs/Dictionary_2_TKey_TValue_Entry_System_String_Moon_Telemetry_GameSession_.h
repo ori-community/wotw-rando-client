@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Telemetry_GameSession__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Telemetry_GameSession__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Telemetry_GameSession__DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Telemetry_GameSession__DEFINED
+struct String;
+struct GameSession;
+struct Dictionary_2_TKey_TValue_Entry_System_String_Moon_Telemetry_GameSession_ {
+    int32_t hashCode;
+    int32_t next;
+    struct String* key;
+    struct GameSession* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Telemetry_GameSession__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Telemetry_GameSession__FWDDECL
+#include <Modloader/app/structs/GameSession.h>
+#include <Modloader/app/structs/String.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Telemetry_GameSession__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Telemetry_GameSession__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_System_String_Moon_Telemetry_GameSession__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_String_Moon_Telemetry_GameSession_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_String_Moon_Telemetry_GameSession_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

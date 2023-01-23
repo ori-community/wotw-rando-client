@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinSpiritSentrySpell.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::SeinSpiritSentrySpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinSpiritSentrySpell * this_ptr))

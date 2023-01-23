@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TerrainUtility_CollectTerrains_c_AnonStorey0__Class.h>
+#include <Modloader/app/structs/TerrainUtility_CollectTerrains_c_AnonStorey0.h>
 
 namespace app::classes::types {
     namespace TerrainUtility_CollectTerrains_c_AnonStorey0 {

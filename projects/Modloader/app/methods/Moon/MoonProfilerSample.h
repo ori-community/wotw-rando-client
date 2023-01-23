@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonProfilerSample.h>
+#include <Modloader/app/structs/Recorder.h>
 
 namespace app::classes::Moon::MoonProfilerSample {
     IL2CPP_REGISTER_METHOD(0x0111BF20, app::MoonProfilerSample, op_Implicit, (app::Recorder * recorder))

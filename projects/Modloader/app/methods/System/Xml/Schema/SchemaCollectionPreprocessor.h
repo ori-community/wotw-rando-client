@@ -1,5 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SchemaCollectionPreprocessor.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/SchemaNames.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchemaCollection.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/SchemaCollectionPreprocessor_Compositor__Enum.h>
+#include <Modloader/app/structs/XmlSchemaRedefine.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaGroup.h>
+#include <Modloader/app/structs/XmlSchemaAttributeGroup.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/XmlSchemaComplexType.h>
+#include <Modloader/app/structs/XmlSchemaAttribute.h>
+#include <Modloader/app/structs/XmlSchemaElement.h>
+#include <Modloader/app/structs/XmlSchemaIdentityConstraint.h>
+#include <Modloader/app/structs/XmlSchemaNotation.h>
+#include <Modloader/app/structs/XmlSchemaParticle.h>
+#include <Modloader/app/structs/XmlSchemaAnyAttribute.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/Stream.h>
 
 namespace app::classes::System::Xml::Schema::SchemaCollectionPreprocessor {
     IL2CPP_REGISTER_METHOD(0x01AA5130, void, ctor, (app::SchemaCollectionPreprocessor * this_ptr, app::XmlNameTable* name_table, app::SchemaNames* schema_names, app::ValidationEventHandler* event_handler))

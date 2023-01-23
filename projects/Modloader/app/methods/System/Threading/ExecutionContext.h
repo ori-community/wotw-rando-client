@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExecutionContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncLocal.h>
+#include <Modloader/app/structs/LogicalCallContext.h>
+#include <Modloader/app/structs/IllogicalCallContext.h>
+#include <Modloader/app/structs/SynchronizationContext.h>
+#include <Modloader/app/structs/ContextCallback.h>
+#include <Modloader/app/structs/ExecutionContextSwitcher.h>
+#include <Modloader/app/structs/Thread.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/ExecutionContext_CaptureOptions__Enum.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Threading::ExecutionContext {
     IL2CPP_REGISTER_METHOD(0x027DBB80, bool, get_isNewCapture, (app::ExecutionContext * this_ptr))

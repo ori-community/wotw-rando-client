@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MessageZoneB.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::MessageZoneB {
     IL2CPP_REGISTER_METHOD(0x0159DAA0, void, Awake, (app::MessageZoneB * this_ptr))

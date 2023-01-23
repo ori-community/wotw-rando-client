@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XdrBuilder_XdrInitFunction.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XdrBuilder.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Xml::Schema::XdrBuilder_XdrInitFunction {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::XdrBuilder_XdrInitFunction * this_ptr, app::Object* object, void* method_1))

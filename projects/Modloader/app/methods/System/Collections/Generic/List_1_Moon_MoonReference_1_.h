@@ -1,5 +1,40 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__1.h>
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_Transform_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_MoonReference_1_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__2.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_ITimelineEntity_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__3.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__4.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_InteractionGraph_IInteractionTransition_.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_InteractionGraph_IInteractionNodeDecorator_.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_MoonTimeline_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__5.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__13.h>
+#include <Modloader/app/structs/MoonReference_1_ICleverMenuFadeObserver_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__6.h>
+#include <Modloader/app/structs/MoonReference_1_IDialogTransition_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__15.h>
+#include <Modloader/app/structs/MoonReference_1_IDialogDecorator_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__16.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_BehaviourSystem_ITask_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__7.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_MoonReference_1__1.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__8.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_MoonReference_1__2.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__10.h>
+#include <Modloader/app/structs/MoonReference_1_ICondition_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__11.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__9.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_MoonReference_1__3.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_MoonReference_1__4.h>
+#include <Modloader/app/structs/MoonReference_1_IRaceSyncable_.h>
+#include <Modloader/app/structs/MoonReference_1_ISkipCutsceneAction_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__12.h>
+#include <Modloader/app/structs/MoonReference_1_IGenericUberState_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__14.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_MoonReference_1_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_Moon_MoonReference_1_ * this_ptr))

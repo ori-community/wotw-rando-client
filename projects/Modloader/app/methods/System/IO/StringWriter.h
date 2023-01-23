@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringWriter.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IO::StringWriter {
     IL2CPP_REGISTER_METHOD(0x02384120, void, ctor_1, (app::StringWriter * this_ptr))

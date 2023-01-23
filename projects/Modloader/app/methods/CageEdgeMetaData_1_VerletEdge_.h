@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CageEdgeMetaData_1_VerletEdge_.h>
+#include <Modloader/app/structs/CageStructureTool_Edge.h>
 
 namespace app::classes::CageEdgeMetaData_1_VerletEdge_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnMergeEdge, (app::CageEdgeMetaData_1_VerletEdge_ * this_ptr, app::CageStructureTool_Edge* edge_a, app::CageStructureTool_Edge* edge_b, app::CageStructureTool_Edge* new_edge))

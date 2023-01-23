@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Database_c.h>
+#include <Modloader/app/structs/LeaderBoardEntry.h>
+#include <Modloader/app/structs/Task.h>
 
 namespace app::classes::Moon::Race::Database___c {
     IL2CPP_REGISTER_METHOD(0x00C40DB0, void, cctor, ())

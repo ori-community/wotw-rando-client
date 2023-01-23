@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServerObject.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/BreakablePhysicalSetup.h>
+#include <Modloader/app/structs/ExplodingRigidbody.h>
+#include <Modloader/app/structs/InstantiateAction.h>
+#include <Modloader/app/structs/LimitedLifetime.h>
+#include <Modloader/app/structs/Polygon_1.h>
+#include <Modloader/app/structs/Projectile.h>
+#include <Modloader/app/structs/ProjectileSpawner.h>
+#include <Modloader/app/structs/SeekingProjectile.h>
+#include <Modloader/app/structs/SpawnOnKill.h>
 
 namespace app::classes::ServerObjectSerializer {
     IL2CPP_REGISTER_METHOD(0x00AC12D0, app::ServerObject*, Serialize, (app::GameObject * game_obj, bool is_prefab))

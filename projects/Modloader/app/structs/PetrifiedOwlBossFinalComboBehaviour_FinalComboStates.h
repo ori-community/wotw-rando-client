@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FinalComboStates_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FinalComboStates_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FinalComboStates_DEFINED)
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_FinalComboStates__Fields.h>
+#if defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FinalComboStates__Fields_DEFINED)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FinalComboStates_DEFINED
+struct PetrifiedOwlBossFinalComboBehaviour_FinalComboStates__Class;
+struct PetrifiedOwlBossFinalComboBehaviour_FinalComboStates {
+    struct PetrifiedOwlBossFinalComboBehaviour_FinalComboStates__Class* klass;
+    MonitorData* monitor;
+    struct PetrifiedOwlBossFinalComboBehaviour_FinalComboStates__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FinalComboStates_FWDDECL)
+#define IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FinalComboStates_FWDDECL
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_FinalComboStates__Class.h>
+#endif
+#undef IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FinalComboStates_INITIALIZING
+#if !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FinalComboStates_DEFINED) && !defined(IL2CPP_STRUCT_PetrifiedOwlBossFinalComboBehaviour_FinalComboStates_FWDDECL)
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_FinalComboStates.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_FinalComboStates.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

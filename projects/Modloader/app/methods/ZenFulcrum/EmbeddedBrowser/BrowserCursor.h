@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BrowserCursor.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/BrowserNative_CursorType__Enum.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::BrowserCursor {
     IL2CPP_REGISTER_METHOD(0x01C718C0, void, add_cursorChange, (app::BrowserCursor * this_ptr, app::Action* value))

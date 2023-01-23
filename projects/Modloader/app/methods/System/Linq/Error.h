@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Error {
     IL2CPP_REGISTER_METHOD(0x01F9B720, app::Exception*, ArgumentNull, (app::String * s))

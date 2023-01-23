@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PositionCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::PositionCondition {
     IL2CPP_REGISTER_METHOD(0x00C68860, bool, Validate, (app::PositionCondition * this_ptr, app::IContext* context))

@@ -1,6 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
+#include <Modloader/app/structs/TailoringInfo.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Contraction__Array.h>
+#include <Modloader/app/structs/Level2Map__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CodePointIndexer.h>
+
+
 namespace app::classes::Mono::Globalization::Unicode::MSCompatUnicodeTable {
     IL2CPP_REGISTER_METHOD(0x023BA2C0, app::TailoringInfo*, GetTailoringInfo, (int32_t lcid))
     IL2CPP_REGISTER_METHOD(0x023BA470, void, BuildTailoringTables, (app::CultureInfo * culture, app::TailoringInfo* t, app::Contraction__Array** contractions, app::Level2Map__Array** diacriticals))

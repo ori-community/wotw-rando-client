@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/CharacterState.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/MoveEventType__Enum.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::CharacterState {
     IL2CPP_REGISTER_METHOD(0x01314750, app::MoonAnimator*, get_SeinAnimator, (app::CharacterState * this_ptr))

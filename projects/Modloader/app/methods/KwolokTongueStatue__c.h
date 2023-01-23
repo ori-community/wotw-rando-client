@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KwolokTongueStatue_c.h>
+#include <Modloader/app/structs/KwolokTongueStatue.h>
 
 namespace app::classes::KwolokTongueStatue___c {
     IL2CPP_REGISTER_METHOD(0x00EFAD70, void, cctor, ())

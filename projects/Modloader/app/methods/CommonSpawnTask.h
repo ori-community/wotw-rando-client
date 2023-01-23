@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CommonSpawnTask.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::CommonSpawnTask {
     IL2CPP_REGISTER_METHOD(0x011DEAB0, void, OnEnterTask, (app::CommonSpawnTask * this_ptr, app::IContext* context))

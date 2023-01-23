@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VRInteractionUI.h>
 
 namespace app::classes::RootMotion::Demos::VRInteractionUI {
     IL2CPP_REGISTER_METHOD(0x0204C1E0, void, Start, (app::VRInteractionUI * this_ptr))

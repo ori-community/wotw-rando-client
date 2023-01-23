@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SimpleLocomotion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::Demos::SimpleLocomotion {
     IL2CPP_REGISTER_METHOD(0x0098F4A0, bool, get_isGrounded, (app::SimpleLocomotion * this_ptr))

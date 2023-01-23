@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50__Class.h>
+#include <Modloader/app/structs/SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50.h>
 
 namespace app::classes::types {
     namespace SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50 {

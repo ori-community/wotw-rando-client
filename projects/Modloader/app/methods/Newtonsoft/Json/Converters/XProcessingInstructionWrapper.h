@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XProcessingInstruction.h>
+#include <Modloader/app/structs/XProcessingInstructionWrapper.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::XProcessingInstructionWrapper {
     IL2CPP_REGISTER_METHOD(0x01A59D60, app::XProcessingInstruction*, get_ProcessingInstruction, (app::XProcessingInstructionWrapper * this_ptr))

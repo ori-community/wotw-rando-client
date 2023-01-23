@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InventoryScreenHealthEnergyElements_CellElement__Class.h>
+#include <Modloader/app/structs/InventoryScreenHealthEnergyElements_CellElement.h>
+#include <Modloader/app/structs/InventoryScreenHealthEnergyElements_CellElement__Boxed.h>
+#include <Modloader/app/structs/InventoryScreenHealthEnergyElements_CellElement__Array.h>
 
 namespace app::classes::types {
     namespace InventoryScreenHealthEnergyElements_CellElement {

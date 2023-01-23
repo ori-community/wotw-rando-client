@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameMapSavePedestal.h>
+#include <Modloader/app/structs/SceneMetaData_SceneSavePedestal.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/AreaMapUI.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/RuntimeGameWorldArea.h>
 
 namespace app::classes::GameMapSavePedestal {
     IL2CPP_REGISTER_METHOD(0x0069FDA0, bool, get_IsTeleporterActive, (app::GameMapSavePedestal * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FormatterServices_c_DisplayClass9_0.h>
+#include <Modloader/app/structs/MemberInfo_1__Array.h>
+#include <Modloader/app/structs/MemberHolder.h>
 
 namespace app::classes::System::Runtime::Serialization::FormatterServices___c__DisplayClass9_0 {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::FormatterServices_c_DisplayClass9_0 * this_ptr))

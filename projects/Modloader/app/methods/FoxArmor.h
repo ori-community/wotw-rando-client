@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FoxArmor.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::FoxArmor {
     IL2CPP_REGISTER_METHOD(0x01281CC0, void, Start, (app::FoxArmor * this_ptr))

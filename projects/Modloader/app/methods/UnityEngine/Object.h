@@ -1,5 +1,53 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Object_1__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/HideFlags__Enum.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Dropdown_DropdownItem.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/MainThreadDispatcherPlaymode.h>
+#include <Modloader/app/structs/PlaymodeUpdateDelegate.h>
+#include <Modloader/app/structs/WwiseBootstrap.h>
+#include <Modloader/app/structs/SoundHost__Array.h>
+#include <Modloader/app/structs/AudioListenerZone__Array.h>
+#include <Modloader/app/structs/AchievementsUI.h>
+#include <Modloader/app/structs/SkinnedMeshLod__Array.h>
+#include <Modloader/app/structs/BossHealthbar2.h>
+#include <Modloader/app/structs/CameraManager.h>
+#include <Modloader/app/structs/ChallengesUI.h>
+#include <Modloader/app/structs/DamageReceiver__Array.h>
+#include <Modloader/app/structs/EnemyEntity__Array.h>
+#include <Modloader/app/structs/EscapeRaceHandler.h>
+#include <Modloader/app/structs/BlockableLaser.h>
+#include <Modloader/app/structs/LeaderboardsController.h>
+#include <Modloader/app/structs/SceneRoot__Array.h>
+#include <Modloader/app/structs/ColorVariation__Array.h>
+#include <Modloader/app/structs/SeinPlaceholder.h>
+#include <Modloader/app/structs/LayeredRenderSettings.h>
+#include <Modloader/app/structs/TextRenderer_1.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
+#include <Modloader/app/structs/ReEngageUI.h>
+#include <Modloader/app/structs/AsyncRenderCapture__Array.h>
+#include <Modloader/app/structs/GhostServerRecorder.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/Rope.h>
+#include <Modloader/app/structs/RunActionCondition__Array.h>
+#include <Modloader/app/structs/TurbulenceManager.h>
+#include <Modloader/app/structs/UberPoolGroupWarmer__Array.h>
+#include <Modloader/app/structs/UberPoolPerfTestSettings__Array.h>
+#include <Modloader/app/structs/VisualLog.h>
+#include <Modloader/app/structs/Browser__Array.h>
+#include <Modloader/app/structs/FPSCursorRenderer.h>
+#include <Modloader/app/structs/MonoManager.h>
 
 namespace app::classes::UnityEngine::Object {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::Object_1 * this_ptr))

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/QuestsController_QueuedQuestMessage__Class.h>
+#include <Modloader/app/structs/QuestsController_QueuedQuestMessage.h>
+#include <Modloader/app/structs/QuestsController_QueuedQuestMessage__Boxed.h>
+#include <Modloader/app/structs/QuestsController_QueuedQuestMessage__Array.h>
 
 namespace app::classes::types {
     namespace QuestsController_QueuedQuestMessage {

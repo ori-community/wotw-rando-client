@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AttributeCollection.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/Attribute.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::ComponentModel::AttributeCollection {
     IL2CPP_REGISTER_METHOD(0x024A0EB0, void, ctor_1, (app::AttributeCollection * this_ptr, app::Attribute__Array* attributes))

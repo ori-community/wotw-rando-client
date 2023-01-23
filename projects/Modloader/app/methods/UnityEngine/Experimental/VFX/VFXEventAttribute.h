@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/VFXEventAttribute.h>
 
 namespace app::classes::UnityEngine::Experimental::VFX::VFXEventAttribute {
     IL2CPP_REGISTER_METHOD(0x031C0B10, void, Release, (app::VFXEventAttribute * this_ptr))

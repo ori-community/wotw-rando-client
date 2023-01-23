@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rect__Boxed.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Rect {
     IL2CPP_REGISTER_METHOD(0x00121740, void, ctor_1, (app::Rect__Boxed * this_ptr, float x, float y, float width, float height))

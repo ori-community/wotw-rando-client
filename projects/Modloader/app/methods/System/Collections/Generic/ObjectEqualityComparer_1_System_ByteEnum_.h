@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_System_ByteEnum_.h>
+#include <Modloader/app/structs/ByteEnum__Enum.h>
+#include <Modloader/app/structs/ByteEnum__Enum__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_System_ByteEnum_ {
     IL2CPP_REGISTER_METHOD(0x0265AB50, bool, Equals_1, (app::ObjectEqualityComparer_1_System_ByteEnum_ * this_ptr, app::ByteEnum__Enum x, app::ByteEnum__Enum y))

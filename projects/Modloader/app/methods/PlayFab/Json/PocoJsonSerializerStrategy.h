@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PocoJsonSerializerStrategy.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/JsonProperty_1.h>
+#include <Modloader/app/structs/ReflectionUtils_ConstructorDelegate.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/IDictionary_2_System_Reflection_MemberInfo_PlayFab_Json_ReflectionUtils_GetDelegate_.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_KeyValuePair_2_System_Type_PlayFab_Json_ReflectionUtils_SetDelegate_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Enum.h>
 
 namespace app::classes::PlayFab::Json::PocoJsonSerializerStrategy {
     IL2CPP_REGISTER_METHOD(0x0184C8A0, void, ctor, (app::PocoJsonSerializerStrategy * this_ptr))

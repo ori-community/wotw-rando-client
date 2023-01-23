@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SetupGameplayOnTrigger.h>
 
 namespace app::classes::SetupGameplayOnTrigger {
     IL2CPP_REGISTER_METHOD(0x005A5D60, void, Awake, (app::SetupGameplayOnTrigger * this_ptr))

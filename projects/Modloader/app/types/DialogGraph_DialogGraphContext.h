@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DialogGraph_DialogGraphContext__Class.h>
+#include <Modloader/app/structs/DialogGraph_DialogGraphContext.h>
 
 namespace app::classes::types {
     namespace DialogGraph_DialogGraphContext {

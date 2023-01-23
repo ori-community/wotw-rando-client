@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextureAnimator.h>
+#include <Modloader/app/structs/SpriteAnimator.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Atlas.h>
+#include <Modloader/app/structs/UberScreenMode__Enum.h>
+#include <Modloader/app/structs/TextureAnimation.h>
 
 namespace app::classes::SpriteAnimator {
     IL2CPP_REGISTER_METHOD(0x002FBD60, app::TextureAnimator*, get_TextureAnimator, (app::SpriteAnimator * this_ptr))

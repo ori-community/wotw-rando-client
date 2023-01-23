@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MudkisserDeathReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::MudkisserDeathReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00872D40, void, OnInitializeTask, (app::MudkisserDeathReactionBehaviour * this_ptr, app::IContext* context))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MetricOutput__Array.h>
+#include <Modloader/app/structs/MicroProfiler_SampleStats.h>
 
 namespace app::classes::MicroProfilerCSV {
     IL2CPP_REGISTER_METHOD(0x03157BF0, void, AppendHeaderRow_1, (app::StringBuilder * s, app::String* separator))

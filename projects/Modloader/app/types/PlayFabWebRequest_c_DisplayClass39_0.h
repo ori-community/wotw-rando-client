@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PlayFabWebRequest_c_DisplayClass39_0__Class.h>
+#include <Modloader/app/structs/PlayFabWebRequest_c_DisplayClass39_0.h>
 
 namespace app::classes::types {
     namespace PlayFabWebRequest_c_DisplayClass39_0 {

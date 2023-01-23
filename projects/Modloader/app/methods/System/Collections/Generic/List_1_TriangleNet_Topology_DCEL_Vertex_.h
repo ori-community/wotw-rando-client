@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Topology_DCEL_Vertex_.h>
+#include <Modloader/app/structs/IEnumerable_1_TriangleNet_Topology_DCEL_Vertex_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_TriangleNet_Topology_DCEL_Vertex_.h>
+#include <Modloader/app/structs/Vertex_1.h>
 
 namespace app::classes::System::Collections::Generic::List_1_TriangleNet_Topology_DCEL_Vertex_ {
     IL2CPP_REGISTER_METHOD(0x025E9020, void, AddRange, (app::List_1_TriangleNet_Topology_DCEL_Vertex_ * this_ptr, app::IEnumerable_1_TriangleNet_Topology_DCEL_Vertex_* collection))

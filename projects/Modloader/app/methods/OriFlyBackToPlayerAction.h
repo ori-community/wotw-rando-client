@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OriFlyBackToPlayerAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::OriFlyBackToPlayerAction {
     IL2CPP_REGISTER_METHOD(0x0043BA80, void, Perform, (app::OriFlyBackToPlayerAction * this_ptr, app::IContext* context))

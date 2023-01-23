@@ -1,0 +1,23 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SandWormEntity_SandWormSquetch__StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SandWormEntity_SandWormSquetch__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SandWormEntity_SandWormSquetch__StaticFields_DEFINED)
+#define IL2CPP_STRUCT_SandWormEntity_SandWormSquetch__StaticFields_DEFINED
+struct SandWormEntity_SandWormSquetch__StaticFields {
+};
+#endif
+#if !defined(IL2CPP_STRUCT_SandWormEntity_SandWormSquetch__StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_SandWormEntity_SandWormSquetch__StaticFields_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_SandWormEntity_SandWormSquetch__StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SandWormEntity_SandWormSquetch__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_SandWormEntity_SandWormSquetch__StaticFields_FWDDECL)
+#include <Modloader/app/structs/SandWormEntity_SandWormSquetch__StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SandWormEntity_SandWormSquetch__StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

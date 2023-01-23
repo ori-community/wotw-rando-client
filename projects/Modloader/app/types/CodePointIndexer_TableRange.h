@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CodePointIndexer_TableRange__Class.h>
+#include <Modloader/app/structs/CodePointIndexer_TableRange.h>
+#include <Modloader/app/structs/CodePointIndexer_TableRange__Boxed.h>
+#include <Modloader/app/structs/CodePointIndexer_TableRange__Array.h>
 
 namespace app::classes::types {
     namespace CodePointIndexer_TableRange {

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_MoonSwarmer_.h>
+#include <Modloader/app/structs/MoonSwarmer.h>
 
 namespace app::classes::System::Collections::Generic::List_1_MoonSwarmer_ {
     IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_MoonSwarmer_ * this_ptr, app::MoonSwarmer* item))

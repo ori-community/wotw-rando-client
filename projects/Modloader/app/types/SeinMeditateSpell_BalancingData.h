@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SeinMeditateSpell_BalancingData__Class.h>
+#include <Modloader/app/structs/SeinMeditateSpell_BalancingData.h>
 
 namespace app::classes::types {
     namespace SeinMeditateSpell_BalancingData {

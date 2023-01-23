@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRTrackedCamera_GetCameraErrorNameFromEnum_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRTrackedCamera_GetCameraErrorNameFromEnum_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRTrackedCamera_GetCameraErrorNameFromEnum_DEFINED)
+#include <Modloader/app/structs/IVRTrackedCamera_GetCameraErrorNameFromEnum__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRTrackedCamera_GetCameraErrorNameFromEnum__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRTrackedCamera_GetCameraErrorNameFromEnum_DEFINED
+struct IVRTrackedCamera_GetCameraErrorNameFromEnum__Class;
+struct IVRTrackedCamera_GetCameraErrorNameFromEnum {
+    struct IVRTrackedCamera_GetCameraErrorNameFromEnum__Class* klass;
+    MonitorData* monitor;
+    struct IVRTrackedCamera_GetCameraErrorNameFromEnum__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRTrackedCamera_GetCameraErrorNameFromEnum_FWDDECL)
+#define IL2CPP_STRUCT_IVRTrackedCamera_GetCameraErrorNameFromEnum_FWDDECL
+#include <Modloader/app/structs/IVRTrackedCamera_GetCameraErrorNameFromEnum__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRTrackedCamera_GetCameraErrorNameFromEnum_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRTrackedCamera_GetCameraErrorNameFromEnum_DEFINED) && !defined(IL2CPP_STRUCT_IVRTrackedCamera_GetCameraErrorNameFromEnum_FWDDECL)
+#include <Modloader/app/structs/IVRTrackedCamera_GetCameraErrorNameFromEnum.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRTrackedCamera_GetCameraErrorNameFromEnum.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

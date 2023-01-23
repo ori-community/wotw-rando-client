@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectComparer_1_Moon_Wwise_WwiseEventSystem_SoundHandleProtected_CallbackData_.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandleProtected_CallbackData.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_Moon_Wwise_WwiseEventSystem_SoundHandleProtected_CallbackData_ {
     IL2CPP_REGISTER_METHOD(0x01CC78F0, int32_t, Compare, (app::ObjectComparer_1_Moon_Wwise_WwiseEventSystem_SoundHandleProtected_CallbackData_ * this_ptr, app::WwiseEventSystem_SoundHandleProtected_CallbackData x, app::WwiseEventSystem_SoundHandleProtected_CallbackData y))

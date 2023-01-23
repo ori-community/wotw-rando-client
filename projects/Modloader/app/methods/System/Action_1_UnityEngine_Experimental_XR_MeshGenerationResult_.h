@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Experimental_XR_MeshGenerationResult_.h>
+#include <Modloader/app/structs/MeshGenerationResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Action_1_UnityEngine_Experimental_XR_MeshGenerationResult_ {
     IL2CPP_REGISTER_METHOD(0x012DE680, void, Invoke, (app::Action_1_UnityEngine_Experimental_XR_MeshGenerationResult_ * this_ptr, app::MeshGenerationResult obj))

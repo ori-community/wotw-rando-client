@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NintendoSwitch.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::NintendoSwitch {
     IL2CPP_REGISTER_METHOD(0x031132F0, app::NintendoSwitch*, get_Instance, ())

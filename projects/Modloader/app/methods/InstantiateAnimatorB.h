@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InstantiateAnimatorB.h>
 
 namespace app::classes::InstantiateAnimatorB {
     IL2CPP_REGISTER_METHOD(0x0062C500, int32_t, get_ServerID, (app::InstantiateAnimatorB * this_ptr))

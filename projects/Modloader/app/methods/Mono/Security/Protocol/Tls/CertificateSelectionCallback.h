@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CertificateSelectionCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/X509CertificateCollection_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::CertificateSelectionCallback {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::CertificateSelectionCallback * this_ptr, app::Object* object, void* method_1))

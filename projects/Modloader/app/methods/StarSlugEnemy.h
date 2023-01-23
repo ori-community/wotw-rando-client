@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StarSlugEnemy.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::StarSlugEnemy {
     IL2CPP_REGISTER_METHOD(0x009AF690, void, FixedUpdate, (app::StarSlugEnemy * this_ptr))

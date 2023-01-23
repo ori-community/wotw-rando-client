@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Math2d__Class.h>
+#include <Modloader/app/structs/Math2d.h>
 
 namespace app::classes::types {
     namespace Math2d {

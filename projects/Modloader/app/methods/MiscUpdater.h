@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MiscUpdater.h>
+#include <Modloader/app/structs/CollisionSoundSource.h>
+#include <Modloader/app/structs/LimitedLifetime.h>
+#include <Modloader/app/structs/ParticleSystemEmissionRateOverDistance.h>
+#include <Modloader/app/structs/ProtectiveLightRadial.h>
+#include <Modloader/app/structs/UnparentTrailRenderer.h>
 
 namespace app::classes::MiscUpdater {
     IL2CPP_REGISTER_METHOD(0x01459880, app::MiscUpdater*, get_Instance, ())

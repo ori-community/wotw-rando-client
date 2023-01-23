@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XElement_GetAttributes_d_105.h>
+#include <Modloader/app/structs/XAttribute.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Xml_Linq_XAttribute_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Xml::Linq::XElement__GetAttributes_d__105 {
     IL2CPP_REGISTER_METHOD(0x006389F0, void, ctor, (app::XElement_GetAttributes_d_105 * this_ptr, int32_t __1__state))

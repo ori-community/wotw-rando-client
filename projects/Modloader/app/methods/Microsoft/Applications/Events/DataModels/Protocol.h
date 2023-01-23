@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Protocol.h>
+#include <Modloader/app/structs/List_1_List_1_System_String_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Microsoft::Applications::Events::DataModels::Protocol {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_metadataCrc, (app::Protocol * this_ptr))

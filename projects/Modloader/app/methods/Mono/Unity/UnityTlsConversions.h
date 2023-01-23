@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnityTls_unitytls_protocol__Enum.h>
+#include <Modloader/app/structs/SslProtocols__Enum.h>
+#include <Modloader/app/structs/TlsProtocols__Enum.h>
+#include <Modloader/app/structs/AlertDescription__Enum.h>
+#include <Modloader/app/structs/UnityTls_unitytls_x509verify_result__Enum.h>
+#include <Modloader/app/structs/MonoSslPolicyErrors__Enum.h>
 
 namespace app::classes::Mono::Unity::UnityTlsConversions {
     IL2CPP_REGISTER_METHOD(0x02490980, app::UnityTls_unitytls_protocol__Enum, GetMinProtocol, (app::SslProtocols__Enum protocols))

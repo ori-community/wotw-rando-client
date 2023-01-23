@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SteamInventoryRequestPricesResult_t__Class.h>
+#include <Modloader/app/structs/SteamInventoryRequestPricesResult_t.h>
+#include <Modloader/app/structs/SteamInventoryRequestPricesResult_t__Boxed.h>
 
 namespace app::classes::types {
     namespace SteamInventoryRequestPricesResult_t {

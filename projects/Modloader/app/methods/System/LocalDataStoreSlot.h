@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LocalDataStoreSlot.h>
+#include <Modloader/app/structs/LocalDataStoreMgr.h>
 
 namespace app::classes::System::LocalDataStoreSlot {
     IL2CPP_REGISTER_METHOD(0x0199E410, void, ctor, (app::LocalDataStoreSlot * this_ptr, app::LocalDataStoreMgr* mgr, int32_t slot, int64_t cookie))

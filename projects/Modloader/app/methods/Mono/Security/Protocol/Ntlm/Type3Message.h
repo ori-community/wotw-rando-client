@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type3Message.h>
+#include <Modloader/app/structs/Type2Message.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Mono::Security::Protocol::Ntlm::Type3Message {
     IL2CPP_REGISTER_METHOD(0x02A4C830, void, ctor, (app::Type3Message * this_ptr, app::Type2Message* type2))

@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberShaderAtlasUtilities_TextureInfo__Class.h>
+#include <Modloader/app/structs/UberShaderAtlasUtilities_TextureInfo.h>
+#include <Modloader/app/structs/UberShaderAtlasUtilities_TextureInfo__Boxed.h>
+#include <Modloader/app/structs/UberShaderAtlasUtilities_TextureInfo__Array.h>
 
 namespace app::classes::types {
     namespace UberShaderAtlasUtilities_TextureInfo {

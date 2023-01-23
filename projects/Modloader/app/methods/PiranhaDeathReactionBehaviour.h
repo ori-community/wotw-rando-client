@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PiranhaDeathReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::PiranhaDeathReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x0115DCC0, void, OnInitializeTask, (app::PiranhaDeathReactionBehaviour * this_ptr, app::IContext* context))

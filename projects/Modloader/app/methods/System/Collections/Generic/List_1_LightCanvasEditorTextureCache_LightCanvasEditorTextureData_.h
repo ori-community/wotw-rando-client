@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_.h>
+#include <Modloader/app/structs/IEnumerable_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_.h>
+#include <Modloader/app/structs/IComparer_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_.h>
+#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_.h>
+#include <Modloader/app/structs/Action_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_.h>
+#include <Modloader/app/structs/IEnumerator_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_ * this_ptr))

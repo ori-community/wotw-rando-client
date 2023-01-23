@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParticleSystemAnimator.h>
+#include <Modloader/app/structs/ParticleSystem.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::ParticleSystemAnimator {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnEntityCreated, (app::ParticleSystemAnimator * this_ptr))

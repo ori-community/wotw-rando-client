@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnityTls_unitytls_interface_struct.h>
 
 namespace app::classes::Mono::Unity::UnityTls {
     IL2CPP_REGISTER_METHOD(0x02186CA0, void*, GetUnityTlsInterface, ())

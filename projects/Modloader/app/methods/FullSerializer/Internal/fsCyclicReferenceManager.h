@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsCyclicReferenceManager.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::FullSerializer::Internal::fsCyclicReferenceManager {
     IL2CPP_REGISTER_METHOD(0x0131C5E0, void, Enter, (app::fsCyclicReferenceManager * this_ptr))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/TimelineHelper_EverythingConstrainedTo_d_28__Class.h>
+#include <Modloader/app/structs/TimelineHelper_EverythingConstrainedTo_d_28.h>
 
 namespace app::classes::types {
     namespace TimelineHelper_EverythingConstrainedTo_d_28 {

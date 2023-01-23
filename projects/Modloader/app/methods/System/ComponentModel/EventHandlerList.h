@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EventHandlerList.h>
+#include <Modloader/app/structs/Component.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/EventHandlerList_ListEntry.h>
 
 namespace app::classes::System::ComponentModel::EventHandlerList {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::EventHandlerList * this_ptr))

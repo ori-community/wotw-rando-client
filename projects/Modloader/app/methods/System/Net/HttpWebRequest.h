@@ -1,5 +1,40 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HttpWebRequest.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/MonoTlsProvider.h>
+#include <Modloader/app/structs/MonoTlsSettings.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/DecompressionMethods__Enum.h>
+#include <Modloader/app/structs/X509CertificateCollection_1.h>
+#include <Modloader/app/structs/HttpContinueDelegate.h>
+#include <Modloader/app/structs/CookieContainer.h>
+#include <Modloader/app/structs/ICredentials.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/WebHeaderCollection.h>
+#include <Modloader/app/structs/Version.h>
+#include <Modloader/app/structs/IWebProxy.h>
+#include <Modloader/app/structs/ServicePoint.h>
+#include <Modloader/app/structs/ServerCertValidationCallback.h>
+#include <Modloader/app/structs/RemoteCertificateValidationCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/TransportContext.h>
+#include <Modloader/app/structs/SimpleAsyncResult.h>
+#include <Modloader/app/structs/WebResponse.h>
+#include <Modloader/app/structs/WebAsyncResult.h>
+#include <Modloader/app/structs/HttpStatusCode__Enum.h>
+#include <Modloader/app/structs/WebExceptionStatus__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/WebConnectionStream.h>
+#include <Modloader/app/structs/SimpleAsyncCallback.h>
+#include <Modloader/app/structs/WebConnectionData.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::Net::HttpWebRequest {
     IL2CPP_REGISTER_METHOD(0x01E59BB0, void, cctor, ())

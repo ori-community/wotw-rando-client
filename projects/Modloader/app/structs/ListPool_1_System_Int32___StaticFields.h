@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ListPool_1_System_Int32___StaticFields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ListPool_1_System_Int32___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ListPool_1_System_Int32___StaticFields_DEFINED)
+#define IL2CPP_STRUCT_ListPool_1_System_Int32___StaticFields_DEFINED
+struct ObjectPool_1_System_Collections_Generic_List_1__10;
+struct UnityAction_1_System_Collections_Generic_List_1__10;
+struct ListPool_1_System_Int32___StaticFields {
+    struct ObjectPool_1_System_Collections_Generic_List_1__10* s_ListPool;
+    struct UnityAction_1_System_Collections_Generic_List_1__10* __f__mg_cache0;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ListPool_1_System_Int32___StaticFields_FWDDECL)
+#define IL2CPP_STRUCT_ListPool_1_System_Int32___StaticFields_FWDDECL
+#include <Modloader/app/structs/ObjectPool_1_System_Collections_Generic_List_1__10.h>
+#include <Modloader/app/structs/UnityAction_1_System_Collections_Generic_List_1__10.h>
+#endif
+#undef IL2CPP_STRUCT_ListPool_1_System_Int32___StaticFields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ListPool_1_System_Int32___StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_ListPool_1_System_Int32___StaticFields_FWDDECL)
+#include <Modloader/app/structs/ListPool_1_System_Int32___StaticFields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ListPool_1_System_Int32___StaticFields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

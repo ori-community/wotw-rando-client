@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FieldMetadata.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TraceLoggingDataType__Enum.h>
+#include <Modloader/app/structs/EventFieldTags__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Diagnostics::Tracing::FieldMetadata {
     IL2CPP_REGISTER_METHOD(0x019FD900, void, ctor_1, (app::FieldMetadata * this_ptr, app::String* name, app::TraceLoggingDataType__Enum type, app::EventFieldTags__Enum tags, bool variable_count))

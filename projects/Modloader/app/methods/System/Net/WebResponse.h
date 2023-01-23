@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WebResponse.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/WebHeaderCollection.h>
 
 namespace app::classes::System::Net::WebResponse {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::WebResponse * this_ptr))

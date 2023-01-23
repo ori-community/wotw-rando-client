@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinLaunch.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinLaunch {
     IL2CPP_REGISTER_METHOD(0x01020FB0, void, OnSetReferenceToSein, (app::SeinLaunch * this_ptr))

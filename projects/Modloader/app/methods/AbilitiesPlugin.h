@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AbilitiesPlugin.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/RecorderData.h>
 
 namespace app::classes::AbilitiesPlugin {
     IL2CPP_REGISTER_METHOD(0x004ABA40, app::Object*, ReflectionHack, (app::String * full_name))

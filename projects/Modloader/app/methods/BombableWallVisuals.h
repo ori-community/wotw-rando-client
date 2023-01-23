@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BombableWallVisuals.h>
 
 namespace app::classes::BombableWallVisuals {
     IL2CPP_REGISTER_METHOD(0x00D39CE0, void, DestroyWallEvent, (app::BombableWallVisuals * this_ptr))

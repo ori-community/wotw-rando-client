@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ShootingSpiderSettings__Class.h>
+#include <Modloader/app/structs/ShootingSpiderSettings.h>
 
 namespace app::classes::types {
     namespace ShootingSpiderSettings {

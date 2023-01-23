@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Enemy.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::Enemy {
     IL2CPP_REGISTER_METHOD(0x00BFDBE0, float, ScaleHealth, (float health))

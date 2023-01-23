@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractionLightModifier.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/UberInteractionManager_PropertyIDCache.h>
 
 namespace app::classes::InteractionLightModifier {
     IL2CPP_REGISTER_METHOD(0x00637F10, void, Reset, (app::InteractionLightModifier * this_ptr))

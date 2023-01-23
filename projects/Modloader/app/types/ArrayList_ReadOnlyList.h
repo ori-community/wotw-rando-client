@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ArrayList_ReadOnlyList__Class.h>
+#include <Modloader/app/structs/ArrayList_ReadOnlyList.h>
 
 namespace app::classes::types {
     namespace ArrayList_ReadOnlyList {

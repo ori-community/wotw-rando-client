@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Capture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Text::RegularExpressions::Capture {
     IL2CPP_REGISTER_METHOD(0x01DF8C80, void, ctor_1, (app::Capture * this_ptr, app::String* text, int32_t i, int32_t l))

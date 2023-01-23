@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IdnElement.h>
+#include <Modloader/app/structs/UriIdnScope__Enum.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
 
 namespace app::classes::System::Configuration::IdnElement {
     IL2CPP_REGISTER_METHOD(0x02961B40, void, ctor, (app::IdnElement * this_ptr))

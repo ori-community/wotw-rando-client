@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InstantiationHistory_PrefabData.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::InstantiationHistory_PrefabData {
     IL2CPP_REGISTER_METHOD(0x00635BE0, void, ctor, (app::InstantiationHistory_PrefabData * this_ptr))

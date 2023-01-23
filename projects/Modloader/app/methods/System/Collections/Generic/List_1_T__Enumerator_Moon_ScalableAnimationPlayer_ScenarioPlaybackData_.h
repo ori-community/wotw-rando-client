@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_ScalableAnimationPlayer_ScenarioPlaybackData___Boxed.h>
+#include <Modloader/app/structs/List_1_Moon_ScalableAnimationPlayer_ScenarioPlaybackData_.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer_ScenarioPlaybackData.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Moon_ScalableAnimationPlayer_ScenarioPlaybackData_ {
     IL2CPP_REGISTER_METHOD(0x0014CC40, void, ctor, (app::List_1_T_Enumerator_Moon_ScalableAnimationPlayer_ScenarioPlaybackData___Boxed * this_ptr, app::List_1_Moon_ScalableAnimationPlayer_ScenarioPlaybackData_* list))

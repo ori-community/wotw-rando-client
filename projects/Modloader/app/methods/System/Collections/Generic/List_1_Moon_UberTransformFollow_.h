@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_UberTransformFollow_.h>
+#include <Modloader/app/structs/UberTransformFollow.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_UberTransformFollow_ {
     IL2CPP_REGISTER_METHOD(0x02FE8D00, bool, Contains, (app::List_1_Moon_UberTransformFollow_ * this_ptr, app::UberTransformFollow* item))

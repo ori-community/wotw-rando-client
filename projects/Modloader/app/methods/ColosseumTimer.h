@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ColosseumTimer.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::ColosseumTimer {
     IL2CPP_REGISTER_METHOD(0x00449EA0, float, get_TimeRemaining, (app::ColosseumTimer * this_ptr))

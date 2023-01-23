@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SwitchActionSystem.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SwitchActionSystem {
     IL2CPP_REGISTER_METHOD(0x018339F0, void, Awake, (app::SwitchActionSystem * this_ptr))

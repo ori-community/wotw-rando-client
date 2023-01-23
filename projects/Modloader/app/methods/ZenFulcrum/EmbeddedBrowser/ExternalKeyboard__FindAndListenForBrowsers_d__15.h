@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExternalKeyboard_FindAndListenForBrowsers_d_15.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::ExternalKeyboard__FindAndListenForBrowsers_d__15 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::ExternalKeyboard_FindAndListenForBrowsers_d_15 * this_ptr, int32_t __1__state))

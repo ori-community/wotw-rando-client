@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InternalDataCollectionBase.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ArrayList.h>
 
 namespace app::classes::System::Data::InternalDataCollectionBase {
     IL2CPP_REGISTER_METHOD(0x01E3FA80, int32_t, get_Count, (app::InternalDataCollectionBase * this_ptr))

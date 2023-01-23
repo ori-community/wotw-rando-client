@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CalendarData__Class.h>
+#include <Modloader/app/structs/CalendarData.h>
+#include <Modloader/app/structs/CalendarData__Array.h>
 
 namespace app::classes::types {
     namespace CalendarData {

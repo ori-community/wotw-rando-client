@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterGravityToGround.h>
+#include <Modloader/app/structs/CharacterGravity.h>
+#include <Modloader/app/structs/PlatformMovement.h>
 
 namespace app::classes::CharacterGravityToGround {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::CharacterGravityToGround * this_ptr))

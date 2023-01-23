@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_TV_Old.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_TV_Old {
     IL2CPP_REGISTER_METHOD(0x020EAC30, app::Material*, get_material, (app::CameraFilterPack_TV_Old * this_ptr))

@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations_DEFINED)
+#include <Modloader/app/structs/KwolokBossTendril_AllowedTendrilVariations__Fields.h>
+#if defined(IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations__Fields_DEFINED)
+#define IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations_DEFINED
+struct KwolokBossTendril_AllowedTendrilVariations__Class;
+struct KwolokBossTendril_AllowedTendrilVariations {
+    struct KwolokBossTendril_AllowedTendrilVariations__Class* klass;
+    MonitorData* monitor;
+    struct KwolokBossTendril_AllowedTendrilVariations__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations_FWDDECL)
+#define IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations_FWDDECL
+#include <Modloader/app/structs/KwolokBossTendril_AllowedTendrilVariations__Class.h>
+#endif
+#undef IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations_INITIALIZING
+#if !defined(IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations_DEFINED) && !defined(IL2CPP_STRUCT_KwolokBossTendril_AllowedTendrilVariations_FWDDECL)
+#include <Modloader/app/structs/KwolokBossTendril_AllowedTendrilVariations.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KwolokBossTendril_AllowedTendrilVariations.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EntityDamageEvent.h>
+#include <Modloader/app/structs/MudkisserHitReactionBehaviour.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::MudkisserHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00418200, app::EntityDamageEvent*, get_DamageEvent, (app::MudkisserHitReactionBehaviour * this_ptr))

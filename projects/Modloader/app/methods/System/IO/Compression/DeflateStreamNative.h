@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DeflateStreamNative.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/CompressionMode__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DeflateStreamNative_SafeDeflateStreamHandle.h>
+#include <Modloader/app/structs/DeflateStreamNative_UnmanagedReadOrWrite.h>
 
 namespace app::classes::System::IO::Compression::DeflateStreamNative {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::DeflateStreamNative * this_ptr))

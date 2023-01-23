@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Core_Music_MusicTrack_.h>
+#include <Modloader/app/structs/Music_MusicTrack.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Core_Music_MusicTrack_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_Core_Music_MusicTrack_ * this_ptr))

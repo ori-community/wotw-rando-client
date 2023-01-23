@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UnloadPreviousTestComplete.h>
 
 namespace app::classes::UnloadPreviousTestComplete {
     IL2CPP_REGISTER_METHOD(0x013ABFA0, void, Start, (app::UnloadPreviousTestComplete * this_ptr))

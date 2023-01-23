@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RuntimeAssembly.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Evidence.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/AssemblyName.h>
 
 namespace app::classes::System::Reflection::RuntimeAssembly {
     IL2CPP_REGISTER_METHOD(0x026968D0, void, GetObjectData, (app::RuntimeAssembly * this_ptr, app::SerializationInfo* info, app::StreamingContext context))

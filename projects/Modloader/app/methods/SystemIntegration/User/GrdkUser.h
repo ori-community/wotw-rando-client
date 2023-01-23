@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/GrdkUser.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SystemIntegration::User::GrdkUser {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Texture2D*, get_Image, (app::GrdkUser * this_ptr))

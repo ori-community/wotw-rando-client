@@ -1,5 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_Bounds_System_Boolean_.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IEqualityComparer_1_UnityEngine_Bounds_.h>
+#include <Modloader/app/structs/IDictionary_2_UnityEngine_Bounds_System_Boolean_.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_UnityEngine_Bounds_System_Boolean_.h>
+#include <Modloader/app/structs/ICollection_1_UnityEngine_Bounds_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Bounds_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_UnityEngine_Bounds_System_Boolean_.h>
+#include <Modloader/app/structs/ICollection_1_System_Boolean_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Boolean_.h>
+#include <Modloader/app/structs/KeyValuePair_2_UnityEngine_Bounds_System_Boolean_.h>
+#include <Modloader/app/structs/KeyValuePair_2_UnityEngine_Bounds_System_Boolean___Array.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_UnityEngine_Bounds_System_Boolean_.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_UnityEngine_Bounds_System_Boolean_.h>
+#include <Modloader/app/structs/InsertionBehavior__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_UnityEngine_Bounds_System_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x0283B900, void, Clear, (app::Dictionary_2_UnityEngine_Bounds_System_Boolean_ * this_ptr))

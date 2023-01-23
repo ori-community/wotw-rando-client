@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeSlicedAwakeBudgetMenuItem.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::TimeSlicedAwakeBudgetMenuItem {
     IL2CPP_REGISTER_METHOD(0x010F1080, void, ctor, (app::TimeSlicedAwakeBudgetMenuItem * this_ptr, app::String* path, app::String* str))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellUIShardListOverlay.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 
 namespace app::classes::SpellUIShardListOverlay {
     IL2CPP_REGISTER_METHOD(0x00739A80, bool, get_IsSuspended, (app::SpellUIShardListOverlay * this_ptr))

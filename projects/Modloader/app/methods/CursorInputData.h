@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CursorInputData.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/RecorderFrame_FrameDataTypes__Enum.h>
 
 namespace app::classes::CursorInputData {
     IL2CPP_REGISTER_METHOD(0x00DBAC70, void, Save, (app::CursorInputData * this_ptr, app::BinaryWriter* binary_writer))

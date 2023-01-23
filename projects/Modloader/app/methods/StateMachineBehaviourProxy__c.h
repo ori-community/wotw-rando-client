@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateMachineBehaviourProxy_c.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::StateMachineBehaviourProxy___c {
     IL2CPP_REGISTER_METHOD(0x009B5DD0, void, cctor, ())

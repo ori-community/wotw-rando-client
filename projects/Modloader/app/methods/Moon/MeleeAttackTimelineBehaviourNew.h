@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MeleeAttackTimelineBehaviourNew.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/EffectSpawn.h>
+#include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::Moon::MeleeAttackTimelineBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x011135D0, app::Vector3, get_TargetPosition, (app::MeleeAttackTimelineBehaviourNew * this_ptr))

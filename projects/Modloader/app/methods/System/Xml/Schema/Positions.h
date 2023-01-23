@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Positions.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Position.h>
 
 namespace app::classes::System::Xml::Schema::Positions {
     IL2CPP_REGISTER_METHOD(0x016D9430, int32_t, Add, (app::Positions * this_ptr, int32_t symbol, app::Object* particle))

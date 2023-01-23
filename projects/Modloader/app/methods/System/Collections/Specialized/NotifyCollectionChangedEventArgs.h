@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NotifyCollectionChangedEventArgs.h>
+#include <Modloader/app/structs/NotifyCollectionChangedAction__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IList.h>
 
 namespace app::classes::System::Collections::Specialized::NotifyCollectionChangedEventArgs {
     IL2CPP_REGISTER_METHOD(0x0249AF80, void, ctor_1, (app::NotifyCollectionChangedEventArgs * this_ptr, app::NotifyCollectionChangedAction__Enum action))

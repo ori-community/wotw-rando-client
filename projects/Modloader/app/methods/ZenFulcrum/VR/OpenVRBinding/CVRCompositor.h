@@ -1,5 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CVRCompositor.h>
+#include <Modloader/app/structs/ETrackingUniverseOrigin__Enum.h>
+#include <Modloader/app/structs/EVRCompositorError__Enum.h>
+#include <Modloader/app/structs/TrackedDevicePose_t__Array.h>
+#include <Modloader/app/structs/TrackedDevicePose_t.h>
+#include <Modloader/app/structs/EVREye__Enum.h>
+#include <Modloader/app/structs/Texture_t.h>
+#include <Modloader/app/structs/VRTextureBounds_t.h>
+#include <Modloader/app/structs/EVRSubmitFlags__Enum.h>
+#include <Modloader/app/structs/Compositor_FrameTiming.h>
+#include <Modloader/app/structs/Compositor_CumulativeStats.h>
+#include <Modloader/app/structs/HmdColor_t.h>
+#include <Modloader/app/structs/Texture_t__Array.h>
+#include <Modloader/app/structs/void.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRCompositor {
     IL2CPP_REGISTER_METHOD(0x01677C10, void, ctor, (app::CVRCompositor * this_ptr, void* p_interface))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_OldFilm_Cutting1.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_OldFilm_Cutting1 {
     IL2CPP_REGISTER_METHOD(0x024877C0, app::Material*, get_material, (app::CameraFilterPack_OldFilm_Cutting1 * this_ptr))

@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SymmetricAlgorithm.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/KeySizes__Array.h>
+#include <Modloader/app/structs/CipherMode__Enum.h>
+#include <Modloader/app/structs/PaddingMode__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ICryptoTransform.h>
 
 namespace app::classes::System::Security::Cryptography::SymmetricAlgorithm {
     IL2CPP_REGISTER_METHOD(0x01E0FF80, void, ctor, (app::SymmetricAlgorithm * this_ptr))

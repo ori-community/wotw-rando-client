@@ -1,0 +1,28 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Nullable_1_System_Runtime_Serialization_StreamingContext__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Nullable_1_System_Runtime_Serialization_StreamingContext__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Nullable_1_System_Runtime_Serialization_StreamingContext__DEFINED)
+#include <Modloader/app/structs/StreamingContext.h>
+#if defined(IL2CPP_STRUCT_StreamingContext_DEFINED)
+#define IL2CPP_STRUCT_Nullable_1_System_Runtime_Serialization_StreamingContext__DEFINED
+struct Nullable_1_System_Runtime_Serialization_StreamingContext_ {
+    struct StreamingContext value;
+    bool has_value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Nullable_1_System_Runtime_Serialization_StreamingContext__FWDDECL)
+#define IL2CPP_STRUCT_Nullable_1_System_Runtime_Serialization_StreamingContext__FWDDECL
+#endif
+#undef IL2CPP_STRUCT_Nullable_1_System_Runtime_Serialization_StreamingContext__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Nullable_1_System_Runtime_Serialization_StreamingContext__DEFINED) && !defined(IL2CPP_STRUCT_Nullable_1_System_Runtime_Serialization_StreamingContext__FWDDECL)
+#include <Modloader/app/structs/Nullable_1_System_Runtime_Serialization_StreamingContext_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Nullable_1_System_Runtime_Serialization_StreamingContext_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

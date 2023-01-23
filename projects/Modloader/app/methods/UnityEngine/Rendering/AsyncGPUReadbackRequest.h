@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncGPUReadbackRequest__Boxed.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Rendering_AsyncGPUReadbackRequest_.h>
+#include <Modloader/app/structs/AsyncGPUReadbackRequest.h>
+#include <Modloader/app/structs/NativeArray_1_System_Byte_.h>
 
 namespace app::classes::UnityEngine::Rendering::AsyncGPUReadbackRequest {
     IL2CPP_REGISTER_METHOD(0x00218250, bool, get_done, (app::AsyncGPUReadbackRequest__Boxed * this_ptr))

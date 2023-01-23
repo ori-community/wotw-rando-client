@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PersistencyTools_c.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::Moon::EditorTools::Persistency::PersistencyTools___c {
     IL2CPP_REGISTER_METHOD(0x01208290, void, cctor, ())

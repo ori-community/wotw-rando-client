@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlSilentWoodsController.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::PetrifiedOwlSilentWoodsController {
     IL2CPP_REGISTER_METHOD(0x00BDCCA0, bool, get_IsCompleted, (app::PetrifiedOwlSilentWoodsController * this_ptr))

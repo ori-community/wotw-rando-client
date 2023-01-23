@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MantisJumpAttackBehaviour.h>
+#include <Modloader/app/structs/EntityDamageEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MantisJumpAttackBehaviour_State__Enum.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Switch_1.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MantisJumpAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00A04E60, bool, get_m_jumpDirectionLeft, (app::MantisJumpAttackBehaviour * this_ptr))

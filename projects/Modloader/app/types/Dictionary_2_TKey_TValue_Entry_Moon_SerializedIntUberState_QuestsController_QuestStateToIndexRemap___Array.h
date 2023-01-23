@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_Moon_SerializedIntUberState_QuestsController_QuestStateToIndexRemap___Array__Class.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_Moon_SerializedIntUberState_QuestsController_QuestStateToIndexRemap___Array.h>
 
 namespace app::classes::types {
     namespace Dictionary_2_TKey_TValue_Entry_Moon_SerializedIntUberState_QuestsController_QuestStateToIndexRemap___Array {

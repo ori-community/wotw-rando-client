@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AssetUtility.h>
 
 namespace app::classes::AssetUtility {
     IL2CPP_REGISTER_METHOD(0x00841C30, app::String*, GetAssetName, (app::String * asset_path))

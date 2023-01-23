@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ArrayList_ReadOnlyArrayList.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Collections::ArrayList_ReadOnlyArrayList {
     IL2CPP_REGISTER_METHOD(0x0201C4D0, void, ctor, (app::ArrayList_ReadOnlyArrayList * this_ptr, app::ArrayList* l))

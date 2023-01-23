@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationScriptPlayable__Boxed.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/AnimationScriptPlayable.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/DelayJointPostprocessJob.h>
+#include <Modloader/app/structs/MatchJointsJob.h>
 
 namespace app::classes::UnityEngine::Experimental::Animations::AnimationScriptPlayable {
     IL2CPP_REGISTER_METHOD(0x00242700, void, ctor, (app::AnimationScriptPlayable__Boxed * this_ptr, app::PlayableHandle handle))

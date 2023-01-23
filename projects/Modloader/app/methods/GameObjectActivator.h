@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObjectActivator.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::GameObjectActivator {
     IL2CPP_REGISTER_METHOD(0x003F8190, void, Start, (app::GameObjectActivator * this_ptr))

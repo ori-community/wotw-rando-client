@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WellKnownClientTypeEntry.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Runtime::Remoting::WellKnownClientTypeEntry {
     IL2CPP_REGISTER_METHOD(0x01D87770, void, ctor, (app::WellKnownClientTypeEntry * this_ptr, app::String* type_name, app::String* assembly_name, app::String* object_url))

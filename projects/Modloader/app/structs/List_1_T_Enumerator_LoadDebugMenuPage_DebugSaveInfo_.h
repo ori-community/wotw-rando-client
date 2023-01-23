@@ -1,0 +1,32 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo__DEFINED)
+#include <Modloader/app/structs/LoadDebugMenuPage_DebugSaveInfo.h>
+#if defined(IL2CPP_STRUCT_LoadDebugMenuPage_DebugSaveInfo_DEFINED)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo__DEFINED
+struct List_1_LoadDebugMenuPage_DebugSaveInfo_;
+struct List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo_ {
+    struct List_1_LoadDebugMenuPage_DebugSaveInfo_* list;
+    int32_t index;
+    int32_t version;
+    struct LoadDebugMenuPage_DebugSaveInfo current;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo__FWDDECL)
+#define IL2CPP_STRUCT_List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo__FWDDECL
+#include <Modloader/app/structs/List_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo__DEFINED) && !defined(IL2CPP_STRUCT_List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo__FWDDECL)
+#include <Modloader/app/structs/List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

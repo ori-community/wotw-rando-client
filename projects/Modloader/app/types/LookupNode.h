@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LookupNode__Class.h>
+#include <Modloader/app/structs/LookupNode.h>
 
 namespace app::classes::types {
     namespace LookupNode {

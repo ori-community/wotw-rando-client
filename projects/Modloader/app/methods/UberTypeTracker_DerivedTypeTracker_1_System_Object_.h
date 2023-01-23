@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/UberTypeTracker_DerivedTypeTracker_1_System_Object_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_System_Type_.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::UberTypeTracker_DerivedTypeTracker_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02263A00, app::Type__Array*, get_AllDerivedTypes, (app::UberTypeTracker_DerivedTypeTracker_1_System_Object_ * this_ptr))

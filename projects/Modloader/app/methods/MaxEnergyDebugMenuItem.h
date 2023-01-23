@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MaxEnergyDebugMenuItem.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::MaxEnergyDebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x013855B0, void, ctor, (app::MaxEnergyDebugMenuItem * this_ptr, app::String* path, app::String* str))

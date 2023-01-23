@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicalSystemManager.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/PhysicalSystemState.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/RigidbodyState.h>
+#include <Modloader/app/structs/IPhysicsUpdateHandler.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/RigidbodyState__Array.h>
+#include <Modloader/app/structs/ApplyTurbulentForce__Array.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/ApplyForceToPhysicsSystem_ExplosionSettings.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/Rigidbody__Array.h>
 
 namespace app::classes::PhysicalSystemManager {
     IL2CPP_REGISTER_METHOD(0x014EF460, void, ResetStatics, ())

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Panel.h>
 
 namespace app::classes::Panel {
     IL2CPP_REGISTER_METHOD(0x00443C10, void, Hide, (app::Panel * this_ptr))

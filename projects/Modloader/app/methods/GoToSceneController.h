@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScenesManager.h>
+#include <Modloader/app/structs/GoToSceneController.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
 
 namespace app::classes::GoToSceneController {
     IL2CPP_REGISTER_METHOD(0x007FE740, app::ScenesManager*, get_ScenesManager, (app::GoToSceneController * this_ptr))

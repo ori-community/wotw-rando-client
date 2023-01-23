@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DoorSetupData.h>
+#include <Modloader/app/structs/DoorSetupHolder.h>
+#include <Modloader/app/structs/List_1_IIndexedItem_.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::DoorSetupHolder {
     IL2CPP_REGISTER_METHOD(0x00BDB0E0, app::DoorSetupData*, get_ClosedState, (app::DoorSetupHolder * this_ptr))

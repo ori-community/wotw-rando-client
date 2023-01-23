@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FeedingGroundsDangerEffect.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/UberPostProcessAnimator.h>
 
 namespace app::classes::PetrifiedOwlFeedingGrounds::FeedingGroundsDangerEffect {
     IL2CPP_REGISTER_METHOD(0x017852B0, void, FadeIn, (app::FeedingGroundsDangerEffect * this_ptr, float timescale))

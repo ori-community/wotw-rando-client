@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SynchronizationContext.h>
+#include <Modloader/app/structs/SendOrPostCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Threading::SynchronizationContext {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SynchronizationContext * this_ptr))

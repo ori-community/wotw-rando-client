@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CullingGroup_StateChanged.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CullingGroupEvent.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::UnityEngine::CullingGroup_StateChanged {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::CullingGroup_StateChanged * this_ptr, app::Object* object, void* method_1))

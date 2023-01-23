@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonTrail_MoonTrailParticle__Boxed.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::Moon::MoonTrail_MoonTrailParticle {
     IL2CPP_REGISTER_METHOD(0x001F9BA0, bool, get_IsAlive, (app::MoonTrail_MoonTrailParticle__Boxed * this_ptr))

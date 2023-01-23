@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/COMException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Runtime::InteropServices::COMException {
     IL2CPP_REGISTER_METHOD(0x01A93CC0, void, ctor_1, (app::COMException * this_ptr))

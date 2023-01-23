@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompoundMessageProvider.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/IEnumerable_1_MessageDescriptor_.h>
 
 namespace app::classes::CompoundMessageProvider {
     IL2CPP_REGISTER_METHOD(0x002FB9E0, void, SetMessage, (app::CompoundMessageProvider * this_ptr, app::MessageProvider* message))

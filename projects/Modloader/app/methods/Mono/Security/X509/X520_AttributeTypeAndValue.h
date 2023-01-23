@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X520_AttributeTypeAndValue.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ASN1_1.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Mono::Security::X509::X520_AttributeTypeAndValue {
     IL2CPP_REGISTER_METHOD(0x0316BB70, void, ctor_1, (app::X520_AttributeTypeAndValue * this_ptr, app::String* oid, int32_t upper_bound))

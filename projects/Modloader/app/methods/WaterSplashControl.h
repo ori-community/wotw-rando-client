@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaterSplashControl.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::WaterSplashControl {
     IL2CPP_REGISTER_METHOD(0x00623240, float, get_DeltaTime, (app::WaterSplashControl * this_ptr))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CFUrl.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Net::CFUrl {
     IL2CPP_REGISTER_METHOD(0x02173690, void, ctor, (app::CFUrl * this_ptr, void* handle, bool own))

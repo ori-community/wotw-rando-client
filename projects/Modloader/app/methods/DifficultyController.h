@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DifficultyController.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/DifficultyMode__Enum.h>
 
 namespace app::classes::DifficultyController {
     IL2CPP_REGISTER_METHOD(0x00B91B70, void, Awake, (app::DifficultyController * this_ptr))

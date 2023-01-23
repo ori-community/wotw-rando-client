@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBatSpitBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IEntityBehaviour.h>
+#include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::SpiderBatSpitBehaviour {
     IL2CPP_REGISTER_METHOD(0x009608C0, void, OnBehaviourTreeInitialize, (app::SpiderBatSpitBehaviour * this_ptr, app::IContext* context))

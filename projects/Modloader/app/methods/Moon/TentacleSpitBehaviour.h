@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/TentacleSpitBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/EventTriggerAnimator.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Projectile.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::Moon::TentacleSpitBehaviour {
     IL2CPP_REGISTER_METHOD(0x010B5B10, app::GameObject*, get_CreepPrefab, (app::TentacleSpitBehaviour * this_ptr))

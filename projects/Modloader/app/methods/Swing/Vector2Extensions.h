@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Angle.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::Swing::Vector2Extensions {
     IL2CPP_REGISTER_METHOD(0x01830790, app::Vector2, perpendicular, (app::Vector2 _this))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/LeaderboadData.h>
+#include <Modloader/app/structs/ReplayData.h>
 
 namespace app::classes::Moon::Race::Networking::WebServiceCommunicator {
     IL2CPP_REGISTER_METHOD(0x00C47000, app::String*, get_WebBaseUrl, ())

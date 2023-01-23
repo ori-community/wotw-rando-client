@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_List_1_QuestNodeSetup_QuestInteractionSet__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_List_1_QuestNodeSetup_QuestInteractionSet__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_QuestNodeSetup_QuestInteractionSet__DEFINED)
+#include <Modloader/app/structs/List_1_QuestNodeSetup_QuestInteractionSet___Fields.h>
+#if defined(IL2CPP_STRUCT_List_1_QuestNodeSetup_QuestInteractionSet___Fields_DEFINED)
+#define IL2CPP_STRUCT_List_1_QuestNodeSetup_QuestInteractionSet__DEFINED
+struct List_1_QuestNodeSetup_QuestInteractionSet___Class;
+struct List_1_QuestNodeSetup_QuestInteractionSet_ {
+    struct List_1_QuestNodeSetup_QuestInteractionSet___Class* klass;
+    MonitorData* monitor;
+    struct List_1_QuestNodeSetup_QuestInteractionSet___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_List_1_QuestNodeSetup_QuestInteractionSet__FWDDECL)
+#define IL2CPP_STRUCT_List_1_QuestNodeSetup_QuestInteractionSet__FWDDECL
+#include <Modloader/app/structs/List_1_QuestNodeSetup_QuestInteractionSet___Class.h>
+#endif
+#undef IL2CPP_STRUCT_List_1_QuestNodeSetup_QuestInteractionSet__INITIALIZING
+#if !defined(IL2CPP_STRUCT_List_1_QuestNodeSetup_QuestInteractionSet__DEFINED) && !defined(IL2CPP_STRUCT_List_1_QuestNodeSetup_QuestInteractionSet__FWDDECL)
+#include <Modloader/app/structs/List_1_QuestNodeSetup_QuestInteractionSet_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/List_1_QuestNodeSetup_QuestInteractionSet_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

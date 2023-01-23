@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XalAchievements.h>
+#include <Modloader/app/structs/CacheData__Array.h>
+#include <Modloader/app/structs/CacheData.h>
+#include <Modloader/app/structs/List_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_.h>
+#include <Modloader/app/structs/XalUserGetTokenAndSignatureArgs.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/HttpMethod.h>
+#include <Modloader/app/structs/IEnumerable_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_.h>
+#include <Modloader/app/structs/Action_1_String_.h>
+#include <Modloader/app/structs/UnityWebRequest.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::Achievements::XalAchievements {
     IL2CPP_REGISTER_METHOD(0x0052F860, app::String*, get_Name, (app::XalAchievements * this_ptr))

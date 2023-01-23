@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MoonAnimationAssociation.h>
+#include <Modloader/app/structs/IAnimation.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/VectorAnimationParameter.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/FloatAnimationParameter.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/Action_4_Moon_MoonAnimation_Moon_ActiveAnimationHandle_Int32_Func_1_Boolean_.h>
+#include <Modloader/app/structs/Action_2_Moon_MoonAnimation_Moon_ActiveAnimationHandle_.h>
 
 namespace app::classes::MoonAnimationAssociation {
     IL2CPP_REGISTER_METHOD(0x0212F010, void, Finalize, (app::MoonAnimationAssociation * this_ptr))

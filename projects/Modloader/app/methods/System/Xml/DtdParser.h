@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DtdParser.h>
+#include <Modloader/app/structs/IDtdParser.h>
+#include <Modloader/app/structs/IDtdParserAdapter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IDtdInfo.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/SchemaElementDecl.h>
+#include <Modloader/app/structs/ParticleContentValidator.h>
+#include <Modloader/app/structs/DtdParser_Token__Enum.h>
+#include <Modloader/app/structs/DtdParser_LiteralType__Enum.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/SchemaEntity.h>
+#include <Modloader/app/structs/XmlSeverityType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaException.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::DtdParser {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())

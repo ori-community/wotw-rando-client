@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EnumEqualityComparer_1_System_Int32Enum_.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EnumEqualityComparer_1_System_Int32Enum_ {
     IL2CPP_REGISTER_METHOD(0x02CBD390, bool, Equals_1, (app::EnumEqualityComparer_1_System_Int32Enum_ * this_ptr, app::Int32Enum__Enum x, app::Int32Enum__Enum y))

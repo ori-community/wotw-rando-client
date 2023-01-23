@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SlugState__Class.h>
+#include <Modloader/app/structs/SlugState.h>
 
 namespace app::classes::types {
     namespace SlugState {

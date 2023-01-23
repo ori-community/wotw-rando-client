@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SpellIconsCollection_Icons__Class.h>
+#include <Modloader/app/structs/SpellIconsCollection_Icons.h>
+#include <Modloader/app/structs/SpellIconsCollection_Icons__Boxed.h>
+#include <Modloader/app/structs/SpellIconsCollection_Icons__Array.h>
 
 namespace app::classes::types {
     namespace SpellIconsCollection_Icons {

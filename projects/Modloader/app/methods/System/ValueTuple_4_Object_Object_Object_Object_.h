@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValueTuple_4_Object_Object_Object_Object___Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ValueTuple_4_Object_Object_Object_Object_.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ValueTuple_4_Object_Object_Object_Object_ {
     IL2CPP_REGISTER_METHOD(0x001DEB10, void, ctor, (app::ValueTuple_4_Object_Object_Object_Object___Boxed * this_ptr, app::Object* item1, app::Object* item2, app::Object* item3, app::Object* item4))

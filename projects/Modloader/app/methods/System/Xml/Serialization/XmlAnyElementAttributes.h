@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlAnyElementAttribute.h>
+#include <Modloader/app/structs/XmlAnyElementAttributes.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::Xml::Serialization::XmlAnyElementAttributes {
     IL2CPP_REGISTER_METHOD(0x01C99DB0, app::XmlAnyElementAttribute*, get_Item, (app::XmlAnyElementAttributes * this_ptr, int32_t index))

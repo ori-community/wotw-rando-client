@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AnimationPostprocessGroupManager_GroupState__Class.h>
+#include <Modloader/app/structs/AnimationPostprocessGroupManager_GroupState.h>
+#include <Modloader/app/structs/AnimationPostprocessGroupManager_GroupState__Array.h>
 
 namespace app::classes::types {
     namespace AnimationPostprocessGroupManager_GroupState {

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SHA1Internal.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/UInt32__Array.h>
 
 namespace app::classes::System::Security::Cryptography::SHA1Internal {
     IL2CPP_REGISTER_METHOD(0x028F4BC0, void, ctor, (app::SHA1Internal * this_ptr))

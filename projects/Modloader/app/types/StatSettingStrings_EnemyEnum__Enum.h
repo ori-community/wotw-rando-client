@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/StatSettingStrings_EnemyEnum__Enum__Class.h>
+#include <Modloader/app/structs/StatSettingStrings_EnemyEnum__Enum.h>
 
 namespace app::classes::types {
     namespace StatSettingStrings_EnemyEnum__Enum {

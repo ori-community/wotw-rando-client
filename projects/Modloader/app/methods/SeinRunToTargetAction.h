@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinRunToTargetAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::SeinRunToTargetAction {
     IL2CPP_REGISTER_METHOD(0x005D89B0, void, Stop, (app::SeinRunToTargetAction * this_ptr))

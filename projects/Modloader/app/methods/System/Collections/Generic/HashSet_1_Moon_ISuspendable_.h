@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HashSet_1_Moon_ISuspendable_.h>
+#include <Modloader/app/structs/ISuspendable.h>
+#include <Modloader/app/structs/HashSet_1_T_Enumerator_Moon_ISuspendable_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_ISuspendable_.h>
 
 namespace app::classes::System::Collections::Generic::HashSet_1_Moon_ISuspendable_ {
     IL2CPP_REGISTER_METHOD(0x02AB4A90, void, Clear, (app::HashSet_1_Moon_ISuspendable_ * this_ptr))

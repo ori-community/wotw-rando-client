@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/FixedUpdate_XRFixedUpdate__Class.h>
+#include <Modloader/app/structs/FixedUpdate_XRFixedUpdate.h>
+#include <Modloader/app/structs/FixedUpdate_XRFixedUpdate__Boxed.h>
 
 namespace app::classes::types {
     namespace FixedUpdate_XRFixedUpdate {

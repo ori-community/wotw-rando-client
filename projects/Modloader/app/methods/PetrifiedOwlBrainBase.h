@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlBrainBase.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::PetrifiedOwlBrainBase {
     IL2CPP_REGISTER_METHOD(0x017824F0, float, get_Duration, (app::PetrifiedOwlBrainBase * this_ptr))

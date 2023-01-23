@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Tuple_2_Int32_Int32_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::Tuple_2_Int32_Int32_ {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_Item1, (app::Tuple_2_Int32_Int32_ * this_ptr))

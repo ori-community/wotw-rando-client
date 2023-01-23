@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Quaternion__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_UnityEngine_Quaternion_ {
     IL2CPP_REGISTER_METHOD(0x02438EC0, bool, Equals_1, (app::ObjectEqualityComparer_1_UnityEngine_Quaternion_ * this_ptr, app::Quaternion x, app::Quaternion y))

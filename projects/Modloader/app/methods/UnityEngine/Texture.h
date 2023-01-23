@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/TextureDimension__Enum.h>
+#include <Modloader/app/structs/TextureWrapMode__Enum.h>
+#include <Modloader/app/structs/FilterMode__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/TextureFormat__Enum.h>
+#include <Modloader/app/structs/GraphicsFormat__Enum.h>
+#include <Modloader/app/structs/FormatUsage__Enum.h>
+#include <Modloader/app/structs/UnityException.h>
 
 namespace app::classes::UnityEngine::Texture {
     IL2CPP_REGISTER_METHOD(0x02C65D20, void, ctor, (app::Texture * this_ptr))

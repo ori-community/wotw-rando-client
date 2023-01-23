@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DistanceComparisonCondition.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::DistanceComparisonCondition {
     IL2CPP_REGISTER_METHOD(0x0300D340, app::String*, get_Info, (app::DistanceComparisonCondition * this_ptr))

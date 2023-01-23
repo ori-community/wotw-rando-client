@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneTracking.h>
+#include <Modloader/app/structs/SceneDeletionFlags__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::EditorTools::SceneTracking::SceneTracking {
     IL2CPP_REGISTER_METHOD(0x01208410, float, GetArtProgressValue, (app::SceneTracking * this_ptr, int32_t id))

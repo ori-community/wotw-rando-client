@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpellPickup.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
 
 namespace app::classes::SpellPickup {
     IL2CPP_REGISTER_METHOD(0x00943310, void, Awake, (app::SpellPickup * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberAtlasPrewarmContainer.h>
 
 namespace app::classes::UberShader::optimizations::atlassing::UberAtlasPrewarmContainer {
     IL2CPP_REGISTER_METHOD(0x018FD0C0, app::UberAtlasPrewarmContainer*, get_Instance, ())

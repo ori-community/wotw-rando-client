@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/NativeArray_1_System_Single_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Experimental_Animations_TransformStreamHandle_.h>
+#include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/AnimatorPostprocessUpdateData.h>
 
 namespace app::classes::Moon::Animation::JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob_ {
     IL2CPP_REGISTER_METHOD(0x0154A430, void, DisposeIfCreated_1, (app::JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob_ * this_ptr, app::NativeArray_1_UnityEngine_Quaternion_* array))

@@ -1,5 +1,49 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IPointerEnterHandler.h>
+#include <Modloader/app/structs/BaseEventData.h>
+#include <Modloader/app/structs/IPointerExitHandler.h>
+#include <Modloader/app/structs/IPointerDownHandler.h>
+#include <Modloader/app/structs/IPointerUpHandler.h>
+#include <Modloader/app/structs/IPointerClickHandler.h>
+#include <Modloader/app/structs/IInitializePotentialDragHandler.h>
+#include <Modloader/app/structs/IBeginDragHandler.h>
+#include <Modloader/app/structs/IDragHandler.h>
+#include <Modloader/app/structs/IEndDragHandler.h>
+#include <Modloader/app/structs/IDropHandler.h>
+#include <Modloader/app/structs/IScrollHandler.h>
+#include <Modloader/app/structs/IUpdateSelectedHandler.h>
+#include <Modloader/app/structs/ISelectHandler.h>
+#include <Modloader/app/structs/IDeselectHandler.h>
+#include <Modloader/app/structs/IMoveHandler.h>
+#include <Modloader/app/structs/ISubmitHandler.h>
+#include <Modloader/app/structs/ICancelHandler.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IPointerEnterHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IPointerExitHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IPointerDownHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IPointerUpHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IPointerClickHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IInitializePotentialDragHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IBeginDragHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IDragHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IEndDragHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IDropHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IScrollHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IUpdateSelectedHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_ISelectHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IDeselectHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_IMoveHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_ISubmitHandler_.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_ICancelHandler_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IList_1_UnityEngine_Transform_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_EventSystems_IEventSystemHandler_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ExecuteEvents_EventFunction_1_System_Object_.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/IList_1_UnityEngine_EventSystems_IEventSystemHandler_.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/AxisEventData.h>
 
 namespace app::classes::UnityEngine::EventSystems::ExecuteEvents {
     IL2CPP_REGISTER_METHOD(0x01F1E570, void, Execute_1, (app::IPointerEnterHandler * handler, app::BaseEventData* event_data))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TiltShift.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::TiltShift {
     IL2CPP_REGISTER_METHOD(0x02D688A0, bool, CheckResources, (app::TiltShift * this_ptr))

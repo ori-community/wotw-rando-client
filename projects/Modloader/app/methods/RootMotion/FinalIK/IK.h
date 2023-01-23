@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IK.h>
 
 namespace app::classes::RootMotion::FinalIK::IK {
     IL2CPP_REGISTER_METHOD(0x02077C00, void, UpdateSolver, (app::IK * this_ptr))

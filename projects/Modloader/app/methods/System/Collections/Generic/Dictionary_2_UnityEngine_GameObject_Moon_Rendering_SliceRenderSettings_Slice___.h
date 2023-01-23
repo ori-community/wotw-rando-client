@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SliceRenderSettings_Slice__Array.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice___ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_UnityEngine_GameObject_Moon_Rendering_SliceRenderSettings_Slice_ * this_ptr, app::GameObject* key))

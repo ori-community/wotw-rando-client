@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/UberTransformFollowRuntimeUpdateSystem.h>
 
 namespace app::classes::UberTransformFollowRuntimeUpdateSystem {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::UpdateType__Enum, get_UpdateType, (app::UberTransformFollowRuntimeUpdateSystem * this_ptr))

@@ -1,5 +1,40 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlListConverter.h>
+#include <Modloader/app/structs/XmlBaseConverter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlValueConverter.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/IList.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IEnumerable.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Boolean__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Byte__Array__Array.h>
+#include <Modloader/app/structs/DateTime__Array.h>
+#include <Modloader/app/structs/DateTimeOffset__Array.h>
+#include <Modloader/app/structs/Decimal__Array.h>
+#include <Modloader/app/structs/Double__Array.h>
+#include <Modloader/app/structs/Int16__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Int64__Array.h>
+#include <Modloader/app/structs/SByte__Array.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/TimeSpan__Array.h>
+#include <Modloader/app/structs/UInt16__Array.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/UInt64__Array.h>
+#include <Modloader/app/structs/Uri__Array.h>
+#include <Modloader/app/structs/XmlAtomicValue__Array.h>
+#include <Modloader/app/structs/XmlQualifiedName__Array.h>
+#include <Modloader/app/structs/XPathItem__Array.h>
+#include <Modloader/app/structs/XPathNavigator__Array.h>
 
 namespace app::classes::System::Xml::Schema::XmlListConverter {
     IL2CPP_REGISTER_METHOD(0x0224A020, void, ctor_1, (app::XmlListConverter * this_ptr, app::XmlBaseConverter* atomic_converter))

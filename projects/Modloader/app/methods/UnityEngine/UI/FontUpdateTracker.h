@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Text.h>
+#include <Modloader/app/structs/Font.h>
 
 namespace app::classes::UnityEngine::UI::FontUpdateTracker {
     IL2CPP_REGISTER_METHOD(0x024AD2E0, void, TrackText, (app::Text * t))

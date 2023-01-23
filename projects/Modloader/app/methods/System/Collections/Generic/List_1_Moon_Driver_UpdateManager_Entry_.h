@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_Moon_Driver_UpdateManager_Entry_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Driver_UpdateManager_Entry_.h>
+#include <Modloader/app/structs/UpdateManager_Entry.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Driver_UpdateManager_Entry_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Driver_UpdateManager_Entry_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Driver_UpdateManager_Entry_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_Moon_Driver_UpdateManager_Entry_ * this_ptr, int32_t capacity))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/AkBankManager_BankHandle__Array__Class.h>
+#include <Modloader/app/structs/AkBankManager_BankHandle__Array.h>
 
 namespace app::classes::types {
     namespace AkBankManager_BankHandle__Array {

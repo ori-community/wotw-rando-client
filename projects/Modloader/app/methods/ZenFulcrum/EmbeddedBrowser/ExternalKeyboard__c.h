@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExternalKeyboard_c.h>
+#include <Modloader/app/structs/Browser.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::ExternalKeyboard___c {
     IL2CPP_REGISTER_METHOD(0x01DDC930, void, cctor, ())

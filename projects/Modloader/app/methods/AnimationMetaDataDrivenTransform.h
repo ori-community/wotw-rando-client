@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AnimationMetaDataDrivenTransform.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::AnimationMetaDataDrivenTransform {
     IL2CPP_REGISTER_METHOD(0x005023A0, void, Awake, (app::AnimationMetaDataDrivenTransform * this_ptr))

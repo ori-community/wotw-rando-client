@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WindowsImpersonationContext.h>
 
 namespace app::classes::System::Security::Principal::WindowsImpersonationContext {
     IL2CPP_REGISTER_METHOD(0x01E1D690, void, ctor, (app::WindowsImpersonationContext * this_ptr, void* token))

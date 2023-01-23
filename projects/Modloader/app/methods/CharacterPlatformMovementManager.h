@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterPlatformMovementManager.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
 
 namespace app::classes::CharacterPlatformMovementManager {
     IL2CPP_REGISTER_METHOD(0x01312690, app::CharacterPlatformMovementManager*, get_Instance, ())

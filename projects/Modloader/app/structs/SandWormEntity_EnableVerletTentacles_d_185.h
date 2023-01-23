@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_SandWormEntity_EnableVerletTentacles_d_185_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_SandWormEntity_EnableVerletTentacles_d_185_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SandWormEntity_EnableVerletTentacles_d_185_DEFINED)
+#include <Modloader/app/structs/SandWormEntity_EnableVerletTentacles_d_185__Fields.h>
+#if defined(IL2CPP_STRUCT_SandWormEntity_EnableVerletTentacles_d_185__Fields_DEFINED)
+#define IL2CPP_STRUCT_SandWormEntity_EnableVerletTentacles_d_185_DEFINED
+struct SandWormEntity_EnableVerletTentacles_d_185__Class;
+struct SandWormEntity_EnableVerletTentacles_d_185 {
+    struct SandWormEntity_EnableVerletTentacles_d_185__Class* klass;
+    MonitorData* monitor;
+    struct SandWormEntity_EnableVerletTentacles_d_185__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_SandWormEntity_EnableVerletTentacles_d_185_FWDDECL)
+#define IL2CPP_STRUCT_SandWormEntity_EnableVerletTentacles_d_185_FWDDECL
+#include <Modloader/app/structs/SandWormEntity_EnableVerletTentacles_d_185__Class.h>
+#endif
+#undef IL2CPP_STRUCT_SandWormEntity_EnableVerletTentacles_d_185_INITIALIZING
+#if !defined(IL2CPP_STRUCT_SandWormEntity_EnableVerletTentacles_d_185_DEFINED) && !defined(IL2CPP_STRUCT_SandWormEntity_EnableVerletTentacles_d_185_FWDDECL)
+#include <Modloader/app/structs/SandWormEntity_EnableVerletTentacles_d_185.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/SandWormEntity_EnableVerletTentacles_d_185.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

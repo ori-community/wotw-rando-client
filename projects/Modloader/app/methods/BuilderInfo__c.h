@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BuilderInfo_c.h>
 
 namespace app::classes::BuilderInfo___c {
     IL2CPP_REGISTER_METHOD(0x00817F90, void, cctor, ())

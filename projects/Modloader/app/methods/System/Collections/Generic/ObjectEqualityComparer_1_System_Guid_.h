@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_System_Guid_.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/Guid__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_System_Guid_ {
     IL2CPP_REGISTER_METHOD(0x02435080, bool, Equals_1, (app::ObjectEqualityComparer_1_System_Guid_ * this_ptr, app::Guid x, app::Guid y))

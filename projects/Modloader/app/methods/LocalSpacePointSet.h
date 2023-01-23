@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/LocalSpacePointSet.h>
 
 namespace app::classes::LocalSpacePointSet {
     IL2CPP_REGISTER_METHOD(0x00FC0D50, app::List_1_UnityEngine_Vector3_*, get_WorldSpaceWorldSpaceInteractionPoints, (app::LocalSpacePointSet * this_ptr))

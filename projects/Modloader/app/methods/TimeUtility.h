@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimeUtility.h>
 
 namespace app::classes::TimeUtility {
     IL2CPP_REGISTER_METHOD(0x010F2550, float, get_maximumDeltaTime, ())

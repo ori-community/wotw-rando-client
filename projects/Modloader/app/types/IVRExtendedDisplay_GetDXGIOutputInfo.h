@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/IVRExtendedDisplay_GetDXGIOutputInfo__Class.h>
+#include <Modloader/app/structs/IVRExtendedDisplay_GetDXGIOutputInfo.h>
 
 namespace app::classes::types {
     namespace IVRExtendedDisplay_GetDXGIOutputInfo {

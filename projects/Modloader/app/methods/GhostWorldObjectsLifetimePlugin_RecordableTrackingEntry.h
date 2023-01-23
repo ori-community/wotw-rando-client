@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IRecordable.h>
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/GlobalRecordingTable_RecordableEntry.h>
 
 namespace app::classes::GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry {
     IL2CPP_REGISTER_METHOD(0x007F08A0, app::IRecordable*, get_Recordable, (app::GhostWorldObjectsLifetimePlugin_RecordableTrackingEntry * this_ptr))

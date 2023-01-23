@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReplaySetting.h>
+#include <Modloader/app/structs/MemoryUISlot.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::MemoryUISlot {
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::ReplaySetting*, get_ReplaySetting, (app::MemoryUISlot * this_ptr))

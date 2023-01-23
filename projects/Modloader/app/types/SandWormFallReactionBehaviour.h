@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SandWormFallReactionBehaviour__Class.h>
+#include <Modloader/app/structs/SandWormFallReactionBehaviour.h>
 
 namespace app::classes::types {
     namespace SandWormFallReactionBehaviour {

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IntegratedSubsystem.h>
 
 namespace app::classes::UnityEngine::Experimental::Internal_SubsystemInstances {
     IL2CPP_REGISTER_METHOD(0x03175CD0, void, Internal_InitializeManagedInstance, (void* ptr, app::IntegratedSubsystem* inst))

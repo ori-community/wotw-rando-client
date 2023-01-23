@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/KuState__Class.h>
+#include <Modloader/app/structs/KuState.h>
+#include <Modloader/app/structs/KuState__Array.h>
 
 namespace app::classes::types {
     namespace KuState {

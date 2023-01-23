@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DropSlugEnemySettings__Class.h>
+#include <Modloader/app/structs/DropSlugEnemySettings.h>
 
 namespace app::classes::types {
     namespace DropSlugEnemySettings {

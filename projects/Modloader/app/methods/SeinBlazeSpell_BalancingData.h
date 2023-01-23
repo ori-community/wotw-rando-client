@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinBlazeSpell_BalancingData.h>
+#include <Modloader/app/structs/SeinBlazeSpell_BalancingData_BlazeSettings.h>
 
 namespace app::classes::SeinBlazeSpell_BalancingData {
     IL2CPP_REGISTER_METHOD(0x00D94750, bool, get_IsChargeUnlocked, (app::SeinBlazeSpell_BalancingData * this_ptr))

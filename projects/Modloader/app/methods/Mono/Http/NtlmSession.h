@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NtlmSession.h>
+#include <Modloader/app/structs/Authorization.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WebRequest.h>
+#include <Modloader/app/structs/ICredentials.h>
 
 namespace app::classes::Mono::Http::NtlmSession {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::NtlmSession * this_ptr))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LanguageChanger.h>
 
 namespace app::classes::LanguageChanger {
     IL2CPP_REGISTER_METHOD(0x00F03030, void, Awake, (app::LanguageChanger * this_ptr))

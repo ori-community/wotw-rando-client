@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TestRunner_TestCoroutine_d_13.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::HierarchyPerfTest::TestRunner__TestCoroutine_d__13 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::TestRunner_TestCoroutine_d_13 * this_ptr, int32_t __1__state))

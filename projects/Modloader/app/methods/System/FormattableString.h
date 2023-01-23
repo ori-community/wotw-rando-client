@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/FormattableString.h>
+#include <Modloader/app/structs/IFormatProvider.h>
 
 namespace app::classes::System::FormattableString {
     IL2CPP_REGISTER_METHOD(0x01A1CA60, app::String*, IFormattable_ToString, (app::FormattableString * this_ptr, app::String* ignored, app::IFormatProvider* format_provider))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinFirewhirlSpell_c.h>
+#include <Modloader/app/structs/FirewhirlBeam.h>
 
 namespace app::classes::SeinFirewhirlSpell___c {
     IL2CPP_REGISTER_METHOD(0x00AE0BD0, void, cctor, ())

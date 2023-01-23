@@ -15,6 +15,8 @@
 #include <Modloader/app/types/Texture2D.h>
 #include <Modloader/app/types/WeaponmasterScreen.h>
 #include <Modloader/app/types/SpiritShardUIShardBackdrop.h>
+#include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Boxed.h>
+#include <Modloader/app/structs/SpellIconsCollection_Icons__Boxed.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/windows_api/console.h>

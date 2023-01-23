@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeashHookLogic_c.h>
 
 namespace app::classes::LeashHookLogic___c {
     IL2CPP_REGISTER_METHOD(0x015C6B80, void, cctor, ())

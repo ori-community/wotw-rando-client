@@ -1,0 +1,33 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_SurfaceMaterialType_MaterialVFXSet__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_SurfaceMaterialType_MaterialVFXSet__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_SurfaceMaterialType_MaterialVFXSet__DEFINED)
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#if defined(IL2CPP_STRUCT_SurfaceMaterialType__Enum_DEFINED)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_SurfaceMaterialType_MaterialVFXSet__DEFINED
+struct MaterialVFXSet;
+struct Dictionary_2_TKey_TValue_Entry_SurfaceMaterialType_MaterialVFXSet_ {
+    int32_t hashCode;
+    int32_t next;
+    SurfaceMaterialType__Enum key;
+
+    struct MaterialVFXSet* value;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_SurfaceMaterialType_MaterialVFXSet__FWDDECL)
+#define IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_SurfaceMaterialType_MaterialVFXSet__FWDDECL
+#include <Modloader/app/structs/MaterialVFXSet.h>
+#endif
+#undef IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_SurfaceMaterialType_MaterialVFXSet__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_SurfaceMaterialType_MaterialVFXSet__DEFINED) && !defined(IL2CPP_STRUCT_Dictionary_2_TKey_TValue_Entry_SurfaceMaterialType_MaterialVFXSet__FWDDECL)
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_SurfaceMaterialType_MaterialVFXSet_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_SurfaceMaterialType_MaterialVFXSet_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

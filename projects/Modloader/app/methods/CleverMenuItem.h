@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/CleverMenuItem.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/CleverMenuItem_ExtraNavigationButton__Enum.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
 
 namespace app::classes::CleverMenuItem {
     IL2CPP_REGISTER_METHOD(0x012AD8C0, app::Transform*, get_Transform, (app::CleverMenuItem * this_ptr))

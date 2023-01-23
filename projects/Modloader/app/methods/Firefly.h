@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Firefly.h>
+#include <Modloader/app/structs/OrbSpawner.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
 
 namespace app::classes::Firefly {
     IL2CPP_REGISTER_METHOD(0x009CA200, bool, get_IsAlive, (app::Firefly * this_ptr))

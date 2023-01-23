@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinWallSlidePuppet.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::SeinWallSlidePuppet {
     IL2CPP_REGISTER_METHOD(0x00AB4D20, int32_t, get_Id, (app::SeinWallSlidePuppet * this_ptr))

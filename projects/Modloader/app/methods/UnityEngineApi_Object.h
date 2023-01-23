@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/TextRenderer.h>
+#include <Modloader/app/structs/SaveSlotUI.h>
+#include <Modloader/app/structs/Button_1.h>
 
 namespace app::classes::UnityEngineApi_Object {
     IL2CPP_REGISTER_METHOD(0x03118A90, app::GameObject*, New_1, (app::String * name))

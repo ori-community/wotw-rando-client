@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsResult__Boxed.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/fsResult.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 
 namespace app::classes::FullSerializer::fsResult {
     IL2CPP_REGISTER_METHOD(0x0012C5C0, void, AddMessage, (app::fsResult__Boxed * this_ptr, app::String* message))

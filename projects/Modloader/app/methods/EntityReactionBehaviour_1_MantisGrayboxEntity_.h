@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MantisGrayboxEntity.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_1_MantisGrayboxEntity_.h>
 
 namespace app::classes::EntityReactionBehaviour_1_MantisGrayboxEntity_ {
     IL2CPP_REGISTER_METHOD(0x019E1C80, app::MantisGrayboxEntity*, get_Entity, (app::EntityReactionBehaviour_1_MantisGrayboxEntity_ * this_ptr))

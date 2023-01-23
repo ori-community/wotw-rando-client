@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ChannelMixer.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::ChannelMixer {
     IL2CPP_REGISTER_METHOD(0x030402B0, void, OnRenderImage, (app::ChannelMixer * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

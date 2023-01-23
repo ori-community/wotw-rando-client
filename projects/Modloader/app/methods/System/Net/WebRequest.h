@@ -1,5 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IWebRequestCreate.h>
+#include <Modloader/app/structs/WebRequest.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TimerThread_Queue.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HttpWebRequest.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/RequestCachePolicy.h>
+#include <Modloader/app/structs/WebHeaderCollection.h>
+#include <Modloader/app/structs/ICredentials.h>
+#include <Modloader/app/structs/IWebProxy.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/WebResponse.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Task_1_System_IO_Stream_.h>
+#include <Modloader/app/structs/Task_1_System_Net_WebResponse_.h>
+#include <Modloader/app/structs/WindowsIdentity.h>
+#include <Modloader/app/structs/RequestCacheProtocol.h>
+#include <Modloader/app/structs/AuthenticationLevel__Enum.h>
+#include <Modloader/app/structs/TokenImpersonationLevel__Enum.h>
 
 namespace app::classes::System::Net::WebRequest {
     IL2CPP_REGISTER_METHOD(0x021B35D0, app::IWebRequestCreate*, get_CreatorInstance, (app::WebRequest * this_ptr))

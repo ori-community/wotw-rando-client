@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AdditiveBodyRotation.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::Moon::AdditiveBodyRotation {
     IL2CPP_REGISTER_METHOD(0x013325F0, void, OnAddedToAnimator, (app::AdditiveBodyRotation * this_ptr, app::MoonAnimator* animator))

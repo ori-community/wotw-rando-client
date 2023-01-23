@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/SoundPlayer.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SoundSize.h>
+#include <Modloader/app/structs/AudioClip.h>
+#include <Modloader/app/structs/MixerGroupType__Enum.h>
+#include <Modloader/app/structs/AkCurveInterpolation__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::SoundPlayer {
     IL2CPP_REGISTER_METHOD(0x00EEB3A0, app::SoundHost*, get_SoundHost, (app::SoundPlayer * this_ptr))

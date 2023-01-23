@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XObject.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XElement.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/EventHandler_1_System_Xml_Linq_XObjectChangeEventArgs_.h>
+#include <Modloader/app/structs/XObjectChangeEventArgs.h>
+#include <Modloader/app/structs/SaveOptions__Enum.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
+#include <Modloader/app/structs/BaseUriAnnotation.h>
+#include <Modloader/app/structs/XObjectChangeAnnotation.h>
+#include <Modloader/app/structs/LineInfoAnnotation.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Xml_Linq_XObjectChangeAnnotation_.h>
 
 namespace app::classes::System::Xml::Linq::XObject {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::XObject * this_ptr))

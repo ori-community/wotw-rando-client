@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HealthBarPositioning.h>
 
 namespace app::classes::HealthBarPositioning {
     IL2CPP_REGISTER_METHOD(0x010A0B60, void, OnEnable, (app::HealthBarPositioning * this_ptr))

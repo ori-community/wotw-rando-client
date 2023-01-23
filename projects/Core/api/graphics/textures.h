@@ -2,6 +2,7 @@
 
 #include <Core/macros.h>
 #include <Core/api/graphics/shaders.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 #include <memory>
 #include <optional>

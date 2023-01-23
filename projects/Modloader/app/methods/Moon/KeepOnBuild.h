@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KeepOnBuild.h>
 
 namespace app::classes::Moon::KeepOnBuild {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::KeepOnBuild * this_ptr))

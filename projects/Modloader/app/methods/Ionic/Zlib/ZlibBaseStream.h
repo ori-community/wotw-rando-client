@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ZlibBaseStream.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/CompressionMode__Enum_1.h>
+#include <Modloader/app/structs/CompressionLevel__Enum.h>
+#include <Modloader/app/structs/ZlibStreamFlavor__Enum.h>
+#include <Modloader/app/structs/ZlibCodec.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Ionic::Zlib::ZlibBaseStream {
     IL2CPP_REGISTER_METHOD(0x03076B70, int32_t, get_Crc32, (app::ZlibBaseStream * this_ptr))

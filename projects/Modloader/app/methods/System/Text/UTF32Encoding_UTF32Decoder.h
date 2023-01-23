@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UTF32Encoding_UTF32Decoder.h>
+#include <Modloader/app/structs/UTF32Encoding.h>
 
 namespace app::classes::System::Text::UTF32Encoding_UTF32Decoder {
     IL2CPP_REGISTER_METHOD(0x0244A470, void, ctor, (app::UTF32Encoding_UTF32Decoder * this_ptr, app::UTF32Encoding* encoding))

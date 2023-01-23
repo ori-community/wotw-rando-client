@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GrounderFBBIK.h>
+#include <Modloader/app/structs/IKEffector.h>
+#include <Modloader/app/structs/Grounding_Leg.h>
 
 namespace app::classes::RootMotion::FinalIK::GrounderFBBIK {
     IL2CPP_REGISTER_METHOD(0x02068110, void, OpenTutorial, (app::GrounderFBBIK * this_ptr))

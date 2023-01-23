@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_RollLoopState_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_RollLoopState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_RollLoopState_DEFINED)
+#include <Modloader/app/structs/TurtleShellRollAttackBehaviourNew_RollLoopState__Fields.h>
+#if defined(IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_RollLoopState__Fields_DEFINED)
+#define IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_RollLoopState_DEFINED
+struct TurtleShellRollAttackBehaviourNew_RollLoopState__Class;
+struct TurtleShellRollAttackBehaviourNew_RollLoopState {
+    struct TurtleShellRollAttackBehaviourNew_RollLoopState__Class* klass;
+    MonitorData* monitor;
+    struct TurtleShellRollAttackBehaviourNew_RollLoopState__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_RollLoopState_FWDDECL)
+#define IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_RollLoopState_FWDDECL
+#include <Modloader/app/structs/TurtleShellRollAttackBehaviourNew_RollLoopState__Class.h>
+#endif
+#undef IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_RollLoopState_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_RollLoopState_DEFINED) && !defined(IL2CPP_STRUCT_TurtleShellRollAttackBehaviourNew_RollLoopState_FWDDECL)
+#include <Modloader/app/structs/TurtleShellRollAttackBehaviourNew_RollLoopState.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TurtleShellRollAttackBehaviourNew_RollLoopState.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

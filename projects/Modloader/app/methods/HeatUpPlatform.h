@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HeatUpPlatform.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/HeatUpPlatform_State__Enum.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::HeatUpPlatform {
     IL2CPP_REGISTER_METHOD(0x010A2630, void, Awake, (app::HeatUpPlatform * this_ptr))

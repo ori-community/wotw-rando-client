@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UberPoolPerfTest_FinishPendingTasks_d_43__Class.h>
+#include <Modloader/app/structs/UberPoolPerfTest_FinishPendingTasks_d_43.h>
+#include <Modloader/app/structs/UberPoolPerfTest_FinishPendingTasks_d_43__Boxed.h>
 
 namespace app::classes::types {
     namespace UberPoolPerfTest_FinishPendingTasks_d_43 {

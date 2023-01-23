@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerUberStateHoldables.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/NavigableOnGUI.h>
+#include <Modloader/app/structs/UberStateArchive.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateHoldables {
     IL2CPP_REGISTER_METHOD(0x00F3A360, bool, get_IsHoldingTorch, (app::PlayerUberStateHoldables * this_ptr))

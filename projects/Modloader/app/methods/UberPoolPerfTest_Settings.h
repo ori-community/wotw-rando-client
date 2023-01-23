@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPoolPerfTest_Settings.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UberPoolPerfTest_Settings {
     IL2CPP_REGISTER_METHOD(0x00FECA30, app::UberPoolPerfTest_Settings*, get_Default, ())

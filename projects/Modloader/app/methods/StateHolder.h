@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateHolder.h>
+#include <Modloader/app/structs/List_1_IIndexedItem_.h>
 
 namespace app::classes::StateHolder {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, GetSetupStates, (app::StateHolder * this_ptr, app::List_1_IIndexedItem_* to_populate))

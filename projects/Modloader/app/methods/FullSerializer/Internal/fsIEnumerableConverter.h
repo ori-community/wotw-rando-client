@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/fsIEnumerableConverter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/fsData.h>
+#include <Modloader/app/structs/fsResult.h>
+#include <Modloader/app/structs/IEnumerable.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
 
 namespace app::classes::FullSerializer::Internal::fsIEnumerableConverter {
     IL2CPP_REGISTER_METHOD(0x01656710, bool, CanProcess, (app::fsIEnumerableConverter * this_ptr, app::Type* type))

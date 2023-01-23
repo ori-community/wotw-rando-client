@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/PlatformID__Enum.h>
+#include <Modloader/app/structs/OperatingSystem.h>
+#include <Modloader/app/structs/Version.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/Environment_SpecialFolder__Enum.h>
+#include <Modloader/app/structs/Environment_SpecialFolderOption__Enum.h>
+#include <Modloader/app/structs/EnvironmentVariableTarget__Enum.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Environment {
     IL2CPP_REGISTER_METHOD(0x004C50A0, app::String*, GetResourceString_1, (app::String * key))

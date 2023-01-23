@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MessageBoxMessageScreen.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::MessageBoxMessageScreen {
     IL2CPP_REGISTER_METHOD(0x01592840, bool, get_Visible, (app::MessageBoxMessageScreen * this_ptr))

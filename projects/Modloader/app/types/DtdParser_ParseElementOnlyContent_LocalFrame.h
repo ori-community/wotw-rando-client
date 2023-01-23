@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/DtdParser_ParseElementOnlyContent_LocalFrame__Class.h>
+#include <Modloader/app/structs/DtdParser_ParseElementOnlyContent_LocalFrame.h>
+#include <Modloader/app/structs/DtdParser_ParseElementOnlyContent_LocalFrame__Array.h>
 
 namespace app::classes::types {
     namespace DtdParser_ParseElementOnlyContent_LocalFrame {

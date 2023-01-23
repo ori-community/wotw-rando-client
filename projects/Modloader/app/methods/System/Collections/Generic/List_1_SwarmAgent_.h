@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_SwarmAgent_.h>
+#include <Modloader/app/structs/List_1_SwarmAgent_.h>
+#include <Modloader/app/structs/SwarmAgent.h>
+#include <Modloader/app/structs/Comparison_1_SwarmAgent_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_SwarmAgent_ {
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_SwarmAgent_, GetEnumerator, (app::List_1_SwarmAgent_ * this_ptr))

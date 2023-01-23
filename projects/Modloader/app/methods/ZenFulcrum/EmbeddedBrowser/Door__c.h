@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Door_c.h>
+#include <Modloader/app/structs/Door_OpenState__Enum.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Door___c {
     IL2CPP_REGISTER_METHOD(0x01DD6C70, void, cctor, ())

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharacterMaxSpeedAnimator.h>
 
 namespace app::classes::CharacterMaxSpeedAnimator {
     IL2CPP_REGISTER_METHOD(0x01303090, void, OnStartPlay, (app::CharacterMaxSpeedAnimator * this_ptr))

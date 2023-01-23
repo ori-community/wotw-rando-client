@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPostAnimator.h>
 
 namespace app::classes::UberPostAnimator {
     IL2CPP_REGISTER_METHOD(0x00FEDD20, void, Awake, (app::UberPostAnimator * this_ptr))

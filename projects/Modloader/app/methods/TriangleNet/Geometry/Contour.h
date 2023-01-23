@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Geometry_Vertex_.h>
+#include <Modloader/app/structs/Contour.h>
+#include <Modloader/app/structs/IEnumerable_1_TriangleNet_Geometry_Vertex_.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Geometry_ISegment_.h>
+#include <Modloader/app/structs/Point.h>
 
 namespace app::classes::TriangleNet::Geometry::Contour {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::List_1_TriangleNet_Geometry_Vertex_*, get_Points, (app::Contour * this_ptr))

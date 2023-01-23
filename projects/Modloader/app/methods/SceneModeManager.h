@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneModeManager_SceneModeOverride__Enum.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/List_1_SceneManagerScene_.h>
+#include <Modloader/app/structs/SceneModeManager.h>
 
 namespace app::classes::SceneModeManager {
     IL2CPP_REGISTER_METHOD(0x00BB0B90, app::SceneModeManager_SceneModeOverride__Enum, get_Mode, ())

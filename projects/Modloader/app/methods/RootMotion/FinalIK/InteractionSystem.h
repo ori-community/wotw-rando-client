@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractionSystem.h>
+#include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
+#include <Modloader/app/structs/InteractionObject.h>
+#include <Modloader/app/structs/InteractionTarget.h>
+#include <Modloader/app/structs/InteractionTrigger_Range.h>
+#include <Modloader/app/structs/InteractionObject__Array.h>
+#include <Modloader/app/structs/InteractionTarget__Array.h>
+#include <Modloader/app/structs/FullBodyBipedIK.h>
+#include <Modloader/app/structs/List_1_RootMotion_FinalIK_InteractionTrigger_.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::RootMotion::FinalIK::InteractionSystem {
     IL2CPP_REGISTER_METHOD(0x02A0E140, void, OpenTutorial1, (app::InteractionSystem * this_ptr))

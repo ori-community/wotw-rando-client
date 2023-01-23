@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WeightedGroup_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_System_Single_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Object_System_Single_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::WeightedGroup_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x0243AC00, int32_t, get_Count, (app::WeightedGroup_1_System_Object_ * this_ptr))

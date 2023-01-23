@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameMapTransitionManager.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::GameMapTransitionManager {
     IL2CPP_REGISTER_METHOD(0x006A40E0, bool, get_IsTransitioning, (app::GameMapTransitionManager * this_ptr))

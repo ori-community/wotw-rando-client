@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BaseInvokableCall.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Delegate.h>
 
 namespace app::classes::UnityEngine::Events::BaseInvokableCall {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::BaseInvokableCall * this_ptr))

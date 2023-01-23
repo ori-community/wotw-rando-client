@@ -1,5 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Cart.h>
+#include <Modloader/app/structs/Rail.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Collider__Array.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/RideableTypes__Enum.h>
+#include <Modloader/app/structs/PlatformBehaviour.h>
+#include <Modloader/app/structs/Action_1_Single_.h>
+#include <Modloader/app/structs/CartBody.h>
+#include <Modloader/app/structs/CartAnimation.h>
+#include <Modloader/app/structs/ISoundHost.h>
+#include <Modloader/app/structs/CartStopper.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/CartBouncer.h>
+#include <Modloader/app/structs/LegacyTimelineSequence.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/RaycastHit__Array.h>
+#include <Modloader/app/structs/Enemy.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
 
 namespace app::classes::Cart {
     IL2CPP_REGISTER_METHOD(0x00B29A80, app::Rect, get_WorldRectBounds, (app::Cart * this_ptr))

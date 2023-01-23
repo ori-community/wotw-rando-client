@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PetrifiedOwlFireProjectilesBehaviour.h>
+#include <Modloader/app/structs/ProjectileSpawner.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::Moon::PetrifiedOwlFireProjectilesBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C34050, void, OnStartBehaviour, (app::PetrifiedOwlFireProjectilesBehaviour * this_ptr))

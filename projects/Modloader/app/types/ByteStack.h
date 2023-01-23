@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ByteStack__Class.h>
+#include <Modloader/app/structs/ByteStack.h>
 
 namespace app::classes::types {
     namespace ByteStack {

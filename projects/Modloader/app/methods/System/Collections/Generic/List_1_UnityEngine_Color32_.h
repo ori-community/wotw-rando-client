@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/Color32.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/Color32__Array.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_Color32_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_Color32_ {
     IL2CPP_REGISTER_METHOD(0x025E9020, void, AddRange, (app::List_1_UnityEngine_Color32_ * this_ptr, app::IEnumerable_1_UnityEngine_Color32_* collection))

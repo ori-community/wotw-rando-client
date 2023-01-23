@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WeaponAnimationPostprocess.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::Moon::WeaponAnimationPostprocess {
     IL2CPP_REGISTER_METHOD(0x00F2A6C0, void, OnAddedToAnimator, (app::WeaponAnimationPostprocess * this_ptr, app::MoonAnimator* animator))

@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/LightCanvasShadingZone__Class.h>
+#include <Modloader/app/structs/LightCanvasShadingZone.h>
 
 namespace app::classes::types {
     namespace LightCanvasShadingZone {

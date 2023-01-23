@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SrpSampler.h>
+#include <Modloader/app/structs/MoonRenderPipelineViewType__Enum.h>
+#include <Modloader/app/structs/IRenderPostprocessor.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RenderTarget.h>
+#include <Modloader/app/structs/Int2.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderPipelineView_Samplers {
     IL2CPP_REGISTER_METHOD(0x00EAEA20, void, cctor, ())

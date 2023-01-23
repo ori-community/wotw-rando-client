@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NameValueSectionHandler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlNode.h>
 
 namespace app::classes::System::Configuration::NameValueSectionHandler {
     IL2CPP_REGISTER_METHOD(0x02961F30, void, ctor, (app::NameValueSectionHandler * this_ptr))

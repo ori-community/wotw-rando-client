@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TeleportBeacon.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/TeleportBeacon_State__Enum.h>
+#include <Modloader/app/structs/ITeleportBeaconAttackable.h>
+#include <Modloader/app/structs/GrabbableSurface.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::TeleportBeacon {
     IL2CPP_REGISTER_METHOD(0x00CE5210, bool, get_IsLockOnTargetValid, (app::TeleportBeacon * this_ptr))

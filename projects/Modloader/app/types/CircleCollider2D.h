@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/CircleCollider2D__Class.h>
+#include <Modloader/app/structs/CircleCollider2D.h>
 
 namespace app::classes::types {
     namespace CircleCollider2D {

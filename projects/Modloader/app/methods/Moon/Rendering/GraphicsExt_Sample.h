@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GraphicsExt_Sample__Boxed.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Rendering::GraphicsExt_Sample {
     IL2CPP_REGISTER_METHOD(0x00119800, void, ctor, (app::GraphicsExt_Sample__Boxed * this_ptr, app::String* name))

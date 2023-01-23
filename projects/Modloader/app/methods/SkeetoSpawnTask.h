@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SkeetoSpawnTask.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::SkeetoSpawnTask {
     IL2CPP_REGISTER_METHOD(0x006B35D0, void, OnEnterTask, (app::SkeetoSpawnTask * this_ptr, app::IContext* context))

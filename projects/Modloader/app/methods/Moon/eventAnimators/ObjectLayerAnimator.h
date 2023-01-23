@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ObjectLayerAnimator.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::eventAnimators::ObjectLayerAnimator {
     IL2CPP_REGISTER_METHOD(0x00F2CAF0, void, OnStartPlayback, (app::ObjectLayerAnimator * this_ptr, app::IContext* context))

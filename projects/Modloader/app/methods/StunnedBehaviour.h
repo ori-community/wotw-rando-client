@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StunnedBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/StunnedBehaviour_StunnedState__Enum.h>
 
 namespace app::classes::StunnedBehaviour {
     IL2CPP_REGISTER_METHOD(0x00672050, void, OnInitializeTask, (app::StunnedBehaviour * this_ptr, app::IContext* context))

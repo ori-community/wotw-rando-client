@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Volumetric.h>
+#include <Modloader/app/structs/VolumetricConfig.h>
+#include <Modloader/app/structs/VolumetricPointLight.h>
+#include <Modloader/app/structs/VolumetricAreaLight.h>
+#include <Modloader/app/structs/CommandBuffer.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/RenderTarget.h>
+#include <Modloader/app/structs/RenderTargetIdentifier.h>
 
 namespace app::classes::Moon::Rendering::Volumetric {
     IL2CPP_REGISTER_METHOD(0x00EBEBD0, void, ResetStatics, ())

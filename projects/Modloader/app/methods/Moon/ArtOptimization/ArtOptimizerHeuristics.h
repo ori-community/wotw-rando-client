@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/UberShaderComponent.h>
+#include <Modloader/app/structs/UberShaderModifier.h>
+#include <Modloader/app/structs/Component_1.h>
 
 namespace app::classes::Moon::ArtOptimization::ArtOptimizerHeuristics {
     IL2CPP_REGISTER_METHOD(0x01347A60, bool, IsObjectIgnored, (app::GameObject * uber_shader))

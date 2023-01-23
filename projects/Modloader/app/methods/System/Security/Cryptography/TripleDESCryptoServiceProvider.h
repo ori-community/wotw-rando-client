@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TripleDESCryptoServiceProvider.h>
+#include <Modloader/app/structs/ICryptoTransform.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::TripleDESCryptoServiceProvider {
     IL2CPP_REGISTER_METHOD(0x01E12E70, void, ctor, (app::TripleDESCryptoServiceProvider * this_ptr))

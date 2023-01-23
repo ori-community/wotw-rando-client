@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OnlineHandler.h>
+#include <Modloader/app/structs/OnlineHandler_OnlineHandlerState__Enum.h>
 
 namespace app::classes::OnlineHandler {
     IL2CPP_REGISTER_METHOD(0x00617340, void, OnEnable, (app::OnlineHandler * this_ptr))

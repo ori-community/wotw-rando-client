@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlToDatasetMap_XmlNodeIdHashtable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Data::XmlToDatasetMap_XmlNodeIdHashtable {
     IL2CPP_REGISTER_METHOD(0x03055CD0, void, ctor, (app::XmlToDatasetMap_XmlNodeIdHashtable * this_ptr, int32_t capacity))

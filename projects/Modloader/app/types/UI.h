@@ -3,6 +3,8 @@
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
 
+#include <Modloader/app/structs/UI.h>
+
 namespace app::classes::types {
     namespace UI {
         inline app::UI__Class** type_info = (app::UI__Class**)(modloader::win::memory::resolve_rva(0x04783338));

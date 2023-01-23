@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TriggerColliderCallback_c.h>
+#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::TriggerColliderCallback___c {
     IL2CPP_REGISTER_METHOD(0x00B14270, void, cctor, ())

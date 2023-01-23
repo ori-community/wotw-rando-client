@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SplitTurnAnimationMoonTimeline.h>
+#include <Modloader/app/structs/CancelableAnimator.h>
+#include <Modloader/app/structs/ILocomotionTurningHandler.h>
 
 namespace app::classes::SplitTurnAnimationMoonTimeline {
     IL2CPP_REGISTER_METHOD(0x0051DB40, bool, get_IsDone, (app::SplitTurnAnimationMoonTimeline * this_ptr))

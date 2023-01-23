@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextWriter_c.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::IO::TextWriter___c {
     IL2CPP_REGISTER_METHOD(0x023879C0, void, cctor, ())

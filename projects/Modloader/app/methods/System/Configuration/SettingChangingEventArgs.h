@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SettingChangingEventArgs.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Configuration::SettingChangingEventArgs {
     IL2CPP_REGISTER_METHOD(0x02962200, void, ctor, (app::SettingChangingEventArgs * this_ptr, app::String* setting_name, app::String* setting_class, app::String* setting_key, app::Object* new_value, bool cancel))

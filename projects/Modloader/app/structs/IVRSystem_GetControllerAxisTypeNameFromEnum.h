@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_IVRSystem_GetControllerAxisTypeNameFromEnum_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_IVRSystem_GetControllerAxisTypeNameFromEnum_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRSystem_GetControllerAxisTypeNameFromEnum_DEFINED)
+#include <Modloader/app/structs/IVRSystem_GetControllerAxisTypeNameFromEnum__Fields.h>
+#if defined(IL2CPP_STRUCT_IVRSystem_GetControllerAxisTypeNameFromEnum__Fields_DEFINED)
+#define IL2CPP_STRUCT_IVRSystem_GetControllerAxisTypeNameFromEnum_DEFINED
+struct IVRSystem_GetControllerAxisTypeNameFromEnum__Class;
+struct IVRSystem_GetControllerAxisTypeNameFromEnum {
+    struct IVRSystem_GetControllerAxisTypeNameFromEnum__Class* klass;
+    MonitorData* monitor;
+    struct IVRSystem_GetControllerAxisTypeNameFromEnum__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_IVRSystem_GetControllerAxisTypeNameFromEnum_FWDDECL)
+#define IL2CPP_STRUCT_IVRSystem_GetControllerAxisTypeNameFromEnum_FWDDECL
+#include <Modloader/app/structs/IVRSystem_GetControllerAxisTypeNameFromEnum__Class.h>
+#endif
+#undef IL2CPP_STRUCT_IVRSystem_GetControllerAxisTypeNameFromEnum_INITIALIZING
+#if !defined(IL2CPP_STRUCT_IVRSystem_GetControllerAxisTypeNameFromEnum_DEFINED) && !defined(IL2CPP_STRUCT_IVRSystem_GetControllerAxisTypeNameFromEnum_FWDDECL)
+#include <Modloader/app/structs/IVRSystem_GetControllerAxisTypeNameFromEnum.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/IVRSystem_GetControllerAxisTypeNameFromEnum.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

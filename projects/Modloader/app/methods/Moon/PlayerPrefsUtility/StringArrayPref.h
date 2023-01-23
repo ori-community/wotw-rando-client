@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringArrayPref.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::Moon::PlayerPrefsUtility::StringArrayPref {
     IL2CPP_REGISTER_METHOD(0x00C3D4F0, void, ctor, (app::StringArrayPref * this_ptr, app::String* _key, app::String__Array* _default_value))

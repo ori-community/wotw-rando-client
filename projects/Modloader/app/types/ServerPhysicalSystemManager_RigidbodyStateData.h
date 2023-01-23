@@ -2,6 +2,10 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ServerPhysicalSystemManager_RigidbodyStateData__Class.h>
+#include <Modloader/app/structs/ServerPhysicalSystemManager_RigidbodyStateData.h>
+#include <Modloader/app/structs/ServerPhysicalSystemManager_RigidbodyStateData__Boxed.h>
+#include <Modloader/app/structs/ServerPhysicalSystemManager_RigidbodyStateData__Array.h>
 
 namespace app::classes::types {
     namespace ServerPhysicalSystemManager_RigidbodyStateData {

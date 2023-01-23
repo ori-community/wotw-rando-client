@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/KuFeatherFlap.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 
 namespace app::classes::KuFeatherFlap {
     IL2CPP_REGISTER_METHOD(0x00A3CA60, bool, get_CanCancel, (app::KuFeatherFlap * this_ptr))

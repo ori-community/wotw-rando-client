@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XAttribute.h>
+#include <Modloader/app/structs/XName.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XNamespace.h>
 
 namespace app::classes::System::Xml::Linq::XAttribute {
     IL2CPP_REGISTER_METHOD(0x0302E320, void, ctor_1, (app::XAttribute * this_ptr, app::XName* name, app::Object* value))

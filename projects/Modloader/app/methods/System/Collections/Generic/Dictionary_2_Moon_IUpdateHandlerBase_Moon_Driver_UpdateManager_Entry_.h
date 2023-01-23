@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_IUpdateHandlerBase_Moon_Driver_UpdateManager_Entry_.h>
+#include <Modloader/app/structs/IUpdateHandlerBase.h>
+#include <Modloader/app/structs/UpdateManager_Entry.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_Moon_IUpdateHandlerBase_Moon_Driver_UpdateManager_Entry_ {
     IL2CPP_REGISTER_METHOD(0x02259DF0, void, ctor, (app::Dictionary_2_Moon_IUpdateHandlerBase_Moon_Driver_UpdateManager_Entry_ * this_ptr, int32_t capacity))

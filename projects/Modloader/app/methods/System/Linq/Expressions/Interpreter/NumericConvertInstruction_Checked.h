@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NumericConvertInstruction_Checked.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::NumericConvertInstruction_Checked {
     IL2CPP_REGISTER_METHOD(0x02408D70, app::String*, get_InstructionName, (app::NumericConvertInstruction_Checked * this_ptr))

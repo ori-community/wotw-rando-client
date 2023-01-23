@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InvalidDataException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::IO::InvalidDataException {
     IL2CPP_REGISTER_METHOD(0x0200A9E0, void, ctor_1, (app::InvalidDataException * this_ptr))

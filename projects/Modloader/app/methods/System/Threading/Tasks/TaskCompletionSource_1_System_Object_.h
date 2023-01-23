@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Task_1_System_Object_.h>
+#include <Modloader/app/structs/TaskCompletionSource_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TaskCreationOptions__Enum.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/CancellationToken.h>
 
 namespace app::classes::System::Threading::Tasks::TaskCompletionSource_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Task_1_System_Object_*, get_Task, (app::TaskCompletionSource_1_System_Object_ * this_ptr))

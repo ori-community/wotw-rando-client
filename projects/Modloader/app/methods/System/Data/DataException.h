@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataException.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Data::DataException {
     IL2CPP_REGISTER_METHOD(0x0239F9E0, void, ctor_1, (app::DataException * this_ptr, app::SerializationInfo* info, app::StreamingContext context))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaterPoisonCloud.h>
+#include <Modloader/app/structs/WaterPoisonCloud_Blob.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::WaterPoisonCloud {
     IL2CPP_REGISTER_METHOD(0x008D8D00, void, EditorInitializeMesh, (app::WaterPoisonCloud * this_ptr))

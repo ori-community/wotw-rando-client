@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MirroredTurningBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::Moon::MirroredTurningBehaviour {
     IL2CPP_REGISTER_METHOD(0x01119590, void, OnEnterTask, (app::MirroredTurningBehaviour * this_ptr, app::IContext* context))

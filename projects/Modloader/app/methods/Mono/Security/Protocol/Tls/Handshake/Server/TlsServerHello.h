@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TlsServerHello.h>
+#include <Modloader/app/structs/Context_1.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::Handshake::Server::TlsServerHello {
     IL2CPP_REGISTER_METHOD(0x01F74DC0, void, ctor, (app::TlsServerHello * this_ptr, app::Context_1* context))

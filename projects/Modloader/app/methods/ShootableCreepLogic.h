@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/ShootableCreepLogic.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/MoonReference_1_IGenericUberState_.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::ShootableCreepLogic {
     IL2CPP_REGISTER_METHOD(0x005B9760, app::IUberState*, get_UberState, (app::ShootableCreepLogic * this_ptr))

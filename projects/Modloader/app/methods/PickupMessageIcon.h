@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PickupMessageIcon.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/PickupMessageIcon_PickupType__Enum.h>
+#include <Modloader/app/structs/PickupContext.h>
 
 namespace app::classes::PickupMessageIcon {
     IL2CPP_REGISTER_METHOD(0x01159630, void, SetIcon, (app::PickupMessageIcon * this_ptr, app::Texture2D* icon))

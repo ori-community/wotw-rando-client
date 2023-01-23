@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Object_Moon_ActiveAnimationHandle___Boxed.h>
+#include <Modloader/app/structs/Dictionary_2_System_Object_Moon_ActiveAnimationHandle_.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_TKey_TValue__ValueCollection_TKey_TValue__Enumerator_System_Object_Moon_ActiveAnimationHandle_ {
     IL2CPP_REGISTER_METHOD(0x00142E50, void, ctor, (app::Dictionary_2_TKey_TValue_ValueCollection_TKey_TValue_Enumerator_System_Object_Moon_ActiveAnimationHandle___Boxed * this_ptr, app::Dictionary_2_System_Object_Moon_ActiveAnimationHandle_* dictionary))

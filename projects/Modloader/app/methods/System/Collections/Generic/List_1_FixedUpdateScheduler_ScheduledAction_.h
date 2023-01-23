@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/FixedUpdateScheduler_ScheduledAction.h>
+#include <Modloader/app/structs/List_1_FixedUpdateScheduler_ScheduledAction_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_FixedUpdateScheduler_ScheduledAction_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::FixedUpdateScheduler_ScheduledAction*, get_Item, (app::List_1_FixedUpdateScheduler_ScheduledAction_ * this_ptr, int32_t index))

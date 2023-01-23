@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EZData.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_LZData_EZData_.h>
+#include <Modloader/app/structs/AudioEmitterZoneReference.h>
 
 namespace app::classes::Moon::Wwise::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData__EmitterZoneTask_LZData_EZData_ {
     IL2CPP_REGISTER_METHOD(0x00724AE0, app::EZData, get_Data, (app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_LZData_EZData_ * this_ptr))

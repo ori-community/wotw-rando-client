@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBossSpitBehaviour.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/MirroredTimelineSet.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBossSpitBehaviour {
     IL2CPP_REGISTER_METHOD(0x011B7500, int32_t, get_NumShots, (app::SpiderBossSpitBehaviour * this_ptr))

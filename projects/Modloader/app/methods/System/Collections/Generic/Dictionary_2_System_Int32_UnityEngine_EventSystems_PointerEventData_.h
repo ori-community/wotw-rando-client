@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_UnityEngine_EventSystems_PointerEventData_.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Int32_UnityEngine_EventSystems_PointerEventData_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_Int32_UnityEngine_EventSystems_PointerEventData_.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_UnityEngine_EventSystems_PointerEventData_ {
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_System_Int32_UnityEngine_EventSystems_PointerEventData_ * this_ptr))

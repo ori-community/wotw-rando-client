@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DamageBasedSoundProvider_c.h>
+#include <Modloader/app/structs/DamageBasedSoundProvider.h>
 
 namespace app::classes::DamageBasedSoundProvider___c {
     IL2CPP_REGISTER_METHOD(0x00DC2E60, void, cctor, ())

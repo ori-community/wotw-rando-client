@@ -1,0 +1,27 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_LayeredRenderSettings_LayerParams__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_LayeredRenderSettings_LayerParams__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_LayeredRenderSettings_LayerParams__DEFINED)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_LayeredRenderSettings_LayerParams__DEFINED
+struct LayeredRenderSettings_LayerParams__Array;
+struct KeyValuePair_2_System_Int32_LayeredRenderSettings_LayerParams_ {
+    int32_t key;
+    struct LayeredRenderSettings_LayerParams__Array* value;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_LayeredRenderSettings_LayerParams__FWDDECL)
+#define IL2CPP_STRUCT_KeyValuePair_2_System_Int32_LayeredRenderSettings_LayerParams__FWDDECL
+#include <Modloader/app/structs/LayeredRenderSettings_LayerParams__Array.h>
+#endif
+#undef IL2CPP_STRUCT_KeyValuePair_2_System_Int32_LayeredRenderSettings_LayerParams__INITIALIZING
+#if !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_LayeredRenderSettings_LayerParams__DEFINED) && !defined(IL2CPP_STRUCT_KeyValuePair_2_System_Int32_LayeredRenderSettings_LayerParams__FWDDECL)
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_LayeredRenderSettings_LayerParams_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_LayeredRenderSettings_LayerParams_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

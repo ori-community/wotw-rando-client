@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AssemblyReloadedEvent.h>
+#include <Modloader/app/structs/DatadogEvent.h>
 
 namespace app::classes::AssemblyReloadedEvent {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_TimeTaken, (app::AssemblyReloadedEvent * this_ptr))

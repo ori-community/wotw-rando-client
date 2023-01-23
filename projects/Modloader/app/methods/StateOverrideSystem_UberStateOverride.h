@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StateOverrideSystem_UberStateOverride__Boxed.h>
 
 namespace app::classes::StateOverrideSystem_UberStateOverride {
     IL2CPP_REGISTER_METHOD(0x00249990, void, ApplyDynamic, (app::StateOverrideSystem_UberStateOverride__Boxed * this_ptr))

@@ -1,0 +1,42 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData__Fields_DEFINED)
+#include <Modloader/app/structs/DynamicDataLinkUtils_DataTargetMemberType__Enum.h>
+#include <Modloader/app/structs/SetupStateModifierDataType__Enum.h>
+#if defined(IL2CPP_STRUCT_SetupStateModifierDataType__Enum_DEFINED) && defined(IL2CPP_STRUCT_DynamicDataLinkUtils_DataTargetMemberType__Enum_DEFINED)
+#define IL2CPP_STRUCT_NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData__Fields_DEFINED
+struct NewSetupStateController;
+struct String;
+struct __declspec(align(8)) NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData__Fields {
+    int32_t StateGUID;
+    int32_t ModifierGUID;
+    struct NewSetupStateController* TargetController;
+    SetupStateModifierDataType__Enum ModifierDataClassType;
+
+    DynamicDataLinkUtils_DataTargetMemberType__Enum TargetMemberType;
+
+    int32_t ClassID;
+    int32_t FieldID;
+    struct String* MemberName;
+    struct String* ParameterName;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData__Fields_FWDDECL)
+#define IL2CPP_STRUCT_NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData__Fields_FWDDECL
+#include <Modloader/app/structs/NewSetupStateController.h>
+#include <Modloader/app/structs/String.h>
+#endif
+#undef IL2CPP_STRUCT_NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData__Fields_DEFINED) && !defined(IL2CPP_STRUCT_NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData__Fields_FWDDECL)
+#include <Modloader/app/structs/NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/AnimationMetaData_AnimationData.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::AnimationMetaData_AnimationData {
     IL2CPP_REGISTER_METHOD(0x004FDAA0, app::Vector3, GetPositionAtTime, (app::AnimationMetaData_AnimationData * this_ptr, float time))

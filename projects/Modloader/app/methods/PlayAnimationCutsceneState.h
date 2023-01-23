@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/PlayAnimationCutsceneState.h>
 
 namespace app::classes::PlayAnimationCutsceneState {
     IL2CPP_REGISTER_METHOD(0x01175740, app::SeinCharacter*, get_Sein, (app::PlayAnimationCutsceneState * this_ptr))

@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DeflateStream_1.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/CompressionMode__Enum_2.h>
+#include <Modloader/app/structs/IDeflater.h>
+#include <Modloader/app/structs/DeflateStream_WorkerType__Enum.h>
+#include <Modloader/app/structs/IFileFormatReader.h>
+#include <Modloader/app/structs/IFileFormatWriter.h>
+#include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/DeflateStreamAsyncResult.h>
 
 namespace app::classes::Unity::IO::Compression::DeflateStream {
     IL2CPP_REGISTER_METHOD(0x02B72150, void, ctor_1, (app::DeflateStream_1 * this_ptr, app::Stream* stream, app::CompressionMode__Enum_2 mode))

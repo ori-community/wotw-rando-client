@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/StartGameResult__Class.h>
+#include <Modloader/app/structs/StartGameResult.h>
 
 namespace app::classes::types {
     namespace StartGameResult {

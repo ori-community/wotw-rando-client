@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/SpiderInteractionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/SpiderInteractionBehaviour_InteractionStates__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::SpiderInteractionBehaviour {
     IL2CPP_REGISTER_METHOD(0x011BD6A0, app::Quest*, get_SpiderlingQuest, (app::SpiderInteractionBehaviour * this_ptr))

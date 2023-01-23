@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/StatisticianInteractionBehaviour__Class.h>
+#include <Modloader/app/structs/StatisticianInteractionBehaviour.h>
 
 namespace app::classes::types {
     namespace StatisticianInteractionBehaviour {

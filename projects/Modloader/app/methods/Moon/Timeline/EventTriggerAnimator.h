@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_Moon_Timeline_EventTriggerAnimator_.h>
+#include <Modloader/app/structs/EventTriggerAnimator.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::EventTriggerAnimator {
     IL2CPP_REGISTER_METHOD(0x002FBBC0, app::Action_1_Moon_Timeline_EventTriggerAnimator_*, get_EventStartWithTriggerInfo, (app::EventTriggerAnimator * this_ptr))

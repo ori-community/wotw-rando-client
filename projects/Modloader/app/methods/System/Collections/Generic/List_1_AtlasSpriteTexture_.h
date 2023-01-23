@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AtlasSpriteTexture.h>
+#include <Modloader/app/structs/List_1_AtlasSpriteTexture_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_AtlasSpriteTexture_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_AtlasSpriteTexture_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::AtlasSpriteTexture*, get_Item, (app::List_1_AtlasSpriteTexture_ * this_ptr, int32_t index))

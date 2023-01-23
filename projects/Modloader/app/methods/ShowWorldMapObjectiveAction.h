@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ShowWorldMapObjectiveAction.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ShowWorldMapObjectiveAction {
     IL2CPP_REGISTER_METHOD(0x00739830, void, Perform, (app::ShowWorldMapObjectiveAction * this_ptr, app::IContext* context))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Rectangle.h>
+#include <Modloader/app/structs/Point.h>
+#include <Modloader/app/structs/IEnumerable_1_TriangleNet_Geometry_Point_.h>
 
 namespace app::classes::TriangleNet::Geometry::Rectangle {
     IL2CPP_REGISTER_METHOD(0x0261DD00, void, ctor_1, (app::Rectangle * this_ptr))

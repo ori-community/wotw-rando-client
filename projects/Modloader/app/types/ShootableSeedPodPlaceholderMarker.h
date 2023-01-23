@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/ShootableSeedPodPlaceholderMarker__Class.h>
+#include <Modloader/app/structs/ShootableSeedPodPlaceholderMarker.h>
 
 namespace app::classes::types {
     namespace ShootableSeedPodPlaceholderMarker {

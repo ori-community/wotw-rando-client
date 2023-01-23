@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/TimesliceSpikeReporter.h>
+#include <Modloader/app/structs/ITimeSlicedJob.h>
 
 namespace app::classes::TimesliceSpikeReporter {
     IL2CPP_REGISTER_METHOD(0x00AF5B90, app::GUIStyle*, get_LabelStyle, (app::TimesliceSpikeReporter * this_ptr))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DynamicCubeReference.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::Moon::DynamicCubeReference {
     IL2CPP_REGISTER_METHOD(0x031B03F0, void, Awake, (app::DynamicCubeReference * this_ptr))

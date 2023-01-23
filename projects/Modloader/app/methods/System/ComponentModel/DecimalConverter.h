@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DecimalConverter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ITypeDescriptorContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/NumberFormatInfo.h>
 
 namespace app::classes::System::ComponentModel::DecimalConverter {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_AllowHex, (app::DecimalConverter * this_ptr))

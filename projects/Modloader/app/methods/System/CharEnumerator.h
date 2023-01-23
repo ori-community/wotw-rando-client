@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CharEnumerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::CharEnumerator {
     IL2CPP_REGISTER_METHOD(0x021C1000, void, ctor_1, (app::CharEnumerator * this_ptr, app::String* str))

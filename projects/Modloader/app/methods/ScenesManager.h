@@ -1,5 +1,36 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ScenesManager.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/List_1_System_Int32_.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/SceneManagerScene.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
+#include <Modloader/app/structs/Scene.h>
+#include <Modloader/app/structs/List_1_RuntimeSceneMetaData_.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IScenesManagerBehaviour.h>
+#include <Modloader/app/structs/ScenesManager_SceneManagementMode__Enum.h>
+#include <Modloader/app/structs/HashSet_1_System_UInt32_.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SceneLoadingQueue.h>
+#include <Modloader/app/structs/LoadSceneMode__Enum.h>
+#include <Modloader/app/structs/List_1_Moon_IRectProvider_.h>
+#include <Modloader/app/structs/SceneState__Enum.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/AsyncOperation_1.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Dictionary_2_MoonGuid_NearbySceneData_.h>
+#include <Modloader/app/structs/List_1_MoonGuid_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/MoonTelemetrySceneEvent.h>
+#include <Modloader/app/structs/ScenesManager_LoadingCameraState__Enum.h>
 
 namespace app::classes::ScenesManager {
     IL2CPP_REGISTER_METHOD(0x00BC1A90, bool, SceneVisibleAtPosition, (app::ScenesManager * this_ptr, app::Vector3 position))

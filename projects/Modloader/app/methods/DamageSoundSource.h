@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DamageSoundSource.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::DamageSoundSource {
     IL2CPP_REGISTER_METHOD(0x00505C70, void, Awake, (app::DamageSoundSource * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Token__Boxed.h>
+#include <Modloader/app/structs/Token_Type__Enum.h>
+#include <Modloader/app/structs/Token.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::Http::Headers::Token {
     IL2CPP_REGISTER_METHOD(0x00234C30, void, ctor, (app::Token__Boxed * this_ptr, app::Token_Type__Enum type, int32_t start_position, int32_t end_position))

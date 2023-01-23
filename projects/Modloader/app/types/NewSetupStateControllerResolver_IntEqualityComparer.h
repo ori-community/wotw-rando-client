@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/NewSetupStateControllerResolver_IntEqualityComparer__Class.h>
+#include <Modloader/app/structs/NewSetupStateControllerResolver_IntEqualityComparer.h>
 
 namespace app::classes::types {
     namespace NewSetupStateControllerResolver_IntEqualityComparer {

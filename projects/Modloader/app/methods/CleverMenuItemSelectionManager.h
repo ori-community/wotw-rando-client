@@ -1,5 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_ICleverMenuFadeObserver_.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/CleverMenuItem.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/List_1_CleverMenuItem_.h>
+#include <Modloader/app/structs/Predicate_1_CleverMenuItem_.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
 
 namespace app::classes::CleverMenuItemSelectionManager {
     IL2CPP_REGISTER_METHOD(0x012B4A00, app::List_1_ICleverMenuFadeObserver_*, get_ResolvedFaderObservers, (app::CleverMenuItemSelectionManager * this_ptr))

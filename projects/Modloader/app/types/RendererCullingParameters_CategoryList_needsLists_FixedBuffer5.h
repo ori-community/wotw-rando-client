@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList_needsLists_FixedBuffer5__Class.h>
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList_needsLists_FixedBuffer5.h>
+#include <Modloader/app/structs/RendererCullingParameters_CategoryList_needsLists_FixedBuffer5__Boxed.h>
 
 namespace app::classes::types {
     namespace RendererCullingParameters_CategoryList_needsLists_FixedBuffer5 {

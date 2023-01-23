@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ReactionFallingBehaviour.h>
+#include <Modloader/app/structs/LegacyTimelineSequence.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/ReactionFallingBehaviour_FallState__Enum.h>
 
 namespace app::classes::ReactionFallingBehaviour {
     IL2CPP_REGISTER_METHOD(0x00730A90, void, OnResetEntity, (app::ReactionFallingBehaviour * this_ptr))

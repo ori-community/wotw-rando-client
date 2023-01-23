@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RotationAnimationModifier.h>
 
 namespace app::classes::RotationAnimationModifier {
     IL2CPP_REGISTER_METHOD(0x009328B0, void, ApplyMultipliers, (app::RotationAnimationModifier * this_ptr, float strength, float speed))

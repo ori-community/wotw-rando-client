@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EventProvider_SessionInfo__Array.h>
+#include <Modloader/app/structs/IComparer_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_.h>
+#include <Modloader/app/structs/EventProvider_SessionInfo.h>
+#include <Modloader/app/structs/Comparison_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_ {
     IL2CPP_REGISTER_METHOD(0x02FFDD80, void, Sort_1, (app::EventProvider_SessionInfo__Array * keys, int32_t index, int32_t length, app::IComparer_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_* comparer))

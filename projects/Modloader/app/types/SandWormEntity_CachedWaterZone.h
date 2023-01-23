@@ -2,6 +2,9 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SandWormEntity_CachedWaterZone__Class.h>
+#include <Modloader/app/structs/SandWormEntity_CachedWaterZone.h>
+#include <Modloader/app/structs/SandWormEntity_CachedWaterZone__Boxed.h>
 
 namespace app::classes::types {
     namespace SandWormEntity_CachedWaterZone {

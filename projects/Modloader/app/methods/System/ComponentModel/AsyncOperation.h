@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AsyncOperation.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SynchronizationContext.h>
+#include <Modloader/app/structs/SendOrPostCallback.h>
 
 namespace app::classes::System::ComponentModel::AsyncOperation {
     IL2CPP_REGISTER_METHOD(0x024A0500, void, ctor_1, (app::AsyncOperation * this_ptr, app::Object* user_supplied_state, app::SynchronizationContext* sync_context))

@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/QNameFacetsChecker.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/ArrayList.h>
 
 namespace app::classes::System::Xml::Schema::QNameFacetsChecker {
     IL2CPP_REGISTER_METHOD(0x016E53A0, app::Exception*, CheckValueFacets_1, (app::QNameFacetsChecker * this_ptr, app::Object* value, app::XmlSchemaDatatype* datatype))

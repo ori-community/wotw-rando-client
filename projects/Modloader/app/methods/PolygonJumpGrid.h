@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PolygonJumpGrid.h>
+#include <Modloader/app/structs/ILocomotionTurningHandler.h>
+#include <Modloader/app/structs/PolygonJumpGridEntry.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PolygonJumpGrid {
     IL2CPP_REGISTER_METHOD(0x002FB9C0, void, Init, (app::PolygonJumpGrid * this_ptr, app::ILocomotionTurningHandler* turning_handler))

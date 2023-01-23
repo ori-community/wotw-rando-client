@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AddQuest.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::AddQuest {
     IL2CPP_REGISTER_METHOD(0x004CA090, void, Perform, (app::AddQuest * this_ptr, app::IContext* context))

@@ -3,6 +3,8 @@
 #include <Core/macros.h>
 #include <Core/enums/actions.h>
 #include <Core/enums/controller_axis.h>
+#include <Modloader/app/structs/PlayerInput.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace core::input {
     enum class MousePositionSimulationMode {

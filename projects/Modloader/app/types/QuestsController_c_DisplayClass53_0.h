@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/QuestsController_c_DisplayClass53_0__Class.h>
+#include <Modloader/app/structs/QuestsController_c_DisplayClass53_0.h>
 
 namespace app::classes::types {
     namespace QuestsController_c_DisplayClass53_0 {

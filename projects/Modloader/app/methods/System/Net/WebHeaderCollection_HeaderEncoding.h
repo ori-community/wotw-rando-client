@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Net::WebHeaderCollection_HeaderEncoding {
     IL2CPP_REGISTER_METHOD(0x01D77690, app::String*, GetString_1, (app::Byte__Array * bytes, int32_t byte_index, int32_t byte_count))

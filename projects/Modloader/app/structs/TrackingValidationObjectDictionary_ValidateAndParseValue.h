@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_TrackingValidationObjectDictionary_ValidateAndParseValue_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_TrackingValidationObjectDictionary_ValidateAndParseValue_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TrackingValidationObjectDictionary_ValidateAndParseValue_DEFINED)
+#include <Modloader/app/structs/TrackingValidationObjectDictionary_ValidateAndParseValue__Fields.h>
+#if defined(IL2CPP_STRUCT_TrackingValidationObjectDictionary_ValidateAndParseValue__Fields_DEFINED)
+#define IL2CPP_STRUCT_TrackingValidationObjectDictionary_ValidateAndParseValue_DEFINED
+struct TrackingValidationObjectDictionary_ValidateAndParseValue__Class;
+struct TrackingValidationObjectDictionary_ValidateAndParseValue {
+    struct TrackingValidationObjectDictionary_ValidateAndParseValue__Class* klass;
+    MonitorData* monitor;
+    struct TrackingValidationObjectDictionary_ValidateAndParseValue__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_TrackingValidationObjectDictionary_ValidateAndParseValue_FWDDECL)
+#define IL2CPP_STRUCT_TrackingValidationObjectDictionary_ValidateAndParseValue_FWDDECL
+#include <Modloader/app/structs/TrackingValidationObjectDictionary_ValidateAndParseValue__Class.h>
+#endif
+#undef IL2CPP_STRUCT_TrackingValidationObjectDictionary_ValidateAndParseValue_INITIALIZING
+#if !defined(IL2CPP_STRUCT_TrackingValidationObjectDictionary_ValidateAndParseValue_DEFINED) && !defined(IL2CPP_STRUCT_TrackingValidationObjectDictionary_ValidateAndParseValue_FWDDECL)
+#include <Modloader/app/structs/TrackingValidationObjectDictionary_ValidateAndParseValue.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/TrackingValidationObjectDictionary_ValidateAndParseValue.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

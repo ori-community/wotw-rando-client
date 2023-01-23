@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LizardEntity.h>
+#include <Modloader/app/structs/LizardSpawnType__Enum.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::LizardEntity {
     IL2CPP_REGISTER_METHOD(0x00FAC8C0, bool, get_IsInOneTwoThreeAttackRange, (app::LizardEntity * this_ptr))

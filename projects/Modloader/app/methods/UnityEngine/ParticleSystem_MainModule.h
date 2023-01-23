@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ParticleSystem_MainModule__Boxed.h>
+#include <Modloader/app/structs/ParticleSystem.h>
+#include <Modloader/app/structs/ParticleSystem_MinMaxCurve.h>
+#include <Modloader/app/structs/ParticleSystem_MinMaxGradient.h>
+#include <Modloader/app/structs/ParticleSystemSimulationSpace__Enum.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UnityEngine::ParticleSystem_MainModule {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::ParticleSystem_MainModule__Boxed * this_ptr, app::ParticleSystem* particle_system))

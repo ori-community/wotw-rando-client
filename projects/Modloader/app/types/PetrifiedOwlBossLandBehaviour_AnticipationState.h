@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLandBehaviour_AnticipationState__Class.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLandBehaviour_AnticipationState.h>
 
 namespace app::classes::types {
     namespace PetrifiedOwlBossLandBehaviour_AnticipationState {

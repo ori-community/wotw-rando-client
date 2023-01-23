@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/NullableConverter.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ITypeDescriptorContext.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/TypeConverter_StandardValuesCollection.h>
+#include <Modloader/app/structs/TypeConverter.h>
 
 namespace app::classes::System::ComponentModel::NullableConverter {
     IL2CPP_REGISTER_METHOD(0x02991010, void, ctor, (app::NullableConverter * this_ptr, app::Type* type))

@@ -1,0 +1,29 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Fields_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Fields_DEFINED)
+#define IL2CPP_STRUCT_MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Fields_DEFINED
+struct List_1_MaterialBasedResourceMapEntry_;
+struct List_1_System_Object_;
+struct __declspec(align(8)) MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Fields {
+    struct List_1_MaterialBasedResourceMapEntry_* m_entries;
+    struct List_1_System_Object_* m_defaults;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Fields_FWDDECL)
+#define IL2CPP_STRUCT_MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Fields_FWDDECL
+#include <Modloader/app/structs/List_1_MaterialBasedResourceMapEntry_.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#endif
+#undef IL2CPP_STRUCT_MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Fields_INITIALIZING
+#if !defined(IL2CPP_STRUCT_MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Fields_DEFINED) && !defined(IL2CPP_STRUCT_MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Fields_FWDDECL)
+#include <Modloader/app/structs/MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Fields.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache__Fields.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

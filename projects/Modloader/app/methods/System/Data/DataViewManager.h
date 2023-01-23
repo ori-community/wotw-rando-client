@@ -1,5 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DataViewManager.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/DataViewSettingCollection.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/ListSortDirection__Enum.h>
+#include <Modloader/app/structs/ListChangedEventHandler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PropertyDescriptor__Array.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/DataView.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/ListChangedEventArgs.h>
+#include <Modloader/app/structs/CollectionChangeEventArgs.h>
 
 namespace app::classes::System::Data::DataViewManager {
     IL2CPP_REGISTER_METHOD(0x01F49040, void, ctor, (app::DataViewManager * this_ptr, app::DataSet* data_set, bool locked))

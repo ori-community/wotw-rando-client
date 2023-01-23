@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Application_NvnBufferUsage__Enum.h>
+#include <Modloader/app/structs/Application_JobFilterGroup__Enum.h>
+#include <Modloader/app/structs/RuntimePlatform__Enum.h>
+#include <Modloader/app/structs/SystemLanguage__Enum.h>
+#include <Modloader/app/structs/ThreadPriority__Enum_1.h>
+#include <Modloader/app/structs/NetworkReachability__Enum.h>
+#include <Modloader/app/structs/Application_LogCallback.h>
+#include <Modloader/app/structs/LogType__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/AsyncOperation_1.h>
 
 namespace app::classes::UnityEngine::Application {
     IL2CPP_REGISTER_METHOD(0x0241AC10, void, Quit_1, (int32_t exit_code))

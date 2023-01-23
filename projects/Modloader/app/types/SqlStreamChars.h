@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/SqlStreamChars__Class.h>
+#include <Modloader/app/structs/SqlStreamChars.h>
 
 namespace app::classes::types {
     namespace SqlStreamChars {

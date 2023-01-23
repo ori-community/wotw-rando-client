@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RaceMenuScreenMemoriesPage_c.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::RaceMenuScreenMemoriesPage___c {
     IL2CPP_REGISTER_METHOD(0x0070E720, void, cctor, ())

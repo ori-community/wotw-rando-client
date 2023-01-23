@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/UsedImplicitlyAttribute__Class.h>
+#include <Modloader/app/structs/UsedImplicitlyAttribute.h>
 
 namespace app::classes::types {
     namespace UsedImplicitlyAttribute {

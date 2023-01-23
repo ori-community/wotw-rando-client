@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneSettingsComponent.h>
+#include <Modloader/app/structs/GlobalTurbulenceMaskAnimator.h>
 
 namespace app::classes::GlobalTurbulenceMaskAnimator {
     IL2CPP_REGISTER_METHOD(0x007FA2D0, app::SceneSettingsComponent*, get_SceneSettings, (app::GlobalTurbulenceMaskAnimator * this_ptr))

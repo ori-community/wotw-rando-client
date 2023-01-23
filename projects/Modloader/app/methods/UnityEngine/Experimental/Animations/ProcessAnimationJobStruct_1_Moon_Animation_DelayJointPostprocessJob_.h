@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DelayJointPostprocessJob.h>
+#include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::UnityEngine::Experimental::Animations::ProcessAnimationJobStruct_1_Moon_Animation_DelayJointPostprocessJob_ {
     IL2CPP_REGISTER_METHOD(0x02ACAFD0, void*, GetJobReflectionData, ())

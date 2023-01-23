@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StringConverter.h>
+#include <Modloader/app/structs/ITypeDescriptorContext.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CultureInfo.h>
 
 namespace app::classes::System::ComponentModel::StringConverter {
     IL2CPP_REGISTER_METHOD(0x029AD260, bool, CanConvertFrom, (app::StringConverter * this_ptr, app::ITypeDescriptorContext* context, app::Type* source_type))

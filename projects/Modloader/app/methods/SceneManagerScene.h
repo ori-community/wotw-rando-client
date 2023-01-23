@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneManagerScene.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
+#include <Modloader/app/structs/SceneState__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::SceneManagerScene {
     IL2CPP_REGISTER_METHOD(0x00BA9A60, void, ctor_1, (app::SceneManagerScene * this_ptr, app::SceneRoot* scene_root, app::RuntimeSceneMetaData* scene_meta_data, app::SceneState__Enum inital_state))

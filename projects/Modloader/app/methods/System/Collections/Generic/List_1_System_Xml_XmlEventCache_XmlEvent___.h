@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlEventCache_XmlEvent__Array.h>
+#include <Modloader/app/structs/List_1_System_Xml_XmlEventCache_XmlEvent_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Xml_XmlEventCache_XmlEvent___ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::XmlEventCache_XmlEvent__Array*, get_Item, (app::List_1_System_Xml_XmlEventCache_XmlEvent_ * this_ptr, int32_t index))

@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PlayerInventory_c.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::PlayerInventory___c {
     IL2CPP_REGISTER_METHOD(0x0165F330, void, cctor, ())

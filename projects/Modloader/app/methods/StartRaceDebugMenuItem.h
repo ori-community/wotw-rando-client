@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/StartRaceDebugMenuItem.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::StartRaceDebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x009B24D0, void, ctor, (app::StartRaceDebugMenuItem * this_ptr, app::String* path, app::String* text))

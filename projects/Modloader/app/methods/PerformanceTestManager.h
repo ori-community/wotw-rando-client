@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PerformanceTestManager.h>
+#include <Modloader/app/structs/PerformanceTestManager_State__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::PerformanceTestManager {
     IL2CPP_REGISTER_METHOD(0x00498250, void, ChangeState, (app::PerformanceTestManager * this_ptr, app::PerformanceTestManager_State__Enum state))

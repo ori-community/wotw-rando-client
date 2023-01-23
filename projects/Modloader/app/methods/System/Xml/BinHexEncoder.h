@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::BinHexEncoder {
     IL2CPP_REGISTER_METHOD(0x021E1E90, void, Encode_1, (app::Byte__Array * buffer, int32_t index, int32_t count, app::XmlWriter* writer))

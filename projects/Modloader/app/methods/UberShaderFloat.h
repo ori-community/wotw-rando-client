@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberShaderFloat.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UberShaderFloat {
     IL2CPP_REGISTER_METHOD(0x019124D0, void, BindProperties, (app::UberShaderFloat * this_ptr))

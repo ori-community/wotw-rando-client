@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HealthBar.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::HealthBar {
     IL2CPP_REGISTER_METHOD(0x006FE430, float, get_Value, (app::HealthBar * this_ptr))

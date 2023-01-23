@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_KeyValuePair_2_System_DateTime_System_Object___Boxed.h>
+#include <Modloader/app/structs/List_1_KeyValuePair_2_System_DateTime_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_DateTime_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_KeyValuePair_2_System_DateTime_System_Object__ {
     IL2CPP_REGISTER_METHOD(0x0014CA00, void, ctor, (app::List_1_T_Enumerator_KeyValuePair_2_System_DateTime_System_Object___Boxed * this_ptr, app::List_1_KeyValuePair_2_System_DateTime_System_Object_* list))

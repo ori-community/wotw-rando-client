@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/PropertyDescriptor__Array.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IDictionaryEnumerator.h>
+#include <Modloader/app/structs/ICollection.h>
 
 namespace app::classes::System::ComponentModel::PropertyDescriptorCollection {
     IL2CPP_REGISTER_METHOD(0x029940A0, void, ctor_1, (app::PropertyDescriptorCollection * this_ptr, app::PropertyDescriptor__Array* properties))

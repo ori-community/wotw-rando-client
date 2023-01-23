@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/TargetBreadcrumbsTracker.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Func_3_UnityEngine_Vector3_UnityEngine_Vector3_Boolean_.h>
+#include <Modloader/app/structs/Func_2_UnityEngine_Vector3_UnityEngine_Vector3_.h>
 
 namespace app::classes::TargetBreadcrumbsTracker {
     IL2CPP_REGISTER_METHOD(0x002FBBC0, app::Transform*, get_FollowedTarget, (app::TargetBreadcrumbsTracker * this_ptr))

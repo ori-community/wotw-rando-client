@@ -2,6 +2,8 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 #include <Modloader/windows_api/memory.h>
+#include <Modloader/app/structs/InputField_MouseDragOutsideRect_c_Iterator1__Class.h>
+#include <Modloader/app/structs/InputField_MouseDragOutsideRect_c_Iterator1.h>
 
 namespace app::classes::types {
     namespace InputField_MouseDragOutsideRect_c_Iterator1 {

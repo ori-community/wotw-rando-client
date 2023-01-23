@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GlowChargeEffect.h>
+#include <Modloader/app/structs/GlowChargeEffect_State__Enum.h>
 
 namespace app::classes::GlowChargeEffect {
     IL2CPP_REGISTER_METHOD(0x007FAA40, void, Awake, (app::GlowChargeEffect * this_ptr))

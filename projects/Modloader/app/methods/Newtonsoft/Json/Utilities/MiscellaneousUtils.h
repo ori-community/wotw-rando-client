@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ArgumentOutOfRangeException.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/RegexOptions__Enum.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::MiscellaneousUtils {
     IL2CPP_REGISTER_METHOD(0x0301E210, bool, ValueEquals, (app::Object * obj_a, app::Object* obj_b))

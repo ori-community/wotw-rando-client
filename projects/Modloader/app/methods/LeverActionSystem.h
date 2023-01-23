@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LeverActionSystem.h>
 
 namespace app::classes::LeverActionSystem {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnLeverEnter, (app::LeverActionSystem * this_ptr))

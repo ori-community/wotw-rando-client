@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SoundCompositionTransitionHandler.h>
+#include <Modloader/app/structs/SoundPlayer.h>
+#include <Modloader/app/structs/AudioClip.h>
 
 namespace app::classes::SoundCompositionTransitionHandler {
     IL2CPP_REGISTER_METHOD(0x00EE7F60, void, FixedUpdate, (app::SoundCompositionTransitionHandler * this_ptr))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MovingPlatformsController.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::MovingPlatformsController {
     IL2CPP_REGISTER_METHOD(0x002FB960, void, ctor, (app::MovingPlatformsController * this_ptr, app::PlatformMovement* platform_movement))

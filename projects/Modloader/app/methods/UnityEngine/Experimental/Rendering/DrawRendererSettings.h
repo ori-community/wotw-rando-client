@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DrawRendererSettings__Boxed.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/ShaderPassName.h>
+#include <Modloader/app/structs/DrawRendererSortSettings.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::DrawRendererSettings {
     IL2CPP_REGISTER_METHOD(0x001EC740, void, ctor, (app::DrawRendererSettings__Boxed * this_ptr, app::Camera* camera, app::ShaderPassName shader_pass_name))

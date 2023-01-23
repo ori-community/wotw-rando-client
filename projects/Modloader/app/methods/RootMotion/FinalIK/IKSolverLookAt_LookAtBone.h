@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/IKSolverLookAt_LookAtBone.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolverLookAt_LookAtBone {
     IL2CPP_REGISTER_METHOD(0x02A066F0, void, ctor_1, (app::IKSolverLookAt_LookAtBone * this_ptr))

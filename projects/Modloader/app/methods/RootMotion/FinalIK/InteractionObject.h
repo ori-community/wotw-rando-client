@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/InteractionObject.h>
+#include <Modloader/app/structs/InteractionSystem.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/InteractionTarget.h>
+#include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
+#include <Modloader/app/structs/InteractionObject_WeightCurve_Type__Enum.h>
+#include <Modloader/app/structs/InteractionTarget__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IKSolverFullBodyBiped.h>
 
 namespace app::classes::RootMotion::FinalIK::InteractionObject {
     IL2CPP_REGISTER_METHOD(0x02A0B300, void, OpenTutorial1, (app::InteractionObject * this_ptr))

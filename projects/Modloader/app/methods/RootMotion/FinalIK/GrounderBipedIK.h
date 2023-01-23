@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GrounderBipedIK.h>
+#include <Modloader/app/structs/IKSolverLimb.h>
 
 namespace app::classes::RootMotion::FinalIK::GrounderBipedIK {
     IL2CPP_REGISTER_METHOD(0x02065EA0, void, OpenUserManual, (app::GrounderBipedIK * this_ptr))

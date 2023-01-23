@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ParameterizedStrings_FormatParam__Array.h>
+#include <Modloader/app/structs/ParameterizedStrings_LowLevelStack.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ParameterizedStrings {
     IL2CPP_REGISTER_METHOD(0x0227C930, app::String*, Evaluate, (app::String * format, app::ParameterizedStrings_FormatParam__Array* args))

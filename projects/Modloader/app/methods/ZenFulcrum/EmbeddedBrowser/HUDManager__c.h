@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/HUDManager_c.h>
+#include <Modloader/app/structs/JSONNode.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::HUDManager___c {
     IL2CPP_REGISTER_METHOD(0x01DE1A00, void, cctor, ())

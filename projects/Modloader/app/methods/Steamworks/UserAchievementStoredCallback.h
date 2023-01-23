@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Action_1_Steamworks_UserAchievementStored_t_.h>
+#include <Modloader/app/structs/Action_2_Steamworks_UserAchievementStored_t_Boolean_.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
 
 namespace app::classes::Steamworks::UserAchievementStoredCallback {
     IL2CPP_REGISTER_METHOD(0x027A6CC0, int32_t, get_CallbackCount, ())

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_IGhostFrameData_.h>
+#include <Modloader/app/structs/IGhostFrameData.h>
+#include <Modloader/app/structs/IGhostFrameData__Array.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_IGhostFrameData_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_IGhostFrameData_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_IGhostFrameData_ * this_ptr))

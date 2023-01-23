@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/CameraFilterPack_Edge_BlackLine.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_Edge_BlackLine {
     IL2CPP_REGISTER_METHOD(0x02463C80, app::Material*, get_material, (app::CameraFilterPack_Edge_BlackLine * this_ptr))

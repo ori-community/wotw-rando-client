@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DesiredUberStateGeneric.h>
+#include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::DesiredUberStateGeneric {
     IL2CPP_REGISTER_METHOD(0x01B619E0, void, ctor, (app::DesiredUberStateGeneric * this_ptr, app::IGenericUberState* uber_state, app::GameObject* owner, float desired_value))

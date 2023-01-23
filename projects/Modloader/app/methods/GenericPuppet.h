@@ -1,5 +1,41 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GenericPuppet.h>
+#include <Modloader/app/structs/IPuppetBase.h>
+#include <Modloader/app/structs/GhostRecorder.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/GhostGenericResourceAttribute.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/SoundDescriptor.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/SurfaceToSoundProviderMap.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/DamageBasedSoundProvider.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/IGenericResourceEnumerator.h>
+#include <Modloader/app/structs/GhostGenericSoundPlayer.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/SoundPlayer.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/MoonAnimation__Array.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/Nullable_1_Moon_MoonAnimatorLayerName_.h>
+#include <Modloader/app/structs/FloatAnimationParameter.h>
+#include <Modloader/app/structs/ParticleSystem.h>
+#include <Modloader/app/structs/FieldInfo_1__Array.h>
+#include <Modloader/app/structs/ISoundHost.h>
+#include <Modloader/app/structs/SeinBashAttackPuppet_Event__Enum.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::GenericPuppet {
     IL2CPP_REGISTER_METHOD(0x00E07DD0, void, ResetStatics, ())

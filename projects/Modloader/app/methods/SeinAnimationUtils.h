@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/AnimationPostprocess.h>
+#include <Modloader/app/structs/FloatAnimationParameter.h>
 
 namespace app::classes::SeinAnimationUtils {
     IL2CPP_REGISTER_METHOD(0x00D84B90, void, Play_1, (app::String * name, app::Action* on_stop_playing, app::Func_1_Boolean_* condition))

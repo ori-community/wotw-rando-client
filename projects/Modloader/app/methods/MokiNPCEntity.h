@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/MokiNPCEntity.h>
+#include <Modloader/app/structs/MoonAnimation.h>
 
 namespace app::classes::MokiNPCEntity {
     IL2CPP_REGISTER_METHOD(0x01331490, app::String*, get_DialogActorName, (app::MokiNPCEntity * this_ptr))

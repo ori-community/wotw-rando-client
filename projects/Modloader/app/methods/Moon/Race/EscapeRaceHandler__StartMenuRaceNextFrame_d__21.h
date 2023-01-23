@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EscapeRaceHandler_StartMenuRaceNextFrame_d_21.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::Race::EscapeRaceHandler__StartMenuRaceNextFrame_d__21 {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::EscapeRaceHandler_StartMenuRaceNextFrame_d_21 * this_ptr, int32_t __1__state))

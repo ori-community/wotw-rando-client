@@ -1,5 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/ScenesManagerPrediction.h>
+#include <Modloader/app/structs/SceneLoadingQueue.h>
+#include <Modloader/app/structs/ScenesManager.h>
+#include <Modloader/app/structs/ScenesManagerContext.h>
+#include <Modloader/app/structs/List_1_SceneManagerScene_.h>
+#include <Modloader/app/structs/ScenesManagerSettings.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/ScenesManagerPrediction_UpdatePositionType__Enum.h>
 
 namespace app::classes::ScenesManagerPrediction {
     IL2CPP_REGISTER_METHOD(0x01052D80, app::Vector2, get_CurrentCameraTargetPosition, (app::ScenesManagerPrediction * this_ptr))

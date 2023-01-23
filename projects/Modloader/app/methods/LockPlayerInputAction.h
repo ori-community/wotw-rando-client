@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LockPlayerInputAction.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::LockPlayerInputAction {
     IL2CPP_REGISTER_METHOD(0x00FC2E10, void, Perform, (app::LockPlayerInputAction * this_ptr, app::IContext* context))

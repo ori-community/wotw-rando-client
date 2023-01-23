@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OriBar.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 
 namespace app::classes::OriBar {
     IL2CPP_REGISTER_METHOD(0x00621BF0, void, SetShowCondition, (app::OriBar * this_ptr, app::Func_1_Boolean_* should_show_now))

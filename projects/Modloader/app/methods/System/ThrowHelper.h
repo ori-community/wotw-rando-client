@@ -1,5 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ExceptionArgument__Enum.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ExceptionResource__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ThrowHelper {
     IL2CPP_REGISTER_METHOD(0x027ABA90, void, ThrowArgumentNullException, (app::ExceptionArgument__Enum argument))

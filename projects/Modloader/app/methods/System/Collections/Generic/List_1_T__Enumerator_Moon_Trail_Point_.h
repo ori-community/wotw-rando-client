@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Trail_Point___Boxed.h>
+#include <Modloader/app/structs/List_1_Moon_Trail_Point_.h>
+#include <Modloader/app/structs/Trail_Point.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Moon_Trail_Point_ {
     IL2CPP_REGISTER_METHOD(0x0014D9D0, void, ctor, (app::List_1_T_Enumerator_Moon_Trail_Point___Boxed * this_ptr, app::List_1_Moon_Trail_Point_* list))

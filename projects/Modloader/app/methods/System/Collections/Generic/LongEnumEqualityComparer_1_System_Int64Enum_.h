@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LongEnumEqualityComparer_1_System_Int64Enum_.h>
+#include <Modloader/app/structs/Int64Enum__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Collections::Generic::LongEnumEqualityComparer_1_System_Int64Enum_ {
     IL2CPP_REGISTER_METHOD(0x02C28C20, bool, Equals_1, (app::LongEnumEqualityComparer_1_System_Int64Enum_ * this_ptr, app::Int64Enum__Enum x, app::Int64Enum__Enum y))

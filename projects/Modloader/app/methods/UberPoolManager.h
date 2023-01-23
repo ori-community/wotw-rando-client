@@ -1,5 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/UberPoolManager.h>
+#include <Modloader/app/structs/List_1_UberPoolGroup_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/UberPoolItem.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Queue_1_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_UberPoolItem_.h>
+#include <Modloader/app/structs/UberPoolGroup.h>
+#include <Modloader/app/structs/WeakPrefab.h>
+#include <Modloader/app/structs/UberPoolSettings.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/MoonEffectRevertHandle.h>
 
 namespace app::classes::UberPoolManager {
     IL2CPP_REGISTER_METHOD(0x00FD7890, void, DoLookUp, (app::UberPoolManager * this_ptr))

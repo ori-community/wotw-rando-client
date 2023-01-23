@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandleProtected_CallbackData__Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Wwise_WwiseEventSystem_SoundHandleProtected_CallbackData_.h>
+#include <Modloader/app/structs/WwiseEventSystem_SoundHandleProtected_CallbackData.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Wwise_WwiseEventSystem_SoundHandleProtected_CallbackData_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_Wwise_WwiseEventSystem_SoundHandleProtected_CallbackData_ {
     IL2CPP_REGISTER_METHOD(0x02F78B80, void, Sort_1, (app::WwiseEventSystem_SoundHandleProtected_CallbackData__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_Wwise_WwiseEventSystem_SoundHandleProtected_CallbackData_* comparer))

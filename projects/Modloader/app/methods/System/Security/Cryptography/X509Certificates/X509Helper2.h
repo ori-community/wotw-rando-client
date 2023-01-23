@@ -1,5 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/X509CertificateImpl.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/X509Certificate2Impl.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/X509KeyStorageFlags__Enum.h>
+#include <Modloader/app/structs/X509Certificate_2.h>
+#include <Modloader/app/structs/X509Certificate2.h>
+#include <Modloader/app/structs/X509ChainImpl.h>
+#include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::X509Helper2 {
     IL2CPP_REGISTER_METHOD(0x0257BC80, int64_t, GetSubjectNameHash_1, (app::X509Certificate_1 * certificate))

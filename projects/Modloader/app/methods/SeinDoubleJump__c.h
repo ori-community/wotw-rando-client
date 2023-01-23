@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SeinDoubleJump_c.h>
 
 namespace app::classes::SeinDoubleJump___c {
     IL2CPP_REGISTER_METHOD(0x00AC9820, void, cctor, ())

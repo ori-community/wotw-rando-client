@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/OptimizationCache_c.h>
+#include <Modloader/app/structs/UberShaderComponent.h>
 
 namespace app::classes::Moon::ArtOptimization::OptimizationCache___c {
     IL2CPP_REGISTER_METHOD(0x0134F340, void, cctor, ())

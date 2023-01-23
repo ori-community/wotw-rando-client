@@ -1,5 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlSerializationWriter.h>
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/XmlSerializerNamespaces.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSerializationWriteCallback.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/TypeData.h>
+#include <Modloader/app/structs/IXmlSerializable.h>
+#include <Modloader/app/structs/ICollection.h>
 
 namespace app::classes::System::Xml::Serialization::XmlSerializationWriter {
     IL2CPP_REGISTER_METHOD(0x025B9F60, void, ctor, (app::XmlSerializationWriter * this_ptr))

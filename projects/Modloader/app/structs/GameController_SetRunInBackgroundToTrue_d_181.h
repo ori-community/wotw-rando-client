@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_GameController_SetRunInBackgroundToTrue_d_181_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_GameController_SetRunInBackgroundToTrue_d_181_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GameController_SetRunInBackgroundToTrue_d_181_DEFINED)
+#include <Modloader/app/structs/GameController_SetRunInBackgroundToTrue_d_181__Fields.h>
+#if defined(IL2CPP_STRUCT_GameController_SetRunInBackgroundToTrue_d_181__Fields_DEFINED)
+#define IL2CPP_STRUCT_GameController_SetRunInBackgroundToTrue_d_181_DEFINED
+struct GameController_SetRunInBackgroundToTrue_d_181__Class;
+struct GameController_SetRunInBackgroundToTrue_d_181 {
+    struct GameController_SetRunInBackgroundToTrue_d_181__Class* klass;
+    MonitorData* monitor;
+    struct GameController_SetRunInBackgroundToTrue_d_181__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_GameController_SetRunInBackgroundToTrue_d_181_FWDDECL)
+#define IL2CPP_STRUCT_GameController_SetRunInBackgroundToTrue_d_181_FWDDECL
+#include <Modloader/app/structs/GameController_SetRunInBackgroundToTrue_d_181__Class.h>
+#endif
+#undef IL2CPP_STRUCT_GameController_SetRunInBackgroundToTrue_d_181_INITIALIZING
+#if !defined(IL2CPP_STRUCT_GameController_SetRunInBackgroundToTrue_d_181_DEFINED) && !defined(IL2CPP_STRUCT_GameController_SetRunInBackgroundToTrue_d_181_FWDDECL)
+#include <Modloader/app/structs/GameController_SetRunInBackgroundToTrue_d_181.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/GameController_SetRunInBackgroundToTrue_d_181.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

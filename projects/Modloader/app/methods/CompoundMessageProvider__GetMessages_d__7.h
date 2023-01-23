@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CompoundMessageProvider_GetMessages_d_7.h>
+#include <Modloader/app/structs/MessageDescriptor.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/IEnumerator_1_MessageDescriptor_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::CompoundMessageProvider__GetMessages_d__7 {
     IL2CPP_REGISTER_METHOD(0x004BD8A0, void, ctor, (app::CompoundMessageProvider_GetMessages_d_7 * this_ptr, int32_t __1__state))

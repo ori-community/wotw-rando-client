@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ScenesManagerPrediction_UpdateExtrapolatedPositionTask.h>
+#include <Modloader/app/structs/TimeSlicedJobPriority__Enum.h>
 
 namespace app::classes::Moon::TimeSlicer::AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask_ {
     IL2CPP_REGISTER_METHOD(0x02AF3CC0, void, ctor, (app::AllocFreeTimeSlicedJob_1_ScenesManagerPrediction_UpdateExtrapolatedPositionTask_ * this_ptr, app::String* name))

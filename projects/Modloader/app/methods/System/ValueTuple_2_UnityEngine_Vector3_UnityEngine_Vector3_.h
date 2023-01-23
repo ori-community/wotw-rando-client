@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ValueTuple_2_UnityEngine_Vector3_UnityEngine_Vector3___Boxed.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ValueTuple_2_UnityEngine_Vector3_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/IComparer.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ValueTuple_2_UnityEngine_Vector3_UnityEngine_Vector3_ {
     IL2CPP_REGISTER_METHOD(0x0021DFA0, void, ctor, (app::ValueTuple_2_UnityEngine_Vector3_UnityEngine_Vector3___Boxed * this_ptr, app::Vector3 item1, app::Vector3 item2))

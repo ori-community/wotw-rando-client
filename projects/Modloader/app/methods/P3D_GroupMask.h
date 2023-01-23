@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/P3D_GroupMask__Boxed.h>
+#include <Modloader/app/structs/P3D_GroupMask.h>
 
 namespace app::classes::P3D_GroupMask {
     IL2CPP_REGISTER_METHOD(0x0010DB80, void, ctor, (app::P3D_GroupMask__Boxed * this_ptr, int32_t new_mask))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TargetFrameworkAttribute.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::Versioning::TargetFrameworkAttribute {
     IL2CPP_REGISTER_METHOD(0x01EE21A0, void, ctor, (app::TargetFrameworkAttribute * this_ptr, app::String* framework_name))

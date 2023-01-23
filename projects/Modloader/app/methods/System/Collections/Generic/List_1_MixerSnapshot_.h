@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/List_1_MixerSnapshot_.h>
+#include <Modloader/app/structs/MixerSnapshot.h>
+#include <Modloader/app/structs/Predicate_1_MixerSnapshot_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_MixerSnapshot_ {
     IL2CPP_REGISTER_METHOD(0x02FE8D00, bool, Contains, (app::List_1_MixerSnapshot_ * this_ptr, app::MixerSnapshot* item))

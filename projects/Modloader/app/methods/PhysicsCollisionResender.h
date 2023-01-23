@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/PhysicsCollisionResender.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::PhysicsCollisionResender {
     IL2CPP_REGISTER_METHOD(0x014FC8B0, void, OnEnable, (app::PhysicsCollisionResender * this_ptr))

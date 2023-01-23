@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/EqualityComparer_1_ByteStateMap_Mapping_.h>
+#include <Modloader/app/structs/ByteStateMap_Mapping__Array.h>
+#include <Modloader/app/structs/ByteStateMap_Mapping.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_ByteStateMap_Mapping_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_ByteStateMap_Mapping_*, get_Default, ())

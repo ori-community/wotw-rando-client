@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_Stack_1_List_1_UnityEngine_UI_RectMask2D__INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_Stack_1_List_1_UnityEngine_UI_RectMask2D__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Stack_1_List_1_UnityEngine_UI_RectMask2D__DEFINED)
+#include <Modloader/app/structs/Stack_1_List_1_UnityEngine_UI_RectMask2D___Fields.h>
+#if defined(IL2CPP_STRUCT_Stack_1_List_1_UnityEngine_UI_RectMask2D___Fields_DEFINED)
+#define IL2CPP_STRUCT_Stack_1_List_1_UnityEngine_UI_RectMask2D__DEFINED
+struct Stack_1_List_1_UnityEngine_UI_RectMask2D___Class;
+struct Stack_1_List_1_UnityEngine_UI_RectMask2D_ {
+    struct Stack_1_List_1_UnityEngine_UI_RectMask2D___Class* klass;
+    MonitorData* monitor;
+    struct Stack_1_List_1_UnityEngine_UI_RectMask2D___Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_Stack_1_List_1_UnityEngine_UI_RectMask2D__FWDDECL)
+#define IL2CPP_STRUCT_Stack_1_List_1_UnityEngine_UI_RectMask2D__FWDDECL
+#include <Modloader/app/structs/Stack_1_List_1_UnityEngine_UI_RectMask2D___Class.h>
+#endif
+#undef IL2CPP_STRUCT_Stack_1_List_1_UnityEngine_UI_RectMask2D__INITIALIZING
+#if !defined(IL2CPP_STRUCT_Stack_1_List_1_UnityEngine_UI_RectMask2D__DEFINED) && !defined(IL2CPP_STRUCT_Stack_1_List_1_UnityEngine_UI_RectMask2D__FWDDECL)
+#include <Modloader/app/structs/Stack_1_List_1_UnityEngine_UI_RectMask2D_.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/Stack_1_List_1_UnityEngine_UI_RectMask2D_.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

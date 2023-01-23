@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MessageBoxVisibility.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::MessageBoxVisibility {
     IL2CPP_REGISTER_METHOD(0x015935D0, bool, get_Visible, (app::MessageBoxVisibility * this_ptr))

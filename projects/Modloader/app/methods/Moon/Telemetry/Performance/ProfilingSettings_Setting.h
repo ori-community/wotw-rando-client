@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+#include <Modloader/app/structs/ProfilingSettings_Setting.h>
+#include <Modloader/app/structs/ProfilingSettings_SettingAction__Enum.h>
 
 namespace app::classes::Moon::Telemetry::Performance::ProfilingSettings_Setting {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::ProfilingSettings_SettingType__Enum, get_Type, (app::ProfilingSettings_Setting * this_ptr))

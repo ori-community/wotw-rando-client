@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TimedTrigger.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::TimedTrigger {
     IL2CPP_REGISTER_METHOD(0x010F3F90, bool, get_IsTriggered, (app::TimedTrigger * this_ptr))

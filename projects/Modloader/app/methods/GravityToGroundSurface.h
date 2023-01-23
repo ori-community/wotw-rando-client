@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/GravityToGroundSurface.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::GravityToGroundSurface {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_RequiresNightberry, (app::GravityToGroundSurface * this_ptr))

@@ -1,5 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/GoThroughPlatform.h>
+#include <Modloader/app/structs/LightCanvas.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
 
 namespace app::classes::ObjectExtender {
     IL2CPP_REGISTER_METHOD(0x0060E350, app::Component_1*, GetComponentInParents_1, (app::GameObject * game_object, app::Type* type))

@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/LauncherPlantEntity.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::LauncherPlantEntity {
     IL2CPP_REGISTER_METHOD(0x00F22A00, void, OnEnable, (app::LauncherPlantEntity * this_ptr))

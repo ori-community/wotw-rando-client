@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/WaterDisplacementModifier.h>
 
 namespace app::classes::WaterDisplacementModifier {
     IL2CPP_REGISTER_METHOD(0x008D63F0, void, SetProperties, (app::WaterDisplacementModifier * this_ptr))

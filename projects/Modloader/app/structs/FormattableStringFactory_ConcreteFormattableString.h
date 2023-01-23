@@ -1,0 +1,31 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_FormattableStringFactory_ConcreteFormattableString_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_FormattableStringFactory_ConcreteFormattableString_INITIALIZING
+#if !defined(IL2CPP_STRUCT_FormattableStringFactory_ConcreteFormattableString_DEFINED)
+#include <Modloader/app/structs/FormattableStringFactory_ConcreteFormattableString__Fields.h>
+#if defined(IL2CPP_STRUCT_FormattableStringFactory_ConcreteFormattableString__Fields_DEFINED)
+#define IL2CPP_STRUCT_FormattableStringFactory_ConcreteFormattableString_DEFINED
+struct FormattableStringFactory_ConcreteFormattableString__Class;
+struct FormattableStringFactory_ConcreteFormattableString {
+    struct FormattableStringFactory_ConcreteFormattableString__Class* klass;
+    MonitorData* monitor;
+    struct FormattableStringFactory_ConcreteFormattableString__Fields fields;
+};
+#endif
+#endif
+#if !defined(IL2CPP_STRUCT_FormattableStringFactory_ConcreteFormattableString_FWDDECL)
+#define IL2CPP_STRUCT_FormattableStringFactory_ConcreteFormattableString_FWDDECL
+#include <Modloader/app/structs/FormattableStringFactory_ConcreteFormattableString__Class.h>
+#endif
+#undef IL2CPP_STRUCT_FormattableStringFactory_ConcreteFormattableString_INITIALIZING
+#if !defined(IL2CPP_STRUCT_FormattableStringFactory_ConcreteFormattableString_DEFINED) && !defined(IL2CPP_STRUCT_FormattableStringFactory_ConcreteFormattableString_FWDDECL)
+#include <Modloader/app/structs/FormattableStringFactory_ConcreteFormattableString.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/FormattableStringFactory_ConcreteFormattableString.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

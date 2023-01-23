@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ListenerSyncProcessor_ListenerSyncTask.h>
+#include <Modloader/app/structs/SoundListenerReference.h>
 
 namespace app::classes::Moon::Wwise::ListenerSyncProcessor_ListenerSyncTask {
     IL2CPP_REGISTER_METHOD(0x00CC59E0, int32_t, get_FrameQuantinization, (app::ListenerSyncProcessor_ListenerSyncTask * this_ptr))

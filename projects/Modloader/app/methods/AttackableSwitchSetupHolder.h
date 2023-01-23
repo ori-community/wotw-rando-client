@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/AttackableSwitchSetupData.h>
+#include <Modloader/app/structs/AttackableSwitchSetupHolder.h>
+#include <Modloader/app/structs/List_1_IIndexedItem_.h>
 
 namespace app::classes::AttackableSwitchSetupHolder {
     IL2CPP_REGISTER_METHOD(0x00855D30, app::AttackableSwitchSetupData*, get_DeactivatedState, (app::AttackableSwitchSetupHolder * this_ptr))

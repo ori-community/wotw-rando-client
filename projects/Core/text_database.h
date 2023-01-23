@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/macros.h>
+#include <Modloader/app/structs/MessageProvider.h>
 
 #include <string>
 #include <vector>

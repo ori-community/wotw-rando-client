@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Frapser.h>
 
 namespace app::classes::Frapser {
     IL2CPP_REGISTER_METHOD(0x01645D10, bool, IsFrapserActive, ())

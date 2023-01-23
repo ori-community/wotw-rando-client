@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BugReporter_Attachment.h>
+#include <Modloader/app/structs/List_1_BugReporter_Attachment_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_BugReporter_Attachment_.h>
+#include <Modloader/app/structs/IEnumerable_1_BugReporter_Attachment_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_BugReporter_Attachment_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::BugReporter_Attachment*, get_Item, (app::List_1_BugReporter_Attachment_ * this_ptr, int32_t index))

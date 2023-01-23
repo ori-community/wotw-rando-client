@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SpiderBossCancellableController.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::SpiderBossCancellableController {
     IL2CPP_REGISTER_METHOD(0x0096B230, void, InitializeForTimeline, (app::SpiderBossCancellableController * this_ptr, app::MoonTimeline* timeline))

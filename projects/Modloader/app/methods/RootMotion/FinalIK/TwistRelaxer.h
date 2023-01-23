@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TwistRelaxer.h>
 
 namespace app::classes::RootMotion::FinalIK::TwistRelaxer {
     IL2CPP_REGISTER_METHOD(0x02A282A0, void, Relax, (app::TwistRelaxer * this_ptr))

@@ -1,5 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/XmlValueConverter.h>
+#include <Modloader/app/structs/Datatype_union.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
+#include <Modloader/app/structs/FacetsChecker.h>
+#include <Modloader/app/structs/RestrictionFlags__Enum.h>
+#include <Modloader/app/structs/DatatypeImplementation.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
 
 namespace app::classes::System::Xml::Schema::Datatype_union {
     IL2CPP_REGISTER_METHOD(0x02360980, app::XmlValueConverter*, CreateValueConverter, (app::Datatype_union * this_ptr, app::XmlSchemaType* schema_type))

@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/BooleanUberStateMatcher.h>
+#include <Modloader/app/structs/IUberState.h>
 
 namespace app::classes::BooleanUberStateMatcher {
     IL2CPP_REGISTER_METHOD(0x01B55E90, void, ctor, (app::BooleanUberStateMatcher * this_ptr))

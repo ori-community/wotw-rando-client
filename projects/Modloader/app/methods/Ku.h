@@ -1,5 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Ku.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/CharacterCapsuleController.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/CharacterAnimationSystem.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/RideableTypes__Enum.h>
+#include <Modloader/app/structs/PlatformBehaviour.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Action_1_Single_.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/CharacterState.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::Ku {
     IL2CPP_REGISTER_METHOD(0x0122A160, app::Vector3, get_WorldSpeed, (app::Ku * this_ptr))

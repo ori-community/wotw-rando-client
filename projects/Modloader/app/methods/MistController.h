@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/MistController.h>
 
 namespace app::classes::MistController {
     IL2CPP_REGISTER_METHOD(0x01327100, void, Awake, (app::MistController * this_ptr))

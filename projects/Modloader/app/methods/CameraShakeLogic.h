@@ -1,5 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/CameraShakeLogic.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::CameraShakeLogic {
     IL2CPP_REGISTER_METHOD(0x00B1D790, void, Awake, (app::CameraShakeLogic * this_ptr))

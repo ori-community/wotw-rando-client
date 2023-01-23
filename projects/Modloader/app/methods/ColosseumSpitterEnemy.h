@@ -1,5 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ColosseumSpitterEnemy.h>
 
 namespace app::classes::ColosseumSpitterEnemy {
     IL2CPP_REGISTER_METHOD(0x011DB170, void, Start, (app::ColosseumSpitterEnemy * this_ptr))

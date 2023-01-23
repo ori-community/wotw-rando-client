@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/TextReader_NullTextReader.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IO::TextReader_NullTextReader {
     IL2CPP_REGISTER_METHOD(0x02385CC0, void, ctor, (app::TextReader_NullTextReader * this_ptr))

@@ -1,5 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/Regex.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RegexOptions__Enum.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Match.h>
+#include <Modloader/app/structs/MatchCollection.h>
+#include <Modloader/app/structs/CachedCodeEntry.h>
 
 namespace app::classes::System::Text::RegularExpressions::Regex {
     IL2CPP_REGISTER_METHOD(0x025842D0, void, ctor_1, (app::Regex * this_ptr))

@@ -1,5 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SceneInspector.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::SceneInspector {
     IL2CPP_REGISTER_METHOD(0x00BA1150, int32_t, get_QueryRange, ())

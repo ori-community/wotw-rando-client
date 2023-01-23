@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/ServerAnimatorHelper_BaseAnimatorData.h>
+#include <Modloader/app/structs/BaseAnimator.h>
+#include <Modloader/app/structs/ServerAnimatorHelper_SequenceEntryData.h>
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry.h>
+#include <Modloader/app/structs/ServerAnimatorHelper_ConstraintData.h>
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry_Constraint.h>
+#include <Modloader/app/structs/ServerAnimatorHelper.h>
 
 namespace app::classes::ServerAnimatorHelper {
     IL2CPP_REGISTER_METHOD(0x00AB9510, app::ServerAnimatorHelper_BaseAnimatorData, CreateBaseAnimatorData, (app::BaseAnimator * animator))

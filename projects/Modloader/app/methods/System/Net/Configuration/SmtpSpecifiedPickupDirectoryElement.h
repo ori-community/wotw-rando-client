@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SmtpSpecifiedPickupDirectoryElement.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ConfigurationPropertyCollection.h>
 
 namespace app::classes::System::Net::Configuration::SmtpSpecifiedPickupDirectoryElement {
     IL2CPP_REGISTER_METHOD(0x01E99260, void, ctor, (app::SmtpSpecifiedPickupDirectoryElement * this_ptr))

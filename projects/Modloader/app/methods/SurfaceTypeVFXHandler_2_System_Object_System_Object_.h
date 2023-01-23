@@ -1,5 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/SurfaceTypeVFXHandler_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Func_2_Object_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 
 namespace app::classes::SurfaceTypeVFXHandler_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsEditor, (app::SurfaceTypeVFXHandler_2_System_Object_System_Object_ * this_ptr))

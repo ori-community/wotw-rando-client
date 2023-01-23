@@ -1,5 +1,8 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/DrawingContext.h>
+#include <Modloader/app/structs/DrawingContext__Boxed.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::Telemetry::DrawingContext {
     IL2CPP_REGISTER_METHOD(0x00E32FE0, bool, op_Equality, (app::DrawingContext c1, app::DrawingContext c2))

@@ -1,5 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
+#include <Modloader/app/structs/RunActionCondition.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::RunActionCondition {
     IL2CPP_REGISTER_METHOD(0x01372AB0, void, Perform, (app::RunActionCondition * this_ptr, app::IContext* context))
