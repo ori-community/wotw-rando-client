@@ -6,7 +6,7 @@ cd build
 mkdir win64
 cd win64
 
-cmake -DARCH=x64 -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="/MP"  ..\..
+cmake -DARCH=x64 -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Debug -T ClangCL -DCMAKE_CXX_FLAGS="/MP"  ..\..
 if %errorlevel% equ 0 (
 	dotnet restore ./WotWRandomizer.sln -r win-x64
 	dotnet sln ./projects/Injector/Injector.sln remove ./projects/Injector/ALL_BUILD.vcxproj

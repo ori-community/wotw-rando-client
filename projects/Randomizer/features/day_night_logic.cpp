@@ -1,6 +1,6 @@
 #include <interop/csharp_bridge.h>
-#include <randomizer/conditions/new_setup_state_override.h>
-#include <randomizer/conditions/condition_override.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
+#include <Randomizer/conditions/condition_override.h>
 #include <Core/uber_states/uber_state_interface.h>
 
 #include <Modloader/app/methods/PlayerAbilities.h>
@@ -45,7 +45,7 @@ namespace {
     bool can_resolve(app::SetupStateModifier* item) {
         return item->fields.Target != nullptr &&
                 il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "get_HasAReference")->fields &&
-                il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", nullptr)->fields;
+                il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", 0)->fields;
     }
 
     void find_day_night(app::List_1_SetupStateModifier___Fields& modifiers, app::GameObject*& day, app::GameObject*& night) {
@@ -53,11 +53,11 @@ namespace {
             auto item = modifiers._items->vector[i];
             // #nightTime
             if (item->fields.ModifierGUID == 0x39b90803 && can_resolve(item))
-                night = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", nullptr);
+                night = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", 0);
 
             // #dayTime
             if (item->fields.ModifierGUID == 0xb4c1c837 && can_resolve(item))
-                day = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", nullptr);
+                day = il2cpp::invoke<app::GameObject>(item->fields.Target, "Resolve", 0);
         }
     }
 

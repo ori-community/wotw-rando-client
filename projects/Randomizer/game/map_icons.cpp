@@ -728,7 +728,7 @@ namespace {
 
             if (il2cpp::unity::is_valid(runtime_area->fields.Area)) {
                 if (il2cpp::unity::is_valid(runtime_area->fields.Area->fields.VisitableCondition) &&
-                    !il2cpp::invoke<app::Boolean__Boxed>(runtime_area->fields.Area->fields.VisitableCondition, "Validate", nullptr)->fields)
+                    !il2cpp::invoke<app::Boolean__Boxed>(runtime_area->fields.Area->fields.VisitableCondition, "Validate", 0)->fields)
                     continue;
 
                 for (auto j = 0; j < runtime_area->fields.Icons->fields._size; ++j) {

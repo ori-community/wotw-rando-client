@@ -3,7 +3,7 @@
 #include <Core/api/game/game.h>
 #include <interop/csharp_bridge.h>
 #include <Randomizer/macros.h>
-#include <randomizer/conditions/new_setup_state_override.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
 #include <uber_states/uber_state_helper.h>
 #include <Core/uber_states/uber_state_interface.h>
 
@@ -40,7 +40,6 @@ namespace randomizer {
 
             auto display_new_setup_debug = 1;
             void register_debug_show(applier_key key) {
-                auto& map = debug_show[key.second];
                 if (!key.first.empty())
                     debug_show[key.second].emplace(key.first);
             }
@@ -78,8 +77,7 @@ namespace randomizer {
             }
 
             IL2CPP_INTERCEPT(NewSetupStateController, app::SetupState*, get_ActiveState, (app::NewSetupStateController * this_ptr)) {
-                auto can_resolve = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "CanResolve", nullptr);
-                auto state = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "Resolve", nullptr);
+                auto state = il2cpp::invoke(this_ptr->fields.StateHolder->fields._._.State, "Resolve", 0);
                 auto mapping = this_ptr->fields.StateHolder->fields._._.Mapping;
                 int32_t mapping_result = 0;
                 if (il2cpp::is_assignable(mapping, types::PlayerStateMap::get_class()))

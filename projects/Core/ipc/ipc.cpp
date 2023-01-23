@@ -254,14 +254,14 @@ namespace core::ipc {
         nlohmann::json response;
         response["type"] = "response";
         response["id"] = request.at("id").get<int>();
-        return std::move(response);
+        return response;
     }
 
     nlohmann::json make_request(std::string request) {
         nlohmann::json response;
         response["type"] = "request";
         response["method"] = request;
-        return std::move(response);
+        return response;
     }
 
     void on_shutdown(GameEvent game_event, EventTiming timing) {

@@ -24,7 +24,6 @@ namespace {
     uber_states::UberState grenade_multishot(UberStateGroup::RandoUpgrade, 45);
 
     constexpr float MULTI_GRENADE_OFFSET_MAGNITUDE = 2.0f;
-    constexpr float MULTI_GRENADE_ANGLE = PI / 32.0f;
 
     bool explode = false;
     bool override_on_ground = false;

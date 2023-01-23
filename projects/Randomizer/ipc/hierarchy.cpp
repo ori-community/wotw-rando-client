@@ -287,8 +287,8 @@ namespace randomizer::ipc {
 
         void visualize_uber_state_condition(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::UberStateCondition*>(obj);
-            auto state = il2cpp::invoke<app::Boolean__Boxed>(cast->fields.Descriptor, "CanResolve", nullptr)->fields
-                    ? il2cpp::invoke<app::IUberState>(cast->fields.Descriptor, "Resolve", nullptr)
+            auto state = il2cpp::invoke<app::Boolean__Boxed>(cast->fields.Descriptor, "CanResolve", 0)->fields
+                    ? il2cpp::invoke<app::IUberState>(cast->fields.Descriptor, "Resolve", 0)
                     : nullptr;
             j["value"] = nlohmann::json::array({
                     create_variable("condition_type", "scalar", cast->fields.m_conditionClassID),
@@ -313,8 +313,8 @@ namespace randomizer::ipc {
         void visualize_activate_based_on_condition(nlohmann::json& j, void* obj, bool verbose) {
             auto cast = reinterpret_cast<app::ActivateBasedOnCondition*>(obj);
             auto condition_path = il2cpp::unity::get_path(cast->fields.Condition);
-            auto target = il2cpp::invoke<app::Boolean__Boxed>(cast->fields.MoonTarget, "CanResolve", nullptr)->fields
-                    ? il2cpp::invoke<app::GameObject>(cast->fields.MoonTarget, "Resolve", nullptr)
+            auto target = il2cpp::invoke<app::Boolean__Boxed>(cast->fields.MoonTarget, "CanResolve", 0)->fields
+                    ? il2cpp::invoke<app::GameObject>(cast->fields.MoonTarget, "Resolve", 0)
                     : nullptr;
             auto moon_target_path = il2cpp::unity::get_path(target);
             auto target_path = il2cpp::unity::get_path(cast->fields.Target);
@@ -350,8 +350,8 @@ namespace randomizer::ipc {
 
         void visualize_setup_state_modifier(nlohmann::json& j, void* obj, bool verbose) {
             auto ssm = reinterpret_cast<app::SetupStateModifier*>(obj);
-            auto game_object = il2cpp::invoke<app::Boolean__Boxed>(ssm->fields.Target, "CanResolve", nullptr)->fields
-                    ? il2cpp::invoke<app::GameObject>(ssm->fields.Target, "Resolve", nullptr)
+            auto game_object = il2cpp::invoke<app::Boolean__Boxed>(ssm->fields.Target, "CanResolve", 0)->fields
+                    ? il2cpp::invoke<app::GameObject>(ssm->fields.Target, "Resolve", 0)
                     : nullptr;
             j["value"] = nlohmann::json::array({ create_variable("modifier_guid", "scalar", ssm->fields.ModifierGUID),
                                                  create_variable("game_object", "game_object", il2cpp::unity::get_path(game_object)) });
@@ -375,8 +375,8 @@ namespace randomizer::ipc {
                 app::IUberState* state = nullptr;
                 auto state_ref = nssc->fields.StateHolder->fields._._.State;
                 if (il2cpp::unity::is_valid(state_ref))
-                    state = il2cpp::invoke<app::Boolean__Boxed>(state_ref, "CanResolve", nullptr)->fields
-                            ? il2cpp::invoke<app::IUberState>(state_ref, "Resolve", nullptr)
+                    state = il2cpp::invoke<app::Boolean__Boxed>(state_ref, "CanResolve", 0)->fields
+                            ? il2cpp::invoke<app::IUberState>(state_ref, "Resolve", 0)
                             : nullptr;
 
                 auto mapping = nssc->fields.StateHolder->fields._._.Mapping;
@@ -665,7 +665,7 @@ namespace randomizer::ipc {
                 report_game_object(response, find_game_object(path, object_instance_id), false);
             }
 
-            send_message(std::move(response));
+            send_message(response);
         }
 
         void get_children(const nlohmann::json& j) {
@@ -685,7 +685,7 @@ namespace randomizer::ipc {
                 report_game_object(response, find_game_object(path, object_instance_id), true);
             }
 
-            send_message(std::move(response));
+            send_message(response);
         }
 
         void initialize() {

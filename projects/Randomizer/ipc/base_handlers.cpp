@@ -43,7 +43,7 @@ namespace randomizer::ipc {
             response["type"] = "response";
             response["id"] = j.at("id").get<int>();
             response["payload"] = values;
-            send_message(std::move(response));
+            send_message(response);
         }
 
         void get_uberstates(const nlohmann::json& j) {
@@ -58,7 +58,7 @@ namespace randomizer::ipc {
             response["type"] = "response";
             response["id"] = j.at("id").get<int>();
             response["payload"] = values;
-            send_message(std::move(response));
+            send_message(response);
         }
 
         void set_uberstate(const nlohmann::json& j) {
@@ -106,7 +106,7 @@ namespace randomizer::ipc {
             response["payload"]["x"] = v.x;
             response["payload"]["y"] = v.y;
             response["payload"]["z"] = v.z;
-            send_message(std::move(response));
+            send_message(response);
         }
 
         void message(const nlohmann::json& j) {
@@ -125,7 +125,7 @@ namespace randomizer::ipc {
                 response["type"] = "response";
                 response["id"] = j.at("id").get<int>();
                 response["message_id"] = message_id;
-                send_message(std::move(response));
+                send_message(response);
             } else {
                 message_id = p.at("message_id").get<int>();
                 if (p.contains("destroy") && p.at("destroy").get<bool>()) {
@@ -163,13 +163,13 @@ namespace randomizer::ipc {
         void get_total_pickup_count(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
             response["payload"]["count"] = csharp_bridge::get_total_pickup_count();
-            core::ipc::send_message(std::move(response));
+            core::ipc::send_message(response);
         }
 
         void get_pickup_count_by_area(const nlohmann::json& j) {
             auto response = core::ipc::respond_to(j);
             response["payload"]["count"] = csharp_bridge::get_pickup_count_by_area(j.at("area").get<GameArea>());
-            core::ipc::send_message(std::move(response));
+            core::ipc::send_message(response);
         }
 
         void get_pickup_counts(const nlohmann::json& j) {
@@ -185,14 +185,14 @@ namespace randomizer::ipc {
 
             response["payload"]["areas"] = areas;
 
-            core::ipc::send_message(std::move(response));
+            core::ipc::send_message(response);
         }
 
         void report_load(GameEvent game_event, EventTiming timing) {
             nlohmann::json response;
             response["payload"]["type"] = "request";
             response["payload"]["method"] = "notify_on_load";
-            send_message(std::move(response));
+            send_message(response);
         }
 
         std::unordered_map<GameEvent, std::string> event_to_method{
@@ -204,7 +204,7 @@ namespace randomizer::ipc {
             nlohmann::json response;
             response["payload"]["type"] = "request";
             response["payload"]["method"] = event_to_method.find(game_event)->second;
-            send_message(std::move(response));
+            send_message(response);
         }
 
         void initialize() {
@@ -243,7 +243,7 @@ RANDOMIZER_C_DLLEXPORT void report_seed_reload() {
     nlohmann::json response;
     response["type"] = "request";
     response["method"] = "notify_on_reload";
-    core::ipc::send_message(std::move(response));
+    core::ipc::send_message(response);
 }
 
 RANDOMIZER_C_DLLEXPORT void report_uber_state_change(UberStateGroup group, int state, double value) {
@@ -253,7 +253,7 @@ RANDOMIZER_C_DLLEXPORT void report_uber_state_change(UberStateGroup group, int s
     response["payload"]["group"] = static_cast<int>(group);
     response["payload"]["state"] = state;
     response["payload"]["value"] = value;
-    core::ipc::send_message(std::move(response));
+    core::ipc::send_message(response);
 }
 
 RANDOMIZER_C_DLLEXPORT void report_input(Action type, bool pressed) {
@@ -262,5 +262,5 @@ RANDOMIZER_C_DLLEXPORT void report_input(Action type, bool pressed) {
     response["method"] = "notify_input";
     response["payload"]["type"] = type;
     response["payload"]["pressed"] = pressed;
-    core::ipc::send_message(std::move(response));
+    core::ipc::send_message(response);
 }

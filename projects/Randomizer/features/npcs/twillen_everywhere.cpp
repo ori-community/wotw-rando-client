@@ -2,7 +2,7 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
 
-#include <randomizer/conditions/new_setup_state_override.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
 
 namespace {
     void initialize_twillen() {

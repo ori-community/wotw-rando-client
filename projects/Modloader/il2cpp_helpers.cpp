@@ -549,11 +549,8 @@ namespace il2cpp {
     } // namespace untyped
 
     void load_all_types() {
-        Il2CppClass* klass = nullptr;
-        size_t i = 0;
         size_t size = 0;
         auto domain = il2cpp_domain_get();
-        auto assemblies = il2cpp_domain_get_assemblies(domain, &size);
         trace(modloader::MessageType::Info, 4, "il2cpp", "loading classes");
         for (auto i = 0; i < size; ++i) {
             // auto types = Assembly::GetTypes(assemblies[i]);
@@ -694,7 +691,6 @@ namespace il2cpp {
         if (info->methods.size() == 1)
             return info->methods.front();
         else {
-            bool first = true;
             for (auto method_info : info->methods) {
                 auto valid = true;
                 for (auto i = 0; valid && i < method_info->parameters_count; ++i) {

@@ -2,11 +2,10 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
 
-#include <randomizer/conditions/new_setup_state_override.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
 #include <Core/uber_states/uber_state_interface.h>
 
 namespace {
-    constexpr int TULEY_EXISTS_UBER_STATE = 300;
     constexpr int32_t TULEY_EXISTS = -456942105;
     constexpr int32_t TULEY_GONE = 682604868;
 

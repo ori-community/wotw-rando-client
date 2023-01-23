@@ -48,7 +48,7 @@ struct RECT {
 #else
 namespace app {
 #define IL2CPP_STRUCTS_INITIALIZING
-#include <Modloader/app/structs/RECT.h>
+#include <Modloader/app/structs/Rect.h>
 #undef IL2CPP_STRUCTS_INITIALIZING
 } // namespace app
 #endif

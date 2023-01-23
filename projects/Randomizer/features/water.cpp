@@ -1,6 +1,6 @@
 #include <interop/csharp_bridge.h>
 #include <Randomizer/macros.h>
-#include <randomizer/conditions/new_setup_state_override.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
 #include <Core/uber_states/uber_state_interface.h>
 #include <Core/enums/uber_state.h>
 

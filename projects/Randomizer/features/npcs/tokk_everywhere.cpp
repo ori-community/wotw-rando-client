@@ -1,4 +1,4 @@
-#include <randomizer/conditions/new_setup_state_override.h>
+#include <Randomizer/conditions/new_setup_state_override.h>
 
 #include <Modloader/common.h>
 #include <Modloader/interception_macros.h>

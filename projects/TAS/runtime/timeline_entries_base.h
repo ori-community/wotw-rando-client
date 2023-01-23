@@ -58,7 +58,7 @@ namespace tas::runtime::timeline::entries {
         unsigned long duration = 1;
 
         FixedDurationTimelineEntry(unsigned long frame, unsigned long duration) :
-                duration(duration), TimelineEntry(frame) {}
+                TimelineEntry(frame), duration(duration) {}
 
         bool is_active_on_frame(unsigned long f) override;
         unsigned long last_frame() override;

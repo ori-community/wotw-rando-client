@@ -209,7 +209,7 @@ namespace randomizer::timing {
                 response["payload"]["checkpoint"] = *checkpoint_stats;
                 stats_mutex.unlock();
 
-                core::ipc::send_message(std::move(response));
+                core::ipc::send_message(response);
             });
 
             uber_states::register_value_notify([](auto state, auto previous_value) {

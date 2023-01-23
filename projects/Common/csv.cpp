@@ -28,7 +28,6 @@ namespace csv {
         csv.data.clear();
 
         bool parsing_headers = true;
-        char c;
         std::string line;
         while (std::getline(st, line)) {
             trim(line);

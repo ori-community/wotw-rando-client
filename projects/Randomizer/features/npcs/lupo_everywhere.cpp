@@ -1,5 +1,5 @@
-#include <randomizer/conditions/condition_override.h>
-#include <randomizer/conditions/condition_uber_state.h>
+#include <Randomizer/conditions/condition_override.h>
+#include <Randomizer/conditions/condition_uber_state.h>
 #include <Core/uber_states/uber_state_interface.h>
 
 #include <Modloader/common.h>

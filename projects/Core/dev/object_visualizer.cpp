@@ -375,8 +375,8 @@ namespace dev::visualize {
 
                     if (item->fields.Target != nullptr &&
                         il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "get_HasAReference")->fields &&
-                        il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", nullptr)->fields) {
-                        auto target = il2cpp::invoke<Il2CppObject>(item->fields.Target, "Resolve", nullptr);
+                        il2cpp::invoke<app::Boolean__Boxed>(item->fields.Target, "CanResolve", 0)->fields) {
+                        auto target = il2cpp::invoke<Il2CppObject>(item->fields.Target, "Resolve", 0);
                         visualize_object_internal(visualizer, target);
                     } else {
                         indent(visualizer);
@@ -437,8 +437,8 @@ namespace dev::visualize {
 
             if (item->fields.Descriptor != nullptr &&
                 il2cpp::invoke<app::Boolean__Boxed>(item->fields.Descriptor, "get_HasAReference")->fields &&
-                il2cpp::invoke<app::Boolean__Boxed>(item->fields.Descriptor, "CanResolve", nullptr)->fields) {
-                auto descriptor = il2cpp::invoke<Il2CppObject>(item->fields.Descriptor, "Resolve", nullptr);
+                il2cpp::invoke<app::Boolean__Boxed>(item->fields.Descriptor, "CanResolve", 0)->fields) {
+                auto descriptor = il2cpp::invoke<Il2CppObject>(item->fields.Descriptor, "Resolve", 0);
                 if (descriptor != nullptr)
                     visualize_object_internal(visualizer, descriptor);
                 else {
@@ -508,8 +508,8 @@ namespace dev::visualize {
 
             if (item->fields.State != nullptr &&
                 il2cpp::invoke<app::Boolean__Boxed>(item->fields.State, "get_HasAReference")->fields &&
-                il2cpp::invoke<app::Boolean__Boxed>(item->fields.State, "CanResolve", nullptr)->fields) {
-                auto descriptor = il2cpp::invoke<Il2CppObject>(item->fields.State, "Resolve", nullptr);
+                il2cpp::invoke<app::Boolean__Boxed>(item->fields.State, "CanResolve", 0)->fields) {
+                auto descriptor = il2cpp::invoke<Il2CppObject>(item->fields.State, "Resolve", 0);
                 visualize_object_internal(visualizer, descriptor);
             } else {
                 indent(visualizer);

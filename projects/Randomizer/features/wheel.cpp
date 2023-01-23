@@ -1,7 +1,7 @@
 #include <Core/dev/object_visualizer.h>
 #include <Core/enums/static_text_entries.h>
 #include <Core/api/system/message_provider.h>
-#include <randomizer/input/rando_bindings.h>
+#include <Randomizer/input/rando_bindings.h>
 #include <interop/csharp_bridge.h>
 #include <Randomizer/macros.h>
 #include <Core/api/graphics/shaders.h>
@@ -39,7 +39,7 @@
 #include <Modloader/app/types/MessageBox.h>
 #include <Modloader/app/types/TextBox.h>
 #include <Modloader/app/types/Renderer.h>
-#include <Common/ext.cpp>
+#include <Common/ext.h>
 
 #include <unordered_map>
 #include <unordered_set>
@@ -161,7 +161,7 @@ namespace {
             if (!can_show_wheel())
                 return;
 
-            auto wheel = types::EquipmentWheel::get_class()->static_fields->Instance;
+            // auto wheel = types::EquipmentWheel::get_class()->static_fields->Instance;
             switch (wheel_behavior) {
                 case WheelBehavior::Standalone:
                     custom_wheel_input = true;
@@ -181,7 +181,7 @@ namespace {
             if (wheels.empty() || wheels[wheel_index].entries.empty())
                 return;
 
-            auto wheel = types::EquipmentWheel::get_class()->static_fields->Instance;
+            // auto wheel = types::EquipmentWheel::get_class()->static_fields->Instance;
             switch (wheel_behavior) {
                 case WheelBehavior::Standalone: {
                     custom_wheel_input = false;

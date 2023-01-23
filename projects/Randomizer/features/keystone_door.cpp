@@ -39,8 +39,8 @@ namespace {
         auto ref = this_ptr->fields.Descriptor;
         if (ref != nullptr &&
             il2cpp::invoke<app::Boolean__Boxed>(ref, "get_HasAReference")->fields &&
-            il2cpp::invoke<app::Boolean__Boxed>(ref, "CanResolve", nullptr)->fields) {
-            auto descriptor = il2cpp::invoke<app::IUberState>(ref, "Resolve", nullptr);
+            il2cpp::invoke<app::Boolean__Boxed>(ref, "CanResolve", 0)->fields) {
+            auto descriptor = il2cpp::invoke<app::IUberState>(ref, "Resolve", 0);
             uber_states::UberState state(descriptor);
             if (state.group() == static_cast<UberStateGroup>(21786) && (state.state() == 27433 || state.state() == 37225))
                 return kwolok_door_available.get<bool>();
