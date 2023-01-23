@@ -74,7 +74,8 @@ namespace randomizer::online_indicator {
         }
 
         void initialize() {
-            scenes::event_bus().register_handler(&on_scene_load);
+            // TODO: Enable once online flag is removed from seeds
+            // scenes::event_bus().register_handler(&on_scene_load);
         }
 
         CALL_ON_INIT(initialize);
