@@ -1,33 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_PreRecordingDynamicSceneObjectEntry_.h>
-#include <Modloader/app/structs/PreRecordingDynamicSceneObjectEntry.h>
-#include <Modloader/app/structs/IEnumerable_1_PreRecordingDynamicSceneObjectEntry_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_PreRecordingDynamicSceneObjectEntry_.h>
-#include <Modloader/app/structs/IComparer_1_PreRecordingDynamicSceneObjectEntry_.h>
-#include <Modloader/app/structs/PreRecordingDynamicSceneObjectEntry__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_PreRecordingDynamicSceneObjectEntry_.h>
+
+#include <Modloader/app/structs/List_1_PreRecordingDynamicSceneObjectEntry_.h>
 #include <Modloader/app/structs/Action_1_PreRecordingDynamicSceneObjectEntry_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_PreRecordingDynamicSceneObjectEntry_.h>
-#include <Modloader/app/structs/IEnumerator_1_PreRecordingDynamicSceneObjectEntry_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/IComparer_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/IEnumerable_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PreRecordingDynamicSceneObjectEntry.h>
+#include <Modloader/app/structs/PreRecordingDynamicSceneObjectEntry__Array.h>
+#include <Modloader/app/structs/Predicate_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_PreRecordingDynamicSceneObjectEntry_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_PreRecordingDynamicSceneObjectEntry_ {
     IL2CPP_REGISTER_METHOD(0x025EFF90, void, Add, (app::List_1_PreRecordingDynamicSceneObjectEntry_ * this_ptr, app::PreRecordingDynamicSceneObjectEntry item))
-    IL2CPP_REGISTER_METHODINFO(0x04731798, List_1_PreRecordingDynamicSceneObjectEntry__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_PreRecordingDynamicSceneObjectEntry_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471A988, List_1_PreRecordingDynamicSceneObjectEntry__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025F1690, void, RemoveAt, (app::List_1_PreRecordingDynamicSceneObjectEntry_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04784848, List_1_PreRecordingDynamicSceneObjectEntry__RemoveAt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::PreRecordingDynamicSceneObjectEntry, get_Item, (app::List_1_PreRecordingDynamicSceneObjectEntry_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0471A0B0, List_1_PreRecordingDynamicSceneObjectEntry__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_PreRecordingDynamicSceneObjectEntry_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04793D30, List_1_PreRecordingDynamicSceneObjectEntry__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_PreRecordingDynamicSceneObjectEntry_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04717A10, List_1_PreRecordingDynamicSceneObjectEntry___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_PreRecordingDynamicSceneObjectEntry_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02E4EEB0, void, ctor_3, (app::List_1_PreRecordingDynamicSceneObjectEntry_ * this_ptr, app::IEnumerable_1_PreRecordingDynamicSceneObjectEntry_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_PreRecordingDynamicSceneObjectEntry_ * this_ptr))

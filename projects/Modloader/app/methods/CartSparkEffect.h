@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CartSparkEffect.h>
+
+#include <Modloader/app/structs/CartSparkEffect.h>
 
 namespace app::classes::CartSparkEffect {
     IL2CPP_REGISTER_METHOD(0x00B3EA00, void, Start, (app::CartSparkEffect * this_ptr))

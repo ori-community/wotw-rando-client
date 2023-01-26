@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WwiseObjectType__Enum.h>
-#include <Modloader/app/structs/Bank.h>
+
+#include <Modloader/app/structs/WwiseObjectType__Enum.h>
 #include <Modloader/app/structs/AkCallbackManager_BankCallback.h>
+#include <Modloader/app/structs/Bank.h>
 
 namespace app::classes::AK::Wwise::Bank {
     IL2CPP_REGISTER_METHOD(0x00AD8BA0, app::WwiseObjectType__Enum, get_WwiseObjectType, (app::Bank * this_ptr))

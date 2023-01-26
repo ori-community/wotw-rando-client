@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextSpawner.h>
+
+#include <Modloader/app/structs/TextSpawner.h>
 
 namespace app::classes::TextSpawner {
     IL2CPP_REGISTER_METHOD(0x010E8B80, void, Start, (app::TextSpawner * this_ptr))

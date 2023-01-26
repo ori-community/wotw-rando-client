@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTelemetrySceneEvent_SceneData.h>
-#include <Modloader/app/structs/RuntimeSceneMetaData.h>
+
+#include <Modloader/app/structs/MoonTelemetrySceneEvent_SceneData.h>
 #include <Modloader/app/structs/MoonTelemetrySceneEvent_EventSceneState__Enum.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
 #include <Modloader/app/structs/SceneMetaData.h>
 
 namespace app::classes::MoonTelemetrySceneEvent_SceneData {

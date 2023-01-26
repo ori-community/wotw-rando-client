@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GroundEnemyState.h>
+
+#include <Modloader/app/structs/GroundEnemyState.h>
 #include <Modloader/app/structs/GroundEnemy.h>
 
 namespace app::classes::GroundEnemyState {

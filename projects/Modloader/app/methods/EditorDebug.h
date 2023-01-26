@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EditorDebug.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/EditorDebug.h>
 #include <Modloader/app/structs/StreamWriter.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::EditorDebug {
     IL2CPP_REGISTER_METHOD(0x00BF7080, void, ctor, (app::EditorDebug * this_ptr, app::String* name))

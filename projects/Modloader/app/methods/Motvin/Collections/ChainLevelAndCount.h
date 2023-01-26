@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ChainLevelAndCount__Boxed.h>
+
+#include <Modloader/app/structs/ChainLevelAndCount__Boxed.h>
 #include <Modloader/app/structs/ChainLevelAndCount.h>
 
 namespace app::classes::Motvin::Collections::ChainLevelAndCount {

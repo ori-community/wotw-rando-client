@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlTypeCode__Enum.h>
+
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
 #include <Modloader/app/structs/Datatype_language.h>
 
 namespace app::classes::System::Xml::Schema::Datatype_language {

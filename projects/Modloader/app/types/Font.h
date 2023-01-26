@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Font__Class.h>
 #include <Modloader/app/structs/Font.h>
 #include <Modloader/app/structs/Font__Array.h>
+#include <Modloader/app/structs/Font__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Font {
-        inline app::Font__Class** type_info = (app::Font__Class**)(modloader::win::memory::resolve_rva(0x0471EB38));
+        inline app::Font__Class** type_info() {
+            static app::Font__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Font__Class**)(modloader::win::memory::resolve_rva(0x0471EB38));
+            }
+            return cache;
+        }
         inline app::Font__Class* get_class() {
-            return il2cpp::get_class<app::Font__Class>(type_info, "UnityEngine", "Font");
+            return il2cpp::get_class<app::Font__Class>(type_info(), "UnityEngine", "Font");
         }
         inline app::Font* create() {
             return il2cpp::create_object<app::Font>(get_class());

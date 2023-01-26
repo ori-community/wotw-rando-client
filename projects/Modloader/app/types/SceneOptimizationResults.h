@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SceneOptimizationResults__Class.h>
 #include <Modloader/app/structs/SceneOptimizationResults.h>
 #include <Modloader/app/structs/SceneOptimizationResults__Array.h>
+#include <Modloader/app/structs/SceneOptimizationResults__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SceneOptimizationResults {
-        namespace {
-            inline app::SceneOptimizationResults__Class* type_info_ref = nullptr;
+        inline app::SceneOptimizationResults__Class** type_info() {
+            static app::SceneOptimizationResults__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SceneOptimizationResults__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SceneOptimizationResults__Class** type_info = &type_info_ref;
         inline app::SceneOptimizationResults__Class* get_class() {
-            return il2cpp::get_class<app::SceneOptimizationResults__Class>(type_info, "Moon.ArtOptimization", "SceneOptimizationResults");
+            return il2cpp::get_class<app::SceneOptimizationResults__Class>(type_info(), "Moon.ArtOptimization", "SceneOptimizationResults");
         }
         inline app::SceneOptimizationResults* create() {
             return il2cpp::create_object<app::SceneOptimizationResults>(get_class());

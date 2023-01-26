@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MultiplyLayerDistortedThirdModifier.h>
+
+#include <Modloader/app/structs/MultiplyLayerDistortedThirdModifier.h>
 
 namespace app::classes::MultiplyLayerDistortedThirdModifier {
     IL2CPP_REGISTER_METHOD(0x0087A2E0, void, ApplyMultipliers, (app::MultiplyLayerDistortedThirdModifier * this_ptr, float strength, float speed))

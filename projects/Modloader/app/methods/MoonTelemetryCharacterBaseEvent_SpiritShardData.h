@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_SpiritShardData.h>
+
+#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_SpiritShardData.h>
 #include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 
 namespace app::classes::MoonTelemetryCharacterBaseEvent_SpiritShardData {

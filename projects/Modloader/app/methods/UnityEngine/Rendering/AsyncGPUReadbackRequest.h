@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AsyncGPUReadbackRequest__Boxed.h>
+
+#include <Modloader/app/structs/AsyncGPUReadbackRequest__Boxed.h>
 #include <Modloader/app/structs/Action_1_UnityEngine_Rendering_AsyncGPUReadbackRequest_.h>
 #include <Modloader/app/structs/AsyncGPUReadbackRequest.h>
 #include <Modloader/app/structs/NativeArray_1_System_Byte_.h>
@@ -23,5 +24,4 @@ namespace app::classes::UnityEngine::Rendering::AsyncGPUReadbackRequest {
     IL2CPP_REGISTER_METHOD(0x02973B20, void, SetScriptingCallback_Injected, (app::AsyncGPUReadbackRequest * _unity_self, app::Action_1_UnityEngine_Rendering_AsyncGPUReadbackRequest_* callback))
     IL2CPP_REGISTER_METHOD(0x02973B80, void*, GetDataRaw_Injected, (app::AsyncGPUReadbackRequest * _unity_self, int32_t layer))
     IL2CPP_REGISTER_METHOD(0x002406C0, app::NativeArray_1_System_Byte_, GetData, (app::AsyncGPUReadbackRequest__Boxed * this_ptr, int32_t layer))
-    IL2CPP_REGISTER_METHODINFO(0x04758858, AsyncGPUReadbackRequest_GetData__MethodInfo)
 } // namespace app::classes::UnityEngine::Rendering::AsyncGPUReadbackRequest

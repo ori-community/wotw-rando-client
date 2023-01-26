@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Expression_NewExpressionProxy.h>
+
+#include <Modloader/app/structs/Expression_NewExpressionProxy.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
 #include <Modloader/app/structs/NewExpression.h>
 #include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Expression_.h>
-#include <Modloader/app/structs/ConstructorInfo.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/ReadOnlyCollection_1_System_Reflection_MemberInfo_.h>
-#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_NewExpressionProxy {

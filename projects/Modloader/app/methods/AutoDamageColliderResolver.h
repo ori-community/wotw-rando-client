@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AutoDamageColliderResolver.h>
+
+#include <Modloader/app/structs/AutoDamageColliderResolver.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/GameWorldAreaID__Enum.h>
 

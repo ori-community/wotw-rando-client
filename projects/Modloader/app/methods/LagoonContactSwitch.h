@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LagoonContactSwitch.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+
+#include <Modloader/app/structs/LagoonContactSwitch.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::LagoonContactSwitch {
     IL2CPP_REGISTER_METHOD(0x00EFEA50, bool, get_IsActivated, (app::LagoonContactSwitch * this_ptr))
@@ -32,7 +33,5 @@ namespace app::classes::LagoonContactSwitch {
     IL2CPP_REGISTER_METHOD(0x00F00120, void, DeactivateSwitch, (app::LagoonContactSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F00130, void, ctor, (app::LagoonContactSwitch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F00150, void, _Start_b__22_0, (app::LagoonContactSwitch * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470C890, LagoonContactSwitch__Start_b__22_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F00160, void, _Start_b__22_1, (app::LagoonContactSwitch * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04766278, LagoonContactSwitch__Start_b__22_1__MethodInfo)
 } // namespace app::classes::LagoonContactSwitch

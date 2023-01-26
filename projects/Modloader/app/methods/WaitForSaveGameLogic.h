@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WaitForSaveGameLogic.h>
+
+#include <Modloader/app/structs/WaitForSaveGameLogic.h>
 
 namespace app::classes::WaitForSaveGameLogic {
     IL2CPP_REGISTER_METHOD(0x008C63B0, void, ResetStatics, ())

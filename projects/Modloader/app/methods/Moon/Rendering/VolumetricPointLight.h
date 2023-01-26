@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Light.h>
+
+#include <Modloader/app/structs/Light.h>
 #include <Modloader/app/structs/VolumetricPointLight.h>
 
 namespace app::classes::Moon::Rendering::VolumetricPointLight {

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinCharacter.h>
+
+#include <Modloader/app/structs/SeinCharacter.h>
 #include <Modloader/app/structs/BabySein.h>
-#include <Modloader/app/structs/Naru.h>
-#include <Modloader/app/structs/Ku.h>
-#include <Modloader/app/structs/ICharacter.h>
-#include <Modloader/app/structs/Ori.h>
 #include <Modloader/app/structs/Characters.h>
+#include <Modloader/app/structs/ICharacter.h>
+#include <Modloader/app/structs/Ku.h>
+#include <Modloader/app/structs/Naru.h>
+#include <Modloader/app/structs/Ori.h>
 
 namespace app::classes::Game::Characters {
     IL2CPP_REGISTER_METHOD(0x01522590, app::SeinCharacter*, get_Sein, ())

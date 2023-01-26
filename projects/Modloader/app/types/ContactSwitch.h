@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ContactSwitch__Class.h>
 #include <Modloader/app/structs/ContactSwitch.h>
 #include <Modloader/app/structs/ContactSwitch__Array.h>
+#include <Modloader/app/structs/ContactSwitch__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace ContactSwitch {
-        namespace {
-            inline app::ContactSwitch__Class* type_info_ref = nullptr;
+        inline app::ContactSwitch__Class** type_info() {
+            static app::ContactSwitch__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ContactSwitch__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ContactSwitch__Class** type_info = &type_info_ref;
         inline app::ContactSwitch__Class* get_class() {
-            return il2cpp::get_class<app::ContactSwitch__Class>(type_info, "", "ContactSwitch");
+            return il2cpp::get_class<app::ContactSwitch__Class>(type_info(), "", "ContactSwitch");
         }
         inline app::ContactSwitch* create() {
             return il2cpp::create_object<app::ContactSwitch>(get_class());

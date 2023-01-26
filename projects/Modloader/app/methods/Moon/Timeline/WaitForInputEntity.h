@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
-#include <Modloader/app/structs/WaitForInputEntity.h>
+
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/WaitForInputEntity.h>
 
 namespace app::classes::Moon::Timeline::WaitForInputEntity {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::RecordableParsingGroup__Enum, get_ParsingGroup, (app::WaitForInputEntity * this_ptr))

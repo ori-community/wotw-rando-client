@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TranslateModifier.h>
+
+#include <Modloader/app/structs/TranslateModifier.h>
 
 namespace app::classes::TranslateModifier {
     IL2CPP_REGISTER_METHOD(0x00B0A3F0, void, ApplyMultipliers, (app::TranslateModifier * this_ptr, float strength, float speed))

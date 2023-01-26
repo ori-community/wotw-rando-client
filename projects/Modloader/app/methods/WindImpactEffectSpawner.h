@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WindImpactEffectSpawner.h>
+
+#include <Modloader/app/structs/WindImpactEffectSpawner.h>
 #include <Modloader/app/structs/RaycastHit.h>
 
 namespace app::classes::WindImpactEffectSpawner {

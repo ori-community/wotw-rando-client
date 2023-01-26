@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Checkpoint.h>
+
+#include <Modloader/app/structs/Checkpoint.h>
 #include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::Checkpoint {

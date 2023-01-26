@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneSampleTask.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/SceneSampleTask.h>
 #include <Modloader/app/structs/IOptimizationTask.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::ArtOptimization::SceneSampleTask {
     IL2CPP_REGISTER_METHOD(0x00C1B200, void, ctor, (app::SceneSampleTask * this_ptr, app::Vector3 sample_position))

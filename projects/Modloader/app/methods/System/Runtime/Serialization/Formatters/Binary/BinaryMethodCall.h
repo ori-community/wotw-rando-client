@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BinaryMethodCall.h>
+
+#include <Modloader/app/structs/BinaryMethodCall.h>
 #include <Modloader/app/structs/_BinaryWriter.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::BinaryMethodCall {

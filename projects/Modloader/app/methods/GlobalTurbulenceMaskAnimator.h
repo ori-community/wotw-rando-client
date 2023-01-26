@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneSettingsComponent.h>
+
+#include <Modloader/app/structs/SceneSettingsComponent.h>
 #include <Modloader/app/structs/GlobalTurbulenceMaskAnimator.h>
 
 namespace app::classes::GlobalTurbulenceMaskAnimator {

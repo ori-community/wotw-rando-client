@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
 #include <Modloader/app/structs/BoostModeProfilingSetting_CallDestroyWhenNotAwokenProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::BoostModeProfilingSetting_CallDestroyWhenNotAwokenProfilingSetting {

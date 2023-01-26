@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_XboxOneStatistics_StatisticReading_.h>
-#include <Modloader/app/structs/XboxOneStatistics_StatisticReading.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_XboxOneStatistics_StatisticReading_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XboxOneStatistics_StatisticReading.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_XboxOneStatistics_StatisticReading_ {
     IL2CPP_REGISTER_METHOD(0x01CD0280, int32_t, Compare, (app::ObjectComparer_1_XboxOneStatistics_StatisticReading_ * this_ptr, app::XboxOneStatistics_StatisticReading x, app::XboxOneStatistics_StatisticReading y))

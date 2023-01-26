@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
-#include <Modloader/app/structs/InterpretedFrameInfo__Array.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
 #include <Modloader/app/structs/InterpretedFrameInfo.h>
+#include <Modloader/app/structs/InterpretedFrameInfo__Array.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_ {

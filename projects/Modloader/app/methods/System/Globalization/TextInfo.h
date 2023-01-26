@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextInfo.h>
+
+#include <Modloader/app/structs/TextInfo.h>
 #include <Modloader/app/structs/CultureData.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/StreamingContext.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Globalization::TextInfo {
     IL2CPP_REGISTER_METHOD(0x01DED530, app::TextInfo*, get_Invariant, ())
@@ -23,17 +24,14 @@ namespace app::classes::System::Globalization::TextInfo {
     IL2CPP_REGISTER_METHOD(0x0052A280, bool, get_IsReadOnly, (app::TextInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DEDC00, app::Object*, Clone, (app::TextInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DEDDA0, app::TextInfo*, ReadOnly, (app::TextInfo * text_info))
-    IL2CPP_REGISTER_METHODINFO(0x04770360, TextInfo_ReadOnly__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00533150, void, SetReadOnlyState, (app::TextInfo * this_ptr, bool read_only))
-    IL2CPP_REGISTER_METHOD(0x01DEDF20, uint16_t, ToLower_1, (app::TextInfo * this_ptr, uint16_t c))
+    IL2CPP_REGISTER_METHOD(0x01DEDF20, char16_t, ToLower_1, (app::TextInfo * this_ptr, char16_t c))
     IL2CPP_REGISTER_METHOD(0x01DEDF80, app::String*, ToLower_2, (app::TextInfo * this_ptr, app::String* str))
-    IL2CPP_REGISTER_METHODINFO(0x04703838, TextInfo_ToLower_1__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01DEE110, uint16_t, ToLowerAsciiInvariant, (uint16_t c))
-    IL2CPP_REGISTER_METHOD(0x01DEE130, uint16_t, ToUpper_1, (app::TextInfo * this_ptr, uint16_t c))
+    IL2CPP_REGISTER_METHOD(0x01DEE110, char16_t, ToLowerAsciiInvariant, (char16_t c))
+    IL2CPP_REGISTER_METHOD(0x01DEE130, char16_t, ToUpper_1, (app::TextInfo * this_ptr, char16_t c))
     IL2CPP_REGISTER_METHOD(0x01DEE190, app::String*, ToUpper_2, (app::TextInfo * this_ptr, app::String* str))
-    IL2CPP_REGISTER_METHODINFO(0x04711670, TextInfo_ToUpper_1__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01DEE320, uint16_t, ToUpperAsciiInvariant, (uint16_t c))
-    IL2CPP_REGISTER_METHOD(0x01DEE340, bool, IsAscii, (uint16_t c))
+    IL2CPP_REGISTER_METHOD(0x01DEE320, char16_t, ToUpperAsciiInvariant, (char16_t c))
+    IL2CPP_REGISTER_METHOD(0x01DEE340, bool, IsAscii, (char16_t c))
     IL2CPP_REGISTER_METHOD(0x01DEE350, bool, get_IsAsciiCasingSameAsInvariant, (app::TextInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DEE510, bool, Equals, (app::TextInfo * this_ptr, app::Object* obj))
     IL2CPP_REGISTER_METHOD(0x01950620, int32_t, GetHashCode, (app::TextInfo * this_ptr))
@@ -41,13 +39,11 @@ namespace app::classes::System::Globalization::TextInfo {
     IL2CPP_REGISTER_METHOD(0x01DED880, void, IDeserializationCallback_OnDeserialization, (app::TextInfo * this_ptr, app::Object* sender))
     IL2CPP_REGISTER_METHOD(0x01DEE6A0, int32_t, GetCaseInsensitiveHashCode_1, (app::TextInfo * this_ptr, app::String* str))
     IL2CPP_REGISTER_METHOD(0x01DEE6C0, int32_t, GetCaseInsensitiveHashCode_2, (app::TextInfo * this_ptr, app::String* str, bool force_randomized_hashing, int64_t additional_entropy))
-    IL2CPP_REGISTER_METHODINFO(0x0472C1A0, TextInfo_GetCaseInsensitiveHashCode_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01DEE8F0, int32_t, GetInvariantCaseInsensitiveHashCode, (app::TextInfo * this_ptr, app::String* str))
     IL2CPP_REGISTER_METHOD(0x01DEEA40, app::String*, ToUpperInternal_1, (app::TextInfo * this_ptr, app::String* str))
     IL2CPP_REGISTER_METHOD(0x01DEEB50, app::String*, ToLowerInternal_1, (app::TextInfo * this_ptr, app::String* str))
-    IL2CPP_REGISTER_METHOD(0x01DEEC60, uint16_t, ToUpperInternal_2, (app::TextInfo * this_ptr, uint16_t c))
-    IL2CPP_REGISTER_METHOD(0x01DEF400, uint16_t, ToLowerInternal_2, (app::TextInfo * this_ptr, uint16_t c))
+    IL2CPP_REGISTER_METHOD(0x01DEEC60, char16_t, ToUpperInternal_2, (app::TextInfo * this_ptr, char16_t c))
+    IL2CPP_REGISTER_METHOD(0x01DEF400, char16_t, ToLowerInternal_2, (app::TextInfo * this_ptr, char16_t c))
     IL2CPP_REGISTER_METHOD(0x01DEFAF0, int32_t, InternalCompareStringOrdinalIgnoreCase, (app::String * str_a, int32_t index_a, app::String* str_b, int32_t index_b, int32_t len_a, int32_t len_b))
     IL2CPP_REGISTER_METHOD(0x01DEFCC0, void, ctor_2, (app::TextInfo * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473BD78, TextInfo__ctor_1__MethodInfo)
 } // namespace app::classes::System::Globalization::TextInfo

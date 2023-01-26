@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType.h>
+#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType__Array.h>
+#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType__Boxed.h>
+#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType__Class.h>
-#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType.h>
-#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType__Boxed.h>
-#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType__Array.h>
 
 namespace app::classes::types {
     namespace LightCullingSystem_LightCullingConfigPerType {
-        namespace {
-            inline app::LightCullingSystem_LightCullingConfigPerType__Class* type_info_ref = nullptr;
+        inline app::LightCullingSystem_LightCullingConfigPerType__Class** type_info() {
+            static app::LightCullingSystem_LightCullingConfigPerType__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LightCullingSystem_LightCullingConfigPerType__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LightCullingSystem_LightCullingConfigPerType__Class** type_info = &type_info_ref;
         inline app::LightCullingSystem_LightCullingConfigPerType__Class* get_class() {
-            return il2cpp::get_nested_class<app::LightCullingSystem_LightCullingConfigPerType__Class>(type_info, "", "LightCullingSystem", "LightCullingConfigPerType");
+            return il2cpp::get_nested_class<app::LightCullingSystem_LightCullingConfigPerType__Class>(type_info(), "", "LightCullingSystem", "LightCullingConfigPerType");
         }
         inline app::LightCullingSystem_LightCullingConfigPerType* create() {
             return il2cpp::create_object<app::LightCullingSystem_LightCullingConfigPerType>(get_class());

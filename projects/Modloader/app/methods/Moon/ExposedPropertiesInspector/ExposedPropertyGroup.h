@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ExposedPropertyGroup.h>
+
+#include <Modloader/app/structs/ExposedPropertyGroup.h>
 #include <Modloader/app/structs/ExposedProperty.h>
 
 namespace app::classes::Moon::ExposedPropertiesInspector::ExposedPropertyGroup {

@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Moon_IUberStateApplier_.h>
-#include <Modloader/app/structs/UberStateController.h>
-#include <Modloader/app/structs/IUberStateApplierWithCallbacks.h>
-#include <Modloader/app/structs/IUberStateApplier.h>
-#include <Modloader/app/structs/UberStateValueStore.h>
+
+#include <Modloader/app/structs/List_1_Moon_IUberStateApplier_.h>
 #include <Modloader/app/structs/ISerializedUberState.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/IUberStateApplier.h>
+#include <Modloader/app/structs/IUberStateApplierWithCallbacks.h>
+#include <Modloader/app/structs/List_1_Moon_IUberState_.h>
 #include <Modloader/app/structs/SceneUberStateGroup.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UberStateApplyContext__Enum.h>
-#include <Modloader/app/structs/List_1_Moon_IUberState_.h>
-#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/UberStateController.h>
+#include <Modloader/app/structs/UberStateValueStore.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::UberStateController {

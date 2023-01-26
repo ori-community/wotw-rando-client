@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CartJump.h>
+
+#include <Modloader/app/structs/CartJump.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/CharacterPlatformMovement.h>
 #include <Modloader/app/structs/CharacterSpriteMirror.h>
-#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::CartJump {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::CartJump * this_ptr))
@@ -19,14 +20,11 @@ namespace app::classes::CartJump {
     IL2CPP_REGISTER_METHOD(0x00B399D0, void, PerformRunningJump, (app::CartJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B39C70, void, CacheDelegates, (app::CartJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B39EC0, bool, ShouldJumpMovingAnimationKeepPlaying, (app::CartJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470F910, CartJump_ShouldJumpMovingAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B39F40, void, OnAnimationEnd, (app::CartJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04767DF0, CartJump_OnAnimationEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B39FA0, void, OnAnimationStart, (app::CartJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B3A000, void, Serialize, (app::CartJump * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x00B3A060, void, OnAwake, (app::CartJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B3A200, void, OnDestroy, (app::CartJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B3A3B0, void, OnRestoreCheckpoint, (app::CartJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04717D18, CartJump_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B3A3C0, void, ctor, (app::CartJump * this_ptr))
 } // namespace app::classes::CartJump

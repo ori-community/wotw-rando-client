@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
 #include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_GetEnumerator_d_32_System_Object_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
 
@@ -11,5 +12,4 @@ namespace app::classes::System::Collections::Concurrent::ConcurrentDictionary_2_
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IDisposable_Dispose, (app::ConcurrentDictionary_2_TKey_TValue_GetEnumerator_d_32_System_Object_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02ADC780, bool, MoveNext, (app::ConcurrentDictionary_2_TKey_TValue_GetEnumerator_d_32_System_Object_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02ADC870, void, IEnumerator_Reset, (app::ConcurrentDictionary_2_TKey_TValue_GetEnumerator_d_32_System_Object_System_Object_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04706848, ConcurrentDictionary_2_TKey_TValue_GetEnumerator_d_32_System_Object_System_Object__System_Collections_IEnumerator_Reset__MethodInfo)
 } // namespace app::classes::System::Collections::Concurrent::ConcurrentDictionary_2_TKey_TValue___GetEnumerator_d__32_System_Object_System_Object_

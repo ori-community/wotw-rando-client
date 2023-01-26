@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HierarchyPerfTest_LastRunner.h>
+
+#include <Modloader/app/structs/HierarchyPerfTest_LastRunner.h>
 
 namespace app::classes::HierarchyPerfTest::HierarchyPerfTest_LastRunner {
     IL2CPP_REGISTER_METHOD(0x01973E70, void, Awake, (app::HierarchyPerfTest_LastRunner * this_ptr))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ExpressionNode.h>
+
+#include <Modloader/app/structs/ExpressionNode.h>
+#include <Modloader/app/structs/DataColumn.h>
 #include <Modloader/app/structs/DataTable.h>
 #include <Modloader/app/structs/IFormatProvider.h>
-#include <Modloader/app/structs/DataColumn.h>
 #include <Modloader/app/structs/StorageType__Enum.h>
 
 namespace app::classes::System::Data::ExpressionNode {

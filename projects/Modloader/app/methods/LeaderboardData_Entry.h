@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LeaderboardData_Entry.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/LeaderboardData_Entry.h>
 #include <Modloader/app/structs/Leaderboard__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::LeaderboardData_Entry {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, uint32_t, get_Rank, (app::LeaderboardData_Entry * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterPlatformMovement.h>
+
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
 #include <Modloader/app/structs/SeinAnimationParametersHandler.h>
 
 namespace app::classes::SeinAnimationParametersHandler {

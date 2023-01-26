@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TestSet.h>
-#include <Modloader/app/structs/TestSetManager.h>
+
+#include <Modloader/app/structs/TestSet.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Boolean_.h>
 #include <Modloader/app/structs/List_1_System_String_.h>
 #include <Modloader/app/structs/List_1_TestSet_.h>
-#include <Modloader/app/structs/Dictionary_2_System_String_System_Boolean_.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TestSetManager.h>
 
 namespace app::classes::TestSetManager {
     IL2CPP_REGISTER_METHOD(0x010DD360, app::TestSet*, get_CurrentTestSet, ())

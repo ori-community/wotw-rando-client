@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TransformAnimatorSystem_ScaleModification__Boxed.h>
+
+#include <Modloader/app/structs/TransformAnimatorSystem_ScaleModification__Boxed.h>
 #include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::Moon::Timeline::TransformAnimatorSystem_ScaleModification {

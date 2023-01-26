@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
-#include <Modloader/app/structs/SpikeSlugHitReactionBehaviour.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/EventTriggerAnimator.h>
+#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/EventTriggerAnimator.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SpikeSlugHitReactionBehaviour.h>
 #include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SpikeSlugHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00A64240, app::EntityDamageEvent*, get_DamageEvent, (app::SpikeSlugHitReactionBehaviour * this_ptr))
@@ -34,7 +35,6 @@ namespace app::classes::SpikeSlugHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x011D04D0, void, ProcessKickback, (app::SpikeSlugHitReactionBehaviour * this_ptr, app::Vector2 force))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::SpikeSlugHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D05B0, void, TimelineFinished, (app::SpikeSlugHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047181D8, SpikeSlugHitReactionBehaviour_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011D07E0, void, PlayShake, (app::SpikeSlugHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D08E0, void, ctor, (app::SpikeSlugHitReactionBehaviour * this_ptr))
 } // namespace app::classes::SpikeSlugHitReactionBehaviour

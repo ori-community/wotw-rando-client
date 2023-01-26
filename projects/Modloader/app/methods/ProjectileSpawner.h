@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/ProjectileSpawner.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/Projectile.h>
-#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/ProjectileSpawner.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::ProjectileSpawner {
     IL2CPP_REGISTER_METHOD(0x00C7C010, app::Vector3, get_Position, (app::ProjectileSpawner * this_ptr))
@@ -22,7 +23,6 @@ namespace app::classes::ProjectileSpawner {
     IL2CPP_REGISTER_METHOD(0x00C7C5A0, void, SubscribeToTimelineTriggers, (app::ProjectileSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C7C810, void, UnsubscribeToTimelineTriggers, (app::ProjectileSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C7CA80, void, OnSpawnEvent, (app::ProjectileSpawner * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04746480, ProjectileSpawner_OnSpawnEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C7CA80, void, OnTimedTrigger, (app::ProjectileSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C7CA90, app::Projectile*, SpawnProjectile, (app::ProjectileSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C7CE50, app::GameObject*, SpawnProjectileGameObject, (app::ProjectileSpawner * this_ptr))

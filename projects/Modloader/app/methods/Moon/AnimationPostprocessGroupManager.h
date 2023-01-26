@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationPostprocessGroupManager.h>
+
+#include <Modloader/app/structs/AnimationPostprocessGroupManager.h>
 #include <Modloader/app/structs/AnimationPostprocessGroup.h>
 
 namespace app::classes::Moon::AnimationPostprocessGroupManager {

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LeaveFaultInstruction.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/LeaveFaultInstruction.h>
 #include <Modloader/app/structs/InterpretedFrame.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LeaveFaultInstruction {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::LeaveFaultInstruction * this_ptr))

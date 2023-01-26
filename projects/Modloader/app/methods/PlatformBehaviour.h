@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/ForceMode__Enum.h>
 #include <Modloader/app/structs/PlatformBehaviour.h>
 #include <Modloader/app/structs/Rigidbody.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/ForceMode__Enum.h>
 
 namespace app::classes::PlatformBehaviour {
     IL2CPP_REGISTER_METHOD(0x01164D30, app::SurfaceMaterialType__Enum, get_WallSurfaceMaterialType, (app::PlatformBehaviour * this_ptr))

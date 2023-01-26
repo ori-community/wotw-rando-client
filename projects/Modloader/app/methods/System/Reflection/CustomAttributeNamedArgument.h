@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CustomAttributeNamedArgument__Boxed.h>
+
+#include <Modloader/app/structs/CustomAttributeNamedArgument__Boxed.h>
+#include <Modloader/app/structs/CustomAttributeTypedArgument.h>
 #include <Modloader/app/structs/MemberInfo_1.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/CustomAttributeTypedArgument.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Reflection::CustomAttributeNamedArgument {

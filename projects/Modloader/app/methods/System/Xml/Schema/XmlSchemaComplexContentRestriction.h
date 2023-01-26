@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/XmlSchemaComplexContentRestriction.h>
-#include <Modloader/app/structs/XmlSchemaParticle.h>
-#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+
+#include <Modloader/app/structs/XmlQualifiedName.h>
 #include <Modloader/app/structs/XmlSchemaAnyAttribute.h>
+#include <Modloader/app/structs/XmlSchemaComplexContentRestriction.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlSchemaParticle.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaComplexContentRestriction {
     IL2CPP_REGISTER_METHOD(0x002FBBA0, app::XmlQualifiedName*, get_BaseTypeName, (app::XmlSchemaComplexContentRestriction * this_ptr))

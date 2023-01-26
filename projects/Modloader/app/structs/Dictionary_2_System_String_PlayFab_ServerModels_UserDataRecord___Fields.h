@@ -27,7 +27,7 @@ struct __declspec(align(8)) Dictionary_2_System_String_PlayFab_ServerModels_User
 #define IL2CPP_STRUCT_Dictionary_2_System_String_PlayFab_ServerModels_UserDataRecord___Fields_FWDDECL
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_String_PlayFab_ServerModels_UserDataRecord___Array.h>
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_System_String_PlayFab_ServerModels_UserDataRecord_.h>
-#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_String_PlayFab_ServerModels_UserDataRecord_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_String_PlayFab_ServerModels_UserDataRecor_.h>
 #include <Modloader/app/structs/IEqualityComparer_1_System_String_.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/Object.h>

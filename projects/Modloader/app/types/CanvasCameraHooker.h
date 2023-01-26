@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/CanvasCameraHooker.h>
+#include <Modloader/app/structs/CanvasCameraHooker__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CanvasCameraHooker__Class.h>
-#include <Modloader/app/structs/CanvasCameraHooker.h>
 
 namespace app::classes::types {
     namespace CanvasCameraHooker {
-        namespace {
-            inline app::CanvasCameraHooker__Class* type_info_ref = nullptr;
+        inline app::CanvasCameraHooker__Class** type_info() {
+            static app::CanvasCameraHooker__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CanvasCameraHooker__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CanvasCameraHooker__Class** type_info = &type_info_ref;
         inline app::CanvasCameraHooker__Class* get_class() {
-            return il2cpp::get_class<app::CanvasCameraHooker__Class>(type_info, "", "CanvasCameraHooker");
+            return il2cpp::get_class<app::CanvasCameraHooker__Class>(type_info(), "", "CanvasCameraHooker");
         }
         inline app::CanvasCameraHooker* create() {
             return il2cpp::create_object<app::CanvasCameraHooker>(get_class());

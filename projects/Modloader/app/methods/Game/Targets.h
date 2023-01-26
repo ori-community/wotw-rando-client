@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IEnumerable_1_IAttackable_.h>
+
+#include <Modloader/app/structs/IEnumerable_1_IAttackable_.h>
+#include <Modloader/app/structs/IAttackable.h>
 #include <Modloader/app/structs/IAttackableConsumer.h>
 #include <Modloader/app/structs/List_1_IAttackable_.h>
-#include <Modloader/app/structs/IAttackable.h>
 
 namespace app::classes::Game::Targets {
     IL2CPP_REGISTER_METHOD(0x00682C30, app::IEnumerable_1_IAttackable_*, get_Attackables, ())

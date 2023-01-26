@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BehaviourTree.h>
+
+#include <Modloader/app/structs/BehaviourTree.h>
 #include <Modloader/app/structs/BehaviourNode.h>
-#include <Modloader/app/structs/IBehaviourNode.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IBlackboard.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/IBehaviourNode.h>
+#include <Modloader/app/structs/IBlackboard.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::BehaviourSystem::BehaviourTree {

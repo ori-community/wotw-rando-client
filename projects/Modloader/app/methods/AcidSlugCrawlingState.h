@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AcidSlugCrawlingState.h>
+
+#include <Modloader/app/structs/AcidSlugCrawlingState.h>
 #include <Modloader/app/structs/AcidSlugEnemy.h>
 #include <Modloader/app/structs/SoundSource.h>
 

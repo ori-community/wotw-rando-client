@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/InstantiateAnimator.h>
 #include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Timeline::InstantiateAnimator {
     IL2CPP_REGISTER_METHOD(0x0076FFC0, app::Transform*, get_EffectiveLocation, (app::InstantiateAnimator * this_ptr))

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SceneLoadingTest_LoadAndUnloadScene_d_20__Class.h>
 #include <Modloader/app/structs/SceneLoadingTest_LoadAndUnloadScene_d_20.h>
 #include <Modloader/app/structs/SceneLoadingTest_LoadAndUnloadScene_d_20__Boxed.h>
+#include <Modloader/app/structs/SceneLoadingTest_LoadAndUnloadScene_d_20__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SceneLoadingTest_LoadAndUnloadScene_d_20 {
-        namespace {
-            inline app::SceneLoadingTest_LoadAndUnloadScene_d_20__Class* type_info_ref = nullptr;
+        inline app::SceneLoadingTest_LoadAndUnloadScene_d_20__Class** type_info() {
+            static app::SceneLoadingTest_LoadAndUnloadScene_d_20__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SceneLoadingTest_LoadAndUnloadScene_d_20__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SceneLoadingTest_LoadAndUnloadScene_d_20__Class** type_info = &type_info_ref;
         inline app::SceneLoadingTest_LoadAndUnloadScene_d_20__Class* get_class() {
-            return il2cpp::get_nested_class<app::SceneLoadingTest_LoadAndUnloadScene_d_20__Class>(type_info, "Moon", "SceneLoadingTest", "<LoadAndUnloadScene>d__20");
+            return il2cpp::get_nested_class<app::SceneLoadingTest_LoadAndUnloadScene_d_20__Class>(type_info(), "Moon", "SceneLoadingTest", "<LoadAndUnloadScene>d__20");
         }
         inline app::SceneLoadingTest_LoadAndUnloadScene_d_20* create() {
             return il2cpp::create_object<app::SceneLoadingTest_LoadAndUnloadScene_d_20>(get_class());

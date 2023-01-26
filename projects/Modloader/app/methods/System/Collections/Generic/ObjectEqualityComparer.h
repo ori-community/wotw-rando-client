@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer {

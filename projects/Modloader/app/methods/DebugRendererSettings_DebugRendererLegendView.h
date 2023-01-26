@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DebugRendererSettings_DebugRendererLegendView.h>
+
+#include <Modloader/app/structs/DebugRendererSettings_DebugRendererLegendView.h>
 #include <Modloader/app/structs/DebugRendererSettings_SettingsPattern.h>
 
 namespace app::classes::DebugRendererSettings_DebugRendererLegendView {

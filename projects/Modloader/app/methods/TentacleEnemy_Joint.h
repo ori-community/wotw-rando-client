@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TentacleEnemy_Joint.h>
+
+#include <Modloader/app/structs/TentacleEnemy_Joint.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/VerletBody_Point.h>
 

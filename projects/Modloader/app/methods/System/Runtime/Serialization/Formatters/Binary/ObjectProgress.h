@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectProgress.h>
+
+#include <Modloader/app/structs/ObjectProgress.h>
 #include <Modloader/app/structs/BinaryTypeEnum__Enum.h>
 #include <Modloader/app/structs/Object.h>
 

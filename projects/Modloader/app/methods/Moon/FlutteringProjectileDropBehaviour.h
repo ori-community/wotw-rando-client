@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FlutteringProjectileDropBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/FlutteringProjectileDropBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/Vector3.h>
 
@@ -27,11 +28,8 @@ namespace app::classes::Moon::FlutteringProjectileDropBehaviour {
     IL2CPP_REGISTER_METHOD(0x01227F60, void, UpdateBrakingPosition, (app::FlutteringProjectileDropBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C4F470, bool, IsPointInsideAllowedArea, (app::FlutteringProjectileDropBehaviour * this_ptr, app::Vector3 point))
     IL2CPP_REGISTER_METHOD(0x01228210, void, OnFlutteringTurnStart, (app::FlutteringProjectileDropBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477D700, FlutteringProjectileDropBehaviour_OnFlutteringTurnStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01228220, void, OnFlutteringTurnEnd, (app::FlutteringProjectileDropBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478F180, FlutteringProjectileDropBehaviour_OnFlutteringTurnEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01228250, void, OnFlutteringTurnFlipEvent, (app::FlutteringProjectileDropBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04761BF8, FlutteringProjectileDropBehaviour_OnFlutteringTurnFlipEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01228330, void, OnHitByHeavyAttack, (app::FlutteringProjectileDropBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01226470, void, Stop, (app::FlutteringProjectileDropBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012283F0, void, ctor, (app::FlutteringProjectileDropBehaviour * this_ptr))

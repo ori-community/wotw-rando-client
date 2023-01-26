@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MemberSerialization__Enum.h>
-#include <Modloader/app/structs/JsonObjectContract.h>
-#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_Required_.h>
-#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_NullValueHandling_.h>
-#include <Modloader/app/structs/JsonPropertyCollection.h>
-#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
-#include <Modloader/app/structs/ExtensionDataSetter.h>
+
+#include <Modloader/app/structs/MemberSerialization__Enum.h>
 #include <Modloader/app/structs/ExtensionDataGetter.h>
-#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ExtensionDataSetter.h>
 #include <Modloader/app/structs/Func_2_String_String_.h>
+#include <Modloader/app/structs/JsonObjectContract.h>
+#include <Modloader/app/structs/JsonPropertyCollection.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_NullValueHandling_.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_Required_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonObjectContract {
     IL2CPP_REGISTER_METHOD(0x008519C0, app::MemberSerialization__Enum, get_MemberSerialization, (app::JsonObjectContract * this_ptr))
@@ -35,5 +36,4 @@ namespace app::classes::Newtonsoft::Json::Serialization::JsonObjectContract {
     IL2CPP_REGISTER_METHOD(0x018722E0, bool, get_HasRequiredOrDefaultValueProperties, (app::JsonObjectContract * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018725D0, void, ctor, (app::JsonObjectContract * this_ptr, app::Type* underlying_type))
     IL2CPP_REGISTER_METHOD(0x01872740, app::Object*, GetUninitializedObject, (app::JsonObjectContract * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471CFB8, JsonObjectContract_GetUninitializedObject__MethodInfo)
 } // namespace app::classes::Newtonsoft::Json::Serialization::JsonObjectContract

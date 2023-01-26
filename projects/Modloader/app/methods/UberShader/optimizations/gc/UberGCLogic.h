@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum.h>
-#include <Modloader/app/structs/UberGCLogic_MemoryProbeType__Enum.h>
-#include <Modloader/app/structs/UberGCLogic_CleanupType__Enum.h>
-#include <Modloader/app/structs/UberGCLogic_CleanupTrigger__Enum.h>
+
+#include <Modloader/app/structs/UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum.h>
 #include <Modloader/app/structs/UberGCLogic.h>
+#include <Modloader/app/structs/UberGCLogic_CleanupTrigger__Enum.h>
+#include <Modloader/app/structs/UberGCLogic_CleanupType__Enum.h>
+#include <Modloader/app/structs/UberGCLogic_MemoryProbeType__Enum.h>
 
 namespace app::classes::UberShader::optimizations::gc::UberGCLogic {
     IL2CPP_REGISTER_METHOD(0x01902550, void, cctor, ())

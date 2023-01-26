@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SettingsSectionInternal.h>
+
+#include <Modloader/app/structs/SettingsSectionInternal.h>
 #include <Modloader/app/structs/EncryptionPolicy__Enum.h>
 
 namespace app::classes::System::Net::Configuration::SettingsSectionInternal {

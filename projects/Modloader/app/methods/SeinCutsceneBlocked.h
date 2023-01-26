@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinCutsceneBlocked.h>
+
+#include <Modloader/app/structs/SeinCutsceneBlocked.h>
 #include <Modloader/app/structs/CharacterPlatformMovement.h>
 #include <Modloader/app/structs/SeinCutsceneBlocked_State__Enum.h>
 

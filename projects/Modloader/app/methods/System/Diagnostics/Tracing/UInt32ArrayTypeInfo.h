@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UInt32ArrayTypeInfo.h>
-#include <Modloader/app/structs/TraceLoggingMetadataCollector.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/UInt32ArrayTypeInfo.h>
 #include <Modloader/app/structs/EventFieldFormat__Enum.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TraceLoggingDataCollector.h>
+#include <Modloader/app/structs/TraceLoggingMetadataCollector.h>
 #include <Modloader/app/structs/UInt32__Array.h>
 
 namespace app::classes::System::Diagnostics::Tracing::UInt32ArrayTypeInfo {

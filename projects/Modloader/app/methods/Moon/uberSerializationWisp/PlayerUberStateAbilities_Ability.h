@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateAbilities_Ability.h>
+
+#include <Modloader/app/structs/PlayerUberStateAbilities_Ability.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateAbilities_Ability {

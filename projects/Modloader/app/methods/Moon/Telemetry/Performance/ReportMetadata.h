@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReportMetadata.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/ReportMetadata.h>
+#include <Modloader/app/structs/DataBundle.h>
 #include <Modloader/app/structs/DataBundleEntry.h>
 #include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/DataBundle.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Telemetry::Performance::ReportMetadata {
     IL2CPP_REGISTER_METHOD(0x00E39DE0, void, ctor_1, (app::ReportMetadata * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ExpandoObject_KeyCollectionDebugView.h>
+
+#include <Modloader/app/structs/ExpandoObject_KeyCollectionDebugView.h>
 #include <Modloader/app/structs/ICollection_1_System_String_.h>
 #include <Modloader/app/structs/String__Array.h>
 

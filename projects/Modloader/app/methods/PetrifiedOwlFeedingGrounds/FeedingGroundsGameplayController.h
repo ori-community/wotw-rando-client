@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlUberState__Enum.h>
+
+#include <Modloader/app/structs/PetrifiedOwlUberState__Enum.h>
 #include <Modloader/app/structs/FeedingGroundsGameplayController.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IDesiredUberState__Array.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/IDesiredUberState__Array.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::PetrifiedOwlFeedingGrounds::FeedingGroundsGameplayController {
     IL2CPP_REGISTER_METHOD(0x01785A30, app::PetrifiedOwlUberState__Enum, get_CurrentUberState, (app::FeedingGroundsGameplayController * this_ptr))
@@ -28,40 +29,26 @@ namespace app::classes::PetrifiedOwlFeedingGrounds::FeedingGroundsGameplayContro
     IL2CPP_REGISTER_METHOD(0x01788F30, void, UpdateSecondSequence, (app::FeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01789170, void, IncreaseVisibleTime, (app::FeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x017893B0, void, OnCrushPartA, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473D068, FeedingGroundsGameplayController_OnCrushPartA__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x017894B0, void, TryCrushPartB, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472C728, FeedingGroundsGameplayController_TryCrushPartB__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01789500, void, TryCrushPartD, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04767DF8, FeedingGroundsGameplayController_TryCrushPartD__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01789550, void, DisableFloatZone, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047416B8, FeedingGroundsGameplayController_DisableFloatZone__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x017895C0, void, EnableFloatZone, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471B610, FeedingGroundsGameplayController_EnableFloatZone__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01789630, void, Escape, (app::FeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01789680, void, CheckVisibleTime, (app::FeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01789700, void, TryKillOri, (app::FeedingGroundsGameplayController * this_ptr, bool instantly))
     IL2CPP_REGISTER_METHOD(0x017898B0, void, KillOri, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470D070, FeedingGroundsGameplayController_KillOri__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01789C50, void, RockFall, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047118A0, FeedingGroundsGameplayController_RockFall__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01789CA0, float, GetCurrentTimer, (app::FeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01789D40, void, UpdateDebugBox, (app::FeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01789E20, float, GetTimeMultiplier, (app::FeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01789F60, float, GetTimeSpeed, (app::FeedingGroundsGameplayController * this_ptr, bool include_kill_time))
     IL2CPP_REGISTER_METHOD(0x0178A0D0, void, SetAlert, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04797478, FeedingGroundsGameplayController_SetAlert__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0178A130, void, AlertStart, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471BB38, FeedingGroundsGameplayController_AlertStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0178A160, void, StartStartle, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472DFF0, FeedingGroundsGameplayController_StartStartle__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0178A1D0, void, StartPeek, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04769D98, FeedingGroundsGameplayController_StartPeek__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0178A220, void, EndIntro, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04724A80, FeedingGroundsGameplayController_EndIntro__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0178A2A0, void, OwlDefeated, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04716FB0, FeedingGroundsGameplayController_OwlDefeated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0178A310, void, OnRestoreCheckpoint, (app::FeedingGroundsGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04767540, FeedingGroundsGameplayController_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0178A320, void, Apply, (app::FeedingGroundsGameplayController * this_ptr, app::UberStateApplyContext__Enum context))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ApplyOnEditor, (app::FeedingGroundsGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0178A3A0, app::IUberState__Array*, get_AffectingUberStates, (app::FeedingGroundsGameplayController * this_ptr))

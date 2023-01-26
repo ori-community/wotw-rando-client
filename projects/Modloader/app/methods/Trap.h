@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Trap.h>
+
+#include <Modloader/app/structs/Trap.h>
 #include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
@@ -8,7 +9,6 @@ namespace app::classes::Trap {
     IL2CPP_REGISTER_METHOD(0x00B0F370, void, Awake, (app::Trap * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0F570, void, OnDestroy, (app::Trap * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0F740, void, OnRestoreCheckpoint, (app::Trap * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04781740, Trap_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B0F750, void, Update, (app::Trap * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0FCD0, void, Trigger, (app::Trap * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0FF70, void, Untrap, (app::Trap * this_ptr))

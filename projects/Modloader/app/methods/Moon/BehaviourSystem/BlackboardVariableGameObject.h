@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMoonType_1_UnityEngine_GameObject_.h>
+
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/BlackboardVariableGameObject.h>
 #include <Modloader/app/structs/GameObject.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TickData__Boxed.h>
+
+#include <Modloader/app/structs/TickData__Boxed.h>
 #include <Modloader/app/structs/BehaviourTree_1.h>
 
 namespace app::classes::UberBehaviourTree::TickData {

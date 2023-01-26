@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/RendererCullingCategoryResults_Slice.h>
+#include <Modloader/app/structs/RendererCullingCategoryResults_Slice__Array.h>
+#include <Modloader/app/structs/RendererCullingCategoryResults_Slice__Boxed.h>
+#include <Modloader/app/structs/RendererCullingCategoryResults_Slice__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RendererCullingCategoryResults_Slice__Class.h>
-#include <Modloader/app/structs/RendererCullingCategoryResults_Slice.h>
-#include <Modloader/app/structs/RendererCullingCategoryResults_Slice__Boxed.h>
-#include <Modloader/app/structs/RendererCullingCategoryResults_Slice__Array.h>
 
 namespace app::classes::types {
     namespace RendererCullingCategoryResults_Slice {
-        namespace {
-            inline app::RendererCullingCategoryResults_Slice__Class* type_info_ref = nullptr;
+        inline app::RendererCullingCategoryResults_Slice__Class** type_info() {
+            static app::RendererCullingCategoryResults_Slice__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::RendererCullingCategoryResults_Slice__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::RendererCullingCategoryResults_Slice__Class** type_info = &type_info_ref;
         inline app::RendererCullingCategoryResults_Slice__Class* get_class() {
-            return il2cpp::get_nested_class<app::RendererCullingCategoryResults_Slice__Class>(type_info, "UnityEngine.Experimental.Rendering", "RendererCullingCategoryResults", "Slice");
+            return il2cpp::get_nested_class<app::RendererCullingCategoryResults_Slice__Class>(type_info(), "UnityEngine.Experimental.Rendering", "RendererCullingCategoryResults", "Slice");
         }
         inline app::RendererCullingCategoryResults_Slice* create() {
             return il2cpp::create_object<app::RendererCullingCategoryResults_Slice>(get_class());

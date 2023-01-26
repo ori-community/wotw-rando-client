@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/VerletStructure__Class.h>
 #include <Modloader/app/structs/VerletStructure.h>
 #include <Modloader/app/structs/VerletStructure__Array.h>
+#include <Modloader/app/structs/VerletStructure__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace VerletStructure {
-        inline app::VerletStructure__Class** type_info = (app::VerletStructure__Class**)(modloader::win::memory::resolve_rva(0x04760CC8));
+        inline app::VerletStructure__Class** type_info() {
+            static app::VerletStructure__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::VerletStructure__Class**)(modloader::win::memory::resolve_rva(0x04760CC8));
+            }
+            return cache;
+        }
         inline app::VerletStructure__Class* get_class() {
-            return il2cpp::get_class<app::VerletStructure__Class>(type_info, "", "VerletStructure");
+            return il2cpp::get_class<app::VerletStructure__Class>(type_info(), "", "VerletStructure");
         }
         inline app::VerletStructure* create() {
             return il2cpp::create_object<app::VerletStructure>(get_class());

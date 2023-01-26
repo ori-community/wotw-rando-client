@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SandWormJumpAttackBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/SandWormJumpAttackBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/SandWormJumpAttackBehaviour_State__Enum.h>
 #include <Modloader/app/structs/SandWormSandDigLocomotionBehaviour_SpeedEntry.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SandWormJumpAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C1B7F0, void, OnEntityInitialized, (app::SandWormJumpAttackBehaviour * this_ptr))
@@ -27,6 +28,5 @@ namespace app::classes::SandWormJumpAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C1DB60, void, OnUpdateTowardsTargetState, (app::SandWormJumpAttackBehaviour * this_ptr, float d_time))
     IL2CPP_REGISTER_METHOD(0x00C1DC80, void, OnUpdateTowardsLandingPointState, (app::SandWormJumpAttackBehaviour * this_ptr, float d_time))
     IL2CPP_REGISTER_METHOD(0x00C1DF00, app::SandWormSandDigLocomotionBehaviour_SpeedEntry, GetCurrentSpeedEntry, (app::SandWormJumpAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475F010, SandWormJumpAttackBehaviour_GetCurrentSpeedEntry__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C1DF70, void, ctor, (app::SandWormJumpAttackBehaviour * this_ptr))
 } // namespace app::classes::SandWormJumpAttackBehaviour

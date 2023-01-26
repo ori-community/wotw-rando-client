@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IAnimation.h>
-#include <Modloader/app/structs/MoonAnimator_ActiveAnimation.h>
-#include <Modloader/app/structs/Func_1_Boolean_.h>
+
+#include <Modloader/app/structs/IAnimation.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/Nullable_1_Single_.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 #include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/MoonAnimator_ActiveAnimation.h>
 #include <Modloader/app/structs/MoonAnimator_AnimationInstance.h>
+#include <Modloader/app/structs/Nullable_1_Single_.h>
 
 namespace app::classes::Moon::MoonAnimator_ActiveAnimation {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::IAnimation*, get_Animation, (app::MoonAnimator_ActiveAnimation * this_ptr))

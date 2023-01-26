@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DesignerSerializationVisibilityAttribute.h>
+
+#include <Modloader/app/structs/DesignerSerializationVisibilityAttribute.h>
 #include <Modloader/app/structs/DesignerSerializationVisibility__Enum.h>
 #include <Modloader/app/structs/Object.h>
 

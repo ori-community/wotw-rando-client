@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/LizardLocomotion.h>
+#include <Modloader/app/structs/LizardLocomotion__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LizardLocomotion__Class.h>
-#include <Modloader/app/structs/LizardLocomotion.h>
 
 namespace app::classes::types {
     namespace LizardLocomotion {
-        namespace {
-            inline app::LizardLocomotion__Class* type_info_ref = nullptr;
+        inline app::LizardLocomotion__Class** type_info() {
+            static app::LizardLocomotion__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LizardLocomotion__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LizardLocomotion__Class** type_info = &type_info_ref;
         inline app::LizardLocomotion__Class* get_class() {
-            return il2cpp::get_class<app::LizardLocomotion__Class>(type_info, "", "LizardLocomotion");
+            return il2cpp::get_class<app::LizardLocomotion__Class>(type_info(), "", "LizardLocomotion");
         }
         inline app::LizardLocomotion* create() {
             return il2cpp::create_object<app::LizardLocomotion>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinSpiritLeashAbility.h>
+
+#include <Modloader/app/structs/SeinSpiritLeashAbility.h>
 #include <Modloader/app/structs/HookFlingPlant.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector3.h>
@@ -15,7 +16,6 @@ namespace app::classes::HookFlingPlant {
     IL2CPP_REGISTER_METHOD(0x00B5DDA0, void, Start, (app::HookFlingPlant * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B5DF40, void, OnDestroy, (app::HookFlingPlant * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B5E0F0, void, OnPostRestoreCheckpoint, (app::HookFlingPlant * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047305D0, HookFlingPlant_OnPostRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B5E270, void, FixedUpdate, (app::HookFlingPlant * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B5E430, void, ctor, (app::HookFlingPlant * this_ptr))
 } // namespace app::classes::HookFlingPlant

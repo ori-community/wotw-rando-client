@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_MoonTimeline_.h>
+
+#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_MoonTimeline_.h>
 #include <Modloader/app/structs/BreakablePhysicalSetupData.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 

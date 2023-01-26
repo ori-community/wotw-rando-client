@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReplaySetting.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SceneMetaData.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/ReplaySetting.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ReplaySetting {
     IL2CPP_REGISTER_METHOD(0x006B8960, bool, ShowPositionOverride, (app::ReplaySetting * this_ptr))
@@ -25,5 +26,4 @@ namespace app::classes::ReplaySetting {
     IL2CPP_REGISTER_METHOD(0x00903010, void, RevertToGame, (app::ReplaySetting * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00903110, void, ctor, (app::ReplaySetting * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00903120, void, _Apply_b__33_0, (app::ReplaySetting * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04754BB0, ReplaySetting__Apply_b__33_0__MethodInfo)
 } // namespace app::classes::ReplaySetting

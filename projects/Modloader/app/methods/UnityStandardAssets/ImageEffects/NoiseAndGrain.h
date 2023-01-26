@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NoiseAndGrain.h>
-#include <Modloader/app/structs/RenderTexture.h>
+
+#include <Modloader/app/structs/NoiseAndGrain.h>
 #include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/RenderTexture.h>
 #include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::NoiseAndGrain {

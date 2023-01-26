@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FilteredRandomRange.h>
+
+#include <Modloader/app/structs/FilteredRandomRange.h>
 #include <Modloader/app/structs/IRng.h>
 
 namespace app::classes::Moon::FilteredRandomRange {

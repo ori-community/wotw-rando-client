@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/DoorSetupData__Class.h>
 #include <Modloader/app/structs/DoorSetupData.h>
 #include <Modloader/app/structs/DoorSetupData__Array.h>
+#include <Modloader/app/structs/DoorSetupData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace DoorSetupData {
-        namespace {
-            inline app::DoorSetupData__Class* type_info_ref = nullptr;
+        inline app::DoorSetupData__Class** type_info() {
+            static app::DoorSetupData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::DoorSetupData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::DoorSetupData__Class** type_info = &type_info_ref;
         inline app::DoorSetupData__Class* get_class() {
-            return il2cpp::get_class<app::DoorSetupData__Class>(type_info, "", "DoorSetupData");
+            return il2cpp::get_class<app::DoorSetupData__Class>(type_info(), "", "DoorSetupData");
         }
         inline app::DoorSetupData* create() {
             return il2cpp::create_object<app::DoorSetupData>(get_class());

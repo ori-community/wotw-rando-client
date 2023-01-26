@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JumpShotProjectile.h>
-#include <Modloader/app/structs/Collision.h>
+
+#include <Modloader/app/structs/JumpShotProjectile.h>
 #include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::JumpShotProjectile {
     IL2CPP_REGISTER_METHOD(0x00E4FE70, void, Start, (app::JumpShotProjectile * this_ptr))

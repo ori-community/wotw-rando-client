@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/DynamicTextProvider_MessageConditionPair.h>
+#include <Modloader/app/structs/DynamicTextProvider_MessageConditionPair__Array.h>
+#include <Modloader/app/structs/DynamicTextProvider_MessageConditionPair__Boxed.h>
+#include <Modloader/app/structs/DynamicTextProvider_MessageConditionPair__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/DynamicTextProvider_MessageConditionPair__Class.h>
-#include <Modloader/app/structs/DynamicTextProvider_MessageConditionPair.h>
-#include <Modloader/app/structs/DynamicTextProvider_MessageConditionPair__Boxed.h>
-#include <Modloader/app/structs/DynamicTextProvider_MessageConditionPair__Array.h>
 
 namespace app::classes::types {
     namespace DynamicTextProvider_MessageConditionPair {
-        namespace {
-            inline app::DynamicTextProvider_MessageConditionPair__Class* type_info_ref = nullptr;
+        inline app::DynamicTextProvider_MessageConditionPair__Class** type_info() {
+            static app::DynamicTextProvider_MessageConditionPair__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::DynamicTextProvider_MessageConditionPair__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::DynamicTextProvider_MessageConditionPair__Class** type_info = &type_info_ref;
         inline app::DynamicTextProvider_MessageConditionPair__Class* get_class() {
-            return il2cpp::get_nested_class<app::DynamicTextProvider_MessageConditionPair__Class>(type_info, "", "DynamicTextProvider", "MessageConditionPair");
+            return il2cpp::get_nested_class<app::DynamicTextProvider_MessageConditionPair__Class>(type_info(), "", "DynamicTextProvider", "MessageConditionPair");
         }
         inline app::DynamicTextProvider_MessageConditionPair* create() {
             return il2cpp::create_object<app::DynamicTextProvider_MessageConditionPair>(get_class());

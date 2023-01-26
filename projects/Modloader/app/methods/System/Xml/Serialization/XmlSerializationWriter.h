@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSerializationWriter.h>
-#include <Modloader/app/structs/XmlWriter.h>
-#include <Modloader/app/structs/XmlSerializerNamespaces.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSerializationWriteCallback.h>
+
+#include <Modloader/app/structs/XmlSerializationWriter.h>
 #include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/XmlNode.h>
-#include <Modloader/app/structs/TypeData.h>
-#include <Modloader/app/structs/IXmlSerializable.h>
 #include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/IXmlSerializable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeData.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSerializationWriteCallback.h>
+#include <Modloader/app/structs/XmlSerializerNamespaces.h>
+#include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::Serialization::XmlSerializationWriter {
     IL2CPP_REGISTER_METHOD(0x025B9F60, void, ctor, (app::XmlSerializationWriter * this_ptr))
@@ -47,7 +48,6 @@ namespace app::classes::System::Xml::Serialization::XmlSerializationWriter {
     IL2CPP_REGISTER_METHOD(0x025BC0A0, void, WriteNullTagEncoded, (app::XmlSerializationWriter * this_ptr, app::String* name, app::String* ns))
     IL2CPP_REGISTER_METHOD(0x025BC1F0, void, WriteNullTagLiteral, (app::XmlSerializationWriter * this_ptr, app::String* name, app::String* ns))
     IL2CPP_REGISTER_METHOD(0x025BC340, void, WritePotentiallyReferencingElement, (app::XmlSerializationWriter * this_ptr, app::String* n, app::String* ns, app::Object* o, app::Type* ambient_type, bool suppress_reference, bool is_nullable))
-    IL2CPP_REGISTER_METHODINFO(0x047187E8, XmlSerializationWriter_WritePotentiallyReferencingElement__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025BC860, void, WriteReferencedElements, (app::XmlSerializationWriter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025BCAE0, bool, IsPrimitiveArray, (app::XmlSerializationWriter * this_ptr, app::TypeData* td))
     IL2CPP_REGISTER_METHOD(0x025BCC10, void, WriteArray, (app::XmlSerializationWriter * this_ptr, app::Object* o, app::TypeData* td))
@@ -61,11 +61,8 @@ namespace app::classes::System::Xml::Serialization::XmlSerializationWriter {
     IL2CPP_REGISTER_METHOD(0x025BD510, void, WriteStartElement_3, (app::XmlSerializationWriter * this_ptr, app::String* name, app::String* ns, app::Object* o))
     IL2CPP_REGISTER_METHOD(0x025BD540, void, WriteStartElement_4, (app::XmlSerializationWriter * this_ptr, app::String* name, app::String* ns, app::Object* o, bool write_prefixed))
     IL2CPP_REGISTER_METHOD(0x025BD570, void, WriteStartElement_5, (app::XmlSerializationWriter * this_ptr, app::String* name, app::String* ns, app::Object* o, bool write_prefixed, app::ICollection* namespaces))
-    IL2CPP_REGISTER_METHODINFO(0x04789720, XmlSerializationWriter_WriteStartElement_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025BDBA0, void, WriteTypedPrimitive, (app::XmlSerializationWriter * this_ptr, app::String* name, app::String* ns, app::Object* o, bool xsi_type))
-    IL2CPP_REGISTER_METHODINFO(0x04790E80, XmlSerializationWriter_WriteTypedPrimitive__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025BDF20, void, WriteValue, (app::XmlSerializationWriter * this_ptr, app::String* value))
     IL2CPP_REGISTER_METHOD(0x025BDF60, void, WriteXmlAttribute, (app::XmlSerializationWriter * this_ptr, app::XmlNode* node, app::Object* container))
-    IL2CPP_REGISTER_METHODINFO(0x0474EDF8, XmlSerializationWriter_WriteXmlAttribute__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025BE260, void, WriteXsiType, (app::XmlSerializationWriter * this_ptr, app::String* name, app::String* ns))
 } // namespace app::classes::System::Xml::Serialization::XmlSerializationWriter

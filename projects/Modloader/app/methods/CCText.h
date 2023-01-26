@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CCText.h>
+
+#include <Modloader/app/structs/CCText.h>
+#include <Modloader/app/structs/CCFont.h>
+#include <Modloader/app/structs/CCFont_Char.h>
+#include <Modloader/app/structs/CCTextModifier.h>
 #include <Modloader/app/structs/CCText_AlignmentMode__Enum.h>
 #include <Modloader/app/structs/CCText_BoundingMode__Enum.h>
 #include <Modloader/app/structs/CCText_HorizontalAnchorMode__Enum.h>
 #include <Modloader/app/structs/CCText_VerticalAnchorMode__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/CCFont.h>
-#include <Modloader/app/structs/CCTextModifier.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/RaycastHit.h>
-#include <Modloader/app/structs/CCFont_Char.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CCText {
-    IL2CPP_REGISTER_METHOD(0x0315D530, uint16_t, get_Item, (app::CCText * this_ptr, int32_t index))
+    IL2CPP_REGISTER_METHOD(0x0315D530, char16_t, get_Item, (app::CCText * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x00654950, app::CCText_AlignmentMode__Enum, get_Alignment, (app::CCText * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0315D560, void, set_Alignment, (app::CCText * this_ptr, app::CCText_AlignmentMode__Enum value))
     IL2CPP_REGISTER_METHOD(0x00998570, app::CCText_BoundingMode__Enum, get_Bounding, (app::CCText * this_ptr))

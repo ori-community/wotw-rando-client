@@ -1,30 +1,31 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/UberShaderComponent.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/UberShaderBlock.h>
-#include <Modloader/app/structs/UberShaderBlockTextured.h>
-#include <Modloader/app/structs/UberShaderBlockGrabPass.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/UberShaderModifier.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/TintModifier.h>
-#include <Modloader/app/structs/AdditiveLayerModifier.h>
+
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/AdditiveLayerDistortedModifier.h>
 #include <Modloader/app/structs/AdditiveLayerExtraModifier.h>
-#include <Modloader/app/structs/MaskModifier.h>
-#include <Modloader/app/structs/MaskExtraModifier.h>
-#include <Modloader/app/structs/DistortModifier.h>
+#include <Modloader/app/structs/AdditiveLayerModifier.h>
 #include <Modloader/app/structs/DistortExtraModifier.h>
-#include <Modloader/app/structs/MultiplyLayerModifier.h>
-#include <Modloader/app/structs/MultiplyLayerExtraModifier.h>
-#include <Modloader/app/structs/MultiplyLayerThirdModifier.h>
+#include <Modloader/app/structs/DistortModifier.h>
 #include <Modloader/app/structs/DodgeLayerModifier.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/MaskDissolveModifier.h>
+#include <Modloader/app/structs/MaskExtraModifier.h>
+#include <Modloader/app/structs/MaskModifier.h>
+#include <Modloader/app/structs/MultiplyLayerExtraModifier.h>
+#include <Modloader/app/structs/MultiplyLayerModifier.h>
+#include <Modloader/app/structs/MultiplyLayerThirdModifier.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TintModifier.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/UberShaderBlock.h>
+#include <Modloader/app/structs/UberShaderBlockGrabPass.h>
+#include <Modloader/app/structs/UberShaderBlockTextured.h>
+#include <Modloader/app/structs/UberShaderComponent.h>
+#include <Modloader/app/structs/UberShaderModifier.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UberShaderComponent {
     IL2CPP_REGISTER_METHOD(0x0190CF90, app::Transform*, get_TransformCache, (app::UberShaderComponent * this_ptr))
@@ -59,29 +60,16 @@ namespace app::classes::UberShaderComponent {
     IL2CPP_REGISTER_METHOD(0x0190E020, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::Object*, GetModifier_2, (app::UberShaderComponent * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::TintModifier*, GetModifier_3, (app::UberShaderComponent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047965F0, UberShaderComponent_GetModifier_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::AdditiveLayerModifier*, GetModifier_4, (app::UberShaderComponent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047757A0, UberShaderComponent_GetModifier_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::AdditiveLayerDistortedModifier*, GetModifier_5, (app::UberShaderComponent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04755808, UberShaderComponent_GetModifier_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::AdditiveLayerExtraModifier*, GetModifier_6, (app::UberShaderComponent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04737258, UberShaderComponent_GetModifier_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::MaskModifier*, GetModifier_7, (app::UberShaderComponent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04747368, UberShaderComponent_GetModifier_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::MaskExtraModifier*, GetModifier_8, (app::UberShaderComponent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04749910, UberShaderComponent_GetModifier_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::DistortModifier*, GetModifier_9, (app::UberShaderComponent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04775850, UberShaderComponent_GetModifier_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::DistortExtraModifier*, GetModifier_10, (app::UberShaderComponent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04793770, UberShaderComponent_GetModifier_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::MultiplyLayerModifier*, GetModifier_11, (app::UberShaderComponent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04716740, UberShaderComponent_GetModifier_10__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::MultiplyLayerExtraModifier*, GetModifier_12, (app::UberShaderComponent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476BC80, UberShaderComponent_GetModifier_11__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::MultiplyLayerThirdModifier*, GetModifier_13, (app::UberShaderComponent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04718EB8, UberShaderComponent_GetModifier_12__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::DodgeLayerModifier*, GetModifier_14, (app::UberShaderComponent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04722590, UberShaderComponent_GetModifier_13__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157BB20, app::MaskDissolveModifier*, GetModifier_15, (app::UberShaderComponent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047831A0, UberShaderComponent_GetModifier_14__MethodInfo)
 } // namespace app::classes::UberShaderComponent

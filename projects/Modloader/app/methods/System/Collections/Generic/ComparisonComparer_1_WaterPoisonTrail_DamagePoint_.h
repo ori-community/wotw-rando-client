@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_WaterPoisonTrail_DamagePoint_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_WaterPoisonTrail_DamagePoint_.h>
 #include <Modloader/app/structs/Comparison_1_WaterPoisonTrail_DamagePoint_.h>
 #include <Modloader/app/structs/WaterPoisonTrail_DamagePoint.h>
 

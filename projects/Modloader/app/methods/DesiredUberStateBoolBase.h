@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DesiredUberStateBoolBase.h>
+
+#include <Modloader/app/structs/DesiredUberStateBoolBase.h>
 #include <Modloader/app/structs/IUberState.h>
 #include <Modloader/app/structs/String.h>
 

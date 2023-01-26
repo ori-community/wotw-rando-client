@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MatchState__Enum.h>
+
+#include <Modloader/app/structs/MatchState__Enum.h>
 #include <Modloader/app/structs/Match_1.h>
 
 namespace app::classes::Unity::IO::Compression::Match {

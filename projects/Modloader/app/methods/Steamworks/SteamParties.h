@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PartyBeaconID_t.h>
+
+#include <Modloader/app/structs/PartyBeaconID_t.h>
 #include <Modloader/app/structs/CSteamID.h>
-#include <Modloader/app/structs/SteamPartyBeaconLocation_t.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SteamAPICall_t.h>
-#include <Modloader/app/structs/SteamPartyBeaconLocation_t__Array.h>
 #include <Modloader/app/structs/ESteamPartyBeaconLocationData__Enum.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
+#include <Modloader/app/structs/SteamPartyBeaconLocation_t.h>
+#include <Modloader/app/structs/SteamPartyBeaconLocation_t__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::SteamParties {
     IL2CPP_REGISTER_METHOD(0x0278ED90, uint32_t, GetNumActiveBeacons, ())

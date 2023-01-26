@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlTextReaderImpl_NodeData.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlNodeType__Enum.h>
+
+#include <Modloader/app/structs/XmlTextReaderImpl_NodeData.h>
 #include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/StringBuilder.h>
 #include <Modloader/app/structs/XmlNameTable.h>
-#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
 
 namespace app::classes::System::Xml::XmlTextReaderImpl_NodeData {
     IL2CPP_REGISTER_METHOD(0x01FBBCD0, app::XmlTextReaderImpl_NodeData*, get_None, ())

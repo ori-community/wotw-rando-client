@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FpsTcTestOutput.h>
+
+#include <Modloader/app/structs/FpsTcTestOutput.h>
 #include <Modloader/app/structs/FPSTestResult.h>
 
 namespace app::classes::FpsTcTestOutput {

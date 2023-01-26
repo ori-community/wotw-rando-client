@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FloatRange_1__Boxed.h>
+
+#include <Modloader/app/structs/FloatRange_1__Boxed.h>
 
 namespace app::classes::FloatRange {
     IL2CPP_REGISTER_METHOD(0x00125480, void, ctor, (app::FloatRange_1__Boxed * this_ptr, float min, float max))

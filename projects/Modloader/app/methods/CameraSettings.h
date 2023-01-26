@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraSettings.h>
+
+#include <Modloader/app/structs/CameraSettings.h>
 #include <Modloader/app/structs/CameraSettingsAsset.h>
-#include <Modloader/app/structs/FogGradientController.h>
 #include <Modloader/app/structs/Color__Array.h>
+#include <Modloader/app/structs/FogGradientController.h>
 #include <Modloader/app/structs/Gradient.h>
 
 namespace app::classes::CameraSettings {

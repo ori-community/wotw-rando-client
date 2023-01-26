@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FrameGraph.h>
+
+#include <Modloader/app/structs/FrameGraph.h>
 #include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/String.h>
 
@@ -10,7 +11,6 @@ namespace app::classes::FrameGraph {
     IL2CPP_REGISTER_METHOD(0x0163EF90, void, OnEnable, (app::FrameGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0163F180, void, OnDisable, (app::FrameGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0163F370, void, OnEndOfFrame, (app::FrameGraph * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472EA80, FrameGraph_OnEndOfFrame__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0163F4B0, void, CreateLineMaterial, (app::FrameGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0163F650, int32_t, NsOffsetToXCoordinate, (app::FrameGraph * this_ptr, int64_t ns_offset))
     IL2CPP_REGISTER_METHOD(0x0163F740, int32_t, DrawSampleSummary, (app::FrameGraph * this_ptr, int64_t ns_start_offset, int64_t ns_end_offset, float ms_value, app::Color color, int32_t x_start, app::String* name))

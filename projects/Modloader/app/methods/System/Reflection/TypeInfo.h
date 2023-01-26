@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TypeInfo.h>
+
+#include <Modloader/app/structs/TypeInfo.h>
 #include <Modloader/app/structs/IEnumerable_1_System_Reflection_FieldInfo_.h>
 #include <Modloader/app/structs/IEnumerable_1_System_Type_.h>
 

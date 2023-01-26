@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlTypeCode__Enum.h>
+
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
 #include <Modloader/app/structs/Datatype_normalizedString.h>
 #include <Modloader/app/structs/XmlSchemaWhiteSpace__Enum.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TentacleAnimationPostprocess.h>
+
+#include <Modloader/app/structs/TentacleAnimationPostprocess.h>
 #include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/Vector3.h>

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Lexer.h>
+
+#include <Modloader/app/structs/Lexer.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Nullable_1_TimeSpan_.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Token.h>
-#include <Modloader/app/structs/Nullable_1_TimeSpan_.h>
-#include <Modloader/app/structs/DateTimeOffset.h>
 
 namespace app::classes::System::Net::Http::Headers::Lexer {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::Lexer * this_ptr, app::String* stream))
@@ -22,7 +23,7 @@ namespace app::classes::System::Net::Http::Headers::Lexer {
     IL2CPP_REGISTER_METHOD(0x02D0DFD0, bool, TryGetDateValue_2, (app::String * text, app::DateTimeOffset* value))
     IL2CPP_REGISTER_METHOD(0x02D0E100, bool, TryGetDoubleValue, (app::Lexer * this_ptr, app::Token token, double* value))
     IL2CPP_REGISTER_METHOD(0x02D0E230, bool, IsValidToken, (app::String * input))
-    IL2CPP_REGISTER_METHOD(0x02D0E320, bool, IsValidCharacter, (uint16_t input))
+    IL2CPP_REGISTER_METHOD(0x02D0E320, bool, IsValidCharacter, (char16_t input))
     IL2CPP_REGISTER_METHOD(0x00CC6360, void, EatChar, (app::Lexer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02D0E430, int32_t, PeekChar, (app::Lexer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02D0E480, bool, ScanCommentOptional, (app::Lexer * this_ptr, app::String** value, app::Token* read_token))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaceRestoreCheckpointState.h>
-#include <Modloader/app/structs/RaceSystem.h>
+
+#include <Modloader/app/structs/RaceRestoreCheckpointState.h>
 #include <Modloader/app/structs/RaceConfiguration.h>
+#include <Modloader/app/structs/RaceSystem.h>
 
 namespace app::classes::RaceRestoreCheckpointState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::RaceRestoreCheckpointState * this_ptr, app::RaceSystem* race_system))
@@ -15,7 +16,5 @@ namespace app::classes::RaceRestoreCheckpointState {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, CancelRaceRequested, (app::RaceRestoreCheckpointState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SkipRequested, (app::RaceRestoreCheckpointState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00715980, void, OnCheckpointRestored, (app::RaceRestoreCheckpointState * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04736C50, RaceRestoreCheckpointState_OnCheckpointRestored__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00716780, void, ExitToMenu, (app::RaceRestoreCheckpointState * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04721030, RaceRestoreCheckpointState_ExitToMenu__MethodInfo)
 } // namespace app::classes::RaceRestoreCheckpointState

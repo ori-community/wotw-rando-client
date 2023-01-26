@@ -18,7 +18,7 @@ struct TrackingValidationObjectDictionary__Fields {
 #endif
 #if !defined(IL2CPP_STRUCT_TrackingValidationObjectDictionary__Fields_FWDDECL)
 #define IL2CPP_STRUCT_TrackingValidationObjectDictionary__Fields_FWDDECL
-#include <Modloader/app/structs/IDictionary_2_System_String_System_Net_TrackingValidationObjectDictionary_ValidateAndParseValue_.h>
+#include <Modloader/app/structs/IDictionary_2_Syste_Strin_Syste_Ne_TrackingValidationObjectDictionar_ValidateAndParseValu_.h>
 #include <Modloader/app/structs/IDictionary_2_System_String_System_Object_.h>
 #endif
 #undef IL2CPP_STRUCT_TrackingValidationObjectDictionary__Fields_INITIALIZING

@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/PushPullBlockTest.h>
+#include <Modloader/app/structs/PushPullBlockTest__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/PushPullBlockTest__Class.h>
-#include <Modloader/app/structs/PushPullBlockTest.h>
 
 namespace app::classes::types {
     namespace PushPullBlockTest {
-        namespace {
-            inline app::PushPullBlockTest__Class* type_info_ref = nullptr;
+        inline app::PushPullBlockTest__Class** type_info() {
+            static app::PushPullBlockTest__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::PushPullBlockTest__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::PushPullBlockTest__Class** type_info = &type_info_ref;
         inline app::PushPullBlockTest__Class* get_class() {
-            return il2cpp::get_class<app::PushPullBlockTest__Class>(type_info, "", "PushPullBlockTest");
+            return il2cpp::get_class<app::PushPullBlockTest__Class>(type_info(), "", "PushPullBlockTest");
         }
         inline app::PushPullBlockTest* create() {
             return il2cpp::create_object<app::PushPullBlockTest>(get_class());

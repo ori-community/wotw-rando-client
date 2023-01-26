@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Camera_GateFitMode__Enum.h>
+
+#include <Modloader/app/structs/Camera_GateFitMode__Enum.h>
 #include <Modloader/app/structs/Camera_GateFitParameters__Boxed.h>
 
 namespace app::classes::UnityEngine::Camera_GateFitParameters {

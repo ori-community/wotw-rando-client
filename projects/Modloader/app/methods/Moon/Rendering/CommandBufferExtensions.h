@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CommandBuffer.h>
+
+#include <Modloader/app/structs/CommandBuffer.h>
 #include <Modloader/app/structs/Material.h>
 
 namespace app::classes::Moon::Rendering::CommandBufferExtensions {

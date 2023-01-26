@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/VolatileDebugMenuLog.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Func_1_String_.h>
-#include <Modloader/app/structs/List_1_List_1_IDebugMenuItem_.h>
 #include <Modloader/app/structs/IDebugMenuItem.h>
+#include <Modloader/app/structs/List_1_List_1_IDebugMenuItem_.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/VolatileDebugMenuLog.h>
 
 namespace app::classes::VolatileDebugMenuLog {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::String*, get_Path, (app::VolatileDebugMenuLog * this_ptr))

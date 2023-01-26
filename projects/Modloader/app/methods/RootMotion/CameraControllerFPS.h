@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraControllerFPS.h>
+
+#include <Modloader/app/structs/CameraControllerFPS.h>
 
 namespace app::classes::RootMotion::CameraControllerFPS {
     IL2CPP_REGISTER_METHOD(0x02207C00, void, Awake, (app::CameraControllerFPS * this_ptr))

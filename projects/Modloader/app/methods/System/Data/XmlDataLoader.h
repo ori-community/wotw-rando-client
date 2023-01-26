@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlDataLoader.h>
-#include <Modloader/app/structs/DataSet.h>
-#include <Modloader/app/structs/XmlElement.h>
-#include <Modloader/app/structs/DataTable.h>
-#include <Modloader/app/structs/DataRow.h>
-#include <Modloader/app/structs/XmlNode.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/XmlDataLoader.h>
 #include <Modloader/app/structs/DataColumn.h>
-#include <Modloader/app/structs/XmlReader.h>
-#include <Modloader/app/structs/XmlNodeType__Enum.h>
-#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataSet.h>
+#include <Modloader/app/structs/DataTable.h>
 #include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlReader.h>
 
 namespace app::classes::System::Data::XmlDataLoader {
     IL2CPP_REGISTER_METHOD(0x023E8760, void, ctor_1, (app::XmlDataLoader * this_ptr, app::DataSet* dataset, bool is_xdr, bool ignore_schema))
@@ -31,7 +32,6 @@ namespace app::classes::System::Data::XmlDataLoader {
     IL2CPP_REGISTER_METHOD(0x023E9EB0, bool, FIgnoreNamespace_1, (app::XmlDataLoader * this_ptr, app::XmlNode* node))
     IL2CPP_REGISTER_METHOD(0x023EA100, bool, FIgnoreNamespace_2, (app::XmlDataLoader * this_ptr, app::XmlReader* node))
     IL2CPP_REGISTER_METHOD(0x023EA2A0, bool, IsTextLikeNode, (app::XmlDataLoader * this_ptr, app::XmlNodeType__Enum n))
-    IL2CPP_REGISTER_METHODINFO(0x04735E88, XmlDataLoader_IsTextLikeNode__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x023EA350, bool, IsTextOnly, (app::XmlDataLoader * this_ptr, app::DataColumn* c))
     IL2CPP_REGISTER_METHOD(0x023EA380, void, LoadData_1, (app::XmlDataLoader * this_ptr, app::XmlDocument* xdoc))
     IL2CPP_REGISTER_METHOD(0x023EA870, void, LoadRowData, (app::XmlDataLoader * this_ptr, app::DataRow* row, app::XmlElement* row_element))
@@ -40,10 +40,7 @@ namespace app::classes::System::Data::XmlDataLoader {
     IL2CPP_REGISTER_METHOD(0x023EBA10, void, InitNameTable, (app::XmlDataLoader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023EBC50, void, LoadData_2, (app::XmlDataLoader * this_ptr, app::XmlReader* reader))
     IL2CPP_REGISTER_METHOD(0x023EC200, void, LoadTopMostTable, (app::XmlDataLoader * this_ptr, app::DataTable* table))
-    IL2CPP_REGISTER_METHODINFO(0x0472BDA8, XmlDataLoader_LoadTopMostTable__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x023ECC70, void, LoadTable, (app::XmlDataLoader * this_ptr, app::DataTable* table, bool is_nested))
-    IL2CPP_REGISTER_METHODINFO(0x0470D698, XmlDataLoader_LoadTable__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x023EDD20, void, LoadColumn, (app::XmlDataLoader * this_ptr, app::DataColumn* column, app::Object__Array* found_columns))
-    IL2CPP_REGISTER_METHODINFO(0x04736A00, XmlDataLoader_LoadColumn__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x023EEA80, bool, ProcessXsdSchema, (app::XmlDataLoader * this_ptr))
 } // namespace app::classes::System::Data::XmlDataLoader

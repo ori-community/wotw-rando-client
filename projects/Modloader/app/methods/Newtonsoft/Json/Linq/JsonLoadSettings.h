@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CommentHandling__Enum.h>
+
+#include <Modloader/app/structs/CommentHandling__Enum.h>
+#include <Modloader/app/structs/DuplicatePropertyNameHandling__Enum.h>
 #include <Modloader/app/structs/JsonLoadSettings.h>
 #include <Modloader/app/structs/LineInfoHandling__Enum.h>
-#include <Modloader/app/structs/DuplicatePropertyNameHandling__Enum.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JsonLoadSettings {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::CommentHandling__Enum, get_CommentHandling, (app::JsonLoadSettings * this_ptr))

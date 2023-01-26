@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StaticEntityLocomotion.h>
-#include <Modloader/app/structs/StaticEntityLookBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/StaticEntityLocomotion.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/StaticEntityLookBehaviour.h>
 
 namespace app::classes::StaticEntityLookBehaviour {
     IL2CPP_REGISTER_METHOD(0x009B6EB0, app::StaticEntityLocomotion*, get_Locomotion, (app::StaticEntityLookBehaviour * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityFreezeController.h>
+
+#include <Modloader/app/structs/EntityFreezeController.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
@@ -8,7 +9,6 @@ namespace app::classes::EntityFreezeController {
     IL2CPP_REGISTER_METHOD(0x00C90FE0, void, Awake, (app::EntityFreezeController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C91310, void, OnDestroy, (app::EntityFreezeController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C91500, void, OnModifyDamage, (app::EntityFreezeController * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x0470B330, EntityFreezeController_OnModifyDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C91660, void, FixedUpdate, (app::EntityFreezeController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C917A0, void, Freeze, (app::EntityFreezeController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C918C0, void, Unfreeze, (app::EntityFreezeController * this_ptr))

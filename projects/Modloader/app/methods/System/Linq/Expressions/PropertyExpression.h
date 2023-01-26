@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PropertyExpression.h>
+
+#include <Modloader/app/structs/PropertyExpression.h>
 #include <Modloader/app/structs/Expression.h>
-#include <Modloader/app/structs/PropertyInfo_1.h>
 #include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::PropertyExpression {

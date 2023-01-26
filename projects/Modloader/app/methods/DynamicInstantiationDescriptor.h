@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DynamicInstantiationDescriptor.h>
+
+#include <Modloader/app/structs/DynamicInstantiationDescriptor.h>
+#include <Modloader/app/structs/Dictionary_2_System_Type_List_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
+#include <Modloader/app/structs/DynamicInstantiationAttribute.h>
+#include <Modloader/app/structs/DynamicInstantiationDescriptor_CountGetter.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/MonoBehaviour.h>
+#include <Modloader/app/structs/Nullable_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
 #include <Modloader/app/structs/Nullable_1_Single_.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Dictionary_2_System_Type_List_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
-#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/Nullable_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
-#include <Modloader/app/structs/FieldInfo_1.h>
-#include <Modloader/app/structs/MethodInfo_1.h>
-#include <Modloader/app/structs/DynamicInstantiationDescriptor_CountGetter.h>
-#include <Modloader/app/structs/DynamicInstantiationAttribute.h>
-#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
-#include <Modloader/app/structs/MonoBehaviour.h>
 
 namespace app::classes::DynamicInstantiationDescriptor {
     IL2CPP_REGISTER_METHOD(0x030DC4B0, void, ctor, (app::DynamicInstantiationDescriptor * this_ptr, app::GameObject* prefab, int32_t count, app::Nullable_1_Single_ high_priority_prewarm_ratio))
@@ -34,7 +35,6 @@ namespace app::classes::DynamicInstantiationDescriptor {
     IL2CPP_REGISTER_METHOD(0x030DDCB0, app::DynamicInstantiationDescriptor_CountGetter*, CreateCountGetter, (app::Type * component_type, app::FieldInfo_1* field, bool is_array_or_list, app::DynamicInstantiationAttribute* attribute))
     IL2CPP_REGISTER_METHOD(0x030DEAC0, app::String*, GetObjectNameSafe, (app::GameObject * obj))
     IL2CPP_REGISTER_METHOD(0x030DEB70, app::List_1_DynamicInstantiationDescriptor_*, FromMonoBehaviourOld, (app::MonoBehaviour * component))
-    IL2CPP_REGISTER_METHODINFO(0x047148F0, DynamicInstantiationDescriptor_FromMonoBehaviourOld__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x030DFFF0, app::List_1_DynamicInstantiationDescriptor_*, FromMonoBehaviour, (app::MonoBehaviour * component))
     IL2CPP_REGISTER_METHOD(0x030E01D0, void, cctor, ())
     inline bool operator==(app::DynamicInstantiationDescriptor& left, app::DynamicInstantiationDescriptor& right) {

@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UriParser__Class.h>
 #include <Modloader/app/structs/UriParser.h>
 #include <Modloader/app/structs/UriParser__Array.h>
+#include <Modloader/app/structs/UriParser__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace UriParser {
-        inline app::UriParser__Class** type_info = (app::UriParser__Class**)(modloader::win::memory::resolve_rva(0x0475CD60));
+        inline app::UriParser__Class** type_info() {
+            static app::UriParser__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::UriParser__Class**)(modloader::win::memory::resolve_rva(0x0475CD60));
+            }
+            return cache;
+        }
         inline app::UriParser__Class* get_class() {
-            return il2cpp::get_class<app::UriParser__Class>(type_info, "System", "UriParser");
+            return il2cpp::get_class<app::UriParser__Class>(type_info(), "System", "UriParser");
         }
         inline app::UriParser* create() {
             return il2cpp::create_object<app::UriParser>(get_class());

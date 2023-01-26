@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FBBIKSettings_Limb.h>
+
+#include <Modloader/app/structs/FBBIKSettings_Limb.h>
 #include <Modloader/app/structs/FullBodyBipedChain__Enum.h>
 #include <Modloader/app/structs/IKSolverFullBodyBiped.h>
 

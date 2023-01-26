@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/StunnBehaviour.h>
+#include <Modloader/app/structs/StunnBehaviour__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/StunnBehaviour__Class.h>
-#include <Modloader/app/structs/StunnBehaviour.h>
 
 namespace app::classes::types {
     namespace StunnBehaviour {
-        namespace {
-            inline app::StunnBehaviour__Class* type_info_ref = nullptr;
+        inline app::StunnBehaviour__Class** type_info() {
+            static app::StunnBehaviour__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::StunnBehaviour__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::StunnBehaviour__Class** type_info = &type_info_ref;
         inline app::StunnBehaviour__Class* get_class() {
-            return il2cpp::get_class<app::StunnBehaviour__Class>(type_info, "", "StunnBehaviour");
+            return il2cpp::get_class<app::StunnBehaviour__Class>(type_info(), "", "StunnBehaviour");
         }
         inline app::StunnBehaviour* create() {
             return il2cpp::create_object<app::StunnBehaviour>(get_class());

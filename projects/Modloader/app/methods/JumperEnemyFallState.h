@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JumperEnemyFallState.h>
+
+#include <Modloader/app/structs/JumperEnemyFallState.h>
 #include <Modloader/app/structs/JumperEnemy.h>
 
 namespace app::classes::JumperEnemyFallState {

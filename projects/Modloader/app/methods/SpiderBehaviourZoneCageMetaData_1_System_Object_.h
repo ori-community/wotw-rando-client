@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiderBehaviourZoneCageMetaData_1_System_Object_.h>
+
+#include <Modloader/app/structs/SpiderBehaviourZoneCageMetaData_1_System_Object_.h>
 #include <Modloader/app/structs/CageStructureTool_Face.h>
 
 namespace app::classes::SpiderBehaviourZoneCageMetaData_1_System_Object_ {

@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/MoonRenderPipelineView_FinalSliceCompositionInfo.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_FinalSliceCompositionInfo__Array.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_FinalSliceCompositionInfo__Boxed.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_FinalSliceCompositionInfo__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MoonRenderPipelineView_FinalSliceCompositionInfo__Class.h>
-#include <Modloader/app/structs/MoonRenderPipelineView_FinalSliceCompositionInfo.h>
-#include <Modloader/app/structs/MoonRenderPipelineView_FinalSliceCompositionInfo__Boxed.h>
-#include <Modloader/app/structs/MoonRenderPipelineView_FinalSliceCompositionInfo__Array.h>
 
 namespace app::classes::types {
     namespace MoonRenderPipelineView_FinalSliceCompositionInfo {
-        namespace {
-            inline app::MoonRenderPipelineView_FinalSliceCompositionInfo__Class* type_info_ref = nullptr;
+        inline app::MoonRenderPipelineView_FinalSliceCompositionInfo__Class** type_info() {
+            static app::MoonRenderPipelineView_FinalSliceCompositionInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::MoonRenderPipelineView_FinalSliceCompositionInfo__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::MoonRenderPipelineView_FinalSliceCompositionInfo__Class** type_info = &type_info_ref;
         inline app::MoonRenderPipelineView_FinalSliceCompositionInfo__Class* get_class() {
-            return il2cpp::get_nested_class<app::MoonRenderPipelineView_FinalSliceCompositionInfo__Class>(type_info, "Moon.Rendering", "MoonRenderPipelineView", "FinalSliceCompositionInfo");
+            return il2cpp::get_nested_class<app::MoonRenderPipelineView_FinalSliceCompositionInfo__Class>(type_info(), "Moon.Rendering", "MoonRenderPipelineView", "FinalSliceCompositionInfo");
         }
         inline app::MoonRenderPipelineView_FinalSliceCompositionInfo* create() {
             return il2cpp::create_object<app::MoonRenderPipelineView_FinalSliceCompositionInfo>(get_class());

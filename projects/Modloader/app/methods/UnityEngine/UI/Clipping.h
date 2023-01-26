@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/List_1_UnityEngine_UI_RectMask2D_.h>
 
 namespace app::classes::UnityEngine::UI::Clipping {

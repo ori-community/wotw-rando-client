@@ -14,7 +14,7 @@ struct __declspec(align(8)) PlayerEditorConnectionEvents__Fields {
 #endif
 #if !defined(IL2CPP_STRUCT_PlayerEditorConnectionEvents__Fields_FWDDECL)
 #define IL2CPP_STRUCT_PlayerEditorConnectionEvents__Fields_FWDDECL
-#include <Modloader/app/structs/List_1_UnityEngine_Networking_PlayerConnection_PlayerEditorConnectionEvents_MessageTypeSubscribers_.h>
+#include <Modloader/app/structs/List_1_UnityEngin_Networki_PlayerConnecti_PlayerEditorConnectionEven_MessageTypeSubscribe_.h>
 #include <Modloader/app/structs/PlayerEditorConnectionEvents_ConnectionChangeEvent.h>
 #endif
 #undef IL2CPP_STRUCT_PlayerEditorConnectionEvents__Fields_INITIALIZING

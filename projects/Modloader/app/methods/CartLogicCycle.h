@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CartLogicCycle.h>
+
+#include <Modloader/app/structs/CartLogicCycle.h>
+#include <Modloader/app/structs/CartLogicCycle_IsAllowedDelegate.h>
 #include <Modloader/app/structs/CharacterState.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/CartLogicCycle_IsAllowedDelegate.h>
 
 namespace app::classes::CartLogicCycle {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_AllowGravity, (app::CartLogicCycle * this_ptr))
@@ -32,21 +33,12 @@ namespace app::classes::CartLogicCycle {
     IL2CPP_REGISTER_METHOD(0x00B3C340, void, UpdateCharacterState, (app::CartLogicCycle * this_ptr, app::CharacterState* state))
     IL2CPP_REGISTER_METHOD(0x00B3C450, void, ctor, (app::CartLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, _RegisterIsAllowedDelegates_b__31_0, (app::CartLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047218C8, CartLogicCycle__RegisterIsAllowedDelegates_b__31_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, _RegisterIsAllowedDelegates_b__31_1, (app::CartLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04710BB8, CartLogicCycle__RegisterIsAllowedDelegates_b__31_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B3A3F0, bool, _RegisterIsAllowedDelegates_b__31_2, (app::CartLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047023E8, CartLogicCycle__RegisterIsAllowedDelegates_b__31_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B3A3F0, bool, _RegisterIsAllowedDelegates_b__31_3, (app::CartLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04722B20, CartLogicCycle__RegisterIsAllowedDelegates_b__31_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, _RegisterIsAllowedDelegates_b__31_4, (app::CartLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047264B0, CartLogicCycle__RegisterIsAllowedDelegates_b__31_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, _RegisterIsAllowedDelegates_b__31_5, (app::CartLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04715E30, CartLogicCycle__RegisterIsAllowedDelegates_b__31_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B3A3F0, bool, _RegisterIsAllowedDelegates_b__31_6, (app::CartLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475A178, CartLogicCycle__RegisterIsAllowedDelegates_b__31_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B3A3F0, bool, _RegisterIsAllowedDelegates_b__31_7, (app::CartLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04719E78, CartLogicCycle__RegisterIsAllowedDelegates_b__31_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B3A420, bool, _RegisterIsAllowedDelegates_b__31_8, (app::CartLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473DCB0, CartLogicCycle__RegisterIsAllowedDelegates_b__31_8__MethodInfo)
 } // namespace app::classes::CartLogicCycle

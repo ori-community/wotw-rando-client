@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/KwolokNpcEntity.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/CharacterInteractableActivationMode__Enum.h>
-#include <Modloader/app/structs/KwolokNpcEntity_State__Enum.h>
+#include <Modloader/app/structs/ICharacter.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/KwolokNpcEntity.h>
 #include <Modloader/app/structs/KwolokNpcEntity_CleanseWellspringState__Enum.h>
+#include <Modloader/app/structs/KwolokNpcEntity_State__Enum.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/UberStateApplyContext__Enum.h>
-#include <Modloader/app/structs/IUberState__Array.h>
-#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/ICharacter.h>
 
 namespace app::classes::KwolokNpcEntity {
     IL2CPP_REGISTER_METHOD(0x012FBAD0, app::String*, get_DialogActorName, (app::KwolokNpcEntity * this_ptr))

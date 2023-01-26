@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FaderAnimator.h>
+
+#include <Modloader/app/structs/FaderAnimator.h>
 
 namespace app::classes::FaderAnimator {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, CacheOriginals, (app::FaderAnimator * this_ptr))

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InvalidDataException_1.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/InvalidDataException_1.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Unity::IO::Compression::InvalidDataException {
     IL2CPP_REGISTER_METHOD(0x02B7D140, void, ctor_1, (app::InvalidDataException_1 * this_ptr))

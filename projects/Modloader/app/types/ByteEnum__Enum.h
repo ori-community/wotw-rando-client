@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ByteEnum__Enum__Class.h>
 #include <Modloader/app/structs/ByteEnum__Enum.h>
 #include <Modloader/app/structs/ByteEnum__Enum__Array.h>
+#include <Modloader/app/structs/ByteEnum__Enum__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace ByteEnum__Enum {
-        inline app::ByteEnum__Enum__Class** type_info = (app::ByteEnum__Enum__Class**)(modloader::win::memory::resolve_rva(0x0470A360));
+        inline app::ByteEnum__Enum__Class** type_info() {
+            static app::ByteEnum__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::ByteEnum__Enum__Class**)(modloader::win::memory::resolve_rva(0x0470A360));
+            }
+            return cache;
+        }
         inline app::ByteEnum__Enum__Class* get_class() {
-            return il2cpp::get_class<app::ByteEnum__Enum__Class>(type_info, "System", "ByteEnum");
+            return il2cpp::get_class<app::ByteEnum__Enum__Class>(type_info(), "System", "ByteEnum");
         }
         inline app::ByteEnum__Enum* create() {
             return il2cpp::create_object<app::ByteEnum__Enum>(get_class());

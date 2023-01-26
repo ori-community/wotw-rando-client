@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EVRInitError__Enum.h>
-#include <Modloader/app/structs/EVRApplicationType__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/OpenVR_COpenVRContext.h>
-#include <Modloader/app/structs/CVRSystem.h>
+
+#include <Modloader/app/structs/EVRInitError__Enum.h>
+#include <Modloader/app/structs/CVRApplications.h>
 #include <Modloader/app/structs/CVRChaperone.h>
 #include <Modloader/app/structs/CVRChaperoneSetup.h>
 #include <Modloader/app/structs/CVRCompositor.h>
+#include <Modloader/app/structs/CVRExtendedDisplay.h>
 #include <Modloader/app/structs/CVROverlay.h>
 #include <Modloader/app/structs/CVRRenderModels.h>
-#include <Modloader/app/structs/CVRExtendedDisplay.h>
-#include <Modloader/app/structs/CVRSettings.h>
-#include <Modloader/app/structs/CVRApplications.h>
 #include <Modloader/app/structs/CVRScreenshots.h>
+#include <Modloader/app/structs/CVRSettings.h>
+#include <Modloader/app/structs/CVRSystem.h>
 #include <Modloader/app/structs/CVRTrackedCamera.h>
+#include <Modloader/app/structs/EVRApplicationType__Enum.h>
 #include <Modloader/app/structs/OpenVR.h>
+#include <Modloader/app/structs/OpenVR_COpenVRContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::OpenVR {
     IL2CPP_REGISTER_METHOD(0x00F55520, uint32_t, InitInternal, (app::EVRInitError__Enum * pe_error, app::EVRApplicationType__Enum e_application_type))

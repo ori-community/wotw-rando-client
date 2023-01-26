@@ -1,23 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RuntimeTypeHandle__Boxed.h>
+
+#include <Modloader/app/structs/RuntimeTypeHandle__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RuntimeAssembly.h>
+#include <Modloader/app/structs/RuntimeModule.h>
 #include <Modloader/app/structs/RuntimeType.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/TypeAttributes__Enum.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/RuntimeAssembly.h>
-#include <Modloader/app/structs/RuntimeModule.h>
+#include <Modloader/app/structs/TypeAttributes__Enum.h>
 
 namespace app::classes::System::RuntimeTypeHandle {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor_1, (app::RuntimeTypeHandle__Boxed * this_ptr, void* val))
     IL2CPP_REGISTER_METHOD(0x001D83E0, void, ctor_2, (app::RuntimeTypeHandle__Boxed * this_ptr, app::RuntimeType* type))
     IL2CPP_REGISTER_METHOD(0x001D8400, void, ctor_3, (app::RuntimeTypeHandle__Boxed * this_ptr, app::SerializationInfo* info, app::StreamingContext context))
-    IL2CPP_REGISTER_METHODINFO(0x04728F00, RuntimeTypeHandle__ctor_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00107C00, void*, get_Value, (app::RuntimeTypeHandle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001D8420, void, GetObjectData, (app::RuntimeTypeHandle__Boxed * this_ptr, app::SerializationInfo* info, app::StreamingContext context))
-    IL2CPP_REGISTER_METHODINFO(0x0476E560, RuntimeTypeHandle_GetObjectData__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001D8440, bool, Equals, (app::RuntimeTypeHandle__Boxed * this_ptr, app::Object* obj))
     IL2CPP_REGISTER_METHOD(0x0010E170, int32_t, GetHashCode, (app::RuntimeTypeHandle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01EE7420, app::TypeAttributes__Enum, GetAttributes, (app::RuntimeType * type))

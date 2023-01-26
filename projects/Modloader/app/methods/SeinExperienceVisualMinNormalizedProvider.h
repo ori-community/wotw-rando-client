@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinExperienceVisualMinNormalizedProvider.h>
+
+#include <Modloader/app/structs/SeinExperienceVisualMinNormalizedProvider.h>
 
 namespace app::classes::SeinExperienceVisualMinNormalizedProvider {
     IL2CPP_REGISTER_METHOD(0x00AD4D10, float, GetFloatValue, (app::SeinExperienceVisualMinNormalizedProvider * this_ptr))

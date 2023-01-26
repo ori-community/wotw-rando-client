@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MirroringData.h>
+
+#include <Modloader/app/structs/MirroringData.h>
 #include <Modloader/app/structs/MirrorData.h>
 #include <Modloader/app/structs/String.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/UberStateMatcherDrawerAttribute.h>
 
 namespace app::classes::UberStateMatcherDrawerAttribute {

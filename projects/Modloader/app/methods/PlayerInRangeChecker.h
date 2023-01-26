@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerInRangeChecker.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/PlayerInRangeChecker.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PlayerInRangeChecker {
     IL2CPP_REGISTER_METHOD(0x0140FEC0, bool, get_IsInside, (app::PlayerInRangeChecker * this_ptr))

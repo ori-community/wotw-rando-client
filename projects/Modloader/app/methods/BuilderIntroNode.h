@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BuilderIntroNode.h>
+
+#include <Modloader/app/structs/BuilderIntroNode.h>
 
 namespace app::classes::BuilderIntroNode {
     IL2CPP_REGISTER_METHOD(0x00818170, void, OnEnter, (app::BuilderIntroNode * this_ptr))

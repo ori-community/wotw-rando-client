@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanToken.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanToken__Array.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanToken__Boxed.h>
+#include <Modloader/app/structs/TimeSpanParse_TimeSpanToken__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TimeSpanParse_TimeSpanToken__Class.h>
-#include <Modloader/app/structs/TimeSpanParse_TimeSpanToken.h>
-#include <Modloader/app/structs/TimeSpanParse_TimeSpanToken__Boxed.h>
-#include <Modloader/app/structs/TimeSpanParse_TimeSpanToken__Array.h>
 
 namespace app::classes::types {
     namespace TimeSpanParse_TimeSpanToken {
-        namespace {
-            inline app::TimeSpanParse_TimeSpanToken__Class* type_info_ref = nullptr;
+        inline app::TimeSpanParse_TimeSpanToken__Class** type_info() {
+            static app::TimeSpanParse_TimeSpanToken__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::TimeSpanParse_TimeSpanToken__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::TimeSpanParse_TimeSpanToken__Class** type_info = &type_info_ref;
         inline app::TimeSpanParse_TimeSpanToken__Class* get_class() {
-            return il2cpp::get_nested_class<app::TimeSpanParse_TimeSpanToken__Class>(type_info, "System.Globalization", "TimeSpanParse", "TimeSpanToken");
+            return il2cpp::get_nested_class<app::TimeSpanParse_TimeSpanToken__Class>(type_info(), "System.Globalization", "TimeSpanParse", "TimeSpanToken");
         }
         inline app::TimeSpanParse_TimeSpanToken* create() {
             return il2cpp::create_object<app::TimeSpanParse_TimeSpanToken>(get_class());

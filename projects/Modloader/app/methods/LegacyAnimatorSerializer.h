@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyAnimatorSerializer.h>
+
+#include <Modloader/app/structs/LegacyAnimatorSerializer.h>
 #include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::LegacyAnimatorSerializer {

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SliceRenderSettings.h>
-#include <Modloader/app/structs/SliceRenderSettings_Slice.h>
-#include <Modloader/app/structs/LayeredRenderSettings.h>
+
+#include <Modloader/app/structs/SliceRenderSettings.h>
 #include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/LayeredRenderSettings.h>
 #include <Modloader/app/structs/MoonRenderPipelineAsset.h>
+#include <Modloader/app/structs/SliceRenderSettings_Slice.h>
 
 namespace app::classes::Moon::Rendering::SliceRenderSettings {
     IL2CPP_REGISTER_METHOD(0x0052A010, int32_t, get_NoDofSliceA, (app::SliceRenderSettings * this_ptr))

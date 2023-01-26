@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/fsAotVersionInfo_Member__Boxed.h>
-#include <Modloader/app/structs/fsMetaProperty.h>
+
+#include <Modloader/app/structs/fsAotVersionInfo_Member__Boxed.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/fsAotVersionInfo_Member.h>
+#include <Modloader/app/structs/fsMetaProperty.h>
 
 namespace app::classes::FullSerializer::fsAotVersionInfo_Member {
     IL2CPP_REGISTER_METHOD(0x0012C4A0, void, ctor, (app::fsAotVersionInfo_Member__Boxed * this_ptr, app::fsMetaProperty* property))

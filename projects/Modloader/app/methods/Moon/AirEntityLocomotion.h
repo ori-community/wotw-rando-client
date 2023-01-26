@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AirEntityMovementProcessor.h>
+
+#include <Modloader/app/structs/AirEntityMovementProcessor.h>
 #include <Modloader/app/structs/AirEntityLocomotion.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
-#include <Modloader/app/structs/EntityLocomotionTask.h>
-#include <Modloader/app/structs/LocomotionAirMoveBehaviour.h>
 #include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/EntityBehaviourNode.h>
-#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/LocomotionAirMoveBehaviour.h>
 #include <Modloader/app/structs/MovementProcessor.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::AirEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::AirEntityMovementProcessor*, get_AirMovement, (app::AirEntityLocomotion * this_ptr))
@@ -24,9 +25,7 @@ namespace app::classes::Moon::AirEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x01334D00, void, ConfigureStateMachine, (app::AirEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00418200, app::EntityLocomotionTask*, get_DefaultFSMState, (app::AirEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01335450, bool, ShouldTriggerTurn, (app::AirEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475E1E8, AirEntityLocomotion_ShouldTriggerTurn__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01335830, bool, ShouldTriggerMove, (app::AirEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04702C28, AirEntityLocomotion_ShouldTriggerMove__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0065FBA0, app::LocomotionAirMoveBehaviour*, get_MovementBehaviour, (app::AirEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013359E0, bool, IsLookDirectionLocked, (app::AirEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01335AB0, void, OnEntityInitialization, (app::AirEntityLocomotion * this_ptr, app::Entity* entity))
@@ -52,9 +51,6 @@ namespace app::classes::Moon::AirEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::MovementProcessor*, get_MovementProcessor, (app::AirEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004F1990, void, ctor, (app::AirEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01337310, bool, _ConfigureStateMachine_b__19_0, (app::AirEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047348B8, AirEntityLocomotion__ConfigureStateMachine_b__19_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0119CE00, bool, _ConfigureStateMachine_b__19_1, (app::AirEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04796A40, AirEntityLocomotion__ConfigureStateMachine_b__19_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01337350, bool, _ConfigureStateMachine_b__19_2, (app::AirEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04720C98, AirEntityLocomotion__ConfigureStateMachine_b__19_2__MethodInfo)
 } // namespace app::classes::Moon::AirEntityLocomotion

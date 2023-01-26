@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MatchJointsJob.h>
+
+#include <Modloader/app/structs/MatchJointsJob.h>
 #include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::UnityEngine::Experimental::Animations::ProcessAnimationJobStruct_1_Moon_Animation_MatchJointsJob_ {

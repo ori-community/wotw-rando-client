@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/SqlSingle.h>
+#include <Modloader/app/structs/SqlSingle__Array.h>
+#include <Modloader/app/structs/SqlSingle__Boxed.h>
+#include <Modloader/app/structs/SqlSingle__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SqlSingle__Class.h>
-#include <Modloader/app/structs/SqlSingle.h>
-#include <Modloader/app/structs/SqlSingle__Boxed.h>
-#include <Modloader/app/structs/SqlSingle__Array.h>
 
 namespace app::classes::types {
     namespace SqlSingle {
-        inline app::SqlSingle__Class** type_info = (app::SqlSingle__Class**)(modloader::win::memory::resolve_rva(0x04705268));
+        inline app::SqlSingle__Class** type_info() {
+            static app::SqlSingle__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::SqlSingle__Class**)(modloader::win::memory::resolve_rva(0x04705268));
+            }
+            return cache;
+        }
         inline app::SqlSingle__Class* get_class() {
-            return il2cpp::get_class<app::SqlSingle__Class>(type_info, "System.Data.SqlTypes", "SqlSingle");
+            return il2cpp::get_class<app::SqlSingle__Class>(type_info(), "System.Data.SqlTypes", "SqlSingle");
         }
         inline app::SqlSingle* create() {
             return il2cpp::create_object<app::SqlSingle>(get_class());

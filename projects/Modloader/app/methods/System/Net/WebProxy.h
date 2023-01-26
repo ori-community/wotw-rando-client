@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WebProxy.h>
-#include <Modloader/app/structs/Uri.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/ICredentials.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/WebProxy.h>
 #include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/AutoWebProxyScriptEngine.h>
+#include <Modloader/app/structs/ICredentials.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/IWebProxy.h>
+#include <Modloader/app/structs/ProxyChain.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
-#include <Modloader/app/structs/AutoWebProxyScriptEngine.h>
-#include <Modloader/app/structs/IWebProxy.h>
-#include <Modloader/app/structs/WebProxyData.h>
-#include <Modloader/app/structs/ProxyChain.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Uri.h>
 #include <Modloader/app/structs/Uri__Array.h>
-#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/WebProxyData.h>
 
 namespace app::classes::System::Net::WebProxy {
     IL2CPP_REGISTER_METHOD(0x01D805A0, void, ctor_1, (app::WebProxy * this_ptr))
@@ -41,15 +42,12 @@ namespace app::classes::System::Net::WebProxy {
     IL2CPP_REGISTER_METHOD(0x01D814B0, app::ArrayList*, get_BypassArrayList, (app::WebProxy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8E90, void, CheckForChanges, (app::WebProxy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D81610, app::Uri*, GetProxy, (app::WebProxy * this_ptr, app::Uri* destination))
-    IL2CPP_REGISTER_METHODINFO(0x04710730, WebProxy_GetProxy__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D817D0, app::Uri*, CreateProxyUri, (app::String * address))
     IL2CPP_REGISTER_METHOD(0x01D81970, void, UpdateRegExList, (app::WebProxy * this_ptr, bool can_throw))
-    IL2CPP_REGISTER_METHODINFO(0x0476D990, WebProxy_UpdateRegExList__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D81C80, bool, IsMatchInBypassList, (app::WebProxy * this_ptr, app::Uri* input))
     IL2CPP_REGISTER_METHOD(0x01D81F40, bool, IsLocal, (app::WebProxy * this_ptr, app::Uri* host))
     IL2CPP_REGISTER_METHOD(0x01D822A0, bool, IsLocalInProxyHash, (app::WebProxy * this_ptr, app::Uri* host))
     IL2CPP_REGISTER_METHOD(0x01D823F0, bool, IsBypassed, (app::WebProxy * this_ptr, app::Uri* host))
-    IL2CPP_REGISTER_METHODINFO(0x0477EB60, WebProxy_IsBypassed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D82530, bool, IsBypassedManual, (app::WebProxy * this_ptr, app::Uri* host))
     IL2CPP_REGISTER_METHOD(0x01D82740, app::WebProxy*, GetDefaultProxy, ())
     IL2CPP_REGISTER_METHOD(0x01D82880, void, ctor_11, (app::WebProxy * this_ptr, app::SerializationInfo* serialization_info, app::StreamingContext streaming_context))
@@ -63,7 +61,6 @@ namespace app::classes::System::Net::WebProxy {
     IL2CPP_REGISTER_METHOD(0x00B80D80, void, UnsafeUpdateFromRegistry, (app::WebProxy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D82DE0, void, Update, (app::WebProxy * this_ptr, app::WebProxyData* web_proxy_data))
     IL2CPP_REGISTER_METHOD(0x01D82F30, app::ProxyChain*, IAutoWebProxy_GetProxies, (app::WebProxy * this_ptr, app::Uri* destination))
-    IL2CPP_REGISTER_METHODINFO(0x04740318, WebProxy_System_Net_IAutoWebProxy_GetProxies__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D830E0, bool, GetProxyAuto, (app::WebProxy * this_ptr, app::Uri* destination, app::Uri** proxy_uri))
     IL2CPP_REGISTER_METHOD(0x01D83170, bool, IsBypassedAuto, (app::WebProxy * this_ptr, app::Uri* destination, bool* is_bypassed))
     IL2CPP_REGISTER_METHOD(0x01D831F0, app::Uri__Array*, GetProxiesAuto, (app::WebProxy * this_ptr, app::Uri* destination, int32_t* sync_status))

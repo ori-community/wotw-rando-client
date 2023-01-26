@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
+
+#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
 #include <Modloader/app/structs/SimpleSRPToggleProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::SimpleSRPToggleProfilingSetting {

@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/SemanticMeaning.h>
+#include <Modloader/app/structs/SemanticMeaning__Array.h>
+#include <Modloader/app/structs/SemanticMeaning__Boxed.h>
+#include <Modloader/app/structs/SemanticMeaning__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SemanticMeaning__Class.h>
-#include <Modloader/app/structs/SemanticMeaning.h>
-#include <Modloader/app/structs/SemanticMeaning__Boxed.h>
-#include <Modloader/app/structs/SemanticMeaning__Array.h>
 
 namespace app::classes::types {
     namespace SemanticMeaning {
-        namespace {
-            inline app::SemanticMeaning__Class* type_info_ref = nullptr;
+        inline app::SemanticMeaning__Class** type_info() {
+            static app::SemanticMeaning__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SemanticMeaning__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SemanticMeaning__Class** type_info = &type_info_ref;
         inline app::SemanticMeaning__Class* get_class() {
-            return il2cpp::get_class<app::SemanticMeaning__Class>(type_info, "UnityEngine.Windows.Speech", "SemanticMeaning");
+            return il2cpp::get_class<app::SemanticMeaning__Class>(type_info(), "UnityEngine.Windows.Speech", "SemanticMeaning");
         }
         inline app::SemanticMeaning* create() {
             return il2cpp::create_object<app::SemanticMeaning>(get_class());

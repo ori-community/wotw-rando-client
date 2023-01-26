@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActivateIntroLogosPrewarmOperation.h>
+
+#include <Modloader/app/structs/ActivateIntroLogosPrewarmOperation.h>
 #include <Modloader/app/structs/LoadIntroLogosPrewarmOperation.h>
 
 namespace app::classes::frameworks::loading::Prewarmers::ActivateIntroLogosPrewarmOperation {

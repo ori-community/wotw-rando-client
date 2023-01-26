@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XsdSimpleValue.h>
-#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+
+#include <Modloader/app/structs/XsdSimpleValue.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
 
 namespace app::classes::System::Xml::Schema::XsdSimpleValue {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::XsdSimpleValue * this_ptr, app::XmlSchemaSimpleType* st, app::Object* value))

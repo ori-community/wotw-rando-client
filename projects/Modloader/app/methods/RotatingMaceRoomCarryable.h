@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RotatingMaceRoomCarryable.h>
+
+#include <Modloader/app/structs/RotatingMaceRoomCarryable.h>
 #include <Modloader/app/structs/IPressurePlate.h>
 
 namespace app::classes::RotatingMaceRoomCarryable {

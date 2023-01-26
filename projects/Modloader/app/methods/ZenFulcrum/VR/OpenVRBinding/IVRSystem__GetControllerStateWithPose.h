@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IVRSystem_GetControllerStateWithPose.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ETrackingUniverseOrigin__Enum.h>
-#include <Modloader/app/structs/VRControllerState_t.h>
-#include <Modloader/app/structs/TrackedDevicePose_t.h>
-#include <Modloader/app/structs/IAsyncResult.h>
+
+#include <Modloader/app/structs/IVRSystem_GetControllerStateWithPose.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/ETrackingUniverseOrigin__Enum.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TrackedDevicePose_t.h>
+#include <Modloader/app/structs/VRControllerState_t.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVRSystem__GetControllerStateWithPose {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVRSystem_GetControllerStateWithPose * this_ptr, app::Object* object, void* method_1))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AxisButtonInput.h>
-#include <Modloader/app/structs/IAxisInput.h>
+
+#include <Modloader/app/structs/AxisButtonInput.h>
 #include <Modloader/app/structs/AxisButtonInput_AxisMode__Enum.h>
+#include <Modloader/app/structs/IAxisInput.h>
 #include <Modloader/app/structs/InputCacheManager.h>
 
 namespace app::classes::SmartInput::AxisButtonInput {

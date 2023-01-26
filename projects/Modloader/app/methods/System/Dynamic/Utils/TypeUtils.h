@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Assembly.h>
 #include <Modloader/app/structs/MemberInfo_1.h>
 #include <Modloader/app/structs/MethodInfo_1.h>
 #include <Modloader/app/structs/MethodInfo_1__Array.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Assembly.h>
 
 namespace app::classes::System::Dynamic::Utils::TypeUtils {
     IL2CPP_REGISTER_METHOD(0x01F965B0, app::Type*, GetNonNullableType, (app::Type * type))
@@ -45,9 +46,7 @@ namespace app::classes::System::Dynamic::Utils::TypeUtils {
     IL2CPP_REGISTER_METHOD(0x01F98FF0, bool, IsSameOrSubclass, (app::Type * type, app::Type* sub_type))
     IL2CPP_REGISTER_METHOD(0x01F99050, void, ValidateType_1, (app::Type * type, app::String* param_name))
     IL2CPP_REGISTER_METHOD(0x01F99070, void, ValidateType_2, (app::Type * type, app::String* param_name, bool allow_by_ref, bool allow_pointer))
-    IL2CPP_REGISTER_METHODINFO(0x04794228, TypeUtils_ValidateType_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F991A0, bool, ValidateType_3, (app::Type * type, app::String* param_name, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0474E2D0, TypeUtils_ValidateType_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F992D0, app::Assembly*, get_MsCorLib, ())
     IL2CPP_REGISTER_METHOD(0x01F993B0, bool, CanCache, (app::Type * t))
     IL2CPP_REGISTER_METHOD(0x01F995A0, app::MethodInfo_1*, GetInvokeMethod, (app::Type * delegate_type))

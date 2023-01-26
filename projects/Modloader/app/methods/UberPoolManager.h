@@ -1,23 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberPoolManager.h>
-#include <Modloader/app/structs/List_1_UberPoolGroup_.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
-#include <Modloader/app/structs/UberPoolItem.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Queue_1_System_ValueTuple_2_.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/Dictionary_2_System_Int32_UberPoolItem_.h>
-#include <Modloader/app/structs/UberPoolGroup.h>
-#include <Modloader/app/structs/WeakPrefab.h>
-#include <Modloader/app/structs/UberPoolSettings.h>
-#include <Modloader/app/structs/Component_1.h>
+
+#include <Modloader/app/structs/UberPoolManager.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_UberPoolItem_.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/List_1_UberPoolGroup_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/MoonEffectRevertHandle.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Queue_1_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberPoolGroup.h>
+#include <Modloader/app/structs/UberPoolItem.h>
+#include <Modloader/app/structs/UberPoolSettings.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/WeakPrefab.h>
 
 namespace app::classes::UberPoolManager {
     IL2CPP_REGISTER_METHOD(0x00FD7890, void, DoLookUp, (app::UberPoolManager * this_ptr))
@@ -33,9 +34,7 @@ namespace app::classes::UberPoolManager {
     IL2CPP_REGISTER_METHOD(0x00FD9820, void, Awake, (app::UberPoolManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FD9C50, void, OnDestroy, (app::UberPoolManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FD9F00, void, OnGameReset, (app::UberPoolManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04743DF8, UberPoolManager_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FD9F90, void, OnPreRestoreCheckpoint, (app::UberPoolManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047765D0, UberPoolManager_OnPreRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FDA020, app::GameObject*, Spawn_1, (app::UberPoolManager * this_ptr, app::GameObject* o, bool* new_object))
     IL2CPP_REGISTER_METHOD(0x00FDA180, app::GameObject*, Spawn_2, (app::UberPoolManager * this_ptr, app::GameObject* o, app::Vector3 position, app::Quaternion rotation, bool* new_object))
     IL2CPP_REGISTER_METHOD(0x00FDA220, void, Update, (app::UberPoolManager * this_ptr))
@@ -75,7 +74,5 @@ namespace app::classes::UberPoolManager {
     IL2CPP_REGISTER_METHOD(0x00FDF0F0, void, RegisterForMoonEffectRevert, (app::UberPoolManager * this_ptr, app::GameObject* instance, app::MoonEffectRevertHandle* revert_handle))
     IL2CPP_REGISTER_METHOD(0x00FDF310, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x00FDF390, bool, __ctor_b__35_0, (app::UberPoolManager * this_ptr, app::UberPoolManager* manager))
-    IL2CPP_REGISTER_METHODINFO(0x04757990, UberPoolManager___ctor_b__35_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FDF460, bool, __ctor_b__35_1, (app::UberPoolManager * this_ptr, app::UberPoolManager* manager))
-    IL2CPP_REGISTER_METHODINFO(0x0472F448, UberPoolManager___ctor_b__35_1__MethodInfo)
 } // namespace app::classes::UberPoolManager

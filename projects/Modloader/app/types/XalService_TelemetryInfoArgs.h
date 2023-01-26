@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XalService_TelemetryInfoArgs__Class.h>
 #include <Modloader/app/structs/XalService_TelemetryInfoArgs.h>
 #include <Modloader/app/structs/XalService_TelemetryInfoArgs__Boxed.h>
+#include <Modloader/app/structs/XalService_TelemetryInfoArgs__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace XalService_TelemetryInfoArgs {
-        namespace {
-            inline app::XalService_TelemetryInfoArgs__Class* type_info_ref = nullptr;
+        inline app::XalService_TelemetryInfoArgs__Class** type_info() {
+            static app::XalService_TelemetryInfoArgs__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::XalService_TelemetryInfoArgs__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::XalService_TelemetryInfoArgs__Class** type_info = &type_info_ref;
         inline app::XalService_TelemetryInfoArgs__Class* get_class() {
-            return il2cpp::get_nested_class<app::XalService_TelemetryInfoArgs__Class>(type_info, "Microsoft.Xbox.Services.Xal", "XalService", "TelemetryInfoArgs");
+            return il2cpp::get_nested_class<app::XalService_TelemetryInfoArgs__Class>(type_info(), "Microsoft.Xbox.Services.Xal", "XalService", "TelemetryInfoArgs");
         }
         inline app::XalService_TelemetryInfoArgs* create() {
             return il2cpp::create_object<app::XalService_TelemetryInfoArgs>(get_class());

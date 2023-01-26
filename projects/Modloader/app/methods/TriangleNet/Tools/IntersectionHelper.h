@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Point.h>
+
+#include <Modloader/app/structs/Point.h>
 #include <Modloader/app/structs/Rectangle.h>
 #include <Modloader/app/structs/Vector3.h>
 

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IEnumerable_1_System_Boolean_.h>
+
+#include <Modloader/app/structs/IEnumerable_1_System_Boolean_.h>
+#include <Modloader/app/structs/Enumerable_Iterator_1_UnityEngine_Rect_.h>
 #include <Modloader/app/structs/Enumerable_WhereEnumerableIterator_1_UnityEngine_Rect_.h>
 #include <Modloader/app/structs/Func_2_UnityEngine_Rect_Boolean_.h>
-#include <Modloader/app/structs/IEnumerable_1_System_Single_.h>
 #include <Modloader/app/structs/Func_2_UnityEngine_Rect_Single_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Single_.h>
 #include <Modloader/app/structs/IEnumerable_1_UnityEngine_Rect_.h>
-#include <Modloader/app/structs/Enumerable_Iterator_1_UnityEngine_Rect_.h>
 
 namespace app::classes::System::Linq::Enumerable_WhereEnumerableIterator_1_UnityEngine_Rect_ {
     IL2CPP_REGISTER_METHOD(0x00E77C70, app::IEnumerable_1_System_Boolean_*, Select_1, (app::Enumerable_WhereEnumerableIterator_1_UnityEngine_Rect_ * this_ptr, app::Func_2_UnityEngine_Rect_Boolean_* selector))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BlendGradientColorsJob.h>
+
+#include <Modloader/app/structs/BlendGradientColorsJob.h>
 #include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::Unity::Jobs::IJobParallelForExtensions_ParallelForJobStruct_1_BlendGradientColorsJob_ {

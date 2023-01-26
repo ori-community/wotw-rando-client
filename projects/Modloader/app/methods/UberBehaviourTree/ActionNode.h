@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActionNode_1.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Func_2_UberBehaviourTree_TickData_UberBehaviourTree_BehaviourTreeStatus_.h>
+
+#include <Modloader/app/structs/ActionNode_1.h>
 #include <Modloader/app/structs/BehaviourTreeStatus__Enum.h>
+#include <Modloader/app/structs/Func_2_UberBehaviourTree_TickData_UberBehaviourTree_BehaviourTreeStatus_.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TickData.h>
 
 namespace app::classes::UberBehaviourTree::ActionNode {

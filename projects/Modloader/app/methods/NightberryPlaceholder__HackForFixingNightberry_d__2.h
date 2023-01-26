@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NightberryPlaceholder_HackForFixingNightberry_d_2.h>
+
+#include <Modloader/app/structs/NightberryPlaceholder_HackForFixingNightberry_d_2.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::NightberryPlaceholder__HackForFixingNightberry_d__2 {
@@ -9,6 +10,5 @@ namespace app::classes::NightberryPlaceholder__HackForFixingNightberry_d__2 {
     IL2CPP_REGISTER_METHOD(0x00609E50, bool, MoveNext, (app::NightberryPlaceholder_HackForFixingNightberry_d_2 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::NightberryPlaceholder_HackForFixingNightberry_d_2 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0060A3B0, void, IEnumerator_Reset, (app::NightberryPlaceholder_HackForFixingNightberry_d_2 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04770738, NightberryPlaceholder_HackForFixingNightberry_d_2_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::NightberryPlaceholder_HackForFixingNightberry_d_2 * this_ptr))
 } // namespace app::classes::NightberryPlaceholder__HackForFixingNightberry_d__2

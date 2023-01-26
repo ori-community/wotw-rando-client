@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle.h>
+#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle__Array.h>
+#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle__Boxed.h>
+#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle__Class.h>
-#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle.h>
-#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle__Boxed.h>
-#include <Modloader/app/structs/SpiritTurret_AttackableRayHandle__Array.h>
 
 namespace app::classes::types {
     namespace SpiritTurret_AttackableRayHandle {
-        namespace {
-            inline app::SpiritTurret_AttackableRayHandle__Class* type_info_ref = nullptr;
+        inline app::SpiritTurret_AttackableRayHandle__Class** type_info() {
+            static app::SpiritTurret_AttackableRayHandle__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SpiritTurret_AttackableRayHandle__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SpiritTurret_AttackableRayHandle__Class** type_info = &type_info_ref;
         inline app::SpiritTurret_AttackableRayHandle__Class* get_class() {
-            return il2cpp::get_nested_class<app::SpiritTurret_AttackableRayHandle__Class>(type_info, "", "SpiritTurret", "AttackableRayHandle");
+            return il2cpp::get_nested_class<app::SpiritTurret_AttackableRayHandle__Class>(type_info(), "", "SpiritTurret", "AttackableRayHandle");
         }
         inline app::SpiritTurret_AttackableRayHandle* create() {
             return il2cpp::create_object<app::SpiritTurret_AttackableRayHandle>(get_class());

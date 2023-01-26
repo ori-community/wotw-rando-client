@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WwiseObjectType__Enum.h>
-#include <Modloader/app/structs/Switch_1.h>
+
+#include <Modloader/app/structs/WwiseObjectType__Enum.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Switch_1.h>
 
 namespace app::classes::AK::Wwise::Switch {
     IL2CPP_REGISTER_METHOD(0x008556D0, app::WwiseObjectType__Enum, get_WwiseObjectType, (app::Switch_1 * this_ptr))

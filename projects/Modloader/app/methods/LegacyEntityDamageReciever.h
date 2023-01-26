@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyEntityDamageReciever.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/LegacyEntityDamageReciever.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/SoundHost.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/LimitedLifetime.h>
+#include <Modloader/app/structs/SoundHost.h>
 
 namespace app::classes::LegacyEntityDamageReciever {
     IL2CPP_REGISTER_METHOD(0x00A210B0, void, OnValidate, (app::LegacyEntityDamageReciever * this_ptr))
@@ -19,7 +20,6 @@ namespace app::classes::LegacyEntityDamageReciever {
     IL2CPP_REGISTER_METHOD(0x00A224F0, void, PlaySound, (app::LegacyEntityDamageReciever * this_ptr, app::Event_1* sound))
     IL2CPP_REGISTER_METHOD(0x00A227E0, void, HandleFireShard, (app::LegacyEntityDamageReciever * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x00A230F0, void, CleanBurningEffectHooks, (app::LegacyEntityDamageReciever * this_ptr, app::LimitedLifetime* effect))
-    IL2CPP_REGISTER_METHODINFO(0x0475FAD0, LegacyEntityDamageReciever_CleanBurningEffectHooks__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A232C0, void, StopBurningEffects, (app::LegacyEntityDamageReciever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A23570, void, HandleDamageBoostShard, (app::LegacyEntityDamageReciever * this_ptr, app::Damage** damage))
     IL2CPP_REGISTER_METHOD(0x00A23690, void, HandleIceShard, (app::LegacyEntityDamageReciever * this_ptr, app::Damage* damage))

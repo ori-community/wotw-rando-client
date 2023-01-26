@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PoisonousCloud.h>
+
+#include <Modloader/app/structs/PoisonousCloud.h>
 #include <Modloader/app/structs/CloudAttackSettings.h>
 
 namespace app::classes::PoisonousCloud {

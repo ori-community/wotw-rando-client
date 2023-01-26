@@ -1,31 +1,32 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DynamicDataResolver.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/DynamicDataResolver.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Color32.h>
 #include <Modloader/app/structs/IMoonResolverContext.h>
-#include <Modloader/app/structs/MoonTypeExtraData.h>
-#include <Modloader/app/structs/IMoonType_1_System_Object_.h>
 #include <Modloader/app/structs/IMoonType_1_System_Boolean_.h>
-#include <Modloader/app/structs/IMoonType_1_System_Int32_.h>
-#include <Modloader/app/structs/IMoonType_1_System_Single_.h>
-#include <Modloader/app/structs/IMoonType_1_System_Int16_.h>
-#include <Modloader/app/structs/IMoonType_1_System_Int64_.h>
-#include <Modloader/app/structs/IMoonType_1_System_Double_.h>
-#include <Modloader/app/structs/IMoonType_1_UnityEngine_Quaternion_.h>
-#include <Modloader/app/structs/IMoonType_1_UnityEngine_Matrix4x4_.h>
-#include <Modloader/app/structs/IMoonType_1_System_String_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Byte_.h>
 #include <Modloader/app/structs/IMoonType_1_System_Char_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Double_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Int16_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Int32_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Int64_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Object_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Single_.h>
+#include <Modloader/app/structs/IMoonType_1_System_String_.h>
 #include <Modloader/app/structs/IMoonType_1_UnityEngine_Bounds_.h>
-#include <Modloader/app/structs/IMoonType_1_UnityEngine_Color_.h>
 #include <Modloader/app/structs/IMoonType_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Matrix4x4_.h>
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Quaternion_.h>
 #include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector2_.h>
 #include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector3_.h>
 #include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector4_.h>
-#include <Modloader/app/structs/IMoonType_1_System_Byte_.h>
-#include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/Color32.h>
-#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/MoonTypeExtraData.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
@@ -42,69 +43,37 @@ namespace app::classes::Moon::DynamicDataResolver {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_1, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_System_Object_*, GetProxyType_1, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_2, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x04779698, DynamicDataResolver_IsMoonTypeProxy_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_3, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x047070D8, DynamicDataResolver_IsMoonTypeProxy_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_4, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x04716E30, DynamicDataResolver_IsMoonTypeProxy_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_5, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x047846B0, DynamicDataResolver_IsMoonTypeProxy_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_6, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0477FB08, DynamicDataResolver_IsMoonTypeProxy_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_7, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x047077D0, DynamicDataResolver_IsMoonTypeProxy_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_8, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0473E1A8, DynamicDataResolver_IsMoonTypeProxy_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_9, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0477BAD0, DynamicDataResolver_IsMoonTypeProxy_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_10, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x04736B50, DynamicDataResolver_IsMoonTypeProxy_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_11, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0476A678, DynamicDataResolver_IsMoonTypeProxy_10__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_12, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x047181E0, DynamicDataResolver_IsMoonTypeProxy_11__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_13, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0476DBC8, DynamicDataResolver_IsMoonTypeProxy_12__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_14, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x047630F0, DynamicDataResolver_IsMoonTypeProxy_13__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_15, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x04763308, DynamicDataResolver_IsMoonTypeProxy_14__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_16, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0473F818, DynamicDataResolver_IsMoonTypeProxy_15__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_17, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0471E0E0, DynamicDataResolver_IsMoonTypeProxy_16__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_System_Boolean_*, GetProxyType_2, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0476A528, DynamicDataResolver_GetProxyType_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_System_Int32_*, GetProxyType_3, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0476A680, DynamicDataResolver_GetProxyType_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_System_Single_*, GetProxyType_4, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0472AEC8, DynamicDataResolver_GetProxyType_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_System_Int16_*, GetProxyType_5, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0477D8C8, DynamicDataResolver_GetProxyType_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_System_Int64_*, GetProxyType_6, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x047634B8, DynamicDataResolver_GetProxyType_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_System_Double_*, GetProxyType_7, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x047418A8, DynamicDataResolver_GetProxyType_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_UnityEngine_Quaternion_*, GetProxyType_8, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x047976B0, DynamicDataResolver_GetProxyType_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_UnityEngine_Matrix4x4_*, GetProxyType_9, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0472FDF8, DynamicDataResolver_GetProxyType_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_System_String_*, GetProxyType_10, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0470E970, DynamicDataResolver_GetProxyType_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_System_Char_*, GetProxyType_11, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x047513F8, DynamicDataResolver_GetProxyType_10__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_UnityEngine_Bounds_*, GetProxyType_12, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x04742CA0, DynamicDataResolver_GetProxyType_11__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_UnityEngine_Color_*, GetProxyType_13, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x04750D50, DynamicDataResolver_GetProxyType_12__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_UnityEngine_Color32_*, GetProxyType_14, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x047834B0, DynamicDataResolver_GetProxyType_13__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_UnityEngine_Vector2_*, GetProxyType_15, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0472B168, DynamicDataResolver_GetProxyType_14__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_UnityEngine_Vector3_*, GetProxyType_16, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x0476E3E0, DynamicDataResolver_GetProxyType_15__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_UnityEngine_Vector4_*, GetProxyType_17, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHODINFO(0x04771438, DynamicDataResolver_GetProxyType_16__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::IMoonType_1_System_Byte_*, GetProxyType_18, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x015EF770, bool, CanResolveSource_2, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x015EF770, bool, CanResolveSource_3, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
@@ -141,7 +110,7 @@ namespace app::classes::Moon::DynamicDataResolver {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_18, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x015EFB80, bool, GetValueForDataLink_2, (app::DynamicDataResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
     IL2CPP_REGISTER_METHOD(0x015EFCC0, uint8_t, GetValueForDataLink_3, (app::DynamicDataResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
-    IL2CPP_REGISTER_METHOD(0x015EFE00, uint16_t, GetValueForDataLink_4, (app::DynamicDataResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
+    IL2CPP_REGISTER_METHOD(0x015EFE00, char16_t, GetValueForDataLink_4, (app::DynamicDataResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
     IL2CPP_REGISTER_METHOD(0x015EFF40, double, GetValueForDataLink_5, (app::DynamicDataResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
     IL2CPP_REGISTER_METHOD(0x015F0080, int16_t, GetValueForDataLink_6, (app::DynamicDataResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
     IL2CPP_REGISTER_METHOD(0x015F01C0, int32_t, GetValueForDataLink_7, (app::DynamicDataResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
@@ -157,7 +126,7 @@ namespace app::classes::Moon::DynamicDataResolver {
     IL2CPP_REGISTER_METHOD(0x015F1070, app::Vector4, GetValueForDataLink_17, (app::DynamicDataResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
     IL2CPP_REGISTER_METHOD(0x015F11D0, bool, ResolveSource_2, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x015F11D0, uint8_t, ResolveSource_3, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHOD(0x015F11D0, uint16_t, ResolveSource_4, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
+    IL2CPP_REGISTER_METHOD(0x015F11D0, char16_t, ResolveSource_4, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x015F11D0, double, ResolveSource_5, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x015F11D0, int16_t, ResolveSource_6, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x015F11D0, int32_t, ResolveSource_7, (app::DynamicDataResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))

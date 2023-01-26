@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_SceneManagerScene_.h>
+
+#include <Modloader/app/structs/List_1_SceneManagerScene_.h>
 #include <Modloader/app/structs/ScenesManagerContext.h>
 #include <Modloader/app/structs/ScenesManagerSettings.h>
 

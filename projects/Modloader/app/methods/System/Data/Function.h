@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Function_1.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/Function_1.h>
 #include <Modloader/app/structs/FunctionId__Enum.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Data::Function {

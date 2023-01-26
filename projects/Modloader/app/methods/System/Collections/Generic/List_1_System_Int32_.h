@@ -1,60 +1,41 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_System_Int32_.h>
-#include <Modloader/app/structs/IEnumerable_1_System_Int32_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_System_Int32_.h>
-#include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Int32_.h>
-#include <Modloader/app/structs/IComparer_1_System_Int32_.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Int32_.h>
+
+#include <Modloader/app/structs/List_1_System_Int32_.h>
 #include <Modloader/app/structs/Action_1_Int32_.h>
-#include <Modloader/app/structs/IEnumerator_1_System_Int32_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_Int32_.h>
+#include <Modloader/app/structs/IComparer_1_System_Int32_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Int32_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Int32_.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Int32_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Int32_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Int32_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_System_Int32_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x0478F6B0, List_1_System_Int32___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F1C970, void, Add, (app::List_1_System_Int32_ * this_ptr, int32_t item))
-    IL2CPP_REGISTER_METHODINFO(0x04768A68, List_1_System_Int32__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D1F360, int32_t, get_Item, (app::List_1_System_Int32_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0473F4E8, List_1_System_Int32__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FE30A0, void, ctor_2, (app::List_1_System_Int32_ * this_ptr, app::IEnumerable_1_System_Int32_* collection))
-    IL2CPP_REGISTER_METHODINFO(0x04760F48, List_1_System_Int32___ctor_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAD50, void, Sort_1, (app::List_1_System_Int32_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474DC38, List_1_System_Int32__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D201B0, app::List_1_T_Enumerator_System_Int32_, GetEnumerator, (app::List_1_System_Int32_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047441F8, List_1_System_Int32__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_3, (app::List_1_System_Int32_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04768540, List_1_System_Int32___ctor_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAEF0, app::Int32__Array*, ToArray, (app::List_1_System_Int32_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471C800, List_1_System_Int32__ToArray__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_System_Int32_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04764648, List_1_System_Int32__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025F12F0, bool, Remove, (app::List_1_System_Int32_ * this_ptr, int32_t item))
-    IL2CPP_REGISTER_METHODINFO(0x0476BC98, List_1_System_Int32__Remove__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8790, void, set_Capacity, (app::List_1_System_Int32_ * this_ptr, int32_t value))
-    IL2CPP_REGISTER_METHODINFO(0x04768230, List_1_System_Int32__set_Capacity__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_System_Int32_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04749928, List_1_System_Int32__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E9020, void, AddRange, (app::List_1_System_Int32_ * this_ptr, app::IEnumerable_1_System_Int32_* collection))
-    IL2CPP_REGISTER_METHODINFO(0x047786C0, List_1_System_Int32__AddRange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D20C90, void, RemoveAt, (app::List_1_System_Int32_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04767420, List_1_System_Int32__RemoveAt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D1F390, void, set_Item, (app::List_1_System_Int32_ * this_ptr, int32_t index, int32_t value))
-    IL2CPP_REGISTER_METHODINFO(0x0477F0B8, List_1_System_Int32__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_System_Int32_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047749E0, List_1_System_Int32__get_Capacity__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F1CC20, bool, Contains, (app::List_1_System_Int32_ * this_ptr, int32_t item))
-    IL2CPP_REGISTER_METHODINFO(0x0470CEC0, List_1_System_Int32__Contains__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F1D260, void, Insert, (app::List_1_System_Int32_ * this_ptr, int32_t index, int32_t item))
-    IL2CPP_REGISTER_METHODINFO(0x04731A98, List_1_System_Int32__Insert__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EABD0, void, RemoveRange, (app::List_1_System_Int32_ * this_ptr, int32_t index, int32_t count))
-    IL2CPP_REGISTER_METHODINFO(0x047185E0, List_1_System_Int32__RemoveRange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025F0BE0, int32_t, IndexOf, (app::List_1_System_Int32_ * this_ptr, int32_t item))
-    IL2CPP_REGISTER_METHODINFO(0x04797468, List_1_System_Int32__IndexOf__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IList_get_IsFixedSize, (app::List_1_System_Int32_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, System_Collections_Generic_ICollection_T__get_IsReadOnly, (app::List_1_System_Int32_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IList_get_IsReadOnly, (app::List_1_System_Int32_ * this_ptr))

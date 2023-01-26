@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RenderTargetDescriptor__Boxed.h>
-#include <Modloader/app/structs/RenderTargetType__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/RenderTextureDescriptor.h>
+
+#include <Modloader/app/structs/RenderTargetDescriptor__Boxed.h>
 #include <Modloader/app/structs/FilterMode__Enum.h>
-#include <Modloader/app/structs/RenderTexture.h>
 #include <Modloader/app/structs/Int2.h>
-#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
-#include <Modloader/app/structs/RenderTargetDescriptor.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RenderTargetDescriptor.h>
+#include <Modloader/app/structs/RenderTargetType__Enum.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/RenderTextureDescriptor.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Rendering::RenderTargetDescriptor {
     IL2CPP_REGISTER_METHOD(0x001200A0, void, ctor, (app::RenderTargetDescriptor__Boxed * this_ptr, app::RenderTargetType__Enum _type, app::String* _name, app::RenderTextureDescriptor _desc, app::FilterMode__Enum _filter_mode, app::RenderTexture* _external, bool drs))

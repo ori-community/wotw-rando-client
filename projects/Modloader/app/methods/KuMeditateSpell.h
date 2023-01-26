@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinCharacter.h>
-#include <Modloader/app/structs/KuMeditateSpell.h>
+
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/GlowChargeEffect.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 #include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/KuMeditateSpell.h>
 #include <Modloader/app/structs/KuMeditateSpell_State__Enum.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/GlowChargeEffect.h>
 
 namespace app::classes::KuMeditateSpell {
     IL2CPP_REGISTER_METHOD(0x01241A30, app::SeinCharacter*, get_Sein, (app::KuMeditateSpell * this_ptr))
@@ -17,9 +18,7 @@ namespace app::classes::KuMeditateSpell {
     IL2CPP_REGISTER_METHOD(0x01241B90, void, Start, (app::KuMeditateSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01241D30, void, OnDestroy, (app::KuMeditateSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01241EF0, void, ModifyHorizontalPlatformMovementSettings, (app::KuMeditateSpell * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0471A710, KuMeditateSpell_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01241F30, void, UpdateState, (app::KuMeditateSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470A8A0, KuMeditateSpell_UpdateState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012421E0, app::Input_InputButtonProcessor*, get_Button, (app::KuMeditateSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01242220, bool, get_ButtonPressed, (app::KuMeditateSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012422F0, bool, get_ButtonDown, (app::KuMeditateSpell * this_ptr))
@@ -50,9 +49,6 @@ namespace app::classes::KuMeditateSpell {
     IL2CPP_REGISTER_METHOD(0x01244610, void, SetCurrentChargeEffect, (app::KuMeditateSpell * this_ptr, app::GlowChargeEffect* charge_effect))
     IL2CPP_REGISTER_METHOD(0x01244700, void, ctor, (app::KuMeditateSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0074C4A0, bool, _EnterIdleToLoop_b__67_0, (app::KuMeditateSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04789900, KuMeditateSpell__EnterIdleToLoop_b__67_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01243890, bool, _EnterLoop_b__68_0, (app::KuMeditateSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04760410, KuMeditateSpell__EnterLoop_b__68_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012438A0, bool, _EnterHeal_b__69_0, (app::KuMeditateSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04728C48, KuMeditateSpell__EnterHeal_b__69_0__MethodInfo)
 } // namespace app::classes::KuMeditateSpell

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberID.h>
+
+#include <Modloader/app/structs/UberID.h>
 #include <Modloader/app/structs/UberIDOwnerSO.h>
 
 namespace app::classes::Moon::UberIDOwnerSO {

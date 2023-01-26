@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TypedObject_DecimalStruct.h>
+
+#include <Modloader/app/structs/TypedObject_DecimalStruct.h>
 #include <Modloader/app/structs/Decimal__Array.h>
 
 namespace app::classes::System::Xml::Schema::TypedObject_DecimalStruct {

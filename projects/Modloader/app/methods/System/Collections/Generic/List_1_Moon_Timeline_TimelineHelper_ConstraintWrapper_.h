@@ -1,25 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
-#include <Modloader/app/structs/TimelineHelper_ConstraintWrapper.h>
-#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
-#include <Modloader/app/structs/IComparer_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
-#include <Modloader/app/structs/TimelineHelper_ConstraintWrapper__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
+
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
 #include <Modloader/app/structs/Action_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
-#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_.h>
+#include <Modloader/app/structs/TimelineHelper_ConstraintWrapper.h>
+#include <Modloader/app/structs/TimelineHelper_ConstraintWrapper__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047196B0, List_1_Moon_Timeline_TimelineHelper_ConstraintWrapper___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025ECB30, void, Add, (app::List_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_ * this_ptr, app::TimelineHelper_ConstraintWrapper item))
-    IL2CPP_REGISTER_METHODINFO(0x0477CC40, List_1_Moon_Timeline_TimelineHelper_ConstraintWrapper__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02DBF280, void, ctor_3, (app::List_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_ * this_ptr, app::IEnumerable_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_Moon_Timeline_TimelineHelper_ConstraintWrapper_ * this_ptr))

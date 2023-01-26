@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SaveSlotBackup.h>
+
+#include <Modloader/app/structs/SaveSlotBackup.h>
 
 namespace app::classes::SaveSlotBackup {
     IL2CPP_REGISTER_METHOD(0x0091D890, void, ctor, (app::SaveSlotBackup * this_ptr, int32_t index))

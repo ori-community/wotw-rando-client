@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DirectoryInfo.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/DirectoryInfo.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/DirectoryInfo__Array.h>
+#include <Modloader/app/structs/FileInfo__Array.h>
+#include <Modloader/app/structs/SearchOption__Enum.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
-#include <Modloader/app/structs/FileInfo__Array.h>
-#include <Modloader/app/structs/DirectoryInfo__Array.h>
-#include <Modloader/app/structs/ArrayList.h>
-#include <Modloader/app/structs/SearchOption__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IO::DirectoryInfo {
     IL2CPP_REGISTER_METHOD(0x01E03AC0, void, ctor_1, (app::DirectoryInfo * this_ptr, app::String* path))
@@ -20,14 +21,10 @@ namespace app::classes::System::IO::DirectoryInfo {
     IL2CPP_REGISTER_METHOD(0x01E04110, void, Create, (app::DirectoryInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E04120, app::FileInfo__Array*, GetFiles_1, (app::DirectoryInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E041B0, app::FileInfo__Array*, GetFiles_2, (app::DirectoryInfo * this_ptr, app::String* search_pattern))
-    IL2CPP_REGISTER_METHODINFO(0x04798E58, DirectoryInfo_GetFiles_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E044C0, app::DirectoryInfo__Array*, GetDirectories_1, (app::DirectoryInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E04550, app::DirectoryInfo__Array*, GetDirectories_2, (app::DirectoryInfo * this_ptr, app::String* search_pattern))
-    IL2CPP_REGISTER_METHODINFO(0x04786D28, DirectoryInfo_GetDirectories_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FBB40, app::String*, ToString, (app::DirectoryInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E04920, int32_t, GetFilesSubdirs, (app::DirectoryInfo * this_ptr, app::ArrayList* l, app::String* pattern))
     IL2CPP_REGISTER_METHOD(0x01E04A70, app::FileInfo__Array*, GetFiles_3, (app::DirectoryInfo * this_ptr, app::String* search_pattern, app::SearchOption__Enum search_option))
-    IL2CPP_REGISTER_METHODINFO(0x04742F68, DirectoryInfo_GetFiles_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E04EB0, void, CheckPath, (app::DirectoryInfo * this_ptr, app::String* path))
-    IL2CPP_REGISTER_METHODINFO(0x04704FA8, DirectoryInfo_CheckPath__MethodInfo)
 } // namespace app::classes::System::IO::DirectoryInfo

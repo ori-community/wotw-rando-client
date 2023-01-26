@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/FallingRocksGroup_RockInfo__Class.h>
 #include <Modloader/app/structs/FallingRocksGroup_RockInfo.h>
 #include <Modloader/app/structs/FallingRocksGroup_RockInfo__Array.h>
+#include <Modloader/app/structs/FallingRocksGroup_RockInfo__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace FallingRocksGroup_RockInfo {
-        inline app::FallingRocksGroup_RockInfo__Class** type_info = (app::FallingRocksGroup_RockInfo__Class**)(modloader::win::memory::resolve_rva(0x04731FB8));
+        inline app::FallingRocksGroup_RockInfo__Class** type_info() {
+            static app::FallingRocksGroup_RockInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::FallingRocksGroup_RockInfo__Class**)(modloader::win::memory::resolve_rva(0x04731FB8));
+            }
+            return cache;
+        }
         inline app::FallingRocksGroup_RockInfo__Class* get_class() {
-            return il2cpp::get_nested_class<app::FallingRocksGroup_RockInfo__Class>(type_info, "", "FallingRocksGroup", "RockInfo");
+            return il2cpp::get_nested_class<app::FallingRocksGroup_RockInfo__Class>(type_info(), "", "FallingRocksGroup", "RockInfo");
         }
         inline app::FallingRocksGroup_RockInfo* create() {
             return il2cpp::create_object<app::FallingRocksGroup_RockInfo>(get_class());

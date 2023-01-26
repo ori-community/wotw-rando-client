@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CalendarData__Class.h>
 #include <Modloader/app/structs/CalendarData.h>
 #include <Modloader/app/structs/CalendarData__Array.h>
+#include <Modloader/app/structs/CalendarData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace CalendarData {
-        inline app::CalendarData__Class** type_info = (app::CalendarData__Class**)(modloader::win::memory::resolve_rva(0x04773E68));
+        inline app::CalendarData__Class** type_info() {
+            static app::CalendarData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::CalendarData__Class**)(modloader::win::memory::resolve_rva(0x04773E68));
+            }
+            return cache;
+        }
         inline app::CalendarData__Class* get_class() {
-            return il2cpp::get_class<app::CalendarData__Class>(type_info, "System.Globalization", "CalendarData");
+            return il2cpp::get_class<app::CalendarData__Class>(type_info(), "System.Globalization", "CalendarData");
         }
         inline app::CalendarData* create() {
             return il2cpp::create_object<app::CalendarData>(get_class());

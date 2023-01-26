@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/ActivateAnimator.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/MoonReference_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/TimelineEntityRecord.h>
 #include <Modloader/app/structs/TimelineEntity.h>
-#include <Modloader/app/structs/Constraint__Enum.h>
-#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::ActivateAnimator {
     IL2CPP_REGISTER_METHOD(0x01BAF670, app::GameObject*, get_ExternalTarget, (app::ActivateAnimator * this_ptr))

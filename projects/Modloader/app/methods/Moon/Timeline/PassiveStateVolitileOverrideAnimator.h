@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IPassiveStateDescriptor.h>
-#include <Modloader/app/structs/PassiveStateVolitileOverrideAnimator.h>
+
+#include <Modloader/app/structs/IPassiveStateDescriptor.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/PassiveStateVolitileOverrideAnimator.h>
 #include <Modloader/app/structs/TimelineEntity.h>
-#include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::PassiveStateVolitileOverrideAnimator {
     IL2CPP_REGISTER_METHOD(0x01E78F40, app::IPassiveStateDescriptor*, get_ResolvedDescriptor, (app::PassiveStateVolitileOverrideAnimator * this_ptr))

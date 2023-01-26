@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoundHost.h>
-#include <Modloader/app/structs/ISoundListener.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
+
+#include <Modloader/app/structs/SoundHost.h>
 #include <Modloader/app/structs/AkCallbackInfo.h>
+#include <Modloader/app/structs/ISoundListener.h>
+#include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/RTPC.h>
 #include <Modloader/app/structs/Switch_1.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Wwise::SoundHost {
     IL2CPP_REGISTER_METHOD(0x0270B840, bool, IsActiveVersion, (app::SoundHost * this_ptr, int32_t version))
@@ -25,7 +26,6 @@ namespace app::classes::Moon::Wwise::SoundHost {
     IL2CPP_REGISTER_METHOD(0x0270BAC0, void, OnDisable, (app::SoundHost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0270BAE0, void, Activate, (app::SoundHost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0270C050, void, OnAuxCountChanged, (app::SoundHost * this_ptr, int32_t count))
-    IL2CPP_REGISTER_METHODINFO(0x047666F8, SoundHost_OnAuxCountChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0270C110, void, Register, (app::SoundHost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0270C1C0, void, Unregister, (app::SoundHost * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0270C270, void, RemovePlayingIDToStopOnDisable, (app::SoundHost * this_ptr, app::AkCallbackInfo* info))

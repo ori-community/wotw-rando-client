@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour_BackgroundFlightState.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour_BackgroundFlightState.h>
 #include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossDiveBombVerticalBehaviour_BackgroundFlightState {

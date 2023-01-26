@@ -1,22 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SslClientStream.h>
-#include <Modloader/app/structs/CertificateValidationCallback.h>
-#include <Modloader/app/structs/CertificateSelectionCallback.h>
-#include <Modloader/app/structs/PrivateKeySelectionCallback.h>
-#include <Modloader/app/structs/Stream.h>
-#include <Modloader/app/structs/X509CertificateCollection_1.h>
-#include <Modloader/app/structs/X509Certificate_1.h>
-#include <Modloader/app/structs/CertificateValidationCallback2.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SecurityProtocolType__Enum_1.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ValidationResult.h>
-#include <Modloader/app/structs/X509CertificateCollection_2.h>
-#include <Modloader/app/structs/Int32__Array.h>
+
+#include <Modloader/app/structs/SslClientStream.h>
 #include <Modloader/app/structs/AsymmetricAlgorithm.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/CertificateSelectionCallback.h>
+#include <Modloader/app/structs/CertificateValidationCallback.h>
+#include <Modloader/app/structs/CertificateValidationCallback2.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PrivateKeySelectionCallback.h>
+#include <Modloader/app/structs/SecurityProtocolType__Enum_1.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ValidationResult.h>
+#include <Modloader/app/structs/X509CertificateCollection_1.h>
+#include <Modloader/app/structs/X509CertificateCollection_2.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::SslClientStream {
     IL2CPP_REGISTER_METHOD(0x01F7E4B0, void, add_ServerCertValidation, (app::SslClientStream * this_ptr, app::CertificateValidationCallback* value))
@@ -41,16 +42,12 @@ namespace app::classes::Mono::Security::Protocol::Tls::SslClientStream {
     IL2CPP_REGISTER_METHOD(0x01F7EF70, void, ctor_3, (app::SslClientStream * this_ptr, app::Stream* stream, app::String* target_host, app::X509CertificateCollection_1* client_certificates))
     IL2CPP_REGISTER_METHOD(0x01F7EFA0, void, ctor_4, (app::SslClientStream * this_ptr, app::Stream* stream, app::String* target_host, bool owns_stream, app::SecurityProtocolType__Enum_1 security_protocol_type))
     IL2CPP_REGISTER_METHOD(0x01F7F130, void, ctor_5, (app::SslClientStream * this_ptr, app::Stream* stream, app::String* target_host, bool owns_stream, app::SecurityProtocolType__Enum_1 security_protocol_type, app::X509CertificateCollection_1* client_certificates))
-    IL2CPP_REGISTER_METHODINFO(0x04759200, SslClientStream__ctor_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F7F4C0, void, Finalize, (app::SslClientStream * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F7F560, void, Dispose, (app::SslClientStream * this_ptr, bool disposing))
     IL2CPP_REGISTER_METHOD(0x01F7F5B0, void, SafeEndReceiveRecord, (app::SslClientStream * this_ptr, app::IAsyncResult* ar, bool ignore_empty))
-    IL2CPP_REGISTER_METHODINFO(0x0477B200, SslClientStream_SafeEndReceiveRecord__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F7F6A0, app::IAsyncResult*, BeginNegotiateHandshake, (app::SslClientStream * this_ptr, app::AsyncCallback* callback, app::Object* state))
     IL2CPP_REGISTER_METHOD(0x01F7FA90, void, EndNegotiateHandshake, (app::SslClientStream * this_ptr, app::IAsyncResult* result))
-    IL2CPP_REGISTER_METHODINFO(0x04754F40, SslClientStream_EndNegotiateHandshake__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F7FBF0, void, NegotiateAsyncWorker, (app::SslClientStream * this_ptr, app::IAsyncResult* result))
-    IL2CPP_REGISTER_METHODINFO(0x047264D8, SslClientStream_NegotiateAsyncWorker__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F810F0, app::X509Certificate_1*, OnLocalCertificateSelection, (app::SslClientStream * this_ptr, app::X509CertificateCollection_1* client_certificates, app::X509Certificate_1* server_certificate, app::String* target_host, app::X509CertificateCollection_1* server_requested_certificates))
     IL2CPP_REGISTER_METHOD(0x01F81110, bool, get_HaveRemoteValidation2Callback, (app::SslClientStream * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F81120, app::ValidationResult*, OnRemoteCertificateValidation2, (app::SslClientStream * this_ptr, app::X509CertificateCollection_2* collection))

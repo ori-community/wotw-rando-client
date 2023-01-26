@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AreaMapDebugNavigation.h>
+
+#include <Modloader/app/structs/AreaMapDebugNavigation.h>
 #include <Modloader/app/structs/RuntimeSceneMetaData.h>
 
 namespace app::classes::AreaMapDebugNavigation {

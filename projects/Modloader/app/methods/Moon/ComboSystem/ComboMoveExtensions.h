@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComboInput.h>
+
+#include <Modloader/app/structs/ComboInput.h>
 #include <Modloader/app/structs/IComboMove.h>
 
 namespace app::classes::Moon::ComboSystem::ComboMoveExtensions {

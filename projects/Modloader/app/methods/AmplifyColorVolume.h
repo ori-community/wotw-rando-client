@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AmplifyColorVolume.h>
+
+#include <Modloader/app/structs/AmplifyColorVolume.h>
 #include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::AmplifyColorVolume {

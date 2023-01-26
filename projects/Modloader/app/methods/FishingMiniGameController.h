@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FishingMiniGameController.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/SeinCharacter.h>
+
+#include <Modloader/app/structs/FishingMiniGameController.h>
 #include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/VerletStructure_VerletJoint.h>
 
 namespace app::classes::FishingMiniGameController {
@@ -22,7 +23,6 @@ namespace app::classes::FishingMiniGameController {
     IL2CPP_REGISTER_METHOD(0x0126DAE0, void, OnEnable, (app::FishingMiniGameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0126DCB0, void, OnDisable, (app::FishingMiniGameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0126DE70, void, OnRestoreCheckpoint, (app::FishingMiniGameController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475A718, FishingMiniGameController_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0126DEB0, void, MakeSureFishAreSpawnedHack, (app::FishingMiniGameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0126E050, void, FixedUpdate, (app::FishingMiniGameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0126E0D0, void, ctor, (app::FishingMiniGameController * this_ptr))

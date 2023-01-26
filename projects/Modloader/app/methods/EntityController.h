@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/EntityController.h>
-#include <Modloader/app/structs/Enemy2D.h>
-#include <Modloader/app/structs/TextureAnimation.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Enemy2D.h>
+#include <Modloader/app/structs/EntityController.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/TextureAnimation.h>
 #include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::EntityController {

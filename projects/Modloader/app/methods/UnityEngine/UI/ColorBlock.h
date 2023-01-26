@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/ColorBlock__Boxed.h>
+
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/ColorBlock.h>
+#include <Modloader/app/structs/ColorBlock__Boxed.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::UI::ColorBlock {

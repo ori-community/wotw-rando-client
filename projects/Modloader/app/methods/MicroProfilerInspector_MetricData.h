@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/MicroProfilerInspector_MetricData__Boxed.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Metric__Enum.h>
+#include <Modloader/app/structs/MicroProfilerInspector_MetricData__Boxed.h>
 
 namespace app::classes::MicroProfilerInspector_MetricData {
     IL2CPP_REGISTER_METHOD(0x00107C00, app::String*, get_MetricHeaderName, (app::MicroProfilerInspector_MetricData__Boxed * this_ptr))

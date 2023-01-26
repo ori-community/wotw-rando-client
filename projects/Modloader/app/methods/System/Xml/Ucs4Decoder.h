@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Ucs4Decoder.h>
+
+#include <Modloader/app/structs/Ucs4Decoder.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/Char__Array.h>
 

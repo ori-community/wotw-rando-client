@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HoldingLightTorchCondition.h>
+
+#include <Modloader/app/structs/HoldingLightTorchCondition.h>
 #include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::HoldingLightTorchCondition {

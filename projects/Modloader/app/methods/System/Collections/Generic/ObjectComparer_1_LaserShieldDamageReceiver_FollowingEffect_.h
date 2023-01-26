@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_LaserShieldDamageReceiver_FollowingEffect_.h>
 #include <Modloader/app/structs/LaserShieldDamageReceiver_FollowingEffect.h>
 #include <Modloader/app/structs/Object.h>
 

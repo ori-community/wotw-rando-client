@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EventSourceCreatedEventArgs.h>
+
+#include <Modloader/app/structs/EventSourceCreatedEventArgs.h>
 #include <Modloader/app/structs/EventSource.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EventSourceCreatedEventArgs {

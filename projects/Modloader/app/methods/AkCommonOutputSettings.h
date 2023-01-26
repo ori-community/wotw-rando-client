@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkCommonOutputSettings.h>
+
+#include <Modloader/app/structs/AkCommonOutputSettings.h>
 #include <Modloader/app/structs/AkOutputSettings.h>
 
 namespace app::classes::AkCommonOutputSettings {

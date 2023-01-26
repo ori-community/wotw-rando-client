@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextGlowModifier.h>
+
+#include <Modloader/app/structs/TextGlowModifier.h>
 
 namespace app::classes::TextGlowModifier {
     IL2CPP_REGISTER_METHOD(0x010E7EE0, void, SetProperties, (app::TextGlowModifier * this_ptr))

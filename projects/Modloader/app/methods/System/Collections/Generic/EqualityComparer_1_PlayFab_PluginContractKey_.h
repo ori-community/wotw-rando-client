@@ -1,13 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_PlayFab_PluginContractKey_.h>
-#include <Modloader/app/structs/PluginContractKey__Array.h>
-#include <Modloader/app/structs/PluginContractKey.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_PlayFab_PluginContractKey_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PluginContractKey.h>
+#include <Modloader/app/structs/PluginContractKey__Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_PlayFab_PluginContractKey_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::EqualityComparer_1_PlayFab_PluginContractKey_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04704640, EqualityComparer_1_PlayFab_PluginContractKey___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_PlayFab_PluginContractKey_*, get_Default, ())
     IL2CPP_REGISTER_METHOD(0x02D44DE0, app::EqualityComparer_1_PlayFab_PluginContractKey_*, CreateComparer, ())
     IL2CPP_REGISTER_METHOD(0x02B48D60, int32_t, IndexOf, (app::EqualityComparer_1_PlayFab_PluginContractKey_ * this_ptr, app::PluginContractKey__Array* array, app::PluginContractKey value, int32_t start_index, int32_t count))

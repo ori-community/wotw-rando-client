@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RangePositionInfo__Array.h>
+
+#include <Modloader/app/structs/RangePositionInfo__Array.h>
+#include <Modloader/app/structs/Comparison_1_System_Xml_Schema_RangePositionInfo_.h>
 #include <Modloader/app/structs/IComparer_1_System_Xml_Schema_RangePositionInfo_.h>
 #include <Modloader/app/structs/RangePositionInfo.h>
-#include <Modloader/app/structs/Comparison_1_System_Xml_Schema_RangePositionInfo_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_System_Xml_Schema_RangePositionInfo_ {
     IL2CPP_REGISTER_METHOD(0x02F83940, void, Sort_1, (app::RangePositionInfo__Array * keys, int32_t index, int32_t length, app::IComparer_1_System_Xml_Schema_RangePositionInfo_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0476AD90, ArraySortHelper_1_System_Xml_Schema_RangePositionInfo__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F83C60, int32_t, BinarySearch, (app::RangePositionInfo__Array * array, int32_t index, int32_t length, app::RangePositionInfo value, app::IComparer_1_System_Xml_Schema_RangePositionInfo_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04776430, ArraySortHelper_1_System_Xml_Schema_RangePositionInfo__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F83E10, void, Sort_2, (app::RangePositionInfo__Array * keys, int32_t index, int32_t length, app::Comparison_1_System_Xml_Schema_RangePositionInfo_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0476F6A8, ArraySortHelper_1_System_Xml_Schema_RangePositionInfo__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C898B0, int32_t, InternalBinarySearch, (app::RangePositionInfo__Array * array, int32_t index, int32_t length, app::RangePositionInfo value, app::IComparer_1_System_Xml_Schema_RangePositionInfo_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C89A40, void, SwapIfGreater, (app::RangePositionInfo__Array * keys, app::Comparison_1_System_Xml_Schema_RangePositionInfo_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C89BD0, void, Swap, (app::RangePositionInfo__Array * a, int32_t i, int32_t j))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Targets_AttackableIterator.h>
+
+#include <Modloader/app/structs/Targets_AttackableIterator.h>
 
 namespace app::classes::Game::Targets_AttackableIterator {
     IL2CPP_REGISTER_METHOD(0x00684EA0, app::Targets_AttackableIterator*, Allocate, ())

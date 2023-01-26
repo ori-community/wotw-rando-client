@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FastHashSet_1_T_FastHashSetEnumerator_1_System_UInt32_System_UInt32_.h>
+
+#include <Modloader/app/structs/FastHashSet_1_T_FastHashSetEnumerator_1_System_UInt32_System_UInt32_.h>
 #include <Modloader/app/structs/FastHashSet_1_System_UInt32_.h>
 #include <Modloader/app/structs/Object.h>
 

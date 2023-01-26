@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GlobalFog.h>
-#include <Modloader/app/structs/RenderTexture.h>
+
+#include <Modloader/app/structs/GlobalFog.h>
 #include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::GlobalFog {
     IL2CPP_REGISTER_METHOD(0x02D589F0, bool, CheckResources, (app::GlobalFog * this_ptr))

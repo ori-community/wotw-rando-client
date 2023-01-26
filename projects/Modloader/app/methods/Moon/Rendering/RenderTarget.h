@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RenderTarget.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/RenderTargetType__Enum.h>
+
+#include <Modloader/app/structs/RenderTarget.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/CommandBuffer.h>
+#include <Modloader/app/structs/FilterMode__Enum.h>
 #include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/MoonRenderContext.h>
 #include <Modloader/app/structs/RenderTargetDescriptor.h>
 #include <Modloader/app/structs/RenderTargetIdentifier.h>
-#include <Modloader/app/structs/RenderTextureDescriptor.h>
-#include <Modloader/app/structs/FilterMode__Enum.h>
-#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/RenderTargetType__Enum.h>
 #include <Modloader/app/structs/RenderTexture.h>
-#include <Modloader/app/structs/MoonRenderContext.h>
-#include <Modloader/app/structs/CommandBuffer.h>
+#include <Modloader/app/structs/RenderTextureDescriptor.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Rendering::RenderTarget {
     IL2CPP_REGISTER_METHOD(0x00EB1BB0, void, ctor_1, (app::RenderTarget * this_ptr))
@@ -36,7 +37,5 @@ namespace app::classes::Moon::Rendering::RenderTarget {
     IL2CPP_REGISTER_METHOD(0x00EB22B0, void, Release_1, (app::RenderTarget * this_ptr, app::MoonRenderContext* context))
     IL2CPP_REGISTER_METHOD(0x00EB22E0, void, Release_2, (app::RenderTarget * this_ptr, app::CommandBuffer* cmd))
     IL2CPP_REGISTER_METHOD(0x00EB22F0, void, AcquireInternal, (app::RenderTarget * this_ptr, app::CommandBuffer* cmd))
-    IL2CPP_REGISTER_METHODINFO(0x04760B08, RenderTarget_AcquireInternal__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EB2880, void, ReleaseInternal, (app::RenderTarget * this_ptr, app::CommandBuffer* cmd))
-    IL2CPP_REGISTER_METHODINFO(0x047504A8, RenderTarget_ReleaseInternal__MethodInfo)
 } // namespace app::classes::Moon::Rendering::RenderTarget

@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/GhostGenericEventsPlugin_Data_ActionType__Enum.h>
+#include <Modloader/app/structs/GhostGenericEventsPlugin_Data_ActionType__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GhostGenericEventsPlugin_Data_ActionType__Enum__Class.h>
-#include <Modloader/app/structs/GhostGenericEventsPlugin_Data_ActionType__Enum.h>
 
 namespace app::classes::types {
     namespace GhostGenericEventsPlugin_Data_ActionType__Enum {
-        namespace {
-            inline app::GhostGenericEventsPlugin_Data_ActionType__Enum__Class* type_info_ref = nullptr;
+        inline app::GhostGenericEventsPlugin_Data_ActionType__Enum__Class** type_info() {
+            static app::GhostGenericEventsPlugin_Data_ActionType__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GhostGenericEventsPlugin_Data_ActionType__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GhostGenericEventsPlugin_Data_ActionType__Enum__Class** type_info = &type_info_ref;
         inline app::GhostGenericEventsPlugin_Data_ActionType__Enum__Class* get_class() {
-            return il2cpp::get_nested_class<app::GhostGenericEventsPlugin_Data_ActionType__Enum__Class>(type_info, "", "GhostGenericEventsPlugin+Data", "ActionType");
+            return il2cpp::get_nested_class<app::GhostGenericEventsPlugin_Data_ActionType__Enum__Class>(type_info(), "", "GhostGenericEventsPlugin+Data", "ActionType");
         }
         inline app::GhostGenericEventsPlugin_Data_ActionType__Enum* create() {
             return il2cpp::create_object<app::GhostGenericEventsPlugin_Data_ActionType__Enum>(get_class());

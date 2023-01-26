@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostCameraPlugin.h>
+
+#include <Modloader/app/structs/GhostCameraPlugin.h>
 #include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
 
 namespace app::classes::GhostCameraPlugin {

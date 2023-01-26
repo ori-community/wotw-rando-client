@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SpitterEnemy.h>
+#include <Modloader/app/structs/SpitterEnemy__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SpitterEnemy__Class.h>
-#include <Modloader/app/structs/SpitterEnemy.h>
 
 namespace app::classes::types {
     namespace SpitterEnemy {
-        namespace {
-            inline app::SpitterEnemy__Class* type_info_ref = nullptr;
+        inline app::SpitterEnemy__Class** type_info() {
+            static app::SpitterEnemy__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SpitterEnemy__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SpitterEnemy__Class** type_info = &type_info_ref;
         inline app::SpitterEnemy__Class* get_class() {
-            return il2cpp::get_class<app::SpitterEnemy__Class>(type_info, "", "SpitterEnemy");
+            return il2cpp::get_class<app::SpitterEnemy__Class>(type_info(), "", "SpitterEnemy");
         }
         inline app::SpitterEnemy* create() {
             return il2cpp::create_object<app::SpitterEnemy>(get_class());

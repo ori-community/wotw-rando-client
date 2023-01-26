@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RagdollUtility_Rigidbone.h>
+
+#include <Modloader/app/structs/RagdollUtility_Rigidbone.h>
 #include <Modloader/app/structs/Rigidbody.h>
 
 namespace app::classes::RootMotion::FinalIK::RagdollUtility_Rigidbone {

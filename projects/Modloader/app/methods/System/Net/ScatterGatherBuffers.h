@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScatterGatherBuffers.h>
+
+#include <Modloader/app/structs/ScatterGatherBuffers.h>
 #include <Modloader/app/structs/BufferOffsetSize_1__Array.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/ScatterGatherBuffers_MemoryChunk.h>

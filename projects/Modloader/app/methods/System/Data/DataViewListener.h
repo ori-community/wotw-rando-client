@@ -1,23 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataViewListener.h>
-#include <Modloader/app/structs/DataView.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/DataViewListener.h>
 #include <Modloader/app/structs/CollectionChangeEventArgs.h>
-#include <Modloader/app/structs/ListChangedType__Enum.h>
 #include <Modloader/app/structs/DataRow.h>
-#include <Modloader/app/structs/ListChangedEventArgs.h>
 #include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/DataView.h>
 #include <Modloader/app/structs/Index.h>
+#include <Modloader/app/structs/ListChangedEventArgs.h>
+#include <Modloader/app/structs/ListChangedType__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Data::DataViewListener {
     IL2CPP_REGISTER_METHOD(0x01F47680, void, ctor, (app::DataViewListener * this_ptr, app::DataView* dv))
     IL2CPP_REGISTER_METHOD(0x01F477F0, void, ChildRelationCollectionChanged, (app::DataViewListener * this_ptr, app::Object* sender, app::CollectionChangeEventArgs* e))
-    IL2CPP_REGISTER_METHODINFO(0x047748B0, DataViewListener_ChildRelationCollectionChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F47920, void, ParentRelationCollectionChanged, (app::DataViewListener * this_ptr, app::Object* sender, app::CollectionChangeEventArgs* e))
-    IL2CPP_REGISTER_METHODINFO(0x0476D4D8, DataViewListener_ParentRelationCollectionChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F47A50, void, ColumnCollectionChanged, (app::DataViewListener * this_ptr, app::Object* sender, app::CollectionChangeEventArgs* e))
-    IL2CPP_REGISTER_METHODINFO(0x0477DDC0, DataViewListener_ColumnCollectionChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F47B90, void, MaintainDataView, (app::DataViewListener * this_ptr, app::ListChangedType__Enum changed_type, app::DataRow* row, bool track_add_remove))
     IL2CPP_REGISTER_METHOD(0x01F47CD0, void, IndexListChanged, (app::DataViewListener * this_ptr, app::ListChangedEventArgs* e))
     IL2CPP_REGISTER_METHOD(0x01F47ED0, void, RegisterMetaDataEvents, (app::DataViewListener * this_ptr, app::DataTable* table))

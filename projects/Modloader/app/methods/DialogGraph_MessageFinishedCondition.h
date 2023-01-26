@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DialogGraph_MessageFinishedCondition.h>
+
+#include <Modloader/app/structs/DialogGraph_MessageFinishedCondition.h>
 #include <Modloader/app/structs/DialogGraph.h>
 #include <Modloader/app/structs/IContext.h>
 

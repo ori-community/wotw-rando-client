@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IInteractionNode.h>
-#include <Modloader/app/structs/InteractionGraph.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/IInteractionNode.h>
 #include <Modloader/app/structs/IInteractionNode__Array.h>
+#include <Modloader/app/structs/InteractionGraph.h>
 #include <Modloader/app/structs/StateMachine_1.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::InteractionGraph::InteractionGraph {
@@ -27,7 +28,6 @@ namespace app::classes::Moon::InteractionGraph::InteractionGraph {
     IL2CPP_REGISTER_METHOD(0x0198DF80, void, StartInteractionGraph, (app::InteractionGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0198E2C0, void, StopInteractionGraph, (app::InteractionGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0198E4A0, void, OnStateChanged, (app::InteractionGraph * this_ptr, app::StateMachine_1* sm))
-    IL2CPP_REGISTER_METHODINFO(0x0478E6C8, InteractionGraph_OnStateChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0198E540, void, BuildStateMachine, (app::InteractionGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0043D9E0, app::UpdateType__Enum, get_UpdateType, (app::InteractionGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0198EA10, void, ctor, (app::InteractionGraph * this_ptr))

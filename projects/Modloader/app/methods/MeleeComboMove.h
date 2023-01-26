@@ -1,29 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MeleeComboMove.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/MeleeWeapon.h>
-#include <Modloader/app/structs/MaterialBasedSeinEffectsMap.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/ComboMoveType__Enum.h>
+
+#include <Modloader/app/structs/MeleeComboMove.h>
+#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/ButtonInputType__Enum.h>
-#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/ComboInput.h>
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/IComboMove.h>
 #include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
+#include <Modloader/app/structs/MaterialBasedSeinEffectsMap.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/MoonAnimation.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/MoveEventType__Enum.h>
 #include <Modloader/app/structs/RaycastHit.h>
 #include <Modloader/app/structs/SeinComboHandler.h>
 #include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
-#include <Modloader/app/structs/MoonAnimation.h>
-#include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/Func_1_Boolean_.h>
-#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MeleeComboMove {
     IL2CPP_REGISTER_METHOD(0x01386280, void, ResetHitTracking, (app::MeleeComboMove * this_ptr))
@@ -77,7 +78,6 @@ namespace app::classes::MeleeComboMove {
     IL2CPP_REGISTER_METHOD(0x01389660, void, OnAnimationEvent, (app::MeleeComboMove * this_ptr, app::SeinController3D_EventId__Enum event_id))
     IL2CPP_REGISTER_METHOD(0x01389680, void, PlayAnimation, (app::MeleeComboMove * this_ptr, app::MoonAnimation* animation, float speed_multiplier, app::Action* on_stop_playing, app::Func_1_Boolean_* condition, int32_t animation_priority))
     IL2CPP_REGISTER_METHOD(0x01389930, void, OnAnimationStarted, (app::MeleeComboMove * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475C558, MeleeComboMove_OnAnimationStarted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01389AB0, bool, IsValidGroundCollisionNormal, (app::MeleeComboMove * this_ptr, app::Vector3 surface_normal))
     IL2CPP_REGISTER_METHOD(0x01389CB0, bool, IsValidTargetPosition, (app::MeleeComboMove * this_ptr, app::Vector2 position))
     IL2CPP_REGISTER_METHOD(0x01389F30, app::IAttackable*, GetNearestTarget, (app::MeleeComboMove * this_ptr))
@@ -85,7 +85,6 @@ namespace app::classes::MeleeComboMove {
     IL2CPP_REGISTER_METHOD(0x0138A920, float, ComputeAngleTo, (app::MeleeComboMove * this_ptr, app::IAttackable* attackable))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnDestroyMove, (app::MeleeComboMove * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0138AB40, void, ResetAirLimits, (app::MeleeComboMove * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470FDA0, MeleeComboMove_ResetAirLimits__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0138ABA0, void, OnDestroy, (app::MeleeComboMove * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0138ADA0, void, ctor, (app::MeleeComboMove * this_ptr))
 } // namespace app::classes::MeleeComboMove

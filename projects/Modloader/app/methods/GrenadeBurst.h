@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DamageLayerMask__Enum.h>
+
+#include <Modloader/app/structs/DamageLayerMask__Enum.h>
+#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/GrenadeBurst.h>
 #include <Modloader/app/structs/IAttackable.h>
-#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::GrenadeBurst {
@@ -21,7 +22,6 @@ namespace app::classes::GrenadeBurst {
     IL2CPP_REGISTER_METHOD(0x0108B5E0, void, Start, (app::GrenadeBurst * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0108B600, void, DealDamage, (app::GrenadeBurst * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0108C910, void, DamageTicked, (app::GrenadeBurst * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x04718530, GrenadeBurst_DamageTicked__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0108CB10, void, FixedUpdate, (app::GrenadeBurst * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFE10, bool, get_IsSuspended, (app::GrenadeBurst * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0057BAC0, void, set_IsSuspended, (app::GrenadeBurst * this_ptr, bool value))

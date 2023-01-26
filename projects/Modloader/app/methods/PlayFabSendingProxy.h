@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Action_1_MoonTelemetryEvent_.h>
+
+#include <Modloader/app/structs/Action_1_MoonTelemetryEvent_.h>
 #include <Modloader/app/structs/MoonTelemetryEvent.h>
 
 namespace app::classes::PlayFabSendingProxy {

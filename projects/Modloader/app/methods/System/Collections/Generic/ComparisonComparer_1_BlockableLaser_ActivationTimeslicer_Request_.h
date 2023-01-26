@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_BlockableLaser_ActivationTimeslicer_Request_.h>
-#include <Modloader/app/structs/Comparison_1_BlockableLaser_ActivationTimeslicer_Request_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_BlockableLaser_ActivationTimeslicer_Request_.h>
 #include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request.h>
+#include <Modloader/app/structs/Comparison_1_BlockableLaser_ActivationTimeslicer_Request_.h>
 
 namespace app::classes::System::Collections::Generic::ComparisonComparer_1_BlockableLaser_ActivationTimeslicer_Request_ {
     IL2CPP_REGISTER_METHOD(0x0162A010, void, ctor, (app::ComparisonComparer_1_BlockableLaser_ActivationTimeslicer_Request_ * this_ptr, app::Comparison_1_BlockableLaser_ActivationTimeslicer_Request_* comparison))

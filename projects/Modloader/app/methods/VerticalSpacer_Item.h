@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IAlignable.h>
+
+#include <Modloader/app/structs/IAlignable.h>
 #include <Modloader/app/structs/VerticalSpacer_Item__Boxed.h>
 
 namespace app::classes::VerticalSpacer_Item {

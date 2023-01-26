@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/WorldCoordinatesMap.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/WorldCoordinatesMap.h>
 
 namespace app::classes::WorldCoordinatesMap {
     IL2CPP_REGISTER_METHOD(0x0057EC10, app::Vector3, WorldToLocal, (app::WorldCoordinatesMap * this_ptr, app::Vector3 position))

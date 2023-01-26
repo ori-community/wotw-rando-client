@@ -1,25 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlReader.h>
-#include <Modloader/app/structs/XmlAsyncCheckReader.h>
-#include <Modloader/app/structs/XmlReaderSettings.h>
-#include <Modloader/app/structs/XmlNodeType__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSpace__Enum.h>
-#include <Modloader/app/structs/IXmlSchemaInfo.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/ReadState__Enum_1.h>
-#include <Modloader/app/structs/XmlNameTable.h>
+
+#include <Modloader/app/structs/XmlReader.h>
 #include <Modloader/app/structs/Char__Array.h>
-#include <Modloader/app/structs/XmlNamespaceManager.h>
 #include <Modloader/app/structs/IDtdInfo.h>
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
+#include <Modloader/app/structs/ReadState__Enum_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XmlAsyncCheckReader.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
 
 namespace app::classes::System::Xml::XmlAsyncCheckReader {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::XmlReader*, get_CoreReader, (app::XmlAsyncCheckReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01957F10, app::XmlAsyncCheckReader*, CreateAsyncCheckWrapper, (app::XmlReader * reader))
     IL2CPP_REGISTER_METHOD(0x01958530, void, ctor, (app::XmlAsyncCheckReader * this_ptr, app::XmlReader* reader))
     IL2CPP_REGISTER_METHOD(0x01958610, void, CheckAsync, (app::XmlAsyncCheckReader * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473E190, XmlAsyncCheckReader_CheckAsync__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019586F0, app::XmlReaderSettings*, get_Settings, (app::XmlAsyncCheckReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01958900, app::XmlNodeType__Enum, get_NodeType, (app::XmlAsyncCheckReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01958940, app::String*, get_Name, (app::XmlAsyncCheckReader * this_ptr))
@@ -31,7 +31,7 @@ namespace app::classes::System::Xml::XmlAsyncCheckReader {
     IL2CPP_REGISTER_METHOD(0x01958AC0, app::String*, get_BaseURI, (app::XmlAsyncCheckReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01958B00, bool, get_IsEmptyElement, (app::XmlAsyncCheckReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01958B40, bool, get_IsDefault, (app::XmlAsyncCheckReader * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01958B80, uint16_t, get_QuoteChar, (app::XmlAsyncCheckReader * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01958B80, char16_t, get_QuoteChar, (app::XmlAsyncCheckReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01958BC0, app::XmlSpace__Enum, get_XmlSpace, (app::XmlAsyncCheckReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01958C00, app::String*, get_XmlLang, (app::XmlAsyncCheckReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01958C40, app::IXmlSchemaInfo*, get_SchemaInfo, (app::XmlAsyncCheckReader * this_ptr))

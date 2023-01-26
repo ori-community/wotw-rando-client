@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayableDirector.h>
+
+#include <Modloader/app/structs/PlayableDirector.h>
 
 namespace app::classes::UnityEngine::Playables::PlayableDirector {
     IL2CPP_REGISTER_METHOD(0x031C4A90, void, SendOnPlayableDirectorPlay, (app::PlayableDirector * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ParticleSystemSpeedAnimator.h>
+
+#include <Modloader/app/structs/ParticleSystemSpeedAnimator.h>
 #include <Modloader/app/structs/ParticleSystem.h>
 
 namespace app::classes::ParticleSystemSpeedAnimator {

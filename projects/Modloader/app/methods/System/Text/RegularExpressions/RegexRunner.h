@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RegexRunner.h>
+
+#include <Modloader/app/structs/RegexRunner.h>
 #include <Modloader/app/structs/Match.h>
 #include <Modloader/app/structs/Regex.h>
 #include <Modloader/app/structs/String.h>
@@ -12,7 +13,6 @@ namespace app::classes::System::Text::RegularExpressions::RegexRunner {
     IL2CPP_REGISTER_METHOD(0x02A779E0, void, StartTimeoutWatch, (app::RegexRunner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A77A40, void, CheckTimeout, (app::RegexRunner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A77BB0, void, DoCheckTimeout, (app::RegexRunner * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472C5F8, RegexRunner_DoCheckTimeout__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02A77D00, void, InitMatch, (app::RegexRunner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A78160, app::Match*, TidyMatch, (app::RegexRunner * this_ptr, bool quick))
     IL2CPP_REGISTER_METHOD(0x02A781B0, void, EnsureStorage, (app::RegexRunner * this_ptr))

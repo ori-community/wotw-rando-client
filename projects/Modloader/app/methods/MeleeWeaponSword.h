@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MeleeWeaponSword.h>
+
+#include <Modloader/app/structs/MeleeWeaponSword.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 #include <Modloader/app/structs/TrackingExclusions.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MeleeWeaponSword {
     IL2CPP_REGISTER_METHOD(0x009D0E80, bool, get_IsAllowed, (app::MeleeWeaponSword * this_ptr))
@@ -23,9 +24,7 @@ namespace app::classes::MeleeWeaponSword {
     IL2CPP_REGISTER_METHOD(0x009D1C40, void, OnEndCombo, (app::MeleeWeaponSword * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009D1F30, bool, CanDeactivateRoot, (app::MeleeWeaponSword * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009D1F80, void, OnWeaponCollision, (app::MeleeWeaponSword * this_ptr, app::Collider* collider, app::Vector3 handle_center, app::Vector3 hit_direction, app::Vector3 damage_position))
-    IL2CPP_REGISTER_METHODINFO(0x0471BD58, MeleeWeaponSword_OnWeaponCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009D20D0, void, OnGroundCollision, (app::MeleeWeaponSword * this_ptr, app::Vector3 hit_position, app::Vector3 hit_normal, app::Vector3 surface_normal, app::SurfaceMaterialType__Enum surface_type))
-    IL2CPP_REGISTER_METHODINFO(0x04788D68, MeleeWeaponSword_OnGroundCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009D2310, void, ShowSword, (app::MeleeWeaponSword * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009D2870, void, HideSword, (app::MeleeWeaponSword * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009C64E0, void, OnUnequip, (app::MeleeWeaponSword * this_ptr))

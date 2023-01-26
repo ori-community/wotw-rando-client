@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Playable__Boxed.h>
-#include <Modloader/app/structs/PlayableHandle.h>
+
+#include <Modloader/app/structs/Playable__Boxed.h>
 #include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/PlayableHandle.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::UnityEngine::Playables::Playable {

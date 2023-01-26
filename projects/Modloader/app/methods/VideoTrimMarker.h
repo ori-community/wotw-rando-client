@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VideoTrimMarker.h>
+
+#include <Modloader/app/structs/VideoTrimMarker.h>
 #include <Modloader/app/structs/PointerEventData.h>
 
 namespace app::classes::VideoTrimMarker {

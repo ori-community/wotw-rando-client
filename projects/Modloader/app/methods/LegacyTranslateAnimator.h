@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyTranslateAnimator.h>
+
+#include <Modloader/app/structs/LegacyTranslateAnimator.h>
 
 namespace app::classes::LegacyTranslateAnimator {
     IL2CPP_REGISTER_METHOD(0x01127E70, void, Awake, (app::LegacyTranslateAnimator * this_ptr))

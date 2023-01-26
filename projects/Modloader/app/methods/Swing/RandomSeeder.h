@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RandomSeeder.h>
-#include <Modloader/app/structs/IntRange.h>
-#include <Modloader/app/structs/FloatRange.h>
+
+#include <Modloader/app/structs/RandomSeeder.h>
 #include <Modloader/app/structs/Angle.h>
 #include <Modloader/app/structs/AngleRange.h>
+#include <Modloader/app/structs/FloatRange.h>
+#include <Modloader/app/structs/IntRange.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/List_1_System_Object_.h>
 
 namespace app::classes::Swing::RandomSeeder {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_seed, (app::RandomSeeder * this_ptr))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SwitchController.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Button__Enum.h>
+
+#include <Modloader/app/structs/SwitchController.h>
 #include <Modloader/app/structs/Axis__Enum_1.h>
+#include <Modloader/app/structs/Button__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::frameworks::Switch::SwitchController {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, Vibrate_1, (float left, float right, float left_trigger, float right_trigger, float duration))

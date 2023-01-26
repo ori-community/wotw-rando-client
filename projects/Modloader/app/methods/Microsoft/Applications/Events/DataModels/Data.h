@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Dictionary_2_System_String_Microsoft_Applications_Events_DataModels_Value_.h>
+
+#include <Modloader/app/structs/Dictionary_2_System_String_Microsoft_Applications_Events_DataModels_Value_.h>
 #include <Modloader/app/structs/Data.h>
 #include <Modloader/app/structs/String.h>
 

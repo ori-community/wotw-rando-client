@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/UberStateData.h>
+#include <Modloader/app/structs/UberStateData__Array.h>
+#include <Modloader/app/structs/UberStateData__Boxed.h>
+#include <Modloader/app/structs/UberStateData__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UberStateData__Class.h>
-#include <Modloader/app/structs/UberStateData.h>
-#include <Modloader/app/structs/UberStateData__Boxed.h>
-#include <Modloader/app/structs/UberStateData__Array.h>
 
 namespace app::classes::types {
     namespace UberStateData {
-        inline app::UberStateData__Class** type_info = (app::UberStateData__Class**)(modloader::win::memory::resolve_rva(0x04774738));
+        inline app::UberStateData__Class** type_info() {
+            static app::UberStateData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::UberStateData__Class**)(modloader::win::memory::resolve_rva(0x04774738));
+            }
+            return cache;
+        }
         inline app::UberStateData__Class* get_class() {
-            return il2cpp::get_class<app::UberStateData__Class>(type_info, "Moon.UberStateVisualization", "UberStateData");
+            return il2cpp::get_class<app::UberStateData__Class>(type_info(), "Moon.UberStateVisualization", "UberStateData");
         }
         inline app::UberStateData* create() {
             return il2cpp::create_object<app::UberStateData>(get_class());

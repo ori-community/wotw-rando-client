@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Shelf.h>
+
+#include <Modloader/app/structs/Shelf.h>
 #include <Modloader/app/structs/CreateObjectsOnGridTool.h>
 
 namespace app::classes::CreateObjectsOnGridTool {

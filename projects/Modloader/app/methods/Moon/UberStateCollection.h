@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberStateCollection.h>
+
+#include <Modloader/app/structs/UberStateCollection.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_IExternallyModifiableUberState_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_INonSerializedUberState_.h>
 #include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_ScriptableObject_.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IUberState.h>
 #include <Modloader/app/structs/UberID.h>
 #include <Modloader/app/structs/UberStateCollectionGroup.h>
-#include <Modloader/app/structs/IUberState__Array.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_INonSerializedUberState_.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_IExternallyModifiableUberState_.h>
 
 namespace app::classes::Moon::UberStateCollection {
     IL2CPP_REGISTER_METHOD(0x01B674A0, app::UberStateCollection*, get_Instance, ())

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DropLootSettings.h>
+
+#include <Modloader/app/structs/DropLootSettings.h>
 
 namespace app::classes::DropLootSettings {
     IL2CPP_REGISTER_METHOD(0x0052A030, bool, get_IsEnemyLoot, (app::DropLootSettings * this_ptr))

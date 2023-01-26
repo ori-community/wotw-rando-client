@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
 #include <Modloader/app/structs/Enable2DLighting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::Enable2DLighting {

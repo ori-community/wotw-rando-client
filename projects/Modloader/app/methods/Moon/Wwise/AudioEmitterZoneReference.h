@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AudioEmitterZoneReference__Boxed.h>
+
+#include <Modloader/app/structs/AudioEmitterZoneReference__Boxed.h>
 #include <Modloader/app/structs/AudioEmitterZone.h>
 #include <Modloader/app/structs/AudioEmitterZoneReference.h>
 #include <Modloader/app/structs/Object.h>

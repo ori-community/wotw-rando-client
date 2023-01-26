@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NativeArray_1_UnityEngine_SpherecastCommand___Boxed.h>
+
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_SpherecastCommand___Boxed.h>
 #include <Modloader/app/structs/Allocator__Enum.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_SpherecastCommand_.h>
 #include <Modloader/app/structs/NativeArrayOptions__Enum.h>
+#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_SpherecastCommand_.h>
 #include <Modloader/app/structs/NativeArray_1_UnityEngine_SpherecastCommand_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SpherecastCommand.h>
 #include <Modloader/app/structs/SpherecastCommand__Array.h>
-#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_SpherecastCommand_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_SpherecastCommand_.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Unity::Collections::NativeArray_1_UnityEngine_SpherecastCommand_ {
     IL2CPP_REGISTER_METHOD(0x001DF770, void, ctor, (app::NativeArray_1_UnityEngine_SpherecastCommand___Boxed * this_ptr, int32_t length, app::Allocator__Enum allocator, app::NativeArrayOptions__Enum options))

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Instruction__Class.h>
 #include <Modloader/app/structs/Instruction.h>
 #include <Modloader/app/structs/Instruction__Array.h>
+#include <Modloader/app/structs/Instruction__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Instruction {
-        namespace {
-            inline app::Instruction__Class* type_info_ref = nullptr;
+        inline app::Instruction__Class** type_info() {
+            static app::Instruction__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Instruction__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Instruction__Class** type_info = &type_info_ref;
         inline app::Instruction__Class* get_class() {
-            return il2cpp::get_class<app::Instruction__Class>(type_info, "System.Linq.Expressions.Interpreter", "Instruction");
+            return il2cpp::get_class<app::Instruction__Class>(type_info(), "System.Linq.Expressions.Interpreter", "Instruction");
         }
         inline app::Instruction* create() {
             return il2cpp::create_object<app::Instruction>(get_class());

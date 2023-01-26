@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttachSoundToPhysicsSystem.h>
+
+#include <Modloader/app/structs/AttachSoundToPhysicsSystem.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Transform.h>
 
@@ -16,7 +17,6 @@ namespace app::classes::AttachSoundToPhysicsSystem {
     IL2CPP_REGISTER_METHOD(0x008485F0, void, PerformAttachment, (app::AttachSoundToPhysicsSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00848F60, void, OnUpdatePhysics, (app::AttachSoundToPhysicsSystem * this_ptr, float dt))
     IL2CPP_REGISTER_METHOD(0x003FDD60, float, CalculateRtpcValue, (app::AttachSoundToPhysicsSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04778978, AttachSoundToPhysicsSystem_CalculateRtpcValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00849480, float, GetStretchSpeed, (app::AttachSoundToPhysicsSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00849490, float, GetRotationSpeed, (app::AttachSoundToPhysicsSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008494A0, void, ctor, (app::AttachSoundToPhysicsSystem * this_ptr))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShardTraderNPC.h>
-#include <Modloader/app/structs/ShardTraderNPC_State__Enum.h>
-#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+
+#include <Modloader/app/structs/ShardTraderNPC.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/ShardTraderNPC_State__Enum.h>
 
 namespace app::classes::ShardTraderNPC {
     IL2CPP_REGISTER_METHOD(0x003FFBD0, int32_t, get_CurrentState, (app::ShardTraderNPC * this_ptr))
@@ -22,7 +23,6 @@ namespace app::classes::ShardTraderNPC {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateInteraction, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnExitInteraction, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005AEC50, void, OnInteractionMessageHide, (app::ShardTraderNPC * this_ptr, app::MessageBox_HideAction__Enum action))
-    IL2CPP_REGISTER_METHODINFO(0x047770C8, ShardTraderNPC_OnInteractionMessageHide__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005AEEF0, void, OnEnterInShop, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005AF060, void, UpdateInShop, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnExitInShop, (app::ShardTraderNPC * this_ptr))
@@ -30,17 +30,13 @@ namespace app::classes::ShardTraderNPC {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateAfterShop, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005AF2F0, void, OnExitAfterShop, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005AF5E0, void, OnAfterShopMessageHide, (app::ShardTraderNPC * this_ptr, app::MessageBox_HideAction__Enum action))
-    IL2CPP_REGISTER_METHODINFO(0x04743940, ShardTraderNPC_OnAfterShopMessageHide__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005AF5F0, void, OnEnterDidNotBuy, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateDidNotBuy, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005AF780, void, OnExitDidNotBuy, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005AF5E0, void, OnDidNotBuyMessageHide, (app::ShardTraderNPC * this_ptr, app::MessageBox_HideAction__Enum action))
-    IL2CPP_REGISTER_METHODINFO(0x047225E0, ShardTraderNPC_OnDidNotBuyMessageHide__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005AF980, void, ctor, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005AF9B0, void, _OnInteractionMessageHide_b__43_0, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473AC98, ShardTraderNPC__OnInteractionMessageHide_b__43_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005AF9C0, void, _OnInteractionMessageHide_b__43_1, (app::ShardTraderNPC * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04704A50, ShardTraderNPC__OnInteractionMessageHide_b__43_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_1, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_2, (app::ShardTraderNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006A63A0, app::IMoonTypeResolver*, GetResolverForType_3, (app::ShardTraderNPC * this_ptr))

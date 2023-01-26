@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScalableAnimationPlayer.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/TimelineEntityRecord.h>
-#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_IEventDescriptor_.h>
-#include <Modloader/app/structs/Single__Array.h>
+
+#include <Modloader/app/structs/ScalableAnimationPlayer.h>
 #include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_IEventDescriptor_.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::ScalableAnimationPlayer {
     IL2CPP_REGISTER_METHOD(0x003FC510, float, get_EffectiveSpeed, (app::ScalableAnimationPlayer * this_ptr))

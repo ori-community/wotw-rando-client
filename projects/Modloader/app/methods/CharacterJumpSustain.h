@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterJumpSustain.h>
+
+#include <Modloader/app/structs/CharacterJumpSustain.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/CharacterGravity.h>
 #include <Modloader/app/structs/PlatformMovement.h>
-#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::CharacterJumpSustain {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::CharacterJumpSustain * this_ptr))

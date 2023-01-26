@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSqlBinaryReader_NestedBinXml.h>
+
+#include <Modloader/app/structs/XmlSqlBinaryReader_NestedBinXml.h>
 #include <Modloader/app/structs/XmlSqlBinaryReader_SymbolTables.h>
 
 namespace app::classes::System::Xml::XmlSqlBinaryReader_NestedBinXml {

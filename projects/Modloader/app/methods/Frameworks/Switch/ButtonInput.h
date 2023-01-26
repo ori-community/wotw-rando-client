@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Button__Enum.h>
+
+#include <Modloader/app/structs/Button__Enum.h>
 #include <Modloader/app/structs/ButtonInput.h>
 
 namespace app::classes::frameworks::Switch::ButtonInput {

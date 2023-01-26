@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ForeignKeyConstraintEnumerator.h>
-#include <Modloader/app/structs/DataSet.h>
+
+#include <Modloader/app/structs/ForeignKeyConstraintEnumerator.h>
 #include <Modloader/app/structs/Constraint_1.h>
+#include <Modloader/app/structs/DataSet.h>
 #include <Modloader/app/structs/ForeignKeyConstraint.h>
 
 namespace app::classes::System::Data::ForeignKeyConstraintEnumerator {

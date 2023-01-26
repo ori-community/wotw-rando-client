@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_EntityWeightData_EntityWeightSettings_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_EntityWeightData_EntityWeightSettings_.h>
 #include <Modloader/app/structs/EntityWeightData_EntityWeightSettings.h>
 #include <Modloader/app/structs/EntityWeightData_EntityWeightSettings__Array.h>
 #include <Modloader/app/structs/Object.h>

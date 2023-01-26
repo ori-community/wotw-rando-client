@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TransformStreamHandle.h>
+
+#include <Modloader/app/structs/TransformStreamHandle.h>
 #include <Modloader/app/structs/Animator.h>
 #include <Modloader/app/structs/Transform.h>
 

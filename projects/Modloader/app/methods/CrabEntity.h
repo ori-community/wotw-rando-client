@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CrabEntity.h>
+
+#include <Modloader/app/structs/CrabEntity.h>
 #include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::CrabEntity {

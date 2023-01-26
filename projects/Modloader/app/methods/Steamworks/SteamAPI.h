@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AppId_t.h>
-#include <Modloader/app/structs/HSteamUser.h>
+
+#include <Modloader/app/structs/AppId_t.h>
 #include <Modloader/app/structs/HSteamPipe.h>
+#include <Modloader/app/structs/HSteamUser.h>
 
 namespace app::classes::Steamworks::SteamAPI {
     IL2CPP_REGISTER_METHOD(0x027E1F00, bool, Init, ())

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/MoonTimelineOnConditionController.h>
+
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/MoonTimelineOnConditionController.h>
 
 namespace app::classes::MoonTimelineOnConditionController {
     IL2CPP_REGISTER_METHOD(0x014732D0, app::MoonTimeline*, get_OnConditionEnterResolved, (app::MoonTimelineOnConditionController * this_ptr))
@@ -15,5 +16,4 @@ namespace app::classes::MoonTimelineOnConditionController {
     IL2CPP_REGISTER_METHOD(0x01473B20, void, PlayTimeline, (app::MoonTimelineOnConditionController * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::MoonTimelineOnConditionController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01473C10, void, _FixedUpdate_b__18_0, (app::MoonTimelineOnConditionController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472D810, MoonTimelineOnConditionController__FixedUpdate_b__18_0__MethodInfo)
 } // namespace app::classes::MoonTimelineOnConditionController

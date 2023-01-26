@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUIScrollGroup.h>
+
+#include <Modloader/app/structs/GUIScrollGroup.h>
 
 namespace app::classes::UnityEngine::GUIScrollGroup {
     IL2CPP_REGISTER_METHOD(0x029EF9B0, void, ctor, (app::GUIScrollGroup * this_ptr))

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GameCenterPlayFabIdPair__Class.h>
 #include <Modloader/app/structs/GameCenterPlayFabIdPair.h>
 #include <Modloader/app/structs/GameCenterPlayFabIdPair__Array.h>
+#include <Modloader/app/structs/GameCenterPlayFabIdPair__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace GameCenterPlayFabIdPair {
-        namespace {
-            inline app::GameCenterPlayFabIdPair__Class* type_info_ref = nullptr;
+        inline app::GameCenterPlayFabIdPair__Class** type_info() {
+            static app::GameCenterPlayFabIdPair__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GameCenterPlayFabIdPair__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GameCenterPlayFabIdPair__Class** type_info = &type_info_ref;
         inline app::GameCenterPlayFabIdPair__Class* get_class() {
-            return il2cpp::get_class<app::GameCenterPlayFabIdPair__Class>(type_info, "PlayFab.ClientModels", "GameCenterPlayFabIdPair");
+            return il2cpp::get_class<app::GameCenterPlayFabIdPair__Class>(type_info(), "PlayFab.ClientModels", "GameCenterPlayFabIdPair");
         }
         inline app::GameCenterPlayFabIdPair* create() {
             return il2cpp::create_object<app::GameCenterPlayFabIdPair>(get_class());

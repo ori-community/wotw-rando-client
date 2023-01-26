@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WebConnectionData.h>
+
+#include <Modloader/app/structs/WebConnectionData.h>
 #include <Modloader/app/structs/HttpWebRequest.h>
 #include <Modloader/app/structs/ReadState__Enum.h>
 
@@ -11,5 +12,4 @@ namespace app::classes::System::Net::WebConnectionData {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, set_request, (app::WebConnectionData * this_ptr, app::HttpWebRequest* value))
     IL2CPP_REGISTER_METHOD(0x002FD490, app::ReadState__Enum, get_ReadState, (app::WebConnectionData * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D68B50, void, set_ReadState, (app::WebConnectionData * this_ptr, app::ReadState__Enum value))
-    IL2CPP_REGISTER_METHODINFO(0x04707578, WebConnectionData_set_ReadState__MethodInfo)
 } // namespace app::classes::System::Net::WebConnectionData

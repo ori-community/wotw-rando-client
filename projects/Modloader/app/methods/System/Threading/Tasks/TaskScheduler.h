@@ -1,13 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TaskScheduler.h>
-#include <Modloader/app/structs/Task.h>
+
+#include <Modloader/app/structs/TaskScheduler.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Task.h>
 #include <Modloader/app/structs/UnobservedTaskExceptionEventArgs.h>
 
 namespace app::classes::System::Threading::Tasks::TaskScheduler {
     IL2CPP_REGISTER_METHOD(0x0233EC50, bool, TryRunInline, (app::TaskScheduler * this_ptr, app::Task* task, bool task_was_previously_queued))
-    IL2CPP_REGISTER_METHODINFO(0x0477A6F0, TaskScheduler_TryRunInline__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, TryDequeue, (app::TaskScheduler * this_ptr, app::Task* task))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, NotifyWorkItemProgress, (app::TaskScheduler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_RequiresAtomicStartTransition, (app::TaskScheduler * this_ptr))

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPoseUnion__Class.h>
 #include <Modloader/app/structs/CVRSystem_GetControllerStateWithPoseUnion.h>
 #include <Modloader/app/structs/CVRSystem_GetControllerStateWithPoseUnion__Boxed.h>
+#include <Modloader/app/structs/CVRSystem_GetControllerStateWithPoseUnion__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace CVRSystem_GetControllerStateWithPoseUnion {
-        namespace {
-            inline app::CVRSystem_GetControllerStateWithPoseUnion__Class* type_info_ref = nullptr;
+        inline app::CVRSystem_GetControllerStateWithPoseUnion__Class** type_info() {
+            static app::CVRSystem_GetControllerStateWithPoseUnion__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CVRSystem_GetControllerStateWithPoseUnion__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CVRSystem_GetControllerStateWithPoseUnion__Class** type_info = &type_info_ref;
         inline app::CVRSystem_GetControllerStateWithPoseUnion__Class* get_class() {
-            return il2cpp::get_nested_class<app::CVRSystem_GetControllerStateWithPoseUnion__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "CVRSystem", "GetControllerStateWithPoseUnion");
+            return il2cpp::get_nested_class<app::CVRSystem_GetControllerStateWithPoseUnion__Class>(type_info(), "ZenFulcrum.VR.OpenVRBinding", "CVRSystem", "GetControllerStateWithPoseUnion");
         }
         inline app::CVRSystem_GetControllerStateWithPoseUnion* create() {
             return il2cpp::create_object<app::CVRSystem_GetControllerStateWithPoseUnion>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnergyOrbPlantMarker.h>
+
+#include <Modloader/app/structs/EnergyOrbPlantMarker.h>
 
 namespace app::classes::EnergyOrbPlantMarker {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::EnergyOrbPlantMarker * this_ptr))

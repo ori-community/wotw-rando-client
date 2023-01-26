@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VertexSorter.h>
+
+#include <Modloader/app/structs/VertexSorter.h>
 #include <Modloader/app/structs/Vertex__Array.h>
 
 namespace app::classes::TriangleNet::Tools::VertexSorter {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraMultiplyMotionBlurAnimator.h>
+
+#include <Modloader/app/structs/CameraMultiplyMotionBlurAnimator.h>
 
 namespace app::classes::CameraMultiplyMotionBlurAnimator {
     IL2CPP_REGISTER_METHOD(0x004167A0, bool, get_IsLooping, (app::CameraMultiplyMotionBlurAnimator * this_ptr))

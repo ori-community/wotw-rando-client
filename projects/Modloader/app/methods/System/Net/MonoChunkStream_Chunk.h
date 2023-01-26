@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MonoChunkStream_Chunk.h>
+
+#include <Modloader/app/structs/MonoChunkStream_Chunk.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Net::MonoChunkStream_Chunk {

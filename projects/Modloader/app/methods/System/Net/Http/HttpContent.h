@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HttpContentHeaders.h>
+
+#include <Modloader/app/structs/HttpContentHeaders.h>
 #include <Modloader/app/structs/HttpContent.h>
 
 namespace app::classes::System::Net::Http::HttpContent {

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IVRCompositor_GetCurrentFadeColor.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/IVRCompositor_GetCurrentFadeColor.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 #include <Modloader/app/structs/HmdColor_t.h>
 #include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVRCompositor__GetCurrentFadeColor {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVRCompositor_GetCurrentFadeColor * this_ptr, app::Object* object, void* method_1))

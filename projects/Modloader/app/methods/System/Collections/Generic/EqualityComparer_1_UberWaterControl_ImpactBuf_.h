@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_UberWaterControl_ImpactBuf_.h>
-#include <Modloader/app/structs/UberWaterControl_ImpactBuf__Array.h>
-#include <Modloader/app/structs/UberWaterControl_ImpactBuf.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_UberWaterControl_ImpactBuf_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberWaterControl_ImpactBuf.h>
+#include <Modloader/app/structs/UberWaterControl_ImpactBuf__Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_UberWaterControl_ImpactBuf_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_UberWaterControl_ImpactBuf_*, get_Default, ())

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration__Boxed.h>
+
+#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration__Boxed.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::XmlNamespaceManager_NamespaceDeclaration {

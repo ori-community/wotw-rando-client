@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneLoadingQueue_QueueSceneToLoad.h>
-#include <Modloader/app/structs/SceneLoadingQueue.h>
+
+#include <Modloader/app/structs/SceneLoadingQueue_QueueSceneToLoad.h>
 #include <Modloader/app/structs/MoonGuid.h>
 #include <Modloader/app/structs/RuntimeSceneMetaData.h>
+#include <Modloader/app/structs/SceneLoadingQueue.h>
 
 namespace app::classes::SceneLoadingQueue {
     IL2CPP_REGISTER_METHOD(0x00BA7400, app::SceneLoadingQueue_QueueSceneToLoad, get_Item, (app::SceneLoadingQueue * this_ptr, int32_t i))

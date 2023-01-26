@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SelectorActiveAxis.h>
+
+#include <Modloader/app/structs/SelectorActiveAxis.h>
 #include <Modloader/app/structs/Asttree.h>
 #include <Modloader/app/structs/ConstraintStruct.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/KeySequence.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::Schema::SelectorActiveAxis {
     IL2CPP_REGISTER_METHOD(0x01AB90E0, int32_t, get_lastDepth, (app::SelectorActiveAxis * this_ptr))

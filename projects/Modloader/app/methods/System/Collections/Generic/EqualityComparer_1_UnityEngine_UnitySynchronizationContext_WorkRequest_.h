@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
-#include <Modloader/app/structs/UnitySynchronizationContext_WorkRequest__Array.h>
-#include <Modloader/app/structs/UnitySynchronizationContext_WorkRequest.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UnitySynchronizationContext_WorkRequest.h>
+#include <Modloader/app/structs/UnitySynchronizationContext_WorkRequest__Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_UnityEngine_UnitySynchronizationContext_WorkRequest_*, get_Default, ())

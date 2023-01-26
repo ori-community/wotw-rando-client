@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayableGraph.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/PlayableGraph__Boxed.h>
-#include <Modloader/app/structs/DirectorUpdateMode__Enum.h>
-#include <Modloader/app/structs/PlayableOutputHandle.h>
-#include <Modloader/app/structs/PlayableHandle.h>
-#include <Modloader/app/structs/Playable.h>
-#include <Modloader/app/structs/AnimationLayerMixerPlayable.h>
-#include <Modloader/app/structs/AnimationPlayableOutput.h>
-#include <Modloader/app/structs/AnimationMixerPlayable.h>
+
+#include <Modloader/app/structs/PlayableGraph.h>
 #include <Modloader/app/structs/AnimationClipPlayable.h>
+#include <Modloader/app/structs/AnimationLayerMixerPlayable.h>
+#include <Modloader/app/structs/AnimationMixerPlayable.h>
+#include <Modloader/app/structs/AnimationPlayableOutput.h>
+#include <Modloader/app/structs/DirectorUpdateMode__Enum.h>
+#include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/PlayableGraph__Boxed.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/PlayableOutputHandle.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Playables::PlayableGraph {
     IL2CPP_REGISTER_METHOD(0x02964A30, app::PlayableGraph, Create_1, ())
@@ -37,23 +38,14 @@ namespace app::classes::UnityEngine::Playables::PlayableGraph {
     IL2CPP_REGISTER_METHOD(0x02964E70, void, DisconnectInternal_Injected, (app::PlayableGraph * _unity_self, app::PlayableHandle* playable, int32_t input_port))
     IL2CPP_REGISTER_METHOD(0x02964EE0, void, DestroyPlayableInternal_Injected, (app::PlayableGraph * _unity_self, app::PlayableHandle* playable))
     IL2CPP_REGISTER_METHOD(0x0012CDE0, bool, Connect_1, (app::PlayableGraph__Boxed * this_ptr, app::Playable source, int32_t source_output_port, app::AnimationLayerMixerPlayable destination, int32_t destination_input_port))
-    IL2CPP_REGISTER_METHODINFO(0x04703178, PlayableGraph_Connect__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012EB80, void, DestroyPlayable_1, (app::PlayableGraph__Boxed * this_ptr, app::AnimationLayerMixerPlayable playable))
-    IL2CPP_REGISTER_METHODINFO(0x0477FD08, PlayableGraph_DestroyPlayable__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012EB80, void, DestroyPlayable_2, (app::PlayableGraph__Boxed * this_ptr, app::Playable playable))
-    IL2CPP_REGISTER_METHODINFO(0x04796BD8, PlayableGraph_DestroyPlayable_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012EB20, void, DestroyOutput, (app::PlayableGraph__Boxed * this_ptr, app::AnimationPlayableOutput output))
-    IL2CPP_REGISTER_METHODINFO(0x04785B18, PlayableGraph_DestroyOutput__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012EBE0, void, Disconnect_1, (app::PlayableGraph__Boxed * this_ptr, app::AnimationLayerMixerPlayable input, int32_t input_port))
-    IL2CPP_REGISTER_METHODINFO(0x04785F50, PlayableGraph_Disconnect__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012EBE0, void, Disconnect_2, (app::PlayableGraph__Boxed * this_ptr, app::Playable input, int32_t input_port))
-    IL2CPP_REGISTER_METHODINFO(0x047353A0, PlayableGraph_Disconnect_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012EBE0, void, Disconnect_3, (app::PlayableGraph__Boxed * this_ptr, app::AnimationMixerPlayable input, int32_t input_port))
-    IL2CPP_REGISTER_METHODINFO(0x0471AC10, PlayableGraph_Disconnect_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012EB80, void, DestroyPlayable_3, (app::PlayableGraph__Boxed * this_ptr, app::AnimationMixerPlayable playable))
-    IL2CPP_REGISTER_METHODINFO(0x04706D98, PlayableGraph_DestroyPlayable_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012EB80, void, DestroyPlayable_4, (app::PlayableGraph__Boxed * this_ptr, app::AnimationClipPlayable playable))
-    IL2CPP_REGISTER_METHODINFO(0x047434C0, PlayableGraph_DestroyPlayable_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012CDE0, bool, Connect_2, (app::PlayableGraph__Boxed * this_ptr, app::Playable source, int32_t source_output_port, app::AnimationMixerPlayable destination, int32_t destination_input_port))
     IL2CPP_REGISTER_METHOD(0x0012CDE0, bool, Connect_3, (app::PlayableGraph__Boxed * this_ptr, app::Playable source, int32_t source_output_port, app::Playable destination, int32_t destination_input_port))
 } // namespace app::classes::UnityEngine::Playables::PlayableGraph

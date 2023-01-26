@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonAnimator.h>
+
+#include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/OriAnimator.h>
 
 namespace app::classes::OriAnimator {

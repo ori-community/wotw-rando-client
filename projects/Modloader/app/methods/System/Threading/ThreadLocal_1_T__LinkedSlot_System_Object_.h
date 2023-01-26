@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ThreadLocal_1_T_LinkedSlot_System_Object_.h>
+
+#include <Modloader/app/structs/ThreadLocal_1_T_LinkedSlot_System_Object_.h>
 #include <Modloader/app/structs/ThreadLocal_1_T_LinkedSlotVolatile_System_Object___Array.h>
 
 namespace app::classes::System::Threading::ThreadLocal_1_T__LinkedSlot_System_Object_ {

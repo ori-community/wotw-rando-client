@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinLevel.h>
+
+#include <Modloader/app/structs/SeinLevel.h>
 #include <Modloader/app/structs/SeinCharacter.h>
 
 namespace app::classes::SeinLevel {

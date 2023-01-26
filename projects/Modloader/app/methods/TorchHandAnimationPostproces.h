@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TorchHandAnimationPostproces.h>
+
+#include <Modloader/app/structs/TorchHandAnimationPostproces.h>
 #include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::TorchHandAnimationPostproces {

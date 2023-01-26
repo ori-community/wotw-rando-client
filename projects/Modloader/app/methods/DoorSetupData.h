@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/DoorSetupData.h>
 
 namespace app::classes::DoorSetupData {

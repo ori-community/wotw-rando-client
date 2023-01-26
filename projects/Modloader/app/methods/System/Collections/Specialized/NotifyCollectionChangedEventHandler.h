@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NotifyCollectionChangedEventHandler.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/NotifyCollectionChangedEventArgs.h>
-#include <Modloader/app/structs/IAsyncResult.h>
+
+#include <Modloader/app/structs/NotifyCollectionChangedEventHandler.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/NotifyCollectionChangedEventArgs.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Specialized::NotifyCollectionChangedEventHandler {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::NotifyCollectionChangedEventHandler * this_ptr, app::Object* object, void* method_1))

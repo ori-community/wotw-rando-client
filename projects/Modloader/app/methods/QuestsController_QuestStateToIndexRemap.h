@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/QuestsController_QuestStateToIndexRemap.h>
+
+#include <Modloader/app/structs/QuestsController_QuestStateToIndexRemap.h>
 
 namespace app::classes::QuestsController_QuestStateToIndexRemap {
     IL2CPP_REGISTER_METHOD(0x00E93800, void, BuildDictionary, (app::QuestsController_QuestStateToIndexRemap * this_ptr))

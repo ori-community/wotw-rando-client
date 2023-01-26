@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RegexMatchTimeoutException.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/TimeSpan.h>
+
+#include <Modloader/app/structs/RegexMatchTimeoutException.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimeSpan.h>
 
 namespace app::classes::System::Text::RegularExpressions::RegexMatchTimeoutException {
     IL2CPP_REGISTER_METHOD(0x025959D0, void, ctor_1, (app::RegexMatchTimeoutException * this_ptr, app::String* regex_input, app::String* regex_pattern, app::TimeSpan match_timeout))

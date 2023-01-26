@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AVProWindowsMediaMeshApply.h>
+
+#include <Modloader/app/structs/AVProWindowsMediaMeshApply.h>
 #include <Modloader/app/structs/Texture.h>
 
 namespace app::classes::AVProWindowsMediaMeshApply {

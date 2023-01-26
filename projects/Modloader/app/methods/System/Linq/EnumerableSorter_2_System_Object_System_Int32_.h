@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnumerableSorter_2_System_Object_System_Int32_.h>
+
+#include <Modloader/app/structs/EnumerableSorter_2_System_Object_System_Int32_.h>
+#include <Modloader/app/structs/EnumerableSorter_1_System_Object_.h>
 #include <Modloader/app/structs/Func_2_Object_Int32_.h>
 #include <Modloader/app/structs/IComparer_1_System_Int32_.h>
-#include <Modloader/app/structs/EnumerableSorter_1_System_Object_.h>
 #include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Linq::EnumerableSorter_2_System_Object_System_Int32_ {

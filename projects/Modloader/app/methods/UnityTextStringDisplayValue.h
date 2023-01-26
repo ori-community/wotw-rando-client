@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UnityTextStringDisplayValue.h>
+
+#include <Modloader/app/structs/UnityTextStringDisplayValue.h>
 
 namespace app::classes::UnityTextStringDisplayValue {
     IL2CPP_REGISTER_METHOD(0x013AB540, void, Awake, (app::UnityTextStringDisplayValue * this_ptr))

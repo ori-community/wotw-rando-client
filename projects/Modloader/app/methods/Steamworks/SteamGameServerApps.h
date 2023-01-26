@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/AppId_t.h>
-#include <Modloader/app/structs/DepotId_t__Array.h>
 #include <Modloader/app/structs/CSteamID.h>
+#include <Modloader/app/structs/DepotId_t__Array.h>
 #include <Modloader/app/structs/SteamAPICall_t.h>
 
 namespace app::classes::Steamworks::SteamGameServerApps {

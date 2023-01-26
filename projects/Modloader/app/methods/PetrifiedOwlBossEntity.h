@@ -1,24 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/PetrifiedOwlBossEntity.h>
-#include <Modloader/app/structs/PetrifiedOwlBossLavaController.h>
+
+#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/DamageReceiver_OverrideInfo.h>
-#include <Modloader/app/structs/PetrifiedOwlBossEntity_Phases__Enum.h>
-#include <Modloader/app/structs/PetrifiedOwlBossEntity_OnDamageReceivedDelegate.h>
+#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IBrainController_1_PetrifiedOwlBossEntity_AnimationDirections_.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
 #include <Modloader/app/structs/List_1_PetrifiedOwlBossBaseBehaviour_.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/PetrifiedOwlBossEntity.h>
+#include <Modloader/app/structs/PetrifiedOwlBossEntity_OnDamageReceivedDelegate.h>
+#include <Modloader/app/structs/PetrifiedOwlBossEntity_Phases__Enum.h>
+#include <Modloader/app/structs/PetrifiedOwlBossGroundPiece.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLavaController.h>
 #include <Modloader/app/structs/PetrifiedOwlBossLocomotion.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
-#include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/PetrifiedOwlBossGroundPiece.h>
-#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
-#include <Modloader/app/structs/IBrainController_1_PetrifiedOwlBossEntity_AnimationDirections_.h>
 #include <Modloader/app/structs/UberStateApplyContext__Enum.h>
-#include <Modloader/app/structs/IUberState__Array.h>
-#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PetrifiedOwlBossEntity {
     IL2CPP_REGISTER_METHOD(0x004A21A0, app::Vector2, get_ArenaBoundsX, (app::PetrifiedOwlBossEntity * this_ptr))
@@ -108,7 +109,6 @@ namespace app::classes::PetrifiedOwlBossEntity {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnDied, (app::PetrifiedOwlBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004A63E0, void, OnPostRestoreCheckpoint, (app::PetrifiedOwlBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004A6430, bool, ShouldShowHealthBar, (app::PetrifiedOwlBossEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471C768, PetrifiedOwlBossEntity_ShouldShowHealthBar__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004A64C0, void, OnFixedUpdate, (app::PetrifiedOwlBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004A6710, void, UpdateLaserDirection, (app::PetrifiedOwlBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004A68D0, void, OnProcessRootMotion, (app::PetrifiedOwlBossEntity * this_ptr, app::Vector3* velocity))

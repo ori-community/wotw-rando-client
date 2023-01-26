@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GroupBlock__Class.h>
 #include <Modloader/app/structs/GroupBlock.h>
 #include <Modloader/app/structs/GroupBlock__Array.h>
+#include <Modloader/app/structs/GroupBlock__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace GroupBlock {
-        namespace {
-            inline app::GroupBlock__Class* type_info_ref = nullptr;
+        inline app::GroupBlock__Class** type_info() {
+            static app::GroupBlock__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GroupBlock__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GroupBlock__Class** type_info = &type_info_ref;
         inline app::GroupBlock__Class* get_class() {
-            return il2cpp::get_class<app::GroupBlock__Class>(type_info, "PlayFab.GroupsModels", "GroupBlock");
+            return il2cpp::get_class<app::GroupBlock__Class>(type_info(), "PlayFab.GroupsModels", "GroupBlock");
         }
         inline app::GroupBlock* create() {
             return il2cpp::create_object<app::GroupBlock>(get_class());

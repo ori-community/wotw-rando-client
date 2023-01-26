@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_GenericMappingEntry_.h>
+
+#include <Modloader/app/structs/List_1_GenericMappingEntry_.h>
 #include <Modloader/app/structs/ByteStateMap.h>
 
 namespace app::classes::ByteStateMap {

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinEnergy.h>
+
+#include <Modloader/app/structs/SeinEnergy.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 #include <Modloader/app/structs/SeinCharacter.h>
 #include <Modloader/app/structs/UberStateApplyContext__Enum.h>
-#include <Modloader/app/structs/IUberState__Array.h>
-#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 
 namespace app::classes::SeinEnergy {
     IL2CPP_REGISTER_METHOD(0x00ACD1E0, float, get_Current, (app::SeinEnergy * this_ptr))
@@ -49,11 +50,8 @@ namespace app::classes::SeinEnergy {
     IL2CPP_REGISTER_METHOD(0x00ACF500, float, HealthToEnergyBloodPackCalculator, (app::SeinEnergy * this_ptr, float hp))
     IL2CPP_REGISTER_METHOD(0x00ACF550, bool, TryGetCurrentBloodPacktHPCost, (app::SeinEnergy * this_ptr, float* cost))
     IL2CPP_REGISTER_METHOD(0x00ACF7F0, void, OnGlobalShardsEquip, (app::SeinEnergy * this_ptr, app::PlayerUberStateShards_Shard* shard))
-    IL2CPP_REGISTER_METHODINFO(0x047534A8, SeinEnergy_OnGlobalShardsEquip__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ACF7F0, void, OnGlobalShardsUnequip, (app::SeinEnergy * this_ptr, app::PlayerUberStateShards_Shard* shard))
-    IL2CPP_REGISTER_METHODINFO(0x04783E38, SeinEnergy_OnGlobalShardsUnequip__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ACF890, void, OnGlobalShardsUpdated, (app::SeinEnergy * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04712418, SeinEnergy_OnGlobalShardsUpdated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ACF8B0, void, OnEnergyShardUpdate, (app::SeinEnergy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ACFAF0, void, OnSwapShardUpdate, (app::SeinEnergy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ACFB50, void, SetReferenceToSein, (app::SeinEnergy * this_ptr, app::SeinCharacter* sein))

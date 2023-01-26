@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_System_Int32Enum_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_System_Int32Enum_.h>
 #include <Modloader/app/structs/Comparison_1_Int32Enum_.h>
 #include <Modloader/app/structs/Int32Enum__Enum.h>
 

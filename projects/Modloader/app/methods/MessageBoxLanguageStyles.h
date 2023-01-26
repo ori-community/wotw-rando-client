@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextStyleCollection.h>
-#include <Modloader/app/structs/MessageBoxLanguageStyles.h>
+
+#include <Modloader/app/structs/TextStyleCollection.h>
 #include <Modloader/app/structs/Language__Enum.h>
+#include <Modloader/app/structs/MessageBoxLanguageStyles.h>
 
 namespace app::classes::MessageBoxLanguageStyles {
     IL2CPP_REGISTER_METHOD(0x01592690, app::TextStyleCollection*, get_Current, (app::MessageBoxLanguageStyles * this_ptr))

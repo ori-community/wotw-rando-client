@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SizedArray.h>
+
+#include <Modloader/app/structs/SizedArray.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::SizedArray {
@@ -11,5 +12,4 @@ namespace app::classes::System::Runtime::Serialization::Formatters::Binary::Size
     IL2CPP_REGISTER_METHOD(0x01DA1CE0, app::Object*, get_Item, (app::SizedArray * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x01DA1D80, void, set_Item, (app::SizedArray * this_ptr, int32_t index, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x01DA1EF0, void, IncreaseCapacity, (app::SizedArray * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0476DC68, SizedArray_IncreaseCapacity__MethodInfo)
 } // namespace app::classes::System::Runtime::Serialization::Formatters::Binary::SizedArray

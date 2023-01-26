@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StateMachine_2.h>
-#include <Modloader/app/structs/PetrifiedOwlBossLandBehaviour.h>
-#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseStatesSet.h>
-#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/StateMachine_2.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseStatesSet.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLandBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossLandBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FBD60, app::StateMachine_2*, get_StateMachine, (app::PetrifiedOwlBossLandBehaviour * this_ptr))

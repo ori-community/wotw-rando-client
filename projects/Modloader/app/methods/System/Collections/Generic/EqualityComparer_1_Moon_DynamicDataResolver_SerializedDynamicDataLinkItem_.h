@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
-#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem__Array.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
 #include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem.h>
+#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem__Array.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_ {

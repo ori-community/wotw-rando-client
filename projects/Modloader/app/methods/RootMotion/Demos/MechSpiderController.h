@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/MechSpiderController.h>
 
 namespace app::classes::RootMotion::Demos::MechSpiderController {

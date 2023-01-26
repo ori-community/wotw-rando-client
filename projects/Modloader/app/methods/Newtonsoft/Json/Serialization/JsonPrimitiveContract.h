@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PrimitiveTypeCode__Enum.h>
+
+#include <Modloader/app/structs/PrimitiveTypeCode__Enum.h>
 #include <Modloader/app/structs/JsonPrimitiveContract.h>
 #include <Modloader/app/structs/Type.h>
 

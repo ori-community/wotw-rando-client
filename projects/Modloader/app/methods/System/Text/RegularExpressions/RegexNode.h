@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RegexNode.h>
+
+#include <Modloader/app/structs/RegexNode.h>
 #include <Modloader/app/structs/RegexOptions__Enum.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Text::RegularExpressions::RegexNode {
     IL2CPP_REGISTER_METHOD(0x02595F10, void, ctor_1, (app::RegexNode * this_ptr, int32_t type, app::RegexOptions__Enum options))
-    IL2CPP_REGISTER_METHOD(0x02595F20, void, ctor_2, (app::RegexNode * this_ptr, int32_t type, app::RegexOptions__Enum options, uint16_t ch))
+    IL2CPP_REGISTER_METHOD(0x02595F20, void, ctor_2, (app::RegexNode * this_ptr, int32_t type, app::RegexOptions__Enum options, char16_t ch))
     IL2CPP_REGISTER_METHOD(0x02595F30, void, ctor_3, (app::RegexNode * this_ptr, int32_t type, app::RegexOptions__Enum options, app::String* str))
     IL2CPP_REGISTER_METHOD(0x02595F40, void, ctor_4, (app::RegexNode * this_ptr, int32_t type, app::RegexOptions__Enum options, int32_t m))
     IL2CPP_REGISTER_METHOD(0x02595F50, void, ctor_5, (app::RegexNode * this_ptr, int32_t type, app::RegexOptions__Enum options, int32_t m, int32_t n))

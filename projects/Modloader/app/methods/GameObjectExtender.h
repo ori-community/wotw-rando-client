@@ -1,36 +1,37 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/List_1_System_Object_.h>
-#include <Modloader/app/structs/Component_1__Array.h>
+
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Animator.h>
 #include <Modloader/app/structs/BatSwarm.h>
-#include <Modloader/app/structs/IDamageReciever.h>
+#include <Modloader/app/structs/CameraChaseTarget.h>
+#include <Modloader/app/structs/CameraStraightLineMotion.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/SeinDamageReciever.h>
-#include <Modloader/app/structs/IPickupCollector.h>
-#include <Modloader/app/structs/LegacyEntity.h>
+#include <Modloader/app/structs/Component_1__Array.h>
 #include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/IGoThroughPlatformTester.h>
-#include <Modloader/app/structs/IRespawnReciever.h>
-#include <Modloader/app/structs/MortarWormEnemy.h>
-#include <Modloader/app/structs/MothSwarm.h>
-#include <Modloader/app/structs/INightBerrySpiritRingReciever.h>
+#include <Modloader/app/structs/EntityPlatformingMovement.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IAttackable.h>
 #include <Modloader/app/structs/ICarryable.h>
+#include <Modloader/app/structs/IDamageReciever.h>
+#include <Modloader/app/structs/IGoThroughPlatformTester.h>
+#include <Modloader/app/structs/INightBerrySpiritRingReciever.h>
+#include <Modloader/app/structs/IPickupCollector.h>
 #include <Modloader/app/structs/IProjectileDetonatable.h>
 #include <Modloader/app/structs/IReflectable.h>
 #include <Modloader/app/structs/IRelatedReflectable.h>
-#include <Modloader/app/structs/Animator.h>
-#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/IRespawnReciever.h>
 #include <Modloader/app/structs/ISpiritFlameAttackable.h>
+#include <Modloader/app/structs/LegacyEntity.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/MortarWormEnemy.h>
+#include <Modloader/app/structs/MothSwarm.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Projectile.h>
-#include <Modloader/app/structs/CameraChaseTarget.h>
-#include <Modloader/app/structs/CharacterPlatformMovement.h>
-#include <Modloader/app/structs/CameraStraightLineMotion.h>
-#include <Modloader/app/structs/EntityPlatformingMovement.h>
 #include <Modloader/app/structs/RigidbodyMovement.h>
+#include <Modloader/app/structs/SeinDamageReciever.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TraceGroundMovement.h>
 #include <Modloader/app/structs/Vitals.h>
 
@@ -47,85 +48,44 @@ namespace app::classes::GameObjectExtender {
     IL2CPP_REGISTER_METHOD(0x015E9620, app::Object*, FindComponentInChildren_1, (app::GameObject * game_object, bool include_inactive))
     IL2CPP_REGISTER_METHOD(0x02FF7920, app::Component_1__Array*, FindComponentsInChildren_1, (app::GameObject * game_object, bool include_inactive))
     IL2CPP_REGISTER_METHOD(0x015E9780, app::BatSwarm*, FindComponentUpwards_2, (app::Transform * transform))
-    IL2CPP_REGISTER_METHODINFO(0x047331B8, GameObjectExtender_FindComponentUpwards_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9620, app::IDamageReciever*, FindComponentInChildren_2, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x0472FB38, GameObjectExtender_FindComponentInChildren_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9620, app::Collider*, FindComponentInChildren_3, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x04774AD0, GameObjectExtender_FindComponentInChildren_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7920, app::Component_1__Array*, FindComponentsInChildren_2, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x04775040, GameObjectExtender_FindComponentsInChildren_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7850, app::Component_1__Array*, FindComponents_2, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x04762A58, GameObjectExtender_FindComponents_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7920, app::Component_1__Array*, FindComponentsInChildren_3, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x04776490, GameObjectExtender_FindComponentsInChildren_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7920, app::Component_1__Array*, FindComponentsInChildren_4, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x0474E110, GameObjectExtender_FindComponentsInChildren_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9620, app::SeinDamageReciever*, FindComponentInChildren_4, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x0478A838, GameObjectExtender_FindComponentInChildren_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9620, app::IPickupCollector*, FindComponentInChildren_5, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x04771300, GameObjectExtender_FindComponentInChildren_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9780, app::LegacyEntity*, FindComponentUpwards_3, (app::Transform * transform))
-    IL2CPP_REGISTER_METHODINFO(0x04728490, GameObjectExtender_FindComponentUpwards_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9780, app::Entity*, FindComponentUpwards_4, (app::Transform * transform))
-    IL2CPP_REGISTER_METHODINFO(0x0472A130, GameObjectExtender_FindComponentUpwards_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7920, app::Component_1__Array*, FindComponentsInChildren_5, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x04784470, GameObjectExtender_FindComponentsInChildren_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9620, app::IGoThroughPlatformTester*, FindComponentInChildren_6, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x04774AE0, GameObjectExtender_FindComponentInChildren_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7920, app::Component_1__Array*, FindComponentsInChildren_6, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x0478FA18, GameObjectExtender_FindComponentsInChildren_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9620, app::IRespawnReciever*, FindComponentInChildren_7, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x0473D648, GameObjectExtender_FindComponentInChildren_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9780, app::MortarWormEnemy*, FindComponentUpwards_5, (app::Transform * transform))
-    IL2CPP_REGISTER_METHODINFO(0x047434E8, GameObjectExtender_FindComponentUpwards_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9780, app::MothSwarm*, FindComponentUpwards_6, (app::Transform * transform))
-    IL2CPP_REGISTER_METHODINFO(0x04721340, GameObjectExtender_FindComponentUpwards_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7850, app::Component_1__Array*, FindComponents_3, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x047988E8, GameObjectExtender_FindComponents_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::INightBerrySpiritRingReciever*, FindComponent_2, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x04798500, GameObjectExtender_FindComponent_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::ICarryable*, FindComponent_3, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x04753148, GameObjectExtender_FindComponent_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::IProjectileDetonatable*, FindComponent_4, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x0479A348, GameObjectExtender_FindComponent_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::IReflectable*, FindComponent_5, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x0472BFC0, GameObjectExtender_FindComponent_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::IRelatedReflectable*, FindComponent_6, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x04781F48, GameObjectExtender_FindComponent_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7920, app::Component_1__Array*, FindComponentsInChildren_7, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x04710708, GameObjectExtender_FindComponentsInChildren_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7920, app::Component_1__Array*, FindComponentsInChildren_8, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x04739BA0, GameObjectExtender_FindComponentsInChildren_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7920, app::Component_1__Array*, FindComponentsInChildren_9, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x0474D378, GameObjectExtender_FindComponentsInChildren_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7920, app::Component_1__Array*, FindComponentsInChildren_10, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x047765B8, GameObjectExtender_FindComponentsInChildren_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7920, app::Component_1__Array*, FindComponentsInChildren_11, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x0471F6A0, GameObjectExtender_FindComponentsInChildren_10__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9620, app::Animator*, FindComponentInChildren_8, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x04763A30, GameObjectExtender_FindComponentInChildren_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::IAttackable*, FindComponent_7, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x04757710, GameObjectExtender_FindComponent_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::ISpiritFlameAttackable*, FindComponent_8, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x047772A0, GameObjectExtender_FindComponent_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::Projectile*, FindComponent_9, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x04740680, GameObjectExtender_FindComponent_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::CameraChaseTarget*, FindComponent_10, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x04730ED0, GameObjectExtender_FindComponent_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::CharacterPlatformMovement*, FindComponent_11, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x0474A4F8, GameObjectExtender_FindComponent_10__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::CameraStraightLineMotion*, FindComponent_12, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x04752B18, GameObjectExtender_FindComponent_11__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::EntityPlatformingMovement*, FindComponent_13, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x04758E68, GameObjectExtender_FindComponent_12__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::RigidbodyMovement*, FindComponent_14, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x04771A18, GameObjectExtender_FindComponent_13__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9490, app::TraceGroundMovement*, FindComponent_15, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x04736998, GameObjectExtender_FindComponent_14__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7920, app::Component_1__Array*, FindComponentsInChildren_12, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x047601B8, GameObjectExtender_FindComponentsInChildren_11__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E9780, app::Vitals*, FindComponentUpwards_7, (app::Transform * transform))
-    IL2CPP_REGISTER_METHODINFO(0x047471E8, GameObjectExtender_FindComponentUpwards_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF7920, app::Component_1__Array*, FindComponentsInChildren_13, (app::GameObject * game_object, bool include_inactive))
-    IL2CPP_REGISTER_METHODINFO(0x04786150, GameObjectExtender_FindComponentsInChildren_12__MethodInfo)
 } // namespace app::classes::GameObjectExtender

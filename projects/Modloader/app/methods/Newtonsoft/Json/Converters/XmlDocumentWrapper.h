@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlDocumentWrapper.h>
-#include <Modloader/app/structs/XmlDocument.h>
+
+#include <Modloader/app/structs/XmlDocumentWrapper.h>
+#include <Modloader/app/structs/IXmlElement.h>
 #include <Modloader/app/structs/IXmlNode.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IXmlElement.h>
+#include <Modloader/app/structs/XmlDocument.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::XmlDocumentWrapper {
     IL2CPP_REGISTER_METHOD(0x01A59FC0, void, ctor, (app::XmlDocumentWrapper * this_ptr, app::XmlDocument* document))

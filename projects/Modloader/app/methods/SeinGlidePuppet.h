@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinGlidePuppet.h>
+
+#include <Modloader/app/structs/SeinGlidePuppet.h>
 #include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::SeinGlidePuppet {

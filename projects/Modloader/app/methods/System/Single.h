@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Single__Boxed.h>
+
+#include <Modloader/app/structs/Single__Boxed.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/NumberFormatInfo.h>
+#include <Modloader/app/structs/NumberStyles__Enum.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IFormatProvider.h>
-#include <Modloader/app/structs/NumberStyles__Enum.h>
-#include <Modloader/app/structs/NumberFormatInfo.h>
-#include <Modloader/app/structs/TypeCode__Enum.h>
-#include <Modloader/app/structs/Decimal.h>
-#include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
 
 namespace app::classes::System::Single {
     IL2CPP_REGISTER_METHOD(0x01E26010, bool, IsInfinity, (float f))
@@ -18,7 +19,6 @@ namespace app::classes::System::Single {
     IL2CPP_REGISTER_METHOD(0x01E26070, bool, IsNaN, (float f))
     IL2CPP_REGISTER_METHOD(0x01E26090, bool, IsFinite, (float f))
     IL2CPP_REGISTER_METHOD(0x001D4970, int32_t, CompareTo_1, (app::Single__Boxed * this_ptr, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x04763FF8, Single_CompareTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001D4980, int32_t, CompareTo_2, (app::Single__Boxed * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x001D49E0, bool, Equals_1, (app::Single__Boxed * this_ptr, app::Object* obj))
     IL2CPP_REGISTER_METHOD(0x001D49F0, bool, Equals_2, (app::Single__Boxed * this_ptr, float obj))
@@ -36,8 +36,7 @@ namespace app::classes::System::Single {
     IL2CPP_REGISTER_METHOD(0x01E26510, bool, TryParse_3, (app::String * s, app::NumberStyles__Enum style, app::NumberFormatInfo* info, float* result))
     IL2CPP_REGISTER_METHOD(0x001D4B20, app::TypeCode__Enum, GetTypeCode, (app::Single__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001D4B30, bool, IConvertible_ToBoolean, (app::Single__Boxed * this_ptr, app::IFormatProvider* provider))
-    IL2CPP_REGISTER_METHOD(0x001D4BF0, uint16_t, IConvertible_ToChar, (app::Single__Boxed * this_ptr, app::IFormatProvider* provider))
-    IL2CPP_REGISTER_METHODINFO(0x04714B78, Single_System_IConvertible_ToChar__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x001D4BF0, char16_t, IConvertible_ToChar, (app::Single__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x001D4C00, int8_t, IConvertible_ToSByte, (app::Single__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x001D4D30, uint8_t, IConvertible_ToByte, (app::Single__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x001D4E60, int16_t, IConvertible_ToInt16, (app::Single__Boxed * this_ptr, app::IFormatProvider* provider))
@@ -50,6 +49,5 @@ namespace app::classes::System::Single {
     IL2CPP_REGISTER_METHOD(0x001D5580, double, IConvertible_ToDouble, (app::Single__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x001D5630, app::Decimal, IConvertible_ToDecimal, (app::Single__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x001D5790, app::DateTime, IConvertible_ToDateTime, (app::Single__Boxed * this_ptr, app::IFormatProvider* provider))
-    IL2CPP_REGISTER_METHODINFO(0x04711AC0, Single_System_IConvertible_ToDateTime__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001D57A0, app::Object*, IConvertible_ToType, (app::Single__Boxed * this_ptr, app::Type* type, app::IFormatProvider* provider))
 } // namespace app::classes::System::Single

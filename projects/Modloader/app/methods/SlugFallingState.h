@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SlugFallingState.h>
+
+#include <Modloader/app/structs/SlugFallingState.h>
 #include <Modloader/app/structs/SlugEnemy.h>
 
 namespace app::classes::SlugFallingState {

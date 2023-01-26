@@ -15,7 +15,7 @@ struct __declspec(align(8)) UberShaderAnimatorStrategyExperimental__Fields {
 #endif
 #if !defined(IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental__Fields_FWDDECL)
 #define IL2CPP_STRUCT_UberShaderAnimatorStrategyExperimental__Fields_FWDDECL
-#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_Timeline_UberShaderAnimatorStrategyExperimental_RendererState_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_Timelin_UberShaderAnimatorStrategyExperimenta_RendererStat_.h>
 #include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_RendererState_.h>
 #include <Modloader/app/structs/Queue_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_RendererState_.h>
 #endif

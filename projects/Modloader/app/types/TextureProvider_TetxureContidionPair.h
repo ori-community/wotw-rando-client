@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TextureProvider_TetxureContidionPair__Class.h>
 #include <Modloader/app/structs/TextureProvider_TetxureContidionPair.h>
 #include <Modloader/app/structs/TextureProvider_TetxureContidionPair__Array.h>
+#include <Modloader/app/structs/TextureProvider_TetxureContidionPair__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace TextureProvider_TetxureContidionPair {
-        namespace {
-            inline app::TextureProvider_TetxureContidionPair__Class* type_info_ref = nullptr;
+        inline app::TextureProvider_TetxureContidionPair__Class** type_info() {
+            static app::TextureProvider_TetxureContidionPair__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::TextureProvider_TetxureContidionPair__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::TextureProvider_TetxureContidionPair__Class** type_info = &type_info_ref;
         inline app::TextureProvider_TetxureContidionPair__Class* get_class() {
-            return il2cpp::get_nested_class<app::TextureProvider_TetxureContidionPair__Class>(type_info, "", "TextureProvider", "TetxureContidionPair");
+            return il2cpp::get_nested_class<app::TextureProvider_TetxureContidionPair__Class>(type_info(), "", "TextureProvider", "TetxureContidionPair");
         }
         inline app::TextureProvider_TetxureContidionPair* create() {
             return il2cpp::create_object<app::TextureProvider_TetxureContidionPair>(get_class());

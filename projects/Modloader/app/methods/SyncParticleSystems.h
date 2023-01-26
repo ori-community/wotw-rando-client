@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SyncParticleSystems.h>
+
+#include <Modloader/app/structs/SyncParticleSystems.h>
 
 namespace app::classes::SyncParticleSystems {
     IL2CPP_REGISTER_METHOD(0x00514AA0, void, Start, (app::SyncParticleSystems * this_ptr))

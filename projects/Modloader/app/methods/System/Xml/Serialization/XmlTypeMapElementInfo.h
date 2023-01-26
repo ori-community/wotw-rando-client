@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlTypeMapElementInfo.h>
-#include <Modloader/app/structs/XmlTypeMapMember.h>
-#include <Modloader/app/structs/TypeData.h>
+
+#include <Modloader/app/structs/XmlTypeMapElementInfo.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TypeData.h>
 #include <Modloader/app/structs/XmlSchemaForm__Enum.h>
+#include <Modloader/app/structs/XmlTypeMapMember.h>
 #include <Modloader/app/structs/XmlTypeMapping.h>
 
 namespace app::classes::System::Xml::Serialization::XmlTypeMapElementInfo {
@@ -32,10 +33,8 @@ namespace app::classes::System::Xml::Serialization::XmlTypeMapElementInfo {
     IL2CPP_REGISTER_METHOD(0x0058ED80, void, set_WrappedElement, (app::XmlTypeMapElementInfo * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0194CF10, bool, get_IsTextElement, (app::XmlTypeMapElementInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0194CFC0, void, set_IsTextElement, (app::XmlTypeMapElementInfo * this_ptr, bool value))
-    IL2CPP_REGISTER_METHODINFO(0x047184F8, XmlTypeMapElementInfo_set_IsTextElement__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0194D0A0, bool, get_IsUnnamedAnyElement, (app::XmlTypeMapElementInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0194D160, void, set_IsUnnamedAnyElement, (app::XmlTypeMapElementInfo * this_ptr, bool value))
-    IL2CPP_REGISTER_METHODINFO(0x04728AE0, XmlTypeMapElementInfo_set_IsUnnamedAnyElement__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FDCE0, int32_t, get_ExplicitOrder, (app::XmlTypeMapElementInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008C5DD0, void, set_ExplicitOrder, (app::XmlTypeMapElementInfo * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x0194D240, bool, Equals, (app::XmlTypeMapElementInfo * this_ptr, app::Object* other))

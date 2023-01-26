@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CVRSettings.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/CVRSettings.h>
 #include <Modloader/app/structs/EVRSettingsError__Enum.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRSettings {

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Challenge__Class.h>
 #include <Modloader/app/structs/Challenge.h>
 #include <Modloader/app/structs/Challenge__Array.h>
+#include <Modloader/app/structs/Challenge__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Challenge {
-        namespace {
-            inline app::Challenge__Class* type_info_ref = nullptr;
+        inline app::Challenge__Class** type_info() {
+            static app::Challenge__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Challenge__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Challenge__Class** type_info = &type_info_ref;
         inline app::Challenge__Class* get_class() {
-            return il2cpp::get_class<app::Challenge__Class>(type_info, "", "Challenge");
+            return il2cpp::get_class<app::Challenge__Class>(type_info(), "", "Challenge");
         }
         inline app::Challenge* create() {
             return il2cpp::create_object<app::Challenge>(get_class());

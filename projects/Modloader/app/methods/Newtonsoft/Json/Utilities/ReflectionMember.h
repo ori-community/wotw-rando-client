@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/ReflectionMember.h>
-#include <Modloader/app/structs/Func_2_Object_Object_.h>
+
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Action_2_Object_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/ReflectionMember.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::ReflectionMember {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Type*, get_MemberType, (app::ReflectionMember * this_ptr))

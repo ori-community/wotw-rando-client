@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RenderTargetBlendState__Boxed.h>
-#include <Modloader/app/structs/ColorWriteMask__Enum.h>
+
+#include <Modloader/app/structs/RenderTargetBlendState__Boxed.h>
 #include <Modloader/app/structs/BlendMode__Enum.h>
 #include <Modloader/app/structs/BlendOp__Enum.h>
+#include <Modloader/app/structs/ColorWriteMask__Enum.h>
 #include <Modloader/app/structs/RenderTargetBlendState.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::RenderTargetBlendState {

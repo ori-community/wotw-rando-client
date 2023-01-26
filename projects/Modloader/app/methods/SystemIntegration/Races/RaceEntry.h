@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/RaceEntry.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/RaceEntry.h>
 
 namespace app::classes::SystemIntegration::Races::RaceEntry {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_UserId, (app::RaceEntry * this_ptr))

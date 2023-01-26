@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/LockOnTargetProjectile.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/LockOnTarget.h>
+#include <Modloader/app/structs/LockOnTargetProjectile.h>
 
 namespace app::classes::LockOnTargetProjectile {
     IL2CPP_REGISTER_METHOD(0x00FC1DC0, app::Vector3, get_TargetPosition, (app::LockOnTargetProjectile * this_ptr))

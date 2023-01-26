@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/Application_JobFilterGroup__Enum.h>
+#include <Modloader/app/structs/Application_JobFilterGroup__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Application_JobFilterGroup__Enum__Class.h>
-#include <Modloader/app/structs/Application_JobFilterGroup__Enum.h>
 
 namespace app::classes::types {
     namespace Application_JobFilterGroup__Enum {
-        namespace {
-            inline app::Application_JobFilterGroup__Enum__Class* type_info_ref = nullptr;
+        inline app::Application_JobFilterGroup__Enum__Class** type_info() {
+            static app::Application_JobFilterGroup__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Application_JobFilterGroup__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Application_JobFilterGroup__Enum__Class** type_info = &type_info_ref;
         inline app::Application_JobFilterGroup__Enum__Class* get_class() {
-            return il2cpp::get_nested_class<app::Application_JobFilterGroup__Enum__Class>(type_info, "UnityEngine", "Application", "JobFilterGroup");
+            return il2cpp::get_nested_class<app::Application_JobFilterGroup__Enum__Class>(type_info(), "UnityEngine", "Application", "JobFilterGroup");
         }
         inline app::Application_JobFilterGroup__Enum* create() {
             return il2cpp::create_object<app::Application_JobFilterGroup__Enum>(get_class());

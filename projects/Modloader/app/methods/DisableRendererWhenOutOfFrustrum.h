@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DisableRendererWhenOutOfFrustrum.h>
+
+#include <Modloader/app/structs/DisableRendererWhenOutOfFrustrum.h>
 #include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::DisableRendererWhenOutOfFrustrum {

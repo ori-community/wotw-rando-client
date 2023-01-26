@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CleverMenuItem.h>
-#include <Modloader/app/structs/WorldMapOverworldArea.h>
+
+#include <Modloader/app/structs/CleverMenuItem.h>
 #include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/WorldMapOverworldArea.h>
 
 namespace app::classes::WorldMapOverworldArea {
     IL2CPP_REGISTER_METHOD(0x002FBBC0, app::CleverMenuItem*, get_CleverMenu, (app::WorldMapOverworldArea * this_ptr))

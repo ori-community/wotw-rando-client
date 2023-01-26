@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SuspensionManager_SuspensionTicket.h>
+
+#include <Modloader/app/structs/SuspensionManager_SuspensionTicket.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::Moon::SuspensionManager_SuspensionTicket {

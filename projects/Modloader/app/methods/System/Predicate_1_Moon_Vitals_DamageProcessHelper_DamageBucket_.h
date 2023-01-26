@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Predicate_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+
+#include <Modloader/app/structs/Predicate_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Predicate_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::Predicate_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ * this_ptr, app::Object* object, void* method_1))

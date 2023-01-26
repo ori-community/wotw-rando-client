@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderMainTexture.h>
+
+#include <Modloader/app/structs/UberShaderMainTexture.h>
 #include <Modloader/app/structs/IUberAtlasExternal.h>
-#include <Modloader/app/structs/UberShaderAtlasTexture.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/UberShaderBlock.h>
 #include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/UberShaderAtlasTexture.h>
+#include <Modloader/app/structs/UberShaderBlock.h>
 
 namespace app::classes::UberShaderMainTexture {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, BindProperties, (app::UberShaderMainTexture * this_ptr))

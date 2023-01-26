@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonAnimatorLayerDefinition__Array.h>
-#include <Modloader/app/structs/MoonAnimatorDefinition.h>
+
+#include <Modloader/app/structs/MoonAnimatorLayerDefinition__Array.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MoonAnimatorDefinition.h>
 #include <Modloader/app/structs/MoonAnimatorLayerDefinition.h>
 #include <Modloader/app/structs/MoonAnimatorLayerName.h>
 #include <Modloader/app/structs/String.h>

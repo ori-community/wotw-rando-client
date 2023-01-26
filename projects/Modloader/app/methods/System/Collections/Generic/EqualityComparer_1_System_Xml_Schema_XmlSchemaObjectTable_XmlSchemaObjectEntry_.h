@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_System_Xml_Schema_XmlSchemaObjectTable_XmlSchemaObjectEntry_.h>
-#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry__Array.h>
-#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_System_Xml_Schema_XmlSchemaObjectTable_XmlSchemaObjectEntry_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry__Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_System_Xml_Schema_XmlSchemaObjectTable_XmlSchemaObjectEntry_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_System_Xml_Schema_XmlSchemaObjectTable_XmlSchemaObjectEntry_*, get_Default, ())

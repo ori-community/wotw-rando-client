@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/Camera_ProjectionMatrixMode__Enum.h>
+#include <Modloader/app/structs/Camera_ProjectionMatrixMode__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Camera_ProjectionMatrixMode__Enum__Class.h>
-#include <Modloader/app/structs/Camera_ProjectionMatrixMode__Enum.h>
 
 namespace app::classes::types {
     namespace Camera_ProjectionMatrixMode__Enum {
-        namespace {
-            inline app::Camera_ProjectionMatrixMode__Enum__Class* type_info_ref = nullptr;
+        inline app::Camera_ProjectionMatrixMode__Enum__Class** type_info() {
+            static app::Camera_ProjectionMatrixMode__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Camera_ProjectionMatrixMode__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Camera_ProjectionMatrixMode__Enum__Class** type_info = &type_info_ref;
         inline app::Camera_ProjectionMatrixMode__Enum__Class* get_class() {
-            return il2cpp::get_nested_class<app::Camera_ProjectionMatrixMode__Enum__Class>(type_info, "UnityEngine", "Camera", "ProjectionMatrixMode");
+            return il2cpp::get_nested_class<app::Camera_ProjectionMatrixMode__Enum__Class>(type_info(), "UnityEngine", "Camera", "ProjectionMatrixMode");
         }
         inline app::Camera_ProjectionMatrixMode__Enum* create() {
             return il2cpp::create_object<app::Camera_ProjectionMatrixMode__Enum>(get_class());

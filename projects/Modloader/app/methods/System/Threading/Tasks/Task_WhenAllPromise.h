@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Task_WhenAllPromise.h>
-#include <Modloader/app/structs/Task__Array.h>
+
+#include <Modloader/app/structs/Task_WhenAllPromise.h>
 #include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Task__Array.h>
 
 namespace app::classes::System::Threading::Tasks::Task_WhenAllPromise {
     IL2CPP_REGISTER_METHOD(0x0233B690, void, ctor, (app::Task_WhenAllPromise * this_ptr, app::Task__Array* tasks))

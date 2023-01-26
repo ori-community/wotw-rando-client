@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerAbilityStateMatcher.h>
-#include <Modloader/app/structs/IUberState.h>
-#include <Modloader/app/structs/GenericDataContainer.h>
-#include <Modloader/app/structs/PlayerAbilityStatePair.h>
+
+#include <Modloader/app/structs/PlayerAbilityStateMatcher.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/Dictionary_2_System_Int32_System_Type_.h>
+#include <Modloader/app/structs/GenericDataContainer.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/PlayerAbilityStatePair.h>
 
 namespace app::classes::PlayerAbilityStateMatcher {
     IL2CPP_REGISTER_METHOD(0x0140A570, void, ctor, (app::PlayerAbilityStateMatcher * this_ptr))

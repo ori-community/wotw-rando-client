@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Comparison_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
+
+#include <Modloader/app/structs/Comparison_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEvent.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Comparison_1_SoundZoneProcessor_Job_PositionZoneEvent_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::Comparison_1_SoundZoneProcessor_Job_PositionZoneEvent_ * this_ptr, app::Object* object, void* method_1))

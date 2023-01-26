@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonWater.h>
+
+#include <Modloader/app/structs/MoonWater.h>
 
 namespace app::classes::MoonWater {
     IL2CPP_REGISTER_METHOD(0x014751F0, void, Start, (app::MoonWater * this_ptr))

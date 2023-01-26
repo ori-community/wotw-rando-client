@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SerializableUberShaderWrapperComparer.h>
+
+#include <Modloader/app/structs/SerializableUberShaderWrapperComparer.h>
 #include <Modloader/app/structs/SerializableUberShaderWrapper.h>
 
 namespace app::classes::Moon::ArtOptimization::SerializableUberShaderWrapperComparer {

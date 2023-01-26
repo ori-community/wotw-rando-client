@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Shadow.h>
+
+#include <Modloader/app/structs/Shadow.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/List_1_UnityEngine_UIVertex_.h>
 #include <Modloader/app/structs/Color32.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UIVertex_.h>
+#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/VertexHelper.h>
 
 namespace app::classes::UnityEngine::UI::Shadow {

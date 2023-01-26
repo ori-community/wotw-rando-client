@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ZapTrail.h>
+
+#include <Modloader/app/structs/ZapTrail.h>
 #include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::ZapTrail {

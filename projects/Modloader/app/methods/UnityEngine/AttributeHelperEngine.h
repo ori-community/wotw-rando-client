@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/Type__Array.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/DefaultExecutionOrder.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type__Array.h>
 
 namespace app::classes::UnityEngine::AttributeHelperEngine {
     IL2CPP_REGISTER_METHOD(0x0241E7B0, app::Type*, GetParentTypeDisallowingMultipleInclusion, (app::Type * type))
@@ -14,5 +15,4 @@ namespace app::classes::UnityEngine::AttributeHelperEngine {
     IL2CPP_REGISTER_METHOD(0x0241F050, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x0157C0E0, app::Object*, GetCustomAttributeOfType_1, (app::Type * klass))
     IL2CPP_REGISTER_METHOD(0x0157C0E0, app::DefaultExecutionOrder*, GetCustomAttributeOfType_2, (app::Type * klass))
-    IL2CPP_REGISTER_METHODINFO(0x04731950, AttributeHelperEngine_GetCustomAttributeOfType_1__MethodInfo)
 } // namespace app::classes::UnityEngine::AttributeHelperEngine

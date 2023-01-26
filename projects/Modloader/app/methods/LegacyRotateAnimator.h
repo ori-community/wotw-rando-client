@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyRotateAnimator.h>
+
+#include <Modloader/app/structs/LegacyRotateAnimator.h>
 
 namespace app::classes::LegacyRotateAnimator {
     IL2CPP_REGISTER_METHOD(0x00A348C0, void, Awake, (app::LegacyRotateAnimator * this_ptr))

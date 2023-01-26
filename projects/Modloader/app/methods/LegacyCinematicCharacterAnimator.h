@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyCinematicCharacterAnimator.h>
+
+#include <Modloader/app/structs/LegacyCinematicCharacterAnimator.h>
 
 namespace app::classes::LegacyCinematicCharacterAnimator {
     IL2CPP_REGISTER_METHOD(0x00B1C9B0, void, Awake, (app::LegacyCinematicCharacterAnimator * this_ptr))

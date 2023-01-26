@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMessageBox.h>
+
+#include <Modloader/app/structs/IMessageBox.h>
 #include <Modloader/app/structs/MessageNodeWisps.h>
 
 namespace app::classes::MessageNodeWisps {

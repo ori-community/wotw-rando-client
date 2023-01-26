@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BaseSpline_SplineWrapMode__Enum.h>
+
+#include <Modloader/app/structs/BaseSpline_SplineWrapMode__Enum.h>
 #include <Modloader/app/structs/SplineUtil.h>
 
 namespace app::classes::SplineUtil {

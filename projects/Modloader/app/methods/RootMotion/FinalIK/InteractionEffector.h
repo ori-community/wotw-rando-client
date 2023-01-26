@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
+
+#include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
 #include <Modloader/app/structs/InteractionEffector.h>
 #include <Modloader/app/structs/InteractionObject.h>
 #include <Modloader/app/structs/InteractionSystem.h>

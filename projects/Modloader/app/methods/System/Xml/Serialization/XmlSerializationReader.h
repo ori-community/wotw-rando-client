@@ -1,26 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSerializationReader.h>
-#include <Modloader/app/structs/XmlReader.h>
-#include <Modloader/app/structs/XmlSerializer.h>
+
+#include <Modloader/app/structs/XmlSerializationReader.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/Hashtable.h>
-#include <Modloader/app/structs/XmlDocument.h>
-#include <Modloader/app/structs/XmlSerializationReader_CollectionFixup.h>
-#include <Modloader/app/structs/XmlSerializationReader_Fixup.h>
-#include <Modloader/app/structs/XmlSerializationReader_CollectionItemFixup.h>
+#include <Modloader/app/structs/IXmlSerializable.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/XmlSerializationReadCallback.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/XmlAttribute.h>
-#include <Modloader/app/structs/XmlSerializationReader_WriteCallbackInfo.h>
-#include <Modloader/app/structs/IXmlSerializable.h>
-#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlDocument.h>
 #include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlSerializationReadCallback.h>
+#include <Modloader/app/structs/XmlSerializationReader_CollectionFixup.h>
+#include <Modloader/app/structs/XmlSerializationReader_CollectionItemFixup.h>
+#include <Modloader/app/structs/XmlSerializationReader_Fixup.h>
+#include <Modloader/app/structs/XmlSerializationReader_WriteCallbackInfo.h>
+#include <Modloader/app/structs/XmlSerializer.h>
 
 namespace app::classes::System::Xml::Serialization::XmlSerializationReader {
     IL2CPP_REGISTER_METHOD(0x025AC6A0, void, Initialize, (app::XmlSerializationReader * this_ptr, app::XmlReader* reader, app::XmlSerializer* event_source))
@@ -66,12 +67,10 @@ namespace app::classes::System::Xml::Serialization::XmlSerializationReader {
     IL2CPP_REGISTER_METHOD(0x025B19F0, app::XmlDocument*, ReadXmlDocument, (app::XmlSerializationReader * this_ptr, bool wrapped))
     IL2CPP_REGISTER_METHOD(0x025B1C20, app::Array*, ShrinkArray, (app::XmlSerializationReader * this_ptr, app::Array* a, int32_t length, app::Type* element_type, bool is_nullable))
     IL2CPP_REGISTER_METHOD(0x025B1CE0, app::XmlQualifiedName*, ToXmlQualifiedName, (app::XmlSerializationReader * this_ptr, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x0474ABE8, XmlSerializationReader_ToXmlQualifiedName__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025B2020, void, UnknownAttribute, (app::XmlSerializationReader * this_ptr, app::Object* o, app::XmlAttribute* attr, app::String* qnames))
     IL2CPP_REGISTER_METHOD(0x025B23E0, void, UnknownElement, (app::XmlSerializationReader * this_ptr, app::Object* o, app::XmlElement* elem, app::String* qnames))
     IL2CPP_REGISTER_METHOD(0x025B27A0, void, UnknownNode_1, (app::XmlSerializationReader * this_ptr, app::Object* o))
     IL2CPP_REGISTER_METHOD(0x025B2810, void, UnknownNode_2, (app::XmlSerializationReader * this_ptr, app::Object* o, app::String* qnames))
     IL2CPP_REGISTER_METHOD(0x025B2880, void, OnUnknownNode, (app::XmlSerializationReader * this_ptr, app::XmlNode* node, app::Object* o, app::String* qnames))
-    IL2CPP_REGISTER_METHODINFO(0x0478BB28, XmlSerializationReader_OnUnknownNode__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025B2DE0, void, UnreferencedObject, (app::XmlSerializationReader * this_ptr, app::String* id, app::Object* o))
 } // namespace app::classes::System::Xml::Serialization::XmlSerializationReader

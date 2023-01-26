@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AudioSampleProvider.h>
+
+#include <Modloader/app/structs/AudioSampleProvider.h>
 
 namespace app::classes::UnityEngine::Experimental::Audio::AudioSampleProvider {
     IL2CPP_REGISTER_METHOD(0x03144810, void, Finalize, (app::AudioSampleProvider * this_ptr))

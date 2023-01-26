@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoundDescriptor.h>
+
+#include <Modloader/app/structs/SoundDescriptor.h>
 #include <Modloader/app/structs/SoundAnimator.h>
 
 namespace app::classes::SoundAnimator {
@@ -18,7 +19,5 @@ namespace app::classes::SoundAnimator {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, RestoreToOriginalState, (app::SoundAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EE5A00, void, ctor, (app::SoundAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EE5A20, void, _OnStartPlay_b__14_0, (app::SoundAnimator * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474B7F0, SoundAnimator__OnStartPlay_b__14_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EE5A20, void, _SampleValue_b__17_0, (app::SoundAnimator * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047766E8, SoundAnimator__SampleValue_b__17_0__MethodInfo)
 } // namespace app::classes::SoundAnimator

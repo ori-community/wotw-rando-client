@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MortarEntity_AimVeloCache_Packer.h>
+
+#include <Modloader/app/structs/MortarEntity_AimVeloCache_Packer.h>
 #include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::MortarEntity_AimVeloCache_Packer {

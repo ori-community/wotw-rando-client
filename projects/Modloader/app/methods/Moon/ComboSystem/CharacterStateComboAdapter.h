@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterStateComboAdapter.h>
+
+#include <Modloader/app/structs/CharacterStateComboAdapter.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 #include <Modloader/app/structs/SeinController3D_EventId__Enum.h>

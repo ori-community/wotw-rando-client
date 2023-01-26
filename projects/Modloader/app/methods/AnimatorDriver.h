@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimatorDriver.h>
+
+#include <Modloader/app/structs/AnimatorDriver.h>
 
 namespace app::classes::AnimatorDriver {
     IL2CPP_REGISTER_METHOD(0x00504D80, bool, get_IsPlaying, (app::AnimatorDriver * this_ptr))

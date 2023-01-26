@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DynamicCameraTargetting.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/ICameraTarget.h>
+
+#include <Modloader/app/structs/DynamicCameraTargetting.h>
 #include <Modloader/app/structs/CameraTargetData.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/CameraTargetSettings.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Rect_.h>
-#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/GlobalBrightnessController_BrigthnessContributionOrder__Enum.h>
+#include <Modloader/app/structs/ICameraTarget.h>
+#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Rect_.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::DynamicCameraTargetting {
     IL2CPP_REGISTER_METHOD(0x01202300, bool, get_Bypass, (app::DynamicCameraTargetting * this_ptr))
@@ -33,9 +34,7 @@ namespace app::classes::Moon::DynamicCameraTargetting {
     IL2CPP_REGISTER_METHOD(0x01202CC0, void, OnDisable, (app::DynamicCameraTargetting * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01202CF0, void, ResetCamera, (app::DynamicCameraTargetting * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01202F40, void, OnRestoreCheckpoint, (app::DynamicCameraTargetting * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04763388, DynamicCameraTargetting_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01202F40, void, OnGameReset, (app::DynamicCameraTargetting * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047563C0, DynamicCameraTargetting_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01202F50, void, AdjustCameraTargetWeightForLeashHooks, (float* weight, app::ICameraTarget* target, app::CameraTargetData* data, app::Vector3 primary_target_position))
     IL2CPP_REGISTER_METHOD(0x01203150, void, Activate, (app::DynamicCameraTargetting * this_ptr, bool instant))
     IL2CPP_REGISTER_METHOD(0x012037F0, void, Deactivate, (app::DynamicCameraTargetting * this_ptr, bool instant))

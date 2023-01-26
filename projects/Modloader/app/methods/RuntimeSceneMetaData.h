@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RuntimeSceneMetaData.h>
-#include <Modloader/app/structs/SceneMetaData.h>
+
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
 #include <Modloader/app/structs/Dictionary_2_MoonGuid_NearbySceneData_.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/RuntimeSceneMetaData_PositionTypes__Enum.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData_PositionTypes__Enum.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RuntimeSceneMetaData {
     IL2CPP_REGISTER_METHOD(0x0137B160, void, ctor_1, (app::RuntimeSceneMetaData * this_ptr))

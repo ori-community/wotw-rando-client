@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKSolverLimb_AxisDirection__Boxed.h>
+
+#include <Modloader/app/structs/IKSolverLimb_AxisDirection__Boxed.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolverLimb_AxisDirection {

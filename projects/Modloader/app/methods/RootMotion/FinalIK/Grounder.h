@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Grounder.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Grounding_Leg.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::RootMotion::FinalIK::Grounder {
     IL2CPP_REGISTER_METHOD(0x020654E0, app::Vector3, GetSpineOffsetTarget, (app::Grounder * this_ptr))

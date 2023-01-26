@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WwiseObjectType__Enum.h>
+
+#include <Modloader/app/structs/WwiseObjectType__Enum.h>
 #include <Modloader/app/structs/AcousticTexture.h>
 
 namespace app::classes::AK::Wwise::AcousticTexture {

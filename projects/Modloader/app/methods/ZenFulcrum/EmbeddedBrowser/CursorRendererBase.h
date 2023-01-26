@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CursorRendererBase.h>
+
+#include <Modloader/app/structs/CursorRendererBase.h>
 #include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::CursorRendererBase {

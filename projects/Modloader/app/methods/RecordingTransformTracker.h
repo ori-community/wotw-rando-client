@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RecordingTransformTracker.h>
+
+#include <Modloader/app/structs/RecordingTransformTracker.h>
 #include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
 #include <Modloader/app/structs/TrackingExclusions.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/EventInfo_1.h>
 #include <Modloader/app/structs/MemberTypes__Enum.h>
 #include <Modloader/app/structs/MethodInfo_1.h>
@@ -20,7 +21,6 @@ namespace app::classes::System::Reflection::EventInfo {
     IL2CPP_REGISTER_METHOD(0x02283870, bool, op_Inequality, (app::EventInfo_1 * left, app::EventInfo_1* right))
     IL2CPP_REGISTER_METHOD(0x02689EA0, app::EventInfo_1*, internal_from_handle_type, (void* event_handle, void* type_handle))
     IL2CPP_REGISTER_METHOD(0x02689F00, app::EventInfo_1*, GetEventFromHandle, (app::RuntimeEventHandle handle, app::RuntimeTypeHandle reflected_type))
-    IL2CPP_REGISTER_METHODINFO(0x0470CA88, EventInfo_1_GetEventFromHandle__MethodInfo)
     inline bool operator==(app::EventInfo_1& left, app::EventInfo_1& right) {
         return op_Equality(&left, &right);
     }

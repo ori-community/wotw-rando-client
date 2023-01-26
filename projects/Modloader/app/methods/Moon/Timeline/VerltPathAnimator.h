@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonReference_1_UnityEngine_Transform_.h>
-#include <Modloader/app/structs/VerltPathAnimator.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_Transform_.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/VerltPathAnimator.h>
 
 namespace app::classes::Moon::Timeline::VerltPathAnimator {
     IL2CPP_REGISTER_METHOD(0x002FBC20, app::MoonReference_1_UnityEngine_Transform_*, GetTransformTarget, (app::VerltPathAnimator * this_ptr))

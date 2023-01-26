@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ITimelineEntity.h>
+
+#include <Modloader/app/structs/ITimelineEntity.h>
 #include <Modloader/app/structs/GardenerEntity.h>
+#include <Modloader/app/structs/ICharacter.h>
 #include <Modloader/app/structs/MessageProvider.h>
 #include <Modloader/app/structs/MoonAnimation.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ICharacter.h>
 
 namespace app::classes::GardenerEntity {
     IL2CPP_REGISTER_METHOD(0x00416C40, app::ITimelineEntity*, get_CurrentProject, (app::GardenerEntity * this_ptr))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUIStyle.h>
+
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/InstantiationHistory.h>
 #include <Modloader/app/structs/InstantiationHistory_PrefabData.h>
-#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::InstantiationHistory {
     IL2CPP_REGISTER_METHOD(0x00632E80, app::GUIStyle*, get_LabelStyle, (app::InstantiationHistory * this_ptr))

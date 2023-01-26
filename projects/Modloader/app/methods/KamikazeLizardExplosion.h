@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KamikazeLizardExplosion.h>
+
+#include <Modloader/app/structs/KamikazeLizardExplosion.h>
 #include <Modloader/app/structs/DamageWeight__Enum.h>
 
 namespace app::classes::KamikazeLizardExplosion {

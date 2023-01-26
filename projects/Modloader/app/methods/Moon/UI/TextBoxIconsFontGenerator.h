@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextBoxIconsFontGenerator_IconData_1.h>
+
+#include <Modloader/app/structs/TextBoxIconsFontGenerator_IconData_1.h>
 #include <Modloader/app/structs/TextBoxIconsFontGenerator_1.h>
 
 namespace app::classes::Moon::UI::TextBoxIconsFontGenerator {

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PointerUIBase.h>
+
+#include <Modloader/app/structs/PointerUIBase.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/PointerUIBase_PointerState.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/MouseButton__Enum.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Event_.h>
 #include <Modloader/app/structs/BrowserCursor.h>
 #include <Modloader/app/structs/BrowserInputSettings.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Event_.h>
+#include <Modloader/app/structs/MouseButton__Enum.h>
+#include <Modloader/app/structs/PointerUIBase_PointerState.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::PointerUIBase {
     IL2CPP_REGISTER_METHOD(0x0165F470, void, add_onHandlePointers, (app::PointerUIBase * this_ptr, app::Action* value))
@@ -23,7 +24,6 @@ namespace app::classes::ZenFulcrum::EmbeddedBrowser::PointerUIBase {
     IL2CPP_REGISTER_METHOD(0x01660730, void, MouseIsOver, (app::PointerUIBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01660780, void, MouseIsOff, (app::PointerUIBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, CursorUpdated, (app::PointerUIBase * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477A5F0, PointerUIBase_CursorUpdated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01660890, void, ForceKeyboardHasFocus, (app::PointerUIBase * this_ptr, bool force))
     IL2CPP_REGISTER_METHOD(0x016608D0, void, OnHandlePointers, (app::PointerUIBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016609C0, void, FeedTouchPointers, (app::PointerUIBase * this_ptr))

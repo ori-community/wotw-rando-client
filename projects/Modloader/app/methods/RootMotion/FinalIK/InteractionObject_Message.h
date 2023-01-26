@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InteractionObject_Message.h>
+
+#include <Modloader/app/structs/InteractionObject_Message.h>
 #include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::InteractionObject_Message {

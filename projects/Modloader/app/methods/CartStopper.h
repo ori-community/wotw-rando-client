@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/CartStopper.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::CartStopper {

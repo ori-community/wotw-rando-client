@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ExceptionProcessor.h>
+
+#include <Modloader/app/structs/ExceptionProcessor.h>
 #include <Modloader/app/structs/ExceptionListener.h>
 
 namespace app::classes::Moon::ExceptionProcessing::ExceptionListener {

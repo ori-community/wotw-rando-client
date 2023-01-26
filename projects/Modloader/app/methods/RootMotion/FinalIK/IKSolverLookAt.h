@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKSolverLookAt.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IKSolver_Point__Array.h>
+
+#include <Modloader/app/structs/IKSolverLookAt.h>
+#include <Modloader/app/structs/IKSolverLookAt_LookAtBone__Array.h>
 #include <Modloader/app/structs/IKSolver_Point.h>
+#include <Modloader/app/structs/IKSolver_Point__Array.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Transform__Array.h>
-#include <Modloader/app/structs/Vector3__Array.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IKSolverLookAt_LookAtBone__Array.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolverLookAt {
     IL2CPP_REGISTER_METHOD(0x02BFEBF0, void, SetLookAtWeight_1, (app::IKSolverLookAt * this_ptr, float weight))

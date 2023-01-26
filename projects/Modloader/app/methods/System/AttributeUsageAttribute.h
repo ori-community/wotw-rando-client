@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttributeUsageAttribute.h>
+
+#include <Modloader/app/structs/AttributeUsageAttribute.h>
 #include <Modloader/app/structs/AttributeTargets__Enum.h>
 
 namespace app::classes::System::AttributeUsageAttribute {

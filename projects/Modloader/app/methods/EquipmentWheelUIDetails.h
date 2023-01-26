@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EquipmentWheelUIDetails.h>
+
+#include <Modloader/app/structs/EquipmentWheelUIDetails.h>
 #include <Modloader/app/structs/SpellUIItem.h>
 
 namespace app::classes::EquipmentWheelUIDetails {

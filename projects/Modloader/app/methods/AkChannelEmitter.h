@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkChannelEmitter.h>
+
+#include <Modloader/app/structs/AkChannelEmitter.h>
 #include <Modloader/app/structs/AkTransform.h>
 
 namespace app::classes::AkChannelEmitter {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings_SpeedSet.h>
+
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings_SpeedSet.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings_SpeedMultiplierSet.h>
 
 namespace app::classes::HorizontalPlatformMovementSettings_SpeedSet {

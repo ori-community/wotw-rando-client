@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinDashAttack.h>
+
+#include <Modloader/app/structs/SeinDashAttack.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/SeinDashAttack_State__Enum.h>
 #include <Modloader/app/structs/IChargeDashAttackable.h>
 #include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/SeinDashAttack_State__Enum.h>
 #include <Modloader/app/structs/SoundProvider.h>
 
 namespace app::classes::SeinDashAttack {
@@ -26,9 +27,7 @@ namespace app::classes::SeinDashAttack {
     IL2CPP_REGISTER_METHOD(0x006EED60, void, Start, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EF030, void, OnDestroy, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EF300, void, OnResetAirLimits, (app::SeinDashAttack * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04729898, SeinDashAttack_OnResetAirLimits__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006EF310, void, OnDamageKickback, (app::SeinDashAttack * this_ptr, app::Damage* dmg))
-    IL2CPP_REGISTER_METHODINFO(0x047108F8, SeinDashAttack_OnDamageKickback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006EF330, bool, get_IsStatePerforming, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EF330, bool, get_IsDashingOrChangeDashing, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EF370, void, ChangeState, (app::SeinDashAttack * this_ptr, app::SeinDashAttack_State__Enum state))
@@ -39,7 +38,6 @@ namespace app::classes::SeinDashAttack {
     IL2CPP_REGISTER_METHOD(0x006F0AE0, void, PerformWallDash, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F0C10, void, PerformDashIntoWall, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F0F10, bool, KeepDashIntoWallAnimationPlaying, (app::SeinDashAttack * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04713CD0, SeinDashAttack_KeepDashIntoWallAnimationPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006F0F70, void, PerformChargeDash, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F1360, bool, HasChargeDashSkill, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F13C0, bool, HasAirDashSkill, (app::SeinDashAttack * this_ptr))
@@ -47,7 +45,6 @@ namespace app::classes::SeinDashAttack {
     IL2CPP_REGISTER_METHOD(0x006F1540, void, CompleteChargeEffect, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F1670, void, UpdateTargetHighlight, (app::SeinDashAttack * this_ptr, app::IChargeDashAttackable* target))
     IL2CPP_REGISTER_METHOD(0x006F1830, bool, KeepDashAnimationPlaying, (app::SeinDashAttack * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474D2C0, SeinDashAttack_KeepDashAnimationPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006F1830, bool, KeepChargeDashAnimationPlaying, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005CB580, bool, AgainstWall, (app::SeinDashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F18D0, bool, CanPerformNormalDash, (app::SeinDashAttack * this_ptr))

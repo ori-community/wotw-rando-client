@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OptionsScreen.h>
+
+#include <Modloader/app/structs/OptionsScreen.h>
 #include <Modloader/app/structs/MenuTabBackground__Enum.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
@@ -25,7 +26,6 @@ namespace app::classes::OptionsScreen {
     IL2CPP_REGISTER_METHOD(0x00618690, void, Show, (app::OptionsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006187D0, void, Refresh, (app::OptionsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00618990, void, OnBackPressed, (app::OptionsScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04715AE8, OptionsScreen_OnBackPressed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00585310, bool, get_IsSuspended, (app::OptionsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00585320, void, set_IsSuspended, (app::OptionsScreen * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x003FF2B0, app::SuspendableMask__Enum, get_Mask, (app::OptionsScreen * this_ptr))

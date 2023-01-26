@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SchemaEntity.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
+
+#include <Modloader/app/structs/SchemaEntity.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
 
 namespace app::classes::System::Xml::Schema::SchemaEntity {
     IL2CPP_REGISTER_METHOD(0x01AAFC40, void, ctor, (app::SchemaEntity * this_ptr, app::XmlQualifiedName* qname, bool is_parameter))

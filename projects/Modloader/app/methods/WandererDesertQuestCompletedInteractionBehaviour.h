@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WandererDesertQuestCompletedInteractionBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/WandererDesertQuestCompletedInteractionBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::WandererDesertQuestCompletedInteractionBehaviour {
     IL2CPP_REGISTER_METHOD(0x008C6A30, void, OnEntityInitialized, (app::WandererDesertQuestCompletedInteractionBehaviour * this_ptr))

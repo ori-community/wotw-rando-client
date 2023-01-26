@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DeathInformation.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/DeathInformation.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::DeathInformation {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::DeathInformation * this_ptr))

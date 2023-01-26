@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ColorUsageAttribute.h>
+
+#include <Modloader/app/structs/ColorUsageAttribute.h>
 
 namespace app::classes::UnityEngine::ColorUsageAttribute {
     IL2CPP_REGISTER_METHOD(0x02428BE0, void, ctor_1, (app::ColorUsageAttribute * this_ptr, bool show_alpha))

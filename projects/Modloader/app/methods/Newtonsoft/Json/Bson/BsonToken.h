@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BsonToken.h>
+
+#include <Modloader/app/structs/BsonToken.h>
 
 namespace app::classes::Newtonsoft::Json::Bson::BsonToken {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::BsonToken*, get_Parent, (app::BsonToken * this_ptr))

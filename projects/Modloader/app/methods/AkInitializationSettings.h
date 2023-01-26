@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkInitializationSettings.h>
-#include <Modloader/app/structs/AkMemSettings.h>
-#include <Modloader/app/structs/AkStreamMgrSettings.h>
+
+#include <Modloader/app/structs/AkInitializationSettings.h>
 #include <Modloader/app/structs/AkDeviceSettings.h>
 #include <Modloader/app/structs/AkInitSettings.h>
-#include <Modloader/app/structs/AkPlatformInitSettings.h>
+#include <Modloader/app/structs/AkMemSettings.h>
 #include <Modloader/app/structs/AkMusicSettings.h>
+#include <Modloader/app/structs/AkPlatformInitSettings.h>
+#include <Modloader/app/structs/AkStreamMgrSettings.h>
 #include <Modloader/app/structs/AkUnityPlatformSpecificSettings.h>
 
 namespace app::classes::AkInitializationSettings {

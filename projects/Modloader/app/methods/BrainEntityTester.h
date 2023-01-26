@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Enum__Array.h>
+
+#include <Modloader/app/structs/Enum__Array.h>
 #include <Modloader/app/structs/BrainEntityTester.h>
 #include <Modloader/app/structs/Enum.h>
 

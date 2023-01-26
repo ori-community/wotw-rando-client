@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FirewhirlBeamSpawner.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/FirewhirlBeamSpawner.h>
 #include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/IDamageReciever.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/IDamageReciever.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::FirewhirlBeamSpawner {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_IsSuspended, (app::FirewhirlBeamSpawner * this_ptr))
@@ -19,7 +20,6 @@ namespace app::classes::FirewhirlBeamSpawner {
     IL2CPP_REGISTER_METHOD(0x01262DA0, void, OnDisable, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01262DB0, void, OnDestroy, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01263110, void, OnPostRestoreCheckpoint, (app::FirewhirlBeamSpawner * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04745C20, FirewhirlBeamSpawner_OnPostRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01263120, void, FixedUpdate, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01263210, void, UpdateCastSound, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01263390, void, PlayCastSound, (app::FirewhirlBeamSpawner * this_ptr))
@@ -34,7 +34,6 @@ namespace app::classes::FirewhirlBeamSpawner {
     IL2CPP_REGISTER_METHOD(0x01264DA0, void, DealDamageToObject_2, (app::FirewhirlBeamSpawner * this_ptr, app::IAttackable* attackable))
     IL2CPP_REGISTER_METHOD(0x01265080, bool, PointInsideListOfRect, (app::FirewhirlBeamSpawner * this_ptr, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x012651B0, void, OnDamageTrigger, (app::FirewhirlBeamSpawner * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04742438, FirewhirlBeamSpawner_OnDamageTrigger__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012651F0, void, SpawnAreaDamage, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01265840, void, UpdateLightTranform, (app::FirewhirlBeamSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012661A0, void, OnDrawGizmos, (app::FirewhirlBeamSpawner * this_ptr))

@@ -1,22 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMoonSetupAnimator.h>
-#include <Modloader/app/structs/EnergyPlantLogic.h>
-#include <Modloader/app/structs/DamageResult.h>
+
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
 #include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/EnergyPlantLogic.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::EnergyPlantLogic {
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::IMoonSetupAnimator*, get_MoonSetupAnimator, (app::EnergyPlantLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C89A10, void, set_MoonSetupAnimator, (app::EnergyPlantLogic * this_ptr, app::IMoonSetupAnimator* value))
     IL2CPP_REGISTER_METHOD(0x00C89AE0, void, OnCheckpointRestore, (app::EnergyPlantLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04769300, EnergyPlantLogic_OnCheckpointRestore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C89AF0, void, Awake, (app::EnergyPlantLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C8A460, void, OnDestroy, (app::EnergyPlantLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C8A760, void, OnEnable, (app::EnergyPlantLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C8A800, void, OnDisable, (app::EnergyPlantLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C8A8A0, void, OnDamageReceived, (app::EnergyPlantLogic * this_ptr, app::DamageResult result))
-    IL2CPP_REGISTER_METHODINFO(0x04756D00, EnergyPlantLogic_OnDamageReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C8AA70, void, ChangeState, (app::EnergyPlantLogic * this_ptr, bool destroyed))
     IL2CPP_REGISTER_METHOD(0x00C8ACC0, bool, get_IsOnScreen, (app::EnergyPlantLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C8AEF0, void, OnFixedUpdate, (app::EnergyPlantLogic * this_ptr, float delta))

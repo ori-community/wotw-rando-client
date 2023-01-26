@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CreditsTextPosition.h>
+
+#include <Modloader/app/structs/CreditsTextPosition.h>
 
 namespace app::classes::CreditsTextPosition {
     IL2CPP_REGISTER_METHOD(0x00DB7970, bool, get_IsLooping, (app::CreditsTextPosition * this_ptr))

@@ -15,7 +15,7 @@ struct __declspec(align(8)) QuoteInstruction_ExpressionQuoter__Fields {
 #endif
 #if !defined(IL2CPP_STRUCT_QuoteInstruction_ExpressionQuoter__Fields_FWDDECL)
 #define IL2CPP_STRUCT_QuoteInstruction_ExpressionQuoter__Fields_FWDDECL
-#include <Modloader/app/structs/Dictionary_2_System_Linq_Expressions_ParameterExpression_System_Linq_Expressions_Interpreter_LocalVariable_.h>
+#include <Modloader/app/structs/Dictionary_2_Syste_Li_Expressio_ParameterExpressi_Syst_Li_Expressio_Interpret_LocalVariab_.h>
 #include <Modloader/app/structs/InterpretedFrame.h>
 #include <Modloader/app/structs/Stack_1_HashSet_1_System_Linq_Expressions_ParameterExpression_.h>
 #endif

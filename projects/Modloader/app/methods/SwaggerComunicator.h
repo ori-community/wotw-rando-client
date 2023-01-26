@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SwaggerComunicator.h>
+
+#include <Modloader/app/structs/SwaggerComunicator.h>
 #include <Modloader/app/structs/IRequest.h>
 #include <Modloader/app/structs/String.h>
 

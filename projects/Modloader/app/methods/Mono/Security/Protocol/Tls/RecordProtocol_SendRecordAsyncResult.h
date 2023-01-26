@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RecordProtocol_SendRecordAsyncResult.h>
+
+#include <Modloader/app/structs/RecordProtocol_SendRecordAsyncResult.h>
 #include <Modloader/app/structs/AsyncCallback.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/HandshakeMessage.h>
 #include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/HandshakeMessage.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::RecordProtocol_SendRecordAsyncResult {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EventSource_Sha1ForNonSecretPurposes__Boxed.h>
+
+#include <Modloader/app/structs/EventSource_Sha1ForNonSecretPurposes__Boxed.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EventSource_Sha1ForNonSecretPurposes {

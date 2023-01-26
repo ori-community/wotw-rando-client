@@ -1,17 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NetworkTest.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/UnityWebRequest.h>
-#include <Modloader/app/structs/ReplayModel.h>
+
+#include <Modloader/app/structs/NetworkTest.h>
 #include <Modloader/app/structs/GetReplayCallback.h>
 #include <Modloader/app/structs/GetReplaysCallback.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/ReplayModel.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UnityWebRequest.h>
 
 namespace app::classes::NetworkTest {
     IL2CPP_REGISTER_METHOD(0x0088CA60, void, SubscribeOnRemoteAction, (app::NetworkTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0088CBE0, void, ActionActivated, (app::NetworkTest * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476A870, NetworkTest_ActionActivated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0088CEE0, void, StartTimer, (app::NetworkTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0088D000, void, AddReplay, (app::NetworkTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0088D410, void, WipeReplay, (app::NetworkTest * this_ptr))
@@ -30,7 +30,5 @@ namespace app::classes::NetworkTest {
     IL2CPP_REGISTER_METHOD(0x0088E8C0, void, ctor, (app::NetworkTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0088E960, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x005F9D80, void, _GetReplay_b__8_0, (app::NetworkTest * this_ptr, app::GetReplayCallback* callback))
-    IL2CPP_REGISTER_METHODINFO(0x0478DDC0, NetworkTest__GetReplay_b__8_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0088EA30, void, _GetReplays_b__9_0, (app::NetworkTest * this_ptr, app::GetReplaysCallback* callback))
-    IL2CPP_REGISTER_METHODINFO(0x047759E0, NetworkTest__GetReplays_b__9_0__MethodInfo)
 } // namespace app::classes::NetworkTest

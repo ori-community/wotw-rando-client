@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UISoundSettingsAsset.h>
+
+#include <Modloader/app/structs/UISoundSettingsAsset.h>
 #include <Modloader/app/structs/Event_1.h>
 #include <Modloader/app/structs/WwiseEventSystem_SoundHandle.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_UnityEngine_Bounds_System_Boolean___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_UnityEngine_Bounds_System_Boolean___Boxed.h>
 #include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/String.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WindShaftController.h>
+
+#include <Modloader/app/structs/WindShaftController.h>
 #include <Modloader/app/structs/WindSegment.h>
 
 namespace app::classes::WindShaftController {

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonIconRenderer_1.h>
+
+#include <Modloader/app/structs/MoonIconRenderer_1.h>
 #include <Modloader/app/structs/CharMetaData_1.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Moon::UI::MoonIconRenderer {
     IL2CPP_REGISTER_METHOD(0x01182020, void, Prepare, (app::MoonIconRenderer_1 * this_ptr))

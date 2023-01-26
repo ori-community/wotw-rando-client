@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Quaternion.h>
+
+#include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/ClearRotation.h>
 
 namespace app::classes::ClearRotation {

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_System_DateTime_.h>
-#include <Modloader/app/structs/DateTime__Array.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_System_DateTime_.h>
 #include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/DateTime__Array.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_System_DateTime_ {

@@ -1,25 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NativeArray_1_UnityEngine_Color___Boxed.h>
+
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Color___Boxed.h>
 #include <Modloader/app/structs/Allocator__Enum.h>
-#include <Modloader/app/structs/NativeArrayOptions__Enum.h>
-#include <Modloader/app/structs/Color__Array.h>
-#include <Modloader/app/structs/NativeArray_1_UnityEngine_Color_.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_Color_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/Color__Array.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/NativeArrayOptions__Enum.h>
+#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_Color_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Color_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Unity::Collections::NativeArray_1_UnityEngine_Color_ {
     IL2CPP_REGISTER_METHOD(0x001DF770, void, ctor, (app::NativeArray_1_UnityEngine_Color___Boxed * this_ptr, int32_t length, app::Allocator__Enum allocator, app::NativeArrayOptions__Enum options))
-    IL2CPP_REGISTER_METHODINFO(0x04798AE0, NativeArray_1_UnityEngine_Color___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001DF8B0, void, Dispose, (app::NativeArray_1_UnityEngine_Color___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04762828, NativeArray_1_UnityEngine_Color__Dispose__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001DF930, void, CopyFrom, (app::NativeArray_1_UnityEngine_Color___Boxed * this_ptr, app::Color__Array* array))
-    IL2CPP_REGISTER_METHODINFO(0x04746508, NativeArray_1_UnityEngine_Color__CopyFrom__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001DF9C0, void, CopyTo, (app::NativeArray_1_UnityEngine_Color___Boxed * this_ptr, app::Color__Array* array))
-    IL2CPP_REGISTER_METHODINFO(0x0474CBA8, NativeArray_1_UnityEngine_Color__CopyTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022647E0, void, Allocate, (int32_t length, app::Allocator__Enum allocator, app::NativeArray_1_UnityEngine_Color_* array))
     IL2CPP_REGISTER_METHOD(0x001DF780, int32_t, get_Length, (app::NativeArray_1_UnityEngine_Color___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001E01B0, app::Color, get_Item, (app::NativeArray_1_UnityEngine_Color___Boxed * this_ptr, int32_t index))

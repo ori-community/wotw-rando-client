@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Assembly.h>
 #include <Modloader/app/structs/MethodBase.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/Assembly.h>
 
 namespace app::classes::System::Runtime::Remoting::SoapServices {
     IL2CPP_REGISTER_METHOD(0x01D851D0, app::String*, get_XmlNsForClrTypeWithAssembly, ())

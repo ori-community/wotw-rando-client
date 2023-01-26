@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StateCondition_StateConditionSetupHolder.h>
-#include <Modloader/app/structs/StateCondition_StateConditionSetupData.h>
+
+#include <Modloader/app/structs/StateCondition_StateConditionSetupHolder.h>
 #include <Modloader/app/structs/List_1_IIndexedItem_.h>
+#include <Modloader/app/structs/StateCondition_StateConditionSetupData.h>
 
 namespace app::classes::StateCondition_StateConditionSetupHolder {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_UseDesiredValues, (app::StateCondition_StateConditionSetupHolder * this_ptr))

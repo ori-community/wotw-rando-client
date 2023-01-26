@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Poser.h>
+
+#include <Modloader/app/structs/Poser.h>
 
 namespace app::classes::RootMotion::FinalIK::Poser {
     IL2CPP_REGISTER_METHOD(0x00CC2AF0, void, Start, (app::Poser * this_ptr))

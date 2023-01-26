@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CheckpointFunctionality__Boxed.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/CheckpointFunctionality__Boxed.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::CheckpointFunctionality {
     IL2CPP_REGISTER_METHOD(0x00126240, bool, IsManualPositionMode, (app::CheckpointFunctionality__Boxed * this_ptr))

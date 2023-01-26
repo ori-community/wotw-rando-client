@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XalAchievements_RunRequest_d_27.h>
+
+#include <Modloader/app/structs/XalAchievements_RunRequest_d_27.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::Achievements::XalAchievements__RunRequest_d__27 {
@@ -9,6 +10,5 @@ namespace app::classes::SystemIntegration::Synchronizer::Achievements::XalAchiev
     IL2CPP_REGISTER_METHOD(0x00532EB0, bool, MoveNext, (app::XalAchievements_RunRequest_d_27 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::XalAchievements_RunRequest_d_27 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00532F70, void, IEnumerator_Reset, (app::XalAchievements_RunRequest_d_27 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04758D08, XalAchievements_RunRequest_d_27_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::XalAchievements_RunRequest_d_27 * this_ptr))
 } // namespace app::classes::SystemIntegration::Synchronizer::Achievements::XalAchievements__RunRequest_d__27

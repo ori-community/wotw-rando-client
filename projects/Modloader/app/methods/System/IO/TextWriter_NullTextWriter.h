@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextWriter_NullTextWriter.h>
-#include <Modloader/app/structs/Encoding.h>
+
+#include <Modloader/app/structs/TextWriter_NullTextWriter.h>
 #include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Encoding.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IO::TextWriter_NullTextWriter {

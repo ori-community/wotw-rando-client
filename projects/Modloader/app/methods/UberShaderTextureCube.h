@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderTextureCube.h>
+
+#include <Modloader/app/structs/UberShaderTextureCube.h>
 #include <Modloader/app/structs/Cubemap.h>
 
 namespace app::classes::UberShaderTextureCube {

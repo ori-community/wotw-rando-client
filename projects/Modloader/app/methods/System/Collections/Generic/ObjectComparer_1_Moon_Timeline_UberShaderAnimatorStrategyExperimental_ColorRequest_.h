@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_ColorRequest.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_ColorRequest.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_ {
     IL2CPP_REGISTER_METHOD(0x01CC62E0, int32_t, Compare, (app::ObjectComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_ * this_ptr, app::UberShaderAnimatorStrategyExperimental_ColorRequest x, app::UberShaderAnimatorStrategyExperimental_ColorRequest y))

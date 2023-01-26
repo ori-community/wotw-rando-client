@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TimelineMarkerRecord__Class.h>
 #include <Modloader/app/structs/TimelineMarkerRecord.h>
 #include <Modloader/app/structs/TimelineMarkerRecord__Array.h>
+#include <Modloader/app/structs/TimelineMarkerRecord__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace TimelineMarkerRecord {
-        inline app::TimelineMarkerRecord__Class** type_info = (app::TimelineMarkerRecord__Class**)(modloader::win::memory::resolve_rva(0x0475DF88));
+        inline app::TimelineMarkerRecord__Class** type_info() {
+            static app::TimelineMarkerRecord__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::TimelineMarkerRecord__Class**)(modloader::win::memory::resolve_rva(0x0475DF88));
+            }
+            return cache;
+        }
         inline app::TimelineMarkerRecord__Class* get_class() {
-            return il2cpp::get_class<app::TimelineMarkerRecord__Class>(type_info, "Moon.Timeline", "TimelineMarkerRecord");
+            return il2cpp::get_class<app::TimelineMarkerRecord__Class>(type_info(), "Moon.Timeline", "TimelineMarkerRecord");
         }
         inline app::TimelineMarkerRecord* create() {
             return il2cpp::create_object<app::TimelineMarkerRecord>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKSimple.h>
+
+#include <Modloader/app/structs/IKSimple.h>
 #include <Modloader/app/structs/Transform__Array.h>
 #include <Modloader/app/structs/Vector3.h>
 

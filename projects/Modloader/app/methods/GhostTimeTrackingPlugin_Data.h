@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostTimeTrackingPlugin_Data.h>
-#include <Modloader/app/structs/BinaryWriter.h>
+
+#include <Modloader/app/structs/GhostTimeTrackingPlugin_Data.h>
 #include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/BinaryWriter.h>
 #include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
 
 namespace app::classes::GhostTimeTrackingPlugin_Data {

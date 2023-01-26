@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CapsuleColliderAnimator.h>
+
+#include <Modloader/app/structs/CapsuleColliderAnimator.h>
 
 namespace app::classes::CapsuleColliderAnimator {
     IL2CPP_REGISTER_METHOD(0x003FD650, bool, get_IsLooping, (app::CapsuleColliderAnimator * this_ptr))

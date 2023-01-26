@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VectorAnimationParameterAnimator.h>
+
+#include <Modloader/app/structs/VectorAnimationParameterAnimator.h>
 
 namespace app::classes::VectorAnimationParameterAnimator {
     IL2CPP_REGISTER_METHOD(0x003FDAA0, float, get_Duration, (app::VectorAnimationParameterAnimator * this_ptr))

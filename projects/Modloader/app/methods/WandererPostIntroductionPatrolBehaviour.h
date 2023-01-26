@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WandererPostIntroductionPatrolBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/WandererPostIntroductionPatrolBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::WandererPostIntroductionPatrolBehaviour {
     IL2CPP_REGISTER_METHOD(0x008D2350, void, OnEntityInitialized, (app::WandererPostIntroductionPatrolBehaviour * this_ptr))

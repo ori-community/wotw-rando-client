@@ -1,15 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ASN1.h>
+
+#include <Modloader/app/structs/ASN1.h>
+#include <Modloader/app/structs/ASN1_1.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ASN1_1.h>
 
 namespace app::classes::Mono::Security::ASN1 {
     IL2CPP_REGISTER_METHOD(0x023CF080, void, ctor_1, (app::ASN1 * this_ptr, uint8_t tag))
     IL2CPP_REGISTER_METHOD(0x0149F480, void, ctor_2, (app::ASN1 * this_ptr, uint8_t tag, app::Byte__Array* data))
     IL2CPP_REGISTER_METHOD(0x023CF090, void, ctor_3, (app::ASN1 * this_ptr, app::Byte__Array* data))
-    IL2CPP_REGISTER_METHODINFO(0x0472FD68, ASN1__ctor_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x023CF240, int32_t, get_Count_1, (app::ASN1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052B590, uint8_t, get_Tag_1, (app::ASN1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023CF260, int32_t, get_Length_1, (app::ASN1 * this_ptr))
@@ -27,7 +27,6 @@ namespace app::classes::Mono::Security::ASN1 {
     IL2CPP_REGISTER_METHOD(0x023CF080, void, ctor_4, (app::ASN1_1 * this_ptr, uint8_t tag))
     IL2CPP_REGISTER_METHOD(0x0149F480, void, ctor_5, (app::ASN1_1 * this_ptr, uint8_t tag, app::Byte__Array* data))
     IL2CPP_REGISTER_METHOD(0x02A36250, void, ctor_6, (app::ASN1_1 * this_ptr, app::Byte__Array* data))
-    IL2CPP_REGISTER_METHODINFO(0x0473FEC0, ASN1_1__ctor_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x023CF240, int32_t, get_Count_2, (app::ASN1_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052B590, uint8_t, get_Tag_2, (app::ASN1_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023CF260, int32_t, get_Length_2, (app::ASN1_1 * this_ptr))

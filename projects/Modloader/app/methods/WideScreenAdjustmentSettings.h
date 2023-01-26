@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WideScreenAdjustmentSettings.h>
+
+#include <Modloader/app/structs/WideScreenAdjustmentSettings.h>
 #include <Modloader/app/structs/CameraPuppetController.h>
 
 namespace app::classes::WideScreenAdjustmentSettings {

@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OrderedDictionary.h>
-#include <Modloader/app/structs/IEqualityComparer.h>
-#include <Modloader/app/structs/SerializationInfo.h>
-#include <Modloader/app/structs/StreamingContext.h>
-#include <Modloader/app/structs/ICollection.h>
+
+#include <Modloader/app/structs/OrderedDictionary.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/ArrayList.h>
 #include <Modloader/app/structs/Hashtable.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/ICollection.h>
 #include <Modloader/app/structs/IDictionaryEnumerator.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Collections::Specialized::OrderedDictionary {
     IL2CPP_REGISTER_METHOD(0x0249BA70, void, ctor_1, (app::OrderedDictionary * this_ptr))
@@ -27,22 +28,16 @@ namespace app::classes::System::Collections::Specialized::OrderedDictionary {
     IL2CPP_REGISTER_METHOD(0x0249BF00, app::Object*, ICollection_get_SyncRoot, (app::OrderedDictionary * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0249C060, app::Object*, get_Item, (app::OrderedDictionary * this_ptr, app::Object* key))
     IL2CPP_REGISTER_METHOD(0x0249C0A0, void, set_Item, (app::OrderedDictionary * this_ptr, app::Object* key, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x04797F58, OrderedDictionary_set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0249C380, app::ICollection*, get_Values, (app::OrderedDictionary * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0249C4D0, void, Add, (app::OrderedDictionary * this_ptr, app::Object* key, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x04722470, OrderedDictionary_Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0249C620, void, Clear, (app::OrderedDictionary * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047357A8, OrderedDictionary_Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0249C730, bool, Contains, (app::OrderedDictionary * this_ptr, app::Object* key))
     IL2CPP_REGISTER_METHOD(0x0249C770, void, CopyTo, (app::OrderedDictionary * this_ptr, app::Array* array, int32_t index))
     IL2CPP_REGISTER_METHOD(0x0249C7C0, int32_t, IndexOfKey, (app::OrderedDictionary * this_ptr, app::Object* key))
     IL2CPP_REGISTER_METHOD(0x0249C950, void, OnDeserialization, (app::OrderedDictionary * this_ptr, app::Object* sender))
-    IL2CPP_REGISTER_METHODINFO(0x04717628, OrderedDictionary_OnDeserialization__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0249CCC0, void, Remove, (app::OrderedDictionary * this_ptr, app::Object* key))
-    IL2CPP_REGISTER_METHODINFO(0x0476E830, OrderedDictionary_Remove__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0249CE40, app::IDictionaryEnumerator*, GetEnumerator, (app::OrderedDictionary * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0249CFC0, app::IEnumerator*, IEnumerable_GetEnumerator, (app::OrderedDictionary * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0249D140, void, GetObjectData, (app::OrderedDictionary * this_ptr, app::SerializationInfo* info, app::StreamingContext context))
-    IL2CPP_REGISTER_METHODINFO(0x04798008, OrderedDictionary_GetObjectData__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x018687B0, void, IDeserializationCallback_OnDeserialization, (app::OrderedDictionary * this_ptr, app::Object* sender))
 } // namespace app::classes::System::Collections::Specialized::OrderedDictionary

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IEnumerable_1_MessageDescriptor_.h>
+
+#include <Modloader/app/structs/IEnumerable_1_MessageDescriptor_.h>
 #include <Modloader/app/structs/InputBasedStringProvider.h>
 
 namespace app::classes::InputBasedStringProvider {

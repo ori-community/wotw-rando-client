@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/SmartGUIText.h>
 
 namespace app::classes::SmartGUIText {

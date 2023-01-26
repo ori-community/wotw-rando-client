@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/AnimationCurve.h>
 #include <Modloader/app/structs/TransformAnimator.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/AnimationCurve.h>
 
 namespace app::classes::TransformAnimator {
     IL2CPP_REGISTER_METHOD(0x00B06110, app::Transform*, get_EffectiveTranform, (app::TransformAnimator * this_ptr))

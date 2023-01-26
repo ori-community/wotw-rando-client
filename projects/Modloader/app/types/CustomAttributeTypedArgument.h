@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/CustomAttributeTypedArgument.h>
+#include <Modloader/app/structs/CustomAttributeTypedArgument__Array.h>
+#include <Modloader/app/structs/CustomAttributeTypedArgument__Boxed.h>
+#include <Modloader/app/structs/CustomAttributeTypedArgument__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CustomAttributeTypedArgument__Class.h>
-#include <Modloader/app/structs/CustomAttributeTypedArgument.h>
-#include <Modloader/app/structs/CustomAttributeTypedArgument__Boxed.h>
-#include <Modloader/app/structs/CustomAttributeTypedArgument__Array.h>
 
 namespace app::classes::types {
     namespace CustomAttributeTypedArgument {
-        inline app::CustomAttributeTypedArgument__Class** type_info = (app::CustomAttributeTypedArgument__Class**)(modloader::win::memory::resolve_rva(0x04766388));
+        inline app::CustomAttributeTypedArgument__Class** type_info() {
+            static app::CustomAttributeTypedArgument__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::CustomAttributeTypedArgument__Class**)(modloader::win::memory::resolve_rva(0x04766388));
+            }
+            return cache;
+        }
         inline app::CustomAttributeTypedArgument__Class* get_class() {
-            return il2cpp::get_class<app::CustomAttributeTypedArgument__Class>(type_info, "System.Reflection", "CustomAttributeTypedArgument");
+            return il2cpp::get_class<app::CustomAttributeTypedArgument__Class>(type_info(), "System.Reflection", "CustomAttributeTypedArgument");
         }
         inline app::CustomAttributeTypedArgument* create() {
             return il2cpp::create_object<app::CustomAttributeTypedArgument>(get_class());

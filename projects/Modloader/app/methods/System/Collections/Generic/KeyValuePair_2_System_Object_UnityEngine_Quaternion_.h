@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_UnityEngine_Quaternion___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_UnityEngine_Quaternion___Boxed.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/String.h>

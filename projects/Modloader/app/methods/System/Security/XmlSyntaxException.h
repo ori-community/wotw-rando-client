@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSyntaxException.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/XmlSyntaxException.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::XmlSyntaxException {
     IL2CPP_REGISTER_METHOD(0x01E25790, void, ctor_1, (app::XmlSyntaxException * this_ptr))

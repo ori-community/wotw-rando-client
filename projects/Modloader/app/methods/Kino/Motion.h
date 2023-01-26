@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Motion_1.h>
+
+#include <Modloader/app/structs/Motion_1.h>
 #include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::Kino::Motion {

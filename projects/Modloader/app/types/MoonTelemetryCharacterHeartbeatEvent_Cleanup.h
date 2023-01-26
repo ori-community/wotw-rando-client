@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup__Array.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup__Boxed.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup__Class.h>
-#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup.h>
-#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup__Boxed.h>
-#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup__Array.h>
 
 namespace app::classes::types {
     namespace MoonTelemetryCharacterHeartbeatEvent_Cleanup {
-        inline app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Class** type_info = (app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Class**)(modloader::win::memory::resolve_rva(0x0475C5F8));
+        inline app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Class** type_info() {
+            static app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Class**)(modloader::win::memory::resolve_rva(0x0475C5F8));
+            }
+            return cache;
+        }
         inline app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Class* get_class() {
-            return il2cpp::get_nested_class<app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Class>(type_info, "", "MoonTelemetryCharacterHeartbeatEvent", "Cleanup");
+            return il2cpp::get_nested_class<app::MoonTelemetryCharacterHeartbeatEvent_Cleanup__Class>(type_info(), "", "MoonTelemetryCharacterHeartbeatEvent", "Cleanup");
         }
         inline app::MoonTelemetryCharacterHeartbeatEvent_Cleanup* create() {
             return il2cpp::create_object<app::MoonTelemetryCharacterHeartbeatEvent_Cleanup>(get_class());

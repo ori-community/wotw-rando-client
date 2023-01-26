@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DummyRenderPostprocessor.h>
+
+#include <Modloader/app/structs/DummyRenderPostprocessor.h>
 #include <Modloader/app/structs/PostProcessRenderContext.h>
 
 namespace app::classes::Moon::Rendering::DummyRenderPostprocessor {

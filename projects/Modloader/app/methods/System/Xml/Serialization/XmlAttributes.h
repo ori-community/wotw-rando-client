@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlAttributes.h>
+
+#include <Modloader/app/structs/XmlAttributes.h>
 #include <Modloader/app/structs/ICustomAttributeProvider.h>
+#include <Modloader/app/structs/Nullable_1_Int32_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StringBuilder.h>
 #include <Modloader/app/structs/XmlAnyAttributeAttribute.h>
 #include <Modloader/app/structs/XmlAnyElementAttributes.h>
 #include <Modloader/app/structs/XmlArrayAttribute.h>
 #include <Modloader/app/structs/XmlArrayItemAttributes.h>
 #include <Modloader/app/structs/XmlAttributeAttribute.h>
 #include <Modloader/app/structs/XmlChoiceIdentifierAttribute.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/XmlElementAttributes.h>
 #include <Modloader/app/structs/XmlRootAttribute.h>
 #include <Modloader/app/structs/XmlTextAttribute.h>
 #include <Modloader/app/structs/XmlTypeAttribute.h>
-#include <Modloader/app/structs/StringBuilder.h>
-#include <Modloader/app/structs/Nullable_1_Int32_.h>
 
 namespace app::classes::System::Xml::Serialization::XmlAttributes {
     IL2CPP_REGISTER_METHOD(0x01C9BDB0, void, ctor_1, (app::XmlAttributes * this_ptr))

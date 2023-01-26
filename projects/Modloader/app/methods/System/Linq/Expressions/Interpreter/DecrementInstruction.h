@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DecrementInstruction.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/DecrementInstruction.h>
 #include <Modloader/app/structs/Instruction.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::DecrementInstruction {
@@ -11,5 +12,4 @@ namespace app::classes::System::Linq::Expressions::Interpreter::DecrementInstruc
     IL2CPP_REGISTER_METHOD(0x022DABD0, app::String*, get_InstructionName, (app::DecrementInstruction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::DecrementInstruction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x022DAC50, app::Instruction*, Create, (app::Type * type))
-    IL2CPP_REGISTER_METHODINFO(0x0472C5B8, DecrementInstruction_Create__MethodInfo)
 } // namespace app::classes::System::Linq::Expressions::Interpreter::DecrementInstruction

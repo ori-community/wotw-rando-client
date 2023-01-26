@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IDialogNode.h>
+
+#include <Modloader/app/structs/IDialogNode.h>
 #include <Modloader/app/structs/DialogGraph.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/IDialogNode__Array.h>
 #include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::DialogGraph {
@@ -23,7 +24,6 @@ namespace app::classes::DialogGraph {
     IL2CPP_REGISTER_METHOD(0x00B8F000, void, StartDialogTree, (app::DialogGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B8F340, void, StopDialogTree, (app::DialogGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B8F650, void, OnStateChanged, (app::DialogGraph * this_ptr, app::StateMachine_2* sm))
-    IL2CPP_REGISTER_METHODINFO(0x04714A50, DialogGraph_OnStateChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B8F7E0, void, BuildStateMachine, (app::DialogGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B8FC00, void, ShowNCPScreen, (app::DialogGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B8FCF0, void, HideNPCScreen, (app::DialogGraph * this_ptr))

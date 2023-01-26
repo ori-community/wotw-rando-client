@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CartController.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/CartController.h>
 #include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/IPressurePlate.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::CartController {
     IL2CPP_REGISTER_METHOD(0x00738690, float, get_ControllerExtraSpeed, (app::CartController * this_ptr))
@@ -28,7 +29,6 @@ namespace app::classes::CartController {
     IL2CPP_REGISTER_METHOD(0x00B341F0, float, GetMoveInput, (app::CartController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B34260, float, CalculateSpeedFromHeight, (app::CartController * this_ptr, float height))
     IL2CPP_REGISTER_METHOD(0x00B34380, void, HandleInput, (app::CartController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04707740, CartController_HandleInput__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B34DE0, void, HandleCustomInputAcceleration, (app::CartController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B34F50, void, HandleTriggersAcceleration, (app::CartController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B351D0, void, HandleFulRangeAnalogStickAcceleration, (app::CartController * this_ptr, float axis_magnitude))

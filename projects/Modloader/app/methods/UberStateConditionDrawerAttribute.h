@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/UberStateConditionDrawerAttribute.h>
 
 namespace app::classes::UberStateConditionDrawerAttribute {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostReplayTimelinePreview.h>
+
+#include <Modloader/app/structs/GhostReplayTimelinePreview.h>
 
 namespace app::classes::GhostReplayTimelinePreview {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::GhostReplayTimelinePreview * this_ptr))

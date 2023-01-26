@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ClientActivatedIdentity.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/MarshalByRefObject.h>
+
+#include <Modloader/app/structs/ClientActivatedIdentity.h>
 #include <Modloader/app/structs/IMessage.h>
 #include <Modloader/app/structs/IMessageCtrl.h>
 #include <Modloader/app/structs/IMessageSink.h>
+#include <Modloader/app/structs/MarshalByRefObject.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Runtime::Remoting::ClientActivatedIdentity {
     IL2CPP_REGISTER_METHOD(0x01A9FF60, void, ctor, (app::ClientActivatedIdentity * this_ptr, app::String* object_uri, app::Type* object_type))

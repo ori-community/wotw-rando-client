@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SelectableCategory__Enum.h>
+
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 #include <Modloader/app/structs/ScreenshotTextMarker.h>
 
 namespace app::classes::ScreenshotTextMarker {

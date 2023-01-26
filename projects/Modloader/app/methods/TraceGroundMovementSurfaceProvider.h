@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 #include <Modloader/app/structs/TraceGroundMovementSurfaceProvider.h>
 
 namespace app::classes::TraceGroundMovementSurfaceProvider {

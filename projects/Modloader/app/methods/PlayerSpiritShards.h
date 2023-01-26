@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateShards.h>
-#include <Modloader/app/structs/PlayerSpiritShards.h>
-#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_.h>
-#include <Modloader/app/structs/SpiritShardType__Enum.h>
-#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
-#include <Modloader/app/structs/SpiritShardType__Enum__Array.h>
-#include <Modloader/app/structs/UpgradablePropertyType__Enum.h>
-#include <Modloader/app/structs/SeinCharacter.h>
-#include <Modloader/app/structs/List_1_SpiritShardType_.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+
+#include <Modloader/app/structs/PlayerUberStateShards.h>
 #include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateShards_Shard_.h>
+#include <Modloader/app/structs/List_1_SpiritShardType_.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/PlayerSpiritShards.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/SpiritShardType__Enum__Array.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/UpgradablePropertyType__Enum.h>
 
 namespace app::classes::PlayerSpiritShards {
     IL2CPP_REGISTER_METHOD(0x01428CF0, app::PlayerUberStateShards*, get_PlayerUberStateShards, (app::PlayerSpiritShards * this_ptr))
@@ -21,15 +22,10 @@ namespace app::classes::PlayerSpiritShards {
     IL2CPP_REGISTER_METHOD(0x01428DF0, bool, InArrayBounds, (app::PlayerSpiritShards * this_ptr, app::SpiritShardType__Enum shard_type))
     IL2CPP_REGISTER_METHOD(0x01428E20, void, OnDestroy, (app::PlayerSpiritShards * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01429650, void, OnInventoryUpdateCallback, (app::PlayerSpiritShards * this_ptr, app::PlayerUberStateShards_Shard* shard))
-    IL2CPP_REGISTER_METHODINFO(0x04780F00, PlayerSpiritShards_OnInventoryUpdateCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01429650, void, OnGlobalShardsUpdatedCallback, (app::PlayerSpiritShards * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04728248, PlayerSpiritShards_OnGlobalShardsUpdatedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01429650, void, OnGlobalShardsEquipCallback, (app::PlayerSpiritShards * this_ptr, app::PlayerUberStateShards_Shard* shard))
-    IL2CPP_REGISTER_METHODINFO(0x04758AB0, PlayerSpiritShards_OnGlobalShardsEquipCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01429650, void, OnGlobalShardsUnequipCallback, (app::PlayerSpiritShards * this_ptr, app::PlayerUberStateShards_Shard* shard))
-    IL2CPP_REGISTER_METHODINFO(0x0470B5B8, PlayerSpiritShards_OnGlobalShardsUnequipCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01429660, void, RefreshQuickAccessArrays, (app::PlayerSpiritShards * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04757E30, PlayerSpiritShards_RefreshQuickAccessArrays__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01429A40, void, AllocateQuickAccessArrays, (app::PlayerSpiritShards * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01429B80, bool, HasShard, (app::PlayerSpiritShards * this_ptr, app::SpiritShardType__Enum shard_type))
     IL2CPP_REGISTER_METHOD(0x01429D30, void, RefreshHasShard, (app::PlayerSpiritShards * this_ptr))
@@ -61,14 +57,10 @@ namespace app::classes::PlayerSpiritShards {
     IL2CPP_REGISTER_METHOD(0x0142C900, void, EquipShard, (app::PlayerSpiritShards * this_ptr, app::PlayerUberStateShards_Shard* shard))
     IL2CPP_REGISTER_METHOD(0x0142CA50, void, UnequipShard, (app::PlayerSpiritShards * this_ptr, app::PlayerUberStateShards_Shard* shard))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, HandlePlayerDeath, (app::PlayerSpiritShards * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04791488, PlayerSpiritShards_HandlePlayerDeath__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0142CBA0, void, HandleRestore, (app::PlayerSpiritShards * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476F228, PlayerSpiritShards_HandleRestore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0142D090, void, HandleOnGameSerializedLoad, (app::PlayerSpiritShards * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04712CB8, PlayerSpiritShards_HandleOnGameSerializedLoad__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0142D0A0, void, DisableShardsForRaces, (app::PlayerSpiritShards * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0142D160, int32_t, SortShardsByIndex, (app::PlayerSpiritShards * this_ptr, app::PlayerUberStateShards_Shard* x, app::PlayerUberStateShards_Shard* y))
-    IL2CPP_REGISTER_METHODINFO(0x04749BF0, PlayerSpiritShards_SortShardsByIndex__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0142D1A0, app::PlayerUberStateShards_Shard*, GetActualInventoryItem, (app::PlayerSpiritShards * this_ptr, app::SpiritShardType__Enum typ))
     IL2CPP_REGISTER_METHOD(0x0142D360, void, Apply, (app::PlayerSpiritShards * this_ptr, app::UberStateApplyContext__Enum context))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ApplyOnEditor, (app::PlayerSpiritShards * this_ptr))

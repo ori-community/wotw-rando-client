@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMoonType_1_System_Boolean_.h>
+
+#include <Modloader/app/structs/IMoonType_1_System_Boolean_.h>
 #include <Modloader/app/structs/BlackboardVariableBool.h>
 
 namespace app::classes::Moon::BehaviourSystem::BlackboardVariableBool {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonProfilerSample.h>
+
+#include <Modloader/app/structs/MoonProfilerSample.h>
 #include <Modloader/app/structs/Recorder.h>
 
 namespace app::classes::Moon::MoonProfilerSample {

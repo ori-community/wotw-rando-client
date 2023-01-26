@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BashAttackCritical.h>
+
+#include <Modloader/app/structs/BashAttackCritical.h>
 #include <Modloader/app/structs/BashAttackCritical_State__Enum.h>
 
 namespace app::classes::BashAttackCritical {

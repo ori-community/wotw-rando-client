@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnemyShield.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/EnemyShield_State__Enum.h>
+
+#include <Modloader/app/structs/EnemyShield.h>
 #include <Modloader/app/structs/ArrowHitData.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/EnemyShield_State__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::EnemyShield {
     IL2CPP_REGISTER_METHOD(0x00C838F0, bool, IsProtecting, (app::EnemyShield * shield))
@@ -25,10 +26,8 @@ namespace app::classes::EnemyShield {
     IL2CPP_REGISTER_METHOD(0x00C84CD0, void, OnShieldDestroyed, (app::EnemyShield * this_ptr, app::DamageResult* damage_result))
     IL2CPP_REGISTER_METHOD(0x00C85000, void, SetShieldModelVisibility, (app::EnemyShield * this_ptr, bool on))
     IL2CPP_REGISTER_METHOD(0x00C85170, bool, ShouldReflectArrow, (app::EnemyShield * this_ptr, app::ArrowHitData arrow_hit_data))
-    IL2CPP_REGISTER_METHODINFO(0x047260B8, EnemyShield_ShouldReflectArrow__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C85370, app::Vector3, ProcessDamagePosition, (app::EnemyShield * this_ptr, app::Vector3 damage_origin_point, app::DamageType__Enum damage_type))
     IL2CPP_REGISTER_METHOD(0x00C85650, void, OnDrawGizmos, (app::EnemyShield * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C858E0, void, ctor, (app::EnemyShield * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C85CD0, void, _OnShieldDestroyed_b__38_0, (app::EnemyShield * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04754E98, EnemyShield__OnShieldDestroyed_b__38_0__MethodInfo)
 } // namespace app::classes::EnemyShield

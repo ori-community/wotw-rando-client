@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Action__Class.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Action__Array.h>
+#include <Modloader/app/structs/Action__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Action {
-        inline app::Action__Class** type_info = (app::Action__Class**)(modloader::win::memory::resolve_rva(0x0471A150));
+        inline app::Action__Class** type_info() {
+            static app::Action__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Action__Class**)(modloader::win::memory::resolve_rva(0x0471A150));
+            }
+            return cache;
+        }
         inline app::Action__Class* get_class() {
-            return il2cpp::get_class<app::Action__Class>(type_info, "System", "Action");
+            return il2cpp::get_class<app::Action__Class>(type_info(), "System", "Action");
         }
         inline app::Action* create() {
             return il2cpp::create_object<app::Action>(get_class());

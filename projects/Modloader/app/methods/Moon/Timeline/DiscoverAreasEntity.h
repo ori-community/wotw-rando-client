@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpellUIExperience.h>
-#include <Modloader/app/structs/DiscoverAreasEntity.h>
+
+#include <Modloader/app/structs/SpellUIExperience.h>
 #include <Modloader/app/structs/AreaMapCanvas.h>
+#include <Modloader/app/structs/DiscoverAreasEntity.h>
 #include <Modloader/app/structs/DiscoverAreasEntity_State__Enum.h>
 #include <Modloader/app/structs/IContext.h>
 
@@ -17,7 +18,5 @@ namespace app::classes::Moon::Timeline::DiscoverAreasEntity {
     IL2CPP_REGISTER_METHOD(0x00765C40, bool, HasFinished, (app::DiscoverAreasEntity * this_ptr, int32_t event_id))
     IL2CPP_REGISTER_METHOD(0x00765D00, void, ctor, (app::DiscoverAreasEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00765DF0, void, _ChangeState_b__22_0, (app::DiscoverAreasEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473A198, DiscoverAreasEntity__ChangeState_b__22_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00765EB0, void, _OnStartPlayback_b__24_0, (app::DiscoverAreasEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473FD40, DiscoverAreasEntity__OnStartPlayback_b__24_0__MethodInfo)
 } // namespace app::classes::Moon::Timeline::DiscoverAreasEntity

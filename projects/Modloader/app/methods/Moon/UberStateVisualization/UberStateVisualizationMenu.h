@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberStateVisualizationMenu.h>
-#include <Modloader/app/structs/List_1_List_1_IDebugMenuItem_.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/UberStateVisualizationMenu.h>
 #include <Modloader/app/structs/Func_1_String_.h>
 #include <Modloader/app/structs/IDebugMenuItem.h>
+#include <Modloader/app/structs/List_1_List_1_IDebugMenuItem_.h>
 #include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::UberStateVisualization::UberStateVisualizationMenu {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_Active, (app::UberStateVisualizationMenu * this_ptr))

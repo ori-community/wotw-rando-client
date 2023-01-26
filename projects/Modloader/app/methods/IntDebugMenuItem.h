@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IntDebugMenuItem.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Func_1_Int32_.h>
+
+#include <Modloader/app/structs/IntDebugMenuItem.h>
 #include <Modloader/app/structs/Action_1_Int32_.h>
+#include <Modloader/app/structs/Func_1_Int32_.h>
 #include <Modloader/app/structs/Func_1_String_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::IntDebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x006371F0, void, ctor_1, (app::IntDebugMenuItem * this_ptr))

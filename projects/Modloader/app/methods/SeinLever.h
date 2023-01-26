@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinLever.h>
-#include <Modloader/app/structs/SeinLeverPuppet.h>
-#include <Modloader/app/structs/ILever.h>
-#include <Modloader/app/structs/Damage.h>
+
+#include <Modloader/app/structs/SeinLever.h>
 #include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/ILever.h>
+#include <Modloader/app/structs/SeinLeverPuppet.h>
 #include <Modloader/app/structs/StressTestStatus__Enum.h>
 #include <Modloader/app/structs/String.h>
 
@@ -32,7 +33,6 @@ namespace app::classes::SeinLever {
     IL2CPP_REGISTER_METHOD(0x01024FC0, void, EnterLever, (app::SeinLever * this_ptr, app::ILever* lever))
     IL2CPP_REGISTER_METHOD(0x010251D0, void, ExitLever, (app::SeinLever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010253E0, void, OnTakeDamage, (app::SeinLever * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x0471A5A8, SeinLever_OnTakeDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x010253F0, void, OnExit, (app::SeinLever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01025410, void, Serialize, (app::SeinLever * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x010254D0, void, UpdateCharacterState, (app::SeinLever * this_ptr))
@@ -51,9 +51,7 @@ namespace app::classes::SeinLever {
     IL2CPP_REGISTER_METHOD(0x01027990, void, UpdateRight, (app::SeinLever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01027C80, bool, IsLeverValid, (app::SeinLever * this_ptr, app::ILever* lever))
     IL2CPP_REGISTER_METHOD(0x01027E30, void, ModifyHorizontalPlatformMovementSettings, (app::SeinLever * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04793E10, SeinLever_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01027E90, void, ModifyGravityPlatformMovementSettings, (app::SeinLever * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0470EDB0, SeinLever_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00805AA0, int32_t, get_GroundMask, ())
     IL2CPP_REGISTER_METHOD(0x01027EC0, void, StartStressTest, (app::SeinLever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, StressTestUpdate, (app::SeinLever * this_ptr, float delta_time))

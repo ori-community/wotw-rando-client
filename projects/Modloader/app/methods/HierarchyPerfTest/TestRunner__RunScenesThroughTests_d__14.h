@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TestRunner_RunScenesThroughTests_d_14.h>
+
+#include <Modloader/app/structs/TestRunner_RunScenesThroughTests_d_14.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::HierarchyPerfTest::TestRunner__RunScenesThroughTests_d__14 {
@@ -9,6 +10,5 @@ namespace app::classes::HierarchyPerfTest::TestRunner__RunScenesThroughTests_d__
     IL2CPP_REGISTER_METHOD(0x019770B0, bool, MoveNext, (app::TestRunner_RunScenesThroughTests_d_14 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::TestRunner_RunScenesThroughTests_d_14 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01977520, void, IEnumerator_Reset, (app::TestRunner_RunScenesThroughTests_d_14 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04709E10, TestRunner_RunScenesThroughTests_d_14_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::TestRunner_RunScenesThroughTests_d_14 * this_ptr))
 } // namespace app::classes::HierarchyPerfTest::TestRunner__RunScenesThroughTests_d__14

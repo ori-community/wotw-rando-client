@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SpiderLeg.h>
+#include <Modloader/app/structs/SpiderLeg__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SpiderLeg__Class.h>
-#include <Modloader/app/structs/SpiderLeg.h>
 
 namespace app::classes::types {
     namespace SpiderLeg {
-        namespace {
-            inline app::SpiderLeg__Class* type_info_ref = nullptr;
+        inline app::SpiderLeg__Class** type_info() {
+            static app::SpiderLeg__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SpiderLeg__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SpiderLeg__Class** type_info = &type_info_ref;
         inline app::SpiderLeg__Class* get_class() {
-            return il2cpp::get_class<app::SpiderLeg__Class>(type_info, "", "SpiderLeg");
+            return il2cpp::get_class<app::SpiderLeg__Class>(type_info(), "", "SpiderLeg");
         }
         inline app::SpiderLeg* create() {
             return il2cpp::create_object<app::SpiderLeg>(get_class());

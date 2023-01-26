@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_AbilityData.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_AbilityData__Array.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_AbilityData__Boxed.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_AbilityData__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_AbilityData__Class.h>
-#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_AbilityData.h>
-#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_AbilityData__Boxed.h>
-#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_AbilityData__Array.h>
 
 namespace app::classes::types {
     namespace MoonTelemetryCharacterBaseEvent_AbilityData {
-        namespace {
-            inline app::MoonTelemetryCharacterBaseEvent_AbilityData__Class* type_info_ref = nullptr;
+        inline app::MoonTelemetryCharacterBaseEvent_AbilityData__Class** type_info() {
+            static app::MoonTelemetryCharacterBaseEvent_AbilityData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::MoonTelemetryCharacterBaseEvent_AbilityData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::MoonTelemetryCharacterBaseEvent_AbilityData__Class** type_info = &type_info_ref;
         inline app::MoonTelemetryCharacterBaseEvent_AbilityData__Class* get_class() {
-            return il2cpp::get_nested_class<app::MoonTelemetryCharacterBaseEvent_AbilityData__Class>(type_info, "", "MoonTelemetryCharacterBaseEvent", "AbilityData");
+            return il2cpp::get_nested_class<app::MoonTelemetryCharacterBaseEvent_AbilityData__Class>(type_info(), "", "MoonTelemetryCharacterBaseEvent", "AbilityData");
         }
         inline app::MoonTelemetryCharacterBaseEvent_AbilityData* create() {
             return il2cpp::create_object<app::MoonTelemetryCharacterBaseEvent_AbilityData>(get_class());

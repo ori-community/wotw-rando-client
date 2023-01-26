@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CreateSceneParameters__Class.h>
 #include <Modloader/app/structs/CreateSceneParameters.h>
 #include <Modloader/app/structs/CreateSceneParameters__Boxed.h>
+#include <Modloader/app/structs/CreateSceneParameters__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace CreateSceneParameters {
-        namespace {
-            inline app::CreateSceneParameters__Class* type_info_ref = nullptr;
+        inline app::CreateSceneParameters__Class** type_info() {
+            static app::CreateSceneParameters__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CreateSceneParameters__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CreateSceneParameters__Class** type_info = &type_info_ref;
         inline app::CreateSceneParameters__Class* get_class() {
-            return il2cpp::get_class<app::CreateSceneParameters__Class>(type_info, "UnityEngine.SceneManagement", "CreateSceneParameters");
+            return il2cpp::get_class<app::CreateSceneParameters__Class>(type_info(), "UnityEngine.SceneManagement", "CreateSceneParameters");
         }
         inline app::CreateSceneParameters* create() {
             return il2cpp::create_object<app::CreateSceneParameters>(get_class());

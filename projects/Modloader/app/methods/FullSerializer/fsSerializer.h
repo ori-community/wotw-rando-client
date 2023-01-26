@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/fsData.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/List_1_FullSerializer_fsObjectProcessor_.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/fsSerializer.h>
-#include <Modloader/app/structs/fsObjectProcessor.h>
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/fsBaseConverter.h>
+#include <Modloader/app/structs/fsData.h>
+#include <Modloader/app/structs/fsObjectProcessor.h>
 #include <Modloader/app/structs/fsResult.h>
+#include <Modloader/app/structs/fsSerializer.h>
 
 namespace app::classes::FullSerializer::fsSerializer {
     IL2CPP_REGISTER_METHOD(0x01515440, void, cctor, ())
@@ -30,12 +31,9 @@ namespace app::classes::FullSerializer::fsSerializer {
     IL2CPP_REGISTER_METHOD(0x01517060, void, ctor, (app::fsSerializer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01518990, void, AddProcessor, (app::fsSerializer * this_ptr, app::fsObjectProcessor* processor))
     IL2CPP_REGISTER_METHOD(0x01518B20, void, SetDefaultStorageType, (app::fsSerializer * this_ptr, app::Type* abstract_type, app::Type* default_storage_type))
-    IL2CPP_REGISTER_METHODINFO(0x04746578, fsSerializer_SetDefaultStorageType__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01518C50, app::List_1_FullSerializer_fsObjectProcessor_*, GetProcessors, (app::fsSerializer * this_ptr, app::Type* type))
     IL2CPP_REGISTER_METHOD(0x015190B0, void, AddConverter, (app::fsSerializer * this_ptr, app::fsBaseConverter* converter))
-    IL2CPP_REGISTER_METHODINFO(0x04711128, fsSerializer_AddConverter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01519410, app::fsBaseConverter*, GetConverter, (app::fsSerializer * this_ptr, app::Type* type, app::Type* override_converter_type))
-    IL2CPP_REGISTER_METHODINFO(0x0475AC08, fsSerializer_GetConverter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01519A00, app::fsResult, TrySerialize_1, (app::fsSerializer * this_ptr, app::Type* storage_type, app::Object* instance, app::fsData** data))
     IL2CPP_REGISTER_METHOD(0x01519A40, app::fsResult, TrySerialize_2, (app::fsSerializer * this_ptr, app::Type* storage_type, app::Type* override_converter_type, app::Object* instance, app::fsData** data))
     IL2CPP_REGISTER_METHOD(0x01519DC0, app::fsResult, InternalSerialize_1_ProcessCycles, (app::fsSerializer * this_ptr, app::Type* storage_type, app::Type* override_converter_type, app::Object* instance, app::fsData** data))
@@ -51,6 +49,5 @@ namespace app::classes::FullSerializer::fsSerializer {
     IL2CPP_REGISTER_METHOD(0x0151C2E0, app::fsResult, InternalDeserialize_5_Converter, (app::fsSerializer * this_ptr, app::Type* override_converter_type, app::fsData* data, app::Type* result_type, app::Object** result))
     IL2CPP_REGISTER_METHOD(0x015482B0, void, RemoveProcessor, (app::fsSerializer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018EC640, app::fsResult, TrySerialize_3, (app::fsSerializer * this_ptr, app::Object* instance, app::fsData** data))
-    IL2CPP_REGISTER_METHODINFO(0x0472FDE8, fsSerializer_TrySerialize_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x018EC480, app::fsResult, TryDeserialize_3, (app::fsSerializer * this_ptr, app::fsData* data, app::Object** instance))
 } // namespace app::classes::FullSerializer::fsSerializer

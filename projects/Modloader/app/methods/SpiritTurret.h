@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritTurret.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/IAttackable.h>
+
+#include <Modloader/app/structs/SpiritTurret.h>
 #include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SpiritTurret {
     IL2CPP_REGISTER_METHOD(0x0064D960, float, get_Lifetime, (app::SpiritTurret * this_ptr))

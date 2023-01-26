@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneMetaData.h>
-#include <Modloader/app/structs/PreLoadingEntity.h>
+
+#include <Modloader/app/structs/SceneMetaData.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/PreLoadingEntity.h>
 #include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::PreLoadingEntity {
@@ -18,7 +19,6 @@ namespace app::classes::Moon::Timeline::PreLoadingEntity {
     IL2CPP_REGISTER_METHOD(0x0077BE10, void, OnDisable, (app::PreLoadingEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0077BED0, void, FixedUpdate, (app::PreLoadingEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0077BFB0, void, OnSceneEnabled, (app::PreLoadingEntity * this_ptr, bool success))
-    IL2CPP_REGISTER_METHODINFO(0x0471B468, PreLoadingEntity_OnSceneEnabled__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0077BFC0, bool, get_HasFinishedLoadingAndEnabling, (app::PreLoadingEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0077C0D0, bool, get_SceneLoadingAborted, (app::PreLoadingEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0077C270, bool, HasFinished, (app::PreLoadingEntity * this_ptr, int32_t event_id))

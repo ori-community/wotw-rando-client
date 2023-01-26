@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttributePSVIInfo.h>
+
+#include <Modloader/app/structs/AttributePSVIInfo.h>
 
 namespace app::classes::System::Xml::AttributePSVIInfo {
     IL2CPP_REGISTER_METHOD(0x021E1050, void, ctor, (app::AttributePSVIInfo * this_ptr))

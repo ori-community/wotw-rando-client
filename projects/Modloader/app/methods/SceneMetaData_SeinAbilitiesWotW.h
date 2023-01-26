@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneMetaData_SeinAbilitiesWotW.h>
+
+#include <Modloader/app/structs/SceneMetaData_SeinAbilitiesWotW.h>
 #include <Modloader/app/structs/PlayerAbilities.h>
 
 namespace app::classes::SceneMetaData_SeinAbilitiesWotW {

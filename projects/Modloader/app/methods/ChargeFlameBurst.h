@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ChargeFlameBurst.h>
+
+#include <Modloader/app/structs/ChargeFlameBurst.h>
 #include <Modloader/app/structs/IAttackable.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/X509CertificateCollection_X509CertificateEnumerator.h>
-#include <Modloader/app/structs/X509CertificateCollection.h>
-#include <Modloader/app/structs/X509Certificate.h>
+
+#include <Modloader/app/structs/X509CertificateCollection_X509CertificateEnumerator.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/X509CertificateCollection_X509CertificateEnumerator_2.h>
+#include <Modloader/app/structs/X509Certificate.h>
+#include <Modloader/app/structs/X509CertificateCollection.h>
 #include <Modloader/app/structs/X509CertificateCollection_2.h>
+#include <Modloader/app/structs/X509CertificateCollection_X509CertificateEnumerator_2.h>
 #include <Modloader/app/structs/X509Certificate_2.h>
 
 namespace app::classes::Mono::Security::X509::X509CertificateCollection_X509CertificateEnumerator {

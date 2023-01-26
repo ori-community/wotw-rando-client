@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_WorldObjectData.h>
+
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_WorldObjectData.h>
 #include <Modloader/app/structs/RecordableIdData.h>
 
 namespace app::classes::GhostWorldObjectsLifetimePlugin_WorldRecordableEventsData_WorldObjectData {

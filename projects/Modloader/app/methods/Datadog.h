@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Datadog.h>
+
+#include <Modloader/app/structs/Datadog.h>
+#include <Modloader/app/structs/DatadogEvent.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SslPolicyErrors__Enum.h>
 #include <Modloader/app/structs/X509Certificate_1.h>
 #include <Modloader/app/structs/X509Chain.h>
-#include <Modloader/app/structs/SslPolicyErrors__Enum.h>
-#include <Modloader/app/structs/DatadogEvent.h>
 
 namespace app::classes::Datadog {
     IL2CPP_REGISTER_METHOD(0x02E8ECB0, app::Datadog*, get_Instance, ())

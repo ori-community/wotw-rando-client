@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FpsGraph.h>
-#include <Modloader/app/structs/FrameInfo.h>
+
+#include <Modloader/app/structs/FpsGraph.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/FrameInfo.h>
 
 namespace app::classes::FpsGraph {
     IL2CPP_REGISTER_METHOD(0x00653FB0, int32_t, get_FrameIndex, (app::FpsGraph * this_ptr))
@@ -17,7 +18,6 @@ namespace app::classes::FpsGraph {
     IL2CPP_REGISTER_METHOD(0x01634E20, void, OnPostRender, (app::FpsGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01634EB0, void, OnGUI, (app::FpsGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01635060, void, OnEndOfFrame, (app::FpsGraph * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047723C8, FpsGraph_OnEndOfFrame__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01635070, void, Reset, (app::FpsGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01635440, void, CreateLineMaterial, (app::FpsGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016355E0, float, FrameTimeToGraphY, (app::FpsGraph * this_ptr, float t))

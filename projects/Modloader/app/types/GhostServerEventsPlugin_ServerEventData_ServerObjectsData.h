@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class.h>
 #include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData_ServerObjectsData.h>
 #include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Array.h>
+#include <Modloader/app/structs/GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace GhostServerEventsPlugin_ServerEventData_ServerObjectsData {
-        inline app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class** type_info = (app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class**)(modloader::win::memory::resolve_rva(0x04792F00));
+        inline app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class** type_info() {
+            static app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class**)(modloader::win::memory::resolve_rva(0x04792F00));
+            }
+            return cache;
+        }
         inline app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class* get_class() {
-            return il2cpp::get_nested_class<app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class>(type_info, "", "GhostServerEventsPlugin+ServerEventData", "ServerObjectsData");
+            return il2cpp::get_nested_class<app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData__Class>(type_info(), "", "GhostServerEventsPlugin+ServerEventData", "ServerObjectsData");
         }
         inline app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData* create() {
             return il2cpp::create_object<app::GhostServerEventsPlugin_ServerEventData_ServerObjectsData>(get_class());

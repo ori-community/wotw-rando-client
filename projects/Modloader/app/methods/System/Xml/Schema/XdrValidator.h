@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XdrValidator.h>
+
+#include <Modloader/app/structs/XdrValidator.h>
 #include <Modloader/app/structs/BaseValidator.h>
-#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
-#include <Modloader/app/structs/XmlSchemaCollection.h>
 #include <Modloader/app/structs/IValidationEventHandling.h>
-#include <Modloader/app/structs/SchemaElementDecl.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
-#include <Modloader/app/structs/SchemaAttDef.h>
-#include <Modloader/app/structs/SchemaInfo.h>
-#include <Modloader/app/structs/XmlNamespaceManager.h>
-#include <Modloader/app/structs/XmlNameTable.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/SchemaElementDecl.h>
+#include <Modloader/app/structs/SchemaInfo.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
 #include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaCollection.h>
+#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
+#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
 
 namespace app::classes::System::Xml::Schema::XdrValidator {
     IL2CPP_REGISTER_METHOD(0x022325B0, void, ctor_1, (app::XdrValidator * this_ptr, app::BaseValidator* validator))
@@ -32,14 +33,12 @@ namespace app::classes::System::Xml::Schema::XdrValidator {
     IL2CPP_REGISTER_METHOD(0x02234480, void, ValidateEndStartElement, (app::XdrValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02234860, void, LoadSchemaFromLocation, (app::XdrValidator * this_ptr, app::String* uri))
     IL2CPP_REGISTER_METHOD(0x02235070, void, LoadSchema, (app::XdrValidator * this_ptr, app::String* uri))
-    IL2CPP_REGISTER_METHODINFO(0x04772B00, XdrValidator_LoadSchema__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C87090, bool, get_HasSchema, (app::XdrValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01C870B0, bool, get_PreserveWhitespace, (app::XdrValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02235260, void, ProcessTokenizedType, (app::XdrValidator * this_ptr, app::XmlTokenizedType__Enum ttype, app::String* name))
     IL2CPP_REGISTER_METHOD(0x02235570, void, CompleteValidation, (app::XdrValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02235780, void, CheckValue, (app::XdrValidator * this_ptr, app::String* value, app::SchemaAttDef* attdef))
     IL2CPP_REGISTER_METHOD(0x02235D20, void, CheckDefaultValue, (app::String * value, app::SchemaAttDef* attdef, app::SchemaInfo* sinfo, app::XmlNamespaceManager* ns_manager, app::XmlNameTable* name_table, app::Object* sender, app::ValidationEventHandler* eventhandler, app::String* base_uri, int32_t line_no, int32_t line_pos))
-    IL2CPP_REGISTER_METHODINFO(0x0478A290, XdrValidator_CheckDefaultValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02236410, void, AddID, (app::XdrValidator * this_ptr, app::String* name, app::Object* node))
     IL2CPP_REGISTER_METHOD(0x01C87A40, app::Object*, FindId, (app::XdrValidator * this_ptr, app::String* name))
     IL2CPP_REGISTER_METHOD(0x022365B0, void, Push, (app::XdrValidator * this_ptr, app::XmlQualifiedName* element_name))

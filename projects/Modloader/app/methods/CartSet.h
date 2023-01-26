@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CartSet.h>
+
+#include <Modloader/app/structs/CartSet.h>
 
 namespace app::classes::CartSet {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_IsSpawningLocked, (app::CartSet * this_ptr))

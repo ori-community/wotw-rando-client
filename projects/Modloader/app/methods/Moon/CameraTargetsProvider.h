@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
+
+#include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
 #include <Modloader/app/structs/CameraTargetsProvider.h>
 #include <Modloader/app/structs/Vector2.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ValidationResult.h>
+
+#include <Modloader/app/structs/ValidationResult.h>
 #include <Modloader/app/structs/Nullable_1_Mono_Security_Interface_MonoSslPolicyErrors_.h>
 
 namespace app::classes::Mono::Security::Interface::ValidationResult {

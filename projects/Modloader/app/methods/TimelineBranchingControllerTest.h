@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Enum__Array.h>
-#include <Modloader/app/structs/TimelineBranchingControllerTest.h>
+
+#include <Modloader/app/structs/Enum__Array.h>
 #include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/TimelineBranchingControllerTest.h>
 
 namespace app::classes::TimelineBranchingControllerTest {
     IL2CPP_REGISTER_METHOD(0x010F52E0, app::Enum__Array*, GetEntries, (app::TimelineBranchingControllerTest * this_ptr))

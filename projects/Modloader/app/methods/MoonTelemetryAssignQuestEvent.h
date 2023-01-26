@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTelemetryAssignQuestEvent.h>
+
+#include <Modloader/app/structs/MoonTelemetryAssignQuestEvent.h>
+#include <Modloader/app/structs/JsonBuilder_Object.h>
 #include <Modloader/app/structs/Quest.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/JsonBuilder_Object.h>
 
 namespace app::classes::MoonTelemetryAssignQuestEvent {
     IL2CPP_REGISTER_METHOD(0x01466940, void, ctor, (app::MoonTelemetryAssignQuestEvent * this_ptr, app::Quest* quest))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneMetaData_PlayerAbilityInfo.h>
+
+#include <Modloader/app/structs/SceneMetaData_PlayerAbilityInfo.h>
 #include <Modloader/app/structs/GetAbilityOnCondition.h>
 
 namespace app::classes::SceneMetaData_PlayerAbilityInfo {

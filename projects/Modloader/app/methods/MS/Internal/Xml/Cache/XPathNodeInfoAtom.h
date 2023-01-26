@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XPathNodePageInfo.h>
-#include <Modloader/app/structs/XPathNodeInfoAtom.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XPathNode__Array.h>
-#include <Modloader/app/structs/XPathDocument.h>
+
+#include <Modloader/app/structs/XPathNodePageInfo.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XPathDocument.h>
+#include <Modloader/app/structs/XPathNodeInfoAtom.h>
+#include <Modloader/app/structs/XPathNode__Array.h>
 
 namespace app::classes::MS::Internal::Xml::Cache::XPathNodeInfoAtom {
     IL2CPP_REGISTER_METHOD(0x002FBB80, app::XPathNodePageInfo*, get_PageInfo, (app::XPathNodeInfoAtom * this_ptr))

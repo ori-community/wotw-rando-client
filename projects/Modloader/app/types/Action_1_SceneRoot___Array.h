@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/Action_1_SceneRoot___Array.h>
+#include <Modloader/app/structs/Action_1_SceneRoot___Array__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Action_1_SceneRoot___Array__Class.h>
-#include <Modloader/app/structs/Action_1_SceneRoot___Array.h>
 
 namespace app::classes::types {
     namespace Action_1_SceneRoot___Array {
-        namespace {
-            inline app::Action_1_SceneRoot___Array__Class* type_info_ref = nullptr;
+        inline app::Action_1_SceneRoot___Array__Class** type_info() {
+            static app::Action_1_SceneRoot___Array__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Action_1_SceneRoot___Array__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Action_1_SceneRoot___Array__Class** type_info = &type_info_ref;
         inline app::Action_1_SceneRoot___Array__Class* get_class() {
-            return il2cpp::get_class<app::Action_1_SceneRoot___Array__Class>(type_info, "System", "Action`1[SceneRoot][]");
+            return il2cpp::get_class<app::Action_1_SceneRoot___Array__Class>(type_info(), "System", "Action`1[SceneRoot][]");
         }
         inline app::Action_1_SceneRoot___Array* create() {
             return il2cpp::create_object<app::Action_1_SceneRoot___Array>(get_class());

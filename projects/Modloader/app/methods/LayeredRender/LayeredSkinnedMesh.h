@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LayeredSkinnedMesh.h>
+
+#include <Modloader/app/structs/LayeredSkinnedMesh.h>
 
 namespace app::classes::LayeredRender::LayeredSkinnedMesh {
     IL2CPP_REGISTER_METHOD(0x00F25830, void, Awake, (app::LayeredSkinnedMesh * this_ptr))

@@ -1,35 +1,31 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AsyncLocalValueChangedArgs_1_System_Globalization_CultureInfo_.h>
-#include <Modloader/app/structs/Thread.h>
-#include <Modloader/app/structs/ThreadStart.h>
-#include <Modloader/app/structs/ParameterizedThreadStart.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/StackCrawlMark__Enum.h>
-#include <Modloader/app/structs/ExecutionContext_Reader.h>
-#include <Modloader/app/structs/ExecutionContext.h>
-#include <Modloader/app/structs/ThreadPriority__Enum.h>
-#include <Modloader/app/structs/Delegate.h>
-#include <Modloader/app/structs/CultureInfo.h>
-#include <Modloader/app/structs/InternalThread.h>
+
+#include <Modloader/app/structs/AsyncLocalValueChangedArgs_1_System_Globalization_CultureInfo_.h>
 #include <Modloader/app/structs/Context.h>
-#include <Modloader/app/structs/MulticastDelegate.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ThreadState__Enum.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Delegate.h>
+#include <Modloader/app/structs/ExecutionContext.h>
+#include <Modloader/app/structs/ExecutionContext_Reader.h>
 #include <Modloader/app/structs/IPrincipal.h>
+#include <Modloader/app/structs/InternalThread.h>
+#include <Modloader/app/structs/MulticastDelegate.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ParameterizedThreadStart.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Thread.h>
+#include <Modloader/app/structs/ThreadPriority__Enum.h>
+#include <Modloader/app/structs/ThreadStart.h>
+#include <Modloader/app/structs/ThreadState__Enum.h>
 
 namespace app::classes::System::Threading::Thread {
     IL2CPP_REGISTER_METHOD(0x023417A0, void, AsyncLocalSetCurrentCulture, (app::AsyncLocalValueChangedArgs_1_System_Globalization_CultureInfo_ args))
-    IL2CPP_REGISTER_METHODINFO(0x04773F40, Thread_AsyncLocalSetCurrentCulture__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02341860, void, AsyncLocalSetCurrentUICulture, (app::AsyncLocalValueChangedArgs_1_System_Globalization_CultureInfo_ args))
-    IL2CPP_REGISTER_METHODINFO(0x047882C0, Thread_AsyncLocalSetCurrentUICulture__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02341920, void, ctor_1, (app::Thread * this_ptr, app::ThreadStart* start))
-    IL2CPP_REGISTER_METHODINFO(0x0472D738, Thread__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x023419F0, void, ctor_2, (app::Thread * this_ptr, app::ParameterizedThreadStart* start))
-    IL2CPP_REGISTER_METHODINFO(0x0473B0D8, Thread__ctor_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02341AC0, void, Start_1, (app::Thread * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02341AE0, void, Start_2, (app::Thread * this_ptr, app::Object* parameter))
-    IL2CPP_REGISTER_METHODINFO(0x047795C8, Thread_Start_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02341BE0, void, Start_3, (app::Thread * this_ptr, app::StackCrawlMark__Enum* stack_mark))
     IL2CPP_REGISTER_METHOD(0x002FB9D0, app::ExecutionContext_Reader, GetExecutionContextReader, (app::Thread * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02341DF0, bool, get_ExecutionContextBelongsToCurrentScope, (app::Thread * this_ptr))
@@ -44,20 +40,16 @@ namespace app::classes::System::Threading::Thread {
     IL2CPP_REGISTER_METHOD(0x02341FB0, bool, JoinInternal, (app::Thread * this_ptr, int32_t milliseconds_timeout))
     IL2CPP_REGISTER_METHOD(0x023420B0, void, Join_1, (app::Thread * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02342180, bool, Join_2, (app::Thread * this_ptr, int32_t milliseconds_timeout))
-    IL2CPP_REGISTER_METHODINFO(0x047259C8, Thread_Join_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02342320, void, SleepInternal, (int32_t milliseconds_timeout))
     IL2CPP_REGISTER_METHOD(0x023423E0, void, Sleep, (int32_t milliseconds_timeout))
-    IL2CPP_REGISTER_METHODINFO(0x04796CD0, Thread_Sleep__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02342540, bool, YieldInternal, ())
     IL2CPP_REGISTER_METHOD(0x02342540, bool, Yield, ())
     IL2CPP_REGISTER_METHOD(0x02342560, void, SetStartHelper, (app::Thread * this_ptr, app::Delegate* start, int32_t max_stack_size))
     IL2CPP_REGISTER_METHOD(0x02342990, app::CultureInfo*, get_CurrentUICulture, (app::Thread * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023429A0, void, set_CurrentUICulture, (app::Thread * this_ptr, app::CultureInfo* value))
-    IL2CPP_REGISTER_METHODINFO(0x0477FD50, Thread_set_CurrentUICulture__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02342E20, app::CultureInfo*, GetCurrentUICultureNoAppX, (app::Thread * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02343090, app::CultureInfo*, get_CurrentCulture, (app::Thread * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023430A0, void, set_CurrentCulture, (app::Thread * this_ptr, app::CultureInfo* value))
-    IL2CPP_REGISTER_METHODINFO(0x04726570, Thread_set_CurrentCulture__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02343450, app::CultureInfo*, GetCurrentCultureNoAppX, (app::Thread * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023436C0, void, nativeInitCultureAccessors, ())
     IL2CPP_REGISTER_METHOD(0x023437F0, void, MemoryBarrier, ())
@@ -82,7 +74,6 @@ namespace app::classes::System::Threading::Thread {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SpinWait_nop, ())
     IL2CPP_REGISTER_METHOD(0x02343E50, void, SpinWait, (int32_t iterations))
     IL2CPP_REGISTER_METHOD(0x02343E60, void, StartInternal, (app::Thread * this_ptr, app::IPrincipal* principal, app::StackCrawlMark__Enum* stack_mark))
-    IL2CPP_REGISTER_METHODINFO(0x0476D268, Thread_StartInternal__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02343F20, void, SetState, (app::InternalThread * thread, app::ThreadState__Enum set))
     IL2CPP_REGISTER_METHOD(0x02343F70, void, ClrState, (app::InternalThread * thread, app::ThreadState__Enum clr))
     IL2CPP_REGISTER_METHOD(0x02343FC0, app::ThreadState__Enum, GetState, (app::InternalThread * thread))
@@ -94,5 +85,4 @@ namespace app::classes::System::Threading::Thread {
     IL2CPP_REGISTER_METHOD(0x023441E0, void, EndCriticalRegion, ())
     IL2CPP_REGISTER_METHOD(0x02344140, int32_t, GetHashCode, (app::Thread * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02344240, app::ThreadState__Enum, ValidateThreadState, (app::Thread * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476D450, Thread_ValidateThreadState__MethodInfo)
 } // namespace app::classes::System::Threading::Thread

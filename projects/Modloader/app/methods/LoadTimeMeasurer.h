@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LoadTimeMeasurer.h>
+
+#include <Modloader/app/structs/LoadTimeMeasurer.h>
 
 namespace app::classes::LoadTimeMeasurer {
     IL2CPP_REGISTER_METHOD(0x00FB5670, void, Awake, (app::LoadTimeMeasurer * this_ptr))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
-#include <Modloader/app/structs/UnitySynchronizationContext_WorkRequest.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UnitySynchronizationContext_WorkRequest.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ {
     IL2CPP_REGISTER_METHOD(0x01CCF890, int32_t, Compare, (app::ObjectComparer_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ * this_ptr, app::UnitySynchronizationContext_WorkRequest x, app::UnitySynchronizationContext_WorkRequest y))

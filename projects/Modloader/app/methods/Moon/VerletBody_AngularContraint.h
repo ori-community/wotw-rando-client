@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VerletBody_AngularContraint.h>
+
+#include <Modloader/app/structs/VerletBody_AngularContraint.h>
 #include <Modloader/app/structs/VerletBody_Link.h>
 
 namespace app::classes::Moon::VerletBody_AngularContraint {

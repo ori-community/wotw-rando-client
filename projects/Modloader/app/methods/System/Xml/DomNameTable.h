@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DomNameTable.h>
+
+#include <Modloader/app/structs/DomNameTable.h>
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XmlDocument.h>
 #include <Modloader/app/structs/XmlName.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IXmlSchemaInfo.h>
 
 namespace app::classes::System::Xml::DomNameTable {
     IL2CPP_REGISTER_METHOD(0x021E9360, void, ctor, (app::DomNameTable * this_ptr, app::XmlDocument* document))

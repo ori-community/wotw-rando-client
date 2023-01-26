@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonEffectRevertHandle.h>
+
+#include <Modloader/app/structs/MoonEffectRevertHandle.h>
 #include <Modloader/app/structs/IRevertMoonEffectLogic.h>
 #include <Modloader/app/structs/MoonEffectGenericRevertibleData_MoonEffectRevertibleData.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SimpleGenericPool_1_System_Object_.h>
+
+#include <Modloader/app/structs/SimpleGenericPool_1_System_Object_.h>
 #include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_System_Object_.h>
 
 namespace app::classes::SimpleGenericPool_1_System_Object_ {

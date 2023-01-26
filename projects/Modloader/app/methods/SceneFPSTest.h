@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_RuntimeSceneMetaData_.h>
-#include <Modloader/app/structs/SceneFPSTest.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SceneFPSTest_State__Enum.h>
-#include <Modloader/app/structs/MoonProfilerFrame.h>
-#include <Modloader/app/structs/LogType__Enum.h>
+
+#include <Modloader/app/structs/List_1_RuntimeSceneMetaData_.h>
 #include <Modloader/app/structs/IMoonTest.h>
 #include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/LogType__Enum.h>
+#include <Modloader/app/structs/MoonProfilerFrame.h>
 #include <Modloader/app/structs/RuntimeSceneMetaData.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/SceneFPSTest.h>
+#include <Modloader/app/structs/SceneFPSTest_State__Enum.h>
 #include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SceneFPSTest {
     IL2CPP_REGISTER_METHOD(0x00939BC0, app::List_1_RuntimeSceneMetaData_*, get_SceneList, (app::SceneFPSTest * this_ptr))
@@ -29,9 +30,7 @@ namespace app::classes::SceneFPSTest {
     IL2CPP_REGISTER_METHOD(0x0093C7F0, void, ChangeState, (app::SceneFPSTest * this_ptr, app::SceneFPSTest_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x0093E740, app::MoonProfilerFrame, MoonProfilerFrameFromDataProvider, (app::SceneFPSTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0093E970, void, OnMemorySnapshotFinished, (app::SceneFPSTest * this_ptr, app::String* arg1, bool arg2))
-    IL2CPP_REGISTER_METHODINFO(0x04744828, SceneFPSTest_OnMemorySnapshotFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0093E980, void, OnLogMessageReceived, (app::SceneFPSTest * this_ptr, app::String* condition, app::String* stacktrace, app::LogType__Enum type))
-    IL2CPP_REGISTER_METHODINFO(0x0477BD90, SceneFPSTest_OnLogMessageReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0093EA70, void, WriteAdditionalTestsData, (app::SceneFPSTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0093EDC0, void, StartTestsThatBeginsOn, (app::SceneFPSTest * this_ptr, app::SceneFPSTest_State__Enum current_state))
     IL2CPP_REGISTER_METHOD(0x0093EFD0, void, StopTestThatEndOn, (app::SceneFPSTest * this_ptr, app::SceneFPSTest_State__Enum current_state))
@@ -55,7 +54,6 @@ namespace app::classes::SceneFPSTest {
     IL2CPP_REGISTER_METHOD(0x00941C70, void, OnGUI, (app::SceneFPSTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00941DF0, void, OnWindowUi, (app::SceneFPSTest * this_ptr, int32_t window_id))
     IL2CPP_REGISTER_METHOD(0x00942040, void, OnSceneRootLoadEarlyStart, (app::SceneFPSTest * this_ptr, app::SceneRoot* scene_root))
-    IL2CPP_REGISTER_METHODINFO(0x04723AE8, SceneFPSTest_OnSceneRootLoadEarlyStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009421E0, app::String*, GetSampleID_1, (float x_position, float y_position, app::String* scene_name))
     IL2CPP_REGISTER_METHOD(0x00942320, app::String*, GetSampleID_2, (int32_t meta_data_index, int32_t sample_index, app::String* scene_name))
     IL2CPP_REGISTER_METHOD(0x00942470, void, ctor, (app::SceneFPSTest * this_ptr))

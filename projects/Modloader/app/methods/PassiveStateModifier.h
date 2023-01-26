@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PassiveStateModifier.h>
-#include <Modloader/app/structs/IPassiveStateDescriptor.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/MoonReference_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+
+#include <Modloader/app/structs/PassiveStateModifier.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IPassiveStateDescriptor.h>
+#include <Modloader/app/structs/MoonReference_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::PassiveStateModifier {
     IL2CPP_REGISTER_METHOD(0x01B779A0, int32_t, get_StateGUIDToApply, (app::PassiveStateModifier * this_ptr))

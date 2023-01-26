@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ISenseInteractable.h>
+
+#include <Modloader/app/structs/ISenseInteractable.h>
 #include <Modloader/app/structs/SeinSenseInteractionHandler.h>
 
 namespace app::classes::SeinSenseInteractionHandler {

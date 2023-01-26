@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IRenderPipeline.h>
-#include <Modloader/app/structs/IRenderPipelineAsset.h>
+
+#include <Modloader/app/structs/IRenderPipeline.h>
 #include <Modloader/app/structs/Camera__Array.h>
+#include <Modloader/app/structs/IRenderPipelineAsset.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::RenderPipelineManager {
     IL2CPP_REGISTER_METHOD(0x02523610, app::IRenderPipeline*, get_currentPipeline, ())

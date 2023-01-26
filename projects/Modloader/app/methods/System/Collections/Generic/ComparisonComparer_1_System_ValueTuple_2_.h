@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_System_ValueTuple_2_.h>
-#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Int32_Object_.h>
-#include <Modloader/app/structs/ValueTuple_2_Int32_Object_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_System_ValueTuple_2_.h>
 #include <Modloader/app/structs/ComparisonComparer_1_System_ValueTuple_2__1.h>
-#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Object_Object_.h>
-#include <Modloader/app/structs/ValueTuple_2_Object_Object_.h>
 #include <Modloader/app/structs/ComparisonComparer_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Object_Object_.h>
 #include <Modloader/app/structs/Comparison_1_ValueTuple_2_Object_Single_.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Object_.h>
 #include <Modloader/app/structs/ValueTuple_2_Object_Single_.h>
 
 namespace app::classes::System::Collections::Generic::ComparisonComparer_1_System_ValueTuple_2_ {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
+
+#include <Modloader/app/structs/UpdateType__Enum.h>
 #include <Modloader/app/structs/UberTransformFollowRuntimeUpdateSystem.h>
 
 namespace app::classes::UberTransformFollowRuntimeUpdateSystem {

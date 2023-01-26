@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_InstantiateDebug_InstantiateDebugUtility_InstanceInfo_.h>
-#include <Modloader/app/structs/InstantiateDebugUtility_InstanceInfo__Array.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_InstantiateDebug_InstantiateDebugUtility_InstanceInfo_.h>
 #include <Modloader/app/structs/InstantiateDebugUtility_InstanceInfo.h>
+#include <Modloader/app/structs/InstantiateDebugUtility_InstanceInfo__Array.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_InstantiateDebug_InstantiateDebugUtility_InstanceInfo_ {

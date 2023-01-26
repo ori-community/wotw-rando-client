@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OnSpiritLeashed.h>
+
+#include <Modloader/app/structs/OnSpiritLeashed.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::fsm::triggers::OnSpiritLeashed {

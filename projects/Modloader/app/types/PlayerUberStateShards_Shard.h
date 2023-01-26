@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/PlayerUberStateShards_Shard__Class.h>
 #include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 #include <Modloader/app/structs/PlayerUberStateShards_Shard__Array.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace PlayerUberStateShards_Shard {
-        inline app::PlayerUberStateShards_Shard__Class** type_info = (app::PlayerUberStateShards_Shard__Class**)(modloader::win::memory::resolve_rva(0x0477E3C8));
+        inline app::PlayerUberStateShards_Shard__Class** type_info() {
+            static app::PlayerUberStateShards_Shard__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::PlayerUberStateShards_Shard__Class**)(modloader::win::memory::resolve_rva(0x0477E3C8));
+            }
+            return cache;
+        }
         inline app::PlayerUberStateShards_Shard__Class* get_class() {
-            return il2cpp::get_nested_class<app::PlayerUberStateShards_Shard__Class>(type_info, "Moon.uberSerializationWisp", "PlayerUberStateShards", "Shard");
+            return il2cpp::get_nested_class<app::PlayerUberStateShards_Shard__Class>(type_info(), "Moon.uberSerializationWisp", "PlayerUberStateShards", "Shard");
         }
         inline app::PlayerUberStateShards_Shard* create() {
             return il2cpp::create_object<app::PlayerUberStateShards_Shard>(get_class());

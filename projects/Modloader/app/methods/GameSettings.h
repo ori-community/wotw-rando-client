@@ -1,24 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameSettings.h>
-#include <Modloader/app/structs/ShowUIType__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Language__Enum.h>
-#include <Modloader/app/structs/FullScreenMode__Enum.h>
-#include <Modloader/app/structs/RTPC.h>
+
+#include <Modloader/app/structs/GameSettings.h>
 #include <Modloader/app/structs/AkAudioAPI__Enum.h>
 #include <Modloader/app/structs/AkPanningRule__Enum.h>
-#include <Modloader/app/structs/PCQualityModeManager_QualityMode__Enum.h>
-#include <Modloader/app/structs/GameplaySoundManager_AudioQualitySetting__Enum.h>
-#include <Modloader/app/structs/ControlScheme__Enum.h>
-#include <Modloader/app/structs/KeyboardLayout__Enum.h>
-#include <Modloader/app/structs/UnlockedCutscenes__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/BinaryWriter.h>
 #include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/ControlScheme__Enum.h>
+#include <Modloader/app/structs/FullScreenMode__Enum.h>
+#include <Modloader/app/structs/GameplaySoundManager_AudioQualitySetting__Enum.h>
 #include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
 #include <Modloader/app/structs/JsonBuilder_Object.h>
+#include <Modloader/app/structs/KeyboardLayout__Enum.h>
+#include <Modloader/app/structs/Language__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
+#include <Modloader/app/structs/PCQualityModeManager_QualityMode__Enum.h>
+#include <Modloader/app/structs/RTPC.h>
+#include <Modloader/app/structs/ShowUIType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UnlockedCutscenes__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::GameSettings {
     IL2CPP_REGISTER_METHOD(0x003FBC40, void, ResetStatics, ())
@@ -72,7 +73,6 @@ namespace app::classes::GameSettings {
     IL2CPP_REGISTER_METHOD(0x003FD740, float, get_DisplayScale, (app::GameSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FD750, void, set_DisplayScale, (app::GameSettings * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x003FD8C0, float, CalculateDisplayScaleWithQuality, (float value))
-    IL2CPP_REGISTER_METHODINFO(0x0477CE40, GameSettings_CalculateDisplayScaleWithQuality__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FDAA0, float, get_Sharpness, (app::GameSettings * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FDAB0, void, set_Sharpness, (app::GameSettings * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x003FDB90, float, get_BlurScale, (app::GameSettings * this_ptr))

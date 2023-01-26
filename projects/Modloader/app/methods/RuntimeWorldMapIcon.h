@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RuntimeWorldMapIcon.h>
+
+#include <Modloader/app/structs/RuntimeWorldMapIcon.h>
+#include <Modloader/app/structs/AreaMapUI.h>
 #include <Modloader/app/structs/GameWorldArea_WorldMapIcon.h>
 #include <Modloader/app/structs/RuntimeGameWorldArea.h>
-#include <Modloader/app/structs/AreaMapUI.h>
 #include <Modloader/app/structs/WorldMapIconType__Enum.h>
 
 namespace app::classes::RuntimeWorldMapIcon {

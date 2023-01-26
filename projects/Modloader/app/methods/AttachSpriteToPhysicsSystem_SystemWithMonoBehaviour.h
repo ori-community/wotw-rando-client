@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour.h>
+
+#include <Modloader/app/structs/AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour.h>
 #include <Modloader/app/structs/AttachSpriteToPhysicsSystem__Array.h>
 
 namespace app::classes::AttachSpriteToPhysicsSystem_SystemWithMonoBehaviour {

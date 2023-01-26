@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Entity.h>
+
+#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/EntityContext.h>
 
 namespace app::classes::EntityContext {

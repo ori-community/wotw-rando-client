@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_UberPoolManager_ObjectTracking_.h>
-#include <Modloader/app/structs/UberPoolManager_ObjectTracking.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_UberPoolManager_ObjectTracking_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberPoolManager_ObjectTracking.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_UberPoolManager_ObjectTracking_ {
     IL2CPP_REGISTER_METHOD(0x01CCD980, int32_t, Compare, (app::ObjectComparer_1_UberPoolManager_ObjectTracking_ * this_ptr, app::UberPoolManager_ObjectTracking x, app::UberPoolManager_ObjectTracking y))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XboxControllerStateChangedEventArgs.h>
+
+#include <Modloader/app/structs/XboxControllerStateChangedEventArgs.h>
 #include <Modloader/app/structs/XInputState.h>
 
 namespace app::classes::J2i::Net::XInputWrapper::XboxControllerStateChangedEventArgs {

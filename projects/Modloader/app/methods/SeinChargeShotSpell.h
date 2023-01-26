@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinChargeShotSpell.h>
+
+#include <Modloader/app/structs/SeinChargeShotSpell.h>
 #include <Modloader/app/structs/CharacterPlatformMovement.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/SeinChargeShotSpell_State__Enum.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/SeinChargeShotSpell_State__Enum.h>
 
 namespace app::classes::SeinChargeShotSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinChargeShotSpell * this_ptr))
@@ -12,16 +13,13 @@ namespace app::classes::SeinChargeShotSpell {
     IL2CPP_REGISTER_METHOD(0x00A53DA0, void, OnSetReferenceToSein, (app::SeinChargeShotSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A54090, void, OnDestroy, (app::SeinChargeShotSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A543F0, void, ModifyGravityPlatformMovementSettings, (app::SeinChargeShotSpell * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04701348, SeinChargeShotSpell_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A54420, void, OnExit, (app::SeinChargeShotSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A54430, void, Start, (app::SeinChargeShotSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A54570, bool, get_IsStatePerforming, (app::SeinChargeShotSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A54580, void, UpdateCharacterState, (app::SeinChargeShotSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A54BF0, void, UpdateNormalState, (app::SeinChargeShotSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A54570, bool, KeepPlayingAnimation, (app::SeinChargeShotSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04770F58, SeinChargeShotSpell_KeepPlayingAnimation__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A553C0, bool, KeepPlayingRecoilAnimation, (app::SeinChargeShotSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04735C78, SeinChargeShotSpell_KeepPlayingRecoilAnimation__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A55480, void, UpdatePreChargeState, (app::SeinChargeShotSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A556D0, void, UpdatePreAirShotState, (app::SeinChargeShotSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A55800, void, UpdateAirShot, (app::SeinChargeShotSpell * this_ptr))
@@ -30,7 +28,6 @@ namespace app::classes::SeinChargeShotSpell {
     IL2CPP_REGISTER_METHOD(0x00A55CC0, void, ChangeState, (app::SeinChargeShotSpell * this_ptr, app::SeinChargeShotSpell_State__Enum new_state))
     IL2CPP_REGISTER_METHOD(0x00A55FC0, void, UpdateProjectile, (app::SeinChargeShotSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A566B0, void, ModifyHorizontalPlatformMovementSettings, (app::SeinChargeShotSpell * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x047618C8, SeinChargeShotSpell_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A56700, void, InstantiateProjectile, (app::SeinChargeShotSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A56A30, bool, TestScatterShotShard, (app::SeinChargeShotSpell * this_ptr, int32_t* count, float* interval, bool* split_damage))
     IL2CPP_REGISTER_METHOD(0x00A56B60, void, ReleaseProjectile, (app::SeinChargeShotSpell * this_ptr))

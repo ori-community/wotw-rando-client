@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_VerticalSpacer_Item_.h>
-#include <Modloader/app/structs/VerticalSpacer_Item__Array.h>
-#include <Modloader/app/structs/VerticalSpacer_Item.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_VerticalSpacer_Item_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/VerticalSpacer_Item.h>
+#include <Modloader/app/structs/VerticalSpacer_Item__Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_VerticalSpacer_Item_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_VerticalSpacer_Item_*, get_Default, ())

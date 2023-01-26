@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpellUIShardListOverlay.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/SpellUIShardListOverlay.h>
 #include <Modloader/app/structs/EquipmentType__Enum.h>
 #include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::SpellUIShardListOverlay {
     IL2CPP_REGISTER_METHOD(0x00739A80, bool, get_IsSuspended, (app::SpellUIShardListOverlay * this_ptr))
@@ -13,9 +14,7 @@ namespace app::classes::SpellUIShardListOverlay {
     IL2CPP_REGISTER_METHOD(0x0094FDB0, void, Awake, (app::SpellUIShardListOverlay * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnDestroy, (app::SpellUIShardListOverlay * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009502A0, void, OnItemActivatedCallback, (app::SpellUIShardListOverlay * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047447C8, SpellUIShardListOverlay_OnItemActivatedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009503C0, void, OnNewItemHighlighted, (app::SpellUIShardListOverlay * this_ptr, bool first_after_populating))
-    IL2CPP_REGISTER_METHODINFO(0x0473FA68, SpellUIShardListOverlay_OnNewItemHighlighted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009503D0, void, SetCompatibleEquipment, (app::SpellUIShardListOverlay * this_ptr, app::EquipmentType__Enum compatible_equipment))
     IL2CPP_REGISTER_METHOD(0x002FBC30, void, SetInitiallySelectedItem, (app::SpellUIShardListOverlay * this_ptr, app::PlayerUberStateShards_Shard* item))
     IL2CPP_REGISTER_METHOD(0x00443C10, void, Hide, (app::SpellUIShardListOverlay * this_ptr, bool change))

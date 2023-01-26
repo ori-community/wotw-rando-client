@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterAbility.h>
-#include <Modloader/app/structs/PlayerAbilities.h>
+
+#include <Modloader/app/structs/CharacterAbility.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/PlayerAbilities.h>
 
 namespace app::classes::CharacterAbility {
     IL2CPP_REGISTER_METHOD(0x01046690, void, ctor, (app::CharacterAbility * this_ptr, app::PlayerAbilities* player_abilities, app::AbilityType__Enum ability_type))

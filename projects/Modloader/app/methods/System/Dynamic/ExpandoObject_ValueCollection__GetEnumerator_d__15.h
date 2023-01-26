@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ExpandoObject_ValueCollection_GetEnumerator_d_15.h>
+
+#include <Modloader/app/structs/ExpandoObject_ValueCollection_GetEnumerator_d_15.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Dynamic::ExpandoObject_ValueCollection__GetEnumerator_d__15 {
@@ -9,6 +10,5 @@ namespace app::classes::System::Dynamic::ExpandoObject_ValueCollection__GetEnume
     IL2CPP_REGISTER_METHOD(0x01F933D0, bool, MoveNext, (app::ExpandoObject_ValueCollection_GetEnumerator_d_15 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::ExpandoObject_ValueCollection_GetEnumerator_d_15 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F935A0, void, IEnumerator_Reset, (app::ExpandoObject_ValueCollection_GetEnumerator_d_15 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472D628, ExpandoObject_ValueCollection_GetEnumerator_d_15_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::ExpandoObject_ValueCollection_GetEnumerator_d_15 * this_ptr))
 } // namespace app::classes::System::Dynamic::ExpandoObject_ValueCollection__GetEnumerator_d__15

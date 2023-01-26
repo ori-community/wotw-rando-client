@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData.h>
-#include <Modloader/app/structs/MemberInfo_1.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/SetupStateModifierDataType__Enum.h>
-#include <Modloader/app/structs/NewSetupStateController.h>
-#include <Modloader/app/structs/SetupStateModifierData.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_.h>
 #include <Modloader/app/structs/IMoonResolverContext.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/NewSetupStateController.h>
+#include <Modloader/app/structs/NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData.h>
+#include <Modloader/app/structs/SetupStateModifierData.h>
+#include <Modloader/app/structs/SetupStateModifierDataType__Enum.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_ {
     IL2CPP_REGISTER_METHOD(0x02900CF0, bool, Init, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_ * this_ptr, app::NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData* serialized_data, app::MemberInfo_1* member_info))
@@ -23,13 +24,10 @@ namespace app::classes::Moon::NewSetupStateControllerResolver_RuntimeUberStateCo
     IL2CPP_REGISTER_METHOD(0x027275C0, app::SetupStateModifierData*, get_ModifierData, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA280, app::NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData*, get_Data, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x029011D0, app::Vector3, GetValue, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_ * this_ptr, app::IMoonResolverContext* context))
-    IL2CPP_REGISTER_METHODINFO(0x04743E30, NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3__GetValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x029014E0, bool, IsLinkForObjectAndMemberInfoCombo, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_ * this_ptr, app::NewSetupStateController* target_controller, int32_t state_guid, int32_t modifier_guid, app::MemberInfo_1* target_member_info))
     IL2CPP_REGISTER_METHOD(0x01CFFD20, app::NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData*, GetSerializedData, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02901700, void, CreateReflectionModifierData, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_ * this_ptr, app::MemberInfo_1* member_info))
-    IL2CPP_REGISTER_METHODINFO(0x0475BEC0, NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3__CreateReflectionModifierData__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02901C30, void, CreateReflectionModifier, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_ * this_ptr, app::MemberInfo_1* member_info))
-    IL2CPP_REGISTER_METHODINFO(0x04719E30, NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3__CreateReflectionModifier__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02902140, app::String*, ToString, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_ * this_ptr))
 } // namespace app::classes::Moon::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_UnityEngine_Vector3_

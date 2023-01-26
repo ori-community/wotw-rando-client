@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PendulumExample.h>
+
+#include <Modloader/app/structs/PendulumExample.h>
 
 namespace app::classes::RootMotion::Demos::PendulumExample {
     IL2CPP_REGISTER_METHOD(0x02228ED0, void, Start, (app::PendulumExample * this_ptr))

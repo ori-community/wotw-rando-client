@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SerializationSetupObserverNotifier.h>
+
+#include <Modloader/app/structs/SerializationSetupObserverNotifier.h>
 
 namespace app::classes::SerializationSetupObserverNotifier {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SerializationSetupObserverNotifier * this_ptr))

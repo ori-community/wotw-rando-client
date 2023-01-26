@@ -1,26 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneLoadingTest_RunState__Enum.h>
-#include <Modloader/app/structs/Task.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/TaskCompletionSource_1_System_Object_.h>
-#include <Modloader/app/structs/CancellationToken.h>
-#include <Modloader/app/structs/SceneLoadingTest_Context.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/SceneLoadingTest_RunState__Enum.h>
 #include <Modloader/app/structs/AsyncOperation_1.h>
-#include <Modloader/app/structs/SceneLoadingTest_Stats.h>
+#include <Modloader/app/structs/CancellationToken.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
 #include <Modloader/app/structs/List_1_System_String_.h>
 #include <Modloader/app/structs/List_1_System_ValueTuple_2__2.h>
-#include <Modloader/app/structs/List_1_System_Object_.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/ValueTuple_2_Int32_String___Array.h>
 #include <Modloader/app/structs/List_1_System_ValueTuple_2__3.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/SceneLoadingTest_Context.h>
+#include <Modloader/app/structs/SceneLoadingTest_Stats.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/TaskCompletionSource_1_System_Object_.h>
 #include <Modloader/app/structs/ValueTuple_2_Int32_Object___Array.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_String___Array.h>
 
 namespace app::classes::Moon::SceneLoadingTest {
     IL2CPP_REGISTER_METHOD(0x00EC6950, app::SceneLoadingTest_RunState__Enum, get_State, ())
     IL2CPP_REGISTER_METHOD(0x00EC6A90, void, Start, ())
-    IL2CPP_REGISTER_METHODINFO(0x04722F88, SceneLoadingTest_Start__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EC6DA0, void, Stop, ())
     IL2CPP_REGISTER_METHOD(0x00EC6ED0, app::Task*, LoadEmptyScene, ())
     IL2CPP_REGISTER_METHOD(0x00EC71C0, app::IEnumerator*, LoadEmptySceneCoroutine, (app::TaskCompletionSource_1_System_Object_ * tcs))
@@ -37,9 +37,7 @@ namespace app::classes::Moon::SceneLoadingTest {
     IL2CPP_REGISTER_METHOD(0x01550DE0, void, ShuffleList_1, (app::List_1_System_Object_ * list))
     IL2CPP_REGISTER_METHOD(0x01586670, app::Object__Array*, DuplicateList_1, (app::List_1_System_Object_ * list, int32_t copies))
     IL2CPP_REGISTER_METHOD(0x01586670, app::ValueTuple_2_Int32_String___Array*, DuplicateList_2, (app::List_1_System_ValueTuple_2__2 * list, int32_t copies))
-    IL2CPP_REGISTER_METHODINFO(0x04704FA0, SceneLoadingTest_DuplicateList_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01551050, void, ShuffleList_2, (app::List_1_System_ValueTuple_2__2 * list))
-    IL2CPP_REGISTER_METHODINFO(0x047858B0, SceneLoadingTest_ShuffleList_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01551050, void, ShuffleList_3, (app::List_1_System_ValueTuple_2__3 * list))
     IL2CPP_REGISTER_METHOD(0x01586670, app::ValueTuple_2_Int32_Object___Array*, DuplicateList_3, (app::List_1_System_ValueTuple_2__3 * list, int32_t copies))
 } // namespace app::classes::Moon::SceneLoadingTest

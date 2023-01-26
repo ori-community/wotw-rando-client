@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameplaySystemsCreator_CreateSetups_d_17.h>
+
+#include <Modloader/app/structs/GameplaySystemsCreator_CreateSetups_d_17.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::GameplaySystemsCreator__CreateSetups_d__17 {
@@ -9,6 +10,5 @@ namespace app::classes::GameplaySystemsCreator__CreateSetups_d__17 {
     IL2CPP_REGISTER_METHOD(0x00414860, bool, MoveNext, (app::GameplaySystemsCreator_CreateSetups_d_17 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::GameplaySystemsCreator_CreateSetups_d_17 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00415E20, void, IEnumerator_Reset, (app::GameplaySystemsCreator_CreateSetups_d_17 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04740130, GameplaySystemsCreator_CreateSetups_d_17_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::GameplaySystemsCreator_CreateSetups_d_17 * this_ptr))
 } // namespace app::classes::GameplaySystemsCreator__CreateSetups_d__17

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShowSeinUIAnimator.h>
+
+#include <Modloader/app/structs/ShowSeinUIAnimator.h>
 
 namespace app::classes::ShowSeinUIAnimator {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, CacheOriginals, (app::ShowSeinUIAnimator * this_ptr))

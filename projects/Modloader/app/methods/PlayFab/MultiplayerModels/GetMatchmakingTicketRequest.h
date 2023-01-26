@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GetMatchmakingTicketRequest.h>
+
+#include <Modloader/app/structs/GetMatchmakingTicketRequest.h>
 
 namespace app::classes::PlayFab::MultiplayerModels::GetMatchmakingTicketRequest {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GetMatchmakingTicketRequest * this_ptr))

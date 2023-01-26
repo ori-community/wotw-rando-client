@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ContainerFilterService.h>
+
+#include <Modloader/app/structs/ContainerFilterService.h>
 #include <Modloader/app/structs/ComponentCollection.h>
 
 namespace app::classes::System::ComponentModel::ContainerFilterService {

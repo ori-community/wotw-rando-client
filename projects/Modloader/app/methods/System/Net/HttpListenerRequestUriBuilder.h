@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HttpListenerRequestUriBuilder.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Uri.h>
+
+#include <Modloader/app/structs/HttpListenerRequestUriBuilder.h>
 #include <Modloader/app/structs/Encoding.h>
 #include <Modloader/app/structs/HttpListenerRequestUriBuilder_EncodingType__Enum.h>
 #include <Modloader/app/structs/HttpListenerRequestUriBuilder_ParsingResult__Enum.h>
-#include <Modloader/app/structs/StringBuilder.h>
 #include <Modloader/app/structs/IEnumerable_1_System_Byte_.h>
 #include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Uri.h>
 
 namespace app::classes::System::Net::HttpListenerRequestUriBuilder {
     IL2CPP_REGISTER_METHOD(0x01D4A6A0, void, cctor, ())

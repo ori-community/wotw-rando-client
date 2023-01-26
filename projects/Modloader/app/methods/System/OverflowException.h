@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OverflowException.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/OverflowException.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::OverflowException {
     IL2CPP_REGISTER_METHOD(0x0227C860, void, ctor_1, (app::OverflowException * this_ptr))

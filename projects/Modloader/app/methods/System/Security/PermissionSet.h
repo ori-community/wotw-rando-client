@@ -1,20 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PermissionSet.h>
-#include <Modloader/app/structs/PermissionState__Enum.h>
-#include <Modloader/app/structs/IPermission.h>
+
+#include <Modloader/app/structs/PermissionSet.h>
 #include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SecurityElement.h>
+#include <Modloader/app/structs/IPermission.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PermissionState__Enum.h>
+#include <Modloader/app/structs/SecurityElement.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::PermissionSet {
     IL2CPP_REGISTER_METHOD(0x01E19450, void, ctor_1, (app::PermissionSet * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E195A0, void, ctor_2, (app::PermissionSet * this_ptr, app::PermissionState__Enum state))
     IL2CPP_REGISTER_METHOD(0x01E195D0, void, ctor_3, (app::PermissionSet * this_ptr, app::IPermission* perm))
     IL2CPP_REGISTER_METHOD(0x01E19620, void, CopyTo, (app::PermissionSet * this_ptr, app::Array* array, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04757700, PermissionSet_CopyTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E197C0, void, Demand, (app::PermissionSet * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E19A10, void, CasOnlyDemand, (app::PermissionSet * this_ptr, int32_t skip))
     IL2CPP_REGISTER_METHOD(0x01BDD530, app::IEnumerator*, GetEnumerator, (app::PermissionSet * this_ptr))

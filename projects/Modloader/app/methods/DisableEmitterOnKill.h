@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DisableEmitterOnKill.h>
+
+#include <Modloader/app/structs/DisableEmitterOnKill.h>
 #include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::DisableEmitterOnKill {

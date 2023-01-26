@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_UberInteractionManager_ActorInfo_.h>
-#include <Modloader/app/structs/UberInteractionManager_ActorInfo__Array.h>
-#include <Modloader/app/structs/UberInteractionManager_ActorInfo.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_UberInteractionManager_ActorInfo_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberInteractionManager_ActorInfo.h>
+#include <Modloader/app/structs/UberInteractionManager_ActorInfo__Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_UberInteractionManager_ActorInfo_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_UberInteractionManager_ActorInfo_*, get_Default, ())

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Sprite.h>
-#include <Modloader/app/structs/SpriteState__Boxed.h>
+
+#include <Modloader/app/structs/Sprite.h>
 #include <Modloader/app/structs/SpriteState.h>
+#include <Modloader/app/structs/SpriteState__Boxed.h>
 
 namespace app::classes::UnityEngine::UI::SpriteState {
     IL2CPP_REGISTER_METHOD(0x001D9820, app::Sprite*, get_highlightedSprite, (app::SpriteState__Boxed * this_ptr))

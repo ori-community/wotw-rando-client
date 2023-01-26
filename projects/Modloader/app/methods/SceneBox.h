@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SelectableCategory__Enum.h>
+
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 #include <Modloader/app/structs/SceneBox.h>
 
 namespace app::classes::SceneBox {

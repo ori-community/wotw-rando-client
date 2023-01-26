@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_LightCanvasEditorTextureCache_LightCanvasEditorTextureData_.h>
 #include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData.h>
 #include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Array.h>
 #include <Modloader/app/structs/Object.h>

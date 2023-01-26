@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CFProxy.h>
+
+#include <Modloader/app/structs/CFProxy.h>
 #include <Modloader/app/structs/CFDictionary.h>
 #include <Modloader/app/structs/CFProxyType__Enum.h>
 #include <Modloader/app/structs/String.h>

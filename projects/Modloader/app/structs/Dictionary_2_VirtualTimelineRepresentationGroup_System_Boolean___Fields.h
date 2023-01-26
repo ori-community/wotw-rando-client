@@ -27,7 +27,7 @@ struct __declspec(align(8)) Dictionary_2_VirtualTimelineRepresentationGroup_Syst
 #define IL2CPP_STRUCT_Dictionary_2_VirtualTimelineRepresentationGroup_System_Boolean___Fields_FWDDECL
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_VirtualTimelineRepresentationGroup_System_Boolean___Array.h>
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_VirtualTimelineRepresentationGroup_System_Boolean_.h>
-#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_VirtualTimelineRepresentationGroup_System_Boolean_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_VirtualTimelineRepresentationGroup_System_Boolea_.h>
 #include <Modloader/app/structs/IEqualityComparer_1_VirtualTimelineRepresentationGroup_.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/Object.h>

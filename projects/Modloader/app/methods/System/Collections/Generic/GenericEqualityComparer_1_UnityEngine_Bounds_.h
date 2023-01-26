@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GenericEqualityComparer_1_UnityEngine_Bounds_.h>
+
+#include <Modloader/app/structs/GenericEqualityComparer_1_UnityEngine_Bounds_.h>
 #include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/Bounds__Array.h>
 #include <Modloader/app/structs/Object.h>

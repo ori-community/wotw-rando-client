@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimeSlicedSimpleJob.h>
-#include <Modloader/app/structs/TimeSlicedSimpleJob_TimeSlicedJobDelegate.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/TimeSlicedSimpleJob.h>
 #include <Modloader/app/structs/Func_1_String_.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimeSlicedSimpleJob_TimeSlicedJobDelegate.h>
 
 namespace app::classes::Moon::TimeSlicer::TimeSlicedSimpleJob {
     IL2CPP_REGISTER_METHOD(0x004C87B0, float, get_EnqueuedTime, (app::TimeSlicedSimpleJob * this_ptr))

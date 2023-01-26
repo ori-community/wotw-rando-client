@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PerformanceDataCollector.h>
+
+#include <Modloader/app/structs/PerformanceDataCollector.h>
 
 namespace app::classes::PerformanceDataCollector {
     IL2CPP_REGISTER_METHOD(0x0044CE80, void, Start, (app::PerformanceDataCollector * this_ptr))

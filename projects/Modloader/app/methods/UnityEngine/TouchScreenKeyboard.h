@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TouchScreenKeyboard.h>
+
+#include <Modloader/app/structs/TouchScreenKeyboard.h>
+#include <Modloader/app/structs/RangeInt.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TouchScreenKeyboardType__Enum.h>
 #include <Modloader/app/structs/TouchScreenKeyboard_Status__Enum.h>
-#include <Modloader/app/structs/RangeInt.h>
 
 namespace app::classes::UnityEngine::TouchScreenKeyboard {
     IL2CPP_REGISTER_METHOD(0x01F1B660, app::TouchScreenKeyboard*, Open_1, (app::String * text, app::TouchScreenKeyboardType__Enum keyboard_type, bool autocorrection, bool multiline, bool secure, bool alert, app::String* text_placeholder, int32_t character_limit))

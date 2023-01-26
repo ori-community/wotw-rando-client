@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Instruction.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Instruction.h>
 #include <Modloader/app/structs/Func_2_Int32_Int32_.h>
 #include <Modloader/app/structs/IReadOnlyList_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::Instruction {
     IL2CPP_REGISTER_METHOD(0x00420EE0, int32_t, get_ConsumedStack, (app::Instruction * this_ptr))

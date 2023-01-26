@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InterpolateCollider.h>
+
+#include <Modloader/app/structs/InterpolateCollider.h>
 
 namespace app::classes::InterpolateCollider {
     IL2CPP_REGISTER_METHOD(0x0063D190, void, Awake, (app::InterpolateCollider * this_ptr))

@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/CameraFilterPack_TV_80.h>
+#include <Modloader/app/structs/CameraFilterPack_TV_80__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CameraFilterPack_TV_80__Class.h>
-#include <Modloader/app/structs/CameraFilterPack_TV_80.h>
 
 namespace app::classes::types {
     namespace CameraFilterPack_TV_80 {
-        namespace {
-            inline app::CameraFilterPack_TV_80__Class* type_info_ref = nullptr;
+        inline app::CameraFilterPack_TV_80__Class** type_info() {
+            static app::CameraFilterPack_TV_80__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CameraFilterPack_TV_80__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CameraFilterPack_TV_80__Class** type_info = &type_info_ref;
         inline app::CameraFilterPack_TV_80__Class* get_class() {
-            return il2cpp::get_class<app::CameraFilterPack_TV_80__Class>(type_info, "", "CameraFilterPack_TV_80");
+            return il2cpp::get_class<app::CameraFilterPack_TV_80__Class>(type_info(), "", "CameraFilterPack_TV_80");
         }
         inline app::CameraFilterPack_TV_80* create() {
             return il2cpp::create_object<app::CameraFilterPack_TV_80>(get_class());

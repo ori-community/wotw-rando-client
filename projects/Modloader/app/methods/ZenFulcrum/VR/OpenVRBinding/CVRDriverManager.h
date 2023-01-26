@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CVRDriverManager.h>
+
+#include <Modloader/app/structs/CVRDriverManager.h>
 #include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRDriverManager {

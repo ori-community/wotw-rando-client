@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Keyframe__Boxed.h>
+
+#include <Modloader/app/structs/Keyframe__Boxed.h>
 #include <Modloader/app/structs/WeightedMode__Enum.h>
 
 namespace app::classes::UnityEngine::Keyframe {

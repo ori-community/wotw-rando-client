@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/RaycastHit__Array.h>
+#include <Modloader/app/structs/RaycastHit__Boxed.h>
+#include <Modloader/app/structs/RaycastHit__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RaycastHit__Class.h>
-#include <Modloader/app/structs/RaycastHit.h>
-#include <Modloader/app/structs/RaycastHit__Boxed.h>
-#include <Modloader/app/structs/RaycastHit__Array.h>
 
 namespace app::classes::types {
     namespace RaycastHit {
-        inline app::RaycastHit__Class** type_info = (app::RaycastHit__Class**)(modloader::win::memory::resolve_rva(0x047020A8));
+        inline app::RaycastHit__Class** type_info() {
+            static app::RaycastHit__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::RaycastHit__Class**)(modloader::win::memory::resolve_rva(0x047020A8));
+            }
+            return cache;
+        }
         inline app::RaycastHit__Class* get_class() {
-            return il2cpp::get_class<app::RaycastHit__Class>(type_info, "UnityEngine", "RaycastHit");
+            return il2cpp::get_class<app::RaycastHit__Class>(type_info(), "UnityEngine", "RaycastHit");
         }
         inline app::RaycastHit* create() {
             return il2cpp::create_object<app::RaycastHit>(get_class());

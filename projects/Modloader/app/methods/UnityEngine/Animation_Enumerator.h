@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Animation_Enumerator.h>
+
+#include <Modloader/app/structs/Animation_Enumerator.h>
 #include <Modloader/app/structs/Animation.h>
 #include <Modloader/app/structs/Object.h>
 

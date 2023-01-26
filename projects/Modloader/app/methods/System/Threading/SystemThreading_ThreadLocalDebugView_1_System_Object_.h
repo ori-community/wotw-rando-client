@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SystemThreading_ThreadLocalDebugView_1_System_Object_.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/SystemThreading_ThreadLocalDebugView_1_System_Object_.h>
 #include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ThreadLocal_1_System_Object_.h>
 
 namespace app::classes::System::Threading::SystemThreading_ThreadLocalDebugView_1_System_Object_ {

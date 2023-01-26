@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkLogger.h>
+
+#include <Modloader/app/structs/AkLogger.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::AkLogger {
@@ -9,7 +10,6 @@ namespace app::classes::AkLogger {
     IL2CPP_REGISTER_METHOD(0x026EE910, void, Finalize, (app::AkLogger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Init, (app::AkLogger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026EEB50, void, WwiseInternalLogError, (app::String * message))
-    IL2CPP_REGISTER_METHODINFO(0x047372F0, AkLogger_WwiseInternalLogError__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Message, (app::String * message))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Warning, (app::String * message))
     IL2CPP_REGISTER_METHOD(0x026EEC00, void, Error, (app::String * message))

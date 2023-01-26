@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AnimationEntry__Class.h>
 #include <Modloader/app/structs/AnimationEntry.h>
 #include <Modloader/app/structs/AnimationEntry__Array.h>
+#include <Modloader/app/structs/AnimationEntry__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace AnimationEntry {
-        namespace {
-            inline app::AnimationEntry__Class* type_info_ref = nullptr;
+        inline app::AnimationEntry__Class** type_info() {
+            static app::AnimationEntry__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AnimationEntry__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AnimationEntry__Class** type_info = &type_info_ref;
         inline app::AnimationEntry__Class* get_class() {
-            return il2cpp::get_class<app::AnimationEntry__Class>(type_info, "", "AnimationEntry");
+            return il2cpp::get_class<app::AnimationEntry__Class>(type_info(), "", "AnimationEntry");
         }
         inline app::AnimationEntry* create() {
             return il2cpp::create_object<app::AnimationEntry>(get_class());

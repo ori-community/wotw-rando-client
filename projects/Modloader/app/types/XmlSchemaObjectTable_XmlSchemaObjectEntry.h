@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry__Array.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry__Boxed.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry__Class.h>
-#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry.h>
-#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry__Boxed.h>
-#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry__Array.h>
 
 namespace app::classes::types {
     namespace XmlSchemaObjectTable_XmlSchemaObjectEntry {
-        inline app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Class** type_info = (app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Class**)(modloader::win::memory::resolve_rva(0x04721780));
+        inline app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Class** type_info() {
+            static app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Class**)(modloader::win::memory::resolve_rva(0x04721780));
+            }
+            return cache;
+        }
         inline app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Class* get_class() {
-            return il2cpp::get_nested_class<app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Class>(type_info, "System.Xml.Schema", "XmlSchemaObjectTable", "XmlSchemaObjectEntry");
+            return il2cpp::get_nested_class<app::XmlSchemaObjectTable_XmlSchemaObjectEntry__Class>(type_info(), "System.Xml.Schema", "XmlSchemaObjectTable", "XmlSchemaObjectEntry");
         }
         inline app::XmlSchemaObjectTable_XmlSchemaObjectEntry* create() {
             return il2cpp::create_object<app::XmlSchemaObjectTable_XmlSchemaObjectEntry>(get_class());

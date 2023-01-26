@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SceneMetaData_SceneSavePedestal__Class.h>
 #include <Modloader/app/structs/SceneMetaData_SceneSavePedestal.h>
 #include <Modloader/app/structs/SceneMetaData_SceneSavePedestal__Array.h>
+#include <Modloader/app/structs/SceneMetaData_SceneSavePedestal__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SceneMetaData_SceneSavePedestal {
-        namespace {
-            inline app::SceneMetaData_SceneSavePedestal__Class* type_info_ref = nullptr;
+        inline app::SceneMetaData_SceneSavePedestal__Class** type_info() {
+            static app::SceneMetaData_SceneSavePedestal__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SceneMetaData_SceneSavePedestal__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SceneMetaData_SceneSavePedestal__Class** type_info = &type_info_ref;
         inline app::SceneMetaData_SceneSavePedestal__Class* get_class() {
-            return il2cpp::get_nested_class<app::SceneMetaData_SceneSavePedestal__Class>(type_info, "", "SceneMetaData", "SceneSavePedestal");
+            return il2cpp::get_nested_class<app::SceneMetaData_SceneSavePedestal__Class>(type_info(), "", "SceneMetaData", "SceneSavePedestal");
         }
         inline app::SceneMetaData_SceneSavePedestal* create() {
             return il2cpp::create_object<app::SceneMetaData_SceneSavePedestal>(get_class());

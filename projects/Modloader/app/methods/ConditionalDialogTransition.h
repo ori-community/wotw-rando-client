@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IDialogNode.h>
+
+#include <Modloader/app/structs/IDialogNode.h>
 #include <Modloader/app/structs/ConditionalDialogTransition.h>
 #include <Modloader/app/structs/IContext.h>
 

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InteractionSystem_InteractionDelegate.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
-#include <Modloader/app/structs/InteractionObject.h>
-#include <Modloader/app/structs/IAsyncResult.h>
+
+#include <Modloader/app/structs/InteractionSystem_InteractionDelegate.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/InteractionObject.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::RootMotion::FinalIK::InteractionSystem_InteractionDelegate {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::InteractionSystem_InteractionDelegate * this_ptr, app::Object* object, void* method_1))

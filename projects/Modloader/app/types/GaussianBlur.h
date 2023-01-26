@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/GaussianBlur.h>
+#include <Modloader/app/structs/GaussianBlur__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GaussianBlur__Class.h>
-#include <Modloader/app/structs/GaussianBlur.h>
 
 namespace app::classes::types {
     namespace GaussianBlur {
-        namespace {
-            inline app::GaussianBlur__Class* type_info_ref = nullptr;
+        inline app::GaussianBlur__Class** type_info() {
+            static app::GaussianBlur__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GaussianBlur__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GaussianBlur__Class** type_info = &type_info_ref;
         inline app::GaussianBlur__Class* get_class() {
-            return il2cpp::get_class<app::GaussianBlur__Class>(type_info, "Colorful", "GaussianBlur");
+            return il2cpp::get_class<app::GaussianBlur__Class>(type_info(), "Colorful", "GaussianBlur");
         }
         inline app::GaussianBlur* create() {
             return il2cpp::create_object<app::GaussianBlur>(get_class());

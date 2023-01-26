@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BigInteger.h>
-#include <Modloader/app/structs/SequentialSearchPrimeGeneratorBase.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/BigInteger.h>
 #include <Modloader/app/structs/BigInteger_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SequentialSearchPrimeGeneratorBase.h>
 #include <Modloader/app/structs/SequentialSearchPrimeGeneratorBase_1.h>
 
 namespace app::classes::Mono::Math::Prime::Generator::SequentialSearchPrimeGeneratorBase {

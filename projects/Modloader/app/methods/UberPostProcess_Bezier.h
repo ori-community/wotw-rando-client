@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberPostProcess_Bezier__Boxed.h>
+
+#include <Modloader/app/structs/UberPostProcess_Bezier__Boxed.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UberPostProcess_Bezier {

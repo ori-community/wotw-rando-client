@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonPhysics_AscendingDistanceComparer.h>
+
+#include <Modloader/app/structs/MoonPhysics_AscendingDistanceComparer.h>
 #include <Modloader/app/structs/RaycastHit.h>
 
 namespace app::classes::MoonPhysics_AscendingDistanceComparer {

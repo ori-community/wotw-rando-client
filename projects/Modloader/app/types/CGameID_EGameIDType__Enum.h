@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/CGameID_EGameIDType__Enum.h>
+#include <Modloader/app/structs/CGameID_EGameIDType__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CGameID_EGameIDType__Enum__Class.h>
-#include <Modloader/app/structs/CGameID_EGameIDType__Enum.h>
 
 namespace app::classes::types {
     namespace CGameID_EGameIDType__Enum {
-        namespace {
-            inline app::CGameID_EGameIDType__Enum__Class* type_info_ref = nullptr;
+        inline app::CGameID_EGameIDType__Enum__Class** type_info() {
+            static app::CGameID_EGameIDType__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CGameID_EGameIDType__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CGameID_EGameIDType__Enum__Class** type_info = &type_info_ref;
         inline app::CGameID_EGameIDType__Enum__Class* get_class() {
-            return il2cpp::get_nested_class<app::CGameID_EGameIDType__Enum__Class>(type_info, "Steamworks", "CGameID", "EGameIDType");
+            return il2cpp::get_nested_class<app::CGameID_EGameIDType__Enum__Class>(type_info(), "Steamworks", "CGameID", "EGameIDType");
         }
         inline app::CGameID_EGameIDType__Enum* create() {
             return il2cpp::create_object<app::CGameID_EGameIDType__Enum>(get_class());

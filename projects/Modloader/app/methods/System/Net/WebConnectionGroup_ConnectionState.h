@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WebConnection.h>
-#include <Modloader/app/structs/WebConnectionGroup_ConnectionState.h>
-#include <Modloader/app/structs/WebConnectionGroup.h>
-#include <Modloader/app/structs/ServicePoint.h>
+
+#include <Modloader/app/structs/WebConnection.h>
 #include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/ServicePoint.h>
+#include <Modloader/app/structs/WebConnectionGroup.h>
+#include <Modloader/app/structs/WebConnectionGroup_ConnectionState.h>
 
 namespace app::classes::System::Net::WebConnectionGroup_ConnectionState {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::WebConnection*, get_Connection, (app::WebConnectionGroup_ConnectionState * this_ptr))

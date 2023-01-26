@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinCutsceneMovement.h>
+
+#include <Modloader/app/structs/SeinCutsceneMovement.h>
 #include <Modloader/app/structs/PlatformMovement.h>
 
 namespace app::classes::SeinCutsceneMovement {

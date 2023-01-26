@@ -1,41 +1,42 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GenericPuppet.h>
-#include <Modloader/app/structs/IPuppetBase.h>
-#include <Modloader/app/structs/GhostRecorder.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/FieldInfo_1.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/GhostGenericResourceAttribute.h>
-#include <Modloader/app/structs/SoundProvider.h>
-#include <Modloader/app/structs/SoundHost.h>
-#include <Modloader/app/structs/SoundDescriptor.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/GenericPuppet.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/SurfaceToSoundProviderMap.h>
-#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
-#include <Modloader/app/structs/DamageBasedSoundProvider.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/IGenericResourceEnumerator.h>
-#include <Modloader/app/structs/GhostGenericSoundPlayer.h>
-#include <Modloader/app/structs/Event_1.h>
-#include <Modloader/app/structs/SoundPlayer.h>
-#include <Modloader/app/structs/Object_1.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Quaternion.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/MoonAnimation__Array.h>
-#include <Modloader/app/structs/Func_1_Boolean_.h>
 #include <Modloader/app/structs/ActiveAnimationHandle.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/MoonAnimation.h>
-#include <Modloader/app/structs/Nullable_1_Moon_MoonAnimatorLayerName_.h>
-#include <Modloader/app/structs/FloatAnimationParameter.h>
-#include <Modloader/app/structs/ParticleSystem.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageBasedSoundProvider.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
 #include <Modloader/app/structs/FieldInfo_1__Array.h>
+#include <Modloader/app/structs/FloatAnimationParameter.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GhostGenericResourceAttribute.h>
+#include <Modloader/app/structs/GhostGenericSoundPlayer.h>
+#include <Modloader/app/structs/GhostRecorder.h>
+#include <Modloader/app/structs/IGenericResourceEnumerator.h>
+#include <Modloader/app/structs/IPuppetBase.h>
 #include <Modloader/app/structs/ISoundHost.h>
-#include <Modloader/app/structs/SeinBashAttackPuppet_Event__Enum.h>
 #include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/MoonAnimation__Array.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Nullable_1_Moon_MoonAnimatorLayerName_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/ParticleSystem.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/SeinBashAttackPuppet_Event__Enum.h>
+#include <Modloader/app/structs/SoundDescriptor.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/SoundPlayer.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/SurfaceToSoundProviderMap.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::GenericPuppet {
     IL2CPP_REGISTER_METHOD(0x00E07DD0, void, ResetStatics, ())
@@ -46,7 +47,6 @@ namespace app::classes::GenericPuppet {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnFinishedRecording, (app::GenericPuppet * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnFinishedPlayback, (app::GenericPuppet * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E08350, void, OnGameFixedUpdateLate, (app::GenericPuppet * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04758210, GenericPuppet_OnGameFixedUpdateLate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnPerform, (app::GenericPuppet * this_ptr, int32_t event_id, app::Object__Array* parameters))
     IL2CPP_REGISTER_METHOD(0x00E084A0, void, RecordEvent, (app::GenericPuppet * this_ptr, int32_t event_id, app::Object__Array* parameters))
     IL2CPP_REGISTER_METHOD(0x00E08510, void, PerformEventById, (app::GenericPuppet * this_ptr, int32_t event_id, app::Object__Array* parameters))
@@ -64,7 +64,6 @@ namespace app::classes::GenericPuppet {
     IL2CPP_REGISTER_METHOD(0x00E094A0, void, FadeOutSound, (app::GenericPuppet * this_ptr, app::GhostGenericSoundPlayer* player, float time))
     IL2CPP_REGISTER_METHOD(0x00E09520, void, RecordSoundEvent, (app::GenericPuppet * this_ptr, app::Object* sound_field, int32_t array_index, int32_t player_id, bool attach, float volume))
     IL2CPP_REGISTER_METHOD(0x00E09800, void, PlaySoundById, (app::GenericPuppet * this_ptr, int32_t resource_id, int32_t array_index, int32_t player_id, bool attach, float volume))
-    IL2CPP_REGISTER_METHODINFO(0x047850A8, GenericPuppet_PlaySoundById__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E09B70, app::SoundPlayer*, PlaySoundHelper, (app::GenericPuppet * this_ptr, app::SoundDescriptor* sound, bool attach, float volume, app::SoundHost* host))
     IL2CPP_REGISTER_METHOD(0x00E09D60, void, FadeOutSoundById, (app::GenericPuppet * this_ptr, int32_t player_id, float time, bool should_destroy_on_fade_out))
     IL2CPP_REGISTER_METHOD(0x00E09F00, app::Object_1*, Instantiate, (app::GenericPuppet * this_ptr, app::GameObject* prefab, app::Vector3 position, app::Quaternion rotation, bool record))
@@ -72,9 +71,7 @@ namespace app::classes::GenericPuppet {
     IL2CPP_REGISTER_METHOD(0x00E0A530, void, RecordTransform, (app::GenericPuppet * this_ptr, app::Transform* t))
     IL2CPP_REGISTER_METHOD(0x00E0A7F0, void, RecordLocalTransform, (app::GenericPuppet * this_ptr, app::Transform* t))
     IL2CPP_REGISTER_METHOD(0x00E0AAB0, void, SetLocalTransformById, (app::GenericPuppet * this_ptr, int32_t resource_id, app::Vector3 position, app::Quaternion rotation, app::Vector3 scale))
-    IL2CPP_REGISTER_METHODINFO(0x0476E990, GenericPuppet_SetLocalTransformById__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E0ADA0, void, SetTransformById, (app::GenericPuppet * this_ptr, int32_t resource_id, app::Vector3 position, app::Quaternion rotation, app::Vector3 scale, bool active_self))
-    IL2CPP_REGISTER_METHODINFO(0x04720828, GenericPuppet_SetTransformById__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E0B120, int32_t, PlayAnimationRandom, (app::GenericPuppet * this_ptr, app::MoonAnimation__Array* animations, int32_t priority, app::Func_1_Boolean_* condition, app::Action* on_start, app::Action* on_stop))
     IL2CPP_REGISTER_METHOD(0x00E0B270, app::ActiveAnimationHandle, PlayAnimationIndexed, (app::GenericPuppet * this_ptr, app::MoonAnimation__Array* animations, int32_t index, int32_t priority, app::Func_1_Boolean_* condition, app::Action* on_start, app::Action* on_stop))
     IL2CPP_REGISTER_METHOD(0x00E0B710, void, TimelinePlay_1, (app::GenericPuppet * this_ptr, int32_t resource_id))
@@ -118,6 +115,5 @@ namespace app::classes::GenericPuppet {
     IL2CPP_REGISTER_METHOD(0x00E0FA00, void, ctor, (app::GenericPuppet * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E10280, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01548570, void, Perform_1, (app::GenericPuppet * this_ptr, app::SeinBashAttackPuppet_Event__Enum e, app::Object__Array* parameters))
-    IL2CPP_REGISTER_METHODINFO(0x0470D850, GenericPuppet_Perform__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01548570, void, Perform_2, (app::GenericPuppet * this_ptr, app::Int32Enum__Enum e, app::Object__Array* parameters))
 } // namespace app::classes::GenericPuppet

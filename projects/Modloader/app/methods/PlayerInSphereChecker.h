@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerInSphereChecker.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/PlayerInSphereChecker.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PlayerInSphereChecker {
     IL2CPP_REGISTER_METHOD(0x014108A0, bool, get_IsInside, (app::PlayerInSphereChecker * this_ptr))

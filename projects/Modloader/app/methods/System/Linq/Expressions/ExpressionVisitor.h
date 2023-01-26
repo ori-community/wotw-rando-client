@@ -1,59 +1,60 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ExpressionVisitor.h>
-#include <Modloader/app/structs/Expression.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Expression_.h>
-#include <Modloader/app/structs/Expression__Array.h>
-#include <Modloader/app/structs/IArgumentProvider.h>
-#include <Modloader/app/structs/ParameterExpression__Array.h>
-#include <Modloader/app/structs/IParameterProvider.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/ExpressionVisitor.h>
 #include <Modloader/app/structs/BinaryExpression.h>
 #include <Modloader/app/structs/BlockExpression.h>
+#include <Modloader/app/structs/CatchBlock.h>
 #include <Modloader/app/structs/ConditionalExpression.h>
 #include <Modloader/app/structs/ConstantExpression.h>
 #include <Modloader/app/structs/DebugInfoExpression.h>
 #include <Modloader/app/structs/DefaultExpression.h>
+#include <Modloader/app/structs/ElementInit.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Expression_1_System_Object_.h>
+#include <Modloader/app/structs/Expression__Array.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/Func_2_System_Linq_Expressions_CatchBlock_System_Linq_Expressions_CatchBlock_.h>
+#include <Modloader/app/structs/Func_2_System_Linq_Expressions_ElementInit_System_Linq_Expressions_ElementInit_.h>
+#include <Modloader/app/structs/Func_2_System_Linq_Expressions_MemberBinding_System_Linq_Expressions_MemberBinding_.h>
+#include <Modloader/app/structs/Func_2_System_Linq_Expressions_SwitchCase_System_Linq_Expressions_SwitchCase_.h>
 #include <Modloader/app/structs/GotoExpression.h>
-#include <Modloader/app/structs/InvocationExpression.h>
-#include <Modloader/app/structs/LabelTarget.h>
-#include <Modloader/app/structs/LabelExpression.h>
-#include <Modloader/app/structs/LoopExpression.h>
-#include <Modloader/app/structs/MemberExpression.h>
+#include <Modloader/app/structs/IArgumentProvider.h>
+#include <Modloader/app/structs/IParameterProvider.h>
 #include <Modloader/app/structs/IndexExpression.h>
+#include <Modloader/app/structs/InvocationExpression.h>
+#include <Modloader/app/structs/LabelExpression.h>
+#include <Modloader/app/structs/LabelTarget.h>
+#include <Modloader/app/structs/LambdaExpression.h>
+#include <Modloader/app/structs/ListInitExpression.h>
+#include <Modloader/app/structs/LoopExpression.h>
+#include <Modloader/app/structs/MemberAssignment.h>
+#include <Modloader/app/structs/MemberBinding.h>
+#include <Modloader/app/structs/MemberExpression.h>
+#include <Modloader/app/structs/MemberInitExpression.h>
+#include <Modloader/app/structs/MemberListBinding.h>
+#include <Modloader/app/structs/MemberMemberBinding.h>
 #include <Modloader/app/structs/MethodCallExpression.h>
 #include <Modloader/app/structs/NewArrayExpression.h>
 #include <Modloader/app/structs/NewExpression.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/ParameterExpression__Array.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_CatchBlock_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ElementInit_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_MemberBinding_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_SwitchCase_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Object_.h>
 #include <Modloader/app/structs/RuntimeVariablesExpression.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/SwitchCase.h>
 #include <Modloader/app/structs/SwitchExpression.h>
-#include <Modloader/app/structs/CatchBlock.h>
 #include <Modloader/app/structs/TryExpression.h>
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/TypeBinaryExpression.h>
 #include <Modloader/app/structs/UnaryExpression.h>
-#include <Modloader/app/structs/MemberInitExpression.h>
-#include <Modloader/app/structs/ListInitExpression.h>
-#include <Modloader/app/structs/ElementInit.h>
-#include <Modloader/app/structs/MemberBinding.h>
-#include <Modloader/app/structs/MemberAssignment.h>
-#include <Modloader/app/structs/MemberMemberBinding.h>
-#include <Modloader/app/structs/MemberListBinding.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Object_.h>
-#include <Modloader/app/structs/Func_2_Object_Object_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Expression_1_System_Object_.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_SwitchCase_.h>
-#include <Modloader/app/structs/Func_2_System_Linq_Expressions_SwitchCase_System_Linq_Expressions_SwitchCase_.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_CatchBlock_.h>
-#include <Modloader/app/structs/Func_2_System_Linq_Expressions_CatchBlock_System_Linq_Expressions_CatchBlock_.h>
-#include <Modloader/app/structs/LambdaExpression.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_MemberBinding_.h>
-#include <Modloader/app/structs/Func_2_System_Linq_Expressions_MemberBinding_System_Linq_Expressions_MemberBinding_.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ElementInit_.h>
-#include <Modloader/app/structs/Func_2_System_Linq_Expressions_ElementInit_System_Linq_Expressions_ElementInit_.h>
 
 namespace app::classes::System::Linq::Expressions::ExpressionVisitor {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ExpressionVisitor * this_ptr))
@@ -90,38 +91,23 @@ namespace app::classes::System::Linq::Expressions::ExpressionVisitor {
     IL2CPP_REGISTER_METHOD(0x022CEC80, app::Expression*, VisitListInit, (app::ExpressionVisitor * this_ptr, app::ListInitExpression* node))
     IL2CPP_REGISTER_METHOD(0x022CEF10, app::ElementInit*, VisitElementInit, (app::ExpressionVisitor * this_ptr, app::ElementInit* node))
     IL2CPP_REGISTER_METHOD(0x022CEFF0, app::MemberBinding*, VisitMemberBinding, (app::ExpressionVisitor * this_ptr, app::MemberBinding* node))
-    IL2CPP_REGISTER_METHODINFO(0x04758BB8, ExpressionVisitor_VisitMemberBinding__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022CF1A0, app::MemberAssignment*, VisitMemberAssignment, (app::ExpressionVisitor * this_ptr, app::MemberAssignment* node))
     IL2CPP_REGISTER_METHOD(0x022CF280, app::MemberMemberBinding*, VisitMemberMemberBinding, (app::ExpressionVisitor * this_ptr, app::MemberMemberBinding* node))
     IL2CPP_REGISTER_METHOD(0x022CF4E0, app::MemberListBinding*, VisitMemberListBinding, (app::ExpressionVisitor * this_ptr, app::MemberListBinding* node))
     IL2CPP_REGISTER_METHOD(0x022CF740, app::UnaryExpression*, ValidateUnary, (app::UnaryExpression * before, app::UnaryExpression* after))
-    IL2CPP_REGISTER_METHODINFO(0x04760BD0, ExpressionVisitor_ValidateUnary__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022CF8F0, app::BinaryExpression*, ValidateBinary, (app::BinaryExpression * before, app::BinaryExpression* after))
-    IL2CPP_REGISTER_METHODINFO(0x04710178, ExpressionVisitor_ValidateBinary__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022CFB40, app::SwitchExpression*, ValidateSwitch, (app::SwitchExpression * before, app::SwitchExpression* after))
-    IL2CPP_REGISTER_METHODINFO(0x04784B80, ExpressionVisitor_ValidateSwitch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022CFC90, void, ValidateChildType, (app::Type * before, app::Type* after, app::String* method_name))
-    IL2CPP_REGISTER_METHODINFO(0x047287D0, ExpressionVisitor_ValidateChildType__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EBBAC0, app::ReadOnlyCollection_1_System_Object_*, Visit_3, (app::ReadOnlyCollection_1_System_Object_ * nodes, app::Func_2_Object_Object_* element_visitor))
     IL2CPP_REGISTER_METHOD(0x01579F40, app::Object*, VisitAndConvert_1, (app::ExpressionVisitor * this_ptr, app::Object* node, app::String* caller_name))
-    IL2CPP_REGISTER_METHODINFO(0x0477C138, ExpressionVisitor_VisitAndConvert__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EBBDE0, app::ReadOnlyCollection_1_System_Object_*, VisitAndConvert_2, (app::ExpressionVisitor * this_ptr, app::ReadOnlyCollection_1_System_Object_* nodes, app::String* caller_name))
-    IL2CPP_REGISTER_METHODINFO(0x0478AF48, ExpressionVisitor_VisitAndConvert_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0153BF50, app::Expression*, VisitLambda, (app::ExpressionVisitor * this_ptr, app::Expression_1_System_Object_* node))
     IL2CPP_REGISTER_METHOD(0x01579F40, app::ParameterExpression*, VisitAndConvert_3, (app::ExpressionVisitor * this_ptr, app::ParameterExpression* node, app::String* caller_name))
-    IL2CPP_REGISTER_METHODINFO(0x04770478, ExpressionVisitor_VisitAndConvert_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EBBAC0, app::ReadOnlyCollection_1_System_Linq_Expressions_SwitchCase_*, Visit_4, (app::ReadOnlyCollection_1_System_Linq_Expressions_SwitchCase_ * nodes, app::Func_2_System_Linq_Expressions_SwitchCase_System_Linq_Expressions_SwitchCase_* element_visitor))
-    IL2CPP_REGISTER_METHODINFO(0x047239F0, ExpressionVisitor_Visit_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EBBAC0, app::ReadOnlyCollection_1_System_Linq_Expressions_CatchBlock_*, Visit_5, (app::ReadOnlyCollection_1_System_Linq_Expressions_CatchBlock_ * nodes, app::Func_2_System_Linq_Expressions_CatchBlock_System_Linq_Expressions_CatchBlock_* element_visitor))
-    IL2CPP_REGISTER_METHODINFO(0x0471A090, ExpressionVisitor_Visit_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01579F40, app::LambdaExpression*, VisitAndConvert_4, (app::ExpressionVisitor * this_ptr, app::LambdaExpression* node, app::String* caller_name))
-    IL2CPP_REGISTER_METHODINFO(0x0472AC10, ExpressionVisitor_VisitAndConvert_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EBBDE0, app::ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_*, VisitAndConvert_5, (app::ExpressionVisitor * this_ptr, app::ReadOnlyCollection_1_System_Linq_Expressions_ParameterExpression_* nodes, app::String* caller_name))
-    IL2CPP_REGISTER_METHODINFO(0x04796300, ExpressionVisitor_VisitAndConvert_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01579F40, app::NewExpression*, VisitAndConvert_6, (app::ExpressionVisitor * this_ptr, app::NewExpression* node, app::String* caller_name))
-    IL2CPP_REGISTER_METHODINFO(0x04773440, ExpressionVisitor_VisitAndConvert_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EBBAC0, app::ReadOnlyCollection_1_System_Linq_Expressions_MemberBinding_*, Visit_6, (app::ReadOnlyCollection_1_System_Linq_Expressions_MemberBinding_ * nodes, app::Func_2_System_Linq_Expressions_MemberBinding_System_Linq_Expressions_MemberBinding_* element_visitor))
-    IL2CPP_REGISTER_METHODINFO(0x0478CE60, ExpressionVisitor_Visit_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EBBAC0, app::ReadOnlyCollection_1_System_Linq_Expressions_ElementInit_*, Visit_7, (app::ReadOnlyCollection_1_System_Linq_Expressions_ElementInit_ * nodes, app::Func_2_System_Linq_Expressions_ElementInit_System_Linq_Expressions_ElementInit_* element_visitor))
-    IL2CPP_REGISTER_METHODINFO(0x047389A8, ExpressionVisitor_Visit_6__MethodInfo)
 } // namespace app::classes::System::Linq::Expressions::ExpressionVisitor

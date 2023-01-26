@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/StringBuilder.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/NormalizationCheck__Enum.h>
 #include <Modloader/app/structs/NormalizationForm__Enum.h>
+#include <Modloader/app/structs/StringBuilder.h>
 #include <Modloader/app/structs/void.h>
 
 namespace app::classes::System::Text::Normalization {
@@ -24,11 +25,11 @@ namespace app::classes::System::Text::Normalization {
     IL2CPP_REGISTER_METHOD(0x0245B730, void, Decompose_2, (app::String * source, app::StringBuilder** sb, int32_t check_type))
     IL2CPP_REGISTER_METHOD(0x0245B8E0, void, ReorderCanonical, (app::String * src, app::StringBuilder** sb, int32_t start))
     IL2CPP_REGISTER_METHOD(0x0245BCA0, void, DecomposeChar, (app::StringBuilder * *sb, app::Int32__Array** buf, app::String* s, int32_t i, int32_t check_type, int32_t* start))
-    IL2CPP_REGISTER_METHOD(0x0245BFE0, app::NormalizationCheck__Enum, QuickCheck, (uint16_t c, int32_t type))
+    IL2CPP_REGISTER_METHOD(0x0245BFE0, app::NormalizationCheck__Enum, QuickCheck, (char16_t c, int32_t type))
     IL2CPP_REGISTER_METHOD(0x0245C1A0, int32_t, GetCanonicalHangul, (int32_t s, app::Int32__Array* buf, int32_t buf_idx))
     IL2CPP_REGISTER_METHOD(0x0245C2F0, int32_t, GetCanonical, (int32_t c, app::Int32__Array* buf, int32_t buf_idx, int32_t check_type))
     IL2CPP_REGISTER_METHOD(0x0245C810, app::String*, Normalize_1, (app::String * source, app::NormalizationForm__Enum normalization_form))
     IL2CPP_REGISTER_METHOD(0x0245C950, app::String*, Normalize_2, (app::String * source, int32_t type))
-    IL2CPP_REGISTER_METHOD(0x0245CC10, void, load_normalization_resource, (app::void** props, app::void** mapped_chars, app::void** char_map_index, app::void** helper_index, app::void** map_idx_to_composite, app::void** combining_class))
+    IL2CPP_REGISTER_METHOD(0x0245CC10, void, load_normalization_resource, (void** props, void** mapped_chars, void** char_map_index, void** helper_index, void** map_idx_to_composite, void** combining_class))
     IL2CPP_REGISTER_METHOD(0x0245CC60, void, cctor, ())
 } // namespace app::classes::System::Text::Normalization

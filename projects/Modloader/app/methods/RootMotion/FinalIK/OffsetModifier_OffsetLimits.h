@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OffsetModifier_OffsetLimits.h>
+
+#include <Modloader/app/structs/OffsetModifier_OffsetLimits.h>
 #include <Modloader/app/structs/IKEffector.h>
 #include <Modloader/app/structs/Quaternion.h>
 

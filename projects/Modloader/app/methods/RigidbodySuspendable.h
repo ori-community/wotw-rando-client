@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RigidbodySuspendable.h>
+
+#include <Modloader/app/structs/RigidbodySuspendable.h>
 
 namespace app::classes::RigidbodySuspendable {
     IL2CPP_REGISTER_METHOD(0x013548F0, void, OnPoolSpawned, (app::RigidbodySuspendable * this_ptr))

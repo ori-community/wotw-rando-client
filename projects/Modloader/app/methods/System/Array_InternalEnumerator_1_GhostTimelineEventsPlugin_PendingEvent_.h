@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Array_InternalEnumerator_1_GhostTimelineEventsPlugin_PendingEvent___Boxed.h>
+
+#include <Modloader/app/structs/Array_InternalEnumerator_1_GhostTimelineEventsPlugin_PendingEvent___Boxed.h>
 #include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/GhostTimelineEventsPlugin_PendingEvent.h>
 #include <Modloader/app/structs/Object.h>
@@ -10,7 +11,6 @@ namespace app::classes::System::Array_InternalEnumerator_1_GhostTimelineEventsPl
     IL2CPP_REGISTER_METHOD(0x00002890, void, Dispose, (app::Array_InternalEnumerator_1_GhostTimelineEventsPlugin_PendingEvent___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00160590, bool, MoveNext, (app::Array_InternalEnumerator_1_GhostTimelineEventsPlugin_PendingEvent___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00161CE0, app::GhostTimelineEventsPlugin_PendingEvent, get_Current, (app::Array_InternalEnumerator_1_GhostTimelineEventsPlugin_PendingEvent___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477F300, Array_InternalEnumerator_1_GhostTimelineEventsPlugin_PendingEvent__get_Current__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00160610, void, IEnumerator_Reset, (app::Array_InternalEnumerator_1_GhostTimelineEventsPlugin_PendingEvent___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00161D10, app::Object*, IEnumerator_get_Current, (app::Array_InternalEnumerator_1_GhostTimelineEventsPlugin_PendingEvent___Boxed * this_ptr))
 } // namespace app::classes::System::Array_InternalEnumerator_1_GhostTimelineEventsPlugin_PendingEvent_

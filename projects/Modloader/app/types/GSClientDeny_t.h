@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GSClientDeny_t__Class.h>
 #include <Modloader/app/structs/GSClientDeny_t.h>
 #include <Modloader/app/structs/GSClientDeny_t__Boxed.h>
+#include <Modloader/app/structs/GSClientDeny_t__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace GSClientDeny_t {
-        namespace {
-            inline app::GSClientDeny_t__Class* type_info_ref = nullptr;
+        inline app::GSClientDeny_t__Class** type_info() {
+            static app::GSClientDeny_t__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GSClientDeny_t__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GSClientDeny_t__Class** type_info = &type_info_ref;
         inline app::GSClientDeny_t__Class* get_class() {
-            return il2cpp::get_class<app::GSClientDeny_t__Class>(type_info, "Steamworks", "GSClientDeny_t");
+            return il2cpp::get_class<app::GSClientDeny_t__Class>(type_info(), "Steamworks", "GSClientDeny_t");
         }
         inline app::GSClientDeny_t* create() {
             return il2cpp::create_object<app::GSClientDeny_t>(get_class());

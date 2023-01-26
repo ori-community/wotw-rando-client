@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
-#include <Modloader/app/structs/EquipmentUIInventoryGrid.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/structs/Action_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/EquipmentUIInventoryGrid.h>
 #include <Modloader/app/structs/EquipmentUIInventoryItem.h>
-#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/List_1_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::EquipmentUIInventoryGrid {
     IL2CPP_REGISTER_METHOD(0x009781A0, app::CleverMenuItemSelectionManager*, get_NavigationManager, (app::EquipmentUIInventoryGrid * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CachedInput_1_System_Object_.h>
+
+#include <Modloader/app/structs/CachedInput_1_System_Object_.h>
 #include <Modloader/app/structs/InputCacheManager.h>
 
 namespace app::classes::SmartInput::CachedInput_1_System_Object_ {

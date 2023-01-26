@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CGameID__Boxed.h>
+
+#include <Modloader/app/structs/CGameID__Boxed.h>
 #include <Modloader/app/structs/AppId_t.h>
-#include <Modloader/app/structs/CGameID_EGameIDType__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/CGameID.h>
+#include <Modloader/app/structs/CGameID_EGameIDType__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::CGameID {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor_1, (app::CGameID__Boxed * this_ptr, uint64_t game_i_d))

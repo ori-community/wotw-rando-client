@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerQuestItems.h>
+
+#include <Modloader/app/structs/PlayerQuestItems.h>
 #include <Modloader/app/structs/QuestItemType__Enum.h>
 #include <Modloader/app/structs/SeinCharacter.h>
 

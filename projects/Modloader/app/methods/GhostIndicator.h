@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostIndicator.h>
+
+#include <Modloader/app/structs/GhostIndicator.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::GhostIndicator {
@@ -13,8 +14,6 @@ namespace app::classes::GhostIndicator {
     IL2CPP_REGISTER_METHOD(0x00E208B0, void, Start, (app::GhostIndicator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E20C60, void, OnDestroy, (app::GhostIndicator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E21060, void, GhostFinished, (app::GhostIndicator * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476C750, GhostIndicator_GhostFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00724720, void, FadeOutFinished, (app::GhostIndicator * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047178E0, GhostIndicator_FadeOutFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00723FF0, void, ctor, (app::GhostIndicator * this_ptr))
 } // namespace app::classes::GhostIndicator

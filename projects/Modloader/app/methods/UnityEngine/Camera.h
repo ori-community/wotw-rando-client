@@ -1,42 +1,43 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Camera.h>
-#include <Modloader/app/structs/RenderingPath__Enum.h>
-#include <Modloader/app/structs/OpaqueSortMode__Enum.h>
-#include <Modloader/app/structs/TransparencySortMode__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/CameraType__Enum.h>
-#include <Modloader/app/structs/Single__Array.h>
-#include <Modloader/app/structs/Matrix4x4.h>
-#include <Modloader/app/structs/Color.h>
+
+#include <Modloader/app/structs/Camera.h>
 #include <Modloader/app/structs/CameraClearFlags__Enum.h>
-#include <Modloader/app/structs/DepthTextureMode__Enum.h>
-#include <Modloader/app/structs/Shader.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Camera_ProjectionMatrixMode__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/CameraEvent__Enum.h>
+#include <Modloader/app/structs/CameraType__Enum.h>
 #include <Modloader/app/structs/Camera_GateFitMode__Enum.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/RenderTexture.h>
-#include <Modloader/app/structs/RenderBuffer.h>
-#include <Modloader/app/structs/RenderBuffer__Array.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/Camera_MonoOrStereoscopicEye__Enum.h>
-#include <Modloader/app/structs/Ray.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Vector3__Array.h>
 #include <Modloader/app/structs/Camera_GateFitParameters.h>
-#include <Modloader/app/structs/Scene.h>
-#include <Modloader/app/structs/StereoTargetEyeMask__Enum.h>
+#include <Modloader/app/structs/Camera_MonoOrStereoscopicEye__Enum.h>
+#include <Modloader/app/structs/Camera_ProjectionMatrixMode__Enum.h>
 #include <Modloader/app/structs/Camera_StereoscopicEye__Enum.h>
 #include <Modloader/app/structs/Camera__Array.h>
-#include <Modloader/app/structs/Texture.h>
-#include <Modloader/app/structs/Cubemap.h>
-#include <Modloader/app/structs/CameraEvent__Enum.h>
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/CommandBuffer.h>
-#include <Modloader/app/structs/ComputeQueueType__Enum.h>
 #include <Modloader/app/structs/CommandBuffer__Array.h>
+#include <Modloader/app/structs/ComputeQueueType__Enum.h>
+#include <Modloader/app/structs/Cubemap.h>
+#include <Modloader/app/structs/DepthTextureMode__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/OpaqueSortMode__Enum.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/RenderBuffer.h>
+#include <Modloader/app/structs/RenderBuffer__Array.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/RenderingPath__Enum.h>
+#include <Modloader/app/structs/Scene.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/StereoTargetEyeMask__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/TransparencySortMode__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UnityEngine::Camera {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Camera * this_ptr))
@@ -89,7 +90,6 @@ namespace app::classes::UnityEngine::Camera {
     IL2CPP_REGISTER_METHOD(0x02422050, void, SetLayerCullDistances, (app::Camera * this_ptr, app::Single__Array* d))
     IL2CPP_REGISTER_METHOD(0x02422000, app::Single__Array*, get_layerCullDistances, (app::Camera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024220B0, void, set_layerCullDistances, (app::Camera * this_ptr, app::Single__Array* value))
-    IL2CPP_REGISTER_METHODINFO(0x04753378, Camera_set_layerCullDistances__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x024221C0, int32_t, get_PreviewCullingLayer, ())
     IL2CPP_REGISTER_METHOD(0x02422210, bool, get_useOcclusionCulling, (app::Camera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02422260, void, set_useOcclusionCulling, (app::Camera * this_ptr, bool value))
@@ -171,7 +171,6 @@ namespace app::classes::UnityEngine::Camera {
     IL2CPP_REGISTER_METHOD(0x024247C0, app::GameObject*, RaycastTry2D, (app::Camera * this_ptr, app::Ray ray, float distance, int32_t layer_mask))
     IL2CPP_REGISTER_METHOD(0x02424840, void, CalculateFrustumCornersInternal, (app::Camera * this_ptr, app::Rect viewport, float z, app::Camera_MonoOrStereoscopicEye__Enum eye, app::Vector3__Array* out_corners))
     IL2CPP_REGISTER_METHOD(0x024248D0, void, CalculateFrustumCorners, (app::Camera * this_ptr, app::Rect viewport, float z, app::Camera_MonoOrStereoscopicEye__Enum eye, app::Vector3__Array* out_corners))
-    IL2CPP_REGISTER_METHODINFO(0x0474FA30, Camera_CalculateFrustumCorners__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02424A50, void, CalculateProjectionMatrixFromPhysicalPropertiesInternal, (app::Matrix4x4 * output, float focal_length, app::Vector2 sensor_size, app::Vector2 lens_shift, float near_clip, float far_clip, float gate_aspect, app::Camera_GateFitMode__Enum gate_fit_mode))
     IL2CPP_REGISTER_METHOD(0x02424B00, void, CalculateProjectionMatrixFromPhysicalProperties, (app::Matrix4x4 * output, float focal_length, app::Vector2 sensor_size, app::Vector2 lens_shift, float near_clip, float far_clip, app::Camera_GateFitParameters gate_fit_parameters))
     IL2CPP_REGISTER_METHOD(0x02424BB0, float, FocalLengthToFOV, (float focal_length, float sensor_size))
@@ -202,7 +201,6 @@ namespace app::classes::UnityEngine::Camera {
     IL2CPP_REGISTER_METHOD(0x02425520, int32_t, get_allCamerasCount, ())
     IL2CPP_REGISTER_METHOD(0x024255C0, app::Camera__Array*, get_allCameras, ())
     IL2CPP_REGISTER_METHOD(0x024256C0, int32_t, GetAllCameras, (app::Camera__Array * cameras))
-    IL2CPP_REGISTER_METHODINFO(0x04780F88, Camera_GetAllCameras__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02425820, bool, RenderToCubemapImpl, (app::Camera * this_ptr, app::Texture* tex, int32_t face_mask))
     IL2CPP_REGISTER_METHOD(0x02425890, bool, RenderToCubemap_1, (app::Camera * this_ptr, app::Cubemap* cubemap, int32_t face_mask))
     IL2CPP_REGISTER_METHOD(0x024258A0, bool, RenderToCubemap_2, (app::Camera * this_ptr, app::Cubemap* cubemap))
@@ -222,11 +220,8 @@ namespace app::classes::UnityEngine::Camera {
     IL2CPP_REGISTER_METHOD(0x02425CC0, void, AddCommandBufferAsyncImpl, (app::Camera * this_ptr, app::CameraEvent__Enum evt, app::CommandBuffer* buffer, app::ComputeQueueType__Enum queue_type))
     IL2CPP_REGISTER_METHOD(0x02425D40, void, RemoveCommandBufferImpl, (app::Camera * this_ptr, app::CameraEvent__Enum evt, app::CommandBuffer* buffer))
     IL2CPP_REGISTER_METHOD(0x02425DB0, void, AddCommandBuffer, (app::Camera * this_ptr, app::CameraEvent__Enum evt, app::CommandBuffer* buffer))
-    IL2CPP_REGISTER_METHODINFO(0x047581C8, Camera_AddCommandBuffer__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02425F20, void, AddCommandBufferAsync, (app::Camera * this_ptr, app::CameraEvent__Enum evt, app::CommandBuffer* buffer, app::ComputeQueueType__Enum queue_type))
-    IL2CPP_REGISTER_METHODINFO(0x04744060, Camera_AddCommandBufferAsync__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x024260B0, void, RemoveCommandBuffer, (app::Camera * this_ptr, app::CameraEvent__Enum evt, app::CommandBuffer* buffer))
-    IL2CPP_REGISTER_METHODINFO(0x047209C0, Camera_RemoveCommandBuffer__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02426220, app::CommandBuffer__Array*, GetCommandBuffers, (app::Camera * this_ptr, app::CameraEvent__Enum evt))
     IL2CPP_REGISTER_METHOD(0x02426280, void, FireOnPreCull, (app::Camera * cam))
     IL2CPP_REGISTER_METHOD(0x02426320, void, FireOnPreRender, (app::Camera * cam))

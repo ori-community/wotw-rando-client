@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Scene__Boxed.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/GameObject__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Scene__Boxed.h>
 
 namespace app::classes::UnityEngine::SceneManagement::Scene {
     IL2CPP_REGISTER_METHOD(0x02978E80, bool, IsValidInternal, (int32_t scene_handle))
@@ -23,7 +24,6 @@ namespace app::classes::UnityEngine::SceneManagement::Scene {
     IL2CPP_REGISTER_METHOD(0x00218730, int32_t, get_rootCount, (app::Scene__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00218780, app::GameObject__Array*, GetRootGameObjects_1, (app::Scene__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00218790, void, GetRootGameObjects_2, (app::Scene__Boxed * this_ptr, app::List_1_UnityEngine_GameObject_* root_game_objects))
-    IL2CPP_REGISTER_METHODINFO(0x047558A0, Scene_GetRootGameObjects_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001EBC90, int32_t, GetHashCode, (app::Scene__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002187A0, bool, Equals, (app::Scene__Boxed * this_ptr, app::Object* other))
 } // namespace app::classes::UnityEngine::SceneManagement::Scene

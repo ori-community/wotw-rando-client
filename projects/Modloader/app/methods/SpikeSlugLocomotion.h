@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpikeSlugLocomotion.h>
+
+#include <Modloader/app/structs/SpikeSlugLocomotion.h>
 #include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::SpikeSlugLocomotion {
@@ -12,7 +13,6 @@ namespace app::classes::SpikeSlugLocomotion {
     IL2CPP_REGISTER_METHOD(0x011D1290, void, OnEnable, (app::SpikeSlugLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D1480, void, OnDisable, (app::SpikeSlugLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D16B0, void, DamageReceived, (app::SpikeSlugLocomotion * this_ptr, app::DamageResult obj))
-    IL2CPP_REGISTER_METHODINFO(0x04776A40, SpikeSlugLocomotion_DamageReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011D16C0, void, RegisterContinousRotation, (app::SpikeSlugLocomotion * this_ptr, float rotation_speed))
     IL2CPP_REGISTER_METHOD(0x011D1AD0, void, OnFixedUpdate, (app::SpikeSlugLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D2040, void, ResetRotation, (app::SpikeSlugLocomotion * this_ptr))

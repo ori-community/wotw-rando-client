@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GuiEnable.h>
+
+#include <Modloader/app/structs/GuiEnable.h>
 
 namespace app::classes::Moon::Gui::GuiEnable {
     IL2CPP_REGISTER_METHOD(0x0052B590, bool, get_PreviousState, (app::GuiEnable * this_ptr))

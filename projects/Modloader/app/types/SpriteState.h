@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/SpriteState.h>
+#include <Modloader/app/structs/SpriteState__Array.h>
+#include <Modloader/app/structs/SpriteState__Boxed.h>
+#include <Modloader/app/structs/SpriteState__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SpriteState__Class.h>
-#include <Modloader/app/structs/SpriteState.h>
-#include <Modloader/app/structs/SpriteState__Boxed.h>
-#include <Modloader/app/structs/SpriteState__Array.h>
 
 namespace app::classes::types {
     namespace SpriteState {
-        namespace {
-            inline app::SpriteState__Class* type_info_ref = nullptr;
+        inline app::SpriteState__Class** type_info() {
+            static app::SpriteState__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SpriteState__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SpriteState__Class** type_info = &type_info_ref;
         inline app::SpriteState__Class* get_class() {
-            return il2cpp::get_class<app::SpriteState__Class>(type_info, "UnityEngine.UI", "SpriteState");
+            return il2cpp::get_class<app::SpriteState__Class>(type_info(), "UnityEngine.UI", "SpriteState");
         }
         inline app::SpriteState* create() {
             return il2cpp::create_object<app::SpriteState>(get_class());

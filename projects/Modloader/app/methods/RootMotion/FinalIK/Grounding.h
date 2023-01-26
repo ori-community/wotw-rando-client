@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Grounding_Leg__Array.h>
+
+#include <Modloader/app/structs/Grounding_Leg__Array.h>
 #include <Modloader/app/structs/Grounding.h>
 #include <Modloader/app/structs/Grounding_Pelvis.h>
-#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/RaycastHit.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Transform__Array.h>
 #include <Modloader/app/structs/Vector3.h>
 

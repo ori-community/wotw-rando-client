@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VREvent_t_Packed__Boxed.h>
+
+#include <Modloader/app/structs/VREvent_t_Packed__Boxed.h>
 #include <Modloader/app/structs/VREvent_t.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::VREvent_t_Packed {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkBaseArray_1_System_Object_.h>
+
+#include <Modloader/app/structs/AkBaseArray_1_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::AkBaseArray_1_System_Object_ {
@@ -16,5 +17,4 @@ namespace app::classes::AkBaseArray_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ReleaseAllocatedMemoryFromReferenceAtIntPtr, (app::AkBaseArray_1_System_Object_ * this_ptr, void* address))
     IL2CPP_REGISTER_METHOD(0x002FB930, void*, GetBuffer, (app::AkBaseArray_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019D76A0, void*, GetObjectPtr, (app::AkBaseArray_1_System_Object_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x047490D8, AkBaseArray_1_System_Object__GetObjectPtr__MethodInfo)
 } // namespace app::classes::AkBaseArray_1_System_Object_

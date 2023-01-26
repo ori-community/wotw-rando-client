@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Music_Layer.h>
+
+#include <Modloader/app/structs/Music_Layer.h>
 #include <Modloader/app/structs/SoundProvider.h>
 
 namespace app::classes::Core::Music_Layer {

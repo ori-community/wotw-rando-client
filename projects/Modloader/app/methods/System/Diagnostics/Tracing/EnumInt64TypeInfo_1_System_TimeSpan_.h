@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnumInt64TypeInfo_1_System_TimeSpan_.h>
-#include <Modloader/app/structs/TraceLoggingMetadataCollector.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/EnumInt64TypeInfo_1_System_TimeSpan_.h>
 #include <Modloader/app/structs/EventFieldFormat__Enum.h>
-#include <Modloader/app/structs/TraceLoggingDataCollector.h>
-#include <Modloader/app/structs/TimeSpan.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/TraceLoggingDataCollector.h>
+#include <Modloader/app/structs/TraceLoggingMetadataCollector.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EnumInt64TypeInfo_1_System_TimeSpan_ {
     IL2CPP_REGISTER_METHOD(0x02F4F4D0, void, WriteMetadata, (app::EnumInt64TypeInfo_1_System_TimeSpan_ * this_ptr, app::TraceLoggingMetadataCollector* collector, app::String* name, app::EventFieldFormat__Enum format))

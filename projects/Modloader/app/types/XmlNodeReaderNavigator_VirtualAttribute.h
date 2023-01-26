@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/XmlNodeReaderNavigator_VirtualAttribute.h>
+#include <Modloader/app/structs/XmlNodeReaderNavigator_VirtualAttribute__Array.h>
+#include <Modloader/app/structs/XmlNodeReaderNavigator_VirtualAttribute__Boxed.h>
+#include <Modloader/app/structs/XmlNodeReaderNavigator_VirtualAttribute__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XmlNodeReaderNavigator_VirtualAttribute__Class.h>
-#include <Modloader/app/structs/XmlNodeReaderNavigator_VirtualAttribute.h>
-#include <Modloader/app/structs/XmlNodeReaderNavigator_VirtualAttribute__Boxed.h>
-#include <Modloader/app/structs/XmlNodeReaderNavigator_VirtualAttribute__Array.h>
 
 namespace app::classes::types {
     namespace XmlNodeReaderNavigator_VirtualAttribute {
-        namespace {
-            inline app::XmlNodeReaderNavigator_VirtualAttribute__Class* type_info_ref = nullptr;
+        inline app::XmlNodeReaderNavigator_VirtualAttribute__Class** type_info() {
+            static app::XmlNodeReaderNavigator_VirtualAttribute__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::XmlNodeReaderNavigator_VirtualAttribute__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::XmlNodeReaderNavigator_VirtualAttribute__Class** type_info = &type_info_ref;
         inline app::XmlNodeReaderNavigator_VirtualAttribute__Class* get_class() {
-            return il2cpp::get_nested_class<app::XmlNodeReaderNavigator_VirtualAttribute__Class>(type_info, "System.Xml", "XmlNodeReaderNavigator", "VirtualAttribute");
+            return il2cpp::get_nested_class<app::XmlNodeReaderNavigator_VirtualAttribute__Class>(type_info(), "System.Xml", "XmlNodeReaderNavigator", "VirtualAttribute");
         }
         inline app::XmlNodeReaderNavigator_VirtualAttribute* create() {
             return il2cpp::create_object<app::XmlNodeReaderNavigator_VirtualAttribute>(get_class());

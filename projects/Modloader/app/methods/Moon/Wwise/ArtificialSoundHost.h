@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ArtificialSoundHost.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
+
+#include <Modloader/app/structs/ArtificialSoundHost.h>
+#include <Modloader/app/structs/AkAuxSendArray.h>
 #include <Modloader/app/structs/ISoundListener.h>
+#include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/AkAuxSendArray.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Wwise::ArtificialSoundHost {
     IL2CPP_REGISTER_METHOD(0x02708AF0, void, ctor, (app::ArtificialSoundHost * this_ptr, uint64_t i))

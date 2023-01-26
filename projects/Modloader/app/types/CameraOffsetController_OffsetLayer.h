@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CameraOffsetController_OffsetLayer__Class.h>
 #include <Modloader/app/structs/CameraOffsetController_OffsetLayer.h>
 #include <Modloader/app/structs/CameraOffsetController_OffsetLayer__Array.h>
+#include <Modloader/app/structs/CameraOffsetController_OffsetLayer__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace CameraOffsetController_OffsetLayer {
-        inline app::CameraOffsetController_OffsetLayer__Class** type_info = (app::CameraOffsetController_OffsetLayer__Class**)(modloader::win::memory::resolve_rva(0x04734A78));
+        inline app::CameraOffsetController_OffsetLayer__Class** type_info() {
+            static app::CameraOffsetController_OffsetLayer__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::CameraOffsetController_OffsetLayer__Class**)(modloader::win::memory::resolve_rva(0x04734A78));
+            }
+            return cache;
+        }
         inline app::CameraOffsetController_OffsetLayer__Class* get_class() {
-            return il2cpp::get_nested_class<app::CameraOffsetController_OffsetLayer__Class>(type_info, "", "CameraOffsetController", "OffsetLayer");
+            return il2cpp::get_nested_class<app::CameraOffsetController_OffsetLayer__Class>(type_info(), "", "CameraOffsetController", "OffsetLayer");
         }
         inline app::CameraOffsetController_OffsetLayer* create() {
             return il2cpp::create_object<app::CameraOffsetController_OffsetLayer>(get_class());

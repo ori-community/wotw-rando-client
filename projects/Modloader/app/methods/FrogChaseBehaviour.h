@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FrogChaseBehaviour.h>
+
+#include <Modloader/app/structs/FrogChaseBehaviour.h>
 
 namespace app::classes::FrogChaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x016464C0, void, OnEntityInitialized, (app::FrogChaseBehaviour * this_ptr))

@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/EntityPermissionStatement__Class.h>
 #include <Modloader/app/structs/EntityPermissionStatement.h>
 #include <Modloader/app/structs/EntityPermissionStatement__Array.h>
+#include <Modloader/app/structs/EntityPermissionStatement__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace EntityPermissionStatement {
-        inline app::EntityPermissionStatement__Class** type_info = (app::EntityPermissionStatement__Class**)(modloader::win::memory::resolve_rva(0x0470E3C0));
+        inline app::EntityPermissionStatement__Class** type_info() {
+            static app::EntityPermissionStatement__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::EntityPermissionStatement__Class**)(modloader::win::memory::resolve_rva(0x0470E3C0));
+            }
+            return cache;
+        }
         inline app::EntityPermissionStatement__Class* get_class() {
-            return il2cpp::get_class<app::EntityPermissionStatement__Class>(type_info, "PlayFab.ProfilesModels", "EntityPermissionStatement");
+            return il2cpp::get_class<app::EntityPermissionStatement__Class>(type_info(), "PlayFab.ProfilesModels", "EntityPermissionStatement");
         }
         inline app::EntityPermissionStatement* create() {
             return il2cpp::create_object<app::EntityPermissionStatement>(get_class());

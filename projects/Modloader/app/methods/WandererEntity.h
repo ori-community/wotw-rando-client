@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WandererEntity.h>
-#include <Modloader/app/structs/WandererEntity_WandererAnimationState__Enum.h>
+
+#include <Modloader/app/structs/WandererEntity.h>
+#include <Modloader/app/structs/ICharacter.h>
 #include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WandererEntity_WandererAnimationState__Enum.h>
 #include <Modloader/app/structs/WandererNPC.h>
 #include <Modloader/app/structs/WandererNPC_State__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ICharacter.h>
 
 namespace app::classes::WandererEntity {
     IL2CPP_REGISTER_METHOD(0x008C6F10, app::WandererEntity*, get_Instance, ())

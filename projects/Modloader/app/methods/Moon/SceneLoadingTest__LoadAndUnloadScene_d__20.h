@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneLoadingTest_LoadAndUnloadScene_d_20__Boxed.h>
+
+#include <Modloader/app/structs/SceneLoadingTest_LoadAndUnloadScene_d_20__Boxed.h>
 #include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::Moon::SceneLoadingTest__LoadAndUnloadScene_d__20 {

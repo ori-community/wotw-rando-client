@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Motion_FrameBlendingFilter_Frame__Boxed.h>
-#include <Modloader/app/structs/RenderTexture.h>
+
+#include <Modloader/app/structs/Motion_FrameBlendingFilter_Frame__Boxed.h>
 #include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/RenderTexture.h>
 #include <Modloader/app/structs/RenderTextureFormat__Enum.h>
 
 namespace app::classes::Kino::Motion_FrameBlendingFilter_Frame {

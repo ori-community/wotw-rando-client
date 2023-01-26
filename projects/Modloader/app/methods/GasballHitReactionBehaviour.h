@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
 #include <Modloader/app/structs/GasballHitReactionBehaviour.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
-#include <Modloader/app/structs/EntityEvent.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::GasballHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FBCC0, app::EntityDamageEvent*, get_DamageEvent, (app::GasballHitReactionBehaviour * this_ptr))
@@ -24,7 +25,6 @@ namespace app::classes::GasballHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00420740, app::Vector3, ProcessKickback, (app::GasballHitReactionBehaviour * this_ptr, app::Damage* damage, float multiplier))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::GasballHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00420970, void, TimelineFinished, (app::GasballHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04750190, GasballHitReactionBehaviour_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420990, bool, CanInterrupt, (app::GasballHitReactionBehaviour * this_ptr, app::EntityReactionBehaviour_ReasonWhyReactionWontInterrupt* reason))
     IL2CPP_REGISTER_METHOD(0x004209B0, void, ctor, (app::GasballHitReactionBehaviour * this_ptr))
 } // namespace app::classes::GasballHitReactionBehaviour

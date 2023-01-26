@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUILayoutGroup.h>
+
+#include <Modloader/app/structs/GUILayoutGroup.h>
+#include <Modloader/app/structs/GUILayoutEntry.h>
 #include <Modloader/app/structs/GUILayoutOption__Array.h>
 #include <Modloader/app/structs/GUIStyle.h>
-#include <Modloader/app/structs/GUILayoutEntry.h>
 #include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/String.h>
 
@@ -17,7 +18,6 @@ namespace app::classes::UnityEngine::GUILayoutGroup {
     IL2CPP_REGISTER_METHOD(0x029E86A0, void, ApplyStyleSettings, (app::GUILayoutGroup * this_ptr, app::GUIStyle* style))
     IL2CPP_REGISTER_METHOD(0x00A3C8D0, void, ResetCursor, (app::GUILayoutGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x029E8980, app::GUILayoutEntry*, GetNext, (app::GUILayoutGroup * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472EFB8, GUILayoutGroup_GetNext__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x029E8C90, app::Rect, GetLast, (app::GUILayoutGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x029E9100, void, Add, (app::GUILayoutGroup * this_ptr, app::GUILayoutEntry* e))
     IL2CPP_REGISTER_METHOD(0x029E91A0, void, CalcWidth, (app::GUILayoutGroup * this_ptr))

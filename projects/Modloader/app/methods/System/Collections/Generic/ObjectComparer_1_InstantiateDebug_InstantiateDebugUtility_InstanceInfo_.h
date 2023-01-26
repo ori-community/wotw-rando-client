@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_InstantiateDebug_InstantiateDebugUtility_InstanceInfo_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_InstantiateDebug_InstantiateDebugUtility_InstanceInfo_.h>
 #include <Modloader/app/structs/InstantiateDebugUtility_InstanceInfo.h>
 #include <Modloader/app/structs/Object.h>
 

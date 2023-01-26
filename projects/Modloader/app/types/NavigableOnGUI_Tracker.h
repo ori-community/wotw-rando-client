@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/NavigableOnGUI_Tracker__Class.h>
 #include <Modloader/app/structs/NavigableOnGUI_Tracker.h>
 #include <Modloader/app/structs/NavigableOnGUI_Tracker__Boxed.h>
+#include <Modloader/app/structs/NavigableOnGUI_Tracker__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace NavigableOnGUI_Tracker {
-        namespace {
-            inline app::NavigableOnGUI_Tracker__Class* type_info_ref = nullptr;
+        inline app::NavigableOnGUI_Tracker__Class** type_info() {
+            static app::NavigableOnGUI_Tracker__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::NavigableOnGUI_Tracker__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::NavigableOnGUI_Tracker__Class** type_info = &type_info_ref;
         inline app::NavigableOnGUI_Tracker__Class* get_class() {
-            return il2cpp::get_nested_class<app::NavigableOnGUI_Tracker__Class>(type_info, "Moon.UberStateVisualization", "NavigableOnGUI", "Tracker");
+            return il2cpp::get_nested_class<app::NavigableOnGUI_Tracker__Class>(type_info(), "Moon.UberStateVisualization", "NavigableOnGUI", "Tracker");
         }
         inline app::NavigableOnGUI_Tracker* create() {
             return il2cpp::create_object<app::NavigableOnGUI_Tracker>(get_class());

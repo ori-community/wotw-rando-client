@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Material.h>
+
+#include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/MoonRenderPipelineView_FinalPost.h>
 #include <Modloader/app/structs/PostProcessRenderContext.h>
 

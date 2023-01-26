@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CodeAccessSecurityAttribute.h>
+
+#include <Modloader/app/structs/CodeAccessSecurityAttribute.h>
 #include <Modloader/app/structs/SecurityAction__Enum.h>
 
 namespace app::classes::System::Security::Permissions::CodeAccessSecurityAttribute {

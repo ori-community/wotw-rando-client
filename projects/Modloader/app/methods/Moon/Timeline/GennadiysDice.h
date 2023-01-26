@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/GennadiysDice.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_IEventDescriptor_.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/EventDescriptorSet.h>
+#include <Modloader/app/structs/GennadiysDice.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_IEventDescriptor_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::Moon::Timeline::GennadiysDice {
     IL2CPP_REGISTER_METHOD(0x01BC0070, app::Int32__Array*, GetEventsIds, (app::GennadiysDice * this_ptr))

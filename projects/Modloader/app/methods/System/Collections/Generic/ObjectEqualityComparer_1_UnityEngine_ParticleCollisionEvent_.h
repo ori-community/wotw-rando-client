@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_ParticleCollisionEvent_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_ParticleCollisionEvent_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ParticleCollisionEvent.h>
 #include <Modloader/app/structs/ParticleCollisionEvent__Array.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_UnityEngine_ParticleCollisionEvent_ {
     IL2CPP_REGISTER_METHOD(0x01CD2D60, bool, Equals_1, (app::ObjectEqualityComparer_1_UnityEngine_ParticleCollisionEvent_ * this_ptr, app::ParticleCollisionEvent x, app::ParticleCollisionEvent y))

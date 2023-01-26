@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Demo2.h>
+
+#include <Modloader/app/structs/Demo2.h>
 
 namespace app::classes::BeautifyEffect::Demo2 {
     IL2CPP_REGISTER_METHOD(0x0317B530, void, Start, (app::Demo2 * this_ptr))

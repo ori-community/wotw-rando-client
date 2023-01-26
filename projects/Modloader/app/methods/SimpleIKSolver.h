@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SimpleIKSolver.h>
+
+#include <Modloader/app/structs/SimpleIKSolver.h>
 #include <Modloader/app/structs/SimpleIKSolver_JointEntity.h>
 
 namespace app::classes::SimpleIKSolver {

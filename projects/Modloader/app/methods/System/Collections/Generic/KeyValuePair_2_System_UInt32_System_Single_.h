@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_UInt32_System_Single___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_UInt32_System_Single___Boxed.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_UInt32_System_Single_ {

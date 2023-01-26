@@ -1,24 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Func_2_System_Collections_Generic_KeyValuePair_2_Boolean_.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Func_2_System_Collections_Generic_KeyValuePair_2_Boolean_.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 #include <Modloader/app/structs/Func_2_System_Collections_Generic_KeyValuePair_2_Boolean__1.h>
 #include <Modloader/app/structs/Func_2_System_Collections_Generic_KeyValuePair_2_Boolean__2.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Int32_System_ByteEnum_.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
-#include <Modloader/app/structs/Func_2_System_Collections_Generic_KeyValuePair_2_Boolean__4.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Int32_.h>
 #include <Modloader/app/structs/Func_2_System_Collections_Generic_KeyValuePair_2_Boolean__3.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Func_2_System_Collections_Generic_KeyValuePair_2_Boolean__4.h>
 #include <Modloader/app/structs/Func_2_System_Collections_Generic_KeyValuePair_2_Boolean__5.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_System_ByteEnum_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Int32_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
 #include <Modloader/app/structs/KeyValuePair_2_System_Object_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Func_2_System_Collections_Generic_KeyValuePair_2_Boolean_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor_1, (app::Func_2_System_Collections_Generic_KeyValuePair_2_Boolean_ * this_ptr, app::Object* object, void* method_1))
-    IL2CPP_REGISTER_METHODINFO(0x047083B0, Func_2_System_Collections_Generic_KeyValuePair_2_Boolean___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor_2, (app::Func_2_System_Collections_Generic_KeyValuePair_2_Boolean__1 * this_ptr, app::Object* object, void* method_1))
-    IL2CPP_REGISTER_METHODINFO(0x04734EF8, Func_2_System_Collections_Generic_KeyValuePair_2_Boolean__1__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor_3, (app::Func_2_System_Collections_Generic_KeyValuePair_2_Boolean__2 * this_ptr, app::Object* object, void* method_1))
     IL2CPP_REGISTER_METHOD(0x0288C090, bool, Invoke_1, (app::Func_2_System_Collections_Generic_KeyValuePair_2_Boolean__2 * this_ptr, app::KeyValuePair_2_System_Int32_System_ByteEnum_ arg))
     IL2CPP_REGISTER_METHOD(0x02F9DF70, app::IAsyncResult*, BeginInvoke_1, (app::Func_2_System_Collections_Generic_KeyValuePair_2_Boolean__2 * this_ptr, app::KeyValuePair_2_System_Int32_System_ByteEnum_ arg, app::AsyncCallback* callback, app::Object* object))

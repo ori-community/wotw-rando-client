@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Timeline_ActivateAnimatorSystem_ObjectState_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Timeline_ActivateAnimatorSystem_ObjectState_.h>
 #include <Modloader/app/structs/ActivateAnimatorSystem_ObjectState.h>
 #include <Modloader/app/structs/ActivateAnimatorSystem_ObjectState__Array.h>
 #include <Modloader/app/structs/Object.h>

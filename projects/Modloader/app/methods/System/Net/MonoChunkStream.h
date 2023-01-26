@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MonoChunkStream.h>
+
+#include <Modloader/app/structs/MonoChunkStream.h>
 #include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/WebHeaderCollection.h>
 #include <Modloader/app/structs/MonoChunkStream_State__Enum.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WebHeaderCollection.h>
 
 namespace app::classes::System::Net::MonoChunkStream {
     IL2CPP_REGISTER_METHOD(0x01E6F210, void, ctor_1, (app::MonoChunkStream * this_ptr, app::Byte__Array* buffer, int32_t offset, int32_t size, app::WebHeaderCollection* headers))
@@ -25,5 +26,4 @@ namespace app::classes::System::Net::MonoChunkStream {
     IL2CPP_REGISTER_METHOD(0x01E70280, app::MonoChunkStream_State__Enum, ReadCRLF, (app::MonoChunkStream * this_ptr, app::Byte__Array* buffer, int32_t* offset, int32_t size))
     IL2CPP_REGISTER_METHOD(0x01E703B0, app::MonoChunkStream_State__Enum, ReadTrailer, (app::MonoChunkStream * this_ptr, app::Byte__Array* buffer, int32_t* offset, int32_t size))
     IL2CPP_REGISTER_METHOD(0x01E70800, void, ThrowProtocolViolation, (app::String * message))
-    IL2CPP_REGISTER_METHODINFO(0x04721CE0, MonoChunkStream_ThrowProtocolViolation__MethodInfo)
 } // namespace app::classes::System::Net::MonoChunkStream

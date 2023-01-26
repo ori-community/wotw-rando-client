@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/TimelineContext.h>
 
 namespace app::classes::Moon::Timeline::TimelineContext {

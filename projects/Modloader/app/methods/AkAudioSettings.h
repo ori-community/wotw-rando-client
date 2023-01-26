@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkAudioSettings.h>
+
+#include <Modloader/app/structs/AkAudioSettings.h>
 
 namespace app::classes::AkAudioSettings {
     IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkAudioSettings * this_ptr, void* c_ptr, bool c_memory_own))

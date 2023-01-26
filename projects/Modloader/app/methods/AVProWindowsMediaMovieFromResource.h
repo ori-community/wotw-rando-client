@@ -1,11 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AVProWindowsMediaMovieFromResource.h>
+
+#include <Modloader/app/structs/AVProWindowsMediaMovieFromResource.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::AVProWindowsMediaMovieFromResource {
     IL2CPP_REGISTER_METHOD(0x0312F8D0, void, Start, (app::AVProWindowsMediaMovieFromResource * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047803D8, AVProWindowsMediaMovieFromResource_Start__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0312F9D0, bool, LoadMovie, (app::AVProWindowsMediaMovieFromResource * this_ptr, bool auto_play))
     IL2CPP_REGISTER_METHOD(0x0312F9E0, bool, LoadMovieFromResource, (app::AVProWindowsMediaMovieFromResource * this_ptr, bool auto_play, app::String* path))
     IL2CPP_REGISTER_METHOD(0x0312FD50, void, UnloadMovie, (app::AVProWindowsMediaMovieFromResource * this_ptr))

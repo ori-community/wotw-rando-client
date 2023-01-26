@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Bounds.h>
+
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberInteractionActor.h>
 #include <Modloader/app/structs/UberInteractionModifier.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 #include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/UberInteractionActor.h>
 
 namespace app::classes::UberInteractionModifier {
     IL2CPP_REGISTER_METHOD(0x00FCBA80, app::Bounds, get_Bounds, (app::UberInteractionModifier * this_ptr))

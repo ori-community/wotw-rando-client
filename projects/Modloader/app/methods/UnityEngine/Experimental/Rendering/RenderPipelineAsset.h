@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RenderPipelineAsset.h>
+
+#include <Modloader/app/structs/RenderPipelineAsset.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Experimental_Rendering_IRenderPipeline_.h>
 #include <Modloader/app/structs/IRenderPipeline.h>
-#include <Modloader/app/structs/String__Array.h>
 #include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/Shader.h>
-#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Experimental_Rendering_IRenderPipeline_.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::RenderPipelineAsset {
     IL2CPP_REGISTER_METHOD(0x024349E0, void, ctor, (app::RenderPipelineAsset * this_ptr))

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Container.h>
+
+#include <Modloader/app/structs/Container.h>
+#include <Modloader/app/structs/ComponentCollection.h>
 #include <Modloader/app/structs/IComponent.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/ISite.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/ComponentCollection.h>
 
 namespace app::classes::System::ComponentModel::Container {
     IL2CPP_REGISTER_METHOD(0x024AB110, void, Finalize, (app::Container * this_ptr))
@@ -21,6 +22,5 @@ namespace app::classes::System::ComponentModel::Container {
     IL2CPP_REGISTER_METHOD(0x024AC000, void, Remove_2, (app::Container * this_ptr, app::IComponent* component, bool preserve_site))
     IL2CPP_REGISTER_METHOD(0x024AC290, void, RemoveWithoutUnsiting, (app::Container * this_ptr, app::IComponent* component))
     IL2CPP_REGISTER_METHOD(0x024AC2A0, void, ValidateName, (app::Container * this_ptr, app::IComponent* component, app::String* name))
-    IL2CPP_REGISTER_METHODINFO(0x0473C738, Container_ValidateName__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x024AC6C0, void, ctor, (app::Container * this_ptr))
 } // namespace app::classes::System::ComponentModel::Container

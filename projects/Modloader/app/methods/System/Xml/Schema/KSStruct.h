@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KSStruct.h>
+
+#include <Modloader/app/structs/KSStruct.h>
 #include <Modloader/app/structs/KeySequence.h>
 
 namespace app::classes::System::Xml::Schema::KSStruct {

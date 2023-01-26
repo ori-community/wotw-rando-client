@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkTaskContext.h>
+
+#include <Modloader/app/structs/AkTaskContext.h>
 
 namespace app::classes::AkTaskContext {
     IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkTaskContext * this_ptr, void* c_ptr, bool c_memory_own))

@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MapmakerItem.h>
 #include <Modloader/app/structs/MapmakerScreen.h>
+#include <Modloader/app/structs/MapmakerUIItem.h>
 #include <Modloader/app/structs/MenuTabBackground__Enum.h>
 #include <Modloader/app/structs/MessageProvider.h>
-#include <Modloader/app/structs/MapmakerUIItem.h>
-#include <Modloader/app/structs/MapmakerItem.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Event_1.h>
 #include <Modloader/app/structs/RTPC.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::MapmakerScreen {
     IL2CPP_REGISTER_METHOD(0x00A0B3F0, void, ResetStatics, ())
@@ -25,9 +26,7 @@ namespace app::classes::MapmakerScreen {
     IL2CPP_REGISTER_METHOD(0x00A0B780, void, Awake, (app::MapmakerScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A0B850, void, OnDestroy, (app::MapmakerScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A0B8F0, void, OnNewItemHighlighted, (app::MapmakerScreen * this_ptr, bool first_after_populating))
-    IL2CPP_REGISTER_METHODINFO(0x0475F2A0, MapmakerScreen_OnNewItemHighlighted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A0B900, void, OnItemActivatedCallback, (app::MapmakerScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477F518, MapmakerScreen_OnItemActivatedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A0B9B0, app::MapmakerUIItem*, get_SelectedItem, (app::MapmakerScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A0BAB0, app::MapmakerItem*, get_SelectedUpgradeItem, (app::MapmakerScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B9090, bool, get_IsSuspended, (app::MapmakerScreen * this_ptr))

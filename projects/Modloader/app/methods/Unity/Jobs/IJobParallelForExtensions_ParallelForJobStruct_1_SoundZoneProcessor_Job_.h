@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoundZoneProcessor_Job.h>
+
+#include <Modloader/app/structs/SoundZoneProcessor_Job.h>
 #include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::Unity::Jobs::IJobParallelForExtensions_ParallelForJobStruct_1_SoundZoneProcessor_Job_ {

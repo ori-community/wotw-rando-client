@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BodyTilt.h>
+
+#include <Modloader/app/structs/BodyTilt.h>
 
 namespace app::classes::RootMotion::FinalIK::BodyTilt {
     IL2CPP_REGISTER_METHOD(0x02051260, void, Start, (app::BodyTilt * this_ptr))

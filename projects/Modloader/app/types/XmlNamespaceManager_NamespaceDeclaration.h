@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration.h>
+#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration__Array.h>
+#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration__Boxed.h>
+#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration__Class.h>
-#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration.h>
-#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration__Boxed.h>
-#include <Modloader/app/structs/XmlNamespaceManager_NamespaceDeclaration__Array.h>
 
 namespace app::classes::types {
     namespace XmlNamespaceManager_NamespaceDeclaration {
-        namespace {
-            inline app::XmlNamespaceManager_NamespaceDeclaration__Class* type_info_ref = nullptr;
+        inline app::XmlNamespaceManager_NamespaceDeclaration__Class** type_info() {
+            static app::XmlNamespaceManager_NamespaceDeclaration__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::XmlNamespaceManager_NamespaceDeclaration__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::XmlNamespaceManager_NamespaceDeclaration__Class** type_info = &type_info_ref;
         inline app::XmlNamespaceManager_NamespaceDeclaration__Class* get_class() {
-            return il2cpp::get_nested_class<app::XmlNamespaceManager_NamespaceDeclaration__Class>(type_info, "System.Xml", "XmlNamespaceManager", "NamespaceDeclaration");
+            return il2cpp::get_nested_class<app::XmlNamespaceManager_NamespaceDeclaration__Class>(type_info(), "System.Xml", "XmlNamespaceManager", "NamespaceDeclaration");
         }
         inline app::XmlNamespaceManager_NamespaceDeclaration* create() {
             return il2cpp::create_object<app::XmlNamespaceManager_NamespaceDeclaration>(get_class());

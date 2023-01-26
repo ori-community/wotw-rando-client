@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/P3D_Group__Boxed.h>
+
+#include <Modloader/app/structs/P3D_Group__Boxed.h>
 #include <Modloader/app/structs/P3D_Group.h>
 
 namespace app::classes::P3D_Group {

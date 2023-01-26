@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiderBossCancellableController.h>
+
+#include <Modloader/app/structs/SpiderBossCancellableController.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::SpiderBossCancellableController {

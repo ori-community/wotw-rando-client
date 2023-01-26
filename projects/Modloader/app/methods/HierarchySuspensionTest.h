@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HierarchySuspensionTest.h>
+
+#include <Modloader/app/structs/HierarchySuspensionTest.h>
 #include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
 #include <Modloader/app/structs/HierarchySuspensionTest_State__Enum.h>
 
@@ -9,10 +10,8 @@ namespace app::classes::HierarchySuspensionTest {
     IL2CPP_REGISTER_METHOD(0x004430B0, bool, get_IsRunning, (app::HierarchySuspensionTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B54520, int32_t, get_ObjectsLeft, (app::HierarchySuspensionTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B545B0, void, ChangeState, (app::HierarchySuspensionTest * this_ptr, app::HierarchySuspensionTest_State__Enum state))
-    IL2CPP_REGISTER_METHODINFO(0x04730230, HierarchySuspensionTest_ChangeState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B54910, void, Update, (app::HierarchySuspensionTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B54AB0, void, UpdateState, (app::HierarchySuspensionTest * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04737C90, HierarchySuspensionTest_UpdateState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B54BE0, void, StartTest, (app::HierarchySuspensionTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B54CE0, void, EndTest, (app::HierarchySuspensionTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B54E70, void, OnEnterIdle, (app::HierarchySuspensionTest * this_ptr))

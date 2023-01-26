@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonDebug.h>
-#include <Modloader/app/structs/MoonDebugMessageType__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object_1.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/MoonDebug.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Quaternion.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/MoonDebugMessageType__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::MoonDebug {
     IL2CPP_REGISTER_METHOD(0x031A1030, void, ResetStatics, ())

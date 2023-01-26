@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CsEvent.h>
+
+#include <Modloader/app/structs/CsEvent.h>
 #include <Modloader/app/structs/MemoryStream.h>
 
 namespace app::classes::Microsoft::Applications::Events::BondHelper {

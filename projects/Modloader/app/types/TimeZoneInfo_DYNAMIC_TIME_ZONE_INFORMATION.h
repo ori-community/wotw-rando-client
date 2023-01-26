@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class.h>
 #include <Modloader/app/structs/TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION.h>
 #include <Modloader/app/structs/TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Boxed.h>
+#include <Modloader/app/structs/TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION {
-        namespace {
-            inline app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class* type_info_ref = nullptr;
+        inline app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class** type_info() {
+            static app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class** type_info = &type_info_ref;
         inline app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class* get_class() {
-            return il2cpp::get_nested_class<app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class>(type_info, "System", "TimeZoneInfo", "DYNAMIC_TIME_ZONE_INFORMATION");
+            return il2cpp::get_nested_class<app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION__Class>(type_info(), "System", "TimeZoneInfo", "DYNAMIC_TIME_ZONE_INFORMATION");
         }
         inline app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION* create() {
             return il2cpp::create_object<app::TimeZoneInfo_DYNAMIC_TIME_ZONE_INFORMATION>(get_class());

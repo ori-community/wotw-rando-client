@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UTF32Encoding_UTF32Decoder.h>
+
+#include <Modloader/app/structs/UTF32Encoding_UTF32Decoder.h>
 #include <Modloader/app/structs/UTF32Encoding.h>
 
 namespace app::classes::System::Text::UTF32Encoding_UTF32Decoder {

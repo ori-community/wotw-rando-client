@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CompoundAxisInput.h>
+
+#include <Modloader/app/structs/CompoundAxisInput.h>
+#include <Modloader/app/structs/IAxisInput.h>
 #include <Modloader/app/structs/IAxisInput__Array.h>
 #include <Modloader/app/structs/InputCacheManager.h>
-#include <Modloader/app/structs/IAxisInput.h>
 
 namespace app::classes::SmartInput::CompoundAxisInput {
     IL2CPP_REGISTER_METHOD(0x006CA3B0, void, ctor_1, (app::CompoundAxisInput * this_ptr, app::IAxisInput__Array* inputs))

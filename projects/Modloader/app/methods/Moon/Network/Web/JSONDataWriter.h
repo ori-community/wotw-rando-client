@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JSONDataWriter.h>
-#include <Modloader/app/structs/IRequestCallback.h>
+
+#include <Modloader/app/structs/JSONDataWriter.h>
 #include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Dictionary_2_System_String_System_Object_.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/IRequestCallback.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Moon::Network::Web::JSONDataWriter {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, SetResult, (app::JSONDataWriter * this_ptr, app::IRequestCallback* result))

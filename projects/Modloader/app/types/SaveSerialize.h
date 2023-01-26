@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SaveSerialize__Class.h>
 #include <Modloader/app/structs/SaveSerialize.h>
 #include <Modloader/app/structs/SaveSerialize__Array.h>
+#include <Modloader/app/structs/SaveSerialize__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SaveSerialize {
-        namespace {
-            inline app::SaveSerialize__Class* type_info_ref = nullptr;
+        inline app::SaveSerialize__Class** type_info() {
+            static app::SaveSerialize__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SaveSerialize__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SaveSerialize__Class** type_info = &type_info_ref;
         inline app::SaveSerialize__Class* get_class() {
-            return il2cpp::get_class<app::SaveSerialize__Class>(type_info, "", "SaveSerialize");
+            return il2cpp::get_class<app::SaveSerialize__Class>(type_info(), "", "SaveSerialize");
         }
         inline app::SaveSerialize* create() {
             return il2cpp::create_object<app::SaveSerialize>(get_class());

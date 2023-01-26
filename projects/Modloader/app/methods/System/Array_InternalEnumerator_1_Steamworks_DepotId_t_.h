@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Array_InternalEnumerator_1_Steamworks_DepotId_t___Boxed.h>
+
+#include <Modloader/app/structs/Array_InternalEnumerator_1_Steamworks_DepotId_t___Boxed.h>
 #include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/DepotId_t.h>
 #include <Modloader/app/structs/Object.h>
@@ -10,7 +11,6 @@ namespace app::classes::System::Array_InternalEnumerator_1_Steamworks_DepotId_t_
     IL2CPP_REGISTER_METHOD(0x00002890, void, Dispose, (app::Array_InternalEnumerator_1_Steamworks_DepotId_t___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00160590, bool, MoveNext, (app::Array_InternalEnumerator_1_Steamworks_DepotId_t___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001B1A50, app::DepotId_t, get_Current, (app::Array_InternalEnumerator_1_Steamworks_DepotId_t___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471FD28, Array_InternalEnumerator_1_Steamworks_DepotId_t__get_Current__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00160610, void, IEnumerator_Reset, (app::Array_InternalEnumerator_1_Steamworks_DepotId_t___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001B1BD0, app::Object*, IEnumerator_get_Current, (app::Array_InternalEnumerator_1_Steamworks_DepotId_t___Boxed * this_ptr))
 } // namespace app::classes::System::Array_InternalEnumerator_1_Steamworks_DepotId_t_

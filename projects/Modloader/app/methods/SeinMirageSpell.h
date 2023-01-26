@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinMirageSpell.h>
+
+#include <Modloader/app/structs/SeinMirageSpell.h>
 
 namespace app::classes::SeinMirageSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinMirageSpell * this_ptr))

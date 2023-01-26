@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/FixedUpdate_DirectorFixedSampleTime__Class.h>
 #include <Modloader/app/structs/FixedUpdate_DirectorFixedSampleTime.h>
 #include <Modloader/app/structs/FixedUpdate_DirectorFixedSampleTime__Boxed.h>
+#include <Modloader/app/structs/FixedUpdate_DirectorFixedSampleTime__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace FixedUpdate_DirectorFixedSampleTime {
-        namespace {
-            inline app::FixedUpdate_DirectorFixedSampleTime__Class* type_info_ref = nullptr;
+        inline app::FixedUpdate_DirectorFixedSampleTime__Class** type_info() {
+            static app::FixedUpdate_DirectorFixedSampleTime__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::FixedUpdate_DirectorFixedSampleTime__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::FixedUpdate_DirectorFixedSampleTime__Class** type_info = &type_info_ref;
         inline app::FixedUpdate_DirectorFixedSampleTime__Class* get_class() {
-            return il2cpp::get_nested_class<app::FixedUpdate_DirectorFixedSampleTime__Class>(type_info, "UnityEngine.Experimental.PlayerLoop", "FixedUpdate", "DirectorFixedSampleTime");
+            return il2cpp::get_nested_class<app::FixedUpdate_DirectorFixedSampleTime__Class>(type_info(), "UnityEngine.Experimental.PlayerLoop", "FixedUpdate", "DirectorFixedSampleTime");
         }
         inline app::FixedUpdate_DirectorFixedSampleTime* create() {
             return il2cpp::create_object<app::FixedUpdate_DirectorFixedSampleTime>(get_class());

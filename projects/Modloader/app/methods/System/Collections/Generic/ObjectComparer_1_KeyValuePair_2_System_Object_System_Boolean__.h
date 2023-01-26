@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_KeyValuePair_2_System_Object_System_Boolean_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_KeyValuePair_2_System_Object_System_Boolean_.h>
 #include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Boolean_.h>
 #include <Modloader/app/structs/Object.h>
 

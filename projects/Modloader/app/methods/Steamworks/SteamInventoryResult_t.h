@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SteamInventoryResult_t__Boxed.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/SteamInventoryResult_t__Boxed.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SteamInventoryResult_t.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::SteamInventoryResult_t {
     IL2CPP_REGISTER_METHOD(0x0010DB80, void, ctor, (app::SteamInventoryResult_t__Boxed * this_ptr, int32_t value))

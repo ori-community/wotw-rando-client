@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DebugMenuTogglerItem.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/DebugMenuTogglerItem.h>
+#include <Modloader/app/structs/Func_1_String_.h>
 #include <Modloader/app/structs/IDebugMenuToggleable.h>
 #include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Func_1_String_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::DebugMenuTogglerItem {
     IL2CPP_REGISTER_METHOD(0x00DF7B50, void, ctor, (app::DebugMenuTogglerItem * this_ptr, app::String* path, app::IDebugMenuToggleable* toggleable))

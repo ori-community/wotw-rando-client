@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_Moon_MoonAnimator_AnimatorPostprocessData_.h>
-#include <Modloader/app/structs/MoonAnimator_AnimatorPostprocessData__Array.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_Moon_MoonAnimator_AnimatorPostprocessData_.h>
 #include <Modloader/app/structs/MoonAnimator_AnimatorPostprocessData.h>
+#include <Modloader/app/structs/MoonAnimator_AnimatorPostprocessData__Array.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_Moon_MoonAnimator_AnimatorPostprocessData_ {

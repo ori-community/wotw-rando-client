@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DoorUberStateMatcher.h>
+
+#include <Modloader/app/structs/DoorUberStateMatcher.h>
 #include <Modloader/app/structs/DesiredUberStateDoor_DoorState__Enum.h>
 
 namespace app::classes::DoorUberStateMatcher {

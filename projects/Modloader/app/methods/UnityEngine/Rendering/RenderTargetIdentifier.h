@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RenderTargetIdentifier__Boxed.h>
+
+#include <Modloader/app/structs/RenderTargetIdentifier__Boxed.h>
 #include <Modloader/app/structs/BuiltinRenderTextureType__Enum.h>
-#include <Modloader/app/structs/RenderTargetIdentifier.h>
 #include <Modloader/app/structs/CubemapFace__Enum.h>
-#include <Modloader/app/structs/Texture.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RenderTargetIdentifier.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture.h>
 
 namespace app::classes::UnityEngine::Rendering::RenderTargetIdentifier {
     IL2CPP_REGISTER_METHOD(0x00218440, void, ctor_1, (app::RenderTargetIdentifier__Boxed * this_ptr, app::BuiltinRenderTextureType__Enum type))

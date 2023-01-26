@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_SurfaceMaterialObjectPair_1_.h>
+
+#include <Modloader/app/structs/List_1_SurfaceMaterialObjectPair_1_.h>
 #include <Modloader/app/structs/SurfaceBasedPrefabSettings.h>
 
 namespace app::classes::SurfaceBasedPrefabSettings {

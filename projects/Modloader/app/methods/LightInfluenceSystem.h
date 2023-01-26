@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LightInfluenceSettings.h>
+
+#include <Modloader/app/structs/LightInfluenceSettings.h>
 #include <Modloader/app/structs/LightInfluenceSystem.h>
 
 namespace app::classes::LightInfluenceSystem {

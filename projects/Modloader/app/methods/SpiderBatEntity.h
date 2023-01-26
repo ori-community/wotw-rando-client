@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ConfigurableJoint.h>
-#include <Modloader/app/structs/SpiderBatEntity.h>
+
+#include <Modloader/app/structs/ConfigurableJoint.h>
 #include <Modloader/app/structs/Action_1_Damage_.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Rope.h>
+#include <Modloader/app/structs/SpiderBatEntity.h>
 #include <Modloader/app/structs/SpiderBatEntity_AttackSet__Enum.h>
 #include <Modloader/app/structs/SpiderBatEntity_ModelVariation__Enum.h>
-#include <Modloader/app/structs/Rope.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SpiderBatEntity {

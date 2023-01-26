@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MeleeComboTransition__Array.h>
+
+#include <Modloader/app/structs/MeleeComboTransition__Array.h>
 #include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
 
 namespace app::classes::MeleeComboTransitionExtensions {

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritGrenadeDamageDealer.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/DamageOwner.h>
+
+#include <Modloader/app/structs/SpiritGrenadeDamageDealer.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::SpiritGrenadeDamageDealer {

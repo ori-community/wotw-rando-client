@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterGlow.h>
+
+#include <Modloader/app/structs/CharacterGlow.h>
 
 namespace app::classes::CharacterGlow {
     IL2CPP_REGISTER_METHOD(0x01051140, void, Start, (app::CharacterGlow * this_ptr))

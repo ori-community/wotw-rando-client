@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RuntimeGenericParamInfoHandle__Boxed.h>
-#include <Modloader/app/structs/Type__Array.h>
+
+#include <Modloader/app/structs/RuntimeGenericParamInfoHandle__Boxed.h>
 #include <Modloader/app/structs/GenericParameterAttributes__Enum.h>
+#include <Modloader/app/structs/Type__Array.h>
 
 namespace app::classes::Mono::RuntimeGenericParamInfoHandle {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::RuntimeGenericParamInfoHandle__Boxed * this_ptr, void* ptr))

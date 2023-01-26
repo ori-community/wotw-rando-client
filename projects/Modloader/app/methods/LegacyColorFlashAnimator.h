@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyColorFlashAnimator.h>
+
+#include <Modloader/app/structs/LegacyColorFlashAnimator.h>
 
 namespace app::classes::LegacyColorFlashAnimator {
     IL2CPP_REGISTER_METHOD(0x00A16740, void, Awake, (app::LegacyColorFlashAnimator * this_ptr))

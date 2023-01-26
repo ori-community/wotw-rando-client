@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/UberPoolGroupWarmer_PrewarmItem.h>
+#include <Modloader/app/structs/UberPoolGroupWarmer_PrewarmItem__Array.h>
+#include <Modloader/app/structs/UberPoolGroupWarmer_PrewarmItem__Boxed.h>
+#include <Modloader/app/structs/UberPoolGroupWarmer_PrewarmItem__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UberPoolGroupWarmer_PrewarmItem__Class.h>
-#include <Modloader/app/structs/UberPoolGroupWarmer_PrewarmItem.h>
-#include <Modloader/app/structs/UberPoolGroupWarmer_PrewarmItem__Boxed.h>
-#include <Modloader/app/structs/UberPoolGroupWarmer_PrewarmItem__Array.h>
 
 namespace app::classes::types {
     namespace UberPoolGroupWarmer_PrewarmItem {
-        inline app::UberPoolGroupWarmer_PrewarmItem__Class** type_info = (app::UberPoolGroupWarmer_PrewarmItem__Class**)(modloader::win::memory::resolve_rva(0x0478B3E0));
+        inline app::UberPoolGroupWarmer_PrewarmItem__Class** type_info() {
+            static app::UberPoolGroupWarmer_PrewarmItem__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::UberPoolGroupWarmer_PrewarmItem__Class**)(modloader::win::memory::resolve_rva(0x0478B3E0));
+            }
+            return cache;
+        }
         inline app::UberPoolGroupWarmer_PrewarmItem__Class* get_class() {
-            return il2cpp::get_nested_class<app::UberPoolGroupWarmer_PrewarmItem__Class>(type_info, "", "UberPoolGroupWarmer", "PrewarmItem");
+            return il2cpp::get_nested_class<app::UberPoolGroupWarmer_PrewarmItem__Class>(type_info(), "", "UberPoolGroupWarmer", "PrewarmItem");
         }
         inline app::UberPoolGroupWarmer_PrewarmItem* create() {
             return il2cpp::create_object<app::UberPoolGroupWarmer_PrewarmItem>(get_class());

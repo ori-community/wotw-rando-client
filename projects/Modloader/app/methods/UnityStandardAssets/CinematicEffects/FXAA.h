@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FXAA.h>
-#include <Modloader/app/structs/Shader.h>
-#include <Modloader/app/structs/Material.h>
+
+#include <Modloader/app/structs/FXAA.h>
 #include <Modloader/app/structs/AntiAliasing.h>
 #include <Modloader/app/structs/Camera.h>
 #include <Modloader/app/structs/CommandBuffer.h>
 #include <Modloader/app/structs/FXAA_QualitySettings.h>
-#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/PostProcessRenderContext.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Shader.h>
 
 namespace app::classes::UnityStandardAssets::CinematicEffects::FXAA {
     IL2CPP_REGISTER_METHOD(0x02504DF0, void, ctor, (app::FXAA * this_ptr, bool use_separate_alpha))

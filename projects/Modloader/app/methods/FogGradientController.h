@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Gradient.h>
+
+#include <Modloader/app/structs/Gradient.h>
 #include <Modloader/app/structs/FogGradientController.h>
 
 namespace app::classes::FogGradientController {

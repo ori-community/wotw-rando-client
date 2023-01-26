@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/fsAotVersionInfo.h>
-#include <Modloader/app/structs/fsAotVersionInfo_Member.h>
-#include <Modloader/app/structs/fsMetaType.h>
-#include <Modloader/app/structs/fsIAotConverter.h>
+
+#include <Modloader/app/structs/fsAotVersionInfo.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/fsConfig.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/fsMetaProperty__Array.h>
-#include <Modloader/app/structs/fsMetaProperty.h>
 #include <Modloader/app/structs/fsAotCompilationManager.h>
+#include <Modloader/app/structs/fsAotVersionInfo_Member.h>
+#include <Modloader/app/structs/fsConfig.h>
+#include <Modloader/app/structs/fsIAotConverter.h>
+#include <Modloader/app/structs/fsMetaProperty.h>
+#include <Modloader/app/structs/fsMetaProperty__Array.h>
+#include <Modloader/app/structs/fsMetaType.h>
 
 namespace app::classes::FullSerializer::fsAotCompilationManager {
     IL2CPP_REGISTER_METHOD(0x01505520, bool, HasMember, (app::fsAotVersionInfo version_info, app::fsAotVersionInfo_Member member))

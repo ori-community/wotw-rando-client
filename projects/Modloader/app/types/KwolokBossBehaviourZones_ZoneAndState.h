@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/KwolokBossBehaviourZones_ZoneAndState__Class.h>
 #include <Modloader/app/structs/KwolokBossBehaviourZones_ZoneAndState.h>
 #include <Modloader/app/structs/KwolokBossBehaviourZones_ZoneAndState__Array.h>
+#include <Modloader/app/structs/KwolokBossBehaviourZones_ZoneAndState__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace KwolokBossBehaviourZones_ZoneAndState {
-        inline app::KwolokBossBehaviourZones_ZoneAndState__Class** type_info = (app::KwolokBossBehaviourZones_ZoneAndState__Class**)(modloader::win::memory::resolve_rva(0x047556B0));
+        inline app::KwolokBossBehaviourZones_ZoneAndState__Class** type_info() {
+            static app::KwolokBossBehaviourZones_ZoneAndState__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::KwolokBossBehaviourZones_ZoneAndState__Class**)(modloader::win::memory::resolve_rva(0x047556B0));
+            }
+            return cache;
+        }
         inline app::KwolokBossBehaviourZones_ZoneAndState__Class* get_class() {
-            return il2cpp::get_nested_class<app::KwolokBossBehaviourZones_ZoneAndState__Class>(type_info, "", "KwolokBossBehaviourZones", "ZoneAndState");
+            return il2cpp::get_nested_class<app::KwolokBossBehaviourZones_ZoneAndState__Class>(type_info(), "", "KwolokBossBehaviourZones", "ZoneAndState");
         }
         inline app::KwolokBossBehaviourZones_ZoneAndState* create() {
             return il2cpp::create_object<app::KwolokBossBehaviourZones_ZoneAndState>(get_class());

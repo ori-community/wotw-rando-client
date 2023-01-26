@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraPuppetController.h>
+
+#include <Modloader/app/structs/CameraPuppetController.h>
 #include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::CameraPuppetController {
@@ -9,7 +10,6 @@ namespace app::classes::CameraPuppetController {
     IL2CPP_REGISTER_METHOD(0x016A1390, void, Awake, (app::CameraPuppetController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016A1590, void, OnDestroy, (app::CameraPuppetController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016A1720, void, OnGameReset, (app::CameraPuppetController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047363C0, CameraPuppetController_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x016A1740, void, Reset, (app::CameraPuppetController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0098F5E0, void, SetTween, (app::CameraPuppetController * this_ptr, float amount))
     IL2CPP_REGISTER_METHOD(0x01045ED0, void, SetWideScreenHorizontalPanStrength, (app::CameraPuppetController * this_ptr, float amount))

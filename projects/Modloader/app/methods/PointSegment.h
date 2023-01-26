@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/PointSegment.h>
 
 namespace app::classes::PointSegment {

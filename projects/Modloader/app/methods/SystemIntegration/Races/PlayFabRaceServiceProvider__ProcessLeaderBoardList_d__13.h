@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayFabRaceServiceProvider_ProcessLeaderBoardList_d_13__Boxed.h>
+
+#include <Modloader/app/structs/PlayFabRaceServiceProvider_ProcessLeaderBoardList_d_13__Boxed.h>
 #include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::SystemIntegration::Races::PlayFabRaceServiceProvider__ProcessLeaderBoardList_d__13 {

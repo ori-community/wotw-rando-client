@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ParticleSuspender.h>
+
+#include <Modloader/app/structs/ParticleSuspender.h>
 
 namespace app::classes::ParticleSuspender {
     IL2CPP_REGISTER_METHOD(0x00444910, void, OnPoolSpawned, (app::ParticleSuspender * this_ptr))

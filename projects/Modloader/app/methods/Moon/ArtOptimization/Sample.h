@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TexturePoolEntity.h>
+
+#include <Modloader/app/structs/TexturePoolEntity.h>
 #include <Modloader/app/structs/Sample.h>
 #include <Modloader/app/structs/Texture.h>
 

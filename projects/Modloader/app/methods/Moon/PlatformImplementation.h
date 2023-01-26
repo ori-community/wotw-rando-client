@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlatformImplementation.h>
+
+#include <Modloader/app/structs/PlatformImplementation.h>
 
 namespace app::classes::Moon::PlatformImplementation {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Reset, (app::PlatformImplementation * this_ptr))

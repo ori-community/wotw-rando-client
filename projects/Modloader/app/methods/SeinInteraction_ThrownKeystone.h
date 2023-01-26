@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinInteraction_ThrownKeystone.h>
+
+#include <Modloader/app/structs/SeinInteraction_ThrownKeystone.h>
 
 namespace app::classes::SeinInteraction_ThrownKeystone {
     IL2CPP_REGISTER_METHOD(0x01013E80, bool, Update, (app::SeinInteraction_ThrownKeystone * this_ptr, float delta_time))

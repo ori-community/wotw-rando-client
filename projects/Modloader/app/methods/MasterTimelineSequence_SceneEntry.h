@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MasterTimelineSequence_SceneEntry.h>
+
+#include <Modloader/app/structs/MasterTimelineSequence_SceneEntry.h>
 #include <Modloader/app/structs/BaseAnimator.h>
 #include <Modloader/app/structs/IEntry.h>
-#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry_Constraint_AnchorPoint__Enum.h>
 #include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry_Constraint.h>
+#include <Modloader/app/structs/LegacyTimelineSequence_SequenceEntry_Constraint_AnchorPoint__Enum.h>
 
 namespace app::classes::MasterTimelineSequence_SceneEntry {
     IL2CPP_REGISTER_METHOD(0x00A13C70, float, get_StartTime, (app::MasterTimelineSequence_SceneEntry * this_ptr))

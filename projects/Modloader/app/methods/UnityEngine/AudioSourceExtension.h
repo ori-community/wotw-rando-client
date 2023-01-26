@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AudioSourceExtension.h>
+
+#include <Modloader/app/structs/AudioSourceExtension.h>
 #include <Modloader/app/structs/AudioSource.h>
 #include <Modloader/app/structs/PropertyName.h>
 

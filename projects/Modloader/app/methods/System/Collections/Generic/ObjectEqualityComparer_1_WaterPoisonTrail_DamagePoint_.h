@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_WaterPoisonTrail_DamagePoint_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_WaterPoisonTrail_DamagePoint_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/WaterPoisonTrail_DamagePoint.h>
 #include <Modloader/app/structs/WaterPoisonTrail_DamagePoint__Array.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_WaterPoisonTrail_DamagePoint_ {
     IL2CPP_REGISTER_METHOD(0x01CD2040, bool, Equals_1, (app::ObjectEqualityComparer_1_WaterPoisonTrail_DamagePoint_ * this_ptr, app::WaterPoisonTrail_DamagePoint x, app::WaterPoisonTrail_DamagePoint y))

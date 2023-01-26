@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Firefly.h>
+
+#include <Modloader/app/structs/Firefly.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/FireflyHive.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::FireflyHive {
     IL2CPP_REGISTER_METHOD(0x0125F550, app::Firefly*, get_FireflyInstance, (app::FireflyHive * this_ptr))
@@ -22,7 +23,6 @@ namespace app::classes::FireflyHive {
     IL2CPP_REGISTER_METHOD(0x012608E0, void, UpdatePath, (app::FireflyHive * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012609A0, void, ReleaseFirely, (app::FireflyHive * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01260FB0, void, BecomeReady, (app::FireflyHive * this_ptr, bool spawn_orbs))
-    IL2CPP_REGISTER_METHODINFO(0x0474DEF0, FireflyHive_BecomeReady__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01261130, void, ResetPointsIndexing, (app::FireflyHive * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012614E0, void, PlayTimeline, (app::FireflyHive * this_ptr, app::MoonTimeline* timeline, app::Action* on_timeline_end))
     IL2CPP_REGISTER_METHOD(0x012615C0, void, StopAllTimelines, (app::FireflyHive * this_ptr))
@@ -31,9 +31,7 @@ namespace app::classes::FireflyHive {
     IL2CPP_REGISTER_METHOD(0x01261780, bool, get_FireflyInsideFrustum, (app::FireflyHive * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012617B0, bool, get_CanBeHit, (app::FireflyHive * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012617C0, void, OnRecieveDamage, (app::FireflyHive * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x0473D4C8, FireflyHive_OnRecieveDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01261B60, void, OnRestoreCheckpoint, (app::FireflyHive * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04707690, FireflyHive_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01261CF0, bool, get_IsOn, (app::FireflyHive * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01261D00, void, Activate, (app::FireflyHive * this_ptr, bool activate))
     IL2CPP_REGISTER_METHOD(0x01261DE0, void, OnFrustumEnter, (app::FireflyHive * this_ptr))
@@ -43,7 +41,5 @@ namespace app::classes::FireflyHive {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_AllowCacheBounds, (app::FireflyHive * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01261EE0, void, ctor, (app::FireflyHive * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012620A0, void, _ReleaseFirely_b__32_0, (app::FireflyHive * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476D0E8, FireflyHive__ReleaseFirely_b__32_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012620C0, void, _BecomeReady_b__33_0, (app::FireflyHive * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04703B58, FireflyHive__BecomeReady_b__33_0__MethodInfo)
 } // namespace app::classes::FireflyHive

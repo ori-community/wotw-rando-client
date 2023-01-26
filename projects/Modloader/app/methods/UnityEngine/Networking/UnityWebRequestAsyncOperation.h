@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UnityWebRequestAsyncOperation.h>
+
+#include <Modloader/app/structs/UnityWebRequestAsyncOperation.h>
 #include <Modloader/app/structs/UnityWebRequest.h>
 
 namespace app::classes::UnityEngine::Networking::UnityWebRequestAsyncOperation {

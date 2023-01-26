@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberPoolPerfTest_LoadPoolPrewarmScene_d_42__Boxed.h>
+
+#include <Modloader/app/structs/UberPoolPerfTest_LoadPoolPrewarmScene_d_42__Boxed.h>
 #include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::UberPoolPerfTest__LoadPoolPrewarmScene_d__42 {

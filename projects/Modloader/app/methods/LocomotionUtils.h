@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/LayerMask.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/LocomotionUtils_CollisionAvoidanceSettings.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::LocomotionUtils {
     IL2CPP_REGISTER_METHOD(0x00FCA1F0, void, ResetStatics, ())

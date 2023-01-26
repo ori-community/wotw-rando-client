@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_SimpleGenericPool_1_PoolItem___Boxed.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_SimpleGenericPool_1_PoolItem___Boxed.h>
 #include <Modloader/app/structs/List_1_SimpleGenericPool_1_PoolItem_.h>
-#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_SimpleGenericPool_1_PoolItem__1__Boxed.h>
 #include <Modloader/app/structs/List_1_SimpleGenericPool_1_PoolItem__1.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_SimpleGenericPool_1_PoolItem__1__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_.h>
 #include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_System_Object_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_SimpleGenericPool_1_PoolItem_ {

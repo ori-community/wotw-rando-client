@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FloatRange__Boxed.h>
+
+#include <Modloader/app/structs/FloatRange__Boxed.h>
 #include <Modloader/app/structs/FloatRange.h>
 
 namespace app::classes::Swing::FloatRange {

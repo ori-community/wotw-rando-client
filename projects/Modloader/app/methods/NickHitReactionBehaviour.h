@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
-#include <Modloader/app/structs/NickHitReactionBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
-#include <Modloader/app/structs/EntityEvent.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/NickHitReactionBehaviour.h>
 
 namespace app::classes::NickHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x005FDE00, app::EntityDamageEvent*, get_DamageEvent, (app::NickHitReactionBehaviour * this_ptr))
@@ -24,9 +25,7 @@ namespace app::classes::NickHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::NickHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005FEBC0, bool, PlayedAdditiveAnim, (app::NickHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005FEC80, void, TimelineFinished, (app::NickHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04735600, NickHitReactionBehaviour_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005FECA0, bool, CanInterrupt, (app::NickHitReactionBehaviour * this_ptr, app::EntityReactionBehaviour_ReasonWhyReactionWontInterrupt* reason))
     IL2CPP_REGISTER_METHOD(0x005FEF40, void, FlipEventStart, (app::NickHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474B6A8, NickHitReactionBehaviour_FlipEventStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005FEF90, void, ctor, (app::NickHitReactionBehaviour * this_ptr))
 } // namespace app::classes::NickHitReactionBehaviour

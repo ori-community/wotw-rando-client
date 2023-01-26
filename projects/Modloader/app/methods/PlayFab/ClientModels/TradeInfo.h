@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TradeInfo.h>
+
+#include <Modloader/app/structs/TradeInfo.h>
 
 namespace app::classes::PlayFab::ClientModels::TradeInfo {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::TradeInfo * this_ptr))

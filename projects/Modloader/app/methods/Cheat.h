@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Cheat.h>
-#include <Modloader/app/structs/Input_InputButtonProcessor__Array.h>
+
+#include <Modloader/app/structs/Cheat.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor__Array.h>
 
 namespace app::classes::Cheat {
     IL2CPP_REGISTER_METHOD(0x00522850, void, ctor, (app::Cheat * this_ptr, app::Input_InputButtonProcessor__Array* combination, app::Action* action, app::Func_1_Boolean_* condition))

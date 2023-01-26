@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimelineEntityTask.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/TimelineEntityTask.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::TimelineEntityTask {
     IL2CPP_REGISTER_METHOD(0x010F6E20, void, OnEnterTask, (app::TimelineEntityTask * this_ptr, app::IContext* context))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyMaterialFloatAnimator_RendererData.h>
+
+#include <Modloader/app/structs/LegacyMaterialFloatAnimator_RendererData.h>
 #include <Modloader/app/structs/Renderer.h>
 
 namespace app::classes::LegacyMaterialFloatAnimator_RendererData {

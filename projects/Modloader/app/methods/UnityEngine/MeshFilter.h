@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MeshFilter.h>
+
+#include <Modloader/app/structs/MeshFilter.h>
 #include <Modloader/app/structs/Mesh.h>
 
 namespace app::classes::UnityEngine::MeshFilter {

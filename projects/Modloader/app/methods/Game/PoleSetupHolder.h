@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PoleSetupData.h>
-#include <Modloader/app/structs/PoleSetupHolder.h>
+
+#include <Modloader/app/structs/PoleSetupData.h>
 #include <Modloader/app/structs/List_1_IIndexedItem_.h>
+#include <Modloader/app/structs/PoleSetupHolder.h>
 
 namespace app::classes::Game::PoleSetupHolder {
     IL2CPP_REGISTER_METHOD(0x01526DD0, app::PoleSetupData*, get_ReleasedState, (app::PoleSetupHolder * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_BlockableLaser_ActivationTimeslicer_Request_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_BlockableLaser_ActivationTimeslicer_Request_.h>
 #include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request.h>
 #include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request__Array.h>
 #include <Modloader/app/structs/Object.h>

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MovingPlatformsController.h>
-#include <Modloader/app/structs/PlatformMovement.h>
+
+#include <Modloader/app/structs/MovingPlatformsController.h>
 #include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/PlatformMovement.h>
 #include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::MovingPlatformsController {

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JobRanges.h>
+
+#include <Modloader/app/structs/JobRanges.h>
 #include <Modloader/app/structs/JobHandle.h>
-#include <Modloader/app/structs/JobsUtility_JobScheduleParameters.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/JobType__Enum.h>
+#include <Modloader/app/structs/JobsUtility_JobScheduleParameters.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Unity::Jobs::LowLevel::Unsafe::JobsUtility {
     IL2CPP_REGISTER_METHOD(0x024194D0, void, GetJobRange, (app::JobRanges * ranges, int32_t job_index, int32_t* begin_index, int32_t* end_index))

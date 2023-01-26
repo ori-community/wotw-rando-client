@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RuntimeOps_MergedRuntimeVariables.h>
+
+#include <Modloader/app/structs/RuntimeOps_MergedRuntimeVariables.h>
 #include <Modloader/app/structs/IRuntimeVariables.h>
 #include <Modloader/app/structs/Int32__Array.h>
 

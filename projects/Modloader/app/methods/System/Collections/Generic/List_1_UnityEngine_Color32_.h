@@ -1,31 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Color32_.h>
-#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Color32_.h>
-#include <Modloader/app/structs/Color32.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_Color32_.h>
-#include <Modloader/app/structs/IComparer_1_UnityEngine_Color32_.h>
-#include <Modloader/app/structs/Color32__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_UnityEngine_Color32_.h>
+
+#include <Modloader/app/structs/List_1_UnityEngine_Color32_.h>
 #include <Modloader/app/structs/Action_1_UnityEngine_Color32_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Color32_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Color32_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Color32.h>
+#include <Modloader/app/structs/Color32__Array.h>
 #include <Modloader/app/structs/Comparison_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_Color32_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_Color32_ {
     IL2CPP_REGISTER_METHOD(0x025E9020, void, AddRange, (app::List_1_UnityEngine_Color32_ * this_ptr, app::IEnumerable_1_UnityEngine_Color32_* collection))
-    IL2CPP_REGISTER_METHODINFO(0x04714408, List_1_UnityEngine_Color32__AddRange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_UnityEngine_Color32_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047580C0, List_1_UnityEngine_Color32__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D1F360, app::Color32, get_Item, (app::List_1_UnityEngine_Color32_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04768640, List_1_UnityEngine_Color32__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D1F390, void, set_Item, (app::List_1_UnityEngine_Color32_ * this_ptr, int32_t index, app::Color32 value))
-    IL2CPP_REGISTER_METHODINFO(0x0475AF98, List_1_UnityEngine_Color32__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D1F6A0, void, Add, (app::List_1_UnityEngine_Color32_ * this_ptr, app::Color32 item))
-    IL2CPP_REGISTER_METHODINFO(0x047278E8, List_1_UnityEngine_Color32__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_UnityEngine_Color32_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_UnityEngine_Color32_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02D1ED80, void, ctor_3, (app::List_1_UnityEngine_Color32_ * this_ptr, app::IEnumerable_1_UnityEngine_Color32_* collection))

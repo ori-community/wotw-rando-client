@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_XboxOneStatistics_StatisticReading_.h>
+
+#include <Modloader/app/structs/ReadOnlyCollection_1_XboxOneStatistics_StatisticReading_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_XboxOneStatistics_StatisticReading_.h>
 #include <Modloader/app/structs/IList_1_XboxOneStatistics_StatisticReading_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/XboxOneStatistics_StatisticReading.h>
 #include <Modloader/app/structs/XboxOneStatistics_StatisticReading__Array.h>
-#include <Modloader/app/structs/IEnumerator_1_XboxOneStatistics_StatisticReading_.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::ObjectModel::ReadOnlyCollection_1_XboxOneStatistics_StatisticReading_ {
     IL2CPP_REGISTER_METHOD(0x02B7DCF0, void, ctor, (app::ReadOnlyCollection_1_XboxOneStatistics_StatisticReading_ * this_ptr, app::IList_1_XboxOneStatistics_StatisticReading_* list))

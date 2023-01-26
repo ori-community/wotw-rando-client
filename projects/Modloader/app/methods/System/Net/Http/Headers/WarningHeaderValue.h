@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WarningHeaderValue.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/WarningHeaderValue.h>
+#include <Modloader/app/structs/Lexer.h>
+#include <Modloader/app/structs/List_1_System_Net_Http_Headers_WarningHeaderValue_.h>
 #include <Modloader/app/structs/Nullable_1_DateTimeOffset_.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/List_1_System_Net_Http_Headers_WarningHeaderValue_.h>
-#include <Modloader/app/structs/Lexer.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Token.h>
 
 namespace app::classes::System::Net::Http::Headers::WarningHeaderValue {
@@ -23,8 +24,6 @@ namespace app::classes::System::Net::Http::Headers::WarningHeaderValue {
     IL2CPP_REGISTER_METHOD(0x02D1A550, bool, Equals, (app::WarningHeaderValue * this_ptr, app::Object* obj))
     IL2CPP_REGISTER_METHOD(0x02D1A820, int32_t, GetHashCode, (app::WarningHeaderValue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02D1A960, bool, TryParse, (app::String * input, int32_t minimal_count, app::List_1_System_Net_Http_Headers_WarningHeaderValue_** result))
-    IL2CPP_REGISTER_METHODINFO(0x0470DE38, WarningHeaderValue_TryParse__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D1AAE0, bool, TryParseElement, (app::Lexer * lexer, app::WarningHeaderValue** parsed_value, app::Token* t))
-    IL2CPP_REGISTER_METHODINFO(0x04761F30, WarningHeaderValue_TryParseElement__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D1B010, app::String*, ToString, (app::WarningHeaderValue * this_ptr))
 } // namespace app::classes::System::Net::Http::Headers::WarningHeaderValue

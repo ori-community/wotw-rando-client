@@ -1,17 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayFabSharedSettings.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/PlayFabLogLevel__Enum.h>
-#include <Modloader/app/structs/WebRequestType__Enum.h>
+
+#include <Modloader/app/structs/PlayFabSharedSettings.h>
 #include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
 #include <Modloader/app/structs/PlayFabApiSettings.h>
+#include <Modloader/app/structs/PlayFabLogLevel__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WebRequestType__Enum.h>
 
 namespace app::classes::PlayFab::PlayFabSettings {
     IL2CPP_REGISTER_METHOD(0x01A455C0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01A457D0, app::PlayFabSharedSettings*, get_PlayFabSharedPrivate, ())
     IL2CPP_REGISTER_METHOD(0x01A45910, app::PlayFabSharedSettings*, GetSharedSettingsObjectPrivate, ())
-    IL2CPP_REGISTER_METHODINFO(0x0471A420, PlayFabSettings_GetSharedSettingsObjectPrivate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01A45B00, void, set_DeveloperSecretKey, (app::String * value))
     IL2CPP_REGISTER_METHOD(0x01A45BB0, app::String*, get_DeveloperSecretKey, ())
     IL2CPP_REGISTER_METHOD(0x01A45C50, app::String*, get_DeviceUniqueIdentifier, ())

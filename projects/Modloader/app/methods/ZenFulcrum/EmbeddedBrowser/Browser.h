@@ -1,33 +1,34 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Browser.h>
-#include <Modloader/app/structs/Action_2_String_String_.h>
-#include <Modloader/app/structs/INewWindowHandler.h>
-#include <Modloader/app/structs/Action_1_UnityEngine_Texture2D_.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IBrowserUI.h>
-#include <Modloader/app/structs/CookieManager.h>
-#include <Modloader/app/structs/Texture2D.h>
-#include <Modloader/app/structs/BrowserNative_ReadyFunc.h>
-#include <Modloader/app/structs/Action_1_ZenFulcrum_EmbeddedBrowser_JSONNode_.h>
+
+#include <Modloader/app/structs/Browser.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/Action_2_Int32_ZenFulcrum_EmbeddedBrowser_JSONNode_.h>
-#include <Modloader/app/structs/Action_3_String_Boolean_String_.h>
-#include <Modloader/app/structs/Action_2_Boolean_Boolean_.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Texture2D_.h>
 #include <Modloader/app/structs/Action_1_ZenFulcrum_EmbeddedBrowser_Browser_.h>
+#include <Modloader/app/structs/Action_1_ZenFulcrum_EmbeddedBrowser_JSONNode_.h>
+#include <Modloader/app/structs/Action_2_Boolean_Boolean_.h>
+#include <Modloader/app/structs/Action_2_Int32_ZenFulcrum_EmbeddedBrowser_JSONNode_.h>
+#include <Modloader/app/structs/Action_2_String_String_.h>
+#include <Modloader/app/structs/Action_3_String_Boolean_String_.h>
 #include <Modloader/app/structs/BrowserNative_ChangeType__Enum.h>
-#include <Modloader/app/structs/Browser_NewWindowAction__Enum.h>
-#include <Modloader/app/structs/BrowserNative_FrameCommand__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/IPromise_1_JSONNode_.h>
-#include <Modloader/app/structs/JSONNode__Array.h>
-#include <Modloader/app/structs/Browser_JSCallback.h>
-#include <Modloader/app/structs/BrowserNative_DownloadAction__Enum.h>
-#include <Modloader/app/structs/KeyCode__Enum.h>
-#include <Modloader/app/structs/KeyAction__Enum.h>
-#include <Modloader/app/structs/BrowserNative_DialogType__Enum.h>
 #include <Modloader/app/structs/BrowserNative_ContextMenuOrigin__Enum.h>
+#include <Modloader/app/structs/BrowserNative_DialogType__Enum.h>
+#include <Modloader/app/structs/BrowserNative_DownloadAction__Enum.h>
+#include <Modloader/app/structs/BrowserNative_FrameCommand__Enum.h>
+#include <Modloader/app/structs/BrowserNative_ReadyFunc.h>
+#include <Modloader/app/structs/Browser_JSCallback.h>
+#include <Modloader/app/structs/Browser_NewWindowAction__Enum.h>
+#include <Modloader/app/structs/CookieManager.h>
+#include <Modloader/app/structs/IBrowserUI.h>
+#include <Modloader/app/structs/INewWindowHandler.h>
+#include <Modloader/app/structs/IPromise_1_JSONNode_.h>
 #include <Modloader/app/structs/JSONNode.h>
+#include <Modloader/app/structs/JSONNode__Array.h>
+#include <Modloader/app/structs/KeyAction__Enum.h>
+#include <Modloader/app/structs/KeyCode__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Browser {
     IL2CPP_REGISTER_METHOD(0x01C61210, void, add_onConsoleMessage, (app::Browser * this_ptr, app::Action_2_String_String_* value))
@@ -78,21 +79,17 @@ namespace app::classes::ZenFulcrum::EmbeddedBrowser::Browser {
     IL2CPP_REGISTER_METHOD(0x01C63DF0, void, RunOnMainThread, (app::Browser * this_ptr, app::Action* callback))
     IL2CPP_REGISTER_METHOD(0x01C63F50, void, WhenLoaded, (app::Browser * this_ptr, app::Action* callback))
     IL2CPP_REGISTER_METHOD(0x01C63FF0, void, RequestNativeBrowser, (app::Browser * this_ptr, int32_t new_browser_id))
-    IL2CPP_REGISTER_METHODINFO(0x04770180, Browser_RequestNativeBrowser__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C64BA0, void, OnItemChange, (app::Browser * this_ptr, app::BrowserNative_ChangeType__Enum type, app::String* arg1))
     IL2CPP_REGISTER_METHOD(0x01C652C0, void, CreateDialogHandler, (app::Browser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01C65540, void, CheckSanity, (app::Browser * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04717750, Browser_CheckSanity__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C65650, bool, DeferUnready, (app::Browser * this_ptr, app::Action* if_not_ready))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnDisable, (app::Browser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01C65680, void, OnDestroy, (app::Browser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010744F0, app::String*, get_Url, (app::Browser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01C658A0, void, set_Url, (app::Browser * this_ptr, app::String* value))
     IL2CPP_REGISTER_METHOD(0x01C658B0, void, LoadURL, (app::Browser * this_ptr, app::String* url, bool force))
-    IL2CPP_REGISTER_METHODINFO(0x047215A0, Browser_LoadURL__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C65C60, void, LoadHTML, (app::Browser * this_ptr, app::String* html, app::String* url))
     IL2CPP_REGISTER_METHOD(0x01C65FB0, void, SetNewWindowHandler, (app::Browser * this_ptr, app::Browser_NewWindowAction__Enum action, app::INewWindowHandler* new_window_handler))
-    IL2CPP_REGISTER_METHODINFO(0x047709D8, Browser_SetNewWindowHandler__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C663F0, void, SendFrameCommand, (app::Browser * this_ptr, app::BrowserNative_FrameCommand__Enum command))
     IL2CPP_REGISTER_METHOD(0x01C666A0, void, QueuePageReplacer, (app::Browser * this_ptr, app::Action* replace_page, float priority))
     IL2CPP_REGISTER_METHOD(0x01C666D0, bool, get_CanGoBack, (app::Browser * this_ptr))
@@ -124,44 +121,27 @@ namespace app::classes::ZenFulcrum::EmbeddedBrowser::Browser {
     IL2CPP_REGISTER_METHOD(0x01C69FE0, void, OnApplicationFocus, (app::Browser * this_ptr, bool focus))
     IL2CPP_REGISTER_METHOD(0x01C6A000, void, OnApplicationPause, (app::Browser * this_ptr, bool paused))
     IL2CPP_REGISTER_METHOD(0x01C6A020, void, UpdateCursor, (app::Browser * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04729038, Browser_UpdateCursor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6A4F0, void, DownloadCommand, (app::Browser * this_ptr, int32_t download_id, app::BrowserNative_DownloadAction__Enum action, app::String* file_name))
     IL2CPP_REGISTER_METHOD(0x01C6A600, void, TypeText, (app::Browser * this_ptr, app::String* text))
     IL2CPP_REGISTER_METHOD(0x01C6A920, void, PressKey, (app::Browser * this_ptr, app::KeyCode__Enum key, app::KeyAction__Enum action))
     IL2CPP_REGISTER_METHOD(0x01C6AE00, void, _RaiseFocusEvent, (app::Browser * this_ptr, bool mouse_is_focused, bool keyboard_is_focused))
     IL2CPP_REGISTER_METHOD(0x01C6AEE0, app::Browser*, GetBrowser, (int32_t browser_id))
     IL2CPP_REGISTER_METHOD(0x01C6B1A0, void, CB_ForwardJSCallFunc, (int32_t browser_id, int32_t callback_id, app::String* data, int32_t size))
-    IL2CPP_REGISTER_METHODINFO(0x0478A1A0, Browser_CB_ForwardJSCallFunc__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6B550, void, CB_ChangeFunc, (int32_t browser_id, app::BrowserNative_ChangeType__Enum change_type, app::String* arg1))
-    IL2CPP_REGISTER_METHODINFO(0x0478CE80, Browser_CB_ChangeFunc__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6BF00, void, CB_DisplayDialogFunc, (int32_t browser_id, app::BrowserNative_DialogType__Enum dialog_type, void* text_ptr, void* prompt_text_ptr, void* source_u_r_l))
-    IL2CPP_REGISTER_METHODINFO(0x04736018, Browser_CB_DisplayDialogFunc__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6C2C0, void, CB_ShowContextMenuFunc, (int32_t browser_id, app::String* json, int32_t x, int32_t y, app::BrowserNative_ContextMenuOrigin__Enum origin))
-    IL2CPP_REGISTER_METHODINFO(0x04767A10, Browser_CB_ShowContextMenuFunc__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6C700, void, CB_ConsoleFunc, (int32_t browser_id, app::String* message, app::String* source, int32_t line))
-    IL2CPP_REGISTER_METHODINFO(0x04798658, Browser_CB_ConsoleFunc__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6CAB0, void, CB_ReadyFunc, (int32_t browser_id))
-    IL2CPP_REGISTER_METHODINFO(0x04786C60, Browser_CB_ReadyFunc__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6CE50, void, CB_NavStateFunc, (int32_t browser_id, bool can_go_back, bool can_go_forward, bool lodaing, void* url_raw))
-    IL2CPP_REGISTER_METHODINFO(0x04758168, Browser_CB_NavStateFunc__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6D210, void, CB_NewWindowFunc, (int32_t creator_browser_id, int32_t new_browser_id, void* url_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04780CB0, Browser_CB_NewWindowFunc__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6D5C0, void, ctor, (app::Browser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01C6EBD0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01C6F050, void, _Awake_b__105_0, (app::Browser * this_ptr, int32_t id))
-    IL2CPP_REGISTER_METHODINFO(0x04725D68, Browser__Awake_b__105_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6F1C0, void, _Awake_b__105_1, (app::Browser * this_ptr, app::String* message, app::String* source))
-    IL2CPP_REGISTER_METHODINFO(0x04727628, Browser__Awake_b__105_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6F290, void, _Awake_b__105_2, (app::Browser * this_ptr, app::JSONNode* err))
-    IL2CPP_REGISTER_METHODINFO(0x0477E738, Browser__Awake_b__105_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6F580, void, _Awake_b__105_3, (app::Browser * this_ptr, app::JSONNode* err))
-    IL2CPP_REGISTER_METHODINFO(0x04778300, Browser__Awake_b__105_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6F7E0, void, _Awake_b__105_4, (app::Browser * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04748200, Browser__Awake_b__105_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6F960, void, _Awake_b__105_7, (app::Browser * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472D638, Browser__Awake_b__105_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6FA90, void, _CreateDialogHandler_b__113_0, (app::Browser * this_ptr, bool affirm, app::String* text1, app::String* text2))
-    IL2CPP_REGISTER_METHODINFO(0x04728858, Browser__CreateDialogHandler_b__113_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C6FBA0, void, _CreateDialogHandler_b__113_1, (app::Browser * this_ptr, int32_t command_id))
-    IL2CPP_REGISTER_METHODINFO(0x04741E48, Browser__CreateDialogHandler_b__113_1__MethodInfo)
 } // namespace app::classes::ZenFulcrum::EmbeddedBrowser::Browser

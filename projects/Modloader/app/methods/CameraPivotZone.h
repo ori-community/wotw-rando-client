@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameplayCamera.h>
-#include <Modloader/app/structs/CameraPivotZone.h>
+
+#include <Modloader/app/structs/GameplayCamera.h>
 #include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/SelectableCategory__Enum.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/CameraPivotZone.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/VirtualClipsBuilder.h>
+#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
 
 namespace app::classes::CameraPivotZone {
     IL2CPP_REGISTER_METHOD(0x0169CEB0, void, ResetStatics, ())

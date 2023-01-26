@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/QuadTree.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/QuadTree.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/HashSet_1_Moon_IRectProvider_.h>
+#include <Modloader/app/structs/IRectProvider.h>
 #include <Modloader/app/structs/List_1_Moon_IRectProvider_.h>
 #include <Modloader/app/structs/List_1_System_Int32_.h>
-#include <Modloader/app/structs/HashSet_1_Moon_IRectProvider_.h>
 #include <Modloader/app/structs/QuadTree_Node.h>
-#include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/IRectProvider.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::QuadTree {
     IL2CPP_REGISTER_METHOD(0x01994E70, void, ctor, (app::QuadTree * this_ptr, app::Rect root_rect))

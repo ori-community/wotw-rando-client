@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlatformMovement.h>
+
+#include <Modloader/app/structs/PlatformMovement.h>
 #include <Modloader/app/structs/BabySeinSounds.h>
 #include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 

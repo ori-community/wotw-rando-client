@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NotificationChecker.h>
+
+#include <Modloader/app/structs/NotificationChecker.h>
+#include <Modloader/app/structs/LeaderBoardService.h>
 #include <Modloader/app/structs/RaceSettings.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/LeaderBoardService.h>
 
 namespace app::classes::NotificationChecker {
     IL2CPP_REGISTER_METHOD(0x0060C330, void, ctor, (app::NotificationChecker * this_ptr, app::RaceSettings* settings, app::String* race_i_d, int32_t original_rank, app::LeaderBoardService* leader_board_service, int32_t slot_index))

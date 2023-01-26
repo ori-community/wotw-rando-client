@@ -1,23 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WorldMapUI.h>
-#include <Modloader/app/structs/SceneSettingsComponent.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/CameraSettings.h>
-#include <Modloader/app/structs/SliceRenderSettings.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/WorldMapUI.h>
 #include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/CameraSettings.h>
+#include <Modloader/app/structs/GameMapSavePedestal.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/List_1_QuestIconUI_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Transform_.h>
+#include <Modloader/app/structs/QuestIconUI.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/RuntimeQuest.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/SceneSettingsComponent.h>
+#include <Modloader/app/structs/SliceRenderSettings.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/WorldMapOverworldArea.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/SceneRoot.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/QuestIconUI.h>
-#include <Modloader/app/structs/RuntimeQuest.h>
-#include <Modloader/app/structs/List_1_QuestIconUI_.h>
-#include <Modloader/app/structs/GameMapSavePedestal.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Transform_.h>
 
 namespace app::classes::WorldMapUI {
     IL2CPP_REGISTER_METHOD(0x00585310, bool, get_Activated, (app::WorldMapUI * this_ptr))
@@ -41,7 +42,6 @@ namespace app::classes::WorldMapUI {
     IL2CPP_REGISTER_METHOD(0x00586FD0, void, HideLoadedScenes, (app::WorldMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00587230, void, RevertHiddenScenes, (app::WorldMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00587360, void, OnMenuItemChange, (app::WorldMapUI * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047515F8, WorldMapUI_OnMenuItemChange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00587580, float, get_ZoomTime, (app::WorldMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00587620, bool, get_IsZooming, (app::WorldMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00587640, app::AnimationCurve*, get_ScrollingSensitivityCurve, (app::WorldMapUI * this_ptr))
@@ -75,7 +75,6 @@ namespace app::classes::WorldMapUI {
     IL2CPP_REGISTER_METHOD(0x0058B320, void, SubscribeForCinematicTriggers, (app::WorldMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0058B590, void, UnsubscribeForCinematicTriggers, (app::WorldMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0058B800, void, OnCinematicTriggerEnter, (app::WorldMapUI * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476A748, WorldMapUI_OnCinematicTriggerEnter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0058B800, void, EnterCinematicMode, (app::WorldMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0058B810, void, ExitCinematicMode, (app::WorldMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0058B820, app::Vector3, ClampToArea, (app::WorldMapUI * this_ptr, app::Rect rect, app::Vector3 value))

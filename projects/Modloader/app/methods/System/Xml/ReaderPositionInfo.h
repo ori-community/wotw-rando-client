@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReaderPositionInfo.h>
+
+#include <Modloader/app/structs/ReaderPositionInfo.h>
 #include <Modloader/app/structs/IXmlLineInfo.h>
 
 namespace app::classes::System::Xml::ReaderPositionInfo {

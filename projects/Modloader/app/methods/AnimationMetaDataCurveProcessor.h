@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationMetaDataCurveProcessor.h>
+
+#include <Modloader/app/structs/AnimationMetaDataCurveProcessor.h>
 #include <Modloader/app/structs/AnimationMetaData.h>
 
 namespace app::classes::AnimationMetaDataCurveProcessor {

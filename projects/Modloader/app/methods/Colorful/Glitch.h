@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Glitch.h>
-#include <Modloader/app/structs/RenderTexture.h>
+
+#include <Modloader/app/structs/Glitch.h>
 #include <Modloader/app/structs/Glitch_InterferenceSettings.h>
 #include <Modloader/app/structs/Glitch_TearingSettings.h>
+#include <Modloader/app/structs/RenderTexture.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::Glitch {

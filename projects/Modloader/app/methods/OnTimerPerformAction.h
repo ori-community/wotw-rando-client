@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OnTimerPerformAction.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/OnTimerPerformAction.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::OnTimerPerformAction {
     IL2CPP_REGISTER_METHOD(0x006142D0, bool, get_IsSuspended, (app::OnTimerPerformAction * this_ptr))

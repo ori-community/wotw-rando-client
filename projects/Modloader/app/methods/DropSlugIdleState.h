@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DropSlugIdleState.h>
+
+#include <Modloader/app/structs/DropSlugIdleState.h>
 #include <Modloader/app/structs/DropSlugEnemy.h>
 
 namespace app::classes::DropSlugIdleState {

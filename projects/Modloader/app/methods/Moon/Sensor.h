@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Sensor.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/Sensor.h>
+#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/Sensor_CanSeeCharacterHelper.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/Sensor_CanSeeCharacterHelper.h>
-#include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Sensor {
     IL2CPP_REGISTER_METHOD(0x00ECCB90, void, ResetStatics, ())
@@ -60,7 +61,6 @@ namespace app::classes::Moon::Sensor {
     IL2CPP_REGISTER_METHOD(0x00ED0980, bool, HasClearLineOfSight_2, (app::Sensor * this_ptr, app::Vector2 from, app::Vector2 to))
     IL2CPP_REGISTER_METHOD(0x00ED0C40, app::Vector3, ProjectTargetOnGround, (app::Sensor * this_ptr, float distance, int32_t ground_mask))
     IL2CPP_REGISTER_METHOD(0x00ED0E70, void, OnPlayerDied, (app::Sensor * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047020F8, Sensor_OnPlayerDied__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ED0E80, bool, IsInCone, (app::Sensor * this_ptr, app::Vector3 target_position, app::Vector3 cone_origin_position, app::Vector3 cone_forward, float cone_angle))
     IL2CPP_REGISTER_METHOD(0x00ED1060, void, ctor, (app::Sensor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ED10E0, void, cctor, ())

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent.h>
-#include <Modloader/app/structs/TelemetryCleanupEvents__Enum.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent.h>
 #include <Modloader/app/structs/JsonBuilder_Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TelemetryCleanupEvents__Enum.h>
 
 namespace app::classes::MoonTelemetryCharacterHeartbeatEvent {
     IL2CPP_REGISTER_METHOD(0x0146A050, void, SynchronousInitialize, (app::MoonTelemetryCharacterHeartbeatEvent * this_ptr))

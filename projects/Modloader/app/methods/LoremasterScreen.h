@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LoremasterScreen.h>
-#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+
+#include <Modloader/app/structs/LoremasterScreen.h>
 #include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/structs/LoremasterUISlot.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
 #include <Modloader/app/structs/ReplaySetting__Array.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
@@ -22,7 +23,6 @@ namespace app::classes::LoremasterScreen {
     IL2CPP_REGISTER_METHOD(0x009F1EF0, void, HideImmediate, (app::LoremasterScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009F1F30, void, Show, (app::LoremasterScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009F20A0, void, OnBackPressed, (app::LoremasterScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475BD60, LoremasterScreen_OnBackPressed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009F22A0, void, PopulateItems_1, (app::LoremasterScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009F22B0, void, PopulateItems_2, (app::LoremasterScreen * this_ptr, app::ReplaySetting__Array* replay_settings))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, DestroyItems, (app::LoremasterScreen * this_ptr))

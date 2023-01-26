@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StateValidator__Array.h>
+
+#include <Modloader/app/structs/StateValidator__Array.h>
+#include <Modloader/app/structs/Comparison_1_StateValidator_.h>
 #include <Modloader/app/structs/IComparer_1_StateValidator_.h>
 #include <Modloader/app/structs/StateValidator.h>
-#include <Modloader/app/structs/Comparison_1_StateValidator_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_StateValidator_ {
     IL2CPP_REGISTER_METHOD(0x02FF33F0, void, Sort_1, (app::StateValidator__Array * keys, int32_t index, int32_t length, app::IComparer_1_StateValidator_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x047995F8, ArraySortHelper_1_StateValidator__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF3710, int32_t, BinarySearch, (app::StateValidator__Array * array, int32_t index, int32_t length, app::StateValidator value, app::IComparer_1_StateValidator_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04788A00, ArraySortHelper_1_StateValidator__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF38C0, void, Sort_2, (app::StateValidator__Array * keys, int32_t index, int32_t length, app::Comparison_1_StateValidator_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x047758D8, ArraySortHelper_1_StateValidator__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C8BFB0, int32_t, InternalBinarySearch, (app::StateValidator__Array * array, int32_t index, int32_t length, app::StateValidator value, app::IComparer_1_StateValidator_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C8C170, void, SwapIfGreater, (app::StateValidator__Array * keys, app::Comparison_1_StateValidator_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C8C330, void, Swap, (app::StateValidator__Array * a, int32_t i, int32_t j))

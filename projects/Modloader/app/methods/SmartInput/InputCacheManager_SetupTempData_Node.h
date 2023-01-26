@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InputCacheManager_SetupTempData_Node.h>
+
+#include <Modloader/app/structs/InputCacheManager_SetupTempData_Node.h>
 #include <Modloader/app/structs/ICachableInput.h>
 
 namespace app::classes::SmartInput::InputCacheManager_SetupTempData_Node {

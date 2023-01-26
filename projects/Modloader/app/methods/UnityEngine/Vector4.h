@@ -1,20 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector4__Boxed.h>
-#include <Modloader/app/structs/Vector4.h>
+
+#include <Modloader/app/structs/Vector4__Boxed.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UnityEngine::Vector4 {
     IL2CPP_REGISTER_METHOD(0x00121740, void, ctor_1, (app::Vector4__Boxed * this_ptr, float x, float y, float z, float w))
     IL2CPP_REGISTER_METHOD(0x00229850, void, ctor_2, (app::Vector4__Boxed * this_ptr, float x, float y, float z))
     IL2CPP_REGISTER_METHOD(0x00229870, void, ctor_3, (app::Vector4__Boxed * this_ptr, float x, float y))
     IL2CPP_REGISTER_METHOD(0x00229890, float, get_Item, (app::Vector4__Boxed * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04711ED0, Vector4_get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002298A0, void, set_Item, (app::Vector4__Boxed * this_ptr, int32_t index, float value))
-    IL2CPP_REGISTER_METHODINFO(0x047398A0, Vector4_set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00121740, void, Set, (app::Vector4__Boxed * this_ptr, float new_x, float new_y, float new_z, float new_w))
     IL2CPP_REGISTER_METHOD(0x02C78650, app::Vector4, Lerp, (app::Vector4 a, app::Vector4 b, float t))
     IL2CPP_REGISTER_METHOD(0x02427DF0, app::Vector4, Scale, (app::Vector4 a, app::Vector4 b))

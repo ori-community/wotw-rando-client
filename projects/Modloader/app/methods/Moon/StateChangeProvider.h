@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IGenericUberState.h>
-#include <Modloader/app/structs/StateChangeProvider.h>
-#include <Modloader/app/structs/List_1_Moon_DesiredStateTransitionInfo_.h>
+
+#include <Modloader/app/structs/IGenericUberState.h>
 #include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/List_1_Moon_DesiredStateTransitionInfo_.h>
 #include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/StateChangeProvider.h>
 
 namespace app::classes::Moon::StateChangeProvider {
     IL2CPP_REGISTER_METHOD(0x01BAF240, app::IGenericUberState*, get_State, (app::StateChangeProvider * this_ptr))

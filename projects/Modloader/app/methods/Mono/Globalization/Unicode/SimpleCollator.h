@@ -2,17 +2,17 @@
 #include <Modloader/interception_macros.h>
 
 #include <Modloader/app/structs/SimpleCollator.h>
-#include <Modloader/app/structs/CultureInfo.h>
 #include <Modloader/app/structs/CodePointIndexer.h>
-
-#include <Modloader/app/structs/SimpleCollator_ExtenderType__Enum.h>
 #include <Modloader/app/structs/CompareOptions__Enum.h>
 #include <Modloader/app/structs/Contraction.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Contraction__Array.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/SimpleCollator_Context.h>
+#include <Modloader/app/structs/SimpleCollator_ExtenderType__Enum.h>
 #include <Modloader/app/structs/SortKey.h>
 #include <Modloader/app/structs/SortKeyBuffer.h>
-#include <Modloader/app/structs/SimpleCollator_Context.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/uint8_t.h>
 
 namespace app::classes::Mono::Globalization::Unicode::SimpleCollator {
     IL2CPP_REGISTER_METHOD(0x023BDF30, void, ctor, (app::SimpleCollator * this_ptr, app::CultureInfo* culture))
@@ -26,7 +26,6 @@ namespace app::classes::Mono::Globalization::Unicode::SimpleCollator {
     IL2CPP_REGISTER_METHOD(0x023BEBF0, app::Contraction*, GetContraction_2, (app::SimpleCollator * this_ptr, app::String* s, int32_t start, int32_t end, app::Contraction__Array* clist))
     IL2CPP_REGISTER_METHOD(0x023BED60, app::Contraction*, GetTailContraction_1, (app::SimpleCollator * this_ptr, app::String* s, int32_t start, int32_t end))
     IL2CPP_REGISTER_METHOD(0x023BEE90, app::Contraction*, GetTailContraction_2, (app::SimpleCollator * this_ptr, app::String* s, int32_t start, int32_t end, app::Contraction__Array* clist))
-    IL2CPP_REGISTER_METHODINFO(0x047966C0, SimpleCollator_GetTailContraction_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x023BF110, int32_t, FilterOptions, (app::SimpleCollator * this_ptr, int32_t i, app::CompareOptions__Enum opt))
     IL2CPP_REGISTER_METHOD(0x023BF420, app::SimpleCollator_ExtenderType__Enum, GetExtenderType, (app::SimpleCollator * this_ptr, int32_t i))
     IL2CPP_REGISTER_METHOD(0x023BF4D0, uint8_t, ToDashTypeValue, (app::SimpleCollator_ExtenderType__Enum ext, app::CompareOptions__Enum opt))
@@ -49,13 +48,11 @@ namespace app::classes::Mono::Globalization::Unicode::SimpleCollator {
     IL2CPP_REGISTER_METHOD(0x023C1B60, bool, IsSuffix_2, (app::SimpleCollator * this_ptr, app::String* s, app::String* target, int32_t start, int32_t length, app::CompareOptions__Enum opt))
     IL2CPP_REGISTER_METHOD(0x023C1C30, int32_t, QuickIndexOf, (app::SimpleCollator * this_ptr, app::String* s, app::String* target, int32_t start, int32_t length, bool* test_was_unable))
     IL2CPP_REGISTER_METHOD(0x023C1DA0, int32_t, IndexOf_1, (app::SimpleCollator * this_ptr, app::String* s, app::String* target, int32_t start, int32_t length, app::CompareOptions__Enum opt))
-    IL2CPP_REGISTER_METHODINFO(0x04787F90, SimpleCollator_IndexOf__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x023C20D0, int32_t, IndexOfOrdinal_1, (app::SimpleCollator * this_ptr, app::String* s, app::String* target, int32_t start, int32_t length))
-    IL2CPP_REGISTER_METHOD(0x023C21B0, int32_t, IndexOfOrdinal_2, (app::SimpleCollator * this_ptr, app::String* s, uint16_t target, int32_t start, int32_t length))
-    IL2CPP_REGISTER_METHOD(0x023C2230, int32_t, IndexOfSortKey, (app::SimpleCollator * this_ptr, app::String* s, int32_t start, int32_t length, uint8_t* sortkey, uint16_t target, int32_t ti, bool no_lv4, app::SimpleCollator_Context* ctx))
+    IL2CPP_REGISTER_METHOD(0x023C21B0, int32_t, IndexOfOrdinal_2, (app::SimpleCollator * this_ptr, app::String* s, char16_t target, int32_t start, int32_t length))
+    IL2CPP_REGISTER_METHOD(0x023C2230, int32_t, IndexOfSortKey, (app::SimpleCollator * this_ptr, app::String* s, int32_t start, int32_t length, uint8_t* sortkey, char16_t target, int32_t ti, bool no_lv4, app::SimpleCollator_Context* ctx))
     IL2CPP_REGISTER_METHOD(0x023C22F0, int32_t, IndexOf_2, (app::SimpleCollator * this_ptr, app::String* s, app::String* target, int32_t start, int32_t length, uint8_t* target_sort_key, app::SimpleCollator_Context* ctx))
     IL2CPP_REGISTER_METHOD(0x023C2850, int32_t, LastIndexOf_1, (app::SimpleCollator * this_ptr, app::String* s, app::String* target, int32_t start, int32_t length, app::CompareOptions__Enum opt))
-    IL2CPP_REGISTER_METHODINFO(0x04720CC8, SimpleCollator_LastIndexOf__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x023C2A40, int32_t, LastIndexOfOrdinal, (app::SimpleCollator * this_ptr, app::String* s, app::String* target, int32_t start, int32_t length))
     IL2CPP_REGISTER_METHOD(0x023C2B90, int32_t, LastIndexOfSortKey, (app::SimpleCollator * this_ptr, app::String* s, int32_t start, int32_t org_start, int32_t length, uint8_t* sortkey, int32_t ti, bool no_lv4, app::SimpleCollator_Context* ctx))
     IL2CPP_REGISTER_METHOD(0x023C2C60, int32_t, LastIndexOf_2, (app::SimpleCollator * this_ptr, app::String* s, app::String* target, int32_t start, int32_t length, uint8_t* target_sort_key, app::SimpleCollator_Context* ctx))

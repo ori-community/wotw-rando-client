@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LagoonContactSwitchDoors.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/LagoonContactSwitchDoors.h>
 #include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::LagoonContactSwitchDoors {
     IL2CPP_REGISTER_METHOD(0x00F00170, void, Awake, (app::LagoonContactSwitchDoors * this_ptr))
@@ -16,10 +17,8 @@ namespace app::classes::LagoonContactSwitchDoors {
     IL2CPP_REGISTER_METHOD(0x00F00FB0, void, PlayTimeline, (app::LagoonContactSwitchDoors * this_ptr, app::MoonTimeline* moon_timeline))
     IL2CPP_REGISTER_METHOD(0x00F01040, void, OpenDoor, (app::LagoonContactSwitchDoors * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F01160, void, CloseDoor, (app::LagoonContactSwitchDoors * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473EA88, LagoonContactSwitchDoors_CloseDoor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F012F0, void, ApplyOpen, (app::LagoonContactSwitchDoors * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F01310, void, OnRestoreCheckpoint, (app::LagoonContactSwitchDoors * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047849F0, LagoonContactSwitchDoors_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F01330, void, OnFrustumEnter, (app::LagoonContactSwitchDoors * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F01340, void, OnFrustumExit, (app::LagoonContactSwitchDoors * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FF790, bool, get_InsideFrustum, (app::LagoonContactSwitchDoors * this_ptr))
@@ -27,7 +26,5 @@ namespace app::classes::LagoonContactSwitchDoors {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_AllowCacheBounds, (app::LagoonContactSwitchDoors * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F01370, void, ctor, (app::LagoonContactSwitchDoors * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F01400, void, _Start_b__12_0, (app::LagoonContactSwitchDoors * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04790040, LagoonContactSwitchDoors__Start_b__12_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F01410, void, _Start_b__12_1, (app::LagoonContactSwitchDoors * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474E280, LagoonContactSwitchDoors__Start_b__12_1__MethodInfo)
 } // namespace app::classes::LagoonContactSwitchDoors

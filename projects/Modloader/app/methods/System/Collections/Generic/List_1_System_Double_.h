@@ -1,24 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_System_Double_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_System_Double_.h>
-#include <Modloader/app/structs/IEnumerable_1_System_Double_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Double_.h>
-#include <Modloader/app/structs/IComparer_1_System_Double_.h>
-#include <Modloader/app/structs/Double__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Double_.h>
+
+#include <Modloader/app/structs/List_1_System_Double_.h>
 #include <Modloader/app/structs/Action_1_Double_.h>
-#include <Modloader/app/structs/IEnumerator_1_System_Double_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_Double_.h>
+#include <Modloader/app/structs/Double__Array.h>
+#include <Modloader/app/structs/IComparer_1_System_Double_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Double_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Double_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Double_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Double_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Double_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Double_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_System_Double_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474BBF0, List_1_System_Double__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_System_Double_, GetEnumerator, (app::List_1_System_Double_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474CB60, List_1_System_Double__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_System_Double_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_System_Double_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02EF58C0, void, ctor_3, (app::List_1_System_Double_ * this_ptr, app::IEnumerable_1_System_Double_* collection))

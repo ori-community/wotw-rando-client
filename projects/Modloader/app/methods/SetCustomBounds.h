@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SetCustomBounds.h>
+
+#include <Modloader/app/structs/SetCustomBounds.h>
 
 namespace app::classes::SetCustomBounds {
     IL2CPP_REGISTER_METHOD(0x005A2580, void, Awake, (app::SetCustomBounds * this_ptr))

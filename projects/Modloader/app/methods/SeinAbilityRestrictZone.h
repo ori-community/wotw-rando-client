@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinAbilityRestrictZoneMask__Enum.h>
-#include <Modloader/app/structs/SeinAbilityRestrictZone.h>
+
+#include <Modloader/app/structs/SeinAbilityRestrictZoneMask__Enum.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
-#include <Modloader/app/structs/Input_Command__Enum.h>
+#include <Modloader/app/structs/AnimationSwapSet.h>
 #include <Modloader/app/structs/CharacterGravity.h>
 #include <Modloader/app/structs/CharacterLeftRightMovement.h>
-#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/AnimationSwapSet.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/Input_Command__Enum.h>
+#include <Modloader/app/structs/PlatformMovement.h>
 #include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/SeinAbilityRestrictZone.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
-#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SeinAbilityRestrictZone {
     IL2CPP_REGISTER_METHOD(0x00D7FEE0, app::SeinAbilityRestrictZoneMask__Enum, get_Mask, (app::SeinAbilityRestrictZone * this_ptr))
@@ -31,11 +32,9 @@ namespace app::classes::SeinAbilityRestrictZone {
     IL2CPP_REGISTER_METHOD(0x00D815F0, void, SetSubscriptionToKuEvents, (app::SeinAbilityRestrictZone * this_ptr, bool subscribe))
     IL2CPP_REGISTER_METHOD(0x00D81DE0, void, MakeSureIsRegisteredToEvents, (app::SeinAbilityRestrictZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D81E20, void, ModifyGravityPlatformMovementSettings, (app::SeinAbilityRestrictZone * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04794A50, SeinAbilityRestrictZone_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D82070, app::AnimationSwapSet*, get_CurrentSet, (app::SeinAbilityRestrictZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D82140, bool, get_BlockTurning, (app::SeinAbilityRestrictZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D822C0, void, ModifyHorizontalPlatformMovementSettings, (app::SeinAbilityRestrictZone * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0470EE78, SeinAbilityRestrictZone_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D82A30, app::HorizontalPlatformMovementSettings*, AdjustForNormalizedValues, (app::SeinAbilityRestrictZone * this_ptr, app::HorizontalPlatformMovementSettings* setting))
     IL2CPP_REGISTER_METHOD(0x00D82CC0, void, ApplyOverride, (app::SeinAbilityRestrictZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D82E60, void, Awake, (app::SeinAbilityRestrictZone * this_ptr))

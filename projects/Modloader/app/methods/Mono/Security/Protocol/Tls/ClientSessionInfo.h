@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ClientSessionInfo.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/ClientSessionInfo.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/Context_1.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::ClientSessionInfo {
     IL2CPP_REGISTER_METHOD(0x01F68830, void, cctor, ())
@@ -18,5 +19,4 @@ namespace app::classes::Mono::Security::Protocol::Tls::ClientSessionInfo {
     IL2CPP_REGISTER_METHOD(0x01F68E40, void, Dispose_1, (app::ClientSessionInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F68EF0, void, Dispose_2, (app::ClientSessionInfo * this_ptr, bool disposing))
     IL2CPP_REGISTER_METHOD(0x01F68FD0, void, CheckDisposed, (app::ClientSessionInfo * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047430C0, ClientSessionInfo_CheckDisposed__MethodInfo)
 } // namespace app::classes::Mono::Security::Protocol::Tls::ClientSessionInfo

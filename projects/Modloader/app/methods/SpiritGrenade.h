@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritGrenade.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/SpiritGrenade.h>
+#include <Modloader/app/structs/Collision.h>
 #include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/DamageDealer.h>
 #include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SpiritGrenade {
     IL2CPP_REGISTER_METHOD(0x003FBE50, bool, get_IsFracturedPiece, (app::SpiritGrenade * this_ptr))
@@ -57,9 +58,7 @@ namespace app::classes::SpiritGrenade {
     IL2CPP_REGISTER_METHOD(0x00D57270, void, Awake, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D57480, void, Start, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D574B0, bool, ShouldDealDamage, (app::SpiritGrenade * this_ptr, app::GameObject* target))
-    IL2CPP_REGISTER_METHODINFO(0x0475A728, SpiritGrenade_ShouldDealDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D575D0, void, OnDamageDealt, (app::SpiritGrenade * this_ptr, app::DamageDealer* damage_dealer, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x047053D0, SpiritGrenade_OnDamageDealt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D57870, void, Invalidate, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D57880, bool, get_ShouldExplodeOnImpact, (app::SpiritGrenade * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D579E0, void, Explode, (app::SpiritGrenade * this_ptr))

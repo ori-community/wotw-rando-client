@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XText.h>
-#include <Modloader/app/structs/XTextWrapper.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/XText.h>
 #include <Modloader/app/structs/IXmlNode.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XTextWrapper.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::XTextWrapper {
     IL2CPP_REGISTER_METHOD(0x01A59E70, app::XText*, get_Text, (app::XTextWrapper * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RasterState__Boxed.h>
+
+#include <Modloader/app/structs/RasterState__Boxed.h>
 #include <Modloader/app/structs/CullMode__Enum.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::RasterState {

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SliceRenderSettings_Slice__Boxed.h>
-#include <Modloader/app/structs/SliceRenderSettings_Slice.h>
+
+#include <Modloader/app/structs/SliceRenderSettings_Slice__Boxed.h>
 #include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/SliceRenderSettings_Slice.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Rendering::SliceRenderSettings_Slice {

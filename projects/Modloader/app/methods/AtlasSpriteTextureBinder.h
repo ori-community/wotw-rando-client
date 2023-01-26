@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AtlasSpriteTextureBinder.h>
+
+#include <Modloader/app/structs/AtlasSpriteTextureBinder.h>
 #include <Modloader/app/structs/AnimationMeshingSettings.h>
+#include <Modloader/app/structs/Atlas.h>
+#include <Modloader/app/structs/AtlasSpriteTexture.h>
 #include <Modloader/app/structs/Mesh.h>
 #include <Modloader/app/structs/MeshFilter.h>
 #include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/Atlas.h>
 #include <Modloader/app/structs/UberScreenMode__Enum.h>
-#include <Modloader/app/structs/AtlasSpriteTexture.h>
 
 namespace app::classes::AtlasSpriteTextureBinder {
     IL2CPP_REGISTER_METHOD(0x00845430, void, OnPoolSpawned, (app::AtlasSpriteTextureBinder * this_ptr))

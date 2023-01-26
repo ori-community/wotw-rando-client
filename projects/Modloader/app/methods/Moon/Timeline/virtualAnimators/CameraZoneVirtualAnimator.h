@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ICameraInfluencer.h>
+
+#include <Modloader/app/structs/ICameraInfluencer.h>
 #include <Modloader/app/structs/CameraZoneVirtualAnimator.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/String.h>

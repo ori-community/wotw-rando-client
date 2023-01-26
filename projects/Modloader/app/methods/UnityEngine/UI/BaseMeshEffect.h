@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BaseMeshEffect.h>
+
+#include <Modloader/app/structs/BaseMeshEffect.h>
 #include <Modloader/app/structs/Graphic.h>
 #include <Modloader/app/structs/Mesh.h>
 

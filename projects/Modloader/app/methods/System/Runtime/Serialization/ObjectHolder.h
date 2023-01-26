@@ -1,22 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectHolder.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/SerializationInfo.h>
-#include <Modloader/app/structs/ISerializationSurrogate.h>
+
+#include <Modloader/app/structs/ObjectHolder.h>
 #include <Modloader/app/structs/FieldInfo_1.h>
-#include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ObjectManager.h>
 #include <Modloader/app/structs/FixupHolder.h>
-#include <Modloader/app/structs/TypeLoadExceptionHolder.h>
+#include <Modloader/app/structs/ISerializationSurrogate.h>
+#include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/LongList.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ObjectManager.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TypeLoadExceptionHolder.h>
 #include <Modloader/app/structs/ValueTypeFixupInfo.h>
 
 namespace app::classes::System::Runtime::Serialization::ObjectHolder {
     IL2CPP_REGISTER_METHOD(0x01ED59B0, void, ctor_1, (app::ObjectHolder * this_ptr, int64_t obj_i_d))
     IL2CPP_REGISTER_METHOD(0x01ED5A70, void, ctor_2, (app::ObjectHolder * this_ptr, app::Object* obj, int64_t obj_i_d, app::SerializationInfo* info, app::ISerializationSurrogate* surrogate, int64_t id_of_containing_obj, app::FieldInfo_1* field, app::Int32__Array* array_index))
-    IL2CPP_REGISTER_METHODINFO(0x04755758, ObjectHolder__ctor_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01ED5D60, void, ctor_3, (app::ObjectHolder * this_ptr, app::String* obj, int64_t obj_i_d, app::SerializationInfo* info, app::ISerializationSurrogate* surrogate, int64_t id_of_containing_obj, app::FieldInfo_1* field, app::Int32__Array* array_index))
     IL2CPP_REGISTER_METHOD(0x01ED5F30, void, IncrementDescendentFixups, (app::ObjectHolder * this_ptr, int32_t amount))
     IL2CPP_REGISTER_METHOD(0x01ED5F40, void, DecrementFixupsRemaining, (app::ObjectHolder * this_ptr, app::ObjectManager* manager))
@@ -25,7 +25,6 @@ namespace app::classes::System::Runtime::Serialization::ObjectHolder {
     IL2CPP_REGISTER_METHOD(0x01ED62A0, void, UpdateDescendentDependencyChain, (app::ObjectHolder * this_ptr, int32_t amount, app::ObjectManager* manager))
     IL2CPP_REGISTER_METHOD(0x01ED6310, void, AddDependency, (app::ObjectHolder * this_ptr, int64_t dependent_object))
     IL2CPP_REGISTER_METHOD(0x01ED65E0, void, UpdateData, (app::ObjectHolder * this_ptr, app::Object* obj, app::SerializationInfo* info, app::ISerializationSurrogate* surrogate, int64_t id_of_container, app::FieldInfo_1* field, app::Int32__Array* array_index, app::ObjectManager* manager))
-    IL2CPP_REGISTER_METHODINFO(0x04772638, ObjectHolder_UpdateData__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005100F0, void, MarkForCompletionWhenAvailable, (app::ObjectHolder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01ED6850, void, SetFlags, (app::ObjectHolder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01760C10, bool, get_IsIncompleteObjectReference, (app::ObjectHolder * this_ptr))

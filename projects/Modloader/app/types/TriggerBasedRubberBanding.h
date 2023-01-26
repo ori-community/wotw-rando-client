@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TriggerBasedRubberBanding__Class.h>
 #include <Modloader/app/structs/TriggerBasedRubberBanding.h>
 #include <Modloader/app/structs/TriggerBasedRubberBanding__Array.h>
+#include <Modloader/app/structs/TriggerBasedRubberBanding__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace TriggerBasedRubberBanding {
-        namespace {
-            inline app::TriggerBasedRubberBanding__Class* type_info_ref = nullptr;
+        inline app::TriggerBasedRubberBanding__Class** type_info() {
+            static app::TriggerBasedRubberBanding__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::TriggerBasedRubberBanding__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::TriggerBasedRubberBanding__Class** type_info = &type_info_ref;
         inline app::TriggerBasedRubberBanding__Class* get_class() {
-            return il2cpp::get_class<app::TriggerBasedRubberBanding__Class>(type_info, "", "TriggerBasedRubberBanding");
+            return il2cpp::get_class<app::TriggerBasedRubberBanding__Class>(type_info(), "", "TriggerBasedRubberBanding");
         }
         inline app::TriggerBasedRubberBanding* create() {
             return il2cpp::create_object<app::TriggerBasedRubberBanding>(get_class());

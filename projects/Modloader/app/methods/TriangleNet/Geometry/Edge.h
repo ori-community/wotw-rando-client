@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Edge.h>
+
+#include <Modloader/app/structs/Edge.h>
 
 namespace app::classes::TriangleNet::Geometry::Edge {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_P0, (app::Edge * this_ptr))

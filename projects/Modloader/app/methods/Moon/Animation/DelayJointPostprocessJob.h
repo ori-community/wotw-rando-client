@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DelayJointPostprocessJob__Boxed.h>
+
+#include <Modloader/app/structs/DelayJointPostprocessJob__Boxed.h>
 #include <Modloader/app/structs/AnimationStream.h>
 #include <Modloader/app/structs/Quaternion.h>
 

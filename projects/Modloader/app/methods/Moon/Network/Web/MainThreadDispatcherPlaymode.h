@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MainThreadDispatcherPlaymode.h>
+
+#include <Modloader/app/structs/MainThreadDispatcherPlaymode.h>
 #include <Modloader/app/structs/Action.h>
 
 namespace app::classes::Moon::Network::Web::MainThreadDispatcherPlaymode {

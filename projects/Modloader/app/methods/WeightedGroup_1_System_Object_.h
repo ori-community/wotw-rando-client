@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WeightedGroup_1_System_Object_.h>
+
+#include <Modloader/app/structs/WeightedGroup_1_System_Object_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Object_System_Single_.h>
 #include <Modloader/app/structs/List_1_System_Object_.h>
 #include <Modloader/app/structs/List_1_System_Single_.h>
-#include <Modloader/app/structs/Dictionary_2_System_Object_System_Single_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::WeightedGroup_1_System_Object_ {

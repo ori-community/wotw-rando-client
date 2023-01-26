@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SneezeSlugCloudDamageDealer.h>
+#include <Modloader/app/structs/SneezeSlugCloudDamageDealer__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SneezeSlugCloudDamageDealer__Class.h>
-#include <Modloader/app/structs/SneezeSlugCloudDamageDealer.h>
 
 namespace app::classes::types {
     namespace SneezeSlugCloudDamageDealer {
-        namespace {
-            inline app::SneezeSlugCloudDamageDealer__Class* type_info_ref = nullptr;
+        inline app::SneezeSlugCloudDamageDealer__Class** type_info() {
+            static app::SneezeSlugCloudDamageDealer__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SneezeSlugCloudDamageDealer__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SneezeSlugCloudDamageDealer__Class** type_info = &type_info_ref;
         inline app::SneezeSlugCloudDamageDealer__Class* get_class() {
-            return il2cpp::get_class<app::SneezeSlugCloudDamageDealer__Class>(type_info, "", "SneezeSlugCloudDamageDealer");
+            return il2cpp::get_class<app::SneezeSlugCloudDamageDealer__Class>(type_info(), "", "SneezeSlugCloudDamageDealer");
         }
         inline app::SneezeSlugCloudDamageDealer* create() {
             return il2cpp::create_object<app::SneezeSlugCloudDamageDealer>(get_class());

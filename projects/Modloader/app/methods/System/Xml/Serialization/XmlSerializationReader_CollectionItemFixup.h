@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSerializationReader_CollectionItemFixup.h>
+
+#include <Modloader/app/structs/XmlSerializationReader_CollectionItemFixup.h>
 #include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/String.h>
 

@@ -1,15 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TestRunner.h>
-#include <Modloader/app/structs/PerfTestTimer.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/List_1_HierarchyPerfTest_PerfTestTimer_TestData_.h>
+
+#include <Modloader/app/structs/TestRunner.h>
 #include <Modloader/app/structs/AsyncOperation_1.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/List_1_HierarchyPerfTest_PerfTestTimer_TestData_.h>
+#include <Modloader/app/structs/PerfTestTimer.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::HierarchyPerfTest::TestRunner {
     IL2CPP_REGISTER_METHOD(0x019753C0, bool, Run, ())
-    IL2CPP_REGISTER_METHODINFO(0x04712130, TestRunner_Run__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019753E0, void, Awake, (app::TestRunner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01975470, void, SpawnTestRunnerAndStart, ())
     IL2CPP_REGISTER_METHOD(0x01975630, void, RecordTest, (app::TestRunner * this_ptr, app::PerfTestTimer* test))

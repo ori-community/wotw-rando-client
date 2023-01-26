@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/EventTrigger_Entry__Class.h>
 #include <Modloader/app/structs/EventTrigger_Entry.h>
 #include <Modloader/app/structs/EventTrigger_Entry__Array.h>
+#include <Modloader/app/structs/EventTrigger_Entry__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace EventTrigger_Entry {
-        namespace {
-            inline app::EventTrigger_Entry__Class* type_info_ref = nullptr;
+        inline app::EventTrigger_Entry__Class** type_info() {
+            static app::EventTrigger_Entry__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::EventTrigger_Entry__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::EventTrigger_Entry__Class** type_info = &type_info_ref;
         inline app::EventTrigger_Entry__Class* get_class() {
-            return il2cpp::get_nested_class<app::EventTrigger_Entry__Class>(type_info, "UnityEngine.EventSystems", "EventTrigger", "Entry");
+            return il2cpp::get_nested_class<app::EventTrigger_Entry__Class>(type_info(), "UnityEngine.EventSystems", "EventTrigger", "Entry");
         }
         inline app::EventTrigger_Entry* create() {
             return il2cpp::create_object<app::EventTrigger_Entry>(get_class());

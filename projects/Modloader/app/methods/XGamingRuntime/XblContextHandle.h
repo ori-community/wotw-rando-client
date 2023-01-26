@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XblContextHandle.h>
+
+#include <Modloader/app/structs/XblContextHandle.h>
 #include <Modloader/app/structs/XblContextHandle_1.h>
 
 namespace app::classes::XGamingRuntime::XblContextHandle {

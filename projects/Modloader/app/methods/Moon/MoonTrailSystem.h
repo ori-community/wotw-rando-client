@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Mesh.h>
+
+#include <Modloader/app/structs/Mesh.h>
 #include <Modloader/app/structs/ComputeBuffer.h>
 #include <Modloader/app/structs/MoonTrailSystem.h>
 

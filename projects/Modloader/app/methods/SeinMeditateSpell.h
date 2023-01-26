@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinMeditateSpell.h>
+
+#include <Modloader/app/structs/SeinMeditateSpell.h>
+#include <Modloader/app/structs/GlowChargeEffect.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 #include <Modloader/app/structs/Input_InputButtonProcessor.h>
 #include <Modloader/app/structs/SeinMeditateSpell_State__Enum.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/GlowChargeEffect.h>
 
 namespace app::classes::SeinMeditateSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinMeditateSpell * this_ptr))
@@ -17,9 +18,7 @@ namespace app::classes::SeinMeditateSpell {
     IL2CPP_REGISTER_METHOD(0x008A4060, void, Start, (app::SeinMeditateSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008A4200, void, OnDestroy, (app::SeinMeditateSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008A43D0, void, ModifyHorizontalPlatformMovementSettings, (app::SeinMeditateSpell * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04748A60, SeinMeditateSpell_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008A4410, void, UpdateCharacterState, (app::SeinMeditateSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472EA90, SeinMeditateSpell_UpdateCharacterState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008A4660, app::Input_InputButtonProcessor*, get_Button, (app::SeinMeditateSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008A46A0, bool, get_ButtonPressed, (app::SeinMeditateSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008A4760, bool, get_ButtonDown, (app::SeinMeditateSpell * this_ptr))
@@ -53,9 +52,6 @@ namespace app::classes::SeinMeditateSpell {
     IL2CPP_REGISTER_METHOD(0x008A6AF0, void, SetCurrentChargeEffect, (app::SeinMeditateSpell * this_ptr, app::GlowChargeEffect* charge_effect))
     IL2CPP_REGISTER_METHOD(0x008A6BE0, void, ctor, (app::SeinMeditateSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008A5FD0, bool, _UpdateIdleToLoop_b__56_0, (app::SeinMeditateSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473B6F0, SeinMeditateSpell__UpdateIdleToLoop_b__56_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008A5FE0, bool, _EnterLoop_b__74_0, (app::SeinMeditateSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477BAE0, SeinMeditateSpell__EnterLoop_b__74_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008A5FF0, bool, _EnterHeal_b__75_0, (app::SeinMeditateSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04769E20, SeinMeditateSpell__EnterHeal_b__75_0__MethodInfo)
 } // namespace app::classes::SeinMeditateSpell

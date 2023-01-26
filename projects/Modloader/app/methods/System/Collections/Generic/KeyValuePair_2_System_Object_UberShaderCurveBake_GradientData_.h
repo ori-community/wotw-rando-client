@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_UberShaderCurveBake_GradientData___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_UberShaderCurveBake_GradientData___Boxed.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/UberShaderCurveBake_GradientData.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberShaderCurveBake_GradientData.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_Object_UberShaderCurveBake_GradientData_ {
     IL2CPP_REGISTER_METHOD(0x0014FCA0, void, ctor, (app::KeyValuePair_2_System_Object_UberShaderCurveBake_GradientData___Boxed * this_ptr, app::Object* key, app::UberShaderCurveBake_GradientData value))

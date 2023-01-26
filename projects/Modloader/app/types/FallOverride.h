@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/FallOverride.h>
+#include <Modloader/app/structs/FallOverride__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/FallOverride__Class.h>
-#include <Modloader/app/structs/FallOverride.h>
 
 namespace app::classes::types {
     namespace FallOverride {
-        namespace {
-            inline app::FallOverride__Class* type_info_ref = nullptr;
+        inline app::FallOverride__Class** type_info() {
+            static app::FallOverride__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::FallOverride__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::FallOverride__Class** type_info = &type_info_ref;
         inline app::FallOverride__Class* get_class() {
-            return il2cpp::get_class<app::FallOverride__Class>(type_info, "", "FallOverride");
+            return il2cpp::get_class<app::FallOverride__Class>(type_info(), "", "FallOverride");
         }
         inline app::FallOverride* create() {
             return il2cpp::create_object<app::FallOverride>(get_class());

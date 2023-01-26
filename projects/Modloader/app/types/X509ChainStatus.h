@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/X509ChainStatus.h>
+#include <Modloader/app/structs/X509ChainStatus__Array.h>
+#include <Modloader/app/structs/X509ChainStatus__Boxed.h>
+#include <Modloader/app/structs/X509ChainStatus__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/X509ChainStatus__Class.h>
-#include <Modloader/app/structs/X509ChainStatus.h>
-#include <Modloader/app/structs/X509ChainStatus__Boxed.h>
-#include <Modloader/app/structs/X509ChainStatus__Array.h>
 
 namespace app::classes::types {
     namespace X509ChainStatus {
-        inline app::X509ChainStatus__Class** type_info = (app::X509ChainStatus__Class**)(modloader::win::memory::resolve_rva(0x047942D0));
+        inline app::X509ChainStatus__Class** type_info() {
+            static app::X509ChainStatus__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::X509ChainStatus__Class**)(modloader::win::memory::resolve_rva(0x047942D0));
+            }
+            return cache;
+        }
         inline app::X509ChainStatus__Class* get_class() {
-            return il2cpp::get_class<app::X509ChainStatus__Class>(type_info, "System.Security.Cryptography.X509Certificates", "X509ChainStatus");
+            return il2cpp::get_class<app::X509ChainStatus__Class>(type_info(), "System.Security.Cryptography.X509Certificates", "X509ChainStatus");
         }
         inline app::X509ChainStatus* create() {
             return il2cpp::create_object<app::X509ChainStatus>(get_class());

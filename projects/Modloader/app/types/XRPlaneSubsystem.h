@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/XRPlaneSubsystem.h>
+#include <Modloader/app/structs/XRPlaneSubsystem__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XRPlaneSubsystem__Class.h>
-#include <Modloader/app/structs/XRPlaneSubsystem.h>
 
 namespace app::classes::types {
     namespace XRPlaneSubsystem {
-        namespace {
-            inline app::XRPlaneSubsystem__Class* type_info_ref = nullptr;
+        inline app::XRPlaneSubsystem__Class** type_info() {
+            static app::XRPlaneSubsystem__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::XRPlaneSubsystem__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::XRPlaneSubsystem__Class** type_info = &type_info_ref;
         inline app::XRPlaneSubsystem__Class* get_class() {
-            return il2cpp::get_class<app::XRPlaneSubsystem__Class>(type_info, "UnityEngine.Experimental.XR", "XRPlaneSubsystem");
+            return il2cpp::get_class<app::XRPlaneSubsystem__Class>(type_info(), "UnityEngine.Experimental.XR", "XRPlaneSubsystem");
         }
         inline app::XRPlaneSubsystem* create() {
             return il2cpp::create_object<app::XRPlaneSubsystem>(get_class());

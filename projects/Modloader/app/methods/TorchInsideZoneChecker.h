@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TorchInsideZoneChecker.h>
+
+#include <Modloader/app/structs/TorchInsideZoneChecker.h>
 
 namespace app::classes::TorchInsideZoneChecker {
     IL2CPP_REGISTER_METHOD(0x005D8A80, bool, get_IsInside, (app::TorchInsideZoneChecker * this_ptr))

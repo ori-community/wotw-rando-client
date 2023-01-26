@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_AmbienceZone_WiseAuxSend_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_AmbienceZone_WiseAuxSend_.h>
 #include <Modloader/app/structs/AmbienceZone_WiseAuxSend.h>
 #include <Modloader/app/structs/Object.h>
 

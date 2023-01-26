@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SwitchFlow.h>
+
+#include <Modloader/app/structs/SwitchFlow.h>
 
 namespace app::classes::frameworks::Switch::SwitchFlow {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Awake, (app::SwitchFlow * this_ptr))

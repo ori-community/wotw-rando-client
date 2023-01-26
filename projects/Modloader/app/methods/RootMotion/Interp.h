@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InterpolationMode__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/InterpolationMode__Enum.h>
 #include <Modloader/app/structs/Interp.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::Interp {
     IL2CPP_REGISTER_METHOD(0x02A2A500, float, Float, (float t, app::InterpolationMode__Enum mode))

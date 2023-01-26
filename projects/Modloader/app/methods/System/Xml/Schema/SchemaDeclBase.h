@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SchemaDeclBase.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SchemaDeclBase_Use__Enum.h>
-#include <Modloader/app/structs/XmlSchemaType.h>
-#include <Modloader/app/structs/XmlSchemaDatatype.h>
+
+#include <Modloader/app/structs/SchemaDeclBase.h>
 #include <Modloader/app/structs/List_1_System_String_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SchemaDeclBase_Use__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
 
 namespace app::classes::System::Xml::Schema::SchemaDeclBase {
     IL2CPP_REGISTER_METHOD(0x01AAE380, void, ctor_1, (app::SchemaDeclBase * this_ptr, app::XmlQualifiedName* name, app::String* prefix))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonEffectPools.h>
+
+#include <Modloader/app/structs/MoonEffectPools.h>
 
 namespace app::classes::MoonEffectPools {
     IL2CPP_REGISTER_METHOD(0x030CB6F0, void, ClearAllDataPools, ())

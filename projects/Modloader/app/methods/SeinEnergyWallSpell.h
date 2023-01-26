@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinEnergyWallSpell.h>
+
+#include <Modloader/app/structs/SeinEnergyWallSpell.h>
 
 namespace app::classes::SeinEnergyWallSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinEnergyWallSpell * this_ptr))

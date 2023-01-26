@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlSilentWoodsController_StalkBLoopState.h>
+
+#include <Modloader/app/structs/PetrifiedOwlSilentWoodsController_StalkBLoopState.h>
 #include <Modloader/app/structs/PetrifiedOwlSilentWoodsController.h>
 
 namespace app::classes::PetrifiedOwlSilentWoodsController_StalkBLoopState {

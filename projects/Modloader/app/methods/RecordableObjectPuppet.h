@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RecordableObjectPuppet.h>
-#include <Modloader/app/structs/IPuppetBase.h>
+
+#include <Modloader/app/structs/RecordableObjectPuppet.h>
 #include <Modloader/app/structs/GhostPlayer.h>
+#include <Modloader/app/structs/IPuppetBase.h>
 #include <Modloader/app/structs/RecordingLink.h>
 #include <Modloader/app/structs/Vector3.h>
 

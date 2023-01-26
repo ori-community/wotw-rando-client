@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScreenSpaceReflection_SSRSettings.h>
+
+#include <Modloader/app/structs/ScreenSpaceReflection_SSRSettings.h>
 
 namespace app::classes::UnityStandardAssets::CinematicEffects::ScreenSpaceReflection_SSRSettings {
     IL2CPP_REGISTER_METHOD(0x0250E310, app::ScreenSpaceReflection_SSRSettings, get_defaultSettings, ())

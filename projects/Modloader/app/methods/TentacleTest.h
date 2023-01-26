@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TentacleTest.h>
+
+#include <Modloader/app/structs/TentacleTest.h>
 #include <Modloader/app/structs/TentacleTest_Segment.h>
 
 namespace app::classes::TentacleTest {

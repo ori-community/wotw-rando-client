@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostReplaysOverview.h>
+
+#include <Modloader/app/structs/GhostReplaysOverview.h>
 #include <Modloader/app/structs/GhostReplayMetaData.h>
 #include <Modloader/app/structs/List_1_GhostReplayMetaData_.h>
 

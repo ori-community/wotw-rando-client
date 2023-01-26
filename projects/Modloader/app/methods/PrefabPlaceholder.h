@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/PrefabPlaceholder.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/PrefabPlaceholder.h>
 
 namespace app::classes::PrefabPlaceholder {
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::GameObject*, get_CurrentInstance, (app::PrefabPlaceholder * this_ptr))

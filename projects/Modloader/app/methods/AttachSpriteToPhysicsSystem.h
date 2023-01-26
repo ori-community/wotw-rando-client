@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttachSpriteToPhysicsSystem.h>
+
+#include <Modloader/app/structs/AttachSpriteToPhysicsSystem.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/TrackingExclusions.h>
-#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
 #include <Modloader/app/structs/TransformAccess.h>
 
 namespace app::classes::AttachSpriteToPhysicsSystem {
@@ -18,7 +19,6 @@ namespace app::classes::AttachSpriteToPhysicsSystem {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::RecordableParsingGroup__Enum, IRecordable_get_ParsingGroup, (app::AttachSpriteToPhysicsSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00849850, bool, IPhysicsUpdateHandlerValidable_get_IsValid, (app::AttachSpriteToPhysicsSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008498F0, void, IPhysicsUpdateHandler_OnUpdatePhysics, (app::AttachSpriteToPhysicsSystem * this_ptr, float delta))
-    IL2CPP_REGISTER_METHODINFO(0x0472BAE8, AttachSpriteToPhysicsSystem_Moon_IPhysicsUpdateHandler_OnUpdatePhysics__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00849950, void, UpdateFromMainThread, (app::AttachSpriteToPhysicsSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0084ACA0, void, PrepareJob, (app::AttachSpriteToPhysicsSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0084ADF0, void, UpdateFromJob, (app::AttachSpriteToPhysicsSystem * this_ptr, app::TransformAccess transform))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AirChaseBehaviour.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/AirChaseBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::AirChaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x013334C0, float, get_EffectiveTraversalSpeed, (app::AirChaseBehaviour * this_ptr))

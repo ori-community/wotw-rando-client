@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/RisingStompPost.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/RisingStompPost.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RisingStompPost {

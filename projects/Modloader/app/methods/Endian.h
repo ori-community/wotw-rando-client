@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Byte__Array.h>
+
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Endian {
     IL2CPP_REGISTER_METHOD(0x01B5A600, void, PutBytes2_1, (app::Byte__Array * bytes, int32_t offset, int16_t value))

@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/structs/EquipmentRadialSelection.h>
-#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/EquipmentUIInventoryItem.h>
 #include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/EquipmentUIInventoryItem.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/List_1_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::EquipmentRadialSelection {
     IL2CPP_REGISTER_METHOD(0x00CAB820, app::CleverMenuItemSelectionManager*, get_NavigationManager, (app::EquipmentRadialSelection * this_ptr))
@@ -22,7 +23,6 @@ namespace app::classes::EquipmentRadialSelection {
     IL2CPP_REGISTER_METHOD(0x00CABF80, void, Awake, (app::EquipmentRadialSelection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CAC010, void, FixedUpdate, (app::EquipmentRadialSelection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CAC070, void, OnBindingUpdate, (app::EquipmentRadialSelection * this_ptr, app::SpellInventory_Binding__Enum obj))
-    IL2CPP_REGISTER_METHODINFO(0x0476ACE0, EquipmentRadialSelection_OnBindingUpdate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00CAC190, void, QueueRenderersRefresh, (app::EquipmentRadialSelection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CAC1C0, void, Configure, (app::EquipmentRadialSelection * this_ptr, app::GameObject* item_prefab, app::GameObject* item_highlight_g_o, app::GameObject* placeholder_root))
     IL2CPP_REGISTER_METHOD(0x00CAC560, void, SetIsActive, (app::EquipmentRadialSelection * this_ptr, bool active))
@@ -32,7 +32,6 @@ namespace app::classes::EquipmentRadialSelection {
     IL2CPP_REGISTER_METHOD(0x00CACB90, void, Populate, (app::EquipmentRadialSelection * this_ptr, app::List_1_System_Object_* inventory_items, app::Object* grid_context))
     IL2CPP_REGISTER_METHOD(0x00CADBA0, void, UpdateSpiral, (app::EquipmentRadialSelection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CADE80, void, AdjustItemIndexForSpiral, (app::EquipmentRadialSelection * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473AD00, EquipmentRadialSelection_AdjustItemIndexForSpiral__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00CAE400, void, UpdateItemProperties, (app::EquipmentRadialSelection * this_ptr, app::Object* grid_context))
     IL2CPP_REGISTER_METHOD(0x00CAE630, app::Vector3, DirectionToSelected, (app::EquipmentRadialSelection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CAE760, float, SelectedAngle, (app::EquipmentRadialSelection * this_ptr))

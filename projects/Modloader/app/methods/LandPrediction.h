@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LandPrediction.h>
-#include <Modloader/app/structs/RaycastHit.h>
+
+#include <Modloader/app/structs/LandPrediction.h>
 #include <Modloader/app/structs/Action_1_UnityEngine_RaycastHit_.h>
 #include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/RaycastHit.h>
 
 namespace app::classes::LandPrediction {
     IL2CPP_REGISTER_METHOD(0x006142D0, bool, get_GroundDetected, (app::LandPrediction * this_ptr))

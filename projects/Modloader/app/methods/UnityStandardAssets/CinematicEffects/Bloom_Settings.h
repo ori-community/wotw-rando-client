@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Bloom_Settings__Boxed.h>
+
+#include <Modloader/app/structs/Bloom_Settings__Boxed.h>
 #include <Modloader/app/structs/Bloom_Settings.h>
 
 namespace app::classes::UnityStandardAssets::CinematicEffects::Bloom_Settings {

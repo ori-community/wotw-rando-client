@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KwolokBossEntity_OnDamageReceivedDelegate.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/KwolokBossEntity_OnDamageReceivedDelegate.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 #include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::KwolokBossEntity_OnDamageReceivedDelegate {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::KwolokBossEntity_OnDamageReceivedDelegate * this_ptr, app::Object* object, void* method_1))

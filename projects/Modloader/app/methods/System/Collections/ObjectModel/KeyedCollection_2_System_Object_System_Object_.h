@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/KeyedCollection_2_System_Object_System_Object_.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/IDictionary_2_System_Object_System_Object_.h>
 #include <Modloader/app/structs/IEqualityComparer_1_System_Object_.h>
+#include <Modloader/app/structs/KeyedCollection_2_System_Object_System_Object_.h>
 
 namespace app::classes::System::Collections::ObjectModel::KeyedCollection_2_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02CFBD00, app::Object*, get_Item, (app::KeyedCollection_2_System_Object_System_Object_ * this_ptr, app::Object* key))

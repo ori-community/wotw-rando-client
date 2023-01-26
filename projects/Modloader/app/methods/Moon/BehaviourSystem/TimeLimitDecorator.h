@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimeLimitDecorator.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/TimeLimitDecorator.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::TimeLimitDecorator {
     IL2CPP_REGISTER_METHOD(0x03011D90, float, get_TimeRemaining, (app::TimeLimitDecorator * this_ptr))

@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/ColliderMask.h>
+#include <Modloader/app/structs/ColliderMask__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ColliderMask__Class.h>
-#include <Modloader/app/structs/ColliderMask.h>
 
 namespace app::classes::types {
     namespace ColliderMask {
-        namespace {
-            inline app::ColliderMask__Class* type_info_ref = nullptr;
+        inline app::ColliderMask__Class** type_info() {
+            static app::ColliderMask__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ColliderMask__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ColliderMask__Class** type_info = &type_info_ref;
         inline app::ColliderMask__Class* get_class() {
-            return il2cpp::get_class<app::ColliderMask__Class>(type_info, "", "ColliderMask");
+            return il2cpp::get_class<app::ColliderMask__Class>(type_info(), "", "ColliderMask");
         }
         inline app::ColliderMask* create() {
             return il2cpp::create_object<app::ColliderMask>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaceStateMachineContext_Waiter.h>
+
+#include <Modloader/app/structs/RaceStateMachineContext_Waiter.h>
 #include <Modloader/app/structs/RaceStateMachineContext.h>
 
 namespace app::classes::RaceStateMachineContext_Waiter {

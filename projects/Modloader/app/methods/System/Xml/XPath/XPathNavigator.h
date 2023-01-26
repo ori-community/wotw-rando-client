@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XPathNavigator.h>
-#include <Modloader/app/structs/XmlSchemaType.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/DateTime.h>
-#include <Modloader/app/structs/IXmlNamespaceResolver.h>
-#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
-#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
-#include <Modloader/app/structs/IXmlSchemaInfo.h>
+#include <Modloader/app/structs/XPathNavigator.h>
 #include <Modloader/app/structs/XPathNodeType__Enum.h>
+#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
 
 namespace app::classes::System::Xml::XPath::XPathNavigator {
     IL2CPP_REGISTER_METHOD(0x00CC2AF0, app::String*, ToString, (app::XPathNavigator * this_ptr))

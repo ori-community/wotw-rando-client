@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SaveSlotUI.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SaveSlotInfo.h>
-#include <Modloader/app/structs/MessageDescriptor.h>
+
+#include <Modloader/app/structs/SaveSlotUI.h>
 #include <Modloader/app/structs/DifficultyMode__Enum.h>
+#include <Modloader/app/structs/MessageDescriptor.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/SaveSlotInfo.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SaveSlotUI {
     IL2CPP_REGISTER_METHOD(0x009238D0, void, OnDrawGizmos, (app::SaveSlotUI * this_ptr))

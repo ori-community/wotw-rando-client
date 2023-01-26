@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/TimeSlicedActivationTask_ObjectActivationInfo.h>
+#include <Modloader/app/structs/TimeSlicedActivationTask_ObjectActivationInfo__Array.h>
+#include <Modloader/app/structs/TimeSlicedActivationTask_ObjectActivationInfo__Boxed.h>
+#include <Modloader/app/structs/TimeSlicedActivationTask_ObjectActivationInfo__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TimeSlicedActivationTask_ObjectActivationInfo__Class.h>
-#include <Modloader/app/structs/TimeSlicedActivationTask_ObjectActivationInfo.h>
-#include <Modloader/app/structs/TimeSlicedActivationTask_ObjectActivationInfo__Boxed.h>
-#include <Modloader/app/structs/TimeSlicedActivationTask_ObjectActivationInfo__Array.h>
 
 namespace app::classes::types {
     namespace TimeSlicedActivationTask_ObjectActivationInfo {
-        namespace {
-            inline app::TimeSlicedActivationTask_ObjectActivationInfo__Class* type_info_ref = nullptr;
+        inline app::TimeSlicedActivationTask_ObjectActivationInfo__Class** type_info() {
+            static app::TimeSlicedActivationTask_ObjectActivationInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::TimeSlicedActivationTask_ObjectActivationInfo__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::TimeSlicedActivationTask_ObjectActivationInfo__Class** type_info = &type_info_ref;
         inline app::TimeSlicedActivationTask_ObjectActivationInfo__Class* get_class() {
-            return il2cpp::get_nested_class<app::TimeSlicedActivationTask_ObjectActivationInfo__Class>(type_info, "Moon.TimeSlicer", "TimeSlicedActivationTask", "ObjectActivationInfo");
+            return il2cpp::get_nested_class<app::TimeSlicedActivationTask_ObjectActivationInfo__Class>(type_info(), "Moon.TimeSlicer", "TimeSlicedActivationTask", "ObjectActivationInfo");
         }
         inline app::TimeSlicedActivationTask_ObjectActivationInfo* create() {
             return il2cpp::create_object<app::TimeSlicedActivationTask_ObjectActivationInfo>(get_class());

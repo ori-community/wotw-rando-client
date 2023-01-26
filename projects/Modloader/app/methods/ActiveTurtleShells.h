@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TurtleShell.h>
+
+#include <Modloader/app/structs/TurtleShell.h>
 
 namespace app::classes::ActiveTurtleShells {
     IL2CPP_REGISTER_METHOD(0x004C9C50, void, ResetStatics, ())

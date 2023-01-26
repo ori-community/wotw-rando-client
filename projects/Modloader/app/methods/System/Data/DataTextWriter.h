@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlWriter.h>
+
+#include <Modloader/app/structs/XmlWriter.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
 #include <Modloader/app/structs/DataTextWriter.h>
 #include <Modloader/app/structs/Stream.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Char__Array.h>
-#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/WriteState__Enum.h>
 
 namespace app::classes::System::Data::DataTextWriter {
@@ -25,10 +26,10 @@ namespace app::classes::System::Data::DataTextWriter {
     IL2CPP_REGISTER_METHOD(0x01F3EF30, void, WriteComment, (app::DataTextWriter * this_ptr, app::String* text))
     IL2CPP_REGISTER_METHOD(0x01F3EF60, void, WriteProcessingInstruction, (app::DataTextWriter * this_ptr, app::String* name, app::String* text))
     IL2CPP_REGISTER_METHOD(0x01F3EF90, void, WriteEntityRef, (app::DataTextWriter * this_ptr, app::String* name))
-    IL2CPP_REGISTER_METHOD(0x01F3EFC0, void, WriteCharEntity, (app::DataTextWriter * this_ptr, uint16_t ch))
+    IL2CPP_REGISTER_METHOD(0x01F3EFC0, void, WriteCharEntity, (app::DataTextWriter * this_ptr, char16_t ch))
     IL2CPP_REGISTER_METHOD(0x01F3EFF0, void, WriteWhitespace, (app::DataTextWriter * this_ptr, app::String* ws))
     IL2CPP_REGISTER_METHOD(0x01F3F020, void, WriteString, (app::DataTextWriter * this_ptr, app::String* text))
-    IL2CPP_REGISTER_METHOD(0x01F3F050, void, WriteSurrogateCharEntity, (app::DataTextWriter * this_ptr, uint16_t low_char, uint16_t high_char))
+    IL2CPP_REGISTER_METHOD(0x01F3F050, void, WriteSurrogateCharEntity, (app::DataTextWriter * this_ptr, char16_t low_char, char16_t high_char))
     IL2CPP_REGISTER_METHOD(0x01F3F080, void, WriteChars, (app::DataTextWriter * this_ptr, app::Char__Array* buffer, int32_t index, int32_t count))
     IL2CPP_REGISTER_METHOD(0x01F3F0B0, void, WriteRaw_1, (app::DataTextWriter * this_ptr, app::Char__Array* buffer, int32_t index, int32_t count))
     IL2CPP_REGISTER_METHOD(0x01F3F0E0, void, WriteRaw_2, (app::DataTextWriter * this_ptr, app::String* data))

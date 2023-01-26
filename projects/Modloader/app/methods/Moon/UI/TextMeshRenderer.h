@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextMeshRenderer_1.h>
+
+#include <Modloader/app/structs/TextMeshRenderer_1.h>
 #include <Modloader/app/structs/CharMetaData_1.h>
 #include <Modloader/app/structs/Vector2.h>
 

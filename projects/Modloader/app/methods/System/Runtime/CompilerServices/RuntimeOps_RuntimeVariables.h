@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RuntimeOps_RuntimeVariables.h>
+
+#include <Modloader/app/structs/RuntimeOps_RuntimeVariables.h>
 #include <Modloader/app/structs/IStrongBox__Array.h>
 
 namespace app::classes::System::Runtime::CompilerServices::RuntimeOps_RuntimeVariables {

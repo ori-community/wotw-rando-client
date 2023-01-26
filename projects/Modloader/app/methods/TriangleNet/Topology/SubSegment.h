@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SubSegment.h>
-#include <Modloader/app/structs/Vertex.h>
+
+#include <Modloader/app/structs/SubSegment.h>
 #include <Modloader/app/structs/ITriangle.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vertex.h>
 
 namespace app::classes::TriangleNet::Topology::SubSegment {
     IL2CPP_REGISTER_METHOD(0x02AA4B40, void, ctor, (app::SubSegment * this_ptr))

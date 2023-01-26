@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ResourceLocator__Boxed.h>
+
+#include <Modloader/app/structs/ResourceLocator__Boxed.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ResourceTypeCode__Enum.h>
 

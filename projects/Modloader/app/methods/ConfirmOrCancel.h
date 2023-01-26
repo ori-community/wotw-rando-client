@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ConfirmOrCancel.h>
+
+#include <Modloader/app/structs/ConfirmOrCancel.h>
 #include <Modloader/app/structs/Action.h>
 
 namespace app::classes::ConfirmOrCancel {

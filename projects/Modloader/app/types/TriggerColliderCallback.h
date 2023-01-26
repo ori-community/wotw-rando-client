@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TriggerColliderCallback__Class.h>
 #include <Modloader/app/structs/TriggerColliderCallback.h>
 #include <Modloader/app/structs/TriggerColliderCallback__Array.h>
+#include <Modloader/app/structs/TriggerColliderCallback__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace TriggerColliderCallback {
-        namespace {
-            inline app::TriggerColliderCallback__Class* type_info_ref = nullptr;
+        inline app::TriggerColliderCallback__Class** type_info() {
+            static app::TriggerColliderCallback__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::TriggerColliderCallback__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::TriggerColliderCallback__Class** type_info = &type_info_ref;
         inline app::TriggerColliderCallback__Class* get_class() {
-            return il2cpp::get_class<app::TriggerColliderCallback__Class>(type_info, "", "TriggerColliderCallback");
+            return il2cpp::get_class<app::TriggerColliderCallback__Class>(type_info(), "", "TriggerColliderCallback");
         }
         inline app::TriggerColliderCallback* create() {
             return il2cpp::create_object<app::TriggerColliderCallback>(get_class());

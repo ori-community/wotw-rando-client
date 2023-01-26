@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GardenerScreen.h>
+
+#include <Modloader/app/structs/GardenerScreen.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/NpcProjectItem.h>
+#include <Modloader/app/structs/RTPC.h>
 #include <Modloader/app/structs/ShopkeeperItem__Array.h>
 #include <Modloader/app/structs/ShopkeeperScreen.h>
-#include <Modloader/app/structs/Event_1.h>
-#include <Modloader/app/structs/RTPC.h>
-#include <Modloader/app/structs/NpcProjectItem.h>
 
 namespace app::classes::GardenerScreen {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_NeedsExperienceUI, (app::GardenerScreen * this_ptr))

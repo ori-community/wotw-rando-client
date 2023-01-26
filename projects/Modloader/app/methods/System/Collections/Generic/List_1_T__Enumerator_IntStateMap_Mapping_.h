@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_IntStateMap_Mapping___Boxed.h>
-#include <Modloader/app/structs/List_1_IntStateMap_Mapping_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_IntStateMap_Mapping___Boxed.h>
 #include <Modloader/app/structs/IntStateMap_Mapping.h>
+#include <Modloader/app/structs/List_1_IntStateMap_Mapping_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_IntStateMap_Mapping_ {

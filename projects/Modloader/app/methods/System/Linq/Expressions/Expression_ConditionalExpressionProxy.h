@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Expression_ConditionalExpressionProxy.h>
+
+#include <Modloader/app/structs/Expression_ConditionalExpressionProxy.h>
 #include <Modloader/app/structs/ConditionalExpression.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Expression.h>
 #include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_ConditionalExpressionProxy {

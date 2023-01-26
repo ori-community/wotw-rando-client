@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScreenshotHandle.h>
+
+#include <Modloader/app/structs/ScreenshotHandle.h>
 #include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/CSteamID.h>
-#include <Modloader/app/structs/PublishedFileId_t.h>
 #include <Modloader/app/structs/EVRScreenshotType__Enum_1.h>
+#include <Modloader/app/structs/PublishedFileId_t.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::SteamScreenshots {
     IL2CPP_REGISTER_METHOD(0x02797530, app::ScreenshotHandle, WriteScreenshot, (app::Byte__Array * pub_r_g_b, uint32_t cub_r_g_b, int32_t n_width, int32_t n_height))

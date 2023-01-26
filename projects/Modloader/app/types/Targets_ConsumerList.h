@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Targets_ConsumerList__Class.h>
 #include <Modloader/app/structs/Targets_ConsumerList.h>
 #include <Modloader/app/structs/Targets_ConsumerList__Array.h>
+#include <Modloader/app/structs/Targets_ConsumerList__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Targets_ConsumerList {
-        inline app::Targets_ConsumerList__Class** type_info = (app::Targets_ConsumerList__Class**)(modloader::win::memory::resolve_rva(0x0474E378));
+        inline app::Targets_ConsumerList__Class** type_info() {
+            static app::Targets_ConsumerList__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Targets_ConsumerList__Class**)(modloader::win::memory::resolve_rva(0x0474E378));
+            }
+            return cache;
+        }
         inline app::Targets_ConsumerList__Class* get_class() {
-            return il2cpp::get_nested_class<app::Targets_ConsumerList__Class>(type_info, "Game", "Targets", "ConsumerList");
+            return il2cpp::get_nested_class<app::Targets_ConsumerList__Class>(type_info(), "Game", "Targets", "ConsumerList");
         }
         inline app::Targets_ConsumerList* create() {
             return il2cpp::create_object<app::Targets_ConsumerList>(get_class());

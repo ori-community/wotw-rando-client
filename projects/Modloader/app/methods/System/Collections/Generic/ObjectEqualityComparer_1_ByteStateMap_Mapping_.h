@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_ByteStateMap_Mapping_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_ByteStateMap_Mapping_.h>
 #include <Modloader/app/structs/ByteStateMap_Mapping.h>
 #include <Modloader/app/structs/ByteStateMap_Mapping__Array.h>
 #include <Modloader/app/structs/Object.h>

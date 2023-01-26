@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RagdollUtility.h>
+
+#include <Modloader/app/structs/RagdollUtility.h>
 #include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::RootMotion::FinalIK::RagdollUtility {
@@ -12,7 +13,6 @@ namespace app::classes::RootMotion::FinalIK::RagdollUtility {
     IL2CPP_REGISTER_METHOD(0x02A1A9A0, void, FixedUpdate, (app::RagdollUtility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A1A9E0, void, LateUpdate, (app::RagdollUtility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A1AB10, void, AfterLastIK, (app::RagdollUtility * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04711410, RagdollUtility_AfterLastIK__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02A1AB40, void, AfterAnimation, (app::RagdollUtility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A1AB80, void, OnFinalPose, (app::RagdollUtility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A1AC20, void, RagdollEnabler, (app::RagdollUtility * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ContactFilter2D.h>
+
+#include <Modloader/app/structs/ContactFilter2D.h>
 #include <Modloader/app/structs/ContactFilter2D__Boxed.h>
 #include <Modloader/app/structs/LayerMask.h>
 

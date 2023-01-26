@@ -17,7 +17,7 @@ struct fsPortableReflection__StaticFields {
 #endif
 #if !defined(IL2CPP_STRUCT_fsPortableReflection__StaticFields_FWDDECL)
 #define IL2CPP_STRUCT_fsPortableReflection__StaticFields_FWDDECL
-#include <Modloader/app/structs/IDictionary_2_FullSerializer_Internal_fsPortableReflection_AttributeQuery_System_Attribute_.h>
+#include <Modloader/app/structs/IDictionary_2_FullSerializer_Internal_fsPortableReflection_AttributeQuery_System_Attribut_.h>
 #include <Modloader/app/structs/Type__Array.h>
 #endif
 #undef IL2CPP_STRUCT_fsPortableReflection__StaticFields_INITIALIZING

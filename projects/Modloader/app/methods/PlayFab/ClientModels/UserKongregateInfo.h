@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UserKongregateInfo.h>
+
+#include <Modloader/app/structs/UserKongregateInfo.h>
 
 namespace app::classes::PlayFab::ClientModels::UserKongregateInfo {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::UserKongregateInfo * this_ptr))

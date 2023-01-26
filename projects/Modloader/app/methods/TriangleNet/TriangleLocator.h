@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TriangleLocator.h>
-#include <Modloader/app/structs/Mesh_1.h>
+
+#include <Modloader/app/structs/TriangleLocator.h>
 #include <Modloader/app/structs/IPredicates.h>
-#include <Modloader/app/structs/Otri.h>
 #include <Modloader/app/structs/LocateResult__Enum.h>
+#include <Modloader/app/structs/Mesh_1.h>
+#include <Modloader/app/structs/Otri.h>
 #include <Modloader/app/structs/Point.h>
 
 namespace app::classes::TriangleNet::TriangleLocator {

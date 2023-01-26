@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Xml::ValidateNames {
@@ -13,9 +14,7 @@ namespace app::classes::System::Xml::ValidateNames {
     IL2CPP_REGISTER_METHOD(0x01953DC0, int32_t, ParseQName, (app::String * s, int32_t offset, int32_t* colon_offset))
     IL2CPP_REGISTER_METHOD(0x01953EF0, void, ParseQNameThrow, (app::String * s, app::String** prefix, app::String** local_name))
     IL2CPP_REGISTER_METHOD(0x01954040, void, ThrowInvalidName, (app::String * s, int32_t offset_start_char, int32_t offset_bad_char))
-    IL2CPP_REGISTER_METHODINFO(0x0472CAC0, ValidateNames_ThrowInvalidName__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01954260, app::Exception*, GetInvalidNameException, (app::String * s, int32_t offset_start_char, int32_t offset_bad_char))
     IL2CPP_REGISTER_METHOD(0x01954690, void, SplitQName, (app::String * name, app::String** prefix, app::String** lname))
-    IL2CPP_REGISTER_METHODINFO(0x0471D448, ValidateNames_SplitQName__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01954800, void, cctor, ())
 } // namespace app::classes::System::Xml::ValidateNames

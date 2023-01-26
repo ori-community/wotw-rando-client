@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IUberState.h>
+
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/Collision.h>
 #include <Modloader/app/structs/DashableSwitchLogic.h>
-#include <Modloader/app/structs/IMoonSetupAnimator.h>
 #include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::DashableSwitchLogic {
     IL2CPP_REGISTER_METHOD(0x00DD1ED0, app::IUberState*, get_UberState, (app::DashableSwitchLogic * this_ptr))

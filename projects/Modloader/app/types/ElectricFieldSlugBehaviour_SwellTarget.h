@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/ElectricFieldSlugBehaviour_SwellTarget.h>
+#include <Modloader/app/structs/ElectricFieldSlugBehaviour_SwellTarget__Array.h>
+#include <Modloader/app/structs/ElectricFieldSlugBehaviour_SwellTarget__Boxed.h>
+#include <Modloader/app/structs/ElectricFieldSlugBehaviour_SwellTarget__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ElectricFieldSlugBehaviour_SwellTarget__Class.h>
-#include <Modloader/app/structs/ElectricFieldSlugBehaviour_SwellTarget.h>
-#include <Modloader/app/structs/ElectricFieldSlugBehaviour_SwellTarget__Boxed.h>
-#include <Modloader/app/structs/ElectricFieldSlugBehaviour_SwellTarget__Array.h>
 
 namespace app::classes::types {
     namespace ElectricFieldSlugBehaviour_SwellTarget {
-        namespace {
-            inline app::ElectricFieldSlugBehaviour_SwellTarget__Class* type_info_ref = nullptr;
+        inline app::ElectricFieldSlugBehaviour_SwellTarget__Class** type_info() {
+            static app::ElectricFieldSlugBehaviour_SwellTarget__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ElectricFieldSlugBehaviour_SwellTarget__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ElectricFieldSlugBehaviour_SwellTarget__Class** type_info = &type_info_ref;
         inline app::ElectricFieldSlugBehaviour_SwellTarget__Class* get_class() {
-            return il2cpp::get_nested_class<app::ElectricFieldSlugBehaviour_SwellTarget__Class>(type_info, "", "ElectricFieldSlugBehaviour", "SwellTarget");
+            return il2cpp::get_nested_class<app::ElectricFieldSlugBehaviour_SwellTarget__Class>(type_info(), "", "ElectricFieldSlugBehaviour", "SwellTarget");
         }
         inline app::ElectricFieldSlugBehaviour_SwellTarget* create() {
             return il2cpp::create_object<app::ElectricFieldSlugBehaviour_SwellTarget>(get_class());

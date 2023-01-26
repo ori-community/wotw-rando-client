@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlImplementation.h>
-#include <Modloader/app/structs/XmlNameTable.h>
+
+#include <Modloader/app/structs/XmlImplementation.h>
 #include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlNameTable.h>
 
 namespace app::classes::System::Xml::XmlImplementation {
     IL2CPP_REGISTER_METHOD(0x01DB9760, void, ctor_1, (app::XmlImplementation * this_ptr))

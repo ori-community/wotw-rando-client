@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_System_UInt16_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_System_UInt16_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_System_UInt16_ {

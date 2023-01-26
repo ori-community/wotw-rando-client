@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKSolver_Node.h>
+
+#include <Modloader/app/structs/IKSolver_Node.h>
 #include <Modloader/app/structs/IKEffector.h>
+#include <Modloader/app/structs/IKSolver.h>
 #include <Modloader/app/structs/IKSolverFullBody.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Transform__Array.h>
-#include <Modloader/app/structs/IKSolver.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::IKEffector {

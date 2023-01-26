@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HitSoundTimelineHooks.h>
+
+#include <Modloader/app/structs/HitSoundTimelineHooks.h>
 #include <Modloader/app/structs/EntityEvent.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 

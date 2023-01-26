@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MaterialBasedHornBugEffectsMap.h>
-#include <Modloader/app/structs/MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache.h>
+
+#include <Modloader/app/structs/MaterialBasedHornBugEffectsMap.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache.h>
 #include <Modloader/app/structs/SurfaceMaterialType__Enum__Array.h>
 
 namespace app::classes::MaterialBasedHornBugEffectsMap {

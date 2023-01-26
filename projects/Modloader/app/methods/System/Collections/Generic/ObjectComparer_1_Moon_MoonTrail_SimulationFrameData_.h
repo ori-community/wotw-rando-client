@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_Moon_MoonTrail_SimulationFrameData_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_Moon_MoonTrail_SimulationFrameData_.h>
 #include <Modloader/app/structs/MoonTrail_SimulationFrameData.h>
 #include <Modloader/app/structs/Object.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/GameObjectDataProvider.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GZipFormatter.h>
+
+#include <Modloader/app/structs/GZipFormatter.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Unity::IO::Compression::GZipFormatter {

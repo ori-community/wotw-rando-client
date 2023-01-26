@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GasBallAttractionRect.h>
+
+#include <Modloader/app/structs/GasBallAttractionRect.h>
 #include <Modloader/app/structs/IGasBallBait.h>
 #include <Modloader/app/structs/Vector2.h>
 

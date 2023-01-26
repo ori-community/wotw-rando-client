@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SwaggerCallback.h>
+
+#include <Modloader/app/structs/SwaggerCallback.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/SwaggerJSONParser.h>

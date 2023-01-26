@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SelectableCategory__Enum.h>
-#include <Modloader/app/structs/PlayerCollisionTrigger.h>
+
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/PlayerCollisionTrigger.h>
 #include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::PlayerCollisionTrigger {
     IL2CPP_REGISTER_METHOD(0x0043D9A0, app::SelectableCategory__Enum, get_Category, (app::PlayerCollisionTrigger * this_ptr))
@@ -16,7 +17,6 @@ namespace app::classes::PlayerCollisionTrigger {
     IL2CPP_REGISTER_METHOD(0x0140C290, void, FixedUpdate, (app::PlayerCollisionTrigger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0140C7F0, app::String*, get_StressTestName, (app::PlayerCollisionTrigger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0140C870, void, OnTriggerStartStressTest, (app::PlayerCollisionTrigger * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047168D8, PlayerCollisionTrigger_OnTriggerStartStressTest__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0140CBB0, void, StartStressTest, (app::PlayerCollisionTrigger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0140CD60, void, StressTestUpdate, (app::PlayerCollisionTrigger * this_ptr, float delta_time))
     IL2CPP_REGISTER_METHOD(0x0140CE30, void, EndStressTest, (app::PlayerCollisionTrigger * this_ptr))

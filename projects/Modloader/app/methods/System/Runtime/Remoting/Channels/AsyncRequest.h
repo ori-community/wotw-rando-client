@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AsyncRequest.h>
+
+#include <Modloader/app/structs/AsyncRequest.h>
 #include <Modloader/app/structs/IMessage.h>
 #include <Modloader/app/structs/IMessageSink.h>
 

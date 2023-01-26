@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FlameSpark.h>
+
+#include <Modloader/app/structs/FlameSpark.h>
 
 namespace app::classes::Moon::FlameSpark {
     IL2CPP_REGISTER_METHOD(0x012239E0, void, OnEnable, (app::FlameSpark * this_ptr))

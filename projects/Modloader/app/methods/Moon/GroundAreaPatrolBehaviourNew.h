@@ -1,17 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GroundAreaPatrolBehaviourNew.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/GroundAreaPatrolBehaviourNew.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::GroundAreaPatrolBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x0148AD80, void, OnEntityInitialized, (app::GroundAreaPatrolBehaviourNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0148AED0, void, PlayIdle, (app::GroundAreaPatrolBehaviourNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0148B1D0, app::Vector3, ProcessRootMotion, (app::GroundAreaPatrolBehaviourNew * this_ptr, app::Vector3 motion))
-    IL2CPP_REGISTER_METHODINFO(0x0471D190, GroundAreaPatrolBehaviourNew_ProcessRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0148B2F0, void, IdleFinished, (app::GroundAreaPatrolBehaviourNew * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04714478, GroundAreaPatrolBehaviourNew_IdleFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0148B530, float, GetIdleInverval, (app::GroundAreaPatrolBehaviourNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0148B610, void, Start, (app::GroundAreaPatrolBehaviourNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0148B6F0, void, OnEnter, (app::GroundAreaPatrolBehaviourNew * this_ptr, app::IContext* context))

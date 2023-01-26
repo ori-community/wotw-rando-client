@@ -1,44 +1,45 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlTextReaderImpl.h>
-#include <Modloader/app/structs/XmlNameTable.h>
-#include <Modloader/app/structs/XmlResolver.h>
-#include <Modloader/app/structs/XmlReaderSettings.h>
-#include <Modloader/app/structs/XmlParserContext.h>
+
+#include <Modloader/app/structs/XmlTextReaderImpl.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/EntityHandling__Enum.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/IDtdDefaultAttributeInfo.h>
+#include <Modloader/app/structs/IDtdEntityInfo.h>
+#include <Modloader/app/structs/IDtdInfo.h>
+#include <Modloader/app/structs/IValidationEventHandling.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/LineInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadState__Enum_1.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
 #include <Modloader/app/structs/Stream.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/TextReader.h>
-#include <Modloader/app/structs/XmlNodeType__Enum.h>
-#include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/Uri.h>
-#include <Modloader/app/structs/XmlSpace__Enum.h>
-#include <Modloader/app/structs/ReadState__Enum_1.h>
-#include <Modloader/app/structs/XmlReader.h>
-#include <Modloader/app/structs/Char__Array.h>
-#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
-#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
-#include <Modloader/app/structs/WhitespaceHandling__Enum.h>
-#include <Modloader/app/structs/EntityHandling__Enum.h>
-#include <Modloader/app/structs/IXmlNamespaceResolver.h>
-#include <Modloader/app/structs/IValidationEventHandling.h>
 #include <Modloader/app/structs/StringBuilder.h>
-#include <Modloader/app/structs/IDtdEntityInfo.h>
-#include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/LineInfo.h>
 #include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/XmlSeverityType__Enum.h>
-#include <Modloader/app/structs/XmlSchemaException.h>
-#include <Modloader/app/structs/Encoding.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/XmlTextReaderImpl_NodeData.h>
-#include <Modloader/app/structs/XmlTextReaderImpl_EntityType__Enum.h>
-#include <Modloader/app/structs/XmlTextReaderImpl_EntityExpandType__Enum.h>
-#include <Modloader/app/structs/IDtdInfo.h>
-#include <Modloader/app/structs/XmlTextReaderImpl_OnDefaultAttributeUseDelegate.h>
+#include <Modloader/app/structs/TextReader.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/WhitespaceHandling__Enum.h>
+#include <Modloader/app/structs/XmlNameTable.h>
 #include <Modloader/app/structs/XmlNamespaceManager.h>
-#include <Modloader/app/structs/IDtdDefaultAttributeInfo.h>
+#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlParserContext.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/XmlSchemaException.h>
+#include <Modloader/app/structs/XmlSeverityType__Enum.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
+#include <Modloader/app/structs/XmlTextReaderImpl_EntityExpandType__Enum.h>
+#include <Modloader/app/structs/XmlTextReaderImpl_EntityType__Enum.h>
+#include <Modloader/app/structs/XmlTextReaderImpl_NodeData.h>
 #include <Modloader/app/structs/XmlTextReaderImpl_NodeData__Array.h>
-#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/XmlTextReaderImpl_OnDefaultAttributeUseDelegate.h>
 
 namespace app::classes::System::Xml::XmlTextReaderImpl {
     IL2CPP_REGISTER_METHOD(0x01717AA0, void, ctor_1, (app::XmlTextReaderImpl * this_ptr, app::XmlNameTable* nt))
@@ -51,7 +52,6 @@ namespace app::classes::System::Xml::XmlTextReaderImpl {
     IL2CPP_REGISTER_METHOD(0x01719250, void, ctor_8, (app::XmlTextReaderImpl * this_ptr, app::String* xml_fragment, app::XmlNodeType__Enum frag_type, app::XmlParserContext* context))
     IL2CPP_REGISTER_METHOD(0x01719460, void, ctor_9, (app::XmlTextReaderImpl * this_ptr, app::String* xml_fragment, app::XmlParserContext* context))
     IL2CPP_REGISTER_METHOD(0x01719660, void, FinishInitUriString, (app::XmlTextReaderImpl * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04718888, XmlTextReaderImpl_FinishInitUriString__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01719A90, void, ctor_10, (app::XmlTextReaderImpl * this_ptr, app::Stream* stream, app::Byte__Array* bytes, int32_t byte_count, app::XmlReaderSettings* settings, app::Uri* base_uri, app::String* base_uri_str, app::XmlParserContext* context, bool close_input))
     IL2CPP_REGISTER_METHOD(0x01719E80, void, FinishInitStream, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01719F70, void, ctor_11, (app::XmlTextReaderImpl * this_ptr, app::TextReader* input, app::XmlReaderSettings* settings, app::String* base_uri_str, app::XmlParserContext* context))
@@ -68,7 +68,7 @@ namespace app::classes::System::Xml::XmlTextReaderImpl {
     IL2CPP_REGISTER_METHOD(0x006D64E0, app::String*, get_BaseURI, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171A940, bool, get_IsEmptyElement, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171A970, bool, get_IsDefault, (app::XmlTextReaderImpl * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0171A9A0, uint16_t, get_QuoteChar, (app::XmlTextReaderImpl * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x0171A9A0, char16_t, get_QuoteChar, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171A9E0, app::XmlSpace__Enum, get_XmlSpace, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01074330, app::String*, get_XmlLang, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171AA00, app::ReadState__Enum_1, get_ReadState, (app::XmlTextReaderImpl * this_ptr))
@@ -79,10 +79,8 @@ namespace app::classes::System::Xml::XmlTextReaderImpl {
     IL2CPP_REGISTER_METHOD(0x0171AA20, app::String*, GetAttribute_1, (app::XmlTextReaderImpl * this_ptr, app::String* name))
     IL2CPP_REGISTER_METHOD(0x0171AB00, app::String*, GetAttribute_2, (app::XmlTextReaderImpl * this_ptr, app::String* local_name, app::String* namespace_u_r_i))
     IL2CPP_REGISTER_METHOD(0x0171ACF0, app::String*, GetAttribute_3, (app::XmlTextReaderImpl * this_ptr, int32_t i))
-    IL2CPP_REGISTER_METHODINFO(0x0470FC18, XmlTextReaderImpl_GetAttribute_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0171AE30, bool, MoveToAttribute_1, (app::XmlTextReaderImpl * this_ptr, app::String* name))
     IL2CPP_REGISTER_METHOD(0x0171AF10, void, MoveToAttribute_2, (app::XmlTextReaderImpl * this_ptr, int32_t i))
-    IL2CPP_REGISTER_METHODINFO(0x04737660, XmlTextReaderImpl_MoveToAttribute_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0171B030, bool, MoveToFirstAttribute, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171B0B0, bool, MoveToNextAttribute, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171B150, bool, MoveToElement, (app::XmlTextReaderImpl * this_ptr))
@@ -93,14 +91,11 @@ namespace app::classes::System::Xml::XmlTextReaderImpl {
     IL2CPP_REGISTER_METHOD(0x0171BBF0, app::String*, LookupNamespace_1, (app::XmlTextReaderImpl * this_ptr, app::String* prefix))
     IL2CPP_REGISTER_METHOD(0x0171BC30, bool, ReadAttributeValue, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171BFB0, void, ResolveEntity, (app::XmlTextReaderImpl * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04762B90, XmlTextReaderImpl_ResolveEntity__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0171C270, void, set_OuterReader, (app::XmlTextReaderImpl * this_ptr, app::XmlReader* value))
     IL2CPP_REGISTER_METHOD(0x0171C280, void, MoveOffEntityReference, (app::XmlTextReaderImpl * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04733010, XmlTextReaderImpl_MoveOffEntityReference__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0171C390, app::String*, ReadString, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CanReadValueChunk, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171C3B0, int32_t, ReadValueChunk, (app::XmlTextReaderImpl * this_ptr, app::Char__Array* buffer, int32_t index, int32_t count))
-    IL2CPP_REGISTER_METHODINFO(0x0476D420, XmlTextReaderImpl_ReadValueChunk__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, HasLineInfo, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171C9D0, int32_t, get_LineNumber, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171C9F0, int32_t, get_LinePosition, (app::XmlTextReaderImpl * this_ptr))
@@ -111,14 +106,10 @@ namespace app::classes::System::Xml::XmlTextReaderImpl {
     IL2CPP_REGISTER_METHOD(0x0171CA60, app::String*, LookupPrefix, (app::XmlTextReaderImpl * this_ptr, app::String* namespace_name))
     IL2CPP_REGISTER_METHOD(0x00974AC0, bool, get_Namespaces, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171CA90, void, set_Namespaces, (app::XmlTextReaderImpl * this_ptr, bool value))
-    IL2CPP_REGISTER_METHODINFO(0x04757E90, XmlTextReaderImpl_set_Namespaces__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AE6060, bool, get_Normalization, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171CE40, void, set_Normalization, (app::XmlTextReaderImpl * this_ptr, bool value))
-    IL2CPP_REGISTER_METHODINFO(0x04775658, XmlTextReaderImpl_set_Normalization__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0171CF40, void, set_WhitespaceHandling, (app::XmlTextReaderImpl * this_ptr, app::WhitespaceHandling__Enum value))
-    IL2CPP_REGISTER_METHODINFO(0x0476C648, XmlTextReaderImpl_set_WhitespaceHandling__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0171D060, void, set_EntityHandling, (app::XmlTextReaderImpl * this_ptr, app::EntityHandling__Enum value))
-    IL2CPP_REGISTER_METHODINFO(0x04750140, XmlTextReaderImpl_set_EntityHandling__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0171D140, bool, get_IsResolverSet, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171D150, void, set_XmlResolver, (app::XmlTextReaderImpl * this_ptr, app::XmlResolver* value))
     IL2CPP_REGISTER_METHOD(0x00660430, app::XmlNameTable*, get_DtdParserProxy_NameTable, (app::XmlTextReaderImpl * this_ptr))
@@ -144,7 +135,6 @@ namespace app::classes::System::Xml::XmlTextReaderImpl {
     IL2CPP_REGISTER_METHOD(0x0171D330, int32_t, DtdParserProxy_ParseNamedCharRef, (app::XmlTextReaderImpl * this_ptr, bool expand, app::StringBuilder* internal_subset_builder))
     IL2CPP_REGISTER_METHOD(0x0171D340, void, DtdParserProxy_ParsePI, (app::XmlTextReaderImpl * this_ptr, app::StringBuilder* sb))
     IL2CPP_REGISTER_METHOD(0x0171D390, void, DtdParserProxy_ParseComment, (app::XmlTextReaderImpl * this_ptr, app::StringBuilder* sb))
-    IL2CPP_REGISTER_METHODINFO(0x04720ED0, XmlTextReaderImpl_DtdParserProxy_ParseComment__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0171D5C0, bool, get_IsResolverNull, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171D5D0, app::XmlResolver*, GetTempResolver, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171D720, bool, DtdParserProxy_PushEntity, (app::XmlTextReaderImpl * this_ptr, app::IDtdEntityInfo* entity, int32_t* entity_id))
@@ -165,7 +155,6 @@ namespace app::classes::System::Xml::XmlTextReaderImpl {
     IL2CPP_REGISTER_METHOD(0x0171E010, void, Throw_9, (app::XmlTextReaderImpl * this_ptr, app::String* res, app::String* arg, app::Exception* inner_exception))
     IL2CPP_REGISTER_METHOD(0x0171E0A0, void, Throw_10, (app::XmlTextReaderImpl * this_ptr, app::String* res, app::String__Array* args, app::Exception* inner_exception))
     IL2CPP_REGISTER_METHOD(0x0171E150, void, Throw_11, (app::XmlTextReaderImpl * this_ptr, app::Exception* e))
-    IL2CPP_REGISTER_METHODINFO(0x0474BFF8, XmlTextReaderImpl_Throw_10__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0171E280, void, ReThrow, (app::XmlTextReaderImpl * this_ptr, app::Exception* e, int32_t line_no, int32_t line_pos))
     IL2CPP_REGISTER_METHOD(0x0171E330, void, ThrowWithoutLineInfo_1, (app::XmlTextReaderImpl * this_ptr, app::String* res))
     IL2CPP_REGISTER_METHOD(0x0171E3D0, void, ThrowWithoutLineInfo_2, (app::XmlTextReaderImpl * this_ptr, app::String* res, app::String* arg))
@@ -188,7 +177,6 @@ namespace app::classes::System::Xml::XmlTextReaderImpl {
     IL2CPP_REGISTER_METHOD(0x0171F0C0, void, InitFragmentReader, (app::XmlTextReaderImpl * this_ptr, app::XmlNodeType__Enum fragment_type, app::XmlParserContext* parser_context, bool allow_xml_decl_fragment))
     IL2CPP_REGISTER_METHOD(0x0171F4A0, void, ProcessDtdFromParserContext, (app::XmlTextReaderImpl * this_ptr, app::XmlParserContext* context))
     IL2CPP_REGISTER_METHOD(0x0171F550, void, OpenUrl, (app::XmlTextReaderImpl * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047624A8, XmlTextReaderImpl_OpenUrl__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0171F810, void, OpenUrlDelegate, (app::XmlTextReaderImpl * this_ptr, app::Object* xml_resolver))
     IL2CPP_REGISTER_METHOD(0x0171F970, app::Encoding*, DetectEncoding, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0171FCD0, void, SetupEncoding, (app::XmlTextReaderImpl * this_ptr, app::Encoding* encoding))
@@ -216,7 +204,7 @@ namespace app::classes::System::Xml::XmlTextReaderImpl {
     IL2CPP_REGISTER_METHOD(0x017251E0, void, OnDefaultNamespaceDecl, (app::XmlTextReaderImpl * this_ptr, app::XmlTextReaderImpl_NodeData* attr))
     IL2CPP_REGISTER_METHOD(0x01725370, void, OnNamespaceDecl, (app::XmlTextReaderImpl * this_ptr, app::XmlTextReaderImpl_NodeData* attr))
     IL2CPP_REGISTER_METHOD(0x017254F0, void, OnXmlReservedAttribute, (app::XmlTextReaderImpl * this_ptr, app::XmlTextReaderImpl_NodeData* attr))
-    IL2CPP_REGISTER_METHOD(0x017257E0, void, ParseAttributeValueSlow, (app::XmlTextReaderImpl * this_ptr, int32_t cur_pos, uint16_t quote_char, app::XmlTextReaderImpl_NodeData* attr))
+    IL2CPP_REGISTER_METHOD(0x017257E0, void, ParseAttributeValueSlow, (app::XmlTextReaderImpl * this_ptr, int32_t cur_pos, char16_t quote_char, app::XmlTextReaderImpl_NodeData* attr))
     IL2CPP_REGISTER_METHOD(0x01726A40, void, AddAttributeChunkToList, (app::XmlTextReaderImpl * this_ptr, app::XmlTextReaderImpl_NodeData* attr, app::XmlTextReaderImpl_NodeData* chunk, app::XmlTextReaderImpl_NodeData** last_chunk))
     IL2CPP_REGISTER_METHOD(0x01726A70, bool, ParseText_1, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01726F50, bool, ParseText_2, (app::XmlTextReaderImpl * this_ptr, int32_t* start_pos, int32_t* end_pos, int32_t* out_or_chars))
@@ -245,12 +233,11 @@ namespace app::classes::System::Xml::XmlTextReaderImpl {
     IL2CPP_REGISTER_METHOD(0x0172A340, void, ParseDtd, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0172A680, void, SkipDtd, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0172AAB0, void, SkipPublicOrSystemIdLiteral, (app::XmlTextReaderImpl * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x0172AB90, void, SkipUntil, (app::XmlTextReaderImpl * this_ptr, uint16_t stop_char, bool recognize_literals))
+    IL2CPP_REGISTER_METHOD(0x0172AB90, void, SkipUntil, (app::XmlTextReaderImpl * this_ptr, char16_t stop_char, bool recognize_literals))
     IL2CPP_REGISTER_METHOD(0x0172B140, int32_t, EatWhitespaces, (app::XmlTextReaderImpl * this_ptr, app::StringBuilder* sb))
     IL2CPP_REGISTER_METHOD(0x0172B400, int32_t, ParseCharRefInline, (app::XmlTextReaderImpl * this_ptr, int32_t start_pos, int32_t* char_count, app::XmlTextReaderImpl_EntityType__Enum* entity_type))
     IL2CPP_REGISTER_METHOD(0x0172B490, int32_t, ParseNumericCharRef, (app::XmlTextReaderImpl * this_ptr, bool expand, app::StringBuilder* internal_subset_builder, app::XmlTextReaderImpl_EntityType__Enum* entity_type))
     IL2CPP_REGISTER_METHOD(0x0172B590, int32_t, ParseNumericCharRefInline, (app::XmlTextReaderImpl * this_ptr, int32_t start_pos, bool expand, app::StringBuilder* internal_subset_builder, int32_t* char_count, app::XmlTextReaderImpl_EntityType__Enum* entity_type))
-    IL2CPP_REGISTER_METHODINFO(0x0474BA90, XmlTextReaderImpl_ParseNumericCharRefInline__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0172BDD0, int32_t, ParseNamedCharRef, (app::XmlTextReaderImpl * this_ptr, bool expand, app::StringBuilder* internal_subset_builder))
     IL2CPP_REGISTER_METHOD(0x0172BE50, int32_t, ParseNamedCharRefInline, (app::XmlTextReaderImpl * this_ptr, int32_t start_pos, bool expand, app::StringBuilder* internal_subset_builder))
     IL2CPP_REGISTER_METHOD(0x0172C240, int32_t, ParseName, (app::XmlTextReaderImpl * this_ptr))
@@ -275,7 +262,6 @@ namespace app::classes::System::Xml::XmlTextReaderImpl {
     IL2CPP_REGISTER_METHOD(0x0172D790, app::XmlNodeType__Enum, GetWhitespaceType, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0172D7E0, app::XmlNodeType__Enum, GetTextNodeType, (app::XmlTextReaderImpl * this_ptr, int32_t or_chars))
     IL2CPP_REGISTER_METHOD(0x0172D840, void, PushExternalEntityOrSubset, (app::XmlTextReaderImpl * this_ptr, app::String* public_id, app::String* system_id, app::Uri* base_uri, app::String* entity_name))
-    IL2CPP_REGISTER_METHODINFO(0x04774290, XmlTextReaderImpl_PushExternalEntityOrSubset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0172DBB0, bool, OpenAndPush, (app::XmlTextReaderImpl * this_ptr, app::Uri* uri))
     IL2CPP_REGISTER_METHOD(0x0172DEC0, bool, PushExternalEntity, (app::XmlTextReaderImpl * this_ptr, app::IDtdEntityInfo* entity))
     IL2CPP_REGISTER_METHOD(0x0172E0F0, void, PushInternalEntity, (app::XmlTextReaderImpl * this_ptr, app::IDtdEntityInfo* entity))
@@ -302,7 +288,6 @@ namespace app::classes::System::Xml::XmlTextReaderImpl {
     IL2CPP_REGISTER_METHOD(0x01730830, void, ParseDtdFromParserContext, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01730A80, bool, MoveToNextContentNode, (app::XmlTextReaderImpl * this_ptr, bool move_if_on_content_node))
     IL2CPP_REGISTER_METHOD(0x01730BA0, void, SetupFromParserContext, (app::XmlTextReaderImpl * this_ptr, app::XmlParserContext* context, app::XmlReaderSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0471EF48, XmlTextReaderImpl_SetupFromParserContext__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007008C0, app::IDtdInfo*, get_DtdInfo, (app::XmlTextReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01730FA0, void, SetDtdInfo, (app::XmlTextReaderImpl * this_ptr, app::IDtdInfo* new_dtd_info))
     IL2CPP_REGISTER_METHOD(0x0110EE00, void, set_ValidationEventHandling, (app::XmlTextReaderImpl * this_ptr, app::IValidationEventHandling* value))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkipCutsceneController.h>
+
+#include <Modloader/app/structs/SkipCutsceneController.h>
 #include <Modloader/app/structs/ISkipCutscene.h>
 #include <Modloader/app/structs/SceneManagerScene.h>
 
@@ -16,11 +17,9 @@ namespace app::classes::SkipCutsceneController {
     IL2CPP_REGISTER_METHOD(0x006C39D0, void, Awake, (app::SkipCutsceneController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C3B70, void, OnDestroy, (app::SkipCutsceneController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C3D50, void, OnGameReset, (app::SkipCutsceneController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04760AA8, SkipCutsceneController_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006C3D50, void, Cleanup, (app::SkipCutsceneController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C3D80, void, SkipPrologue, (app::SkipCutsceneController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C43E0, bool, ReadyToSkip, (app::SkipCutsceneController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04785D40, SkipCutsceneController_ReadyToSkip__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006C4A40, void, SkipCutscene, (app::SkipCutsceneController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C4E20, void, PrewarmSkip, (app::SkipCutsceneController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C4F50, void, ctor, (app::SkipCutsceneController * this_ptr))

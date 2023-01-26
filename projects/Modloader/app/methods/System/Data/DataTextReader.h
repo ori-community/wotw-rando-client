@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlReader.h>
+
+#include <Modloader/app/structs/XmlReader.h>
 #include <Modloader/app/structs/DataTextReader.h>
-#include <Modloader/app/structs/XmlReaderSettings.h>
-#include <Modloader/app/structs/XmlNodeType__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSpace__Enum.h>
 #include <Modloader/app/structs/ReadState__Enum_1.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
 
 namespace app::classes::System::Data::DataTextReader {
     IL2CPP_REGISTER_METHOD(0x01F3E890, app::XmlReader*, CreateReader, (app::XmlReader * xr))
@@ -23,7 +24,7 @@ namespace app::classes::System::Data::DataTextReader {
     IL2CPP_REGISTER_METHOD(0x01717120, app::String*, get_BaseURI, (app::DataTextReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01717150, bool, get_IsEmptyElement, (app::DataTextReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01717180, bool, get_IsDefault, (app::DataTextReader * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x017171B0, uint16_t, get_QuoteChar, (app::DataTextReader * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x017171B0, char16_t, get_QuoteChar, (app::DataTextReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x017171E0, app::XmlSpace__Enum, get_XmlSpace, (app::DataTextReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01717210, app::String*, get_XmlLang, (app::DataTextReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01717240, int32_t, get_AttributeCount, (app::DataTextReader * this_ptr))

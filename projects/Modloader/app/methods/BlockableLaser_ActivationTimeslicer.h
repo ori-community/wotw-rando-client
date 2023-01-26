@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer.h>
+
+#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer.h>
 #include <Modloader/app/structs/BlockableLaser.h>
 
 namespace app::classes::BlockableLaser_ActivationTimeslicer {

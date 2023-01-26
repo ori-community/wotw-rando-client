@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoundCompositionSoundVolumeAnimator.h>
+
+#include <Modloader/app/structs/SoundCompositionSoundVolumeAnimator.h>
 
 namespace app::classes::SoundCompositionSoundVolumeAnimator {
     IL2CPP_REGISTER_METHOD(0x00EE78A0, void, AnimateIt, (app::SoundCompositionSoundVolumeAnimator * this_ptr, float value))

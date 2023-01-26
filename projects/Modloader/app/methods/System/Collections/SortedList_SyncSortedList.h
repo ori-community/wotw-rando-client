@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SortedList_SyncSortedList.h>
-#include <Modloader/app/structs/SortedList.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/SortedList_SyncSortedList.h>
 #include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/IDictionaryEnumerator.h>
 #include <Modloader/app/structs/IList.h>
 #include <Modloader/app/structs/KeyValuePairs__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SortedList.h>
 
 namespace app::classes::System::Collections::SortedList_SyncSortedList {
     IL2CPP_REGISTER_METHOD(0x0202FE70, void, ctor, (app::SortedList_SyncSortedList * this_ptr, app::SortedList* list))
@@ -31,7 +32,6 @@ namespace app::classes::System::Collections::SortedList_SyncSortedList {
     IL2CPP_REGISTER_METHOD(0x02030E60, app::IList*, GetKeyList, (app::SortedList_SyncSortedList * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02030F70, app::IList*, GetValueList, (app::SortedList_SyncSortedList * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02031080, int32_t, IndexOfKey, (app::SortedList_SyncSortedList * this_ptr, app::Object* key))
-    IL2CPP_REGISTER_METHODINFO(0x04723D80, SortedList_SyncSortedList_IndexOfKey__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02031250, int32_t, IndexOfValue, (app::SortedList_SyncSortedList * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x02031360, void, RemoveAt, (app::SortedList_SyncSortedList * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x02031460, void, Remove, (app::SortedList_SyncSortedList * this_ptr, app::Object* key))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SimpleSwayAnimPostprocess_SwayChain.h>
-#include <Modloader/app/structs/SimpleSwayAnimPostprocess_PerFrameReadOnly.h>
+
+#include <Modloader/app/structs/SimpleSwayAnimPostprocess_SwayChain.h>
 #include <Modloader/app/structs/JointChains_Chain.h>
 #include <Modloader/app/structs/SimpleSwayAnimPostprocess_Params.h>
+#include <Modloader/app/structs/SimpleSwayAnimPostprocess_PerFrameReadOnly.h>
 
 namespace app::classes::Moon::SimpleSwayAnimPostprocess_SwayChain {
     IL2CPP_REGISTER_METHOD(0x02121820, void, CopyPerFrameDataToJob, (app::SimpleSwayAnimPostprocess_SwayChain * this_ptr, app::SimpleSwayAnimPostprocess_PerFrameReadOnly common))

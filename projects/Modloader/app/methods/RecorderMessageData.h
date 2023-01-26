@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RecorderFrame_FrameDataTypes__Enum.h>
-#include <Modloader/app/structs/RecorderMessageData.h>
-#include <Modloader/app/structs/BinaryWriter.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/RecorderFrame_FrameDataTypes__Enum.h>
 #include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/RecorderMessageData.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::RecorderMessageData {
     IL2CPP_REGISTER_METHOD(0x008E77B0, app::RecorderFrame_FrameDataTypes__Enum, FrameType, (app::RecorderMessageData * this_ptr))

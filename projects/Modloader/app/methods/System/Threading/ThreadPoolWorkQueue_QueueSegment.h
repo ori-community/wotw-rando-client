@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ThreadPoolWorkQueue_QueueSegment.h>
+
+#include <Modloader/app/structs/ThreadPoolWorkQueue_QueueSegment.h>
 #include <Modloader/app/structs/IThreadPoolWorkItem.h>
 
 namespace app::classes::System::Threading::ThreadPoolWorkQueue_QueueSegment {

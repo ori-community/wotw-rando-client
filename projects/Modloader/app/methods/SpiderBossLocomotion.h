@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/SpiderBossLocomotion.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/EntityLocomotionTask.h>
 #include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/SpiderBossLocomotion.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SpiderBossLocomotion {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::Transform*, get_FeetTransform, (app::SpiderBossLocomotion * this_ptr))
@@ -24,7 +25,6 @@ namespace app::classes::SpiderBossLocomotion {
     IL2CPP_REGISTER_METHOD(0x011B48D0, void, Awake, (app::SpiderBossLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011B4910, void, OnEntityInitialization, (app::SpiderBossLocomotion * this_ptr, app::Entity* entity))
     IL2CPP_REGISTER_METHOD(0x011B4AC0, void, ConfigureStateMachine, (app::SpiderBossLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04732210, SpiderBossLocomotion_ConfigureStateMachine__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005B0220, app::EntityLocomotionTask*, get_DefaultFSMState, (app::SpiderBossLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011B4B10, void, ResetLocomotion, (app::SpiderBossLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00968AA0, void, Stop, (app::SpiderBossLocomotion * this_ptr))

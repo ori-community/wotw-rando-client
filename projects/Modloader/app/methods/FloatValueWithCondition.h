@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ConditionAndValue_1_System_Single___Array.h>
+
+#include <Modloader/app/structs/ConditionAndValue_1_System_Single___Array.h>
 #include <Modloader/app/structs/FloatValueWithCondition.h>
 
 namespace app::classes::FloatValueWithCondition {

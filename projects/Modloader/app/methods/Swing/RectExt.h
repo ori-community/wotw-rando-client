@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RectExt.h>
+
+#include <Modloader/app/structs/RectExt.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/RectExt__Boxed.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/TextAnchor__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextAnchor__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Swing::RectExt {
     IL2CPP_REGISTER_METHOD(0x0182E030, app::RectExt, op_Implicit_1, (app::Rect _rect))

@@ -1,42 +1,43 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CommandBuffer.h>
-#include <Modloader/app/structs/ComputeShader.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/Matrix4x4.h>
-#include <Modloader/app/structs/Single__Array.h>
-#include <Modloader/app/structs/RenderTargetIdentifier.h>
-#include <Modloader/app/structs/ComputeBuffer.h>
-#include <Modloader/app/structs/SkinnedMeshRenderer.h>
-#include <Modloader/app/structs/RenderTexture.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Mesh.h>
-#include <Modloader/app/structs/Material.h>
-#include <Modloader/app/structs/MaterialPropertyBlock.h>
-#include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/MeshTopology__Enum.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Texture.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/SurfaceType__Enum.h>
-#include <Modloader/app/structs/SurfaceUsage__Enum.h>
-#include <Modloader/app/structs/FastMemoryFlags__Enum.h>
-#include <Modloader/app/structs/FilterMode__Enum.h>
-#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
-#include <Modloader/app/structs/RenderTextureReadWrite__Enum.h>
-#include <Modloader/app/structs/RenderTextureMemoryless__Enum.h>
-#include <Modloader/app/structs/RenderTextureDescriptor.h>
+
+#include <Modloader/app/structs/CommandBuffer.h>
 #include <Modloader/app/structs/ClearFlags__Enum.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Vector4__Array.h>
-#include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/CustomSampler.h>
+#include <Modloader/app/structs/ComputeBuffer.h>
+#include <Modloader/app/structs/ComputeShader.h>
 #include <Modloader/app/structs/CubemapFace__Enum.h>
-#include <Modloader/app/structs/RenderTargetIdentifier__Array.h>
+#include <Modloader/app/structs/CustomSampler.h>
+#include <Modloader/app/structs/FastMemoryFlags__Enum.h>
+#include <Modloader/app/structs/FilterMode__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/MaterialPropertyBlock.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/MeshTopology__Enum.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/RenderBufferLoadAction__Enum.h>
-#include <Modloader/app/structs/RenderBufferStoreAction__Enum.h>
 #include <Modloader/app/structs/RenderBufferLoadAction__Enum__Array.h>
+#include <Modloader/app/structs/RenderBufferStoreAction__Enum.h>
 #include <Modloader/app/structs/RenderBufferStoreAction__Enum__Array.h>
+#include <Modloader/app/structs/RenderTargetIdentifier.h>
+#include <Modloader/app/structs/RenderTargetIdentifier__Array.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/RenderTextureDescriptor.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/RenderTextureMemoryless__Enum.h>
+#include <Modloader/app/structs/RenderTextureReadWrite__Enum.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/SkinnedMeshRenderer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SurfaceType__Enum.h>
+#include <Modloader/app/structs/SurfaceUsage__Enum.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Vector4__Array.h>
 
 namespace app::classes::UnityEngine::Rendering::CommandBuffer {
     IL2CPP_REGISTER_METHOD(0x02973C90, void, ctor, (app::CommandBuffer * this_ptr))
@@ -100,10 +101,8 @@ namespace app::classes::UnityEngine::Rendering::CommandBuffer {
     IL2CPP_REGISTER_METHOD(0x029758B0, void, EndSampleInternal, (app::CommandBuffer * this_ptr, void* sampler))
     IL2CPP_REGISTER_METHOD(0x02975910, void, SetRenderTarget_1, (app::CommandBuffer * this_ptr, app::RenderTargetIdentifier rt))
     IL2CPP_REGISTER_METHOD(0x029759A0, void, SetRenderTarget_2, (app::CommandBuffer * this_ptr, app::RenderTargetIdentifier rt, int32_t mip_level, app::CubemapFace__Enum cubemap_face, int32_t depth_slice))
-    IL2CPP_REGISTER_METHODINFO(0x047233F8, CommandBuffer_SetRenderTarget_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02975BC0, void, SetRenderTarget_3, (app::CommandBuffer * this_ptr, app::RenderTargetIdentifier color, app::RenderTargetIdentifier depth))
     IL2CPP_REGISTER_METHOD(0x02975C70, void, SetRenderTarget_4, (app::CommandBuffer * this_ptr, app::RenderTargetIdentifier__Array* colors, app::RenderTargetIdentifier depth))
-    IL2CPP_REGISTER_METHODINFO(0x0470B130, CommandBuffer_SetRenderTarget_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02975EE0, void, SetRenderTargetSingle_Internal, (app::CommandBuffer * this_ptr, app::RenderTargetIdentifier rt, app::RenderBufferLoadAction__Enum color_load_action, app::RenderBufferStoreAction__Enum color_store_action, app::RenderBufferLoadAction__Enum depth_load_action, app::RenderBufferStoreAction__Enum depth_store_action))
     IL2CPP_REGISTER_METHOD(0x02975F80, void, SetRenderTargetColorDepth_Internal, (app::CommandBuffer * this_ptr, app::RenderTargetIdentifier color, app::RenderTargetIdentifier depth, app::RenderBufferLoadAction__Enum color_load_action, app::RenderBufferStoreAction__Enum color_store_action, app::RenderBufferLoadAction__Enum depth_load_action, app::RenderBufferStoreAction__Enum depth_store_action))
     IL2CPP_REGISTER_METHOD(0x02976020, void, SetRenderTargetMulti_Internal, (app::CommandBuffer * this_ptr, app::RenderTargetIdentifier__Array* colors, app::RenderTargetIdentifier depth, app::RenderBufferLoadAction__Enum__Array* color_load_actions, app::RenderBufferStoreAction__Enum__Array* color_store_actions, app::RenderBufferLoadAction__Enum depth_load_action, app::RenderBufferStoreAction__Enum depth_store_action))
@@ -115,15 +114,11 @@ namespace app::classes::UnityEngine::Rendering::CommandBuffer {
     IL2CPP_REGISTER_METHOD(0x029741A0, void, DispatchCompute_1, (app::CommandBuffer * this_ptr, app::ComputeShader* compute_shader, int32_t kernel_index, int32_t thread_groups_x, int32_t thread_groups_y, int32_t thread_groups_z))
     IL2CPP_REGISTER_METHOD(0x02974230, void, DispatchCompute_2, (app::CommandBuffer * this_ptr, app::ComputeShader* compute_shader, int32_t kernel_index, app::ComputeBuffer* indirect_buffer, uint32_t args_offset))
     IL2CPP_REGISTER_METHOD(0x02976360, void, ResolveAntiAliasedSurface, (app::CommandBuffer * this_ptr, app::RenderTexture* rt, app::RenderTexture* target))
-    IL2CPP_REGISTER_METHODINFO(0x04701318, CommandBuffer_ResolveAntiAliasedSurface__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02976490, void, DrawMesh_1, (app::CommandBuffer * this_ptr, app::Mesh* mesh, app::Matrix4x4 matrix, app::Material* material, int32_t submesh_index, int32_t shader_pass, app::MaterialPropertyBlock* properties))
-    IL2CPP_REGISTER_METHODINFO(0x04782A88, CommandBuffer_DrawMesh__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02976830, void, DrawMesh_2, (app::CommandBuffer * this_ptr, app::Mesh* mesh, app::Matrix4x4 matrix, app::Material* material, int32_t submesh_index, int32_t shader_pass))
     IL2CPP_REGISTER_METHOD(0x029768A0, void, DrawMesh_3, (app::CommandBuffer * this_ptr, app::Mesh* mesh, app::Matrix4x4 matrix, app::Material* material, int32_t submesh_index))
     IL2CPP_REGISTER_METHOD(0x02976900, void, DrawRenderer, (app::CommandBuffer * this_ptr, app::Renderer* renderer, app::Material* material, int32_t submesh_index, int32_t shader_pass))
-    IL2CPP_REGISTER_METHODINFO(0x0476CD78, CommandBuffer_DrawRenderer__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02976B20, void, DrawProcedural_1, (app::CommandBuffer * this_ptr, app::Matrix4x4 matrix, app::Material* material, int32_t shader_pass, app::MeshTopology__Enum topology, int32_t vertex_count, int32_t instance_count, app::MaterialPropertyBlock* properties))
-    IL2CPP_REGISTER_METHODINFO(0x04775760, CommandBuffer_DrawProcedural__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02976CD0, void, DrawProcedural_2, (app::CommandBuffer * this_ptr, app::Matrix4x4 matrix, app::Material* material, int32_t shader_pass, app::MeshTopology__Enum topology, int32_t vertex_count, int32_t instance_count))
     IL2CPP_REGISTER_METHOD(0x02976E80, void, DrawProcedural_3, (app::CommandBuffer * this_ptr, app::Matrix4x4 matrix, app::Material* material, int32_t shader_pass, app::MeshTopology__Enum topology, int32_t vertex_count))
     IL2CPP_REGISTER_METHOD(0x02977030, void, CopyTexture, (app::CommandBuffer * this_ptr, app::RenderTargetIdentifier src, app::RenderTargetIdentifier dst))

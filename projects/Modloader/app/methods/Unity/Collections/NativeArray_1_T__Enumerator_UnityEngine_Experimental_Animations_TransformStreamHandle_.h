@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_Experimental_Animations_TransformStreamHandle___Boxed.h>
+
+#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_Experimental_Animations_TransformStreamHandle___Boxed.h>
 #include <Modloader/app/structs/NativeArray_1_UnityEngine_Experimental_Animations_TransformStreamHandle_.h>
-#include <Modloader/app/structs/TransformStreamHandle.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TransformStreamHandle.h>
 
 namespace app::classes::Unity::Collections::NativeArray_1_T__Enumerator_UnityEngine_Experimental_Animations_TransformStreamHandle_ {
     IL2CPP_REGISTER_METHOD(0x001DF020, void, ctor, (app::NativeArray_1_T_Enumerator_UnityEngine_Experimental_Animations_TransformStreamHandle___Boxed * this_ptr, app::NativeArray_1_UnityEngine_Experimental_Animations_TransformStreamHandle_* array))

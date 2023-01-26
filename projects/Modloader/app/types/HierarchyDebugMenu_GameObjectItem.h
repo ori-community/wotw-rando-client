@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem__Class.h>
 #include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
 #include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem__Array.h>
+#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace HierarchyDebugMenu_GameObjectItem {
-        inline app::HierarchyDebugMenu_GameObjectItem__Class** type_info = (app::HierarchyDebugMenu_GameObjectItem__Class**)(modloader::win::memory::resolve_rva(0x047897A8));
+        inline app::HierarchyDebugMenu_GameObjectItem__Class** type_info() {
+            static app::HierarchyDebugMenu_GameObjectItem__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::HierarchyDebugMenu_GameObjectItem__Class**)(modloader::win::memory::resolve_rva(0x047897A8));
+            }
+            return cache;
+        }
         inline app::HierarchyDebugMenu_GameObjectItem__Class* get_class() {
-            return il2cpp::get_nested_class<app::HierarchyDebugMenu_GameObjectItem__Class>(type_info, "", "HierarchyDebugMenu", "GameObjectItem");
+            return il2cpp::get_nested_class<app::HierarchyDebugMenu_GameObjectItem__Class>(type_info(), "", "HierarchyDebugMenu", "GameObjectItem");
         }
         inline app::HierarchyDebugMenu_GameObjectItem* create() {
             return il2cpp::create_object<app::HierarchyDebugMenu_GameObjectItem>(get_class());

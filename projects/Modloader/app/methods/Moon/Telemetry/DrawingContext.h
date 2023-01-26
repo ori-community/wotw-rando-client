@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DrawingContext.h>
+
+#include <Modloader/app/structs/DrawingContext.h>
 #include <Modloader/app/structs/DrawingContext__Boxed.h>
 #include <Modloader/app/structs/Object.h>
 

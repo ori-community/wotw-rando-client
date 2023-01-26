@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ConstraintsMetaData.h>
+
+#include <Modloader/app/structs/ConstraintsMetaData.h>
 #include <Modloader/app/structs/ConstraintFlag__Enum.h>
-#include <Modloader/app/structs/EntityId.h>
 #include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/EntityId.h>
 
 namespace app::classes::Moon::Timeline::ConstraintsMetaData {
     IL2CPP_REGISTER_METHOD(0x01BB8230, bool, HasFlags, (app::ConstraintsMetaData * this_ptr, app::ConstraintFlag__Enum flags))

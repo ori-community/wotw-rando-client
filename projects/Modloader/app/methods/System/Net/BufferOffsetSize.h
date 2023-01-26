@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BufferOffsetSize_1.h>
+
+#include <Modloader/app/structs/BufferOffsetSize_1.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Net::BufferOffsetSize {

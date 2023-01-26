@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/ProtectiveLightCone.h>
 
 namespace app::classes::ProtectiveLightCone {

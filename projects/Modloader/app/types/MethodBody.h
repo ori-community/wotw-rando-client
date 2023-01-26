@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/MethodBody.h>
+#include <Modloader/app/structs/MethodBody__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MethodBody__Class.h>
-#include <Modloader/app/structs/MethodBody.h>
 
 namespace app::classes::types {
     namespace MethodBody {
-        namespace {
-            inline app::MethodBody__Class* type_info_ref = nullptr;
+        inline app::MethodBody__Class** type_info() {
+            static app::MethodBody__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::MethodBody__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::MethodBody__Class** type_info = &type_info_ref;
         inline app::MethodBody__Class* get_class() {
-            return il2cpp::get_class<app::MethodBody__Class>(type_info, "System.Reflection", "MethodBody");
+            return il2cpp::get_class<app::MethodBody__Class>(type_info(), "System.Reflection", "MethodBody");
         }
         inline app::MethodBody* create() {
             return il2cpp::create_object<app::MethodBody>(get_class());

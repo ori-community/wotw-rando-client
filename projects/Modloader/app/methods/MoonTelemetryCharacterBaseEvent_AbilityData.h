@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_AbilityData.h>
+
+#include <Modloader/app/structs/MoonTelemetryCharacterBaseEvent_AbilityData.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::MoonTelemetryCharacterBaseEvent_AbilityData {

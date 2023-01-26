@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LayoutGroup_DelayedSetDirty_c_Iterator0.h>
+
+#include <Modloader/app/structs/LayoutGroup_DelayedSetDirty_c_Iterator0.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::UI::LayoutGroup__DelayedSetDirty_c__Iterator0 {
@@ -10,5 +11,4 @@ namespace app::classes::UnityEngine::UI::LayoutGroup__DelayedSetDirty_c__Iterato
     IL2CPP_REGISTER_METHOD(0x01F25880, app::Object*, IEnumerator_get_Current, (app::LayoutGroup_DelayedSetDirty_c_Iterator0 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0265B950, void, Dispose, (app::LayoutGroup_DelayedSetDirty_c_Iterator0 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0265B960, void, Reset, (app::LayoutGroup_DelayedSetDirty_c_Iterator0 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047289F8, LayoutGroup_DelayedSetDirty_c_Iterator0_Reset__MethodInfo)
 } // namespace app::classes::UnityEngine::UI::LayoutGroup__DelayedSetDirty_c__Iterator0

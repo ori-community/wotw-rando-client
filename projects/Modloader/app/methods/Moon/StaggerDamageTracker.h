@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StaggerDamageTracker.h>
+
+#include <Modloader/app/structs/StaggerDamageTracker.h>
 #include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/StaggerSettings.h>
 

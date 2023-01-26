@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GameController_BrokenSavesFixingSettings__Class.h>
 #include <Modloader/app/structs/GameController_BrokenSavesFixingSettings.h>
 #include <Modloader/app/structs/GameController_BrokenSavesFixingSettings__Boxed.h>
+#include <Modloader/app/structs/GameController_BrokenSavesFixingSettings__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace GameController_BrokenSavesFixingSettings {
-        namespace {
-            inline app::GameController_BrokenSavesFixingSettings__Class* type_info_ref = nullptr;
+        inline app::GameController_BrokenSavesFixingSettings__Class** type_info() {
+            static app::GameController_BrokenSavesFixingSettings__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GameController_BrokenSavesFixingSettings__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GameController_BrokenSavesFixingSettings__Class** type_info = &type_info_ref;
         inline app::GameController_BrokenSavesFixingSettings__Class* get_class() {
-            return il2cpp::get_nested_class<app::GameController_BrokenSavesFixingSettings__Class>(type_info, "", "GameController", "BrokenSavesFixingSettings");
+            return il2cpp::get_nested_class<app::GameController_BrokenSavesFixingSettings__Class>(type_info(), "", "GameController", "BrokenSavesFixingSettings");
         }
         inline app::GameController_BrokenSavesFixingSettings* create() {
             return il2cpp::create_object<app::GameController_BrokenSavesFixingSettings>(get_class());

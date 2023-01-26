@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/VertexType__Enum.h>
+#include <Modloader/app/structs/VertexType__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/VertexType__Enum__Class.h>
-#include <Modloader/app/structs/VertexType__Enum.h>
 
 namespace app::classes::types {
     namespace VertexType__Enum {
-        namespace {
-            inline app::VertexType__Enum__Class* type_info_ref = nullptr;
+        inline app::VertexType__Enum__Class** type_info() {
+            static app::VertexType__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::VertexType__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::VertexType__Enum__Class** type_info = &type_info_ref;
         inline app::VertexType__Enum__Class* get_class() {
-            return il2cpp::get_class<app::VertexType__Enum__Class>(type_info, "TriangleNet", "VertexType");
+            return il2cpp::get_class<app::VertexType__Enum__Class>(type_info(), "TriangleNet", "VertexType");
         }
         inline app::VertexType__Enum* create() {
             return il2cpp::create_object<app::VertexType__Enum>(get_class());

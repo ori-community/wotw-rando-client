@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/QuaternionRotationAnimatorEntity.h>
+
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/MoonReference_1_UnityEngine_Transform_.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/QuaternionRotationAnimatorEntity.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TimelineEntity.h>
-#include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::QuaternionRotationAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x01E7D4F0, app::Transform*, get_TransformTarget, (app::QuaternionRotationAnimatorEntity * this_ptr))

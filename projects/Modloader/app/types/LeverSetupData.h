@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LeverSetupData__Class.h>
 #include <Modloader/app/structs/LeverSetupData.h>
 #include <Modloader/app/structs/LeverSetupData__Array.h>
+#include <Modloader/app/structs/LeverSetupData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace LeverSetupData {
-        namespace {
-            inline app::LeverSetupData__Class* type_info_ref = nullptr;
+        inline app::LeverSetupData__Class** type_info() {
+            static app::LeverSetupData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LeverSetupData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LeverSetupData__Class** type_info = &type_info_ref;
         inline app::LeverSetupData__Class* get_class() {
-            return il2cpp::get_class<app::LeverSetupData__Class>(type_info, "", "LeverSetupData");
+            return il2cpp::get_class<app::LeverSetupData__Class>(type_info(), "", "LeverSetupData");
         }
         inline app::LeverSetupData* create() {
             return il2cpp::create_object<app::LeverSetupData>(get_class());

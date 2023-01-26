@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BipedLimbOrientations.h>
+
+#include <Modloader/app/structs/BipedLimbOrientations.h>
 #include <Modloader/app/structs/BipedLimbOrientations_LimbOrientation.h>
 
 namespace app::classes::RootMotion::BipedLimbOrientations {

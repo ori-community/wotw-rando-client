@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AkAudioInputManager_AudioFormatInteropDelegate.h>
+#include <Modloader/app/structs/AkAudioInputManager_AudioSamplesInteropDelegate.h>
+#include <Modloader/app/structs/AkLogger_ErrorLoggerInteropDelegate.h>
+#include <Modloader/app/structs/AkSoundEnginePINVOKE.h>
+#include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/Single__Array.h>
 #include <Modloader/app/structs/UInt32__Array.h>
-#include <Modloader/app/structs/AkLogger_ErrorLoggerInteropDelegate.h>
-#include <Modloader/app/structs/AkAudioInputManager_AudioSamplesInteropDelegate.h>
-#include <Modloader/app/structs/AkAudioInputManager_AudioFormatInteropDelegate.h>
-#include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/UInt64__Array.h>
-#include <Modloader/app/structs/AkSoundEnginePINVOKE.h>
 
 namespace app::classes::AkSoundEnginePINVOKE {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())
@@ -289,8 +290,8 @@ namespace app::classes::AkSoundEnginePINVOKE {
     IL2CPP_REGISTER_METHOD(0x018C3290, int32_t, CSharp_StopMIDIOnEvent__SWIG_0, (uint32_t jarg1, uint64_t jarg2))
     IL2CPP_REGISTER_METHOD(0x018C3340, int32_t, CSharp_StopMIDIOnEvent__SWIG_1, (uint32_t jarg1))
     IL2CPP_REGISTER_METHOD(0x018C33E0, int32_t, CSharp_StopMIDIOnEvent__SWIG_2, ())
-    IL2CPP_REGISTER_METHOD(0x018C3470, int32_t, CSharp_PinEventInStreamCache__SWIG_0, (uint32_t jarg1, uint16_t jarg2, uint16_t jarg3))
-    IL2CPP_REGISTER_METHOD(0x018C3530, int32_t, CSharp_PinEventInStreamCache__SWIG_1, (app::String * jarg1, uint16_t jarg2, uint16_t jarg3))
+    IL2CPP_REGISTER_METHOD(0x018C3470, int32_t, CSharp_PinEventInStreamCache__SWIG_0, (uint32_t jarg1, char16_t jarg2, char16_t jarg3))
+    IL2CPP_REGISTER_METHOD(0x018C3530, int32_t, CSharp_PinEventInStreamCache__SWIG_1, (app::String * jarg1, char16_t jarg2, char16_t jarg3))
     IL2CPP_REGISTER_METHOD(0x018C3600, int32_t, CSharp_UnpinEventInStreamCache__SWIG_0, (uint32_t jarg1))
     IL2CPP_REGISTER_METHOD(0x018C36A0, int32_t, CSharp_UnpinEventInStreamCache__SWIG_1, (app::String * jarg1))
     IL2CPP_REGISTER_METHOD(0x018C3750, int32_t, CSharp_GetBufferStatusForPinnedEvent__SWIG_0, (uint32_t jarg1, float* jarg2, int32_t* jarg3))
@@ -332,7 +333,7 @@ namespace app::classes::AkSoundEnginePINVOKE {
     IL2CPP_REGISTER_METHOD(0x018C51C0, int32_t, CSharp_SetMultiplePositions__SWIG_3, (uint64_t jarg1, void* jarg2, uint16_t jarg3))
     IL2CPP_REGISTER_METHOD(0x018C5280, int32_t, CSharp_SetScalingFactor, (uint64_t jarg1, float jarg2))
     IL2CPP_REGISTER_METHOD(0x018C5330, int32_t, CSharp_ClearBanks, ())
-    IL2CPP_REGISTER_METHOD(0x018C53C0, int32_t, CSharp_SetBankLoadIOSettings, (float jarg1, uint16_t jarg2))
+    IL2CPP_REGISTER_METHOD(0x018C53C0, int32_t, CSharp_SetBankLoadIOSettings, (float jarg1, char16_t jarg2))
     IL2CPP_REGISTER_METHOD(0x018C5470, int32_t, CSharp_LoadBank__SWIG_0, (app::String * jarg1, int32_t jarg2, uint32_t* jarg3))
     IL2CPP_REGISTER_METHOD(0x018C5530, int32_t, CSharp_LoadBank__SWIG_1, (uint32_t jarg1, int32_t jarg2))
     IL2CPP_REGISTER_METHOD(0x018C55D0, int32_t, CSharp_LoadBank__SWIG_2, (void* jarg1, uint32_t jarg2, uint32_t* jarg3))

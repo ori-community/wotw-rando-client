@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InvalidProgramException.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/InvalidProgramException.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::InvalidProgramException {
     IL2CPP_REGISTER_METHOD(0x02265EC0, void, ctor_1, (app::InvalidProgramException * this_ptr))

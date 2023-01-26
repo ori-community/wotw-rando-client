@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CollisionBasedPrefabSpawner.h>
+
+#include <Modloader/app/structs/CollisionBasedPrefabSpawner.h>
 #include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::CollisionBasedPrefabSpawner {
     IL2CPP_REGISTER_METHOD(0x00CC49C0, void, Awake, (app::CollisionBasedPrefabSpawner * this_ptr))

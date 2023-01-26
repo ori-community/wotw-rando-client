@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ApplicationQuit_1.h>
+
+#include <Modloader/app/structs/ApplicationQuit_1.h>
 
 namespace app::classes::ApplicationQuit {
     IL2CPP_REGISTER_METHOD(0x00505970, void, Awake, (app::ApplicationQuit_1 * this_ptr))

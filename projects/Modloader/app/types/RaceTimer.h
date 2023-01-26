@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/RaceTimer.h>
+#include <Modloader/app/structs/RaceTimer__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RaceTimer__Class.h>
-#include <Modloader/app/structs/RaceTimer.h>
 
 namespace app::classes::types {
     namespace RaceTimer {
-        namespace {
-            inline app::RaceTimer__Class* type_info_ref = nullptr;
+        inline app::RaceTimer__Class** type_info() {
+            static app::RaceTimer__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::RaceTimer__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::RaceTimer__Class** type_info = &type_info_ref;
         inline app::RaceTimer__Class* get_class() {
-            return il2cpp::get_class<app::RaceTimer__Class>(type_info, "", "RaceTimer");
+            return il2cpp::get_class<app::RaceTimer__Class>(type_info(), "", "RaceTimer");
         }
         inline app::RaceTimer* create() {
             return il2cpp::create_object<app::RaceTimer>(get_class());

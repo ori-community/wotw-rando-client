@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GPUProfilingMode.h>
+
+#include <Modloader/app/structs/GPUProfilingMode.h>
 
 namespace app::classes::Moon::Telemetry::Performance::profilers::GPUProfilingMode {
     IL2CPP_REGISTER_METHOD(0x00E49A10, bool, get_Enabled, ())

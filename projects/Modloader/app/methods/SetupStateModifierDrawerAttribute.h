@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/SetupStateModifierDrawerAttribute.h>
 
 namespace app::classes::SetupStateModifierDrawerAttribute {

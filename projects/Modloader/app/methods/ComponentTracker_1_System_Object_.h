@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/IComponentTracker_1_System_Object_.h>
 
 namespace app::classes::ComponentTracker_1_System_Object_ {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HoldingHands.h>
+
+#include <Modloader/app/structs/HoldingHands.h>
 
 namespace app::classes::RootMotion::Demos::HoldingHands {
     IL2CPP_REGISTER_METHOD(0x0221FBC0, void, Start, (app::HoldingHands * this_ptr))

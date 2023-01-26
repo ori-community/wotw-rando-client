@@ -1,27 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MonoBehaviour.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/MonoBehaviour.h>
 #include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Rect__Array.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Rect_.h>
-#include <Modloader/app/structs/Utility_MoveDirection__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Matrix4x4.h>
-#include <Modloader/app/structs/Object_1.h>
 #include <Modloader/app/structs/Component_1.h>
-#include <Modloader/app/structs/Utility.h>
-#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/HashSet_1_UberWaterReflectionView_Group_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/IList_1_System_Object_.h>
 #include <Modloader/app/structs/IList_1_UnityEngine_Material_.h>
-#include <Modloader/app/structs/RenderTarget.h>
 #include <Modloader/app/structs/List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
-#include <Modloader/app/structs/HashSet_1_UberWaterReflectionView_Group_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Rect_.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Rect__Array.h>
+#include <Modloader/app/structs/RenderTarget.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Utility.h>
+#include <Modloader/app/structs/Utility_MoveDirection__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Utility {
     IL2CPP_REGISTER_METHOD(0x013B1C70, void, Initialize, ())
@@ -29,7 +30,6 @@ namespace app::classes::Utility {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsPlaying, ())
     IL2CPP_REGISTER_METHOD(0x013B1F30, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x013B21A0, void, OnQuit, ())
-    IL2CPP_REGISTER_METHODINFO(0x0477B818, Utility_OnQuit__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x013B2240, void, DisableLate, (app::MonoBehaviour * target))
     IL2CPP_REGISTER_METHOD(0x013B2300, app::IEnumerator*, DisableLater, (app::MonoBehaviour * target))
     IL2CPP_REGISTER_METHOD(0x013B2450, app::String*, LowercaseFirstLetter, (app::String * s))
@@ -82,23 +82,14 @@ namespace app::classes::Utility {
     IL2CPP_REGISTER_METHOD(0x015E6CC0, void, Destroy_3, (app::Object * *obj))
     IL2CPP_REGISTER_METHOD(0x01539DE0, int32_t, EnumCount_1, ())
     IL2CPP_REGISTER_METHOD(0x015E6B90, void, Destroy_4, (app::IList_1_UnityEngine_Material_ * objects))
-    IL2CPP_REGISTER_METHODINFO(0x0471C408, Utility_Destroy_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E6D70, void, Swap_2, (app::RenderTarget * *a, app::RenderTarget** b))
-    IL2CPP_REGISTER_METHODINFO(0x04797598, Utility_Swap_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01539C20, int32_t, EnumCount_2, ())
-    IL2CPP_REGISTER_METHODINFO(0x0477BE90, Utility_EnumCount_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01539D00, int32_t, EnumCount_3, ())
-    IL2CPP_REGISTER_METHODINFO(0x047665D8, Utility_EnumCount_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01539C20, int32_t, EnumCount_4, ())
-    IL2CPP_REGISTER_METHODINFO(0x0476BFD8, Utility_EnumCount_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01539D00, int32_t, EnumCount_5, ())
-    IL2CPP_REGISTER_METHODINFO(0x04709D28, Utility_EnumCount_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01539C20, int32_t, EnumCount_6, ())
-    IL2CPP_REGISTER_METHODINFO(0x047264F8, Utility_EnumCount_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E6D70, void, Swap_3, (app::List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_ * *a, app::List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_** b))
-    IL2CPP_REGISTER_METHODINFO(0x04700CE0, Utility_Swap_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E6D70, void, Swap_4, (app::HashSet_1_UberWaterReflectionView_Group_ * *a, app::HashSet_1_UberWaterReflectionView_Group_** b))
-    IL2CPP_REGISTER_METHODINFO(0x04787640, Utility_Swap_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01539C20, int32_t, EnumCount_7, ())
     IL2CPP_REGISTER_METHOD(0x01539D00, int32_t, EnumCount_8, ())
 } // namespace app::classes::Utility

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/WeaponParameterMap__Class.h>
 #include <Modloader/app/structs/WeaponParameterMap.h>
 #include <Modloader/app/structs/WeaponParameterMap__Array.h>
+#include <Modloader/app/structs/WeaponParameterMap__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace WeaponParameterMap {
-        namespace {
-            inline app::WeaponParameterMap__Class* type_info_ref = nullptr;
+        inline app::WeaponParameterMap__Class** type_info() {
+            static app::WeaponParameterMap__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::WeaponParameterMap__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::WeaponParameterMap__Class** type_info = &type_info_ref;
         inline app::WeaponParameterMap__Class* get_class() {
-            return il2cpp::get_class<app::WeaponParameterMap__Class>(type_info, "", "WeaponParameterMap");
+            return il2cpp::get_class<app::WeaponParameterMap__Class>(type_info(), "", "WeaponParameterMap");
         }
         inline app::WeaponParameterMap* create() {
             return il2cpp::create_object<app::WeaponParameterMap>(get_class());

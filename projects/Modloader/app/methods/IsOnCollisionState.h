@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IsOnCollisionState.h>
+
+#include <Modloader/app/structs/IsOnCollisionState.h>
 #include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::IsOnCollisionState {

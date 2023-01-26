@@ -1,16 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationStream__Boxed.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
+
+#include <Modloader/app/structs/AnimationStream__Boxed.h>
 #include <Modloader/app/structs/AnimationHumanStream.h>
 #include <Modloader/app/structs/AnimationStream.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::Experimental::Animations::AnimationStream {
     IL2CPP_REGISTER_METHOD(0x001EBC90, uint32_t, get_animatorBindingsVersion, (app::AnimationStream__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00242880, bool, get_isValid, (app::AnimationStream__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00242890, void, CheckIsValid, (app::AnimationStream__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04704A78, AnimationStream_CheckIsValid__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002428A0, float, get_deltaTime, (app::AnimationStream__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00242900, app::Vector3, get_velocity, (app::AnimationStream__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00242990, app::Vector3, get_angularVelocity, (app::AnimationStream__Boxed * this_ptr))
@@ -18,7 +18,6 @@ namespace app::classes::UnityEngine::Experimental::Animations::AnimationStream {
     IL2CPP_REGISTER_METHOD(0x00242AB0, app::Quaternion, get_rootMotionRotation, (app::AnimationStream__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00242B40, bool, get_isHumanStream, (app::AnimationStream__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00242BA0, app::AnimationHumanStream, AsHuman, (app::AnimationStream__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471E1C0, AnimationStream_AsHuman__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00242CA0, int32_t, get_inputStreamCount, (app::AnimationStream__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00242D00, void, ReadSceneTransforms, (app::AnimationStream__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00242D60, void, WriteSceneTransforms, (app::AnimationStream__Boxed * this_ptr))

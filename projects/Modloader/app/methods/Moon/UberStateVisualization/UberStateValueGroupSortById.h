@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberStateValueGroupSortById.h>
+
+#include <Modloader/app/structs/UberStateValueGroupSortById.h>
 #include <Modloader/app/structs/UberStateValueGroup.h>
 
 namespace app::classes::Moon::UberStateVisualization::UberStateValueGroupSortById {

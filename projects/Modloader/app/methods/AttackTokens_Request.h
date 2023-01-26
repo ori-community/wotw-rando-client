@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttackTokens_Request__Boxed.h>
+
+#include <Modloader/app/structs/AttackTokens_Request__Boxed.h>
 #include <Modloader/app/structs/IAttackTokenHolder.h>
 
 namespace app::classes::AttackTokens_Request {

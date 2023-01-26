@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FaderB.h>
-#include <Modloader/app/structs/FaderB_State__Enum.h>
-#include <Modloader/app/structs/FaderAnimatorEntity_FaderType__Enum.h>
-#include <Modloader/app/structs/UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum.h>
+
+#include <Modloader/app/structs/FaderB.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/FaderAnimatorEntity_FaderType__Enum.h>
+#include <Modloader/app/structs/FaderB_State__Enum.h>
+#include <Modloader/app/structs/UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum.h>
 
 namespace app::classes::FaderB {
     IL2CPP_REGISTER_METHOD(0x00738690, float, get_EditorDebugValue, (app::FaderB * this_ptr))

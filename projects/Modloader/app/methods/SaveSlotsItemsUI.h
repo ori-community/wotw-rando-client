@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SaveSlotsItemsUI.h>
+
+#include <Modloader/app/structs/SaveSlotsItemsUI.h>
 
 namespace app::classes::SaveSlotsItemsUI {
     IL2CPP_REGISTER_METHOD(0x00926E20, void, Awake, (app::SaveSlotsItemsUI * this_ptr))

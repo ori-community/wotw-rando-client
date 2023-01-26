@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IActivator.h>
-#include <Modloader/app/structs/IMessage.h>
-#include <Modloader/app/structs/RemotingProxy.h>
+
+#include <Modloader/app/structs/IActivator.h>
 #include <Modloader/app/structs/ConstructionCall.h>
 #include <Modloader/app/structs/IConstructionCallMessage.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/IMessage.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/RemotingProxy.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Runtime::Remoting::Activation::ActivationServices {
     IL2CPP_REGISTER_METHOD(0x01A97860, app::IActivator*, get_ConstructionActivator, ())

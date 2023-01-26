@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostRecorder.h>
-#include <Modloader/app/structs/IGhostRecorderPlugin.h>
-#include <Modloader/app/structs/GhostPlayer.h>
+
+#include <Modloader/app/structs/GhostRecorder.h>
 #include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
+#include <Modloader/app/structs/GhostPlayer.h>
+#include <Modloader/app/structs/IGhostRecorderPlugin.h>
 #include <Modloader/app/structs/PreRecordingData.h>
 
 namespace app::classes::IGhostRecorderPlugin {

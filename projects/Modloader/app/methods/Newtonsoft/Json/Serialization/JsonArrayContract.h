@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/JsonArrayContract.h>
-#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
-#include <Modloader/app/structs/IWrappedCollection.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/IList.h>
+#include <Modloader/app/structs/IWrappedCollection.h>
+#include <Modloader/app/structs/JsonArrayContract.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonArrayContract {
     IL2CPP_REGISTER_METHOD(0x002FBD00, app::Type*, get_CollectionItemType, (app::JsonArrayContract * this_ptr))

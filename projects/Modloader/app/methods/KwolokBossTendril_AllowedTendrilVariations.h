@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_KwolokBossTendril_DurationType_.h>
+
+#include <Modloader/app/structs/List_1_KwolokBossTendril_DurationType_.h>
 #include <Modloader/app/structs/KwolokBossTendril_AllowedTendrilVariations.h>
 #include <Modloader/app/structs/List_1_KwolokBossTendril_VariationType_.h>
 

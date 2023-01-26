@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NameTable_Entry.h>
+
+#include <Modloader/app/structs/NameTable_Entry.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::NameTable_Entry {

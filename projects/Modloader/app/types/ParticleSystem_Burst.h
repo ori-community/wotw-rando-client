@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/ParticleSystem_Burst.h>
+#include <Modloader/app/structs/ParticleSystem_Burst__Array.h>
+#include <Modloader/app/structs/ParticleSystem_Burst__Boxed.h>
+#include <Modloader/app/structs/ParticleSystem_Burst__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ParticleSystem_Burst__Class.h>
-#include <Modloader/app/structs/ParticleSystem_Burst.h>
-#include <Modloader/app/structs/ParticleSystem_Burst__Boxed.h>
-#include <Modloader/app/structs/ParticleSystem_Burst__Array.h>
 
 namespace app::classes::types {
     namespace ParticleSystem_Burst {
-        namespace {
-            inline app::ParticleSystem_Burst__Class* type_info_ref = nullptr;
+        inline app::ParticleSystem_Burst__Class** type_info() {
+            static app::ParticleSystem_Burst__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ParticleSystem_Burst__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ParticleSystem_Burst__Class** type_info = &type_info_ref;
         inline app::ParticleSystem_Burst__Class* get_class() {
-            return il2cpp::get_nested_class<app::ParticleSystem_Burst__Class>(type_info, "UnityEngine", "ParticleSystem", "Burst");
+            return il2cpp::get_nested_class<app::ParticleSystem_Burst__Class>(type_info(), "UnityEngine", "ParticleSystem", "Burst");
         }
         inline app::ParticleSystem_Burst* create() {
             return il2cpp::create_object<app::ParticleSystem_Burst>(get_class());

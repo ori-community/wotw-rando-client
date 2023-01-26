@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/MoonRenderPipelineAsset_MaskErasingFixType__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_MaskErasingFixType__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MoonRenderPipelineAsset_MaskErasingFixType__Enum__Class.h>
-#include <Modloader/app/structs/MoonRenderPipelineAsset_MaskErasingFixType__Enum.h>
 
 namespace app::classes::types {
     namespace MoonRenderPipelineAsset_MaskErasingFixType__Enum {
-        namespace {
-            inline app::MoonRenderPipelineAsset_MaskErasingFixType__Enum__Class* type_info_ref = nullptr;
+        inline app::MoonRenderPipelineAsset_MaskErasingFixType__Enum__Class** type_info() {
+            static app::MoonRenderPipelineAsset_MaskErasingFixType__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::MoonRenderPipelineAsset_MaskErasingFixType__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::MoonRenderPipelineAsset_MaskErasingFixType__Enum__Class** type_info = &type_info_ref;
         inline app::MoonRenderPipelineAsset_MaskErasingFixType__Enum__Class* get_class() {
-            return il2cpp::get_nested_class<app::MoonRenderPipelineAsset_MaskErasingFixType__Enum__Class>(type_info, "Moon.Rendering", "MoonRenderPipelineAsset", "MaskErasingFixType");
+            return il2cpp::get_nested_class<app::MoonRenderPipelineAsset_MaskErasingFixType__Enum__Class>(type_info(), "Moon.Rendering", "MoonRenderPipelineAsset", "MaskErasingFixType");
         }
         inline app::MoonRenderPipelineAsset_MaskErasingFixType__Enum* create() {
             return il2cpp::create_object<app::MoonRenderPipelineAsset_MaskErasingFixType__Enum>(get_class());

@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SandWormLocomotion.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SandWormLocomotion_SpeedSetting__Enum.h>
-#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/EntityBehaviourNode.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Func_1_SandWormSandDigLocomotionBehaviour_SpeedEntry_.h>
-#include <Modloader/app/structs/EntityLocomotionTask.h>
+
+#include <Modloader/app/structs/SandWormLocomotion.h>
 #include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/Func_1_SandWormSandDigLocomotionBehaviour_SpeedEntry_.h>
+#include <Modloader/app/structs/SandWormLocomotion_SpeedSetting__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SandWormLocomotion {
     IL2CPP_REGISTER_METHOD(0x00C1ECF0, float, get_LastAvoidancePower, (app::SandWormLocomotion * this_ptr))
@@ -42,7 +43,6 @@ namespace app::classes::SandWormLocomotion {
     IL2CPP_REGISTER_METHOD(0x00C1F280, void, SetSpeedSettings, (app::SandWormLocomotion * this_ptr, app::SandWormLocomotion_SpeedSetting__Enum setting))
     IL2CPP_REGISTER_METHOD(0x00C1F2B0, void, SetSpeedSettingsOverride, (app::SandWormLocomotion * this_ptr, app::Func_1_SandWormSandDigLocomotionBehaviour_SpeedEntry_* sand_dig_speed_settings_override))
     IL2CPP_REGISTER_METHOD(0x00C1F2E0, void, ConfigureStateMachine, (app::SandWormLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04738430, SandWormLocomotion_ConfigureStateMachine__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0071F210, app::EntityLocomotionTask*, get_DefaultFSMState, (app::SandWormLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C1F330, void, OnEntityInitialization, (app::SandWormLocomotion * this_ptr, app::Entity* entity))
     IL2CPP_REGISTER_METHOD(0x00C1F430, void, OnEntityReset, (app::SandWormLocomotion * this_ptr))

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LizardEntity.h>
-#include <Modloader/app/structs/LizardSpawnType__Enum.h>
-#include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/LizardEntity.h>
 #include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/LizardSpawnType__Enum.h>
 #include <Modloader/app/structs/SelectableCategory__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LizardEntity {
     IL2CPP_REGISTER_METHOD(0x00FAC8C0, bool, get_IsInOneTwoThreeAttackRange, (app::LizardEntity * this_ptr))
@@ -35,11 +36,8 @@ namespace app::classes::LizardEntity {
     IL2CPP_REGISTER_METHOD(0x00FADAE0, void, OnFixedUpdate, (app::LizardEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FADBC0, void, ResolveDamage, (app::LizardEntity * this_ptr, app::DamageResult* damage_result))
     IL2CPP_REGISTER_METHOD(0x00FADCE0, void, OnAnyLizardHit, (app::LizardEntity * this_ptr, app::LizardEntity* lizard))
-    IL2CPP_REGISTER_METHODINFO(0x04721FB0, LizardEntity_OnAnyLizardHit__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FADDF0, void, TriggerDodgeEvent, (app::LizardEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04744D90, LizardEntity_TriggerDodgeEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FADF50, void, OnCeilingOrWallCollision, (app::LizardEntity * this_ptr, app::Vector3 normal, app::Collider* collider))
-    IL2CPP_REGISTER_METHODINFO(0x04796260, LizardEntity_OnCeilingOrWallCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FAE0C0, app::Vector3, ModifyKickbackForce, (app::LizardEntity * this_ptr, app::Vector3 force, app::Damage* damage, bool apply_death_modification))
     IL2CPP_REGISTER_METHOD(0x00FAE250, void, OnAttackEnd, (app::LizardEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0043D9A0, app::SelectableCategory__Enum, get_Category, (app::LizardEntity * this_ptr))

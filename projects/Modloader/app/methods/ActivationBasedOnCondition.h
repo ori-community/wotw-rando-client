@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActivationBasedOnCondition.h>
+
+#include <Modloader/app/structs/ActivationBasedOnCondition.h>
 
 namespace app::classes::ActivationBasedOnCondition {
     IL2CPP_REGISTER_METHOD(0x004C8F60, void, Awake, (app::ActivationBasedOnCondition * this_ptr))

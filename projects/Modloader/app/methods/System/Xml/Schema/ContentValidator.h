@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ContentValidator.h>
-#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
-#include <Modloader/app/structs/ValidationState.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
+
+#include <Modloader/app/structs/ContentValidator.h>
 #include <Modloader/app/structs/ArrayList.h>
-#include <Modloader/app/structs/XmlSchemaSet.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ValidationState.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
 #include <Modloader/app/structs/XmlSchemaParticle.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
 
 namespace app::classes::System::Xml::Schema::ContentValidator {
     IL2CPP_REGISTER_METHOD(0x0234D420, void, ctor_1, (app::ContentValidator * this_ptr, app::XmlSchemaContentType__Enum content_type))

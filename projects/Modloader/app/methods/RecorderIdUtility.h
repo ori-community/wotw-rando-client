@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object_1.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Component_1.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IRecordable.h>
+#include <Modloader/app/structs/Object_1.h>
 #include <Modloader/app/structs/RecorderIdUtility.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RecorderIdUtility {
     IL2CPP_REGISTER_METHOD(0x008F0F70, app::String*, GetAssetGuid, (app::Object_1 * asset))

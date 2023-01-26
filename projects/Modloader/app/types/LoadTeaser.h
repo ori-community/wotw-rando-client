@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/LoadTeaser.h>
+#include <Modloader/app/structs/LoadTeaser__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LoadTeaser__Class.h>
-#include <Modloader/app/structs/LoadTeaser.h>
 
 namespace app::classes::types {
     namespace LoadTeaser {
-        namespace {
-            inline app::LoadTeaser__Class* type_info_ref = nullptr;
+        inline app::LoadTeaser__Class** type_info() {
+            static app::LoadTeaser__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LoadTeaser__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LoadTeaser__Class** type_info = &type_info_ref;
         inline app::LoadTeaser__Class* get_class() {
-            return il2cpp::get_class<app::LoadTeaser__Class>(type_info, "", "LoadTeaser");
+            return il2cpp::get_class<app::LoadTeaser__Class>(type_info(), "", "LoadTeaser");
         }
         inline app::LoadTeaser* create() {
             return il2cpp::create_object<app::LoadTeaser>(get_class());

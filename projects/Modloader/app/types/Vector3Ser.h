@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Vector3Ser__Class.h>
 #include <Modloader/app/structs/Vector3Ser.h>
 #include <Modloader/app/structs/Vector3Ser__Array.h>
+#include <Modloader/app/structs/Vector3Ser__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Vector3Ser {
-        inline app::Vector3Ser__Class** type_info = (app::Vector3Ser__Class**)(modloader::win::memory::resolve_rva(0x04704B40));
+        inline app::Vector3Ser__Class** type_info() {
+            static app::Vector3Ser__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Vector3Ser__Class**)(modloader::win::memory::resolve_rva(0x04704B40));
+            }
+            return cache;
+        }
         inline app::Vector3Ser__Class* get_class() {
-            return il2cpp::get_class<app::Vector3Ser__Class>(type_info, "", "Vector3Ser");
+            return il2cpp::get_class<app::Vector3Ser__Class>(type_info(), "", "Vector3Ser");
         }
         inline app::Vector3Ser* create() {
             return il2cpp::create_object<app::Vector3Ser>(get_class());

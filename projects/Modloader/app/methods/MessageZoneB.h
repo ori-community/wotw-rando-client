@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MessageZoneB.h>
+
+#include <Modloader/app/structs/MessageZoneB.h>
 #include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/SelectableCategory__Enum.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>

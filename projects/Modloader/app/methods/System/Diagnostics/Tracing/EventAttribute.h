@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EventAttribute.h>
-#include <Modloader/app/structs/EventLevel__Enum.h>
+
+#include <Modloader/app/structs/EventAttribute.h>
+#include <Modloader/app/structs/EventActivityOptions__Enum.h>
 #include <Modloader/app/structs/EventKeywords__Enum.h>
+#include <Modloader/app/structs/EventLevel__Enum.h>
 #include <Modloader/app/structs/EventOpcode__Enum.h>
+#include <Modloader/app/structs/EventTags__Enum.h>
 #include <Modloader/app/structs/EventTask__Enum.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/EventTags__Enum.h>
-#include <Modloader/app/structs/EventActivityOptions__Enum.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EventAttribute {
     IL2CPP_REGISTER_METHOD(0x0174A9D0, void, ctor, (app::EventAttribute * this_ptr, int32_t event_id))

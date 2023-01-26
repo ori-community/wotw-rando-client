@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AsyncRaycast_Manager.h>
+
+#include <Modloader/app/structs/AsyncRaycast_Manager.h>
 #include <Modloader/app/structs/AsyncRaycast.h>
 
 namespace app::classes::AsyncRaycast_Manager {

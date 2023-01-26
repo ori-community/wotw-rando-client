@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InteractionTarget.h>
+
+#include <Modloader/app/structs/InteractionTarget.h>
 #include <Modloader/app/structs/InteractionObject_WeightCurve_Type__Enum.h>
 #include <Modloader/app/structs/Vector3.h>
 

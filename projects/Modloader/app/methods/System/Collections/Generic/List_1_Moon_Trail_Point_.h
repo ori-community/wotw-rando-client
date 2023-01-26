@@ -1,37 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Trail_Point.h>
-#include <Modloader/app/structs/List_1_Moon_Trail_Point_.h>
-#include <Modloader/app/structs/IEnumerable_1_Moon_Trail_Point_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Trail_Point_.h>
-#include <Modloader/app/structs/IComparer_1_Moon_Trail_Point_.h>
-#include <Modloader/app/structs/Trail_Point__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Moon_Trail_Point_.h>
+
+#include <Modloader/app/structs/Trail_Point.h>
 #include <Modloader/app/structs/Action_1_Moon_Trail_Point_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Trail_Point_.h>
-#include <Modloader/app/structs/IEnumerator_1_Moon_Trail_Point_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_Moon_Trail_Point_.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Trail_Point_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Trail_Point_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Trail_Point_.h>
+#include <Modloader/app/structs/List_1_Moon_Trail_Point_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Trail_Point_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Moon_Trail_Point_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Trail_Point_.h>
+#include <Modloader/app/structs/Trail_Point__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Trail_Point_ {
     IL2CPP_REGISTER_METHOD(0x02DC9F90, app::Trail_Point, get_Item, (app::List_1_Moon_Trail_Point_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04759F70, List_1_Moon_Trail_Point__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_Moon_Trail_Point_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04722D50, List_1_Moon_Trail_Point__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_Moon_Trail_Point_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472CEC0, List_1_Moon_Trail_Point__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02DC9FF0, void, set_Item, (app::List_1_Moon_Trail_Point_ * this_ptr, int32_t index, app::Trail_Point value))
-    IL2CPP_REGISTER_METHODINFO(0x0471A928, List_1_Moon_Trail_Point__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02DCA400, void, Add, (app::List_1_Moon_Trail_Point_ * this_ptr, app::Trail_Point item))
-    IL2CPP_REGISTER_METHODINFO(0x0473C730, List_1_Moon_Trail_Point__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02DCC180, void, RemoveAt, (app::List_1_Moon_Trail_Point_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x047580C8, List_1_Moon_Trail_Point__RemoveAt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EABD0, void, RemoveRange, (app::List_1_Moon_Trail_Point_ * this_ptr, int32_t index, int32_t count))
-    IL2CPP_REGISTER_METHODINFO(0x047717B0, List_1_Moon_Trail_Point__RemoveRange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_Moon_Trail_Point_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04770170, List_1_Moon_Trail_Point___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_Moon_Trail_Point_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02DC9980, void, ctor_3, (app::List_1_Moon_Trail_Point_ * this_ptr, app::IEnumerable_1_Moon_Trail_Point_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_Moon_Trail_Point_ * this_ptr))

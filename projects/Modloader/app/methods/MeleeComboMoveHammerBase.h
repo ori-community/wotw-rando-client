@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MeleeComboMoveHammerBase.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/MeleeComboMoveHammerBase.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
-#include <Modloader/app/structs/SeinComboHandler.h>
-#include <Modloader/app/structs/MeleeWeapon.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IAttackable.h>
-#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MeleeComboMoveHammerBase {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Awake, (app::MeleeComboMoveHammerBase * this_ptr))
@@ -32,7 +33,6 @@ namespace app::classes::MeleeComboMoveHammerBase {
     IL2CPP_REGISTER_METHOD(0x01390830, void, StopTimeline, (app::MeleeComboMoveHammerBase * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x013908F0, void, InterruptMove, (app::MeleeComboMoveHammerBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01390940, void, OnBlastStartEvent, (app::MeleeComboMoveHammerBase * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04780C80, MeleeComboMoveHammerBase_OnBlastStartEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01390A50, void, DoBlastRadius, (app::MeleeComboMoveHammerBase * this_ptr, app::Vector3 origin, float blast_radius, float blast_damage, float kickback_strength, app::DamageWeight__Enum weight))
     IL2CPP_REGISTER_METHOD(0x01391240, bool, CanApplyBlastToAttackable, (app::MeleeComboMoveHammerBase * this_ptr, app::IAttackable* attackable))
     IL2CPP_REGISTER_METHOD(0x01391360, void, ctor, (app::MeleeComboMoveHammerBase * this_ptr))

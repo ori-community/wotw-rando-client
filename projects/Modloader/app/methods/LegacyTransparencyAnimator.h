@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/LegacyTransparencyAnimator.h>
-#include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
+#include <Modloader/app/structs/LegacyTransparencyAnimator_AnimateMode__Enum.h>
 #include <Modloader/app/structs/Renderer.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/LegacyTransparencyAnimator_AnimateMode__Enum.h>
+#include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
 
 namespace app::classes::LegacyTransparencyAnimator {
     IL2CPP_REGISTER_METHOD(0x011291F0, app::GameObject*, get_EffectiveRoot, (app::LegacyTransparencyAnimator * this_ptr))

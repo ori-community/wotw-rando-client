@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaContent.h>
+
+#include <Modloader/app/structs/XmlSchemaContent.h>
 #include <Modloader/app/structs/XmlSchemaSimpleContent.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaSimpleContent {

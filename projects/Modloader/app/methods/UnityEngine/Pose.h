@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Pose__Boxed.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/Pose__Boxed.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Pose.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::Pose {
     IL2CPP_REGISTER_METHOD(0x001FE8F0, void, ctor, (app::Pose__Boxed * this_ptr, app::Vector3 position, app::Quaternion rotation))

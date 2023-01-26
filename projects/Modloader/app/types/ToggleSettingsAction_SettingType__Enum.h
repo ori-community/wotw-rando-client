@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/ToggleSettingsAction_SettingType__Enum.h>
+#include <Modloader/app/structs/ToggleSettingsAction_SettingType__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ToggleSettingsAction_SettingType__Enum__Class.h>
-#include <Modloader/app/structs/ToggleSettingsAction_SettingType__Enum.h>
 
 namespace app::classes::types {
     namespace ToggleSettingsAction_SettingType__Enum {
-        namespace {
-            inline app::ToggleSettingsAction_SettingType__Enum__Class* type_info_ref = nullptr;
+        inline app::ToggleSettingsAction_SettingType__Enum__Class** type_info() {
+            static app::ToggleSettingsAction_SettingType__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ToggleSettingsAction_SettingType__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ToggleSettingsAction_SettingType__Enum__Class** type_info = &type_info_ref;
         inline app::ToggleSettingsAction_SettingType__Enum__Class* get_class() {
-            return il2cpp::get_nested_class<app::ToggleSettingsAction_SettingType__Enum__Class>(type_info, "", "ToggleSettingsAction", "SettingType");
+            return il2cpp::get_nested_class<app::ToggleSettingsAction_SettingType__Enum__Class>(type_info(), "", "ToggleSettingsAction", "SettingType");
         }
         inline app::ToggleSettingsAction_SettingType__Enum* create() {
             return il2cpp::create_object<app::ToggleSettingsAction_SettingType__Enum>(get_class());

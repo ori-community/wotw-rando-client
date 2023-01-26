@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharEntityEncoderFallback.h>
+
+#include <Modloader/app/structs/CharEntityEncoderFallback.h>
 #include <Modloader/app/structs/EncoderFallbackBuffer.h>
 #include <Modloader/app/structs/Int32__Array.h>
 

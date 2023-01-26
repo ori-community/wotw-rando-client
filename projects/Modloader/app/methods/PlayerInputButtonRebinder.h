@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerInputButtonRebinder.h>
+
+#include <Modloader/app/structs/PlayerInputButtonRebinder.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/Input_Command__Enum.h>
@@ -22,6 +23,5 @@ namespace app::classes::PlayerInputButtonRebinder {
     IL2CPP_REGISTER_METHOD(0x0141DFC0, void, OnEnable, (app::PlayerInputButtonRebinder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0141E150, void, OnDisable, (app::PlayerInputButtonRebinder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0141E2E0, void, OnGameReset, (app::PlayerInputButtonRebinder * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047697E8, PlayerInputButtonRebinder_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0141E6B0, void, ctor, (app::PlayerInputButtonRebinder * this_ptr))
 } // namespace app::classes::PlayerInputButtonRebinder

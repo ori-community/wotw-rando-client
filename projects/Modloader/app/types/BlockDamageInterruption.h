@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/BlockDamageInterruption__Class.h>
 #include <Modloader/app/structs/BlockDamageInterruption.h>
 #include <Modloader/app/structs/BlockDamageInterruption__Array.h>
+#include <Modloader/app/structs/BlockDamageInterruption__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace BlockDamageInterruption {
-        namespace {
-            inline app::BlockDamageInterruption__Class* type_info_ref = nullptr;
+        inline app::BlockDamageInterruption__Class** type_info() {
+            static app::BlockDamageInterruption__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::BlockDamageInterruption__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::BlockDamageInterruption__Class** type_info = &type_info_ref;
         inline app::BlockDamageInterruption__Class* get_class() {
-            return il2cpp::get_class<app::BlockDamageInterruption__Class>(type_info, "Moon.Timeline", "BlockDamageInterruption");
+            return il2cpp::get_class<app::BlockDamageInterruption__Class>(type_info(), "Moon.Timeline", "BlockDamageInterruption");
         }
         inline app::BlockDamageInterruption* create() {
             return il2cpp::create_object<app::BlockDamageInterruption>(get_class());

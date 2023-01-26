@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LeftRightTimeline__Class.h>
 #include <Modloader/app/structs/LeftRightTimeline.h>
 #include <Modloader/app/structs/LeftRightTimeline__Boxed.h>
+#include <Modloader/app/structs/LeftRightTimeline__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace LeftRightTimeline {
-        namespace {
-            inline app::LeftRightTimeline__Class* type_info_ref = nullptr;
+        inline app::LeftRightTimeline__Class** type_info() {
+            static app::LeftRightTimeline__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LeftRightTimeline__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LeftRightTimeline__Class** type_info = &type_info_ref;
         inline app::LeftRightTimeline__Class* get_class() {
-            return il2cpp::get_class<app::LeftRightTimeline__Class>(type_info, "", "LeftRightTimeline");
+            return il2cpp::get_class<app::LeftRightTimeline__Class>(type_info(), "", "LeftRightTimeline");
         }
         inline app::LeftRightTimeline* create() {
             return il2cpp::create_object<app::LeftRightTimeline>(get_class());

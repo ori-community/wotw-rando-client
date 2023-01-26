@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_BlockableLaser_ActivationTimeslicer_Request___Boxed.h>
-#include <Modloader/app/structs/List_1_BlockableLaser_ActivationTimeslicer_Request_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_BlockableLaser_ActivationTimeslicer_Request___Boxed.h>
 #include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request.h>
+#include <Modloader/app/structs/List_1_BlockableLaser_ActivationTimeslicer_Request_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_BlockableLaser_ActivationTimeslicer_Request_ {

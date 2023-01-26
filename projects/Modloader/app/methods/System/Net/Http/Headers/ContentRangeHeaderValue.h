@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ContentRangeHeaderValue.h>
+
+#include <Modloader/app/structs/ContentRangeHeaderValue.h>
 #include <Modloader/app/structs/Nullable_1_Int64_.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::Http::Headers::ContentRangeHeaderValue {
     IL2CPP_REGISTER_METHOD(0x02D067B0, void, ctor, (app::ContentRangeHeaderValue * this_ptr))
@@ -18,6 +19,5 @@ namespace app::classes::System::Net::Http::Headers::ContentRangeHeaderValue {
     IL2CPP_REGISTER_METHOD(0x02D06840, bool, Equals, (app::ContentRangeHeaderValue * this_ptr, app::Object* obj))
     IL2CPP_REGISTER_METHOD(0x02D06AD0, int32_t, GetHashCode, (app::ContentRangeHeaderValue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02D06C40, bool, TryParse, (app::String * input, app::ContentRangeHeaderValue** parsed_value))
-    IL2CPP_REGISTER_METHODINFO(0x047533D8, ContentRangeHeaderValue_TryParse__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D07380, app::String*, ToString, (app::ContentRangeHeaderValue * this_ptr))
 } // namespace app::classes::System::Net::Http::Headers::ContentRangeHeaderValue

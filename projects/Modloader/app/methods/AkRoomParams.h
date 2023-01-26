@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkRoomParams.h>
+
+#include <Modloader/app/structs/AkRoomParams.h>
 #include <Modloader/app/structs/AkVector.h>
 
 namespace app::classes::AkRoomParams {

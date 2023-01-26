@@ -18,7 +18,7 @@ struct __declspec(align(8)) TerrainUtility_TerrainMap__Fields {
 #endif
 #if !defined(IL2CPP_STRUCT_TerrainUtility_TerrainMap__Fields_FWDDECL)
 #define IL2CPP_STRUCT_TerrainUtility_TerrainMap__Fields_FWDDECL
-#include <Modloader/app/structs/Dictionary_2_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_TileCoord_UnityEngine_Terrain_.h>
+#include <Modloader/app/structs/Dictionary_2_UnityEngin_Experiment_TerrainA_TerrainUtili_TerrainM_TileCoo_UnityEngi_Terra_.h>
 #endif
 #undef IL2CPP_STRUCT_TerrainUtility_TerrainMap__Fields_INITIALIZING
 #if !defined(IL2CPP_STRUCT_TerrainUtility_TerrainMap__Fields_DEFINED) && !defined(IL2CPP_STRUCT_TerrainUtility_TerrainMap__Fields_FWDDECL)

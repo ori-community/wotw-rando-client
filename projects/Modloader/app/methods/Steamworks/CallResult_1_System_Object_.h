@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SteamAPICall_t.h>
+
+#include <Modloader/app/structs/SteamAPICall_t.h>
 #include <Modloader/app/structs/CallResult_1_System_Object_.h>
 #include <Modloader/app/structs/CallResult_1_T_APIDispatchDelegate_System_Object_.h>
 
@@ -13,7 +14,6 @@ namespace app::classes::Steamworks::CallResult_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x01D1AAD0, void, Finalize, (app::CallResult_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D1AB80, void, Dispose, (app::CallResult_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D1AC90, void, Set, (app::CallResult_1_System_Object_ * this_ptr, app::SteamAPICall_t h_a_p_i_call, app::CallResult_1_T_APIDispatchDelegate_System_Object_* func))
-    IL2CPP_REGISTER_METHODINFO(0x04736C08, CallResult_1_System_Object__Set__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D1AE70, bool, IsActive, (app::CallResult_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D1AF30, void, Cancel, (app::CallResult_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D1B050, void, SetGameserverFlag, (app::CallResult_1_System_Object_ * this_ptr))

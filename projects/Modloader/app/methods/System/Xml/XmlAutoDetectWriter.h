@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlAutoDetectWriter.h>
-#include <Modloader/app/structs/XmlWriterSettings.h>
-#include <Modloader/app/structs/TextWriter.h>
+
+#include <Modloader/app/structs/XmlAutoDetectWriter.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
 #include <Modloader/app/structs/Stream.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Char__Array.h>
-#include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/IXmlNamespaceResolver.h>
-#include <Modloader/app/structs/XmlStandalone__Enum.h>
+#include <Modloader/app/structs/TextWriter.h>
 #include <Modloader/app/structs/XmlOutputMethod__Enum.h>
+#include <Modloader/app/structs/XmlStandalone__Enum.h>
+#include <Modloader/app/structs/XmlWriterSettings.h>
 
 namespace app::classes::System::Xml::XmlAutoDetectWriter {
     IL2CPP_REGISTER_METHOD(0x0195DDC0, void, ctor_1, (app::XmlAutoDetectWriter * this_ptr, app::XmlWriterSettings* writer_settings))
@@ -28,8 +29,8 @@ namespace app::classes::System::Xml::XmlAutoDetectWriter {
     IL2CPP_REGISTER_METHOD(0x0195E400, void, WriteRaw_1, (app::XmlAutoDetectWriter * this_ptr, app::Char__Array* buffer, int32_t index, int32_t count))
     IL2CPP_REGISTER_METHOD(0x0195E440, void, WriteRaw_2, (app::XmlAutoDetectWriter * this_ptr, app::String* data))
     IL2CPP_REGISTER_METHOD(0x0195E4A0, void, WriteEntityRef, (app::XmlAutoDetectWriter * this_ptr, app::String* name))
-    IL2CPP_REGISTER_METHOD(0x0195E500, void, WriteCharEntity, (app::XmlAutoDetectWriter * this_ptr, uint16_t ch))
-    IL2CPP_REGISTER_METHOD(0x0195E560, void, WriteSurrogateCharEntity, (app::XmlAutoDetectWriter * this_ptr, uint16_t low_char, uint16_t high_char))
+    IL2CPP_REGISTER_METHOD(0x0195E500, void, WriteCharEntity, (app::XmlAutoDetectWriter * this_ptr, char16_t ch))
+    IL2CPP_REGISTER_METHOD(0x0195E560, void, WriteSurrogateCharEntity, (app::XmlAutoDetectWriter * this_ptr, char16_t low_char, char16_t high_char))
     IL2CPP_REGISTER_METHOD(0x0195E5D0, void, WriteBase64, (app::XmlAutoDetectWriter * this_ptr, app::Byte__Array* buffer, int32_t index, int32_t count))
     IL2CPP_REGISTER_METHOD(0x0195E650, void, WriteBinHex, (app::XmlAutoDetectWriter * this_ptr, app::Byte__Array* buffer, int32_t index, int32_t count))
     IL2CPP_REGISTER_METHOD(0x0195E6D0, void, Close, (app::XmlAutoDetectWriter * this_ptr))

@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/HammerTrail_TrailPoint.h>
+#include <Modloader/app/structs/HammerTrail_TrailPoint__Array.h>
+#include <Modloader/app/structs/HammerTrail_TrailPoint__Boxed.h>
+#include <Modloader/app/structs/HammerTrail_TrailPoint__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/HammerTrail_TrailPoint__Class.h>
-#include <Modloader/app/structs/HammerTrail_TrailPoint.h>
-#include <Modloader/app/structs/HammerTrail_TrailPoint__Boxed.h>
-#include <Modloader/app/structs/HammerTrail_TrailPoint__Array.h>
 
 namespace app::classes::types {
     namespace HammerTrail_TrailPoint {
-        namespace {
-            inline app::HammerTrail_TrailPoint__Class* type_info_ref = nullptr;
+        inline app::HammerTrail_TrailPoint__Class** type_info() {
+            static app::HammerTrail_TrailPoint__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::HammerTrail_TrailPoint__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::HammerTrail_TrailPoint__Class** type_info = &type_info_ref;
         inline app::HammerTrail_TrailPoint__Class* get_class() {
-            return il2cpp::get_nested_class<app::HammerTrail_TrailPoint__Class>(type_info, "", "HammerTrail", "TrailPoint");
+            return il2cpp::get_nested_class<app::HammerTrail_TrailPoint__Class>(type_info(), "", "HammerTrail", "TrailPoint");
         }
         inline app::HammerTrail_TrailPoint* create() {
             return il2cpp::create_object<app::HammerTrail_TrailPoint>(get_class());

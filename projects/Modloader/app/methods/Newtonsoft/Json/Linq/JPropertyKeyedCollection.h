@@ -1,16 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JPropertyKeyedCollection.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/JToken.h>
+
+#include <Modloader/app/structs/JPropertyKeyedCollection.h>
 #include <Modloader/app/structs/ICollection_1_System_String_.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JPropertyKeyedCollection {
     IL2CPP_REGISTER_METHOD(0x01F0EA40, void, ctor, (app::JPropertyKeyedCollection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F0EBB0, void, AddKey, (app::JPropertyKeyedCollection * this_ptr, app::String* key, app::JToken* item))
     IL2CPP_REGISTER_METHOD(0x01F0EC80, void, ClearItems, (app::JPropertyKeyedCollection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F0ED60, bool, Contains, (app::JPropertyKeyedCollection * this_ptr, app::String* key))
-    IL2CPP_REGISTER_METHODINFO(0x04769460, JPropertyKeyedCollection_Contains__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F0EE60, void, EnsureDictionary, (app::JPropertyKeyedCollection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F0F010, app::String*, GetKeyForItem, (app::JPropertyKeyedCollection * this_ptr, app::JToken* item))
     IL2CPP_REGISTER_METHOD(0x01F0F120, void, InsertItem, (app::JPropertyKeyedCollection * this_ptr, int32_t index, app::JToken* item))

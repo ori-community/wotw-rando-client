@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Enum__Array.h>
-#include <Modloader/app/structs/NightCrawlerChaseIntroController.h>
+
+#include <Modloader/app/structs/Enum__Array.h>
 #include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/NightCrawlerChaseIntroController.h>
 
 namespace app::classes::NightCrawlerChaseIntroController {
     IL2CPP_REGISTER_METHOD(0x00603BC0, app::Enum__Array*, GetEntries, (app::NightCrawlerChaseIntroController * this_ptr))

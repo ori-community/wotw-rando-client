@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AnimationParameter_Instance__Class.h>
 #include <Modloader/app/structs/AnimationParameter_Instance.h>
 #include <Modloader/app/structs/AnimationParameter_Instance__Array.h>
+#include <Modloader/app/structs/AnimationParameter_Instance__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace AnimationParameter_Instance {
-        namespace {
-            inline app::AnimationParameter_Instance__Class* type_info_ref = nullptr;
+        inline app::AnimationParameter_Instance__Class** type_info() {
+            static app::AnimationParameter_Instance__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AnimationParameter_Instance__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AnimationParameter_Instance__Class** type_info = &type_info_ref;
         inline app::AnimationParameter_Instance__Class* get_class() {
-            return il2cpp::get_nested_class<app::AnimationParameter_Instance__Class>(type_info, "Moon", "AnimationParameter", "Instance");
+            return il2cpp::get_nested_class<app::AnimationParameter_Instance__Class>(type_info(), "Moon", "AnimationParameter", "Instance");
         }
         inline app::AnimationParameter_Instance* create() {
             return il2cpp::create_object<app::AnimationParameter_Instance>(get_class());

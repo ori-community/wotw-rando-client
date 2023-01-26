@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CursorRendererOverlay.h>
+
+#include <Modloader/app/structs/CursorRendererOverlay.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::CursorRendererOverlay {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, CursorChange, (app::CursorRendererOverlay * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EquipmentUIInventoryItem.h>
+
+#include <Modloader/app/structs/EquipmentUIInventoryItem.h>
 
 namespace app::classes::EquipmentUIInventoryItem {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SetSelected, (app::EquipmentUIInventoryItem * this_ptr, bool selected))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MicroProfiler_Timer.h>
+
+#include <Modloader/app/structs/MicroProfiler_Timer.h>
 
 namespace app::classes::MicroProfiler_Timer {
     IL2CPP_REGISTER_METHOD(0x031579B0, void, Start, (app::MicroProfiler_Timer * this_ptr))

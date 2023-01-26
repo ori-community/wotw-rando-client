@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FuncCondition_1.h>
+
+#include <Modloader/app/structs/FuncCondition_1.h>
 #include <Modloader/app/structs/Func_1_Boolean_.h>
 #include <Modloader/app/structs/IContext.h>
 

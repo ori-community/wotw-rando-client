@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimatorOverrideController_OnOverrideControllerDirtyCallback.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/IAsyncResult.h>
+
+#include <Modloader/app/structs/AnimatorOverrideController_OnOverrideControllerDirtyCallback.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::AnimatorOverrideController_OnOverrideControllerDirtyCallback {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::AnimatorOverrideController_OnOverrideControllerDirtyCallback * this_ptr, app::Object* object, void* method_1))

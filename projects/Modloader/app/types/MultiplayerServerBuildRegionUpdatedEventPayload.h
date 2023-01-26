@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/MultiplayerServerBuildRegionUpdatedEventPayload.h>
+#include <Modloader/app/structs/MultiplayerServerBuildRegionUpdatedEventPayload__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MultiplayerServerBuildRegionUpdatedEventPayload__Class.h>
-#include <Modloader/app/structs/MultiplayerServerBuildRegionUpdatedEventPayload.h>
 
 namespace app::classes::types {
     namespace MultiplayerServerBuildRegionUpdatedEventPayload {
-        namespace {
-            inline app::MultiplayerServerBuildRegionUpdatedEventPayload__Class* type_info_ref = nullptr;
+        inline app::MultiplayerServerBuildRegionUpdatedEventPayload__Class** type_info() {
+            static app::MultiplayerServerBuildRegionUpdatedEventPayload__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::MultiplayerServerBuildRegionUpdatedEventPayload__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::MultiplayerServerBuildRegionUpdatedEventPayload__Class** type_info = &type_info_ref;
         inline app::MultiplayerServerBuildRegionUpdatedEventPayload__Class* get_class() {
-            return il2cpp::get_class<app::MultiplayerServerBuildRegionUpdatedEventPayload__Class>(type_info, "PlayFab.PlayStreamModels", "MultiplayerServerBuildRegionUpdatedEventPayload");
+            return il2cpp::get_class<app::MultiplayerServerBuildRegionUpdatedEventPayload__Class>(type_info(), "PlayFab.PlayStreamModels", "MultiplayerServerBuildRegionUpdatedEventPayload");
         }
         inline app::MultiplayerServerBuildRegionUpdatedEventPayload* create() {
             return il2cpp::create_object<app::MultiplayerServerBuildRegionUpdatedEventPayload>(get_class());

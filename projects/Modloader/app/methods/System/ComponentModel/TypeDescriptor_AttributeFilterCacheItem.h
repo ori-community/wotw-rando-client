@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TypeDescriptor_AttributeFilterCacheItem.h>
+
+#include <Modloader/app/structs/TypeDescriptor_AttributeFilterCacheItem.h>
 #include <Modloader/app/structs/Attribute__Array.h>
 #include <Modloader/app/structs/ICollection.h>
 

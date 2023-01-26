@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoulFlame.h>
+
+#include <Modloader/app/structs/SoulFlame.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SoulFlame {
@@ -10,7 +11,6 @@ namespace app::classes::SoulFlame {
     IL2CPP_REGISTER_METHOD(0x00EE3BE0, void, Awake, (app::SoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EE3DD0, void, OnDestroy, (app::SoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009886D0, void, OnGameSerializeLoad, (app::SoulFlame * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473E220, SoulFlame_OnGameSerializeLoad__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EE3F60, void, OnRekindle, (app::SoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EE4190, void, FixedUpdate, (app::SoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00647DD0, void, OnDisable, (app::SoulFlame * this_ptr))

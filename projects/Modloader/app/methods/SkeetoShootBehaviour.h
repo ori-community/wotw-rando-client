@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkeetoLocomotion.h>
-#include <Modloader/app/structs/SkeetoShootBehaviour.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/SkeetoShootBehaviour_State__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/SkeetoLocomotion.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SkeetoShootBehaviour.h>
+#include <Modloader/app/structs/SkeetoShootBehaviour_State__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SkeetoShootBehaviour {
     IL2CPP_REGISTER_METHOD(0x006B0760, app::SkeetoLocomotion*, get_Locomotion, (app::SkeetoShootBehaviour * this_ptr))
@@ -18,7 +19,6 @@ namespace app::classes::SkeetoShootBehaviour {
     IL2CPP_REGISTER_METHOD(0x006B0E70, app::BehaviourStatus__Enum, OnExecute, (app::SkeetoShootBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x006B1200, void, OnExit, (app::SkeetoShootBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x006B1620, void, EndBehaviour, (app::SkeetoShootBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471E618, SkeetoShootBehaviour_EndBehaviour__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006B1670, void, ChangeState, (app::SkeetoShootBehaviour * this_ptr, app::SkeetoShootBehaviour_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x006B1960, void, OnEnterFlipTowardsTarget, (app::SkeetoShootBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B1970, void, UpdateFlipTowardsTarget, (app::SkeetoShootBehaviour * this_ptr))
@@ -30,10 +30,8 @@ namespace app::classes::SkeetoShootBehaviour {
     IL2CPP_REGISTER_METHOD(0x006B2540, void, UpdatePostShootState, (app::SkeetoShootBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B26C0, void, ExitPostShootState, (app::SkeetoShootBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B2770, void, ShootProjectile, (app::SkeetoShootBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04763DD8, SkeetoShootBehaviour_ShootProjectile__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006B2FD0, void, PlayTimeline, (app::SkeetoShootBehaviour * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::SkeetoShootBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B33C0, void, OnInterrupted, (app::SkeetoShootBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04770E68, SkeetoShootBehaviour_OnInterrupted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006B33D0, void, ctor, (app::SkeetoShootBehaviour * this_ptr))
 } // namespace app::classes::SkeetoShootBehaviour

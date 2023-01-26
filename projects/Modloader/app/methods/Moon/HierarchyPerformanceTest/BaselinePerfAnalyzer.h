@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BaselinePerfAnalyzer.h>
+
+#include <Modloader/app/structs/BaselinePerfAnalyzer.h>
 #include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::BaselinePerfAnalyzer {

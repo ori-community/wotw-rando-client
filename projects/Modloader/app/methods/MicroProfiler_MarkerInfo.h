@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MicroProfiler_MarkerInfo__Boxed.h>
+
+#include <Modloader/app/structs/MicroProfiler_MarkerInfo__Boxed.h>
 
 namespace app::classes::MicroProfiler_MarkerInfo {
     IL2CPP_REGISTER_METHOD(0x0024A2C0, void, Begin, (app::MicroProfiler_MarkerInfo__Boxed * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XUserGetTokenAndSignatureUtf16Data.h>
+
+#include <Modloader/app/structs/XUserGetTokenAndSignatureUtf16Data.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::XGamingRuntime::XUserGetTokenAndSignatureUtf16Data {

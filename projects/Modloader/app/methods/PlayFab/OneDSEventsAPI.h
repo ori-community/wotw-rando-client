@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OneDSEventsAPI.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Task_1_PlayFab_SharedModels_PlayFabResult_1_.h>
-#include <Modloader/app/structs/WriteEventsRequest.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/OneDSEventsAPI.h>
 #include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Task_1_PlayFab_SharedModels_PlayFabResult_1_.h>
 #include <Modloader/app/structs/Task_1_PlayFab_SharedModels_PlayFabResult_1__1.h>
 #include <Modloader/app/structs/TelemetryIngestionConfigRequest.h>
-#include <Modloader/app/structs/Task.h>
-#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/WriteEventsRequest.h>
 
 namespace app::classes::PlayFab::OneDSEventsAPI {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_IsOneDSAuthenticated, (app::OneDSEventsAPI * this_ptr))

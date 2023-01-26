@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/MantisPlaceholder.h>
 
 namespace app::classes::MantisPlaceholder {

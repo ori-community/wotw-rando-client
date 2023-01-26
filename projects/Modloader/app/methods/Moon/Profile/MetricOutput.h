@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MetricOutput__Boxed.h>
+
+#include <Modloader/app/structs/MetricOutput__Boxed.h>
 #include <Modloader/app/structs/Metric__Enum.h>
 #include <Modloader/app/structs/Presentation__Enum.h>
 

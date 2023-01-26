@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StreamingContext__Boxed.h>
-#include <Modloader/app/structs/StreamingContextStates__Enum.h>
+
+#include <Modloader/app/structs/StreamingContext__Boxed.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StreamingContextStates__Enum.h>
 
 namespace app::classes::System::Runtime::Serialization::StreamingContext {
     IL2CPP_REGISTER_METHOD(0x001D7E30, void, ctor_1, (app::StreamingContext__Boxed * this_ptr, app::StreamingContextStates__Enum state))

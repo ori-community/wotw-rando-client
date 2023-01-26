@@ -33,7 +33,7 @@ struct Stream_c__StaticFields {
 #include <Modloader/app/structs/Func_2_Object_Int32_.h>
 #include <Modloader/app/structs/Func_3_System_IO_Stream_IAsyncResult_Int32_.h>
 #include <Modloader/app/structs/Func_3_System_IO_Stream_IAsyncResult_System_Threading_Tasks_VoidTaskResult_.h>
-#include <Modloader/app/structs/Func_5_System_IO_Stream_System_IO_Stream_ReadWriteParameters_AsyncCallback_Object_IAsyncResult_.h>
+#include <Modloader/app/structs/Func_5_System_IO_Stream_System_IO_Strea_ReadWriteParameter_AsyncCallbac_Objec_IAsyncResul_.h>
 #include <Modloader/app/structs/Stream_c.h>
 #endif
 #undef IL2CPP_STRUCT_Stream_c__StaticFields_INITIALIZING

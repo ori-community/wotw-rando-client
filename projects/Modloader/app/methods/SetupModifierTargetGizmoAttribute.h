@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SetupStateModifierDataType__Enum.h>
+
+#include <Modloader/app/structs/SetupStateModifierDataType__Enum.h>
 #include <Modloader/app/structs/SetupModifierTargetGizmoAttribute.h>
 
 namespace app::classes::SetupModifierTargetGizmoAttribute {

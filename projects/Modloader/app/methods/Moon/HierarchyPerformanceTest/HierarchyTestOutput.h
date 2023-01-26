@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HierarchyTestOutput.h>
-#include <Modloader/app/structs/SceneTestData.h>
+
+#include <Modloader/app/structs/HierarchyTestOutput.h>
+#include <Modloader/app/structs/HPerfTestResult.h>
 #include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
+#include <Modloader/app/structs/SceneTestData.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/StringBuilder.h>
-#include <Modloader/app/structs/HPerfTestResult.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::HierarchyTestOutput {
     IL2CPP_REGISTER_METHOD(0x014A35B0, void, ctor, (app::HierarchyTestOutput * this_ptr, app::SceneTestData* data))

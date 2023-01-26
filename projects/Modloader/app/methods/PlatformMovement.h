@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlatformMovement.h>
-#include <Modloader/app/structs/CapsuleCollider.h>
-#include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/MovingPlatformsController.h>
-#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
-#include <Modloader/app/structs/GrabbableSurface.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Collider_.h>
-#include <Modloader/app/structs/Rigidbody.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Collider.h>
+
+#include <Modloader/app/structs/PlatformMovement.h>
 #include <Modloader/app/structs/Action_2_UnityEngine_Vector3_UnityEngine_Collider_.h>
-#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/CapsuleCollider.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/GrabbableSurface.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Collider_.h>
+#include <Modloader/app/structs/MovingPlatformsController.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PlatformMovement {
     IL2CPP_REGISTER_METHOD(0x011654C0, void, RefreshCapsulePropertiesCache, (app::PlatformMovement * this_ptr))
@@ -98,7 +99,6 @@ namespace app::classes::PlatformMovement {
     IL2CPP_REGISTER_METHOD(0x01169C10, app::Rigidbody*, get_Rigidbody, (app::PlatformMovement * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005C7620, app::Vector3, get_Position, (app::PlatformMovement * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01169CE0, void, set_Position, (app::PlatformMovement * this_ptr, app::Vector3 value))
-    IL2CPP_REGISTER_METHODINFO(0x0475E950, PlatformMovement_set_Position__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsAllowedNonZeroZPosition, (app::PlatformMovement * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01169F30, void, OverridePositionNextSave, (app::PlatformMovement * this_ptr, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x01169FF0, app::Vector3, GetSavePositionAndClearOverride, (app::PlatformMovement * this_ptr))

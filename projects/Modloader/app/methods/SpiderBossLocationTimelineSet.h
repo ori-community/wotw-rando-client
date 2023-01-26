@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiderBossLocationTimelineSet.h>
-#include <Modloader/app/structs/SpiderBossLocationZone__Enum.h>
+
+#include <Modloader/app/structs/SpiderBossLocationTimelineSet.h>
 #include <Modloader/app/structs/MirroredTimelineSet.h>
 #include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SpiderBossLocationZone__Enum.h>
 
 namespace app::classes::SpiderBossLocationTimelineSet {
     IL2CPP_REGISTER_METHOD(0x011B2970, void, SwapIdle, (app::SpiderBossLocationTimelineSet * this_ptr, app::SpiderBossLocationZone__Enum zone, app::MirroredTimelineSet* timelines))

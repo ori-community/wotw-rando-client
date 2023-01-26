@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/OffsetEffector_EffectorLink__Class.h>
 #include <Modloader/app/structs/OffsetEffector_EffectorLink.h>
 #include <Modloader/app/structs/OffsetEffector_EffectorLink__Array.h>
+#include <Modloader/app/structs/OffsetEffector_EffectorLink__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace OffsetEffector_EffectorLink {
-        namespace {
-            inline app::OffsetEffector_EffectorLink__Class* type_info_ref = nullptr;
+        inline app::OffsetEffector_EffectorLink__Class** type_info() {
+            static app::OffsetEffector_EffectorLink__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::OffsetEffector_EffectorLink__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::OffsetEffector_EffectorLink__Class** type_info = &type_info_ref;
         inline app::OffsetEffector_EffectorLink__Class* get_class() {
-            return il2cpp::get_nested_class<app::OffsetEffector_EffectorLink__Class>(type_info, "RootMotion.Demos", "OffsetEffector", "EffectorLink");
+            return il2cpp::get_nested_class<app::OffsetEffector_EffectorLink__Class>(type_info(), "RootMotion.Demos", "OffsetEffector", "EffectorLink");
         }
         inline app::OffsetEffector_EffectorLink* create() {
             return il2cpp::create_object<app::OffsetEffector_EffectorLink>(get_class());

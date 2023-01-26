@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SimpleScripting_GetUsername2_d_7.h>
+
+#include <Modloader/app/structs/SimpleScripting_GetUsername2_d_7.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::SimpleScripting___GetUsername2_d__7 {
@@ -9,6 +10,5 @@ namespace app::classes::ZenFulcrum::EmbeddedBrowser::SimpleScripting___GetUserna
     IL2CPP_REGISTER_METHOD(0x0166CA20, bool, MoveNext, (app::SimpleScripting_GetUsername2_d_7 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::SimpleScripting_GetUsername2_d_7 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0166CB20, void, IEnumerator_Reset, (app::SimpleScripting_GetUsername2_d_7 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475B5A8, SimpleScripting_GetUsername2_d_7_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::SimpleScripting_GetUsername2_d_7 * this_ptr))
 } // namespace app::classes::ZenFulcrum::EmbeddedBrowser::SimpleScripting___GetUsername2_d__7

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CameraSettingOverrides__Class.h>
 #include <Modloader/app/structs/CameraSettingOverrides.h>
 #include <Modloader/app/structs/CameraSettingOverrides__Array.h>
+#include <Modloader/app/structs/CameraSettingOverrides__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace CameraSettingOverrides {
-        namespace {
-            inline app::CameraSettingOverrides__Class* type_info_ref = nullptr;
+        inline app::CameraSettingOverrides__Class** type_info() {
+            static app::CameraSettingOverrides__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CameraSettingOverrides__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CameraSettingOverrides__Class** type_info = &type_info_ref;
         inline app::CameraSettingOverrides__Class* get_class() {
-            return il2cpp::get_class<app::CameraSettingOverrides__Class>(type_info, "", "CameraSettingOverrides");
+            return il2cpp::get_class<app::CameraSettingOverrides__Class>(type_info(), "", "CameraSettingOverrides");
         }
         inline app::CameraSettingOverrides* create() {
             return il2cpp::create_object<app::CameraSettingOverrides>(get_class());

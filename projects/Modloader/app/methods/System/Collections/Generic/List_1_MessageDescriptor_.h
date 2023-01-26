@@ -1,29 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_MessageDescriptor_.h>
+
+#include <Modloader/app/structs/List_1_MessageDescriptor_.h>
+#include <Modloader/app/structs/Action_1_MessageDescriptor_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Comparison_1_MessageDescriptor_.h>
+#include <Modloader/app/structs/IComparer_1_MessageDescriptor_.h>
+#include <Modloader/app/structs/IEnumerable_1_MessageDescriptor_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_MessageDescriptor_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_MessageDescriptor_.h>
 #include <Modloader/app/structs/MessageDescriptor.h>
 #include <Modloader/app/structs/MessageDescriptor__Array.h>
-#include <Modloader/app/structs/IEnumerable_1_MessageDescriptor_.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_MessageDescriptor_.h>
-#include <Modloader/app/structs/IComparer_1_MessageDescriptor_.h>
-#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Predicate_1_MessageDescriptor_.h>
-#include <Modloader/app/structs/Action_1_MessageDescriptor_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_MessageDescriptor_.h>
-#include <Modloader/app/structs/IEnumerator_1_MessageDescriptor_.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Comparison_1_MessageDescriptor_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_MessageDescriptor_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_MessageDescriptor_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_MessageDescriptor_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475E698, List_1_MessageDescriptor___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C1E360, void, Add, (app::List_1_MessageDescriptor_ * this_ptr, app::MessageDescriptor item))
-    IL2CPP_REGISTER_METHODINFO(0x0475C9C8, List_1_MessageDescriptor__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAEF0, app::MessageDescriptor__Array*, ToArray, (app::List_1_MessageDescriptor_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04733408, List_1_MessageDescriptor__ToArray__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C1DFB0, app::MessageDescriptor, get_Item, (app::List_1_MessageDescriptor_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0478C978, List_1_MessageDescriptor__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_MessageDescriptor_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02D484C0, void, ctor_3, (app::List_1_MessageDescriptor_ * this_ptr, app::IEnumerable_1_MessageDescriptor_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_MessageDescriptor_ * this_ptr))

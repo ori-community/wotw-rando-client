@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Hashtable.h>
+
+#include <Modloader/app/structs/Hashtable.h>
 #include <Modloader/app/structs/Authorization.h>
 #include <Modloader/app/structs/DigestClient.h>
+#include <Modloader/app/structs/ICredentials.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/WebRequest.h>
-#include <Modloader/app/structs/ICredentials.h>
 
 namespace app::classes::System::Net::DigestClient {
     IL2CPP_REGISTER_METHOD(0x01EADAA0, app::Hashtable*, get_Cache, ())

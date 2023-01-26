@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaElement.h>
-#include <Modloader/app/structs/XmlSchemaDerivationMethod__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSchemaForm__Enum.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/XmlSchemaType.h>
-#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+
+#include <Modloader/app/structs/XmlSchemaElement.h>
 #include <Modloader/app/structs/SchemaElementDecl.h>
-#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
 #include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlSchemaDerivationMethod__Enum.h>
+#include <Modloader/app/structs/XmlSchemaForm__Enum.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaElement {
     IL2CPP_REGISTER_METHOD(0x005D8A80, bool, get_IsAbstract, (app::XmlSchemaElement * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraSettingsZoneAnimator.h>
+
+#include <Modloader/app/structs/CameraSettingsZoneAnimator.h>
 
 namespace app::classes::CameraSettingsZoneAnimator {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, CacheOriginals, (app::CameraSettingsZoneAnimator * this_ptr))

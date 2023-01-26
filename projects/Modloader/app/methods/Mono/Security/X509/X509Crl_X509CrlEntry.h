@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/X509Crl_X509CrlEntry.h>
+
+#include <Modloader/app/structs/X509Crl_X509CrlEntry.h>
+#include <Modloader/app/structs/ASN1_1.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/X509ExtensionCollection_1.h>
-#include <Modloader/app/structs/ASN1_1.h>
 
 namespace app::classes::Mono::Security::X509::X509Crl_X509CrlEntry {
     IL2CPP_REGISTER_METHOD(0x03164BB0, void, ctor_1, (app::X509Crl_X509CrlEntry * this_ptr, app::Byte__Array* serial_number, app::DateTime revocation_date, app::X509ExtensionCollection_1* extensions))

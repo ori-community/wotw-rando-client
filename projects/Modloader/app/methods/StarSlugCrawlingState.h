@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StarSlugCrawlingState.h>
+
+#include <Modloader/app/structs/StarSlugCrawlingState.h>
 #include <Modloader/app/structs/StarSlugEnemy.h>
 
 namespace app::classes::StarSlugCrawlingState {

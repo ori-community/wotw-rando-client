@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FinishHandlerService.h>
+
+#include <Modloader/app/structs/FinishHandlerService.h>
 #include <Modloader/app/structs/List_1_GhostPlayer_.h>
 #include <Modloader/app/structs/RaceStateMachineContext.h>
 

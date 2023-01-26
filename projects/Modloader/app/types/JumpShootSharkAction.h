@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/JumpShootSharkAction.h>
+#include <Modloader/app/structs/JumpShootSharkAction__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/JumpShootSharkAction__Class.h>
-#include <Modloader/app/structs/JumpShootSharkAction.h>
 
 namespace app::classes::types {
     namespace JumpShootSharkAction {
-        namespace {
-            inline app::JumpShootSharkAction__Class* type_info_ref = nullptr;
+        inline app::JumpShootSharkAction__Class** type_info() {
+            static app::JumpShootSharkAction__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::JumpShootSharkAction__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::JumpShootSharkAction__Class** type_info = &type_info_ref;
         inline app::JumpShootSharkAction__Class* get_class() {
-            return il2cpp::get_class<app::JumpShootSharkAction__Class>(type_info, "", "JumpShootSharkAction");
+            return il2cpp::get_class<app::JumpShootSharkAction__Class>(type_info(), "", "JumpShootSharkAction");
         }
         inline app::JumpShootSharkAction* create() {
             return il2cpp::create_object<app::JumpShootSharkAction>(get_class());

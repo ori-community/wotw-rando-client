@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FlutteringShotDownBehaviour_FlutterShotDownState.h>
+
+#include <Modloader/app/structs/FlutteringShotDownBehaviour_FlutterShotDownState.h>
 #include <Modloader/app/structs/FlutteringShotDownBehaviour.h>
 
 namespace app::classes::Moon::FlutteringShotDownBehaviour_FlutterShotDownState {

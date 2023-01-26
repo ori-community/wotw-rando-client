@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberSwarm.h>
+
+#include <Modloader/app/structs/UberSwarm.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/UberSwarm_SwarmerEvent__Enum.h>
 #include <Modloader/app/structs/UberSwarmer.h>

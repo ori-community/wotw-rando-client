@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Entity.h>
+
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/EntityBehaviourNode.h>
 #include <Modloader/app/structs/EntityOwnedInitOrder__Enum.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::EntityBehaviourNode {

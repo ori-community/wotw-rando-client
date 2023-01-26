@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WeaponAnimationPostprocess.h>
+
+#include <Modloader/app/structs/WeaponAnimationPostprocess.h>
 #include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::Moon::WeaponAnimationPostprocess {

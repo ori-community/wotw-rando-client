@@ -1,27 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
-#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
-#include <Modloader/app/structs/IEnumerable_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
-#include <Modloader/app/structs/IComparer_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
-#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
+
+#include <Modloader/app/structs/List_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
 #include <Modloader/app/structs/Action_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
-#include <Modloader/app/structs/IEnumerator_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
+#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem.h>
+#include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem__Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047254B0, List_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D51800, void, Add, (app::List_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_ * this_ptr, app::DynamicDataResolver_SerializedDynamicDataLinkItem item))
-    IL2CPP_REGISTER_METHODINFO(0x047794F8, List_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D525D0, app::List_1_T_Enumerator_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_, GetEnumerator, (app::List_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047212B8, List_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02D50E10, void, ctor_3, (app::List_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_ * this_ptr, app::IEnumerable_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_ * this_ptr))

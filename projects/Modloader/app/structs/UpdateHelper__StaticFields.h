@@ -11,7 +11,7 @@ struct UpdateHelper__StaticFields {
 #endif
 #if !defined(IL2CPP_STRUCT_UpdateHelper__StaticFields_FWDDECL)
 #define IL2CPP_STRUCT_UpdateHelper__StaticFields_FWDDECL
-#include <Modloader/app/structs/UpdateHelper_UpdateCategoryGetter_3_UnityEngine_Transform_UnityEngine_Rigidbody_Moon_UpdateCategory_.h>
+#include <Modloader/app/structs/UpdateHelper_UpdateCategoryGette_3_UnityEngin_Transfor_UnityEngin_Rigidbo_Mo_UpdateCatego_.h>
 #endif
 #undef IL2CPP_STRUCT_UpdateHelper__StaticFields_INITIALIZING
 #if !defined(IL2CPP_STRUCT_UpdateHelper__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_UpdateHelper__StaticFields_FWDDECL)

@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SpiderBatEntity_AttackSet__Enum.h>
+#include <Modloader/app/structs/SpiderBatEntity_AttackSet__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SpiderBatEntity_AttackSet__Enum__Class.h>
-#include <Modloader/app/structs/SpiderBatEntity_AttackSet__Enum.h>
 
 namespace app::classes::types {
     namespace SpiderBatEntity_AttackSet__Enum {
-        namespace {
-            inline app::SpiderBatEntity_AttackSet__Enum__Class* type_info_ref = nullptr;
+        inline app::SpiderBatEntity_AttackSet__Enum__Class** type_info() {
+            static app::SpiderBatEntity_AttackSet__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SpiderBatEntity_AttackSet__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SpiderBatEntity_AttackSet__Enum__Class** type_info = &type_info_ref;
         inline app::SpiderBatEntity_AttackSet__Enum__Class* get_class() {
-            return il2cpp::get_nested_class<app::SpiderBatEntity_AttackSet__Enum__Class>(type_info, "", "SpiderBatEntity", "AttackSet");
+            return il2cpp::get_nested_class<app::SpiderBatEntity_AttackSet__Enum__Class>(type_info(), "", "SpiderBatEntity", "AttackSet");
         }
         inline app::SpiderBatEntity_AttackSet__Enum* create() {
             return il2cpp::create_object<app::SpiderBatEntity_AttackSet__Enum>(get_class());

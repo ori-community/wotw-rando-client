@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MusicVolumeSlider.h>
+
+#include <Modloader/app/structs/MusicVolumeSlider.h>
 
 namespace app::classes::MusicVolumeSlider {
     IL2CPP_REGISTER_METHOD(0x0087EB70, float, get_Value, (app::MusicVolumeSlider * this_ptr))

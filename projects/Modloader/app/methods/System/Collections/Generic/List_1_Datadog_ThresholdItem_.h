@@ -1,31 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Datadog_ThresholdItem.h>
-#include <Modloader/app/structs/List_1_Datadog_ThresholdItem_.h>
-#include <Modloader/app/structs/IEnumerable_1_Datadog_ThresholdItem_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Datadog_ThresholdItem_.h>
-#include <Modloader/app/structs/IComparer_1_Datadog_ThresholdItem_.h>
-#include <Modloader/app/structs/Datadog_ThresholdItem__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Datadog_ThresholdItem_.h>
+
+#include <Modloader/app/structs/Datadog_ThresholdItem.h>
 #include <Modloader/app/structs/Action_1_Datadog_ThresholdItem_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Datadog_ThresholdItem_.h>
-#include <Modloader/app/structs/IEnumerator_1_Datadog_ThresholdItem_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_Datadog_ThresholdItem_.h>
+#include <Modloader/app/structs/Datadog_ThresholdItem__Array.h>
+#include <Modloader/app/structs/IComparer_1_Datadog_ThresholdItem_.h>
+#include <Modloader/app/structs/IEnumerable_1_Datadog_ThresholdItem_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Datadog_ThresholdItem_.h>
+#include <Modloader/app/structs/List_1_Datadog_ThresholdItem_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Datadog_ThresholdItem_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Datadog_ThresholdItem_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Datadog_ThresholdItem_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Datadog_ThresholdItem_ {
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::Datadog_ThresholdItem, get_Item, (app::List_1_Datadog_ThresholdItem_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0473F0D0, List_1_Datadog_ThresholdItem__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_Datadog_ThresholdItem_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04725CE8, List_1_Datadog_ThresholdItem__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8A90, void, set_Item, (app::List_1_Datadog_ThresholdItem_ * this_ptr, int32_t index, app::Datadog_ThresholdItem value))
-    IL2CPP_REGISTER_METHODINFO(0x0473ACB0, List_1_Datadog_ThresholdItem__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add, (app::List_1_Datadog_ThresholdItem_ * this_ptr, app::Datadog_ThresholdItem item))
-    IL2CPP_REGISTER_METHODINFO(0x04766000, List_1_Datadog_ThresholdItem__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_Datadog_ThresholdItem_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x04733450, List_1_Datadog_ThresholdItem___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_2, (app::List_1_Datadog_ThresholdItem_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02E59750, void, ctor_3, (app::List_1_Datadog_ThresholdItem_ * this_ptr, app::IEnumerable_1_Datadog_ThresholdItem_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_Datadog_ThresholdItem_ * this_ptr))

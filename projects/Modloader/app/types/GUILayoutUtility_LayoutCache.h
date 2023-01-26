@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GUILayoutUtility_LayoutCache__Class.h>
 #include <Modloader/app/structs/GUILayoutUtility_LayoutCache.h>
 #include <Modloader/app/structs/GUILayoutUtility_LayoutCache__Array.h>
+#include <Modloader/app/structs/GUILayoutUtility_LayoutCache__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace GUILayoutUtility_LayoutCache {
-        inline app::GUILayoutUtility_LayoutCache__Class** type_info = (app::GUILayoutUtility_LayoutCache__Class**)(modloader::win::memory::resolve_rva(0x0470AD58));
+        inline app::GUILayoutUtility_LayoutCache__Class** type_info() {
+            static app::GUILayoutUtility_LayoutCache__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::GUILayoutUtility_LayoutCache__Class**)(modloader::win::memory::resolve_rva(0x0470AD58));
+            }
+            return cache;
+        }
         inline app::GUILayoutUtility_LayoutCache__Class* get_class() {
-            return il2cpp::get_nested_class<app::GUILayoutUtility_LayoutCache__Class>(type_info, "UnityEngine", "GUILayoutUtility", "LayoutCache");
+            return il2cpp::get_nested_class<app::GUILayoutUtility_LayoutCache__Class>(type_info(), "UnityEngine", "GUILayoutUtility", "LayoutCache");
         }
         inline app::GUILayoutUtility_LayoutCache* create() {
             return il2cpp::create_object<app::GUILayoutUtility_LayoutCache>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReEngageUI.h>
+
+#include <Modloader/app/structs/ReEngageUI.h>
 
 namespace app::classes::ReEngageUI {
     IL2CPP_REGISTER_METHOD(0x007306C0, app::ReEngageUI*, get_Instance, ())

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_InstantiateUtility_InstantiationInfo_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_InstantiateUtility_InstantiationInfo_.h>
 #include <Modloader/app/structs/InstantiateUtility_InstantiationInfo.h>
 #include <Modloader/app/structs/InstantiateUtility_InstantiationInfo__Array.h>
 #include <Modloader/app/structs/Object.h>

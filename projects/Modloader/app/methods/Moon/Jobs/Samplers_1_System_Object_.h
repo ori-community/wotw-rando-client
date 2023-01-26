@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Samplers_1_System_Object_.h>
 
 namespace app::classes::Moon::Jobs::Samplers_1_System_Object_ {

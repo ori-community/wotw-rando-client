@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WaitForPresentSyncPoint__Enum.h>
+
+#include <Modloader/app/structs/WaitForPresentSyncPoint__Enum.h>
 #include <Modloader/app/structs/GraphicsJobsSyncPoint__Enum.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::GraphicsDeviceSettings {

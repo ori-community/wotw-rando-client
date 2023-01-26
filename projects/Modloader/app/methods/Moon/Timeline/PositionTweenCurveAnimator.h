@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PositionTweenCurveAnimator.h>
+
+#include <Modloader/app/structs/PositionTweenCurveAnimator.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/TimelineEntityRecord.h>
 #include <Modloader/app/structs/TimelineEntity.h>
-#include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::PositionTweenCurveAnimator {
     IL2CPP_REGISTER_METHOD(0x01E7C9B0, void, OnStartPlayback, (app::PositionTweenCurveAnimator * this_ptr, app::IContext* context))

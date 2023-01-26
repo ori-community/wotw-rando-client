@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CVRExtendedDisplay.h>
+
+#include <Modloader/app/structs/CVRExtendedDisplay.h>
 #include <Modloader/app/structs/EVREye__Enum.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRExtendedDisplay {

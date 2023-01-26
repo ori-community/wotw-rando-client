@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayableOutput__Boxed.h>
-#include <Modloader/app/structs/PlayableOutputHandle.h>
+
+#include <Modloader/app/structs/PlayableOutput__Boxed.h>
 #include <Modloader/app/structs/PlayableOutput.h>
+#include <Modloader/app/structs/PlayableOutputHandle.h>
 
 namespace app::classes::UnityEngine::Playables::PlayableOutput {
     IL2CPP_REGISTER_METHOD(0x00120520, void, ctor, (app::PlayableOutput__Boxed * this_ptr, app::PlayableOutputHandle handle))

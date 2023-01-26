@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FlyMovement.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Rigidbody.h>
-#include <Modloader/app/structs/Damage.h>
+
+#include <Modloader/app/structs/FlyMovement.h>
 #include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::FlyMovement {
     IL2CPP_REGISTER_METHOD(0x0127A650, float, get_Speed, (app::FlyMovement * this_ptr))

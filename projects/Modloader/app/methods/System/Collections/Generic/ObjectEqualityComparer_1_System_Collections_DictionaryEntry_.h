@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_System_Collections_DictionaryEntry_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_System_Collections_DictionaryEntry_.h>
 #include <Modloader/app/structs/DictionaryEntry.h>
 #include <Modloader/app/structs/DictionaryEntry__Array.h>
 #include <Modloader/app/structs/Object.h>

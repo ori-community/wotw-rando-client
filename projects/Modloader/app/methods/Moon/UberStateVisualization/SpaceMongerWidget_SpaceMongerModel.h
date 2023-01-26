@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpaceMongerWidget_SpaceMongerModel.h>
+
+#include <Modloader/app/structs/SpaceMongerWidget_SpaceMongerModel.h>
 #include <Modloader/app/structs/GUIStyle.h>
 #include <Modloader/app/structs/SpaceMongerWidget_SpaceMongerModel__Boxed.h>
 

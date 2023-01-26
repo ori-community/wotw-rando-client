@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoundSourcePlaceholder.h>
+
+#include <Modloader/app/structs/SoundSourcePlaceholder.h>
 
 namespace app::classes::SoundSourcePlaceholder {
     IL2CPP_REGISTER_METHOD(0x00EEDD80, void, Awake, (app::SoundSourcePlaceholder * this_ptr))

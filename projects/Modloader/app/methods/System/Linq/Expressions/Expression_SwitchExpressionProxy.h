@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Expression_SwitchExpressionProxy.h>
-#include <Modloader/app/structs/SwitchExpression.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_SwitchCase_.h>
-#include <Modloader/app/structs/MethodInfo_1.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/Expression_SwitchExpressionProxy.h>
 #include <Modloader/app/structs/Expression.h>
 #include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_SwitchCase_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SwitchExpression.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_SwitchExpressionProxy {

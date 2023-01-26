@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EventSourceException.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/EventSourceException.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EventSourceException {
     IL2CPP_REGISTER_METHOD(0x019FD3F0, void, ctor_1, (app::EventSourceException * this_ptr))

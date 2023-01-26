@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberStateValueGroup.h>
-#include <Modloader/app/structs/UberID.h>
-#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_System_Object_.h>
+
+#include <Modloader/app/structs/UberStateValueGroup.h>
 #include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_System_Boolean_.h>
-#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_System_Single_.h>
-#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_System_Int32_.h>
 #include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_System_Byte_.h>
+#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_System_Int32_.h>
+#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_System_Object_.h>
+#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_System_Single_.h>
 #include <Modloader/app/structs/ISerializedUberState.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberID.h>
 #include <Modloader/app/structs/UberStateArchive.h>
 #include <Modloader/app/structs/UberStateHeader_UberStateType__Enum.h>
 
@@ -43,7 +44,6 @@ namespace app::classes::Moon::UberStateValueGroup {
     IL2CPP_REGISTER_METHOD(0x01B6E7E0, void, CalculateDataSize, (app::UberStateValueGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01B6EA50, void, Save, (app::UberStateValueGroup * this_ptr, app::UberStateArchive* archive))
     IL2CPP_REGISTER_METHOD(0x01B6F970, void, Load, (app::UberStateValueGroup * this_ptr, app::UberStateArchive* archive, int32_t store_version))
-    IL2CPP_REGISTER_METHODINFO(0x0473BBC8, UberStateValueGroup_Load__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01B6FB30, void, SetStateInternal, (app::UberStateValueGroup * this_ptr, app::ISerializedUberState* uber_state_descriptor, app::Object* uber_state))
     IL2CPP_REGISTER_METHOD(0x01B6FEF0, void, SimulateReadingType, (app::UberStateValueGroup * this_ptr, app::UberStateArchive* archive, app::UberStateHeader_UberStateType__Enum header_type))
 } // namespace app::classes::Moon::UberStateValueGroup

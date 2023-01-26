@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Mesh.h>
-#include <Modloader/app/structs/UberGhostTrailMeshUpdate.h>
-#include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/UberGhostTrail.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/Quaternion.h>
+
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/Boolean__Array.h>
+#include <Modloader/app/structs/Color32__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/Vector3__Array.h>
-#include <Modloader/app/structs/Vector2__Array.h>
-#include <Modloader/app/structs/Color32__Array.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/UberGhostTrail.h>
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate.h>
 #include <Modloader/app/structs/UberGhostTrailMeshUpdate_Quad__Array.h>
-#include <Modloader/app/structs/Boolean__Array.h>
-#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UberGhostTrailMeshUpdate {
     IL2CPP_REGISTER_METHOD(0x002FBC60, app::Mesh*, get_TrailMesh, (app::UberGhostTrailMeshUpdate * this_ptr))
@@ -48,15 +49,9 @@ namespace app::classes::UberGhostTrailMeshUpdate {
     IL2CPP_REGISTER_METHOD(0x015E3480, void, ResizeOrCreate_1, (app::UberGhostTrailMeshUpdate * this_ptr, app::Object__Array** arr, int32_t size))
     IL2CPP_REGISTER_METHOD(0x02FF59A0, app::Object__Array*, EnsureBuffer_1, (app::UberGhostTrailMeshUpdate * this_ptr, app::Object__Array* arr, int32_t min_size))
     IL2CPP_REGISTER_METHOD(0x015E3480, void, ResizeOrCreate_2, (app::UberGhostTrailMeshUpdate * this_ptr, app::Vector3__Array** arr, int32_t size))
-    IL2CPP_REGISTER_METHODINFO(0x0473EDF0, UberGhostTrailMeshUpdate_ResizeOrCreate_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E3480, void, ResizeOrCreate_3, (app::UberGhostTrailMeshUpdate * this_ptr, app::Vector2__Array** arr, int32_t size))
-    IL2CPP_REGISTER_METHODINFO(0x04708180, UberGhostTrailMeshUpdate_ResizeOrCreate_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E3480, void, ResizeOrCreate_4, (app::UberGhostTrailMeshUpdate * this_ptr, app::Color32__Array** arr, int32_t size))
-    IL2CPP_REGISTER_METHODINFO(0x04736938, UberGhostTrailMeshUpdate_ResizeOrCreate_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E3480, void, ResizeOrCreate_5, (app::UberGhostTrailMeshUpdate * this_ptr, app::UberGhostTrailMeshUpdate_Quad__Array** arr, int32_t size))
-    IL2CPP_REGISTER_METHODINFO(0x047860F8, UberGhostTrailMeshUpdate_ResizeOrCreate_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E3480, void, ResizeOrCreate_6, (app::UberGhostTrailMeshUpdate * this_ptr, app::Boolean__Array** arr, int32_t size))
-    IL2CPP_REGISTER_METHODINFO(0x0471AB10, UberGhostTrailMeshUpdate_ResizeOrCreate_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF5870, app::Int32__Array*, EnsureBuffer_2, (app::UberGhostTrailMeshUpdate * this_ptr, app::Int32__Array* arr, int32_t min_size))
-    IL2CPP_REGISTER_METHODINFO(0x047386A8, UberGhostTrailMeshUpdate_EnsureBuffer_1__MethodInfo)
 } // namespace app::classes::UberGhostTrailMeshUpdate

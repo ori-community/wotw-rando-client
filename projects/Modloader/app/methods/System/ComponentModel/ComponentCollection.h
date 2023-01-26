@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComponentCollection.h>
-#include <Modloader/app/structs/IComponent__Array.h>
+
+#include <Modloader/app/structs/ComponentCollection.h>
 #include <Modloader/app/structs/IComponent.h>
+#include <Modloader/app/structs/IComponent__Array.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ComponentModel::ComponentCollection {

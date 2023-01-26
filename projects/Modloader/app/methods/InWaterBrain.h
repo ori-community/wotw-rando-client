@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Enum__Array.h>
-#include <Modloader/app/structs/InWaterBrain.h>
+
+#include <Modloader/app/structs/Enum__Array.h>
 #include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/InWaterBrain.h>
 
 namespace app::classes::InWaterBrain {
     IL2CPP_REGISTER_METHOD(0x00628470, app::Enum__Array*, GetEntries, (app::InWaterBrain * this_ptr))

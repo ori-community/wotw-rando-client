@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/QuestIconUI.h>
-#include <Modloader/app/structs/RuntimeQuest.h>
+
+#include <Modloader/app/structs/QuestIconUI.h>
 #include <Modloader/app/structs/QuestIconMode__Enum.h>
+#include <Modloader/app/structs/RuntimeQuest.h>
 
 namespace app::classes::QuestIconUI {
     IL2CPP_REGISTER_METHOD(0x008A34C0, float, get_WorldMapDepth, (app::QuestIconUI * this_ptr))

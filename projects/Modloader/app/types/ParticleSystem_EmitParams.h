@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ParticleSystem_EmitParams__Class.h>
 #include <Modloader/app/structs/ParticleSystem_EmitParams.h>
 #include <Modloader/app/structs/ParticleSystem_EmitParams__Boxed.h>
+#include <Modloader/app/structs/ParticleSystem_EmitParams__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace ParticleSystem_EmitParams {
-        namespace {
-            inline app::ParticleSystem_EmitParams__Class* type_info_ref = nullptr;
+        inline app::ParticleSystem_EmitParams__Class** type_info() {
+            static app::ParticleSystem_EmitParams__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ParticleSystem_EmitParams__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ParticleSystem_EmitParams__Class** type_info = &type_info_ref;
         inline app::ParticleSystem_EmitParams__Class* get_class() {
-            return il2cpp::get_nested_class<app::ParticleSystem_EmitParams__Class>(type_info, "UnityEngine", "ParticleSystem", "EmitParams");
+            return il2cpp::get_nested_class<app::ParticleSystem_EmitParams__Class>(type_info(), "UnityEngine", "ParticleSystem", "EmitParams");
         }
         inline app::ParticleSystem_EmitParams* create() {
             return il2cpp::create_object<app::ParticleSystem_EmitParams>(get_class());

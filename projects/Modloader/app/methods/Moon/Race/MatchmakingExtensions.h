@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Moon_Race_LeaderBoardEntry_.h>
+
+#include <Modloader/app/structs/List_1_Moon_Race_LeaderBoardEntry_.h>
 #include <Modloader/app/structs/IEnumerable_1_Moon_Race_LeaderBoardEntry_.h>
 
 namespace app::classes::Moon::Race::MatchmakingExtensions {

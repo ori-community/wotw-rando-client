@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MaskUtilities.h>
+
+#include <Modloader/app/structs/MaskUtilities.h>
 #include <Modloader/app/structs/Component_1.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/RectMask2D.h>
 #include <Modloader/app/structs/IClippable.h>
 #include <Modloader/app/structs/List_1_UnityEngine_UI_RectMask2D_.h>
+#include <Modloader/app/structs/RectMask2D.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UnityEngine::UI::MaskUtilities {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MaskUtilities * this_ptr))

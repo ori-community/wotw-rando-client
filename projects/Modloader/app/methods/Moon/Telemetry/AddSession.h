@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AddSession.h>
+
+#include <Modloader/app/structs/AddSession.h>
 #include <Modloader/app/structs/GameSessionRecord.h>
 
 namespace app::classes::Moon::Telemetry::AddSession {

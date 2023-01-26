@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BlockDamageInterruptionHandler.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/BlockDamageInterruptionHandler.h>
 #include <Modloader/app/structs/DamageWeightMask__Enum.h>
 #include <Modloader/app/structs/DamageWeight__Enum.h>
 #include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::Moon::BlockDamageInterruptionHandler {
     IL2CPP_REGISTER_METHOD(0x00CBB980, void, ctor, (app::BlockDamageInterruptionHandler * this_ptr))

@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SubsystemDescriptor.h>
+#include <Modloader/app/structs/SubsystemDescriptor__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SubsystemDescriptor__Class.h>
-#include <Modloader/app/structs/SubsystemDescriptor.h>
 
 namespace app::classes::types {
     namespace SubsystemDescriptor {
-        namespace {
-            inline app::SubsystemDescriptor__Class* type_info_ref = nullptr;
+        inline app::SubsystemDescriptor__Class** type_info() {
+            static app::SubsystemDescriptor__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SubsystemDescriptor__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SubsystemDescriptor__Class** type_info = &type_info_ref;
         inline app::SubsystemDescriptor__Class* get_class() {
-            return il2cpp::get_class<app::SubsystemDescriptor__Class>(type_info, "UnityEngine.Experimental", "SubsystemDescriptor");
+            return il2cpp::get_class<app::SubsystemDescriptor__Class>(type_info(), "UnityEngine.Experimental", "SubsystemDescriptor");
         }
         inline app::SubsystemDescriptor* create() {
             return il2cpp::create_object<app::SubsystemDescriptor>(get_class());

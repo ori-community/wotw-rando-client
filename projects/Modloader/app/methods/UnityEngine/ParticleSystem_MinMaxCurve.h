@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ParticleSystem_MinMaxCurve__Boxed.h>
+
+#include <Modloader/app/structs/ParticleSystem_MinMaxCurve__Boxed.h>
 #include <Modloader/app/structs/AnimationCurve.h>
 #include <Modloader/app/structs/ParticleSystem_MinMaxCurve.h>
 

@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Rigidbody2D.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/Rigidbody2D.h>
+#include <Modloader/app/structs/Collider2D.h>
+#include <Modloader/app/structs/Collider2D__Array.h>
+#include <Modloader/app/structs/ColliderDistance2D.h>
+#include <Modloader/app/structs/CollisionDetectionMode2D__Enum.h>
+#include <Modloader/app/structs/ContactFilter2D.h>
+#include <Modloader/app/structs/ContactPoint2D__Array.h>
+#include <Modloader/app/structs/ForceMode2D__Enum.h>
 #include <Modloader/app/structs/PhysicsMaterial2D.h>
-#include <Modloader/app/structs/RigidbodyType2D__Enum.h>
+#include <Modloader/app/structs/RaycastHit2D__Array.h>
 #include <Modloader/app/structs/RigidbodyConstraints2D__Enum.h>
 #include <Modloader/app/structs/RigidbodyInterpolation2D__Enum.h>
 #include <Modloader/app/structs/RigidbodySleepMode2D__Enum.h>
-#include <Modloader/app/structs/CollisionDetectionMode2D__Enum.h>
-#include <Modloader/app/structs/Collider2D.h>
-#include <Modloader/app/structs/ContactFilter2D.h>
-#include <Modloader/app/structs/ColliderDistance2D.h>
-#include <Modloader/app/structs/ForceMode2D__Enum.h>
-#include <Modloader/app/structs/Collider2D__Array.h>
-#include <Modloader/app/structs/ContactPoint2D__Array.h>
-#include <Modloader/app/structs/RaycastHit2D__Array.h>
+#include <Modloader/app/structs/RigidbodyType2D__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::Rigidbody2D {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Rigidbody2D * this_ptr))
@@ -80,7 +81,6 @@ namespace app::classes::UnityEngine::Rigidbody2D {
     IL2CPP_REGISTER_METHOD(0x03173970, bool, IsTouchingLayers_2, (app::Rigidbody2D * this_ptr, int32_t layer_mask))
     IL2CPP_REGISTER_METHOD(0x031739D0, bool, OverlapPoint, (app::Rigidbody2D * this_ptr, app::Vector2 point))
     IL2CPP_REGISTER_METHOD(0x03173A30, app::ColliderDistance2D, Distance, (app::Rigidbody2D * this_ptr, app::Collider2D* collider))
-    IL2CPP_REGISTER_METHODINFO(0x04715EA8, Rigidbody2D_Distance__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03173C60, app::ColliderDistance2D, Distance_Internal, (app::Rigidbody2D * this_ptr, app::Collider2D* collider))
     IL2CPP_REGISTER_METHOD(0x03173D00, void, AddForce_1, (app::Rigidbody2D * this_ptr, app::Vector2 force))
     IL2CPP_REGISTER_METHOD(0x03173D60, void, AddForce_2, (app::Rigidbody2D * this_ptr, app::Vector2 force, app::ForceMode2D__Enum mode))

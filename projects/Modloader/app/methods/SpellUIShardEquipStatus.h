@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpellUIShardEquipStatus.h>
+
+#include <Modloader/app/structs/SpellUIShardEquipStatus.h>
 #include <Modloader/app/structs/EquipmentType__Enum.h>
 
 namespace app::classes::SpellUIShardEquipStatus {

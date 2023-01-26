@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ParticleSystem_MinMaxGradient__Boxed.h>
+
+#include <Modloader/app/structs/ParticleSystem_MinMaxGradient__Boxed.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/ParticleSystemGradientMode__Enum.h>
 #include <Modloader/app/structs/Gradient.h>
+#include <Modloader/app/structs/ParticleSystemGradientMode__Enum.h>
 #include <Modloader/app/structs/ParticleSystem_MinMaxGradient.h>
 
 namespace app::classes::UnityEngine::ParticleSystem_MinMaxGradient {

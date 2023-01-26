@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/App__Class.h>
 #include <Modloader/app/structs/App.h>
 #include <Modloader/app/structs/App__Array.h>
+#include <Modloader/app/structs/App__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace App {
-        namespace {
-            inline app::App__Class* type_info_ref = nullptr;
+        inline app::App__Class** type_info() {
+            static app::App__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::App__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::App__Class** type_info = &type_info_ref;
         inline app::App__Class* get_class() {
-            return il2cpp::get_class<app::App__Class>(type_info, "Microsoft.Applications.Events.DataModels", "App");
+            return il2cpp::get_class<app::App__Class>(type_info(), "Microsoft.Applications.Events.DataModels", "App");
         }
         inline app::App* create() {
             return il2cpp::create_object<app::App>(get_class());

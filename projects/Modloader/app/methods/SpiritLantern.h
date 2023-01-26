@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritLantern.h>
+
+#include <Modloader/app/structs/SpiritLantern.h>
+#include <Modloader/app/structs/CameraTargetData.h>
+#include <Modloader/app/structs/CameraTargetType__Enum.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SpiritLeashMode__Enum.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/SpiritLeashMode__Enum.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/CameraTargetType__Enum.h>
-#include <Modloader/app/structs/CameraTargetData.h>
-#include <Modloader/app/structs/SceneRoot.h>
-#include <Modloader/app/structs/IDamageReciever__Array.h>
-#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SpiritLantern {
     IL2CPP_REGISTER_METHOD(0x0057A580, bool, get_Activated, (app::SpiritLantern * this_ptr))

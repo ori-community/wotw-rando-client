@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/ExposedProperties.h>
+#include <Modloader/app/structs/ExposedProperties__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ExposedProperties__Class.h>
-#include <Modloader/app/structs/ExposedProperties.h>
 
 namespace app::classes::types {
     namespace ExposedProperties {
-        namespace {
-            inline app::ExposedProperties__Class* type_info_ref = nullptr;
+        inline app::ExposedProperties__Class** type_info() {
+            static app::ExposedProperties__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ExposedProperties__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ExposedProperties__Class** type_info = &type_info_ref;
         inline app::ExposedProperties__Class* get_class() {
-            return il2cpp::get_class<app::ExposedProperties__Class>(type_info, "Moon.ExposedPropertiesInspector", "ExposedProperties");
+            return il2cpp::get_class<app::ExposedProperties__Class>(type_info(), "Moon.ExposedPropertiesInspector", "ExposedProperties");
         }
         inline app::ExposedProperties* create() {
             return il2cpp::create_object<app::ExposedProperties>(get_class());

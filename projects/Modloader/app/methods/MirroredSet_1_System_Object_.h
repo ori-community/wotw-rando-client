@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/MirroredSet_1_System_Object_.h>
 
 namespace app::classes::MirroredSet_1_System_Object_ {

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ArrayList.h>
 #include <Modloader/app/structs/CADMethodCallMessage.h>
 #include <Modloader/app/structs/IMessage.h>
 #include <Modloader/app/structs/IMethodCallMessage.h>
-#include <Modloader/app/structs/ArrayList.h>
 #include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::CADMethodCallMessage {

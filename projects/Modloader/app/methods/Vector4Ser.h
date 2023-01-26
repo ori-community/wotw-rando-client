@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector4Ser.h>
-#include <Modloader/app/structs/Vector4.h>
+
+#include <Modloader/app/structs/Vector4Ser.h>
 #include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::Vector4Ser {
     IL2CPP_REGISTER_METHOD(0x013BB150, void, ctor_1, (app::Vector4Ser * this_ptr, float x, float y, float z, float w))

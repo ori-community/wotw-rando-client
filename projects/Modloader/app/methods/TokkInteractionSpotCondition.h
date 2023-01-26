@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TokkInteractionSpotCondition.h>
+
+#include <Modloader/app/structs/TokkInteractionSpotCondition.h>
 #include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::TokkInteractionSpotCondition {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityHighlightLogic.h>
+
+#include <Modloader/app/structs/EntityHighlightLogic.h>
 
 namespace app::classes::EntityHighlightLogic {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, DoStrip, (app::EntityHighlightLogic * this_ptr))

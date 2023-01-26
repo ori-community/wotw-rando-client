@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StateMap_1_System_Object_.h>
+
+#include <Modloader/app/structs/StateMap_1_System_Object_.h>
 #include <Modloader/app/structs/IUberState.h>
 
 namespace app::classes::StateMap_1_System_Object_ {

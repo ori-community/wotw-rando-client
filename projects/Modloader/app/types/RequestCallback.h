@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/RequestCallback.h>
+#include <Modloader/app/structs/RequestCallback__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RequestCallback__Class.h>
-#include <Modloader/app/structs/RequestCallback.h>
 
 namespace app::classes::types {
     namespace RequestCallback {
-        namespace {
-            inline app::RequestCallback__Class* type_info_ref = nullptr;
+        inline app::RequestCallback__Class** type_info() {
+            static app::RequestCallback__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::RequestCallback__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::RequestCallback__Class** type_info = &type_info_ref;
         inline app::RequestCallback__Class* get_class() {
-            return il2cpp::get_class<app::RequestCallback__Class>(type_info, "Moon.Network.Web", "RequestCallback");
+            return il2cpp::get_class<app::RequestCallback__Class>(type_info(), "Moon.Network.Web", "RequestCallback");
         }
         inline app::RequestCallback* create() {
             return il2cpp::create_object<app::RequestCallback>(get_class());

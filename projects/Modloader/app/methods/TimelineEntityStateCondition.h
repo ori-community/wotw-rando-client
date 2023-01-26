@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimelineEntity.h>
-#include <Modloader/app/structs/TimelineEntityStateCondition.h>
+
+#include <Modloader/app/structs/TimelineEntity.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/TimelineEntityStateCondition.h>
 
 namespace app::classes::TimelineEntityStateCondition {
     IL2CPP_REGISTER_METHOD(0x010F6BB0, app::TimelineEntity*, get_Target, (app::TimelineEntityStateCondition * this_ptr))

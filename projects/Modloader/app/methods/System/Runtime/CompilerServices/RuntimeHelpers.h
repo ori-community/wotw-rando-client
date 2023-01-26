@@ -1,20 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/RuntimeFieldHandle.h>
+
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RuntimeFieldHandle.h>
 #include <Modloader/app/structs/RuntimeTypeHandle.h>
 
 namespace app::classes::System::Runtime::CompilerServices::RuntimeHelpers {
     IL2CPP_REGISTER_METHOD(0x01A92480, void, InitializeArray_1, (app::Array * array, void* fld_handle))
     IL2CPP_REGISTER_METHOD(0x01A92590, void, InitializeArray_2, (app::Array * array, app::RuntimeFieldHandle fld_handle))
-    IL2CPP_REGISTER_METHODINFO(0x0471D728, RuntimeHelpers_InitializeArray_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007E3F30, int32_t, get_OffsetToStringData, ())
     IL2CPP_REGISTER_METHOD(0x0194D440, int32_t, GetHashCode, (app::Object * o))
     IL2CPP_REGISTER_METHOD(0x01A92740, app::Object*, GetObjectValue, (app::Object * obj))
     IL2CPP_REGISTER_METHOD(0x01A92750, void, RunClassConstructor_1, (void* type))
     IL2CPP_REGISTER_METHOD(0x01A92790, void, RunClassConstructor_2, (app::RuntimeTypeHandle type))
-    IL2CPP_REGISTER_METHODINFO(0x04765090, RuntimeHelpers_RunClassConstructor_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, SufficientExecutionStack, ())
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, TryEnsureSufficientExecutionStack, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, PrepareConstrainedRegions, ())

@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData.h>
+#include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData__Array.h>
+#include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData__Boxed.h>
+#include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData__Class.h>
-#include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData.h>
-#include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData__Boxed.h>
-#include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData__Array.h>
 
 namespace app::classes::types {
     namespace LegacyTransparencyAnimator_RendererData {
-        inline app::LegacyTransparencyAnimator_RendererData__Class** type_info = (app::LegacyTransparencyAnimator_RendererData__Class**)(modloader::win::memory::resolve_rva(0x04720800));
+        inline app::LegacyTransparencyAnimator_RendererData__Class** type_info() {
+            static app::LegacyTransparencyAnimator_RendererData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::LegacyTransparencyAnimator_RendererData__Class**)(modloader::win::memory::resolve_rva(0x04720800));
+            }
+            return cache;
+        }
         inline app::LegacyTransparencyAnimator_RendererData__Class* get_class() {
-            return il2cpp::get_nested_class<app::LegacyTransparencyAnimator_RendererData__Class>(type_info, "", "LegacyTransparencyAnimator", "RendererData");
+            return il2cpp::get_nested_class<app::LegacyTransparencyAnimator_RendererData__Class>(type_info(), "", "LegacyTransparencyAnimator", "RendererData");
         }
         inline app::LegacyTransparencyAnimator_RendererData* create() {
             return il2cpp::create_object<app::LegacyTransparencyAnimator_RendererData>(get_class());

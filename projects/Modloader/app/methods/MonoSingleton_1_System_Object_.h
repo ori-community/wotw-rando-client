@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/MonoSingleton_1_System_Object_.h>
 
 namespace app::classes::MonoSingleton_1_System_Object_ {

@@ -1,15 +1,20 @@
 #pragma once
+#include <Modloader/app/structs/InvalidTimeZoneException.h>
+#include <Modloader/app/structs/InvalidTimeZoneException__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/InvalidTimeZoneException__Class.h>
-#include <Modloader/app/structs/InvalidTimeZoneException.h>
 
 namespace app::classes::types {
     namespace InvalidTimeZoneException {
-        inline app::InvalidTimeZoneException__Class** type_info = (app::InvalidTimeZoneException__Class**)(modloader::win::memory::resolve_rva(0x04760518));
+        inline app::InvalidTimeZoneException__Class** type_info() {
+            static app::InvalidTimeZoneException__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::InvalidTimeZoneException__Class**)(modloader::win::memory::resolve_rva(0x04760518));
+            }
+            return cache;
+        }
         inline app::InvalidTimeZoneException__Class* get_class() {
-            return il2cpp::get_class<app::InvalidTimeZoneException__Class>(type_info, "System", "InvalidTimeZoneException");
+            return il2cpp::get_class<app::InvalidTimeZoneException__Class>(type_info(), "System", "InvalidTimeZoneException");
         }
         inline app::InvalidTimeZoneException* create() {
             return il2cpp::create_object<app::InvalidTimeZoneException>(get_class());

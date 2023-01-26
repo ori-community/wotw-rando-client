@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LeaderBoardService.h>
-#include <Modloader/app/structs/RaceLeaderboardsTitlescreenController.h>
+
+#include <Modloader/app/structs/LeaderBoardService.h>
 #include <Modloader/app/structs/LeaderboardFilter__Enum.h>
+#include <Modloader/app/structs/RaceLeaderboardsTitlescreenController.h>
 #include <Modloader/app/structs/RaceLeaderboardsTitlescreenController_OnlineHandlerState__Enum.h>
 #include <Modloader/app/structs/RaceSettings.h>
 

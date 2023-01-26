@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MaterialBasedLizardEffectsMap.h>
+
+#include <Modloader/app/structs/MaterialBasedLizardEffectsMap.h>
 #include <Modloader/app/structs/MaterialBasedResourceMap_MaterialBasedResourceMapRuntimeCache.h>
 
 namespace app::classes::MaterialBasedLizardEffectsMap {

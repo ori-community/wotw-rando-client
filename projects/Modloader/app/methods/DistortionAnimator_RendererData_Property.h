@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DistortionAnimator_RendererData_Property__Boxed.h>
+
+#include <Modloader/app/structs/DistortionAnimator_RendererData_Property__Boxed.h>
 #include <Modloader/app/structs/UberShaderProperty_Vector__Enum.h>
 #include <Modloader/app/structs/Vector4.h>
 

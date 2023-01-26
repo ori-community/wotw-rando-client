@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NameAttribute_1.h>
+
+#include <Modloader/app/structs/NameAttribute_1.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::NameAttribute {

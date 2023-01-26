@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PassiveSetupInfo.h>
-#include <Modloader/app/structs/SetupState.h>
-#include <Modloader/app/structs/PassiveSetupInfo_State__Enum.h>
+
+#include <Modloader/app/structs/PassiveSetupInfo.h>
 #include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/PassiveSetupInfo_State__Enum.h>
+#include <Modloader/app/structs/SetupState.h>
 
 namespace app::classes::PassiveSetupInfo {
     IL2CPP_REGISTER_METHOD(0x004465A0, int32_t, get_CurrentStateGUID, (app::PassiveSetupInfo * this_ptr))

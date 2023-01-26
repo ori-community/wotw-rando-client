@@ -13,7 +13,7 @@ struct LabelInfo_c__StaticFields {
 #endif
 #if !defined(IL2CPP_STRUCT_LabelInfo_c__StaticFields_FWDDECL)
 #define IL2CPP_STRUCT_LabelInfo_c__StaticFields_FWDDECL
-#include <Modloader/app/structs/Func_2_System_Linq_Expressions_Interpreter_LabelScopeInfo_System_Linq_Expressions_Interpreter_LabelScopeInfo_.h>
+#include <Modloader/app/structs/Func_2_Syste_Li_Expressio_Interpret_LabelScopeIn_Syst_Li_Expressio_Interpret_LabelScopeIn_.h>
 #include <Modloader/app/structs/LabelInfo_c.h>
 #endif
 #undef IL2CPP_STRUCT_LabelInfo_c__StaticFields_INITIALIZING

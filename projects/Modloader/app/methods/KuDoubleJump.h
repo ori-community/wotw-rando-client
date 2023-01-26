@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KuJump.h>
-#include <Modloader/app/structs/KuDoubleJump.h>
+
+#include <Modloader/app/structs/KuJump.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/KuDoubleJump.h>
 
 namespace app::classes::KuDoubleJump {
     IL2CPP_REGISTER_METHOD(0x01234A70, int32_t, get_ExtraJumpsAvailable, ())
@@ -13,12 +14,10 @@ namespace app::classes::KuDoubleJump {
     IL2CPP_REGISTER_METHOD(0x01234CE0, void, Start, (app::KuDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01234E90, void, OnDestroy, (app::KuDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01235040, void, OnResetAirLimits, (app::KuDoubleJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04763398, KuDoubleJump_OnResetAirLimits__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01235050, void, OnSetReferenceToKu, (app::KuDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01235080, void, Serialize, (app::KuDoubleJump * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x012350F0, void, PerformDoubleJump, (app::KuDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012356B0, bool, ShouldDoubleJumpAnimationKeepPlaying, (app::KuDoubleJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04709C80, KuDoubleJump_ShouldDoubleJumpAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01235710, void, UpdateState, (app::KuDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01235AC0, void, ResetDoubleJump, (app::KuDoubleJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01235B60, void, LockForDuration, (app::KuDoubleJump * this_ptr, float duration))

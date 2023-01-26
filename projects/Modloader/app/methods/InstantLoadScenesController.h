@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InstantLoadScenesController.h>
-#include <Modloader/app/structs/ScenesManager.h>
+
+#include <Modloader/app/structs/InstantLoadScenesController.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/ScenesManager.h>
 
 namespace app::classes::InstantLoadScenesController {
     IL2CPP_REGISTER_METHOD(0x0062A7A0, void, ResetStatics, ())
@@ -19,7 +20,6 @@ namespace app::classes::InstantLoadScenesController {
     IL2CPP_REGISTER_METHOD(0x00585310, bool, get_LockFinishingLoading, (app::InstantLoadScenesController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0062B7C0, void, set_LockFinishingLoading, (app::InstantLoadScenesController * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0062B8A0, void, CompleteLoading, (app::InstantLoadScenesController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04795AC8, InstantLoadScenesController_CompleteLoading__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0062BD30, void, OnGameReset, (app::InstantLoadScenesController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::InstantLoadScenesController * this_ptr))
 } // namespace app::classes::InstantLoadScenesController

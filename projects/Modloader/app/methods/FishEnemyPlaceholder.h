@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyEntity.h>
+
+#include <Modloader/app/structs/LegacyEntity.h>
 #include <Modloader/app/structs/FishEnemyPlaceholder.h>
 
 namespace app::classes::FishEnemyPlaceholder {

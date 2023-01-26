@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/AsyncLocalValueChangedArgs_1_System_Object___Boxed.h>
 
 namespace app::classes::System::Threading::AsyncLocalValueChangedArgs_1_System_Object_ {

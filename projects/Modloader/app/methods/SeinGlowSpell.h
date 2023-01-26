@@ -1,23 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinGlowSpell.h>
-#include <Modloader/app/structs/SeinGlowSpell_QuickGlowSetupInfo.h>
-#include <Modloader/app/structs/Input_InputButtonProcessor.h>
-#include <Modloader/app/structs/SeinGlowSpell_GlowState__Enum.h>
-#include <Modloader/app/structs/GlowChargeEffect.h>
-#include <Modloader/app/structs/SeinGlowSpell_GlowLightInfo.h>
-#include <Modloader/app/structs/SeinGlowSpell_GlowType__Enum.h>
-#include <Modloader/app/structs/IAttackable.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/SeinGlowSpell.h>
+#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/GlowChargeEffect.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowLightInfo.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowState__Enum.h>
+#include <Modloader/app/structs/SeinGlowSpell_GlowType__Enum.h>
+#include <Modloader/app/structs/SeinGlowSpell_QuickGlowSetupInfo.h>
 #include <Modloader/app/structs/SeinGlowSpell_QuickGlowTypes__Enum.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinGlowSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinGlowSpell * this_ptr))
@@ -34,7 +35,6 @@ namespace app::classes::SeinGlowSpell {
     IL2CPP_REGISTER_METHOD(0x00AE77E0, void, OnEnter, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE77F0, void, OnExit, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE7820, void, OnRestoreCheckpoint, (app::SeinGlowSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470AA40, SeinGlowSpell_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AE7AE0, bool, get_HasEnoughEnergyForFullGlow, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE7B30, bool, get_HasEnoughEnergyForQuickGlow, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE7B80, bool, get_HasEnoughEnergyForQuickGlowDrain, (app::SeinGlowSpell * this_ptr))
@@ -58,9 +58,7 @@ namespace app::classes::SeinGlowSpell {
     IL2CPP_REGISTER_METHOD(0x00AE8D70, void, UpdateQuickGlowTimeStatistics, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE8EC0, void, FlushQuickGlowTimerIntoStatistics, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE8F80, void, ChangeState, (app::SeinGlowSpell * this_ptr, app::SeinGlowSpell_GlowState__Enum new_state))
-    IL2CPP_REGISTER_METHODINFO(0x04784AD0, SeinGlowSpell_ChangeState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AE9260, void, UpdateCurrentState, (app::SeinGlowSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047894B8, SeinGlowSpell_UpdateCurrentState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AE94A0, void, OnEnterResting, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE9580, void, UpdateResting, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE9B30, void, OnExitResting, (app::SeinGlowSpell * this_ptr))
@@ -69,7 +67,6 @@ namespace app::classes::SeinGlowSpell {
     IL2CPP_REGISTER_METHOD(0x00AEA260, void, UpdateCharging, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008C8490, void, OnExitCharging, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AEA360, void, OnChargeUnblock, (app::SeinGlowSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04799718, SeinGlowSpell_OnChargeUnblock__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AEA370, void, OnEnterQuickGlow, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AEA6D0, void, UpdateQuickGlow, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AEA740, void, OnExitQuickGlow, (app::SeinGlowSpell * this_ptr))
@@ -77,11 +74,8 @@ namespace app::classes::SeinGlowSpell {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateGlowRelease, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AEACC0, void, OnExitGlowRelease, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AEAFA0, void, OnFullResealeUnblock, (app::SeinGlowSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04712708, SeinGlowSpell_OnFullResealeUnblock__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AEAFB0, void, PerformFullGlow, (app::SeinGlowSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04730A50, SeinGlowSpell_PerformFullGlow__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AEB020, void, PerformQuickGlow, (app::SeinGlowSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047047A0, SeinGlowSpell_PerformQuickGlow__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AEB090, void, ApplyFullGlow, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AEB500, void, ApplyQuickGlow, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AEB950, void, AddGlow, (app::SeinGlowSpell * this_ptr, app::SeinGlowSpell_GlowLightInfo* info))
@@ -90,20 +84,15 @@ namespace app::classes::SeinGlowSpell {
     IL2CPP_REGISTER_METHOD(0x00AEBC30, void, DealDamageInRadius, (app::SeinGlowSpell * this_ptr, float amount, float radius, float force))
     IL2CPP_REGISTER_METHOD(0x00AEC470, bool, DealDamage, (app::SeinGlowSpell * this_ptr, app::IAttackable* attackable, float amount, app::Vector3 direction, float force, app::Damage* damage, bool should_instantiate_v_f_x))
     IL2CPP_REGISTER_METHOD(0x00AEC7E0, void, DamageTicked, (app::SeinGlowSpell * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x0476B7E8, SeinGlowSpell_DamageTicked__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AEC960, float, CalculateCooldown, (app::SeinGlowSpell * this_ptr, float cooldown))
     IL2CPP_REGISTER_METHOD(0x00AEC970, void, StartRootMotion, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AECB20, void, EndRootMotion, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AECCD0, void, PlayTimeline, (app::SeinGlowSpell * this_ptr, app::MoonTimeline* timeline, app::Action* on_stoped_playing, bool stop_current_timeline))
     IL2CPP_REGISTER_METHOD(0x00AECDF0, void, NotifyOutOfEnergy, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AECE40, void, ModifyHorizontalPlatformMovementSettings, (app::SeinGlowSpell * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x047526A0, SeinGlowSpell_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ModifyGravityPlatformMovementSettings, (app::SeinGlowSpell * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0476FFD8, SeinGlowSpell_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AED090, void, OnRootMotion, (app::SeinGlowSpell * this_ptr, app::Vector3 motion))
-    IL2CPP_REGISTER_METHODINFO(0x04709768, SeinGlowSpell_OnRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AED1C0, void, OnTakeDamage, (app::SeinGlowSpell * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x04741AE0, SeinGlowSpell_OnTakeDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AED1E0, bool, CanStartQuickGlowOnPress, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AED1F0, app::SeinGlowSpell_QuickGlowTypes__Enum, GetSuitableQuickGlowType, (app::SeinGlowSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AED3A0, bool, ShouldStopGlowDueToInputLock, (app::SeinGlowSpell * this_ptr))

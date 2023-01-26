@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Bounds.h>
+
+#include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/GameWorldArea.h>
-#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::GameWorldArea {

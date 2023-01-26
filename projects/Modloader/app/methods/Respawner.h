@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Respawner.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+
+#include <Modloader/app/structs/Respawner.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::Respawner {
     IL2CPP_REGISTER_METHOD(0x0049C020, bool, get_IsSuspended, (app::Respawner * this_ptr))
@@ -16,10 +17,8 @@ namespace app::classes::Respawner {
     IL2CPP_REGISTER_METHOD(0x00907F90, void, Awake, (app::Respawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009082B0, void, OnDestroy, (app::Respawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009085D0, void, OnRestoreCheckpoint, (app::Respawner * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470C688, Respawner_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00908690, void, FixedUpdate, (app::Respawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009086A0, void, OnTargetDestroyed, (app::Respawner * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477F3A0, Respawner_OnTargetDestroyed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00908860, void, UpdateRespawner, (app::Respawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00908AE0, void, Respawn, (app::Respawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ApplyOnEditor, (app::Respawner * this_ptr))

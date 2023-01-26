@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array__Clas.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array__Class.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array.h>
 
 namespace app::classes::types {
     namespace UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array {
-        namespace {
-            inline app::UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array__Class* type_info_ref = nullptr;
+        inline app::UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array__Class** type_info() {
+            static app::UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array__Class** type_info = &type_info_ref;
         inline app::UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array__Class* get_class() {
-            return il2cpp::get_class<app::UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array__Class>(type_info, "Moon.Timeline", "UberShaderAnimatorStrategyStandard+UberShaderAnimation`1[UnityEngine.Vector4][]");
+            return il2cpp::get_class<app::UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array__Class>(type_info(), "Moon.Timeline", "UberShaderAnimatorStrategyStandard+UberShaderAnimation`1[UnityEngine.Vector4][]");
         }
         inline app::UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array* create() {
             return il2cpp::create_object<app::UberShaderAnimatorStrategyStandard_UberShaderAnimation_1_UnityEngine_Vector4___Array>(get_class());

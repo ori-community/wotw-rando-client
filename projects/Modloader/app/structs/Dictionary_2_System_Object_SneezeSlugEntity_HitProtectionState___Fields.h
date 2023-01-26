@@ -27,7 +27,7 @@ struct __declspec(align(8)) Dictionary_2_System_Object_SneezeSlugEntity_HitProte
 #define IL2CPP_STRUCT_Dictionary_2_System_Object_SneezeSlugEntity_HitProtectionState___Fields_FWDDECL
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_Object_SneezeSlugEntity_HitProtectionState___Array.h>
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_System_Object_SneezeSlugEntity_HitProtectionState_.h>
-#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Object_SneezeSlugEntity_HitProtectionState_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Object_SneezeSlugEntity_HitProtectionStat_.h>
 #include <Modloader/app/structs/IEqualityComparer_1_System_Object_.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/Object.h>

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NamespaceListV1Compat.h>
+
+#include <Modloader/app/structs/NamespaceListV1Compat.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::Schema::NamespaceListV1Compat {

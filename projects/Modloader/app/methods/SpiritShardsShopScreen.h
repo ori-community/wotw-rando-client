@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
-#include <Modloader/app/structs/SpiritShardsShopScreen.h>
+
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/MenuTabBackground__Enum.h>
 #include <Modloader/app/structs/MessageProvider.h>
-#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
-#include <Modloader/app/structs/SpiritShardUIConfirmationOverlay_Selection__Enum.h>
-#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
-#include <Modloader/app/structs/SpellUIItem.h>
 #include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
-#include <Modloader/app/structs/SpiritShardShopUIItem.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/SpiritShardType__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 #include <Modloader/app/structs/RTPC.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
+#include <Modloader/app/structs/SpellUIItem.h>
+#include <Modloader/app/structs/SpiritShardShopUIItem.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/SpiritShardUIConfirmationOverlay_Selection__Enum.h>
+#include <Modloader/app/structs/SpiritShardsShopScreen.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::SpiritShardsShopScreen {
     IL2CPP_REGISTER_METHOD(0x006B8940, app::CleverMenuItemSelectionManager*, get_NavigationManager, (app::SpiritShardsShopScreen * this_ptr))
@@ -27,17 +28,11 @@ namespace app::classes::SpiritShardsShopScreen {
     IL2CPP_REGISTER_METHOD(0x00D76B40, void, Awake, (app::SpiritShardsShopScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D76C10, void, OnDestroy, (app::SpiritShardsShopScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D770C0, void, OnGlobalShardsUpdated, (app::SpiritShardsShopScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04748A10, SpiritShardsShopScreen_OnGlobalShardsUpdated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D771B0, void, OnBindingsUpdated, (app::SpiritShardsShopScreen * this_ptr, app::SpellInventory_Binding__Enum binding))
-    IL2CPP_REGISTER_METHODINFO(0x04746308, SpiritShardsShopScreen_OnBindingsUpdated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D772A0, void, OnNewItemHighlighted, (app::SpiritShardsShopScreen * this_ptr, bool first_after_populating))
-    IL2CPP_REGISTER_METHODINFO(0x04707270, SpiritShardsShopScreen_OnNewItemHighlighted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D774C0, void, OnItemActivatedCallback, (app::SpiritShardsShopScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047984B8, SpiritShardsShopScreen_OnItemActivatedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D77700, void, OnConfirmationSelected, (app::SpiritShardsShopScreen * this_ptr, app::SpiritShardUIConfirmationOverlay_Selection__Enum selection))
-    IL2CPP_REGISTER_METHODINFO(0x04750310, SpiritShardsShopScreen_OnConfirmationSelected__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D77860, void, OnShardInventoryUpdatedCallback, (app::SpiritShardsShopScreen * this_ptr, app::PlayerUberStateShards_Shard* item))
-    IL2CPP_REGISTER_METHODINFO(0x04784208, SpiritShardsShopScreen_OnShardInventoryUpdatedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D77870, app::SpellUIItem*, get_SelectedSpellUIItem, (app::SpiritShardsShopScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D77970, app::PlayerUberStateInventory_InventoryItem*, get_SelectedSpell, (app::SpiritShardsShopScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D77B10, app::SpiritShardShopUIItem*, get_SelectedSpiritShardUIItem, (app::SpiritShardsShopScreen * this_ptr))

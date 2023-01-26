@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BabySandWormNest.h>
+
+#include <Modloader/app/structs/BabySandWormNest.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::BabySandWormNest {
@@ -11,5 +12,4 @@ namespace app::classes::BabySandWormNest {
     IL2CPP_REGISTER_METHOD(0x00860BF0, void, OnDrawGizmosSelected, (app::BabySandWormNest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0072D940, void, ctor, (app::BabySandWormNest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00860D40, void, _LaunchBabySandWorm_b__10_0, (app::BabySandWormNest * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047800A8, BabySandWormNest__LaunchBabySandWorm_b__10_0__MethodInfo)
 } // namespace app::classes::BabySandWormNest

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayableOutputHandle.h>
-#include <Modloader/app/structs/PlayableOutputHandle__Boxed.h>
+
+#include <Modloader/app/structs/PlayableOutputHandle.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/PlayableOutputHandle__Boxed.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::UnityEngine::Playables::PlayableOutputHandle {
     IL2CPP_REGISTER_METHOD(0x02966B30, app::PlayableOutputHandle, get_Null, ())
@@ -24,7 +25,6 @@ namespace app::classes::UnityEngine::Playables::PlayableOutputHandle {
     IL2CPP_REGISTER_METHOD(0x029672A0, void, SetSourceOutputPort_Injected, (app::PlayableOutputHandle * _unity_self, int32_t port))
     IL2CPP_REGISTER_METHOD(0x0012D5F0, bool, IsPlayableOutputOfType_1, (app::PlayableOutputHandle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0012D6B0, bool, IsPlayableOutputOfType_2, (app::PlayableOutputHandle__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04712C48, PlayableOutputHandle_IsPlayableOutputOfType_1__MethodInfo)
     inline bool operator==(app::PlayableOutputHandle lhs, app::PlayableOutputHandle rhs) {
         return op_Equality(lhs, rhs);
     }

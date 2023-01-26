@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GroundPatrolDirectionMode__Enum.h>
-#include <Modloader/app/structs/SpiderlingEntity.h>
+
+#include <Modloader/app/structs/GroundPatrolDirectionMode__Enum.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/SpiderlingEntity.h>
 
 namespace app::classes::SpiderlingEntity {
     IL2CPP_REGISTER_METHOD(0x011C1220, app::GroundPatrolDirectionMode__Enum, get_MovementPattern, (app::SpiderlingEntity * this_ptr))

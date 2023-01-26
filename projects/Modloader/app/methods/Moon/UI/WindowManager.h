@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WindowManager_1.h>
+
+#include <Modloader/app/structs/WindowManager_1.h>
 #include <Modloader/app/structs/Window.h>
 
 namespace app::classes::Moon::UI::WindowManager {

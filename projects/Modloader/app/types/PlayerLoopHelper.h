@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/PlayerLoopHelper.h>
+#include <Modloader/app/structs/PlayerLoopHelper__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/PlayerLoopHelper__Class.h>
-#include <Modloader/app/structs/PlayerLoopHelper.h>
 
 namespace app::classes::types {
     namespace PlayerLoopHelper {
-        namespace {
-            inline app::PlayerLoopHelper__Class* type_info_ref = nullptr;
+        inline app::PlayerLoopHelper__Class** type_info() {
+            static app::PlayerLoopHelper__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::PlayerLoopHelper__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::PlayerLoopHelper__Class** type_info = &type_info_ref;
         inline app::PlayerLoopHelper__Class* get_class() {
-            return il2cpp::get_class<app::PlayerLoopHelper__Class>(type_info, "Moon", "PlayerLoopHelper");
+            return il2cpp::get_class<app::PlayerLoopHelper__Class>(type_info(), "Moon", "PlayerLoopHelper");
         }
         inline app::PlayerLoopHelper* create() {
             return il2cpp::create_object<app::PlayerLoopHelper>(get_class());

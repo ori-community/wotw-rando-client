@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/EquipmentSelectionGrid.h>
+#include <Modloader/app/structs/EquipmentSelectionGrid__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/EquipmentSelectionGrid__Class.h>
-#include <Modloader/app/structs/EquipmentSelectionGrid.h>
 
 namespace app::classes::types {
     namespace EquipmentSelectionGrid {
-        namespace {
-            inline app::EquipmentSelectionGrid__Class* type_info_ref = nullptr;
+        inline app::EquipmentSelectionGrid__Class** type_info() {
+            static app::EquipmentSelectionGrid__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::EquipmentSelectionGrid__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::EquipmentSelectionGrid__Class** type_info = &type_info_ref;
         inline app::EquipmentSelectionGrid__Class* get_class() {
-            return il2cpp::get_class<app::EquipmentSelectionGrid__Class>(type_info, "", "EquipmentSelectionGrid");
+            return il2cpp::get_class<app::EquipmentSelectionGrid__Class>(type_info(), "", "EquipmentSelectionGrid");
         }
         inline app::EquipmentSelectionGrid* create() {
             return il2cpp::create_object<app::EquipmentSelectionGrid>(get_class());

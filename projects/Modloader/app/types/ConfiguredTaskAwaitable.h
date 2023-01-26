@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ConfiguredTaskAwaitable__Class.h>
 #include <Modloader/app/structs/ConfiguredTaskAwaitable.h>
 #include <Modloader/app/structs/ConfiguredTaskAwaitable__Boxed.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace ConfiguredTaskAwaitable {
-        namespace {
-            inline app::ConfiguredTaskAwaitable__Class* type_info_ref = nullptr;
+        inline app::ConfiguredTaskAwaitable__Class** type_info() {
+            static app::ConfiguredTaskAwaitable__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ConfiguredTaskAwaitable__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ConfiguredTaskAwaitable__Class** type_info = &type_info_ref;
         inline app::ConfiguredTaskAwaitable__Class* get_class() {
-            return il2cpp::get_class<app::ConfiguredTaskAwaitable__Class>(type_info, "System.Runtime.CompilerServices", "ConfiguredTaskAwaitable");
+            return il2cpp::get_class<app::ConfiguredTaskAwaitable__Class>(type_info(), "System.Runtime.CompilerServices", "ConfiguredTaskAwaitable");
         }
         inline app::ConfiguredTaskAwaitable* create() {
             return il2cpp::create_object<app::ConfiguredTaskAwaitable>(get_class());

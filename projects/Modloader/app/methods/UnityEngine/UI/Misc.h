@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object_1.h>
+
+#include <Modloader/app/structs/Object_1.h>
 
 namespace app::classes::UnityEngine::UI::Misc {
     IL2CPP_REGISTER_METHOD(0x026627C0, void, Destroy, (app::Object_1 * obj))

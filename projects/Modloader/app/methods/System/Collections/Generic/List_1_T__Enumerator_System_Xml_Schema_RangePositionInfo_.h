@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_System_Xml_Schema_RangePositionInfo___Boxed.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Xml_Schema_RangePositionInfo___Boxed.h>
 #include <Modloader/app/structs/List_1_System_Xml_Schema_RangePositionInfo_.h>
-#include <Modloader/app/structs/RangePositionInfo.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RangePositionInfo.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_System_Xml_Schema_RangePositionInfo_ {
     IL2CPP_REGISTER_METHOD(0x0014CA00, void, ctor, (app::List_1_T_Enumerator_System_Xml_Schema_RangePositionInfo___Boxed * this_ptr, app::List_1_System_Xml_Schema_RangePositionInfo_* list))

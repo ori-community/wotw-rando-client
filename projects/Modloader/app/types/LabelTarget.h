@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LabelTarget__Class.h>
 #include <Modloader/app/structs/LabelTarget.h>
 #include <Modloader/app/structs/LabelTarget__Array.h>
+#include <Modloader/app/structs/LabelTarget__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace LabelTarget {
-        inline app::LabelTarget__Class** type_info = (app::LabelTarget__Class**)(modloader::win::memory::resolve_rva(0x04703260));
+        inline app::LabelTarget__Class** type_info() {
+            static app::LabelTarget__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::LabelTarget__Class**)(modloader::win::memory::resolve_rva(0x04703260));
+            }
+            return cache;
+        }
         inline app::LabelTarget__Class* get_class() {
-            return il2cpp::get_class<app::LabelTarget__Class>(type_info, "System.Linq.Expressions", "LabelTarget");
+            return il2cpp::get_class<app::LabelTarget__Class>(type_info(), "System.Linq.Expressions", "LabelTarget");
         }
         inline app::LabelTarget* create() {
             return il2cpp::create_object<app::LabelTarget>(get_class());

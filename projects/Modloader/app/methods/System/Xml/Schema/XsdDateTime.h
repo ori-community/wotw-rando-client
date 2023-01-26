@@ -1,20 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XsdDateTime__Boxed.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XsdDateTimeFlags__Enum.h>
-#include <Modloader/app/structs/XsdDateTime_Parser.h>
-#include <Modloader/app/structs/XsdDateTime.h>
+
+#include <Modloader/app/structs/XsdDateTime__Boxed.h>
+#include <Modloader/app/structs/Char__Array.h>
 #include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/DateTimeOffset.h>
-#include <Modloader/app/structs/XsdDateTime_DateTimeTypeCode__Enum.h>
-#include <Modloader/app/structs/XsdDateTime_XsdDateTimeKind__Enum.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/StringBuilder.h>
-#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/XsdDateTime.h>
+#include <Modloader/app/structs/XsdDateTimeFlags__Enum.h>
+#include <Modloader/app/structs/XsdDateTime_DateTimeTypeCode__Enum.h>
+#include <Modloader/app/structs/XsdDateTime_Parser.h>
+#include <Modloader/app/structs/XsdDateTime_XsdDateTimeKind__Enum.h>
 
 namespace app::classes::System::Xml::Schema::XsdDateTime {
     IL2CPP_REGISTER_METHOD(0x001C5CD0, void, ctor_1, (app::XsdDateTime__Boxed * this_ptr, app::String* text, app::XsdDateTimeFlags__Enum kinds))
-    IL2CPP_REGISTER_METHODINFO(0x04750108, XsdDateTime__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001C5CE0, void, ctor_2, (app::XsdDateTime__Boxed * this_ptr, app::XsdDateTime_Parser parser))
     IL2CPP_REGISTER_METHOD(0x001C5D30, void, InitiateXsdDateTime, (app::XsdDateTime__Boxed * this_ptr, app::XsdDateTime_Parser parser))
     IL2CPP_REGISTER_METHOD(0x01C7D070, bool, TryParse, (app::String * text, app::XsdDateTimeFlags__Enum kinds, app::XsdDateTime* result))

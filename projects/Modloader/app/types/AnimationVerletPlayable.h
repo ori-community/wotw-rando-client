@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AnimationVerletPlayable__Class.h>
 #include <Modloader/app/structs/AnimationVerletPlayable.h>
 #include <Modloader/app/structs/AnimationVerletPlayable__Boxed.h>
+#include <Modloader/app/structs/AnimationVerletPlayable__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace AnimationVerletPlayable {
-        namespace {
-            inline app::AnimationVerletPlayable__Class* type_info_ref = nullptr;
+        inline app::AnimationVerletPlayable__Class** type_info() {
+            static app::AnimationVerletPlayable__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AnimationVerletPlayable__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AnimationVerletPlayable__Class** type_info = &type_info_ref;
         inline app::AnimationVerletPlayable__Class* get_class() {
-            return il2cpp::get_class<app::AnimationVerletPlayable__Class>(type_info, "UnityEngine.Animations", "AnimationVerletPlayable");
+            return il2cpp::get_class<app::AnimationVerletPlayable__Class>(type_info(), "UnityEngine.Animations", "AnimationVerletPlayable");
         }
         inline app::AnimationVerletPlayable* create() {
             return il2cpp::create_object<app::AnimationVerletPlayable>(get_class());

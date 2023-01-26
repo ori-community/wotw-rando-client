@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MapmakerItem.h>
+
+#include <Modloader/app/structs/MapmakerItem.h>
 #include <Modloader/app/structs/MapmakerUIItem.h>
 #include <Modloader/app/structs/Object.h>
 

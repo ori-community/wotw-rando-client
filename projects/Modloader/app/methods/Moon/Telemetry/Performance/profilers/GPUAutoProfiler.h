@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GPUAutoProfilerReport.h>
+
+#include <Modloader/app/structs/GPUAutoProfilerReport.h>
 #include <Modloader/app/structs/GPUAutoProfiler.h>
 #include <Modloader/app/structs/GPUAutoProfiler_ProfilerState__Enum.h>
 

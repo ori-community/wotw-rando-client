@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AimPoser_Pose.h>
+
+#include <Modloader/app/structs/AimPoser_Pose.h>
 #include <Modloader/app/structs/AimPoser.h>
 #include <Modloader/app/structs/Vector3.h>
 

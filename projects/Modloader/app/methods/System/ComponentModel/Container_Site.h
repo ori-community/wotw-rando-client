@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Container_Site.h>
-#include <Modloader/app/structs/IComponent.h>
+
+#include <Modloader/app/structs/Container_Site.h>
 #include <Modloader/app/structs/Container.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/IComponent.h>
 #include <Modloader/app/structs/IContainer.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::ComponentModel::Container_Site {

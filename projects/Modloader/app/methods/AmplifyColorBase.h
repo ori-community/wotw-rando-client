@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Texture2D.h>
-#include <Modloader/app/structs/AmplifyColorBase.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Shader.h>
-#include <Modloader/app/structs/Texture.h>
+
+#include <Modloader/app/structs/Texture2D.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/AmplifyColorBase.h>
 #include <Modloader/app/structs/AmplifyColorVolumeBase.h>
 #include <Modloader/app/structs/Material.h>
-#include <Modloader/app/structs/RenderTexture.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Shader.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture.h>
 
 namespace app::classes::AmplifyColorBase {
     IL2CPP_REGISTER_METHOD(0x030D48D0, app::Texture2D*, get_DefaultLut, (app::AmplifyColorBase * this_ptr))
@@ -51,9 +52,6 @@ namespace app::classes::AmplifyColorBase {
     IL2CPP_REGISTER_METHOD(0x030DA7A0, void, ctor, (app::AmplifyColorBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01547990, void, SafeRelease_1, (app::AmplifyColorBase * this_ptr, app::Object** obj))
     IL2CPP_REGISTER_METHOD(0x01547990, void, SafeRelease_2, (app::AmplifyColorBase * this_ptr, app::Material** obj))
-    IL2CPP_REGISTER_METHODINFO(0x047842B8, AmplifyColorBase_SafeRelease_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01547990, void, SafeRelease_3, (app::AmplifyColorBase * this_ptr, app::Texture2D** obj))
-    IL2CPP_REGISTER_METHODINFO(0x04758B20, AmplifyColorBase_SafeRelease_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01547990, void, SafeRelease_4, (app::AmplifyColorBase * this_ptr, app::RenderTexture** obj))
-    IL2CPP_REGISTER_METHODINFO(0x04760920, AmplifyColorBase_SafeRelease_3__MethodInfo)
 } // namespace app::classes::AmplifyColorBase

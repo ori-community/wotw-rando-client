@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ResoucesUnloadingMode__Enum.h>
-#include <Modloader/app/structs/SceneResourcesUnloadSystem.h>
+
+#include <Modloader/app/structs/ResoucesUnloadingMode__Enum.h>
 #include <Modloader/app/structs/Object_1__Array.h>
+#include <Modloader/app/structs/SceneResourcesUnloadSystem.h>
 
 namespace app::classes::SceneResourcesUnloadSystem {
     IL2CPP_REGISTER_METHOD(0x00BB1720, app::ResoucesUnloadingMode__Enum, get_Mode, ())

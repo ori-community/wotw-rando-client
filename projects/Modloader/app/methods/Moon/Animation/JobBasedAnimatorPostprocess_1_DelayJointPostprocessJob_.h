@@ -1,23 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob_.h>
-#include <Modloader/app/structs/NativeArray_1_UnityEngine_Quaternion_.h>
+
+#include <Modloader/app/structs/JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob_.h>
+#include <Modloader/app/structs/AnimatorPostprocessUpdateData.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/NativeArray_1_System_Single_.h>
 #include <Modloader/app/structs/NativeArray_1_UnityEngine_Experimental_Animations_TransformStreamHandle_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Quaternion_.h>
 #include <Modloader/app/structs/Playable.h>
 #include <Modloader/app/structs/PlayableGraph.h>
-#include <Modloader/app/structs/MoonAnimator.h>
-#include <Modloader/app/structs/AnimatorPostprocessUpdateData.h>
 
 namespace app::classes::Moon::Animation::JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob_ {
     IL2CPP_REGISTER_METHOD(0x0154A430, void, DisposeIfCreated_1, (app::JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob_ * this_ptr, app::NativeArray_1_UnityEngine_Quaternion_* array))
-    IL2CPP_REGISTER_METHODINFO(0x0470C3F0, JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob__DisposeIfCreated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0154A430, void, DisposeIfCreated_2, (app::JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob_ * this_ptr, app::NativeArray_1_System_Single_* array))
-    IL2CPP_REGISTER_METHODINFO(0x0474EFA0, JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob__DisposeIfCreated_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0154A430, void, DisposeIfCreated_3, (app::JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob_ * this_ptr, app::NativeArray_1_UnityEngine_Experimental_Animations_TransformStreamHandle_* array))
-    IL2CPP_REGISTER_METHODINFO(0x047519C0, JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob__DisposeIfCreated_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019FBE40, void, ctor, (app::JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470C1D8, JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019FB8A0, bool, get_IsActive, (app::JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsAllowed, (app::JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019FB940, app::Playable, ConstructPlayable, (app::JobBasedAnimatorPostprocess_1_DelayJointPostprocessJob_ * this_ptr, app::PlayableGraph playable_graph))

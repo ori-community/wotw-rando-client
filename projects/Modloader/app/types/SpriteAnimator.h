@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SpriteAnimator__Class.h>
 #include <Modloader/app/structs/SpriteAnimator.h>
 #include <Modloader/app/structs/SpriteAnimator__Array.h>
+#include <Modloader/app/structs/SpriteAnimator__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SpriteAnimator {
-        namespace {
-            inline app::SpriteAnimator__Class* type_info_ref = nullptr;
+        inline app::SpriteAnimator__Class** type_info() {
+            static app::SpriteAnimator__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SpriteAnimator__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SpriteAnimator__Class** type_info = &type_info_ref;
         inline app::SpriteAnimator__Class* get_class() {
-            return il2cpp::get_class<app::SpriteAnimator__Class>(type_info, "", "SpriteAnimator");
+            return il2cpp::get_class<app::SpriteAnimator__Class>(type_info(), "", "SpriteAnimator");
         }
         inline app::SpriteAnimator* create() {
             return il2cpp::create_object<app::SpriteAnimator>(get_class());

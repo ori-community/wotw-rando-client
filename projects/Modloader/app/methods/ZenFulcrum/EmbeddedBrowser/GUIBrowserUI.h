@@ -1,22 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUIBrowserUI.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Texture2D.h>
-#include <Modloader/app/structs/BrowserCursor.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/MouseButton__Enum.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Event_.h>
-#include <Modloader/app/structs/BrowserInputSettings.h>
+
+#include <Modloader/app/structs/GUIBrowserUI.h>
 #include <Modloader/app/structs/BaseEventData.h>
+#include <Modloader/app/structs/BrowserCursor.h>
+#include <Modloader/app/structs/BrowserInputSettings.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Event_.h>
+#include <Modloader/app/structs/MouseButton__Enum.h>
 #include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::GUIBrowserUI {
     IL2CPP_REGISTER_METHOD(0x01DDE910, void, Awake, (app::GUIBrowserUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DDED70, void, OnEnable, (app::GUIBrowserUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DDEED0, app::IEnumerator*, WatchResize, (app::GUIBrowserUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DDF020, void, UpdateTexture, (app::GUIBrowserUI * this_ptr, app::Texture2D* texture))
-    IL2CPP_REGISTER_METHODINFO(0x04730AA0, GUIBrowserUI_UpdateTexture__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01DDF0D0, void, InputUpdate, (app::GUIBrowserUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DDF9F0, void, OnGUI, (app::GUIBrowserUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DDFC10, void, SetCursor, (app::GUIBrowserUI * this_ptr, app::BrowserCursor* new_cursor))
@@ -40,5 +40,4 @@ namespace app::classes::ZenFulcrum::EmbeddedBrowser::GUIBrowserUI {
     IL2CPP_REGISTER_METHOD(0x01DDFF60, void, OnPointerDown, (app::GUIBrowserUI * this_ptr, app::PointerEventData* event_data))
     IL2CPP_REGISTER_METHOD(0x01DE0070, void, ctor, (app::GUIBrowserUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DE02A0, void, _Awake_b__4_0, (app::GUIBrowserUI * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04739C78, GUIBrowserUI__Awake_b__4_0__MethodInfo)
 } // namespace app::classes::ZenFulcrum::EmbeddedBrowser::GUIBrowserUI

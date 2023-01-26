@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
 #include <Modloader/app/structs/EulerXYZRotationAnimatorEntity.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/MoonReference_1_UnityEngine_Transform_.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/TimelineEntityRecord.h>
-#include <Modloader/app/structs/TimelineEntity.h>
-#include <Modloader/app/structs/Constraint__Enum.h>
-#include <Modloader/app/structs/SetupStateModifierDataType__Enum.h>
 #include <Modloader/app/structs/SetupControllerStateHolder.h>
 #include <Modloader/app/structs/SetupStateModifier.h>
-#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/SetupStateModifierDataType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Timeline::EulerXYZRotationAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x01BB8900, app::Transform*, get_TransformTarget, (app::EulerXYZRotationAnimatorEntity * this_ptr))
@@ -22,7 +23,6 @@ namespace app::classes::Moon::Timeline::EulerXYZRotationAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x01BB8A50, app::Transform*, get_EffectiveTransform, (app::EulerXYZRotationAnimatorEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01BB8B60, void, OnStartPlayback, (app::EulerXYZRotationAnimatorEntity * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x01BB8BC0, void, SetupInitialValues, (app::EulerXYZRotationAnimatorEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478A8B0, EulerXYZRotationAnimatorEntity_SetupInitialValues__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, CanUpdate, (app::EulerXYZRotationAnimatorEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01BB8CB0, void, OnUpdateEntity, (app::EulerXYZRotationAnimatorEntity * this_ptr, float delta_time))
     IL2CPP_REGISTER_METHOD(0x01BB8D10, void, OnStartTimelineSample, (app::EulerXYZRotationAnimatorEntity * this_ptr))

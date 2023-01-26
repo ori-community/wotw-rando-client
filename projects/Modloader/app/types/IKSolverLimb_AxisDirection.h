@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/IKSolverLimb_AxisDirection.h>
+#include <Modloader/app/structs/IKSolverLimb_AxisDirection__Array.h>
+#include <Modloader/app/structs/IKSolverLimb_AxisDirection__Boxed.h>
+#include <Modloader/app/structs/IKSolverLimb_AxisDirection__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/IKSolverLimb_AxisDirection__Class.h>
-#include <Modloader/app/structs/IKSolverLimb_AxisDirection.h>
-#include <Modloader/app/structs/IKSolverLimb_AxisDirection__Boxed.h>
-#include <Modloader/app/structs/IKSolverLimb_AxisDirection__Array.h>
 
 namespace app::classes::types {
     namespace IKSolverLimb_AxisDirection {
-        namespace {
-            inline app::IKSolverLimb_AxisDirection__Class* type_info_ref = nullptr;
+        inline app::IKSolverLimb_AxisDirection__Class** type_info() {
+            static app::IKSolverLimb_AxisDirection__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::IKSolverLimb_AxisDirection__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::IKSolverLimb_AxisDirection__Class** type_info = &type_info_ref;
         inline app::IKSolverLimb_AxisDirection__Class* get_class() {
-            return il2cpp::get_nested_class<app::IKSolverLimb_AxisDirection__Class>(type_info, "RootMotion.FinalIK", "IKSolverLimb", "AxisDirection");
+            return il2cpp::get_nested_class<app::IKSolverLimb_AxisDirection__Class>(type_info(), "RootMotion.FinalIK", "IKSolverLimb", "AxisDirection");
         }
         inline app::IKSolverLimb_AxisDirection* create() {
             return il2cpp::create_object<app::IKSolverLimb_AxisDirection>(get_class());

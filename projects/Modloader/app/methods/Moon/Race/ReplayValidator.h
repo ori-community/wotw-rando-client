@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/ITrialData.h>
-#include <Modloader/app/structs/RaceSettings.h>
-#include <Modloader/app/structs/ReplayValidator_ValidReason.h>
-#include <Modloader/app/structs/ReplayValidatorData.h>
 #include <Modloader/app/structs/Nullable_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/RaceSettings.h>
+#include <Modloader/app/structs/ReplayValidatorData.h>
+#include <Modloader/app/structs/ReplayValidator_ValidReason.h>
 
 namespace app::classes::Moon::Race::ReplayValidator {
     IL2CPP_REGISTER_METHOD(0x00C499E0, bool, IsValid, (app::String * race_id, app::String* replay_data, int32_t score, app::ITrialData* trial_data, app::RaceSettings* race_settings, bool uploading))

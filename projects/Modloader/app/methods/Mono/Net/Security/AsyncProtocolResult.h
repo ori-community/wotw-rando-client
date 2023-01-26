@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AsyncProtocolResult.h>
+
+#include <Modloader/app/structs/AsyncProtocolResult.h>
 #include <Modloader/app/structs/ExceptionDispatchInfo.h>
 
 namespace app::classes::Mono::Net::Security::AsyncProtocolResult {

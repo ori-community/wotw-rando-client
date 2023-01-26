@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Vitals_DamageProcessHelper_SortedDamageEntry.h>
 #include <Modloader/app/structs/Vitals_DamageProcessHelper_SortedDamageEntry__Array.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ {
     IL2CPP_REGISTER_METHOD(0x01CD0C40, bool, Equals_1, (app::ObjectEqualityComparer_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ * this_ptr, app::Vitals_DamageProcessHelper_SortedDamageEntry x, app::Vitals_DamageProcessHelper_SortedDamageEntry y))

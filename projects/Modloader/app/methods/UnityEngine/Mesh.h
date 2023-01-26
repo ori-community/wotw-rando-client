@@ -1,27 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Mesh.h>
-#include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/MeshTopology__Enum.h>
+
+#include <Modloader/app/structs/Mesh.h>
 #include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/VertexAttribute__Enum.h>
-#include <Modloader/app/structs/Mesh_InternalVertexChannelType__Enum.h>
 #include <Modloader/app/structs/BoneWeight__Array.h>
-#include <Modloader/app/structs/Matrix4x4__Array.h>
 #include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/Vector3__Array.h>
-#include <Modloader/app/structs/Vector4__Array.h>
-#include <Modloader/app/structs/Vector2__Array.h>
-#include <Modloader/app/structs/Color__Array.h>
 #include <Modloader/app/structs/Color32__Array.h>
+#include <Modloader/app/structs/Color__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/List_1_System_Int32_.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
 #include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
 #include <Modloader/app/structs/List_1_UnityEngine_Vector4_.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Color_.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Color32_.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
-#include <Modloader/app/structs/List_1_System_Int32_.h>
+#include <Modloader/app/structs/Matrix4x4__Array.h>
+#include <Modloader/app/structs/MeshTopology__Enum.h>
+#include <Modloader/app/structs/Mesh_InternalVertexChannelType__Enum.h>
 #include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/Vector4__Array.h>
+#include <Modloader/app/structs/VertexAttribute__Enum.h>
 
 namespace app::classes::UnityEngine::Mesh {
     IL2CPP_REGISTER_METHOD(0x02539620, void, ctor, (app::Mesh * this_ptr))
@@ -49,9 +50,7 @@ namespace app::classes::UnityEngine::Mesh {
     IL2CPP_REGISTER_METHOD(0x02539F00, void, MarkDynamicImpl, (app::Mesh * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02539F50, void, UploadMeshDataImpl, (app::Mesh * this_ptr, bool mark_no_longer_readable))
     IL2CPP_REGISTER_METHOD(0x02539FB0, app::VertexAttribute__Enum, GetUVChannel, (app::Mesh * this_ptr, int32_t uv_index))
-    IL2CPP_REGISTER_METHODINFO(0x04722050, Mesh_GetUVChannel__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0253A060, int32_t, DefaultDimensionForChannel, (app::VertexAttribute__Enum channel))
-    IL2CPP_REGISTER_METHODINFO(0x04750E88, Mesh_DefaultDimensionForChannel__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0253A140, void, SetSizedArrayForChannel, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::Mesh_InternalVertexChannelType__Enum format, int32_t dim, app::Array* values, int32_t values_count))
     IL2CPP_REGISTER_METHOD(0x0253A270, app::Vector3__Array*, get_vertices, (app::Mesh * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0253A320, void, set_vertices, (app::Mesh * this_ptr, app::Vector3__Array* value))
@@ -108,35 +107,20 @@ namespace app::classes::UnityEngine::Mesh {
     IL2CPP_REGISTER_METHOD(0x015E5B40, void, SetListForChannel_2, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::List_1_System_Object_* values))
     IL2CPP_REGISTER_METHOD(0x015E5CE0, void, SetUvsImpl_1, (app::Mesh * this_ptr, int32_t uv_index, int32_t dim, app::List_1_System_Object_* uvs))
     IL2CPP_REGISTER_METHOD(0x02FF62D0, app::Vector3__Array*, GetAllocArrayFromChannel_3, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel))
-    IL2CPP_REGISTER_METHODINFO(0x04776A60, Mesh_GetAllocArrayFromChannel_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E5A30, void, SetArrayForChannel_3, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::Vector3__Array* values))
-    IL2CPP_REGISTER_METHODINFO(0x04770808, Mesh_SetArrayForChannel_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF62D0, app::Vector4__Array*, GetAllocArrayFromChannel_4, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel))
-    IL2CPP_REGISTER_METHODINFO(0x047076D8, Mesh_GetAllocArrayFromChannel_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF62D0, app::Vector2__Array*, GetAllocArrayFromChannel_5, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel))
-    IL2CPP_REGISTER_METHODINFO(0x04713568, Mesh_GetAllocArrayFromChannel_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E5A30, void, SetArrayForChannel_4, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::Vector2__Array* values))
-    IL2CPP_REGISTER_METHODINFO(0x04775600, Mesh_SetArrayForChannel_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E5A30, void, SetArrayForChannel_5, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::Color__Array* values))
-    IL2CPP_REGISTER_METHODINFO(0x04763CA8, Mesh_SetArrayForChannel_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF6330, app::Color32__Array*, GetAllocArrayFromChannel_6, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::Mesh_InternalVertexChannelType__Enum format, int32_t dim))
-    IL2CPP_REGISTER_METHODINFO(0x04752A28, Mesh_GetAllocArrayFromChannel_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E5AB0, void, SetArrayForChannel_6, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::Mesh_InternalVertexChannelType__Enum format, int32_t dim, app::Color32__Array* values))
-    IL2CPP_REGISTER_METHODINFO(0x04794670, Mesh_SetArrayForChannel_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E5B40, void, SetListForChannel_3, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::List_1_UnityEngine_Vector3_* values))
-    IL2CPP_REGISTER_METHODINFO(0x0473BAD0, Mesh_SetListForChannel_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E5B40, void, SetListForChannel_4, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::List_1_UnityEngine_Vector4_* values))
-    IL2CPP_REGISTER_METHODINFO(0x04799770, Mesh_SetListForChannel_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E5B40, void, SetListForChannel_5, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::List_1_UnityEngine_Color_* values))
-    IL2CPP_REGISTER_METHODINFO(0x0475B3E0, Mesh_SetListForChannel_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E5C10, void, SetListForChannel_6, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::Mesh_InternalVertexChannelType__Enum format, int32_t dim, app::List_1_UnityEngine_Color32_* values))
-    IL2CPP_REGISTER_METHODINFO(0x04795198, Mesh_SetListForChannel_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E5DF0, void, SetUvsImpl_2, (app::Mesh * this_ptr, int32_t uv_index, int32_t dim, app::List_1_UnityEngine_Vector2_* uvs))
-    IL2CPP_REGISTER_METHODINFO(0x0477DD58, Mesh_SetUvsImpl_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E5F00, void, SetUvsImpl_3, (app::Mesh * this_ptr, int32_t uv_index, int32_t dim, app::List_1_UnityEngine_Vector3_* uvs))
-    IL2CPP_REGISTER_METHODINFO(0x0477B398, Mesh_SetUvsImpl_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E6010, void, SetUvsImpl_4, (app::Mesh * this_ptr, int32_t uv_index, int32_t dim, app::List_1_UnityEngine_Vector4_* uvs))
-    IL2CPP_REGISTER_METHODINFO(0x0472E678, Mesh_SetUvsImpl_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E5C10, void, SetListForChannel_7, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::Mesh_InternalVertexChannelType__Enum format, int32_t dim, app::List_1_UnityEngine_Vector2_* values))
     IL2CPP_REGISTER_METHOD(0x015E5C10, void, SetListForChannel_8, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::Mesh_InternalVertexChannelType__Enum format, int32_t dim, app::List_1_UnityEngine_Vector3_* values))
     IL2CPP_REGISTER_METHOD(0x015E5C10, void, SetListForChannel_9, (app::Mesh * this_ptr, app::VertexAttribute__Enum channel, app::Mesh_InternalVertexChannelType__Enum format, int32_t dim, app::List_1_UnityEngine_Vector4_* values))

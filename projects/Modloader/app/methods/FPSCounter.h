@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FPSCounter.h>
+
+#include <Modloader/app/structs/FPSCounter.h>
 
 namespace app::classes::FPSCounter {
     IL2CPP_REGISTER_METHOD(0x00988580, void, Start, (app::FPSCounter * this_ptr))

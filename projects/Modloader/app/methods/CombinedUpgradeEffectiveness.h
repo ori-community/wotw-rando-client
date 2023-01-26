@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Single__Array.h>
+
+#include <Modloader/app/structs/Single__Array.h>
 #include <Modloader/app/structs/CombinedUpgradeEffectiveness.h>
 #include <Modloader/app/structs/CombinedUpgradeEffectiveness_UpgradableAbilityType__Enum.h>
 

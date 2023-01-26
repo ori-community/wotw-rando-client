@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/GhostAnimationData.h>
-#include <Modloader/app/structs/BinaryWriter.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/GhostAnimationData.h>
 #include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
 
 namespace app::classes::GhostAnimationData {

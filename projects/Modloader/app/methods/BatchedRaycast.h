@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BatchedRaycast.h>
+
+#include <Modloader/app/structs/BatchedRaycast.h>
 #include <Modloader/app/structs/JobHandle.h>
 
 namespace app::classes::BatchedRaycast {

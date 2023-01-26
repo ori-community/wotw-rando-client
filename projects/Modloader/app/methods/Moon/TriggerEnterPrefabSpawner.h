@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TriggerEnterPrefabSpawner.h>
+
+#include <Modloader/app/structs/TriggerEnterPrefabSpawner.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::TriggerEnterPrefabSpawner {
     IL2CPP_REGISTER_METHOD(0x00D1EDD0, void, Awake, (app::TriggerEnterPrefabSpawner * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::SerializationHelper {

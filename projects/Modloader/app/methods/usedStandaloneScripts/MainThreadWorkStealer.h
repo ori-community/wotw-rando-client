@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MainThreadWorkStealer_WorkStealingMode__Enum.h>
+
+#include <Modloader/app/structs/MainThreadWorkStealer_WorkStealingMode__Enum.h>
+#include <Modloader/app/structs/MainThreadWorkStealer.h>
 #include <Modloader/app/structs/MainThreadWorkStealer_TimeBudgetMode__Enum.h>
 #include <Modloader/app/structs/PlayerLoopSystem.h>
-#include <Modloader/app/structs/MainThreadWorkStealer.h>
 
 namespace app::classes::usedStandaloneScripts::MainThreadWorkStealer {
     IL2CPP_REGISTER_METHOD(0x03125FF0, app::MainThreadWorkStealer_WorkStealingMode__Enum, get_StealingMode, ())
@@ -13,7 +14,6 @@ namespace app::classes::usedStandaloneScripts::MainThreadWorkStealer {
     IL2CPP_REGISTER_METHOD(0x03126290, bool, get_Enabled, ())
     IL2CPP_REGISTER_METHOD(0x03126330, void, set_Enabled, (bool value))
     IL2CPP_REGISTER_METHOD(0x031263E0, void, TickFrame, ())
-    IL2CPP_REGISTER_METHODINFO(0x04754D78, MainThreadWorkStealer_TickFrame__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03126710, void, InjectToPlayerLoopEarly, (app::PlayerLoopSystem * player_loop))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MainThreadWorkStealer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03126940, void, cctor, ())

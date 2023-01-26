@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityPlaceholderScalingData_EntityScalingValues.h>
+
+#include <Modloader/app/structs/EntityPlaceholderScalingData_EntityScalingValues.h>
 #include <Modloader/app/structs/EntityPlaceholderScalingData_Difficulties.h>
 
 namespace app::classes::EntityPlaceholderScalingData_Difficulties {

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonSet_1_System_Object_.h>
+
+#include <Modloader/app/structs/MoonSet_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/List_1_System_Object_.h>
 
 namespace app::classes::MoonSet_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02AF7920, int32_t, get_Count, (app::MoonSet_1_System_Object_ * this_ptr))

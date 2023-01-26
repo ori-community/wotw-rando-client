@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BindingRestrictions_BindingRestrictionsProxy.h>
+
+#include <Modloader/app/structs/BindingRestrictions_BindingRestrictionsProxy.h>
 #include <Modloader/app/structs/BindingRestrictions.h>
-#include <Modloader/app/structs/Expression.h>
 #include <Modloader/app/structs/BindingRestrictions__Array.h>
+#include <Modloader/app/structs/Expression.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Dynamic::BindingRestrictions_BindingRestrictionsProxy {

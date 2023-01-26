@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FloatingRockController.h>
+
+#include <Modloader/app/structs/FloatingRockController.h>
 
 namespace app::classes::FloatingRockController {
     IL2CPP_REGISTER_METHOD(0x01272C50, void, Awake, (app::FloatingRockController * this_ptr))

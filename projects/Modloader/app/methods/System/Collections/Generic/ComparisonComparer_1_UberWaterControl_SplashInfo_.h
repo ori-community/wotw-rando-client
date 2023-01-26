@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_UberWaterControl_SplashInfo_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_UberWaterControl_SplashInfo_.h>
 #include <Modloader/app/structs/Comparison_1_UberWaterControl_SplashInfo_.h>
 #include <Modloader/app/structs/UberWaterControl_SplashInfo.h>
 

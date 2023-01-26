@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Header__Class.h>
 #include <Modloader/app/structs/Header.h>
 #include <Modloader/app/structs/Header__Array.h>
+#include <Modloader/app/structs/Header__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Header {
-        namespace {
-            inline app::Header__Class* type_info_ref = nullptr;
+        inline app::Header__Class** type_info() {
+            static app::Header__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Header__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Header__Class** type_info = &type_info_ref;
         inline app::Header__Class* get_class() {
-            return il2cpp::get_class<app::Header__Class>(type_info, "System.Runtime.Remoting.Messaging", "Header");
+            return il2cpp::get_class<app::Header__Class>(type_info(), "System.Runtime.Remoting.Messaging", "Header");
         }
         inline app::Header* create() {
             return il2cpp::create_object<app::Header>(get_class());

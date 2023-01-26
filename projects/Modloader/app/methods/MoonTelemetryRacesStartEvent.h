@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTelemetryRacesStartEvent.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/MoonTelemetryRacesStartEvent_RaceID__Enum.h>
+
+#include <Modloader/app/structs/MoonTelemetryRacesStartEvent.h>
 #include <Modloader/app/structs/JsonBuilder_Object.h>
+#include <Modloader/app/structs/MoonTelemetryRacesStartEvent_RaceID__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::MoonTelemetryRacesStartEvent {
     IL2CPP_REGISTER_METHOD(0x01471130, void, ctor, (app::MoonTelemetryRacesStartEvent * this_ptr, app::String* scene_name))

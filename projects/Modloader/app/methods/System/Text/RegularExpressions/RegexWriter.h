@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RegexCode.h>
+
+#include <Modloader/app/structs/RegexCode.h>
+#include <Modloader/app/structs/ArgumentException.h>
+#include <Modloader/app/structs/RegexNode.h>
 #include <Modloader/app/structs/RegexTree.h>
 #include <Modloader/app/structs/RegexWriter.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ArgumentException.h>
-#include <Modloader/app/structs/RegexNode.h>
 
 namespace app::classes::System::Text::RegularExpressions::RegexWriter {
     IL2CPP_REGISTER_METHOD(0x02A78D50, app::RegexCode*, Write, (app::RegexTree * t))
@@ -23,5 +24,4 @@ namespace app::classes::System::Text::RegularExpressions::RegexWriter {
     IL2CPP_REGISTER_METHOD(0x02A79830, int32_t, MapCapnum, (app::RegexWriter * this_ptr, int32_t capnum))
     IL2CPP_REGISTER_METHOD(0x02A79940, app::RegexCode*, RegexCodeFromRegexTree, (app::RegexWriter * this_ptr, app::RegexTree* tree))
     IL2CPP_REGISTER_METHOD(0x02A7A080, void, EmitFragment, (app::RegexWriter * this_ptr, int32_t nodetype, app::RegexNode* node, int32_t cur_index))
-    IL2CPP_REGISTER_METHODINFO(0x04738E18, RegexWriter_EmitFragment__MethodInfo)
 } // namespace app::classes::System::Text::RegularExpressions::RegexWriter

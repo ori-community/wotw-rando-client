@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKTargetBehaviour.h>
+
+#include <Modloader/app/structs/IKTargetBehaviour.h>
+#include <Modloader/app/structs/InverseKinematicsPostprocess.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/MoonAnimator.h>
-#include <Modloader/app/structs/InverseKinematicsPostprocess.h>
 
 namespace app::classes::Moon::IKTargetBehaviour {
     IL2CPP_REGISTER_METHOD(0x01101D50, void, Start, (app::IKTargetBehaviour * this_ptr))

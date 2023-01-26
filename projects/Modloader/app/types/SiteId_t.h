@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SiteId_t__Class.h>
 #include <Modloader/app/structs/SiteId_t.h>
 #include <Modloader/app/structs/SiteId_t__Boxed.h>
+#include <Modloader/app/structs/SiteId_t__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SiteId_t {
-        inline app::SiteId_t__Class** type_info = (app::SiteId_t__Class**)(modloader::win::memory::resolve_rva(0x04761078));
+        inline app::SiteId_t__Class** type_info() {
+            static app::SiteId_t__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::SiteId_t__Class**)(modloader::win::memory::resolve_rva(0x04761078));
+            }
+            return cache;
+        }
         inline app::SiteId_t__Class* get_class() {
-            return il2cpp::get_class<app::SiteId_t__Class>(type_info, "Steamworks", "SiteId_t");
+            return il2cpp::get_class<app::SiteId_t__Class>(type_info(), "Steamworks", "SiteId_t");
         }
         inline app::SiteId_t* create() {
             return il2cpp::create_object<app::SiteId_t>(get_class());

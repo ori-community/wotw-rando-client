@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HelpURLAttribute.h>
+
+#include <Modloader/app/structs/HelpURLAttribute.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::HelpURLAttribute {

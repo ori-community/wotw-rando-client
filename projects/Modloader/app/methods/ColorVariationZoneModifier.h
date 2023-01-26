@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ColorVariationZoneModifier.h>
-#include <Modloader/app/structs/ColorVariationSettings.h>
+
+#include <Modloader/app/structs/ColorVariationZoneModifier.h>
 #include <Modloader/app/structs/ColorVariationManager_ColorVariationInfluencerOrder__Enum.h>
+#include <Modloader/app/structs/ColorVariationSettings.h>
 
 namespace app::classes::ColorVariationZoneModifier {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_VisibleOnInspector, (app::ColorVariationZoneModifier * this_ptr))

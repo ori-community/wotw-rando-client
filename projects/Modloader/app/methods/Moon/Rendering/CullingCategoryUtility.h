@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Renderer.h>
+
+#include <Modloader/app/structs/Renderer.h>
 #include <Modloader/app/structs/Component_1.h>
 #include <Modloader/app/structs/String.h>
 

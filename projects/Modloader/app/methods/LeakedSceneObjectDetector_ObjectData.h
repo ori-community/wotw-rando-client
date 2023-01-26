@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LeakedSceneObjectDetector_ObjectData.h>
+
+#include <Modloader/app/structs/LeakedSceneObjectDetector_ObjectData.h>
 #include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::LeakedSceneObjectDetector_ObjectData {

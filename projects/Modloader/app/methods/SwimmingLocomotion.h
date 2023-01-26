@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VolumeEntityMovementProcessor.h>
-#include <Modloader/app/structs/SwimmingLocomotion.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/EntityLocomotionTask.h>
+
+#include <Modloader/app/structs/VolumeEntityMovementProcessor.h>
 #include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
 #include <Modloader/app/structs/MovementProcessor.h>
+#include <Modloader/app/structs/SwimmingLocomotion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SwimmingLocomotion {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::VolumeEntityMovementProcessor*, get_VolumeMovement, (app::SwimmingLocomotion * this_ptr))
@@ -29,7 +30,6 @@ namespace app::classes::SwimmingLocomotion {
     IL2CPP_REGISTER_METHOD(0x01827940, void, ConfigureStateMachine, (app::SwimmingLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005B0220, app::EntityLocomotionTask*, get_DefaultFSMState, (app::SwimmingLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01827C50, bool, ShouldTriggerMove, (app::SwimmingLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04730040, SwimmingLocomotion_ShouldTriggerMove__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A17790, bool, IsLookDirectionLocked, (app::SwimmingLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01827E50, void, OnEntityInitialization, (app::SwimmingLocomotion * this_ptr, app::Entity* entity))
     IL2CPP_REGISTER_METHOD(0x01828050, void, OnFixedUpdate, (app::SwimmingLocomotion * this_ptr))
@@ -55,5 +55,4 @@ namespace app::classes::SwimmingLocomotion {
     IL2CPP_REGISTER_METHOD(0x01829A00, void, UpdateWaterCurrent, (app::SwimmingLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01829BA0, void, ctor, (app::SwimmingLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01829BC0, bool, _ConfigureStateMachine_b__35_0, (app::SwimmingLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04760638, SwimmingLocomotion__ConfigureStateMachine_b__35_0__MethodInfo)
 } // namespace app::classes::SwimmingLocomotion

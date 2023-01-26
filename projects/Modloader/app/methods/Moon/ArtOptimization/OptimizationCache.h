@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OptimizationCache.h>
-#include <Modloader/app/structs/SceneRoot.h>
+
+#include <Modloader/app/structs/OptimizationCache.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SceneRoot.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::ArtOptimization::OptimizationCache {

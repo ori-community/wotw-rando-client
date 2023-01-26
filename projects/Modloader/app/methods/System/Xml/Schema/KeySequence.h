@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeySequence.h>
+
+#include <Modloader/app/structs/KeySequence.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
 

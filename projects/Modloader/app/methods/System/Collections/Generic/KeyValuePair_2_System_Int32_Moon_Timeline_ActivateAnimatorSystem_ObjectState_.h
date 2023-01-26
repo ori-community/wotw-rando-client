@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_Moon_Timeline_ActivateAnimatorSystem_ObjectState___Boxed.h>
 #include <Modloader/app/structs/ActivateAnimatorSystem_ObjectState.h>
 #include <Modloader/app/structs/String.h>
 

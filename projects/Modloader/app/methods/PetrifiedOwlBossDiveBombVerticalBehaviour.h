@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StateMachine_2.h>
-#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour.h>
-#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseStatesSet.h>
-#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/StateMachine_2.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/DamageDealer_DamageDirectionMode__Enum.h>
-#include <Modloader/app/structs/Enum__Array.h>
 #include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseStatesSet.h>
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombVerticalBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossDiveBombVerticalBehaviour {
     IL2CPP_REGISTER_METHOD(0x00418200, app::StateMachine_2*, get_StateMachine, (app::PetrifiedOwlBossDiveBombVerticalBehaviour * this_ptr))

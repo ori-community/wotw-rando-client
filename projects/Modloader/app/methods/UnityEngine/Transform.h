@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/RotationOrder__Enum.h>
-#include <Modloader/app/structs/Quaternion.h>
-#include <Modloader/app/structs/Transform__Array.h>
-#include <Modloader/app/structs/Vector3__Array.h>
-#include <Modloader/app/structs/Quaternion__Array.h>
+
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Quaternion__Array.h>
+#include <Modloader/app/structs/RotationOrder__Enum.h>
 #include <Modloader/app/structs/Space__Enum.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Transform__Array.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 
 namespace app::classes::UnityEngine::Transform {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Transform * this_ptr))
@@ -100,7 +101,6 @@ namespace app::classes::UnityEngine::Transform {
     IL2CPP_REGISTER_METHOD(0x02C6EAC0, int32_t, GetSiblingIndex, (app::Transform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C6EB10, app::Transform*, FindRelativeTransformWithPath, (app::Transform * transform, app::String* path, bool is_active_only))
     IL2CPP_REGISTER_METHOD(0x02C6EB90, app::Transform*, Find, (app::Transform * this_ptr, app::String* n))
-    IL2CPP_REGISTER_METHODINFO(0x04715EB8, Transform_Find__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C6EC90, void, SendTransformChangedScale, (app::Transform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C6ECE0, app::Vector3, get_lossyScale, (app::Transform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C6ED60, bool, IsChildOf, (app::Transform * this_ptr, app::Transform* parent))

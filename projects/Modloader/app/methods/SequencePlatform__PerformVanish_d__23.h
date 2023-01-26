@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SequencePlatform_PerformVanish_d_23.h>
+
+#include <Modloader/app/structs/SequencePlatform_PerformVanish_d_23.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::SequencePlatform__PerformVanish_d__23 {
@@ -9,6 +10,5 @@ namespace app::classes::SequencePlatform__PerformVanish_d__23 {
     IL2CPP_REGISTER_METHOD(0x00AB6DB0, bool, MoveNext, (app::SequencePlatform_PerformVanish_d_23 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::SequencePlatform_PerformVanish_d_23 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AB6FB0, void, IEnumerator_Reset, (app::SequencePlatform_PerformVanish_d_23 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04722C78, SequencePlatform_PerformVanish_d_23_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::SequencePlatform_PerformVanish_d_23 * this_ptr))
 } // namespace app::classes::SequencePlatform__PerformVanish_d__23

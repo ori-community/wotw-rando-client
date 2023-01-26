@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock.h>
+#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock__Array.h>
+#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock__Boxed.h>
+#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock__Class.h>
-#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock.h>
-#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock__Boxed.h>
-#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock__Array.h>
 
 namespace app::classes::types {
     namespace BeforeRenderHelper_OrderBlock {
-        inline app::BeforeRenderHelper_OrderBlock__Class** type_info = (app::BeforeRenderHelper_OrderBlock__Class**)(modloader::win::memory::resolve_rva(0x047464C0));
+        inline app::BeforeRenderHelper_OrderBlock__Class** type_info() {
+            static app::BeforeRenderHelper_OrderBlock__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::BeforeRenderHelper_OrderBlock__Class**)(modloader::win::memory::resolve_rva(0x047464C0));
+            }
+            return cache;
+        }
         inline app::BeforeRenderHelper_OrderBlock__Class* get_class() {
-            return il2cpp::get_nested_class<app::BeforeRenderHelper_OrderBlock__Class>(type_info, "UnityEngine", "BeforeRenderHelper", "OrderBlock");
+            return il2cpp::get_nested_class<app::BeforeRenderHelper_OrderBlock__Class>(type_info(), "UnityEngine", "BeforeRenderHelper", "OrderBlock");
         }
         inline app::BeforeRenderHelper_OrderBlock* create() {
             return il2cpp::create_object<app::BeforeRenderHelper_OrderBlock>(get_class());

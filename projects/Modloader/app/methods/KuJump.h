@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KuJump.h>
+
+#include <Modloader/app/structs/KuJump.h>
 
 namespace app::classes::KuJump {
     IL2CPP_REGISTER_METHOD(0x0123A3E0, bool, get_PerformingSpringJump, (app::KuJump * this_ptr))
@@ -14,13 +15,10 @@ namespace app::classes::KuJump {
     IL2CPP_REGISTER_METHOD(0x0123AC00, void, CrouchGoThrough, (app::KuJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0123B2D0, void, Jump, (app::KuJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012365B0, bool, ShouldJumpAnimationKeepPlaying, (app::KuJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478CD18, KuJump_ShouldJumpAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0123BB30, void, PerformSpringJump, (app::KuJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnJumpAnimationEnded, (app::KuJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04765038, KuJump_OnJumpAnimationEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01236310, void, StopJumpAnimation, (app::KuJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0123BEB0, void, OnPreDoubleJumpPerform, (app::KuJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04770E10, KuJump_OnPreDoubleJumpPerform__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0123BED0, bool, get_HasStartedTurning, (app::KuJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0123BF00, bool, get_HasFinishedTurning, (app::KuJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B8960, bool, get_WantsToFaceLeft, (app::KuJump * this_ptr))

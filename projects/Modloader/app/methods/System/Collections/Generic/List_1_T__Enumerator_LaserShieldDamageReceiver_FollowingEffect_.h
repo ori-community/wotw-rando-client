@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_LaserShieldDamageReceiver_FollowingEffect___Boxed.h>
-#include <Modloader/app/structs/List_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_LaserShieldDamageReceiver_FollowingEffect___Boxed.h>
 #include <Modloader/app/structs/LaserShieldDamageReceiver_FollowingEffect.h>
+#include <Modloader/app/structs/List_1_LaserShieldDamageReceiver_FollowingEffect_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_LaserShieldDamageReceiver_FollowingEffect_ {

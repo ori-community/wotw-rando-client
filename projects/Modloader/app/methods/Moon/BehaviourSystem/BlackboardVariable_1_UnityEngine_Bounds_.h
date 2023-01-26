@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMoonType_1_UnityEngine_Bounds_.h>
+
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Bounds_.h>
 #include <Modloader/app/structs/BlackboardVariable_1_UnityEngine_Bounds_.h>
 
 namespace app::classes::Moon::BehaviourSystem::BlackboardVariable_1_UnityEngine_Bounds_ {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ValueWithMaxValue.h>
+
+#include <Modloader/app/structs/ValueWithMaxValue.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Archive.h>
 

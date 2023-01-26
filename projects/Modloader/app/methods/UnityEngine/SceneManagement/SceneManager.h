@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Scene.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/CreateSceneParameters.h>
+
+#include <Modloader/app/structs/Scene.h>
 #include <Modloader/app/structs/AsyncOperation_1.h>
-#include <Modloader/app/structs/UnloadSceneOptions__Enum.h>
-#include <Modloader/app/structs/LoadSceneParameters.h>
+#include <Modloader/app/structs/CreateSceneParameters.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/LoadSceneMode__Enum.h>
+#include <Modloader/app/structs/LoadSceneParameters.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UnityAction_2_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_LoadSceneMode_.h>
 #include <Modloader/app/structs/UnityAction_2_UnityEngine_SceneManagement_Scene_UnityEngine_SceneManagement_Scene_.h>
-#include <Modloader/app/structs/LoadSceneMode__Enum.h>
+#include <Modloader/app/structs/UnloadSceneOptions__Enum.h>
 
 namespace app::classes::UnityEngine::SceneManagement::SceneManager {
     IL2CPP_REGISTER_METHOD(0x02979560, int32_t, get_sceneCount, ())

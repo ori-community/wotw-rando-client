@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneMetaData_SeinInitialValuesBlindForest.h>
+
+#include <Modloader/app/structs/SceneMetaData_SeinInitialValuesBlindForest.h>
 
 namespace app::classes::SceneMetaData_SeinInitialValuesBlindForest {
     IL2CPP_REGISTER_METHOD(0x00BAE200, void, ApplyInitialValues, (app::SceneMetaData_SeinInitialValuesBlindForest * this_ptr))

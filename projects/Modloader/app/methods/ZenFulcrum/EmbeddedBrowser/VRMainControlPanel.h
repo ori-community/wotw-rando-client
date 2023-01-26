@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VRMainControlPanel.h>
-#include <Modloader/app/structs/VRBrowserPanel.h>
+
+#include <Modloader/app/structs/VRMainControlPanel.h>
 #include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/JSONNode.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/VRBrowserPanel.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::VRMainControlPanel {
     IL2CPP_REGISTER_METHOD(0x01671BB0, void, Awake, (app::VRMainControlPanel * this_ptr))
@@ -19,7 +20,5 @@ namespace app::classes::ZenFulcrum::EmbeddedBrowser::VRMainControlPanel {
     IL2CPP_REGISTER_METHOD(0x01673190, void, Update, (app::VRMainControlPanel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01673930, void, ctor, (app::VRMainControlPanel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01673AA0, void, _Awake_b__9_0, (app::VRMainControlPanel * this_ptr, app::JSONNode* args))
-    IL2CPP_REGISTER_METHODINFO(0x04709440, VRMainControlPanel__Awake_b__9_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01673AB0, void, _Awake_b__9_1, (app::VRMainControlPanel * this_ptr, app::JSONNode* args))
-    IL2CPP_REGISTER_METHODINFO(0x0475C738, VRMainControlPanel__Awake_b__9_1__MethodInfo)
 } // namespace app::classes::ZenFulcrum::EmbeddedBrowser::VRMainControlPanel

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
-#include <Modloader/app/structs/Func_2_Object_System_Collections_Generic_IEnumerable_1_.h>
+
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
 #include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_System_Collections_Generic_IEnumerable_1_.h>
 #include <Modloader/app/structs/Func_3_Object_Int32_Object_.h>
 #include <Modloader/app/structs/Func_4_Object_Int32_Int32_Object_.h>
 

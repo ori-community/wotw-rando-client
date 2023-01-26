@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/PhotoshopWorldMapGenerator.h>
+#include <Modloader/app/structs/PhotoshopWorldMapGenerator__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/PhotoshopWorldMapGenerator__Class.h>
-#include <Modloader/app/structs/PhotoshopWorldMapGenerator.h>
 
 namespace app::classes::types {
     namespace PhotoshopWorldMapGenerator {
-        namespace {
-            inline app::PhotoshopWorldMapGenerator__Class* type_info_ref = nullptr;
+        inline app::PhotoshopWorldMapGenerator__Class** type_info() {
+            static app::PhotoshopWorldMapGenerator__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::PhotoshopWorldMapGenerator__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::PhotoshopWorldMapGenerator__Class** type_info = &type_info_ref;
         inline app::PhotoshopWorldMapGenerator__Class* get_class() {
-            return il2cpp::get_class<app::PhotoshopWorldMapGenerator__Class>(type_info, "", "PhotoshopWorldMapGenerator");
+            return il2cpp::get_class<app::PhotoshopWorldMapGenerator__Class>(type_info(), "", "PhotoshopWorldMapGenerator");
         }
         inline app::PhotoshopWorldMapGenerator* create() {
             return il2cpp::create_object<app::PhotoshopWorldMapGenerator>(get_class());

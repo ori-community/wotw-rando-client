@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/Rect__Array.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Sini::Unity::RectExtensions {
     IL2CPP_REGISTER_METHOD(0x03115660, app::Rect, Below, (app::Rect source, app::Rect below_source))

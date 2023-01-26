@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterSpriteMirror.h>
+
+#include <Modloader/app/structs/CharacterSpriteMirror.h>
 #include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::CharacterSpriteMirror {
@@ -15,6 +16,5 @@ namespace app::classes::CharacterSpriteMirror {
     IL2CPP_REGISTER_METHOD(0x013143A0, void, UpdateMaterial, (app::CharacterSpriteMirror * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01314660, void, Serialize, (app::CharacterSpriteMirror * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x006E35F0, void, OnRestoreCheckpoint, (app::CharacterSpriteMirror * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477FAF0, CharacterSpriteMirror_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005C9550, void, ctor, (app::CharacterSpriteMirror * this_ptr))
 } // namespace app::classes::CharacterSpriteMirror

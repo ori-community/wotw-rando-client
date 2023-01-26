@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Action_1_Int32_.h>
+
+#include <Modloader/app/structs/Action_1_Int32_.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Texture2D.h>
-#include <Modloader/app/structs/XboxUser.h>
 #include <Modloader/app/structs/XboxOneUsers.h>
+#include <Modloader/app/structs/XboxUser.h>
 
 namespace app::classes::XboxOneUsers {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, CurrentUserControllerMatch, ())

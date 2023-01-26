@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkillUpgradeUIUpgradeDetails.h>
+
+#include <Modloader/app/structs/SkillUpgradeUIUpgradeDetails.h>
 #include <Modloader/app/structs/UpgradeAbilityItem.h>
 
 namespace app::classes::SkillUpgradeUIUpgradeDetails {

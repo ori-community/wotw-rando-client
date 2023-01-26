@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XInputState.h>
+
+#include <Modloader/app/structs/XInputState.h>
 #include <Modloader/app/structs/XInputVibration.h>
 
 namespace app::classes::J2i::Net::XInputWrapper::XInput {

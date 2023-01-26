@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonAnimatorSystem_UpdateGuard__Boxed.h>
+
+#include <Modloader/app/structs/MoonAnimatorSystem_UpdateGuard__Boxed.h>
 #include <Modloader/app/structs/MoonAnimatorSystem.h>
 
 namespace app::classes::Moon::MoonAnimatorSystem_UpdateGuard {

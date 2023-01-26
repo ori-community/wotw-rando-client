@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/DataError_ColumnError.h>
+#include <Modloader/app/structs/DataError_ColumnError__Array.h>
+#include <Modloader/app/structs/DataError_ColumnError__Boxed.h>
+#include <Modloader/app/structs/DataError_ColumnError__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/DataError_ColumnError__Class.h>
-#include <Modloader/app/structs/DataError_ColumnError.h>
-#include <Modloader/app/structs/DataError_ColumnError__Boxed.h>
-#include <Modloader/app/structs/DataError_ColumnError__Array.h>
 
 namespace app::classes::types {
     namespace DataError_ColumnError {
-        namespace {
-            inline app::DataError_ColumnError__Class* type_info_ref = nullptr;
+        inline app::DataError_ColumnError__Class** type_info() {
+            static app::DataError_ColumnError__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::DataError_ColumnError__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::DataError_ColumnError__Class** type_info = &type_info_ref;
         inline app::DataError_ColumnError__Class* get_class() {
-            return il2cpp::get_nested_class<app::DataError_ColumnError__Class>(type_info, "System.Data", "DataError", "ColumnError");
+            return il2cpp::get_nested_class<app::DataError_ColumnError__Class>(type_info(), "System.Data", "DataError", "ColumnError");
         }
         inline app::DataError_ColumnError* create() {
             return il2cpp::create_object<app::DataError_ColumnError>(get_class());

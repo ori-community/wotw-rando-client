@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MusicSource.h>
+
+#include <Modloader/app/structs/MusicSource.h>
 
 namespace app::classes::MusicSource {
     IL2CPP_REGISTER_METHOD(0x0087E710, void, Start, (app::MusicSource * this_ptr))

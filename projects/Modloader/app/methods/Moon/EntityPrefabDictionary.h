@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityPrefabDictionary.h>
+
+#include <Modloader/app/structs/EntityPrefabDictionary.h>
 
 namespace app::classes::Moon::EntityPrefabDictionary {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBeforeSerialize, (app::EntityPrefabDictionary * this_ptr))

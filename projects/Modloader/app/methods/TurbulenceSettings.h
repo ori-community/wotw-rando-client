@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Texture2D.h>
-#include <Modloader/app/structs/TurbulenceSettings.h>
+
+#include <Modloader/app/structs/Texture2D.h>
 #include <Modloader/app/structs/AnimationCurve.h>
 #include <Modloader/app/structs/TextureWrapMode__Enum.h>
+#include <Modloader/app/structs/TurbulenceSettings.h>
 
 namespace app::classes::TurbulenceSettings {
     IL2CPP_REGISTER_METHOD(0x00B1A610, app::Texture2D*, get_TurbulenceTexture, (app::TurbulenceSettings * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TentacleHead.h>
+
+#include <Modloader/app/structs/TentacleHead.h>
 #include <Modloader/app/structs/Action_1_UnityEngine_Collider_.h>
 #include <Modloader/app/structs/Collider.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CertificateHandler.h>
+
+#include <Modloader/app/structs/CertificateHandler.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::UnityEngine::Networking::CertificateHandler {

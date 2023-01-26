@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_TentacleStabBehaviour_TentacleAttack___Boxed.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_TentacleStabBehaviour_TentacleAttack___Boxed.h>
 #include <Modloader/app/structs/List_1_Moon_TentacleStabBehaviour_TentacleAttack_.h>
-#include <Modloader/app/structs/TentacleStabBehaviour_TentacleAttack.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TentacleStabBehaviour_TentacleAttack.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Moon_TentacleStabBehaviour_TentacleAttack_ {
     IL2CPP_REGISTER_METHOD(0x0014D030, void, ctor, (app::List_1_T_Enumerator_Moon_TentacleStabBehaviour_TentacleAttack___Boxed * this_ptr, app::List_1_Moon_TentacleStabBehaviour_TentacleAttack_* list))

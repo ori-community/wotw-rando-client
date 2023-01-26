@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CopyEncoder.h>
+
+#include <Modloader/app/structs/CopyEncoder.h>
 #include <Modloader/app/structs/DeflateInput.h>
 #include <Modloader/app/structs/OutputBuffer.h>
 

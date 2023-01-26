@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/GoldenSein.h>
+#include <Modloader/app/structs/GoldenSein__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GoldenSein__Class.h>
-#include <Modloader/app/structs/GoldenSein.h>
 
 namespace app::classes::types {
     namespace GoldenSein {
-        namespace {
-            inline app::GoldenSein__Class* type_info_ref = nullptr;
+        inline app::GoldenSein__Class** type_info() {
+            static app::GoldenSein__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GoldenSein__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GoldenSein__Class** type_info = &type_info_ref;
         inline app::GoldenSein__Class* get_class() {
-            return il2cpp::get_class<app::GoldenSein__Class>(type_info, "", "GoldenSein");
+            return il2cpp::get_class<app::GoldenSein__Class>(type_info(), "", "GoldenSein");
         }
         inline app::GoldenSein* create() {
             return il2cpp::create_object<app::GoldenSein>(get_class());

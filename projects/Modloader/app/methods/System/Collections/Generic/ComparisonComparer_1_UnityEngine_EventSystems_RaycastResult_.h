@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_UnityEngine_EventSystems_RaycastResult_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_UnityEngine_EventSystems_RaycastResult_.h>
 #include <Modloader/app/structs/Comparison_1_UnityEngine_EventSystems_RaycastResult_.h>
 #include <Modloader/app/structs/RaycastResult.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FallCutsceneCameraOffsetController.h>
+
+#include <Modloader/app/structs/FallCutsceneCameraOffsetController.h>
 
 namespace app::classes::FallCutsceneCameraOffsetController {
     IL2CPP_REGISTER_METHOD(0x00996570, void, FixedUpdate, (app::FallCutsceneCameraOffsetController * this_ptr))

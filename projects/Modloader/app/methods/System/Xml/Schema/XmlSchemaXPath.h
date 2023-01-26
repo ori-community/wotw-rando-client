@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XmlSchemaXPath.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaXPath {

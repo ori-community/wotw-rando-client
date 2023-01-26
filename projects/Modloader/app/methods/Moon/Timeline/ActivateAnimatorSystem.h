@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActivateAnimatorSystem.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
+
+#include <Modloader/app/structs/ActivateAnimatorSystem.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::Timeline::ActivateAnimatorSystem {
     IL2CPP_REGISTER_METHOD(0x0311AC10, app::ActivateAnimatorSystem*, get_Instance, ())

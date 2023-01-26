@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LevelUpDamageAction.h>
+
+#include <Modloader/app/structs/LevelUpDamageAction.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 

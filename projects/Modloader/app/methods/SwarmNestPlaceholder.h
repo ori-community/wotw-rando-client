@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SwarmNestPlaceholder.h>
+
+#include <Modloader/app/structs/SwarmNestPlaceholder.h>
 #include <Modloader/app/structs/SwarmEntity.h>
 
 namespace app::classes::SwarmNestPlaceholder {

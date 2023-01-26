@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraScrollLock.h>
+
+#include <Modloader/app/structs/CameraScrollLock.h>
 
 namespace app::classes::Game::ScrollLocks {
     IL2CPP_REGISTER_METHOD(0x01527950, void, ResetStatics, ())

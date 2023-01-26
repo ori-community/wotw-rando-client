@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DateTime.h>
+
+#include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/TimeT__Boxed.h>
 
 namespace app::classes::XGamingRuntime::Interop::TimeT {

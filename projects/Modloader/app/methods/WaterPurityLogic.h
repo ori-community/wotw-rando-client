@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WaterPurityLogic.h>
+
+#include <Modloader/app/structs/WaterPurityLogic.h>
 
 namespace app::classes::WaterPurityLogic {
     IL2CPP_REGISTER_METHOD(0x008DFE40, void, FixedUpdate, (app::WaterPurityLogic * this_ptr))

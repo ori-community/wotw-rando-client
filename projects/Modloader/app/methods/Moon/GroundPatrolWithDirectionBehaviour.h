@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GroundPatrolMode__Enum.h>
-#include <Modloader/app/structs/GroundPatrolWithDirectionBehaviour.h>
-#include <Modloader/app/structs/GroundPatrolDirectionMode__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/IBlackboard.h>
+
+#include <Modloader/app/structs/GroundPatrolMode__Enum.h>
 #include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
+#include <Modloader/app/structs/GroundPatrolDirectionMode__Enum.h>
+#include <Modloader/app/structs/GroundPatrolWithDirectionBehaviour.h>
+#include <Modloader/app/structs/IBlackboard.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::GroundPatrolWithDirectionBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FF610, app::GroundPatrolMode__Enum, get_PatrolMode, (app::GroundPatrolWithDirectionBehaviour * this_ptr))

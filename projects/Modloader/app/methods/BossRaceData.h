@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/BossRaceData.h>
-#include <Modloader/app/structs/List_1_SceneMetaData_.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/RaceSettings.h>
 #include <Modloader/app/structs/Condition_1.h>
 #include <Modloader/app/structs/DesiredUberStateComposite.h>
 #include <Modloader/app/structs/List_1_EquipmentType_.h>
 #include <Modloader/app/structs/List_1_Moon_MoonReference_1__13.h>
+#include <Modloader/app/structs/List_1_SceneMetaData_.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/RaceSettings.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::BossRaceData {
     IL2CPP_REGISTER_METHOD(0x00D3D530, app::String*, get_RaceName, (app::BossRaceData * this_ptr))

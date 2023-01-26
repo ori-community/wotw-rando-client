@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Match.h>
+
+#include <Modloader/app/structs/Match.h>
+#include <Modloader/app/structs/GroupCollection.h>
 #include <Modloader/app/structs/Regex.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/GroupCollection.h>
 
 namespace app::classes::System::Text::RegularExpressions::Match {
     IL2CPP_REGISTER_METHOD(0x025823A0, app::Match*, get_Empty, ())
@@ -22,5 +23,4 @@ namespace app::classes::System::Text::RegularExpressions::Match {
     IL2CPP_REGISTER_METHOD(0x02583240, void, Tidy, (app::Match * this_ptr, int32_t textpos))
     IL2CPP_REGISTER_METHOD(0x025834D0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x02583650, void, ctor_2, (app::Match * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047465E0, Match__ctor_1__MethodInfo)
 } // namespace app::classes::System::Text::RegularExpressions::Match

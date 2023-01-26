@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSerializerFactory.h>
-#include <Modloader/app/structs/XmlSerializer.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/XmlRootAttribute.h>
-#include <Modloader/app/structs/XmlAttributeOverrides.h>
-#include <Modloader/app/structs/Type__Array.h>
+
+#include <Modloader/app/structs/XmlSerializerFactory.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/XmlAttributeOverrides.h>
+#include <Modloader/app/structs/XmlRootAttribute.h>
+#include <Modloader/app/structs/XmlSerializer.h>
 
 namespace app::classes::System::Xml::Serialization::XmlSerializerFactory {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::XmlSerializerFactory * this_ptr))

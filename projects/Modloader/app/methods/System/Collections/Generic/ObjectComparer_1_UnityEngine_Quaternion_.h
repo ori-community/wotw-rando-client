@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_Quaternion_.h>
-#include <Modloader/app/structs/Quaternion.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_Quaternion_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_UnityEngine_Quaternion_ {
     IL2CPP_REGISTER_METHOD(0x01CCEE40, int32_t, Compare, (app::ObjectComparer_1_UnityEngine_Quaternion_ * this_ptr, app::Quaternion x, app::Quaternion y))

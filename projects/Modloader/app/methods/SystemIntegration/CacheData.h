@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SortingOrder__Enum.h>
+
+#include <Modloader/app/structs/SortingOrder__Enum.h>
 #include <Modloader/app/structs/CacheData.h>
 #include <Modloader/app/structs/String.h>
 

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_WaterPoisonTrail_DamagePoint___Boxed.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_WaterPoisonTrail_DamagePoint___Boxed.h>
 #include <Modloader/app/structs/List_1_WaterPoisonTrail_DamagePoint_.h>
-#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_WaterPoisonTrail_DamagePoint_ {
     IL2CPP_REGISTER_METHOD(0x0014D770, void, ctor, (app::List_1_T_Enumerator_WaterPoisonTrail_DamagePoint___Boxed * this_ptr, app::List_1_WaterPoisonTrail_DamagePoint_* list))

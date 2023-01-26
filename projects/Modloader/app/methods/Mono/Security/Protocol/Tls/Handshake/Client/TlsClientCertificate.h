@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TlsClientCertificate_1.h>
+
+#include <Modloader/app/structs/TlsClientCertificate_1.h>
 #include <Modloader/app/structs/Context_1.h>
 #include <Modloader/app/structs/X509Certificate_1.h>
 

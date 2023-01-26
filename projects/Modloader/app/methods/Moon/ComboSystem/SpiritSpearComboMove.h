@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComboMoveState__Enum.h>
-#include <Modloader/app/structs/SpiritSpearComboMove.h>
+
+#include <Modloader/app/structs/ComboMoveState__Enum.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/CharacterState.h>
+#include <Modloader/app/structs/SpiritSpearComboMove.h>
 
 namespace app::classes::Moon::ComboSystem::SpiritSpearComboMove {
     IL2CPP_REGISTER_METHOD(0x003FC7F0, app::ComboMoveState__Enum, get_m_comboMoveState, (app::SpiritSpearComboMove * this_ptr))

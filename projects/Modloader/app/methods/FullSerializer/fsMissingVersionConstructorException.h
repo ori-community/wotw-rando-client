@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/fsMissingVersionConstructorException.h>
+
+#include <Modloader/app/structs/fsMissingVersionConstructorException.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::FullSerializer::fsMissingVersionConstructorException {

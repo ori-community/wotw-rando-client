@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinUI.h>
-#include <Modloader/app/structs/ShowUIType__Enum.h>
-#include <Modloader/app/structs/SeinUI_UIZone__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/SeinUI.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SeinUI_UIZone__Enum.h>
+#include <Modloader/app/structs/ShowUIType__Enum.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::SeinUI {
@@ -19,9 +20,7 @@ namespace app::classes::SeinUI {
     IL2CPP_REGISTER_METHOD(0x00AA2E10, void, OnDisable, (app::SeinUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AA2EE0, void, OnDestroy, (app::SeinUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AA3190, void, OnRestoreCheckpoint, (app::SeinUI * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474B908, SeinUI_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AA32A0, void, OnGameReset, (app::SeinUI * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047756E8, SeinUI_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AA3350, void, Start, (app::SeinUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AA3360, void, Init, (app::SeinUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AA34F0, void, SetTransparency, (app::SeinUI * this_ptr, float amount))
@@ -67,7 +66,6 @@ namespace app::classes::SeinUI {
     IL2CPP_REGISTER_METHOD(0x00AA7670, void, UpdateIconOpacity, (app::SeinUI * this_ptr, float opacity))
     IL2CPP_REGISTER_METHOD(0x00AA7880, void, RefreshBindingUIElement, (app::SeinUI * this_ptr, int32_t slot_index, app::AbilityType__Enum ability))
     IL2CPP_REGISTER_METHOD(0x00AA8200, app::Transform*, GetAnchorByIndex, (app::SeinUI * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04707310, SeinUI_GetAnchorByIndex__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AA82E0, void, ctor, (app::SeinUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AA8510, void, cctor, ())
 } // namespace app::classes::SeinUI

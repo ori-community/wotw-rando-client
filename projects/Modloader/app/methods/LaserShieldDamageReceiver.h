@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LaserShieldDamageReceiver.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/LaserShieldDamageReceiver.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LaserShieldDamageReceiver {
     IL2CPP_REGISTER_METHOD(0x00F08450, void, OnEnable, (app::LaserShieldDamageReceiver * this_ptr))

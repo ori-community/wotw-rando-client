@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InteractionBidingButton__Enum.h>
-#include <Modloader/app/structs/ButtonInteractionTransition.h>
-#include <Modloader/app/structs/InteractionBinding.h>
+
+#include <Modloader/app/structs/InteractionBidingButton__Enum.h>
 #include <Modloader/app/structs/Action_1_IContext_.h>
+#include <Modloader/app/structs/ButtonInteractionTransition.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/IInteractionNode.h>
 #include <Modloader/app/structs/IMessageProvider.h>
-#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/InteractionBinding.h>
 
 namespace app::classes::Moon::InteractionGraph::ButtonInteractionTransition {
     IL2CPP_REGISTER_METHOD(0x003FC7F0, app::InteractionBidingButton__Enum, get_Button, (app::ButtonInteractionTransition * this_ptr))
@@ -20,7 +21,6 @@ namespace app::classes::Moon::InteractionGraph::ButtonInteractionTransition {
     IL2CPP_REGISTER_METHOD(0x0198B2A0, void, OnOwnerEnter, (app::ButtonInteractionTransition * this_ptr, app::IInteractionNode* owner))
     IL2CPP_REGISTER_METHOD(0x0198B560, void, OnOwnerExit, (app::ButtonInteractionTransition * this_ptr, app::IInteractionNode* owner))
     IL2CPP_REGISTER_METHOD(0x0198B5F0, void, OnButtonPressed, (app::ButtonInteractionTransition * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470D388, ButtonInteractionTransition_OnButtonPressed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FCE30, bool, Validate, (app::ButtonInteractionTransition * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x0198B690, void, ctor, (app::ButtonInteractionTransition * this_ptr))
 } // namespace app::classes::Moon::InteractionGraph::ButtonInteractionTransition

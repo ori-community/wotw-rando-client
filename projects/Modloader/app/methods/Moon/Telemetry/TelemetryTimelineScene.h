@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TelemetryTimelineScene.h>
-#include <Modloader/app/structs/MoonTelemetrySceneEvent__Array.h>
-#include <Modloader/app/structs/DrawingContext.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/TelemetryTimelineScene.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/DrawingContext.h>
+#include <Modloader/app/structs/MoonTelemetrySceneEvent__Array.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/Single__Array.h>
 
 namespace app::classes::Moon::Telemetry::TelemetryTimelineScene {

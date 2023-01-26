@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnemyArenaController.h>
+
+#include <Modloader/app/structs/EnemyArenaController.h>
 #include <Modloader/app/structs/EnemyArenaVirtualAnimator.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/EntityOperationPermit__Enum.h>
-#include <Modloader/app/structs/ITimelineEntity.h>
 #include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/EntityOperationPermit__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
 
 namespace app::classes::EnemyArenaVirtualAnimator {
     IL2CPP_REGISTER_METHOD(0x002FBBE0, app::EnemyArenaController*, get_Controller, (app::EnemyArenaVirtualAnimator * this_ptr))

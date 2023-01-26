@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/RSAManaged_1.h>
 #include <Modloader/app/structs/TlsClientSettings.h>
 #include <Modloader/app/structs/X509CertificateCollection_1.h>
 #include <Modloader/app/structs/X509Certificate_1.h>
-#include <Modloader/app/structs/RSAManaged_1.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::TlsClientSettings {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_TargetHost, (app::TlsClientSettings * this_ptr))

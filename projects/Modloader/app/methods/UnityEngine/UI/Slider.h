@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Slider.h>
+
+#include <Modloader/app/structs/Slider.h>
+#include <Modloader/app/structs/AxisEventData.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/CanvasUpdate__Enum.h>
+#include <Modloader/app/structs/PointerEventData.h>
 #include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/Selectable.h>
+#include <Modloader/app/structs/Slider_Axis__Enum.h>
 #include <Modloader/app/structs/Slider_Direction__Enum.h>
 #include <Modloader/app/structs/Slider_SliderEvent.h>
-#include <Modloader/app/structs/CanvasUpdate__Enum.h>
-#include <Modloader/app/structs/Slider_Axis__Enum.h>
-#include <Modloader/app/structs/PointerEventData.h>
-#include <Modloader/app/structs/Camera.h>
-#include <Modloader/app/structs/AxisEventData.h>
-#include <Modloader/app/structs/Selectable.h>
 #include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UnityEngine::UI::Slider {

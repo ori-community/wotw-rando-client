@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/QualityMeasure_AlphaMeasure.h>
+
+#include <Modloader/app/structs/QualityMeasure_AlphaMeasure.h>
 
 namespace app::classes::TriangleNet::Tools::QualityMeasure_AlphaMeasure {
     IL2CPP_REGISTER_METHOD(0x02A99970, void, Reset, (app::QualityMeasure_AlphaMeasure * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameController_SetRunInBackgroundToTrue_d_181.h>
+
+#include <Modloader/app/structs/GameController_SetRunInBackgroundToTrue_d_181.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::GameController__SetRunInBackgroundToTrue_d__181 {
@@ -9,6 +10,5 @@ namespace app::classes::GameController__SetRunInBackgroundToTrue_d__181 {
     IL2CPP_REGISTER_METHOD(0x0069A930, bool, MoveNext, (app::GameController_SetRunInBackgroundToTrue_d_181 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::GameController_SetRunInBackgroundToTrue_d_181 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0069ABB0, void, IEnumerator_Reset, (app::GameController_SetRunInBackgroundToTrue_d_181 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04756A68, GameController_SetRunInBackgroundToTrue_d_181_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::GameController_SetRunInBackgroundToTrue_d_181 * this_ptr))
 } // namespace app::classes::GameController__SetRunInBackgroundToTrue_d__181

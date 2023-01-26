@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/LagoonBubble.h>
+
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/LagoonBubble.h>
 #include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::LagoonBubble {
@@ -16,7 +17,6 @@ namespace app::classes::LagoonBubble {
     IL2CPP_REGISTER_METHOD(0x00EFCA60, void, Awake, (app::LagoonBubble * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EFCF40, void, OnDestroy, (app::LagoonBubble * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EFD0E0, void, OnRestoreCheckpoint, (app::LagoonBubble * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04735BF8, LagoonBubble_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EFD1D0, void, OnEnable, (app::LagoonBubble * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EFD280, void, OnDisable, (app::LagoonBubble * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EFD320, void, FixedUpdate, (app::LagoonBubble * this_ptr))
@@ -25,7 +25,6 @@ namespace app::classes::LagoonBubble {
     IL2CPP_REGISTER_METHOD(0x00EFE360, bool, CanKillBubble, (app::LagoonBubble * this_ptr, app::GameObject* target))
     IL2CPP_REGISTER_METHOD(0x00EFE4E0, void, Destroy, (app::LagoonBubble * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EFE630, void, OnDamageResultReceived, (app::LagoonBubble * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x0474B5B0, LagoonBubble_OnDamageResultReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EFE9D0, void, OnReceiveWindFromPipe, (app::LagoonBubble * this_ptr, app::Vector2 push_force))
     IL2CPP_REGISTER_METHOD(0x00EFEA00, void, ctor, (app::LagoonBubble * this_ptr))
 } // namespace app::classes::LagoonBubble

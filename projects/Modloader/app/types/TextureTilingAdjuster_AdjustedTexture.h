@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture.h>
+#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture__Array.h>
+#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture__Boxed.h>
+#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture__Class.h>
-#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture.h>
-#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture__Boxed.h>
-#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture__Array.h>
 
 namespace app::classes::types {
     namespace TextureTilingAdjuster_AdjustedTexture {
-        inline app::TextureTilingAdjuster_AdjustedTexture__Class** type_info = (app::TextureTilingAdjuster_AdjustedTexture__Class**)(modloader::win::memory::resolve_rva(0x0478E980));
+        inline app::TextureTilingAdjuster_AdjustedTexture__Class** type_info() {
+            static app::TextureTilingAdjuster_AdjustedTexture__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::TextureTilingAdjuster_AdjustedTexture__Class**)(modloader::win::memory::resolve_rva(0x0478E980));
+            }
+            return cache;
+        }
         inline app::TextureTilingAdjuster_AdjustedTexture__Class* get_class() {
-            return il2cpp::get_nested_class<app::TextureTilingAdjuster_AdjustedTexture__Class>(type_info, "", "TextureTilingAdjuster", "AdjustedTexture");
+            return il2cpp::get_nested_class<app::TextureTilingAdjuster_AdjustedTexture__Class>(type_info(), "", "TextureTilingAdjuster", "AdjustedTexture");
         }
         inline app::TextureTilingAdjuster_AdjustedTexture* create() {
             return il2cpp::create_object<app::TextureTilingAdjuster_AdjustedTexture>(get_class());

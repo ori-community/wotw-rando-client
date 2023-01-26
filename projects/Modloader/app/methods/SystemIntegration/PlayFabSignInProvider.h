@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayFabSignInProvider.h>
-#include <Modloader/app/structs/IPlatformUser.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/PlayFabSignInProvider.h>
 #include <Modloader/app/structs/INetworkConnectivityChecker.h>
+#include <Modloader/app/structs/IPlatformUser.h>
 #include <Modloader/app/structs/ISignInProvider.h>
 #include <Modloader/app/structs/LoginResult.h>
 #include <Modloader/app/structs/PlayFabError.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UpdateUserTitleDisplayNameResult.h>
 
 namespace app::classes::SystemIntegration::PlayFabSignInProvider {
@@ -30,10 +31,8 @@ namespace app::classes::SystemIntegration::PlayFabSignInProvider {
     IL2CPP_REGISTER_METHOD(0x0051E3A0, void, SignIn, (app::PlayFabSignInProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0051E9F0, void, SignInAs, (app::PlayFabSignInProvider * this_ptr, app::IPlatformUser* user))
     IL2CPP_REGISTER_METHOD(0x0051EBA0, void, LoginSucceed, (app::PlayFabSignInProvider * this_ptr, app::LoginResult* result))
-    IL2CPP_REGISTER_METHODINFO(0x0476F5D0, PlayFabSignInProvider_LoginSucceed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0051EE00, void, EnsureProfilePolicy, (app::PlayFabSignInProvider * this_ptr, app::String* entity_id, app::String* entity_key))
     IL2CPP_REGISTER_METHOD(0x0051F7F0, void, LoginError, (app::PlayFabSignInProvider * this_ptr, app::PlayFabError* error))
-    IL2CPP_REGISTER_METHODINFO(0x0476C4E0, PlayFabSignInProvider_LoginError__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0051F8D0, void, EnsureProperDisplayName, (app::PlayFabSignInProvider * this_ptr, app::String* desired_display_name))
     IL2CPP_REGISTER_METHOD(0x0051FE00, void, Update, (app::PlayFabSignInProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00520090, void, DisplayNameUpdate, (app::PlayFabSignInProvider * this_ptr))
@@ -43,5 +42,4 @@ namespace app::classes::SystemIntegration::PlayFabSignInProvider {
     IL2CPP_REGISTER_METHOD(0x00521030, void, SignOut, ())
     IL2CPP_REGISTER_METHOD(0x005210C0, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x005210D0, void, _EnsureProperDisplayName_b__51_0, (app::PlayFabSignInProvider * this_ptr, app::UpdateUserTitleDisplayNameResult* success))
-    IL2CPP_REGISTER_METHODINFO(0x04763EC8, PlayFabSignInProvider__EnsureProperDisplayName_b__51_0__MethodInfo)
 } // namespace app::classes::SystemIntegration::PlayFabSignInProvider

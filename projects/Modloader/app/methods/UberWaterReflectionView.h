@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberWaterReflectionView_AutomaticGroup.h>
-#include <Modloader/app/structs/UberWaterReflectionView.h>
-#include <Modloader/app/structs/UberWaterReflectionPlane.h>
-#include <Modloader/app/structs/UberWaterReflectionView_Group.h>
-#include <Modloader/app/structs/UberWaterReflectionView_ViewCamInfo.h>
-#include <Modloader/app/structs/RenderTexture.h>
+
+#include <Modloader/app/structs/UberWaterReflectionView_AutomaticGroup.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/Matrix4x4.h>
 #include <Modloader/app/structs/MoonRenderContext.h>
 #include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/RenderTexture.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Component_1.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/Matrix4x4.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/UberWaterReflectionPlane.h>
+#include <Modloader/app/structs/UberWaterReflectionView.h>
+#include <Modloader/app/structs/UberWaterReflectionView_Group.h>
+#include <Modloader/app/structs/UberWaterReflectionView_ViewCamInfo.h>
 #include <Modloader/app/structs/UberWaterReflectionView_c_DisplayClass21_0.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UberWaterReflectionView {
     IL2CPP_REGISTER_METHOD(0x012A1690, app::UberWaterReflectionView_AutomaticGroup*, FindAutomaticGroup, (app::UberWaterReflectionView * this_ptr, app::UberWaterReflectionPlane* plane, bool is_game_view))
@@ -22,7 +23,6 @@ namespace app::classes::UberWaterReflectionView {
     IL2CPP_REGISTER_METHOD(0x012A2080, void, OnPostCull, (app::UberWaterReflectionView * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012A23E0, void, ListRenderedGroups, (app::UberWaterReflectionView * this_ptr, float time))
     IL2CPP_REGISTER_METHOD(0x012A2540, void, ListRenderedGroupsInternal, (app::UberWaterReflectionView * this_ptr, float time))
-    IL2CPP_REGISTER_METHODINFO(0x04782800, UberWaterReflectionView_ListRenderedGroupsInternal__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012A34D0, void, RecycleStaleTextures, (app::UberWaterReflectionView * this_ptr, float time))
     IL2CPP_REGISTER_METHOD(0x012A3790, void, DestroySurplusTextures, (app::UberWaterReflectionView * this_ptr, float time))
     IL2CPP_REGISTER_METHOD(0x012A38A0, void, AcquireTextures, (app::UberWaterReflectionView * this_ptr, float time))
@@ -49,5 +49,4 @@ namespace app::classes::UberWaterReflectionView {
     IL2CPP_REGISTER_METHOD(0x012A8690, void, ctor, (app::UberWaterReflectionView * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012A8DC0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x012A8EE0, int32_t, _ListRenderedGroupsInternal_g__GetFrameDelta_21_0, (app::UberWaterReflectionView_Group * group, app::UberWaterReflectionView_c_DisplayClass21_0* param_00016427))
-    IL2CPP_REGISTER_METHODINFO(0x04773EE0, UberWaterReflectionView__ListRenderedGroupsInternal_g__GetFrameDelta_21_0__MethodInfo)
 } // namespace app::classes::UberWaterReflectionView

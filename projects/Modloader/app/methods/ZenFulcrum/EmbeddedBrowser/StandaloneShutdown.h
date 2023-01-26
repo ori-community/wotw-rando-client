@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StandaloneShutdown.h>
+
+#include <Modloader/app/structs/StandaloneShutdown.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::StandaloneShutdown {
     IL2CPP_REGISTER_METHOD(0x0166CB70, void, Create, ())

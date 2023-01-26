@@ -19,7 +19,7 @@ struct Promise_c__StaticFields {
 #define IL2CPP_STRUCT_Promise_c__StaticFields_FWDDECL
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Action_1_Exception_.h>
-#include <Modloader/app/structs/Func_3_ZenFulcrum_EmbeddedBrowser_IPromise_Func_1_ZenFulcrum_EmbeddedBrowser_IPromise_ZenFulcrum_EmbeddedBrowser_IPromise_.h>
+#include <Modloader/app/structs/Func_3_ZenFulc_EmbeddedBrow_IProm_F_1_ZenFulc_EmbeddedBrow_IProm_ZenFulc_EmbeddedBro_IPro_.h>
 #include <Modloader/app/structs/Promise_c.h>
 #endif
 #undef IL2CPP_STRUCT_Promise_c__StaticFields_INITIALIZING

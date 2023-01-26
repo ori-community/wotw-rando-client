@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/IsWarmingShadersCondition.h>
+#include <Modloader/app/structs/IsWarmingShadersCondition__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/IsWarmingShadersCondition__Class.h>
-#include <Modloader/app/structs/IsWarmingShadersCondition.h>
 
 namespace app::classes::types {
     namespace IsWarmingShadersCondition {
-        namespace {
-            inline app::IsWarmingShadersCondition__Class* type_info_ref = nullptr;
+        inline app::IsWarmingShadersCondition__Class** type_info() {
+            static app::IsWarmingShadersCondition__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::IsWarmingShadersCondition__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::IsWarmingShadersCondition__Class** type_info = &type_info_ref;
         inline app::IsWarmingShadersCondition__Class* get_class() {
-            return il2cpp::get_class<app::IsWarmingShadersCondition__Class>(type_info, "", "IsWarmingShadersCondition");
+            return il2cpp::get_class<app::IsWarmingShadersCondition__Class>(type_info(), "", "IsWarmingShadersCondition");
         }
         inline app::IsWarmingShadersCondition* create() {
             return il2cpp::create_object<app::IsWarmingShadersCondition>(get_class());

@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShopkeeperScreen.h>
-#include <Modloader/app/structs/ShopkeeperItem__Array.h>
+
+#include <Modloader/app/structs/ShopkeeperScreen.h>
 #include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/MenuTabBackground__Enum.h>
 #include <Modloader/app/structs/MessageProvider.h>
-#include <Modloader/app/structs/ShopkeeperUIItem.h>
-#include <Modloader/app/structs/ShopkeeperItem.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Event_1.h>
 #include <Modloader/app/structs/RTPC.h>
+#include <Modloader/app/structs/ShopkeeperItem.h>
+#include <Modloader/app/structs/ShopkeeperItem__Array.h>
+#include <Modloader/app/structs/ShopkeeperUIItem.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::ShopkeeperScreen {
     IL2CPP_REGISTER_METHOD(0x002FBBC0, app::ShopkeeperScreen*, get_ShopInstance, (app::ShopkeeperScreen * this_ptr))
@@ -25,13 +26,10 @@ namespace app::classes::ShopkeeperScreen {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_NeedOreUI, (app::ShopkeeperScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005BDAC0, void, HideExistingHint, (app::ShopkeeperScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005BDBB0, void, ShowHint, (app::ShopkeeperScreen * this_ptr, app::MessageProvider* message_provider))
-    IL2CPP_REGISTER_METHODINFO(0x0475E650, ShopkeeperScreen_ShowHint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005BDDF0, void, Awake, (app::ShopkeeperScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005BDEC0, void, OnDestroy, (app::ShopkeeperScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005BDF60, void, OnNewItemHighlighted, (app::ShopkeeperScreen * this_ptr, bool first_after_populating))
-    IL2CPP_REGISTER_METHODINFO(0x04753250, ShopkeeperScreen_OnNewItemHighlighted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005BDF70, void, OnItemActivatedCallback, (app::ShopkeeperScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04759710, ShopkeeperScreen_OnItemActivatedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005BDF80, app::ShopkeeperUIItem*, get_SelectedItem, (app::ShopkeeperScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005BE080, app::ShopkeeperItem*, get_SelectedUpgradeItem, (app::ShopkeeperScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FBE70, bool, get_IsSuspended, (app::ShopkeeperScreen * this_ptr))

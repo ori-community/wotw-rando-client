@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_ExternalForceEntry_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_ExternalForceEntry_.h>
 #include <Modloader/app/structs/Comparison_1_ExternalForceEntry_.h>
 #include <Modloader/app/structs/ExternalForceEntry.h>
 

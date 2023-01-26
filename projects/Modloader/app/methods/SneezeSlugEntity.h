@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SneezeSlugEntity.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/PlatformMovement.h>
+
+#include <Modloader/app/structs/SneezeSlugEntity.h>
+#include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PlatformMovement.h>
 #include <Modloader/app/structs/SneezeSlugEntity_HitProtectionState__Enum.h>
-#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::SneezeSlugEntity {
     IL2CPP_REGISTER_METHOD(0x00E59A60, bool, get_IsFacingTarget, (app::SneezeSlugEntity * this_ptr))

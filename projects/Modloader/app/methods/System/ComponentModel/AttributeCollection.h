@@ -1,19 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttributeCollection.h>
-#include <Modloader/app/structs/Attribute__Array.h>
+
+#include <Modloader/app/structs/AttributeCollection.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Attribute.h>
-#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Attribute__Array.h>
 #include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::ComponentModel::AttributeCollection {
     IL2CPP_REGISTER_METHOD(0x024A0EB0, void, ctor_1, (app::AttributeCollection * this_ptr, app::Attribute__Array* attributes))
-    IL2CPP_REGISTER_METHODINFO(0x04718B50, AttributeCollection__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_2, (app::AttributeCollection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024A0FC0, app::AttributeCollection*, FromExisting, (app::AttributeCollection * existing, app::Attribute__Array* new_attributes))
-    IL2CPP_REGISTER_METHODINFO(0x0474A588, AttributeCollection_FromExisting__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Attribute__Array*, get_Attributes, (app::AttributeCollection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024A1490, int32_t, get_Count, (app::AttributeCollection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024A14C0, app::Attribute*, get_Item_1, (app::AttributeCollection * this_ptr, int32_t index))

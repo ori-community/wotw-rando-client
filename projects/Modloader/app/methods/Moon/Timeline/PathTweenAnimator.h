@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PathTweenAnimator.h>
+
+#include <Modloader/app/structs/PathTweenAnimator.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Timeline::PathTweenAnimator {
     IL2CPP_REGISTER_METHOD(0x00778090, float, get_CurrentNormalizedPosition, (app::PathTweenAnimator * this_ptr))

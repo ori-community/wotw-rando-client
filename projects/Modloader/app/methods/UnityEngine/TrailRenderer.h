@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TrailRenderer.h>
+
+#include <Modloader/app/structs/TrailRenderer.h>
 
 namespace app::classes::UnityEngine::TrailRenderer {
     IL2CPP_REGISTER_METHOD(0x02C6AC30, float, get_time, (app::TrailRenderer * this_ptr))

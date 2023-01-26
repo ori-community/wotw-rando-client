@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ArrayList.h>
+
+#include <Modloader/app/structs/ArrayList.h>
 #include <Modloader/app/structs/ChannelData.h>
 #include <Modloader/app/structs/Hashtable.h>
 

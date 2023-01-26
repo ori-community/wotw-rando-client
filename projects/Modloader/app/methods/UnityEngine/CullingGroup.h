@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CullingGroup.h>
+
+#include <Modloader/app/structs/CullingGroup.h>
 
 namespace app::classes::UnityEngine::CullingGroup {
     IL2CPP_REGISTER_METHOD(0x0242B7C0, void, Finalize, (app::CullingGroup * this_ptr))

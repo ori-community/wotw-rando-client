@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Collider2D.h>
-#include <Modloader/app/structs/CompositeCollider2D.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Rigidbody2D.h>
+
+#include <Modloader/app/structs/Collider2D.h>
 #include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/ColliderErrorState2D__Enum.h>
-#include <Modloader/app/structs/PhysicsMaterial2D.h>
-#include <Modloader/app/structs/ContactFilter2D.h>
-#include <Modloader/app/structs/ColliderDistance2D.h>
 #include <Modloader/app/structs/Collider2D__Array.h>
+#include <Modloader/app/structs/ColliderDistance2D.h>
+#include <Modloader/app/structs/ColliderErrorState2D__Enum.h>
+#include <Modloader/app/structs/CompositeCollider2D.h>
+#include <Modloader/app/structs/ContactFilter2D.h>
 #include <Modloader/app/structs/ContactPoint2D__Array.h>
+#include <Modloader/app/structs/PhysicsMaterial2D.h>
 #include <Modloader/app/structs/RaycastHit2D__Array.h>
+#include <Modloader/app/structs/Rigidbody2D.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::Collider2D {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Collider2D * this_ptr))

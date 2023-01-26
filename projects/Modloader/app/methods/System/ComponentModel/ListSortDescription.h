@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ListSortDescription.h>
-#include <Modloader/app/structs/PropertyDescriptor.h>
+
+#include <Modloader/app/structs/ListSortDescription.h>
 #include <Modloader/app/structs/ListSortDirection__Enum.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
 
 namespace app::classes::System::ComponentModel::ListSortDescription {
     IL2CPP_REGISTER_METHOD(0x00CC8D50, void, ctor, (app::ListSortDescription * this_ptr, app::PropertyDescriptor* property, app::ListSortDirection__Enum direction))

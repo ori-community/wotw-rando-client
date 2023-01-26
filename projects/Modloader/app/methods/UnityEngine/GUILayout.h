@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GUIContent.h>
+#include <Modloader/app/structs/GUILayoutOption.h>
 #include <Modloader/app/structs/GUILayoutOption__Array.h>
 #include <Modloader/app/structs/GUIStyle.h>
-#include <Modloader/app/structs/GUIContent.h>
 #include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/GUILayoutOption.h>
 
 namespace app::classes::UnityEngine::GUILayout {
     IL2CPP_REGISTER_METHOD(0x029E3370, void, Label_1, (app::String * text, app::GUILayoutOption__Array* options))

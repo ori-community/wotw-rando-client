@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/Type__Array.h>
+
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/DelegateHelpers_TypeInfo.h>
+#include <Modloader/app/structs/Type__Array.h>
 
 namespace app::classes::System::Linq::Expressions::Compiler::DelegateHelpers {
     IL2CPP_REGISTER_METHOD(0x01FA1130, app::Type*, MakeDelegateType, (app::Type__Array * types))
@@ -12,6 +13,5 @@ namespace app::classes::System::Linq::Expressions::Compiler::DelegateHelpers {
     IL2CPP_REGISTER_METHOD(0x01FA21F0, app::Type*, GetFuncType, (app::Type__Array * types))
     IL2CPP_REGISTER_METHOD(0x01FA2770, app::Type*, GetActionType, (app::Type__Array * types))
     IL2CPP_REGISTER_METHOD(0x01FA2CE0, app::Type*, MakeNewCustomDelegate, (app::Type__Array * types))
-    IL2CPP_REGISTER_METHODINFO(0x04778BE8, DelegateHelpers_1_MakeNewCustomDelegate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01FA2D30, void, cctor, ())
 } // namespace app::classes::System::Linq::Expressions::Compiler::DelegateHelpers

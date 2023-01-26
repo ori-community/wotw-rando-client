@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NightCrawlerFightController_FarHoldState.h>
+
+#include <Modloader/app/structs/NightCrawlerFightController_FarHoldState.h>
 #include <Modloader/app/structs/NightCrawlerFightController.h>
 
 namespace app::classes::NightCrawlerFightController_FarHoldState {

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlNamedNodeMap.h>
-#include <Modloader/app/structs/XmlNode.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/XmlNamedNodeMap.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlNode.h>
 
 namespace app::classes::System::Xml::XmlNamedNodeMap {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::XmlNamedNodeMap * this_ptr, app::XmlNode* parent))

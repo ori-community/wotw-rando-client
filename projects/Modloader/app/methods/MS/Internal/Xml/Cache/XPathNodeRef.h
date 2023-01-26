@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XPathNodeRef__Boxed.h>
+
+#include <Modloader/app/structs/XPathNodeRef__Boxed.h>
 #include <Modloader/app/structs/XPathNode__Array.h>
 
 namespace app::classes::MS::Internal::Xml::Cache::XPathNodeRef {

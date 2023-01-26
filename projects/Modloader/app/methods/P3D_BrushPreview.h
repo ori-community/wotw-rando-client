@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Mesh.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/P3D_Matrix.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Texture2D.h>
+
+#include <Modloader/app/structs/Mesh.h>
 #include <Modloader/app/structs/P3D_BrushPreview.h>
+#include <Modloader/app/structs/P3D_Matrix.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::P3D_BrushPreview {
     IL2CPP_REGISTER_METHOD(0x03090220, void, Show, (app::Mesh * mesh, int32_t submesh_index, app::Transform* transform, float opacity, app::P3D_Matrix paint_matrix, app::Vector2 canvas_resolution, app::Texture2D* shape, app::Vector2 tiling, app::Vector2 offset))

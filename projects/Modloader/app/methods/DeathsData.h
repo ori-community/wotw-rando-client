@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RecorderFrame_FrameDataTypes__Enum.h>
-#include <Modloader/app/structs/DeathsData.h>
-#include <Modloader/app/structs/BinaryWriter.h>
+
+#include <Modloader/app/structs/RecorderFrame_FrameDataTypes__Enum.h>
 #include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/DeathsData.h>
 
 namespace app::classes::DeathsData {
     IL2CPP_REGISTER_METHOD(0x00AB4D20, app::RecorderFrame_FrameDataTypes__Enum, FrameType, (app::DeathsData * this_ptr))

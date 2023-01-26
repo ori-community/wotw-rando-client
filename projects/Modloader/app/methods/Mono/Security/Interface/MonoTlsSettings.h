@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MonoRemoteCertificateValidationCallback.h>
-#include <Modloader/app/structs/MonoTlsSettings.h>
-#include <Modloader/app/structs/MonoLocalCertificateSelectionCallback.h>
-#include <Modloader/app/structs/Nullable_1_Boolean_.h>
-#include <Modloader/app/structs/Nullable_1_DateTime_.h>
-#include <Modloader/app/structs/X509CertificateCollection_1.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/Nullable_1_Mono_Security_Interface_TlsProtocols_.h>
+
+#include <Modloader/app/structs/MonoRemoteCertificateValidationCallback.h>
 #include <Modloader/app/structs/CipherSuiteCode__Enum__Array.h>
 #include <Modloader/app/structs/ICertificateValidator.h>
+#include <Modloader/app/structs/MonoLocalCertificateSelectionCallback.h>
+#include <Modloader/app/structs/MonoTlsSettings.h>
+#include <Modloader/app/structs/Nullable_1_Boolean_.h>
+#include <Modloader/app/structs/Nullable_1_DateTime_.h>
+#include <Modloader/app/structs/Nullable_1_Mono_Security_Interface_TlsProtocols_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/X509CertificateCollection_1.h>
 
 namespace app::classes::Mono::Security::Interface::MonoTlsSettings {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::MonoRemoteCertificateValidationCallback*, get_RemoteCertificateValidationCallback, (app::MonoTlsSettings * this_ptr))

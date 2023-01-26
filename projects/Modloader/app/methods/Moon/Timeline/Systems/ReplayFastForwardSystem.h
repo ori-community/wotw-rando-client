@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
+
+#include <Modloader/app/structs/UpdateType__Enum.h>
 #include <Modloader/app/structs/ReplayFastForwardSystem.h>
 
 namespace app::classes::Moon::Timeline::Systems::ReplayFastForwardSystem {

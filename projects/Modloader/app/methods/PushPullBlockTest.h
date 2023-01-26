@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/PushPullBlockTest.h>
+
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IPressurePlate.h>
 #include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/PushPullBlockTest.h>
 #include <Modloader/app/structs/Rigidbody.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/IPressurePlate.h>
 
 namespace app::classes::PushPullBlockTest {
     IL2CPP_REGISTER_METHOD(0x00653A60, app::Vector3, get_Position, (app::PushPullBlockTest * this_ptr))

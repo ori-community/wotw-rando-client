@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FlutteringSlamBehaviour_FlutterSlamState.h>
+
+#include <Modloader/app/structs/FlutteringSlamBehaviour_FlutterSlamState.h>
 #include <Modloader/app/structs/FlutteringSlamBehaviour.h>
 
 namespace app::classes::Moon::FlutteringSlamBehaviour_FlutterSlamState {

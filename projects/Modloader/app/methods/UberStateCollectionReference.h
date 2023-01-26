@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberStateCollection.h>
+
+#include <Modloader/app/structs/UberStateCollection.h>
 #include <Modloader/app/structs/UberStateCollectionReference.h>
 
 namespace app::classes::UberStateCollectionReference {

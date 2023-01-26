@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ClientIdentity.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ObjRef.h>
+
+#include <Modloader/app/structs/ClientIdentity.h>
 #include <Modloader/app/structs/MarshalByRefObject.h>
+#include <Modloader/app/structs/ObjRef.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Runtime::Remoting::ClientIdentity {

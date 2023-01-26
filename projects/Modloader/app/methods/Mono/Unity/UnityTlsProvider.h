@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/UnityTlsProvider.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Guid.h>
-#include <Modloader/app/structs/SslProtocols__Enum.h>
-#include <Modloader/app/structs/IMonoSslStream.h>
-#include <Modloader/app/structs/Stream.h>
-#include <Modloader/app/structs/MonoTlsSettings.h>
-#include <Modloader/app/structs/SslStream.h>
 #include <Modloader/app/structs/ICertificateValidator2.h>
+#include <Modloader/app/structs/IMonoSslStream.h>
+#include <Modloader/app/structs/MonoSslPolicyErrors__Enum.h>
+#include <Modloader/app/structs/MonoTlsSettings.h>
+#include <Modloader/app/structs/SslProtocols__Enum.h>
+#include <Modloader/app/structs/SslStream.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/UnityTlsProvider.h>
 #include <Modloader/app/structs/X509CertificateCollection_1.h>
 #include <Modloader/app/structs/X509Chain.h>
-#include <Modloader/app/structs/MonoSslPolicyErrors__Enum.h>
 
 namespace app::classes::Mono::Unity::UnityTlsProvider {
     IL2CPP_REGISTER_METHOD(0x024912D0, app::String*, get_Name, (app::UnityTlsProvider * this_ptr))

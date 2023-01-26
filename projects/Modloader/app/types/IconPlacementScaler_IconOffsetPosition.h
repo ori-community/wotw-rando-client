@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/IconPlacementScaler_IconOffsetPosition__Class.h>
 #include <Modloader/app/structs/IconPlacementScaler_IconOffsetPosition.h>
 #include <Modloader/app/structs/IconPlacementScaler_IconOffsetPosition__Array.h>
+#include <Modloader/app/structs/IconPlacementScaler_IconOffsetPosition__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace IconPlacementScaler_IconOffsetPosition {
-        inline app::IconPlacementScaler_IconOffsetPosition__Class** type_info = (app::IconPlacementScaler_IconOffsetPosition__Class**)(modloader::win::memory::resolve_rva(0x0477B760));
+        inline app::IconPlacementScaler_IconOffsetPosition__Class** type_info() {
+            static app::IconPlacementScaler_IconOffsetPosition__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::IconPlacementScaler_IconOffsetPosition__Class**)(modloader::win::memory::resolve_rva(0x0477B760));
+            }
+            return cache;
+        }
         inline app::IconPlacementScaler_IconOffsetPosition__Class* get_class() {
-            return il2cpp::get_nested_class<app::IconPlacementScaler_IconOffsetPosition__Class>(type_info, "", "IconPlacementScaler", "IconOffsetPosition");
+            return il2cpp::get_nested_class<app::IconPlacementScaler_IconOffsetPosition__Class>(type_info(), "", "IconPlacementScaler", "IconOffsetPosition");
         }
         inline app::IconPlacementScaler_IconOffsetPosition* create() {
             return il2cpp::create_object<app::IconPlacementScaler_IconOffsetPosition>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameMapObjectiveIcons.h>
+
+#include <Modloader/app/structs/GameMapObjectiveIcons.h>
 
 namespace app::classes::GameMapObjectiveIcons {
     IL2CPP_REGISTER_METHOD(0x0069DD30, void, ShowIcons, (app::GameMapObjectiveIcons * this_ptr))

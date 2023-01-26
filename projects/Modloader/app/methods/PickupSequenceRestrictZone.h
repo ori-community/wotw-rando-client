@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PickupSequenceRestrictZone.h>
+
+#include <Modloader/app/structs/PickupSequenceRestrictZone.h>
 
 namespace app::classes::PickupSequenceRestrictZone {
     IL2CPP_REGISTER_METHOD(0x0115C040, void, ResetStatics, ())

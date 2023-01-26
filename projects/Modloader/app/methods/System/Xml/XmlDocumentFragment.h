@@ -1,16 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlDocumentFragment.h>
-#include <Modloader/app/structs/XmlDocument.h>
+
+#include <Modloader/app/structs/XmlDocumentFragment.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlNodeType__Enum.h>
-#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlDocument.h>
 #include <Modloader/app/structs/XmlLinkedNode.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
 #include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::XmlDocumentFragment {
     IL2CPP_REGISTER_METHOD(0x01DAAEE0, void, ctor, (app::XmlDocumentFragment * this_ptr, app::XmlDocument* owner_document))
-    IL2CPP_REGISTER_METHODINFO(0x047885A8, XmlDocumentFragment__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01DAAFB0, app::String*, get_Name, (app::XmlDocumentFragment * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DAAFB0, app::String*, get_LocalName, (app::XmlDocumentFragment * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004FA040, app::XmlNodeType__Enum, get_NodeType, (app::XmlDocumentFragment * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_Node_System_Guid_System_Int32_.h>
+
+#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_Node_System_Guid_System_Int32_.h>
 #include <Modloader/app/structs/Guid.h>
 
 namespace app::classes::System::Collections::Concurrent::ConcurrentDictionary_2_TKey_TValue__Node_System_Guid_System_Int32_ {

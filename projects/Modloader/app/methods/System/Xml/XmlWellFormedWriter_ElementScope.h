@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlWellFormedWriter_ElementScope__Boxed.h>
+
+#include <Modloader/app/structs/XmlWellFormedWriter_ElementScope__Boxed.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XmlRawWriter.h>
 

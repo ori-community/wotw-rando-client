@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Expression_ParameterExpressionProxy.h>
+
+#include <Modloader/app/structs/Expression_ParameterExpressionProxy.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
 #include <Modloader/app/structs/ParameterExpression.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ExpressionType__Enum.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_ParameterExpressionProxy {

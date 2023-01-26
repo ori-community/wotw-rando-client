@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LayoutRebuilder.h>
-#include <Modloader/app/structs/RectTransform.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Component_.h>
+
+#include <Modloader/app/structs/LayoutRebuilder.h>
 #include <Modloader/app/structs/CanvasUpdate__Enum.h>
-#include <Modloader/app/structs/UnityAction_1_UnityEngine_Component_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Component_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UnityAction_1_UnityEngine_Component_.h>
 
 namespace app::classes::UnityEngine::UI::LayoutRebuilder {
     IL2CPP_REGISTER_METHOD(0x0265B9B0, void, cctor, ())
@@ -16,7 +17,6 @@ namespace app::classes::UnityEngine::UI::LayoutRebuilder {
     IL2CPP_REGISTER_METHOD(0x0265BDB0, void, Initialize, (app::LayoutRebuilder * this_ptr, app::RectTransform* controller))
     IL2CPP_REGISTER_METHOD(0x0098AB30, void, Clear, (app::LayoutRebuilder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0265BDF0, void, ReapplyDrivenProperties, (app::RectTransform * driven))
-    IL2CPP_REGISTER_METHODINFO(0x04725C20, LayoutRebuilder_ReapplyDrivenProperties__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F2AB40, app::Transform*, get_transform, (app::LayoutRebuilder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0265BE90, bool, IsDestroyed, (app::LayoutRebuilder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0265BF30, void, StripDisabledBehavioursFromList, (app::List_1_UnityEngine_Component_ * components))
@@ -33,15 +33,9 @@ namespace app::classes::UnityEngine::UI::LayoutRebuilder {
     IL2CPP_REGISTER_METHOD(0x0265D8F0, bool, Equals, (app::LayoutRebuilder * this_ptr, app::Object* obj))
     IL2CPP_REGISTER_METHOD(0x0265D950, app::String*, ToString, (app::LayoutRebuilder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0265D9E0, void, _s_Rebuilders_m__0, (app::LayoutRebuilder * x))
-    IL2CPP_REGISTER_METHODINFO(0x047878B0, LayoutRebuilder__s_Rebuilders_m__0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0265DA00, bool, _StripDisabledBehavioursFromList_m__1, (app::Component_1 * e))
-    IL2CPP_REGISTER_METHODINFO(0x04703630, LayoutRebuilder__StripDisabledBehavioursFromList_m__1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0265DB90, void, _Rebuild_m__2, (app::Component_1 * e))
-    IL2CPP_REGISTER_METHODINFO(0x04788E20, LayoutRebuilder__Rebuild_m__2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0265DC40, void, _Rebuild_m__3, (app::Component_1 * e))
-    IL2CPP_REGISTER_METHODINFO(0x04794000, LayoutRebuilder__Rebuild_m__3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0265DCF0, void, _Rebuild_m__4, (app::Component_1 * e))
-    IL2CPP_REGISTER_METHODINFO(0x04797D58, LayoutRebuilder__Rebuild_m__4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0265DDA0, void, _Rebuild_m__5, (app::Component_1 * e))
-    IL2CPP_REGISTER_METHODINFO(0x04745B78, LayoutRebuilder__Rebuild_m__5__MethodInfo)
 } // namespace app::classes::UnityEngine::UI::LayoutRebuilder

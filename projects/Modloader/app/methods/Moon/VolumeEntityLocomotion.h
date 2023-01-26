@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VolumeEntityMovementProcessor.h>
-#include <Modloader/app/structs/VolumeEntityLocomotion.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
-#include <Modloader/app/structs/EntityLocomotionTask.h>
+
+#include <Modloader/app/structs/VolumeEntityMovementProcessor.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/EntityBehaviourNode.h>
-#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
 #include <Modloader/app/structs/EntityTask.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
 #include <Modloader/app/structs/MovementProcessor.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/VolumeEntityLocomotion.h>
 
 namespace app::classes::Moon::VolumeEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::VolumeEntityMovementProcessor*, get_VolumeMovement, (app::VolumeEntityLocomotion * this_ptr))
@@ -25,9 +26,7 @@ namespace app::classes::Moon::VolumeEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x01199F20, void, ConfigureStateMachine, (app::VolumeEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00418200, app::EntityLocomotionTask*, get_DefaultFSMState, (app::VolumeEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0119A670, bool, ShouldTriggerTurn, (app::VolumeEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047666C0, VolumeEntityLocomotion_ShouldTriggerTurn__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0119AA60, bool, ShouldTriggerMove, (app::VolumeEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04746E88, VolumeEntityLocomotion_ShouldTriggerMove__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00974AC0, bool, IsLookDirectionLocked, (app::VolumeEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0119AC10, void, OnEntityInitialization, (app::VolumeEntityLocomotion * this_ptr, app::Entity* entity))
     IL2CPP_REGISTER_METHOD(0x0119B210, void, GetMovementBehaviour, (app::VolumeEntityLocomotion * this_ptr))
@@ -43,11 +42,8 @@ namespace app::classes::Moon::VolumeEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x0119BE50, void, SetLookDirection, (app::VolumeEntityLocomotion * this_ptr, app::Vector2 look_direction, app::EntityBehaviourNode* source, bool instant))
     IL2CPP_REGISTER_METHOD(0x0119BFE0, void, SetLookDirectionTowardsPoint, (app::VolumeEntityLocomotion * this_ptr, app::Vector2 point, app::EntityBehaviourNode* source, bool instant))
     IL2CPP_REGISTER_METHOD(0x0119C0F0, void, TurnStart, (app::VolumeEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473B768, VolumeEntityLocomotion_TurnStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0119C210, void, Turning, (app::VolumeEntityLocomotion * this_ptr, float t))
-    IL2CPP_REGISTER_METHODINFO(0x04720110, VolumeEntityLocomotion_Turning__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0119C300, void, TurningFinished, (app::VolumeEntityLocomotion * this_ptr, app::EntityTask* task, app::BehaviourStatus__Enum status))
-    IL2CPP_REGISTER_METHODINFO(0x0477DA48, VolumeEntityLocomotion_TurningFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0119C6A0, void, InstantFlip, (app::VolumeEntityLocomotion * this_ptr, float direction_sign))
     IL2CPP_REGISTER_METHOD(0x0119C930, void, LockLookDirection, (app::VolumeEntityLocomotion * this_ptr, float direction_x, app::EntityBehaviourNode* source))
     IL2CPP_REGISTER_METHOD(0x0119CA10, void, UnlockLookDirection, (app::VolumeEntityLocomotion * this_ptr))
@@ -58,9 +54,6 @@ namespace app::classes::Moon::VolumeEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::MovementProcessor*, get_MovementProcessor, (app::VolumeEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004F1990, void, ctor, (app::VolumeEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0119CDC0, bool, _ConfigureStateMachine_b__21_0, (app::VolumeEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471AFC0, VolumeEntityLocomotion__ConfigureStateMachine_b__21_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0119CE00, bool, _ConfigureStateMachine_b__21_1, (app::VolumeEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475A170, VolumeEntityLocomotion__ConfigureStateMachine_b__21_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0119CE30, bool, _ConfigureStateMachine_b__21_2, (app::VolumeEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473A6E8, VolumeEntityLocomotion__ConfigureStateMachine_b__21_2__MethodInfo)
 } // namespace app::classes::Moon::VolumeEntityLocomotion

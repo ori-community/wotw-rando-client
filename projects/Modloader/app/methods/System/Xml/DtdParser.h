@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DtdParser.h>
+
+#include <Modloader/app/structs/DtdParser.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/DtdParser_LiteralType__Enum.h>
+#include <Modloader/app/structs/DtdParser_Token__Enum.h>
+#include <Modloader/app/structs/IDtdInfo.h>
 #include <Modloader/app/structs/IDtdParser.h>
 #include <Modloader/app/structs/IDtdParserAdapter.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IDtdInfo.h>
+#include <Modloader/app/structs/ParticleContentValidator.h>
 #include <Modloader/app/structs/SchemaAttDef.h>
 #include <Modloader/app/structs/SchemaElementDecl.h>
-#include <Modloader/app/structs/ParticleContentValidator.h>
-#include <Modloader/app/structs/DtdParser_Token__Enum.h>
-#include <Modloader/app/structs/DtdParser_LiteralType__Enum.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
 #include <Modloader/app/structs/SchemaEntity.h>
-#include <Modloader/app/structs/XmlSeverityType__Enum.h>
-#include <Modloader/app/structs/XmlSchemaException.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaException.h>
+#include <Modloader/app/structs/XmlSeverityType__Enum.h>
 
 namespace app::classes::System::Xml::DtdParser {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())
@@ -23,7 +24,6 @@ namespace app::classes::System::Xml::DtdParser {
     IL2CPP_REGISTER_METHOD(0x021E9BE0, app::IDtdParser*, Create, ())
     IL2CPP_REGISTER_METHOD(0x021E9E00, void, Initialize, (app::DtdParser * this_ptr, app::IDtdParserAdapter* reader_adapter))
     IL2CPP_REGISTER_METHOD(0x021EA130, void, InitializeFreeFloatingDtd, (app::DtdParser * this_ptr, app::String* base_uri, app::String* doc_type_name, app::String* public_id, app::String* system_id, app::String* internal_subset, app::IDtdParserAdapter* adapter))
-    IL2CPP_REGISTER_METHODINFO(0x04786498, DtdParser_InitializeFreeFloatingDtd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x021EA620, app::IDtdInfo*, IDtdParser_ParseInternalDtd, (app::DtdParser * this_ptr, app::IDtdParserAdapter* adapter, bool save_internal_subset))
     IL2CPP_REGISTER_METHOD(0x021EA660, app::IDtdInfo*, IDtdParser_ParseFreeFloatingDtd, (app::DtdParser * this_ptr, app::String* base_uri, app::String* doc_type_name, app::String* public_id, app::String* system_id, app::String* internal_subset, app::IDtdParserAdapter* adapter))
     IL2CPP_REGISTER_METHOD(0x021EA6B0, bool, get_ParsingInternalSubset, (app::DtdParser * this_ptr))
@@ -49,7 +49,6 @@ namespace app::classes::System::Xml::DtdParser {
     IL2CPP_REGISTER_METHOD(0x021EDC60, void, ParseNotationDecl, (app::DtdParser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x021EDF90, void, AddUndeclaredNotation, (app::DtdParser * this_ptr, app::String* notation_name))
     IL2CPP_REGISTER_METHOD(0x021EE2F0, void, ParseComment, (app::DtdParser * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047281A0, DtdParser_ParseComment__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x021EE490, void, ParsePI, (app::DtdParser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x021EE590, void, ParseCondSection, (app::DtdParser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x021EE810, void, ParseExternalId, (app::DtdParser * this_ptr, app::DtdParser_Token__Enum id_token_type, app::DtdParser_Token__Enum decl_type, app::String** public_id, app::String** system_id))

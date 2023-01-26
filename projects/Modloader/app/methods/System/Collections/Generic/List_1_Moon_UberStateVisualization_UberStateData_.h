@@ -1,33 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberStateData.h>
-#include <Modloader/app/structs/List_1_Moon_UberStateVisualization_UberStateData_.h>
-#include <Modloader/app/structs/Comparison_1_Moon_UberStateVisualization_UberStateData_.h>
-#include <Modloader/app/structs/IEnumerable_1_Moon_UberStateVisualization_UberStateData_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_UberStateVisualization_UberStateData_.h>
-#include <Modloader/app/structs/IComparer_1_Moon_UberStateVisualization_UberStateData_.h>
-#include <Modloader/app/structs/UberStateData__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Moon_UberStateVisualization_UberStateData_.h>
+
+#include <Modloader/app/structs/UberStateData.h>
 #include <Modloader/app/structs/Action_1_Moon_UberStateVisualization_UberStateData_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_UberStateVisualization_UberStateData_.h>
-#include <Modloader/app/structs/IEnumerator_1_Moon_UberStateVisualization_UberStateData_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Comparison_1_Moon_UberStateVisualization_UberStateData_.h>
+#include <Modloader/app/structs/IComparer_1_Moon_UberStateVisualization_UberStateData_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_UberStateVisualization_UberStateData_.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_UberStateVisualization_UberStateData_.h>
+#include <Modloader/app/structs/List_1_Moon_UberStateVisualization_UberStateData_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_UberStateVisualization_UberStateData_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Moon_UberStateVisualization_UberStateData_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_UberStateVisualization_UberStateData_.h>
+#include <Modloader/app/structs/UberStateData__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_UberStateVisualization_UberStateData_ {
     IL2CPP_REGISTER_METHOD(0x02E05DF0, app::UberStateData, get_Item, (app::List_1_Moon_UberStateVisualization_UberStateData_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04704EE0, List_1_Moon_UberStateVisualization_UberStateData__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_Moon_UberStateVisualization_UberStateData_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04731F10, List_1_Moon_UberStateVisualization_UberStateData__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_Moon_UberStateVisualization_UberStateData_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476C588, List_1_Moon_UberStateVisualization_UberStateData___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02E06260, void, Add, (app::List_1_Moon_UberStateVisualization_UberStateData_ * this_ptr, app::UberStateData item))
-    IL2CPP_REGISTER_METHODINFO(0x04724070, List_1_Moon_UberStateVisualization_UberStateData__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02E05E50, void, set_Item, (app::List_1_Moon_UberStateVisualization_UberStateData_ * this_ptr, int32_t index, app::UberStateData value))
-    IL2CPP_REGISTER_METHODINFO(0x04786E78, List_1_Moon_UberStateVisualization_UberStateData__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAEA0, void, Sort_1, (app::List_1_Moon_UberStateVisualization_UberStateData_ * this_ptr, app::Comparison_1_Moon_UberStateVisualization_UberStateData_* comparison))
-    IL2CPP_REGISTER_METHODINFO(0x047241A8, List_1_Moon_UberStateVisualization_UberStateData__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_Moon_UberStateVisualization_UberStateData_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02E057E0, void, ctor_3, (app::List_1_Moon_UberStateVisualization_UberStateData_ * this_ptr, app::IEnumerable_1_Moon_UberStateVisualization_UberStateData_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_Moon_UberStateVisualization_UberStateData_ * this_ptr))

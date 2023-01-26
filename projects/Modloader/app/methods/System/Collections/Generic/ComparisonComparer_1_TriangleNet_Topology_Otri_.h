@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_TriangleNet_Topology_Otri_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_TriangleNet_Topology_Otri_.h>
 #include <Modloader/app/structs/Comparison_1_TriangleNet_Topology_Otri_.h>
 #include <Modloader/app/structs/Otri.h>
 

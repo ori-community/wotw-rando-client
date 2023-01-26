@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IPEndPoint.h>
+
+#include <Modloader/app/structs/IPEndPoint.h>
 #include <Modloader/app/structs/Win32IPGlobalProperties_Win32_MIB_TCP6ROW.h>
 
 namespace app::classes::System::Net::NetworkInformation::Win32IPGlobalProperties_Win32_MIB_TCP6ROW {

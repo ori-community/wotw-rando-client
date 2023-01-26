@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
-#include <Modloader/app/structs/EquipmentType__Enum.h>
+
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
 #include <Modloader/app/structs/UberStateArchive.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateInventory_InventoryItem {

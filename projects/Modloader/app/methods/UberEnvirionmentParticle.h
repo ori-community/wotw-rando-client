@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberEnvirionmentParticle.h>
+
+#include <Modloader/app/structs/UberEnvirionmentParticle.h>
 
 namespace app::classes::UberEnvirionmentParticle {
     IL2CPP_REGISTER_METHOD(0x013E8070, void, OnDrawGizmosSelected, (app::UberEnvirionmentParticle * this_ptr))

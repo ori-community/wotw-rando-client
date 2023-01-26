@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/NPCIconsCollection.h>
+#include <Modloader/app/structs/NPCIconsCollection__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/NPCIconsCollection__Class.h>
-#include <Modloader/app/structs/NPCIconsCollection.h>
 
 namespace app::classes::types {
     namespace NPCIconsCollection {
-        namespace {
-            inline app::NPCIconsCollection__Class* type_info_ref = nullptr;
+        inline app::NPCIconsCollection__Class** type_info() {
+            static app::NPCIconsCollection__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::NPCIconsCollection__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::NPCIconsCollection__Class** type_info = &type_info_ref;
         inline app::NPCIconsCollection__Class* get_class() {
-            return il2cpp::get_class<app::NPCIconsCollection__Class>(type_info, "Moon", "NPCIconsCollection");
+            return il2cpp::get_class<app::NPCIconsCollection__Class>(type_info(), "Moon", "NPCIconsCollection");
         }
         inline app::NPCIconsCollection* create() {
             return il2cpp::create_object<app::NPCIconsCollection>(get_class());

@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Array.h>
+#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Boxed.h>
+#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Class.h>
-#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Boxed.h>
-#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Array.h>
 
 namespace app::classes::types {
     namespace SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings {
-        namespace {
-            inline app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Class* type_info_ref = nullptr;
+        inline app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Class** type_info() {
+            static app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Class** type_info = &type_info_ref;
         inline app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Class* get_class() {
-            return il2cpp::get_nested_class<app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Class>(type_info, "", "SeinAbilityRestrictZone", "LerpedGravityPlatformMovementSettings");
+            return il2cpp::get_nested_class<app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings__Class>(type_info(), "", "SeinAbilityRestrictZone", "LerpedGravityPlatformMovementSettings");
         }
         inline app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings* create() {
             return il2cpp::create_object<app::SeinAbilityRestrictZone_LerpedGravityPlatformMovementSettings>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberWaterCross.h>
+
+#include <Modloader/app/structs/UberWaterCross.h>
 #include <Modloader/app/structs/UberPostProcess.h>
 
 namespace app::classes::UberWaterCross {

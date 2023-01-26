@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BindingList_1_System_Object_.h>
-#include <Modloader/app/structs/PropertyDescriptor.h>
-#include <Modloader/app/structs/ListSortDirection__Enum.h>
-#include <Modloader/app/structs/IList_1_System_Object_.h>
-#include <Modloader/app/structs/AddingNewEventHandler.h>
+
+#include <Modloader/app/structs/BindingList_1_System_Object_.h>
 #include <Modloader/app/structs/AddingNewEventArgs.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ListChangedEventHandler.h>
+#include <Modloader/app/structs/AddingNewEventHandler.h>
+#include <Modloader/app/structs/IList_1_System_Object_.h>
 #include <Modloader/app/structs/ListChangedEventArgs.h>
+#include <Modloader/app/structs/ListChangedEventHandler.h>
 #include <Modloader/app/structs/ListChangedType__Enum.h>
+#include <Modloader/app/structs/ListSortDirection__Enum.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/PropertyChangedEventArgs.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
 
 namespace app::classes::System::ComponentModel::BindingList_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02FAC160, bool, get_ItemTypeHasDefaultConstructor, (app::BindingList_1_System_Object_ * this_ptr))
@@ -55,7 +56,6 @@ namespace app::classes::System::ComponentModel::BindingList_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02FACAA0, void, ClearItems, (app::BindingList_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02FACD50, void, InsertItem, (app::BindingList_1_System_Object_ * this_ptr, int32_t index, app::Object* item))
     IL2CPP_REGISTER_METHOD(0x02FACE10, void, RemoveItem, (app::BindingList_1_System_Object_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0473EC90, BindingList_1_System_Object__RemoveItem__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FACF70, void, SetItem, (app::BindingList_1_System_Object_ * this_ptr, int32_t index, app::Object* item))
     IL2CPP_REGISTER_METHOD(0x02FAD040, void, CancelNew, (app::BindingList_1_System_Object_ * this_ptr, int32_t item_index))
     IL2CPP_REGISTER_METHOD(0x02FAD080, void, EndNew, (app::BindingList_1_System_Object_ * this_ptr, int32_t item_index))
@@ -64,13 +64,10 @@ namespace app::classes::System::ComponentModel::BindingList_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02FAD2A0, app::Object*, AddNewCore, (app::BindingList_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02FAD6A0, void, IBindingList_ApplySort, (app::BindingList_1_System_Object_ * this_ptr, app::PropertyDescriptor* prop, app::ListSortDirection__Enum direction))
     IL2CPP_REGISTER_METHOD(0x02FAD6D0, void, ApplySortCore, (app::BindingList_1_System_Object_ * this_ptr, app::PropertyDescriptor* prop, app::ListSortDirection__Enum direction))
-    IL2CPP_REGISTER_METHODINFO(0x04773988, BindingList_1_System_Object__ApplySortCore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FAD720, void, IBindingList_RemoveSort, (app::BindingList_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02FAD750, void, RemoveSortCore, (app::BindingList_1_System_Object_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04748068, BindingList_1_System_Object__RemoveSortCore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FAD7A0, int32_t, IBindingList_Find, (app::BindingList_1_System_Object_ * this_ptr, app::PropertyDescriptor* prop, app::Object* key))
     IL2CPP_REGISTER_METHOD(0x02FAD7D0, int32_t, FindCore, (app::BindingList_1_System_Object_ * this_ptr, app::PropertyDescriptor* prop, app::Object* key))
-    IL2CPP_REGISTER_METHODINFO(0x04784298, BindingList_1_System_Object__FindCore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IBindingList_AddIndex, (app::BindingList_1_System_Object_ * this_ptr, app::PropertyDescriptor* prop))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IBindingList_RemoveIndex, (app::BindingList_1_System_Object_ * this_ptr, app::PropertyDescriptor* prop))
     IL2CPP_REGISTER_METHOD(0x02FAD820, void, HookPropertyChanged, (app::BindingList_1_System_Object_ * this_ptr, app::Object* item))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UnityTextPercentageDisplayValue.h>
+
+#include <Modloader/app/structs/UnityTextPercentageDisplayValue.h>
 
 namespace app::classes::UnityTextPercentageDisplayValue {
     IL2CPP_REGISTER_METHOD(0x013AB210, void, Awake, (app::UnityTextPercentageDisplayValue * this_ptr))

@@ -1,15 +1,20 @@
 #pragma once
+#include <Modloader/app/structs/IVROverlay_MoveGamepadFocusToNeighbor.h>
+#include <Modloader/app/structs/IVROverlay_MoveGamepadFocusToNeighbor__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/IVROverlay_MoveGamepadFocusToNeighbor__Class.h>
-#include <Modloader/app/structs/IVROverlay_MoveGamepadFocusToNeighbor.h>
 
 namespace app::classes::types {
     namespace IVROverlay_MoveGamepadFocusToNeighbor {
-        inline app::IVROverlay_MoveGamepadFocusToNeighbor__Class** type_info = (app::IVROverlay_MoveGamepadFocusToNeighbor__Class**)(modloader::win::memory::resolve_rva(0x04782E88));
+        inline app::IVROverlay_MoveGamepadFocusToNeighbor__Class** type_info() {
+            static app::IVROverlay_MoveGamepadFocusToNeighbor__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::IVROverlay_MoveGamepadFocusToNeighbor__Class**)(modloader::win::memory::resolve_rva(0x04782E88));
+            }
+            return cache;
+        }
         inline app::IVROverlay_MoveGamepadFocusToNeighbor__Class* get_class() {
-            return il2cpp::get_nested_class<app::IVROverlay_MoveGamepadFocusToNeighbor__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "IVROverlay", "_MoveGamepadFocusToNeighbor");
+            return il2cpp::get_nested_class<app::IVROverlay_MoveGamepadFocusToNeighbor__Class>(type_info(), "ZenFulcrum.VR.OpenVRBinding", "IVROverlay", "_MoveGamepadFocusToNeighbor");
         }
         inline app::IVROverlay_MoveGamepadFocusToNeighbor* create() {
             return il2cpp::create_object<app::IVROverlay_MoveGamepadFocusToNeighbor>(get_class());

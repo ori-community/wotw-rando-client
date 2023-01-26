@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/Otri.h>
+#include <Modloader/app/structs/Otri__Array.h>
+#include <Modloader/app/structs/Otri__Boxed.h>
+#include <Modloader/app/structs/Otri__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Otri__Class.h>
-#include <Modloader/app/structs/Otri.h>
-#include <Modloader/app/structs/Otri__Boxed.h>
-#include <Modloader/app/structs/Otri__Array.h>
 
 namespace app::classes::types {
     namespace Otri {
-        inline app::Otri__Class** type_info = (app::Otri__Class**)(modloader::win::memory::resolve_rva(0x0474B600));
+        inline app::Otri__Class** type_info() {
+            static app::Otri__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Otri__Class**)(modloader::win::memory::resolve_rva(0x0474B600));
+            }
+            return cache;
+        }
         inline app::Otri__Class* get_class() {
-            return il2cpp::get_class<app::Otri__Class>(type_info, "TriangleNet.Topology", "Otri");
+            return il2cpp::get_class<app::Otri__Class>(type_info(), "TriangleNet.Topology", "Otri");
         }
         inline app::Otri* create() {
             return il2cpp::create_object<app::Otri>(get_class());

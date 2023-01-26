@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityState.h>
+
+#include <Modloader/app/structs/EntityState.h>
 
 namespace app::classes::Moon::EntityState {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_IsRunning, (app::EntityState * this_ptr))

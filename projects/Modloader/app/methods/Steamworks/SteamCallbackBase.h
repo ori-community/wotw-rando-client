@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CCallbackBaseVTable_RunCBDel.h>
-#include <Modloader/app/structs/CCallbackBaseVTable_RunCRDel.h>
-#include <Modloader/app/structs/CCallbackBaseVTable_GetCallbackSizeBytesDel.h>
+
+#include <Modloader/app/structs/CCallbackBaseVTable_RunCBDel.h>
 #include <Modloader/app/structs/CCallbackBase.h>
+#include <Modloader/app/structs/CCallbackBaseVTable_GetCallbackSizeBytesDel.h>
+#include <Modloader/app/structs/CCallbackBaseVTable_RunCRDel.h>
 #include <Modloader/app/structs/GCHandle.h>
 
 namespace app::classes::Steamworks::SteamCallbackBase {

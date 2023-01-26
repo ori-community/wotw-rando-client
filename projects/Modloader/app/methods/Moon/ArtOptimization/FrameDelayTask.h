@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FrameDelayTask.h>
+
+#include <Modloader/app/structs/FrameDelayTask.h>
 #include <Modloader/app/structs/IOptimizationTask.h>
 #include <Modloader/app/structs/Object.h>
 

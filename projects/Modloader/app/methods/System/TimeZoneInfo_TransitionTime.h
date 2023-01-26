@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DateTime.h>
-#include <Modloader/app/structs/TimeZoneInfo_TransitionTime__Boxed.h>
+
+#include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/DayOfWeek__Enum.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/TimeZoneInfo_TransitionTime.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/TimeZoneInfo_TransitionTime.h>
+#include <Modloader/app/structs/TimeZoneInfo_TransitionTime__Boxed.h>
 
 namespace app::classes::System::TimeZoneInfo_TransitionTime {
     IL2CPP_REGISTER_METHOD(0x00107C00, app::DateTime, get_TimeOfDay, (app::TimeZoneInfo_TransitionTime__Boxed * this_ptr))
@@ -23,13 +24,9 @@ namespace app::classes::System::TimeZoneInfo_TransitionTime {
     IL2CPP_REGISTER_METHOD(0x027BA8F0, app::TimeZoneInfo_TransitionTime, CreateFloatingDateRule, (app::DateTime time_of_day, int32_t month, int32_t week, app::DayOfWeek__Enum day_of_week))
     IL2CPP_REGISTER_METHOD(0x027BA9A0, app::TimeZoneInfo_TransitionTime, CreateTransitionTime, (app::DateTime time_of_day, int32_t month, int32_t week, int32_t day, app::DayOfWeek__Enum day_of_week, bool is_fixed_date_rule))
     IL2CPP_REGISTER_METHOD(0x027BAA60, void, ValidateTransitionTime, (app::DateTime time_of_day, int32_t month, int32_t week, int32_t day, app::DayOfWeek__Enum day_of_week))
-    IL2CPP_REGISTER_METHODINFO(0x047303E8, TimeZoneInfo_TransitionTime_ValidateTransitionTime__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00203E60, void, IDeserializationCallback_OnDeserialization, (app::TimeZoneInfo_TransitionTime__Boxed * this_ptr, app::Object* sender))
-    IL2CPP_REGISTER_METHODINFO(0x04792BD8, TimeZoneInfo_TransitionTime_System_Runtime_Serialization_IDeserializationCallback_OnDeserialization__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00203E70, void, ISerializable_GetObjectData, (app::TimeZoneInfo_TransitionTime__Boxed * this_ptr, app::SerializationInfo* info, app::StreamingContext context))
-    IL2CPP_REGISTER_METHODINFO(0x04710AC8, TimeZoneInfo_TransitionTime_System_Runtime_Serialization_ISerializable_GetObjectData__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00203FD0, void, ctor, (app::TimeZoneInfo_TransitionTime__Boxed * this_ptr, app::SerializationInfo* info, app::StreamingContext context))
-    IL2CPP_REGISTER_METHODINFO(0x04750B68, TimeZoneInfo_TransitionTime__ctor__MethodInfo)
     inline bool operator!=(app::TimeZoneInfo_TransitionTime t1, app::TimeZoneInfo_TransitionTime t2) {
         return op_Inequality(t1, t2);
     }

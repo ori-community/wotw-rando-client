@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTrailStressTester.h>
+
+#include <Modloader/app/structs/MoonTrailStressTester.h>
 
 namespace app::classes::MoonTrailStressTester {
     IL2CPP_REGISTER_METHOD(0x0257AC90, void, Start, (app::MoonTrailStressTester * this_ptr))

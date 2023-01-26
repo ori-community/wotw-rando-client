@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SplitTurnAnimation.h>
+
+#include <Modloader/app/structs/SplitTurnAnimation.h>
 #include <Modloader/app/structs/ILocomotionTurningHandler.h>
 
 namespace app::classes::SplitTurnAnimation {

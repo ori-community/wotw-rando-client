@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ServerPhysicalSystemManager.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/ServerPhysicalSystemManager.h>
 #include <Modloader/app/structs/Component_1.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ServerPhysicalSystemManager {
     IL2CPP_REGISTER_METHOD(0x0059D6C0, void, ctor, (app::ServerPhysicalSystemManager * this_ptr, app::Object* data))

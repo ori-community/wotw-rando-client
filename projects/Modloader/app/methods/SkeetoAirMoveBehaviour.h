@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SkeetoAirMoveBehaviour.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/SkeetoAirMoveBehaviour_State__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SkeetoAirMoveBehaviour.h>
+#include <Modloader/app/structs/SkeetoAirMoveBehaviour_State__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::SkeetoAirMoveBehaviour {
     IL2CPP_REGISTER_METHOD(0x0074C3A0, app::Vector3, get_TargetPosition, (app::SkeetoAirMoveBehaviour * this_ptr))
@@ -31,9 +32,7 @@ namespace app::classes::SkeetoAirMoveBehaviour {
     IL2CPP_REGISTER_METHOD(0x0074D550, void, PlayTimeline, (app::SkeetoAirMoveBehaviour * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop))
     IL2CPP_REGISTER_METHOD(0x0074D690, void, ResetTimeline, (app::SkeetoAirMoveBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0074D780, void, FlipTransform, (app::SkeetoAirMoveBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477B9E0, SkeetoAirMoveBehaviour_FlipTransform__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0074D7D0, void, UpdateYDirAnimationParameter, (app::SkeetoAirMoveBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0074D830, void, ctor, (app::SkeetoAirMoveBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0074D8C0, void, _OnFlipEnter_b__45_0, (app::SkeetoAirMoveBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0479A170, SkeetoAirMoveBehaviour__OnFlipEnter_b__45_0__MethodInfo)
 } // namespace app::classes::SkeetoAirMoveBehaviour

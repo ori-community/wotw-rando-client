@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SpiderNpcEntity.h>
-#include <Modloader/app/structs/SpiderNpcEntity_State__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SpiderNpcEntity.h>
+#include <Modloader/app/structs/SpiderNpcEntity_State__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::SpiderNpcEntity {
     IL2CPP_REGISTER_METHOD(0x011BE8A0, app::String*, get_DialogActorName, (app::SpiderNpcEntity * this_ptr))
@@ -28,7 +29,5 @@ namespace app::classes::SpiderNpcEntity {
     IL2CPP_REGISTER_METHOD(0x011BF660, void, set_AllTargets, (app::SpiderNpcEntity * this_ptr, app::List_1_UnityEngine_GameObject_* value))
     IL2CPP_REGISTER_METHOD(0x004173E0, void, ctor, (app::SpiderNpcEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011BF670, bool, _PlayLookAnimation_b__24_0, (app::SpiderNpcEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472CA50, SpiderNpcEntity__PlayLookAnimation_b__24_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011BF680, bool, _PlayTalkAnimation_b__25_0, (app::SpiderNpcEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04723D20, SpiderNpcEntity__PlayTalkAnimation_b__25_0__MethodInfo)
 } // namespace app::classes::SpiderNpcEntity

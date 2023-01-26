@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ICollection_1_System_Net_Http_Headers_NameValueHeaderValue_.h>
+
+#include <Modloader/app/structs/ICollection_1_System_Net_Http_Headers_NameValueHeaderValue_.h>
 #include <Modloader/app/structs/CacheControlHeaderValue.h>
-#include <Modloader/app/structs/Nullable_1_TimeSpan_.h>
 #include <Modloader/app/structs/ICollection_1_System_String_.h>
+#include <Modloader/app/structs/Nullable_1_TimeSpan_.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
 
@@ -41,7 +42,6 @@ namespace app::classes::System::Net::Http::Headers::CacheControlHeaderValue {
     IL2CPP_REGISTER_METHOD(0x02D037C0, bool, Equals, (app::CacheControlHeaderValue * this_ptr, app::Object* obj))
     IL2CPP_REGISTER_METHOD(0x02D03BC0, int32_t, GetHashCode, (app::CacheControlHeaderValue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02D03E20, bool, TryParse, (app::String * input, app::CacheControlHeaderValue** parsed_value))
-    IL2CPP_REGISTER_METHODINFO(0x0475CFF8, CacheControlHeaderValue_TryParse__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D04DD0, app::String*, ToString, (app::CacheControlHeaderValue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::CacheControlHeaderValue * this_ptr))
 } // namespace app::classes::System::Net::Http::Headers::CacheControlHeaderValue

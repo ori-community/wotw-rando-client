@@ -1,21 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlEntityReference.h>
+
+#include <Modloader/app/structs/XmlEntityReference.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XmlDocument.h>
-#include <Modloader/app/structs/XmlNodeType__Enum.h>
-#include <Modloader/app/structs/XmlNode.h>
 #include <Modloader/app/structs/XmlLinkedNode.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
 #include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::XmlEntityReference {
     IL2CPP_REGISTER_METHOD(0x01DB5690, void, ctor, (app::XmlEntityReference * this_ptr, app::String* name, app::XmlDocument* doc))
-    IL2CPP_REGISTER_METHODINFO(0x0476F9D0, XmlEntityReference__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB950, app::String*, get_Name, (app::XmlEntityReference * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB950, app::String*, get_LocalName, (app::XmlEntityReference * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::String*, get_Value, (app::XmlEntityReference * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DB57F0, void, set_Value, (app::XmlEntityReference * this_ptr, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x04706158, XmlEntityReference_set_Value__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008E77B0, app::XmlNodeType__Enum, get_NodeType, (app::XmlEntityReference * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DB5860, app::XmlNode*, CloneNode, (app::XmlEntityReference * this_ptr, bool deep))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsReadOnly, (app::XmlEntityReference * this_ptr))

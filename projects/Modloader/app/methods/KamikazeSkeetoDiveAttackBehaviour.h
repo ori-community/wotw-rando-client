@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KamikazeSkeetoDiveAttackBehaviour_DiveAttackState__Enum.h>
-#include <Modloader/app/structs/KamikazeSkeetoDiveAttackBehaviour.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/SkeetoLocomotion.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/KamikazeSkeetoDiveAttackBehaviour_DiveAttackState__Enum.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/KamikazeSkeetoDiveAttackBehaviour.h>
+#include <Modloader/app/structs/SkeetoLocomotion.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::KamikazeSkeetoDiveAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00E5BF60, app::KamikazeSkeetoDiveAttackBehaviour_DiveAttackState__Enum, get_State, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr))
@@ -41,20 +42,14 @@ namespace app::classes::KamikazeSkeetoDiveAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00E5F100, app::BehaviourStatus__Enum, UpdatePegged, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E5F370, void, OnExitPegged, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E5F3A0, void, OnBashEnter, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471B788, KamikazeSkeetoDiveAttackBehaviour_OnBashEnter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E5F3B0, void, UpdateDebugDamage, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E5F770, bool, CheckIfPegged, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E5FAE0, void, OnExplodeTriggerEnter, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr, app::Collider* obj))
-    IL2CPP_REGISTER_METHODINFO(0x04725538, KamikazeSkeetoDiveAttackBehaviour_OnExplodeTriggerEnter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E5FEE0, bool, HasClearanceToAttack, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr, app::Vector3 offset_to_target))
     IL2CPP_REGISTER_METHOD(0x00E601D0, void, OnDrawGizmos, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B33C0, void, OnInterrupted, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04740DE8, KamikazeSkeetoDiveAttackBehaviour_OnInterrupted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E603D0, void, ctor, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E604C0, void, _OnEnterFlipTowardsTarget_b__58_0, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470AC38, KamikazeSkeetoDiveAttackBehaviour__OnEnterFlipTowardsTarget_b__58_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E60500, void, _OnEnterFlipTowardsTarget_b__58_1, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04795958, KamikazeSkeetoDiveAttackBehaviour__OnEnterFlipTowardsTarget_b__58_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E60510, void, _OnEnterAnticipation_b__61_0, (app::KamikazeSkeetoDiveAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470C2C8, KamikazeSkeetoDiveAttackBehaviour__OnEnterAnticipation_b__61_0__MethodInfo)
 } // namespace app::classes::KamikazeSkeetoDiveAttackBehaviour

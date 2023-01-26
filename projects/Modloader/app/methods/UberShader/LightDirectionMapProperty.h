@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CompressedLightDirectionMap.h>
+
+#include <Modloader/app/structs/CompressedLightDirectionMap.h>
 #include <Modloader/app/structs/LightDirectionMapProperty.h>
 
 namespace app::classes::UberShader::LightDirectionMapProperty {

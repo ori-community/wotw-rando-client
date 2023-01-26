@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UnityTls_unitytls_tlsctx_trace_callback.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Void.h>
-#include <Modloader/app/structs/UnityTls_unitytls_tlsctx.h>
-#include <Modloader/app/structs/IAsyncResult.h>
+
+#include <Modloader/app/structs/UnityTls_unitytls_tlsctx_trace_callback.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UnityTls_unitytls_tlsctx.h>
+#include <Modloader/app/structs/Void.h>
 
 namespace app::classes::Mono::Unity::UnityTls_unitytls_tlsctx_trace_callback {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::UnityTls_unitytls_tlsctx_trace_callback * this_ptr, app::Object* object, void* method_1))

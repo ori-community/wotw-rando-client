@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/JumpGridEntry.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/JumpGridEntry.h>
 #include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::JumpGridEntry {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_EntryName, (app::JumpGridEntry * this_ptr))

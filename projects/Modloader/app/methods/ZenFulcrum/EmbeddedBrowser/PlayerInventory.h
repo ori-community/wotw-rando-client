@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerInventory.h>
+
+#include <Modloader/app/structs/PlayerInventory.h>
 #include <Modloader/app/structs/Action_1_Int32_.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::PlayerInventory {

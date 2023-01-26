@@ -1,22 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XboxOneSave.h>
-#include <Modloader/app/structs/Task.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Byte__Array.h>
+
+#include <Modloader/app/structs/XboxOneSave.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/Queue_1_System_Action_.h>
 #include <Modloader/app/structs/Queue_1_System_String_.h>
-#include <Modloader/app/structs/Task_1_System_Collections_Generic_IEnumerable_1_.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/Task_1_System_Byte_.h>
+#include <Modloader/app/structs/Task.h>
 #include <Modloader/app/structs/Task_1_System_Boolean_.h>
+#include <Modloader/app/structs/Task_1_System_Byte_.h>
+#include <Modloader/app/structs/Task_1_System_Collections_Generic_IEnumerable_1_.h>
 #include <Modloader/app/structs/Tuple_2_String_Byte___Array.h>
 
 namespace app::classes::XboxOneSave {
     IL2CPP_REGISTER_METHOD(0x01C598B0, app::XboxOneSave*, get_Instance, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnSlotsAllQueried, ())
-    IL2CPP_REGISTER_METHODINFO(0x04704520, XboxOneSave_OnSlotsAllQueried__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, SaveGameAvailableInSlot, (int32_t index))
     IL2CPP_REGISTER_METHOD(0x01C59950, bool, DeleteSaveGame, (int32_t index, int32_t backup_index))
     IL2CPP_REGISTER_METHOD(0x01C59A90, app::Task*, Delete, (app::String * file))

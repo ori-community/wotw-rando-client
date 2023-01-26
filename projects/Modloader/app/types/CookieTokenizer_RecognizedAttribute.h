@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/CookieTokenizer_RecognizedAttribute.h>
+#include <Modloader/app/structs/CookieTokenizer_RecognizedAttribute__Array.h>
+#include <Modloader/app/structs/CookieTokenizer_RecognizedAttribute__Boxed.h>
+#include <Modloader/app/structs/CookieTokenizer_RecognizedAttribute__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CookieTokenizer_RecognizedAttribute__Class.h>
-#include <Modloader/app/structs/CookieTokenizer_RecognizedAttribute.h>
-#include <Modloader/app/structs/CookieTokenizer_RecognizedAttribute__Boxed.h>
-#include <Modloader/app/structs/CookieTokenizer_RecognizedAttribute__Array.h>
 
 namespace app::classes::types {
     namespace CookieTokenizer_RecognizedAttribute {
-        namespace {
-            inline app::CookieTokenizer_RecognizedAttribute__Class* type_info_ref = nullptr;
+        inline app::CookieTokenizer_RecognizedAttribute__Class** type_info() {
+            static app::CookieTokenizer_RecognizedAttribute__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CookieTokenizer_RecognizedAttribute__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CookieTokenizer_RecognizedAttribute__Class** type_info = &type_info_ref;
         inline app::CookieTokenizer_RecognizedAttribute__Class* get_class() {
-            return il2cpp::get_nested_class<app::CookieTokenizer_RecognizedAttribute__Class>(type_info, "System.Net", "CookieTokenizer", "RecognizedAttribute");
+            return il2cpp::get_nested_class<app::CookieTokenizer_RecognizedAttribute__Class>(type_info(), "System.Net", "CookieTokenizer", "RecognizedAttribute");
         }
         inline app::CookieTokenizer_RecognizedAttribute* create() {
             return il2cpp::create_object<app::CookieTokenizer_RecognizedAttribute>(get_class());

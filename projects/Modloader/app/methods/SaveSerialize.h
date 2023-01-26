@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SaveSerialize.h>
+
+#include <Modloader/app/structs/SaveSerialize.h>
 #include <Modloader/app/structs/SaveSceneManager.h>
 
 namespace app::classes::SaveSerialize {

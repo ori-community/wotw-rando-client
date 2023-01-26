@@ -1,39 +1,31 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_TriangleNet_Topology_Otri_.h>
-#include <Modloader/app/structs/Otri.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_TriangleNet_Topology_Otri_.h>
-#include <Modloader/app/structs/IEnumerable_1_TriangleNet_Topology_Otri_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_TriangleNet_Topology_Otri_.h>
-#include <Modloader/app/structs/IComparer_1_TriangleNet_Topology_Otri_.h>
-#include <Modloader/app/structs/Otri__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_TriangleNet_Topology_Otri_.h>
+
+#include <Modloader/app/structs/List_1_TriangleNet_Topology_Otri_.h>
 #include <Modloader/app/structs/Action_1_TriangleNet_Topology_Otri_.h>
-#include <Modloader/app/structs/IEnumerator_1_TriangleNet_Topology_Otri_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_TriangleNet_Topology_Otri_.h>
+#include <Modloader/app/structs/IComparer_1_TriangleNet_Topology_Otri_.h>
+#include <Modloader/app/structs/IEnumerable_1_TriangleNet_Topology_Otri_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_TriangleNet_Topology_Otri_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_TriangleNet_Topology_Otri_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Otri.h>
+#include <Modloader/app/structs/Otri__Array.h>
+#include <Modloader/app/structs/Predicate_1_TriangleNet_Topology_Otri_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_TriangleNet_Topology_Otri_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_TriangleNet_Topology_Otri_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_TriangleNet_Topology_Otri_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x0478ECD8, List_1_TriangleNet_Topology_Otri___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add, (app::List_1_TriangleNet_Topology_Otri_ * this_ptr, app::Otri item))
-    IL2CPP_REGISTER_METHODINFO(0x0478AC88, List_1_TriangleNet_Topology_Otri__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_TriangleNet_Topology_Otri_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047024E8, List_1_TriangleNet_Topology_Otri__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::Otri, get_Item, (app::List_1_TriangleNet_Topology_Otri_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04758658, List_1_TriangleNet_Topology_Otri__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EA760, bool, Remove, (app::List_1_TriangleNet_Topology_Otri_ * this_ptr, app::Otri item))
-    IL2CPP_REGISTER_METHODINFO(0x0473E388, List_1_TriangleNet_Topology_Otri__Remove__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_2, (app::List_1_TriangleNet_Topology_Otri_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047013F8, List_1_TriangleNet_Topology_Otri___ctor_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_TriangleNet_Topology_Otri_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472EF48, List_1_TriangleNet_Topology_Otri__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EA130, void, Insert, (app::List_1_TriangleNet_Topology_Otri_ * this_ptr, int32_t index, app::Otri item))
-    IL2CPP_REGISTER_METHODINFO(0x0473FCB8, List_1_TriangleNet_Topology_Otri__Insert__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E9D20, app::List_1_T_Enumerator_TriangleNet_Topology_Otri_, GetEnumerator, (app::List_1_TriangleNet_Topology_Otri_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476A9A8, List_1_TriangleNet_Topology_Otri__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02ED6100, void, ctor_3, (app::List_1_TriangleNet_Topology_Otri_ * this_ptr, app::IEnumerable_1_TriangleNet_Topology_Otri_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_TriangleNet_Topology_Otri_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025E8790, void, set_Capacity, (app::List_1_TriangleNet_Topology_Otri_ * this_ptr, int32_t value))

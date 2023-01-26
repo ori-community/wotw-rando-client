@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnergyDoor.h>
+
+#include <Modloader/app/structs/EnergyDoor.h>
 #include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/EnergyDoorSlot.h>
 

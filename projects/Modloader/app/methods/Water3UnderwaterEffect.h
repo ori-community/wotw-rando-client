@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Water3UnderwaterEffect.h>
+
+#include <Modloader/app/structs/Water3UnderwaterEffect.h>
 #include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::Water3UnderwaterEffect {

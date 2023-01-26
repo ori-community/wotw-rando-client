@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ColorCorrectionSettings.h>
+
+#include <Modloader/app/structs/ColorCorrectionSettings.h>
 
 namespace app::classes::ColorCorrectionSettings {
     IL2CPP_REGISTER_METHOD(0x012D2ED0, app::ColorCorrectionSettings*, Clone, (app::ColorCorrectionSettings * this_ptr))

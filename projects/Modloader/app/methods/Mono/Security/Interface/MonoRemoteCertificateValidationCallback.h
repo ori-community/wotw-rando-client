@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MonoRemoteCertificateValidationCallback.h>
+
+#include <Modloader/app/structs/MonoRemoteCertificateValidationCallback.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/MonoSslPolicyErrors__Enum.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/X509Certificate_1.h>
 #include <Modloader/app/structs/X509Chain.h>
-#include <Modloader/app/structs/MonoSslPolicyErrors__Enum.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Mono::Security::Interface::MonoRemoteCertificateValidationCallback {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::MonoRemoteCertificateValidationCallback * this_ptr, app::Object* object, void* method_1))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FrameCaptureTester_StringBuilderScope__Boxed.h>
+
+#include <Modloader/app/structs/FrameCaptureTester_StringBuilderScope__Boxed.h>
 #include <Modloader/app/structs/FrameCaptureTester.h>
 #include <Modloader/app/structs/StringBuilder.h>
 

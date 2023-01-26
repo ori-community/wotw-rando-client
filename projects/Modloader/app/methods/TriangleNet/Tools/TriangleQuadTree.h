@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TriangleQuadTree.h>
-#include <Modloader/app/structs/Mesh_1.h>
+
+#include <Modloader/app/structs/TriangleQuadTree.h>
 #include <Modloader/app/structs/ITriangle.h>
+#include <Modloader/app/structs/Mesh_1.h>
 #include <Modloader/app/structs/Point.h>
 
 namespace app::classes::TriangleNet::Tools::TriangleQuadTree {

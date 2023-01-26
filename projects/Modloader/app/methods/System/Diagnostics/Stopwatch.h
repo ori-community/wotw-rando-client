@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Stopwatch.h>
+
+#include <Modloader/app/structs/Stopwatch.h>
 #include <Modloader/app/structs/TimeSpan.h>
 
 namespace app::classes::System::Diagnostics::Stopwatch {

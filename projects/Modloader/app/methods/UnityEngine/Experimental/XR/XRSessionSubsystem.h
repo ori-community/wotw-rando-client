@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XRSessionSubsystem.h>
+
+#include <Modloader/app/structs/XRSessionSubsystem.h>
 #include <Modloader/app/structs/TrackingState__Enum.h>
 
 namespace app::classes::UnityEngine::Experimental::XR::XRSessionSubsystem {

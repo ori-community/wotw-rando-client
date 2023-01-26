@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActivateDamageReceiverAnimator.h>
+
+#include <Modloader/app/structs/ActivateDamageReceiverAnimator.h>
 
 namespace app::classes::ActivateDamageReceiverAnimator {
     IL2CPP_REGISTER_METHOD(0x004C87D0, void, OnStartPlay, (app::ActivateDamageReceiverAnimator * this_ptr))

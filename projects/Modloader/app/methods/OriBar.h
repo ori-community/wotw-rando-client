@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OriBar.h>
+
+#include <Modloader/app/structs/OriBar.h>
 #include <Modloader/app/structs/Func_1_Boolean_.h>
 
 namespace app::classes::OriBar {
@@ -10,7 +11,6 @@ namespace app::classes::OriBar {
     IL2CPP_REGISTER_METHOD(0x00621CC0, void, Awake, (app::OriBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00622010, void, OnDestroy, (app::OriBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006221B0, void, OnRestoreCheckpoint, (app::OriBar * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04799788, OriBar_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00622230, bool, get_ShouldBeShown, (app::OriBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006222E0, void, UpdateValue, (app::OriBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00622450, void, FixedUpdate, (app::OriBar * this_ptr))
@@ -21,5 +21,4 @@ namespace app::classes::OriBar {
     IL2CPP_REGISTER_METHOD(0x006230C0, void, Hide, (app::OriBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006230E0, void, ctor, (app::OriBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00623190, void, _PlayHideTimeline_b__45_0, (app::OriBar * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474DC60, OriBar__PlayHideTimeline_b__45_0__MethodInfo)
 } // namespace app::classes::OriBar

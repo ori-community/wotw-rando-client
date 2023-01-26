@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Process_ProcInfo__Class.h>
 #include <Modloader/app/structs/Process_ProcInfo.h>
 #include <Modloader/app/structs/Process_ProcInfo__Boxed.h>
+#include <Modloader/app/structs/Process_ProcInfo__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Process_ProcInfo {
-        namespace {
-            inline app::Process_ProcInfo__Class* type_info_ref = nullptr;
+        inline app::Process_ProcInfo__Class** type_info() {
+            static app::Process_ProcInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Process_ProcInfo__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Process_ProcInfo__Class** type_info = &type_info_ref;
         inline app::Process_ProcInfo__Class* get_class() {
-            return il2cpp::get_nested_class<app::Process_ProcInfo__Class>(type_info, "System.Diagnostics", "Process", "ProcInfo");
+            return il2cpp::get_nested_class<app::Process_ProcInfo__Class>(type_info(), "System.Diagnostics", "Process", "ProcInfo");
         }
         inline app::Process_ProcInfo* create() {
             return il2cpp::create_object<app::Process_ProcInfo>(get_class());

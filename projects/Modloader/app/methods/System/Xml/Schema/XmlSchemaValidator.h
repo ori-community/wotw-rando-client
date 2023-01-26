@@ -1,43 +1,43 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaValidator.h>
-#include <Modloader/app/structs/XmlNameTable.h>
-#include <Modloader/app/structs/XmlSchemaSet.h>
-#include <Modloader/app/structs/IXmlNamespaceResolver.h>
-#include <Modloader/app/structs/XmlSchemaValidationFlags__Enum.h>
-#include <Modloader/app/structs/XmlResolver.h>
-#include <Modloader/app/structs/IXmlLineInfo.h>
-#include <Modloader/app/structs/Uri.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ValidationEventHandler.h>
-#include <Modloader/app/structs/XmlSchema.h>
-#include <Modloader/app/structs/XmlSchemaObject.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSchemaInfo.h>
-#include <Modloader/app/structs/XmlValueGetter.h>
+
+#include <Modloader/app/structs/XmlSchemaValidator.h>
 #include <Modloader/app/structs/ArrayList.h>
-#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
+#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/IDtdInfo.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/XmlSchemaElement.h>
-#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/IXmlLineInfo.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
 #include <Modloader/app/structs/SchemaDeclBase.h>
 #include <Modloader/app/structs/SchemaElementDecl.h>
-#include <Modloader/app/structs/SchemaAttDef.h>
-#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
-#include <Modloader/app/structs/XmlSchemaDatatype.h>
-#include <Modloader/app/structs/ValidatorState__Enum.h>
-#include <Modloader/app/structs/ValidationState.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/StringBuilder.h>
 #include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/XmlSeverityType__Enum.h>
-#include <Modloader/app/structs/XmlSchemaValidationException.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/ValidationState.h>
+#include <Modloader/app/structs/ValidatorState__Enum.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
+#include <Modloader/app/structs/XmlSchemaElement.h>
 #include <Modloader/app/structs/XmlSchemaException.h>
+#include <Modloader/app/structs/XmlSchemaInfo.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/XmlSchemaValidationException.h>
+#include <Modloader/app/structs/XmlSchemaValidationFlags__Enum.h>
+#include <Modloader/app/structs/XmlSeverityType__Enum.h>
+#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
+#include <Modloader/app/structs/XmlValueGetter.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaValidator {
     IL2CPP_REGISTER_METHOD(0x0191EF60, void, ctor, (app::XmlSchemaValidator * this_ptr, app::XmlNameTable* name_table, app::XmlSchemaSet* schemas, app::IXmlNamespaceResolver* namespace_resolver, app::XmlSchemaValidationFlags__Enum validation_flags))
-    IL2CPP_REGISTER_METHODINFO(0x0473E280, XmlSchemaValidator__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0191F400, void, Init, (app::XmlSchemaValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0191FA90, void, Reset, (app::XmlSchemaValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBD70, void, set_XmlResolver, (app::XmlSchemaValidator * this_ptr, app::XmlResolver* value))
@@ -47,29 +47,19 @@ namespace app::classes::System::Xml::Schema::XmlSchemaValidator {
     IL2CPP_REGISTER_METHOD(0x0191FBD0, void, add_ValidationEventHandler, (app::XmlSchemaValidator * this_ptr, app::ValidationEventHandler* value))
     IL2CPP_REGISTER_METHOD(0x0191FC90, void, remove_ValidationEventHandler, (app::XmlSchemaValidator * this_ptr, app::ValidationEventHandler* value))
     IL2CPP_REGISTER_METHOD(0x0191FD50, void, AddSchema, (app::XmlSchemaValidator * this_ptr, app::XmlSchema* schema))
-    IL2CPP_REGISTER_METHODINFO(0x04756EF8, XmlSchemaValidator_AddSchema__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019201B0, void, Initialize_1, (app::XmlSchemaValidator * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476F8F0, XmlSchemaValidator_Initialize__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01920370, void, Initialize_2, (app::XmlSchemaValidator * this_ptr, app::XmlSchemaObject* partial_validation_type))
-    IL2CPP_REGISTER_METHODINFO(0x0472D1F8, XmlSchemaValidator_Initialize_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01920670, void, ValidateElement, (app::XmlSchemaValidator * this_ptr, app::String* local_name, app::String* namespace_uri, app::XmlSchemaInfo* schema_info, app::String* xsi_type, app::String* xsi_nil, app::String* xsi_schema_location, app::String* xsi_no_namespace_schema_location))
-    IL2CPP_REGISTER_METHODINFO(0x047484F0, XmlSchemaValidator_ValidateElement__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01920C20, app::Object*, ValidateAttribute_1, (app::XmlSchemaValidator * this_ptr, app::String* local_name, app::String* namespace_uri, app::XmlValueGetter* attribute_value, app::XmlSchemaInfo* schema_info))
-    IL2CPP_REGISTER_METHODINFO(0x0470F5B8, XmlSchemaValidator_ValidateAttribute__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01920D20, app::Object*, ValidateAttribute_2, (app::XmlSchemaValidator * this_ptr, app::String* l_name, app::String* ns, app::XmlValueGetter* attribute_value_getter, app::String* attribute_string_value, app::XmlSchemaInfo* schema_info))
-    IL2CPP_REGISTER_METHODINFO(0x0478A928, XmlSchemaValidator_ValidateAttribute_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019217D0, void, ValidateEndOfAttributes, (app::XmlSchemaValidator * this_ptr, app::XmlSchemaInfo* schema_info))
     IL2CPP_REGISTER_METHOD(0x01921910, void, ValidateText_1, (app::XmlSchemaValidator * this_ptr, app::XmlValueGetter* element_value))
-    IL2CPP_REGISTER_METHODINFO(0x047458E8, XmlSchemaValidator_ValidateText__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019219E0, void, ValidateText_2, (app::XmlSchemaValidator * this_ptr, app::String* element_string_value, app::XmlValueGetter* element_value_getter))
     IL2CPP_REGISTER_METHOD(0x01921E80, void, ValidateWhitespace_1, (app::XmlSchemaValidator * this_ptr, app::XmlValueGetter* element_value))
-    IL2CPP_REGISTER_METHODINFO(0x0471AEC8, XmlSchemaValidator_ValidateWhitespace__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01921F50, void, ValidateWhitespace_2, (app::XmlSchemaValidator * this_ptr, app::String* element_string_value, app::XmlValueGetter* element_value_getter))
     IL2CPP_REGISTER_METHOD(0x019221D0, app::Object*, ValidateEndElement, (app::XmlSchemaValidator * this_ptr, app::XmlSchemaInfo* schema_info))
     IL2CPP_REGISTER_METHOD(0x019221E0, void, SkipToEndElement, (app::XmlSchemaValidator * this_ptr, app::XmlSchemaInfo* schema_info))
-    IL2CPP_REGISTER_METHODINFO(0x04716658, XmlSchemaValidator_SkipToEndElement__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019224A0, void, EndValidation, (app::XmlSchemaValidator * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047427D0, XmlSchemaValidator_EndValidation__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019225F0, void, GetUnspecifiedDefaultAttributes, (app::XmlSchemaValidator * this_ptr, app::ArrayList* default_attributes, bool create_node_data))
     IL2CPP_REGISTER_METHOD(0x002FA280, app::XmlSchemaSet*, get_SchemaSet, (app::XmlSchemaValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00529FF0, app::XmlSchemaValidationFlags__Enum, get_ValidationFlags, (app::XmlSchemaValidator * this_ptr))
@@ -79,7 +69,6 @@ namespace app::classes::System::Xml::Schema::XmlSchemaValidator {
     IL2CPP_REGISTER_METHOD(0x01922E20, bool, get_HasSchema, (app::XmlSchemaValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01922E70, app::String*, GetConcatenatedValue, (app::XmlSchemaValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01922EA0, app::Object*, InternalValidateEndElement, (app::XmlSchemaValidator * this_ptr, app::XmlSchemaInfo* schema_info, app::Object* typed_value))
-    IL2CPP_REGISTER_METHODINFO(0x0471C270, XmlSchemaValidator_InternalValidateEndElement__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01923600, void, ProcessSchemaLocations, (app::XmlSchemaValidator * this_ptr, app::String* xsi_schema_location, app::String* xsi_no_namespace_schema_location))
     IL2CPP_REGISTER_METHOD(0x01923A20, app::Object*, ValidateElementContext, (app::XmlSchemaValidator * this_ptr, app::XmlQualifiedName* element_name, bool* invalid_element_in_context))
     IL2CPP_REGISTER_METHOD(0x01923F40, app::XmlSchemaElement*, GetSubstitutionGroupHead, (app::XmlSchemaValidator * this_ptr, app::XmlQualifiedName* member))
@@ -110,7 +99,6 @@ namespace app::classes::System::Xml::Schema::XmlSchemaValidator {
     IL2CPP_REGISTER_METHOD(0x019278D0, bool, get_ReportValidationWarnings, (app::XmlSchemaValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019278E0, bool, get_ProcessSchemaHints, (app::XmlSchemaValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019278F0, void, CheckStateTransition, (app::XmlSchemaValidator * this_ptr, app::ValidatorState__Enum to_state, app::String* method_name))
-    IL2CPP_REGISTER_METHODINFO(0x04775B28, XmlSchemaValidator_CheckStateTransition__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01927C30, void, ClearPSVI, (app::XmlSchemaValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01927C80, void, CheckRequiredAttributes, (app::XmlSchemaValidator * this_ptr, app::SchemaElementDecl* current_element_decl))
     IL2CPP_REGISTER_METHOD(0x01927E80, app::XmlSchemaElement*, GetSchemaElement, (app::XmlSchemaValidator * this_ptr))
@@ -139,8 +127,6 @@ namespace app::classes::System::Xml::Schema::XmlSchemaValidator {
     IL2CPP_REGISTER_METHOD(0x0192DF50, void, SendValidationEvent_8, (app::XmlSchemaValidator * this_ptr, app::XmlSchemaException* e))
     IL2CPP_REGISTER_METHOD(0x0192E110, void, SendValidationEvent_9, (app::XmlSchemaValidator * this_ptr, app::String* code, app::String* msg, app::XmlSeverityType__Enum severity))
     IL2CPP_REGISTER_METHOD(0x0192E310, void, SendValidationEvent_10, (app::XmlSchemaValidator * this_ptr, app::XmlSchemaValidationException* e, app::XmlSeverityType__Enum severity))
-    IL2CPP_REGISTER_METHODINFO(0x047308B0, XmlSchemaValidator_SendValidationEvent_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0192E5E0, void, SendValidationEvent_11, (app::ValidationEventHandler * event_handler, app::Object* sender, app::XmlSchemaValidationException* e, app::XmlSeverityType__Enum severity))
-    IL2CPP_REGISTER_METHODINFO(0x04733AE0, XmlSchemaValidator_SendValidationEvent_10__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0192E780, void, cctor, ())
 } // namespace app::classes::System::Xml::Schema::XmlSchemaValidator

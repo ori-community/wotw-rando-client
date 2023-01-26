@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimelineDoubleEndQueue.h>
+
+#include <Modloader/app/structs/TimelineDoubleEndQueue.h>
 #include <Modloader/app/structs/Reaction.h>
 #include <Modloader/app/structs/TimelineEntityRecord.h>
 

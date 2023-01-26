@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_Moon_Timeline_EventHistoryItem_.h>
-#include <Modloader/app/structs/EventHistoryItem__Array.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_Moon_Timeline_EventHistoryItem_.h>
 #include <Modloader/app/structs/EventHistoryItem.h>
+#include <Modloader/app/structs/EventHistoryItem__Array.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_Moon_Timeline_EventHistoryItem_ {

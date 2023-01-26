@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Quest.h>
+
+#include <Modloader/app/structs/Quest.h>
 #include <Modloader/app/structs/IGenericUberState.h>
 #include <Modloader/app/structs/Texture2D.h>
 

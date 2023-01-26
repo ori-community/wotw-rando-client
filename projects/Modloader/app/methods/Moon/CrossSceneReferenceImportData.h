@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CrossSceneReferenceId.h>
+
+#include <Modloader/app/structs/CrossSceneReferenceId.h>
 #include <Modloader/app/structs/CrossSceneReferenceImportData.h>
 
 namespace app::classes::Moon::CrossSceneReferenceImportData {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CageMetaData_1_System_Object_.h>
+
+#include <Modloader/app/structs/CageMetaData_1_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::CageMetaData_1_System_Object_ {

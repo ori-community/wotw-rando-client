@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/BrainEntity.h>
+#include <Modloader/app/structs/BrainEntity__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/BrainEntity__Class.h>
-#include <Modloader/app/structs/BrainEntity.h>
 
 namespace app::classes::types {
     namespace BrainEntity {
-        namespace {
-            inline app::BrainEntity__Class* type_info_ref = nullptr;
+        inline app::BrainEntity__Class** type_info() {
+            static app::BrainEntity__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::BrainEntity__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::BrainEntity__Class** type_info = &type_info_ref;
         inline app::BrainEntity__Class* get_class() {
-            return il2cpp::get_class<app::BrainEntity__Class>(type_info, "Moon", "BrainEntity");
+            return il2cpp::get_class<app::BrainEntity__Class>(type_info(), "Moon", "BrainEntity");
         }
         inline app::BrainEntity* create() {
             return il2cpp::create_object<app::BrainEntity>(get_class());

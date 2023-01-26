@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TerrainData_1.h>
+
+#include <Modloader/app/structs/TerrainData_1.h>
 #include <Modloader/app/structs/TerrainData_BoundaryValueType__Enum.h>
 #include <Modloader/app/structs/Vector3.h>
 

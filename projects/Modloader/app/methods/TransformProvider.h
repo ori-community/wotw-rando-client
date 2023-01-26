@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/TransformProvider.h>
 
 namespace app::classes::TransformProvider {

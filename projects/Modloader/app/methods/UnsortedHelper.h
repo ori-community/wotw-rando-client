@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String__Array.h>
+
+#include <Modloader/app/structs/String__Array.h>
 #include <Modloader/app/structs/UnsortedHelper.h>
 
 namespace app::classes::UnsortedHelper {

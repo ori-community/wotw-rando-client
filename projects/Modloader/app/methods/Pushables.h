@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IPushable.h>
+
+#include <Modloader/app/structs/IPushable.h>
 #include <Modloader/app/structs/Pushables.h>
 
 namespace app::classes::Pushables {

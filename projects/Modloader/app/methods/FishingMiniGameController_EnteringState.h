@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FishingMiniGameController_EnteringState.h>
+
+#include <Modloader/app/structs/FishingMiniGameController_EnteringState.h>
 #include <Modloader/app/structs/FishingMiniGameController.h>
 
 namespace app::classes::FishingMiniGameController_EnteringState {
@@ -9,5 +10,4 @@ namespace app::classes::FishingMiniGameController_EnteringState {
     IL2CPP_REGISTER_METHOD(0x0073DA40, void, UpdateState, (app::FishingMiniGameController_EnteringState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0126E530, void, OnExit, (app::FishingMiniGameController_EnteringState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0126E710, void, OnStartTimelineEnded, (app::FishingMiniGameController_EnteringState * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04706230, FishingMiniGameController_EnteringState_OnStartTimelineEnded__MethodInfo)
 } // namespace app::classes::FishingMiniGameController_EnteringState

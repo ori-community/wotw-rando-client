@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FXAA_Preset.h>
+
+#include <Modloader/app/structs/FXAA_Preset.h>
 
 namespace app::classes::UnityStandardAssets::CinematicEffects::FXAA_Preset {
     IL2CPP_REGISTER_METHOD(0x02506410, app::FXAA_Preset, get_extremePerformancePreset, ())

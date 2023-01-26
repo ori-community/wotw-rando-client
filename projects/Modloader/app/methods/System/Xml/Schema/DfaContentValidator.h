@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DfaContentValidator.h>
-#include <Modloader/app/structs/Int32__Array__Array.h>
-#include <Modloader/app/structs/SymbolsDictionary.h>
-#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
-#include <Modloader/app/structs/ValidationState.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
+
+#include <Modloader/app/structs/DfaContentValidator.h>
 #include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Int32__Array__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SymbolsDictionary.h>
+#include <Modloader/app/structs/ValidationState.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
 #include <Modloader/app/structs/XmlSchemaSet.h>
 
 namespace app::classes::System::Xml::Schema::DfaContentValidator {

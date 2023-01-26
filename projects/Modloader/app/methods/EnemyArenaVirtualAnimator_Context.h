@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnemyArenaVirtualAnimator_Context__Boxed.h>
+
+#include <Modloader/app/structs/EnemyArenaVirtualAnimator_Context__Boxed.h>
 #include <Modloader/app/structs/EnemyArenaController.h>
 
 namespace app::classes::EnemyArenaVirtualAnimator_Context {

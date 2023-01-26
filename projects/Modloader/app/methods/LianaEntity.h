@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LianaEntity.h>
-#include <Modloader/app/structs/SnapTrapEntity_SnapTrapParameters.h>
-#include <Modloader/app/structs/LianaEntity_LianaParameters.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/SerializedBooleanUberState.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/LianaEntity.h>
 #include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Transform_.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/LianaEntity_LianaParameters.h>
 #include <Modloader/app/structs/LianaEntity_TongueState__Enum.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Transform_.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/SerializedBooleanUberState.h>
+#include <Modloader/app/structs/SnapTrapEntity_SnapTrapParameters.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LianaEntity {
     IL2CPP_REGISTER_METHOD(0x011380B0, void, ResetStatics, ())
@@ -32,7 +33,6 @@ namespace app::classes::LianaEntity {
     IL2CPP_REGISTER_METHOD(0x0113B270, void, ReelTongue, (app::LianaEntity * this_ptr, float speed))
     IL2CPP_REGISTER_METHOD(0x0113B3F0, void, ActivateTongue, (app::LianaEntity * this_ptr, bool on, bool force))
     IL2CPP_REGISTER_METHOD(0x0113B670, void, StartPullLoopAnim, (app::LianaEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04720AA0, LianaEntity_StartPullLoopAnim__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0113B850, void, StopPullLoopAnim, (app::LianaEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0113B890, void, TongueGrabbed, (app::LianaEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0113BB00, void, TongueReleased, (app::LianaEntity * this_ptr, bool force))

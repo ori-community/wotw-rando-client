@@ -1,20 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlElement.h>
-#include <Modloader/app/structs/XmlName.h>
-#include <Modloader/app/structs/XmlDocument.h>
+
+#include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlAttribute.h>
+#include <Modloader/app/structs/XmlAttributeCollection.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlLinkedNode.h>
+#include <Modloader/app/structs/XmlName.h>
 #include <Modloader/app/structs/XmlNode.h>
 #include <Modloader/app/structs/XmlNodeType__Enum.h>
-#include <Modloader/app/structs/XmlLinkedNode.h>
-#include <Modloader/app/structs/XmlAttributeCollection.h>
-#include <Modloader/app/structs/XmlAttribute.h>
 #include <Modloader/app/structs/XmlWriter.h>
-#include <Modloader/app/structs/IXmlSchemaInfo.h>
 
 namespace app::classes::System::Xml::XmlElement {
     IL2CPP_REGISTER_METHOD(0x01DAD950, void, ctor_1, (app::XmlElement * this_ptr, app::XmlName* name, bool empty, app::XmlDocument* doc))
-    IL2CPP_REGISTER_METHODINFO(0x047984F0, XmlElement__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01DADAD0, void, ctor_2, (app::XmlElement * this_ptr, app::String* prefix, app::String* local_name, app::String* namespace_u_r_i, app::XmlDocument* doc))
     IL2CPP_REGISTER_METHOD(0x002FB950, app::XmlName*, get_XmlName, (app::XmlElement * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB960, void, set_XmlName, (app::XmlElement * this_ptr, app::XmlName* value))
@@ -40,7 +40,6 @@ namespace app::classes::System::Xml::XmlElement {
     IL2CPP_REGISTER_METHOD(0x01DAE770, void, SetAttribute_1, (app::XmlElement * this_ptr, app::String* name, app::String* value))
     IL2CPP_REGISTER_METHOD(0x01DAE850, app::XmlAttribute*, GetAttributeNode_1, (app::XmlElement * this_ptr, app::String* name))
     IL2CPP_REGISTER_METHOD(0x01DAE8C0, app::XmlAttribute*, SetAttributeNode_1, (app::XmlElement * this_ptr, app::XmlAttribute* new_attr))
-    IL2CPP_REGISTER_METHODINFO(0x04727A10, XmlElement_SetAttributeNode__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01DAEA40, app::String*, GetAttribute_2, (app::XmlElement * this_ptr, app::String* local_name, app::String* namespace_u_r_i))
     IL2CPP_REGISTER_METHOD(0x01DAEB20, app::String*, SetAttribute_2, (app::XmlElement * this_ptr, app::String* local_name, app::String* namespace_u_r_i, app::String* value))
     IL2CPP_REGISTER_METHOD(0x01DAECA0, app::XmlAttribute*, GetAttributeNode_2, (app::XmlElement * this_ptr, app::String* local_name, app::String* namespace_u_r_i))

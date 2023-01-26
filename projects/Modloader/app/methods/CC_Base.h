@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CC_Base.h>
+
+#include <Modloader/app/structs/CC_Base.h>
 #include <Modloader/app/structs/Material.h>
 
 namespace app::classes::CC_Base {

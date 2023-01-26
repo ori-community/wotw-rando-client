@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GrounderQuadruped_Foot__Boxed.h>
+
+#include <Modloader/app/structs/GrounderQuadruped_Foot__Boxed.h>
 #include <Modloader/app/structs/IKSolver.h>
 #include <Modloader/app/structs/Transform.h>
 

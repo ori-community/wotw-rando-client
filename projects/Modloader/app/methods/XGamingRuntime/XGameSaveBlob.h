@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XGameSaveBlob.h>
+
+#include <Modloader/app/structs/XGameSaveBlob.h>
 #include <Modloader/app/structs/XGameSaveBlob_1.h>
 
 namespace app::classes::XGamingRuntime::XGameSaveBlob {

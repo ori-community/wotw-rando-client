@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SelfDestruct.h>
+
+#include <Modloader/app/structs/SelfDestruct.h>
 
 namespace app::classes::SelfDestruct {
     IL2CPP_REGISTER_METHOD(0x00AB57E0, void, OnPoolSpawned, (app::SelfDestruct * this_ptr))

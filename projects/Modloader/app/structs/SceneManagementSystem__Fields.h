@@ -26,7 +26,7 @@ struct __declspec(align(8)) SceneManagementSystem__Fields {
 #endif
 #if !defined(IL2CPP_STRUCT_SceneManagementSystem__Fields_FWDDECL)
 #define IL2CPP_STRUCT_SceneManagementSystem__Fields_FWDDECL
-#include <Modloader/app/structs/Dictionary_2_RuntimeSceneMetaData_Moon_Timeline_Systems_SceneManagementSystem_SceneLoadedState_.h>
+#include <Modloader/app/structs/Dictionary_2_RuntimeSceneMetaData_Moo_Timelin_System_SceneManagementSyste_SceneLoadedStat_.h>
 #include <Modloader/app/structs/FixedDurationSceneEntity.h>
 #include <Modloader/app/structs/List_1_RuntimeSceneMetaData_.h>
 #include <Modloader/app/structs/RuntimeSceneMetaData.h>

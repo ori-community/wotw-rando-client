@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket.h>
+#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket__Array.h>
+#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket__Boxed.h>
+#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket__Class.h>
-#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket.h>
-#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket__Boxed.h>
-#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket__Array.h>
 
 namespace app::classes::types {
     namespace Vitals_DamageProcessHelper_DamageBucket {
-        inline app::Vitals_DamageProcessHelper_DamageBucket__Class** type_info = (app::Vitals_DamageProcessHelper_DamageBucket__Class**)(modloader::win::memory::resolve_rva(0x04758250));
+        inline app::Vitals_DamageProcessHelper_DamageBucket__Class** type_info() {
+            static app::Vitals_DamageProcessHelper_DamageBucket__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Vitals_DamageProcessHelper_DamageBucket__Class**)(modloader::win::memory::resolve_rva(0x04758250));
+            }
+            return cache;
+        }
         inline app::Vitals_DamageProcessHelper_DamageBucket__Class* get_class() {
-            return il2cpp::get_nested_class<app::Vitals_DamageProcessHelper_DamageBucket__Class>(type_info, "Moon", "Vitals+DamageProcessHelper", "DamageBucket");
+            return il2cpp::get_nested_class<app::Vitals_DamageProcessHelper_DamageBucket__Class>(type_info(), "Moon", "Vitals+DamageProcessHelper", "DamageBucket");
         }
         inline app::Vitals_DamageProcessHelper_DamageBucket* create() {
             return il2cpp::create_object<app::Vitals_DamageProcessHelper_DamageBucket>(get_class());

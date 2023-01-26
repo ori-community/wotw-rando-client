@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PrewarmParticles.h>
+
+#include <Modloader/app/structs/PrewarmParticles.h>
 
 namespace app::classes::PrewarmParticles {
     IL2CPP_REGISTER_METHOD(0x03190E30, void, Save, (app::PrewarmParticles * this_ptr))

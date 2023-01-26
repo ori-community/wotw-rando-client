@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CurvedFloatRange.h>
+
+#include <Modloader/app/structs/CurvedFloatRange.h>
 
 namespace app::classes::CurvedFloatRange {
     IL2CPP_REGISTER_METHOD(0x006D39E0, void, ctor, (app::CurvedFloatRange * this_ptr, float min, float max))

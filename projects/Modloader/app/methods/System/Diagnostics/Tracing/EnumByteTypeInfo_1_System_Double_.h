@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnumByteTypeInfo_1_System_Double_.h>
-#include <Modloader/app/structs/TraceLoggingMetadataCollector.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/EnumByteTypeInfo_1_System_Double_.h>
 #include <Modloader/app/structs/EventFieldFormat__Enum.h>
-#include <Modloader/app/structs/TraceLoggingDataCollector.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TraceLoggingDataCollector.h>
+#include <Modloader/app/structs/TraceLoggingMetadataCollector.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EnumByteTypeInfo_1_System_Double_ {
     IL2CPP_REGISTER_METHOD(0x02B3FB10, void, WriteMetadata, (app::EnumByteTypeInfo_1_System_Double_ * this_ptr, app::TraceLoggingMetadataCollector* collector, app::String* name, app::EventFieldFormat__Enum format))

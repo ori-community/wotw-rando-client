@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/WorldCoordinatesMap_SegmentInfo__Class.h>
 #include <Modloader/app/structs/WorldCoordinatesMap_SegmentInfo.h>
 #include <Modloader/app/structs/WorldCoordinatesMap_SegmentInfo__Array.h>
+#include <Modloader/app/structs/WorldCoordinatesMap_SegmentInfo__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace WorldCoordinatesMap_SegmentInfo {
-        inline app::WorldCoordinatesMap_SegmentInfo__Class** type_info = (app::WorldCoordinatesMap_SegmentInfo__Class**)(modloader::win::memory::resolve_rva(0x0473B1D0));
+        inline app::WorldCoordinatesMap_SegmentInfo__Class** type_info() {
+            static app::WorldCoordinatesMap_SegmentInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::WorldCoordinatesMap_SegmentInfo__Class**)(modloader::win::memory::resolve_rva(0x0473B1D0));
+            }
+            return cache;
+        }
         inline app::WorldCoordinatesMap_SegmentInfo__Class* get_class() {
-            return il2cpp::get_nested_class<app::WorldCoordinatesMap_SegmentInfo__Class>(type_info, "", "WorldCoordinatesMap", "SegmentInfo");
+            return il2cpp::get_nested_class<app::WorldCoordinatesMap_SegmentInfo__Class>(type_info(), "", "WorldCoordinatesMap", "SegmentInfo");
         }
         inline app::WorldCoordinatesMap_SegmentInfo* create() {
             return il2cpp::create_object<app::WorldCoordinatesMap_SegmentInfo>(get_class());

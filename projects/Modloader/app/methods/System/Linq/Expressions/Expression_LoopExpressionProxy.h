@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Expression_LoopExpressionProxy.h>
-#include <Modloader/app/structs/LoopExpression.h>
+
+#include <Modloader/app/structs/Expression_LoopExpressionProxy.h>
 #include <Modloader/app/structs/Expression.h>
-#include <Modloader/app/structs/LabelTarget.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/LabelTarget.h>
+#include <Modloader/app/structs/LoopExpression.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_LoopExpressionProxy {

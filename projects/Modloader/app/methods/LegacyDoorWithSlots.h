@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyDoorWithSlots.h>
+
+#include <Modloader/app/structs/LegacyDoorWithSlots.h>
 #include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/StressTestStatus__Enum.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::LegacyDoorWithSlots {
     IL2CPP_REGISTER_METHOD(0x00A1AEA0, int32_t, get_NumberOfOrbsUsed, (app::LegacyDoorWithSlots * this_ptr))
@@ -33,5 +34,4 @@ namespace app::classes::LegacyDoorWithSlots {
     IL2CPP_REGISTER_METHOD(0x00A1DB90, app::String*, get_StressTestName, (app::LegacyDoorWithSlots * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A1DC10, void, ctor, (app::LegacyDoorWithSlots * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A1DC30, void, _OpenDoor_b__43_0, (app::LegacyDoorWithSlots * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047152D8, LegacyDoorWithSlots__OpenDoor_b__43_0__MethodInfo)
 } // namespace app::classes::LegacyDoorWithSlots

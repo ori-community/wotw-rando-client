@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Entry__Class.h>
 #include <Modloader/app/structs/Entry.h>
 #include <Modloader/app/structs/Entry__Array.h>
+#include <Modloader/app/structs/Entry__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Entry {
-        namespace {
-            inline app::Entry__Class* type_info_ref = nullptr;
+        inline app::Entry__Class** type_info() {
+            static app::Entry__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Entry__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Entry__Class** type_info = &type_info_ref;
         inline app::Entry__Class* get_class() {
-            return il2cpp::get_class<app::Entry__Class>(type_info, "Moon.Race.Networking", "Entry");
+            return il2cpp::get_class<app::Entry__Class>(type_info(), "Moon.Race.Networking", "Entry");
         }
         inline app::Entry* create() {
             return il2cpp::create_object<app::Entry>(get_class());

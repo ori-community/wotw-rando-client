@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JRaw.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/JsonReader.h>
+
+#include <Modloader/app/structs/JRaw.h>
 #include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JRaw {
     IL2CPP_REGISTER_METHOD(0x01F0F8F0, void, ctor_1, (app::JRaw * this_ptr, app::JRaw* other))

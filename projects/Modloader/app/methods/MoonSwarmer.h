@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonSwarmer.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/List_1_MoonSwarmer_.h>
-#include <Modloader/app/structs/UberSwarmerSettings.h>
+
+#include <Modloader/app/structs/MoonSwarmer.h>
 #include <Modloader/app/structs/ISwarmLimitRect.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/List_1_MoonSwarmer_.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UberSwarmerSettings.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MoonSwarmer {
     IL2CPP_REGISTER_METHOD(0x01463F60, void, ctor, (app::MoonSwarmer * this_ptr))

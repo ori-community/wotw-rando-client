@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FishAttackState.h>
+
+#include <Modloader/app/structs/FishAttackState.h>
 #include <Modloader/app/structs/FishEnemy.h>
 
 namespace app::classes::FishAttackState {

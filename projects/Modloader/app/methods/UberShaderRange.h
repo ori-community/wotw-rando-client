@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderRange.h>
+
+#include <Modloader/app/structs/UberShaderRange.h>
 
 namespace app::classes::UberShaderRange {
     IL2CPP_REGISTER_METHOD(0x0191AFB0, void, ctor_1, (app::UberShaderRange * this_ptr, float min_value, float max_value))

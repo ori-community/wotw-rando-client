@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MidpointRounding__Enum.h>
+
+#include <Modloader/app/structs/MidpointRounding__Enum.h>
 #include <Modloader/app/structs/Decimal.h>
 
 namespace app::classes::System::Math {
@@ -17,10 +18,8 @@ namespace app::classes::System::Math {
     IL2CPP_REGISTER_METHOD(0x022683A0, double, Tan, (double a))
     IL2CPP_REGISTER_METHOD(0x022683B0, double, Round_1, (double a))
     IL2CPP_REGISTER_METHOD(0x022683C0, double, Round_2, (double value, int32_t digits))
-    IL2CPP_REGISTER_METHODINFO(0x04775430, Math_Round_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022684C0, double, Round_3, (double value, app::MidpointRounding__Enum mode))
     IL2CPP_REGISTER_METHOD(0x02268570, double, Round_4, (double value, int32_t digits, app::MidpointRounding__Enum mode))
-    IL2CPP_REGISTER_METHODINFO(0x04701850, Math_Round_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02268740, app::Decimal, Round_5, (app::Decimal d))
     IL2CPP_REGISTER_METHOD(0x022688B0, double, SplitFractionDouble, (double* value))
     IL2CPP_REGISTER_METHOD(0x022688C0, app::Decimal, Truncate_1, (app::Decimal d))
@@ -33,10 +32,8 @@ namespace app::classes::System::Math {
     IL2CPP_REGISTER_METHOD(0x02268BB0, double, IEEERemainder, (double x, double y))
     IL2CPP_REGISTER_METHOD(0x02268ED0, int32_t, Abs_1, (int32_t value))
     IL2CPP_REGISTER_METHOD(0x02269010, int32_t, AbsHelper_1, (int32_t value))
-    IL2CPP_REGISTER_METHODINFO(0x04799DF8, Math_AbsHelper__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022690E0, int64_t, Abs_2, (int64_t value))
     IL2CPP_REGISTER_METHOD(0x02269230, int64_t, AbsHelper_2, (int64_t value))
-    IL2CPP_REGISTER_METHODINFO(0x047908E0, Math_AbsHelper_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02269300, float, Abs_3, (float value))
     IL2CPP_REGISTER_METHOD(0x02269320, double, Abs_4, (double value))
     IL2CPP_REGISTER_METHOD(0x02269330, app::Decimal, Abs_5, (app::Decimal value))
@@ -64,8 +61,6 @@ namespace app::classes::System::Math {
     IL2CPP_REGISTER_METHOD(0x02269900, app::Decimal, Min_11, (app::Decimal val1, app::Decimal val2))
     IL2CPP_REGISTER_METHOD(0x02269AC0, double, Log_2, (double a, double new_base))
     IL2CPP_REGISTER_METHOD(0x02269C70, int32_t, Sign_1, (float value))
-    IL2CPP_REGISTER_METHODINFO(0x04783928, Math_Sign__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02269D80, int32_t, Sign_2, (double value))
-    IL2CPP_REGISTER_METHODINFO(0x04718F00, Math_Sign_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02269E90, void, cctor, ())
 } // namespace app::classes::System::Math

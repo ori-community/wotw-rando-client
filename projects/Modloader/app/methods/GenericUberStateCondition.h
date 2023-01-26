@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GenericUberStateCondition.h>
+
+#include <Modloader/app/structs/GenericUberStateCondition.h>
 
 namespace app::classes::GenericUberStateCondition {
     IL2CPP_REGISTER_METHOD(0x01B5DAE0, void, ctor, (app::GenericUberStateCondition * this_ptr))

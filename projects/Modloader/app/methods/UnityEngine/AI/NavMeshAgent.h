@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NavMeshAgent.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/OffMeshLinkData.h>
-#include <Modloader/app/structs/NavMeshPathStatus__Enum.h>
-#include <Modloader/app/structs/NavMeshPath.h>
+
+#include <Modloader/app/structs/NavMeshAgent.h>
 #include <Modloader/app/structs/NavMeshHit.h>
+#include <Modloader/app/structs/NavMeshPath.h>
+#include <Modloader/app/structs/NavMeshPathStatus__Enum.h>
 #include <Modloader/app/structs/Object_1.h>
 #include <Modloader/app/structs/ObstacleAvoidanceType__Enum.h>
+#include <Modloader/app/structs/OffMeshLinkData.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::AI::NavMeshAgent {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::NavMeshAgent * this_ptr))
@@ -67,7 +68,6 @@ namespace app::classes::UnityEngine::AI::NavMeshAgent {
     IL2CPP_REGISTER_METHOD(0x031B2450, bool, SetPath, (app::NavMeshAgent * this_ptr, app::NavMeshPath* path))
     IL2CPP_REGISTER_METHOD(0x031B24B0, app::NavMeshPath*, get_path, (app::NavMeshAgent * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031B2670, void, set_path, (app::NavMeshAgent * this_ptr, app::NavMeshPath* value))
-    IL2CPP_REGISTER_METHODINFO(0x04722118, NavMeshAgent_set_path__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x031B2770, void, CopyPathTo, (app::NavMeshAgent * this_ptr, app::NavMeshPath* path))
     IL2CPP_REGISTER_METHOD(0x031B27D0, bool, FindClosestEdge, (app::NavMeshAgent * this_ptr, app::NavMeshHit* hit))
     IL2CPP_REGISTER_METHOD(0x031B2830, bool, Raycast, (app::NavMeshAgent * this_ptr, app::Vector3 target_position, app::NavMeshHit* hit))

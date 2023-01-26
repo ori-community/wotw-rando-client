@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NameInfo_1.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/NameInfo_1.h>
 #include <Modloader/app/structs/EventTags__Enum.h>
 #include <Modloader/app/structs/KeyValuePair_2_System_String_System_Diagnostics_Tracing_EventTags_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Diagnostics::Tracing::NameInfo {
     IL2CPP_REGISTER_METHOD(0x01A06D30, void, ReserveEventIDsBelow, (int32_t event_id))

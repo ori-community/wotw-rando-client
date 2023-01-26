@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RestartOneLifeMode.h>
+
+#include <Modloader/app/structs/RestartOneLifeMode.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/IEnumerator.h>
 

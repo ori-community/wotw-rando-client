@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AVProWindowsMedia.h>
+
+#include <Modloader/app/structs/AVProWindowsMedia.h>
+#include <Modloader/app/structs/FilterMode__Enum.h>
+#include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Texture.h>
-#include <Modloader/app/structs/FilterMode__Enum.h>
 #include <Modloader/app/structs/TextureWrapMode__Enum.h>
-#include <Modloader/app/structs/Material.h>
 
 namespace app::classes::AVProWindowsMedia {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_Handle, (app::AVProWindowsMedia * this_ptr))

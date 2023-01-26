@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/BombableWallLogic.h>
-#include <Modloader/app/structs/IMoonSetupAnimator.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::BombableWallLogic {
     IL2CPP_REGISTER_METHOD(0x00D388C0, app::Vector3, get_Position, (app::BombableWallLogic * this_ptr))
@@ -23,7 +24,6 @@ namespace app::classes::BombableWallLogic {
     IL2CPP_REGISTER_METHOD(0x00D391E0, void, OnEnable, (app::BombableWallLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D39380, void, OnDisable, (app::BombableWallLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D39500, void, OnRecieveDamage, (app::BombableWallLogic * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x04708A40, BombableWallLogic_OnRecieveDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D39530, void, DestroyWall, (app::BombableWallLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ApplyOnEditor, (app::BombableWallLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C32A40, app::IUberState__Array*, get_AffectingUberStates, (app::BombableWallLogic * this_ptr))

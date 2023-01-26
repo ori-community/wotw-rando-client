@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Collider.h>
+
+#include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/RaycastHit__Boxed.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::RaycastHit {
     IL2CPP_REGISTER_METHOD(0x00244650, app::Collider*, get_collider, (app::RaycastHit__Boxed * this_ptr))

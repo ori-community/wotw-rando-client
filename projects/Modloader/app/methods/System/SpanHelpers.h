@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::SpanHelpers {
     IL2CPP_REGISTER_METHOD(0x01E267B0, bool, IsReferenceOrContainsReferencesCore, (app::Type * type))

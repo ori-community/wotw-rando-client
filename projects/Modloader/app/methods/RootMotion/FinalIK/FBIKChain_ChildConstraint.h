@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FBIKChain_ChildConstraint.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/FBIKChain_ChildConstraint.h>
 #include <Modloader/app/structs/IKSolverFullBody.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::FBIKChain_ChildConstraint {
     IL2CPP_REGISTER_METHOD(0x00C3DD50, float, get_nominalDistance, (app::FBIKChain_ChildConstraint * this_ptr))

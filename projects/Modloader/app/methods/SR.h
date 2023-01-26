@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CultureInfo.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/CultureInfo.h>
 
 namespace app::classes::SR {
     IL2CPP_REGISTER_METHOD(0x0228ABB0, app::String*, Format_1, (app::String * resource_format, app::Object* p1))

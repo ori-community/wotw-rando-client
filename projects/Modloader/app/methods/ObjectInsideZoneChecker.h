@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/ObjectInsideZoneChecker.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/ObjectInsideZoneChecker.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
 
 namespace app::classes::ObjectInsideZoneChecker {
     IL2CPP_REGISTER_METHOD(0x005C3FE0, app::Rect, get_Bounds, (app::ObjectInsideZoneChecker * this_ptr))

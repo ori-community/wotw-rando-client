@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EndState.h>
+
+#include <Modloader/app/structs/EndState.h>
 #include <Modloader/app/structs/IState.h>
 
 namespace app::classes::EndState {

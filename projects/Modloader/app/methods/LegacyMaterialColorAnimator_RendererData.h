@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyMaterialColorAnimator_RendererData.h>
+
+#include <Modloader/app/structs/LegacyMaterialColorAnimator_RendererData.h>
 #include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/Renderer.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DecimalConstantAttribute.h>
+
+#include <Modloader/app/structs/DecimalConstantAttribute.h>
 #include <Modloader/app/structs/Decimal.h>
 
 namespace app::classes::System::Runtime::CompilerServices::DecimalConstantAttribute {

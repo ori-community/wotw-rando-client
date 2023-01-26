@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/NumberFormatter_CustomInfo.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/NumberFormatInfo.h>
+#include <Modloader/app/structs/NumberFormatter_CustomInfo.h>
 #include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::NumberFormatter_CustomInfo {

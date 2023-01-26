@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LoreNodeWisps.h>
+
+#include <Modloader/app/structs/LoreNodeWisps.h>
 #include <Modloader/app/structs/LoreNodeWisps_LoreStep.h>
 #include <Modloader/app/structs/MessageProvider.h>
 

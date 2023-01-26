@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/XPathNodeRef.h>
+#include <Modloader/app/structs/XPathNodeRef__Array.h>
+#include <Modloader/app/structs/XPathNodeRef__Boxed.h>
+#include <Modloader/app/structs/XPathNodeRef__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XPathNodeRef__Class.h>
-#include <Modloader/app/structs/XPathNodeRef.h>
-#include <Modloader/app/structs/XPathNodeRef__Boxed.h>
-#include <Modloader/app/structs/XPathNodeRef__Array.h>
 
 namespace app::classes::types {
     namespace XPathNodeRef {
-        namespace {
-            inline app::XPathNodeRef__Class* type_info_ref = nullptr;
+        inline app::XPathNodeRef__Class** type_info() {
+            static app::XPathNodeRef__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::XPathNodeRef__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::XPathNodeRef__Class** type_info = &type_info_ref;
         inline app::XPathNodeRef__Class* get_class() {
-            return il2cpp::get_class<app::XPathNodeRef__Class>(type_info, "MS.Internal.Xml.Cache", "XPathNodeRef");
+            return il2cpp::get_class<app::XPathNodeRef__Class>(type_info(), "MS.Internal.Xml.Cache", "XPathNodeRef");
         }
         inline app::XPathNodeRef* create() {
             return il2cpp::create_object<app::XPathNodeRef>(get_class());

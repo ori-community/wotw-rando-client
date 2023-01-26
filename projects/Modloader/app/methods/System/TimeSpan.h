@@ -1,17 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimeSpan__Boxed.h>
-#include <Modloader/app/structs/TimeSpan.h>
+
+#include <Modloader/app/structs/TimeSpan__Boxed.h>
+#include <Modloader/app/structs/IFormatProvider.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/TimeSpan.h>
 
 namespace app::classes::System::TimeSpan {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor_1, (app::TimeSpan__Boxed * this_ptr, int64_t ticks))
     IL2CPP_REGISTER_METHOD(0x002034B0, void, ctor_2, (app::TimeSpan__Boxed * this_ptr, int32_t hours, int32_t minutes, int32_t seconds))
     IL2CPP_REGISTER_METHOD(0x002034C0, void, ctor_3, (app::TimeSpan__Boxed * this_ptr, int32_t days, int32_t hours, int32_t minutes, int32_t seconds))
     IL2CPP_REGISTER_METHOD(0x002034F0, void, ctor_4, (app::TimeSpan__Boxed * this_ptr, int32_t days, int32_t hours, int32_t minutes, int32_t seconds, int32_t milliseconds))
-    IL2CPP_REGISTER_METHODINFO(0x0476DB00, TimeSpan__ctor_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00107C00, int64_t, get_Ticks, (app::TimeSpan__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00203500, int32_t, get_Days, (app::TimeSpan__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00203520, int32_t, get_Hours, (app::TimeSpan__Boxed * this_ptr))
@@ -24,30 +24,23 @@ namespace app::classes::System::TimeSpan {
     IL2CPP_REGISTER_METHOD(0x002036D0, double, get_TotalMinutes, (app::TimeSpan__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002036F0, double, get_TotalSeconds, (app::TimeSpan__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00203710, app::TimeSpan, Add, (app::TimeSpan__Boxed * this_ptr, app::TimeSpan ts))
-    IL2CPP_REGISTER_METHODINFO(0x04731F78, TimeSpan_Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x027AD040, int32_t, Compare, (app::TimeSpan t1, app::TimeSpan t2))
     IL2CPP_REGISTER_METHOD(0x00203720, int32_t, CompareTo_1, (app::TimeSpan__Boxed * this_ptr, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x047609D8, TimeSpan_CompareTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00203730, int32_t, CompareTo_2, (app::TimeSpan__Boxed * this_ptr, app::TimeSpan value))
     IL2CPP_REGISTER_METHOD(0x027AD180, app::TimeSpan, FromDays, (double value))
     IL2CPP_REGISTER_METHOD(0x00203750, app::TimeSpan, Duration, (app::TimeSpan__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471AB40, TimeSpan_Duration__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00203850, bool, Equals_1, (app::TimeSpan__Boxed * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x0012F2C0, bool, Equals_2, (app::TimeSpan__Boxed * this_ptr, app::TimeSpan obj))
     IL2CPP_REGISTER_METHOD(0x00154D60, int32_t, GetHashCode, (app::TimeSpan__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x027AD300, app::TimeSpan, FromHours, (double value))
     IL2CPP_REGISTER_METHOD(0x027AD3B0, app::TimeSpan, Interval, (double value, int32_t scale))
-    IL2CPP_REGISTER_METHODINFO(0x0473C458, TimeSpan_Interval__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x027AD550, app::TimeSpan, FromMilliseconds, (double value))
     IL2CPP_REGISTER_METHOD(0x027AD600, app::TimeSpan, FromMinutes, (double value))
     IL2CPP_REGISTER_METHOD(0x00203860, app::TimeSpan, Negate, (app::TimeSpan__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04734AC0, TimeSpan_Negate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x027AD7B0, app::TimeSpan, FromSeconds, (double value))
     IL2CPP_REGISTER_METHOD(0x00203870, app::TimeSpan, Subtract, (app::TimeSpan__Boxed * this_ptr, app::TimeSpan ts))
-    IL2CPP_REGISTER_METHODINFO(0x0474A048, TimeSpan_Subtract__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004C50A0, app::TimeSpan, FromTicks, (int64_t value))
     IL2CPP_REGISTER_METHOD(0x027AD950, int64_t, TimeToTicks, (int32_t hour, int32_t minute, int32_t second))
-    IL2CPP_REGISTER_METHODINFO(0x04777470, TimeSpan_TimeToTicks__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x027ADA50, app::TimeSpan, Parse_1, (app::String * s))
     IL2CPP_REGISTER_METHOD(0x027ADAF0, app::TimeSpan, Parse_2, (app::String * input, app::IFormatProvider* format_provider))
     IL2CPP_REGISTER_METHOD(0x027ADBA0, bool, TryParse, (app::String * s, app::TimeSpan* result))

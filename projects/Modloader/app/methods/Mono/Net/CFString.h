@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CFString.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/CFString.h>
 #include <Modloader/app/structs/CFRange.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Net::CFString {
     IL2CPP_REGISTER_METHOD(0x02173690, void, ctor, (app::CFString * this_ptr, void* handle, bool own))

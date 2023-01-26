@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HServerListRequest__Boxed.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/HServerListRequest__Boxed.h>
 #include <Modloader/app/structs/HServerListRequest.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::HServerListRequest {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::HServerListRequest__Boxed * this_ptr, void* value))

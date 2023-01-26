@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUIController.h>
+
+#include <Modloader/app/structs/GUIController.h>
 
 namespace app::classes::GUIController {
     IL2CPP_REGISTER_METHOD(0x03163090, void, Start, (app::GUIController * this_ptr))

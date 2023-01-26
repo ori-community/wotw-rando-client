@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayableHandle.h>
-#include <Modloader/app/structs/CameraPlayable__Boxed.h>
+
+#include <Modloader/app/structs/PlayableHandle.h>
 #include <Modloader/app/structs/CameraPlayable.h>
+#include <Modloader/app/structs/CameraPlayable__Boxed.h>
 
 namespace app::classes::UnityEngine::Experimental::Playables::CameraPlayable {
     IL2CPP_REGISTER_METHOD(0x001D9980, app::PlayableHandle, GetHandle, (app::CameraPlayable__Boxed * this_ptr))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NetworkCredential.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/NetworkCredential.h>
 #include <Modloader/app/structs/SecureString.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Uri.h>
 
 namespace app::classes::System::Net::NetworkCredential {

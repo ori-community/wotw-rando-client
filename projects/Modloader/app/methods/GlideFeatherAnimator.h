@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Atlas__Array.h>
-#include <Modloader/app/structs/GlideFeatherAnimator.h>
+
+#include <Modloader/app/structs/Atlas__Array.h>
 #include <Modloader/app/structs/AtlasSpriteTexture.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GlideFeatherAnimator.h>
 #include <Modloader/app/structs/GlideFeatherAnimator_AtlasAndSpriteTexture.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UberScreenMode__Enum.h>
 
 namespace app::classes::GlideFeatherAnimator {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RuntimePropertyHandle__Boxed.h>
+
+#include <Modloader/app/structs/RuntimePropertyHandle__Boxed.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Mono::RuntimePropertyHandle {

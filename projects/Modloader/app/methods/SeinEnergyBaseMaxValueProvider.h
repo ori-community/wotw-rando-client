@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinEnergyBaseMaxValueProvider.h>
+
+#include <Modloader/app/structs/SeinEnergyBaseMaxValueProvider.h>
 
 namespace app::classes::SeinEnergyBaseMaxValueProvider {
     IL2CPP_REGISTER_METHOD(0x00AD0570, float, GetFloatValue, (app::SeinEnergyBaseMaxValueProvider * this_ptr))

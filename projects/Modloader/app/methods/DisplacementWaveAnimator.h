@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DisplacementWaveAnimator.h>
+
+#include <Modloader/app/structs/DisplacementWaveAnimator.h>
 
 namespace app::classes::DisplacementWaveAnimator {
     IL2CPP_REGISTER_METHOD(0x00417FF0, float, get_Duration, (app::DisplacementWaveAnimator * this_ptr))

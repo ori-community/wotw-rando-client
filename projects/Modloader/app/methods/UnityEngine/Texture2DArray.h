@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Texture2DArray.h>
+
+#include <Modloader/app/structs/Texture2DArray.h>
 #include <Modloader/app/structs/GraphicsFormat__Enum.h>
 #include <Modloader/app/structs/TextureCreationFlags__Enum.h>
 #include <Modloader/app/structs/TextureFormat__Enum.h>
@@ -12,5 +13,4 @@ namespace app::classes::UnityEngine::Texture2DArray {
     IL2CPP_REGISTER_METHOD(0x02C69C50, bool, get_isReadable, (app::Texture2DArray * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C69CA0, bool, Internal_CreateImpl, (app::Texture2DArray * mono, int32_t w, int32_t h, int32_t d, app::GraphicsFormat__Enum format, app::TextureCreationFlags__Enum flags))
     IL2CPP_REGISTER_METHOD(0x02C69D20, void, Internal_Create, (app::Texture2DArray * mono, int32_t w, int32_t h, int32_t d, app::GraphicsFormat__Enum format, app::TextureCreationFlags__Enum flags))
-    IL2CPP_REGISTER_METHODINFO(0x04731328, Texture2DArray_Internal_Create__MethodInfo)
 } // namespace app::classes::UnityEngine::Texture2DArray

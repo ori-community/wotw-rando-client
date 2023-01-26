@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/EnumDebugMenuItem_1_System_Object_.h>
-#include <Modloader/app/structs/Func_1_String_.h>
-#include <Modloader/app/structs/Func_1_Object_.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Action_1_Object_.h>
+#include <Modloader/app/structs/EnumDebugMenuItem_1_System_Object_.h>
+#include <Modloader/app/structs/Func_1_Object_.h>
+#include <Modloader/app/structs/Func_1_String_.h>
 #include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::EnumDebugMenuItem_1_System_Object_ {

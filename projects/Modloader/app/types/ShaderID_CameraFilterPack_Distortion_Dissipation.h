@@ -1,15 +1,20 @@
 #pragma once
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Distortion_Dissipation.h>
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_Distortion_Dissipation__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ShaderID_CameraFilterPack_Distortion_Dissipation__Class.h>
-#include <Modloader/app/structs/ShaderID_CameraFilterPack_Distortion_Dissipation.h>
 
 namespace app::classes::types {
     namespace ShaderID_CameraFilterPack_Distortion_Dissipation {
-        inline app::ShaderID_CameraFilterPack_Distortion_Dissipation__Class** type_info = (app::ShaderID_CameraFilterPack_Distortion_Dissipation__Class**)(modloader::win::memory::resolve_rva(0x047027C8));
+        inline app::ShaderID_CameraFilterPack_Distortion_Dissipation__Class** type_info() {
+            static app::ShaderID_CameraFilterPack_Distortion_Dissipation__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::ShaderID_CameraFilterPack_Distortion_Dissipation__Class**)(modloader::win::memory::resolve_rva(0x047027C8));
+            }
+            return cache;
+        }
         inline app::ShaderID_CameraFilterPack_Distortion_Dissipation__Class* get_class() {
-            return il2cpp::get_class<app::ShaderID_CameraFilterPack_Distortion_Dissipation__Class>(type_info, "", "ShaderID_CameraFilterPack_Distortion_Dissipation");
+            return il2cpp::get_class<app::ShaderID_CameraFilterPack_Distortion_Dissipation__Class>(type_info(), "", "ShaderID_CameraFilterPack_Distortion_Dissipation");
         }
         inline app::ShaderID_CameraFilterPack_Distortion_Dissipation* create() {
             return il2cpp::create_object<app::ShaderID_CameraFilterPack_Distortion_Dissipation>(get_class());

@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/DamageType__Enum.h>
+
+#include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/DamageOwner.h>
-#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
 #include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IAttackable.h>
 #include <Modloader/app/structs/IDamageReciever.h>
 #include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Damage {
     IL2CPP_REGISTER_METHOD(0x00DC0030, int32_t, GetNewDamageID, ())

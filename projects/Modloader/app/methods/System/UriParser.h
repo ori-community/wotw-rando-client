@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/UriParser.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Uri.h>
-#include <Modloader/app/structs/UriFormatException.h>
 #include <Modloader/app/structs/UriComponents__Enum.h>
+#include <Modloader/app/structs/UriFormatException.h>
 #include <Modloader/app/structs/UriFormat__Enum.h>
+#include <Modloader/app/structs/UriParser.h>
 #include <Modloader/app/structs/UriSyntaxFlags__Enum.h>
 
 namespace app::classes::System::UriParser {
@@ -14,9 +15,7 @@ namespace app::classes::System::UriParser {
     IL2CPP_REGISTER_METHOD(0x004C50A0, app::UriParser*, OnNewUri, (app::UriParser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0319DE30, void, InitializeAndValidate, (app::UriParser * this_ptr, app::Uri* uri, app::UriFormatException** parsing_error))
     IL2CPP_REGISTER_METHOD(0x0319DF20, app::String*, Resolve, (app::UriParser * this_ptr, app::Uri* base_uri, app::Uri* relative_uri, app::UriFormatException** parsing_error))
-    IL2CPP_REGISTER_METHODINFO(0x04703B48, UriParser_Resolve__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0319E150, app::String*, GetComponents, (app::UriParser * this_ptr, app::Uri* uri, app::UriComponents__Enum components, app::UriFormat__Enum format))
-    IL2CPP_REGISTER_METHODINFO(0x047231F0, UriParser_GetComponents__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0319E3A0, bool, IsWellFormedOriginalString, (app::UriParser * this_ptr, app::Uri* uri))
     IL2CPP_REGISTER_METHOD(0x0319E3C0, bool, get_ShouldUseLegacyV2Quirks, ())
     IL2CPP_REGISTER_METHOD(0x0319E470, void, cctor, ())

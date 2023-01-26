@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ColorVariation__Class.h>
 #include <Modloader/app/structs/ColorVariation.h>
 #include <Modloader/app/structs/ColorVariation__Array.h>
+#include <Modloader/app/structs/ColorVariation__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace ColorVariation {
-        namespace {
-            inline app::ColorVariation__Class* type_info_ref = nullptr;
+        inline app::ColorVariation__Class** type_info() {
+            static app::ColorVariation__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ColorVariation__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ColorVariation__Class** type_info = &type_info_ref;
         inline app::ColorVariation__Class* get_class() {
-            return il2cpp::get_class<app::ColorVariation__Class>(type_info, "", "ColorVariation");
+            return il2cpp::get_class<app::ColorVariation__Class>(type_info(), "", "ColorVariation");
         }
         inline app::ColorVariation* create() {
             return il2cpp::create_object<app::ColorVariation>(get_class());

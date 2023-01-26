@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CullingCategoryManagerWithList_1_System_Object_.h>
+
+#include <Modloader/app/structs/CullingCategoryManagerWithList_1_System_Object_.h>
 #include <Modloader/app/structs/CullingCategory__Enum.h>
 #include <Modloader/app/structs/MoonRenderPipelineView.h>
 #include <Modloader/app/structs/RendererCullingCategoryResults.h>

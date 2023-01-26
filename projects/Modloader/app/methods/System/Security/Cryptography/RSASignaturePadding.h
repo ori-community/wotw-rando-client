@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RSASignaturePadding.h>
-#include <Modloader/app/structs/RSASignaturePaddingMode__Enum.h>
+
+#include <Modloader/app/structs/RSASignaturePadding.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RSASignaturePaddingMode__Enum.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::RSASignaturePadding {
@@ -18,7 +19,6 @@ namespace app::classes::System::Security::Cryptography::RSASignaturePadding {
     IL2CPP_REGISTER_METHOD(0x028EDFB0, app::String*, ToString, (app::RSASignaturePadding * this_ptr))
     IL2CPP_REGISTER_METHOD(0x028EE060, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x028EE280, void, ctor_2, (app::RSASignaturePadding * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04731320, RSASignaturePadding__ctor_1__MethodInfo)
     inline bool operator==(app::RSASignaturePadding& left, app::RSASignaturePadding& right) {
         return op_Equality(&left, &right);
     }

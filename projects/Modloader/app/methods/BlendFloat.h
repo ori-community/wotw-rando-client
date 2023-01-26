@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BlendFloat.h>
+
+#include <Modloader/app/structs/BlendFloat.h>
 #include <Modloader/app/structs/Func_2_Single_Single_.h>
 
 namespace app::classes::BlendFloat {

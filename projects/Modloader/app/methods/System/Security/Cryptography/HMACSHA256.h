@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HMACSHA256.h>
+
+#include <Modloader/app/structs/HMACSHA256.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::HMACSHA256 {

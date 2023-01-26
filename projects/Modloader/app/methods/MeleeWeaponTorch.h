@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FireStick.h>
-#include <Modloader/app/structs/MeleeWeaponTorch.h>
-#include <Modloader/app/structs/IComboMove.h>
-#include <Modloader/app/structs/ComboInput.h>
+
+#include <Modloader/app/structs/FireStick.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/ComboInput.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/MeleeWeaponTorch.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 #include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MeleeWeaponTorch {
     IL2CPP_REGISTER_METHOD(0x009D4720, app::FireStick*, get_Torch, (app::MeleeWeaponTorch * this_ptr))
@@ -32,9 +33,7 @@ namespace app::classes::MeleeWeaponTorch {
     IL2CPP_REGISTER_METHOD(0x009D5F60, void, Update, (app::MeleeWeaponTorch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009D6310, void, LateUpdate, (app::MeleeWeaponTorch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009D6420, void, OnWeaponCollision, (app::MeleeWeaponTorch * this_ptr, app::Collider* collider, app::Vector3 check_center, app::Vector3 hit_direction, app::Vector3 damage_position))
-    IL2CPP_REGISTER_METHODINFO(0x04777768, MeleeWeaponTorch_OnWeaponCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009D6660, void, OnGroundCollision, (app::MeleeWeaponTorch * this_ptr, app::Vector3 hit_position, app::Vector3 hit_normal, app::Vector3 surface_normal, app::SurfaceMaterialType__Enum surface_type))
-    IL2CPP_REGISTER_METHODINFO(0x04780AC0, MeleeWeaponTorch_OnGroundCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009D6850, app::GameObject*, CreateTorch, (app::Vector2 position))
     IL2CPP_REGISTER_METHOD(0x009D69C0, void, ctor, (app::MeleeWeaponTorch * this_ptr))
 } // namespace app::classes::MeleeWeaponTorch

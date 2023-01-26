@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DeltaTimeManager_DeltaTimeFrameHistory__Array.h>
+
+#include <Modloader/app/structs/DeltaTimeManager_DeltaTimeFrameHistory__Array.h>
 #include <Modloader/app/structs/Single__Array.h>
 #include <Modloader/app/structs/Utils_5.h>
 

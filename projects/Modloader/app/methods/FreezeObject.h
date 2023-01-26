@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FreezeObject.h>
+
+#include <Modloader/app/structs/FreezeObject.h>
 
 namespace app::classes::FreezeObject {
     IL2CPP_REGISTER_METHOD(0x02553230, void, Awake, (app::FreezeObject * this_ptr))

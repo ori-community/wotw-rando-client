@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateAreaMapInformation_MapTrailEntry.h>
+
+#include <Modloader/app/structs/PlayerUberStateAreaMapInformation_MapTrailEntry.h>
 #include <Modloader/app/structs/PlayerUberStateAreaMapInformation_MapTrailEntryPool.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation_MapTrailEntryPool {

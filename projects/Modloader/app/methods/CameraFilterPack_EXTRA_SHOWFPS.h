@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Material.h>
+
+#include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/CameraFilterPack_EXTRA_SHOWFPS.h>
-#include <Modloader/app/structs/RenderTexture.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CameraFilterPack_EXTRA_SHOWFPS {
     IL2CPP_REGISTER_METHOD(0x02462D60, app::Material*, get_material, (app::CameraFilterPack_EXTRA_SHOWFPS * this_ptr))

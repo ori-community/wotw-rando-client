@@ -1,25 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Promise_1_System_Object_.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/PromiseState__Enum.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Action_2_Action_1_Object_Action_1_Exception_.h>
+
+#include <Modloader/app/structs/Promise_1_System_Object_.h>
 #include <Modloader/app/structs/Action_1_Exception_.h>
-#include <Modloader/app/structs/IRejectable.h>
 #include <Modloader/app/structs/Action_1_Object_.h>
+#include <Modloader/app/structs/Action_2_Action_1_Object_Action_1_Exception_.h>
 #include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/IPromise_1_System_Object_.h>
-#include <Modloader/app/structs/Func_2_Object_ZenFulcrum_EmbeddedBrowser_IPromise_1_.h>
-#include <Modloader/app/structs/IPromise.h>
-#include <Modloader/app/structs/Func_2_Object_ZenFulcrum_EmbeddedBrowser_IPromise_.h>
 #include <Modloader/app/structs/Func_2_Object_Object_.h>
-#include <Modloader/app/structs/IPromise_1_System_Collections_Generic_IEnumerable_1_.h>
 #include <Modloader/app/structs/Func_2_Object_System_Collections_Generic_IEnumerable_1__1.h>
 #include <Modloader/app/structs/Func_2_Object_System_Collections_Generic_IEnumerable_1__2.h>
-#include <Modloader/app/structs/IPromise_1_System_Object___Array.h>
+#include <Modloader/app/structs/Func_2_Object_ZenFulcrum_EmbeddedBrowser_IPromise_.h>
+#include <Modloader/app/structs/Func_2_Object_ZenFulcrum_EmbeddedBrowser_IPromise_1_.h>
 #include <Modloader/app/structs/IEnumerable_1_ZenFulcrum_EmbeddedBrowser_IPromise_1_.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IPromise.h>
+#include <Modloader/app/structs/IPromise_1_System_Collections_Generic_IEnumerable_1_.h>
+#include <Modloader/app/structs/IPromise_1_System_Object_.h>
+#include <Modloader/app/structs/IPromise_1_System_Object___Array.h>
+#include <Modloader/app/structs/IRejectable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PromiseState__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Promise_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x003FC7F0, int32_t, get_Id, (app::Promise_1_System_Object_ * this_ptr))
@@ -29,7 +30,6 @@ namespace app::classes::ZenFulcrum::EmbeddedBrowser::Promise_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x006410F0, app::PromiseState__Enum, get_CurState, (app::Promise_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008F7CD0, void, set_CurState, (app::Promise_1_System_Object_ * this_ptr, app::PromiseState__Enum value))
     IL2CPP_REGISTER_METHOD(0x02AD53B0, app::Object*, get_Value, (app::Promise_1_System_Object_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047158D0, Promise_1_System_Object__get_Value__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02AD1E40, void, ctor_1, (app::Promise_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02AD1FA0, void, ctor_2, (app::Promise_1_System_Object_ * this_ptr, app::Action_2_Action_1_Object_Action_1_Exception_* resolver))
     IL2CPP_REGISTER_METHOD(0x02AD2350, void, AddRejectHandler, (app::Promise_1_System_Object_ * this_ptr, app::Action_1_Exception_* on_rejected, app::IRejectable* rejectable))
@@ -39,9 +39,7 @@ namespace app::classes::ZenFulcrum::EmbeddedBrowser::Promise_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02AD28D0, void, InvokeRejectHandlers, (app::Promise_1_System_Object_ * this_ptr, app::Exception* ex))
     IL2CPP_REGISTER_METHOD(0x02AD2B80, void, InvokeResolveHandlers, (app::Promise_1_System_Object_ * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x02AD2D00, void, Reject, (app::Promise_1_System_Object_ * this_ptr, app::Exception* ex))
-    IL2CPP_REGISTER_METHODINFO(0x0471EDA8, Promise_1_System_Object__Reject__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02AD2FB0, void, Resolve, (app::Promise_1_System_Object_ * this_ptr, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x04712C70, Promise_1_System_Object__Resolve__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02AD3260, void, Done_1, (app::Promise_1_System_Object_ * this_ptr, app::Action_1_Object_* on_resolved, app::Action_1_Exception_* on_rejected))
     IL2CPP_REGISTER_METHOD(0x02AD3440, void, Done_2, (app::Promise_1_System_Object_ * this_ptr, app::Action_1_Object_* on_resolved))
     IL2CPP_REGISTER_METHOD(0x02AD3620, void, Done_3, (app::Promise_1_System_Object_ * this_ptr))
@@ -65,7 +63,6 @@ namespace app::classes::ZenFulcrum::EmbeddedBrowser::Promise_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02AD54D0, app::IEnumerator*, ToWaitFor, (app::Promise_1_System_Object_ * this_ptr, bool abort_on_fail))
     IL2CPP_REGISTER_METHOD(0x02AD5BA0, app::IPromise_1_System_Object_*, Race_1, (app::IPromise_1_System_Object___Array * promises))
     IL2CPP_REGISTER_METHOD(0x02AD5C20, app::IPromise_1_System_Object_*, Race_2, (app::IEnumerable_1_ZenFulcrum_EmbeddedBrowser_IPromise_1_ * promises))
-    IL2CPP_REGISTER_METHODINFO(0x047975B8, Promise_1_System_Object__Race_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02AD6200, app::IPromise_1_System_Object_*, Resolved, (app::Object * promised_value))
     IL2CPP_REGISTER_METHOD(0x02AD63C0, app::IPromise_1_System_Object_*, Rejected, (app::Exception * ex))
     IL2CPP_REGISTER_METHOD(0x02AD6580, void, __ctor_b__18_0, (app::Promise_1_System_Object_ * this_ptr, app::Object* value))

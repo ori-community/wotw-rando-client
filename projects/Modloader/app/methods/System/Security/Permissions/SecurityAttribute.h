@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SecurityAttribute.h>
+
+#include <Modloader/app/structs/SecurityAttribute.h>
 #include <Modloader/app/structs/SecurityAction__Enum.h>
 
 namespace app::classes::System::Security::Permissions::SecurityAttribute {

@@ -1,22 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Light.h>
-#include <Modloader/app/structs/LightType__Enum.h>
+
+#include <Modloader/app/structs/Light.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/CommandBuffer.h>
+#include <Modloader/app/structs/CommandBuffer__Array.h>
+#include <Modloader/app/structs/ComputeQueueType__Enum.h>
 #include <Modloader/app/structs/Flare.h>
 #include <Modloader/app/structs/LightBakingOutput.h>
+#include <Modloader/app/structs/LightEvent__Enum.h>
+#include <Modloader/app/structs/LightRenderMode__Enum.h>
 #include <Modloader/app/structs/LightShadowCasterMode__Enum.h>
-#include <Modloader/app/structs/LightShadows__Enum.h>
 #include <Modloader/app/structs/LightShadowResolution__Enum.h>
+#include <Modloader/app/structs/LightShadows__Enum.h>
+#include <Modloader/app/structs/LightType__Enum.h>
+#include <Modloader/app/structs/Light__Array.h>
+#include <Modloader/app/structs/ShadowMapPass__Enum.h>
 #include <Modloader/app/structs/Single__Array.h>
 #include <Modloader/app/structs/Texture.h>
-#include <Modloader/app/structs/LightRenderMode__Enum.h>
-#include <Modloader/app/structs/LightEvent__Enum.h>
-#include <Modloader/app/structs/CommandBuffer.h>
-#include <Modloader/app/structs/ShadowMapPass__Enum.h>
-#include <Modloader/app/structs/ComputeQueueType__Enum.h>
-#include <Modloader/app/structs/CommandBuffer__Array.h>
-#include <Modloader/app/structs/Light__Array.h>
 
 namespace app::classes::UnityEngine::Light {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Light * this_ptr))

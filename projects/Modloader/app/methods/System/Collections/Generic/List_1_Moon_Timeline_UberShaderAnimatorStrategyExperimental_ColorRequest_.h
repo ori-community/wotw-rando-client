@@ -1,31 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_ColorRequest.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
-#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
-#include <Modloader/app/structs/IComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_ColorRequest__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
+
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_ColorRequest.h>
 #include <Modloader/app/structs/Action_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
-#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_ColorRequest__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_ {
     IL2CPP_REGISTER_METHOD(0x025EC760, app::UberShaderAnimatorStrategyExperimental_ColorRequest, get_Item, (app::List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04764FE0, List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478BCD8, List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472B040, List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x04712AC8, List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025ECB30, void, Add, (app::List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_ * this_ptr, app::UberShaderAnimatorStrategyExperimental_ColorRequest item))
-    IL2CPP_REGISTER_METHODINFO(0x04700928, List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_2, (app::List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02DC1460, void, ctor_3, (app::List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_ * this_ptr, app::IEnumerable_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_ColorRequest_ * this_ptr))

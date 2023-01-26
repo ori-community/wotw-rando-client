@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/StaggerSettings.h>
+#include <Modloader/app/structs/StaggerSettings__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/StaggerSettings__Class.h>
-#include <Modloader/app/structs/StaggerSettings.h>
 
 namespace app::classes::types {
     namespace StaggerSettings {
-        namespace {
-            inline app::StaggerSettings__Class* type_info_ref = nullptr;
+        inline app::StaggerSettings__Class** type_info() {
+            static app::StaggerSettings__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::StaggerSettings__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::StaggerSettings__Class** type_info = &type_info_ref;
         inline app::StaggerSettings__Class* get_class() {
-            return il2cpp::get_class<app::StaggerSettings__Class>(type_info, "Moon", "StaggerSettings");
+            return il2cpp::get_class<app::StaggerSettings__Class>(type_info(), "Moon", "StaggerSettings");
         }
         inline app::StaggerSettings* create() {
             return il2cpp::create_object<app::StaggerSettings>(get_class());

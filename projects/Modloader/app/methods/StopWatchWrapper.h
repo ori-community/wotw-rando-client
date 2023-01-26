@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StopWatchWrapper.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/StopWatchWrapper.h>
 #include <Modloader/app/structs/StopWatchWrapper_LogType__Enum.h>
 #include <Modloader/app/structs/StopWatchWrapper_Unit__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::StopWatchWrapper {
     IL2CPP_REGISTER_METHOD(0x0065CAB0, void, ctor, (app::StopWatchWrapper * this_ptr, bool should_start))

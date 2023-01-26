@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MinerSpawnType__Enum.h>
-#include <Modloader/app/structs/IcyFeralMinerPlaceholder.h>
+
+#include <Modloader/app/structs/MinerSpawnType__Enum.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IcyFeralMinerPlaceholder.h>
 #include <Modloader/app/structs/MinerEntity.h>
 
 namespace app::classes::IcyFeralMinerPlaceholder {

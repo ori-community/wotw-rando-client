@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IWebProxy.h>
+
+#include <Modloader/app/structs/IWebProxy.h>
 #include <Modloader/app/structs/GlobalProxySelection.h>
 
 namespace app::classes::System::Net::GlobalProxySelection {

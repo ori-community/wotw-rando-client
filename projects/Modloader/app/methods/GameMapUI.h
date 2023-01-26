@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameMapShowObjective.h>
-#include <Modloader/app/structs/GameMapUI.h>
+
+#include <Modloader/app/structs/GameMapShowObjective.h>
 #include <Modloader/app/structs/GameMapObjectiveIcons.h>
 #include <Modloader/app/structs/GameMapSavePedestals.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/MenuTabBackground__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/RuntimeGameWorldArea.h>
+#include <Modloader/app/structs/GameMapUI.h>
 #include <Modloader/app/structs/GameMapUI_WorldMapStates__Enum.h>
-#include <Modloader/app/structs/Quest.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/RuntimeWorldMapIcon.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
 #include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/RuntimeGameWorldArea.h>
+#include <Modloader/app/structs/RuntimeWorldMapIcon.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::GameMapUI {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::GameMapShowObjective*, get_ShowObjective, (app::GameMapUI * this_ptr))
@@ -57,12 +58,9 @@ namespace app::classes::GameMapUI {
     IL2CPP_REGISTER_METHOD(0x006A7E60, void, SubcribeToTimelineEvents, (app::GameMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006A8260, void, UnSubcribeToTimelineEvents, (app::GameMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006A8660, void, OnEnableGroupTriggerEnter, (app::GameMapUI * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471B280, GameMapUI_OnEnableGroupTriggerEnter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006A8720, void, OnDisableGroupTriggerEnter, (app::GameMapUI * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04751488, GameMapUI_OnDisableGroupTriggerEnter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006A87E0, void, OnGCTriggerEnter, (app::GameMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00443C10, void, OnFadeOutEnd, (app::GameMapUI * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04768CB0, GameMapUI_OnFadeOutEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006A8880, void, UpdateAreaText, (app::GameMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006A8C90, void, Show, (app::GameMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006A8FA0, void, Hide, (app::GameMapUI * this_ptr, bool change))
@@ -73,7 +71,6 @@ namespace app::classes::GameMapUI {
     IL2CPP_REGISTER_METHOD(0x006A98B0, void, FadeIn, (app::GameMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006A9A50, void, FadeOut, (app::GameMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006A9B60, void, FixedUpdate, (app::GameMapUI * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047723C0, GameMapUI_FixedUpdate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006AA310, void, HandleInput, (app::GameMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006AA4D0, void, NormalInput, (app::GameMapUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006AAC10, void, CycleFilterInput, (app::GameMapUI * this_ptr))

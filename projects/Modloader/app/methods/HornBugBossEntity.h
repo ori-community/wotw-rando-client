@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HornBugBossEntity.h>
-#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/HornBugBossEntity.h>
 #include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/HornbugBossBaseBehaviour.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::HornBugBossEntity {
     IL2CPP_REGISTER_METHOD(0x00B62280, void, BlockedHitEffectPrefabInstantiation, (app::HornBugBossEntity * this_ptr, app::List_1_DynamicInstantiationDescriptor_* instantiations))
@@ -15,10 +16,8 @@ namespace app::classes::HornBugBossEntity {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanOptimizeBehaviourTreeEvaluation, (app::HornBugBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B628A0, bool, get_IsOnScreen, (app::HornBugBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B62A20, bool, ShouldShowHealthBar, (app::HornBugBossEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477C6D8, HornBugBossEntity_ShouldShowHealthBar__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B62B20, void, OnAwake, (app::HornBugBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00443C10, void, OnDeathFinished, (app::HornBugBossEntity * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x04733AC0, HornBugBossEntity_OnDeathFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B62D60, void, Start, (app::HornBugBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B62E70, void, DisableSelfCollision, (app::HornBugBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B62F80, void, Initialize, (app::HornBugBossEntity * this_ptr))

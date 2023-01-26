@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Elevator.h>
+
+#include <Modloader/app/structs/Elevator.h>
 #include <Modloader/app/structs/Elevator_ElevatorStop.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::Elevator {
     IL2CPP_REGISTER_METHOD(0x00BF99D0, bool, get_GoingUp, (app::Elevator * this_ptr))
@@ -18,11 +19,8 @@ namespace app::classes::Elevator {
     IL2CPP_REGISTER_METHOD(0x00BFA490, void, FixedUpdate, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BFA860, void, StopMoving, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BFA980, void, OnRestoreCheckpoint, (app::Elevator * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047042D0, Elevator_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BFA9D0, void, GoDown, (app::Elevator * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047269F8, Elevator_GoDown__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BFAC10, void, GoUp, (app::Elevator * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470A2C0, Elevator_GoUp__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BFAE40, void, SetDesiredStop, (app::Elevator * this_ptr, uint8_t stop_index))
     IL2CPP_REGISTER_METHOD(0x00BFA980, void, StopTimelines, (app::Elevator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BFB1D0, bool, IsAnyTimelinePlaying, (app::Elevator * this_ptr))

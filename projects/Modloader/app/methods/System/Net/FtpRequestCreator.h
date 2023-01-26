@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WebRequest.h>
+
+#include <Modloader/app/structs/WebRequest.h>
 #include <Modloader/app/structs/FtpRequestCreator.h>
 #include <Modloader/app/structs/Uri.h>
 

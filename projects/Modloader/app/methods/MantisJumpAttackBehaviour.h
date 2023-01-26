@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MantisJumpAttackBehaviour.h>
+
+#include <Modloader/app/structs/MantisJumpAttackBehaviour.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Collision.h>
 #include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
-#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/MantisJumpAttackBehaviour_State__Enum.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/Switch_1.h>
-#include <Modloader/app/structs/Collision.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MantisJumpAttackBehaviour {
@@ -21,7 +22,6 @@ namespace app::classes::MantisJumpAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00A05350, void, ForceStopTimeline, (app::MantisJumpAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A05590, void, ResetTimeline, (app::MantisJumpAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A057F0, void, MoveToNextState, (app::MantisJumpAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047512D0, MantisJumpAttackBehaviour_MoveToNextState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A05830, void, OnEntityInitialized, (app::MantisJumpAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A059D0, void, OnEnter, (app::MantisJumpAttackBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00A06460, void, Jump, (app::MantisJumpAttackBehaviour * this_ptr, float jump_distance, float jump_height, float short_jump_height, float gravity))
@@ -36,8 +36,6 @@ namespace app::classes::MantisJumpAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00A07BE0, app::Switch_1*, GetSoundSwitchForIndex, (app::MantisJumpAttackBehaviour * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x00A07C40, float, GetJumpDistanceForIndex, (app::MantisJumpAttackBehaviour * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x00A07C70, void, OnCollisionDuringMain, (app::MantisJumpAttackBehaviour * this_ptr, app::Collision* hit))
-    IL2CPP_REGISTER_METHODINFO(0x047097E0, MantisJumpAttackBehaviour_OnCollisionDuringMain__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A083A0, app::Vector3, ProcessRootMotion, (app::MantisJumpAttackBehaviour * this_ptr, app::Vector3 motion))
-    IL2CPP_REGISTER_METHODINFO(0x04742EC8, MantisJumpAttackBehaviour_ProcessRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A084E0, void, ctor, (app::MantisJumpAttackBehaviour * this_ptr))
 } // namespace app::classes::MantisJumpAttackBehaviour

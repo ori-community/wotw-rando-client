@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Configuration_1.h>
+
+#include <Modloader/app/structs/Configuration_1.h>
 #include <Modloader/app/structs/Func_1_TriangleNet_IPredicates_.h>
 #include <Modloader/app/structs/Func_1_TriangleNet_TrianglePool_.h>
 

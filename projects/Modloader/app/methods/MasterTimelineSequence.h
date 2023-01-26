@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MasterTimelineSequence.h>
+
+#include <Modloader/app/structs/MasterTimelineSequence.h>
 #include <Modloader/app/structs/MasterTimelineSequence_SceneEntry.h>
 
 namespace app::classes::MasterTimelineSequence {
@@ -17,7 +18,6 @@ namespace app::classes::MasterTimelineSequence {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, RestoreToOriginalState, (app::MasterTimelineSequence * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A12460, void, CacheOriginals, (app::MasterTimelineSequence * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A124F0, void, OnLoadedScene, (app::MasterTimelineSequence * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04793A98, MasterTimelineSequence_OnLoadedScene__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A12510, void, Awake, (app::MasterTimelineSequence * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A125C0, void, OnDestroy, (app::MasterTimelineSequence * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A12670, void, Start, (app::MasterTimelineSequence * this_ptr))

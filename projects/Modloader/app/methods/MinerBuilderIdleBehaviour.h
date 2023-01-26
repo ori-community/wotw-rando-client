@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MinerBuilderIdleBehaviour.h>
+
+#include <Modloader/app/structs/MinerBuilderIdleBehaviour.h>
 #include <Modloader/app/structs/IBlackboard.h>
 
 namespace app::classes::MinerBuilderIdleBehaviour {

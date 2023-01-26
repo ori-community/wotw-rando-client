@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3Int__Boxed.h>
-#include <Modloader/app/structs/Vector3Int.h>
+
+#include <Modloader/app/structs/Vector3Int__Boxed.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3Int.h>
 
 namespace app::classes::UnityEngine::Vector3Int {
     IL2CPP_REGISTER_METHOD(0x0013D2C0, void, ctor, (app::Vector3Int__Boxed * this_ptr, int32_t x, int32_t y, int32_t z))

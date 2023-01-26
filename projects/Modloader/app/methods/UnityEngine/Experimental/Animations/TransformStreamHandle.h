@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TransformStreamHandle__Boxed.h>
+
+#include <Modloader/app/structs/TransformStreamHandle__Boxed.h>
 #include <Modloader/app/structs/AnimationStream.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/TransformStreamHandle.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::Experimental::Animations::TransformStreamHandle {
     IL2CPP_REGISTER_METHOD(0x002431E0, bool, IsValidInternal, (app::TransformStreamHandle__Boxed * this_ptr, app::AnimationStream* stream))
@@ -15,7 +16,6 @@ namespace app::classes::UnityEngine::Experimental::Animations::TransformStreamHa
     IL2CPP_REGISTER_METHOD(0x001EBC90, uint32_t, get_animatorBindingsVersion, (app::TransformStreamHandle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00243260, bool, IsResolvedInternal, (app::TransformStreamHandle__Boxed * this_ptr, app::AnimationStream* stream))
     IL2CPP_REGISTER_METHOD(0x002432B0, void, CheckIsValidAndResolve, (app::TransformStreamHandle__Boxed * this_ptr, app::AnimationStream* stream))
-    IL2CPP_REGISTER_METHODINFO(0x0477AB90, TransformStreamHandle_CheckIsValidAndResolve__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002432C0, app::Vector3, GetPosition, (app::TransformStreamHandle__Boxed * this_ptr, app::AnimationStream stream))
     IL2CPP_REGISTER_METHOD(0x00243380, void, SetPosition, (app::TransformStreamHandle__Boxed * this_ptr, app::AnimationStream stream, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x00243430, app::Quaternion, GetRotation, (app::TransformStreamHandle__Boxed * this_ptr, app::AnimationStream stream))

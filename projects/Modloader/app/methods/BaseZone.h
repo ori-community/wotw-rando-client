@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BaseZone.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/BaseZone.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/SelectableCategory__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
-#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::BaseZone {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_IsSuspended, (app::BaseZone * this_ptr))

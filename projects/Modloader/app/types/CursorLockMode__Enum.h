@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/CursorLockMode__Enum.h>
+#include <Modloader/app/structs/CursorLockMode__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CursorLockMode__Enum__Class.h>
-#include <Modloader/app/structs/CursorLockMode__Enum.h>
 
 namespace app::classes::types {
     namespace CursorLockMode__Enum {
-        namespace {
-            inline app::CursorLockMode__Enum__Class* type_info_ref = nullptr;
+        inline app::CursorLockMode__Enum__Class** type_info() {
+            static app::CursorLockMode__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CursorLockMode__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CursorLockMode__Enum__Class** type_info = &type_info_ref;
         inline app::CursorLockMode__Enum__Class* get_class() {
-            return il2cpp::get_class<app::CursorLockMode__Enum__Class>(type_info, "UnityEngine", "CursorLockMode");
+            return il2cpp::get_class<app::CursorLockMode__Enum__Class>(type_info(), "UnityEngine", "CursorLockMode");
         }
         inline app::CursorLockMode__Enum* create() {
             return il2cpp::create_object<app::CursorLockMode__Enum>(get_class());

@@ -1,28 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimatorPlayState__Enum.h>
-#include <Modloader/app/structs/VirtualMoonTimeline.h>
-#include <Modloader/app/structs/PlaybackStatus.h>
-#include <Modloader/app/structs/IConstrainedEntityWithChildren.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_ConstraintsMetaData_.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineMarkerRecord_.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_ExternalTimelineRecord_.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineEntityRecord_.h>
-#include <Modloader/app/structs/IConstraint.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ITimelineEntity.h>
+
+#include <Modloader/app/structs/AnimatorPlayState__Enum.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
 #include <Modloader/app/structs/EntityId.h>
 #include <Modloader/app/structs/EntityOperationPermit__Enum.h>
-#include <Modloader/app/structs/TimelineEntityRecord.h>
-#include <Modloader/app/structs/Constraint__Enum.h>
 #include <Modloader/app/structs/IConstrainedEntity.h>
-#include <Modloader/app/structs/ITimelineEntityParent.h>
-#include <Modloader/app/structs/Nullable_1_Moon_Timeline_EntityId_.h>
+#include <Modloader/app/structs/IConstrainedEntityWithChildren.h>
+#include <Modloader/app/structs/IConstraint.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/IEventReciever.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/ITimelineEntityParent.h>
 #include <Modloader/app/structs/ITrimController.h>
-#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ConstraintsMetaData_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ExternalTimelineRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineEntityRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineMarkerRecord_.h>
 #include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Nullable_1_Moon_Timeline_EntityId_.h>
+#include <Modloader/app/structs/PlaybackStatus.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/VirtualMoonTimeline.h>
 
 namespace app::classes::Moon::Timeline::VirtualMoonTimeline {
     IL2CPP_REGISTER_METHOD(0x00420230, app::AnimatorPlayState__Enum, get_PlayState, (app::VirtualMoonTimeline * this_ptr))
@@ -55,7 +56,6 @@ namespace app::classes::Moon::Timeline::VirtualMoonTimeline {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::EntityOperationPermit__Enum, OnBeforeAddChild, (app::VirtualMoonTimeline * this_ptr, app::ITimelineEntity* entity))
     IL2CPP_REGISTER_METHOD(0x01E91250, app::EntityId, CustomAddChild, (app::VirtualMoonTimeline * this_ptr, app::ITimelineEntity* entity))
     IL2CPP_REGISTER_METHOD(0x01E91260, app::EntityId, AddChild, (app::VirtualMoonTimeline * this_ptr, app::ITimelineEntity* entity))
-    IL2CPP_REGISTER_METHODINFO(0x0474E230, VirtualMoonTimeline_AddChild__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E913C0, app::EntityId, AddChildNormally, (app::VirtualMoonTimeline * this_ptr, app::ITimelineEntity* entity))
     IL2CPP_REGISTER_METHOD(0x01E917A0, app::VirtualMoonTimeline*, AddVirtualTimeline_1, (app::VirtualMoonTimeline * this_ptr, app::String* name))
     IL2CPP_REGISTER_METHOD(0x01E91970, app::VirtualMoonTimeline*, AddVirtualTimeline_2, (app::VirtualMoonTimeline * this_ptr, app::ITimelineEntity* entity_to_contraint_start_to, app::String* name))
@@ -77,18 +77,13 @@ namespace app::classes::Moon::Timeline::VirtualMoonTimeline {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ResumePlayback, (app::VirtualMoonTimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsReadOnly, (app::VirtualMoonTimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E923D0, app::IEventReciever*, get_EventReciever, (app::VirtualMoonTimeline * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04730400, VirtualMoonTimeline_get_EventReciever__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E92420, void, set_EventReciever, (app::VirtualMoonTimeline * this_ptr, app::IEventReciever* value))
-    IL2CPP_REGISTER_METHODINFO(0x0472FF28, VirtualMoonTimeline_set_EventReciever__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FBBA0, app::ITrimController*, get_TrimController, (app::VirtualMoonTimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBBB0, void, set_TrimController, (app::VirtualMoonTimeline * this_ptr, app::ITrimController* value))
     IL2CPP_REGISTER_METHOD(0x002FBBC0, app::String*, get_FullAddress, (app::VirtualMoonTimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E92470, void, PostEvent_1, (app::VirtualMoonTimeline * this_ptr, app::ITimelineEntityParent* scope, app::EntityId id, int32_t event_id))
-    IL2CPP_REGISTER_METHODINFO(0x047626D8, VirtualMoonTimeline_PostEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E924C0, void, PostEvent_2, (app::VirtualMoonTimeline * this_ptr, int32_t event_id))
-    IL2CPP_REGISTER_METHODINFO(0x0473D130, VirtualMoonTimeline_PostEvent_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E92510, void, PostRequest, (app::VirtualMoonTimeline * this_ptr, int32_t event_id, app::TimelineEntity* entity))
-    IL2CPP_REGISTER_METHODINFO(0x04715090, VirtualMoonTimeline_PostRequest__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E92560, bool, ApproximateEvent, (app::VirtualMoonTimeline * this_ptr, int32_t evt, float* time))
     IL2CPP_REGISTER_METHOD(0x01E92650, void, ClearAllEntities, (app::VirtualMoonTimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01EB97A0, app::List_1_System_Object_*, GetAnimators, (app::VirtualMoonTimeline * this_ptr))

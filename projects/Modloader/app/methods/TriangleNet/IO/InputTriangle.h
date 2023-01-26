@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InputTriangle.h>
-#include <Modloader/app/structs/Vertex.h>
-#include <Modloader/app/structs/ITriangle.h>
+
+#include <Modloader/app/structs/InputTriangle.h>
 #include <Modloader/app/structs/ISegment.h>
+#include <Modloader/app/structs/ITriangle.h>
+#include <Modloader/app/structs/Vertex.h>
 
 namespace app::classes::TriangleNet::IO::InputTriangle {
     IL2CPP_REGISTER_METHOD(0x026213E0, void, ctor, (app::InputTriangle * this_ptr, int32_t p0, int32_t p1, int32_t p2))

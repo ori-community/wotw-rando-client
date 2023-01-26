@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_PreRecordingDynamicSceneObjectEntry_.h>
+
+#include <Modloader/app/structs/ReadOnlyCollection_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_PreRecordingDynamicSceneObjectEntry_.h>
 #include <Modloader/app/structs/IList_1_PreRecordingDynamicSceneObjectEntry_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/PreRecordingDynamicSceneObjectEntry.h>
 #include <Modloader/app/structs/PreRecordingDynamicSceneObjectEntry__Array.h>
-#include <Modloader/app/structs/IEnumerator_1_PreRecordingDynamicSceneObjectEntry_.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::ObjectModel::ReadOnlyCollection_1_PreRecordingDynamicSceneObjectEntry_ {
     IL2CPP_REGISTER_METHOD(0x02B7DCF0, void, ctor, (app::ReadOnlyCollection_1_PreRecordingDynamicSceneObjectEntry_ * this_ptr, app::IList_1_PreRecordingDynamicSceneObjectEntry_* list))

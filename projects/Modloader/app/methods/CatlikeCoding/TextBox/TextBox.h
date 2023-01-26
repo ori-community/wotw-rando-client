@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextBox.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/TextStyleCollection.h>
+
+#include <Modloader/app/structs/TextBox.h>
 #include <Modloader/app/structs/CharMetaData.h>
-#include <Modloader/app/structs/TextBoxLine.h>
-#include <Modloader/app/structs/StringBuilder.h>
-#include <Modloader/app/structs/TextRenderer.h>
-#include <Modloader/app/structs/Vector2__Array.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/CharMetaData__Array.h>
 #include <Modloader/app/structs/LineDescent.h>
 #include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/TextBoxLine.h>
+#include <Modloader/app/structs/TextRenderer.h>
+#include <Modloader/app/structs/TextStyleCollection.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector2__Array.h>
 
 namespace app::classes::CatlikeCoding::TextBox::TextBox {
     IL2CPP_REGISTER_METHOD(0x01032580, int32_t, get_LineCount, (app::TextBox * this_ptr))

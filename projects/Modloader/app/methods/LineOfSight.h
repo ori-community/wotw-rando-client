@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/RaycastHit.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/LayerMask.h>
 #include <Modloader/app/structs/QueryTriggerInteraction__Enum.h>
 #include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/RaycastHit.h>
 
 namespace app::classes::LineOfSight {
     IL2CPP_REGISTER_METHOD(0x00FA7080, bool, IsRayOccluded_1, (app::Vector3 origin, app::Vector3 dir, app::RaycastHit* hit, float dist, app::LayerMask mask, app::QueryTriggerInteraction__Enum trigger))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/TurtlePlaceholder.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/LizardEntity.h>
+#include <Modloader/app/structs/TurtlePlaceholder.h>
 
 namespace app::classes::TurtlePlaceholder {
     IL2CPP_REGISTER_METHOD(0x006253D0, app::GameObject*, get_Prefab, (app::TurtlePlaceholder * this_ptr))

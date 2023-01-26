@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Version_VersionResult__Class.h>
 #include <Modloader/app/structs/Version_VersionResult.h>
 #include <Modloader/app/structs/Version_VersionResult__Boxed.h>
+#include <Modloader/app/structs/Version_VersionResult__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Version_VersionResult {
-        namespace {
-            inline app::Version_VersionResult__Class* type_info_ref = nullptr;
+        inline app::Version_VersionResult__Class** type_info() {
+            static app::Version_VersionResult__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Version_VersionResult__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Version_VersionResult__Class** type_info = &type_info_ref;
         inline app::Version_VersionResult__Class* get_class() {
-            return il2cpp::get_nested_class<app::Version_VersionResult__Class>(type_info, "System", "Version", "VersionResult");
+            return il2cpp::get_nested_class<app::Version_VersionResult__Class>(type_info(), "System", "Version", "VersionResult");
         }
         inline app::Version_VersionResult* create() {
             return il2cpp::create_object<app::Version_VersionResult>(get_class());

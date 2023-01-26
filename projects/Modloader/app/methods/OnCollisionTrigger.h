@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OnCollisionTrigger.h>
-#include <Modloader/app/structs/Collision.h>
+
+#include <Modloader/app/structs/OnCollisionTrigger.h>
 #include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::OnCollisionTrigger {
     IL2CPP_REGISTER_METHOD(0x00610F80, void, OnCollisionEnter, (app::OnCollisionTrigger * this_ptr, app::Collision* collision))

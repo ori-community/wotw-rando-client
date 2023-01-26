@@ -13,7 +13,7 @@ struct XblAchievementReward_c__StaticFields {
 #endif
 #if !defined(IL2CPP_STRUCT_XblAchievementReward_c__StaticFields_FWDDECL)
 #define IL2CPP_STRUCT_XblAchievementReward_c__StaticFields_FWDDECL
-#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementMediaAsset_XGamingRuntime_XblAchievementMediaAsset_.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntim_Intero_XblAchievementMediaAsse_XGamingRuntim_XblAchievementMediaAsse_.h>
 #include <Modloader/app/structs/XblAchievementReward_c.h>
 #endif
 #undef IL2CPP_STRUCT_XblAchievementReward_c__StaticFields_INITIALIZING

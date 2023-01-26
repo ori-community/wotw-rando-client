@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AsyncOperation_1.h>
+
+#include <Modloader/app/structs/AsyncOperation_1.h>
 #include <Modloader/app/structs/Action_1_UnityEngine_AsyncOperation_.h>
 
 namespace app::classes::UnityEngine::AsyncOperation {

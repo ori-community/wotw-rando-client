@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AppDomain.h>
+
+#include <Modloader/app/structs/AppDomain.h>
 #include <Modloader/app/structs/AppDomainSetup.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Assembly__Array.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Assembly.h>
-#include <Modloader/app/structs/Evidence.h>
+#include <Modloader/app/structs/AssemblyLoadEventHandler.h>
 #include <Modloader/app/structs/AssemblyName.h>
-#include <Modloader/app/structs/Context.h>
-#include <Modloader/app/structs/MethodInfo_1.h>
-#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Assembly__Array.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/CADMethodCallMessage.h>
 #include <Modloader/app/structs/CADMethodReturnMessage.h>
-#include <Modloader/app/structs/AssemblyLoadEventHandler.h>
+#include <Modloader/app/structs/Context.h>
 #include <Modloader/app/structs/EventHandler.h>
+#include <Modloader/app/structs/Evidence.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UnhandledExceptionEventHandler.h>
 
 namespace app::classes::System::AppDomain {
@@ -31,10 +32,8 @@ namespace app::classes::System::AppDomain {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::Object*, InitializeLifetimeService, (app::AppDomain * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0228D170, app::Assembly*, LoadAssembly, (app::AppDomain * this_ptr, app::String* assembly_ref, app::Evidence* security_evidence, bool ref_only))
     IL2CPP_REGISTER_METHOD(0x0228D3A0, app::Assembly*, LoadSatellite, (app::AppDomain * this_ptr, app::AssemblyName* assembly_ref, bool throw_on_error))
-    IL2CPP_REGISTER_METHODINFO(0x0475B500, AppDomain_LoadSatellite__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0228D510, app::Assembly*, Load_1, (app::AppDomain * this_ptr, app::String* assembly_string))
     IL2CPP_REGISTER_METHOD(0x0228D680, app::Assembly*, Load_2, (app::AppDomain * this_ptr, app::String* assembly_string, app::Evidence* assembly_security, bool refonly))
-    IL2CPP_REGISTER_METHODINFO(0x04723BA8, AppDomain_Load_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0228D810, app::AppDomain*, InternalSetDomainByID, (int32_t domain_id))
     IL2CPP_REGISTER_METHOD(0x0228D820, app::AppDomain*, InternalSetDomain, (app::AppDomain * context))
     IL2CPP_REGISTER_METHOD(0x0228D830, void, InternalPushDomainRefByID, (int32_t domain_id))
@@ -44,7 +43,6 @@ namespace app::classes::System::AppDomain {
     IL2CPP_REGISTER_METHOD(0x0228D860, app::Context*, InternalGetDefaultContext, ())
     IL2CPP_REGISTER_METHOD(0x0228D8A0, app::String*, InternalGetProcessGuid, (app::String * newguid))
     IL2CPP_REGISTER_METHOD(0x0228D8B0, app::Object*, InvokeInDomainByID, (int32_t domain_id, app::MethodInfo_1* method_1, app::Object* obj, app::Object__Array* args))
-    IL2CPP_REGISTER_METHODINFO(0x04787D80, AppDomain_InvokeInDomainByID__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0228D920, app::String*, GetProcessGuid, ())
     IL2CPP_REGISTER_METHOD(0x00417870, bool, InternalIsFinalizingForUnload, (int32_t domain_id))
     IL2CPP_REGISTER_METHOD(0x0228D9F0, bool, IsFinalizingForUnload, (app::AppDomain * this_ptr))

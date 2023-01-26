@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataTable_RowDiffIdUsageSection__Boxed.h>
+
+#include <Modloader/app/structs/DataTable_RowDiffIdUsageSection__Boxed.h>
 #include <Modloader/app/structs/DataTable.h>
 
 namespace app::classes::System::Data::DataTable_RowDiffIdUsageSection {

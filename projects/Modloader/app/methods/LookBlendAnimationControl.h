@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Sensor.h>
+
+#include <Modloader/app/structs/Sensor.h>
 #include <Modloader/app/structs/LookBlendAnimationControl.h>
 
 namespace app::classes::LookBlendAnimationControl {

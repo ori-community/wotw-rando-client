@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkCommonUserSettings.h>
-#include <Modloader/app/structs/AkMemSettings.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/AkInitSettings.h>
-#include <Modloader/app/structs/AkMusicSettings.h>
-#include <Modloader/app/structs/AkStreamMgrSettings.h>
+
+#include <Modloader/app/structs/AkCommonUserSettings.h>
 #include <Modloader/app/structs/AkDeviceSettings.h>
+#include <Modloader/app/structs/AkInitSettings.h>
+#include <Modloader/app/structs/AkMemSettings.h>
+#include <Modloader/app/structs/AkMusicSettings.h>
 #include <Modloader/app/structs/AkPlatformInitSettings.h>
 #include <Modloader/app/structs/AkSpatialAudioInitSettings.h>
+#include <Modloader/app/structs/AkStreamMgrSettings.h>
 #include <Modloader/app/structs/AkUnityPlatformSpecificSettings.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::AkCommonUserSettings {
     IL2CPP_REGISTER_METHOD(0x026DAD80, void, CopyTo_1, (app::AkCommonUserSettings * this_ptr, app::AkMemSettings* settings))

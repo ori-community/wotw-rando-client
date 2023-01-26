@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SavePedestal.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+
+#include <Modloader/app/structs/SavePedestal.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::SavePedestal {
     IL2CPP_REGISTER_METHOD(0x009147C0, bool, get_IsShowingHint, (app::SavePedestal * this_ptr))
@@ -35,7 +36,6 @@ namespace app::classes::SavePedestal {
     IL2CPP_REGISTER_METHOD(0x00916B10, void, UpdateAbilityRestrictZone, (app::SavePedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Update, (app::SavePedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00916C80, void, TeleportOnPedestal, (app::SavePedestal * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475C3D0, SavePedestal_TeleportOnPedestal__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00916CB0, void, OnBeginTeleporting, (app::SavePedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00916EE0, void, OnFinishedTeleporting, (app::SavePedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00917000, void, MarkAsUsed, (app::SavePedestal * this_ptr))

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaceLeaderboardEntry.h>
-#include <Modloader/app/structs/RaceLeaderboardScreen.h>
-#include <Modloader/app/structs/Action_2_String_Boolean_.h>
+
+#include <Modloader/app/structs/RaceLeaderboardEntry.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Action_2_String_Boolean_.h>
 #include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/structs/IEnumerable_1_Moon_Race_LeaderBoardEntry_.h>
-#include <Modloader/app/structs/RaceContentType__Enum.h>
 #include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/RaceContentType__Enum.h>
+#include <Modloader/app/structs/RaceLeaderboardScreen.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::RaceLeaderboardScreen {
@@ -20,7 +21,6 @@ namespace app::classes::RaceLeaderboardScreen {
     IL2CPP_REGISTER_METHOD(0x00E9FEC0, void, Awake, (app::RaceLeaderboardScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA01A0, void, OnDestroy, (app::RaceLeaderboardScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA04E0, void, OnCancelDownloadPressed, (app::RaceLeaderboardScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04701ED8, RaceLeaderboardScreen_OnCancelDownloadPressed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EA05F0, void, SetSyncing, (app::RaceLeaderboardScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA0600, void, Setup_1, (app::RaceLeaderboardScreen * this_ptr, app::IEnumerable_1_Moon_Race_LeaderBoardEntry_* leaderboard, app::RaceContentType__Enum race_content_type))
     IL2CPP_REGISTER_METHOD(0x00EA08B0, void, Setup_2, (app::RaceLeaderboardScreen * this_ptr, app::IEnumerable_1_Moon_Race_LeaderBoardEntry_* leaderboard, app::RaceContentType__Enum race_content_type, int32_t* entries_count))
@@ -29,7 +29,6 @@ namespace app::classes::RaceLeaderboardScreen {
     IL2CPP_REGISTER_METHOD(0x00EA0E70, void, ClearEntries, (app::RaceLeaderboardScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA11B0, void, SetDownloadingPopup, (app::RaceLeaderboardScreen * this_ptr, bool state))
     IL2CPP_REGISTER_METHOD(0x00EA1320, void, OnPressed, (app::RaceLeaderboardScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476B8D0, RaceLeaderboardScreen_OnPressed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EA1470, void, OnSpectatePressed, (app::RaceLeaderboardScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA15C0, void, OnViewCardPressed, (app::RaceLeaderboardScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA16B0, void, SetupEntries, (app::RaceLeaderboardScreen * this_ptr))
@@ -41,6 +40,5 @@ namespace app::classes::RaceLeaderboardScreen {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ShowScoreCard, (app::RaceLeaderboardScreen * this_ptr, app::String* user_i_d))
     IL2CPP_REGISTER_METHOD(0x00EA3050, bool, CanShowScoreCard, (app::RaceLeaderboardScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA3130, void, RefreshShowScoreCardLegend, (app::RaceLeaderboardScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047638A0, RaceLeaderboardScreen_RefreshShowScoreCardLegend__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EA3310, void, ctor, (app::RaceLeaderboardScreen * this_ptr))
 } // namespace app::classes::RaceLeaderboardScreen

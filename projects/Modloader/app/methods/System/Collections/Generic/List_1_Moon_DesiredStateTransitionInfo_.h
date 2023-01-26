@@ -1,27 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Moon_DesiredStateTransitionInfo_.h>
-#include <Modloader/app/structs/DesiredStateTransitionInfo.h>
-#include <Modloader/app/structs/IEnumerable_1_Moon_DesiredStateTransitionInfo_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_DesiredStateTransitionInfo_.h>
-#include <Modloader/app/structs/IComparer_1_Moon_DesiredStateTransitionInfo_.h>
-#include <Modloader/app/structs/DesiredStateTransitionInfo__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Moon_DesiredStateTransitionInfo_.h>
+
+#include <Modloader/app/structs/List_1_Moon_DesiredStateTransitionInfo_.h>
 #include <Modloader/app/structs/Action_1_Moon_DesiredStateTransitionInfo_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_DesiredStateTransitionInfo_.h>
-#include <Modloader/app/structs/IEnumerator_1_Moon_DesiredStateTransitionInfo_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_Moon_DesiredStateTransitionInfo_.h>
+#include <Modloader/app/structs/DesiredStateTransitionInfo.h>
+#include <Modloader/app/structs/DesiredStateTransitionInfo__Array.h>
+#include <Modloader/app/structs/IComparer_1_Moon_DesiredStateTransitionInfo_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_DesiredStateTransitionInfo_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_DesiredStateTransitionInfo_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_DesiredStateTransitionInfo_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Moon_DesiredStateTransitionInfo_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_DesiredStateTransitionInfo_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_DesiredStateTransitionInfo_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_Moon_DesiredStateTransitionInfo_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x04776858, List_1_Moon_DesiredStateTransitionInfo___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D24DA0, app::DesiredStateTransitionInfo, get_Item, (app::List_1_Moon_DesiredStateTransitionInfo_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0470ED28, List_1_Moon_DesiredStateTransitionInfo__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_Moon_DesiredStateTransitionInfo_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474EB68, List_1_Moon_DesiredStateTransitionInfo__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_2, (app::List_1_Moon_DesiredStateTransitionInfo_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02D4FCF0, void, ctor_3, (app::List_1_Moon_DesiredStateTransitionInfo_ * this_ptr, app::IEnumerable_1_Moon_DesiredStateTransitionInfo_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_Moon_DesiredStateTransitionInfo_ * this_ptr))

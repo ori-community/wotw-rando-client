@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FieldAttributes__Enum.h>
-#include <Modloader/app/structs/MonoField.h>
-#include <Modloader/app/structs/RuntimeFieldHandle.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/FieldInfo_1.h>
-#include <Modloader/app/structs/BindingFlags__Enum.h>
+
+#include <Modloader/app/structs/FieldAttributes__Enum.h>
 #include <Modloader/app/structs/Binder.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
 #include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
 #include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeData_.h>
+#include <Modloader/app/structs/MonoField.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/RuntimeFieldHandle.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Reflection::MonoField {
     IL2CPP_REGISTER_METHOD(0x00654950, app::FieldAttributes__Enum, get_Attributes, (app::MonoField * this_ptr))
@@ -28,14 +29,11 @@ namespace app::classes::System::Reflection::MonoField {
     IL2CPP_REGISTER_METHOD(0x02690A20, int32_t, GetFieldOffset, (app::MonoField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02690A30, app::Object*, GetValueInternal, (app::MonoField * this_ptr, app::Object* obj))
     IL2CPP_REGISTER_METHOD(0x02690A80, app::Object*, GetValue, (app::MonoField * this_ptr, app::Object* obj))
-    IL2CPP_REGISTER_METHODINFO(0x047093B0, MonoField_GetValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02690C80, app::String*, ToString, (app::MonoField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01EE2430, void, SetValueInternal, (app::FieldInfo_1 * fi, app::Object* obj, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x02690D70, void, SetValue, (app::MonoField * this_ptr, app::Object* obj, app::Object* val, app::BindingFlags__Enum invoke_attr, app::Binder* binder, app::CultureInfo* culture))
-    IL2CPP_REGISTER_METHODINFO(0x047267E8, MonoField_SetValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02691040, app::Object*, GetRawConstantValue, (app::MonoField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0268FE80, app::IList_1_System_Reflection_CustomAttributeData_*, GetCustomAttributesData, (app::MonoField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02691050, void, CheckGeneric, (app::MonoField * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04783570, MonoField_CheckGeneric__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MonoField * this_ptr))
 } // namespace app::classes::System::Reflection::MonoField

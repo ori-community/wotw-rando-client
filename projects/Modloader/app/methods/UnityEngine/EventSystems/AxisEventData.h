@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AxisEventData.h>
+
+#include <Modloader/app/structs/AxisEventData.h>
 #include <Modloader/app/structs/EventSystem.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/MoveDirection__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::EventSystems::AxisEventData {
     IL2CPP_REGISTER_METHOD(0x01F19AE0, void, ctor, (app::AxisEventData * this_ptr, app::EventSystem* event_system))

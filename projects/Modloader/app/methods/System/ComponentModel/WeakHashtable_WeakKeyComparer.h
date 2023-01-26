@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WeakHashtable_WeakKeyComparer.h>
+
+#include <Modloader/app/structs/WeakHashtable_WeakKeyComparer.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::WeakHashtable_WeakKeyComparer {

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SceneMetaData_WorldMapIcon__Class.h>
 #include <Modloader/app/structs/SceneMetaData_WorldMapIcon.h>
 #include <Modloader/app/structs/SceneMetaData_WorldMapIcon__Array.h>
+#include <Modloader/app/structs/SceneMetaData_WorldMapIcon__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SceneMetaData_WorldMapIcon {
-        namespace {
-            inline app::SceneMetaData_WorldMapIcon__Class* type_info_ref = nullptr;
+        inline app::SceneMetaData_WorldMapIcon__Class** type_info() {
+            static app::SceneMetaData_WorldMapIcon__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SceneMetaData_WorldMapIcon__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SceneMetaData_WorldMapIcon__Class** type_info = &type_info_ref;
         inline app::SceneMetaData_WorldMapIcon__Class* get_class() {
-            return il2cpp::get_nested_class<app::SceneMetaData_WorldMapIcon__Class>(type_info, "", "SceneMetaData", "WorldMapIcon");
+            return il2cpp::get_nested_class<app::SceneMetaData_WorldMapIcon__Class>(type_info(), "", "SceneMetaData", "WorldMapIcon");
         }
         inline app::SceneMetaData_WorldMapIcon* create() {
             return il2cpp::create_object<app::SceneMetaData_WorldMapIcon>(get_class());

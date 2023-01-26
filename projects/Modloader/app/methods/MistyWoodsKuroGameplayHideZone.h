@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/MistyWoodsKuroGameplayHideZone.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/MistyWoodsKuroGameplayHideZone.h>
 
 namespace app::classes::MistyWoodsKuroGameplayHideZone {
     IL2CPP_REGISTER_METHOD(0x0132A7D0, bool, PositionInside, (app::Vector3 position))

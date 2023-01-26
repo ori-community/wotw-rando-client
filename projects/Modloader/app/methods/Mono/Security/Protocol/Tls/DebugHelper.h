@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object__Array.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/DebugHelper.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::DebugHelper {
     IL2CPP_REGISTER_METHOD(0x01F6A0F0, void, Initialize, ())

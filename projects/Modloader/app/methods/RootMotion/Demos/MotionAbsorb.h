@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MotionAbsorb.h>
+
+#include <Modloader/app/structs/MotionAbsorb.h>
 #include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::RootMotion::Demos::MotionAbsorb {

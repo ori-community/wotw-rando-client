@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GlobalRecordingTable.h>
-#include <Modloader/app/structs/GhostTimelineEventsPlugin.h>
-#include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
-#include <Modloader/app/structs/PreRecordingData.h>
-#include <Modloader/app/structs/ITimelineEntity.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/MoonTimelineNotifier_Action__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/ScalableAnimationPlayer.h>
+
+#include <Modloader/app/structs/GlobalRecordingTable.h>
 #include <Modloader/app/structs/AnimationContext.h>
+#include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
+#include <Modloader/app/structs/GhostTimelineEventsPlugin.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/MoonTimelineNotifier_Action__Enum.h>
+#include <Modloader/app/structs/PreRecordingData.h>
+#include <Modloader/app/structs/ScalableAnimationPlayer.h>
 
 namespace app::classes::GhostTimelineEventsPlugin {
     IL2CPP_REGISTER_METHOD(0x002FBB80, app::GlobalRecordingTable*, get_GlobalRecordingTable, (app::GhostTimelineEventsPlugin * this_ptr))
@@ -21,7 +22,6 @@ namespace app::classes::GhostTimelineEventsPlugin {
     IL2CPP_REGISTER_METHOD(0x007EA840, void, OnStopRecording, (app::GhostTimelineEventsPlugin * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007EAAE0, bool, ShouldRecord, (app::GhostTimelineEventsPlugin * this_ptr, app::ITimelineEntity* timeline, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x007EAD20, void, OnTimelineEvent, (app::GhostTimelineEventsPlugin * this_ptr, app::ITimelineEntity* entity, app::IContext* context, app::MoonTimelineNotifier_Action__Enum action))
-    IL2CPP_REGISTER_METHODINFO(0x0478E308, GhostTimelineEventsPlugin_OnTimelineEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007EAEC0, void, RecordTimelineEvent, (app::GhostTimelineEventsPlugin * this_ptr, app::ITimelineEntity* entity, app::IContext* context, app::MoonTimelineNotifier_Action__Enum action))
     IL2CPP_REGISTER_METHOD(0x007EB080, void, RecordTimelinePlay, (app::GhostTimelineEventsPlugin * this_ptr, app::MoonTimeline* timeline, app::IContext* context, app::MoonTimelineNotifier_Action__Enum action))
     IL2CPP_REGISTER_METHOD(0x007EB540, void, RecordIndeterminateLength, (app::GhostTimelineEventsPlugin * this_ptr, app::ITimelineEntity* entity, app::IContext* context, app::MoonTimelineNotifier_Action__Enum action))

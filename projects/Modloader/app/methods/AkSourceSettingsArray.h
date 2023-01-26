@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkSourceSettingsArray.h>
+
+#include <Modloader/app/structs/AkSourceSettingsArray.h>
 #include <Modloader/app/structs/AkSourceSettings.h>
 
 namespace app::classes::AkSourceSettingsArray {

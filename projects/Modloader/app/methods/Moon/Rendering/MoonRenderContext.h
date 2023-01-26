@@ -1,43 +1,44 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonRenderContext.h>
-#include <Modloader/app/structs/RenderTargetIdentifier.h>
-#include <Modloader/app/structs/Nullable_1_Moon_Rendering_Viewport_.h>
-#include <Modloader/app/structs/ClearSettings.h>
-#include <Modloader/app/structs/RenderTarget.h>
-#include <Modloader/app/structs/Nullable_1_UnityEngine_Rendering_RenderTargetIdentifier_.h>
-#include <Modloader/app/structs/RenderTargetIdentifier__Array.h>
-#include <Modloader/app/structs/ClearFlags__Enum.h>
+
+#include <Modloader/app/structs/MoonRenderContext.h>
+#include <Modloader/app/structs/Camera.h>
 #include <Modloader/app/structs/ClearFlagMode__Enum.h>
-#include <Modloader/app/structs/Nullable_1_UnityEngine_Rect_.h>
-#include <Modloader/app/structs/Int2.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/Vector4__Array.h>
-#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/ClearFlags__Enum.h>
+#include <Modloader/app/structs/ClearSettings.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/CommandBuffer.h>
 #include <Modloader/app/structs/ComputeBuffer.h>
 #include <Modloader/app/structs/ComputeShader.h>
-#include <Modloader/app/structs/Material.h>
-#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector4_.h>
-#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector2_.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/CommandBuffer.h>
-#include <Modloader/app/structs/ScriptableRenderContext.h>
-#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
-#include <Modloader/app/structs/CustomSampler.h>
-#include <Modloader/app/structs/MoonRenderContext_Sample.h>
-#include <Modloader/app/structs/SrpSampler.h>
-#include <Modloader/app/structs/SrpSampler_Scope__Enum.h>
-#include <Modloader/app/structs/Camera.h>
-#include <Modloader/app/structs/ScriptableCullingParameters.h>
 #include <Modloader/app/structs/CullResults.h>
-#include <Modloader/app/structs/FilterResults.h>
+#include <Modloader/app/structs/CustomSampler.h>
 #include <Modloader/app/structs/DrawRendererSettings.h>
 #include <Modloader/app/structs/FilterRenderersSettings.h>
+#include <Modloader/app/structs/FilterResults.h>
+#include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/MoonRenderContext_Sample.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
+#include <Modloader/app/structs/Nullable_1_Moon_Rendering_Viewport_.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Rect_.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Rendering_RenderTargetIdentifier_.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector4_.h>
 #include <Modloader/app/structs/RenderStateBlock.h>
+#include <Modloader/app/structs/RenderTarget.h>
+#include <Modloader/app/structs/RenderTargetIdentifier.h>
+#include <Modloader/app/structs/RenderTargetIdentifier__Array.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/ScriptableCullingParameters.h>
+#include <Modloader/app/structs/ScriptableRenderContext.h>
+#include <Modloader/app/structs/SrpSampler.h>
+#include <Modloader/app/structs/SrpSampler_Scope__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Vector4__Array.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderContext {
     IL2CPP_REGISTER_METHOD(0x0078DB50, void, SetRenderTargetArray, (app::MoonRenderContext * this_ptr, app::RenderTargetIdentifier color, int32_t slice, app::Nullable_1_Moon_Rendering_Viewport_ viewport, app::ClearSettings clear))
@@ -46,9 +47,7 @@ namespace app::classes::Moon::Rendering::MoonRenderContext {
     IL2CPP_REGISTER_METHOD(0x0078DD50, void, ResolveAntiAliasedSurface, (app::MoonRenderContext * this_ptr, app::RenderTarget* src, app::RenderTarget* dest))
     IL2CPP_REGISTER_METHOD(0x0078DEC0, void, SetRenderTarget_1, (app::MoonRenderContext * this_ptr, app::RenderTargetIdentifier color_and_or_depth, app::Nullable_1_UnityEngine_Rendering_RenderTargetIdentifier_ depth, app::Nullable_1_Moon_Rendering_Viewport_ viewport, app::ClearSettings clear))
     IL2CPP_REGISTER_METHOD(0x0078E110, void, SetRenderTarget_2, (app::MoonRenderContext * this_ptr, app::RenderTargetIdentifier__Array* color_r_ts, app::Nullable_1_UnityEngine_Rendering_RenderTargetIdentifier_ depth_rt_or_null, app::Nullable_1_Moon_Rendering_Viewport_ viewport, app::ClearSettings clear))
-    IL2CPP_REGISTER_METHODINFO(0x0471D938, MoonRenderContext_SetRenderTarget_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0078E950, void, ClearRenderTarget_1, (app::MoonRenderContext * this_ptr, app::Nullable_1_Moon_Rendering_Viewport_ viewport, app::ClearSettings clear, int32_t rt_count))
-    IL2CPP_REGISTER_METHODINFO(0x0477A2A0, MoonRenderContext_ClearRenderTarget__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0078EB20, void, ClearRenderTarget_2, (app::MoonRenderContext * this_ptr, app::ClearSettings clear))
     IL2CPP_REGISTER_METHOD(0x0078EC00, void, SetFlag, (app::ClearFlags__Enum * flags, app::ClearFlags__Enum flag, app::ClearFlagMode__Enum mode))
     IL2CPP_REGISTER_METHOD(0x0078EC20, void, SetViewport, (app::MoonRenderContext * this_ptr, app::Nullable_1_UnityEngine_Rect_ pixel_rect))
@@ -110,7 +109,6 @@ namespace app::classes::Moon::Rendering::MoonRenderContext {
     IL2CPP_REGISTER_METHOD(0x00790EF0, void, SetupCameraProperties, (app::MoonRenderContext * this_ptr, app::Camera* camera, bool stereo_setup))
     IL2CPP_REGISTER_METHOD(0x00790F40, void, Cull, (app::MoonRenderContext * this_ptr, app::ScriptableCullingParameters* culling_params, app::CullResults* cull_results))
     IL2CPP_REGISTER_METHOD(0x00790F60, app::ScriptableCullingParameters, GetCullingParameters, (app::MoonRenderContext * this_ptr, app::Camera* camera))
-    IL2CPP_REGISTER_METHODINFO(0x04730C60, MoonRenderContext_GetCullingParameters__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007910B0, bool, IsValidToRender, (app::MoonRenderContext * this_ptr, app::Camera* camera))
     IL2CPP_REGISTER_METHOD(0x00791130, void, DrawRenderers_1, (app::MoonRenderContext * this_ptr, app::FilterResults renderers, app::DrawRendererSettings* draw_settings, app::FilterRenderersSettings filter_settings, bool only_prewarm))
     IL2CPP_REGISTER_METHOD(0x007911C0, void, DrawRenderers_2, (app::MoonRenderContext * this_ptr, app::FilterResults renderers, app::DrawRendererSettings* draw_settings, app::FilterRenderersSettings filter_settings, app::RenderStateBlock render_state_block))

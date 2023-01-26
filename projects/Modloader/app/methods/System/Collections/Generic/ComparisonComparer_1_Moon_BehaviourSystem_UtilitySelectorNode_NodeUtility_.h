@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
 #include <Modloader/app/structs/Comparison_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
 #include <Modloader/app/structs/UtilitySelectorNode_NodeUtility.h>
 

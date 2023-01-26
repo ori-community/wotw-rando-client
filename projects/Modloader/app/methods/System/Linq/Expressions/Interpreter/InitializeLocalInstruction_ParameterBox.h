@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InitializeLocalInstruction_ParameterBox.h>
+
+#include <Modloader/app/structs/InitializeLocalInstruction_ParameterBox.h>
 #include <Modloader/app/structs/InterpretedFrame.h>
 #include <Modloader/app/structs/String.h>
 

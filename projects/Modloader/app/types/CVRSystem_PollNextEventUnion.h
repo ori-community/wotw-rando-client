@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CVRSystem_PollNextEventUnion__Class.h>
 #include <Modloader/app/structs/CVRSystem_PollNextEventUnion.h>
 #include <Modloader/app/structs/CVRSystem_PollNextEventUnion__Boxed.h>
+#include <Modloader/app/structs/CVRSystem_PollNextEventUnion__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace CVRSystem_PollNextEventUnion {
-        namespace {
-            inline app::CVRSystem_PollNextEventUnion__Class* type_info_ref = nullptr;
+        inline app::CVRSystem_PollNextEventUnion__Class** type_info() {
+            static app::CVRSystem_PollNextEventUnion__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CVRSystem_PollNextEventUnion__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CVRSystem_PollNextEventUnion__Class** type_info = &type_info_ref;
         inline app::CVRSystem_PollNextEventUnion__Class* get_class() {
-            return il2cpp::get_nested_class<app::CVRSystem_PollNextEventUnion__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "CVRSystem", "PollNextEventUnion");
+            return il2cpp::get_nested_class<app::CVRSystem_PollNextEventUnion__Class>(type_info(), "ZenFulcrum.VR.OpenVRBinding", "CVRSystem", "PollNextEventUnion");
         }
         inline app::CVRSystem_PollNextEventUnion* create() {
             return il2cpp::create_object<app::CVRSystem_PollNextEventUnion>(get_class());

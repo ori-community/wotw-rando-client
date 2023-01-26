@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ContractionComparer.h>
+
+#include <Modloader/app/structs/ContractionComparer.h>
 #include <Modloader/app/structs/Contraction.h>
 
 namespace app::classes::Mono::Globalization::Unicode::ContractionComparer {

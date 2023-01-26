@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FloatStateMap_Mapping__Boxed.h>
+
+#include <Modloader/app/structs/FloatStateMap_Mapping__Boxed.h>
 #include <Modloader/app/structs/IUberState.h>
 
 namespace app::classes::FloatStateMap_Mapping {

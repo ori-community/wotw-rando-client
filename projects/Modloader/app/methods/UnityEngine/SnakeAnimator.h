@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SnakeAnimator.h>
+
+#include <Modloader/app/structs/SnakeAnimator.h>
 #include <Modloader/app/structs/SnakeAnimatorConfiguration.h>
 #include <Modloader/app/structs/SnakeAnimatorJointConfiguration.h>
 

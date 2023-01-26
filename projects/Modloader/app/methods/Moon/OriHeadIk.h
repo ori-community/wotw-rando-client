@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OriHeadIk.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/OriHeadIk.h>
 #include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::OriHeadIk {
     IL2CPP_REGISTER_METHOD(0x00C30950, bool, get_CanApplyIk, (app::OriHeadIk * this_ptr))

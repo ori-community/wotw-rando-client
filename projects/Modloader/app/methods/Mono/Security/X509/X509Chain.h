@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/X509Chain_1.h>
+
+#include <Modloader/app/structs/X509Chain_1.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/X509CertificateCollection_2.h>
 #include <Modloader/app/structs/X509Certificate_2.h>
 #include <Modloader/app/structs/X509ChainStatusFlags__Enum_1.h>
-#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Security::X509::X509Chain {
     IL2CPP_REGISTER_METHOD(0x02940160, void, ctor_1, (app::X509Chain_1 * this_ptr))

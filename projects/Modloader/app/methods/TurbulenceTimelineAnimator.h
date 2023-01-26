@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TurbulenceManager.h>
+
+#include <Modloader/app/structs/TurbulenceManager.h>
 #include <Modloader/app/structs/TurbulenceTimelineAnimator.h>
 
 namespace app::classes::TurbulenceTimelineAnimator {

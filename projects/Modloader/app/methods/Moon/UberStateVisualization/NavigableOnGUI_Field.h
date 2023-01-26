@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NavigableOnGUI_Field__Boxed.h>
+
+#include <Modloader/app/structs/NavigableOnGUI_Field__Boxed.h>
 #include <Modloader/app/structs/NavigableOnGUI.h>
 #include <Modloader/app/structs/String.h>
 

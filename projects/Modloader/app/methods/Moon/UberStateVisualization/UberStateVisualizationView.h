@@ -1,26 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberStateVisualizationView.h>
-#include <Modloader/app/structs/UberStateData.h>
-#include <Modloader/app/structs/UberStateValueStore.h>
+
+#include <Modloader/app/structs/UberStateVisualizationView.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/ControllerInput.h>
 #include <Modloader/app/structs/ListViewItem.h>
 #include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/ControllerInput.h>
-#include <Modloader/app/structs/UberID.h>
-#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberID.h>
+#include <Modloader/app/structs/UberStateData.h>
 #include <Modloader/app/structs/UberStateGroupData.h>
 #include <Modloader/app/structs/UberStateValueGroup.h>
+#include <Modloader/app/structs/UberStateValueStore.h>
 
 namespace app::classes::Moon::UberStateVisualization::UberStateVisualizationView {
     IL2CPP_REGISTER_METHOD(0x030C4940, void, ctor, (app::UberStateVisualizationView * this_ptr))
     IL2CPP_REGISTER_METHOD(0x030C5050, void, OnSpaceMongerSelectionChanged, (app::UberStateVisualizationView * this_ptr, app::UberStateData uber_state))
-    IL2CPP_REGISTER_METHODINFO(0x0473D3E8, UberStateVisualizationView_OnSpaceMongerSelectionChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x030C51D0, void, UpdateWithModel, (app::UberStateVisualizationView * this_ptr, app::UberStateValueStore* uber_state_value_store))
     IL2CPP_REGISTER_METHOD(0x030C62A0, void, OnGroupsListViewSelectionChanged, (app::UberStateVisualizationView * this_ptr, app::ListViewItem* selected_item))
-    IL2CPP_REGISTER_METHODINFO(0x04718300, UberStateVisualizationView_OnGroupsListViewSelectionChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x030C6C00, void, OnStatesListViewSelectionChanged, (app::UberStateVisualizationView * this_ptr, app::ListViewItem* selected_item))
-    IL2CPP_REGISTER_METHODINFO(0x04759E18, UberStateVisualizationView_OnStatesListViewSelectionChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x030C6E60, void, OnGui, (app::UberStateVisualizationView * this_ptr, app::Rect rect))
     IL2CPP_REGISTER_METHOD(0x030C6EA0, void, Layout, (app::UberStateVisualizationView * this_ptr, app::Rect view_rect))
     IL2CPP_REGISTER_METHOD(0x030C7260, void, Render, (app::UberStateVisualizationView * this_ptr))

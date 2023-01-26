@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TentacleJoint.h>
+
+#include <Modloader/app/structs/TentacleJoint.h>
 #include <Modloader/app/structs/Action_2_Damage_Int32_.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/GameObject.h>

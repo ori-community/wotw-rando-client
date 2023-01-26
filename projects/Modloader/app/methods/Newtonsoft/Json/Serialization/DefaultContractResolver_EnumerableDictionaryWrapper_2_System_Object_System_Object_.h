@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Object_.h>
+
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Object_.h>
 #include <Modloader/app/structs/DefaultContractResolver_EnumerableDictionaryWrapper_2_System_Object_System_Object_.h>
 #include <Modloader/app/structs/IEnumerator.h>
 

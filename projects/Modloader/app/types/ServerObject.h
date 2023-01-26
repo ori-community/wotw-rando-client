@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ServerObject__Class.h>
 #include <Modloader/app/structs/ServerObject.h>
 #include <Modloader/app/structs/ServerObject__Array.h>
+#include <Modloader/app/structs/ServerObject__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace ServerObject {
-        inline app::ServerObject__Class** type_info = (app::ServerObject__Class**)(modloader::win::memory::resolve_rva(0x0475C208));
+        inline app::ServerObject__Class** type_info() {
+            static app::ServerObject__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::ServerObject__Class**)(modloader::win::memory::resolve_rva(0x0475C208));
+            }
+            return cache;
+        }
         inline app::ServerObject__Class* get_class() {
-            return il2cpp::get_class<app::ServerObject__Class>(type_info, "", "ServerObject");
+            return il2cpp::get_class<app::ServerObject__Class>(type_info(), "", "ServerObject");
         }
         inline app::ServerObject* create() {
             return il2cpp::create_object<app::ServerObject>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DashOwlState.h>
+
+#include <Modloader/app/structs/DashOwlState.h>
 #include <Modloader/app/structs/DashOwlEnemy.h>
 
 namespace app::classes::DashOwlState {

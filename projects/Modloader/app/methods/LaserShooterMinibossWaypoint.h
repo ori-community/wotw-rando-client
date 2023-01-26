@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LaserShooterMinibossWaypoint_Connection.h>
+
+#include <Modloader/app/structs/LaserShooterMinibossWaypoint_Connection.h>
 #include <Modloader/app/structs/LaserShooterMinibossWaypoint.h>
 
 namespace app::classes::LaserShooterMinibossWaypoint {

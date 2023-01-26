@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaceStateMachineContext.h>
-#include <Modloader/app/structs/RaceHandler.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Collider.h>
+
+#include <Modloader/app/structs/RaceStateMachineContext.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/RaceHandler.h>
 #include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RaceHandler {
     IL2CPP_REGISTER_METHOD(0x00E99590, app::RaceStateMachineContext*, get_Context, (app::RaceHandler * this_ptr))
@@ -22,12 +23,10 @@ namespace app::classes::RaceHandler {
     IL2CPP_REGISTER_METHOD(0x00E9BD30, void, ActivateRace, (app::RaceHandler * this_ptr, bool in_game_activation))
     IL2CPP_REGISTER_METHOD(0x00E9C000, void, OnEnterStartArea, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9C440, void, ForceInstantFrustumUpdate, (app::RaceHandler * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04788460, RaceHandler_ForceInstantFrustumUpdate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E9C4E0, void, OnExitStartArea, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9C650, void, OnEnterEndArea, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9C890, void, OnExitEndArea, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9C8F0, void, OnEnterEndTrigger, (app::RaceHandler * this_ptr, app::Collider* collider))
-    IL2CPP_REGISTER_METHODINFO(0x04723368, RaceHandler_OnEnterEndTrigger__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E9CB30, void, OnFinished, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9CC40, void, OnStart, (app::RaceHandler * this_ptr, bool spectate))
     IL2CPP_REGISTER_METHOD(0x00E9CD50, void, OnLeaderboard, (app::RaceHandler * this_ptr))
@@ -46,11 +45,8 @@ namespace app::classes::RaceHandler {
     IL2CPP_REGISTER_METHOD(0x00E9E060, void, GetStartGroundPosition, (app::RaceHandler * this_ptr, app::Vector3* pos, app::Vector3 target))
     IL2CPP_REGISTER_METHOD(0x00E9E360, void, OnDevGhostBeaten, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9E460, void, ShowChallengeUi, (app::RaceHandler * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476DBD8, RaceHandler_ShowChallengeUi__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E9E4C0, void, HideChallengeUi, (app::RaceHandler * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04725B78, RaceHandler_HideChallengeUi__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E9E510, void, OnStateChanged, (app::RaceHandler * this_ptr, app::StateMachine_2* state_machine))
-    IL2CPP_REGISTER_METHODINFO(0x04772018, RaceHandler_OnStateChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E9E7C0, void, CheckNetworkStatus, (app::RaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E9EA90, void, ctor, (app::RaceHandler * this_ptr))
 } // namespace app::classes::RaceHandler

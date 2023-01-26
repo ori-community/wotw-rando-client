@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraTarget.h>
-#include <Modloader/app/structs/GameplayCamera.h>
+
+#include <Modloader/app/structs/CameraTarget.h>
 #include <Modloader/app/structs/CameraTarget_TargetLayer.h>
+#include <Modloader/app/structs/GameplayCamera.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector3.h>
 

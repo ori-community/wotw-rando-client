@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_DistortionAnimator_RendererData_Property___Boxed.h>
-#include <Modloader/app/structs/List_1_DistortionAnimator_RendererData_Property_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_DistortionAnimator_RendererData_Property___Boxed.h>
 #include <Modloader/app/structs/DistortionAnimator_RendererData_Property.h>
+#include <Modloader/app/structs/List_1_DistortionAnimator_RendererData_Property_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_DistortionAnimator_RendererData_Property_ {

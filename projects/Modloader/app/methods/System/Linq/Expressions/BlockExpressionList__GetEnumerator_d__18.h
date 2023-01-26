@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BlockExpressionList_GetEnumerator_d_18.h>
+
+#include <Modloader/app/structs/BlockExpressionList_GetEnumerator_d_18.h>
 #include <Modloader/app/structs/Expression.h>
 #include <Modloader/app/structs/Object.h>
 
@@ -10,6 +11,5 @@ namespace app::classes::System::Linq::Expressions::BlockExpressionList__GetEnume
     IL2CPP_REGISTER_METHOD(0x01F9FD30, bool, MoveNext, (app::BlockExpressionList_GetEnumerator_d_18 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Expression*, IEnumerator_Expression__get_Current, (app::BlockExpressionList_GetEnumerator_d_18 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F9FE30, void, IEnumerator_Reset, (app::BlockExpressionList_GetEnumerator_d_18 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472B3A8, BlockExpressionList_GetEnumerator_d_18_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::BlockExpressionList_GetEnumerator_d_18 * this_ptr))
 } // namespace app::classes::System::Linq::Expressions::BlockExpressionList__GetEnumerator_d__18

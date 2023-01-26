@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/ExceptionType__Enum.h>
+#include <Modloader/app/structs/ExceptionType__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ExceptionType__Enum__Class.h>
-#include <Modloader/app/structs/ExceptionType__Enum.h>
 
 namespace app::classes::types {
     namespace ExceptionType__Enum {
-        namespace {
-            inline app::ExceptionType__Enum__Class* type_info_ref = nullptr;
+        inline app::ExceptionType__Enum__Class** type_info() {
+            static app::ExceptionType__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ExceptionType__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ExceptionType__Enum__Class** type_info = &type_info_ref;
         inline app::ExceptionType__Enum__Class* get_class() {
-            return il2cpp::get_class<app::ExceptionType__Enum__Class>(type_info, "System.Xml", "ExceptionType");
+            return il2cpp::get_class<app::ExceptionType__Enum__Class>(type_info(), "System.Xml", "ExceptionType");
         }
         inline app::ExceptionType__Enum* create() {
             return il2cpp::create_object<app::ExceptionType__Enum>(get_class());

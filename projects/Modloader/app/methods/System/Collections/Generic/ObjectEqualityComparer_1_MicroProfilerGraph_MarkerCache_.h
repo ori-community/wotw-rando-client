@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_MicroProfilerGraph_MarkerCache_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_MicroProfilerGraph_MarkerCache_.h>
 #include <Modloader/app/structs/MicroProfilerGraph_MarkerCache.h>
 #include <Modloader/app/structs/MicroProfilerGraph_MarkerCache__Array.h>
 #include <Modloader/app/structs/Object.h>

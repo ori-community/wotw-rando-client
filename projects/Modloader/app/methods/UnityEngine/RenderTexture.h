@@ -1,20 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RenderTexture.h>
-#include <Modloader/app/structs/RenderTextureDescriptor.h>
+
+#include <Modloader/app/structs/RenderTexture.h>
 #include <Modloader/app/structs/GraphicsFormat__Enum.h>
+#include <Modloader/app/structs/RenderBuffer.h>
+#include <Modloader/app/structs/RenderTextureDescriptor.h>
 #include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/RenderTextureMemoryless__Enum.h>
 #include <Modloader/app/structs/RenderTextureReadWrite__Enum.h>
 #include <Modloader/app/structs/TextureDimension__Enum.h>
-#include <Modloader/app/structs/RenderBuffer.h>
-#include <Modloader/app/structs/RenderTextureMemoryless__Enum.h>
 #include <Modloader/app/structs/VRTextureUsage__Enum.h>
 
 namespace app::classes::UnityEngine::RenderTexture {
     IL2CPP_REGISTER_METHOD(0x02970C30, void, ctor_1, (app::RenderTexture * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02970C40, void, ctor_2, (app::RenderTexture * this_ptr, app::RenderTextureDescriptor desc))
     IL2CPP_REGISTER_METHOD(0x02970D40, void, ctor_3, (app::RenderTexture * this_ptr, app::RenderTexture* texture_to_copy))
-    IL2CPP_REGISTER_METHODINFO(0x047562F8, RenderTexture__ctor_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02970F40, void, ctor_4, (app::RenderTexture * this_ptr, int32_t width, int32_t height, int32_t depth, app::GraphicsFormat__Enum format))
     IL2CPP_REGISTER_METHOD(0x02971140, void, ctor_5, (app::RenderTexture * this_ptr, int32_t width, int32_t height, int32_t depth, app::RenderTextureFormat__Enum format, app::RenderTextureReadWrite__Enum read_write))
     IL2CPP_REGISTER_METHOD(0x02971430, void, ctor_6, (app::RenderTexture * this_ptr, int32_t width, int32_t height, int32_t depth, app::RenderTextureFormat__Enum format))
@@ -56,7 +56,6 @@ namespace app::classes::UnityEngine::RenderTexture {
     IL2CPP_REGISTER_METHOD(0x02971F40, void, set_depth, (app::RenderTexture * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x02971DA0, app::RenderTextureDescriptor, get_descriptor, (app::RenderTexture * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02971FA0, void, ValidateRenderTextureDesc, (app::RenderTextureDescriptor desc))
-    IL2CPP_REGISTER_METHODINFO(0x047047F0, RenderTexture_ValidateRenderTextureDesc__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02972190, app::RenderTexture*, GetTemporary_1, (app::RenderTextureDescriptor desc))
     IL2CPP_REGISTER_METHOD(0x02972240, app::RenderTexture*, GetTemporaryImpl, (int32_t width, int32_t height, int32_t depth_buffer, app::RenderTextureFormat__Enum format, app::RenderTextureReadWrite__Enum read_write, int32_t anti_aliasing, app::RenderTextureMemoryless__Enum memoryless_mode, app::VRTextureUsage__Enum vr_usage, bool use_dynamic_scale))
     IL2CPP_REGISTER_METHOD(0x02972310, app::RenderTexture*, GetTemporary_2, (int32_t width, int32_t height, int32_t depth_buffer, app::RenderTextureFormat__Enum format, app::RenderTextureReadWrite__Enum read_write))

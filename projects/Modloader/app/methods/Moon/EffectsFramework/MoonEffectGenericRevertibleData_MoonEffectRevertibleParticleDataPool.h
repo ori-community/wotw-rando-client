@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Stack_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData_.h>
-#include <Modloader/app/structs/MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleDataPool.h>
+
+#include <Modloader/app/structs/Stack_1_Moo_EffectsFramewor_MoonEffectGenericRevertibleDat_MoonEffectRevertibleParticleDa_.h>
 #include <Modloader/app/structs/MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData.h>
+#include <Modloader/app/structs/MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleDataPool.h>
 
 namespace app::classes::Moon::EffectsFramework::MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleDataPool {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Stack_1_Moon_EffectsFramework_MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleData_*, get_Instances, (app::MoonEffectGenericRevertibleData_MoonEffectRevertibleParticleDataPool * this_ptr))

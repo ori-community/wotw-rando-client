@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateAreaMapInformation.h>
-#include <Modloader/app/structs/UberStateArchive.h>
-#include <Modloader/app/structs/PlayerUberStateDescriptor.h>
+
+#include <Modloader/app/structs/PlayerUberStateAreaMapInformation.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/NavigableOnGUI.h>
-#include <Modloader/app/structs/WorldMapAreaState__Enum.h>
-#include <Modloader/app/structs/GameWorldAreaID__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Dictionary_2_System_Int32_WorldMapAreaState_.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/PlayerUberStateAreaMapInformation_MapTrailEntry.h>
-#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateAreaMapInformation_MapTrailEntry_.h>
 #include <Modloader/app/structs/GameWorldArea.h>
+#include <Modloader/app/structs/GameWorldAreaID__Enum.h>
+#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateAreaMapInformation_MapTrailEntry_.h>
+#include <Modloader/app/structs/NavigableOnGUI.h>
+#include <Modloader/app/structs/PlayerUberStateAreaMapInformation_MapTrailEntry.h>
+#include <Modloader/app/structs/PlayerUberStateDescriptor.h>
+#include <Modloader/app/structs/UberStateArchive.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/WorldMapAreaState__Enum.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateAreaMapInformation {
     IL2CPP_REGISTER_METHOD(0x00F35560, int64_t, get_Size, (app::PlayerUberStateAreaMapInformation * this_ptr))

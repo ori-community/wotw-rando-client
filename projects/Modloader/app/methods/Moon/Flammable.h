@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Flammable.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Flammable_FlameState__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/Flammable.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Flammable_FlameState__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/IDesiredUberState.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::Moon::Flammable {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_IsSuspended, (app::Flammable * this_ptr))
@@ -33,7 +34,6 @@ namespace app::classes::Moon::Flammable {
     IL2CPP_REGISTER_METHOD(0x01224AF0, void, OnEnable, (app::Flammable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01224D60, void, OnDisable, (app::Flammable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01224530, void, OnCheckpointRestore, (app::Flammable * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047071D8, Flammable_OnCheckpointRestore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01224F50, void, Apply, (app::Flammable * this_ptr, app::UberStateApplyContext__Enum context))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ApplyOnEditor, (app::Flammable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01225030, app::IUberState__Array*, get_AffectingUberStates, (app::Flammable * this_ptr))

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VoronoiBase.h>
-#include <Modloader/app/structs/Mesh_1.h>
-#include <Modloader/app/structs/IVoronoiFactory.h>
-#include <Modloader/app/structs/IPredicates.h>
-#include <Modloader/app/structs/List_1_TriangleNet_Topology_DCEL_HalfEdge___Array.h>
-#include <Modloader/app/structs/Vertex_1__Array.h>
+
+#include <Modloader/app/structs/VoronoiBase.h>
 #include <Modloader/app/structs/Face__Array.h>
 #include <Modloader/app/structs/IEnumerable_1_TriangleNet_Geometry_IEdge_.h>
+#include <Modloader/app/structs/IPredicates.h>
+#include <Modloader/app/structs/IVoronoiFactory.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Topology_DCEL_HalfEdge___Array.h>
+#include <Modloader/app/structs/Mesh_1.h>
+#include <Modloader/app/structs/Vertex_1__Array.h>
 
 namespace app::classes::TriangleNet::Voronoi::VoronoiBase {
     IL2CPP_REGISTER_METHOD(0x02AAEFA0, void, ctor, (app::VoronoiBase * this_ptr, app::Mesh_1* mesh, app::IVoronoiFactory* factory, app::IPredicates* predicates, bool generate))

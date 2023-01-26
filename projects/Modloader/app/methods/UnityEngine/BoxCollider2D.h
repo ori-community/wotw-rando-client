@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/BoxCollider2D.h>
 
 namespace app::classes::UnityEngine::BoxCollider2D {

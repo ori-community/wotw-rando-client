@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HitReaction_HitPointEffector_EffectorLink.h>
+
+#include <Modloader/app/structs/HitReaction_HitPointEffector_EffectorLink.h>
 #include <Modloader/app/structs/IKSolverFullBodyBiped.h>
 #include <Modloader/app/structs/Vector3.h>
 

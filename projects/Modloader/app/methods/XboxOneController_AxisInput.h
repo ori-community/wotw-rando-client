@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XboxOneController_AxisInput.h>
+
+#include <Modloader/app/structs/XboxOneController_AxisInput.h>
 #include <Modloader/app/structs/XboxOneController_Axis__Enum.h>
 
 namespace app::classes::XboxOneController_AxisInput {

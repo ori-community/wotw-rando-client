@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_CatlikeCoding_TextBox_MoonIconRenderer_IconObject_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_CatlikeCoding_TextBox_MoonIconRenderer_IconObject_.h>
 #include <Modloader/app/structs/MoonIconRenderer_IconObject.h>
 #include <Modloader/app/structs/Object.h>
 

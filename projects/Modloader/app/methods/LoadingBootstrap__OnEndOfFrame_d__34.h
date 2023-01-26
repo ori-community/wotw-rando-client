@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LoadingBootstrap_OnEndOfFrame_d_34.h>
+
+#include <Modloader/app/structs/LoadingBootstrap_OnEndOfFrame_d_34.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::LoadingBootstrap__OnEndOfFrame_d__34 {
@@ -9,6 +10,5 @@ namespace app::classes::LoadingBootstrap__OnEndOfFrame_d__34 {
     IL2CPP_REGISTER_METHOD(0x00FBE7B0, bool, MoveNext, (app::LoadingBootstrap_OnEndOfFrame_d_34 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::LoadingBootstrap_OnEndOfFrame_d_34 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FBE980, void, IEnumerator_Reset, (app::LoadingBootstrap_OnEndOfFrame_d_34 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04772868, LoadingBootstrap_OnEndOfFrame_d_34_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::LoadingBootstrap_OnEndOfFrame_d_34 * this_ptr))
 } // namespace app::classes::LoadingBootstrap__OnEndOfFrame_d__34

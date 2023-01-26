@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Sensor_SensorLineOfSightRequest__Boxed.h>
-#include <Modloader/app/structs/Sensor.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Sensor_SensorLineOfSightRequest__Boxed.h>
 #include <Modloader/app/structs/AsyncRaycast_Result__Enum.h>
-#include <Modloader/app/structs/Sensor_SensorLineOfSightRequest_State__Enum.h>
 #include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Sensor.h>
+#include <Modloader/app/structs/Sensor_SensorLineOfSightRequest_State__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Sensor_SensorLineOfSightRequest {
     IL2CPP_REGISTER_METHOD(0x00120650, void, Init, (app::Sensor_SensorLineOfSightRequest__Boxed * this_ptr, app::Sensor* _sensor))

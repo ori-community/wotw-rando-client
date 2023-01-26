@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KwolokBossTendrilStrikeBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/KwolokBossTendrilStrikeBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
 
@@ -21,9 +22,7 @@ namespace app::classes::KwolokBossTendrilStrikeBehaviour {
     IL2CPP_REGISTER_METHOD(0x012EFA30, bool, ShouldCancel, (app::KwolokBossTendrilStrikeBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012EFA60, bool, HasRemainingStrikes, (app::KwolokBossTendrilStrikeBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012EFA80, void, OnDamageReceived, (app::KwolokBossTendrilStrikeBehaviour * this_ptr, app::DamageResult damage))
-    IL2CPP_REGISTER_METHODINFO(0x04705E50, KwolokBossTendrilStrikeBehaviour_OnDamageReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012EFB60, void, OnAttackTrigger, (app::KwolokBossTendrilStrikeBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476DBE8, KwolokBossTendrilStrikeBehaviour_OnAttackTrigger__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F0110, app::Vector2, GetClosestPointInPath, (app::KwolokBossTendrilStrikeBehaviour * this_ptr, app::Vector3 pos))
     IL2CPP_REGISTER_METHOD(0x012F0340, void, ctor, (app::KwolokBossTendrilStrikeBehaviour * this_ptr))
 } // namespace app::classes::KwolokBossTendrilStrikeBehaviour

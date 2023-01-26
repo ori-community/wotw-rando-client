@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKSolverHeuristic.h>
-#include <Modloader/app/structs/Transform__Array.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IKSolver_Point__Array.h>
+
+#include <Modloader/app/structs/IKSolverHeuristic.h>
 #include <Modloader/app/structs/IKSolver_Point.h>
+#include <Modloader/app/structs/IKSolver_Point__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Transform__Array.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolverHeuristic {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/IkChainSolver_RotationLimitData__Boxed.h>
 
 namespace app::classes::Moon::IkChainSolver_RotationLimitData {

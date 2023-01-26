@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScriptableRenderContext.h>
+
+#include <Modloader/app/structs/ScriptableRenderContext.h>
 #include <Modloader/app/structs/CommandBuffer.h>
 
 namespace app::classes::Moon::Rendering::ScriptableRenderContextExtensions {

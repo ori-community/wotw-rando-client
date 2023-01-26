@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Texture2D.h>
+
+#include <Modloader/app/structs/Texture2D.h>
 #include <Modloader/app/structs/SpiritShardIcons.h>
-#include <Modloader/app/structs/SpiritShardType__Enum.h>
 #include <Modloader/app/structs/SpiritShardIcons_IconTexture__Array.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
 
 namespace app::classes::SpiritShardIcons {
     IL2CPP_REGISTER_METHOD(0x00D680F0, app::Texture2D*, GetIcon, (app::SpiritShardIcons * this_ptr, app::SpiritShardType__Enum type))

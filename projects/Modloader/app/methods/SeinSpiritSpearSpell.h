@@ -1,24 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinSpiritSpearSpell.h>
+
+#include <Modloader/app/structs/SeinSpiritSpearSpell.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/ButtonInputType__Enum.h>
-#include <Modloader/app/structs/SeinSpiritSpearSpellPuppet.h>
 #include <Modloader/app/structs/CharacterPlatformMovement.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/IAttackable.h>
-#include <Modloader/app/structs/SeinSpiritSpearSpell_FlyingSpear.h>
-#include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/SeinSpiritSpearSpell_State__Enum.h>
+#include <Modloader/app/structs/ComboInput.h>
 #include <Modloader/app/structs/ComboMoveType__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/IAttackable.h>
 #include <Modloader/app/structs/IComboMove.h>
-#include <Modloader/app/structs/ComboInput.h>
-#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
 #include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
-#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/SeinSpiritSpearSpellPuppet.h>
+#include <Modloader/app/structs/SeinSpiritSpearSpell_FlyingSpear.h>
+#include <Modloader/app/structs/SeinSpiritSpearSpell_State__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinSpiritSpearSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinSpiritSpearSpell * this_ptr))
@@ -42,20 +43,15 @@ namespace app::classes::SeinSpiritSpearSpell {
     IL2CPP_REGISTER_METHOD(0x00A730F0, app::Quaternion, get_AttackRotationForVFX, (app::SeinSpiritSpearSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A73300, bool, get_CanAfford, (app::SeinSpiritSpearSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A73350, void, CancelSpell, (app::SeinSpiritSpearSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472EDB8, SeinSpiritSpearSpell_CancelSpell__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A71BD0, void, OnKill, (app::SeinSpiritSpearSpell * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x00A73460, bool, ShouldCharacterJumpAnimationKeepPlaying, (app::SeinSpiritSpearSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047462E8, SeinSpiritSpearSpell_ShouldCharacterJumpAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A73470, bool, ShouldCharacterEndAnimationKeepPlaying, (app::SeinSpiritSpearSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04712960, SeinSpiritSpearSpell_ShouldCharacterEndAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A73490, bool, ShouldCharacterChargeAnimationKeepPlaying, (app::SeinSpiritSpearSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04780870, SeinSpiritSpearSpell_ShouldCharacterChargeAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A734B0, app::Vector3, GetSmoothedVelocity, (app::SeinSpiritSpearSpell * this_ptr, app::Vector3 direction, float speed, float max_speed))
     IL2CPP_REGISTER_METHOD(0x00A73630, app::Vector3, GetJumpTargetPosition, (app::SeinSpiritSpearSpell * this_ptr, app::Vector3 from, float angle, float length))
     IL2CPP_REGISTER_METHOD(0x00A73A20, void, FindClosestAttackTarget, (app::SeinSpiritSpearSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A749A0, void, DealDamage, (app::SeinSpiritSpearSpell * this_ptr, app::Vector3 direction, app::IAttackable* target, app::SeinSpiritSpearSpell_FlyingSpear flying_spear))
     IL2CPP_REGISTER_METHOD(0x00A74DC0, void, DamageTicked, (app::SeinSpiritSpearSpell * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x04769FA8, SeinSpiritSpearSpell_DamageTicked__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A74F80, void, DealAreaDamage, (app::SeinSpiritSpearSpell * this_ptr, app::SeinSpiritSpearSpell_FlyingSpear flying_spear))
     IL2CPP_REGISTER_METHOD(0x00A752D0, bool, get_IsStatePerforming, (app::SeinSpiritSpearSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A752E0, void, UpdateState, (app::SeinSpiritSpearSpell * this_ptr))

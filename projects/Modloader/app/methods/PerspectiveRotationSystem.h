@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PerspectiveRotationSystem.h>
+
+#include <Modloader/app/structs/PerspectiveRotationSystem.h>
 #include <Modloader/app/structs/PerspectiveRotationAdjustment.h>
 
 namespace app::classes::PerspectiveRotationSystem {

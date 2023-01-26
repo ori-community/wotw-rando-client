@@ -14,7 +14,7 @@ struct EnumUtils__StaticFields {
 #if !defined(IL2CPP_STRUCT_EnumUtils__StaticFields_FWDDECL)
 #define IL2CPP_STRUCT_EnumUtils__StaticFields_FWDDECL
 #include <Modloader/app/structs/CamelCaseNamingStrategy.h>
-#include <Modloader/app/structs/ThreadSafeStore_2_StructMultiKey_2_System_Type_Newtonsoft_Json_Serialization_NamingStrategy_EnumInfo_.h>
+#include <Modloader/app/structs/ThreadSafeStore_2_StructMultiKe_2_Syste_Typ_Newtonsof_Jso_Serializati_NamingStrate_EnumIn_.h>
 #endif
 #undef IL2CPP_STRUCT_EnumUtils__StaticFields_INITIALIZING
 #if !defined(IL2CPP_STRUCT_EnumUtils__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_EnumUtils__StaticFields_FWDDECL)

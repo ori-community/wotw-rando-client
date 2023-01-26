@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SandWormReturnToSandBehaviour.h>
+
+#include <Modloader/app/structs/SandWormReturnToSandBehaviour.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/Vector2__Array.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SandWormReturnToSandBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C20C70, void, OnEntityInitialized, (app::SandWormReturnToSandBehaviour * this_ptr))

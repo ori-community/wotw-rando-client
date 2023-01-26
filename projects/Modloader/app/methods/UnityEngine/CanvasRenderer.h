@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CanvasRenderer.h>
+
+#include <Modloader/app/structs/CanvasRenderer.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Material.h>
-#include <Modloader/app/structs/Texture.h>
-#include <Modloader/app/structs/Mesh.h>
-#include <Modloader/app/structs/List_1_UnityEngine_UIVertex_.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Color32_.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector4_.h>
 #include <Modloader/app/structs/List_1_System_Int32_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Color32_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UIVertex_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Mesh.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Texture.h>
 
 namespace app::classes::UnityEngine::CanvasRenderer {
     IL2CPP_REGISTER_METHOD(0x031A5FE0, void, set_hasPopInstruction, (app::CanvasRenderer * this_ptr, bool value))
@@ -24,7 +25,6 @@ namespace app::classes::UnityEngine::CanvasRenderer {
     IL2CPP_REGISTER_METHOD(0x031A61F0, bool, get_cull, (app::CanvasRenderer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031A6240, void, set_cull, (app::CanvasRenderer * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x031A62A0, void, SetColor, (app::CanvasRenderer * this_ptr, app::Color color))
-    IL2CPP_REGISTER_METHODINFO(0x047584F8, CanvasRenderer_SetColor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x031A6300, app::Color, GetColor, (app::CanvasRenderer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031A6380, void, EnableRectClipping, (app::CanvasRenderer * this_ptr, app::Rect rect))
     IL2CPP_REGISTER_METHOD(0x031A63E0, void, DisableRectClipping, (app::CanvasRenderer * this_ptr))

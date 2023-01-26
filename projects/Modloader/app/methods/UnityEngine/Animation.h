@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Animation.h>
+
+#include <Modloader/app/structs/Animation.h>
 #include <Modloader/app/structs/AnimationClip.h>
-#include <Modloader/app/structs/WrapMode__Enum.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AnimationCullingType__Enum.h>
+#include <Modloader/app/structs/AnimationPlayMode__Enum.h>
 #include <Modloader/app/structs/AnimationState.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/PlayMode__Enum.h>
 #include <Modloader/app/structs/QueueMode__Enum.h>
-#include <Modloader/app/structs/AnimationPlayMode__Enum.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/AnimationCullingType__Enum.h>
-#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WrapMode__Enum.h>
 
 namespace app::classes::UnityEngine::Animation {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Animation * this_ptr))

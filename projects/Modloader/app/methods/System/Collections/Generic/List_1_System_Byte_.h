@@ -1,42 +1,32 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_System_Byte_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_System_Byte_.h>
-#include <Modloader/app/structs/IEnumerable_1_System_Byte_.h>
-#include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Byte_.h>
-#include <Modloader/app/structs/IComparer_1_System_Byte_.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Byte_.h>
+
+#include <Modloader/app/structs/List_1_System_Byte_.h>
 #include <Modloader/app/structs/Action_1_Byte__1.h>
-#include <Modloader/app/structs/IEnumerator_1_System_Byte_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/Comparison_1_Byte_.h>
+#include <Modloader/app/structs/IComparer_1_System_Byte_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Byte_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Byte_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Byte_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Byte_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Byte_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Byte_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_System_Byte_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x04741A68, List_1_System_Byte___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_System_Byte_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04707E20, List_1_System_Byte__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F51080, void, Add, (app::List_1_System_Byte_ * this_ptr, uint8_t item))
-    IL2CPP_REGISTER_METHODINFO(0x047172B8, List_1_System_Byte__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F50D70, void, set_Item, (app::List_1_System_Byte_ * this_ptr, int32_t index, uint8_t value))
-    IL2CPP_REGISTER_METHODINFO(0x0478E868, List_1_System_Byte__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F51B80, app::List_1_T_Enumerator_System_Byte_, GetEnumerator, (app::List_1_System_Byte_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04722130, List_1_System_Byte__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E9020, void, AddRange, (app::List_1_System_Byte_ * this_ptr, app::IEnumerable_1_System_Byte_* collection))
-    IL2CPP_REGISTER_METHODINFO(0x047918D8, List_1_System_Byte__AddRange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_2, (app::List_1_System_Byte_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04739DD0, List_1_System_Byte___ctor_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAEF0, app::Byte__Array*, ToArray, (app::List_1_System_Byte_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04758088, List_1_System_Byte__ToArray__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_System_Byte_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04739810, List_1_System_Byte__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F50D40, uint8_t, get_Item, (app::List_1_System_Byte_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0471C548, List_1_System_Byte__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F526E0, void, ctor_3, (app::List_1_System_Byte_ * this_ptr, app::IEnumerable_1_System_Byte_* collection))
-    IL2CPP_REGISTER_METHODINFO(0x04751E08, List_1_System_Byte___ctor_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_System_Byte_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025E8790, void, set_Capacity, (app::List_1_System_Byte_ * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IList_get_IsFixedSize, (app::List_1_System_Byte_ * this_ptr))

@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
-#include <Modloader/app/structs/SkeetoHitReaction.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
-#include <Modloader/app/structs/EntityEvent.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/DamageWeight__Enum.h>
-#include <Modloader/app/structs/DamageType__Enum.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SkeetoHitReaction.h>
 
 namespace app::classes::SkeetoHitReaction {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::EntityDamageEvent*, get_DamageEvent, (app::SkeetoHitReaction * this_ptr))
@@ -31,7 +32,6 @@ namespace app::classes::SkeetoHitReaction {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::SkeetoHitReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00757DC0, bool, PlayedAdditiveAnim, (app::SkeetoHitReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00757DD0, void, TimelineFinished, (app::SkeetoHitReaction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478FE58, SkeetoHitReaction_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00757DF0, bool, IsInterruptingDamageWeight, (app::SkeetoHitReaction * this_ptr, app::DamageWeight__Enum weight))
     IL2CPP_REGISTER_METHOD(0x00757E10, bool, IsDamageTypePreventingInterruption, (app::SkeetoHitReaction * this_ptr, app::DamageType__Enum type))
     IL2CPP_REGISTER_METHOD(0x00757F30, bool, IsKickbackAllowed, (app::SkeetoHitReaction * this_ptr, app::AbilityType__Enum ability))

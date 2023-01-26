@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Sharpen.h>
-#include <Modloader/app/structs/RenderTexture.h>
+
+#include <Modloader/app/structs/Sharpen.h>
 #include <Modloader/app/structs/PostProcessRenderContext.h>
+#include <Modloader/app/structs/RenderTexture.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::Colorful::Sharpen {

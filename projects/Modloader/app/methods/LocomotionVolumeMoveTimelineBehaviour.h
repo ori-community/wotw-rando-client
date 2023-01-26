@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LocomotionVolumeMoveTimelineBehaviour.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/LocomotionVolumeMoveTimelineBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LocomotionVolumeMoveTimelineBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SetAnimationSpeed, (app::LocomotionVolumeMoveTimelineBehaviour * this_ptr, float speed))
@@ -22,7 +23,6 @@ namespace app::classes::LocomotionVolumeMoveTimelineBehaviour {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, ShouldPauseLocomotion, (app::LocomotionVolumeMoveTimelineBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009EC140, void, PlayAnimation, (app::LocomotionVolumeMoveTimelineBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009EC3E0, void, OnMovementStoppedPlaying, (app::LocomotionVolumeMoveTimelineBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047074D0, LocomotionVolumeMoveTimelineBehaviour_OnMovementStoppedPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009EC410, void, OnEnterTask, (app::LocomotionVolumeMoveTimelineBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x009EC570, void, OnExitTask, (app::LocomotionVolumeMoveTimelineBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x009EC5E0, void, OnTraversalSpeedChange, (app::LocomotionVolumeMoveTimelineBehaviour * this_ptr))

@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/Rope_LinkData.h>
+#include <Modloader/app/structs/Rope_LinkData__Array.h>
+#include <Modloader/app/structs/Rope_LinkData__Boxed.h>
+#include <Modloader/app/structs/Rope_LinkData__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Rope_LinkData__Class.h>
-#include <Modloader/app/structs/Rope_LinkData.h>
-#include <Modloader/app/structs/Rope_LinkData__Boxed.h>
-#include <Modloader/app/structs/Rope_LinkData__Array.h>
 
 namespace app::classes::types {
     namespace Rope_LinkData {
-        namespace {
-            inline app::Rope_LinkData__Class* type_info_ref = nullptr;
+        inline app::Rope_LinkData__Class** type_info() {
+            static app::Rope_LinkData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Rope_LinkData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Rope_LinkData__Class** type_info = &type_info_ref;
         inline app::Rope_LinkData__Class* get_class() {
-            return il2cpp::get_nested_class<app::Rope_LinkData__Class>(type_info, "", "Rope", "LinkData");
+            return il2cpp::get_nested_class<app::Rope_LinkData__Class>(type_info(), "", "Rope", "LinkData");
         }
         inline app::Rope_LinkData* create() {
             return il2cpp::create_object<app::Rope_LinkData>(get_class());

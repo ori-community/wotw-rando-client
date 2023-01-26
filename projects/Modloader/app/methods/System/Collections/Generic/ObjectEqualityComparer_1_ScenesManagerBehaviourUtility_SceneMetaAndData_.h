@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_ScenesManagerBehaviourUtility_SceneMetaAndData_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_ScenesManagerBehaviourUtility_SceneMetaAndData_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ScenesManagerBehaviourUtility_SceneMetaAndData.h>
 #include <Modloader/app/structs/ScenesManagerBehaviourUtility_SceneMetaAndData__Array.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_ScenesManagerBehaviourUtility_SceneMetaAndData_ {
     IL2CPP_REGISTER_METHOD(0x01CD2410, bool, Equals_1, (app::ObjectEqualityComparer_1_ScenesManagerBehaviourUtility_SceneMetaAndData_ * this_ptr, app::ScenesManagerBehaviourUtility_SceneMetaAndData x, app::ScenesManagerBehaviourUtility_SceneMetaAndData y))

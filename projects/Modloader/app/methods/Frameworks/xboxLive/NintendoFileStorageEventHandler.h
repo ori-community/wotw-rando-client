@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/NintendoFileStorageEventHandler.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/NintendoFileStorageEventHandler.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Task.h>
 #include <Modloader/app/structs/Task_1_System_Byte_.h>

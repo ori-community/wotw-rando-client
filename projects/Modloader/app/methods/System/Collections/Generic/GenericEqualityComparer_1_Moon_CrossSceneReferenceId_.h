@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GenericEqualityComparer_1_Moon_CrossSceneReferenceId_.h>
+
+#include <Modloader/app/structs/GenericEqualityComparer_1_Moon_CrossSceneReferenceId_.h>
 #include <Modloader/app/structs/CrossSceneReferenceId.h>
 #include <Modloader/app/structs/CrossSceneReferenceId__Array.h>
 #include <Modloader/app/structs/Object.h>

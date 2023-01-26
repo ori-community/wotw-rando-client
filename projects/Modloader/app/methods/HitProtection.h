@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HitProtection.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/HitProtectionState__Enum.h>
-#include <Modloader/app/structs/DamageWeight__Enum.h>
+
+#include <Modloader/app/structs/HitProtection.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/HitProtectionState__Enum.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::HitProtection {
     IL2CPP_REGISTER_METHOD(0x00B571B0, void, SetVulnerability, (app::HitProtection * this_ptr, float time))

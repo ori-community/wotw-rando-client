@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SpellDescription__Class.h>
 #include <Modloader/app/structs/SpellDescription.h>
 #include <Modloader/app/structs/SpellDescription__Array.h>
+#include <Modloader/app/structs/SpellDescription__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SpellDescription {
-        namespace {
-            inline app::SpellDescription__Class* type_info_ref = nullptr;
+        inline app::SpellDescription__Class** type_info() {
+            static app::SpellDescription__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SpellDescription__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SpellDescription__Class** type_info = &type_info_ref;
         inline app::SpellDescription__Class* get_class() {
-            return il2cpp::get_class<app::SpellDescription__Class>(type_info, "", "SpellDescription");
+            return il2cpp::get_class<app::SpellDescription__Class>(type_info(), "", "SpellDescription");
         }
         inline app::SpellDescription* create() {
             return il2cpp::create_object<app::SpellDescription>(get_class());

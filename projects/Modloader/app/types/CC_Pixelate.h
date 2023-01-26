@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/CC_Pixelate.h>
+#include <Modloader/app/structs/CC_Pixelate__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CC_Pixelate__Class.h>
-#include <Modloader/app/structs/CC_Pixelate.h>
 
 namespace app::classes::types {
     namespace CC_Pixelate {
-        namespace {
-            inline app::CC_Pixelate__Class* type_info_ref = nullptr;
+        inline app::CC_Pixelate__Class** type_info() {
+            static app::CC_Pixelate__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CC_Pixelate__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CC_Pixelate__Class** type_info = &type_info_ref;
         inline app::CC_Pixelate__Class* get_class() {
-            return il2cpp::get_class<app::CC_Pixelate__Class>(type_info, "", "CC_Pixelate");
+            return il2cpp::get_class<app::CC_Pixelate__Class>(type_info(), "", "CC_Pixelate");
         }
         inline app::CC_Pixelate* create() {
             return il2cpp::create_object<app::CC_Pixelate>(get_class());

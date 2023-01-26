@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Comparison_1_StateValidator_.h>
+
+#include <Modloader/app/structs/Comparison_1_StateValidator_.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/StateValidator.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Comparison_1_StateValidator_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::Comparison_1_StateValidator_ * this_ptr, app::Object* object, void* method_1))

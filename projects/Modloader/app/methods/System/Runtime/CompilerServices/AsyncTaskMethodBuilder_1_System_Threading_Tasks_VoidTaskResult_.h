@@ -1,50 +1,47 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed.h>
-#include <Modloader/app/structs/IAsyncStateMachine.h>
-#include <Modloader/app/structs/Task_1_VoidTaskResult_.h>
-#include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/CryptoStream_HopToThreadPoolAwaitable.h>
-#include <Modloader/app/structs/CryptoStream_WriteAsyncInternal_d_37.h>
-#include <Modloader/app/structs/ConfiguredTaskAwaitable_ConfiguredTaskAwaiter.h>
+
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed.h>
 #include <Modloader/app/structs/AsyncProtocolRequest_ProcessOperation_d_24.h>
-#include <Modloader/app/structs/MobileAuthenticatedStream_InnerWrite_d_67.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult_.h>
 #include <Modloader/app/structs/ConfiguredTaskAwaitable_1_TResult_ConfiguredTaskAwaiter_System_Nullable_1_.h>
 #include <Modloader/app/structs/ConfiguredTaskAwaitable_1_TResult_ConfiguredTaskAwaiter_System_Object_.h>
+#include <Modloader/app/structs/ConfiguredTaskAwaitable_ConfiguredTaskAwaiter.h>
+#include <Modloader/app/structs/CryptoStream_HopToThreadPoolAwaitable.h>
+#include <Modloader/app/structs/CryptoStream_WriteAsyncInternal_d_37.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/IAsyncStateMachine.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream_InnerWrite_d_67.h>
 #include <Modloader/app/structs/MobileAuthenticatedStream_ProcessAuthentication_d_47.h>
-#include <Modloader/app/structs/TaskAwaiter.h>
-#include <Modloader/app/structs/SceneLoadingTest_Execute_d_19.h>
-#include <Modloader/app/structs/SceneLoadingTest_LoadAndUnloadScene_d_20.h>
-#include <Modloader/app/structs/OneDSEventsAPI_c_DisplayClass13_0_WaitWhile_b_0_d.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/OneDSEventPipeline_StartAsync_d_19.h>
 #include <Modloader/app/structs/OneDSEventPipeline_StartAsync_d_20.h>
-#include <Modloader/app/structs/XalSignInProvider_SignIn_b_31_0_d.h>
+#include <Modloader/app/structs/OneDSEventsAPI_WaitWhile_d_13.h>
+#include <Modloader/app/structs/OneDSEventsAPI_c_DisplayClass13_0_WaitWhile_b_0_d.h>
+#include <Modloader/app/structs/SceneLoadingTest_Execute_d_19.h>
+#include <Modloader/app/structs/SceneLoadingTest_ExtraDelay_d_21.h>
+#include <Modloader/app/structs/SceneLoadingTest_LoadAndUnloadScene_d_20.h>
+#include <Modloader/app/structs/TaskAwaiter.h>
+#include <Modloader/app/structs/TaskAwaiter_1_System_Object_.h>
+#include <Modloader/app/structs/Task_1_VoidTaskResult_.h>
 #include <Modloader/app/structs/UberPoolPerfTest_BenchmarkPrefabInfos_d_40.h>
 #include <Modloader/app/structs/UberPoolPerfTest_BenchmarkSinglePrefabInstantiation_d_37.h>
 #include <Modloader/app/structs/UberPoolPerfTest_BenchmarkSinglePrefabPrewarm_d_39.h>
 #include <Modloader/app/structs/UberPoolPerfTest_BenchmarkSinglePrefabProfiler_d_38.h>
 #include <Modloader/app/structs/UberPoolPerfTest_ForcePrefabPrewarmed_d_36.h>
-#include <Modloader/app/structs/UberPoolPerfTest_RunTest_d_31.h>
-#include <Modloader/app/structs/TaskAwaiter_1_System_Object_.h>
-#include <Modloader/app/structs/OneDSEventsAPI_WaitWhile_d_13.h>
-#include <Modloader/app/structs/XalSignInProvider_SignInSilently_b_30_0_d.h>
-#include <Modloader/app/structs/YieldAwaitable_YieldAwaiter.h>
-#include <Modloader/app/structs/SceneLoadingTest_ExtraDelay_d_21.h>
 #include <Modloader/app/structs/UberPoolPerfTest_LoadPoolPrewarmScene_d_42.h>
+#include <Modloader/app/structs/UberPoolPerfTest_RunTest_d_31.h>
 #include <Modloader/app/structs/UberPoolPerfTest_SetupAutomatedTest_d_32.h>
-#include <Modloader/app/structs/AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult_.h>
 #include <Modloader/app/structs/VoidTaskResult.h>
+#include <Modloader/app/structs/XalSignInProvider_SignInSilently_b_30_0_d.h>
+#include <Modloader/app/structs/XalSignInProvider_SignIn_b_31_0_d.h>
+#include <Modloader/app/structs/YieldAwaitable_YieldAwaiter.h>
 
 namespace app::classes::System::Runtime::CompilerServices::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult_ {
     IL2CPP_REGISTER_METHOD(0x0018ED60, void, SetStateMachine, (app::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed * this_ptr, app::IAsyncStateMachine* state_machine))
-    IL2CPP_REGISTER_METHODINFO(0x04736138, AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult__SetStateMachine__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001FF3E0, app::Task_1_VoidTaskResult_*, get_Task, (app::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471D430, AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult__get_Task__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001FF640, void, SetResult_1, (app::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed * this_ptr, app::Task_1_VoidTaskResult_* completed_task))
-    IL2CPP_REGISTER_METHODINFO(0x04781FB0, AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult__SetResult__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001FF6A0, void, SetException, (app::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed * this_ptr, app::Exception* exception))
-    IL2CPP_REGISTER_METHODINFO(0x04799BD0, AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult__SetException__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001A3DD0, void, AwaitOnCompleted_1, (app::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed * this_ptr, app::Object** awaiter, app::Object** state_machine))
     IL2CPP_REGISTER_METHOD(0x001A3DE0, void, AwaitOnCompleted_2, (app::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed * this_ptr, app::CryptoStream_HopToThreadPoolAwaitable* awaiter, app::CryptoStream_WriteAsyncInternal_d_37* state_machine))
     IL2CPP_REGISTER_METHOD(0x001A3DF0, void, AwaitUnsafeOnCompleted_1, (app::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed * this_ptr, app::Object** awaiter, app::Object** state_machine))
@@ -78,7 +75,6 @@ namespace app::classes::System::Runtime::CompilerServices::AsyncTaskMethodBuilde
     IL2CPP_REGISTER_METHOD(0x0012E5C0, void, AwaitUnsafeOnCompleted_29, (app::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed * this_ptr, app::YieldAwaitable_YieldAwaiter* awaiter, app::UberPoolPerfTest_SetupAutomatedTest_d_32* state_machine))
     IL2CPP_REGISTER_METHOD(0x00C537F0, app::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult_, Create, ())
     IL2CPP_REGISTER_METHOD(0x001FF630, void, SetResult_2, (app::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed * this_ptr, app::VoidTaskResult result))
-    IL2CPP_REGISTER_METHODINFO(0x047788C8, AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult__SetResult_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001FF6B0, app::Task_1_VoidTaskResult_*, GetTaskForResult, (app::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult___Boxed * this_ptr, app::VoidTaskResult result))
     IL2CPP_REGISTER_METHOD(0x0276C8E0, void, cctor, ())
 } // namespace app::classes::System::Runtime::CompilerServices::AsyncTaskMethodBuilder_1_System_Threading_Tasks_VoidTaskResult_

@@ -1,0 +1,38 @@
+#include <Modloader/app/il2cpp_internals.h>
+#ifdef IL2CPP_STRUCT_ConditionalWeakTable_2_TKey_TValue_CreateValueCallback_System_Net_HttpWebRequest_Mono_Http_NtlmSession___VTable_INITIALIZING
+#elif defined(IL2CPP_STRUCTS_INITIALIZING)
+#define IL2CPP_STRUCT_ConditionalWeakTable_2_TKey_TValue_CreateValueCallback_System_Net_HttpWebRequest_Mono_Http_NtlmSession___VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ConditionalWeakTable_2_TKey_TValue_CreateValueCallback_System_Net_HttpWebRequest_Mono_Http_NtlmSession___VTable_DEFINED)
+#define IL2CPP_STRUCT_ConditionalWeakTable_2_TKey_TValue_CreateValueCallback_System_Net_HttpWebRequest_Mono_Http_NtlmSession___VTable_DEFINED
+struct ConditionalWeakTable_2_TKey_TValue_CreateValueCallback_System_Net_HttpWebRequest_Mono_Http_NtlmSession___VTable {
+    VirtualInvokeData Equals;
+    VirtualInvokeData Finalize;
+    VirtualInvokeData GetHashCode;
+    VirtualInvokeData ToString;
+    VirtualInvokeData Clone;
+    VirtualInvokeData GetObjectData;
+    VirtualInvokeData Clone_1;
+    VirtualInvokeData GetMethodImpl;
+    VirtualInvokeData GetObjectData_1;
+    VirtualInvokeData GetInvocationList;
+    VirtualInvokeData CombineImpl;
+    VirtualInvokeData RemoveImpl;
+    VirtualInvokeData Invoke;
+    VirtualInvokeData BeginInvoke;
+    VirtualInvokeData EndInvoke;
+};
+#endif
+#if !defined(IL2CPP_STRUCT_ConditionalWeakTable_2_TKey_TValue_CreateValueCallback_System_Net_HttpWebRequest_Mono_Http_NtlmSession___VTable_FWDDECL)
+#define IL2CPP_STRUCT_ConditionalWeakTable_2_TKey_TValue_CreateValueCallback_System_Net_HttpWebRequest_Mono_Http_NtlmSession___VTable_FWDDECL
+#endif
+#undef IL2CPP_STRUCT_ConditionalWeakTable_2_TKey_TValue_CreateValueCallback_System_Net_HttpWebRequest_Mono_Http_NtlmSession___VTable_INITIALIZING
+#if !defined(IL2CPP_STRUCT_ConditionalWeakTable_2_TKey_TValue_CreateValueCallback_System_Net_HttpWebRequest_Mono_Http_NtlmSession___VTable_DEFINED) && !defined(IL2CPP_STRUCT_ConditionalWeakTable_2_TKey_TValue_CreateValueCallback_System_Net_HttpWebRequest_Mono_Http_NtlmSession___VTable_FWDDECL)
+#include <Modloader/app/structs/ConditionalWeakTable_2_TK_TVal_CreateValueCallba_Syst_N_HttpWebReque_Mo_Ht_NtlmSessi___VTa.h>
+#endif
+#else
+namespace app {
+#define IL2CPP_STRUCTS_INITIALIZING
+#include <Modloader/app/structs/ConditionalWeakTable_2_TK_TVal_CreateValueCallba_Syst_N_HttpWebReque_Mo_Ht_NtlmSessi___VTa.h>
+#undef IL2CPP_STRUCTS_INITIALIZING
+} // namespace app
+#endif

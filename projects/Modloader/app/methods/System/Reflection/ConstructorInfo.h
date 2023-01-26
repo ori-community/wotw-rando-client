@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ConstructorInfo.h>
+
+#include <Modloader/app/structs/ConstructorInfo.h>
 #include <Modloader/app/structs/MemberTypes__Enum.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Object__Array.h>

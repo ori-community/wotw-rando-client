@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/DeleteItemResult_t__Class.h>
 #include <Modloader/app/structs/DeleteItemResult_t.h>
 #include <Modloader/app/structs/DeleteItemResult_t__Boxed.h>
+#include <Modloader/app/structs/DeleteItemResult_t__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace DeleteItemResult_t {
-        namespace {
-            inline app::DeleteItemResult_t__Class* type_info_ref = nullptr;
+        inline app::DeleteItemResult_t__Class** type_info() {
+            static app::DeleteItemResult_t__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::DeleteItemResult_t__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::DeleteItemResult_t__Class** type_info = &type_info_ref;
         inline app::DeleteItemResult_t__Class* get_class() {
-            return il2cpp::get_class<app::DeleteItemResult_t__Class>(type_info, "Steamworks", "DeleteItemResult_t");
+            return il2cpp::get_class<app::DeleteItemResult_t__Class>(type_info(), "Steamworks", "DeleteItemResult_t");
         }
         inline app::DeleteItemResult_t* create() {
             return il2cpp::create_object<app::DeleteItemResult_t>(get_class());

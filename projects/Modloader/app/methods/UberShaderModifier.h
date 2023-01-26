@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RuntimeTypeHandle.h>
-#include <Modloader/app/structs/UberShaderModifier.h>
-#include <Modloader/app/structs/UberShaderBlock.h>
-#include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/MeshFilter.h>
-#include <Modloader/app/structs/Material.h>
-#include <Modloader/app/structs/UberShaderComponent.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/UberShaderTexture.h>
-#include <Modloader/app/structs/String__Array.h>
+
+#include <Modloader/app/structs/RuntimeTypeHandle.h>
 #include <Modloader/app/structs/IEnumerable_1_System_String_.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/MeshFilter.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/UberShaderBlock.h>
+#include <Modloader/app/structs/UberShaderComponent.h>
+#include <Modloader/app/structs/UberShaderModifier.h>
+#include <Modloader/app/structs/UberShaderTexture.h>
 
 namespace app::classes::UberShaderModifier {
     IL2CPP_REGISTER_METHOD(0x019130E0, app::RuntimeTypeHandle, get_TypeId, (app::UberShaderModifier * this_ptr))

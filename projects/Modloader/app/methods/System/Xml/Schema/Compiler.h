@@ -1,46 +1,47 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Compiler.h>
-#include <Modloader/app/structs/XmlNameTable.h>
-#include <Modloader/app/structs/ValidationEventHandler.h>
-#include <Modloader/app/structs/XmlSchema.h>
-#include <Modloader/app/structs/XmlSchemaCompilationSettings.h>
-#include <Modloader/app/structs/XmlSchemaSet.h>
+
+#include <Modloader/app/structs/Compiler.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/ContentValidator.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/ParticleContentValidator.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/SchemaDeclBase.h>
 #include <Modloader/app/structs/SchemaInfo.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlSchemaAll.h>
+#include <Modloader/app/structs/XmlSchemaAnnotated.h>
+#include <Modloader/app/structs/XmlSchemaAny.h>
+#include <Modloader/app/structs/XmlSchemaAnyAttribute.h>
 #include <Modloader/app/structs/XmlSchemaAttribute.h>
 #include <Modloader/app/structs/XmlSchemaAttributeGroup.h>
-#include <Modloader/app/structs/XmlSchemaComplexType.h>
-#include <Modloader/app/structs/XmlSchemaSimpleType.h>
-#include <Modloader/app/structs/XmlSchemaElement.h>
-#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
-#include <Modloader/app/structs/XmlSchemaGroup.h>
-#include <Modloader/app/structs/XmlSchemaParticle.h>
-#include <Modloader/app/structs/XmlSchemaSubstitutionGroup.h>
-#include <Modloader/app/structs/XmlSchemaSimpleType__Array.h>
-#include <Modloader/app/structs/ArrayList.h>
-#include <Modloader/app/structs/XmlSchemaSimpleContentExtension.h>
-#include <Modloader/app/structs/XmlSchemaSimpleContentRestriction.h>
+#include <Modloader/app/structs/XmlSchemaChoice.h>
+#include <Modloader/app/structs/XmlSchemaCompilationSettings.h>
 #include <Modloader/app/structs/XmlSchemaComplexContent.h>
 #include <Modloader/app/structs/XmlSchemaComplexContentExtension.h>
 #include <Modloader/app/structs/XmlSchemaComplexContentRestriction.h>
-#include <Modloader/app/structs/XmlSchemaGroupRef.h>
-#include <Modloader/app/structs/XmlSchemaAll.h>
-#include <Modloader/app/structs/XmlSchemaChoice.h>
-#include <Modloader/app/structs/XmlSchemaSequence.h>
-#include <Modloader/app/structs/XmlSchemaAny.h>
-#include <Modloader/app/structs/XmlSchemaGroupBase.h>
-#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/XmlSchemaComplexType.h>
 #include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
-#include <Modloader/app/structs/XmlSchemaAnyAttribute.h>
 #include <Modloader/app/structs/XmlSchemaDerivationMethod__Enum.h>
-#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/XmlSchemaElement.h>
+#include <Modloader/app/structs/XmlSchemaGroup.h>
+#include <Modloader/app/structs/XmlSchemaGroupBase.h>
+#include <Modloader/app/structs/XmlSchemaGroupRef.h>
 #include <Modloader/app/structs/XmlSchemaIdentityConstraint.h>
-#include <Modloader/app/structs/ContentValidator.h>
-#include <Modloader/app/structs/ParticleContentValidator.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlSchemaParticle.h>
+#include <Modloader/app/structs/XmlSchemaSequence.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
+#include <Modloader/app/structs/XmlSchemaSimpleContentExtension.h>
+#include <Modloader/app/structs/XmlSchemaSimpleContentRestriction.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType__Array.h>
+#include <Modloader/app/structs/XmlSchemaSubstitutionGroup.h>
 #include <Modloader/app/structs/XmlSchemaType.h>
-#include <Modloader/app/structs/XmlSchemaAnnotated.h>
-#include <Modloader/app/structs/SchemaDeclBase.h>
 
 namespace app::classes::System::Xml::Schema::Compiler {
     IL2CPP_REGISTER_METHOD(0x019AA4E0, void, ctor, (app::Compiler * this_ptr, app::XmlNameTable* name_table, app::ValidationEventHandler* event_handler, app::XmlSchema* schema_for_schema, app::XmlSchemaCompilationSettings* compilation_settings))
@@ -64,9 +65,7 @@ namespace app::classes::System::Xml::Schema::Compiler {
     IL2CPP_REGISTER_METHOD(0x019B0A80, void, RecursivelyCheckRedefinedAttributeGroups, (app::Compiler * this_ptr, app::XmlSchemaAttributeGroup* attribute_group, app::XmlSchemaAttributeGroup* base_attribute_group))
     IL2CPP_REGISTER_METHOD(0x019B0B10, void, CompileGroup, (app::Compiler * this_ptr, app::XmlSchemaGroup* group))
     IL2CPP_REGISTER_METHOD(0x019B0C20, void, CompileSimpleType, (app::Compiler * this_ptr, app::XmlSchemaSimpleType* simple_type))
-    IL2CPP_REGISTER_METHODINFO(0x0477A188, Compiler_CompileSimpleType__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019B1470, app::XmlSchemaSimpleType__Array*, CompileBaseMemberTypes, (app::Compiler * this_ptr, app::XmlSchemaSimpleType* simple_type))
-    IL2CPP_REGISTER_METHODINFO(0x04710518, Compiler_CompileBaseMemberTypes__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019B1930, void, CheckUnionType, (app::Compiler * this_ptr, app::XmlSchemaSimpleType* union_member, app::ArrayList* member_type_definitions, app::XmlSchemaSimpleType* parent_type))
     IL2CPP_REGISTER_METHOD(0x019B1AB0, void, CompileComplexType, (app::Compiler * this_ptr, app::XmlSchemaComplexType* complex_type))
     IL2CPP_REGISTER_METHOD(0x019B22A0, void, CompileSimpleContentExtension, (app::Compiler * this_ptr, app::XmlSchemaComplexType* complex_type, app::XmlSchemaSimpleContentExtension* simple_extension))
@@ -107,12 +106,9 @@ namespace app::classes::System::Xml::Schema::Compiler {
     IL2CPP_REGISTER_METHOD(0x019BC560, app::XmlSchemaAnyAttribute*, CompileAnyAttributeUnion, (app::Compiler * this_ptr, app::XmlSchemaAnyAttribute* a, app::XmlSchemaAnyAttribute* b))
     IL2CPP_REGISTER_METHOD(0x019BC650, app::XmlSchemaAnyAttribute*, CompileAnyAttributeIntersection, (app::Compiler * this_ptr, app::XmlSchemaAnyAttribute* a, app::XmlSchemaAnyAttribute* b))
     IL2CPP_REGISTER_METHOD(0x019BC740, void, CompileAttribute, (app::Compiler * this_ptr, app::XmlSchemaAttribute* xa))
-    IL2CPP_REGISTER_METHODINFO(0x0476E850, Compiler_CompileAttribute__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019BCF80, void, SetDefaultFixed, (app::Compiler * this_ptr, app::XmlSchemaAttribute* xa, app::SchemaAttDef* decl))
     IL2CPP_REGISTER_METHOD(0x019BD220, void, CompileIdentityConstraint, (app::Compiler * this_ptr, app::XmlSchemaIdentityConstraint* xi))
-    IL2CPP_REGISTER_METHODINFO(0x0477B4E0, Compiler_CompileIdentityConstraint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019BD900, void, CompileElement, (app::Compiler * this_ptr, app::XmlSchemaElement* xe))
-    IL2CPP_REGISTER_METHODINFO(0x047295B0, Compiler_CompileElement__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019BE5D0, app::ContentValidator*, CompileComplexContent, (app::Compiler * this_ptr, app::XmlSchemaComplexType* complex_type))
     IL2CPP_REGISTER_METHOD(0x019BEFD0, bool, BuildParticleContentModel, (app::Compiler * this_ptr, app::ParticleContentValidator* content_validator, app::XmlSchemaParticle* particle))
     IL2CPP_REGISTER_METHOD(0x019BF760, void, CompileParticleElements_1, (app::Compiler * this_ptr, app::XmlSchemaComplexType* complex_type, app::XmlSchemaParticle* particle))

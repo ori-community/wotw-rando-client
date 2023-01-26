@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CultureData.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/CultureData.h>
 #include <Modloader/app/structs/CalendarData.h>
-#include <Modloader/app/structs/String__Array.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/NumberFormatInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::Globalization::CultureData {
     IL2CPP_REGISTER_METHOD(0x002FBB70, void, ctor, (app::CultureData * this_ptr, app::String* name))

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BreakablePhysicalSetup.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+
+#include <Modloader/app/structs/BreakablePhysicalSetup.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::BreakablePhysicalSetup {
@@ -17,9 +18,7 @@ namespace app::classes::BreakablePhysicalSetup {
     IL2CPP_REGISTER_METHOD(0x00D4D0C0, void, OnUpdate, (app::BreakablePhysicalSetup * this_ptr, float delta))
     IL2CPP_REGISTER_METHOD(0x00D4D400, void, StartBreaking, (app::BreakablePhysicalSetup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D4D530, void, BreakJoints, (app::BreakablePhysicalSetup * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471ED90, BreakablePhysicalSetup_BreakJoints__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D4D840, void, DisableManager, (app::BreakablePhysicalSetup * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04778090, BreakablePhysicalSetup_DisableManager__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D4D860, void, StopTransitions, (app::BreakablePhysicalSetup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ApplyOnEditor, (app::BreakablePhysicalSetup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D4DA20, void, Apply, (app::BreakablePhysicalSetup * this_ptr, app::UberStateApplyContext__Enum context))

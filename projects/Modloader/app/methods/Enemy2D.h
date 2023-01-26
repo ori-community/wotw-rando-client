@@ -1,21 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterSpriteMirror.h>
+
+#include <Modloader/app/structs/CharacterSpriteMirror.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/CharacterAnimationSystem.h>
 #include <Modloader/app/structs/Enemy2D.h>
-#include <Modloader/app/structs/SpriteAnimatorWithTransitions.h>
 #include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/SoundHost.h>
-#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SpriteAnimatorWithTransitions.h>
 #include <Modloader/app/structs/TextureAnimationWithTransitions.h>
-#include <Modloader/app/structs/CharacterAnimationSystem.h>
 
 namespace app::classes::Enemy2D {
     IL2CPP_REGISTER_METHOD(0x00B39300, app::CharacterSpriteMirror*, get_SpriteMirror, (app::Enemy2D * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BFE4E0, app::SpriteAnimatorWithTransitions*, get_SpriteAnimator, (app::Enemy2D * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BFE500, app::MoonAnimator*, get_Animator, (app::Enemy2D * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478D520, Enemy2D_get_Animator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BFE550, app::SoundHost*, get_SoundHost, (app::Enemy2D * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04735D70, Enemy2D_get_SoundHost__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BFE5D0, bool, get_FaceLeft, (app::Enemy2D * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BFE610, void, set_FaceLeft, (app::Enemy2D * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00BFE660, int32_t, get_FaceLeftSign, (app::Enemy2D * this_ptr))

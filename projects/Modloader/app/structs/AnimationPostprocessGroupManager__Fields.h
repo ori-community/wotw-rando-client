@@ -13,7 +13,7 @@ struct __declspec(align(8)) AnimationPostprocessGroupManager__Fields {
 #endif
 #if !defined(IL2CPP_STRUCT_AnimationPostprocessGroupManager__Fields_FWDDECL)
 #define IL2CPP_STRUCT_AnimationPostprocessGroupManager__Fields_FWDDECL
-#include <Modloader/app/structs/Dictionary_2_Moon_AnimationPostprocessGroup_Moon_AnimationPostprocessGroupManager_GroupState_.h>
+#include <Modloader/app/structs/Dictionary_2_Moon_AnimationPostprocessGroup_Moo_AnimationPostprocessGroupManage_GroupStat_.h>
 #include <Modloader/app/structs/List_1_Moon_AnimationPostprocessGroupManager_GroupState_.h>
 #endif
 #undef IL2CPP_STRUCT_AnimationPostprocessGroupManager__Fields_INITIALIZING

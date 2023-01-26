@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WriteStreamClosedEventArgs.h>
+
+#include <Modloader/app/structs/WriteStreamClosedEventArgs.h>
 #include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::System::Net::WriteStreamClosedEventArgs {

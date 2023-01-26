@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StressTestPlaylist.h>
+
+#include <Modloader/app/structs/StressTestPlaylist.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/StressTester.h>
 #include <Modloader/app/structs/String.h>
@@ -30,9 +31,6 @@ namespace app::classes::StressTestPlaylist {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldSetMoonReady, (app::StressTestPlaylist * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0065F260, void, ctor, (app::StressTestPlaylist * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0065F280, void, _UseNextConfig_b__17_0, (app::StressTestPlaylist * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478D450, StressTestPlaylist__UseNextConfig_b__17_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0065F060, void, _UseNextConfig_b__17_1, (app::StressTestPlaylist * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477E4E8, StressTestPlaylist__UseNextConfig_b__17_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0065F060, void, _ResumeCapture_b__20_0, (app::StressTestPlaylist * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04799BA0, StressTestPlaylist__ResumeCapture_b__20_0__MethodInfo)
 } // namespace app::classes::StressTestPlaylist

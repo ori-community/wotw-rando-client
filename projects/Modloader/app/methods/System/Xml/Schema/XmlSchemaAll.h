@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
 #include <Modloader/app/structs/XmlSchemaAll.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaAll {

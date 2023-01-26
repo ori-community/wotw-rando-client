@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntitySpawnSetup.h>
+
+#include <Modloader/app/structs/EntitySpawnSetup.h>
 #include <Modloader/app/structs/EntitySpawnTask.h>
 #include <Modloader/app/structs/IContext.h>
 
@@ -16,5 +17,4 @@ namespace app::classes::EntitySpawnTask {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SetPlatformMovementColliderEnabledState, (app::EntitySpawnTask * this_ptr, bool enable))
     IL2CPP_REGISTER_METHOD(0x00CA23D0, void, ctor, (app::EntitySpawnTask * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CA2530, void, _OnInitializeTask_b__10_0, (app::EntitySpawnTask * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04792EB8, EntitySpawnTask__OnInitializeTask_b__10_0__MethodInfo)
 } // namespace app::classes::EntitySpawnTask

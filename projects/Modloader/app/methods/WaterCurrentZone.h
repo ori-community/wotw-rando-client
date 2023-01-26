@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
-#include <Modloader/app/structs/WaterCurrentZone.h>
+
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/WaterCurrentZone.h>
 
 namespace app::classes::WaterCurrentZone {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::UpdateType__Enum, get_UpdateType, (app::WaterCurrentZone * this_ptr))

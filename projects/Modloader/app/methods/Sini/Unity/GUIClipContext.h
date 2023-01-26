@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUIClipContext__Boxed.h>
+
+#include <Modloader/app/structs/GUIClipContext__Boxed.h>
+#include <Modloader/app/structs/GUIClipContext.h>
 #include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/GUIClipContext.h>
 
 namespace app::classes::Sini::Unity::GUIClipContext {
     IL2CPP_REGISTER_METHOD(0x00246C90, void, ctor, (app::GUIClipContext__Boxed * this_ptr, app::Rect rect, app::Vector2 scroll))

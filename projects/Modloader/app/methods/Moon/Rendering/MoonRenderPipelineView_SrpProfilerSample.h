@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonRenderPipelineView_SrpProfilerSample__Boxed.h>
+
+#include <Modloader/app/structs/MoonRenderPipelineView_SrpProfilerSample__Boxed.h>
 #include <Modloader/app/structs/MoonRenderPipelineView_SrpProfilerSample.h>
 #include <Modloader/app/structs/SrpSampler.h>
 

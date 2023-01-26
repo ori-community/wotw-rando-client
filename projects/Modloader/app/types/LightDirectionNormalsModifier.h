@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/LightDirectionNormalsModifier.h>
+#include <Modloader/app/structs/LightDirectionNormalsModifier__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LightDirectionNormalsModifier__Class.h>
-#include <Modloader/app/structs/LightDirectionNormalsModifier.h>
 
 namespace app::classes::types {
     namespace LightDirectionNormalsModifier {
-        namespace {
-            inline app::LightDirectionNormalsModifier__Class* type_info_ref = nullptr;
+        inline app::LightDirectionNormalsModifier__Class** type_info() {
+            static app::LightDirectionNormalsModifier__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LightDirectionNormalsModifier__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LightDirectionNormalsModifier__Class** type_info = &type_info_ref;
         inline app::LightDirectionNormalsModifier__Class* get_class() {
-            return il2cpp::get_class<app::LightDirectionNormalsModifier__Class>(type_info, "", "LightDirectionNormalsModifier");
+            return il2cpp::get_class<app::LightDirectionNormalsModifier__Class>(type_info(), "", "LightDirectionNormalsModifier");
         }
         inline app::LightDirectionNormalsModifier* create() {
             return il2cpp::create_object<app::LightDirectionNormalsModifier>(get_class());

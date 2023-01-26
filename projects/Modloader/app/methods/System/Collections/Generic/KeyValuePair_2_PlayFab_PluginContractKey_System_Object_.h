@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_PlayFab_PluginContractKey_System_Object___Boxed.h>
-#include <Modloader/app/structs/PluginContractKey.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_PlayFab_PluginContractKey_System_Object___Boxed.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PluginContractKey.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_PlayFab_PluginContractKey_System_Object_ {

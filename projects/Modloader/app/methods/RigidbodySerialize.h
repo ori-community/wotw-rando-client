@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RigidbodySerialize.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/RigidbodySerialize.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::RigidbodySerialize {
     IL2CPP_REGISTER_METHOD(0x01351520, void, OnPoolSpawned, (app::RigidbodySerialize * this_ptr))

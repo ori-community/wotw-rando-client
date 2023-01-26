@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
+
+#include <Modloader/app/structs/UpdateType__Enum.h>
 #include <Modloader/app/structs/GameplayUISystem.h>
 
 namespace app::classes::Moon::Timeline::Systems::GameplayUISystem {

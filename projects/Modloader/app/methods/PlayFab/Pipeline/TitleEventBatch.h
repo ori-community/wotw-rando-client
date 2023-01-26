@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/TitleEventBatch.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/List_1_PlayFab_IPlayFabEmitEventRequest_.h>
+#include <Modloader/app/structs/TitleEventBatch.h>
 
 namespace app::classes::PlayFab::Pipeline::TitleEventBatch {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_TitleId, (app::TitleEventBatch * this_ptr))

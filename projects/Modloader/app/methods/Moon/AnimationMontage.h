@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationMontage.h>
-#include <Modloader/app/structs/List_1_Moon_AnimationMontage_Entry_.h>
-#include <Modloader/app/structs/IAnimationMontageEventHandler.h>
-#include <Modloader/app/structs/MoonAnimator.h>
+
+#include <Modloader/app/structs/AnimationMontage.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/Dictionary_2_System_String_Moon_MoonAnimator_.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IMontageEventProvider.h>
-#include <Modloader/app/structs/BaseAnimator.h>
 #include <Modloader/app/structs/Action_1_Object_.h>
+#include <Modloader/app/structs/BaseAnimator.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_Moon_MoonAnimator_.h>
+#include <Modloader/app/structs/IAnimationMontageEventHandler.h>
+#include <Modloader/app/structs/IMontageEventProvider.h>
+#include <Modloader/app/structs/List_1_Moon_AnimationMontage_Entry_.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::AnimationMontage {
     IL2CPP_REGISTER_METHOD(0x01338060, bool, get_IsMontagePlaying, (app::AnimationMontage * this_ptr))
@@ -31,11 +32,8 @@ namespace app::classes::Moon::AnimationMontage {
     IL2CPP_REGISTER_METHOD(0x0133A080, void, OnFixedUpdate, (app::AnimationMontage * this_ptr, float delta_time))
     IL2CPP_REGISTER_METHOD(0x0133A300, app::IMontageEventProvider*, ResolveEventProvider, (app::AnimationMontage * this_ptr, app::String* value_name))
     IL2CPP_REGISTER_METHOD(0x0133A550, void, OnAnimationStartedPlaying, (app::AnimationMontage * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478A1B8, AnimationMontage_OnAnimationStartedPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0133A560, void, OnAnimationStoppedPlaying, (app::AnimationMontage * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04792688, AnimationMontage_OnAnimationStoppedPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0133A570, bool, ShouldAnimationContinuePlaying, (app::AnimationMontage * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472A968, AnimationMontage_ShouldAnimationContinuePlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0133A580, void, SampleEntries, (app::AnimationMontage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0133ADD0, app::MoonAnimator*, GetSubMontageAnimator, (app::AnimationMontage * this_ptr, app::String* name))
     IL2CPP_REGISTER_METHOD(0x0133AEC0, void, RemoveNullEntries, (app::AnimationMontage * this_ptr))

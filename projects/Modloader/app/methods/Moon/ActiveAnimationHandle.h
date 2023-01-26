@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActiveAnimationHandle__Boxed.h>
+
+#include <Modloader/app/structs/ActiveAnimationHandle__Boxed.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 #include <Modloader/app/structs/IActiveAnimation.h>
 #include <Modloader/app/structs/IAnimation.h>
-#include <Modloader/app/structs/Func_1_Boolean_.h>
-#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Nullable_1_Single_.h>
-#include <Modloader/app/structs/ActiveAnimationHandle.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::ActiveAnimationHandle {

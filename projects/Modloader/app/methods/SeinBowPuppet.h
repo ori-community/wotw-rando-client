@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinBowPuppet.h>
-#include <Modloader/app/structs/MoonTimeline__Array.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/MoonAnimation.h>
-#include <Modloader/app/structs/MoonFloat.h>
+
+#include <Modloader/app/structs/SeinBowPuppet.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/MoonFloat.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/MoonTimeline__Array.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::SeinBowPuppet {
     IL2CPP_REGISTER_METHOD(0x00DA2340, int32_t, get_Id, (app::SeinBowPuppet * this_ptr))

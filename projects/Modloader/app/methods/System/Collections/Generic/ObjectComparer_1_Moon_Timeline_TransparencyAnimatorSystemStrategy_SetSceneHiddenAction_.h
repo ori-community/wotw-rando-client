@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_.h>
-#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_SetSceneHiddenAction.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_SetSceneHiddenAction.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_ {
     IL2CPP_REGISTER_METHOD(0x01CC6180, int32_t, Compare, (app::ObjectComparer_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_ * this_ptr, app::TransparencyAnimatorSystemStrategy_SetSceneHiddenAction x, app::TransparencyAnimatorSystemStrategy_SetSceneHiddenAction y))

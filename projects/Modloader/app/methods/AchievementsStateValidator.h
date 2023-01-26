@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AchievementsStateValidator.h>
+
+#include <Modloader/app/structs/AchievementsStateValidator.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/UberStateApplyContext__Enum.h>
@@ -13,7 +14,6 @@ namespace app::classes::AchievementsStateValidator {
     IL2CPP_REGISTER_METHOD(0x004BC8F0, void, OnDisable, (app::AchievementsStateValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004BCAC0, void, Apply, (app::AchievementsStateValidator * this_ptr, app::UberStateApplyContext__Enum context))
     IL2CPP_REGISTER_METHOD(0x004BCAC0, void, OnCreateCheckpoint, (app::AchievementsStateValidator * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04716BB0, AchievementsStateValidator_OnCreateCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004BCAD0, void, ValidateStates, (app::AchievementsStateValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004BCF90, void, ValidateStatesOnGameLoad, (app::AchievementsStateValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004BD210, void, ctor, (app::AchievementsStateValidator * this_ptr))

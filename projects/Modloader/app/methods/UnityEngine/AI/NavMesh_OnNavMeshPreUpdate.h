@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NavMesh_OnNavMeshPreUpdate.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/IAsyncResult.h>
+
+#include <Modloader/app/structs/NavMesh_OnNavMeshPreUpdate.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::AI::NavMesh_OnNavMeshPreUpdate {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::NavMesh_OnNavMeshPreUpdate * this_ptr, app::Object* object, void* method_1))

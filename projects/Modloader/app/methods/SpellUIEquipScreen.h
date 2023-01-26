@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpellUIEquipScreen.h>
+
+#include <Modloader/app/structs/SpellUIEquipScreen.h>
+#include <Modloader/app/structs/Input_Command__Enum.h>
 #include <Modloader/app/structs/MessageProvider.h>
-#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
-#include <Modloader/app/structs/SpiritShardUIItem.h>
-#include <Modloader/app/structs/SpellUIConfirmationOverlay_Selection__Enum.h>
-#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 #include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
+#include <Modloader/app/structs/SpellUIConfirmationOverlay_Selection__Enum.h>
+#include <Modloader/app/structs/SpellUIEquipScreen_Category__Enum.h>
 #include <Modloader/app/structs/SpellUIEquipScreen_State__Enum.h>
 #include <Modloader/app/structs/SpellUIItem.h>
+#include <Modloader/app/structs/SpiritShardUIItem.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/SpellUIEquipScreen_Category__Enum.h>
-#include <Modloader/app/structs/Input_Command__Enum.h>
 
 namespace app::classes::SpellUIEquipScreen {
     IL2CPP_REGISTER_METHOD(0x009468B0, void, HideExistingHint, (app::SpellUIEquipScreen * this_ptr))
@@ -21,27 +22,16 @@ namespace app::classes::SpellUIEquipScreen {
     IL2CPP_REGISTER_METHOD(0x00946CB0, void, Init, (app::SpellUIEquipScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009482A0, void, OnDestroy, (app::SpellUIEquipScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00948890, void, OnGlobalShardsUpdated, (app::SpellUIEquipScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472AB10, SpellUIEquipScreen_OnGlobalShardsUpdated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009489A0, void, OnBindingsUpdated, (app::SpellUIEquipScreen * this_ptr, app::SpellInventory_Binding__Enum binding))
-    IL2CPP_REGISTER_METHODINFO(0x0470BD70, SpellUIEquipScreen_OnBindingsUpdated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00948AA0, void, OnNewItemHighlighted, (app::SpellUIEquipScreen * this_ptr, bool first_after_populating))
-    IL2CPP_REGISTER_METHODINFO(0x0472A018, SpellUIEquipScreen_OnNewItemHighlighted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00948AC0, void, OnItemActivatedCallback, (app::SpellUIEquipScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477D650, SpellUIEquipScreen_OnItemActivatedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00948E40, void, OnSocketActivatedCallback, (app::SpellUIEquipScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471A990, SpellUIEquipScreen_OnSocketActivatedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00948FD0, void, OnSocketAddedCallback, (app::SpellUIEquipScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472CC88, SpellUIEquipScreen_OnSocketAddedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009492C0, void, OnShardOverlayClosing, (app::SpellUIEquipScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478EDD8, SpellUIEquipScreen_OnShardOverlayClosing__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00949300, void, OnShardActivatedCallback, (app::SpellUIEquipScreen * this_ptr, app::SpiritShardUIItem* shard))
-    IL2CPP_REGISTER_METHODINFO(0x0471A210, SpellUIEquipScreen_OnShardActivatedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00949460, void, OnConfirmationSelected, (app::SpellUIEquipScreen * this_ptr, app::SpellUIConfirmationOverlay_Selection__Enum selection))
-    IL2CPP_REGISTER_METHODINFO(0x0473A288, SpellUIEquipScreen_OnConfirmationSelected__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009496F0, void, OnShardInventoryUpdatedCallback, (app::SpellUIEquipScreen * this_ptr, app::PlayerUberStateShards_Shard* item))
-    IL2CPP_REGISTER_METHODINFO(0x0474D970, SpellUIEquipScreen_OnShardInventoryUpdatedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00949710, void, OnSpellInventoryUpdatedCallback, (app::SpellUIEquipScreen * this_ptr, app::PlayerUberStateInventory_InventoryItem* item))
-    IL2CPP_REGISTER_METHODINFO(0x0475EAE0, SpellUIEquipScreen_OnSpellInventoryUpdatedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00949730, void, DoSocketShard, (app::SpellUIEquipScreen * this_ptr, app::SpiritShardUIItem* item))
     IL2CPP_REGISTER_METHOD(0x009497F0, void, ChangeState, (app::SpellUIEquipScreen * this_ptr, app::SpellUIEquipScreen_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x00949870, app::SpellUIItem*, get_SelectedSpellUIItem, (app::SpellUIEquipScreen * this_ptr))

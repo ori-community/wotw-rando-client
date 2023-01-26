@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TypeConverter.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/TypeConverter.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/IDictionary.h>
 #include <Modloader/app/structs/ITypeDescriptorContext.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/CultureInfo.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IDictionary.h>
-#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/PropertyDescriptorCollection.h>
-#include <Modloader/app/structs/Attribute__Array.h>
-#include <Modloader/app/structs/ICollection.h>
-#include <Modloader/app/structs/TypeConverter_StandardValuesCollection.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeConverter_StandardValuesCollection.h>
 
 namespace app::classes::System::ComponentModel::TypeConverter {
     IL2CPP_REGISTER_METHOD(0x02944320, bool, get_UseCompatibleTypeConversion, ())
@@ -22,7 +23,6 @@ namespace app::classes::System::ComponentModel::TypeConverter {
     IL2CPP_REGISTER_METHOD(0x029444A0, bool, CanConvertTo_2, (app::TypeConverter * this_ptr, app::ITypeDescriptorContext* context, app::Type* destination_type))
     IL2CPP_REGISTER_METHOD(0x02944550, app::Object*, ConvertFrom_1, (app::TypeConverter * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x02944630, app::Object*, ConvertFrom_2, (app::TypeConverter * this_ptr, app::ITypeDescriptorContext* context, app::CultureInfo* culture, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x04712938, TypeConverter_ConvertFrom_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x029446F0, app::Object*, ConvertFromInvariantString_1, (app::TypeConverter * this_ptr, app::String* text))
     IL2CPP_REGISTER_METHOD(0x029447C0, app::Object*, ConvertFromInvariantString_2, (app::TypeConverter * this_ptr, app::ITypeDescriptorContext* context, app::String* text))
     IL2CPP_REGISTER_METHOD(0x02944890, app::Object*, ConvertFromString_1, (app::TypeConverter * this_ptr, app::String* text))
@@ -30,7 +30,6 @@ namespace app::classes::System::ComponentModel::TypeConverter {
     IL2CPP_REGISTER_METHOD(0x029449B0, app::Object*, ConvertFromString_3, (app::TypeConverter * this_ptr, app::ITypeDescriptorContext* context, app::CultureInfo* culture, app::String* text))
     IL2CPP_REGISTER_METHOD(0x029449D0, app::Object*, ConvertTo_1, (app::TypeConverter * this_ptr, app::Object* value, app::Type* destination_type))
     IL2CPP_REGISTER_METHOD(0x02944A00, app::Object*, ConvertTo_2, (app::TypeConverter * this_ptr, app::ITypeDescriptorContext* context, app::CultureInfo* culture, app::Object* value, app::Type* destination_type))
-    IL2CPP_REGISTER_METHODINFO(0x04775630, TypeConverter_ConvertTo_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02944BE0, app::String*, ConvertToInvariantString_1, (app::TypeConverter * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x02944CA0, app::String*, ConvertToInvariantString_2, (app::TypeConverter * this_ptr, app::ITypeDescriptorContext* context, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x02944D70, app::String*, ConvertToString_1, (app::TypeConverter * this_ptr, app::Object* value))
@@ -39,9 +38,7 @@ namespace app::classes::System::ComponentModel::TypeConverter {
     IL2CPP_REGISTER_METHOD(0x02945150, app::Object*, CreateInstance_1, (app::TypeConverter * this_ptr, app::IDictionary* property_values))
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::Object*, CreateInstance_2, (app::TypeConverter * this_ptr, app::ITypeDescriptorContext* context, app::IDictionary* property_values))
     IL2CPP_REGISTER_METHOD(0x02945170, app::Exception*, GetConvertFromException, (app::TypeConverter * this_ptr, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x04714468, TypeConverter_GetConvertFromException__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x029452F0, app::Exception*, GetConvertToException, (app::TypeConverter * this_ptr, app::Object* value, app::Type* destination_type))
-    IL2CPP_REGISTER_METHODINFO(0x04751A80, TypeConverter_GetConvertToException__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004C5D30, bool, GetCreateInstanceSupported_1, (app::TypeConverter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, GetCreateInstanceSupported_2, (app::TypeConverter * this_ptr, app::ITypeDescriptorContext* context))
     IL2CPP_REGISTER_METHOD(0x029454B0, app::PropertyDescriptorCollection*, GetProperties_1, (app::TypeConverter * this_ptr, app::Object* value))

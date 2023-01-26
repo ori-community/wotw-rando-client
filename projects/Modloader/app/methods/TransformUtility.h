@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::TransformUtility {
     IL2CPP_REGISTER_METHOD(0x00B09D70, void, SetParentMaintainingLocalTransform, (app::Transform * transform, app::Transform* parent))

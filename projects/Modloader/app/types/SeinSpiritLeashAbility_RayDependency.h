@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/SeinSpiritLeashAbility_RayDependency.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility_RayDependency__Array.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility_RayDependency__Boxed.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility_RayDependency__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SeinSpiritLeashAbility_RayDependency__Class.h>
-#include <Modloader/app/structs/SeinSpiritLeashAbility_RayDependency.h>
-#include <Modloader/app/structs/SeinSpiritLeashAbility_RayDependency__Boxed.h>
-#include <Modloader/app/structs/SeinSpiritLeashAbility_RayDependency__Array.h>
 
 namespace app::classes::types {
     namespace SeinSpiritLeashAbility_RayDependency {
-        namespace {
-            inline app::SeinSpiritLeashAbility_RayDependency__Class* type_info_ref = nullptr;
+        inline app::SeinSpiritLeashAbility_RayDependency__Class** type_info() {
+            static app::SeinSpiritLeashAbility_RayDependency__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SeinSpiritLeashAbility_RayDependency__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SeinSpiritLeashAbility_RayDependency__Class** type_info = &type_info_ref;
         inline app::SeinSpiritLeashAbility_RayDependency__Class* get_class() {
-            return il2cpp::get_nested_class<app::SeinSpiritLeashAbility_RayDependency__Class>(type_info, "", "SeinSpiritLeashAbility", "RayDependency");
+            return il2cpp::get_nested_class<app::SeinSpiritLeashAbility_RayDependency__Class>(type_info(), "", "SeinSpiritLeashAbility", "RayDependency");
         }
         inline app::SeinSpiritLeashAbility_RayDependency* create() {
             return il2cpp::create_object<app::SeinSpiritLeashAbility_RayDependency>(get_class());

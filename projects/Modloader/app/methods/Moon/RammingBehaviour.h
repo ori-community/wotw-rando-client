@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RammingBehaviour.h>
+
+#include <Modloader/app/structs/RammingBehaviour.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::RammingBehaviour {
     IL2CPP_REGISTER_METHOD(0x00805AA0, int32_t, get_GroundMask, ())
@@ -26,15 +27,11 @@ namespace app::classes::Moon::RammingBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C4E6C0, bool, HasHitWall, (app::RammingBehaviour * this_ptr, app::Vector3* wall_normal))
     IL2CPP_REGISTER_METHOD(0x00C4EC00, void, OnHitByHeavyAttack, (app::RammingBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C4EC60, void, SpawnSlamChargeEffect, (app::RammingBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04796BA0, RammingBehaviour_SpawnSlamChargeEffect__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C4EDA0, void, SpawnHitWallEffect, (app::RammingBehaviour * this_ptr, app::Vector3 wall_normal, app::Vector3 position, app::SurfaceMaterialType__Enum surface_type))
     IL2CPP_REGISTER_METHOD(0x00C4F470, bool, IsPointInsideAllowedArea, (app::RammingBehaviour * this_ptr, app::Vector3 point))
     IL2CPP_REGISTER_METHOD(0x00C4F510, void, OnRammingTurnStart, (app::RammingBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471D788, RammingBehaviour_OnRammingTurnStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C4F520, void, OnRammingTurnEnd, (app::RammingBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047774B8, RammingBehaviour_OnRammingTurnEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C4F570, void, OnRammingTurnFlipEvent, (app::RammingBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475AF68, RammingBehaviour_OnRammingTurnFlipEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C4E080, void, Stop, (app::RammingBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C4F5C0, void, ctor, (app::RammingBehaviour * this_ptr))
 } // namespace app::classes::Moon::RammingBehaviour

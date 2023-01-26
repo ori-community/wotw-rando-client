@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Link.h>
+
+#include <Modloader/app/structs/Link.h>
 #include <Modloader/app/structs/List_1_Link_.h>
 
 namespace app::classes::Link {

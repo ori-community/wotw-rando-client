@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WwiseSyncProcessor.h>
-#include <Modloader/app/structs/ZoneProcessor.h>
-#include <Modloader/app/structs/IListenerSyncProcessor.h>
+
+#include <Modloader/app/structs/WwiseSyncProcessor.h>
 #include <Modloader/app/structs/AkWwiseInitializationSettings.h>
-#include <Modloader/app/structs/RTPC.h>
-#include <Modloader/app/structs/Func_1_Single_.h>
-#include <Modloader/app/structs/ISoundHost.h>
-#include <Modloader/app/structs/AudioListenerZone.h>
 #include <Modloader/app/structs/AudioEmitterZone.h>
-#include <Modloader/app/structs/SoundListener.h>
+#include <Modloader/app/structs/AudioListenerZone.h>
+#include <Modloader/app/structs/Func_1_Single_.h>
+#include <Modloader/app/structs/IListenerSyncProcessor.h>
+#include <Modloader/app/structs/ISoundHost.h>
 #include <Modloader/app/structs/PositionSyncTask__Array.h>
+#include <Modloader/app/structs/RTPC.h>
+#include <Modloader/app/structs/SoundListener.h>
+#include <Modloader/app/structs/ZoneProcessor.h>
 
 namespace app::classes::Moon::Wwise::WwiseSyncProcessor {
     IL2CPP_REGISTER_METHOD(0x00654950, int32_t, get_ActivePositionSyncs, (app::WwiseSyncProcessor * this_ptr))

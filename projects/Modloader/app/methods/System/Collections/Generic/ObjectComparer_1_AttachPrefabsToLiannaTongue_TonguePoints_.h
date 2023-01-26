@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
 #include <Modloader/app/structs/AttachPrefabsToLiannaTongue_TonguePoints.h>
 #include <Modloader/app/structs/Object.h>
 

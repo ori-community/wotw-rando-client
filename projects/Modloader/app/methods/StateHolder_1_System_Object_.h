@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/StateHolder_1_System_Object_.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/List_1_IIndexedItem_.h>
+#include <Modloader/app/structs/StateHolder_1_System_Object_.h>
 
 namespace app::classes::StateHolder_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x01D19450, app::Object*, ResolveCurrent, (app::StateHolder_1_System_Object_ * this_ptr))

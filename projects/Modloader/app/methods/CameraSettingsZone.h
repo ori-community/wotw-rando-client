@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraSettings.h>
+
+#include <Modloader/app/structs/CameraSettings.h>
 #include <Modloader/app/structs/CameraSettingsZone.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/SelectableCategory__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::CameraSettingsZone {
     IL2CPP_REGISTER_METHOD(0x016A8680, app::CameraSettings*, GetSettings, (app::CameraSettingsZone * this_ptr))

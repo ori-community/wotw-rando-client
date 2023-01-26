@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/SceneOperation.h>
+#include <Modloader/app/structs/SceneOperation__Array.h>
+#include <Modloader/app/structs/SceneOperation__Boxed.h>
+#include <Modloader/app/structs/SceneOperation__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SceneOperation__Class.h>
-#include <Modloader/app/structs/SceneOperation.h>
-#include <Modloader/app/structs/SceneOperation__Boxed.h>
-#include <Modloader/app/structs/SceneOperation__Array.h>
 
 namespace app::classes::types {
     namespace SceneOperation {
-        inline app::SceneOperation__Class** type_info = (app::SceneOperation__Class**)(modloader::win::memory::resolve_rva(0x047295A0));
+        inline app::SceneOperation__Class** type_info() {
+            static app::SceneOperation__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::SceneOperation__Class**)(modloader::win::memory::resolve_rva(0x047295A0));
+            }
+            return cache;
+        }
         inline app::SceneOperation__Class* get_class() {
-            return il2cpp::get_class<app::SceneOperation__Class>(type_info, "", "SceneOperation");
+            return il2cpp::get_class<app::SceneOperation__Class>(type_info(), "", "SceneOperation");
         }
         inline app::SceneOperation* create() {
             return il2cpp::create_object<app::SceneOperation>(get_class());

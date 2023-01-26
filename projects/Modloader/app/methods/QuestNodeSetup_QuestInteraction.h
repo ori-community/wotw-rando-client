@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/QuestNodeSetup_QuestInteraction.h>
+
+#include <Modloader/app/structs/QuestNodeSetup_QuestInteraction.h>
 
 namespace app::classes::QuestNodeSetup_QuestInteraction {
     IL2CPP_REGISTER_METHOD(0x00E8B900, bool, get_Eligible, (app::QuestNodeSetup_QuestInteraction * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ParticleAutodestruct.h>
+
+#include <Modloader/app/structs/ParticleAutodestruct.h>
 
 namespace app::classes::ParticleAutodestruct {
     IL2CPP_REGISTER_METHOD(0x004445B0, void, Start, (app::ParticleAutodestruct * this_ptr))

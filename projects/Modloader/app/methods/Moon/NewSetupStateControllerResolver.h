@@ -1,13 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_NewSetupStateControllerResolver_IRuntimeUberStateControllerDataLink_.h>
-#include <Modloader/app/structs/NewSetupStateControllerResolver.h>
-#include <Modloader/app/structs/NewSetupStateControllerResolver_IRuntimeUberStateControllerDataLink.h>
-#include <Modloader/app/structs/NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Dictionary_2_Syste_Int_Mo_NewSetupStateControllerResolv_IRuntimeUberStateControllerDataLi_.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Color32.h>
 #include <Modloader/app/structs/IMoonResolverContext.h>
-#include <Modloader/app/structs/MoonTypeExtraData.h>
-#include <Modloader/app/structs/IMoonType_1_System_Object_.h>
 #include <Modloader/app/structs/IMoonType_1_System_Boolean_.h>
 #include <Modloader/app/structs/IMoonType_1_System_Byte_.h>
 #include <Modloader/app/structs/IMoonType_1_System_Char_.h>
@@ -15,6 +13,7 @@
 #include <Modloader/app/structs/IMoonType_1_System_Int16_.h>
 #include <Modloader/app/structs/IMoonType_1_System_Int32_.h>
 #include <Modloader/app/structs/IMoonType_1_System_Int64_.h>
+#include <Modloader/app/structs/IMoonType_1_System_Object_.h>
 #include <Modloader/app/structs/IMoonType_1_System_Single_.h>
 #include <Modloader/app/structs/IMoonType_1_UnityEngine_Bounds_.h>
 #include <Modloader/app/structs/IMoonType_1_UnityEngine_Color32_.h>
@@ -24,10 +23,12 @@
 #include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector2_.h>
 #include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector3_.h>
 #include <Modloader/app/structs/IMoonType_1_UnityEngine_Vector4_.h>
-#include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/Color32.h>
-#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/MoonTypeExtraData.h>
+#include <Modloader/app/structs/NewSetupStateControllerResolver.h>
+#include <Modloader/app/structs/NewSetupStateControllerResolver_IRuntimeUberStateControllerDataLink.h>
+#include <Modloader/app/structs/NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
@@ -113,7 +114,7 @@ namespace app::classes::Moon::NewSetupStateControllerResolver {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsMoonTypeProxy_17, (app::NewSetupStateControllerResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x015F1EF0, bool, GetValueForDataLink_2, (app::NewSetupStateControllerResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
     IL2CPP_REGISTER_METHOD(0x015F2030, uint8_t, GetValueForDataLink_3, (app::NewSetupStateControllerResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
-    IL2CPP_REGISTER_METHOD(0x015F2170, uint16_t, GetValueForDataLink_4, (app::NewSetupStateControllerResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
+    IL2CPP_REGISTER_METHOD(0x015F2170, char16_t, GetValueForDataLink_4, (app::NewSetupStateControllerResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
     IL2CPP_REGISTER_METHOD(0x015F22B0, double, GetValueForDataLink_5, (app::NewSetupStateControllerResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
     IL2CPP_REGISTER_METHOD(0x015F23F0, int16_t, GetValueForDataLink_6, (app::NewSetupStateControllerResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
     IL2CPP_REGISTER_METHOD(0x015F2530, int32_t, GetValueForDataLink_7, (app::NewSetupStateControllerResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
@@ -129,7 +130,7 @@ namespace app::classes::Moon::NewSetupStateControllerResolver {
     IL2CPP_REGISTER_METHOD(0x015F33E0, app::Vector4, GetValueForDataLink_17, (app::NewSetupStateControllerResolver * this_ptr, int32_t guid, app::IMoonResolverContext* context))
     IL2CPP_REGISTER_METHOD(0x015F11D0, bool, ResolveSource_2, (app::NewSetupStateControllerResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x015F11D0, uint8_t, ResolveSource_3, (app::NewSetupStateControllerResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
-    IL2CPP_REGISTER_METHOD(0x015F11D0, uint16_t, ResolveSource_4, (app::NewSetupStateControllerResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
+    IL2CPP_REGISTER_METHOD(0x015F11D0, char16_t, ResolveSource_4, (app::NewSetupStateControllerResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x015F11D0, double, ResolveSource_5, (app::NewSetupStateControllerResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x015F11D0, int16_t, ResolveSource_6, (app::NewSetupStateControllerResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))
     IL2CPP_REGISTER_METHOD(0x015F11D0, int32_t, ResolveSource_7, (app::NewSetupStateControllerResolver * this_ptr, app::IMoonResolverContext* context, app::MoonTypeExtraData resolver_extra_data))

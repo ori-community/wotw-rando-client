@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AirEntityMovementProcessor.h>
+
+#include <Modloader/app/structs/AirEntityMovementProcessor.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
 #include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
-#include <Modloader/app/structs/CharacterPlatformMovement.h>
 #include <Modloader/app/structs/ILocomotionTurningHandler.h>
 
 namespace app::classes::Moon::AirEntityMovementProcessor {

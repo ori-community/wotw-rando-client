@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseState_2_System_Object_System_Object_.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseState_2_System_Object_System_Object_.h>
 #include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseState_2_System_Object_System_Object_ {

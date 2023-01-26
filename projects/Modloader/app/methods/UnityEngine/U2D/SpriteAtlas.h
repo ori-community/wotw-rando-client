@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpriteAtlas.h>
+
+#include <Modloader/app/structs/SpriteAtlas.h>
 #include <Modloader/app/structs/Sprite.h>
 
 namespace app::classes::UnityEngine::U2D::SpriteAtlas {

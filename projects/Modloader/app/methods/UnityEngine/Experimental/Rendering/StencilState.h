@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StencilState__Boxed.h>
+
+#include <Modloader/app/structs/StencilState__Boxed.h>
 #include <Modloader/app/structs/CompareFunction__Enum.h>
 #include <Modloader/app/structs/StencilOp__Enum.h>
 #include <Modloader/app/structs/StencilState.h>

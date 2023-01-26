@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GroundLocomotion.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/EntityLocomotionTask.h>
-#include <Modloader/app/structs/MovementProcessor.h>
-#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+
+#include <Modloader/app/structs/GroundLocomotion.h>
 #include <Modloader/app/structs/EntityBehaviour.h>
 #include <Modloader/app/structs/EntityBehaviourNode.h>
-#include <Modloader/app/structs/LocomotionGoal.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
 #include <Modloader/app/structs/Func_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/LocomotionGoal.h>
+#include <Modloader/app/structs/MovementProcessor.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::GroundLocomotion {
     IL2CPP_REGISTER_METHOD(0x01094300, float, get_AgentLocationOffsetY, (app::GroundLocomotion * this_ptr))
@@ -24,29 +25,20 @@ namespace app::classes::GroundLocomotion {
     IL2CPP_REGISTER_METHOD(0x010946B0, void, DisableGravity, (app::GroundLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00418200, app::Transform*, get_FeetTransform, (app::GroundLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010946C0, app::Vector3, get_FeetPosition, (app::GroundLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047326E0, GroundLocomotion_get_FeetPosition__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01094710, bool, get_HasArrivedAtTarget, (app::GroundLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04755438, GroundLocomotion_get_HasArrivedAtTarget__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01094760, bool, get_IsMovingToTarget, (app::GroundLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04770618, GroundLocomotion_get_IsMovingToTarget__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070BAE0, float, get_Gravity, (app::GroundLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010947B0, void, set_Gravity, (app::GroundLocomotion * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x010947C0, void, Awake, (app::GroundLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01094990, void, ConfigureStateMachine, (app::GroundLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474E340, GroundLocomotion_ConfigureStateMachine__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x010949E0, app::EntityLocomotionTask*, get_DefaultFSMState, (app::GroundLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471E6B0, GroundLocomotion_get_DefaultFSMState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::MovementProcessor*, get_MovementProcessor, (app::GroundLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01094A30, app::EntityWeightData_EntityWeight__Enum, get_Weight, (app::GroundLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04738638, GroundLocomotion_get_Weight__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01094A80, void, set_Weight, (app::GroundLocomotion * this_ptr, app::EntityWeightData_EntityWeight__Enum value))
-    IL2CPP_REGISTER_METHODINFO(0x0472D5D8, GroundLocomotion_set_Weight__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01094AD0, void, FixedUpdate, (app::GroundLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01094AF0, void, OnFixedUpdate, (app::GroundLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01095320, app::EntityLocomotionTask*, GetNextBehaviour, (app::GroundLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474DBE0, GroundLocomotion_GetNextBehaviour__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01095370, void, Stop, (app::GroundLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04742448, GroundLocomotion_Stop__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x010953C0, void, SetVelocityOverride, (app::GroundLocomotion * this_ptr, app::Vector2 velocity))
     IL2CPP_REGISTER_METHOD(0x010953F0, void, AddToVelocityOverride, (app::GroundLocomotion * this_ptr, app::Vector2 velocity))
     IL2CPP_REGISTER_METHOD(0x010954D0, void, AddVelocityOverrideX, (app::GroundLocomotion * this_ptr, float velocity_x))
@@ -64,12 +56,9 @@ namespace app::classes::GroundLocomotion {
     IL2CPP_REGISTER_METHOD(0x01096450, void, RotateToFallingVelocity, (app::GroundLocomotion * this_ptr, app::Vector2 velocity, float k, float rotation_limit))
     IL2CPP_REGISTER_METHOD(0x010966B0, void, Flip, (app::GroundLocomotion * this_ptr, float direction_sign))
     IL2CPP_REGISTER_METHOD(0x010968A0, app::LocomotionGoal*, Chase, (app::GroundLocomotion * this_ptr, app::Func_1_UnityEngine_Vector3_* get_position))
-    IL2CPP_REGISTER_METHODINFO(0x047805D0, GroundLocomotion_Chase__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x010968F0, app::LocomotionGoal*, MoveTo, (app::GroundLocomotion * this_ptr, app::Vector3 position))
-    IL2CPP_REGISTER_METHODINFO(0x04730198, GroundLocomotion_MoveTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01096940, void, OnDrawGizmos, (app::GroundLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01096CA0, void, RotateSmooth, (app::GroundLocomotion * this_ptr, float target_angle, float k))
     IL2CPP_REGISTER_METHOD(0x01096ED0, void, ctor, (app::GroundLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01096F20, bool, _OnFixedUpdate_b__57_0, (app::GroundLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470C350, GroundLocomotion__OnFixedUpdate_b__57_0__MethodInfo)
 } // namespace app::classes::GroundLocomotion

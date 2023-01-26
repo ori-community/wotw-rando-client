@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Bubblemaker.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 
@@ -18,7 +19,6 @@ namespace app::classes::Bubblemaker {
     IL2CPP_REGISTER_METHOD(0x00804BE0, void, OnDisable, (app::Bubblemaker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00804C80, void, FixedUpdate, (app::Bubblemaker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00804E30, void, SpawnBubble, (app::Bubblemaker * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478FB90, Bubblemaker_SpawnBubble__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008052A0, void, OnRaceStart, (app::Bubblemaker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00805380, void, OnSyncRaceTimer, (app::Bubblemaker * this_ptr, float time))
     IL2CPP_REGISTER_METHOD(0x00805420, void, ctor, (app::Bubblemaker * this_ptr))

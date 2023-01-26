@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RecorderMessageInputUI.h>
+
+#include <Modloader/app/structs/RecorderMessageInputUI.h>
 #include <Modloader/app/structs/RecorderMessageInputUI_ExitType__Enum.h>
 
 namespace app::classes::RecorderMessageInputUI {

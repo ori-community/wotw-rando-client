@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraFrustumOptimizer.h>
-#include <Modloader/app/structs/RenderingType__Enum.h>
+
+#include <Modloader/app/structs/CameraFrustumOptimizer.h>
 #include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/IFrustumOptimizable.h>
-#include <Modloader/app/structs/IFrustumEnabled.h>
-#include <Modloader/app/structs/MeshRenderer.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Renderer__Array.h>
 #include <Modloader/app/structs/CameraController_1.h>
 #include <Modloader/app/structs/CameraFrustumOptimizer_IntersectionResult__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IFrustumEnabled.h>
+#include <Modloader/app/structs/IFrustumOptimizable.h>
+#include <Modloader/app/structs/MeshRenderer.h>
+#include <Modloader/app/structs/Renderer__Array.h>
+#include <Modloader/app/structs/RenderingType__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CameraFrustumOptimizer {
     IL2CPP_REGISTER_METHOD(0x0168A060, void, RegisterVisualDebug, (app::CameraFrustumOptimizer * this_ptr))
@@ -28,7 +29,6 @@ namespace app::classes::CameraFrustumOptimizer {
     IL2CPP_REGISTER_METHOD(0x0168B030, void, RegisterEarlyZ, (app::MeshRenderer * renderer, int32_t frame_delay))
     IL2CPP_REGISTER_METHOD(0x0168B180, void, UnhideEarlyZObjects, (app::CameraFrustumOptimizer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0168B5D0, bool, PrintOptimizables, ())
-    IL2CPP_REGISTER_METHODINFO(0x04731580, CameraFrustumOptimizer_PrintOptimizables__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0168C1B0, bool, get_UseBatchedFrustumChecks, ())
     IL2CPP_REGISTER_METHOD(0x0168C250, void, set_UseBatchedFrustumChecks, (bool value))
     IL2CPP_REGISTER_METHOD(0x0168C300, bool, get_DeferActivations, ())
@@ -46,7 +46,6 @@ namespace app::classes::CameraFrustumOptimizer {
     IL2CPP_REGISTER_METHOD(0x0168CD00, void, Awake, (app::CameraFrustumOptimizer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0168D160, void, OnDestroy, (app::CameraFrustumOptimizer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0168D3A0, void, OnAspectChanged, (app::CameraFrustumOptimizer * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04787A40, CameraFrustumOptimizer_OnAspectChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0168D3B0, void, Start, (app::CameraFrustumOptimizer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0168D550, void, DoDeferredActivations, (app::CameraFrustumOptimizer * this_ptr, bool all))
     IL2CPP_REGISTER_METHOD(0x0168DD60, void, FixedUpdate, (app::CameraFrustumOptimizer * this_ptr))
@@ -58,7 +57,6 @@ namespace app::classes::CameraFrustumOptimizer {
     IL2CPP_REGISTER_METHOD(0x0168E7B0, void, UpdateFrustrumOptimizables_2, (app::CameraFrustumOptimizer * this_ptr, bool multi_cam, bool instant, bool forced))
     IL2CPP_REGISTER_METHOD(0x0168F6E0, void, ForceUpdateOnDisableFrustrumOptimizables, (app::CameraFrustumOptimizer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0168F7D0, bool, IsNull, (app::CameraFrustumOptimizer * this_ptr, app::IFrustumOptimizable* o))
-    IL2CPP_REGISTER_METHODINFO(0x0471D918, CameraFrustumOptimizer_IsNull__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0168F8B0, bool, IsInsideFrustum, (app::CameraFrustumOptimizer * this_ptr, app::Bounds bounds))
     IL2CPP_REGISTER_METHOD(0x0168FA40, bool, IsInsideFrustumSingleCam, (app::CameraFrustumOptimizer * this_ptr, app::CameraController_1* cam, app::Bounds bounds))
     IL2CPP_REGISTER_METHOD(0x0168FAD0, app::CameraFrustumOptimizer_IntersectionResult__Enum, ProcessFrustumOptimizable_1, (app::CameraFrustumOptimizer * this_ptr, app::IFrustumOptimizable* o, uint8_t inside, bool is_first_time, bool instant))

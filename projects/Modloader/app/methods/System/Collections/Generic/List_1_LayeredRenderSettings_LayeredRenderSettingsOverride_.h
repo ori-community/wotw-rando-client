@@ -1,29 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsOverride.h>
-#include <Modloader/app/structs/List_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
-#include <Modloader/app/structs/IEnumerable_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
-#include <Modloader/app/structs/IComparer_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
-#include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsOverride__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
+
+#include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsOverride.h>
 #include <Modloader/app/structs/Action_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
-#include <Modloader/app/structs/IEnumerator_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
+#include <Modloader/app/structs/IComparer_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
+#include <Modloader/app/structs/IEnumerable_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsOverride__Array.h>
+#include <Modloader/app/structs/List_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_LayeredRenderSettings_LayeredRenderSettingsOverride_ {
     IL2CPP_REGISTER_METHOD(0x025EC760, app::LayeredRenderSettings_LayeredRenderSettingsOverride, get_Item, (app::List_1_LayeredRenderSettings_LayeredRenderSettingsOverride_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x047507E0, List_1_LayeredRenderSettings_LayeredRenderSettingsOverride__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_LayeredRenderSettings_LayeredRenderSettingsOverride_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473CC90, List_1_LayeredRenderSettings_LayeredRenderSettingsOverride__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_LayeredRenderSettings_LayeredRenderSettingsOverride_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470E2B8, List_1_LayeredRenderSettings_LayeredRenderSettingsOverride___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EC7A0, void, set_Item, (app::List_1_LayeredRenderSettings_LayeredRenderSettingsOverride_ * this_ptr, int32_t index, app::LayeredRenderSettings_LayeredRenderSettingsOverride value))
-    IL2CPP_REGISTER_METHODINFO(0x0472F6B0, List_1_LayeredRenderSettings_LayeredRenderSettingsOverride__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_LayeredRenderSettings_LayeredRenderSettingsOverride_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02DF26A0, void, ctor_3, (app::List_1_LayeredRenderSettings_LayeredRenderSettingsOverride_ * this_ptr, app::IEnumerable_1_LayeredRenderSettings_LayeredRenderSettingsOverride_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_LayeredRenderSettings_LayeredRenderSettingsOverride_ * this_ptr))

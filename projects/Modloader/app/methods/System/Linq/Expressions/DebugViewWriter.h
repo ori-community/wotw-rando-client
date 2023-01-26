@@ -1,59 +1,60 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DebugViewWriter.h>
-#include <Modloader/app/structs/TextWriter.h>
-#include <Modloader/app/structs/LambdaExpression.h>
-#include <Modloader/app/structs/ParameterExpression.h>
-#include <Modloader/app/structs/LabelTarget.h>
-#include <Modloader/app/structs/Expression.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/DebugViewWriter_Flow__Enum.h>
-#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_ParameterExpression_.h>
+
+#include <Modloader/app/structs/DebugViewWriter.h>
+#include <Modloader/app/structs/Action_1_Object_.h>
+#include <Modloader/app/structs/Action_1_System_Linq_Expressions_ElementInit_.h>
+#include <Modloader/app/structs/Action_1_System_Linq_Expressions_MemberBinding_.h>
+#include <Modloader/app/structs/Action_1_System_Linq_Expressions_ParameterExpression_.h>
 #include <Modloader/app/structs/BinaryExpression.h>
+#include <Modloader/app/structs/BlockExpression.h>
+#include <Modloader/app/structs/CatchBlock.h>
 #include <Modloader/app/structs/ConditionalExpression.h>
 #include <Modloader/app/structs/ConstantExpression.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/RuntimeVariablesExpression.h>
-#include <Modloader/app/structs/MemberInfo_1.h>
-#include <Modloader/app/structs/MemberExpression.h>
+#include <Modloader/app/structs/DebugInfoExpression.h>
+#include <Modloader/app/structs/DebugViewWriter_Flow__Enum.h>
+#include <Modloader/app/structs/DefaultExpression.h>
+#include <Modloader/app/structs/Dictionary_2_System_Linq_Expressions_LabelTarget_System_Int32_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Linq_Expressions_LambdaExpression_System_Int32_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Linq_Expressions_ParameterExpression_System_Int32_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Object_System_Int32_.h>
+#include <Modloader/app/structs/ElementInit.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/Expression_1_System_Object_.h>
+#include <Modloader/app/structs/GotoExpression.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_ElementInit_.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_MemberBinding_.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_ParameterExpression_.h>
+#include <Modloader/app/structs/IReadOnlyList_1_System_Object_.h>
+#include <Modloader/app/structs/IndexExpression.h>
 #include <Modloader/app/structs/InvocationExpression.h>
+#include <Modloader/app/structs/LabelExpression.h>
+#include <Modloader/app/structs/LabelTarget.h>
+#include <Modloader/app/structs/LambdaExpression.h>
+#include <Modloader/app/structs/ListInitExpression.h>
+#include <Modloader/app/structs/LoopExpression.h>
+#include <Modloader/app/structs/MemberAssignment.h>
+#include <Modloader/app/structs/MemberBinding.h>
+#include <Modloader/app/structs/MemberExpression.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/MemberInitExpression.h>
+#include <Modloader/app/structs/MemberListBinding.h>
+#include <Modloader/app/structs/MemberMemberBinding.h>
 #include <Modloader/app/structs/MethodCallExpression.h>
 #include <Modloader/app/structs/NewArrayExpression.h>
 #include <Modloader/app/structs/NewExpression.h>
-#include <Modloader/app/structs/ElementInit.h>
-#include <Modloader/app/structs/ListInitExpression.h>
-#include <Modloader/app/structs/MemberAssignment.h>
-#include <Modloader/app/structs/MemberListBinding.h>
-#include <Modloader/app/structs/MemberMemberBinding.h>
-#include <Modloader/app/structs/MemberInitExpression.h>
-#include <Modloader/app/structs/TypeBinaryExpression.h>
-#include <Modloader/app/structs/UnaryExpression.h>
-#include <Modloader/app/structs/BlockExpression.h>
-#include <Modloader/app/structs/DefaultExpression.h>
-#include <Modloader/app/structs/LabelExpression.h>
-#include <Modloader/app/structs/GotoExpression.h>
-#include <Modloader/app/structs/LoopExpression.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/RuntimeVariablesExpression.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/SwitchCase.h>
 #include <Modloader/app/structs/SwitchExpression.h>
-#include <Modloader/app/structs/CatchBlock.h>
+#include <Modloader/app/structs/TextWriter.h>
 #include <Modloader/app/structs/TryExpression.h>
-#include <Modloader/app/structs/IndexExpression.h>
-#include <Modloader/app/structs/DebugInfoExpression.h>
-#include <Modloader/app/structs/MemberBinding.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Dictionary_2_System_Object_System_Int32_.h>
-#include <Modloader/app/structs/IReadOnlyList_1_System_Object_.h>
-#include <Modloader/app/structs/Action_1_Object_.h>
-#include <Modloader/app/structs/Expression_1_System_Object_.h>
-#include <Modloader/app/structs/Dictionary_2_System_Linq_Expressions_LambdaExpression_System_Int32_.h>
-#include <Modloader/app/structs/Dictionary_2_System_Linq_Expressions_ParameterExpression_System_Int32_.h>
-#include <Modloader/app/structs/Dictionary_2_System_Linq_Expressions_LabelTarget_System_Int32_.h>
-#include <Modloader/app/structs/Action_1_System_Linq_Expressions_ParameterExpression_.h>
-#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_Expression_.h>
-#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_ElementInit_.h>
-#include <Modloader/app/structs/Action_1_System_Linq_Expressions_ElementInit_.h>
-#include <Modloader/app/structs/IReadOnlyList_1_System_Linq_Expressions_MemberBinding_.h>
-#include <Modloader/app/structs/Action_1_System_Linq_Expressions_MemberBinding_.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeBinaryExpression.h>
+#include <Modloader/app/structs/UnaryExpression.h>
 
 namespace app::classes::System::Linq::Expressions::DebugViewWriter {
     IL2CPP_REGISTER_METHOD(0x01FA3B10, void, ctor, (app::DebugViewWriter * this_ptr, app::TextWriter* file))
@@ -78,7 +79,6 @@ namespace app::classes::System::Linq::Expressions::DebugViewWriter {
     IL2CPP_REGISTER_METHOD(0x01FA48C0, app::DebugViewWriter_Flow__Enum, CheckBreak, (app::DebugViewWriter * this_ptr, app::DebugViewWriter_Flow__Enum flow))
     IL2CPP_REGISTER_METHOD(0x01FA4900, void, VisitDeclarations, (app::DebugViewWriter * this_ptr, app::IReadOnlyList_1_System_Linq_Expressions_ParameterExpression_* expressions))
     IL2CPP_REGISTER_METHOD(0x01FA4A80, app::Expression*, VisitBinary, (app::DebugViewWriter * this_ptr, app::BinaryExpression* node))
-    IL2CPP_REGISTER_METHODINFO(0x047213A0, DebugViewWriter_VisitBinary__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01FA4FA0, app::Expression*, VisitParameter, (app::DebugViewWriter * this_ptr, app::ParameterExpression* node))
     IL2CPP_REGISTER_METHOD(0x01FA5110, bool, IsSimpleExpression, (app::Expression * node))
     IL2CPP_REGISTER_METHOD(0x01FA5270, app::Expression*, VisitConditional, (app::DebugViewWriter * this_ptr, app::ConditionalExpression* node))
@@ -122,38 +122,23 @@ namespace app::classes::System::Linq::Expressions::DebugViewWriter {
     IL2CPP_REGISTER_METHOD(0x01FA9790, app::String*, QuoteName, (app::String * name))
     IL2CPP_REGISTER_METHOD(0x01FA98A0, app::String*, GetDisplayName, (app::String * name))
     IL2CPP_REGISTER_METHOD(0x01FA9A70, void, _VisitDeclarations_b__38_0, (app::DebugViewWriter * this_ptr, app::ParameterExpression* variable))
-    IL2CPP_REGISTER_METHODINFO(0x04763490, DebugViewWriter__VisitDeclarations_b__38_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x017F0970, void, _VisitListInit_b__58_0, (app::DebugViewWriter * this_ptr, app::ElementInit* e))
-    IL2CPP_REGISTER_METHODINFO(0x04789740, DebugViewWriter__VisitListInit_b__58_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x017F0970, void, _VisitMemberListBinding_b__60_0, (app::DebugViewWriter * this_ptr, app::ElementInit* e))
-    IL2CPP_REGISTER_METHODINFO(0x0470F550, DebugViewWriter__VisitMemberListBinding_b__60_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01FA9BB0, void, _VisitMemberMemberBinding_b__61_0, (app::DebugViewWriter * this_ptr, app::MemberBinding* e))
-    IL2CPP_REGISTER_METHODINFO(0x047199D8, DebugViewWriter__VisitMemberMemberBinding_b__61_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01FA9BB0, void, _VisitMemberInit_b__62_0, (app::DebugViewWriter * this_ptr, app::MemberBinding* e))
-    IL2CPP_REGISTER_METHODINFO(0x047588F0, DebugViewWriter__VisitMemberInit_b__62_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0209E930, int32_t, GetId_1, (app::Object * e, app::Dictionary_2_System_Object_System_Int32_** ids))
-    IL2CPP_REGISTER_METHOD(0x01AEFB70, void, VisitExpressions_1, (app::DebugViewWriter * this_ptr, uint16_t open, app::IReadOnlyList_1_System_Object_* expressions))
-    IL2CPP_REGISTER_METHOD(0x01AEF570, void, VisitExpressions_2, (app::DebugViewWriter * this_ptr, uint16_t open, uint16_t separator, app::IReadOnlyList_1_System_Object_* expressions))
-    IL2CPP_REGISTER_METHOD(0x01AEF6D0, void, VisitExpressions_3, (app::DebugViewWriter * this_ptr, uint16_t open, uint16_t separator, app::IReadOnlyList_1_System_Object_* expressions, app::Action_1_Object_* visit))
-    IL2CPP_REGISTER_METHODINFO(0x04777CB8, DebugViewWriter_VisitExpressions_2__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x01AEFB70, void, VisitExpressions_1, (app::DebugViewWriter * this_ptr, char16_t open, app::IReadOnlyList_1_System_Object_* expressions))
+    IL2CPP_REGISTER_METHOD(0x01AEF570, void, VisitExpressions_2, (app::DebugViewWriter * this_ptr, char16_t open, char16_t separator, app::IReadOnlyList_1_System_Object_* expressions))
+    IL2CPP_REGISTER_METHOD(0x01AEF6D0, void, VisitExpressions_3, (app::DebugViewWriter * this_ptr, char16_t open, char16_t separator, app::IReadOnlyList_1_System_Object_* expressions, app::Action_1_Object_* visit))
     IL2CPP_REGISTER_METHOD(0x0153B940, app::Expression*, VisitLambda, (app::DebugViewWriter * this_ptr, app::Expression_1_System_Object_* node))
     IL2CPP_REGISTER_METHOD(0x01AEF540, void, _VisitExpressions_b__37_0, (app::DebugViewWriter * this_ptr, app::Object* e))
     IL2CPP_REGISTER_METHOD(0x0209E930, int32_t, GetId_2, (app::LambdaExpression * e, app::Dictionary_2_System_Linq_Expressions_LambdaExpression_System_Int32_** ids))
-    IL2CPP_REGISTER_METHODINFO(0x0473CE30, DebugViewWriter_GetId_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0209E930, int32_t, GetId_3, (app::ParameterExpression * e, app::Dictionary_2_System_Linq_Expressions_ParameterExpression_System_Int32_** ids))
-    IL2CPP_REGISTER_METHODINFO(0x0475F360, DebugViewWriter_GetId_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0209E930, int32_t, GetId_4, (app::LabelTarget * e, app::Dictionary_2_System_Linq_Expressions_LabelTarget_System_Int32_** ids))
-    IL2CPP_REGISTER_METHODINFO(0x0477CDC8, DebugViewWriter_GetId_3__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01AEF6D0, void, VisitExpressions_4, (app::DebugViewWriter * this_ptr, uint16_t open, uint16_t separator, app::IReadOnlyList_1_System_Linq_Expressions_ParameterExpression_* expressions, app::Action_1_System_Linq_Expressions_ParameterExpression_* visit))
-    IL2CPP_REGISTER_METHODINFO(0x04792480, DebugViewWriter_VisitExpressions_3__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01AEFB70, void, VisitExpressions_5, (app::DebugViewWriter * this_ptr, uint16_t open, app::IReadOnlyList_1_System_Linq_Expressions_ParameterExpression_* expressions))
-    IL2CPP_REGISTER_METHODINFO(0x0477FB78, DebugViewWriter_VisitExpressions_4__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01AEFB70, void, VisitExpressions_6, (app::DebugViewWriter * this_ptr, uint16_t open, app::IReadOnlyList_1_System_Linq_Expressions_Expression_* expressions))
-    IL2CPP_REGISTER_METHODINFO(0x04759CA8, DebugViewWriter_VisitExpressions_5__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01AEF6D0, void, VisitExpressions_7, (app::DebugViewWriter * this_ptr, uint16_t open, uint16_t separator, app::IReadOnlyList_1_System_Linq_Expressions_ElementInit_* expressions, app::Action_1_System_Linq_Expressions_ElementInit_* visit))
-    IL2CPP_REGISTER_METHODINFO(0x047714D8, DebugViewWriter_VisitExpressions_6__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01AEF6D0, void, VisitExpressions_8, (app::DebugViewWriter * this_ptr, uint16_t open, uint16_t separator, app::IReadOnlyList_1_System_Linq_Expressions_MemberBinding_* expressions, app::Action_1_System_Linq_Expressions_MemberBinding_* visit))
-    IL2CPP_REGISTER_METHODINFO(0x0470CDA0, DebugViewWriter_VisitExpressions_7__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01AEF570, void, VisitExpressions_9, (app::DebugViewWriter * this_ptr, uint16_t open, uint16_t separator, app::IReadOnlyList_1_System_Linq_Expressions_Expression_* expressions))
-    IL2CPP_REGISTER_METHODINFO(0x04756FD8, DebugViewWriter_VisitExpressions_8__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x01AEF6D0, void, VisitExpressions_4, (app::DebugViewWriter * this_ptr, char16_t open, char16_t separator, app::IReadOnlyList_1_System_Linq_Expressions_ParameterExpression_* expressions, app::Action_1_System_Linq_Expressions_ParameterExpression_* visit))
+    IL2CPP_REGISTER_METHOD(0x01AEFB70, void, VisitExpressions_5, (app::DebugViewWriter * this_ptr, char16_t open, app::IReadOnlyList_1_System_Linq_Expressions_ParameterExpression_* expressions))
+    IL2CPP_REGISTER_METHOD(0x01AEFB70, void, VisitExpressions_6, (app::DebugViewWriter * this_ptr, char16_t open, app::IReadOnlyList_1_System_Linq_Expressions_Expression_* expressions))
+    IL2CPP_REGISTER_METHOD(0x01AEF6D0, void, VisitExpressions_7, (app::DebugViewWriter * this_ptr, char16_t open, char16_t separator, app::IReadOnlyList_1_System_Linq_Expressions_ElementInit_* expressions, app::Action_1_System_Linq_Expressions_ElementInit_* visit))
+    IL2CPP_REGISTER_METHOD(0x01AEF6D0, void, VisitExpressions_8, (app::DebugViewWriter * this_ptr, char16_t open, char16_t separator, app::IReadOnlyList_1_System_Linq_Expressions_MemberBinding_* expressions, app::Action_1_System_Linq_Expressions_MemberBinding_* visit))
+    IL2CPP_REGISTER_METHOD(0x01AEF570, void, VisitExpressions_9, (app::DebugViewWriter * this_ptr, char16_t open, char16_t separator, app::IReadOnlyList_1_System_Linq_Expressions_Expression_* expressions))
 } // namespace app::classes::System::Linq::Expressions::DebugViewWriter

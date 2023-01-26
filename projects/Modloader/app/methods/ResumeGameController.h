@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ResumeGameController.h>
+
+#include <Modloader/app/structs/ResumeGameController.h>
 
 namespace app::classes::ResumeGameController {
     IL2CPP_REGISTER_METHOD(0x0090DD60, void, PCFixedUpdate, (app::ResumeGameController * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CCTextMarkedColorer.h>
+
+#include <Modloader/app/structs/CCTextMarkedColorer.h>
 #include <Modloader/app/structs/CCText.h>
 
 namespace app::classes::CCTextMarkedColorer {

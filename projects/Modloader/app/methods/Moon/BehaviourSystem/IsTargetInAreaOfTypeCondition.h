@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IsTargetInAreaOfTypeCondition.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IsTargetInAreaOfTypeCondition.h>
 
 namespace app::classes::Moon::BehaviourSystem::IsTargetInAreaOfTypeCondition {
     IL2CPP_REGISTER_METHOD(0x00CBA700, app::String*, get_Info, (app::IsTargetInAreaOfTypeCondition * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MixerSnapshot.h>
+
+#include <Modloader/app/structs/MixerSnapshot.h>
 #include <Modloader/app/structs/MixerSnapshot_MixerSnapshotState__Enum.h>
 
 namespace app::classes::MixerSnapshot {

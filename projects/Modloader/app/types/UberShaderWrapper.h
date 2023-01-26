@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UberShaderWrapper__Class.h>
 #include <Modloader/app/structs/UberShaderWrapper.h>
 #include <Modloader/app/structs/UberShaderWrapper__Array.h>
+#include <Modloader/app/structs/UberShaderWrapper__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace UberShaderWrapper {
-        inline app::UberShaderWrapper__Class** type_info = (app::UberShaderWrapper__Class**)(modloader::win::memory::resolve_rva(0x04704498));
+        inline app::UberShaderWrapper__Class** type_info() {
+            static app::UberShaderWrapper__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::UberShaderWrapper__Class**)(modloader::win::memory::resolve_rva(0x04704498));
+            }
+            return cache;
+        }
         inline app::UberShaderWrapper__Class* get_class() {
-            return il2cpp::get_class<app::UberShaderWrapper__Class>(type_info, "Moon.ArtOptimization", "UberShaderWrapper");
+            return il2cpp::get_class<app::UberShaderWrapper__Class>(type_info(), "Moon.ArtOptimization", "UberShaderWrapper");
         }
         inline app::UberShaderWrapper* create() {
             return il2cpp::create_object<app::UberShaderWrapper>(get_class());

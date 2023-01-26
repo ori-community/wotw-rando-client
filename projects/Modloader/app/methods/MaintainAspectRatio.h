@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MaintainAspectRatio.h>
+
+#include <Modloader/app/structs/MaintainAspectRatio.h>
 
 namespace app::classes::MaintainAspectRatio {
     IL2CPP_REGISTER_METHOD(0x009F76F0, void, Awake, (app::MaintainAspectRatio * this_ptr))

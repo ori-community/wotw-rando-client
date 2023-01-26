@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MortarWormIdleState.h>
+
+#include <Modloader/app/structs/MortarWormIdleState.h>
 #include <Modloader/app/structs/MortarWormEnemy.h>
 #include <Modloader/app/structs/TextureAnimationWithTransitions.h>
 

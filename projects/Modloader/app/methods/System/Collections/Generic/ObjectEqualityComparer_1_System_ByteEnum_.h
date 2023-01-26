@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_System_ByteEnum_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_System_ByteEnum_.h>
 #include <Modloader/app/structs/ByteEnum__Enum.h>
 #include <Modloader/app/structs/ByteEnum__Enum__Array.h>
 #include <Modloader/app/structs/Object.h>

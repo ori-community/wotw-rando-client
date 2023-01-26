@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UnitySynchronizationContext.h>
+
+#include <Modloader/app/structs/UnitySynchronizationContext.h>
 #include <Modloader/app/structs/List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
-#include <Modloader/app/structs/SendOrPostCallback.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SendOrPostCallback.h>
 #include <Modloader/app/structs/SynchronizationContext.h>
 
 namespace app::classes::UnityEngine::UnitySynchronizationContext {

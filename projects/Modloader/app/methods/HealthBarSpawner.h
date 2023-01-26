@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HealthBarSpawner.h>
+
+#include <Modloader/app/structs/HealthBarSpawner.h>
 #include <Modloader/app/structs/HealthBar.h>
 
 namespace app::classes::HealthBarSpawner {

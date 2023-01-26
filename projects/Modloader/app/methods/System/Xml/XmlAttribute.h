@@ -1,20 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlAttribute.h>
-#include <Modloader/app/structs/XmlName.h>
-#include <Modloader/app/structs/XmlDocument.h>
+
+#include <Modloader/app/structs/XmlAttribute.h>
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlElement.h>
+#include <Modloader/app/structs/XmlLinkedNode.h>
+#include <Modloader/app/structs/XmlName.h>
 #include <Modloader/app/structs/XmlNode.h>
 #include <Modloader/app/structs/XmlNodeType__Enum.h>
-#include <Modloader/app/structs/IXmlSchemaInfo.h>
-#include <Modloader/app/structs/XmlLinkedNode.h>
-#include <Modloader/app/structs/XmlElement.h>
-#include <Modloader/app/structs/XmlWriter.h>
 #include <Modloader/app/structs/XmlSpace__Enum.h>
+#include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::XmlAttribute {
     IL2CPP_REGISTER_METHOD(0x0195ADF0, void, ctor_1, (app::XmlAttribute * this_ptr, app::XmlName* name, app::XmlDocument* doc))
-    IL2CPP_REGISTER_METHODINFO(0x0473EF30, XmlAttribute__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0195AF50, int32_t, get_LocalNameHash, (app::XmlAttribute * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0195AF70, void, ctor_2, (app::XmlAttribute * this_ptr, app::String* prefix, app::String* local_name, app::String* namespace_u_r_i, app::XmlDocument* doc))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::XmlName*, get_XmlName, (app::XmlAttribute * this_ptr))

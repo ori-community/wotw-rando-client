@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Action_1_DamageWeightMask_.h>
+
+#include <Modloader/app/structs/Action_1_DamageWeightMask_.h>
 #include <Modloader/app/structs/BlockDamageInterruption.h>
 #include <Modloader/app/structs/IContext.h>
 

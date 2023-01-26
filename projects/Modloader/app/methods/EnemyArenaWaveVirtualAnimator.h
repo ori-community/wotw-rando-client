@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnemyArenaController.h>
-#include <Modloader/app/structs/EnemyArenaWaveVirtualAnimator.h>
-#include <Modloader/app/structs/EnemyArenaController_EnemyWave.h>
+
+#include <Modloader/app/structs/EnemyArenaController.h>
 #include <Modloader/app/structs/DesiredUberStateGeneric.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/EntityOperationPermit__Enum.h>
-#include <Modloader/app/structs/ITimelineEntity.h>
-#include <Modloader/app/structs/EntityId.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Dictionary_2_System_Int32_System_Single_.h>
+#include <Modloader/app/structs/EnemyArenaController_EnemyWave.h>
+#include <Modloader/app/structs/EnemyArenaWaveVirtualAnimator.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/EntityOperationPermit__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
 #include <Modloader/app/structs/Nullable_1_Single_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::EnemyArenaWaveVirtualAnimator {
     IL2CPP_REGISTER_METHOD(0x002FBBE0, app::EnemyArenaController*, get_Controller, (app::EnemyArenaWaveVirtualAnimator * this_ptr))

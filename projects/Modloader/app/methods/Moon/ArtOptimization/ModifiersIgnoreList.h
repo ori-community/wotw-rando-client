@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Moon_ArtOptimization_ModifierDataModel_.h>
-#include <Modloader/app/structs/ModifiersIgnoreList.h>
+
+#include <Modloader/app/structs/List_1_Moon_ArtOptimization_ModifierDataModel_.h>
 #include <Modloader/app/structs/ModifierDataModel.h>
+#include <Modloader/app/structs/ModifiersIgnoreList.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Moon::ArtOptimization::ModifiersIgnoreList {

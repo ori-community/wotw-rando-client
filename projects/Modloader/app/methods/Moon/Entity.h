@@ -1,62 +1,63 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/EntityTask__Array.h>
-#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_ITask_.h>
-#include <Modloader/app/structs/Entity_EntityState__Enum.h>
-#include <Modloader/app/structs/INavigationAgent.h>
-#include <Modloader/app/structs/NavigationType__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SoundHost.h>
-#include <Modloader/app/structs/Vitals.h>
-#include <Modloader/app/structs/Sensor.h>
-#include <Modloader/app/structs/ITask.h>
-#include <Modloader/app/structs/MoonAnimator.h>
-#include <Modloader/app/structs/BehaviourTree.h>
-#include <Modloader/app/structs/IEntityLocomotion.h>
-#include <Modloader/app/structs/BaseNPC.h>
-#include <Modloader/app/structs/DamageDealer__Array.h>
-#include <Modloader/app/structs/EntityReactions.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/EntityTask.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/Locomotion.h>
-#include <Modloader/app/structs/SceneRoot.h>
-#include <Modloader/app/structs/MoonAnimation.h>
-#include <Modloader/app/structs/DamageDealer.h>
-#include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/EntityEvent.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/EntityPlaceholder.h>
-#include <Modloader/app/structs/List_1_Moon_ISuspendable_.h>
-#include <Modloader/app/structs/EntityBehaviourNode.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
-#include <Modloader/app/structs/TrackingExclusions.h>
-#include <Modloader/app/structs/VirtualClipsBuilder.h>
-#include <Modloader/app/structs/CameraTargetType__Enum.h>
-#include <Modloader/app/structs/CameraTargetData.h>
-#include <Modloader/app/structs/CharacterPlatformMovement.h>
-#include <Modloader/app/structs/IMoonTypeResolver.h>
+
+#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/AirEntityLocomotion.h>
-#include <Modloader/app/structs/GroundEntityLocomotion.h>
-#include <Modloader/app/structs/SpikeSlugLocomotion.h>
+#include <Modloader/app/structs/BaseNPC.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/BehaviourTree.h>
+#include <Modloader/app/structs/CameraTargetData.h>
+#include <Modloader/app/structs/CameraTargetType__Enum.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageDealer__Array.h>
+#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/DropSlugLocomotion.h>
+#include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityPlaceholder.h>
+#include <Modloader/app/structs/EntityReactions.h>
+#include <Modloader/app/structs/EntityTask.h>
+#include <Modloader/app/structs/EntityTask__Array.h>
+#include <Modloader/app/structs/Entity_EntityState__Enum.h>
 #include <Modloader/app/structs/FrogGroundLocomotion.h>
-#include <Modloader/app/structs/StaticEntityLocomotion.h>
-#include <Modloader/app/structs/TurningBehaviour.h>
-#include <Modloader/app/structs/SandWormLocomotion.h>
-#include <Modloader/app/structs/VolumeEntityLocomotion.h>
-#include <Modloader/app/structs/SwimmingLocomotion.h>
-#include <Modloader/app/structs/SkeetoLocomotion.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GroundEntityLocomotion.h>
 #include <Modloader/app/structs/GroundPatrolBehaviourNew.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IEntityLocomotion.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/INavigationAgent.h>
+#include <Modloader/app/structs/ITask.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_ITask_.h>
+#include <Modloader/app/structs/List_1_Moon_ISuspendable_.h>
+#include <Modloader/app/structs/Locomotion.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/NavigationType__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/SandWormLocomotion.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/Sensor.h>
+#include <Modloader/app/structs/SkeetoLocomotion.h>
+#include <Modloader/app/structs/SoundHost.h>
 #include <Modloader/app/structs/SpiderlingLocomotion.h>
+#include <Modloader/app/structs/SpikeSlugLocomotion.h>
+#include <Modloader/app/structs/StaticEntityLocomotion.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/SwimmingLocomotion.h>
+#include <Modloader/app/structs/TrackingExclusions.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/TurningBehaviour.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/VirtualClipsBuilder.h>
+#include <Modloader/app/structs/Vitals.h>
+#include <Modloader/app/structs/VolumeEntityLocomotion.h>
 
 namespace app::classes::Moon::Entity {
     IL2CPP_REGISTER_METHOD(0x006FB810, int64_t, get_PlaceholderID, (app::Entity * this_ptr))
@@ -184,7 +185,6 @@ namespace app::classes::Moon::Entity {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnDamageReceived, (app::Entity * this_ptr, app::DamageResult result))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnDamageBlocked, (app::Entity * this_ptr, app::DamageResult result))
     IL2CPP_REGISTER_METHOD(0x012173A0, void, DeactivateDamage, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04765940, Entity_DeactivateDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012173D0, void, ActivateDamage, (app::Entity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012173F0, void, ResetDamage, (app::Entity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01217560, void, ResetDamageDealers, (app::Entity * this_ptr))
@@ -204,7 +204,6 @@ namespace app::classes::Moon::Entity {
     IL2CPP_REGISTER_METHOD(0x01218BD0, void, ResetEntity, (app::Entity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01219040, void, InterruptReactions, (app::Entity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01219110, void, OnSceneUnloaded, (app::Entity * this_ptr, app::SceneRoot* scene_root))
-    IL2CPP_REGISTER_METHODINFO(0x0476F088, Entity_OnSceneUnloaded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012192D0, void, ReclaimOwernship, (app::Entity * this_ptr, app::EntityPlaceholder* placeholder))
     IL2CPP_REGISTER_METHOD(0x012195C0, void, FreeOwnership, (app::Entity * this_ptr, app::EntityPlaceholder* placeholder))
     IL2CPP_REGISTER_METHOD(0x012197E0, bool, IsOnScreen, (app::Entity * this_ptr))
@@ -261,33 +260,19 @@ namespace app::classes::Moon::Entity {
     IL2CPP_REGISTER_METHOD(0x015F1360, app::Object*, GetLocomotion_2, (app::Entity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015F1530, app::Object*, GetNavigation, (app::Entity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015F1360, app::AirEntityLocomotion*, GetLocomotion_3, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047785E0, Entity_GetLocomotion_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1360, app::GroundEntityLocomotion*, GetLocomotion_4, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04782930, Entity_GetLocomotion_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1360, app::SpikeSlugLocomotion*, GetLocomotion_5, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472BA60, Entity_GetLocomotion_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1360, app::DropSlugLocomotion*, GetLocomotion_6, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04782348, Entity_GetLocomotion_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1360, app::Locomotion*, GetLocomotion_7, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04789630, Entity_GetLocomotion_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1360, app::FrogGroundLocomotion*, GetLocomotion_8, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477BCD8, Entity_GetLocomotion_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1360, app::StaticEntityLocomotion*, GetLocomotion_9, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047981F0, Entity_GetLocomotion_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F15D0, app::TurningBehaviour*, GetTask_3, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047272C0, Entity_GetTask_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1360, app::SandWormLocomotion*, GetLocomotion_10, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471D180, Entity_GetLocomotion_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1360, app::VolumeEntityLocomotion*, GetLocomotion_11, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04745D78, Entity_GetLocomotion_10__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1360, app::SwimmingLocomotion*, GetLocomotion_12, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475D730, Entity_GetLocomotion_11__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1360, app::SkeetoLocomotion*, GetLocomotion_13, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475DD70, Entity_GetLocomotion_12__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1700, app::GroundPatrolBehaviourNew*, GetTreeBehaviour_2, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472D3F0, Entity_GetTreeBehaviour_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1360, app::SpiderlingLocomotion*, GetLocomotion_14, (app::Entity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047648E8, Entity_GetLocomotion_13__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_2, (app::Entity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_3, (app::Entity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonTypeResolver*, GetResolverForType_4, (app::Entity * this_ptr))

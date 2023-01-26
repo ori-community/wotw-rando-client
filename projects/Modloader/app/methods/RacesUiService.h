@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RacesUiService.h>
+
+#include <Modloader/app/structs/RacesUiService.h>
 #include <Modloader/app/structs/MessageDescriptor.h>
-#include <Modloader/app/structs/RaceStateMachineContext.h>
 #include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/RaceStateMachineContext.h>
 
 namespace app::classes::RacesUiService {
     IL2CPP_REGISTER_METHOD(0x00724AE0, bool, get_LockedByUi, (app::RacesUiService * this_ptr))

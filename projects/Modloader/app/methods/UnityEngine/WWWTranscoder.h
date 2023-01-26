@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Byte__Array.h>
+
+#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::UnityEngine::WWWTranscoder {
     IL2CPP_REGISTER_METHOD(0x03181410, uint8_t, Hex2Byte, (app::Byte__Array * b, int32_t offset))

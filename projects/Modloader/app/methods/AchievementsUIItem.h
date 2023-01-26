@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AchievementsUIItem.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/AchievementsUIItem.h>
 #include <Modloader/app/structs/AchievementAsset.h>
-#include <Modloader/app/structs/Texture.h>
 #include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture.h>
 
 namespace app::classes::AchievementsUIItem {
     IL2CPP_REGISTER_METHOD(0x004BE060, void, Start, (app::AchievementsUIItem * this_ptr))

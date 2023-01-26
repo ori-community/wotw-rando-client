@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CreditsController.h>
+
+#include <Modloader/app/structs/CreditsController.h>
 
 namespace app::classes::CreditsController {
     IL2CPP_REGISTER_METHOD(0x00DB76B0, void, Awake, (app::CreditsController * this_ptr))

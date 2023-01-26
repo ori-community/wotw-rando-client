@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ChangeStateOnCondition.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
+
+#include <Modloader/app/structs/ChangeStateOnCondition.h>
 #include <Modloader/app/structs/IDesiredUberState.h>
 #include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::Setups::ChangeStateOnCondition {
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, ShouldCreateCheckpoint, (app::ChangeStateOnCondition * this_ptr))
@@ -12,7 +13,6 @@ namespace app::classes::Moon::Setups::ChangeStateOnCondition {
     IL2CPP_REGISTER_METHOD(0x00E24520, void, Awake, (app::ChangeStateOnCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E246F0, void, OnDestroy, (app::ChangeStateOnCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E248C0, void, OnCheckpointRestore, (app::ChangeStateOnCondition * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04737AB8, ChangeStateOnCondition_OnCheckpointRestore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0043D9E0, app::UpdateType__Enum, get_UpdateType, (app::ChangeStateOnCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E24A30, void, OnUpdate, (app::ChangeStateOnCondition * this_ptr, float delta_time))
     IL2CPP_REGISTER_METHOD(0x00E24B20, void, PerformStateChange, (app::ChangeStateOnCondition * this_ptr))

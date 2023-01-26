@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/Reaction.h>
+#include <Modloader/app/structs/Reaction__Array.h>
+#include <Modloader/app/structs/Reaction__Boxed.h>
+#include <Modloader/app/structs/Reaction__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Reaction__Class.h>
-#include <Modloader/app/structs/Reaction.h>
-#include <Modloader/app/structs/Reaction__Boxed.h>
-#include <Modloader/app/structs/Reaction__Array.h>
 
 namespace app::classes::types {
     namespace Reaction {
-        inline app::Reaction__Class** type_info = (app::Reaction__Class**)(modloader::win::memory::resolve_rva(0x0474B000));
+        inline app::Reaction__Class** type_info() {
+            static app::Reaction__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Reaction__Class**)(modloader::win::memory::resolve_rva(0x0474B000));
+            }
+            return cache;
+        }
         inline app::Reaction__Class* get_class() {
-            return il2cpp::get_class<app::Reaction__Class>(type_info, "Moon.Timeline", "Reaction");
+            return il2cpp::get_class<app::Reaction__Class>(type_info(), "Moon.Timeline", "Reaction");
         }
         inline app::Reaction* create() {
             return il2cpp::create_object<app::Reaction>(get_class());

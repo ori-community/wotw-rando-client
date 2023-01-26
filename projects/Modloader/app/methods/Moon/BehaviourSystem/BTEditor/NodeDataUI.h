@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BehaviourNode.h>
-#include <Modloader/app/structs/NodeDataUI.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/BehaviourNode.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/NodeDataUI.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Moon::BehaviourSystem::BTEditor::NodeDataUI {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::BehaviourNode*, get_Node, (app::NodeDataUI * this_ptr))

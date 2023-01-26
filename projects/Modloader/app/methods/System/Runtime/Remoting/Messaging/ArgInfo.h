@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ArgInfo.h>
-#include <Modloader/app/structs/MethodBase.h>
+
+#include <Modloader/app/structs/ArgInfo.h>
 #include <Modloader/app/structs/ArgInfoType__Enum.h>
+#include <Modloader/app/structs/MethodBase.h>
 #include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::ArgInfo {

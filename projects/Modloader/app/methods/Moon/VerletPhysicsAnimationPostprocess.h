@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess.h>
+
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess.h>
+#include <Modloader/app/structs/JointChains_Chain.h>
 #include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/JointChains_Chain.h>
 
 namespace app::classes::Moon::VerletPhysicsAnimationPostprocess {
     IL2CPP_REGISTER_METHOD(0x003FF7B0, int32_t, get_Order, (app::VerletPhysicsAnimationPostprocess * this_ptr))

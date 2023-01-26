@@ -13,7 +13,7 @@ struct XblAchievementProgression_c__StaticFields {
 #endif
 #if !defined(IL2CPP_STRUCT_XblAchievementProgression_c__StaticFields_FWDDECL)
 #define IL2CPP_STRUCT_XblAchievementProgression_c__StaticFields_FWDDECL
-#include <Modloader/app/structs/Func_2_XGamingRuntime_Interop_XblAchievementRequirement_XGamingRuntime_XblAchievementRequirement_.h>
+#include <Modloader/app/structs/Func_2_XGamingRuntim_Intero_XblAchievementRequiremen_XGamingRunti_XblAchievementRequireme_.h>
 #include <Modloader/app/structs/XblAchievementProgression_c.h>
 #endif
 #undef IL2CPP_STRUCT_XblAchievementProgression_c__StaticFields_INITIALIZING

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberWaterSplash.h>
+
+#include <Modloader/app/structs/UberWaterSplash.h>
 #include <Modloader/app/structs/SeinSplashInfo.h>
 
 namespace app::classes::UberWaterSplash {

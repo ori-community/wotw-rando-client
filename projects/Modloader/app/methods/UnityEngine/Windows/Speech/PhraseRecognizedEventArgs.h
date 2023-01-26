@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PhraseRecognizedEventArgs__Boxed.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/PhraseRecognizedEventArgs__Boxed.h>
 #include <Modloader/app/structs/ConfidenceLevel__Enum.h>
-#include <Modloader/app/structs/SemanticMeaning__Array.h>
 #include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/SemanticMeaning__Array.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TimeSpan.h>
 
 namespace app::classes::UnityEngine::Windows::Speech::PhraseRecognizedEventArgs {

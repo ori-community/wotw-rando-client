@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DeflateStream_WriteMethod.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/DeflateStream_WriteMethod.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::IO::Compression::DeflateStream_WriteMethod {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::DeflateStream_WriteMethod * this_ptr, app::Object* object, void* method_1))

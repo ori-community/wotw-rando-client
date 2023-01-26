@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MonoParameterInfo.h>
-#include <Modloader/app/structs/ParameterInfo_1.h>
+
+#include <Modloader/app/structs/MonoParameterInfo.h>
 #include <Modloader/app/structs/MemberInfo_1.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/ParameterInfo_1.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Reflection::MonoParameterInfo {

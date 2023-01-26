@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
 #include <Modloader/app/structs/Comparison_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
 #include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_Request.h>
 

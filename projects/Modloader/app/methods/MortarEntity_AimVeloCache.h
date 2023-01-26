@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MortarEntity_AimVeloCache.h>
+
+#include <Modloader/app/structs/MortarEntity_AimVeloCache.h>
 #include <Modloader/app/structs/MortarEntity.h>
 #include <Modloader/app/structs/Vector3.h>
 

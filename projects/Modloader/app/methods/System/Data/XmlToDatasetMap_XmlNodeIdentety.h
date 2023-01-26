@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlToDatasetMap_XmlNodeIdentety.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/XmlToDatasetMap_XmlNodeIdentety.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Data::XmlToDatasetMap_XmlNodeIdentety {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::XmlToDatasetMap_XmlNodeIdentety * this_ptr, app::String* local_name, app::String* namespace_u_r_i))

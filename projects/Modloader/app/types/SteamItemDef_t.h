@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/SteamItemDef_t.h>
+#include <Modloader/app/structs/SteamItemDef_t__Array.h>
+#include <Modloader/app/structs/SteamItemDef_t__Boxed.h>
+#include <Modloader/app/structs/SteamItemDef_t__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SteamItemDef_t__Class.h>
-#include <Modloader/app/structs/SteamItemDef_t.h>
-#include <Modloader/app/structs/SteamItemDef_t__Boxed.h>
-#include <Modloader/app/structs/SteamItemDef_t__Array.h>
 
 namespace app::classes::types {
     namespace SteamItemDef_t {
-        inline app::SteamItemDef_t__Class** type_info = (app::SteamItemDef_t__Class**)(modloader::win::memory::resolve_rva(0x0475B1E0));
+        inline app::SteamItemDef_t__Class** type_info() {
+            static app::SteamItemDef_t__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::SteamItemDef_t__Class**)(modloader::win::memory::resolve_rva(0x0475B1E0));
+            }
+            return cache;
+        }
         inline app::SteamItemDef_t__Class* get_class() {
-            return il2cpp::get_class<app::SteamItemDef_t__Class>(type_info, "Steamworks", "SteamItemDef_t");
+            return il2cpp::get_class<app::SteamItemDef_t__Class>(type_info(), "Steamworks", "SteamItemDef_t");
         }
         inline app::SteamItemDef_t* create() {
             return il2cpp::create_object<app::SteamItemDef_t>(get_class());

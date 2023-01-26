@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InterpretedFrameInfo__Array.h>
+
+#include <Modloader/app/structs/InterpretedFrameInfo__Array.h>
+#include <Modloader/app/structs/Comparison_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
 #include <Modloader/app/structs/IComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
 #include <Modloader/app/structs/InterpretedFrameInfo.h>
-#include <Modloader/app/structs/Comparison_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_ {
     IL2CPP_REGISTER_METHOD(0x030019E0, void, Sort_1, (app::InterpretedFrameInfo__Array * keys, int32_t index, int32_t length, app::IComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04720C50, ArraySortHelper_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03001D00, int32_t, BinarySearch, (app::InterpretedFrameInfo__Array * array, int32_t index, int32_t length, app::InterpretedFrameInfo value, app::IComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04768968, ArraySortHelper_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03001EB0, void, Sort_2, (app::InterpretedFrameInfo__Array * keys, int32_t index, int32_t length, app::Comparison_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0477CE30, ArraySortHelper_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C898B0, int32_t, InternalBinarySearch, (app::InterpretedFrameInfo__Array * array, int32_t index, int32_t length, app::InterpretedFrameInfo value, app::IComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C89A40, void, SwapIfGreater, (app::InterpretedFrameInfo__Array * keys, app::Comparison_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C89BD0, void, Swap, (app::InterpretedFrameInfo__Array * a, int32_t i, int32_t j))

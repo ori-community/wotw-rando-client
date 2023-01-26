@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy.h>
-#include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
+
+#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy.h>
 #include <Modloader/app/structs/HandoverMode__Enum.h>
-#include <Modloader/app/structs/TransparencyMode__Enum.h>
-#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_RendererState.h>
 #include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_RendererState.h>
+#include <Modloader/app/structs/TransparencyMode__Enum.h>
+#include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
 
 namespace app::classes::Moon::Timeline::TransparencyAnimatorSystemStrategy {
     IL2CPP_REGISTER_METHOD(0x00D0EA50, void, Prewarm, (app::TransparencyAnimatorSystemStrategy * this_ptr))

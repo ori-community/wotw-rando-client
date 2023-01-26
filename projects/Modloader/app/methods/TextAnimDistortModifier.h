@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextAnimDistortModifier.h>
+
+#include <Modloader/app/structs/TextAnimDistortModifier.h>
 
 namespace app::classes::TextAnimDistortModifier {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, RequiresNormals, (app::TextAnimDistortModifier * this_ptr))

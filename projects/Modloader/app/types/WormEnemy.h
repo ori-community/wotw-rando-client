@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/WormEnemy.h>
+#include <Modloader/app/structs/WormEnemy__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/WormEnemy__Class.h>
-#include <Modloader/app/structs/WormEnemy.h>
 
 namespace app::classes::types {
     namespace WormEnemy {
-        namespace {
-            inline app::WormEnemy__Class* type_info_ref = nullptr;
+        inline app::WormEnemy__Class** type_info() {
+            static app::WormEnemy__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::WormEnemy__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::WormEnemy__Class** type_info = &type_info_ref;
         inline app::WormEnemy__Class* get_class() {
-            return il2cpp::get_class<app::WormEnemy__Class>(type_info, "", "WormEnemy");
+            return il2cpp::get_class<app::WormEnemy__Class>(type_info(), "", "WormEnemy");
         }
         inline app::WormEnemy* create() {
             return il2cpp::create_object<app::WormEnemy>(get_class());

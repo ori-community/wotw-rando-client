@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoundCompositionManager.h>
+
+#include <Modloader/app/structs/SoundCompositionManager.h>
 #include <Modloader/app/structs/SoundComposition.h>
 #include <Modloader/app/structs/SoundCompositionTransition.h>
 

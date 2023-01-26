@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RaceSettings__Class.h>
 #include <Modloader/app/structs/RaceSettings.h>
 #include <Modloader/app/structs/RaceSettings__Array.h>
+#include <Modloader/app/structs/RaceSettings__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace RaceSettings {
-        inline app::RaceSettings__Class** type_info = (app::RaceSettings__Class**)(modloader::win::memory::resolve_rva(0x04754B88));
+        inline app::RaceSettings__Class** type_info() {
+            static app::RaceSettings__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::RaceSettings__Class**)(modloader::win::memory::resolve_rva(0x04754B88));
+            }
+            return cache;
+        }
         inline app::RaceSettings__Class* get_class() {
-            return il2cpp::get_class<app::RaceSettings__Class>(type_info, "", "RaceSettings");
+            return il2cpp::get_class<app::RaceSettings__Class>(type_info(), "", "RaceSettings");
         }
         inline app::RaceSettings* create() {
             return il2cpp::create_object<app::RaceSettings>(get_class());

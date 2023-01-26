@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CrossSceneReferenceId.h>
+
+#include <Modloader/app/structs/CrossSceneReferenceId.h>
 #include <Modloader/app/structs/CrossSceneReferenceExportData.h>
 #include <Modloader/app/structs/Object_1.h>
 

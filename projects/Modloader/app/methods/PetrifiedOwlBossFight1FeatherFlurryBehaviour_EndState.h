@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossFight1FeatherFlurryBehaviour_EndState.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossFight1FeatherFlurryBehaviour_EndState.h>
 #include <Modloader/app/structs/PetrifiedOwlBossFight1FeatherFlurryBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossFight1FeatherFlurryBehaviour_EndState {

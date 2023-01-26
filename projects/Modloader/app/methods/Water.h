@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Water.h>
+
+#include <Modloader/app/structs/Water.h>
 #include <Modloader/app/structs/Camera.h>
-#include <Modloader/app/structs/Water_WaterMode__Enum.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Water_WaterMode__Enum.h>
 
 namespace app::classes::Water {
     IL2CPP_REGISTER_METHOD(0x02D6BE90, void, OnWillRenderObject, (app::Water * this_ptr))

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
-#include <Modloader/app/structs/PhysicalPhysicaSystemManagerPlugin_Data.h>
+
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
 #include <Modloader/app/structs/BinaryReader.h>
 #include <Modloader/app/structs/BinaryWriter.h>
 #include <Modloader/app/structs/GlobalRecordingTable.h>
+#include <Modloader/app/structs/PhysicalPhysicaSystemManagerPlugin_Data.h>
 #include <Modloader/app/structs/PhysicalSystemManager.h>
 
 namespace app::classes::PhysicalPhysicaSystemManagerPlugin_Data {

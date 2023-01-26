@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostReplayAnimator.h>
+
+#include <Modloader/app/structs/GhostReplayAnimator.h>
 
 namespace app::classes::GhostReplayAnimator {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsLooping, (app::GhostReplayAnimator * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SaveSlotInfo.h>
+
+#include <Modloader/app/structs/SaveSlotInfo.h>
 #include <Modloader/app/structs/PlayerUberStateDescriptor.h>
 #include <Modloader/app/structs/UberStateValueStore.h>
 

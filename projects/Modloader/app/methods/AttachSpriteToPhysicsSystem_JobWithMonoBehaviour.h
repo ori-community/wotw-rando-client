@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttachSpriteToPhysicsSystem_JobWithMonoBehaviour__Boxed.h>
+
+#include <Modloader/app/structs/AttachSpriteToPhysicsSystem_JobWithMonoBehaviour__Boxed.h>
 #include <Modloader/app/structs/AttachSpriteToPhysicsSystem__Array.h>
 #include <Modloader/app/structs/TransformAccess.h>
 

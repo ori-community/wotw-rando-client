@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PhysicsKeepAwake.h>
+
+#include <Modloader/app/structs/PhysicsKeepAwake.h>
 
 namespace app::classes::PhysicsKeepAwake {
     IL2CPP_REGISTER_METHOD(0x01152A80, void, Awake, (app::PhysicsKeepAwake * this_ptr))

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinSpriteRotationController.h>
+
+#include <Modloader/app/structs/SeinSpriteRotationController.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/SeinBashAttack.h>
 #include <Modloader/app/structs/SeinCrouch.h>
 #include <Modloader/app/structs/SeinStomp.h>
-#include <Modloader/app/structs/SeinBashAttack.h>
-#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::SeinSpriteRotationController {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinSpriteRotationController * this_ptr))

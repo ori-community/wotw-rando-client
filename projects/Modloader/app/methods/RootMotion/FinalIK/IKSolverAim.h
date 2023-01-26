@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKSolverAim.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/IKSolverAim.h>
 #include <Modloader/app/structs/IKSolver_Bone.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolverAim {
     IL2CPP_REGISTER_METHOD(0x02BE78A0, float, GetAngle, (app::IKSolverAim * this_ptr))

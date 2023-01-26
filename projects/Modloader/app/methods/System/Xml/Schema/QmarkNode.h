@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/QmarkNode.h>
+
+#include <Modloader/app/structs/QmarkNode.h>
 #include <Modloader/app/structs/BitSet.h>
 #include <Modloader/app/structs/BitSet__Array.h>
 

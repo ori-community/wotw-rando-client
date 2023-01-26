@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TurtleScreamBehaviourNew.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/TurtleScreamBehaviourNew.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::TurtleScreamBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x013D8AE0, void, OnEnter, (app::TurtleScreamBehaviourNew * this_ptr, app::IContext* context))

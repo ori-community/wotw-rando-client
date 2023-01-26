@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NotImplementedException.h>
+
+#include <Modloader/app/structs/NotImplementedException.h>
 #include <Modloader/app/structs/NotSupportedException.h>
 #include <Modloader/app/structs/WebException.h>
 

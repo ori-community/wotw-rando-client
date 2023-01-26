@@ -1,37 +1,38 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Void.h>
+
+#include <Modloader/app/structs/Void.h>
 #include <Modloader/app/structs/Allocator__Enum.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AnimationStream.h>
 #include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/AttachSpriteToPhysicsSystem_JobWithMonoBehaviour.h>
 #include <Modloader/app/structs/BatchQueryJob_2_UnityEngine_CapsulecastCommand_UnityEngine_RaycastHit_.h>
 #include <Modloader/app/structs/BatchQueryJob_2_UnityEngine_RaycastCommand_UnityEngine_RaycastHit_.h>
 #include <Modloader/app/structs/BatchQueryJob_2_UnityEngine_SpherecastCommand_UnityEngine_RaycastHit_.h>
-#include <Modloader/app/structs/void.h>
-#include <Modloader/app/structs/AnimationStream.h>
-#include <Modloader/app/structs/DelayJointPostprocessJob.h>
-#include <Modloader/app/structs/MatchJointsJob.h>
+#include <Modloader/app/structs/BlendGradientColorsJob.h>
 #include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/CapsulecastCommand.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/TransformStreamHandle.h>
+#include <Modloader/app/structs/DelayJointPostprocessJob.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/MatchJointsJob.h>
+#include <Modloader/app/structs/MoonTrailSystem_SimulateJob.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/RaycastCommand.h>
 #include <Modloader/app/structs/RaycastHit.h>
-#include <Modloader/app/structs/SpherecastCommand.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/AttachSpriteToPhysicsSystem_JobWithMonoBehaviour.h>
-#include <Modloader/app/structs/BlendGradientColorsJob.h>
-#include <Modloader/app/structs/XboxControllerManager_VibrationJob.h>
-#include <Modloader/app/structs/MoonTrailSystem_SimulateJob.h>
 #include <Modloader/app/structs/SimpleSwayAnimPostprocess_Job.h>
 #include <Modloader/app/structs/SimpleSwayBossAnimPostprocess_Job.h>
-#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_Job.h>
 #include <Modloader/app/structs/SoundZoneProcessor_Job.h>
-#include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/SpherecastCommand.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TransformStreamHandle.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/VerletPhysicsAnimationPostprocess_Job.h>
 #include <Modloader/app/structs/VerletStructure_JobWithMonoBehaviour.h>
+#include <Modloader/app/structs/XboxControllerManager_VibrationJob.h>
+#include <Modloader/app/structs/void.h>
 
 namespace app::classes::Unity::Collections::LowLevel::Unsafe::UnsafeUtility {
     IL2CPP_REGISTER_METHOD(0x02418CB0, app::Void*, Malloc, (int64_t size, int32_t alignment, app::Allocator__Enum allocator))
@@ -49,17 +50,11 @@ namespace app::classes::Unity::Collections::LowLevel::Unsafe::UnsafeUtility {
     IL2CPP_REGISTER_METHOD(0x0157BDF0, app::Object*, ReadArrayElement_1, (app::Void * source, int32_t index))
     IL2CPP_REGISTER_METHOD(0x015E3900, void, WriteArrayElement_1, (app::Void * destination, int32_t index, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x004C50A0, app::Void*, AddressOf_1, (app::BatchQueryJob_2_UnityEngine_CapsulecastCommand_UnityEngine_RaycastHit_ * output))
-    IL2CPP_REGISTER_METHODINFO(0x0472F110, UnsafeUtility_AddressOf__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004C50A0, app::Void*, AddressOf_2, (app::BatchQueryJob_2_UnityEngine_RaycastCommand_UnityEngine_RaycastHit_ * output))
-    IL2CPP_REGISTER_METHODINFO(0x0478ABB0, UnsafeUtility_AddressOf_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004C50A0, app::Void*, AddressOf_3, (app::BatchQueryJob_2_UnityEngine_SpherecastCommand_UnityEngine_RaycastHit_ * output))
-    IL2CPP_REGISTER_METHODINFO(0x04749BD0, UnsafeUtility_AddressOf_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00910BD0, int32_t, SizeOf_2, ())
-    IL2CPP_REGISTER_METHODINFO(0x047359D8, UnsafeUtility_SizeOf_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0043D9A0, int32_t, SizeOf_3, ())
-    IL2CPP_REGISTER_METHODINFO(0x0478EB60, UnsafeUtility_SizeOf_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417920, int32_t, SizeOf_4, ())
-    IL2CPP_REGISTER_METHODINFO(0x04753AA0, UnsafeUtility_SizeOf_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0156A260, bool, IsBlittable_2, ())
     IL2CPP_REGISTER_METHOD(0x0156A350, bool, IsGenericListBlittable, ())
     IL2CPP_REGISTER_METHOD(0x00910BD0, int32_t, AlignOf_1, ())
@@ -85,10 +80,8 @@ namespace app::classes::Unity::Collections::LowLevel::Unsafe::UnsafeUtility {
     IL2CPP_REGISTER_METHOD(0x00C754B0, int32_t, SizeOf_14, ())
     IL2CPP_REGISTER_METHOD(0x00ADC4A0, int32_t, SizeOf_15, ())
     IL2CPP_REGISTER_METHOD(0x015421B0, app::String*, GetReasonForGenericListNonBlittable, ())
-    IL2CPP_REGISTER_METHOD(0x015E3850, void, CopyPtrToStructure_1, (app::Void * ptr, app::void** output))
-    IL2CPP_REGISTER_METHODINFO(0x04723710, UnsafeUtility_CopyPtrToStructure__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x015E3850, void, CopyPtrToStructure_1, (app::Void * ptr, void** output))
     IL2CPP_REGISTER_METHOD(0x015E3860, void, CopyPtrToStructure_2, (app::Void * ptr, app::AnimationStream* output))
-    IL2CPP_REGISTER_METHODINFO(0x04733A80, UnsafeUtility_CopyPtrToStructure_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E3890, void, CopyStructureToPtr_1, (app::DelayJointPostprocessJob * input, app::Void* ptr))
     IL2CPP_REGISTER_METHOD(0x015E38D0, void, CopyStructureToPtr_2, (app::MatchJointsJob * input, app::Void* ptr))
     IL2CPP_REGISTER_METHOD(0x015E38F0, void, WriteArrayElement_2, (app::Void * destination, int32_t index, uint8_t value))

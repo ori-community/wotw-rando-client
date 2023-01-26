@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ArtOptimizerDataContainer.h>
-#include <Modloader/app/structs/SerializableUberShaderWrapper.h>
-#include <Modloader/app/structs/SerializableUberSaderModifierWrapper.h>
+
+#include <Modloader/app/structs/ArtOptimizerDataContainer.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SerializableUberSaderModifierWrapper.h>
+#include <Modloader/app/structs/SerializableUberShaderWrapper.h>
 #include <Modloader/app/structs/UberShaderModifier.h>
 
 namespace app::classes::Moon::ArtOptimization::ArtOptimizerDataContainer {

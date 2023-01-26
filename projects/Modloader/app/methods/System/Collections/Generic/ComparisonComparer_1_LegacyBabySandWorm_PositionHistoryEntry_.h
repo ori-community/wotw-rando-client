@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_LegacyBabySandWorm_PositionHistoryEntry_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_LegacyBabySandWorm_PositionHistoryEntry_.h>
 #include <Modloader/app/structs/Comparison_1_LegacyBabySandWorm_PositionHistoryEntry_.h>
 #include <Modloader/app/structs/LegacyBabySandWorm_PositionHistoryEntry.h>
 

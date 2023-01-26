@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Object_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/IList_1_System_Object_.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Object_.h>
 #include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IList_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Collections::ObjectModel::ReadOnlyCollection_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02B7DD20, int32_t, get_Count, (app::ReadOnlyCollection_1_System_Object_ * this_ptr))
@@ -21,7 +22,6 @@ namespace app::classes::System::Collections::ObjectModel::ReadOnlyCollection_1_S
     IL2CPP_REGISTER_METHOD(0x02EC2580, app::Object*, IList_get_Item, (app::ReadOnlyCollection_1_System_Object_ * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x02B7E070, void, IList_set_Item, (app::ReadOnlyCollection_1_System_Object_ * this_ptr, int32_t index, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x02B7DCF0, void, ctor, (app::ReadOnlyCollection_1_System_Object_ * this_ptr, app::IList_1_System_Object_* list))
-    IL2CPP_REGISTER_METHODINFO(0x0478CF10, ReadOnlyCollection_1_System_Object___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02B82AA0, bool, Contains, (app::ReadOnlyCollection_1_System_Object_ * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x02B7DEC0, void, CopyTo, (app::ReadOnlyCollection_1_System_Object_ * this_ptr, app::Object__Array* array, int32_t index))
     IL2CPP_REGISTER_METHOD(0x02B7DF30, app::IEnumerator_1_System_Object_*, GetEnumerator, (app::ReadOnlyCollection_1_System_Object_ * this_ptr))

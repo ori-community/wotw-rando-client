@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HasPurchasedSkillUpgradeCondition.h>
+
+#include <Modloader/app/structs/HasPurchasedSkillUpgradeCondition.h>
 #include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::experiments::npcs::weaponMaster::scripts::HasPurchasedSkillUpgradeCondition {

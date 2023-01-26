@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UberPoolGroup__Class.h>
 #include <Modloader/app/structs/UberPoolGroup.h>
 #include <Modloader/app/structs/UberPoolGroup__Array.h>
+#include <Modloader/app/structs/UberPoolGroup__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace UberPoolGroup {
-        inline app::UberPoolGroup__Class** type_info = (app::UberPoolGroup__Class**)(modloader::win::memory::resolve_rva(0x047779B8));
+        inline app::UberPoolGroup__Class** type_info() {
+            static app::UberPoolGroup__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::UberPoolGroup__Class**)(modloader::win::memory::resolve_rva(0x047779B8));
+            }
+            return cache;
+        }
         inline app::UberPoolGroup__Class* get_class() {
-            return il2cpp::get_class<app::UberPoolGroup__Class>(type_info, "", "UberPoolGroup");
+            return il2cpp::get_class<app::UberPoolGroup__Class>(type_info(), "", "UberPoolGroup");
         }
         inline app::UberPoolGroup* create() {
             return il2cpp::create_object<app::UberPoolGroup>(get_class());

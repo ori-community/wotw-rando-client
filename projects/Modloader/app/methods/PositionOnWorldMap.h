@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PositionOnWorldMap.h>
+
+#include <Modloader/app/structs/PositionOnWorldMap.h>
 
 namespace app::classes::PositionOnWorldMap {
     IL2CPP_REGISTER_METHOD(0x00C68B30, void, FixedUpdate, (app::PositionOnWorldMap * this_ptr))

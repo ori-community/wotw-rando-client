@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Decimal__Boxed.h>
-#include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/StreamingContext.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Decimal.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IFormatProvider.h>
-#include <Modloader/app/structs/NumberStyles__Enum.h>
+
+#include <Modloader/app/structs/Decimal__Boxed.h>
 #include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/TypeCode__Enum.h>
 #include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/NumberStyles__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
 
 namespace app::classes::System::Decimal {
     IL2CPP_REGISTER_METHOD(0x0013D300, void, ctor_1, (app::Decimal__Boxed * this_ptr, int32_t value))
@@ -21,24 +22,17 @@ namespace app::classes::System::Decimal {
     IL2CPP_REGISTER_METHOD(0x0013D390, void, ctor_5, (app::Decimal__Boxed * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x0013D3C0, void, ctor_6, (app::Decimal__Boxed * this_ptr, double value))
     IL2CPP_REGISTER_METHOD(0x0013D3F0, void, ctor_7, (app::Decimal__Boxed * this_ptr, app::Int32__Array* bits))
-    IL2CPP_REGISTER_METHODINFO(0x0476D778, Decimal__ctor_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0013D400, void, SetBits, (app::Decimal__Boxed * this_ptr, app::Int32__Array* bits))
-    IL2CPP_REGISTER_METHODINFO(0x0474CC00, Decimal_SetBits__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0013D410, void, ctor_8, (app::Decimal__Boxed * this_ptr, int32_t lo, int32_t mid, int32_t hi, bool is_negative, uint8_t scale))
-    IL2CPP_REGISTER_METHODINFO(0x04734858, Decimal__ctor_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0013D430, void, OnSerializing, (app::Decimal__Boxed * this_ptr, app::StreamingContext ctx))
-    IL2CPP_REGISTER_METHODINFO(0x0471C118, Decimal_OnSerializing__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0013D450, void, IDeserializationCallback_OnDeserialization, (app::Decimal__Boxed * this_ptr, app::Object* sender))
-    IL2CPP_REGISTER_METHODINFO(0x0470EE30, Decimal_System_Runtime_Serialization_IDeserializationCallback_OnDeserialization__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0013D460, void, ctor_9, (app::Decimal__Boxed * this_ptr, int32_t lo, int32_t mid, int32_t hi, int32_t flags))
-    IL2CPP_REGISTER_METHODINFO(0x0475C698, Decimal__ctor_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01732A00, app::Decimal, Abs, (app::Decimal d))
     IL2CPP_REGISTER_METHOD(0x01732A50, app::Decimal, Add, (app::Decimal d1, app::Decimal d2))
     IL2CPP_REGISTER_METHOD(0x01732B10, void, FCallAddSub, (app::Decimal * d1, app::Decimal* d2, uint8_t b_sign))
     IL2CPP_REGISTER_METHOD(0x01732B20, int32_t, Compare, (app::Decimal d1, app::Decimal d2))
     IL2CPP_REGISTER_METHOD(0x01732C70, int32_t, FCallCompare, (app::Decimal * d1, app::Decimal* d2))
     IL2CPP_REGISTER_METHOD(0x0013D470, int32_t, CompareTo_1, (app::Decimal__Boxed * this_ptr, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x047235E8, Decimal_CompareTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0013D480, int32_t, CompareTo_2, (app::Decimal__Boxed * this_ptr, app::Decimal value))
     IL2CPP_REGISTER_METHOD(0x01733040, app::Decimal, Divide, (app::Decimal d1, app::Decimal d2))
     IL2CPP_REGISTER_METHOD(0x01733100, void, FCallDivide, (app::Decimal * d1, app::Decimal* d2))
@@ -61,23 +55,15 @@ namespace app::classes::System::Decimal {
     IL2CPP_REGISTER_METHOD(0x01733D70, app::Decimal, Round, (app::Decimal d, int32_t decimals))
     IL2CPP_REGISTER_METHOD(0x01733E70, void, FCallRound, (app::Decimal * d, int32_t decimals))
     IL2CPP_REGISTER_METHOD(0x01733EC0, uint8_t, ToByte, (app::Decimal value))
-    IL2CPP_REGISTER_METHODINFO(0x0471EBE8, Decimal_ToByte__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01734010, int8_t, ToSByte, (app::Decimal value))
-    IL2CPP_REGISTER_METHODINFO(0x0477D708, Decimal_ToSByte__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01734160, int16_t, ToInt16, (app::Decimal value))
-    IL2CPP_REGISTER_METHODINFO(0x0471BD50, Decimal_ToInt16__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x017342B0, double, ToDouble, (app::Decimal d))
     IL2CPP_REGISTER_METHOD(0x01734300, int32_t, FCallToInt32, (app::Decimal d))
     IL2CPP_REGISTER_METHOD(0x01734380, int32_t, ToInt32, (app::Decimal d))
-    IL2CPP_REGISTER_METHODINFO(0x0474FBB8, Decimal_ToInt32__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x017344D0, int64_t, ToInt64, (app::Decimal d))
-    IL2CPP_REGISTER_METHODINFO(0x04723848, Decimal_ToInt64__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01734630, uint16_t, ToUInt16, (app::Decimal value))
-    IL2CPP_REGISTER_METHODINFO(0x04724C90, Decimal_ToUInt16__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01734780, uint32_t, ToUInt32, (app::Decimal d))
-    IL2CPP_REGISTER_METHODINFO(0x047490E8, Decimal_ToUInt32__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x017348D0, uint64_t, ToUInt64, (app::Decimal d))
-    IL2CPP_REGISTER_METHODINFO(0x0474FA90, Decimal_ToUInt64__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01734A20, float, ToSingle, (app::Decimal d))
     IL2CPP_REGISTER_METHOD(0x01734A70, app::Decimal, Truncate, (app::Decimal d))
     IL2CPP_REGISTER_METHOD(0x01734B50, void, FCallTruncate, (app::Decimal * d))
@@ -85,7 +71,7 @@ namespace app::classes::System::Decimal {
     IL2CPP_REGISTER_METHOD(0x01734BB0, app::Decimal, op_Implicit_2, (int8_t value))
     IL2CPP_REGISTER_METHOD(0x01734BE0, app::Decimal, op_Implicit_3, (int16_t value))
     IL2CPP_REGISTER_METHOD(0x01734C10, app::Decimal, op_Implicit_4, (uint16_t value))
-    IL2CPP_REGISTER_METHOD(0x01734C10, app::Decimal, op_Implicit_5, (uint16_t value))
+    IL2CPP_REGISTER_METHOD(0x01734C10, app::Decimal, op_Implicit_5, (char16_t value))
     IL2CPP_REGISTER_METHOD(0x01734C30, app::Decimal, op_Implicit_6, (int32_t value))
     IL2CPP_REGISTER_METHOD(0x01734C60, app::Decimal, op_Implicit_7, (uint32_t value))
     IL2CPP_REGISTER_METHOD(0x01734C70, app::Decimal, op_Implicit_8, (int64_t value))
@@ -111,8 +97,7 @@ namespace app::classes::System::Decimal {
     IL2CPP_REGISTER_METHOD(0x01735C90, bool, op_GreaterThanOrEqual, (app::Decimal d1, app::Decimal d2))
     IL2CPP_REGISTER_METHOD(0x0013D5E0, app::TypeCode__Enum, GetTypeCode, (app::Decimal__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0013D5F0, bool, IConvertible_ToBoolean, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
-    IL2CPP_REGISTER_METHOD(0x0013D740, uint16_t, IConvertible_ToChar, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
-    IL2CPP_REGISTER_METHODINFO(0x04726410, Decimal_System_IConvertible_ToChar__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x0013D740, char16_t, IConvertible_ToChar, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x0013D750, int8_t, IConvertible_ToSByte, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x0013D760, uint8_t, IConvertible_ToByte, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x0013D770, int16_t, IConvertible_ToInt16, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
@@ -125,7 +110,6 @@ namespace app::classes::System::Decimal {
     IL2CPP_REGISTER_METHOD(0x0013D960, double, IConvertible_ToDouble, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x0010A980, app::Decimal, IConvertible_ToDecimal, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x0013DA90, app::DateTime, IConvertible_ToDateTime, (app::Decimal__Boxed * this_ptr, app::IFormatProvider* provider))
-    IL2CPP_REGISTER_METHODINFO(0x04719958, Decimal_System_IConvertible_ToDateTime__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0013DAA0, app::Object*, IConvertible_ToType, (app::Decimal__Boxed * this_ptr, app::Type* type, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x01736E80, void, cctor, ())
     inline app::Decimal operator-(app::Decimal d) {

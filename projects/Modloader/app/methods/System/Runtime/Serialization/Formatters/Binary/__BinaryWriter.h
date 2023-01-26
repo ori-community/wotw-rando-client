@@ -1,25 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/_BinaryWriter.h>
-#include <Modloader/app/structs/Stream.h>
-#include <Modloader/app/structs/ObjectWriter.h>
-#include <Modloader/app/structs/FormatterTypeStyle__Enum.h>
+
+#include <Modloader/app/structs/_BinaryWriter.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/Char__Array.h>
-#include <Modloader/app/structs/Decimal.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/TimeSpan.h>
 #include <Modloader/app/structs/DateTime.h>
-#include <Modloader/app/structs/NameInfo.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/Type__Array.h>
-#include <Modloader/app/structs/WriteObjectInfo__Array.h>
-#include <Modloader/app/structs/WriteObjectInfo.h>
-#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/FormatterTypeStyle__Enum.h>
 #include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/InternalPrimitiveTypeE__Enum.h>
+#include <Modloader/app/structs/NameInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ObjectWriter.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/WriteObjectInfo.h>
+#include <Modloader/app/structs/WriteObjectInfo__Array.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::__BinaryWriter {
     IL2CPP_REGISTER_METHOD(0x01ED1880, void, ctor, (app::_BinaryWriter * this_ptr, app::Stream* sout, app::ObjectWriter* object_writer, app::FormatterTypeStyle__Enum formatter_type_style))
@@ -29,7 +30,7 @@ namespace app::classes::System::Runtime::Serialization::Formatters::Binary::__Bi
     IL2CPP_REGISTER_METHOD(0x01ED1A40, void, WriteByte, (app::_BinaryWriter * this_ptr, uint8_t value))
     IL2CPP_REGISTER_METHOD(0x01D61480, void, WriteBytes_1, (app::_BinaryWriter * this_ptr, app::Byte__Array* value))
     IL2CPP_REGISTER_METHOD(0x01ED1A70, void, WriteBytes_2, (app::_BinaryWriter * this_ptr, app::Byte__Array* byte_a, int32_t offset, int32_t size))
-    IL2CPP_REGISTER_METHOD(0x01D61390, void, WriteChar, (app::_BinaryWriter * this_ptr, uint16_t value))
+    IL2CPP_REGISTER_METHOD(0x01D61390, void, WriteChar, (app::_BinaryWriter * this_ptr, char16_t value))
     IL2CPP_REGISTER_METHOD(0x01ED1AA0, void, WriteChars, (app::_BinaryWriter * this_ptr, app::Char__Array* value))
     IL2CPP_REGISTER_METHOD(0x01ED1AD0, void, WriteDecimal, (app::_BinaryWriter * this_ptr, app::Decimal value))
     IL2CPP_REGISTER_METHOD(0x01ED1BC0, void, WriteSingle, (app::_BinaryWriter * this_ptr, float value))
@@ -69,5 +70,4 @@ namespace app::classes::System::Runtime::Serialization::Formatters::Binary::__Bi
     IL2CPP_REGISTER_METHOD(0x01ED4850, void, WriteItemObjectRef, (app::_BinaryWriter * this_ptr, app::NameInfo* name_info, int32_t id_ref))
     IL2CPP_REGISTER_METHOD(0x01ED4890, void, WriteAssembly, (app::_BinaryWriter * this_ptr, app::Type* type, app::String* assembly_string, int32_t assem_id, bool is_new))
     IL2CPP_REGISTER_METHOD(0x01ED4AB0, void, WriteValue, (app::_BinaryWriter * this_ptr, app::InternalPrimitiveTypeE__Enum code, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x04729158, _BinaryWriter_WriteValue__MethodInfo)
 } // namespace app::classes::System::Runtime::Serialization::Formatters::Binary::__BinaryWriter

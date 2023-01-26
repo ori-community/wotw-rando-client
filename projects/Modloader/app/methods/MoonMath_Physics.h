@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Rigidbody.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Rigidbody.h>
 #include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MoonMath_Physics {
     IL2CPP_REGISTER_METHOD(0x025771C0, float, SpeedFromHeightAndGravity, (float gravity, float height))

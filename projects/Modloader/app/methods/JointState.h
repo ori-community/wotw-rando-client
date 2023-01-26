@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JointState.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/JointState.h>
 #include <Modloader/app/structs/ConfigurableJoint.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::JointState {
     IL2CPP_REGISTER_METHOD(0x0064C5D0, void, Break, (app::JointState * this_ptr))

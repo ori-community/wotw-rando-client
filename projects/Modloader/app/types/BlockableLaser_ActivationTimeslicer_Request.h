@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request.h>
+#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request__Array.h>
+#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request__Boxed.h>
+#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request__Class.h>
-#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request.h>
-#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request__Boxed.h>
-#include <Modloader/app/structs/BlockableLaser_ActivationTimeslicer_Request__Array.h>
 
 namespace app::classes::types {
     namespace BlockableLaser_ActivationTimeslicer_Request {
-        inline app::BlockableLaser_ActivationTimeslicer_Request__Class** type_info = (app::BlockableLaser_ActivationTimeslicer_Request__Class**)(modloader::win::memory::resolve_rva(0x04768F00));
+        inline app::BlockableLaser_ActivationTimeslicer_Request__Class** type_info() {
+            static app::BlockableLaser_ActivationTimeslicer_Request__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::BlockableLaser_ActivationTimeslicer_Request__Class**)(modloader::win::memory::resolve_rva(0x04768F00));
+            }
+            return cache;
+        }
         inline app::BlockableLaser_ActivationTimeslicer_Request__Class* get_class() {
-            return il2cpp::get_nested_class<app::BlockableLaser_ActivationTimeslicer_Request__Class>(type_info, "", "BlockableLaser+ActivationTimeslicer", "Request");
+            return il2cpp::get_nested_class<app::BlockableLaser_ActivationTimeslicer_Request__Class>(type_info(), "", "BlockableLaser+ActivationTimeslicer", "Request");
         }
         inline app::BlockableLaser_ActivationTimeslicer_Request* create() {
             return il2cpp::create_object<app::BlockableLaser_ActivationTimeslicer_Request>(get_class());

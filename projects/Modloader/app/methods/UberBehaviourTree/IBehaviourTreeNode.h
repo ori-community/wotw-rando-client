@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BehaviourTreeStatus__Enum.h>
+
+#include <Modloader/app/structs/BehaviourTreeStatus__Enum.h>
 #include <Modloader/app/structs/IBehaviourTreeNode.h>
 #include <Modloader/app/structs/TickData.h>
 

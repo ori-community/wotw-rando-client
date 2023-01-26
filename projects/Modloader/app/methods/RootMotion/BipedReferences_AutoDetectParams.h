@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BipedReferences_AutoDetectParams__Boxed.h>
+
+#include <Modloader/app/structs/BipedReferences_AutoDetectParams__Boxed.h>
 #include <Modloader/app/structs/BipedReferences_AutoDetectParams.h>
 
 namespace app::classes::RootMotion::BipedReferences_AutoDetectParams {

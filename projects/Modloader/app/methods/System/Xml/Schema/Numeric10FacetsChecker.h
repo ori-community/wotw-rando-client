@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Numeric10FacetsChecker.h>
+
+#include <Modloader/app/structs/Numeric10FacetsChecker.h>
+#include <Modloader/app/structs/ArrayList.h>
 #include <Modloader/app/structs/Decimal.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/XmlSchemaDatatype.h>
-#include <Modloader/app/structs/ArrayList.h>
 #include <Modloader/app/structs/XmlValueConverter.h>
 
 namespace app::classes::System::Xml::Schema::Numeric10FacetsChecker {

@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShowFixedTimeTextEntity.h>
+
+#include <Modloader/app/structs/ShowFixedTimeTextEntity.h>
 #include <Modloader/app/structs/Action_1_MessageBox_HideAction_.h>
-#include <Modloader/app/structs/SoundHost.h>
-#include <Modloader/app/structs/MessageProvider.h>
-#include <Modloader/app/structs/MessageControllerB_NpcMessageStyle__Enum.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
-#include <Modloader/app/structs/TextBox.h>
+#include <Modloader/app/structs/MessageControllerB_NpcMessageStyle__Enum.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/ShowFixedTimeTextEntity_TextVisuals.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/TextBox.h>
 #include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::ShowFixedTimeTextEntity {
@@ -27,10 +28,8 @@ namespace app::classes::Moon::Timeline::ShowFixedTimeTextEntity {
     IL2CPP_REGISTER_METHOD(0x00786460, void, OnStartPlayback, (app::ShowFixedTimeTextEntity * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00787BD0, app::MoonTimeline*, get_ParentTimeline, (app::ShowFixedTimeTextEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00787CA0, void, OnFinishedReading, (app::ShowFixedTimeTextEntity * this_ptr, app::MessageBox_HideAction__Enum action))
-    IL2CPP_REGISTER_METHODINFO(0x047532F0, ShowFixedTimeTextEntity_OnFinishedReading__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00788230, void, OnStopPlayback, (app::ShowFixedTimeTextEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007882F0, void, ResetMessageTimer, (app::ShowFixedTimeTextEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047880B8, ShowFixedTimeTextEntity_ResetMessageTimer__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00788300, void, UpdateFade, (app::ShowFixedTimeTextEntity * this_ptr, app::TextBox* text, app::ShowFixedTimeTextEntity_TextVisuals* visuals, float time, float duration))
     IL2CPP_REGISTER_METHOD(0x007886A0, void, ResetWriteOut, (app::ShowFixedTimeTextEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007887F0, void, OnUpdateEntity, (app::ShowFixedTimeTextEntity * this_ptr, float delta_time))

@@ -1,27 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Motvin_Collections_ChainLevelAndCount_.h>
-#include <Modloader/app/structs/ChainLevelAndCount.h>
-#include <Modloader/app/structs/IEnumerable_1_Motvin_Collections_ChainLevelAndCount_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Motvin_Collections_ChainLevelAndCount_.h>
-#include <Modloader/app/structs/IComparer_1_Motvin_Collections_ChainLevelAndCount_.h>
-#include <Modloader/app/structs/ChainLevelAndCount__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Motvin_Collections_ChainLevelAndCount_.h>
+
+#include <Modloader/app/structs/List_1_Motvin_Collections_ChainLevelAndCount_.h>
 #include <Modloader/app/structs/Action_1_Motvin_Collections_ChainLevelAndCount_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Motvin_Collections_ChainLevelAndCount_.h>
-#include <Modloader/app/structs/IEnumerator_1_Motvin_Collections_ChainLevelAndCount_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/ChainLevelAndCount.h>
+#include <Modloader/app/structs/ChainLevelAndCount__Array.h>
 #include <Modloader/app/structs/Comparison_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/IComparer_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/IEnumerable_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Motvin_Collections_ChainLevelAndCount_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Motvin_Collections_ChainLevelAndCount_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_Motvin_Collections_ChainLevelAndCount_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x047138C8, List_1_Motvin_Collections_ChainLevelAndCount___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EFF90, void, Add, (app::List_1_Motvin_Collections_ChainLevelAndCount_ * this_ptr, app::ChainLevelAndCount item))
-    IL2CPP_REGISTER_METHODINFO(0x04773C50, List_1_Motvin_Collections_ChainLevelAndCount__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAD50, void, Sort_1, (app::List_1_Motvin_Collections_ChainLevelAndCount_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478DFD0, List_1_Motvin_Collections_ChainLevelAndCount__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_2, (app::List_1_Motvin_Collections_ChainLevelAndCount_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02E4AB80, void, ctor_3, (app::List_1_Motvin_Collections_ChainLevelAndCount_ * this_ptr, app::IEnumerable_1_Motvin_Collections_ChainLevelAndCount_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_Motvin_Collections_ChainLevelAndCount_ * this_ptr))

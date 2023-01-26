@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MaskedValueBar.h>
+
+#include <Modloader/app/structs/MaskedValueBar.h>
 
 namespace app::classes::MaskedValueBar {
     IL2CPP_REGISTER_METHOD(0x00A11480, void, Awake, (app::MaskedValueBar * this_ptr))

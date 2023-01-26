@@ -1,25 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object_1__Array.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/Object_1.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/AsyncOperation_1.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Font.h>
-#include <Modloader/app/structs/UberStateCollection.h>
-#include <Modloader/app/structs/Texture2D.h>
-#include <Modloader/app/structs/Material.h>
-#include <Modloader/app/structs/ComputeShader.h>
-#include <Modloader/app/structs/PlayFabSharedSettings__Array.h>
+
+#include <Modloader/app/structs/Object_1__Array.h>
 #include <Modloader/app/structs/AkWwiseInitializationSettings.h>
-#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/AsyncOperation_1.h>
+#include <Modloader/app/structs/ComputeShader.h>
 #include <Modloader/app/structs/EntityWeightData.h>
+#include <Modloader/app/structs/Font.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/GameObject__Array.h>
 #include <Modloader/app/structs/HitReactionSettings.h>
 #include <Modloader/app/structs/InstantiateDebugIgnore.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/PlayFabSharedSettings__Array.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TextAsset.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/UberStateCollection.h>
 
 namespace app::classes::UnityEngine::Resources {
     IL2CPP_REGISTER_METHOD(0x02542670, app::Object_1__Array*, FindObjectsOfTypeAll_1, (app::Type * type))
@@ -44,29 +45,16 @@ namespace app::classes::UnityEngine::Resources {
     IL2CPP_REGISTER_METHOD(0x02FF67B0, app::Object__Array*, LoadAll_2, (app::String * path))
     IL2CPP_REGISTER_METHOD(0x0157D700, app::Object*, GetBuiltinResource_2, (app::String * path))
     IL2CPP_REGISTER_METHOD(0x0157D700, app::Font*, GetBuiltinResource_3, (app::String * path))
-    IL2CPP_REGISTER_METHODINFO(0x04772EB0, Resources_GetBuiltinResource_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157D850, app::UberStateCollection*, Load_4, (app::String * path))
-    IL2CPP_REGISTER_METHODINFO(0x04753470, Resources_Load_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157D850, app::Texture2D*, Load_5, (app::String * path))
-    IL2CPP_REGISTER_METHODINFO(0x0474C7A8, Resources_Load_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157D850, app::Material*, Load_6, (app::String * path))
-    IL2CPP_REGISTER_METHODINFO(0x04774DC8, Resources_Load_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157D850, app::ComputeShader*, Load_7, (app::String * path))
-    IL2CPP_REGISTER_METHODINFO(0x04761070, Resources_Load_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF67B0, app::PlayFabSharedSettings__Array*, LoadAll_3, (app::String * path))
-    IL2CPP_REGISTER_METHODINFO(0x0472B2D0, Resources_LoadAll_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157D850, app::AkWwiseInitializationSettings*, Load_8, (app::String * path))
-    IL2CPP_REGISTER_METHODINFO(0x047705A8, Resources_Load_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157D850, app::GameObject*, Load_9, (app::String * path))
-    IL2CPP_REGISTER_METHODINFO(0x04732F60, Resources_Load_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157D850, app::EntityWeightData*, Load_10, (app::String * path))
-    IL2CPP_REGISTER_METHODINFO(0x0475B4C0, Resources_Load_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF66B0, app::GameObject__Array*, FindObjectsOfTypeAll_3, ())
-    IL2CPP_REGISTER_METHODINFO(0x04737788, Resources_FindObjectsOfTypeAll_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157D850, app::HitReactionSettings*, Load_11, (app::String * path))
-    IL2CPP_REGISTER_METHODINFO(0x0473A2B0, Resources_Load_10__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157D850, app::InstantiateDebugIgnore*, Load_12, (app::String * path))
-    IL2CPP_REGISTER_METHODINFO(0x0474A7A8, Resources_Load_11__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157D850, app::TextAsset*, Load_13, (app::String * path))
-    IL2CPP_REGISTER_METHODINFO(0x04712850, Resources_Load_12__MethodInfo)
 } // namespace app::classes::UnityEngine::Resources

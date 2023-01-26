@@ -1,22 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MistyWoodsKuroController.h>
-#include <Modloader/app/structs/TextureAnimation.h>
-#include <Modloader/app/structs/MistyWoodsKuroController_State__Enum.h>
+
+#include <Modloader/app/structs/MistyWoodsKuroController.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/MistyWoodsKuroController_State__Enum.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/TextureAnimation.h>
 
 namespace app::classes::MistyWoodsKuroController {
     IL2CPP_REGISTER_METHOD(0x01327FB0, bool, get_IsHunting, (app::MistyWoodsKuroController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01327FC0, void, Awake, (app::MistyWoodsKuroController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01328340, void, OnAnimationEnded, (app::MistyWoodsKuroController * this_ptr, app::TextureAnimation* animation))
-    IL2CPP_REGISTER_METHODINFO(0x0475DF38, MistyWoodsKuroController_OnAnimationEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x013284C0, void, OnDestroy, (app::MistyWoodsKuroController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8E90, void, FixedUpdate, (app::MistyWoodsKuroController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01328560, void, ChangeState, (app::MistyWoodsKuroController * this_ptr, app::MistyWoodsKuroController_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x013287B0, void, PlayIdleSound, (app::MistyWoodsKuroController * this_ptr, app::TextureAnimation* not_used))
-    IL2CPP_REGISTER_METHODINFO(0x04738488, MistyWoodsKuroController_PlayIdleSound__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateState, (app::MistyWoodsKuroController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01328880, void, OnHide, (app::MistyWoodsKuroController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01328A70, void, OnVisible, (app::MistyWoodsKuroController * this_ptr))

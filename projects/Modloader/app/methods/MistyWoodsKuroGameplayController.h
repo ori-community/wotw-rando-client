@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MistyWoodsKuroGameplayController.h>
-#include <Modloader/app/structs/MistyWoodsKuroGameplayController_State__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/MistyWoodsKuroGameplayController.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/MistyWoodsKuroGameplayController_State__Enum.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::MistyWoodsKuroGameplayController {
     IL2CPP_REGISTER_METHOD(0x01328EF0, bool, get_IsHidden, (app::MistyWoodsKuroGameplayController * this_ptr))
@@ -23,7 +24,5 @@ namespace app::classes::MistyWoodsKuroGameplayController {
     IL2CPP_REGISTER_METHOD(0x0132A6D0, void, set_Mask, (app::MistyWoodsKuroGameplayController * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x0132A790, void, ctor, (app::MistyWoodsKuroGameplayController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0132A7C0, void, _OnHide_b__25_0, (app::MistyWoodsKuroGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047695D0, MistyWoodsKuroGameplayController__OnHide_b__25_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0132A7C0, void, _OnVisible_b__26_0, (app::MistyWoodsKuroGameplayController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04719DF0, MistyWoodsKuroGameplayController__OnVisible_b__26_0__MethodInfo)
 } // namespace app::classes::MistyWoodsKuroGameplayController

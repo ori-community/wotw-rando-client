@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkCommonUserSettings.h>
-#include <Modloader/app/structs/AkWindowsSettings.h>
+
+#include <Modloader/app/structs/AkCommonUserSettings.h>
 #include <Modloader/app/structs/AkCommonAdvancedSettings.h>
 #include <Modloader/app/structs/AkCommonCommSettings.h>
+#include <Modloader/app/structs/AkWindowsSettings.h>
 
 namespace app::classes::AkWindowsSettings {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::AkCommonUserSettings*, GetUserSettings, (app::AkWindowsSettings * this_ptr))

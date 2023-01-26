@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/ColorAnimator.h>
-#include <Modloader/app/structs/Renderer.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Renderer__Array.h>
+#include <Modloader/app/structs/ColorAnimator.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/Renderer__Array.h>
 #include <Modloader/app/structs/TimelineEntity.h>
-#include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::ColorAnimator {
     IL2CPP_REGISTER_METHOD(0x0075FB80, app::GameObject*, get_EffectiveTarget, (app::ColorAnimator * this_ptr))

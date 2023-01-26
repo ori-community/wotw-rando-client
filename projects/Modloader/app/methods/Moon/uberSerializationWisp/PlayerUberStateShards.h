@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateShards.h>
+
+#include <Modloader/app/structs/PlayerUberStateShards.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/NavigableOnGUI.h>
 #include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 #include <Modloader/app/structs/SpiritShardType__Enum.h>
 #include <Modloader/app/structs/UberStateArchive.h>
-#include <Modloader/app/structs/NavigableOnGUI.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateShards {
     IL2CPP_REGISTER_METHOD(0x00F406E0, void, ctor, (app::PlayerUberStateShards * this_ptr, app::Action* set_dirty_callback))
@@ -16,7 +17,6 @@ namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateShards {
     IL2CPP_REGISTER_METHOD(0x00F410F0, int32_t, GetShardMaxLevel, (app::PlayerUberStateShards * this_ptr, app::SpiritShardType__Enum shard))
     IL2CPP_REGISTER_METHOD(0x00F411B0, void, AddShardSlot, (app::PlayerUberStateShards * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F411C0, void, SetShardSlotCount, (app::PlayerUberStateShards * this_ptr, int32_t count))
-    IL2CPP_REGISTER_METHODINFO(0x04798A50, PlayerUberStateShards_SetShardSlotCount__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F411D0, app::PlayerUberStateShards_Shard*, GetShardAtSlot, (app::PlayerUberStateShards * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x002FB970, int32_t, get_ShardSlotCount, (app::PlayerUberStateShards * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F412F0, void, Save, (app::PlayerUberStateShards * this_ptr, app::UberStateArchive* archive, app::PlayerUberStateShards* abilities))

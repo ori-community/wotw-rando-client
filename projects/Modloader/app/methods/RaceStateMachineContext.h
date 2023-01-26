@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/DifficultyMode__Enum.h>
+#include <Modloader/app/structs/ITrialData.h>
 #include <Modloader/app/structs/RaceStateMachineContext.h>
 #include <Modloader/app/structs/RaceStateMachineContext_Waiter.h>
-#include <Modloader/app/structs/String__Array.h>
 #include <Modloader/app/structs/RaceTimer.h>
-#include <Modloader/app/structs/ITrialData.h>
-#include <Modloader/app/structs/DifficultyMode__Enum.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::RaceStateMachineContext {
     IL2CPP_REGISTER_METHOD(0x00719D50, app::String*, get_RaceName, (app::RaceStateMachineContext * this_ptr))

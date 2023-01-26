@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityHighlightColor.h>
+
+#include <Modloader/app/structs/EntityHighlightColor.h>
 
 namespace app::classes::EntityHighlightColor {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, DoStrip, (app::EntityHighlightColor * this_ptr))
@@ -15,7 +16,6 @@ namespace app::classes::EntityHighlightColor {
     IL2CPP_REGISTER_METHOD(0x0094FCE0, void, set_IsInScene, (app::EntityHighlightColor * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00C92470, void, Start, (app::EntityHighlightColor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C92290, void, OnRestoreCheckpoint, (app::EntityHighlightColor * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047925F0, EntityHighlightColor_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C92630, void, Update, (app::EntityHighlightColor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBeforeSerialize, (app::EntityHighlightColor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C92750, void, OnAfterDeserialize, (app::EntityHighlightColor * this_ptr))

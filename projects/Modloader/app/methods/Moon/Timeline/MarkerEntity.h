@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimatorPlayState__Enum.h>
+
+#include <Modloader/app/structs/AnimatorPlayState__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IEventReciever.h>
 #include <Modloader/app/structs/MarkerEntity.h>
 #include <Modloader/app/structs/PlaybackStatus.h>
-#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IEventReciever.h>
 
 namespace app::classes::Moon::Timeline::MarkerEntity {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::AnimatorPlayState__Enum, get_PlayState, (app::MarkerEntity * this_ptr))

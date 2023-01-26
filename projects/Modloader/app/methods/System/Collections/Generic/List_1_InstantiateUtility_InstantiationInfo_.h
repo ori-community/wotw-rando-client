@@ -1,23 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_InstantiateUtility_InstantiationInfo_.h>
-#include <Modloader/app/structs/IEnumerable_1_InstantiateUtility_InstantiationInfo_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/InstantiateUtility_InstantiationInfo.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_InstantiateUtility_InstantiationInfo_.h>
-#include <Modloader/app/structs/IComparer_1_InstantiateUtility_InstantiationInfo_.h>
-#include <Modloader/app/structs/InstantiateUtility_InstantiationInfo__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_InstantiateUtility_InstantiationInfo_.h>
+
+#include <Modloader/app/structs/List_1_InstantiateUtility_InstantiationInfo_.h>
 #include <Modloader/app/structs/Action_1_InstantiateUtility_InstantiationInfo_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_InstantiateUtility_InstantiationInfo_.h>
-#include <Modloader/app/structs/IEnumerator_1_InstantiateUtility_InstantiationInfo_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_InstantiateUtility_InstantiationInfo_.h>
+#include <Modloader/app/structs/IComparer_1_InstantiateUtility_InstantiationInfo_.h>
+#include <Modloader/app/structs/IEnumerable_1_InstantiateUtility_InstantiationInfo_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_InstantiateUtility_InstantiationInfo_.h>
+#include <Modloader/app/structs/InstantiateUtility_InstantiationInfo.h>
+#include <Modloader/app/structs/InstantiateUtility_InstantiationInfo__Array.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_InstantiateUtility_InstantiationInfo_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_InstantiateUtility_InstantiationInfo_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_InstantiateUtility_InstantiationInfo_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_InstantiateUtility_InstantiationInfo_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_InstantiateUtility_InstantiationInfo_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x047509B0, List_1_InstantiateUtility_InstantiationInfo___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_2, (app::List_1_InstantiateUtility_InstantiationInfo_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02DEF420, void, ctor_3, (app::List_1_InstantiateUtility_InstantiationInfo_ * this_ptr, app::IEnumerable_1_InstantiateUtility_InstantiationInfo_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_InstantiateUtility_InstantiationInfo_ * this_ptr))

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationCurve.h>
-#include <Modloader/app/structs/Keyframe__Array.h>
+
+#include <Modloader/app/structs/AnimationCurve.h>
 #include <Modloader/app/structs/Keyframe.h>
-#include <Modloader/app/structs/WrapMode__Enum.h>
+#include <Modloader/app/structs/Keyframe__Array.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/WrapMode__Enum.h>
 
 namespace app::classes::UnityEngine::AnimationCurve {
     IL2CPP_REGISTER_METHOD(0x02419990, void, ctor_1, (app::AnimationCurve * this_ptr, app::Keyframe__Array* keys))

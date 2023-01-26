@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
-#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility__Array.h>
-#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility.h>
+#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility__Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_*, get_Default, ())

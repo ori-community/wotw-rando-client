@@ -1,28 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinComboHandler_StubbedComboMove.h>
-#include <Modloader/app/structs/SeinComboHandler.h>
-#include <Modloader/app/structs/CharacterState.h>
-#include <Modloader/app/structs/CharacterPlatformMovement.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/SeinComboHandler_StubbedComboMove.h>
 #include <Modloader/app/structs/Animator.h>
-#include <Modloader/app/structs/MeleeWeapon.h>
-#include <Modloader/app/structs/IComboMove.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/ComboInput.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/CharacterState.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/ComboInput.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/IComboMoveProvider.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/IComboMoveProvider.h>
 #include <Modloader/app/structs/IHoldable.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinComboHandler {
     IL2CPP_REGISTER_METHOD(0x002FBCA0, app::SeinComboHandler_StubbedComboMove*, get_MovementAbility, (app::SeinComboHandler * this_ptr))
@@ -67,9 +68,7 @@ namespace app::classes::SeinComboHandler {
     IL2CPP_REGISTER_METHOD(0x00A5F7A0, bool, IsMoveOnCooldown, (app::SeinComboHandler * this_ptr, app::IComboMove* move))
     IL2CPP_REGISTER_METHOD(0x00A5F8B0, void, UpdateCooldownRules, (app::SeinComboHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A5FE30, void, HitWater, (app::SeinComboHandler * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474C900, SeinComboHandler_HitWater__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A5FE40, void, OnLand, (app::SeinComboHandler * this_ptr, app::Vector3 normal, app::Collider* col))
-    IL2CPP_REGISTER_METHODINFO(0x0475A790, SeinComboHandler_OnLand__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A5FF50, app::IComboMove*, FindChainedComboMoveForInput, (app::SeinComboHandler * this_ptr, app::ComboInput* input))
     IL2CPP_REGISTER_METHOD(0x00A60000, bool, IsMoveConnectedToMove, (app::SeinComboHandler * this_ptr, app::IComboMove* last_move, app::IComboMove* new_move))
     IL2CPP_REGISTER_METHOD(0x00A601A0, void, PerformComboMove, (app::SeinComboHandler * this_ptr, app::IComboMove* move))
@@ -79,15 +78,10 @@ namespace app::classes::SeinComboHandler {
     IL2CPP_REGISTER_METHOD(0x00A60AC0, void, BeginCombo, (app::SeinComboHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A60CF0, void, EndCombo, (app::SeinComboHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A60ED0, void, ModifyGravityPlatformMovementSettings, (app::SeinComboHandler * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04784C50, SeinComboHandler_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A60FD0, void, ModifyHorizontalPlatformMovementSettings, (app::SeinComboHandler * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0474A3C0, SeinComboHandler_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A610D0, void, OnAnimationEvent, (app::SeinComboHandler * this_ptr, app::SeinController3D_EventId__Enum event_id))
-    IL2CPP_REGISTER_METHODINFO(0x047491B8, SeinComboHandler_OnAnimationEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A61170, void, OnOriTakeDamage, (app::SeinComboHandler * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x047722A0, SeinComboHandler_OnOriTakeDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A612A0, void, OnDamageResultReceived, (app::SeinComboHandler * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x04719850, SeinComboHandler_OnDamageResultReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A61AF0, float, GetCooldown, (app::SeinComboHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A61C00, void, UpdateTargetting, (app::SeinComboHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A61D40, void, UpdateTargetHighlight, (app::SeinComboHandler * this_ptr))
@@ -103,8 +97,6 @@ namespace app::classes::SeinComboHandler {
     IL2CPP_REGISTER_METHOD(0x00A63120, void, DeregisterComboMove, (app::SeinComboHandler * this_ptr, app::IComboMove* move))
     IL2CPP_REGISTER_METHOD(0x00A632A0, void, DeregisterComboMovesFromProvider, (app::SeinComboHandler * this_ptr, app::IComboMoveProvider* provider))
     IL2CPP_REGISTER_METHOD(0x00A63390, void, OnHoldablePickUp, (app::SeinComboHandler * this_ptr, app::IHoldable* holdable))
-    IL2CPP_REGISTER_METHODINFO(0x04769B38, SeinComboHandler_OnHoldablePickUp__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A634E0, void, ctor, (app::SeinComboHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A64030, bool, _OnDamageResultReceived_b__114_0, (app::SeinComboHandler * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04793A38, SeinComboHandler__OnDamageResultReceived_b__114_0__MethodInfo)
 } // namespace app::classes::SeinComboHandler

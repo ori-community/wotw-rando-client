@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GroundEntityMovementProcessor.h>
+
+#include <Modloader/app/structs/GroundEntityMovementProcessor.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/EntityBehaviour.h>
+#include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
 #include <Modloader/app/structs/GroundEntityLocomotion.h>
 #include <Modloader/app/structs/LocomotionGroundMoveBehaviour.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/EntityLocomotionTask.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/EntityBehaviourNode.h>
-#include <Modloader/app/structs/EntityBehaviour.h>
 #include <Modloader/app/structs/MovementProcessor.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::GroundEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::GroundEntityMovementProcessor*, get_GroundMovement, (app::GroundEntityLocomotion * this_ptr))
@@ -38,9 +39,7 @@ namespace app::classes::Moon::GroundEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x0148E900, void, ConfigureStateMachine, (app::GroundEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0065FBA0, app::EntityLocomotionTask*, get_DefaultFSMState, (app::GroundEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0148F050, bool, ShouldTriggerTurn, (app::GroundEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470A1E0, GroundEntityLocomotion_ShouldTriggerTurn__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0148F470, bool, ShouldTriggerMove, (app::GroundEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472DD28, GroundEntityLocomotion_ShouldTriggerMove__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0148F6A0, app::EntityLocomotionTask*, GetNextBehaviour, (app::GroundEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0148FC90, void, OnEntityReset, (app::GroundEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0148FDB0, void, ResetLocomotion, (app::GroundEntityLocomotion * this_ptr))
@@ -72,9 +71,6 @@ namespace app::classes::Moon::GroundEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x01491570, void, ctor, (app::GroundEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014915A0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01491620, bool, _ConfigureStateMachine_b__47_0, (app::GroundEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470F290, GroundEntityLocomotion__ConfigureStateMachine_b__47_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01491660, bool, _ConfigureStateMachine_b__47_1, (app::GroundEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475D490, GroundEntityLocomotion__ConfigureStateMachine_b__47_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01491690, bool, _ConfigureStateMachine_b__47_2, (app::GroundEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04736AC0, GroundEntityLocomotion__ConfigureStateMachine_b__47_2__MethodInfo)
 } // namespace app::classes::Moon::GroundEntityLocomotion

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraSystem.h>
+
+#include <Modloader/app/structs/CameraSystem.h>
 
 namespace app::classes::CameraSystem {
     IL2CPP_REGISTER_METHOD(0x00B1EA80, void, Awake, (app::CameraSystem * this_ptr))

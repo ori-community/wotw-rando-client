@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationMontage_Entry.h>
+
+#include <Modloader/app/structs/AnimationMontage_Entry.h>
 #include <Modloader/app/structs/BaseAnimator.h>
 
 namespace app::classes::Moon::AnimationMontage_Entry {

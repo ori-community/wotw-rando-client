@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/PetrifiedOwlBossLocomotion.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
-#include <Modloader/app/structs/EntityLocomotionTask.h>
-#include <Modloader/app/structs/PetrifiedOwlBossLocomotion_Stance__Enum.h>
+
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLocomotion.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLocomotion_Stance__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PetrifiedOwlBossLocomotion {
     IL2CPP_REGISTER_METHOD(0x005B0220, app::Transform*, get_FeetTransform, (app::PetrifiedOwlBossLocomotion * this_ptr))
@@ -17,7 +18,6 @@ namespace app::classes::PetrifiedOwlBossLocomotion {
     IL2CPP_REGISTER_METHOD(0x00974AE0, app::EntityWeightData_EntityWeight__Enum, get_Weight, (app::PetrifiedOwlBossLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01199F10, void, set_Weight, (app::PetrifiedOwlBossLocomotion * this_ptr, app::EntityWeightData_EntityWeight__Enum value))
     IL2CPP_REGISTER_METHOD(0x01777F30, void, ConfigureStateMachine, (app::PetrifiedOwlBossLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04799C70, PetrifiedOwlBossLocomotion_ConfigureStateMachine__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0065FBA0, app::EntityLocomotionTask*, get_DefaultFSMState, (app::PetrifiedOwlBossLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::EntityLocomotionTask*, GetNextBehaviour, (app::PetrifiedOwlBossLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00968AA0, void, Stop, (app::PetrifiedOwlBossLocomotion * this_ptr))
@@ -28,7 +28,6 @@ namespace app::classes::PetrifiedOwlBossLocomotion {
     IL2CPP_REGISTER_METHOD(0x01778230, void, OnFixedUpdate, (app::PetrifiedOwlBossLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x017782B0, void, PlayIdle, (app::PetrifiedOwlBossLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01778320, app::Vector3, OnProcessRootMotion, (app::PetrifiedOwlBossLocomotion * this_ptr, app::Vector3 velocity))
-    IL2CPP_REGISTER_METHODINFO(0x04753138, PetrifiedOwlBossLocomotion_OnProcessRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01778790, bool, ShouldClampPositionX, (app::PetrifiedOwlBossLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnGUI, (app::PetrifiedOwlBossLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004F1990, void, ctor, (app::PetrifiedOwlBossLocomotion * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JointDrive__Boxed.h>
+
+#include <Modloader/app/structs/JointDrive__Boxed.h>
 #include <Modloader/app/structs/JointDriveMode__Enum.h>
 
 namespace app::classes::UnityEngine::JointDrive {

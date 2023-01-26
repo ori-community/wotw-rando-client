@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TwoDataProviderSynchronizer.h>
-#include <Modloader/app/structs/IDataProvider.h>
-#include <Modloader/app/structs/CacheData__Array.h>
+
+#include <Modloader/app/structs/TwoDataProviderSynchronizer.h>
 #include <Modloader/app/structs/CacheData.h>
+#include <Modloader/app/structs/CacheData__Array.h>
+#include <Modloader/app/structs/IDataProvider.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::TwoDataProviderSynchronizer {

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LaserPulsator.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/LaserPulsator.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::LaserPulsator {
     IL2CPP_REGISTER_METHOD(0x00F08060, void, Awake, (app::LaserPulsator * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DivInstruction_DivInt32.h>
+
+#include <Modloader/app/structs/DivInstruction_DivInt32.h>
 #include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::DivInstruction_DivInt32 {

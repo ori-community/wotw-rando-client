@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PiranhaPatrolBehaviour.h>
-#include <Modloader/app/structs/SwimmingLocomotion.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/PiranhaPatrolBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SwimmingLocomotion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PiranhaPatrolBehaviour {
     IL2CPP_REGISTER_METHOD(0x01162FD0, int32_t, get_RandomIndex, (app::PiranhaPatrolBehaviour * this_ptr))

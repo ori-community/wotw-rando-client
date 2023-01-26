@@ -1,17 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StringStorage.h>
-#include <Modloader/app/structs/DataColumn.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Int32__Array.h>
+
+#include <Modloader/app/structs/StringStorage.h>
 #include <Modloader/app/structs/AggregateType__Enum.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/BitArray.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Data::Common::StringStorage {
     IL2CPP_REGISTER_METHOD(0x02863480, void, ctor, (app::StringStorage * this_ptr, app::DataColumn* column))
     IL2CPP_REGISTER_METHOD(0x028635A0, app::Object*, Aggregate, (app::StringStorage * this_ptr, app::Int32__Array* record_nos, app::AggregateType__Enum kind))
-    IL2CPP_REGISTER_METHODINFO(0x04785CF0, StringStorage_Aggregate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02863940, int32_t, Compare, (app::StringStorage * this_ptr, int32_t record_no1, int32_t record_no2))
     IL2CPP_REGISTER_METHOD(0x02863A00, int32_t, CompareValueTo, (app::StringStorage * this_ptr, int32_t record_no, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x02863B20, app::Object*, ConvertValue, (app::StringStorage * this_ptr, app::Object* value))

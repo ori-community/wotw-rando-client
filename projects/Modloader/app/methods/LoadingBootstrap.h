@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LoadingBootstrap.h>
-#include <Modloader/app/structs/PlayerLoopSystem.h>
-#include <Modloader/app/structs/Type__Array.h>
-#include <Modloader/app/structs/ThreadPriority__Enum_1.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/LoadingBootstrap.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/PlayerLoopSystem.h>
 #include <Modloader/app/structs/PrewarmOperationSlot__Enum.h>
 #include <Modloader/app/structs/Scene.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ThreadPriority__Enum_1.h>
+#include <Modloader/app/structs/Type__Array.h>
 
 namespace app::classes::LoadingBootstrap {
     IL2CPP_REGISTER_METHOD(0x00FB6B00, void, ResetStatics, ())
@@ -34,7 +35,6 @@ namespace app::classes::LoadingBootstrap {
     IL2CPP_REGISTER_METHOD(0x00FBA8E0, void, DrawPreloadDebug, (app::LoadingBootstrap * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FBBF40, void, InitializePrewarmOperations, (app::LoadingBootstrap * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ActiveSceneChanged, (app::LoadingBootstrap * this_ptr, app::Scene arg0, app::Scene arg1))
-    IL2CPP_REGISTER_METHODINFO(0x0472BFD0, LoadingBootstrap_ActiveSceneChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FBDC40, void, ctor, (app::LoadingBootstrap * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FBDC50, void, cctor, ())
 } // namespace app::classes::LoadingBootstrap

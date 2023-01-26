@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/XmlQualifiedName_HashCodeOfStringDelegate.h>
-#include <Modloader/app/structs/XmlNameTable.h>
+
+#include <Modloader/app/structs/XmlQualifiedName.h>
 #include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlQualifiedName_HashCodeOfStringDelegate.h>
 
 namespace app::classes::System::Xml::XmlQualifiedName {
     IL2CPP_REGISTER_METHOD(0x016FF860, void, ctor_1, (app::XmlQualifiedName * this_ptr))
@@ -23,13 +24,11 @@ namespace app::classes::System::Xml::XmlQualifiedName {
     IL2CPP_REGISTER_METHOD(0x01700020, app::XmlQualifiedName_HashCodeOfStringDelegate*, GetHashCodeDelegate, ())
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsRandomizedHashingDisabled, ())
     IL2CPP_REGISTER_METHOD(0x01700280, int32_t, GetHashCodeOfString, (app::String * s, int32_t length, int64_t additional_entropy))
-    IL2CPP_REGISTER_METHODINFO(0x0474FC68, XmlQualifiedName_GetHashCodeOfString__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x017002B0, void, Init, (app::XmlQualifiedName * this_ptr, app::String* name, app::String* ns))
     IL2CPP_REGISTER_METHOD(0x002FB940, void, SetNamespace, (app::XmlQualifiedName * this_ptr, app::String* ns))
     IL2CPP_REGISTER_METHOD(0x017002C0, void, Verify, (app::XmlQualifiedName * this_ptr))
     IL2CPP_REGISTER_METHOD(0x017003B0, void, Atomize, (app::XmlQualifiedName * this_ptr, app::XmlNameTable* name_table))
     IL2CPP_REGISTER_METHOD(0x01700410, app::XmlQualifiedName*, Parse, (app::String * s, app::IXmlNamespaceResolver* nsmgr, app::String** prefix))
-    IL2CPP_REGISTER_METHODINFO(0x04707650, XmlQualifiedName_Parse__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01700630, app::XmlQualifiedName*, Clone, (app::XmlQualifiedName * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01700780, void, cctor, ())
     inline bool operator==(app::XmlQualifiedName& a, app::XmlQualifiedName& b) {

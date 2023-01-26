@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneRoot.h>
-#include <Modloader/app/structs/SceneState__Enum.h>
-#include <Modloader/app/structs/SceneSettingsComponent.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SceneRoot__Array.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/AsyncOperation_1.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Object__Array.h>
 #include <Modloader/app/structs/Scene.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/AsyncOperation_1.h>
-#include <Modloader/app/structs/Action_1_Boolean_.h>
-#include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SceneRoot__Array.h>
+#include <Modloader/app/structs/SceneSettingsComponent.h>
+#include <Modloader/app/structs/SceneState__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SceneRoot {
     IL2CPP_REGISTER_METHOD(0x008519A0, bool, get_HighPriorityEnabling, (app::SceneRoot * this_ptr))
@@ -30,7 +31,6 @@ namespace app::classes::SceneRoot {
     IL2CPP_REGISTER_METHOD(0x00BB2810, bool, get_IsDisabled, (app::SceneRoot * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BB2820, app::SceneRoot*, FindFromTransform, (app::Transform * transform))
     IL2CPP_REGISTER_METHOD(0x00BB2900, app::SceneRoot*, FindFromPosition, (app::Vector3 position, app::SceneRoot__Array* scene_roots))
-    IL2CPP_REGISTER_METHODINFO(0x04741070, SceneRoot_FindFromPosition__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BB2B20, void, OnDestroy, (app::SceneRoot * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BB2C60, void, MoonCleanup, (app::SceneRoot * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, EditorAwake, (app::SceneRoot * this_ptr))
@@ -39,7 +39,6 @@ namespace app::classes::SceneRoot {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, EditorStart, (app::SceneRoot * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BB2EA0, void, EarlyStart, (app::SceneRoot * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BB3050, void, LateStart, (app::SceneRoot * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04761350, SceneRoot_LateStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BB3160, void, LoadSavedSceneData, (app::SceneRoot * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BB3200, void, DebugLog, (app::SceneRoot * this_ptr, app::String* format, app::Object__Array* args))
     IL2CPP_REGISTER_METHOD(0x00BB32A0, void, InitUnloadTask, (app::SceneRoot * this_ptr))
@@ -81,7 +80,6 @@ namespace app::classes::SceneRoot {
     IL2CPP_REGISTER_METHOD(0x00BB7810, void, UpdateObservers, (app::SceneRoot * this_ptr, app::GameObject* game_object))
     IL2CPP_REGISTER_METHOD(0x00BB79F0, void, RefreshObjectsToTimeSliceEnableList, (app::SceneRoot * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BB7C60, void, RegisterSceneRootEnabledAfterSerialize, (app::SceneRoot * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047276C8, SceneRoot_RegisterSceneRootEnabledAfterSerialize__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BB7D00, void, EnableWithManualUnSuspend, (app::SceneRoot * this_ptr, app::Action_1_Boolean_* after_enable))
     IL2CPP_REGISTER_METHOD(0x00BB7DD0, void, ManuallyUnsuspend, (app::SceneRoot * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BB7DE0, bool, CanRemoveObject, (app::SceneRoot * this_ptr, app::GameObject* target))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BezierSplineComponent.h>
-#include <Modloader/app/structs/Color.h>
+
+#include <Modloader/app/structs/BezierSplineComponent.h>
 #include <Modloader/app/structs/BaseSpline_SplineIterator.h>
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/Matrix4x4.h>
 #include <Modloader/app/structs/Vector3.h>
 

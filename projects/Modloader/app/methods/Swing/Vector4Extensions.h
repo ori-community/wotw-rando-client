@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector4.h>
+
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::Swing::Vector4Extensions {
     IL2CPP_REGISTER_METHOD(0x01832A70, app::Vector4, mult_1, (app::Vector4 _this, app::Vector4 _v))

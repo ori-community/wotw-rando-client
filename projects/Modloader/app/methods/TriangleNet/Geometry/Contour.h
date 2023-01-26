@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_TriangleNet_Geometry_Vertex_.h>
+
+#include <Modloader/app/structs/List_1_TriangleNet_Geometry_Vertex_.h>
 #include <Modloader/app/structs/Contour.h>
 #include <Modloader/app/structs/IEnumerable_1_TriangleNet_Geometry_Vertex_.h>
 #include <Modloader/app/structs/List_1_TriangleNet_Geometry_ISegment_.h>
@@ -16,6 +17,5 @@ namespace app::classes::TriangleNet::Geometry::Contour {
     IL2CPP_REGISTER_METHOD(0x0261AC50, app::Point*, FindInteriorPoint, (app::Contour * this_ptr, int32_t limit, double eps))
     IL2CPP_REGISTER_METHOD(0x0261AEC0, void, AddPoints, (app::Contour * this_ptr, app::IEnumerable_1_TriangleNet_Geometry_Vertex_* points))
     IL2CPP_REGISTER_METHOD(0x0261B090, app::Point*, FindPointInPolygon, (app::List_1_TriangleNet_Geometry_Vertex_ * contour, int32_t limit, double eps))
-    IL2CPP_REGISTER_METHODINFO(0x0476C540, Contour_FindPointInPolygon__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0261B6E0, bool, IsPointInPolygon, (app::Point * point, app::List_1_TriangleNet_Geometry_Vertex_* poly))
 } // namespace app::classes::TriangleNet::Geometry::Contour

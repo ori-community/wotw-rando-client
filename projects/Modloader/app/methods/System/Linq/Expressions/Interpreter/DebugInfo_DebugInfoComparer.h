@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DebugInfo_DebugInfoComparer.h>
+
+#include <Modloader/app/structs/DebugInfo_DebugInfoComparer.h>
 #include <Modloader/app/structs/DebugInfo.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::DebugInfo_DebugInfoComparer {

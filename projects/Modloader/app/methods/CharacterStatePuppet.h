@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterStatePuppet.h>
-#include <Modloader/app/structs/MoonAnimator.h>
-#include <Modloader/app/structs/IPuppet.h>
+
+#include <Modloader/app/structs/CharacterStatePuppet.h>
 #include <Modloader/app/structs/GhostPlayer.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/IPuppet.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::CharacterStatePuppet {
@@ -18,7 +19,6 @@ namespace app::classes::CharacterStatePuppet {
     IL2CPP_REGISTER_METHOD(0x01316130, void, ctor, (app::CharacterStatePuppet * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::IMoonTypeResolver*, GetResolverForType_1, (app::CharacterStatePuppet * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01547B40, void, RecordValue, (app::CharacterStatePuppet * this_ptr, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x0475FA58, CharacterStatePuppet_RecordValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::IMoonTypeResolver*, GetResolverForType_2, (app::CharacterStatePuppet * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::IMoonTypeResolver*, GetResolverForType_3, (app::CharacterStatePuppet * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::IMoonTypeResolver*, GetResolverForType_4, (app::CharacterStatePuppet * this_ptr))

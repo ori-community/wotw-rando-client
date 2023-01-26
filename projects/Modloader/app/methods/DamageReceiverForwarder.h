@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DamageReceiverForwarder.h>
+
+#include <Modloader/app/structs/DamageReceiverForwarder.h>
 #include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::DamageReceiverForwarder {

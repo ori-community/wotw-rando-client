@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FXAA_1.h>
-#include <Modloader/app/structs/RenderTexture.h>
+
+#include <Modloader/app/structs/FXAA_1.h>
 #include <Modloader/app/structs/PostProcessRenderContext.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::Moon::Rendering::FXAA {
     IL2CPP_REGISTER_METHOD(0x0078A1A0, void, OnEnable, (app::FXAA_1 * this_ptr))

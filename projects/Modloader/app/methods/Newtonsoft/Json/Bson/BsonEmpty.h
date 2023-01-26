@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BsonEmpty.h>
+
+#include <Modloader/app/structs/BsonEmpty.h>
 #include <Modloader/app/structs/BsonType__Enum.h>
 
 namespace app::classes::Newtonsoft::Json::Bson::BsonEmpty {

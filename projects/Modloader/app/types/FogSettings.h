@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/FogSettings__Class.h>
 #include <Modloader/app/structs/FogSettings.h>
 #include <Modloader/app/structs/FogSettings__Array.h>
+#include <Modloader/app/structs/FogSettings__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace FogSettings {
-        namespace {
-            inline app::FogSettings__Class* type_info_ref = nullptr;
+        inline app::FogSettings__Class** type_info() {
+            static app::FogSettings__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::FogSettings__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::FogSettings__Class** type_info = &type_info_ref;
         inline app::FogSettings__Class* get_class() {
-            return il2cpp::get_class<app::FogSettings__Class>(type_info, "", "FogSettings");
+            return il2cpp::get_class<app::FogSettings__Class>(type_info(), "", "FogSettings");
         }
         inline app::FogSettings* create() {
             return il2cpp::create_object<app::FogSettings>(get_class());

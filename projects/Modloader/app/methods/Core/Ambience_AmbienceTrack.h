@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ArtificialSoundHostReference.h>
+
+#include <Modloader/app/structs/ArtificialSoundHostReference.h>
 #include <Modloader/app/structs/Ambience_AmbienceTrack.h>
 #include <Modloader/app/structs/Event_1.h>
 

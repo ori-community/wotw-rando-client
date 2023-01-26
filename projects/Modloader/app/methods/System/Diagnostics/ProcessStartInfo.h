@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ProcessStartInfo.h>
+
+#include <Modloader/app/structs/ProcessStartInfo.h>
+#include <Modloader/app/structs/Encoding.h>
 #include <Modloader/app/structs/Process.h>
+#include <Modloader/app/structs/ProcessWindowStyle__Enum.h>
+#include <Modloader/app/structs/SecureString.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/StringDictionary.h>
-#include <Modloader/app/structs/Encoding.h>
-#include <Modloader/app/structs/SecureString.h>
-#include <Modloader/app/structs/ProcessWindowStyle__Enum.h>
 
 namespace app::classes::System::Diagnostics::ProcessStartInfo {
     IL2CPP_REGISTER_METHOD(0x020035C0, void, ctor, (app::ProcessStartInfo * this_ptr, app::Process* parent))
@@ -31,7 +32,6 @@ namespace app::classes::System::Diagnostics::ProcessStartInfo {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, set_FileName, (app::ProcessStartInfo * this_ptr, app::String* value))
     IL2CPP_REGISTER_METHOD(0x02003E10, app::String*, get_WorkingDirectory, (app::ProcessStartInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02003EA0, void, set_WindowStyle, (app::ProcessStartInfo * this_ptr, app::ProcessWindowStyle__Enum value))
-    IL2CPP_REGISTER_METHODINFO(0x047288F0, ProcessStartInfo_set_WindowStyle__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0107BE90, bool, get_HaveEnvVars, (app::ProcessStartInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02004020, void, cctor, ())
 } // namespace app::classes::System::Diagnostics::ProcessStartInfo

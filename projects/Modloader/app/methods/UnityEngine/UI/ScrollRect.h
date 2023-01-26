@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScrollRect.h>
+
+#include <Modloader/app/structs/ScrollRect.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/CanvasUpdate__Enum.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/PointerEventData.h>
 #include <Modloader/app/structs/RectTransform.h>
 #include <Modloader/app/structs/ScrollRect_MovementType__Enum.h>
-#include <Modloader/app/structs/Scrollbar.h>
-#include <Modloader/app/structs/ScrollRect_ScrollbarVisibility__Enum.h>
 #include <Modloader/app/structs/ScrollRect_ScrollRectEvent.h>
+#include <Modloader/app/structs/ScrollRect_ScrollbarVisibility__Enum.h>
+#include <Modloader/app/structs/Scrollbar.h>
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/CanvasUpdate__Enum.h>
-#include <Modloader/app/structs/PointerEventData.h>
-#include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Vector3__Array.h>
-#include <Modloader/app/structs/Matrix4x4.h>
-#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UnityEngine::UI::ScrollRect {
     IL2CPP_REGISTER_METHOD(0x02668580, void, ctor, (app::ScrollRect * this_ptr))
@@ -78,9 +79,7 @@ namespace app::classes::UnityEngine::UI::ScrollRect {
     IL2CPP_REGISTER_METHOD(0x0266BEE0, float, get_verticalNormalizedPosition, (app::ScrollRect * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0266C0E0, void, set_verticalNormalizedPosition, (app::ScrollRect * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x0266BEC0, void, SetHorizontalNormalizedPosition, (app::ScrollRect * this_ptr, float value))
-    IL2CPP_REGISTER_METHODINFO(0x04783B98, ScrollRect_SetHorizontalNormalizedPosition__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0266C0E0, void, SetVerticalNormalizedPosition, (app::ScrollRect * this_ptr, float value))
-    IL2CPP_REGISTER_METHODINFO(0x047178A0, ScrollRect_SetVerticalNormalizedPosition__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0266C100, void, SetNormalizedPosition, (app::ScrollRect * this_ptr, float value, int32_t axis))
     IL2CPP_REGISTER_METHOD(0x0266C480, float, RubberDelta, (float over_stretching, float view_size))
     IL2CPP_REGISTER_METHOD(0x0266C580, void, OnRectTransformDimensionsChange, (app::ScrollRect * this_ptr))

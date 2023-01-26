@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/QuestsUI.h>
-#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+
+#include <Modloader/app/structs/QuestsUI.h>
 #include <Modloader/app/structs/CleverMenuItem.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
 #include <Modloader/app/structs/Quest.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/QuestItemUI.h>
 #include <Modloader/app/structs/Quest_QuestType__Enum.h>
 #include <Modloader/app/structs/RuntimeQuest.h>
-#include <Modloader/app/structs/QuestItemUI.h>
 #include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::QuestsUI {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CanInterruptTab, (app::QuestsUI * this_ptr))
@@ -23,11 +24,9 @@ namespace app::classes::QuestsUI {
     IL2CPP_REGISTER_METHOD(0x00E944D0, void, SetMarkerOnQuest, (app::QuestsUI * this_ptr, app::Quest* quest))
     IL2CPP_REGISTER_METHOD(0x00E94570, void, UpdateItems, (app::QuestsUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E94780, void, OptionChangeCallback, (app::QuestsUI * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04782CA0, QuestsUI_OptionChangeCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E949E0, void, UpdateVisuals, (app::QuestsUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E94AF0, void, ScrollToQuest, (app::QuestsUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E94C50, void, OptionPressedCallback, (app::QuestsUI * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04771AF0, QuestsUI_OptionPressedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E94D80, app::Quest*, GetCurrentSelectedQuest, (app::QuestsUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E94E30, app::CleverMenuItem*, GetQuestItem, (app::QuestsUI * this_ptr, app::Quest* quest))
     IL2CPP_REGISTER_METHOD(0x00E94FF0, app::CleverMenuItem*, GetActiveQuestItem, (app::QuestsUI * this_ptr))

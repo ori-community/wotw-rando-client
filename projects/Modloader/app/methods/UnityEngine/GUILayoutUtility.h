@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/GUIContent.h>
+#include <Modloader/app/structs/GUILayoutGroup.h>
+#include <Modloader/app/structs/GUILayoutOption__Array.h>
 #include <Modloader/app/structs/GUILayoutUtility_LayoutCache.h>
 #include <Modloader/app/structs/GUIStyle.h>
-#include <Modloader/app/structs/GUILayoutOption__Array.h>
-#include <Modloader/app/structs/GUILayoutGroup.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/GUIContent.h>
 
 namespace app::classes::UnityEngine::GUILayoutUtility {
     IL2CPP_REGISTER_METHOD(0x029EBA90, app::Rect, Internal_GetWindowRect, (int32_t window_i_d))
@@ -19,12 +20,9 @@ namespace app::classes::UnityEngine::GUILayoutUtility {
     IL2CPP_REGISTER_METHOD(0x029ED160, void, LayoutFreeGroup, (app::GUILayoutGroup * toplevel))
     IL2CPP_REGISTER_METHOD(0x029ED360, void, LayoutSingleGroup, (app::GUILayoutGroup * i))
     IL2CPP_REGISTER_METHOD(0x029ED760, app::GUILayoutGroup*, CreateGUILayoutGroupInstanceOfType, (app::Type * layout_type))
-    IL2CPP_REGISTER_METHODINFO(0x0473A3A0, GUILayoutUtility_CreateGUILayoutGroupInstanceOfType__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x029ED8D0, app::GUILayoutGroup*, BeginLayoutGroup, (app::GUIStyle * style, app::GUILayoutOption__Array* options, app::Type* layout_type))
-    IL2CPP_REGISTER_METHODINFO(0x047216A8, GUILayoutUtility_BeginLayoutGroup__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x029EDC60, void, EndLayoutGroup, ())
     IL2CPP_REGISTER_METHOD(0x029EDFD0, app::GUILayoutGroup*, BeginLayoutArea, (app::GUIStyle * style, app::Type* layout_type))
-    IL2CPP_REGISTER_METHODINFO(0x0475F5A8, GUILayoutUtility_BeginLayoutArea__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x029EE310, app::Rect, GetRect_1, (app::GUIContent * content, app::GUIStyle* style, app::GUILayoutOption__Array* options))
     IL2CPP_REGISTER_METHOD(0x029EE3F0, app::Rect, DoGetRect_1, (app::GUIContent * content, app::GUIStyle* style, app::GUILayoutOption__Array* options))
     IL2CPP_REGISTER_METHOD(0x029EEA90, app::Rect, GetRect_2, (float width, float height, app::GUIStyle* style, app::GUILayoutOption__Array* options))

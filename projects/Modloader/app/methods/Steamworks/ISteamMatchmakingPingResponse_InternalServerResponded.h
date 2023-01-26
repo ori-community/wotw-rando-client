@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ISteamMatchmakingPingResponse_InternalServerResponded.h>
+
+#include <Modloader/app/structs/ISteamMatchmakingPingResponse_InternalServerResponded.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/gameserveritem_t.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Steamworks::ISteamMatchmakingPingResponse_InternalServerResponded {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::ISteamMatchmakingPingResponse_InternalServerResponded * this_ptr, app::Object* object, void* method_1))

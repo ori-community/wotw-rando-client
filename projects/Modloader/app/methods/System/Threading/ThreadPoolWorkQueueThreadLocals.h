@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ThreadPoolWorkQueueThreadLocals.h>
+
+#include <Modloader/app/structs/ThreadPoolWorkQueueThreadLocals.h>
 #include <Modloader/app/structs/ThreadPoolWorkQueue.h>
 
 namespace app::classes::System::Threading::ThreadPoolWorkQueueThreadLocals {

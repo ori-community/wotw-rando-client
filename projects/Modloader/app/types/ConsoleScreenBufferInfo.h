@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ConsoleScreenBufferInfo__Class.h>
 #include <Modloader/app/structs/ConsoleScreenBufferInfo.h>
 #include <Modloader/app/structs/ConsoleScreenBufferInfo__Boxed.h>
+#include <Modloader/app/structs/ConsoleScreenBufferInfo__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace ConsoleScreenBufferInfo {
-        namespace {
-            inline app::ConsoleScreenBufferInfo__Class* type_info_ref = nullptr;
+        inline app::ConsoleScreenBufferInfo__Class** type_info() {
+            static app::ConsoleScreenBufferInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ConsoleScreenBufferInfo__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ConsoleScreenBufferInfo__Class** type_info = &type_info_ref;
         inline app::ConsoleScreenBufferInfo__Class* get_class() {
-            return il2cpp::get_class<app::ConsoleScreenBufferInfo__Class>(type_info, "System", "ConsoleScreenBufferInfo");
+            return il2cpp::get_class<app::ConsoleScreenBufferInfo__Class>(type_info(), "System", "ConsoleScreenBufferInfo");
         }
         inline app::ConsoleScreenBufferInfo* create() {
             return il2cpp::create_object<app::ConsoleScreenBufferInfo>(get_class());

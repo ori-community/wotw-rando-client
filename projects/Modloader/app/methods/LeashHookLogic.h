@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMoonSetupAnimator.h>
+
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/FloatAnimationParameter.h>
 #include <Modloader/app/structs/LeashHookLogic.h>
+#include <Modloader/app/structs/LeashHookLogic_State__Enum.h>
 #include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/FloatAnimationParameter.h>
 #include <Modloader/app/structs/SeinSpiritLeashAbility.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/LeashHookLogic_State__Enum.h>
-#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::LeashHookLogic {
     IL2CPP_REGISTER_METHOD(0x002FBC20, app::IMoonSetupAnimator*, get_MoonSetupAnimator, (app::LeashHookLogic * this_ptr))
@@ -26,17 +27,13 @@ namespace app::classes::LeashHookLogic {
     IL2CPP_REGISTER_METHOD(0x015C5B70, void, Start, (app::LeashHookLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015C5D40, void, OnDestroy, (app::LeashHookLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B5E0F0, void, OnPostRestoreCheckpoint, (app::LeashHookLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047889B8, LeashHookLogic_OnPostRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015C5F70, void, Closed, (app::LeashHookLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047984D8, LeashHookLogic_Closed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015C5F80, void, Opened, (app::LeashHookLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477EBB0, LeashHookLogic_Opened__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015C5F90, void, ChangeState, (app::LeashHookLogic * this_ptr, app::LeashHookLogic_State__Enum new_state))
     IL2CPP_REGISTER_METHOD(0x015C6550, void, FixedUpdate, (app::LeashHookLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015C67D0, void, PlayCurrentTimeline, (app::LeashHookLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015C68A0, void, StopCurrentTimeline, (app::LeashHookLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015C6970, void, SubscribeToCurrentTimelineStop, (app::LeashHookLogic * this_ptr, app::Action* action))
     IL2CPP_REGISTER_METHOD(0x015C6AA0, void, ReleaseLeash, (app::LeashHookLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047500B0, LeashHookLogic_ReleaseLeash__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D5FD60, void, ctor, (app::LeashHookLogic * this_ptr))
 } // namespace app::classes::LeashHookLogic

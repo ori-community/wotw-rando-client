@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VertexHelper.h>
+
+#include <Modloader/app/structs/VertexHelper.h>
+#include <Modloader/app/structs/Color32.h>
+#include <Modloader/app/structs/List_1_System_Int32_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UIVertex_.h>
 #include <Modloader/app/structs/Mesh.h>
 #include <Modloader/app/structs/UIVertex.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Color32.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Vector4.h>
 #include <Modloader/app/structs/UIVertex__Array.h>
-#include <Modloader/app/structs/List_1_UnityEngine_UIVertex_.h>
-#include <Modloader/app/structs/List_1_System_Int32_.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UnityEngine::UI::VertexHelper {
     IL2CPP_REGISTER_METHOD(0x009A3B50, void, ctor_1, (app::VertexHelper * this_ptr))
@@ -22,7 +23,6 @@ namespace app::classes::UnityEngine::UI::VertexHelper {
     IL2CPP_REGISTER_METHOD(0x031AA5E0, void, PopulateUIVertex, (app::VertexHelper * this_ptr, app::UIVertex* vertex, int32_t i))
     IL2CPP_REGISTER_METHOD(0x031AA850, void, SetUIVertex, (app::VertexHelper * this_ptr, app::UIVertex vertex, int32_t i))
     IL2CPP_REGISTER_METHOD(0x031AAB50, void, FillMesh, (app::VertexHelper * this_ptr, app::Mesh* mesh))
-    IL2CPP_REGISTER_METHODINFO(0x04797F08, VertexHelper_FillMesh__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x031AAE10, void, AddVert_1, (app::VertexHelper * this_ptr, app::Vector3 position, app::Color32 color, app::Vector2 uv0, app::Vector2 uv1, app::Vector2 uv2, app::Vector2 uv3, app::Vector3 normal, app::Vector4 tangent))
     IL2CPP_REGISTER_METHOD(0x031AB2E0, void, AddVert_2, (app::VertexHelper * this_ptr, app::Vector3 position, app::Color32 color, app::Vector2 uv0, app::Vector2 uv1, app::Vector3 normal, app::Vector4 tangent))
     IL2CPP_REGISTER_METHOD(0x031AB450, void, AddVert_3, (app::VertexHelper * this_ptr, app::Vector3 position, app::Color32 color, app::Vector2 uv0))

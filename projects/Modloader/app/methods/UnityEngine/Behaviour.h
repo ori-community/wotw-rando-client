@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Behaviour.h>
+
+#include <Modloader/app/structs/Behaviour.h>
 
 namespace app::classes::UnityEngine::Behaviour {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Behaviour * this_ptr))

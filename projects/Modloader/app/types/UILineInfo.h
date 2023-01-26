@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/UILineInfo.h>
+#include <Modloader/app/structs/UILineInfo__Array.h>
+#include <Modloader/app/structs/UILineInfo__Boxed.h>
+#include <Modloader/app/structs/UILineInfo__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UILineInfo__Class.h>
-#include <Modloader/app/structs/UILineInfo.h>
-#include <Modloader/app/structs/UILineInfo__Boxed.h>
-#include <Modloader/app/structs/UILineInfo__Array.h>
 
 namespace app::classes::types {
     namespace UILineInfo {
-        inline app::UILineInfo__Class** type_info = (app::UILineInfo__Class**)(modloader::win::memory::resolve_rva(0x04710B20));
+        inline app::UILineInfo__Class** type_info() {
+            static app::UILineInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::UILineInfo__Class**)(modloader::win::memory::resolve_rva(0x04710B20));
+            }
+            return cache;
+        }
         inline app::UILineInfo__Class* get_class() {
-            return il2cpp::get_class<app::UILineInfo__Class>(type_info, "UnityEngine", "UILineInfo");
+            return il2cpp::get_class<app::UILineInfo__Class>(type_info(), "UnityEngine", "UILineInfo");
         }
         inline app::UILineInfo* create() {
             return il2cpp::create_object<app::UILineInfo>(get_class());

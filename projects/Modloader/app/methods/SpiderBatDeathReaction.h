@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiderBatDeathReaction.h>
+
+#include <Modloader/app/structs/SpiderBatDeathReaction.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/EntityTask.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/EntityTask.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBatDeathReaction {
     IL2CPP_REGISTER_METHOD(0x00955A30, void, OnCacheSerializedComponents, (app::SpiderBatDeathReaction * this_ptr, app::Entity* owner))
@@ -16,10 +17,8 @@ namespace app::classes::SpiderBatDeathReaction {
     IL2CPP_REGISTER_METHOD(0x00955EB0, void, StartDeathTimeline, (app::SpiderBatDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00956040, void, OnEnterTask, (app::SpiderBatDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00955EA0, void, OnFallingEnd, (app::SpiderBatDeathReaction * this_ptr, app::EntityTask* task, app::BehaviourStatus__Enum status))
-    IL2CPP_REGISTER_METHODINFO(0x04761ED8, SpiderBatDeathReaction_OnFallingEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00956780, void, OnFinishedDeathStart, (app::SpiderBatDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00956790, void, TimelineFinished, (app::SpiderBatDeathReaction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04794BA0, SpiderBatDeathReaction_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009567D0, app::BehaviourStatus__Enum, OnExecuteTask, (app::SpiderBatDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00956900, void, ctor, (app::SpiderBatDeathReaction * this_ptr))
 } // namespace app::classes::SpiderBatDeathReaction

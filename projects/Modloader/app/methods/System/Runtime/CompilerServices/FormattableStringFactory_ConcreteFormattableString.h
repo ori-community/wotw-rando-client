@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FormattableStringFactory_ConcreteFormattableString.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/FormattableStringFactory_ConcreteFormattableString.h>
 #include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::CompilerServices::FormattableStringFactory_ConcreteFormattableString {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::FormattableStringFactory_ConcreteFormattableString * this_ptr, app::String* format, app::Object__Array* arguments))

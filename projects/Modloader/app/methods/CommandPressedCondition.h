@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CommandPressedCondition.h>
+
+#include <Modloader/app/structs/CommandPressedCondition.h>
+#include <Modloader/app/structs/CommandPressedCondition_ButtonStates__Enum.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/Input_Command__Enum.h>
-#include <Modloader/app/structs/CommandPressedCondition_ButtonStates__Enum.h>
 
 namespace app::classes::CommandPressedCondition {
     IL2CPP_REGISTER_METHOD(0x011DE880, bool, Validate, (app::CommandPressedCondition * this_ptr, app::IContext* context))

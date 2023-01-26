@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Recorder_1.h>
-#include <Modloader/app/structs/RecorderFrame.h>
-#include <Modloader/app/structs/Recorder_RecorderState__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SceneRoot.h>
+
+#include <Modloader/app/structs/Recorder_1.h>
+#include <Modloader/app/structs/BuildData.h>
+#include <Modloader/app/structs/CharacterData.h>
 #include <Modloader/app/structs/Component_1.h>
-#include <Modloader/app/structs/RecorderAsset.h>
 #include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/IRecorderPlugin.h>
 #include <Modloader/app/structs/LogType__Enum.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/CharacterData.h>
-#include <Modloader/app/structs/BuildData.h>
+#include <Modloader/app/structs/RecorderAsset.h>
+#include <Modloader/app/structs/RecorderFrame.h>
+#include <Modloader/app/structs/Recorder_RecorderState__Enum.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Recorder {
     IL2CPP_REGISTER_METHOD(0x008E9240, void, ResetStatics, ())
@@ -31,13 +32,10 @@ namespace app::classes::Recorder {
     IL2CPP_REGISTER_METHOD(0x008EA3B0, bool, OnPerformLoad, (app::Recorder_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008EA4D0, void, OnPerformSave, (app::Recorder_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008EA560, void, OnSceneRootActivatedScene, (app::Recorder_1 * this_ptr, app::SceneRoot* scene_root))
-    IL2CPP_REGISTER_METHODINFO(0x047374D0, Recorder_1_OnSceneRootActivatedScene__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008EA660, void, OnRestoreCheckpoint, (app::Recorder_1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04799478, Recorder_1_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008EA760, void, Reset, (app::Recorder_1 * this_ptr, app::String* file_name))
     IL2CPP_REGISTER_METHOD(0x008EA990, void, InitRecording, (app::Recorder_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008EADB0, void, OnGameReset, (app::Recorder_1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04741FE0, Recorder_1_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008EB1F0, void, DestroyComponent, (app::Recorder_1 * this_ptr, app::Component_1* component))
     IL2CPP_REGISTER_METHOD(0x008EB2C0, void, AddRecordingComponents, (app::Recorder_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008EB650, void, AddPlaybackComponents, (app::Recorder_1 * this_ptr))
@@ -62,7 +60,5 @@ namespace app::classes::Recorder {
     IL2CPP_REGISTER_METHOD(0x016AA670, app::Object*, GetPlugin, ())
     IL2CPP_REGISTER_METHOD(0x016AA2E0, app::Object*, GetFrameData_1, (int32_t frame))
     IL2CPP_REGISTER_METHOD(0x016AA2E0, app::CharacterData*, GetFrameData_2, (int32_t frame))
-    IL2CPP_REGISTER_METHODINFO(0x04793A00, Recorder_1_GetFrameData_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x016AA2E0, app::BuildData*, GetFrameData_3, (int32_t frame))
-    IL2CPP_REGISTER_METHODINFO(0x0470B850, Recorder_1_GetFrameData_2__MethodInfo)
 } // namespace app::classes::Recorder

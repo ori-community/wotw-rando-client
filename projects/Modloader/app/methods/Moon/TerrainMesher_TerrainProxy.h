@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/TerrainMesher_TerrainProxy.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Terrain.h>
+#include <Modloader/app/structs/TerrainMesher_TerrainProxy.h>
 
 namespace app::classes::Moon::TerrainMesher_TerrainProxy {
     IL2CPP_REGISTER_METHOD(0x0064EB90, app::Vector3, get_Bounds, (app::TerrainMesher_TerrainProxy * this_ptr))

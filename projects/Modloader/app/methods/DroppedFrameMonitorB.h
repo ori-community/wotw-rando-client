@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DroppedFrameMonitorB.h>
+
+#include <Modloader/app/structs/DroppedFrameMonitorB.h>
 
 namespace app::classes::DroppedFrameMonitorB {
     IL2CPP_REGISTER_METHOD(0x00BE75F0, void, ctor, (app::DroppedFrameMonitorB * this_ptr))

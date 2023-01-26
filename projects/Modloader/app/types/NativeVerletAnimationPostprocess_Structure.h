@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/NativeVerletAnimationPostprocess_Structure__Class.h>
 #include <Modloader/app/structs/NativeVerletAnimationPostprocess_Structure.h>
 #include <Modloader/app/structs/NativeVerletAnimationPostprocess_Structure__Array.h>
+#include <Modloader/app/structs/NativeVerletAnimationPostprocess_Structure__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace NativeVerletAnimationPostprocess_Structure {
-        namespace {
-            inline app::NativeVerletAnimationPostprocess_Structure__Class* type_info_ref = nullptr;
+        inline app::NativeVerletAnimationPostprocess_Structure__Class** type_info() {
+            static app::NativeVerletAnimationPostprocess_Structure__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::NativeVerletAnimationPostprocess_Structure__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::NativeVerletAnimationPostprocess_Structure__Class** type_info = &type_info_ref;
         inline app::NativeVerletAnimationPostprocess_Structure__Class* get_class() {
-            return il2cpp::get_nested_class<app::NativeVerletAnimationPostprocess_Structure__Class>(type_info, "Moon.Animation", "NativeVerletAnimationPostprocess", "Structure");
+            return il2cpp::get_nested_class<app::NativeVerletAnimationPostprocess_Structure__Class>(type_info(), "Moon.Animation", "NativeVerletAnimationPostprocess", "Structure");
         }
         inline app::NativeVerletAnimationPostprocess_Structure* create() {
             return il2cpp::create_object<app::NativeVerletAnimationPostprocess_Structure>(get_class());

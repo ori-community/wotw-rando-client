@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XblAchievement.h>
-#include <Modloader/app/structs/XblAchievement_1.h>
+
+#include <Modloader/app/structs/XblAchievement.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XblAchievementProgressState__Enum.h>
 #include <Modloader/app/structs/XblAchievementProgression.h>
+#include <Modloader/app/structs/XblAchievement_1.h>
 
 namespace app::classes::XGamingRuntime::XblAchievement {
     IL2CPP_REGISTER_METHOD(0x030BBB30, void, ctor, (app::XblAchievement * this_ptr, app::XblAchievement_1 interop_achievement))

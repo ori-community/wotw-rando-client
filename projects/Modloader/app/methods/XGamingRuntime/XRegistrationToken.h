@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XRegistrationToken.h>
+
+#include <Modloader/app/structs/XRegistrationToken.h>
 #include <Modloader/app/structs/GCHandle.h>
 #include <Modloader/app/structs/XTaskQueueRegistrationToken.h>
 

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HostHeaderString.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/HostHeaderString.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::HostHeaderString {
     IL2CPP_REGISTER_METHOD(0x01D3D310, void, ctor_1, (app::HostHeaderString * this_ptr))

@@ -1,17 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UInt32Storage.h>
-#include <Modloader/app/structs/DataColumn.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Int32__Array.h>
+
+#include <Modloader/app/structs/UInt32Storage.h>
 #include <Modloader/app/structs/AggregateType__Enum.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/BitArray.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Data::Common::UInt32Storage {
     IL2CPP_REGISTER_METHOD(0x028677F0, void, ctor, (app::UInt32Storage * this_ptr, app::DataColumn* column))
     IL2CPP_REGISTER_METHOD(0x02867940, app::Object*, Aggregate, (app::UInt32Storage * this_ptr, app::Int32__Array* records, app::AggregateType__Enum kind))
-    IL2CPP_REGISTER_METHODINFO(0x047621E8, UInt32Storage_Aggregate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02868190, int32_t, Compare, (app::UInt32Storage * this_ptr, int32_t record_no1, int32_t record_no2))
     IL2CPP_REGISTER_METHOD(0x02868310, int32_t, CompareValueTo, (app::UInt32Storage * this_ptr, int32_t record_no, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x028684A0, app::Object*, ConvertValue, (app::UInt32Storage * this_ptr, app::Object* value))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MinerEntity.h>
-#include <Modloader/app/structs/MinerSpawnType__Enum.h>
+
+#include <Modloader/app/structs/MinerEntity.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/MinerSpawnType__Enum.h>
 
 namespace app::classes::MinerEntity {
     IL2CPP_REGISTER_METHOD(0x014489D0, bool, get_CanHaveShield, (app::MinerEntity * this_ptr))

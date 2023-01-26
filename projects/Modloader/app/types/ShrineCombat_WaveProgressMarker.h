@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ShrineCombat_WaveProgressMarker__Class.h>
 #include <Modloader/app/structs/ShrineCombat_WaveProgressMarker.h>
 #include <Modloader/app/structs/ShrineCombat_WaveProgressMarker__Array.h>
+#include <Modloader/app/structs/ShrineCombat_WaveProgressMarker__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace ShrineCombat_WaveProgressMarker {
-        namespace {
-            inline app::ShrineCombat_WaveProgressMarker__Class* type_info_ref = nullptr;
+        inline app::ShrineCombat_WaveProgressMarker__Class** type_info() {
+            static app::ShrineCombat_WaveProgressMarker__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ShrineCombat_WaveProgressMarker__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ShrineCombat_WaveProgressMarker__Class** type_info = &type_info_ref;
         inline app::ShrineCombat_WaveProgressMarker__Class* get_class() {
-            return il2cpp::get_nested_class<app::ShrineCombat_WaveProgressMarker__Class>(type_info, "", "ShrineCombat", "WaveProgressMarker");
+            return il2cpp::get_nested_class<app::ShrineCombat_WaveProgressMarker__Class>(type_info(), "", "ShrineCombat", "WaveProgressMarker");
         }
         inline app::ShrineCombat_WaveProgressMarker* create() {
             return il2cpp::create_object<app::ShrineCombat_WaveProgressMarker>(get_class());

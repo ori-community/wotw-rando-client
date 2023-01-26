@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/SwarmAgent.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SwarmEntity.h>
+
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Action_1_SwarmAgent_.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/DamageDealer.h>
 #include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SwarmAgent.h>
+#include <Modloader/app/structs/SwarmEntity.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SwarmAgent {
     IL2CPP_REGISTER_METHOD(0x002FBC00, app::Transform*, get_Target, (app::SwarmAgent * this_ptr))
@@ -36,41 +37,23 @@ namespace app::classes::SwarmAgent {
     IL2CPP_REGISTER_METHOD(0x0067A6B0, void, RandomizeInternalIdle_2, (app::SwarmAgent * this_ptr, float freq, float shift, float amplitude))
     IL2CPP_REGISTER_METHOD(0x0067A820, void, SetInternalIdle, (app::SwarmAgent * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0067A670, void, OnEnterIdle, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476D368, SwarmAgent_OnEnterIdle__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067AAB0, void, OnUpdateIdle, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04785568, SwarmAgent_OnUpdateIdle__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067B170, void, OnEnterAttacking, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477EA00, SwarmAgent_OnEnterAttacking__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067B1B0, void, OnUpdateAttacking, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04716FC0, SwarmAgent_OnUpdateAttacking__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067B950, void, OnUpdateMiniGun, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047061D8, SwarmAgent_OnUpdateMiniGun__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067C460, void, OnEnterAfterMiniGun, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04709BA8, SwarmAgent_OnEnterAfterMiniGun__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067C4E0, void, OnUpdateAfterMiniGun, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04798F68, SwarmAgent_OnUpdateAfterMiniGun__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067CBD0, void, OnExitAfterMiniGun, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477CFD0, SwarmAgent_OnExitAfterMiniGun__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067CC40, void, OnEnterChainAttack, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04775CB0, SwarmAgent_OnEnterChainAttack__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067CDB0, void, OnUpdateChainAttack, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04767D40, SwarmAgent_OnUpdateChainAttack__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnExitChainAttack, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047962E0, SwarmAgent_OnExitChainAttack__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067E0B0, void, OnEnterAfterAttack, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04724C80, SwarmAgent_OnEnterAfterAttack__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067E0C0, void, OnUpdateAfterAttack, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478B968, SwarmAgent_OnUpdateAfterAttack__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067E8F0, void, OnEnterDying, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04775F28, SwarmAgent_OnEnterDying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067EF60, void, OnUpdateDying, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04776750, SwarmAgent_OnUpdateDying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067F900, void, OnEnterSpawn, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04706440, SwarmAgent_OnEnterSpawn__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0067F960, void, OnUpdateSpawn, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04770160, SwarmAgent_OnUpdateSpawn__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00680220, void, OnUpdateKnockback, (app::SwarmAgent * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04768920, SwarmAgent_OnUpdateKnockback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00680AE0, bool, InRangeOfTarget, (app::SwarmAgent * this_ptr, float range, app::Vector3 target_pos))
     IL2CPP_REGISTER_METHOD(0x00680C90, void, KnockbakcScaleUp, (app::SwarmAgent * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00680FC0, void, LateUpdate, (app::SwarmAgent * this_ptr))
@@ -102,7 +85,6 @@ namespace app::classes::SwarmAgent {
     IL2CPP_REGISTER_METHOD(0x00681F30, void, OnRecieveDamage, (app::SwarmAgent * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x00682570, void, Kill, (app::SwarmAgent * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnDamageDealt, (app::SwarmAgent * this_ptr, app::DamageDealer* dealer, app::DamageResult result))
-    IL2CPP_REGISTER_METHODINFO(0x0470F760, SwarmAgent_OnDamageDealt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateAttackColors, (app::SwarmAgent * this_ptr, float percentage))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateVisuals, (app::SwarmAgent * this_ptr, bool reset))
     IL2CPP_REGISTER_METHOD(0x006826A0, void, SetDamageDealerValue, (app::SwarmAgent * this_ptr, float value))

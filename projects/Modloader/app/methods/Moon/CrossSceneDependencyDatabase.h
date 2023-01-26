@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CrossSceneDependency.h>
+
+#include <Modloader/app/structs/CrossSceneDependency.h>
+#include <Modloader/app/structs/CrossSceneDependencyDatabase.h>
 #include <Modloader/app/structs/CrossSceneDependencyInjector.h>
 #include <Modloader/app/structs/List_1_Moon_CrossSceneDependencyInjector_.h>
-#include <Modloader/app/structs/CrossSceneDependencyDatabase.h>
 
 namespace app::classes::Moon::CrossSceneDependencyDatabase {
     IL2CPP_REGISTER_METHOD(0x00CCF4F0, void, AddObject, (app::CrossSceneDependency * cross_scene_dependency))

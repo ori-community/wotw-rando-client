@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeekerSlugShootingState.h>
-#include <Modloader/app/structs/SlugEnemy.h>
-#include <Modloader/app/structs/SlugDirectionalAnimation.h>
+
+#include <Modloader/app/structs/SeekerSlugShootingState.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SlugDirectionalAnimation.h>
+#include <Modloader/app/structs/SlugEnemy.h>
 #include <Modloader/app/structs/SoundSource.h>
 
 namespace app::classes::SeekerSlugShootingState {

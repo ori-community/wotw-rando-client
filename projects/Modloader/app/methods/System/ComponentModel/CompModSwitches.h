@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BooleanSwitch.h>
+
+#include <Modloader/app/structs/BooleanSwitch.h>
 #include <Modloader/app/structs/TraceSwitch.h>
 
 namespace app::classes::System::ComponentModel::CompModSwitches {

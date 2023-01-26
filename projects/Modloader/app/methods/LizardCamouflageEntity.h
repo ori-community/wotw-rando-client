@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LizardCamouflageEntity.h>
+
+#include <Modloader/app/structs/LizardCamouflageEntity.h>
 
 namespace app::classes::LizardCamouflageEntity {
     IL2CPP_REGISTER_METHOD(0x00FA9530, void, OnPoolSpawned, (app::LizardCamouflageEntity * this_ptr))
@@ -12,5 +13,4 @@ namespace app::classes::LizardCamouflageEntity {
     IL2CPP_REGISTER_METHOD(0x00FA9C50, bool, get_ShouldHandleInvisibility, (app::LizardCamouflageEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FA9D80, void, ctor, (app::LizardCamouflageEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FA9E20, void, _BecomeInvisible_b__9_0, (app::LizardCamouflageEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476CF78, LizardCamouflageEntity__BecomeInvisible_b__9_0__MethodInfo)
 } // namespace app::classes::LizardCamouflageEntity

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FireStickInteractor.h>
+
+#include <Modloader/app/structs/FireStickInteractor.h>
 #include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/FireStick.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::FireStickInteractor {
     IL2CPP_REGISTER_METHOD(0x0125C150, void, OnEnable, (app::FireStickInteractor * this_ptr))
@@ -12,7 +13,6 @@ namespace app::classes::FireStickInteractor {
     IL2CPP_REGISTER_METHOD(0x0125C270, void, OnTriggerEnter, (app::FireStickInteractor * this_ptr, app::Collider* collider))
     IL2CPP_REGISTER_METHOD(0x0125C500, void, OnTriggerExit, (app::FireStickInteractor * this_ptr, app::Collider* collider))
     IL2CPP_REGISTER_METHOD(0x0125C6D0, void, OnUsed, (app::FireStickInteractor * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478A618, FireStickInteractor_OnUsed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0125C7A0, app::FireStick*, GetFireStick, (app::FireStickInteractor * this_ptr, app::Collider* collider))
     IL2CPP_REGISTER_METHOD(0x0125C980, void, ShowMessage, (app::FireStickInteractor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0125CB70, app::String*, get_StressTestName, (app::FireStickInteractor * this_ptr))

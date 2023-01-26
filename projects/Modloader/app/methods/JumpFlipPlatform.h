@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JumpFlipPlatform.h>
+
+#include <Modloader/app/structs/JumpFlipPlatform.h>
 #include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
@@ -13,13 +14,9 @@ namespace app::classes::JumpFlipPlatform {
     IL2CPP_REGISTER_METHOD(0x00E4B070, void, Toggle, (app::JumpFlipPlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E4B090, void, UpdateState, (app::JumpFlipPlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E4BB80, void, OnPlayerWallJump, (app::JumpFlipPlatform * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04771420, JumpFlipPlatform_OnPlayerWallJump__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E4BC20, void, OnPlayerDoubleJump, (app::JumpFlipPlatform * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471A568, JumpFlipPlatform_OnPlayerDoubleJump__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E4BCC0, void, OnPlayerJump, (app::JumpFlipPlatform * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04712830, JumpFlipPlatform_OnPlayerJump__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E4BD60, void, OnPlayerChargeJump, (app::JumpFlipPlatform * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04748C18, JumpFlipPlatform_OnPlayerChargeJump__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E4BD90, void, Serialize, (app::JumpFlipPlatform * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x003FFE10, bool, get_IsSuspended, (app::JumpFlipPlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0057BAC0, void, set_IsSuspended, (app::JumpFlipPlatform * this_ptr, bool value))

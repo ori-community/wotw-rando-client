@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RuntimeArgumentHandle__Class.h>
 #include <Modloader/app/structs/RuntimeArgumentHandle.h>
 #include <Modloader/app/structs/RuntimeArgumentHandle__Boxed.h>
+#include <Modloader/app/structs/RuntimeArgumentHandle__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace RuntimeArgumentHandle {
-        namespace {
-            inline app::RuntimeArgumentHandle__Class* type_info_ref = nullptr;
+        inline app::RuntimeArgumentHandle__Class** type_info() {
+            static app::RuntimeArgumentHandle__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::RuntimeArgumentHandle__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::RuntimeArgumentHandle__Class** type_info = &type_info_ref;
         inline app::RuntimeArgumentHandle__Class* get_class() {
-            return il2cpp::get_class<app::RuntimeArgumentHandle__Class>(type_info, "System", "RuntimeArgumentHandle");
+            return il2cpp::get_class<app::RuntimeArgumentHandle__Class>(type_info(), "System", "RuntimeArgumentHandle");
         }
         inline app::RuntimeArgumentHandle* create() {
             return il2cpp::create_object<app::RuntimeArgumentHandle>(get_class());

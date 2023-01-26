@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_Moon_DesiredStateTransitionInfo_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_Moon_DesiredStateTransitionInfo_.h>
 #include <Modloader/app/structs/DesiredStateTransitionInfo.h>
 #include <Modloader/app/structs/Object.h>
 

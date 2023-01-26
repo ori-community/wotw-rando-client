@@ -1,24 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BombableSolidWall.h>
+
+#include <Modloader/app/structs/BombableSolidWall.h>
 #include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/IDesiredUberState.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/IDamageReciever__Array.h>
-#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::BombableSolidWall {
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, ShouldCreateCheckpointOnDestruction, (app::BombableSolidWall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D37770, void, OnEnable, (app::BombableSolidWall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D37960, void, OnDisable, (app::BombableSolidWall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D37B50, void, OnRestoreCheckpoint, (app::BombableSolidWall * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04751F60, BombableSolidWall_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D37C50, void, OnRecieveDamage, (app::BombableSolidWall * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::BombableSolidWall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeBashed, (app::BombableSolidWall * this_ptr))

@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_List_1_IDebugMenuItem_.h>
-#include <Modloader/app/structs/HierarchyDebugMenu.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IDebugMenuItem.h>
-#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/IEnumerator.h>
+
+#include <Modloader/app/structs/List_1_List_1_IDebugMenuItem_.h>
 #include <Modloader/app/structs/Func_1_String_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/HierarchyDebugMenu.h>
+#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
+#include <Modloader/app/structs/IDebugMenuItem.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::HierarchyDebugMenu {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::List_1_List_1_IDebugMenuItem_*, get_Items, (app::HierarchyDebugMenu * this_ptr))
@@ -54,10 +55,7 @@ namespace app::classes::HierarchyDebugMenu {
     IL2CPP_REGISTER_METHOD(0x00B509B0, void, DrawSelectedItemDetails, (app::HierarchyDebugMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, DrawInstantiationHistory, (app::HierarchyDebugMenu * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B51B40, int32_t, CompareChildrenByCPU, (app::HierarchyDebugMenu_GameObjectItem * a, app::HierarchyDebugMenu_GameObjectItem* b))
-    IL2CPP_REGISTER_METHODINFO(0x04730F20, HierarchyDebugMenu_CompareChildrenByCPU__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B51BA0, int32_t, CompareChildrenByGPU, (app::HierarchyDebugMenu_GameObjectItem * a, app::HierarchyDebugMenu_GameObjectItem* b))
-    IL2CPP_REGISTER_METHODINFO(0x0476F000, HierarchyDebugMenu_CompareChildrenByGPU__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B51C00, int32_t, CompareChildrenByName, (app::HierarchyDebugMenu_GameObjectItem * a, app::HierarchyDebugMenu_GameObjectItem* b))
-    IL2CPP_REGISTER_METHODINFO(0x04738658, HierarchyDebugMenu_CompareChildrenByName__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B51D90, void, ctor, (app::HierarchyDebugMenu * this_ptr))
 } // namespace app::classes::HierarchyDebugMenu

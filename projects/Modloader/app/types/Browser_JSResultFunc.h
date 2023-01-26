@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Browser_JSResultFunc__Class.h>
 #include <Modloader/app/structs/Browser_JSResultFunc.h>
 #include <Modloader/app/structs/Browser_JSResultFunc__Array.h>
+#include <Modloader/app/structs/Browser_JSResultFunc__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Browser_JSResultFunc {
-        inline app::Browser_JSResultFunc__Class** type_info = (app::Browser_JSResultFunc__Class**)(modloader::win::memory::resolve_rva(0x04754210));
+        inline app::Browser_JSResultFunc__Class** type_info() {
+            static app::Browser_JSResultFunc__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Browser_JSResultFunc__Class**)(modloader::win::memory::resolve_rva(0x04754210));
+            }
+            return cache;
+        }
         inline app::Browser_JSResultFunc__Class* get_class() {
-            return il2cpp::get_nested_class<app::Browser_JSResultFunc__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "Browser", "JSResultFunc");
+            return il2cpp::get_nested_class<app::Browser_JSResultFunc__Class>(type_info(), "ZenFulcrum.EmbeddedBrowser", "Browser", "JSResultFunc");
         }
         inline app::Browser_JSResultFunc* create() {
             return il2cpp::create_object<app::Browser_JSResultFunc>(get_class());

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SequencePlatformB.h>
-#include <Modloader/app/structs/Collision.h>
+
+#include <Modloader/app/structs/SequencePlatformB.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Collision.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::SequencePlatformB {

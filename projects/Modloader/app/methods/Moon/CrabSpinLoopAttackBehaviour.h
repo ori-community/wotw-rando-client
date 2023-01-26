@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CrabSpinLoopAttackBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/CrabSpinLoopAttackBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/CrabSpinLoopAttackBehaviour_State__Enum.h>
 #include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/CrabSpinLoopAttackBehaviour_State__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::CrabSpinLoopAttackBehaviour {
@@ -14,13 +15,9 @@ namespace app::classes::Moon::CrabSpinLoopAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00CCDA00, void, ChangeState, (app::CrabSpinLoopAttackBehaviour * this_ptr, app::CrabSpinLoopAttackBehaviour_State__Enum new_state))
     IL2CPP_REGISTER_METHOD(0x00CCDB70, void, UpdateState, (app::CrabSpinLoopAttackBehaviour * this_ptr, float dt))
     IL2CPP_REGISTER_METHOD(0x00CCDB90, void, OnStartTimelineStopped, (app::CrabSpinLoopAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473E5C8, CrabSpinLoopAttackBehaviour_OnStartTimelineStopped__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00CCDBA0, void, OnLoopTimelineStopped, (app::CrabSpinLoopAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470E580, CrabSpinLoopAttackBehaviour_OnLoopTimelineStopped__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00CCDBF0, void, OnEndTimelineStopped, (app::CrabSpinLoopAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04794578, CrabSpinLoopAttackBehaviour_OnEndTimelineStopped__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00CCDBF0, void, OnDizzyTimelineStopped, (app::CrabSpinLoopAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04751CE0, CrabSpinLoopAttackBehaviour_OnDizzyTimelineStopped__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00CCDC10, void, CacheSerializedComponents, (app::CrabSpinLoopAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CCDDE0, void, CacheCancellableAnimators, (app::CrabSpinLoopAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CCE200, float, GetMoveDelta, (app::CrabSpinLoopAttackBehaviour * this_ptr, float direction, float delta_time))

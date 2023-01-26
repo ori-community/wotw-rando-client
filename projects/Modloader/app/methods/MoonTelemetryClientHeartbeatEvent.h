@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/MoonTelemetryClientHeartbeatEvent.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/JsonBuilder_Object.h>
+#include <Modloader/app/structs/MoonTelemetryClientHeartbeatEvent.h>
 
 namespace app::classes::MoonTelemetryClientHeartbeatEvent {
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::String*, get_Name, (app::MoonTelemetryClientHeartbeatEvent * this_ptr))

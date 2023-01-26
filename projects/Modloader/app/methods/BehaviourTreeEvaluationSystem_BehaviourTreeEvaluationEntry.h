@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Entity.h>
+
+#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/BehaviourTreeEvaluationSystem_BehaviourTreeEvaluationEntry.h>
 
 namespace app::classes::BehaviourTreeEvaluationSystem_BehaviourTreeEvaluationEntry {

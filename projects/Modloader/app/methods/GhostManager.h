@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostManager.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/GhostManager.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/GhostPlayer.h>
 #include <Modloader/app/structs/GhostRecorder.h>
+#include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/app/structs/IRecordable.h>
+#include <Modloader/app/structs/ITrialData.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/RaceTimer.h>
 #include <Modloader/app/structs/ScoreResult__Enum.h>
-#include <Modloader/app/structs/ITrialData.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/IRecordable.h>
-#include <Modloader/app/structs/MoonAnimator.h>
-#include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::GhostManager {
     IL2CPP_REGISTER_METHOD(0x00E22090, bool, get_IsPreRecordTrackingEnabled, ())
@@ -40,6 +41,5 @@ namespace app::classes::GhostManager {
     IL2CPP_REGISTER_METHOD(0x00E24330, void, NotifySceneRecordableObjectExistence, (app::IRecordable * recordable))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, RegisterAnimatorForRecording, (app::MoonAnimator * animator))
     IL2CPP_REGISTER_METHOD(0x00E243F0, void, NotifyUberStateValueChange, (app::IGenericUberState * uber_state, float value))
-    IL2CPP_REGISTER_METHODINFO(0x0477C790, GhostManager_NotifyUberStateValueChange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::GhostManager * this_ptr))
 } // namespace app::classes::GhostManager

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CleverMenuItemHighlight.h>
+
+#include <Modloader/app/structs/CleverMenuItemHighlight.h>
 
 namespace app::classes::CleverMenuItemHighlight {
     IL2CPP_REGISTER_METHOD(0x012B3AF0, void, Start, (app::CleverMenuItemHighlight * this_ptr))

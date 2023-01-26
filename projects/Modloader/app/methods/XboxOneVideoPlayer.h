@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XboxOneVideoPlayer.h>
+
+#include <Modloader/app/structs/XboxOneVideoPlayer.h>
+#include <Modloader/app/structs/OnDelegate.h>
 #include <Modloader/app/structs/RenderTexture.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/OnDelegate.h>
 
 namespace app::classes::XboxOneVideoPlayer {
     IL2CPP_REGISTER_METHOD(0x01C5C140, void, OnRenderImage, (app::XboxOneVideoPlayer * this_ptr, app::RenderTexture* source, app::RenderTexture* destination))

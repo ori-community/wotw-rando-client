@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GetMemberBinder.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/GetMemberBinder.h>
 #include <Modloader/app/structs/DynamicMetaObject.h>
 #include <Modloader/app/structs/DynamicMetaObject__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Dynamic::GetMemberBinder {
     IL2CPP_REGISTER_METHOD(0x01F93770, void, ctor, (app::GetMemberBinder * this_ptr, app::String* name, bool ignore_case))

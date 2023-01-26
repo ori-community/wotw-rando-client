@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FixedUpdateSyncTracker.h>
+
+#include <Modloader/app/structs/FixedUpdateSyncTracker.h>
 
 namespace app::classes::FixedUpdateSyncTracker {
     IL2CPP_REGISTER_METHOD(0x01973200, void, FixedUpdate, (app::FixedUpdateSyncTracker * this_ptr))

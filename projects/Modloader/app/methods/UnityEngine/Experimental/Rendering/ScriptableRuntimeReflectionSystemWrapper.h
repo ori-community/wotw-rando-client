@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScriptableRuntimeReflectionSystemWrapper.h>
+
+#include <Modloader/app/structs/ScriptableRuntimeReflectionSystemWrapper.h>
 #include <Modloader/app/structs/IScriptableRuntimeReflectionSystem.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::ScriptableRuntimeReflectionSystemWrapper {

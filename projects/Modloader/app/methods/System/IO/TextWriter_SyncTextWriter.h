@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextWriter_SyncTextWriter.h>
-#include <Modloader/app/structs/TextWriter.h>
-#include <Modloader/app/structs/Encoding.h>
-#include <Modloader/app/structs/IFormatProvider.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/TextWriter_SyncTextWriter.h>
 #include <Modloader/app/structs/Char__Array.h>
 #include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/Encoding.h>
+#include <Modloader/app/structs/IFormatProvider.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextWriter.h>
 
 namespace app::classes::System::IO::TextWriter_SyncTextWriter {
     IL2CPP_REGISTER_METHOD(0x023882C0, void, ctor, (app::TextWriter_SyncTextWriter * this_ptr, app::TextWriter* t))
@@ -18,7 +19,7 @@ namespace app::classes::System::IO::TextWriter_SyncTextWriter {
     IL2CPP_REGISTER_METHOD(0x01706D70, void, Close, (app::TextWriter_SyncTextWriter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02388390, void, Dispose, (app::TextWriter_SyncTextWriter * this_ptr, bool disposing))
     IL2CPP_REGISTER_METHOD(0x01706DA0, void, Flush, (app::TextWriter_SyncTextWriter * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01706E30, void, Write_1, (app::TextWriter_SyncTextWriter * this_ptr, uint16_t value))
+    IL2CPP_REGISTER_METHOD(0x01706E30, void, Write_1, (app::TextWriter_SyncTextWriter * this_ptr, char16_t value))
     IL2CPP_REGISTER_METHOD(0x0199EFC0, void, Write_2, (app::TextWriter_SyncTextWriter * this_ptr, app::Char__Array* buffer))
     IL2CPP_REGISTER_METHOD(0x02388430, void, Write_3, (app::TextWriter_SyncTextWriter * this_ptr, app::Char__Array* buffer, int32_t index, int32_t count))
     IL2CPP_REGISTER_METHOD(0x02388460, void, Write_4, (app::TextWriter_SyncTextWriter * this_ptr, int32_t value))
@@ -33,7 +34,7 @@ namespace app::classes::System::IO::TextWriter_SyncTextWriter {
     IL2CPP_REGISTER_METHOD(0x02388590, void, Write_13, (app::TextWriter_SyncTextWriter * this_ptr, app::String* format, app::Object* arg0, app::Object* arg1, app::Object* arg2))
     IL2CPP_REGISTER_METHOD(0x023885C0, void, Write_14, (app::TextWriter_SyncTextWriter * this_ptr, app::String* format, app::Object__Array* arg))
     IL2CPP_REGISTER_METHOD(0x023885F0, void, WriteLine_1, (app::TextWriter_SyncTextWriter * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x02388620, void, WriteLine_2, (app::TextWriter_SyncTextWriter * this_ptr, uint16_t value))
+    IL2CPP_REGISTER_METHOD(0x02388620, void, WriteLine_2, (app::TextWriter_SyncTextWriter * this_ptr, char16_t value))
     IL2CPP_REGISTER_METHOD(0x02388650, void, WriteLine_3, (app::TextWriter_SyncTextWriter * this_ptr, app::Char__Array* buffer, int32_t index, int32_t count))
     IL2CPP_REGISTER_METHOD(0x02388680, void, WriteLine_4, (app::TextWriter_SyncTextWriter * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x023886B0, void, WriteLine_5, (app::TextWriter_SyncTextWriter * this_ptr, app::String* value))

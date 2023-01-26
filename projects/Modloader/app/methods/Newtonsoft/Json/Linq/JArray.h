@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Linq_JToken_.h>
-#include <Modloader/app/structs/JArray.h>
-#include <Modloader/app/structs/JTokenType__Enum.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/JToken.h>
-#include <Modloader/app/structs/JsonReader.h>
-#include <Modloader/app/structs/JsonLoadSettings.h>
-#include <Modloader/app/structs/JsonWriter.h>
-#include <Modloader/app/structs/JsonConverter__Array.h>
+
+#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Linq_JToken_.h>
 #include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/JArray.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/JTokenType__Enum.h>
 #include <Modloader/app/structs/JToken__Array.h>
+#include <Modloader/app/structs/JsonConverter__Array.h>
+#include <Modloader/app/structs/JsonLoadSettings.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JArray {
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::IList_1_Newtonsoft_Json_Linq_JToken_*, get_ChildrenTokens, (app::JArray * this_ptr))
@@ -20,7 +21,6 @@ namespace app::classes::Newtonsoft::Json::Linq::JArray {
     IL2CPP_REGISTER_METHOD(0x01F03AB0, void, ctor_3, (app::JArray * this_ptr, app::Object* content))
     IL2CPP_REGISTER_METHOD(0x01F03C20, app::JToken*, CloneToken, (app::JArray * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F03E90, app::JArray*, Load, (app::JsonReader * reader, app::JsonLoadSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x047104D8, JArray_Load__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F04150, void, WriteTo, (app::JArray * this_ptr, app::JsonWriter* writer, app::JsonConverter__Array* converters))
     IL2CPP_REGISTER_METHOD(0x01F042A0, app::JToken*, get_Item, (app::JArray * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x01F042C0, void, set_Item, (app::JArray * this_ptr, int32_t index, app::JToken* value))

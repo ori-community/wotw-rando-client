@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StateHolder_1_AttackableSwitchSetupData_.h>
+
+#include <Modloader/app/structs/StateHolder_1_AttackableSwitchSetupData_.h>
 #include <Modloader/app/structs/List_1_IIndexedItem_.h>
 
 namespace app::classes::StateHolder_1_AttackableSwitchSetupData_ {

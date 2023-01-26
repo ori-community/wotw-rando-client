@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::ContinuousIntegration::Reporting {
     IL2CPP_REGISTER_METHOD(0x0318CE10, app::String*, EscapeStringForTC, (app::String * input))

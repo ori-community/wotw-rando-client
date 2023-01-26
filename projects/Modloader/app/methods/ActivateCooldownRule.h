@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActivateCooldownRule.h>
+
+#include <Modloader/app/structs/ActivateCooldownRule.h>
 #include <Modloader/app/structs/IComboMove.h>
 
 namespace app::classes::ActivateCooldownRule {

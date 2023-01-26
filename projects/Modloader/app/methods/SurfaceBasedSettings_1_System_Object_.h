@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/SurfaceBasedSettings_1_System_Object_.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/PhysicMaterial.h>
+#include <Modloader/app/structs/SurfaceBasedSettings_1_System_Object_.h>
 #include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 
 namespace app::classes::SurfaceBasedSettings_1_System_Object_ {

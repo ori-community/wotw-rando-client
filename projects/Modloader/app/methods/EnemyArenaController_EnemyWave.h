@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/EnemyArenaController_EnemyWave.h>
-#include <Modloader/app/structs/ICondition.h>
-#include <Modloader/app/structs/EnemyArenaController_WaveStatus__Enum.h>
+
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/EnemyArenaController_EnemyWave.h>
+#include <Modloader/app/structs/EnemyArenaController_WaveStatus__Enum.h>
+#include <Modloader/app/structs/ICondition.h>
 
 namespace app::classes::EnemyArenaController_EnemyWave {
     IL2CPP_REGISTER_METHOD(0x00C02130, app::MoonTimeline*, get_OnStartTimelineResolved, (app::EnemyArenaController_EnemyWave * this_ptr))
@@ -15,7 +16,6 @@ namespace app::classes::EnemyArenaController_EnemyWave {
     IL2CPP_REGISTER_METHOD(0x00C02430, void, DisablePlaceholders, (app::EnemyArenaController_EnemyWave * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C02440, void, SetPlaceholderActivation, (app::EnemyArenaController_EnemyWave * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00C025F0, void, ChangeState, (app::EnemyArenaController_EnemyWave * this_ptr, app::EnemyArenaController_WaveStatus__Enum new_state))
-    IL2CPP_REGISTER_METHODINFO(0x04785D18, EnemyArenaController_EnemyWave_ChangeState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C02430, void, ReadyToStartEnter, (app::EnemyArenaController_EnemyWave * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ReadyToStartExit, (app::EnemyArenaController_EnemyWave * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C02890, void, RunningEnter, (app::EnemyArenaController_EnemyWave * this_ptr))
@@ -30,6 +30,5 @@ namespace app::classes::EnemyArenaController_EnemyWave {
     IL2CPP_REGISTER_METHOD(0x00C02FC0, void, RegisterEvent, (app::EnemyArenaController_EnemyWave * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C03280, void, UnregisterEvent, (app::EnemyArenaController_EnemyWave * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C03540, void, EntityKilled, (app::EnemyArenaController_EnemyWave * this_ptr, app::DamageResult obj))
-    IL2CPP_REGISTER_METHODINFO(0x04708090, EnemyArenaController_EnemyWave_EntityKilled__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C03550, void, ctor, (app::EnemyArenaController_EnemyWave * this_ptr))
 } // namespace app::classes::EnemyArenaController_EnemyWave

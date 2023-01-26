@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BallBrowserSpawner.h>
+
+#include <Modloader/app/structs/BallBrowserSpawner.h>
 #include <Modloader/app/structs/Browser.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::BallBrowserSpawner {

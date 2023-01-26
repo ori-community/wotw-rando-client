@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayFabRaceServiceProvider.h>
-#include <Modloader/app/structs/IDataProvider.h>
-#include <Modloader/app/structs/PlayFabSignInProvider.h>
-#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
-#include <Modloader/app/structs/RaceDataLeaderBoardType__Enum.h>
-#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/PlayFabRaceServiceProvider.h>
 #include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/Task_1_SystemIntegration_Races_RaceRequestResult_.h>
-#include <Modloader/app/structs/RaceRequestResult.h>
-#include <Modloader/app/structs/RaceDataCache.h>
-#include <Modloader/app/structs/List_1_PlayFab_ClientModels_PlayerLeaderboardEntry_.h>
-#include <Modloader/app/structs/Task_1_SystemIntegration_Races_RaceRequestResultEntry_.h>
-#include <Modloader/app/structs/PlayerProfileModel.h>
+#include <Modloader/app/structs/IDataProvider.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 #include <Modloader/app/structs/LeaderBoardEntry.h>
+#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
+#include <Modloader/app/structs/List_1_PlayFab_ClientModels_PlayerLeaderboardEntry_.h>
+#include <Modloader/app/structs/PlayFabSignInProvider.h>
+#include <Modloader/app/structs/PlayerProfileModel.h>
+#include <Modloader/app/structs/RaceDataCache.h>
+#include <Modloader/app/structs/RaceDataLeaderBoardType__Enum.h>
+#include <Modloader/app/structs/RaceRequestResult.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Task_1_SystemIntegration_Races_RaceRequestResultEntry_.h>
+#include <Modloader/app/structs/Task_1_SystemIntegration_Races_RaceRequestResult_.h>
 
 namespace app::classes::SystemIntegration::Races::PlayFabRaceServiceProvider {
     IL2CPP_REGISTER_METHOD(0x005245D0, void, ctor, (app::PlayFabRaceServiceProvider * this_ptr, app::IDataProvider* statistics_provider_provider, app::PlayFabSignInProvider* play_fab_sign_in_provider))

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/VerletSoftInteraction.h>
+
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/UberInteractionActor.h>
 #include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/UberInteractionActor.h>
+#include <Modloader/app/structs/VerletSoftInteraction.h>
 
 namespace app::classes::VerletSoftInteraction {
     IL2CPP_REGISTER_METHOD(0x013C8520, app::Bounds, get_Bounds, (app::VerletSoftInteraction * this_ptr))

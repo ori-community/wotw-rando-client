@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ValueKind__Enum.h>
-#include <Modloader/app/structs/Value.h>
+
+#include <Modloader/app/structs/ValueKind__Enum.h>
+#include <Modloader/app/structs/List_1_List_1_List_1_System_Int64_.h>
+#include <Modloader/app/structs/List_1_List_1_System_Byte_.h>
+#include <Modloader/app/structs/List_1_List_1_System_Double_.h>
+#include <Modloader/app/structs/List_1_List_1_System_Int64_.h>
+#include <Modloader/app/structs/List_1_List_1_System_String_.h>
 #include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_Attributes_.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/List_1_List_1_System_Byte_.h>
-#include <Modloader/app/structs/List_1_List_1_System_String_.h>
-#include <Modloader/app/structs/List_1_List_1_System_Int64_.h>
-#include <Modloader/app/structs/List_1_List_1_System_Double_.h>
-#include <Modloader/app/structs/List_1_List_1_List_1_System_Int64_.h>
+#include <Modloader/app/structs/Value.h>
 
 namespace app::classes::Microsoft::Applications::Events::DataModels::Value {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::ValueKind__Enum, get_type, (app::Value * this_ptr))

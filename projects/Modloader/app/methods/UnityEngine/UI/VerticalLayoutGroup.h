@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VerticalLayoutGroup.h>
+
+#include <Modloader/app/structs/VerticalLayoutGroup.h>
 
 namespace app::classes::UnityEngine::UI::VerticalLayoutGroup {
     IL2CPP_REGISTER_METHOD(0x024B6530, void, ctor, (app::VerticalLayoutGroup * this_ptr))

@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/BoneWeight.h>
+#include <Modloader/app/structs/BoneWeight__Array.h>
+#include <Modloader/app/structs/BoneWeight__Boxed.h>
+#include <Modloader/app/structs/BoneWeight__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/BoneWeight__Class.h>
-#include <Modloader/app/structs/BoneWeight.h>
-#include <Modloader/app/structs/BoneWeight__Boxed.h>
-#include <Modloader/app/structs/BoneWeight__Array.h>
 
 namespace app::classes::types {
     namespace BoneWeight {
-        inline app::BoneWeight__Class** type_info = (app::BoneWeight__Class**)(modloader::win::memory::resolve_rva(0x04795DE8));
+        inline app::BoneWeight__Class** type_info() {
+            static app::BoneWeight__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::BoneWeight__Class**)(modloader::win::memory::resolve_rva(0x04795DE8));
+            }
+            return cache;
+        }
         inline app::BoneWeight__Class* get_class() {
-            return il2cpp::get_class<app::BoneWeight__Class>(type_info, "UnityEngine", "BoneWeight");
+            return il2cpp::get_class<app::BoneWeight__Class>(type_info(), "UnityEngine", "BoneWeight");
         }
         inline app::BoneWeight* create() {
             return il2cpp::create_object<app::BoneWeight>(get_class());

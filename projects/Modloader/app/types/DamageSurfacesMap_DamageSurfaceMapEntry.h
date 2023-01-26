@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/DamageSurfacesMap_DamageSurfaceMapEntry__Class.h>
 #include <Modloader/app/structs/DamageSurfacesMap_DamageSurfaceMapEntry.h>
 #include <Modloader/app/structs/DamageSurfacesMap_DamageSurfaceMapEntry__Array.h>
+#include <Modloader/app/structs/DamageSurfacesMap_DamageSurfaceMapEntry__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace DamageSurfacesMap_DamageSurfaceMapEntry {
-        namespace {
-            inline app::DamageSurfacesMap_DamageSurfaceMapEntry__Class* type_info_ref = nullptr;
+        inline app::DamageSurfacesMap_DamageSurfaceMapEntry__Class** type_info() {
+            static app::DamageSurfacesMap_DamageSurfaceMapEntry__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::DamageSurfacesMap_DamageSurfaceMapEntry__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::DamageSurfacesMap_DamageSurfaceMapEntry__Class** type_info = &type_info_ref;
         inline app::DamageSurfacesMap_DamageSurfaceMapEntry__Class* get_class() {
-            return il2cpp::get_nested_class<app::DamageSurfacesMap_DamageSurfaceMapEntry__Class>(type_info, "", "DamageSurfacesMap", "DamageSurfaceMapEntry");
+            return il2cpp::get_nested_class<app::DamageSurfacesMap_DamageSurfaceMapEntry__Class>(type_info(), "", "DamageSurfacesMap", "DamageSurfaceMapEntry");
         }
         inline app::DamageSurfacesMap_DamageSurfaceMapEntry* create() {
             return il2cpp::create_object<app::DamageSurfacesMap_DamageSurfaceMapEntry>(get_class());

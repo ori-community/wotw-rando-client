@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShaderPrewarmOperation.h>
+
+#include <Modloader/app/structs/ShaderPrewarmOperation.h>
 
 namespace app::classes::frameworks::loading::Prewarmers::ShaderPrewarmOperation {
     IL2CPP_REGISTER_METHOD(0x00F62000, void, ctor, (app::ShaderPrewarmOperation * this_ptr))

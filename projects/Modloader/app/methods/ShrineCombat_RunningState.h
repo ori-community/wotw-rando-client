@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShrineCombat_RunningState.h>
+
+#include <Modloader/app/structs/ShrineCombat_RunningState.h>
 #include <Modloader/app/structs/ShrineCombat.h>
 
 namespace app::classes::ShrineCombat_RunningState {

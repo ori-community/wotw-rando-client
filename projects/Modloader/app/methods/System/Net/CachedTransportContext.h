@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CachedTransportContext.h>
+
+#include <Modloader/app/structs/CachedTransportContext.h>
 #include <Modloader/app/structs/ChannelBinding.h>
 #include <Modloader/app/structs/ChannelBindingKind__Enum.h>
 

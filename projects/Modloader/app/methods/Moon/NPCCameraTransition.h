@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/NPCCameraTransition.h>
-#include <Modloader/app/structs/NPCCameraBlendState__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/NPCCameraTargetPositionType__Enum.h>
+
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/CameraPuppetController.h>
+#include <Modloader/app/structs/NPCCameraBlendState__Enum.h>
+#include <Modloader/app/structs/NPCCameraTargetPositionType__Enum.h>
+#include <Modloader/app/structs/NPCCameraTransition.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::NPCCameraTransition {
     IL2CPP_REGISTER_METHOD(0x011202B0, void, ResetStatics, ())

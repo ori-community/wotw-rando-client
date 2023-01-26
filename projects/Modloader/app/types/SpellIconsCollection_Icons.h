@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/SpellIconsCollection_Icons.h>
+#include <Modloader/app/structs/SpellIconsCollection_Icons__Array.h>
+#include <Modloader/app/structs/SpellIconsCollection_Icons__Boxed.h>
+#include <Modloader/app/structs/SpellIconsCollection_Icons__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SpellIconsCollection_Icons__Class.h>
-#include <Modloader/app/structs/SpellIconsCollection_Icons.h>
-#include <Modloader/app/structs/SpellIconsCollection_Icons__Boxed.h>
-#include <Modloader/app/structs/SpellIconsCollection_Icons__Array.h>
 
 namespace app::classes::types {
     namespace SpellIconsCollection_Icons {
-        inline app::SpellIconsCollection_Icons__Class** type_info = (app::SpellIconsCollection_Icons__Class**)(modloader::win::memory::resolve_rva(0x04731378));
+        inline app::SpellIconsCollection_Icons__Class** type_info() {
+            static app::SpellIconsCollection_Icons__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::SpellIconsCollection_Icons__Class**)(modloader::win::memory::resolve_rva(0x04731378));
+            }
+            return cache;
+        }
         inline app::SpellIconsCollection_Icons__Class* get_class() {
-            return il2cpp::get_nested_class<app::SpellIconsCollection_Icons__Class>(type_info, "", "SpellIconsCollection", "Icons");
+            return il2cpp::get_nested_class<app::SpellIconsCollection_Icons__Class>(type_info(), "", "SpellIconsCollection", "Icons");
         }
         inline app::SpellIconsCollection_Icons* create() {
             return il2cpp::create_object<app::SpellIconsCollection_Icons>(get_class());

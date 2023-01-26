@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FrameCaptureTester.h>
+
+#include <Modloader/app/structs/FrameCaptureTester.h>
 #include <Modloader/app/structs/FrameCaptureTester_FrameCaptureTestType__Enum.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/String__Array.h>
 #include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::FrameCaptureTester {
     IL2CPP_REGISTER_METHOD(0x016375D0, bool, get_EnableObjectProfiling, ())
@@ -23,14 +24,11 @@ namespace app::classes::FrameCaptureTester {
     IL2CPP_REGISTER_METHOD(0x016384E0, void, OnDestroy, (app::FrameCaptureTester * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016387C0, void, Awake, (app::FrameCaptureTester * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01638A90, void, SetupTest, (app::FrameCaptureTester * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047178D8, FrameCaptureTester_SetupTest__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0163BA80, void, OnTestFinished, (app::FrameCaptureTester * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475B7D8, FrameCaptureTester_OnTestFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0163BC90, void, PreparePrependData, (app::FrameCaptureTester * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0163C3F0, void, FixedUpdate, (app::FrameCaptureTester * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0163C5E0, void, Update, (app::FrameCaptureTester * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0163C7D0, void, OnEndOfFrame, (app::FrameCaptureTester * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04700988, FrameCaptureTester_OnEndOfFrame__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0163CFF0, app::String*, ArrayToCSV, (app::String__Array * entries, app::String* separator, bool separator_on_the_last_entry))
     IL2CPP_REGISTER_METHOD(0x0163D3E0, void, ArrayToCSVBuilder, (app::String__Array * entries, app::String* separator, bool separator_on_the_last_entry, app::StringBuilder* output))
     IL2CPP_REGISTER_METHOD(0x0163D5B0, bool, get_RecordManualTest, ())

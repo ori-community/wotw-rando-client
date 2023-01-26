@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IntUberStateMatcher.h>
-#include <Modloader/app/structs/IUberState.h>
+
+#include <Modloader/app/structs/IntUberStateMatcher.h>
 #include <Modloader/app/structs/GenericDataContainer.h>
+#include <Modloader/app/structs/IUberState.h>
 #include <Modloader/app/structs/IntUberStateMatcher_IntRangeUberStatePair.h>
 
 namespace app::classes::IntUberStateMatcher {

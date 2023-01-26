@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SweepLine_SweepEventVertex.h>
+
+#include <Modloader/app/structs/SweepLine_SweepEventVertex.h>
 #include <Modloader/app/structs/SweepLine_SweepEvent.h>
 
 namespace app::classes::TriangleNet::Meshing::Algorithm::SweepLine_SweepEventVertex {

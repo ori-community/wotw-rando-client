@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterAnimationSystem.h>
+
+#include <Modloader/app/structs/CharacterAnimationSystem.h>
 #include <Modloader/app/structs/PressAOrRightCutsceneState.h>
 #include <Modloader/app/structs/SeinCutsceneBlocked.h>
 

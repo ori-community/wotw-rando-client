@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SetBooleanAction.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SetBooleanAction.h>
 
 namespace app::classes::Moon::BehaviourSystem::SetBooleanAction {
     IL2CPP_REGISTER_METHOD(0x0300FFA0, app::String*, get_Info, (app::SetBooleanAction * this_ptr))

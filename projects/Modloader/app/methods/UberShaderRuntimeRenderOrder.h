@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderRuntimeRenderOrder.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/UberShaderRuntimeRenderOrder.h>
 #include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UberShaderRuntimeRenderOrder {
     IL2CPP_REGISTER_METHOD(0x01284B10, bool, get_IsInScene, (app::UberShaderRuntimeRenderOrder * this_ptr))

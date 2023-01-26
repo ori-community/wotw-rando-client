@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/TentacleEnemy_IdleState.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/BehaviourTreeStatus__Enum.h>
-#include <Modloader/app/structs/TickData.h>
+#include <Modloader/app/structs/TentacleEnemy_IdleState.h>
 #include <Modloader/app/structs/TentacleEnemy_WiggleData.h>
+#include <Modloader/app/structs/TickData.h>
 
 namespace app::classes::TentacleEnemy_IdleState {
     IL2CPP_REGISTER_METHOD(0x00CF7AE0, app::String*, get_Name, (app::TentacleEnemy_IdleState * this_ptr))

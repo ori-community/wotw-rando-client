@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_DesiredStateTransitionInfo___Boxed.h>
-#include <Modloader/app/structs/List_1_Moon_DesiredStateTransitionInfo_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_DesiredStateTransitionInfo___Boxed.h>
 #include <Modloader/app/structs/DesiredStateTransitionInfo.h>
+#include <Modloader/app/structs/List_1_Moon_DesiredStateTransitionInfo_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Moon_DesiredStateTransitionInfo_ {

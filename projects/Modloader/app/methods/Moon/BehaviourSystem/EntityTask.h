@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/EntityTask.h>
-#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_EntityTask_.h>
-#include <Modloader/app/structs/EntityBehaviourDebugData.h>
+
+#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/Nullable_1_Moon_BehaviourSystem_BehaviourStatus_.h>
+#include <Modloader/app/structs/EntityBehaviourDebugData.h>
 #include <Modloader/app/structs/EntityOwnedInitOrder__Enum.h>
+#include <Modloader/app/structs/EntityTask.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_EntityTask_.h>
+#include <Modloader/app/structs/Nullable_1_Moon_BehaviourSystem_BehaviourStatus_.h>
 
 namespace app::classes::Moon::BehaviourSystem::EntityTask {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::Entity*, get_Entity, (app::EntityTask * this_ptr))
@@ -29,6 +30,5 @@ namespace app::classes::Moon::BehaviourSystem::EntityTask {
     IL2CPP_REGISTER_METHOD(0x00CB68D0, void, InternalExit, (app::EntityTask * this_ptr, app::BehaviourStatus__Enum end_status))
     IL2CPP_REGISTER_METHOD(0x00CB6AB0, void, ExecuteChildTask, (app::EntityTask * this_ptr, app::EntityTask* task))
     IL2CPP_REGISTER_METHOD(0x00CB6CC0, void, OnEndChildBehaviour, (app::EntityTask * this_ptr, app::EntityTask* task, app::BehaviourStatus__Enum reason))
-    IL2CPP_REGISTER_METHODINFO(0x0476F980, EntityTask_OnEndChildBehaviour__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00CB6DA0, void, ctor, (app::EntityTask * this_ptr))
 } // namespace app::classes::Moon::BehaviourSystem::EntityTask

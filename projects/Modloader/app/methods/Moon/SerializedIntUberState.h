@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberID.h>
-#include <Modloader/app/structs/SerializedIntUberState.h>
+
+#include <Modloader/app/structs/UberID.h>
 #include <Modloader/app/structs/IUberStateGroup.h>
-#include <Modloader/app/structs/Nullable_1_Single_.h>
 #include <Modloader/app/structs/NamedValue_1_System_Int32___Array.h>
+#include <Modloader/app/structs/Nullable_1_Single_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializedIntUberState.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UberStateArchive.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/UberStateHeader_UberStateType__Enum.h>
 
 namespace app::classes::Moon::SerializedIntUberState {

@@ -1,15 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DynamicCubeReference.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/DynamicCubeReference.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::Moon::DynamicCubeReference {
     IL2CPP_REGISTER_METHOD(0x031B03F0, void, Awake, (app::DynamicCubeReference * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031B0480, app::Transform*, get_TargetTransform, (app::DynamicCubeReference * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04703A10, DynamicCubeReference_get_TargetTransform__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x031B0670, app::Transform*, GetData, (app::DynamicCubeReference * this_ptr, int32_t export_i_d))
-    IL2CPP_REGISTER_METHODINFO(0x04798C60, DynamicCubeReference_GetData__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x031B0730, void, OnGUI, (app::DynamicCubeReference * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031B08A0, void, SwitchCubeIndex, (app::DynamicCubeReference * this_ptr, int32_t new_index))
     IL2CPP_REGISTER_METHOD(0x031B0A10, float, GetTweenSpeed, (app::DynamicCubeReference * this_ptr))

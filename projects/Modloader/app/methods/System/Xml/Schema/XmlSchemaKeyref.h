@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
+
+#include <Modloader/app/structs/XmlQualifiedName.h>
 #include <Modloader/app/structs/XmlSchemaKeyref.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaKeyref {

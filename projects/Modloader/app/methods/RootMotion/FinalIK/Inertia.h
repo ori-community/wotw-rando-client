@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Inertia.h>
+
+#include <Modloader/app/structs/Inertia.h>
 
 namespace app::classes::RootMotion::FinalIK::Inertia {
     IL2CPP_REGISTER_METHOD(0x02A06700, void, ResetBodies, (app::Inertia * this_ptr))

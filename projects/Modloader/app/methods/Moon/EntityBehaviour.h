@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityBehaviourDebugData.h>
+
+#include <Modloader/app/structs/EntityBehaviourDebugData.h>
+#include <Modloader/app/structs/Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus_.h>
+#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/EntityBehaviour.h>
 #include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/List_1_Moon_IEntityBehaviour_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Action_2_Moon_IEntityBehaviour_Moon_EntityBehaviourStatus_.h>
 #include <Modloader/app/structs/EntityOwnedInitOrder__Enum.h>
 #include <Modloader/app/structs/IBlackboard.h>
 #include <Modloader/app/structs/IEntityBehaviour.h>
+#include <Modloader/app/structs/List_1_Moon_IEntityBehaviour_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::EntityBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FBB80, app::EntityBehaviourDebugData*, get_DebugData, (app::EntityBehaviour * this_ptr))
@@ -44,7 +45,6 @@ namespace app::classes::Moon::EntityBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnEndBehaviour, (app::EntityBehaviour * this_ptr, app::EntityBehaviourStatus__Enum reason))
     IL2CPP_REGISTER_METHOD(0x0121DD70, void, InterruptChildren, (app::EntityBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0121DE10, void, OnEndChildBehaviour, (app::EntityBehaviour * this_ptr, app::IEntityBehaviour* behaviour, app::EntityBehaviourStatus__Enum reason))
-    IL2CPP_REGISTER_METHODINFO(0x04764958, EntityBehaviour_OnEndChildBehaviour__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, PrintStatus, (app::EntityBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0121DF00, void, ctor, (app::EntityBehaviour * this_ptr))
 } // namespace app::classes::Moon::EntityBehaviour

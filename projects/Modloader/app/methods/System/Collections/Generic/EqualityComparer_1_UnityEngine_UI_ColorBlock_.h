@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_UnityEngine_UI_ColorBlock_.h>
-#include <Modloader/app/structs/ColorBlock__Array.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_UnityEngine_UI_ColorBlock_.h>
 #include <Modloader/app/structs/ColorBlock.h>
+#include <Modloader/app/structs/ColorBlock__Array.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_UnityEngine_UI_ColorBlock_ {

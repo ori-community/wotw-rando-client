@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TestBoneUpdater.h>
+
+#include <Modloader/app/structs/TestBoneUpdater.h>
 
 namespace app::classes::TestBoneUpdater {
     IL2CPP_REGISTER_METHOD(0x003F8E90, void, OnEnable, (app::TestBoneUpdater * this_ptr))

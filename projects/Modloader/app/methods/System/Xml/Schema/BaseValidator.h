@@ -1,23 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BaseValidator.h>
-#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
-#include <Modloader/app/structs/XmlSchemaCollection.h>
-#include <Modloader/app/structs/IValidationEventHandling.h>
-#include <Modloader/app/structs/XmlNameTable.h>
-#include <Modloader/app/structs/SchemaNames.h>
-#include <Modloader/app/structs/PositionInfo.h>
-#include <Modloader/app/structs/XmlResolver.h>
-#include <Modloader/app/structs/Uri.h>
-#include <Modloader/app/structs/ValidationEventHandler.h>
-#include <Modloader/app/structs/SchemaInfo.h>
+
+#include <Modloader/app/structs/BaseValidator.h>
 #include <Modloader/app/structs/IDtdInfo.h>
+#include <Modloader/app/structs/IValidationEventHandling.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PositionInfo.h>
+#include <Modloader/app/structs/SchemaInfo.h>
+#include <Modloader/app/structs/SchemaNames.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/ValidationType__Enum.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/XmlSchemaCollection.h>
 #include <Modloader/app/structs/XmlSchemaException.h>
 #include <Modloader/app/structs/XmlSeverityType__Enum.h>
-#include <Modloader/app/structs/ValidationType__Enum.h>
+#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
 
 namespace app::classes::System::Xml::Schema::BaseValidator {
     IL2CPP_REGISTER_METHOD(0x019A5BB0, void, ctor_1, (app::BaseValidator * this_ptr, app::BaseValidator* other))
@@ -34,7 +35,6 @@ namespace app::classes::System::Xml::Schema::BaseValidator {
     IL2CPP_REGISTER_METHOD(0x019A5F30, app::ValidationEventHandler*, get_EventHandler, (app::BaseValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::SchemaInfo*, get_SchemaInfo, (app::BaseValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019A5FF0, void, set_DtdInfo, (app::BaseValidator * this_ptr, app::IDtdInfo* value))
-    IL2CPP_REGISTER_METHODINFO(0x0472D1A0, BaseValidator_set_DtdInfo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_PreserveWhitespace, (app::BaseValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Validate, (app::BaseValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, CompleteValidation, (app::BaseValidator * this_ptr))
@@ -49,10 +49,7 @@ namespace app::classes::System::Xml::Schema::BaseValidator {
     IL2CPP_REGISTER_METHOD(0x019A6B20, void, SendValidationEvent_5, (app::BaseValidator * this_ptr, app::String* code, app::String* msg, app::XmlSeverityType__Enum severity))
     IL2CPP_REGISTER_METHOD(0x019A6D30, void, SendValidationEvent_6, (app::BaseValidator * this_ptr, app::String* code, app::String__Array* args, app::XmlSeverityType__Enum severity))
     IL2CPP_REGISTER_METHOD(0x019A6F40, void, SendValidationEvent_7, (app::BaseValidator * this_ptr, app::XmlSchemaException* e, app::XmlSeverityType__Enum severity))
-    IL2CPP_REGISTER_METHODINFO(0x04749C68, BaseValidator_SendValidationEvent_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019A7000, void, ProcessEntity_1, (app::SchemaInfo * sinfo, app::String* name, app::Object* sender, app::ValidationEventHandler* eventhandler, app::String* base_uri, int32_t line_number, int32_t line_position))
-    IL2CPP_REGISTER_METHODINFO(0x0472A110, BaseValidator_ProcessEntity__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019A7510, void, ProcessEntity_2, (app::SchemaInfo * sinfo, app::String* name, app::IValidationEventHandling* event_handling, app::String* base_uri_str, int32_t line_number, int32_t line_position))
-    IL2CPP_REGISTER_METHODINFO(0x04784468, BaseValidator_ProcessEntity_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019A7890, app::BaseValidator*, CreateInstance, (app::ValidationType__Enum val_type, app::XmlValidatingReaderImpl* reader, app::XmlSchemaCollection* schema_collection, app::IValidationEventHandling* event_handling, bool process_identity_constraints))
 } // namespace app::classes::System::Xml::Schema::BaseValidator

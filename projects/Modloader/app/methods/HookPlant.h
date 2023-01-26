@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinSpiritLeashAbility.h>
-#include <Modloader/app/structs/HookPlant.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/HookPlant_State__Enum.h>
+
+#include <Modloader/app/structs/SeinSpiritLeashAbility.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/HookPlant.h>
+#include <Modloader/app/structs/HookPlant_State__Enum.h>
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/VirtualClipsBuilder.h>
 
@@ -15,11 +16,8 @@ namespace app::classes::HookPlant {
     IL2CPP_REGISTER_METHOD(0x00B5E8C0, void, Start, (app::HookPlant * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B5EA80, void, OnDestroy, (app::HookPlant * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B5E0F0, void, OnPostRestoreCheckpoint, (app::HookPlant * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04705448, HookPlant_OnPostRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B5EC30, void, Closed, (app::HookPlant * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047025E8, HookPlant_Closed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B5EC40, void, Opened, (app::HookPlant * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04709AD8, HookPlant_Opened__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B5EC50, void, ChangeState, (app::HookPlant * this_ptr, app::HookPlant_State__Enum new_state))
     IL2CPP_REGISTER_METHOD(0x00B5F1C0, void, FixedUpdate, (app::HookPlant * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B5F4A0, void, PlayCurrentTimeline, (app::HookPlant * this_ptr))

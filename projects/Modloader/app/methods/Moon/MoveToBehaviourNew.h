@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoveToBehaviourNew.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/MoveToBehaviourNew.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/IEntityLocomotion.h>
 
 namespace app::classes::Moon::MoveToBehaviourNew {

@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/DebugMenu_ExternalItem.h>
+#include <Modloader/app/structs/DebugMenu_ExternalItem__Array.h>
+#include <Modloader/app/structs/DebugMenu_ExternalItem__Boxed.h>
+#include <Modloader/app/structs/DebugMenu_ExternalItem__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/DebugMenu_ExternalItem__Class.h>
-#include <Modloader/app/structs/DebugMenu_ExternalItem.h>
-#include <Modloader/app/structs/DebugMenu_ExternalItem__Boxed.h>
-#include <Modloader/app/structs/DebugMenu_ExternalItem__Array.h>
 
 namespace app::classes::types {
     namespace DebugMenu_ExternalItem {
-        inline app::DebugMenu_ExternalItem__Class** type_info = (app::DebugMenu_ExternalItem__Class**)(modloader::win::memory::resolve_rva(0x04744F78));
+        inline app::DebugMenu_ExternalItem__Class** type_info() {
+            static app::DebugMenu_ExternalItem__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::DebugMenu_ExternalItem__Class**)(modloader::win::memory::resolve_rva(0x04744F78));
+            }
+            return cache;
+        }
         inline app::DebugMenu_ExternalItem__Class* get_class() {
-            return il2cpp::get_nested_class<app::DebugMenu_ExternalItem__Class>(type_info, "", "DebugMenu", "ExternalItem");
+            return il2cpp::get_nested_class<app::DebugMenu_ExternalItem__Class>(type_info(), "", "DebugMenu", "ExternalItem");
         }
         inline app::DebugMenu_ExternalItem* create() {
             return il2cpp::create_object<app::DebugMenu_ExternalItem>(get_class());

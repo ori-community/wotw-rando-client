@@ -15,8 +15,8 @@ struct __declspec(align(8)) LocalVariables__Fields {
 #endif
 #if !defined(IL2CPP_STRUCT_LocalVariables__Fields_FWDDECL)
 #define IL2CPP_STRUCT_LocalVariables__Fields_FWDDECL
-#include <Modloader/app/structs/Dictionary_2_System_Linq_Expressions_ParameterExpression_System_Linq_Expressions_Interpreter_LocalVariable_.h>
-#include <Modloader/app/structs/HybridReferenceDictionary_2_System_Linq_Expressions_ParameterExpression_LocalVariables_VariableScope_.h>
+#include <Modloader/app/structs/Dictionary_2_Syste_Li_Expressio_ParameterExpressi_Syst_Li_Expressio_Interpret_LocalVariab_.h>
+#include <Modloader/app/structs/HybridReferenceDictionary_2_Syste_Li_Expressio_ParameterExpressi_LocalVariabl_VariableSco_.h>
 #endif
 #undef IL2CPP_STRUCT_LocalVariables__Fields_INITIALIZING
 #if !defined(IL2CPP_STRUCT_LocalVariables__Fields_DEFINED) && !defined(IL2CPP_STRUCT_LocalVariables__Fields_FWDDECL)

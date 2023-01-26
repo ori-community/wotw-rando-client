@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SteamAPICall_t.h>
-#include <Modloader/app/structs/EPersonaState__Enum.h>
-#include <Modloader/app/structs/EFriendFlags__Enum.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AppId_t.h>
 #include <Modloader/app/structs/CSteamID.h>
-#include <Modloader/app/structs/EFriendRelationship__Enum.h>
-#include <Modloader/app/structs/FriendGameInfo_t.h>
-#include <Modloader/app/structs/FriendsGroupID_t.h>
 #include <Modloader/app/structs/CSteamID__Array.h>
 #include <Modloader/app/structs/EActivateGameOverlayToWebPageMode__Enum.h>
-#include <Modloader/app/structs/AppId_t.h>
-#include <Modloader/app/structs/EOverlayToStoreFlag__Enum.h>
 #include <Modloader/app/structs/EChatEntryType__Enum.h>
+#include <Modloader/app/structs/EFriendFlags__Enum.h>
+#include <Modloader/app/structs/EFriendRelationship__Enum.h>
+#include <Modloader/app/structs/EOverlayToStoreFlag__Enum.h>
+#include <Modloader/app/structs/EPersonaState__Enum.h>
+#include <Modloader/app/structs/FriendGameInfo_t.h>
+#include <Modloader/app/structs/FriendsGroupID_t.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
 
 namespace app::classes::Steamworks::SteamFriends {
     IL2CPP_REGISTER_METHOD(0x027E9BB0, app::String*, GetPersonaName, ())

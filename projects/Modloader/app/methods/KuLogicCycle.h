@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KuLogicCycle.h>
-#include <Modloader/app/structs/List_1_KuState_.h>
-#include <Modloader/app/structs/KuState.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/KuLogicCycle.h>
 #include <Modloader/app/structs/KuLogicCycle_IsAllowedDelegate.h>
+#include <Modloader/app/structs/KuState.h>
+#include <Modloader/app/structs/List_1_KuState_.h>
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::KuLogicCycle {
@@ -56,33 +57,18 @@ namespace app::classes::KuLogicCycle {
     IL2CPP_REGISTER_METHOD(0x0043D9E0, app::UpdateType__Enum, get_UpdateType, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01240940, void, ctor, (app::KuLogicCycle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, _RegisterIsAllowedDelegates_b__65_0, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474E090, KuLogicCycle__RegisterIsAllowedDelegates_b__65_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01240FE0, bool, _RegisterIsAllowedDelegates_b__65_1, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477F2B0, KuLogicCycle__RegisterIsAllowedDelegates_b__65_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01240FF0, bool, _RegisterIsAllowedDelegates_b__65_2, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04774970, KuLogicCycle__RegisterIsAllowedDelegates_b__65_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0123D5E0, bool, _RegisterIsAllowedDelegates_b__65_3, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04739E60, KuLogicCycle__RegisterIsAllowedDelegates_b__65_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01241000, bool, _RegisterIsAllowedDelegates_b__65_4, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477A680, KuLogicCycle__RegisterIsAllowedDelegates_b__65_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, _RegisterIsAllowedDelegates_b__65_5, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471CE58, KuLogicCycle__RegisterIsAllowedDelegates_b__65_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01241010, bool, _RegisterIsAllowedDelegates_b__65_6, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04705388, KuLogicCycle__RegisterIsAllowedDelegates_b__65_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01241020, bool, _RegisterIsAllowedDelegates_b__65_7, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476EB10, KuLogicCycle__RegisterIsAllowedDelegates_b__65_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01241030, bool, _RegisterIsAllowedDelegates_b__65_8, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04796DD0, KuLogicCycle__RegisterIsAllowedDelegates_b__65_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01241040, bool, _RegisterIsAllowedDelegates_b__65_9, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04785F48, KuLogicCycle__RegisterIsAllowedDelegates_b__65_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01241050, bool, _RegisterIsAllowedDelegates_b__65_10, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04798708, KuLogicCycle__RegisterIsAllowedDelegates_b__65_10__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0123DCB0, bool, _RegisterIsAllowedDelegates_b__65_11, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04793090, KuLogicCycle__RegisterIsAllowedDelegates_b__65_11__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0123DBC0, bool, _RegisterIsAllowedDelegates_b__65_12, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478F438, KuLogicCycle__RegisterIsAllowedDelegates_b__65_12__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01241060, bool, _RegisterIsAllowedDelegates_b__65_13, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04713C70, KuLogicCycle__RegisterIsAllowedDelegates_b__65_13__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, _RegisterIsAllowedDelegates_b__65_14, (app::KuLogicCycle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04737BB8, KuLogicCycle__RegisterIsAllowedDelegates_b__65_14__MethodInfo)
 } // namespace app::classes::KuLogicCycle

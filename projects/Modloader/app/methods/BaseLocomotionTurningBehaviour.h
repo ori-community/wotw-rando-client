@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BaseLocomotionTurningBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/BaseLocomotionTurningBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::BaseLocomotionTurningBehaviour {
     IL2CPP_REGISTER_METHOD(0x00623260, float, get_TargetLookDirectionX, (app::BaseLocomotionTurningBehaviour * this_ptr))

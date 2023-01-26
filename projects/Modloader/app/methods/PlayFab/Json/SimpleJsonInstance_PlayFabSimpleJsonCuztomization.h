@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SimpleJsonInstance_PlayFabSimpleJsonCuztomization.h>
 #include <Modloader/app/structs/Type.h>
 

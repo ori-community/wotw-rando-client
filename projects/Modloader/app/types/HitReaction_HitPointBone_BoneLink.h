@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/HitReaction_HitPointBone_BoneLink__Class.h>
 #include <Modloader/app/structs/HitReaction_HitPointBone_BoneLink.h>
 #include <Modloader/app/structs/HitReaction_HitPointBone_BoneLink__Array.h>
+#include <Modloader/app/structs/HitReaction_HitPointBone_BoneLink__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace HitReaction_HitPointBone_BoneLink {
-        namespace {
-            inline app::HitReaction_HitPointBone_BoneLink__Class* type_info_ref = nullptr;
+        inline app::HitReaction_HitPointBone_BoneLink__Class** type_info() {
+            static app::HitReaction_HitPointBone_BoneLink__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::HitReaction_HitPointBone_BoneLink__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::HitReaction_HitPointBone_BoneLink__Class** type_info = &type_info_ref;
         inline app::HitReaction_HitPointBone_BoneLink__Class* get_class() {
-            return il2cpp::get_nested_class<app::HitReaction_HitPointBone_BoneLink__Class>(type_info, "RootMotion.FinalIK", "HitReaction+HitPointBone", "BoneLink");
+            return il2cpp::get_nested_class<app::HitReaction_HitPointBone_BoneLink__Class>(type_info(), "RootMotion.FinalIK", "HitReaction+HitPointBone", "BoneLink");
         }
         inline app::HitReaction_HitPointBone_BoneLink* create() {
             return il2cpp::create_object<app::HitReaction_HitPointBone_BoneLink>(get_class());

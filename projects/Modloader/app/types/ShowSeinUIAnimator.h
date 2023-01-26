@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/ShowSeinUIAnimator.h>
+#include <Modloader/app/structs/ShowSeinUIAnimator__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ShowSeinUIAnimator__Class.h>
-#include <Modloader/app/structs/ShowSeinUIAnimator.h>
 
 namespace app::classes::types {
     namespace ShowSeinUIAnimator {
-        namespace {
-            inline app::ShowSeinUIAnimator__Class* type_info_ref = nullptr;
+        inline app::ShowSeinUIAnimator__Class** type_info() {
+            static app::ShowSeinUIAnimator__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ShowSeinUIAnimator__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ShowSeinUIAnimator__Class** type_info = &type_info_ref;
         inline app::ShowSeinUIAnimator__Class* get_class() {
-            return il2cpp::get_class<app::ShowSeinUIAnimator__Class>(type_info, "", "ShowSeinUIAnimator");
+            return il2cpp::get_class<app::ShowSeinUIAnimator__Class>(type_info(), "", "ShowSeinUIAnimator");
         }
         inline app::ShowSeinUIAnimator* create() {
             return il2cpp::create_object<app::ShowSeinUIAnimator>(get_class());

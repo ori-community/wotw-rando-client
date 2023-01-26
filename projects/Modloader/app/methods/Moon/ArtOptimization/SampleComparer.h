@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComputeShader.h>
-#include <Modloader/app/structs/SampleComparer.h>
-#include <Modloader/app/structs/TexturePoolEntity.h>
-#include <Modloader/app/structs/Texture.h>
+
+#include <Modloader/app/structs/ComputeShader.h>
 #include <Modloader/app/structs/Color32.h>
+#include <Modloader/app/structs/SampleComparer.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/TexturePoolEntity.h>
 
 namespace app::classes::Moon::ArtOptimization::SampleComparer {
     IL2CPP_REGISTER_METHOD(0x013500B0, app::ComputeShader*, GetImageCompareShader, (app::SampleComparer * this_ptr, int32_t width, int32_t height))

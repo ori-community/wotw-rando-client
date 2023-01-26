@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IEnumerator.h>
+
+#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/MortarWormEnemyDeath.h>
 
 namespace app::classes::MortarWormEnemyDeath {

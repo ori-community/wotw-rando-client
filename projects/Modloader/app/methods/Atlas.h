@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Atlas.h>
 #include <Modloader/app/structs/AtlasSpriteTexture.h>
 #include <Modloader/app/structs/MoonGuid.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Atlas {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::String*, get_TexturePath, (app::Atlas * this_ptr))

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/EffectSpawn__Class.h>
 #include <Modloader/app/structs/EffectSpawn.h>
 #include <Modloader/app/structs/EffectSpawn__Boxed.h>
+#include <Modloader/app/structs/EffectSpawn__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace EffectSpawn {
-        namespace {
-            inline app::EffectSpawn__Class* type_info_ref = nullptr;
+        inline app::EffectSpawn__Class** type_info() {
+            static app::EffectSpawn__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::EffectSpawn__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::EffectSpawn__Class** type_info = &type_info_ref;
         inline app::EffectSpawn__Class* get_class() {
-            return il2cpp::get_class<app::EffectSpawn__Class>(type_info, "", "EffectSpawn");
+            return il2cpp::get_class<app::EffectSpawn__Class>(type_info(), "", "EffectSpawn");
         }
         inline app::EffectSpawn* create() {
             return il2cpp::create_object<app::EffectSpawn>(get_class());

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/ColorTween__Boxed.h>
+
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/ColorTween_ColorTweenMode__Enum.h>
+#include <Modloader/app/structs/ColorTween__Boxed.h>
 #include <Modloader/app/structs/UnityAction_1_UnityEngine_Color_.h>
 
 namespace app::classes::UnityEngine::UI::CoroutineTween::ColorTween {

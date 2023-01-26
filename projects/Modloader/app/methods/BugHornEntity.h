@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BugHornEntity.h>
-#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
+
+#include <Modloader/app/structs/BugHornEntity.h>
 #include <Modloader/app/structs/BugHornEntity_BugHornType__Enum.h>
-#include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/Locomotion.h>
 #include <Modloader/app/structs/BugHornEntity_HornSettings.h>
+#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/DamageWeight__Enum.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
+#include <Modloader/app/structs/Locomotion.h>
 #include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::BugHornEntity {
     IL2CPP_REGISTER_METHOD(0x00805AA0, int32_t, get_GroundMask, ())

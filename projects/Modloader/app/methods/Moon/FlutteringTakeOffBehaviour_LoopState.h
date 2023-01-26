@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FlutteringTakeOffBehaviour_LoopState.h>
+
+#include <Modloader/app/structs/FlutteringTakeOffBehaviour_LoopState.h>
 #include <Modloader/app/structs/FlutteringTakeOffBehaviour.h>
 
 namespace app::classes::Moon::FlutteringTakeOffBehaviour_LoopState {

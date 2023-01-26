@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_AmbienceZone_WiseAuxSend___Boxed.h>
-#include <Modloader/app/structs/List_1_AmbienceZone_WiseAuxSend_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_AmbienceZone_WiseAuxSend___Boxed.h>
 #include <Modloader/app/structs/AmbienceZone_WiseAuxSend.h>
+#include <Modloader/app/structs/List_1_AmbienceZone_WiseAuxSend_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_AmbienceZone_WiseAuxSend_ {

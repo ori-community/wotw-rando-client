@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Exception.h>
+
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/ArrayList.h>
 #include <Modloader/app/structs/BinaryFacetsChecker.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/XmlSchemaDatatype.h>
-#include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/ArrayList.h>
 
 namespace app::classes::System::Xml::Schema::BinaryFacetsChecker {
     IL2CPP_REGISTER_METHOD(0x019A7FE0, app::Exception*, CheckValueFacets_1, (app::BinaryFacetsChecker * this_ptr, app::Object* value, app::XmlSchemaDatatype* datatype))

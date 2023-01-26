@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/VolumetricPointLight__Class.h>
 #include <Modloader/app/structs/VolumetricPointLight.h>
 #include <Modloader/app/structs/VolumetricPointLight__Array.h>
+#include <Modloader/app/structs/VolumetricPointLight__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace VolumetricPointLight {
-        namespace {
-            inline app::VolumetricPointLight__Class* type_info_ref = nullptr;
+        inline app::VolumetricPointLight__Class** type_info() {
+            static app::VolumetricPointLight__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::VolumetricPointLight__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::VolumetricPointLight__Class** type_info = &type_info_ref;
         inline app::VolumetricPointLight__Class* get_class() {
-            return il2cpp::get_class<app::VolumetricPointLight__Class>(type_info, "Moon.Rendering", "VolumetricPointLight");
+            return il2cpp::get_class<app::VolumetricPointLight__Class>(type_info(), "Moon.Rendering", "VolumetricPointLight");
         }
         inline app::VolumetricPointLight* create() {
             return il2cpp::create_object<app::VolumetricPointLight>(get_class());

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TeleportBeaconDamageReceiver.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/TeleportBeaconDamageReceiver.h>
 #include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/IDamageReciever__Array.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::TeleportBeaconDamageReceiver {
     IL2CPP_REGISTER_METHOD(0x00CE7970, void, Awake, (app::TeleportBeaconDamageReceiver * this_ptr))

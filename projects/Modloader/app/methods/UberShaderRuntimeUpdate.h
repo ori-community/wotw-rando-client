@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderRuntimeUpdate.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
+
+#include <Modloader/app/structs/UberShaderRuntimeUpdate.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberShaderBlock.h>
 #include <Modloader/app/structs/UberShaderRuntimeAnchoredTexture.h>
 #include <Modloader/app/structs/UberShaderTexture.h>
-#include <Modloader/app/structs/UberShaderBlock.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UberShaderRuntimeUpdate {
     IL2CPP_REGISTER_METHOD(0x01285650, app::UberShaderRuntimeUpdate*, get_Instance, ())

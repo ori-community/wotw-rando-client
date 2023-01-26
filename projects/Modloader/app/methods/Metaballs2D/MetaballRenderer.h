@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/MetaballRenderer.h>
 #include <Modloader/app/structs/MetaballRenderer_GridSample.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/MetaballRenderer_IMetaball.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Metaballs2D::MetaballRenderer {
     IL2CPP_REGISTER_METHOD(0x01056D80, app::Vector2, get_CellSize, (app::MetaballRenderer * this_ptr))

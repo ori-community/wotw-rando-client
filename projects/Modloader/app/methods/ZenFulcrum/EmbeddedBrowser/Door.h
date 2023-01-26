@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Door_1.h>
+
+#include <Modloader/app/structs/Door_1.h>
 #include <Modloader/app/structs/Action_1_ZenFulcrum_EmbeddedBrowser_Door_OpenState_.h>
 #include <Modloader/app/structs/Door_OpenState__Enum.h>
 

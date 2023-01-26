@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/fsNullableConverter.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/fsResult.h>
+
+#include <Modloader/app/structs/fsNullableConverter.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/fsData.h>
+#include <Modloader/app/structs/fsResult.h>
 
 namespace app::classes::FullSerializer::Internal::fsNullableConverter {
     IL2CPP_REGISTER_METHOD(0x01658FF0, bool, CanProcess, (app::fsNullableConverter * this_ptr, app::Type* type))

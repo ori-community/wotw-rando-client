@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SteamAPICall_t.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/CSteamID.h>
-#include <Modloader/app/structs/ELeaderboardSortMethod__Enum.h>
-#include <Modloader/app/structs/ELeaderboardDisplayType__Enum.h>
-#include <Modloader/app/structs/SteamLeaderboard_t.h>
-#include <Modloader/app/structs/ELeaderboardDataRequest__Enum.h>
 #include <Modloader/app/structs/CSteamID__Array.h>
-#include <Modloader/app/structs/SteamLeaderboardEntries_t.h>
-#include <Modloader/app/structs/LeaderboardEntry_t.h>
-#include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/ELeaderboardUploadScoreMethod__Enum.h>
-#include <Modloader/app/structs/UGCHandle_t.h>
-#include <Modloader/app/structs/Int64__Array.h>
 #include <Modloader/app/structs/Double__Array.h>
+#include <Modloader/app/structs/ELeaderboardDataRequest__Enum.h>
+#include <Modloader/app/structs/ELeaderboardDisplayType__Enum.h>
+#include <Modloader/app/structs/ELeaderboardSortMethod__Enum.h>
+#include <Modloader/app/structs/ELeaderboardUploadScoreMethod__Enum.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Int64__Array.h>
+#include <Modloader/app/structs/LeaderboardEntry_t.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
+#include <Modloader/app/structs/SteamLeaderboardEntries_t.h>
+#include <Modloader/app/structs/SteamLeaderboard_t.h>
+#include <Modloader/app/structs/UGCHandle_t.h>
 
 namespace app::classes::Steamworks::SteamUserStats {
     IL2CPP_REGISTER_METHOD(0x0279F9D0, bool, RequestCurrentStats, ())

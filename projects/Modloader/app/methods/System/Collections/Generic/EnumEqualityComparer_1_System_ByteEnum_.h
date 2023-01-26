@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnumEqualityComparer_1_System_ByteEnum_.h>
+
+#include <Modloader/app/structs/EnumEqualityComparer_1_System_ByteEnum_.h>
 #include <Modloader/app/structs/ByteEnum__Enum.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EnumEqualityComparer_1_System_ByteEnum_ {
     IL2CPP_REGISTER_METHOD(0x02CBD140, bool, Equals_1, (app::EnumEqualityComparer_1_System_ByteEnum_ * this_ptr, app::ByteEnum__Enum x, app::ByteEnum__Enum y))

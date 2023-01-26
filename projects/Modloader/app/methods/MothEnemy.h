@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MothSwarm.h>
+
+#include <Modloader/app/structs/MothSwarm.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/MothEnemy.h>
 #include <Modloader/app/structs/MothSwarmer.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MothEnemy {
     IL2CPP_REGISTER_METHOD(0x00864990, app::MothSwarm*, get_Swarm, (app::MothEnemy * this_ptr))
@@ -31,7 +32,6 @@ namespace app::classes::MothEnemy {
     IL2CPP_REGISTER_METHOD(0x00865980, void, CreateSwarmer, (app::MothEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00865AE0, void, MoveToLandPoint, (app::MothEnemy * this_ptr, app::Vector2 point, app::Vector2 normal, float max_range))
     IL2CPP_REGISTER_METHOD(0x00865FB0, void, OnDeathEvent, (app::MothEnemy * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x04783610, MothEnemy_OnDeathEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008660A0, void, OnModifyDamage, (app::MothEnemy * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x008661F0, void, OnStickyMineStuck, (app::MothEnemy * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00866300, void, ctor, (app::MothEnemy * this_ptr))

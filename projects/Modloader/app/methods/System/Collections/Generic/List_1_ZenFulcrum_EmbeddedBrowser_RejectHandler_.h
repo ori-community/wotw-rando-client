@@ -1,25 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
-#include <Modloader/app/structs/RejectHandler.h>
-#include <Modloader/app/structs/IEnumerable_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
-#include <Modloader/app/structs/IComparer_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
-#include <Modloader/app/structs/RejectHandler__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
+
+#include <Modloader/app/structs/List_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
 #include <Modloader/app/structs/Action_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
-#include <Modloader/app/structs/IEnumerator_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
+#include <Modloader/app/structs/IComparer_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
+#include <Modloader/app/structs/IEnumerable_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
+#include <Modloader/app/structs/RejectHandler.h>
+#include <Modloader/app/structs/RejectHandler__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047571B0, List_1_ZenFulcrum_EmbeddedBrowser_RejectHandler___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add, (app::List_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_ * this_ptr, app::RejectHandler item))
-    IL2CPP_REGISTER_METHODINFO(0x04793B30, List_1_ZenFulcrum_EmbeddedBrowser_RejectHandler__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02C27B20, void, ctor_3, (app::List_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_ * this_ptr, app::IEnumerable_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_ * this_ptr))

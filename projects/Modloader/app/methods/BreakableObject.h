@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BreakableObject.h>
+
+#include <Modloader/app/structs/BreakableObject.h>
 #include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::BreakableObject {

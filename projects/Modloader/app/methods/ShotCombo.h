@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShotCombo.h>
+
+#include <Modloader/app/structs/ShotCombo.h>
 
 namespace app::classes::ShotCombo {
     IL2CPP_REGISTER_METHOD(0x005C3FF0, int32_t, get_CurrentShot, (app::ShotCombo * this_ptr))

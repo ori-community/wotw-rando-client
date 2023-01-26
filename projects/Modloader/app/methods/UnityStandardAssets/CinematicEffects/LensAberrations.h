@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Shader.h>
+
+#include <Modloader/app/structs/Shader.h>
 #include <Modloader/app/structs/LensAberrations.h>
 #include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/RenderTexture.h>

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MonoCustomAttrs_AttributeInfo.h>
+
+#include <Modloader/app/structs/MonoCustomAttrs_AttributeInfo.h>
 #include <Modloader/app/structs/AttributeUsageAttribute.h>
 
 namespace app::classes::System::MonoCustomAttrs_AttributeInfo {

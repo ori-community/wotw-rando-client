@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WeaponRifle.h>
+
+#include <Modloader/app/structs/WeaponRifle.h>
 
 namespace app::classes::RootMotion::Demos::WeaponRifle {
     IL2CPP_REGISTER_METHOD(0x0204CFA0, void, Fire, (app::WeaponRifle * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AbilityType__Enum.h>
+
+#include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/HasAbilityUberStateCondition.h>
 
 namespace app::classes::HasAbilityUberStateCondition {

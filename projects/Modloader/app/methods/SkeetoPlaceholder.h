@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkeetoEntity.h>
-#include <Modloader/app/structs/SkeetoPlaceholder.h>
+
+#include <Modloader/app/structs/SkeetoEntity.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SkeetoPlaceholder.h>
 
 namespace app::classes::SkeetoPlaceholder {
     IL2CPP_REGISTER_METHOD(0x0075F7D0, app::SkeetoEntity*, get_CurrentEntity, (app::SkeetoPlaceholder * this_ptr))

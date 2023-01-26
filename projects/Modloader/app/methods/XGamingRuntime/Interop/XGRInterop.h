@@ -1,25 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XUserHandle_1.h>
+
+#include <Modloader/app/structs/XUserHandle_1.h>
 #include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/XAsyncBlockPtr.h>
-#include <Modloader/app/structs/XGameSaveProviderHandle_1.h>
-#include <Modloader/app/structs/XGameSaveContainerHandle_1.h>
-#include <Modloader/app/structs/XGameSaveBlobInfoCallback.h>
 #include <Modloader/app/structs/SizeT.h>
-#include <Modloader/app/structs/XGameSaveUpdateHandle_1.h>
-#include <Modloader/app/structs/XUserAddOptions__Enum.h>
-#include <Modloader/app/structs/XUserGamertagComponent__Enum.h>
-#include <Modloader/app/structs/XUserGamerPictureSize__Enum.h>
-#include <Modloader/app/structs/XUserGetTokenAndSignatureOptions__Enum.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XAsyncBlockPtr.h>
+#include <Modloader/app/structs/XGameSaveBlobInfoCallback.h>
+#include <Modloader/app/structs/XGameSaveContainerHandle_1.h>
+#include <Modloader/app/structs/XGameSaveProviderHandle_1.h>
+#include <Modloader/app/structs/XGameSaveUpdateHandle_1.h>
+#include <Modloader/app/structs/XTaskQueueDispatchMode__Enum.h>
+#include <Modloader/app/structs/XTaskQueueHandle.h>
+#include <Modloader/app/structs/XTaskQueuePort__Enum.h>
+#include <Modloader/app/structs/XTaskQueueRegistrationToken.h>
+#include <Modloader/app/structs/XUserAddOptions__Enum.h>
+#include <Modloader/app/structs/XUserChangeEventCallback_1.h>
+#include <Modloader/app/structs/XUserGamerPictureSize__Enum.h>
+#include <Modloader/app/structs/XUserGamertagComponent__Enum.h>
+#include <Modloader/app/structs/XUserGetTokenAndSignatureOptions__Enum.h>
 #include <Modloader/app/structs/XUserGetTokenAndSignatureUtf16HttpHeader_1__Array.h>
 #include <Modloader/app/structs/void.h>
-#include <Modloader/app/structs/XTaskQueueHandle.h>
-#include <Modloader/app/structs/XUserChangeEventCallback_1.h>
-#include <Modloader/app/structs/XTaskQueueRegistrationToken.h>
-#include <Modloader/app/structs/XTaskQueueDispatchMode__Enum.h>
-#include <Modloader/app/structs/XTaskQueuePort__Enum.h>
 
 namespace app::classes::XGamingRuntime::Interop::XGRInterop {
     IL2CPP_REGISTER_METHOD(0x030B18E0, int32_t, XGameSaveInitializeProviderAsync, (app::XUserHandle_1 user_context, app::Byte__Array* configuration_id, bool sync_on_demand, app::XAsyncBlockPtr async_block))
@@ -46,7 +47,7 @@ namespace app::classes::XGamingRuntime::Interop::XGRInterop {
     IL2CPP_REGISTER_METHOD(0x030B2860, int32_t, XUserGetGamerPictureResult, (app::XAsyncBlockPtr async_block, app::SizeT buffer_size, app::Byte__Array* buffer, app::SizeT* buffer_used))
     IL2CPP_REGISTER_METHOD(0x030B29C0, int32_t, XUserGetTokenAndSignatureUtf16Async, (app::XUserHandle_1 user, app::XUserGetTokenAndSignatureOptions__Enum options, app::String* method_1, app::String* url, app::SizeT header_count, app::XUserGetTokenAndSignatureUtf16HttpHeader_1__Array* headers, app::SizeT body_size, app::Byte__Array* body, app::XAsyncBlockPtr async_block))
     IL2CPP_REGISTER_METHOD(0x030B2CE0, int32_t, XUserGetTokenAndSignatureUtf16ResultSize, (app::XAsyncBlockPtr async_block, app::SizeT* buffer_size))
-    IL2CPP_REGISTER_METHOD(0x030B2D90, int32_t, XUserGetTokenAndSignatureUtf16Result, (app::XAsyncBlockPtr async_block, app::SizeT buffer_size, void* buffer, app::void** ptr_to_buffer, app::SizeT* buffer_used))
+    IL2CPP_REGISTER_METHOD(0x030B2D90, int32_t, XUserGetTokenAndSignatureUtf16Result, (app::XAsyncBlockPtr async_block, app::SizeT buffer_size, void* buffer, void** ptr_to_buffer, app::SizeT* buffer_used))
     IL2CPP_REGISTER_METHOD(0x030B2E60, int32_t, XUserResolveIssueWithUiUtf16Async, (app::XUserHandle_1 user, app::String* url, app::XAsyncBlockPtr async_block))
     IL2CPP_REGISTER_METHOD(0x030B2F20, int32_t, XUserResolveIssueWithUiUtf16Result, (app::XAsyncBlockPtr async_block))
     IL2CPP_REGISTER_METHOD(0x030B2FC0, int32_t, XUserRegisterForChangeEvent, (app::XTaskQueueHandle queue, void* context, app::XUserChangeEventCallback_1* callback, app::XTaskQueueRegistrationToken* token))

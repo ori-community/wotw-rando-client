@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterPlatformMovement_ScheduledSpeedCurve.h>
-#include <Modloader/app/structs/CharacterPlatformMovement_SpeedSpace__Enum.h>
+
+#include <Modloader/app/structs/CharacterPlatformMovement_ScheduledSpeedCurve.h>
 #include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/CharacterPlatformMovement_SpeedSpace__Enum.h>
 #include <Modloader/app/structs/Func_1_Boolean_.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/CharacterPlatformMovement.h>
 
 namespace app::classes::CharacterPlatformMovement_ScheduledSpeedCurve {
     IL2CPP_REGISTER_METHOD(0x01312050, bool, get_ApplyDirection, (app::CharacterPlatformMovement_ScheduledSpeedCurve * this_ptr))

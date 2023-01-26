@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HealthBar.h>
+
+#include <Modloader/app/structs/HealthBar.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Vector4.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::HealthBar {
     IL2CPP_REGISTER_METHOD(0x006FE430, float, get_Value, (app::HealthBar * this_ptr))
@@ -12,7 +13,6 @@ namespace app::classes::HealthBar {
     IL2CPP_REGISTER_METHOD(0x0109F3E0, void, Awake, (app::HealthBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0109F5B0, void, OnDestroy, (app::HealthBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0109F750, void, ResetHealthBar, (app::HealthBar * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04745138, HealthBar_ResetHealthBar__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0109F9F0, void, RefreshMaxValue, (app::HealthBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0109FA30, void, OnEnable, (app::HealthBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0109FB40, void, Initialize, (app::HealthBar * this_ptr))

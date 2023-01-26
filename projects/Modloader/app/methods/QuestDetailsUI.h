@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/QuestDetailsUI.h>
-#include <Modloader/app/structs/RuntimeQuest.h>
+
+#include <Modloader/app/structs/QuestDetailsUI.h>
 #include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/RuntimeQuest.h>
 
 namespace app::classes::QuestDetailsUI {
     IL2CPP_REGISTER_METHOD(0x00E87460, void, SetQuest_1, (app::QuestDetailsUI * this_ptr, app::RuntimeQuest* runtime_quest))

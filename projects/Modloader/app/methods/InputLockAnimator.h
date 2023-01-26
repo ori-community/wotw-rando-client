@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InputLockAnimator.h>
+
+#include <Modloader/app/structs/InputLockAnimator.h>
 
 namespace app::classes::InputLockAnimator {
     IL2CPP_REGISTER_METHOD(0x00628CF0, void, OnStartPlay, (app::InputLockAnimator * this_ptr))

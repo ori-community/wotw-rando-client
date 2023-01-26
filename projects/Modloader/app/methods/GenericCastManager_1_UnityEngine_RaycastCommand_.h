@@ -1,19 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaycastCommand.h>
-#include <Modloader/app/structs/RaycastHit.h>
-#include <Modloader/app/structs/RaycastCommand__Array.h>
-#include <Modloader/app/structs/RaycastHit__Array.h>
+
+#include <Modloader/app/structs/RaycastCommand.h>
 #include <Modloader/app/structs/Boolean__Array.h>
 #include <Modloader/app/structs/GenericCastManager_1_UnityEngine_RaycastCommand_.h>
+#include <Modloader/app/structs/RaycastCommand__Array.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/RaycastHit__Array.h>
 
 namespace app::classes::GenericCastManager_1_UnityEngine_RaycastCommand_ {
     IL2CPP_REGISTER_METHOD(0x019F0B80, bool, PerformCastInternal, (app::RaycastCommand cmd, app::RaycastHit* hit, int32_t* request_i_d, bool guarantee_immediate_result))
-    IL2CPP_REGISTER_METHODINFO(0x04725880, GenericCastManager_1_UnityEngine_RaycastCommand__PerformCastInternal__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019F1CA0, bool, PerformMultipleCastsInternal, (app::RaycastCommand__Array * cmds, app::RaycastHit__Array* hits, app::Boolean__Array* hit_results, int32_t cmd_count, int32_t* request_i_d, bool guarantee_immediate_result))
-    IL2CPP_REGISTER_METHODINFO(0x047935F8, GenericCastManager_1_UnityEngine_RaycastCommand__PerformMultipleCastsInternal__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019EE1D0, void, ctor, (app::GenericCastManager_1_UnityEngine_RaycastCommand_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470C560, GenericCastManager_1_UnityEngine_RaycastCommand___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019E8F60, bool, get_Immediate, (app::GenericCastManager_1_UnityEngine_RaycastCommand_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019E8F70, bool, get_Buffered, (app::GenericCastManager_1_UnityEngine_RaycastCommand_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019E8F80, bool, get_BatchJob, (app::GenericCastManager_1_UnityEngine_RaycastCommand_ * this_ptr))

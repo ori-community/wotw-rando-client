@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ISceneWarningSource.h>
+
+#include <Modloader/app/structs/ISceneWarningSource.h>
 #include <Modloader/app/structs/SceneWarningManager.h>
 
 namespace app::classes::SceneWarningManager {

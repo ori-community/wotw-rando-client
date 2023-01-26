@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberWaterCross_CullingCategoryManager.h>
+
+#include <Modloader/app/structs/UberWaterCross_CullingCategoryManager.h>
 #include <Modloader/app/structs/MoonRenderPipelineView.h>
 #include <Modloader/app/structs/RendererCullingCategoryResults.h>
 

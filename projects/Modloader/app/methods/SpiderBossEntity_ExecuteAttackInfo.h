@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiderBossEntity_ExecuteAttackInfo.h>
+
+#include <Modloader/app/structs/SpiderBossEntity_ExecuteAttackInfo.h>
 #include <Modloader/app/structs/SpiderBossBaseBehaviour.h>
 
 namespace app::classes::SpiderBossEntity_ExecuteAttackInfo {

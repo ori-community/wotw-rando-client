@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_FullSerializer_Internal_fsPortableReflection_AttributeQuery_System_Object___Boxed.h>
-#include <Modloader/app/structs/fsPortableReflection_AttributeQuery.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_FullSerializer_Internal_fsPortableReflection_AttributeQuery_System_Object___Boxed.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/fsPortableReflection_AttributeQuery.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_FullSerializer_Internal_fsPortableReflection_AttributeQuery_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x0011BFB0, void, ctor, (app::KeyValuePair_2_FullSerializer_Internal_fsPortableReflection_AttributeQuery_System_Object___Boxed * this_ptr, app::fsPortableReflection_AttributeQuery key, app::Object* value))

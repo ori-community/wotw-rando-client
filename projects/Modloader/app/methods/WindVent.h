@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WindVent.h>
-#include <Modloader/app/structs/WindVent_State__Enum.h>
+
+#include <Modloader/app/structs/WindVent.h>
 #include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/WindVent_State__Enum.h>
 
 namespace app::classes::WindVent {
     IL2CPP_REGISTER_METHOD(0x005790E0, void, FixedUpdate, (app::WindVent * this_ptr))

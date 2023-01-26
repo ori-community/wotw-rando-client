@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EmissivityModifier.h>
+
+#include <Modloader/app/structs/EmissivityModifier.h>
 
 namespace app::classes::EmissivityModifier {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ApplyMultipliers, (app::EmissivityModifier * this_ptr, float strength, float speed))

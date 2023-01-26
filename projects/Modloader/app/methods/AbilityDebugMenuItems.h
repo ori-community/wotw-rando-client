@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_AbilityType_.h>
+
+#include <Modloader/app/structs/List_1_AbilityType_.h>
 
 namespace app::classes::AbilityDebugMenuItems {
     IL2CPP_REGISTER_METHOD(0x004AD420, void, EnableAbilities, (app::List_1_AbilityType_ * abilities))

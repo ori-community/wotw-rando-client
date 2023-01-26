@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Twirl.h>
+
+#include <Modloader/app/structs/Twirl.h>
 #include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::Twirl {

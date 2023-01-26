@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerPuppetAbilities.h>
+
+#include <Modloader/app/structs/PlayerPuppetAbilities.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::PlayerPuppetAbilities {

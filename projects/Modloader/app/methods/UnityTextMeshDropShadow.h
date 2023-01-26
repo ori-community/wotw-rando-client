@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UnityTextMeshDropShadow.h>
+
+#include <Modloader/app/structs/UnityTextMeshDropShadow.h>
 
 namespace app::classes::UnityTextMeshDropShadow {
     IL2CPP_REGISTER_METHOD(0x013AA130, void, Awake, (app::UnityTextMeshDropShadow * this_ptr))

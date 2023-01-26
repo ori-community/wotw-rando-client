@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NativeArray_1_UnityEngine_CapsulecastCommand___Boxed.h>
+
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_CapsulecastCommand___Boxed.h>
 #include <Modloader/app/structs/Allocator__Enum.h>
-#include <Modloader/app/structs/NativeArrayOptions__Enum.h>
-#include <Modloader/app/structs/NativeArray_1_UnityEngine_CapsulecastCommand_.h>
 #include <Modloader/app/structs/CapsulecastCommand.h>
 #include <Modloader/app/structs/CapsulecastCommand__Array.h>
-#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_CapsulecastCommand_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_CapsulecastCommand_.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_CapsulecastCommand_.h>
+#include <Modloader/app/structs/NativeArrayOptions__Enum.h>
+#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_CapsulecastCommand_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_CapsulecastCommand_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Unity::Collections::NativeArray_1_UnityEngine_CapsulecastCommand_ {

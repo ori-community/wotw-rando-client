@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LightningController_LightningEvent__Class.h>
 #include <Modloader/app/structs/LightningController_LightningEvent.h>
 #include <Modloader/app/structs/LightningController_LightningEvent__Boxed.h>
+#include <Modloader/app/structs/LightningController_LightningEvent__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace LightningController_LightningEvent {
-        namespace {
-            inline app::LightningController_LightningEvent__Class* type_info_ref = nullptr;
+        inline app::LightningController_LightningEvent__Class** type_info() {
+            static app::LightningController_LightningEvent__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LightningController_LightningEvent__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LightningController_LightningEvent__Class** type_info = &type_info_ref;
         inline app::LightningController_LightningEvent__Class* get_class() {
-            return il2cpp::get_nested_class<app::LightningController_LightningEvent__Class>(type_info, "", "LightningController", "LightningEvent");
+            return il2cpp::get_nested_class<app::LightningController_LightningEvent__Class>(type_info(), "", "LightningController", "LightningEvent");
         }
         inline app::LightningController_LightningEvent* create() {
             return il2cpp::create_object<app::LightningController_LightningEvent>(get_class());

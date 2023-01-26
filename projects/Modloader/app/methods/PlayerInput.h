@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerInput.h>
-#include <Modloader/app/structs/KeyCode__Enum__Array.h>
+
+#include <Modloader/app/structs/PlayerInput.h>
 #include <Modloader/app/structs/CompoundButtonInput.h>
-#include <Modloader/app/structs/IButtonInput.h>
 #include <Modloader/app/structs/IAxisInput.h>
+#include <Modloader/app/structs/IButtonInput.h>
+#include <Modloader/app/structs/KeyCode__Enum__Array.h>
 
 namespace app::classes::PlayerInput {
     IL2CPP_REGISTER_METHOD(0x014111C0, void, ClearControls, (app::PlayerInput * this_ptr))

@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UILineInfo__Array.h>
+
+#include <Modloader/app/structs/UILineInfo__Array.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_UILineInfo_.h>
 #include <Modloader/app/structs/IComparer_1_UnityEngine_UILineInfo_.h>
 #include <Modloader/app/structs/UILineInfo.h>
-#include <Modloader/app/structs/Comparison_1_UnityEngine_UILineInfo_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UnityEngine_UILineInfo_ {
     IL2CPP_REGISTER_METHOD(0x02F6F500, void, Sort_1, (app::UILineInfo__Array * keys, int32_t index, int32_t length, app::IComparer_1_UnityEngine_UILineInfo_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04727540, ArraySortHelper_1_UnityEngine_UILineInfo__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F6F820, int32_t, BinarySearch, (app::UILineInfo__Array * array, int32_t index, int32_t length, app::UILineInfo value, app::IComparer_1_UnityEngine_UILineInfo_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0471FCE8, ArraySortHelper_1_UnityEngine_UILineInfo__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F6F9D0, void, Sort_2, (app::UILineInfo__Array * keys, int32_t index, int32_t length, app::Comparison_1_UnityEngine_UILineInfo_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04729718, ArraySortHelper_1_UnityEngine_UILineInfo__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C898B0, int32_t, InternalBinarySearch, (app::UILineInfo__Array * array, int32_t index, int32_t length, app::UILineInfo value, app::IComparer_1_UnityEngine_UILineInfo_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C89A40, void, SwapIfGreater, (app::UILineInfo__Array * keys, app::Comparison_1_UnityEngine_UILineInfo_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C89BD0, void, Swap, (app::UILineInfo__Array * a, int32_t i, int32_t j))

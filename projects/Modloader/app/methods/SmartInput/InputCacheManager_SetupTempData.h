@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InputCacheManager_SetupTempData.h>
-#include <Modloader/app/structs/InputCacheManager_SetupTempData_Node.h>
+
+#include <Modloader/app/structs/InputCacheManager_SetupTempData.h>
 #include <Modloader/app/structs/ICachableInput.h>
 #include <Modloader/app/structs/InputCacheManager.h>
+#include <Modloader/app/structs/InputCacheManager_SetupTempData_Node.h>
 
 namespace app::classes::SmartInput::InputCacheManager_SetupTempData {
     IL2CPP_REGISTER_METHOD(0x006CCDB0, void, ctor, (app::InputCacheManager_SetupTempData * this_ptr))

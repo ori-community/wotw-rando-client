@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/TransformAccess__Boxed.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/TransformAccess.h>
+#include <Modloader/app/structs/TransformAccess__Boxed.h>
 
 namespace app::classes::UnityEngine::Jobs::TransformAccess {
     IL2CPP_REGISTER_METHOD(0x001F2360, app::Vector3, get_position, (app::TransformAccess__Boxed * this_ptr))

@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Sprite.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/Texture2D.h>
-#include <Modloader/app/structs/SpriteMeshType__Enum.h>
+
+#include <Modloader/app/structs/Sprite.h>
 #include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IList_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/SpriteMeshType__Enum.h>
 #include <Modloader/app/structs/SpritePackingMode__Enum.h>
 #include <Modloader/app/structs/SpritePackingRotation__Enum.h>
-#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/Texture2D.h>
 #include <Modloader/app/structs/UInt16__Array.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
-#include <Modloader/app/structs/IList_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UnityEngine::Sprite {
     IL2CPP_REGISTER_METHOD(0x02C60CC0, void, ctor, (app::Sprite * this_ptr))
@@ -43,20 +44,16 @@ namespace app::classes::UnityEngine::Sprite {
     IL2CPP_REGISTER_METHOD(0x02C61890, app::Vector2__Array*, get_uv, (app::Sprite * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C618E0, int32_t, GetPhysicsShapeCount, (app::Sprite * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C61930, int32_t, GetPhysicsShapePointCount, (app::Sprite * this_ptr, int32_t shape_idx))
-    IL2CPP_REGISTER_METHODINFO(0x0478CD38, Sprite_GetPhysicsShapePointCount__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C61AD0, int32_t, Internal_GetPhysicsShapePointCount, (app::Sprite * this_ptr, int32_t shape_idx))
     IL2CPP_REGISTER_METHOD(0x02C61B30, int32_t, GetPhysicsShape, (app::Sprite * this_ptr, int32_t shape_idx, app::List_1_UnityEngine_Vector2_* physics_shape))
-    IL2CPP_REGISTER_METHODINFO(0x0470C720, Sprite_GetPhysicsShape__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C61CF0, void, GetPhysicsShapeImpl, (app::Sprite * sprite, int32_t shape_idx, app::List_1_UnityEngine_Vector2_* physics_shape))
     IL2CPP_REGISTER_METHOD(0x02C61D60, void, OverridePhysicsShape_1, (app::Sprite * this_ptr, app::IList_1_UnityEngine_Vector2_* physics_shapes))
-    IL2CPP_REGISTER_METHODINFO(0x04704240, Sprite_OverridePhysicsShape__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C620C0, void, OverridePhysicsShapeCount, (app::Sprite * sprite, int32_t physics_shape_count))
     IL2CPP_REGISTER_METHOD(0x02C62120, void, OverridePhysicsShape_2, (app::Sprite * sprite, app::Vector2__Array* physics_shape, int32_t idx))
     IL2CPP_REGISTER_METHOD(0x02C62190, void, OverrideGeometry, (app::Sprite * this_ptr, app::Vector2__Array* vertices, app::UInt16__Array* triangles))
     IL2CPP_REGISTER_METHOD(0x02C62200, app::Sprite*, Create_1, (app::Rect rect, app::Vector2 pivot, float pixels_to_units, app::Texture2D* texture))
     IL2CPP_REGISTER_METHOD(0x02C62280, app::Sprite*, Create_2, (app::Rect rect, app::Vector2 pivot, float pixels_to_units))
     IL2CPP_REGISTER_METHOD(0x02C62300, app::Sprite*, Create_3, (app::Texture2D * texture, app::Rect rect, app::Vector2 pivot, float pixels_per_unit, uint32_t extrude, app::SpriteMeshType__Enum mesh_type, app::Vector4 border, bool generate_fallback_physics_shape))
-    IL2CPP_REGISTER_METHODINFO(0x0474D6C0, Sprite_Create_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C627E0, app::Sprite*, Create_4, (app::Texture2D * texture, app::Rect rect, app::Vector2 pivot, float pixels_per_unit, uint32_t extrude, app::SpriteMeshType__Enum mesh_type, app::Vector4 border))
     IL2CPP_REGISTER_METHOD(0x02C62840, app::Sprite*, Create_5, (app::Texture2D * texture, app::Rect rect, app::Vector2 pivot, float pixels_per_unit, uint32_t extrude, app::SpriteMeshType__Enum mesh_type))
     IL2CPP_REGISTER_METHOD(0x02C62970, app::Sprite*, Create_6, (app::Texture2D * texture, app::Rect rect, app::Vector2 pivot, float pixels_per_unit, uint32_t extrude))

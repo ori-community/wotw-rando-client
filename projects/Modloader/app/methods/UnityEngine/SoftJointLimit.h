@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoftJointLimit__Boxed.h>
+
+#include <Modloader/app/structs/SoftJointLimit__Boxed.h>
 
 namespace app::classes::UnityEngine::SoftJointLimit {
     IL2CPP_REGISTER_METHOD(0x001EB400, float, get_limit, (app::SoftJointLimit__Boxed * this_ptr))

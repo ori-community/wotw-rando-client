@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SeinLifeAbsorbArm__Class.h>
 #include <Modloader/app/structs/SeinLifeAbsorbArm.h>
 #include <Modloader/app/structs/SeinLifeAbsorbArm__Array.h>
+#include <Modloader/app/structs/SeinLifeAbsorbArm__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SeinLifeAbsorbArm {
-        namespace {
-            inline app::SeinLifeAbsorbArm__Class* type_info_ref = nullptr;
+        inline app::SeinLifeAbsorbArm__Class** type_info() {
+            static app::SeinLifeAbsorbArm__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SeinLifeAbsorbArm__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SeinLifeAbsorbArm__Class** type_info = &type_info_ref;
         inline app::SeinLifeAbsorbArm__Class* get_class() {
-            return il2cpp::get_class<app::SeinLifeAbsorbArm__Class>(type_info, "", "SeinLifeAbsorbArm");
+            return il2cpp::get_class<app::SeinLifeAbsorbArm__Class>(type_info(), "", "SeinLifeAbsorbArm");
         }
         inline app::SeinLifeAbsorbArm* create() {
             return il2cpp::create_object<app::SeinLifeAbsorbArm>(get_class());

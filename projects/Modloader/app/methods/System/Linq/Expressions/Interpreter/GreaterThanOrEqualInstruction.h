@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GreaterThanOrEqualInstruction.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/GreaterThanOrEqualInstruction.h>
 #include <Modloader/app/structs/Instruction.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::GreaterThanOrEqualInstruction {
@@ -12,5 +13,4 @@ namespace app::classes::System::Linq::Expressions::Interpreter::GreaterThanOrEqu
     IL2CPP_REGISTER_METHOD(0x022E93A0, app::String*, get_InstructionName, (app::GreaterThanOrEqualInstruction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::GreaterThanOrEqualInstruction * this_ptr, app::Object* null_value))
     IL2CPP_REGISTER_METHOD(0x022E9420, app::Instruction*, Create, (app::Type * type, bool lifted_to_null))
-    IL2CPP_REGISTER_METHODINFO(0x0471E460, GreaterThanOrEqualInstruction_Create__MethodInfo)
 } // namespace app::classes::System::Linq::Expressions::Interpreter::GreaterThanOrEqualInstruction

@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Material.h>
+
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/ComputeBuffer.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/Matrix4x4.h>
 #include <Modloader/app/structs/Shader.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/String__Array.h>
 #include <Modloader/app/structs/Texture.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/Matrix4x4.h>
-#include <Modloader/app/structs/ComputeBuffer.h>
-#include <Modloader/app/structs/Vector4__Array.h>
 #include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/Vector4__Array.h>
 
 namespace app::classes::UnityEngine::Material {
     IL2CPP_REGISTER_METHOD(0x02531050, void, ctor_1, (app::Material * this_ptr, app::Shader* shader))
@@ -60,9 +61,7 @@ namespace app::classes::UnityEngine::Material {
     IL2CPP_REGISTER_METHOD(0x02532880, void, SetTextureOffsetImpl, (app::Material * this_ptr, int32_t name, app::Vector2 offset))
     IL2CPP_REGISTER_METHOD(0x025328F0, void, SetTextureScaleImpl, (app::Material * this_ptr, int32_t name, app::Vector2 scale))
     IL2CPP_REGISTER_METHOD(0x02532960, void, SetVectorArray_1, (app::Material * this_ptr, int32_t name, app::Vector4__Array* values, int32_t count))
-    IL2CPP_REGISTER_METHODINFO(0x04765910, Material_SetVectorArray__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02532AF0, void, SetVectorArrayEx_1, (app::Material * this_ptr, int32_t name, app::Vector4__Array* values, int32_t count, int32_t max_count))
-    IL2CPP_REGISTER_METHODINFO(0x0477A968, Material_SetVectorArrayEx__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02532290, void, SetFloat, (app::Material * this_ptr, int32_t name_i_d, float value))
     IL2CPP_REGISTER_METHOD(0x02532C80, void, SetInt_1, (app::Material * this_ptr, app::String* name, int32_t value))
     IL2CPP_REGISTER_METHOD(0x02532300, void, SetInt_2, (app::Material * this_ptr, int32_t name_i_d, int32_t value))

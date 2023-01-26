@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyHealthBar.h>
+
+#include <Modloader/app/structs/LegacyHealthBar.h>
 #include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::LegacyHealthBar {
@@ -9,7 +10,6 @@ namespace app::classes::LegacyHealthBar {
     IL2CPP_REGISTER_METHOD(0x00A27210, void, ValidateAssignReferences, (app::LegacyHealthBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A27610, void, OnDestroy, (app::LegacyHealthBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A277B0, void, ResetHealthBar, (app::LegacyHealthBar * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476EAC0, LegacyHealthBar_ResetHealthBar__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A27850, void, Start, (app::LegacyHealthBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A27A10, void, FixedUpdate, (app::LegacyHealthBar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A28080, void, UpdateVisuals, (app::LegacyHealthBar * this_ptr))

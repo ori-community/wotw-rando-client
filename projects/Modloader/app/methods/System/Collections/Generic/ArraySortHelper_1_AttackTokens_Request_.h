@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttackTokens_Request__Array.h>
-#include <Modloader/app/structs/IComparer_1_AttackTokens_Request_.h>
+
+#include <Modloader/app/structs/AttackTokens_Request__Array.h>
 #include <Modloader/app/structs/AttackTokens_Request.h>
 #include <Modloader/app/structs/Comparison_1_AttackTokens_Request_.h>
+#include <Modloader/app/structs/IComparer_1_AttackTokens_Request_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_AttackTokens_Request_ {
     IL2CPP_REGISTER_METHOD(0x02F2A0E0, void, Sort_1, (app::AttackTokens_Request__Array * keys, int32_t index, int32_t length, app::IComparer_1_AttackTokens_Request_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04771938, ArraySortHelper_1_AttackTokens_Request__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F2A400, int32_t, BinarySearch, (app::AttackTokens_Request__Array * array, int32_t index, int32_t length, app::AttackTokens_Request value, app::IComparer_1_AttackTokens_Request_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04734E00, ArraySortHelper_1_AttackTokens_Request__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F2A5B0, void, Sort_2, (app::AttackTokens_Request__Array * keys, int32_t index, int32_t length, app::Comparison_1_AttackTokens_Request_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0475D368, ArraySortHelper_1_AttackTokens_Request__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C8BFB0, int32_t, InternalBinarySearch, (app::AttackTokens_Request__Array * array, int32_t index, int32_t length, app::AttackTokens_Request value, app::IComparer_1_AttackTokens_Request_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C8C170, void, SwapIfGreater, (app::AttackTokens_Request__Array * keys, app::Comparison_1_AttackTokens_Request_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C8C330, void, Swap, (app::AttackTokens_Request__Array * a, int32_t i, int32_t j))

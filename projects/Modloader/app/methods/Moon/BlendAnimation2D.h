@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BlendAnimation2D.h>
-#include <Modloader/app/structs/BlendAnimation2D_Input__Array.h>
-#include <Modloader/app/structs/AnimationType__Enum.h>
-#include <Modloader/app/structs/FloatAnimationParameter.h>
+
+#include <Modloader/app/structs/BlendAnimation2D.h>
 #include <Modloader/app/structs/Action_1_Moon_BlendAnimation2D_.h>
 #include <Modloader/app/structs/AnimationParameterSet.h>
-#include <Modloader/app/structs/HashSet_1_UnityEngine_AnimationClip_.h>
-#include <Modloader/app/structs/HashSet_1_Moon_MoonAnimation_.h>
-#include <Modloader/app/structs/MoonAnimation_RootMotionSample.h>
+#include <Modloader/app/structs/AnimationType__Enum.h>
+#include <Modloader/app/structs/BlendAnimation2D_Input__Array.h>
 #include <Modloader/app/structs/BlendAnimationMode__Enum.h>
-#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/FloatAnimationParameter.h>
+#include <Modloader/app/structs/HashSet_1_Moon_MoonAnimation_.h>
+#include <Modloader/app/structs/HashSet_1_UnityEngine_AnimationClip_.h>
 #include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MoonAnimation_RootMotionSample.h>
+#include <Modloader/app/structs/Single__Array.h>
 #include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::BlendAnimation2D {
     IL2CPP_REGISTER_METHOD(0x00C74EF0, int32_t, get_ValidInputCount, (app::BlendAnimation2D * this_ptr))

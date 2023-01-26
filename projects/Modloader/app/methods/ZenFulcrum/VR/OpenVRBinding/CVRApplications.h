@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CVRApplications.h>
-#include <Modloader/app/structs/EVRApplicationError__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/StringBuilder.h>
+
+#include <Modloader/app/structs/CVRApplications.h>
 #include <Modloader/app/structs/AppOverrideKeys_t__Array.h>
+#include <Modloader/app/structs/EVRApplicationError__Enum.h>
 #include <Modloader/app/structs/EVRApplicationProperty__Enum.h>
 #include <Modloader/app/structs/EVRApplicationTransitionState__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRApplications {
     IL2CPP_REGISTER_METHOD(0x01676A30, void, ctor, (app::CVRApplications * this_ptr, void* p_interface))

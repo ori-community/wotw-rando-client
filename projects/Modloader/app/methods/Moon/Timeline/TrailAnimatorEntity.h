@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TrailAnimatorEntity.h>
+
+#include <Modloader/app/structs/TrailAnimatorEntity.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/MoonTrail.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTrail.h>
 
 namespace app::classes::Moon::Timeline::TrailAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnEntityCreated, (app::TrailAnimatorEntity * this_ptr))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/PlayerLoopSystemInternal.h>
 #include <Modloader/app/structs/PlayerLoopSystemInternal__Array.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_ {
     IL2CPP_REGISTER_METHOD(0x01CD2D60, bool, Equals_1, (app::ObjectEqualityComparer_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_ * this_ptr, app::PlayerLoopSystemInternal x, app::PlayerLoopSystemInternal y))

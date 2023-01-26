@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Int32_Moon_Timeline_EventHistoryItem___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_Moon_Timeline_EventHistoryItem___Boxed.h>
 #include <Modloader/app/structs/EventHistoryItem.h>
 #include <Modloader/app/structs/String.h>
 

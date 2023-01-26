@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DescriptionAttribute.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/DescriptionAttribute.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ComponentModel::DescriptionAttribute {
     IL2CPP_REGISTER_METHOD(0x01FE2D70, void, ctor_1, (app::DescriptionAttribute * this_ptr))

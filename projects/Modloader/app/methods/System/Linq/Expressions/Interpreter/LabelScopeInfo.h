@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LabelScopeInfo.h>
+
+#include <Modloader/app/structs/LabelScopeInfo.h>
+#include <Modloader/app/structs/LabelInfo.h>
 #include <Modloader/app/structs/LabelScopeKind__Enum.h>
 #include <Modloader/app/structs/LabelTarget.h>
-#include <Modloader/app/structs/LabelInfo.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LabelScopeInfo {
     IL2CPP_REGISTER_METHOD(0x01CE43D0, void, ctor, (app::LabelScopeInfo * this_ptr, app::LabelScopeInfo* parent, app::LabelScopeKind__Enum kind))

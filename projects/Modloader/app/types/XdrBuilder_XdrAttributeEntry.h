@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XdrBuilder_XdrAttributeEntry__Class.h>
 #include <Modloader/app/structs/XdrBuilder_XdrAttributeEntry.h>
 #include <Modloader/app/structs/XdrBuilder_XdrAttributeEntry__Array.h>
+#include <Modloader/app/structs/XdrBuilder_XdrAttributeEntry__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace XdrBuilder_XdrAttributeEntry {
-        inline app::XdrBuilder_XdrAttributeEntry__Class** type_info = (app::XdrBuilder_XdrAttributeEntry__Class**)(modloader::win::memory::resolve_rva(0x0473AC38));
+        inline app::XdrBuilder_XdrAttributeEntry__Class** type_info() {
+            static app::XdrBuilder_XdrAttributeEntry__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::XdrBuilder_XdrAttributeEntry__Class**)(modloader::win::memory::resolve_rva(0x0473AC38));
+            }
+            return cache;
+        }
         inline app::XdrBuilder_XdrAttributeEntry__Class* get_class() {
-            return il2cpp::get_nested_class<app::XdrBuilder_XdrAttributeEntry__Class>(type_info, "System.Xml.Schema", "XdrBuilder", "XdrAttributeEntry");
+            return il2cpp::get_nested_class<app::XdrBuilder_XdrAttributeEntry__Class>(type_info(), "System.Xml.Schema", "XdrBuilder", "XdrAttributeEntry");
         }
         inline app::XdrBuilder_XdrAttributeEntry* create() {
             return il2cpp::create_object<app::XdrBuilder_XdrAttributeEntry>(get_class());

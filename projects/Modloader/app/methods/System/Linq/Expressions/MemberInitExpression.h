@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MemberInitExpression.h>
+
+#include <Modloader/app/structs/MemberInitExpression.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/ExpressionVisitor.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_MemberBinding_.h>
+#include <Modloader/app/structs/MemberBinding.h>
 #include <Modloader/app/structs/NewExpression.h>
+#include <Modloader/app/structs/ParameterExpression.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ElementInit_.h>
 #include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_MemberBinding_.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/ExpressionType__Enum.h>
-#include <Modloader/app/structs/Expression.h>
-#include <Modloader/app/structs/ExpressionVisitor.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ElementInit_.h>
-#include <Modloader/app/structs/ParameterExpression.h>
-#include <Modloader/app/structs/MemberBinding.h>
-#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_MemberBinding_.h>
 
 namespace app::classes::System::Linq::Expressions::MemberInitExpression {
     IL2CPP_REGISTER_METHOD(0x02418180, void, ctor, (app::MemberInitExpression * this_ptr, app::NewExpression* new_expression, app::ReadOnlyCollection_1_System_Linq_Expressions_MemberBinding_* bindings))
@@ -24,6 +25,5 @@ namespace app::classes::System::Linq::Expressions::MemberInitExpression {
     IL2CPP_REGISTER_METHOD(0x02418280, app::Expression*, ReduceMemberInit, (app::Expression * obj_expression, app::ReadOnlyCollection_1_System_Linq_Expressions_MemberBinding_* bindings, bool keep_on_stack))
     IL2CPP_REGISTER_METHOD(0x02418640, app::Expression*, ReduceListInit, (app::Expression * list_expression, app::ReadOnlyCollection_1_System_Linq_Expressions_ElementInit_* initializers, bool keep_on_stack))
     IL2CPP_REGISTER_METHOD(0x024189E0, app::Expression*, ReduceMemberBinding, (app::ParameterExpression * obj_var, app::MemberBinding* binding))
-    IL2CPP_REGISTER_METHODINFO(0x04714878, MemberInitExpression_ReduceMemberBinding__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02418BA0, app::MemberInitExpression*, Update, (app::MemberInitExpression * this_ptr, app::NewExpression* new_expression, app::IEnumerable_1_System_Linq_Expressions_MemberBinding_* bindings))
 } // namespace app::classes::System::Linq::Expressions::MemberInitExpression

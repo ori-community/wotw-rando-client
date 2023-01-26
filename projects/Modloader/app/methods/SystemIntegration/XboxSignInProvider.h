@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XboxSignInProvider.h>
+
+#include <Modloader/app/structs/XboxSignInProvider.h>
 #include <Modloader/app/structs/INetworkConnectivityChecker.h>
 #include <Modloader/app/structs/IPlatformUser.h>
 #include <Modloader/app/structs/String.h>
@@ -18,10 +19,8 @@ namespace app::classes::SystemIntegration::XboxSignInProvider {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_SignInOnPressAnyButton, (app::XboxSignInProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SignInSilently, (app::XboxSignInProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CE0560, void, UserChanged, (app::XboxSignInProvider * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04744CA8, XboxSignInProvider_UserChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SignIn, (app::XboxSignInProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CE0760, void, UserSignedOut, (app::XboxSignInProvider * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477ADC0, XboxSignInProvider_UserSignedOut__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00CE0770, void, Update, (app::XboxSignInProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CE0900, void, TokenUpdate, (app::XboxSignInProvider * this_ptr))
 } // namespace app::classes::SystemIntegration::XboxSignInProvider

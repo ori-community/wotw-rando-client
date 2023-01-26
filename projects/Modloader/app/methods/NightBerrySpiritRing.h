@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NightBerrySpiritRing.h>
+
+#include <Modloader/app/structs/NightBerrySpiritRing.h>
 #include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::NightBerrySpiritRing {

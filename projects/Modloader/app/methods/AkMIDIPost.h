@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkMIDIPost.h>
+
+#include <Modloader/app/structs/AkMIDIPost.h>
 #include <Modloader/app/structs/AKRESULT__Enum.h>
 #include <Modloader/app/structs/GameObject.h>
 

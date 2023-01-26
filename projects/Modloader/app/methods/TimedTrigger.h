@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimedTrigger.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/TimedTrigger.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::TimedTrigger {
     IL2CPP_REGISTER_METHOD(0x010F3F90, bool, get_IsTriggered, (app::TimedTrigger * this_ptr))
@@ -11,7 +12,6 @@ namespace app::classes::TimedTrigger {
     IL2CPP_REGISTER_METHOD(0x010F4300, void, Start, (app::TimedTrigger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010F4310, void, FixedUpdate, (app::TimedTrigger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010F4300, void, OnRestoreCheckpoint, (app::TimedTrigger * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476E958, TimedTrigger_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x010F44F0, void, TriggerNow, (app::TimedTrigger * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010F45D0, void, ResetTrigger, (app::TimedTrigger * this_ptr, bool stop_timeline, bool reset_time))
     IL2CPP_REGISTER_METHOD(0x004FBAC0, bool, get_IsSuspended, (app::TimedTrigger * this_ptr))

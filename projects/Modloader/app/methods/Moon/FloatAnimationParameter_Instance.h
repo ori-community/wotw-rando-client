@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FloatAnimationParameter_Instance.h>
+
+#include <Modloader/app/structs/FloatAnimationParameter_Instance.h>
 #include <Modloader/app/structs/FloatAnimationParameter.h>
 
 namespace app::classes::Moon::FloatAnimationParameter_Instance {

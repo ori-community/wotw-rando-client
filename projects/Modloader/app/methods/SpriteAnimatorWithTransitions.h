@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpriteAnimatorWithTransitions.h>
-#include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/TextureAnimator.h>
-#include <Modloader/app/structs/TextureAnimation.h>
+
+#include <Modloader/app/structs/SpriteAnimatorWithTransitions.h>
 #include <Modloader/app/structs/Action_1_TextureAnimation_.h>
-#include <Modloader/app/structs/TextureAnimationWithTransitions.h>
 #include <Modloader/app/structs/Atlas.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/TextureAnimation.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions.h>
+#include <Modloader/app/structs/TextureAnimator.h>
 #include <Modloader/app/structs/UberScreenMode__Enum.h>
 
 namespace app::classes::SpriteAnimatorWithTransitions {

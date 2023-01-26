@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttackableSwitchSetupData.h>
+
+#include <Modloader/app/structs/AttackableSwitchSetupData.h>
 #include <Modloader/app/structs/AttackableSwitchSetupHolder.h>
 #include <Modloader/app/structs/List_1_IIndexedItem_.h>
 

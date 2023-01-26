@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RigidbodySolverIterationsModifier.h>
+
+#include <Modloader/app/structs/RigidbodySolverIterationsModifier.h>
 
 namespace app::classes::RigidbodySolverIterationsModifier {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Awake, (app::RigidbodySolverIterationsModifier * this_ptr))

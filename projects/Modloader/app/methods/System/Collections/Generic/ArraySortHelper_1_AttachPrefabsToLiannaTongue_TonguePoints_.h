@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttachPrefabsToLiannaTongue_TonguePoints__Array.h>
-#include <Modloader/app/structs/IComparer_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+
+#include <Modloader/app/structs/AttachPrefabsToLiannaTongue_TonguePoints__Array.h>
 #include <Modloader/app/structs/AttachPrefabsToLiannaTongue_TonguePoints.h>
 #include <Modloader/app/structs/Comparison_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+#include <Modloader/app/structs/IComparer_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_AttachPrefabsToLiannaTongue_TonguePoints_ {
     IL2CPP_REGISTER_METHOD(0x02F29AC0, void, Sort_1, (app::AttachPrefabsToLiannaTongue_TonguePoints__Array * keys, int32_t index, int32_t length, app::IComparer_1_AttachPrefabsToLiannaTongue_TonguePoints_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04703158, ArraySortHelper_1_AttachPrefabsToLiannaTongue_TonguePoints__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F29DE0, int32_t, BinarySearch, (app::AttachPrefabsToLiannaTongue_TonguePoints__Array * array, int32_t index, int32_t length, app::AttachPrefabsToLiannaTongue_TonguePoints value, app::IComparer_1_AttachPrefabsToLiannaTongue_TonguePoints_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x047608C0, ArraySortHelper_1_AttachPrefabsToLiannaTongue_TonguePoints__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F29F90, void, Sort_2, (app::AttachPrefabsToLiannaTongue_TonguePoints__Array * keys, int32_t index, int32_t length, app::Comparison_1_AttachPrefabsToLiannaTongue_TonguePoints_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04771038, ArraySortHelper_1_AttachPrefabsToLiannaTongue_TonguePoints__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C898B0, int32_t, InternalBinarySearch, (app::AttachPrefabsToLiannaTongue_TonguePoints__Array * array, int32_t index, int32_t length, app::AttachPrefabsToLiannaTongue_TonguePoints value, app::IComparer_1_AttachPrefabsToLiannaTongue_TonguePoints_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C89A40, void, SwapIfGreater, (app::AttachPrefabsToLiannaTongue_TonguePoints__Array * keys, app::Comparison_1_AttachPrefabsToLiannaTongue_TonguePoints_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C89BD0, void, Swap, (app::AttachPrefabsToLiannaTongue_TonguePoints__Array * a, int32_t i, int32_t j))

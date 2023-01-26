@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LightBakingOutput__Class.h>
 #include <Modloader/app/structs/LightBakingOutput.h>
 #include <Modloader/app/structs/LightBakingOutput__Boxed.h>
+#include <Modloader/app/structs/LightBakingOutput__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace LightBakingOutput {
-        namespace {
-            inline app::LightBakingOutput__Class* type_info_ref = nullptr;
+        inline app::LightBakingOutput__Class** type_info() {
+            static app::LightBakingOutput__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LightBakingOutput__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LightBakingOutput__Class** type_info = &type_info_ref;
         inline app::LightBakingOutput__Class* get_class() {
-            return il2cpp::get_class<app::LightBakingOutput__Class>(type_info, "UnityEngine", "LightBakingOutput");
+            return il2cpp::get_class<app::LightBakingOutput__Class>(type_info(), "UnityEngine", "LightBakingOutput");
         }
         inline app::LightBakingOutput* create() {
             return il2cpp::create_object<app::LightBakingOutput>(get_class());

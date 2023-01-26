@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Motion_ReconstructionFilter.h>
+
+#include <Modloader/app/structs/Motion_ReconstructionFilter.h>
 #include <Modloader/app/structs/RenderTexture.h>
-#include <Modloader/app/structs/Texture.h>
 #include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/Texture.h>
 
 namespace app::classes::Kino::Motion_ReconstructionFilter {
     IL2CPP_REGISTER_METHOD(0x01228630, void, ctor, (app::Motion_ReconstructionFilter * this_ptr))

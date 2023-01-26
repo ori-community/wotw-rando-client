@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Mesh.h>
+
+#include <Modloader/app/structs/Mesh.h>
 #include <Modloader/app/structs/MeshCollider.h>
 
 namespace app::classes::UnityEngine::MeshCollider {

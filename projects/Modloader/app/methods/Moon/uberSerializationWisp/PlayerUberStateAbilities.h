@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateAbilities.h>
-#include <Modloader/app/structs/Action.h>
+
+#include <Modloader/app/structs/PlayerUberStateAbilities.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/HashSet_1_AbilityType_.h>
-#include <Modloader/app/structs/UberStateArchive.h>
 #include <Modloader/app/structs/NavigableOnGUI.h>
+#include <Modloader/app/structs/UberStateArchive.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateAbilities {
     IL2CPP_REGISTER_METHOD(0x00F33660, void, ctor, (app::PlayerUberStateAbilities * this_ptr, app::Action* set_dirty_callback))

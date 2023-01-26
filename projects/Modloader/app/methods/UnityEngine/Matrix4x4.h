@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Matrix4x4__Boxed.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/Quaternion.h>
+
+#include <Modloader/app/structs/Matrix4x4__Boxed.h>
 #include <Modloader/app/structs/Matrix4x4.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UnityEngine::Matrix4x4 {
     IL2CPP_REGISTER_METHOD(0x001F28F0, void, ctor, (app::Matrix4x4__Boxed * this_ptr, app::Vector4 column0, app::Vector4 column1, app::Vector4 column2, app::Vector4 column3))
@@ -22,9 +23,7 @@ namespace app::classes::UnityEngine::Matrix4x4 {
     IL2CPP_REGISTER_METHOD(0x02537200, app::Matrix4x4, Perspective, (float fov, float aspect, float z_near, float z_far))
     IL2CPP_REGISTER_METHOD(0x001F2A80, void, set_Item_1, (app::Matrix4x4__Boxed * this_ptr, int32_t row, int32_t column, float value))
     IL2CPP_REGISTER_METHOD(0x001F2A90, float, get_Item, (app::Matrix4x4__Boxed * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x047999F8, Matrix4x4_get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001F2AA0, void, set_Item_2, (app::Matrix4x4__Boxed * this_ptr, int32_t index, float value))
-    IL2CPP_REGISTER_METHODINFO(0x047622F0, Matrix4x4_set_Item_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001F2AB0, int32_t, GetHashCode, (app::Matrix4x4__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001F2AC0, bool, Equals_1, (app::Matrix4x4__Boxed * this_ptr, app::Object* other))
     IL2CPP_REGISTER_METHOD(0x001F2AD0, bool, Equals_2, (app::Matrix4x4__Boxed * this_ptr, app::Matrix4x4 other))
@@ -33,7 +32,6 @@ namespace app::classes::UnityEngine::Matrix4x4 {
     IL2CPP_REGISTER_METHOD(0x02538270, bool, op_Equality, (app::Matrix4x4 lhs, app::Matrix4x4 rhs))
     IL2CPP_REGISTER_METHOD(0x025384B0, bool, op_Inequality, (app::Matrix4x4 lhs, app::Matrix4x4 rhs))
     IL2CPP_REGISTER_METHOD(0x001F2B10, app::Vector4, GetColumn, (app::Matrix4x4__Boxed * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0474C1D0, Matrix4x4_GetColumn__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001F2B40, void, SetColumn, (app::Matrix4x4__Boxed * this_ptr, int32_t index, app::Vector4 column))
     IL2CPP_REGISTER_METHOD(0x001F2BB0, void, SetRow, (app::Matrix4x4__Boxed * this_ptr, int32_t index, app::Vector4 row))
     IL2CPP_REGISTER_METHOD(0x001F2C20, app::Vector3, MultiplyPoint, (app::Matrix4x4__Boxed * this_ptr, app::Vector3 point))

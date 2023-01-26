@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XsdBuilder_XsdAttributeEntry.h>
+
+#include <Modloader/app/structs/XsdBuilder_XsdAttributeEntry.h>
 #include <Modloader/app/structs/SchemaNames_Token__Enum.h>
 #include <Modloader/app/structs/XsdBuilder_XsdBuildFunction.h>
 

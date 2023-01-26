@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderColor.h>
+
+#include <Modloader/app/structs/UberShaderColor.h>
 #include <Modloader/app/structs/Color.h>
 
 namespace app::classes::UberShaderColor {

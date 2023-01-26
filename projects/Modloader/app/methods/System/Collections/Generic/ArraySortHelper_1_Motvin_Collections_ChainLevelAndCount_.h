@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ChainLevelAndCount__Array.h>
-#include <Modloader/app/structs/IComparer_1_Motvin_Collections_ChainLevelAndCount_.h>
+
+#include <Modloader/app/structs/ChainLevelAndCount__Array.h>
 #include <Modloader/app/structs/ChainLevelAndCount.h>
 #include <Modloader/app/structs/Comparison_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/IComparer_1_Motvin_Collections_ChainLevelAndCount_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Motvin_Collections_ChainLevelAndCount_ {
     IL2CPP_REGISTER_METHOD(0x02F79DE0, void, Sort_1, (app::ChainLevelAndCount__Array * keys, int32_t index, int32_t length, app::IComparer_1_Motvin_Collections_ChainLevelAndCount_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04763898, ArraySortHelper_1_Motvin_Collections_ChainLevelAndCount__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F7A100, int32_t, BinarySearch, (app::ChainLevelAndCount__Array * array, int32_t index, int32_t length, app::ChainLevelAndCount value, app::IComparer_1_Motvin_Collections_ChainLevelAndCount_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0472A308, ArraySortHelper_1_Motvin_Collections_ChainLevelAndCount__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F7A2A0, void, Sort_2, (app::ChainLevelAndCount__Array * keys, int32_t index, int32_t length, app::Comparison_1_Motvin_Collections_ChainLevelAndCount_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04733068, ArraySortHelper_1_Motvin_Collections_ChainLevelAndCount__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F2B330, int32_t, InternalBinarySearch, (app::ChainLevelAndCount__Array * array, int32_t index, int32_t length, app::ChainLevelAndCount value, app::IComparer_1_Motvin_Collections_ChainLevelAndCount_* comparer))
     IL2CPP_REGISTER_METHOD(0x02F2B450, void, SwapIfGreater, (app::ChainLevelAndCount__Array * keys, app::Comparison_1_Motvin_Collections_ChainLevelAndCount_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02F2B5E0, void, Swap, (app::ChainLevelAndCount__Array * a, int32_t i, int32_t j))

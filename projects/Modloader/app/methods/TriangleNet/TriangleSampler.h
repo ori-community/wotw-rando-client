@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TriangleSampler.h>
+
+#include <Modloader/app/structs/TriangleSampler.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_TriangleNet_Topology_Triangle_.h>
 #include <Modloader/app/structs/Mesh_1.h>
 #include <Modloader/app/structs/Random.h>
-#include <Modloader/app/structs/IEnumerator_1_TriangleNet_Topology_Triangle_.h>
-#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::TriangleNet::TriangleSampler {
     IL2CPP_REGISTER_METHOD(0x02AA7540, void, ctor_1, (app::TriangleSampler * this_ptr, app::Mesh_1* mesh))

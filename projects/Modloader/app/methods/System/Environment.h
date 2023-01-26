@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/PlatformID__Enum.h>
-#include <Modloader/app/structs/OperatingSystem.h>
-#include <Modloader/app/structs/Version.h>
-#include <Modloader/app/structs/String__Array.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/EnvironmentVariableTarget__Enum.h>
+#include <Modloader/app/structs/Environment_SpecialFolderOption__Enum.h>
+#include <Modloader/app/structs/Environment_SpecialFolder__Enum.h>
+#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/Hashtable.h>
 #include <Modloader/app/structs/IDictionary.h>
-#include <Modloader/app/structs/Environment_SpecialFolder__Enum.h>
-#include <Modloader/app/structs/Environment_SpecialFolderOption__Enum.h>
-#include <Modloader/app/structs/EnvironmentVariableTarget__Enum.h>
-#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/OperatingSystem.h>
+#include <Modloader/app/structs/PlatformID__Enum.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Version.h>
 
 namespace app::classes::System::Environment {
     IL2CPP_REGISTER_METHOD(0x004C50A0, app::String*, GetResourceString_1, (app::String * key))
@@ -33,7 +34,6 @@ namespace app::classes::System::Environment {
     IL2CPP_REGISTER_METHOD(0x01A19420, app::String*, get_UserName, ())
     IL2CPP_REGISTER_METHOD(0x01A19430, void, Exit, (int32_t exit_code))
     IL2CPP_REGISTER_METHOD(0x01A19440, app::String*, ExpandEnvironmentVariables, (app::String * name))
-    IL2CPP_REGISTER_METHODINFO(0x04712348, Environment_ExpandEnvironmentVariables__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x013DD080, app::String__Array*, GetCommandLineArgs, ())
     IL2CPP_REGISTER_METHOD(0x01A19810, app::String*, internalGetEnvironmentVariable_native, (void* variable))
     IL2CPP_REGISTER_METHOD(0x01A19960, app::String*, internalGetEnvironmentVariable, (app::String * variable))
@@ -45,15 +45,11 @@ namespace app::classes::System::Environment {
     IL2CPP_REGISTER_METHOD(0x01A19FF0, app::String*, GetFolderPath_2, (app::Environment_SpecialFolder__Enum folder, app::Environment_SpecialFolderOption__Enum option))
     IL2CPP_REGISTER_METHOD(0x01A1A010, app::String*, ReadXdgUserDir, (app::String * config_dir, app::String* home_dir, app::String* key, app::String* fallback))
     IL2CPP_REGISTER_METHOD(0x01A1A4D0, app::String*, UnixGetFolderPath, (app::Environment_SpecialFolder__Enum folder, app::Environment_SpecialFolderOption__Enum option))
-    IL2CPP_REGISTER_METHODINFO(0x04768C20, Environment_UnixGetFolderPath__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01A1A8B0, void, SetEnvironmentVariable_1, (app::String * variable, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x04784AF0, Environment_SetEnvironmentVariable__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01A1AA90, void, SetEnvironmentVariable_2, (app::String * variable, app::String* value, app::EnvironmentVariableTarget__Enum target))
     IL2CPP_REGISTER_METHOD(0x01A1AAA0, void, InternalSetEnvironmentVariable, (app::String * variable, app::String* value))
     IL2CPP_REGISTER_METHOD(0x01A1AAB0, void, FailFast_1, (app::String * message))
-    IL2CPP_REGISTER_METHODINFO(0x04725C88, Environment_FailFast__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01A1AB00, void, FailFast_2, (app::String * message, app::Exception* exception))
-    IL2CPP_REGISTER_METHODINFO(0x04771140, Environment_FailFast_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_Is64BitProcess, ())
     IL2CPP_REGISTER_METHOD(0x01A1AB60, int32_t, get_ProcessorCount, ())
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsRunningOnWindows, ())

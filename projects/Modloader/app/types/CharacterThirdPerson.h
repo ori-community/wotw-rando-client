@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/CharacterThirdPerson.h>
+#include <Modloader/app/structs/CharacterThirdPerson__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CharacterThirdPerson__Class.h>
-#include <Modloader/app/structs/CharacterThirdPerson.h>
 
 namespace app::classes::types {
     namespace CharacterThirdPerson {
-        namespace {
-            inline app::CharacterThirdPerson__Class* type_info_ref = nullptr;
+        inline app::CharacterThirdPerson__Class** type_info() {
+            static app::CharacterThirdPerson__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CharacterThirdPerson__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CharacterThirdPerson__Class** type_info = &type_info_ref;
         inline app::CharacterThirdPerson__Class* get_class() {
-            return il2cpp::get_class<app::CharacterThirdPerson__Class>(type_info, "RootMotion.Demos", "CharacterThirdPerson");
+            return il2cpp::get_class<app::CharacterThirdPerson__Class>(type_info(), "RootMotion.Demos", "CharacterThirdPerson");
         }
         inline app::CharacterThirdPerson* create() {
             return il2cpp::create_object<app::CharacterThirdPerson>(get_class());

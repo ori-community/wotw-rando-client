@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/PointerUIBase_PointerState.h>
+#include <Modloader/app/structs/PointerUIBase_PointerState__Array.h>
+#include <Modloader/app/structs/PointerUIBase_PointerState__Boxed.h>
+#include <Modloader/app/structs/PointerUIBase_PointerState__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/PointerUIBase_PointerState__Class.h>
-#include <Modloader/app/structs/PointerUIBase_PointerState.h>
-#include <Modloader/app/structs/PointerUIBase_PointerState__Boxed.h>
-#include <Modloader/app/structs/PointerUIBase_PointerState__Array.h>
 
 namespace app::classes::types {
     namespace PointerUIBase_PointerState {
-        inline app::PointerUIBase_PointerState__Class** type_info = (app::PointerUIBase_PointerState__Class**)(modloader::win::memory::resolve_rva(0x04733928));
+        inline app::PointerUIBase_PointerState__Class** type_info() {
+            static app::PointerUIBase_PointerState__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::PointerUIBase_PointerState__Class**)(modloader::win::memory::resolve_rva(0x04733928));
+            }
+            return cache;
+        }
         inline app::PointerUIBase_PointerState__Class* get_class() {
-            return il2cpp::get_nested_class<app::PointerUIBase_PointerState__Class>(type_info, "ZenFulcrum.EmbeddedBrowser", "PointerUIBase", "PointerState");
+            return il2cpp::get_nested_class<app::PointerUIBase_PointerState__Class>(type_info(), "ZenFulcrum.EmbeddedBrowser", "PointerUIBase", "PointerState");
         }
         inline app::PointerUIBase_PointerState* create() {
             return il2cpp::create_object<app::PointerUIBase_PointerState>(get_class());

@@ -1,23 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlAttributeCollection.h>
-#include <Modloader/app/structs/XmlNode.h>
-#include <Modloader/app/structs/XmlAttribute.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/XmlAttributeCollection.h>
 #include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlAttribute.h>
+#include <Modloader/app/structs/XmlNode.h>
 
 namespace app::classes::System::Xml::XmlAttributeCollection {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::XmlAttributeCollection * this_ptr, app::XmlNode* parent))
     IL2CPP_REGISTER_METHOD(0x0195BF70, app::XmlAttribute*, get_ItemOf_1, (app::XmlAttributeCollection * this_ptr, int32_t i))
-    IL2CPP_REGISTER_METHODINFO(0x04702848, XmlAttributeCollection_get_ItemOf__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0195C0A0, app::XmlAttribute*, get_ItemOf_2, (app::XmlAttributeCollection * this_ptr, app::String* name))
     IL2CPP_REGISTER_METHOD(0x0195C240, app::XmlAttribute*, get_ItemOf_3, (app::XmlAttributeCollection * this_ptr, app::String* local_name, app::String* namespace_u_r_i))
     IL2CPP_REGISTER_METHOD(0x0195C420, int32_t, FindNodeOffsetNS, (app::XmlAttributeCollection * this_ptr, app::XmlAttribute* node))
     IL2CPP_REGISTER_METHOD(0x0195C650, app::XmlNode*, SetNamedItem, (app::XmlAttributeCollection * this_ptr, app::XmlNode* node))
-    IL2CPP_REGISTER_METHODINFO(0x04738E30, XmlAttributeCollection_SetNamedItem__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0195C800, app::XmlAttribute*, Append, (app::XmlAttributeCollection * this_ptr, app::XmlAttribute* node))
-    IL2CPP_REGISTER_METHODINFO(0x047373F0, XmlAttributeCollection_Append__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0195CA80, app::XmlAttribute*, Remove, (app::XmlAttributeCollection * this_ptr, app::XmlAttribute* node))
     IL2CPP_REGISTER_METHOD(0x0195CB00, app::XmlAttribute*, RemoveAt, (app::XmlAttributeCollection * this_ptr, int32_t i))
     IL2CPP_REGISTER_METHOD(0x0195CBD0, void, RemoveAll, (app::XmlAttributeCollection * this_ptr))

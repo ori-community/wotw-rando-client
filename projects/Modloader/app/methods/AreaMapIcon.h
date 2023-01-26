@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AreaMapIcon.h>
+
+#include <Modloader/app/structs/AreaMapIcon.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/GameWorldAreaID__Enum.h>
 #include <Modloader/app/structs/MessageProvider.h>
-#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::AreaMapIcon {
     IL2CPP_REGISTER_METHOD(0x0050CA80, bool, ShouldShowAttentionMarker, (app::AreaMapIcon * this_ptr, app::GameWorldAreaID__Enum area_i_d))

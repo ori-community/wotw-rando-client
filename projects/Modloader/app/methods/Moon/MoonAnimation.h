@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonAnimatorDefinition.h>
-#include <Modloader/app/structs/MoonAnimation.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/MoonAnimatorLayerName.h>
-#include <Modloader/app/structs/AnimationPostprocessGroup__Array.h>
+
+#include <Modloader/app/structs/MoonAnimatorDefinition.h>
 #include <Modloader/app/structs/AnimationPostprocessGroupModifier__Array.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AnimationPostprocessGroup__Array.h>
 #include <Modloader/app/structs/AnimationTransition.h>
-#include <Modloader/app/structs/IAnimation.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/HashSet_1_Moon_MoonAnimation_.h>
+#include <Modloader/app/structs/IAnimation.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/MoonAnimatorLayerName.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::MoonAnimation {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::MoonAnimatorDefinition*, IAnimation_get_AnimatorDefinition, (app::MoonAnimation * this_ptr))

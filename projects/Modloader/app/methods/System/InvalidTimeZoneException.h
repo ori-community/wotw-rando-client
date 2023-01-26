@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InvalidTimeZoneException.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/InvalidTimeZoneException.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::InvalidTimeZoneException {
     IL2CPP_REGISTER_METHOD(0x02265F70, void, ctor_1, (app::InvalidTimeZoneException * this_ptr, app::String* message))

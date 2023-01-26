@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType__Boxed.h>
+
+#include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType__Boxed.h>
 #include <Modloader/app/structs/LightCullingSystem_LightCullingGroupId__Enum.h>
 
 namespace app::classes::LightCullingSystem_LightCullingConfigPerType {

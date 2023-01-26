@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FastHashSet_1_T_TNode_System_Object___Boxed.h>
+
+#include <Modloader/app/structs/FastHashSet_1_T_TNode_System_Object___Boxed.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Motvin::Collections::FastHashSet_1_T__TNode_System_Object_ {

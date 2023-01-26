@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VerletBody.h>
+
+#include <Modloader/app/structs/VerletBody.h>
 
 namespace app::classes::Moon::VerletBody {
     IL2CPP_REGISTER_METHOD(0x02125B80, void, Update, (app::VerletBody * this_ptr, float dt))

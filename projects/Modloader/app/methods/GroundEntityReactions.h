@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GroundEntityReactions.h>
+
+#include <Modloader/app/structs/GroundEntityReactions.h>
 #include <Modloader/app/structs/EntityEvent.h>
 
 namespace app::classes::GroundEntityReactions {

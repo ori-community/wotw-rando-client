@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SHA1CryptoServiceProvider.h>
+
+#include <Modloader/app/structs/SHA1CryptoServiceProvider.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::SHA1CryptoServiceProvider {

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SupportedRenderingFeatures.h>
-#include <Modloader/app/structs/SupportedRenderingFeatures_LightmapMixedBakeMode__Enum.h>
+
+#include <Modloader/app/structs/SupportedRenderingFeatures.h>
 #include <Modloader/app/structs/LightmapBakeType__Enum.h>
 #include <Modloader/app/structs/LightmapsMode__Enum.h>
 #include <Modloader/app/structs/MixedLightingMode__Enum.h>
+#include <Modloader/app/structs/SupportedRenderingFeatures_LightmapMixedBakeMode__Enum.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::SupportedRenderingFeatures {
     IL2CPP_REGISTER_METHOD(0x02525330, void, ctor, (app::SupportedRenderingFeatures * this_ptr))

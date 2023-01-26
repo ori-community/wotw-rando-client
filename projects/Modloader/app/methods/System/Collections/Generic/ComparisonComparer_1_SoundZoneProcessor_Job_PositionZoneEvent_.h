@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
 #include <Modloader/app/structs/Comparison_1_SoundZoneProcessor_Job_PositionZoneEvent_.h>
 #include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEvent.h>
 

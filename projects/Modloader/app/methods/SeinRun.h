@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinRun.h>
-#include <Modloader/app/structs/SeinRunPuppet.h>
-#include <Modloader/app/structs/PlatformMovement.h>
+
+#include <Modloader/app/structs/SeinRun.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/CharacterLeftRightMovement.h>
 #include <Modloader/app/structs/CharacterSpriteMirror.h>
-#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/SeinRunPuppet.h>
 
 namespace app::classes::SeinRun {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinRun * this_ptr))
@@ -22,12 +23,8 @@ namespace app::classes::SeinRun {
     IL2CPP_REGISTER_METHOD(0x005D77D0, void, CheckForSharpTurn, (app::SeinRun * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005D7980, void, UpdateCharacterState, (app::SeinRun * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005D8490, bool, ShouldRunAnimationPlaying, (app::SeinRun * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471DD38, SeinRun_ShouldRunAnimationPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005D85D0, bool, ShouldJogAnimationPlay, (app::SeinRun * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471DDB0, SeinRun_ShouldJogAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005D8710, bool, ShouldWalkAnimationPlay, (app::SeinRun * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04796378, SeinRun_ShouldWalkAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005D8850, bool, ShouldAnimationKeepPlaying, (app::SeinRun * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04764608, SeinRun_ShouldAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005D8980, void, ctor, (app::SeinRun * this_ptr))
 } // namespace app::classes::SeinRun

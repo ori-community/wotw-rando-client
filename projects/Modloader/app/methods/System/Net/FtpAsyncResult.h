@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FtpAsyncResult.h>
+
+#include <Modloader/app/structs/FtpAsyncResult.h>
 #include <Modloader/app/structs/AsyncCallback.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/WaitHandle.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/FtpWebResponse.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::System::Net::FtpAsyncResult {
     IL2CPP_REGISTER_METHOD(0x01D2C460, void, ctor, (app::FtpAsyncResult * this_ptr, app::AsyncCallback* callback, app::Object* state))

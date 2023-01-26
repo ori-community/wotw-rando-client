@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LocalDataStoreHolder.h>
+
+#include <Modloader/app/structs/LocalDataStoreHolder.h>
 #include <Modloader/app/structs/LocalDataStore.h>
 
 namespace app::classes::System::LocalDataStoreHolder {

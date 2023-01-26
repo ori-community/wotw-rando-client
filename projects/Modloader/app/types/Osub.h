@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/Osub.h>
+#include <Modloader/app/structs/Osub__Array.h>
+#include <Modloader/app/structs/Osub__Boxed.h>
+#include <Modloader/app/structs/Osub__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Osub__Class.h>
-#include <Modloader/app/structs/Osub.h>
-#include <Modloader/app/structs/Osub__Boxed.h>
-#include <Modloader/app/structs/Osub__Array.h>
 
 namespace app::classes::types {
     namespace Osub {
-        namespace {
-            inline app::Osub__Class* type_info_ref = nullptr;
+        inline app::Osub__Class** type_info() {
+            static app::Osub__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Osub__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Osub__Class** type_info = &type_info_ref;
         inline app::Osub__Class* get_class() {
-            return il2cpp::get_class<app::Osub__Class>(type_info, "TriangleNet.Topology", "Osub");
+            return il2cpp::get_class<app::Osub__Class>(type_info(), "TriangleNet.Topology", "Osub");
         }
         inline app::Osub* create() {
             return il2cpp::create_object<app::Osub>(get_class());

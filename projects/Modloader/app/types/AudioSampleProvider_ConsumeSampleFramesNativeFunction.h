@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/AudioSampleProvider_ConsumeSampleFramesNativeFunction.h>
+#include <Modloader/app/structs/AudioSampleProvider_ConsumeSampleFramesNativeFunction__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AudioSampleProvider_ConsumeSampleFramesNativeFunction__Class.h>
-#include <Modloader/app/structs/AudioSampleProvider_ConsumeSampleFramesNativeFunction.h>
 
 namespace app::classes::types {
     namespace AudioSampleProvider_ConsumeSampleFramesNativeFunction {
-        namespace {
-            inline app::AudioSampleProvider_ConsumeSampleFramesNativeFunction__Class* type_info_ref = nullptr;
+        inline app::AudioSampleProvider_ConsumeSampleFramesNativeFunction__Class** type_info() {
+            static app::AudioSampleProvider_ConsumeSampleFramesNativeFunction__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AudioSampleProvider_ConsumeSampleFramesNativeFunction__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AudioSampleProvider_ConsumeSampleFramesNativeFunction__Class** type_info = &type_info_ref;
         inline app::AudioSampleProvider_ConsumeSampleFramesNativeFunction__Class* get_class() {
-            return il2cpp::get_nested_class<app::AudioSampleProvider_ConsumeSampleFramesNativeFunction__Class>(type_info, "UnityEngine.Experimental.Audio", "AudioSampleProvider", "ConsumeSampleFramesNativeFunction");
+            return il2cpp::get_nested_class<app::AudioSampleProvider_ConsumeSampleFramesNativeFunction__Class>(type_info(), "UnityEngine.Experimental.Audio", "AudioSampleProvider", "ConsumeSampleFramesNativeFunction");
         }
         inline app::AudioSampleProvider_ConsumeSampleFramesNativeFunction* create() {
             return il2cpp::create_object<app::AudioSampleProvider_ConsumeSampleFramesNativeFunction>(get_class());

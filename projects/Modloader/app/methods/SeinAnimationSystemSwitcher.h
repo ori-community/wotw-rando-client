@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinAnimationSystemSwitcher.h>
+
+#include <Modloader/app/structs/SeinAnimationSystemSwitcher.h>
 
 namespace app::classes::SeinAnimationSystemSwitcher {
     IL2CPP_REGISTER_METHOD(0x00D84720, void, Start, (app::SeinAnimationSystemSwitcher * this_ptr))

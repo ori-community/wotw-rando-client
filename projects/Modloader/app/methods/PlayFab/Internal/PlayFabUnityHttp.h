@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/PlayFabUnityHttp.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Action_1_Byte_.h>
 #include <Modloader/app/structs/Action_1_String_.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CallRequestContainer.h>
 #include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/CallRequestContainer.h>
+#include <Modloader/app/structs/PlayFabUnityHttp.h>
 
 namespace app::classes::PlayFab::Internal::PlayFabUnityHttp {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::String*, get_AuthKey, (app::PlayFabUnityHttp * this_ptr))

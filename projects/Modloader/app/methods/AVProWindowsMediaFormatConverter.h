@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AVProWindowsMediaFormatConverter.h>
-#include <Modloader/app/structs/Texture.h>
-#include <Modloader/app/structs/Material.h>
+
+#include <Modloader/app/structs/AVProWindowsMediaFormatConverter.h>
 #include <Modloader/app/structs/AVProWindowsMediaPlugin_VideoFrameFormat__Enum.h>
 #include <Modloader/app/structs/FilterMode__Enum.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Texture.h>
 #include <Modloader/app/structs/TextureWrapMode__Enum.h>
 #include <Modloader/app/structs/Vector4.h>
 

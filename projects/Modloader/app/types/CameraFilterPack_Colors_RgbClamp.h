@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/CameraFilterPack_Colors_RgbClamp.h>
+#include <Modloader/app/structs/CameraFilterPack_Colors_RgbClamp__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CameraFilterPack_Colors_RgbClamp__Class.h>
-#include <Modloader/app/structs/CameraFilterPack_Colors_RgbClamp.h>
 
 namespace app::classes::types {
     namespace CameraFilterPack_Colors_RgbClamp {
-        namespace {
-            inline app::CameraFilterPack_Colors_RgbClamp__Class* type_info_ref = nullptr;
+        inline app::CameraFilterPack_Colors_RgbClamp__Class** type_info() {
+            static app::CameraFilterPack_Colors_RgbClamp__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CameraFilterPack_Colors_RgbClamp__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CameraFilterPack_Colors_RgbClamp__Class** type_info = &type_info_ref;
         inline app::CameraFilterPack_Colors_RgbClamp__Class* get_class() {
-            return il2cpp::get_class<app::CameraFilterPack_Colors_RgbClamp__Class>(type_info, "", "CameraFilterPack_Colors_RgbClamp");
+            return il2cpp::get_class<app::CameraFilterPack_Colors_RgbClamp__Class>(type_info(), "", "CameraFilterPack_Colors_RgbClamp");
         }
         inline app::CameraFilterPack_Colors_RgbClamp* create() {
             return il2cpp::create_object<app::CameraFilterPack_Colors_RgbClamp>(get_class());

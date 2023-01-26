@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IDialogActor.h>
-#include <Modloader/app/structs/DialogNode.h>
-#include <Modloader/app/structs/MessageProvider.h>
+
+#include <Modloader/app/structs/IDialogActor.h>
 #include <Modloader/app/structs/Action_1_IContext_.h>
-#include <Modloader/app/structs/List_1_IDialogTransition_.h>
-#include <Modloader/app/structs/List_1_IDialogDecorator_.h>
-#include <Modloader/app/structs/InteractionSettings.h>
+#include <Modloader/app/structs/DialogNode.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/InteractionSettings.h>
+#include <Modloader/app/structs/List_1_IDialogDecorator_.h>
+#include <Modloader/app/structs/List_1_IDialogTransition_.h>
+#include <Modloader/app/structs/MessageProvider.h>
 
 namespace app::classes::DialogNode {
     IL2CPP_REGISTER_METHOD(0x00B900E0, app::IDialogActor*, get_Actor, (app::DialogNode * this_ptr))

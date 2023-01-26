@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkObstructionOcclusionValuesArray.h>
+
+#include <Modloader/app/structs/AkObstructionOcclusionValuesArray.h>
 #include <Modloader/app/structs/AkObstructionOcclusionValues.h>
 
 namespace app::classes::AkObstructionOcclusionValuesArray {

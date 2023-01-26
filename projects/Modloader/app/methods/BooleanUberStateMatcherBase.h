@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BooleanUberStateMatcherBase.h>
+
+#include <Modloader/app/structs/BooleanUberStateMatcherBase.h>
 #include <Modloader/app/structs/IUberState.h>
 
 namespace app::classes::BooleanUberStateMatcherBase {

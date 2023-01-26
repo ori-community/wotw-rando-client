@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object_1.h>
+
+#include <Modloader/app/structs/Object_1.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ScenesManager.h>
 
@@ -15,5 +16,4 @@ namespace app::classes::HideFlagsExtensions {
     IL2CPP_REGISTER_METHOD(0x00B49320, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x0157F9A0, app::Object*, OrNull_1, (app::Object * o))
     IL2CPP_REGISTER_METHOD(0x0157F9A0, app::ScenesManager*, OrNull_2, (app::ScenesManager * o))
-    IL2CPP_REGISTER_METHODINFO(0x0473C678, HideFlagsExtensions_OrNull_1__MethodInfo)
 } // namespace app::classes::HideFlagsExtensions

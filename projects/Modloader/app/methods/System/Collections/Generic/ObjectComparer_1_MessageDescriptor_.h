@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_MessageDescriptor_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_MessageDescriptor_.h>
 #include <Modloader/app/structs/MessageDescriptor.h>
 #include <Modloader/app/structs/Object.h>
 

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/P3D_Matrix.h>
-#include <Modloader/app/structs/P3D_Matrix__Boxed.h>
+
+#include <Modloader/app/structs/P3D_Matrix.h>
 #include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/P3D_Matrix__Boxed.h>
 #include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::P3D_Matrix {

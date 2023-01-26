@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SubSegment.h>
-#include <Modloader/app/structs/Osub__Boxed.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/SubSegment.h>
 #include <Modloader/app/structs/Osub.h>
+#include <Modloader/app/structs/Osub__Boxed.h>
 #include <Modloader/app/structs/Otri.h>
-#include <Modloader/app/structs/Vertex.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Triangle.h>
+#include <Modloader/app/structs/Vertex.h>
 
 namespace app::classes::TriangleNet::Topology::Osub {
     IL2CPP_REGISTER_METHOD(0x00107C00, app::SubSegment*, get_Segment, (app::Osub__Boxed * this_ptr))

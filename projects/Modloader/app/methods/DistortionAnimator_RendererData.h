@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DistortionAnimator_RendererData__Boxed.h>
+
+#include <Modloader/app/structs/DistortionAnimator_RendererData__Boxed.h>
 #include <Modloader/app/structs/Renderer.h>
 
 namespace app::classes::DistortionAnimator_RendererData {

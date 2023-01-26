@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShardTraderPlaceholder_ConditionalStockList__Array.h>
+
+#include <Modloader/app/structs/ShardTraderPlaceholder_ConditionalStockList__Array.h>
+#include <Modloader/app/structs/Comparison_1_ShardTraderPlaceholder_ConditionalStockList_.h>
 #include <Modloader/app/structs/IComparer_1_ShardTraderPlaceholder_ConditionalStockList_.h>
 #include <Modloader/app/structs/ShardTraderPlaceholder_ConditionalStockList.h>
-#include <Modloader/app/structs/Comparison_1_ShardTraderPlaceholder_ConditionalStockList_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_ShardTraderPlaceholder_ConditionalStockList_ {
     IL2CPP_REGISTER_METHOD(0x02FF08F0, void, Sort_1, (app::ShardTraderPlaceholder_ConditionalStockList__Array * keys, int32_t index, int32_t length, app::IComparer_1_ShardTraderPlaceholder_ConditionalStockList_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04726580, ArraySortHelper_1_ShardTraderPlaceholder_ConditionalStockList__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF0C10, int32_t, BinarySearch, (app::ShardTraderPlaceholder_ConditionalStockList__Array * array, int32_t index, int32_t length, app::ShardTraderPlaceholder_ConditionalStockList value, app::IComparer_1_ShardTraderPlaceholder_ConditionalStockList_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0476E610, ArraySortHelper_1_ShardTraderPlaceholder_ConditionalStockList__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF0DC0, void, Sort_2, (app::ShardTraderPlaceholder_ConditionalStockList__Array * keys, int32_t index, int32_t length, app::Comparison_1_ShardTraderPlaceholder_ConditionalStockList_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04728C68, ArraySortHelper_1_ShardTraderPlaceholder_ConditionalStockList__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C898B0, int32_t, InternalBinarySearch, (app::ShardTraderPlaceholder_ConditionalStockList__Array * array, int32_t index, int32_t length, app::ShardTraderPlaceholder_ConditionalStockList value, app::IComparer_1_ShardTraderPlaceholder_ConditionalStockList_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C89A40, void, SwapIfGreater, (app::ShardTraderPlaceholder_ConditionalStockList__Array * keys, app::Comparison_1_ShardTraderPlaceholder_ConditionalStockList_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C89BD0, void, Swap, (app::ShardTraderPlaceholder_ConditionalStockList__Array * a, int32_t i, int32_t j))

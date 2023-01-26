@@ -1,17 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityHitReactionBehaviour_1_SandWormEntity_.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+
+#include <Modloader/app/structs/EntityHitReactionBehaviour_1_SandWormEntity_.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/DamageType__Enum.h>
 #include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::EntityHitReactionBehaviour_1_SandWormEntity_ {
     IL2CPP_REGISTER_METHOD(0x019E11F0, bool, CanInterrupt, (app::EntityHitReactionBehaviour_1_SandWormEntity_ * this_ptr, app::EntityReactionBehaviour_ReasonWhyReactionWontInterrupt* reason))
-    IL2CPP_REGISTER_METHODINFO(0x0476E250, EntityHitReactionBehaviour_1_SandWormEntity__CanInterrupt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019E1830, void, ctor, (app::EntityHitReactionBehaviour_1_SandWormEntity_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047244A8, EntityHitReactionBehaviour_1_SandWormEntity___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420230, app::BehaviourStatus__Enum, OnExecuteTask, (app::EntityHitReactionBehaviour_1_SandWormEntity_ * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x019E0DF0, void, OnInitializeTask, (app::EntityHitReactionBehaviour_1_SandWormEntity_ * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::EntityHitReactionBehaviour_1_SandWormEntity_ * this_ptr))

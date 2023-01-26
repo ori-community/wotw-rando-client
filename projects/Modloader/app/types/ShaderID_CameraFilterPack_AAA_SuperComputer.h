@@ -1,15 +1,20 @@
 #pragma once
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_AAA_SuperComputer.h>
+#include <Modloader/app/structs/ShaderID_CameraFilterPack_AAA_SuperComputer__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ShaderID_CameraFilterPack_AAA_SuperComputer__Class.h>
-#include <Modloader/app/structs/ShaderID_CameraFilterPack_AAA_SuperComputer.h>
 
 namespace app::classes::types {
     namespace ShaderID_CameraFilterPack_AAA_SuperComputer {
-        inline app::ShaderID_CameraFilterPack_AAA_SuperComputer__Class** type_info = (app::ShaderID_CameraFilterPack_AAA_SuperComputer__Class**)(modloader::win::memory::resolve_rva(0x0474CFD8));
+        inline app::ShaderID_CameraFilterPack_AAA_SuperComputer__Class** type_info() {
+            static app::ShaderID_CameraFilterPack_AAA_SuperComputer__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::ShaderID_CameraFilterPack_AAA_SuperComputer__Class**)(modloader::win::memory::resolve_rva(0x0474CFD8));
+            }
+            return cache;
+        }
         inline app::ShaderID_CameraFilterPack_AAA_SuperComputer__Class* get_class() {
-            return il2cpp::get_class<app::ShaderID_CameraFilterPack_AAA_SuperComputer__Class>(type_info, "", "ShaderID_CameraFilterPack_AAA_SuperComputer");
+            return il2cpp::get_class<app::ShaderID_CameraFilterPack_AAA_SuperComputer__Class>(type_info(), "", "ShaderID_CameraFilterPack_AAA_SuperComputer");
         }
         inline app::ShaderID_CameraFilterPack_AAA_SuperComputer* create() {
             return il2cpp::create_object<app::ShaderID_CameraFilterPack_AAA_SuperComputer>(get_class());

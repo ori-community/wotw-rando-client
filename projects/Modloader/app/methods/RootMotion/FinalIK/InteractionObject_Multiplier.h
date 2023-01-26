@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InteractionObject_Multiplier.h>
+
+#include <Modloader/app/structs/InteractionObject_Multiplier.h>
 #include <Modloader/app/structs/InteractionObject_WeightCurve.h>
 
 namespace app::classes::RootMotion::FinalIK::InteractionObject_Multiplier {

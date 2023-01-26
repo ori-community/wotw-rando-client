@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VirtualClipsProviderTester.h>
+
+#include <Modloader/app/structs/VirtualClipsProviderTester.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
 
 namespace app::classes::VirtualClipsProviderTester {
     IL2CPP_REGISTER_METHOD(0x00446970, bool, get_InvalidateParentTimelineCache, (app::VirtualClipsProviderTester * this_ptr))

@@ -15,7 +15,7 @@ struct BrowserCursor__StaticFields {
 #endif
 #if !defined(IL2CPP_STRUCT_BrowserCursor__StaticFields_FWDDECL)
 #define IL2CPP_STRUCT_BrowserCursor__StaticFields_FWDDECL
-#include <Modloader/app/structs/Dictionary_2_ZenFulcrum_EmbeddedBrowser_BrowserNative_CursorType_ZenFulcrum_EmbeddedBrowser_BrowserCursor_CursorInfo_.h>
+#include <Modloader/app/structs/Dictionary_2_ZenFulc_EmbeddedBrow_BrowserNat_CursorT_ZenFulc_EmbeddedBro_BrowserCu_Cursor_.h>
 #include <Modloader/app/structs/Texture2D.h>
 #endif
 #undef IL2CPP_STRUCT_BrowserCursor__StaticFields_INITIALIZING

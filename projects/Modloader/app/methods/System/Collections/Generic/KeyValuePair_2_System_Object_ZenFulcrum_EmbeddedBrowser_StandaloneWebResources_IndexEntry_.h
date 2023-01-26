@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_ZenFulcrum_EmbeddedBrowser_StandaloneWebResources_IndexEntry___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_ZenFulcrum_EmbeddedBrowser_StandaloneWebResources_IndexEntry___Boxed.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/StandaloneWebResources_IndexEntry.h>
 #include <Modloader/app/structs/String.h>

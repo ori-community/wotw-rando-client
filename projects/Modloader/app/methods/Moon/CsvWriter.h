@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CsvWriter.h>
-#include <Modloader/app/structs/TextWriter.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/CsvWriter.h>
 #include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextWriter.h>
 
 namespace app::classes::Moon::CsvWriter {
     IL2CPP_REGISTER_METHOD(0x01669060, void, ctor, (app::CsvWriter * this_ptr, app::TextWriter* writer, bool should_dispose_writer))
@@ -13,7 +14,6 @@ namespace app::classes::Moon::CsvWriter {
     IL2CPP_REGISTER_METHOD(0x002FD1D0, int32_t, get_NextRow, (app::CsvWriter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x030EACA0, void, WriteString_1, (app::CsvWriter * this_ptr, app::String* str))
     IL2CPP_REGISTER_METHOD(0x030EACD0, void, WriteString_2, (app::CsvWriter * this_ptr, app::String* str, int32_t start, int32_t length))
-    IL2CPP_REGISTER_METHODINFO(0x04724188, CsvWriter_WriteString_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x030EAE10, void, WriteSingle, (app::CsvWriter * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x030EAE90, void, WriteDouble, (app::CsvWriter * this_ptr, double value))
     IL2CPP_REGISTER_METHOD(0x030EAF10, void, WriteDecimal, (app::CsvWriter * this_ptr, app::Decimal value))

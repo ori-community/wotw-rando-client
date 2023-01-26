@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/YogaNode.h>
+
+#include <Modloader/app/structs/YogaNode.h>
 #include <Modloader/app/structs/YogaMeasureMode__Enum.h>
 
 namespace app::classes::UnityEngine::Yoga::Native {

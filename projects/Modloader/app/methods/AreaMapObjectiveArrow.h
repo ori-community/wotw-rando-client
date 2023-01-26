@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AreaMapObjectiveArrow.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/AreaMapObjectiveArrow.h>
 #include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::AreaMapObjectiveArrow {
     IL2CPP_REGISTER_METHOD(0x0083A0A0, void, OnEnable, (app::AreaMapObjectiveArrow * this_ptr))

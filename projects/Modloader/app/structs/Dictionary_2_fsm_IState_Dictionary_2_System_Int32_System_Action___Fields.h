@@ -27,7 +27,7 @@ struct __declspec(align(8)) Dictionary_2_fsm_IState_Dictionary_2_System_Int32_Sy
 #define IL2CPP_STRUCT_Dictionary_2_fsm_IState_Dictionary_2_System_Int32_System_Action___Fields_FWDDECL
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_fsm_IState_Dictionary_2_System_Int32_System_Action___Array.h>
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_fsm_IState_Dictionary_2_System_Int32_System_Action_.h>
-#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_fsm_IState_Dictionary_2_System_Int32_System_Action_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_fsm_IState_Dictionary_2_System_Int32_Syste_Actio_.h>
 #include <Modloader/app/structs/IEqualityComparer_1_fsm_IState_.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/Object.h>

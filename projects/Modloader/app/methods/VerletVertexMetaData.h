@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VerletVertexMetaData.h>
+
+#include <Modloader/app/structs/VerletVertexMetaData.h>
 #include <Modloader/app/structs/CageStructureTool_Vertex.h>
 
 namespace app::classes::VerletVertexMetaData {

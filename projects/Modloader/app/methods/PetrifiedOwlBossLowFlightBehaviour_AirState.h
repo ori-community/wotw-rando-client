@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossLowFlightBehaviour_AirState.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossLowFlightBehaviour_AirState.h>
 #include <Modloader/app/structs/PetrifiedOwlBossLowFlightBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossLowFlightBehaviour_AirState {
@@ -8,5 +9,4 @@ namespace app::classes::PetrifiedOwlBossLowFlightBehaviour_AirState {
     IL2CPP_REGISTER_METHOD(0x01779B80, void, OnEnter, (app::PetrifiedOwlBossLowFlightBehaviour_AirState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01779D90, void, OnExit, (app::PetrifiedOwlBossLowFlightBehaviour_AirState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01779E30, void, OnAirTimelineFinished, (app::PetrifiedOwlBossLowFlightBehaviour_AirState * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04787858, PetrifiedOwlBossLowFlightBehaviour_AirState_OnAirTimelineFinished__MethodInfo)
 } // namespace app::classes::PetrifiedOwlBossLowFlightBehaviour_AirState

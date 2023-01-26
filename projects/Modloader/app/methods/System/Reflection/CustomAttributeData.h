@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CustomAttributeData.h>
-#include <Modloader/app/structs/ConstructorInfo.h>
+
+#include <Modloader/app/structs/CustomAttributeData.h>
 #include <Modloader/app/structs/Assembly.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeTypedArgument_.h>
-#include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeNamedArgument_.h>
-#include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeData_.h>
-#include <Modloader/app/structs/MemberInfo_1.h>
-#include <Modloader/app/structs/RuntimeType.h>
-#include <Modloader/app/structs/Module.h>
-#include <Modloader/app/structs/ParameterInfo_1.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/CustomAttributeTypedArgument__Array.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
 #include <Modloader/app/structs/CustomAttributeNamedArgument__Array.h>
+#include <Modloader/app/structs/CustomAttributeTypedArgument__Array.h>
+#include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeData_.h>
+#include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeNamedArgument_.h>
+#include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeTypedArgument_.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/Module.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/ParameterInfo_1.h>
+#include <Modloader/app/structs/RuntimeType.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Reflection::CustomAttributeData {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::CustomAttributeData * this_ptr))
@@ -36,7 +37,5 @@ namespace app::classes::System::Reflection::CustomAttributeData {
     IL2CPP_REGISTER_METHOD(0x0267E6C0, int32_t, GetHashCode, (app::CustomAttributeData * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01586F90, app::Object__Array*, UnboxValues_1, (app::Object__Array * values))
     IL2CPP_REGISTER_METHOD(0x01587200, app::CustomAttributeTypedArgument__Array*, UnboxValues_2, (app::Object__Array * values))
-    IL2CPP_REGISTER_METHODINFO(0x0475F958, CustomAttributeData_UnboxValues_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015870C0, app::CustomAttributeNamedArgument__Array*, UnboxValues_3, (app::Object__Array * values))
-    IL2CPP_REGISTER_METHODINFO(0x04776AE0, CustomAttributeData_UnboxValues_2__MethodInfo)
 } // namespace app::classes::System::Reflection::CustomAttributeData

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinChargeJumpPuppet.h>
+
+#include <Modloader/app/structs/SeinChargeJumpPuppet.h>
 
 namespace app::classes::SeinChargeJumpPuppet {
     IL2CPP_REGISTER_METHOD(0x004AB2B0, int32_t, get_Id, (app::SeinChargeJumpPuppet * this_ptr))

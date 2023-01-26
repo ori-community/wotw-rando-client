@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimatorDriver.h>
+
+#include <Modloader/app/structs/AnimatorDriver.h>
 #include <Modloader/app/structs/BaseAnimator.h>
 #include <Modloader/app/structs/TimelineEntity.h>
 #include <Modloader/app/structs/Transform.h>
@@ -24,7 +25,6 @@ namespace app::classes::BaseAnimator {
     IL2CPP_REGISTER_METHOD(0x00F84000, void, OnPoolDespawned, (app::BaseAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F84010, void, ValidateExtendedDuration, (app::BaseAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F84100, void, OnDriverPlayStateChanged, (app::BaseAnimator * this_ptr, bool value))
-    IL2CPP_REGISTER_METHODINFO(0x0474F7F8, BaseAnimator_OnDriverPlayStateChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F84140, void, RegisterUpdateHandler, (app::BaseAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F842C0, void, UnregisterUpdateHandler, (app::BaseAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009AA3D0, void, OnEnable, (app::BaseAnimator * this_ptr))

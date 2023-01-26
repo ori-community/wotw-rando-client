@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/GenericDamageTrigger.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
-#include <Modloader/app/structs/IUberState__Array.h>
-#include <Modloader/app/structs/IDamageReciever__Array.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GenericDamageTrigger.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::GenericDamageTrigger {
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::GenericDamageTrigger * this_ptr))

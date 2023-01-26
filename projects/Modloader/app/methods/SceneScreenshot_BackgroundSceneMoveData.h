@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneScreenshot_BackgroundSceneMoveData.h>
+
+#include <Modloader/app/structs/SceneScreenshot_BackgroundSceneMoveData.h>
 #include <Modloader/app/structs/SceneMetaData.h>
 #include <Modloader/app/structs/Vector2.h>
 

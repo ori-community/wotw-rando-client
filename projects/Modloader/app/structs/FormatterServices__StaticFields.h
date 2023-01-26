@@ -18,7 +18,7 @@ struct FormatterServices__StaticFields {
 #if !defined(IL2CPP_STRUCT_FormatterServices__StaticFields_FWDDECL)
 #define IL2CPP_STRUCT_FormatterServices__StaticFields_FWDDECL
 #include <Modloader/app/structs/Binder.h>
-#include <Modloader/app/structs/ConcurrentDictionary_2_System_Runtime_Serialization_MemberHolder_System_Reflection_MemberInfo_.h>
+#include <Modloader/app/structs/ConcurrentDictionary_2_System_Runtime_Serialization_MemberHolde_Syste_Reflectio_MemberInf_.h>
 #include <Modloader/app/structs/Type__Array.h>
 #endif
 #undef IL2CPP_STRUCT_FormatterServices__StaticFields_INITIALIZING

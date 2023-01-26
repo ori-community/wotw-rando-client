@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LongList.h>
+
+#include <Modloader/app/structs/LongList.h>
 
 namespace app::classes::System::Runtime::Serialization::LongList {
     IL2CPP_REGISTER_METHOD(0x01ED5410, void, ctor_1, (app::LongList * this_ptr))
@@ -12,5 +13,4 @@ namespace app::classes::System::Runtime::Serialization::LongList {
     IL2CPP_REGISTER_METHOD(0x01ED56E0, int64_t, get_Current, (app::LongList * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01ED5720, bool, RemoveElement, (app::LongList * this_ptr, int64_t value))
     IL2CPP_REGISTER_METHOD(0x01ED57B0, void, EnlargeArray, (app::LongList * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04759998, LongList_EnlargeArray__MethodInfo)
 } // namespace app::classes::System::Runtime::Serialization::LongList

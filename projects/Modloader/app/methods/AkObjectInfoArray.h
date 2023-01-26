@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkObjectInfoArray.h>
+
+#include <Modloader/app/structs/AkObjectInfoArray.h>
 #include <Modloader/app/structs/AkObjectInfo.h>
 
 namespace app::classes::AkObjectInfoArray {

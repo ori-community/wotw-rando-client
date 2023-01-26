@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FilterRenderersSettings__Boxed.h>
+
+#include <Modloader/app/structs/FilterRenderersSettings__Boxed.h>
 #include <Modloader/app/structs/RenderQueueRange.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::FilterRenderersSettings {

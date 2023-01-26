@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OriInterestTriggerB.h>
+
+#include <Modloader/app/structs/OriInterestTriggerB.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/SelectableCategory__Enum.h>
-#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::OriInterestTriggerB {
     IL2CPP_REGISTER_METHOD(0x0043C150, bool, get_OnButtonPressed, (app::OriInterestTriggerB * this_ptr))

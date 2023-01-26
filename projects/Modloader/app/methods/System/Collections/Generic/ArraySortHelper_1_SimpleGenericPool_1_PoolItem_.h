@@ -1,21 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo___Array.h>
-#include <Modloader/app/structs/IComparer_1_SimpleGenericPool_1_PoolItem_.h>
-#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_.h>
+
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo___Array.h>
 #include <Modloader/app/structs/Comparison_1_SimpleGenericPool_1_PoolItem_.h>
-#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_System_Object___Array.h>
-#include <Modloader/app/structs/IComparer_1_SimpleGenericPool_1_PoolItem__1.h>
-#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_System_Object_.h>
 #include <Modloader/app/structs/Comparison_1_SimpleGenericPool_1_PoolItem__1.h>
+#include <Modloader/app/structs/IComparer_1_SimpleGenericPool_1_PoolItem_.h>
+#include <Modloader/app/structs/IComparer_1_SimpleGenericPool_1_PoolItem__1.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_System_Object_.h>
+#include <Modloader/app/structs/SimpleGenericPool_1_T_PoolItem_System_Object___Array.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_SimpleGenericPool_1_PoolItem_ {
     IL2CPP_REGISTER_METHOD(0x02FF0F10, void, Sort_1, (app::SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo___Array * keys, int32_t index, int32_t length, app::IComparer_1_SimpleGenericPool_1_PoolItem_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0478DAD8, ArraySortHelper_1_SimpleGenericPool_1_PoolItem__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF1230, int32_t, BinarySearch_1, (app::SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo___Array * array, int32_t index, int32_t length, app::SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_ value, app::IComparer_1_SimpleGenericPool_1_PoolItem_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0474F488, ArraySortHelper_1_SimpleGenericPool_1_PoolItem__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF1400, void, Sort_2, (app::SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo___Array * keys, int32_t index, int32_t length, app::Comparison_1_SimpleGenericPool_1_PoolItem_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x047850F0, ArraySortHelper_1_SimpleGenericPool_1_PoolItem__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F37310, int32_t, InternalBinarySearch_1, (app::SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo___Array * array, int32_t index, int32_t length, app::SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo_ value, app::IComparer_1_SimpleGenericPool_1_PoolItem_* comparer))
     IL2CPP_REGISTER_METHOD(0x02F37490, void, SwapIfGreater_1, (app::SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo___Array * keys, app::Comparison_1_SimpleGenericPool_1_PoolItem_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02F376A0, void, Swap_1, (app::SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo___Array * a, int32_t i, int32_t j))
@@ -26,11 +24,8 @@ namespace app::classes::System::Collections::Generic::ArraySortHelper_1_SimpleGe
     IL2CPP_REGISTER_METHOD(0x02F37C40, void, DownHeap_1, (app::SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo___Array * keys, int32_t i, int32_t n, int32_t lo, app::Comparison_1_SimpleGenericPool_1_PoolItem_* comparer))
     IL2CPP_REGISTER_METHOD(0x02F38060, void, InsertionSort_1, (app::SimpleGenericPool_1_T_PoolItem_InstantiateUtility_InstantiateInfo___Array * keys, int32_t lo, int32_t hi, app::Comparison_1_SimpleGenericPool_1_PoolItem_* comparer))
     IL2CPP_REGISTER_METHOD(0x02FF1550, void, Sort_3, (app::SimpleGenericPool_1_T_PoolItem_System_Object___Array * keys, int32_t index, int32_t length, app::IComparer_1_SimpleGenericPool_1_PoolItem__1* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04749318, ArraySortHelper_1_SimpleGenericPool_1_PoolItem__1_Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF1870, int32_t, BinarySearch_2, (app::SimpleGenericPool_1_T_PoolItem_System_Object___Array * array, int32_t index, int32_t length, app::SimpleGenericPool_1_T_PoolItem_System_Object_ value, app::IComparer_1_SimpleGenericPool_1_PoolItem__1* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0477C6F8, ArraySortHelper_1_SimpleGenericPool_1_PoolItem__1_BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF1A20, void, Sort_4, (app::SimpleGenericPool_1_T_PoolItem_System_Object___Array * keys, int32_t index, int32_t length, app::Comparison_1_SimpleGenericPool_1_PoolItem__1* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04790AA0, ArraySortHelper_1_SimpleGenericPool_1_PoolItem__1_Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C8AB70, int32_t, InternalBinarySearch_2, (app::SimpleGenericPool_1_T_PoolItem_System_Object___Array * array, int32_t index, int32_t length, app::SimpleGenericPool_1_T_PoolItem_System_Object_ value, app::IComparer_1_SimpleGenericPool_1_PoolItem__1* comparer))
     IL2CPP_REGISTER_METHOD(0x02C8AD30, void, SwapIfGreater_2, (app::SimpleGenericPool_1_T_PoolItem_System_Object___Array * keys, app::Comparison_1_SimpleGenericPool_1_PoolItem__1* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C8AEE0, void, Swap_2, (app::SimpleGenericPool_1_T_PoolItem_System_Object___Array * a, int32_t i, int32_t j))

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UberPoolPrewarmMasterList_PrewarmConfig__Class.h>
 #include <Modloader/app/structs/UberPoolPrewarmMasterList_PrewarmConfig.h>
 #include <Modloader/app/structs/UberPoolPrewarmMasterList_PrewarmConfig__Array.h>
+#include <Modloader/app/structs/UberPoolPrewarmMasterList_PrewarmConfig__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace UberPoolPrewarmMasterList_PrewarmConfig {
-        namespace {
-            inline app::UberPoolPrewarmMasterList_PrewarmConfig__Class* type_info_ref = nullptr;
+        inline app::UberPoolPrewarmMasterList_PrewarmConfig__Class** type_info() {
+            static app::UberPoolPrewarmMasterList_PrewarmConfig__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::UberPoolPrewarmMasterList_PrewarmConfig__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::UberPoolPrewarmMasterList_PrewarmConfig__Class** type_info = &type_info_ref;
         inline app::UberPoolPrewarmMasterList_PrewarmConfig__Class* get_class() {
-            return il2cpp::get_nested_class<app::UberPoolPrewarmMasterList_PrewarmConfig__Class>(type_info, "Moon.pooling", "UberPoolPrewarmMasterList", "PrewarmConfig");
+            return il2cpp::get_nested_class<app::UberPoolPrewarmMasterList_PrewarmConfig__Class>(type_info(), "Moon.pooling", "UberPoolPrewarmMasterList", "PrewarmConfig");
         }
         inline app::UberPoolPrewarmMasterList_PrewarmConfig* create() {
             return il2cpp::create_object<app::UberPoolPrewarmMasterList_PrewarmConfig>(get_class());

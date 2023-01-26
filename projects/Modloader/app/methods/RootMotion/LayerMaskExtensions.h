@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LayerMask.h>
-#include <Modloader/app/structs/String__Array.h>
+
+#include <Modloader/app/structs/LayerMask.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::RootMotion::LayerMaskExtensions {
     IL2CPP_REGISTER_METHOD(0x02A2BC20, bool, Contains, (app::LayerMask mask, int32_t layer))

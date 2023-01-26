@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData__Boxed.h>
+
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData__Boxed.h>
 #include <Modloader/app/structs/FramePerformanceMonitor_PerformanceEntry.h>
 #include <Modloader/app/structs/StreamWriter.h>
 

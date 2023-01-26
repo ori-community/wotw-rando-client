@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_ServerPhysicalSystemManager_RigidbodyStateData_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_ServerPhysicalSystemManager_RigidbodyStateData_.h>
 #include <Modloader/app/structs/Comparison_1_ServerPhysicalSystemManager_RigidbodyStateData_.h>
 #include <Modloader/app/structs/ServerPhysicalSystemManager_RigidbodyStateData.h>
 

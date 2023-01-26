@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinGrabSurfacePuppet.h>
+
+#include <Modloader/app/structs/SeinGrabSurfacePuppet.h>
 
 namespace app::classes::SeinGrabSurfacePuppet {
     IL2CPP_REGISTER_METHOD(0x00E3EEB0, int32_t, get_Id, (app::SeinGrabSurfacePuppet * this_ptr))

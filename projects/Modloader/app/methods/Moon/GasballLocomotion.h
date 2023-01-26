@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GasballLocomotion.h>
+
+#include <Modloader/app/structs/GasballLocomotion.h>
 #include <Modloader/app/structs/Entity.h>
 
 namespace app::classes::Moon::GasballLocomotion {

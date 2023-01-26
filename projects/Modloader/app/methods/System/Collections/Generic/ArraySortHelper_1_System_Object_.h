@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object__Array.h>
+
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Comparison_1_Object_.h>
 #include <Modloader/app/structs/IComparer_1_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Comparison_1_Object_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02F7BC60, void, Sort_1, (app::Object__Array * keys, int32_t index, int32_t length, app::IComparer_1_System_Object_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04760BB0, ArraySortHelper_1_System_Object__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F7BF80, int32_t, BinarySearch, (app::Object__Array * array, int32_t index, int32_t length, app::Object* value, app::IComparer_1_System_Object_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04723B10, ArraySortHelper_1_System_Object__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F7C120, void, Sort_2, (app::Object__Array * keys, int32_t index, int32_t length, app::Comparison_1_Object_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0472E000, ArraySortHelper_1_System_Object__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F7C270, int32_t, InternalBinarySearch, (app::Object__Array * array, int32_t index, int32_t length, app::Object* value, app::IComparer_1_System_Object_* comparer))
     IL2CPP_REGISTER_METHOD(0x02F7C390, void, SwapIfGreater, (app::Object__Array * keys, app::Comparison_1_Object_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02F7C510, void, Swap, (app::Object__Array * a, int32_t i, int32_t j))

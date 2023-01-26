@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WaitForAnimationEvent.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/WaitForAnimationEvent.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::WaitForAnimationEvent {
     IL2CPP_REGISTER_METHOD(0x008C5AC0, void, Start, (app::WaitForAnimationEvent * this_ptr))
@@ -17,7 +18,6 @@ namespace app::classes::WaitForAnimationEvent {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Perform, (app::WaitForAnimationEvent * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Stop, (app::WaitForAnimationEvent * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008C5DE0, void, OnAnimationEvent, (app::WaitForAnimationEvent * this_ptr, app::String* received_event_id))
-    IL2CPP_REGISTER_METHODINFO(0x047639F8, WaitForAnimationEvent_OnAnimationEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008009A0, bool, ShouldPlayAnimation, (app::WaitForAnimationEvent * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008C5E20, void, ctor, (app::WaitForAnimationEvent * this_ptr))
 } // namespace app::classes::WaitForAnimationEvent

@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ParticleSystem.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Color32.h>
-#include <Modloader/app/structs/ParticleSystem_Particle.h>
+
+#include <Modloader/app/structs/ParticleSystem.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Color32.h>
 #include <Modloader/app/structs/ParticleSystemSimulationSpace__Enum.h>
-#include <Modloader/app/structs/ParticleSystem_MainModule.h>
+#include <Modloader/app/structs/ParticleSystemStopBehavior__Enum.h>
+#include <Modloader/app/structs/ParticleSystem_CollisionModule.h>
+#include <Modloader/app/structs/ParticleSystem_ColorOverLifetimeModule.h>
 #include <Modloader/app/structs/ParticleSystem_EmissionModule.h>
+#include <Modloader/app/structs/ParticleSystem_EmitParams.h>
+#include <Modloader/app/structs/ParticleSystem_ForceOverLifetimeModule.h>
+#include <Modloader/app/structs/ParticleSystem_MainModule.h>
+#include <Modloader/app/structs/ParticleSystem_Particle.h>
+#include <Modloader/app/structs/ParticleSystem_Particle__Array.h>
 #include <Modloader/app/structs/ParticleSystem_ShapeModule.h>
 #include <Modloader/app/structs/ParticleSystem_VelocityOverLifetimeModule.h>
-#include <Modloader/app/structs/ParticleSystem_ForceOverLifetimeModule.h>
-#include <Modloader/app/structs/ParticleSystem_ColorOverLifetimeModule.h>
-#include <Modloader/app/structs/ParticleSystem_CollisionModule.h>
-#include <Modloader/app/structs/ParticleSystem_Particle__Array.h>
-#include <Modloader/app/structs/ParticleSystemStopBehavior__Enum.h>
-#include <Modloader/app/structs/ParticleSystem_EmitParams.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::ParticleSystem {
     IL2CPP_REGISTER_METHOD(0x03132610, void, Emit_1, (app::ParticleSystem * this_ptr, app::Vector3 position, app::Vector3 velocity, float size, float lifetime, app::Color32 color))

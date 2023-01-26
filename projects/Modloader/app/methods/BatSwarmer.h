@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/BatEnemy.h>
+#include <Modloader/app/structs/BatSwarm.h>
 #include <Modloader/app/structs/BatSwarmer.h>
 #include <Modloader/app/structs/BatSwarmerSettings.h>
-#include <Modloader/app/structs/BatSwarm.h>
-#include <Modloader/app/structs/BatEnemy.h>
 
 namespace app::classes::BatSwarmer {
     IL2CPP_REGISTER_METHOD(0x00F96AF0, app::Vector2, get_Position, (app::BatSwarmer * this_ptr))

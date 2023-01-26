@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BinaryObjectWithMapTyped.h>
+
+#include <Modloader/app/structs/BinaryObjectWithMapTyped.h>
 #include <Modloader/app/structs/BinaryHeaderEnum__Enum.h>
+#include <Modloader/app/structs/BinaryTypeEnum__Enum__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Object__Array.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/BinaryTypeEnum__Enum__Array.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/_BinaryWriter.h>
 #include <Modloader/app/structs/_BinaryParser.h>
+#include <Modloader/app/structs/_BinaryWriter.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::BinaryObjectWithMapTyped {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor_1, (app::BinaryObjectWithMapTyped * this_ptr))

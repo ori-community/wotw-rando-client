@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LizardDeathReaction.h>
+
+#include <Modloader/app/structs/LizardDeathReaction.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/LizardDeathReaction_DeathState__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LizardDeathReaction {
@@ -38,9 +39,6 @@ namespace app::classes::LizardDeathReaction {
     IL2CPP_REGISTER_METHOD(0x00FABDC0, void, EndReaction, (app::LizardDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FABE80, void, ctor, (app::LizardDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FABF40, void, _EnterLaunch_b__40_0, (app::LizardDeathReaction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476E600, LizardDeathReaction__EnterLaunch_b__40_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FABFB0, void, _EnterLand_b__42_0, (app::LizardDeathReaction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047950D0, LizardDeathReaction__EnterLand_b__42_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FABFB0, void, _EnterDrown_b__43_0, (app::LizardDeathReaction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04785728, LizardDeathReaction__EnterDrown_b__43_0__MethodInfo)
 } // namespace app::classes::LizardDeathReaction

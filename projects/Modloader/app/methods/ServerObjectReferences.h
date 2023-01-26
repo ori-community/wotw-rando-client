@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/ServerObject.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/ServerObject.h>
 #include <Modloader/app/structs/ServerObjectReferences.h>
 
 namespace app::classes::ServerObjectReferences {

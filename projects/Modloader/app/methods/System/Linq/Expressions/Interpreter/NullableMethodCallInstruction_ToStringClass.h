@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NullableMethodCallInstruction_ToStringClass.h>
+
+#include <Modloader/app/structs/NullableMethodCallInstruction_ToStringClass.h>
 #include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::NullableMethodCallInstruction_ToStringClass {

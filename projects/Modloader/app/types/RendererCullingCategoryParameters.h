@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/RendererCullingCategoryParameters.h>
+#include <Modloader/app/structs/RendererCullingCategoryParameters__Array.h>
+#include <Modloader/app/structs/RendererCullingCategoryParameters__Boxed.h>
+#include <Modloader/app/structs/RendererCullingCategoryParameters__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RendererCullingCategoryParameters__Class.h>
-#include <Modloader/app/structs/RendererCullingCategoryParameters.h>
-#include <Modloader/app/structs/RendererCullingCategoryParameters__Boxed.h>
-#include <Modloader/app/structs/RendererCullingCategoryParameters__Array.h>
 
 namespace app::classes::types {
     namespace RendererCullingCategoryParameters {
-        namespace {
-            inline app::RendererCullingCategoryParameters__Class* type_info_ref = nullptr;
+        inline app::RendererCullingCategoryParameters__Class** type_info() {
+            static app::RendererCullingCategoryParameters__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::RendererCullingCategoryParameters__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::RendererCullingCategoryParameters__Class** type_info = &type_info_ref;
         inline app::RendererCullingCategoryParameters__Class* get_class() {
-            return il2cpp::get_class<app::RendererCullingCategoryParameters__Class>(type_info, "UnityEngine.Experimental.Rendering", "RendererCullingCategoryParameters");
+            return il2cpp::get_class<app::RendererCullingCategoryParameters__Class>(type_info(), "UnityEngine.Experimental.Rendering", "RendererCullingCategoryParameters");
         }
         inline app::RendererCullingCategoryParameters* create() {
             return il2cpp::create_object<app::RendererCullingCategoryParameters>(get_class());

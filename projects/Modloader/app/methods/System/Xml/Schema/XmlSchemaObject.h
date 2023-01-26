@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaObject.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSerializerNamespaces.h>
-#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+
+#include <Modloader/app/structs/XmlSchemaObject.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XmlAttribute__Array.h>
 #include <Modloader/app/structs/XmlSchemaAnnotation.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlSerializerNamespaces.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaObject {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_LineNumber, (app::XmlSchemaObject * this_ptr))

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ProcessAnimationJobStruct_1_T_ExecuteJobFunction_Moon_Animation_DelayJointPostprocessJob_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/DelayJointPostprocessJob.h>
-#include <Modloader/app/structs/JobRanges.h>
-#include <Modloader/app/structs/IAsyncResult.h>
+
+#include <Modloader/app/structs/ProcessAnimationJobStruct_1_T_ExecuteJobFunction_Moon_Animation_DelayJointPostprocessJob_.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/DelayJointPostprocessJob.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/JobRanges.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::Experimental::Animations::ProcessAnimationJobStruct_1_T__ExecuteJobFunction_Moon_Animation_DelayJointPostprocessJob_ {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::ProcessAnimationJobStruct_1_T_ExecuteJobFunction_Moon_Animation_DelayJointPostprocessJob_ * this_ptr, app::Object* object, void* method_1))

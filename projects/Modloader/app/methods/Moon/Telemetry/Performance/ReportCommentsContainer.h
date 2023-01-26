@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReportCommentsContainer.h>
+
+#include <Modloader/app/structs/ReportCommentsContainer.h>
 
 namespace app::classes::Moon::Telemetry::Performance::ReportCommentsContainer {
     IL2CPP_REGISTER_METHOD(0x0052A040, void, set_IsChanged, (app::ReportCommentsContainer * this_ptr, bool value))

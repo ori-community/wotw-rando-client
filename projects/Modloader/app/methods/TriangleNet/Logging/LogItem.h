@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DateTime.h>
+
+#include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/LogItem.h>
 #include <Modloader/app/structs/LogLevel__Enum.h>
 #include <Modloader/app/structs/String.h>

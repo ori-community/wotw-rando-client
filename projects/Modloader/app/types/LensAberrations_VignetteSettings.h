@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LensAberrations_VignetteSettings__Class.h>
 #include <Modloader/app/structs/LensAberrations_VignetteSettings.h>
 #include <Modloader/app/structs/LensAberrations_VignetteSettings__Boxed.h>
+#include <Modloader/app/structs/LensAberrations_VignetteSettings__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace LensAberrations_VignetteSettings {
-        namespace {
-            inline app::LensAberrations_VignetteSettings__Class* type_info_ref = nullptr;
+        inline app::LensAberrations_VignetteSettings__Class** type_info() {
+            static app::LensAberrations_VignetteSettings__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LensAberrations_VignetteSettings__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LensAberrations_VignetteSettings__Class** type_info = &type_info_ref;
         inline app::LensAberrations_VignetteSettings__Class* get_class() {
-            return il2cpp::get_nested_class<app::LensAberrations_VignetteSettings__Class>(type_info, "UnityStandardAssets.CinematicEffects", "LensAberrations", "VignetteSettings");
+            return il2cpp::get_nested_class<app::LensAberrations_VignetteSettings__Class>(type_info(), "UnityStandardAssets.CinematicEffects", "LensAberrations", "VignetteSettings");
         }
         inline app::LensAberrations_VignetteSettings* create() {
             return il2cpp::create_object<app::LensAberrations_VignetteSettings>(get_class());

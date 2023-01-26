@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InterpretedFrameInfo__Boxed.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/InterpretedFrameInfo__Boxed.h>
 #include <Modloader/app/structs/DebugInfo.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::InterpretedFrameInfo {
     IL2CPP_REGISTER_METHOD(0x00110270, void, ctor, (app::InterpretedFrameInfo__Boxed * this_ptr, app::String* method_name, app::DebugInfo* info))

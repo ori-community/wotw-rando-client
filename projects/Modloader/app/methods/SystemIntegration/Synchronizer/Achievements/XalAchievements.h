@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XalAchievements.h>
-#include <Modloader/app/structs/CacheData__Array.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Action_1_String_.h>
 #include <Modloader/app/structs/CacheData.h>
-#include <Modloader/app/structs/List_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_.h>
-#include <Modloader/app/structs/XalUserGetTokenAndSignatureArgs.h>
-#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/CacheData__Array.h>
 #include <Modloader/app/structs/HttpMethod.h>
 #include <Modloader/app/structs/IEnumerable_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_.h>
-#include <Modloader/app/structs/Action_1_String_.h>
-#include <Modloader/app/structs/UnityWebRequest.h>
 #include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/List_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UnityWebRequest.h>
+#include <Modloader/app/structs/XalAchievements.h>
+#include <Modloader/app/structs/XalUserGetTokenAndSignatureArgs.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::Achievements::XalAchievements {
     IL2CPP_REGISTER_METHOD(0x0052F860, app::String*, get_Name, (app::XalAchievements * this_ptr))
@@ -27,12 +28,9 @@ namespace app::classes::SystemIntegration::Synchronizer::Achievements::XalAchiev
     IL2CPP_REGISTER_METHOD(0x00530520, void, AchievementSetComplete, (app::XalAchievements * this_ptr, app::String* json, app::CacheData* data))
     IL2CPP_REGISTER_METHOD(0x00530790, void, UpdateFromServer, (app::XalAchievements * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00530CF0, void, AchievementGetComplete, (app::XalAchievements * this_ptr, app::String* json))
-    IL2CPP_REGISTER_METHODINFO(0x047257F8, XalAchievements_AchievementGetComplete__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00531180, void, HeaderAndArgsForGetAchievements, (app::String * full_address, app::String* method_1, app::String* body, app::List_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_** headers, app::XalUserGetTokenAndSignatureArgs* args))
     IL2CPP_REGISTER_METHOD(0x00531660, void, OnError, (app::XalAchievements * this_ptr, app::Object* error))
-    IL2CPP_REGISTER_METHODINFO(0x0475E280, XalAchievements_OnError__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00531670, void, CallMethodWith, (app::String * full_address, app::HttpMethod* method_1, app::String* body, app::IEnumerable_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_* headers, app::String* signature, app::String* token, app::Action_1_String_* on_complete, app::Action_1_String_* on_error))
-    IL2CPP_REGISTER_METHODINFO(0x04705590, XalAchievements_CallMethodWith__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00531C80, void, Perform, (app::UnityWebRequest * request, app::IEnumerable_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_* headers, app::String* signature, app::String* token, app::Action_1_String_* on_complete, app::Action_1_String_* on_error))
     IL2CPP_REGISTER_METHOD(0x005320A0, app::IEnumerator*, RunRequest, (app::UnityWebRequest * web_request, app::Action* on_complete))
     IL2CPP_REGISTER_METHOD(0x00532200, void, AddToClient, (app::UnityWebRequest * form, app::IEnumerable_1_Microsoft_Xbox_Services_Xal_XalHttpHeader_* headers))

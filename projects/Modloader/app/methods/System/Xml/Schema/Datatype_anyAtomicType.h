@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlValueConverter.h>
+
+#include <Modloader/app/structs/XmlValueConverter.h>
 #include <Modloader/app/structs/Datatype_anyAtomicType.h>
 #include <Modloader/app/structs/XmlSchemaType.h>
 #include <Modloader/app/structs/XmlSchemaWhiteSpace__Enum.h>

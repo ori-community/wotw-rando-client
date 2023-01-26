@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AddInstruction_AddUInt16.h>
+
+#include <Modloader/app/structs/AddInstruction_AddUInt16.h>
 #include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::AddInstruction_AddUInt16 {

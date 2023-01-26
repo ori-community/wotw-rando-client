@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VerletStructure_SystemWithMonoBehaviour.h>
+
+#include <Modloader/app/structs/VerletStructure_SystemWithMonoBehaviour.h>
 #include <Modloader/app/structs/VerletStructure__Array.h>
 
 namespace app::classes::VerletStructure_SystemWithMonoBehaviour {

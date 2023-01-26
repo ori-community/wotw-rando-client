@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Axis.h>
-#include <Modloader/app/structs/Axis_AxisType__Enum.h>
+
+#include <Modloader/app/structs/Axis.h>
 #include <Modloader/app/structs/AstNode.h>
+#include <Modloader/app/structs/AstNode_AstType__Enum.h>
+#include <Modloader/app/structs/Axis_AxisType__Enum.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XPathNodeType__Enum.h>
-#include <Modloader/app/structs/AstNode_AstType__Enum.h>
 #include <Modloader/app/structs/XPathResultType__Enum.h>
 
 namespace app::classes::MS::Internal::Xml::XPath::Axis {

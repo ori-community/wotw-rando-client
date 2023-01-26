@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NightCrawlerRevealTorchTrigger.h>
+
+#include <Modloader/app/structs/NightCrawlerRevealTorchTrigger.h>
 #include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/IContext.h>

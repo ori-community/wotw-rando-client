@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/StressTestActionHandler.h>
+#include <Modloader/app/structs/StressTestActionHandler__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/StressTestActionHandler__Class.h>
-#include <Modloader/app/structs/StressTestActionHandler.h>
 
 namespace app::classes::types {
     namespace StressTestActionHandler {
-        namespace {
-            inline app::StressTestActionHandler__Class* type_info_ref = nullptr;
+        inline app::StressTestActionHandler__Class** type_info() {
+            static app::StressTestActionHandler__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::StressTestActionHandler__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::StressTestActionHandler__Class** type_info = &type_info_ref;
         inline app::StressTestActionHandler__Class* get_class() {
-            return il2cpp::get_class<app::StressTestActionHandler__Class>(type_info, "", "StressTestActionHandler");
+            return il2cpp::get_class<app::StressTestActionHandler__Class>(type_info(), "", "StressTestActionHandler");
         }
         inline app::StressTestActionHandler* create() {
             return il2cpp::create_object<app::StressTestActionHandler>(get_class());

@@ -1,40 +1,41 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IContractResolver.h>
-#include <Modloader/app/structs/DefaultContractResolver.h>
+
+#include <Modloader/app/structs/IContractResolver.h>
 #include <Modloader/app/structs/BindingFlags__Enum.h>
-#include <Modloader/app/structs/NamingStrategy.h>
-#include <Modloader/app/structs/JsonContract.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/MemberInfo_1.h>
-#include <Modloader/app/structs/List_1_System_Reflection_MemberInfo_.h>
-#include <Modloader/app/structs/JsonObjectContract.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/StreamingContext.h>
 #include <Modloader/app/structs/ConstructorInfo.h>
-#include <Modloader/app/structs/JsonPropertyCollection.h>
-#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
-#include <Modloader/app/structs/JsonProperty.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ParameterInfo_1.h>
-#include <Modloader/app/structs/JsonConverter.h>
+#include <Modloader/app/structs/DefaultContractResolver.h>
+#include <Modloader/app/structs/DefaultJsonNameTable.h>
 #include <Modloader/app/structs/Func_1_Object_.h>
+#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
+#include <Modloader/app/structs/IValueProvider.h>
+#include <Modloader/app/structs/JsonArrayContract.h>
+#include <Modloader/app/structs/JsonContract.h>
+#include <Modloader/app/structs/JsonConverter.h>
+#include <Modloader/app/structs/JsonDictionaryContract.h>
+#include <Modloader/app/structs/JsonDynamicContract.h>
+#include <Modloader/app/structs/JsonISerializableContract.h>
+#include <Modloader/app/structs/JsonLinqContract.h>
+#include <Modloader/app/structs/JsonObjectContract.h>
+#include <Modloader/app/structs/JsonPrimitiveContract.h>
+#include <Modloader/app/structs/JsonProperty.h>
+#include <Modloader/app/structs/JsonPropertyCollection.h>
+#include <Modloader/app/structs/JsonStringContract.h>
 #include <Modloader/app/structs/List_1_Newtonsoft_Json_Serialization_SerializationCallback_.h>
 #include <Modloader/app/structs/List_1_Newtonsoft_Json_Serialization_SerializationErrorCallback_.h>
+#include <Modloader/app/structs/List_1_System_Reflection_MemberInfo_.h>
 #include <Modloader/app/structs/List_1_System_Type_.h>
-#include <Modloader/app/structs/JsonDictionaryContract.h>
-#include <Modloader/app/structs/JsonArrayContract.h>
-#include <Modloader/app/structs/JsonPrimitiveContract.h>
-#include <Modloader/app/structs/JsonLinqContract.h>
-#include <Modloader/app/structs/JsonISerializableContract.h>
-#include <Modloader/app/structs/JsonDynamicContract.h>
-#include <Modloader/app/structs/JsonStringContract.h>
-#include <Modloader/app/structs/MethodInfo_1.h>
-#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
 #include <Modloader/app/structs/MemberSerialization__Enum.h>
-#include <Modloader/app/structs/DefaultJsonNameTable.h>
-#include <Modloader/app/structs/IValueProvider.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/NamingStrategy.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ParameterInfo_1.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
 #include <Modloader/app/structs/Predicate_1_Object_.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::DefaultContractResolver {
     IL2CPP_REGISTER_METHOD(0x0185DEC0, app::IContractResolver*, get_Instance, ())
@@ -51,17 +52,13 @@ namespace app::classes::Newtonsoft::Json::Serialization::DefaultContractResolver
     IL2CPP_REGISTER_METHOD(0x0185E030, void, ctor, (app::DefaultContractResolver * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0185E3A0, app::JsonContract*, ResolveContract, (app::DefaultContractResolver * this_ptr, app::Type* type))
     IL2CPP_REGISTER_METHOD(0x0185E480, bool, FilterMembers, (app::MemberInfo_1 * member))
-    IL2CPP_REGISTER_METHODINFO(0x04717D58, DefaultContractResolver_FilterMembers__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0185E6B0, app::List_1_System_Reflection_MemberInfo_*, GetSerializableMembers, (app::DefaultContractResolver * this_ptr, app::Type* object_type))
     IL2CPP_REGISTER_METHOD(0x0185F230, bool, ShouldSerializeEntityMember, (app::DefaultContractResolver * this_ptr, app::MemberInfo_1* member_info))
-    IL2CPP_REGISTER_METHODINFO(0x04700F10, DefaultContractResolver_ShouldSerializeEntityMember__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0185F3C0, app::JsonObjectContract*, CreateObjectContract, (app::DefaultContractResolver * this_ptr, app::Type* object_type))
     IL2CPP_REGISTER_METHOD(0x0185FFA0, void, ThrowUnableToSerializeError, (app::Object * o, app::StreamingContext context))
-    IL2CPP_REGISTER_METHODINFO(0x04735AB0, DefaultContractResolver_ThrowUnableToSerializeError__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01860090, app::MemberInfo_1*, GetExtensionDataMemberForType, (app::DefaultContractResolver * this_ptr, app::Type* type))
     IL2CPP_REGISTER_METHOD(0x018603E0, void, SetExtensionDataDelegates, (app::JsonObjectContract * contract, app::MemberInfo_1* member))
     IL2CPP_REGISTER_METHOD(0x018611C0, app::ConstructorInfo*, GetAttributeConstructor, (app::DefaultContractResolver * this_ptr, app::Type* object_type))
-    IL2CPP_REGISTER_METHODINFO(0x0474A420, DefaultContractResolver_GetAttributeConstructor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01861690, app::ConstructorInfo*, GetImmutableConstructor, (app::DefaultContractResolver * this_ptr, app::Type* object_type, app::JsonPropertyCollection* member_properties))
     IL2CPP_REGISTER_METHOD(0x018618B0, app::ConstructorInfo*, GetParameterizedConstructor, (app::DefaultContractResolver * this_ptr, app::Type* object_type))
     IL2CPP_REGISTER_METHOD(0x01861900, app::IList_1_Newtonsoft_Json_Serialization_JsonProperty_*, CreateConstructorParameters, (app::DefaultContractResolver * this_ptr, app::ConstructorInfo* constructor, app::JsonPropertyCollection* member_properties))
@@ -77,9 +74,7 @@ namespace app::classes::Newtonsoft::Json::Serialization::DefaultContractResolver
     IL2CPP_REGISTER_METHOD(0x01863930, bool, ShouldSkipSerializing, (app::Type * t))
     IL2CPP_REGISTER_METHOD(0x01863A70, app::List_1_System_Type_*, GetClassHierarchyForType, (app::DefaultContractResolver * this_ptr, app::Type* type))
     IL2CPP_REGISTER_METHOD(0x01863CA0, app::JsonDictionaryContract*, CreateDictionaryContract, (app::DefaultContractResolver * this_ptr, app::Type* object_type))
-    IL2CPP_REGISTER_METHODINFO(0x047545A8, DefaultContractResolver_CreateDictionaryContract__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01864560, app::JsonArrayContract*, CreateArrayContract, (app::DefaultContractResolver * this_ptr, app::Type* object_type))
-    IL2CPP_REGISTER_METHODINFO(0x0470D780, DefaultContractResolver_CreateArrayContract__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x018649C0, app::JsonPrimitiveContract*, CreatePrimitiveContract, (app::DefaultContractResolver * this_ptr, app::Type* object_type))
     IL2CPP_REGISTER_METHOD(0x01864B20, app::JsonLinqContract*, CreateLinqContract, (app::DefaultContractResolver * this_ptr, app::Type* object_type))
     IL2CPP_REGISTER_METHOD(0x01864C90, app::JsonISerializableContract*, CreateISerializableContract, (app::DefaultContractResolver * this_ptr, app::Type* object_type))
@@ -90,10 +85,8 @@ namespace app::classes::Newtonsoft::Json::Serialization::DefaultContractResolver
     IL2CPP_REGISTER_METHOD(0x01865E70, bool, IsIConvertible, (app::Type * t))
     IL2CPP_REGISTER_METHOD(0x01866040, bool, CanConvertToString, (app::Type * type))
     IL2CPP_REGISTER_METHOD(0x01866190, bool, IsValidCallback, (app::MethodInfo_1 * method_1, app::ParameterInfo_1__Array* parameters, app::Type* attribute_type, app::MethodInfo_1* current_callback, app::Type** prev_attribute_type))
-    IL2CPP_REGISTER_METHODINFO(0x04745A68, DefaultContractResolver_IsValidCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01866980, app::String*, GetClrTypeFullName, (app::Type * type))
     IL2CPP_REGISTER_METHOD(0x01866AD0, app::IList_1_Newtonsoft_Json_Serialization_JsonProperty_*, CreateProperties, (app::DefaultContractResolver * this_ptr, app::Type* type, app::MemberSerialization__Enum member_serialization))
-    IL2CPP_REGISTER_METHODINFO(0x04760560, DefaultContractResolver_CreateProperties__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA280, app::DefaultJsonNameTable*, GetNameTable, (app::DefaultContractResolver * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01867000, app::IValueProvider*, CreateMemberValueProvider, (app::DefaultContractResolver * this_ptr, app::MemberInfo_1* member))
     IL2CPP_REGISTER_METHOD(0x01867360, app::JsonProperty*, CreateProperty, (app::DefaultContractResolver * this_ptr, app::MemberInfo_1* member, app::MemberSerialization__Enum member_serialization))

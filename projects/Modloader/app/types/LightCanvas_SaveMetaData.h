@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LightCanvas_SaveMetaData__Class.h>
 #include <Modloader/app/structs/LightCanvas_SaveMetaData.h>
 #include <Modloader/app/structs/LightCanvas_SaveMetaData__Boxed.h>
+#include <Modloader/app/structs/LightCanvas_SaveMetaData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace LightCanvas_SaveMetaData {
-        namespace {
-            inline app::LightCanvas_SaveMetaData__Class* type_info_ref = nullptr;
+        inline app::LightCanvas_SaveMetaData__Class** type_info() {
+            static app::LightCanvas_SaveMetaData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LightCanvas_SaveMetaData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LightCanvas_SaveMetaData__Class** type_info = &type_info_ref;
         inline app::LightCanvas_SaveMetaData__Class* get_class() {
-            return il2cpp::get_nested_class<app::LightCanvas_SaveMetaData__Class>(type_info, "", "LightCanvas", "SaveMetaData");
+            return il2cpp::get_nested_class<app::LightCanvas_SaveMetaData__Class>(type_info(), "", "LightCanvas", "SaveMetaData");
         }
         inline app::LightCanvas_SaveMetaData* create() {
             return il2cpp::create_object<app::LightCanvas_SaveMetaData>(get_class());

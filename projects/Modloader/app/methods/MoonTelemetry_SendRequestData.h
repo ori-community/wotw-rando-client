@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTelemetry_SendRequestData.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/MoonTelemetry_SendRequestData.h>
 #include <Modloader/app/structs/Action_1_Moon_Telemetry_Web_MoonTelemetrySendCallback_.h>
 #include <Modloader/app/structs/MoonTelemetrySendRequest.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::MoonTelemetry_SendRequestData {
     IL2CPP_REGISTER_METHOD(0x02E9FBD0, bool, get_IsProcessing, (app::MoonTelemetry_SendRequestData * this_ptr))

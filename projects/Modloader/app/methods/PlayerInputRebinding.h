@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerInputRebinding_KeyBindingSettings.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/PlayerInputRebinding_KeyBindingSettings.h>
 #include <Modloader/app/structs/KeyCode__Enum__Array.h>
-#include <Modloader/app/structs/XboxControllerInput_Button__Enum.h>
 #include <Modloader/app/structs/PlayerInputRebinding.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XboxControllerInput_Button__Enum.h>
 
 namespace app::classes::PlayerInputRebinding {
     IL2CPP_REGISTER_METHOD(0x0141EFA0, app::PlayerInputRebinding_KeyBindingSettings*, get_KeyRebindings, ())

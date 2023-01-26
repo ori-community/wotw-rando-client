@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VisibleOnWorldMap.h>
+
+#include <Modloader/app/structs/VisibleOnWorldMap.h>
 #include <Modloader/app/structs/ConditionUberState.h>
 #include <Modloader/app/structs/SerializedBooleanUberState.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>

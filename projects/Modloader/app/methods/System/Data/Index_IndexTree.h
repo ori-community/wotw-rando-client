@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Index_IndexTree.h>
+
+#include <Modloader/app/structs/Index_IndexTree.h>
 #include <Modloader/app/structs/Index.h>
 
 namespace app::classes::System::Data::Index_IndexTree {

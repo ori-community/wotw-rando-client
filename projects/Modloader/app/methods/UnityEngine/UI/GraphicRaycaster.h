@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GraphicRaycaster.h>
-#include <Modloader/app/structs/GraphicRaycaster_BlockingObjects__Enum.h>
-#include <Modloader/app/structs/Canvas.h>
-#include <Modloader/app/structs/PointerEventData.h>
-#include <Modloader/app/structs/List_1_UnityEngine_EventSystems_RaycastResult_.h>
+
+#include <Modloader/app/structs/GraphicRaycaster.h>
 #include <Modloader/app/structs/Camera.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/IList_1_UnityEngine_UI_Graphic_.h>
-#include <Modloader/app/structs/List_1_UnityEngine_UI_Graphic_.h>
+#include <Modloader/app/structs/Canvas.h>
 #include <Modloader/app/structs/Graphic.h>
+#include <Modloader/app/structs/GraphicRaycaster_BlockingObjects__Enum.h>
+#include <Modloader/app/structs/IList_1_UnityEngine_UI_Graphic_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UI_Graphic_.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::UI::GraphicRaycaster {
     IL2CPP_REGISTER_METHOD(0x024B1F60, void, ctor, (app::GraphicRaycaster * this_ptr))
@@ -25,5 +26,4 @@ namespace app::classes::UnityEngine::UI::GraphicRaycaster {
     IL2CPP_REGISTER_METHOD(0x024B3880, void, Raycast_2, (app::Canvas * canvas, app::Camera* event_camera, app::Vector2 pointer_position, app::IList_1_UnityEngine_UI_Graphic_* found_graphics, app::List_1_UnityEngine_UI_Graphic_* results))
     IL2CPP_REGISTER_METHOD(0x024B3ED0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x024B4020, int32_t, _Raycast_m__0, (app::Graphic * g1, app::Graphic* g2))
-    IL2CPP_REGISTER_METHODINFO(0x0473D120, GraphicRaycaster__Raycast_m__0__MethodInfo)
 } // namespace app::classes::UnityEngine::UI::GraphicRaycaster

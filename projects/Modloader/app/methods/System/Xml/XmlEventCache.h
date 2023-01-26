@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlEventCache.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlWriter.h>
-#include <Modloader/app/structs/Char__Array.h>
+
+#include <Modloader/app/structs/XmlEventCache.h>
 #include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/XmlStandalone__Enum.h>
-#include <Modloader/app/structs/XmlEventCache_XmlEventType__Enum.h>
+#include <Modloader/app/structs/Char__Array.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlEventCache_XmlEventType__Enum.h>
+#include <Modloader/app/structs/XmlStandalone__Enum.h>
+#include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::XmlEventCache {
     IL2CPP_REGISTER_METHOD(0x01DB6180, void, ctor, (app::XmlEventCache * this_ptr, app::String* base_uri, bool has_root_node))
@@ -26,8 +27,8 @@ namespace app::classes::System::Xml::XmlEventCache {
     IL2CPP_REGISTER_METHOD(0x0195E400, void, WriteRaw_1, (app::XmlEventCache * this_ptr, app::Char__Array* buffer, int32_t index, int32_t count))
     IL2CPP_REGISTER_METHOD(0x01DB6E50, void, WriteRaw_2, (app::XmlEventCache * this_ptr, app::String* data))
     IL2CPP_REGISTER_METHOD(0x01DB6EB0, void, WriteEntityRef, (app::XmlEventCache * this_ptr, app::String* name))
-    IL2CPP_REGISTER_METHOD(0x01DB6F10, void, WriteCharEntity, (app::XmlEventCache * this_ptr, uint16_t ch))
-    IL2CPP_REGISTER_METHOD(0x01DB6FF0, void, WriteSurrogateCharEntity, (app::XmlEventCache * this_ptr, uint16_t low_char, uint16_t high_char))
+    IL2CPP_REGISTER_METHOD(0x01DB6F10, void, WriteCharEntity, (app::XmlEventCache * this_ptr, char16_t ch))
+    IL2CPP_REGISTER_METHOD(0x01DB6FF0, void, WriteSurrogateCharEntity, (app::XmlEventCache * this_ptr, char16_t low_char, char16_t high_char))
     IL2CPP_REGISTER_METHOD(0x01DB7120, void, WriteBase64, (app::XmlEventCache * this_ptr, app::Byte__Array* buffer, int32_t index, int32_t count))
     IL2CPP_REGISTER_METHOD(0x01DB71A0, void, WriteBinHex, (app::XmlEventCache * this_ptr, app::Byte__Array* buffer, int32_t index, int32_t count))
     IL2CPP_REGISTER_METHOD(0x01DB7220, void, Close, (app::XmlEventCache * this_ptr))

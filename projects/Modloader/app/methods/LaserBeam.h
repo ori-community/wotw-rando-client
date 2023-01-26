@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LaserBeam.h>
-#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
+
+#include <Modloader/app/structs/LaserBeam.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::LaserBeam {

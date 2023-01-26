@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Grounding_Pelvis.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Grounding.h>
+#include <Modloader/app/structs/Grounding_Pelvis.h>
 
 namespace app::classes::RootMotion::FinalIK::Grounding_Pelvis {
     IL2CPP_REGISTER_METHOD(0x007EC230, app::Vector3, get_IKOffset, (app::Grounding_Pelvis * this_ptr))

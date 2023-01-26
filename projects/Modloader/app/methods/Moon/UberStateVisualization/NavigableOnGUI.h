@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NavigableOnGUI.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/NavigableOnGUI.h>
 #include <Modloader/app/structs/GUILayoutOption__Array.h>
 #include <Modloader/app/structs/NavigableOnGUI_Field.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::UberStateVisualization::NavigableOnGUI {
     IL2CPP_REGISTER_METHOD(0x01B73260, bool, get_isSelected, (app::NavigableOnGUI * this_ptr))

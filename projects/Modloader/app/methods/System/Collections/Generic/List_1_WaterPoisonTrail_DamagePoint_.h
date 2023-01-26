@@ -1,35 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_WaterPoisonTrail_DamagePoint_.h>
-#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint.h>
-#include <Modloader/app/structs/IEnumerable_1_WaterPoisonTrail_DamagePoint_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_WaterPoisonTrail_DamagePoint_.h>
-#include <Modloader/app/structs/IComparer_1_WaterPoisonTrail_DamagePoint_.h>
-#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_WaterPoisonTrail_DamagePoint_.h>
+
+#include <Modloader/app/structs/List_1_WaterPoisonTrail_DamagePoint_.h>
 #include <Modloader/app/structs/Action_1_WaterPoisonTrail_DamagePoint_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_WaterPoisonTrail_DamagePoint_.h>
-#include <Modloader/app/structs/IEnumerator_1_WaterPoisonTrail_DamagePoint_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_WaterPoisonTrail_DamagePoint_.h>
+#include <Modloader/app/structs/IComparer_1_WaterPoisonTrail_DamagePoint_.h>
+#include <Modloader/app/structs/IEnumerable_1_WaterPoisonTrail_DamagePoint_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_WaterPoisonTrail_DamagePoint_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_WaterPoisonTrail_DamagePoint_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_WaterPoisonTrail_DamagePoint_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_WaterPoisonTrail_DamagePoint_.h>
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint.h>
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_WaterPoisonTrail_DamagePoint_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_WaterPoisonTrail_DamagePoint_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471D1C8, List_1_WaterPoisonTrail_DamagePoint__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C21490, app::WaterPoisonTrail_DamagePoint, get_Item, (app::List_1_WaterPoisonTrail_DamagePoint_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0471E8D0, List_1_WaterPoisonTrail_DamagePoint__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C231A0, void, RemoveAt, (app::List_1_WaterPoisonTrail_DamagePoint_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04723358, List_1_WaterPoisonTrail_DamagePoint__RemoveAt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C214D0, void, set_Item, (app::List_1_WaterPoisonTrail_DamagePoint_ * this_ptr, int32_t index, app::WaterPoisonTrail_DamagePoint value))
-    IL2CPP_REGISTER_METHODINFO(0x04784410, List_1_WaterPoisonTrail_DamagePoint__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_WaterPoisonTrail_DamagePoint_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470FD50, List_1_WaterPoisonTrail_DamagePoint__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C21830, void, Add, (app::List_1_WaterPoisonTrail_DamagePoint_ * this_ptr, app::WaterPoisonTrail_DamagePoint item))
-    IL2CPP_REGISTER_METHODINFO(0x04775ED8, List_1_WaterPoisonTrail_DamagePoint__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_WaterPoisonTrail_DamagePoint_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047906F0, List_1_WaterPoisonTrail_DamagePoint___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_WaterPoisonTrail_DamagePoint_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02C20EA0, void, ctor_3, (app::List_1_WaterPoisonTrail_DamagePoint_ * this_ptr, app::IEnumerable_1_WaterPoisonTrail_DamagePoint_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_WaterPoisonTrail_DamagePoint_ * this_ptr))

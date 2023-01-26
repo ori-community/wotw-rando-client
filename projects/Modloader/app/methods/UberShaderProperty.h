@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderBlock.h>
-#include <Modloader/app/structs/UberShaderProperty.h>
+
+#include <Modloader/app/structs/UberShaderBlock.h>
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/Renderer.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Texture.h>
-#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/UberShaderProperty.h>
 #include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UberShaderProperty {

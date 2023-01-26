@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_UnityEngine_Matrix4x4_.h>
+
+#include <Modloader/app/structs/Array_EmptyInternalEnumerator_1_UnityEngine_Matrix4x4_.h>
 #include <Modloader/app/structs/Matrix4x4.h>
 #include <Modloader/app/structs/Object.h>
 
@@ -8,7 +9,6 @@ namespace app::classes::System::Array_EmptyInternalEnumerator_1_UnityEngine_Matr
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Dispose, (app::Array_EmptyInternalEnumerator_1_UnityEngine_Matrix4x4_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, MoveNext, (app::Array_EmptyInternalEnumerator_1_UnityEngine_Matrix4x4_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D027D0, app::Matrix4x4, get_Current, (app::Array_EmptyInternalEnumerator_1_UnityEngine_Matrix4x4_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04724140, Array_EmptyInternalEnumerator_1_UnityEngine_Matrix4x4__get_Current__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01CFF230, app::Object*, IEnumerator_get_Current, (app::Array_EmptyInternalEnumerator_1_UnityEngine_Matrix4x4_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IEnumerator_Reset, (app::Array_EmptyInternalEnumerator_1_UnityEngine_Matrix4x4_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::Array_EmptyInternalEnumerator_1_UnityEngine_Matrix4x4_ * this_ptr))

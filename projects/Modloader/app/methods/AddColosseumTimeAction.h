@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AddColosseumTimeAction.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/AddColosseumTimeAction.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::AddColosseumTimeAction {
     IL2CPP_REGISTER_METHOD(0x004CA060, void, Perform, (app::AddColosseumTimeAction * this_ptr, app::IContext* context))

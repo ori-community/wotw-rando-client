@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
+
+#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
 #include <Modloader/app/structs/List_1_System_Int32_.h>
 #include <Modloader/app/structs/Triangulate.h>
 

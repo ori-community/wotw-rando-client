@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DynamicReflectionDelegateFactory.h>
+
+#include <Modloader/app/structs/DynamicReflectionDelegateFactory.h>
+#include <Modloader/app/structs/Action_2_Object_Object_.h>
 #include <Modloader/app/structs/DynamicMethod.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/Func_1_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/ILGenerator.h>
+#include <Modloader/app/structs/MethodBase.h>
+#include <Modloader/app/structs/MethodCall_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Type__Array.h>
-#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
-#include <Modloader/app/structs/MethodBase.h>
-#include <Modloader/app/structs/ILGenerator.h>
-#include <Modloader/app/structs/PropertyInfo_1.h>
-#include <Modloader/app/structs/FieldInfo_1.h>
-#include <Modloader/app/structs/MethodCall_2_System_Object_System_Object_.h>
-#include <Modloader/app/structs/Func_1_Object_.h>
-#include <Modloader/app/structs/Func_2_Object_Object_.h>
-#include <Modloader/app/structs/Action_2_Object_Object_.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::DynamicReflectionDelegateFactory {
     IL2CPP_REGISTER_METHOD(0x01C0C750, app::DynamicReflectionDelegateFactory*, get_Instance, ())
@@ -21,9 +22,7 @@ namespace app::classes::Newtonsoft::Json::Utilities::DynamicReflectionDelegateFa
     IL2CPP_REGISTER_METHOD(0x01C0C900, app::ObjectConstructor_1_System_Object_*, CreateParameterizedConstructor, (app::DynamicReflectionDelegateFactory * this_ptr, app::MethodBase* method_1))
     IL2CPP_REGISTER_METHOD(0x01C0CAA0, void, GenerateCreateMethodCallIL, (app::DynamicReflectionDelegateFactory * this_ptr, app::MethodBase* method_1, app::ILGenerator* generator, int32_t args_index))
     IL2CPP_REGISTER_METHOD(0x01C0D900, void, GenerateCreateDefaultConstructorIL, (app::DynamicReflectionDelegateFactory * this_ptr, app::Type* type, app::ILGenerator* generator, app::Type* delegate_type))
-    IL2CPP_REGISTER_METHODINFO(0x0473C890, DynamicReflectionDelegateFactory_GenerateCreateDefaultConstructorIL__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C0DBE0, void, GenerateCreateGetPropertyIL, (app::DynamicReflectionDelegateFactory * this_ptr, app::PropertyInfo_1* property_info, app::ILGenerator* generator))
-    IL2CPP_REGISTER_METHODINFO(0x04745228, DynamicReflectionDelegateFactory_GenerateCreateGetPropertyIL__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C0DDF0, void, GenerateCreateGetFieldIL, (app::DynamicReflectionDelegateFactory * this_ptr, app::FieldInfo_1* field_info, app::ILGenerator* generator))
     IL2CPP_REGISTER_METHOD(0x01C0DF80, void, GenerateCreateSetFieldIL, (app::FieldInfo_1 * field_info, app::ILGenerator* generator))
     IL2CPP_REGISTER_METHOD(0x01C0E160, void, GenerateCreateSetPropertyIL, (app::PropertyInfo_1 * property_info, app::ILGenerator* generator))

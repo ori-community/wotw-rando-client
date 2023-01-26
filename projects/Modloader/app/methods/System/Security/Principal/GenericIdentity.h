@@ -1,14 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GenericIdentity.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/GenericIdentity.h>
 #include <Modloader/app/structs/ClaimsIdentity.h>
 #include <Modloader/app/structs/IEnumerable_1_System_Security_Claims_Claim_.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Principal::GenericIdentity {
     IL2CPP_REGISTER_METHOD(0x01E1C1C0, void, ctor_1, (app::GenericIdentity * this_ptr, app::String* name, app::String* type))
-    IL2CPP_REGISTER_METHODINFO(0x04768330, GenericIdentity__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E1C300, void, ctor_2, (app::GenericIdentity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E1C330, void, ctor_3, (app::GenericIdentity * this_ptr, app::GenericIdentity* identity))
     IL2CPP_REGISTER_METHOD(0x01E1C380, app::ClaimsIdentity*, Clone, (app::GenericIdentity * this_ptr))

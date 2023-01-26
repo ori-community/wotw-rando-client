@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Enum_EnumResult__Class.h>
 #include <Modloader/app/structs/Enum_EnumResult.h>
 #include <Modloader/app/structs/Enum_EnumResult__Boxed.h>
+#include <Modloader/app/structs/Enum_EnumResult__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Enum_EnumResult {
-        namespace {
-            inline app::Enum_EnumResult__Class* type_info_ref = nullptr;
+        inline app::Enum_EnumResult__Class** type_info() {
+            static app::Enum_EnumResult__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Enum_EnumResult__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Enum_EnumResult__Class** type_info = &type_info_ref;
         inline app::Enum_EnumResult__Class* get_class() {
-            return il2cpp::get_nested_class<app::Enum_EnumResult__Class>(type_info, "System", "Enum", "EnumResult");
+            return il2cpp::get_nested_class<app::Enum_EnumResult__Class>(type_info(), "System", "Enum", "EnumResult");
         }
         inline app::Enum_EnumResult* create() {
             return il2cpp::create_object<app::Enum_EnumResult>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RuntimeClassHandle.h>
+
+#include <Modloader/app/structs/RuntimeClassHandle.h>
 #include <Modloader/app/structs/RuntimeRemoteClassHandle__Boxed.h>
 
 namespace app::classes::Mono::RuntimeRemoteClassHandle {

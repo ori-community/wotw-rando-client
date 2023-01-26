@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinSpiritShardsSpell.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/SeinSpiritShardsSpell.h>
 #include <Modloader/app/structs/AnimationMontageEventContext.h>
-#include <Modloader/app/structs/SeinSpiritShardsSpell_State__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SeinSpiritShardsSpell_State__Enum.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinSpiritShardsSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinSpiritShardsSpell * this_ptr))
@@ -27,11 +28,9 @@ namespace app::classes::SeinSpiritShardsSpell {
     IL2CPP_REGISTER_METHOD(0x00A6C300, void, UpdateCharacterState, (app::SeinSpiritShardsSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A6C570, void, PlayMontage, (app::SeinSpiritShardsSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007DEF20, void, OnCurrentMontageStopped, (app::SeinSpiritShardsSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470F970, SeinSpiritShardsSpell_OnCurrentMontageStopped__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A6C7D0, void, SpawnShards, (app::SeinSpiritShardsSpell * this_ptr, bool charged_shot))
     IL2CPP_REGISTER_METHOD(0x00A6CAD0, void, SpawnShard, (app::SeinSpiritShardsSpell * this_ptr, app::Vector3 direction, bool charged_shot))
     IL2CPP_REGISTER_METHOD(0x00A6CFE0, bool, ShouldDealDamage, (app::SeinSpiritShardsSpell * this_ptr, app::GameObject* target))
-    IL2CPP_REGISTER_METHODINFO(0x04767FD8, SeinSpiritShardsSpell_ShouldDealDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A6D0A0, int32_t, GetShardsCount, (app::SeinSpiritShardsSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A6D190, void, ctor, (app::SeinSpiritShardsSpell * this_ptr))
 } // namespace app::classes::SeinSpiritShardsSpell

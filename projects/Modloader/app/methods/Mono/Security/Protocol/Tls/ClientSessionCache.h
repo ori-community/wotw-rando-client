@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/ClientSessionCache.h>
 #include <Modloader/app/structs/ClientSessionInfo.h>
 #include <Modloader/app/structs/Context_1.h>
-#include <Modloader/app/structs/ClientSessionCache.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::ClientSessionCache {
     IL2CPP_REGISTER_METHOD(0x01F674F0, void, cctor, ())

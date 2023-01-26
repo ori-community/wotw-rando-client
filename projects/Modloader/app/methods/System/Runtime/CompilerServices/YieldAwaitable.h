@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/YieldAwaitable_YieldAwaiter.h>
+
+#include <Modloader/app/structs/YieldAwaitable_YieldAwaiter.h>
 #include <Modloader/app/structs/YieldAwaitable__Boxed.h>
 
 namespace app::classes::System::Runtime::CompilerServices::YieldAwaitable {

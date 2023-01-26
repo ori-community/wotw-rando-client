@@ -13,7 +13,7 @@ struct DiscriminatedUnionConverter__StaticFields {
 #endif
 #if !defined(IL2CPP_STRUCT_DiscriminatedUnionConverter__StaticFields_FWDDECL)
 #define IL2CPP_STRUCT_DiscriminatedUnionConverter__StaticFields_FWDDECL
-#include <Modloader/app/structs/ThreadSafeStore_2_System_Type_Newtonsoft_Json_Converters_DiscriminatedUnionConverter_Union_.h>
+#include <Modloader/app/structs/ThreadSafeStore_2_System_Type_Newtonsoft_Json_Converters_DiscriminatedUnionConverter_Unio_.h>
 #include <Modloader/app/structs/ThreadSafeStore_2_System_Type_System_Type_.h>
 #endif
 #undef IL2CPP_STRUCT_DiscriminatedUnionConverter__StaticFields_INITIALIZING

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DelayedAction_Action.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/IAsyncResult.h>
+
+#include <Modloader/app/structs/DelayedAction_Action.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::DelayedAction_Action {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::DelayedAction_Action * this_ptr, app::Object* object, void* method_1))

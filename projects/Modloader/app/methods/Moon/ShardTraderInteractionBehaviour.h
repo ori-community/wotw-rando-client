@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShardTraderInteractionBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/ShardTraderInteractionBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::ShardTraderInteractionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00E273B0, void, OnEnter, (app::ShardTraderInteractionBehaviour * this_ptr, app::IContext* context))

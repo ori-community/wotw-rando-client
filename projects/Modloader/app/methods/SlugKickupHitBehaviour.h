@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SlugKickupHitBehaviour.h>
+
+#include <Modloader/app/structs/SlugKickupHitBehaviour.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/LegacyTimelineSequence.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/SlugKickupHitBehaviour_KickupState__Enum.h>
 
 namespace app::classes::SlugKickupHitBehaviour {
@@ -14,7 +15,6 @@ namespace app::classes::SlugKickupHitBehaviour {
     IL2CPP_REGISTER_METHOD(0x006C6420, void, SetRotationAngle, (app::SlugKickupHitBehaviour * this_ptr, float rot_angle))
     IL2CPP_REGISTER_METHOD(0x006C6480, void, OnEnterTask, (app::SlugKickupHitBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x006C6B50, void, SpawnOrbs, (app::SlugKickupHitBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476FEF8, SlugKickupHitBehaviour_SpawnOrbs__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006C6CC0, void, HandleRotations, (app::SlugKickupHitBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C7130, void, ResetFeetAngle, (app::SlugKickupHitBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C7140, void, MoveToNeutralStep, (app::SlugKickupHitBehaviour * this_ptr))

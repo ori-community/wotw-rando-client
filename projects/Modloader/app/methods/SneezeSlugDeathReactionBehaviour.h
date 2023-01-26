@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SneezeSlugDeathReactionBehaviour.h>
+
+#include <Modloader/app/structs/SneezeSlugDeathReactionBehaviour.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/SneezeSlugDeathReactionBehaviour_DeathState__Enum.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SneezeSlugDeathReactionBehaviour {
@@ -15,7 +16,6 @@ namespace app::classes::SneezeSlugDeathReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00DB1FA0, void, StartTimeline, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x00ED8860, void, StopTimeline, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x00ED8A80, void, HandleCollision, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::MoonControllerColliderHit hit))
-    IL2CPP_REGISTER_METHODINFO(0x0472A1A0, SneezeSlugDeathReactionBehaviour_HandleCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0043D9E0, app::SneezeSlugDeathReactionBehaviour_DeathState__Enum, GetNextOnHitGroundState, (app::SneezeSlugDeathReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ED8B90, void, OnEnterTask, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00ED8FE0, app::BehaviourStatus__Enum, OnExecuteTask, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::IContext* context))
@@ -38,13 +38,9 @@ namespace app::classes::SneezeSlugDeathReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00EDA520, bool, InWater, (app::SneezeSlugDeathReactionBehaviour * this_ptr, float check_offset))
     IL2CPP_REGISTER_METHOD(0x00EDA710, void, UpdateDrown, (app::SneezeSlugDeathReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EDA950, void, ExitBehaviour, (app::SneezeSlugDeathReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04724628, SneezeSlugDeathReactionBehaviour_ExitBehaviour__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EDAA10, app::Vector3, ProcessRootMotion, (app::SneezeSlugDeathReactionBehaviour * this_ptr, app::Vector3 motion))
-    IL2CPP_REGISTER_METHODINFO(0x0470D048, SneezeSlugDeathReactionBehaviour_ProcessRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EDAA40, void, BlastAttack, (app::SneezeSlugDeathReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474A030, SneezeSlugDeathReactionBehaviour_BlastAttack__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EDAC60, void, PlayShake, (app::SneezeSlugDeathReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EDAD50, void, ctor, (app::SneezeSlugDeathReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EDAE10, void, _EnterLaunch_b__42_0, (app::SneezeSlugDeathReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04778448, SneezeSlugDeathReactionBehaviour__EnterLaunch_b__42_0__MethodInfo)
 } // namespace app::classes::SneezeSlugDeathReactionBehaviour

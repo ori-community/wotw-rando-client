@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/InterpretedFrameInfo.h>
+#include <Modloader/app/structs/InterpretedFrameInfo__Array.h>
+#include <Modloader/app/structs/InterpretedFrameInfo__Boxed.h>
+#include <Modloader/app/structs/InterpretedFrameInfo__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/InterpretedFrameInfo__Class.h>
-#include <Modloader/app/structs/InterpretedFrameInfo.h>
-#include <Modloader/app/structs/InterpretedFrameInfo__Boxed.h>
-#include <Modloader/app/structs/InterpretedFrameInfo__Array.h>
 
 namespace app::classes::types {
     namespace InterpretedFrameInfo {
-        inline app::InterpretedFrameInfo__Class** type_info = (app::InterpretedFrameInfo__Class**)(modloader::win::memory::resolve_rva(0x04774628));
+        inline app::InterpretedFrameInfo__Class** type_info() {
+            static app::InterpretedFrameInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::InterpretedFrameInfo__Class**)(modloader::win::memory::resolve_rva(0x04774628));
+            }
+            return cache;
+        }
         inline app::InterpretedFrameInfo__Class* get_class() {
-            return il2cpp::get_class<app::InterpretedFrameInfo__Class>(type_info, "System.Linq.Expressions.Interpreter", "InterpretedFrameInfo");
+            return il2cpp::get_class<app::InterpretedFrameInfo__Class>(type_info(), "System.Linq.Expressions.Interpreter", "InterpretedFrameInfo");
         }
         inline app::InterpretedFrameInfo* create() {
             return il2cpp::create_object<app::InterpretedFrameInfo>(get_class());

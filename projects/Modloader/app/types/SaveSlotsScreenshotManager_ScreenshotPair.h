@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SaveSlotsScreenshotManager_ScreenshotPair__Class.h>
 #include <Modloader/app/structs/SaveSlotsScreenshotManager_ScreenshotPair.h>
 #include <Modloader/app/structs/SaveSlotsScreenshotManager_ScreenshotPair__Array.h>
+#include <Modloader/app/structs/SaveSlotsScreenshotManager_ScreenshotPair__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SaveSlotsScreenshotManager_ScreenshotPair {
-        namespace {
-            inline app::SaveSlotsScreenshotManager_ScreenshotPair__Class* type_info_ref = nullptr;
+        inline app::SaveSlotsScreenshotManager_ScreenshotPair__Class** type_info() {
+            static app::SaveSlotsScreenshotManager_ScreenshotPair__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SaveSlotsScreenshotManager_ScreenshotPair__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SaveSlotsScreenshotManager_ScreenshotPair__Class** type_info = &type_info_ref;
         inline app::SaveSlotsScreenshotManager_ScreenshotPair__Class* get_class() {
-            return il2cpp::get_nested_class<app::SaveSlotsScreenshotManager_ScreenshotPair__Class>(type_info, "", "SaveSlotsScreenshotManager", "ScreenshotPair");
+            return il2cpp::get_nested_class<app::SaveSlotsScreenshotManager_ScreenshotPair__Class>(type_info(), "", "SaveSlotsScreenshotManager", "ScreenshotPair");
         }
         inline app::SaveSlotsScreenshotManager_ScreenshotPair* create() {
             return il2cpp::create_object<app::SaveSlotsScreenshotManager_ScreenshotPair>(get_class());

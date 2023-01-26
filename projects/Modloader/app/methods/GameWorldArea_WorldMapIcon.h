@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameWorldArea_WorldMapIcon.h>
+
+#include <Modloader/app/structs/GameWorldArea_WorldMapIcon.h>
 #include <Modloader/app/structs/SceneMetaData_WorldMapIcon.h>
 
 namespace app::classes::GameWorldArea_WorldMapIcon {

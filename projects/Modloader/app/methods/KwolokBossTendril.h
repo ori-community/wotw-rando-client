@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KwolokBossTendril_DurationType__Enum.h>
-#include <Modloader/app/structs/KwolokBossTendril.h>
-#include <Modloader/app/structs/KwolokBossTendril_VariationType__Enum.h>
-#include <Modloader/app/structs/KwolokBossTendril_State__Enum.h>
-#include <Modloader/app/structs/OrbSpawner.h>
+
+#include <Modloader/app/structs/KwolokBossTendril_DurationType__Enum.h>
 #include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/KwolokBossTendril.h>
+#include <Modloader/app/structs/KwolokBossTendril_State__Enum.h>
+#include <Modloader/app/structs/KwolokBossTendril_VariationType__Enum.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/OrbSpawner.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::KwolokBossTendril {
     IL2CPP_REGISTER_METHOD(0x00989BF0, app::KwolokBossTendril_DurationType__Enum, get_Duration, (app::KwolokBossTendril * this_ptr))
@@ -22,16 +23,12 @@ namespace app::classes::KwolokBossTendril {
     IL2CPP_REGISTER_METHOD(0x012EC420, void, OnEnable, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012EC8D0, void, OnDisable, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012ECDE0, void, OnDamageResultReceived, (app::KwolokBossTendril * this_ptr, app::DamageResult result))
-    IL2CPP_REGISTER_METHODINFO(0x0478AAB8, KwolokBossTendril_OnDamageResultReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012ECF20, void, OnHealthChanged, (app::KwolokBossTendril * this_ptr, float previous, float current))
-    IL2CPP_REGISTER_METHODINFO(0x0470E9E8, KwolokBossTendril_OnHealthChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012ECF40, void, OnAttackTimelineStopped, (app::KwolokBossTendril * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475A9F0, KwolokBossTendril_OnAttackTimelineStopped__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012ED0A0, void, FixedUpdate, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012ED250, void, ExecuteAttack, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012ED320, void, Break, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012ED550, void, OnRestoreCheckpoint, (app::KwolokBossTendril * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047804D8, KwolokBossTendril_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnEnterStateNone, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012ED680, void, OnEnterStateAttacking, (app::KwolokBossTendril * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012EDA60, void, OnEnterStateHolding, (app::KwolokBossTendril * this_ptr))

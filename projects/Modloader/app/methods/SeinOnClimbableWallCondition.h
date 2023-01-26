@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinOnClimbableWallCondition.h>
+
+#include <Modloader/app/structs/SeinOnClimbableWallCondition.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/PlatformBehaviour.h>
 

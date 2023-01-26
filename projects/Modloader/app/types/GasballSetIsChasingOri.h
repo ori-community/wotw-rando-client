@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/GasballSetIsChasingOri.h>
+#include <Modloader/app/structs/GasballSetIsChasingOri__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GasballSetIsChasingOri__Class.h>
-#include <Modloader/app/structs/GasballSetIsChasingOri.h>
 
 namespace app::classes::types {
     namespace GasballSetIsChasingOri {
-        namespace {
-            inline app::GasballSetIsChasingOri__Class* type_info_ref = nullptr;
+        inline app::GasballSetIsChasingOri__Class** type_info() {
+            static app::GasballSetIsChasingOri__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GasballSetIsChasingOri__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GasballSetIsChasingOri__Class** type_info = &type_info_ref;
         inline app::GasballSetIsChasingOri__Class* get_class() {
-            return il2cpp::get_class<app::GasballSetIsChasingOri__Class>(type_info, "", "GasballSetIsChasingOri");
+            return il2cpp::get_class<app::GasballSetIsChasingOri__Class>(type_info(), "", "GasballSetIsChasingOri");
         }
         inline app::GasballSetIsChasingOri* create() {
             return il2cpp::create_object<app::GasballSetIsChasingOri>(get_class());

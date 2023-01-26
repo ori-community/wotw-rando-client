@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XblAchievementTimeWindow.h>
+
+#include <Modloader/app/structs/XblAchievementTimeWindow.h>
 #include <Modloader/app/structs/XblAchievementTimeWindow_1.h>
 
 namespace app::classes::XGamingRuntime::XblAchievementTimeWindow {

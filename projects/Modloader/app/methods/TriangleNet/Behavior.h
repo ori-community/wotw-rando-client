@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Behavior.h>
+
+#include <Modloader/app/structs/Behavior.h>
 #include <Modloader/app/structs/Func_3_TriangleNet_Geometry_ITriangle_Double_Boolean_.h>
 
 namespace app::classes::TriangleNet::Behavior {

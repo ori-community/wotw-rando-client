@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TintModifier.h>
+
+#include <Modloader/app/structs/TintModifier.h>
 
 namespace app::classes::TintModifier {
     IL2CPP_REGISTER_METHOD(0x00AF7180, void, ApplyMultipliers, (app::TintModifier * this_ptr, float strength, float speed))

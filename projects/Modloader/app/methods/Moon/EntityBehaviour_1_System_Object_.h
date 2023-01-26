@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/EntityBehaviour_1_System_Object_.h>
 
 namespace app::classes::Moon::EntityBehaviour_1_System_Object_ {

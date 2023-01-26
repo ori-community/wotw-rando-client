@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_EntityReactions_ReactionInterruptionSuspensionEntry___Boxed.h>
-#include <Modloader/app/structs/List_1_EntityReactions_ReactionInterruptionSuspensionEntry_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_EntityReactions_ReactionInterruptionSuspensionEntry___Boxed.h>
 #include <Modloader/app/structs/EntityReactions_ReactionInterruptionSuspensionEntry.h>
+#include <Modloader/app/structs/List_1_EntityReactions_ReactionInterruptionSuspensionEntry_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_EntityReactions_ReactionInterruptionSuspensionEntry_ {

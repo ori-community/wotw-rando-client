@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_CatlikeCoding_TextBox_LineDescent_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_CatlikeCoding_TextBox_LineDescent_.h>
 #include <Modloader/app/structs/LineDescent.h>
 #include <Modloader/app/structs/LineDescent__Array.h>
 #include <Modloader/app/structs/Object.h>

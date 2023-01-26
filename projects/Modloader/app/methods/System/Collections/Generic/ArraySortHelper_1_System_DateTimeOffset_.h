@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DateTimeOffset__Array.h>
-#include <Modloader/app/structs/IComparer_1_System_DateTimeOffset_.h>
-#include <Modloader/app/structs/DateTimeOffset.h>
+
+#include <Modloader/app/structs/DateTimeOffset__Array.h>
 #include <Modloader/app/structs/Comparison_1_DateTimeOffset_.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/IComparer_1_System_DateTimeOffset_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_System_DateTimeOffset_ {
     IL2CPP_REGISTER_METHOD(0x02FFD140, void, Sort_1, (app::DateTimeOffset__Array * keys, int32_t index, int32_t length, app::IComparer_1_System_DateTimeOffset_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0477B2A8, ArraySortHelper_1_System_DateTimeOffset__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FFD460, int32_t, BinarySearch, (app::DateTimeOffset__Array * array, int32_t index, int32_t length, app::DateTimeOffset value, app::IComparer_1_System_DateTimeOffset_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0474DAD8, ArraySortHelper_1_System_DateTimeOffset__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FFD610, void, Sort_2, (app::DateTimeOffset__Array * keys, int32_t index, int32_t length, app::Comparison_1_DateTimeOffset_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04769B70, ArraySortHelper_1_System_DateTimeOffset__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C898B0, int32_t, InternalBinarySearch, (app::DateTimeOffset__Array * array, int32_t index, int32_t length, app::DateTimeOffset value, app::IComparer_1_System_DateTimeOffset_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C89A40, void, SwapIfGreater, (app::DateTimeOffset__Array * keys, app::Comparison_1_DateTimeOffset_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C89BD0, void, Swap, (app::DateTimeOffset__Array * a, int32_t i, int32_t j))

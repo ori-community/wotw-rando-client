@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/X509Chain.h>
-#include <Modloader/app/structs/X509CertificateCollection_1.h>
+
+#include <Modloader/app/structs/X509Chain.h>
 #include <Modloader/app/structs/MonoTlsSettings.h>
+#include <Modloader/app/structs/X509CertificateCollection_1.h>
 
 namespace app::classes::Mono::Net::Security::SystemCertificateValidator {
     IL2CPP_REGISTER_METHOD(0x02185DB0, void, cctor, ())

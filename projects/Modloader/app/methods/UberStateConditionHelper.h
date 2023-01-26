@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type__Array.h>
+
+#include <Modloader/app/structs/Type__Array.h>
 #include <Modloader/app/structs/Dictionary_2_UberStateConditionType_System_Type_.h>
 #include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/UberStateConditionType__Enum.h>

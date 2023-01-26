@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NightCrawlerReveal.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/NightCrawlerReveal.h>
 #include <Modloader/app/structs/Animator.h>
 #include <Modloader/app/structs/AnimatorStateInfo.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::NightCrawlerReveal {
     IL2CPP_REGISTER_METHOD(0x0051DB40, bool, get_IsSuspended, (app::NightCrawlerReveal * this_ptr))
@@ -17,7 +18,6 @@ namespace app::classes::NightCrawlerReveal {
     IL2CPP_REGISTER_METHOD(0x00608A50, void, OnDestroy, (app::NightCrawlerReveal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00608C00, void, FixedUpdate, (app::NightCrawlerReveal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00443C10, void, OnGameSerializeLoad, (app::NightCrawlerReveal * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04716E48, NightCrawlerReveal_OnGameSerializeLoad__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnStateMachineBehaviourEnter, (app::NightCrawlerReveal * this_ptr, app::Animator* animator, app::AnimatorStateInfo state_info, int32_t layer_index))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnStateMachineBehaviourExit, (app::NightCrawlerReveal * this_ptr, app::Animator* animator, app::AnimatorStateInfo state_info, int32_t layer_index))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnStateMachineBehaviourUpdate, (app::NightCrawlerReveal * this_ptr, app::Animator* animator, app::AnimatorStateInfo state_info, int32_t layer_index))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LightningController.h>
-#include <Modloader/app/structs/LightningController_LightningEvent.h>
+
+#include <Modloader/app/structs/LightningController.h>
 #include <Modloader/app/structs/FloatRange_1.h>
+#include <Modloader/app/structs/LightningController_LightningEvent.h>
 
 namespace app::classes::LightningController {
     IL2CPP_REGISTER_METHOD(0x0061E2F0, bool, get_InvalidateParentTimelineCache, (app::LightningController * this_ptr))

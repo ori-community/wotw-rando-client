@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/SandTrailParticles.h>
 
 namespace app::classes::SandTrailParticles {
@@ -14,10 +15,8 @@ namespace app::classes::SandTrailParticles {
     IL2CPP_REGISTER_METHOD(0x00C09050, void, OnDestroy, (app::SandTrailParticles * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C091F0, void, Stop, (app::SandTrailParticles * this_ptr, int32_t frame_delay))
     IL2CPP_REGISTER_METHOD(0x00C09380, void, StopParticlePlayback, (app::SandTrailParticles * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047680B0, SandTrailParticles_StopParticlePlayback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C093F0, void, OnSuspended, (app::SandTrailParticles * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C09410, void, OnParticleSystemStopped, (app::SandTrailParticles * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C09500, void, OnRestoreCheckpoint, (app::SandTrailParticles * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470C820, SandTrailParticles_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C095F0, void, ctor, (app::SandTrailParticles * this_ptr))
 } // namespace app::classes::SandTrailParticles

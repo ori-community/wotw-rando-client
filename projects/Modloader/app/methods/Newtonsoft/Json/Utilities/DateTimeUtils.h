@@ -1,27 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimeSpan.h>
+
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/DateFormatHandling__Enum.h>
 #include <Modloader/app/structs/DateTime.h>
-#include <Modloader/app/structs/XmlDateTimeSerializationMode__Enum.h>
 #include <Modloader/app/structs/DateTimeKind__Enum.h>
-#include <Modloader/app/structs/DateTimeZoneHandling__Enum.h>
-#include <Modloader/app/structs/StringReference.h>
 #include <Modloader/app/structs/DateTimeOffset.h>
 #include <Modloader/app/structs/DateTimeParser.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/CultureInfo.h>
-#include <Modloader/app/structs/TextWriter.h>
-#include <Modloader/app/structs/DateFormatHandling__Enum.h>
-#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/DateTimeZoneHandling__Enum.h>
 #include <Modloader/app/structs/Nullable_1_TimeSpan_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringReference.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/XmlDateTimeSerializationMode__Enum.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::DateTimeUtils {
     IL2CPP_REGISTER_METHOD(0x01C089A0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01C08AA0, app::TimeSpan, GetUtcOffset, (app::DateTime d))
     IL2CPP_REGISTER_METHOD(0x01C08AE0, app::XmlDateTimeSerializationMode__Enum, ToSerializationMode, (app::DateTimeKind__Enum kind))
-    IL2CPP_REGISTER_METHODINFO(0x047122E8, DateTimeUtils_ToSerializationMode__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C08BC0, app::DateTime, EnsureDateTime, (app::DateTime value, app::DateTimeZoneHandling__Enum time_zone))
-    IL2CPP_REGISTER_METHODINFO(0x0476B010, DateTimeUtils_EnsureDateTime__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01968A90, app::DateTime, SwitchToLocalTime, (app::DateTime value))
     IL2CPP_REGISTER_METHOD(0x01968B20, app::DateTime, SwitchToUtcTime, (app::DateTime value))
     IL2CPP_REGISTER_METHOD(0x01C08E00, int64_t, ToUniversalTicks_1, (app::DateTime date_time))

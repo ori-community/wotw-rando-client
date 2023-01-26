@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComboMoveType__Enum.h>
-#include <Modloader/app/structs/SeinDrill.h>
+
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
 #include <Modloader/app/structs/CharacterGravity.h>
 #include <Modloader/app/structs/CharacterPlatformMovement.h>
-#include <Modloader/app/structs/SeinDrillPuppet.h>
-#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/DrillZone.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DrillZone.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/SeinDrill.h>
+#include <Modloader/app/structs/SeinDrillPuppet.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinDrill {
     IL2CPP_REGISTER_METHOD(0x00417920, app::ComboMoveType__Enum, get_ComboMoveType, (app::SeinDrill * this_ptr))
@@ -24,9 +25,7 @@ namespace app::classes::SeinDrill {
     IL2CPP_REGISTER_METHOD(0x00AC9CD0, void, OnDestroy, (app::SeinDrill * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AC9FA0, void, OnSetReferenceToSein, (app::SeinDrill * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ACA270, bool, IsDrilling, (app::SeinDrill * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476C850, SeinDrill_IsDrilling__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ACA280, void, ModifyGravityPlatformMovementSettings, (app::SeinDrill * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0473F0F8, SeinDrill_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ACA2B0, float, AdaptSpeed, (app::SeinDrill * this_ptr, float speed))
     IL2CPP_REGISTER_METHOD(0x00ACA480, bool, IsInsideDashTimeWindow, (app::SeinDrill * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ACA610, app::DrillZone*, RayCastTest, (app::SeinDrill * this_ptr))
@@ -35,10 +34,7 @@ namespace app::classes::SeinDrill {
     IL2CPP_REGISTER_METHOD(0x00ACAB90, void, StartDrill, (app::SeinDrill * this_ptr, app::DrillZone* drill_zone))
     IL2CPP_REGISTER_METHOD(0x00ACAE50, void, StopDrill, (app::SeinDrill * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnProcessRootMotion, (app::SeinDrill * this_ptr, app::Vector3 root_velocity))
-    IL2CPP_REGISTER_METHODINFO(0x0471D5F8, SeinDrill_OnProcessRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnTakeDamage, (app::SeinDrill * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x047479C8, SeinDrill_OnTakeDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ACAF00, void, OnDrillZoneReleaseEvent, (app::SeinDrill * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04757840, SeinDrill_OnDrillZoneReleaseEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ACB100, void, ctor, (app::SeinDrill * this_ptr))
 } // namespace app::classes::SeinDrill

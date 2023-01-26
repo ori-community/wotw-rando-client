@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkXBoxOneSettings_PlatformAdvancedSettings.h>
+
+#include <Modloader/app/structs/AkXBoxOneSettings_PlatformAdvancedSettings.h>
 #include <Modloader/app/structs/AkPlatformInitSettings.h>
 #include <Modloader/app/structs/AkUnityPlatformSpecificSettings.h>
 

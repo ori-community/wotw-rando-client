@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CubemapReflection.h>
+
+#include <Modloader/app/structs/CubemapReflection.h>
 
 namespace app::classes::CubemapReflection {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ApplyMultipliers, (app::CubemapReflection * this_ptr, float strength, float speed))

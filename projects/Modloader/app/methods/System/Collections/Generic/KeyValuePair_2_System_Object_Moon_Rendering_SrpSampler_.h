@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_Moon_Rendering_SrpSampler___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_Moon_Rendering_SrpSampler___Boxed.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SrpSampler.h>
 #include <Modloader/app/structs/String.h>

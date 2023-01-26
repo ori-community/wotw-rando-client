@@ -1,23 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IByteUberState.h>
-#include <Modloader/app/structs/KwolokTongueStatue.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/KwolokTongueStatue_KwolowTongueStatueState__Enum.h>
-#include <Modloader/app/structs/KwolokTongueStatue_TongueState.h>
-#include <Modloader/app/structs/KwolokTongueStatue_KwolowTongueTriggerSource__Enum.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/IByteUberState.h>
 #include <Modloader/app/structs/ArrowHitData.h>
-#include <Modloader/app/structs/IDesiredUberState__Array.h>
-#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
-#include <Modloader/app/structs/IUberState__Array.h>
-#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IDamageReciever__Array.h>
-#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/IDesiredUberState__Array.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/KwolokTongueStatue.h>
+#include <Modloader/app/structs/KwolokTongueStatue_KwolowTongueStatueState__Enum.h>
+#include <Modloader/app/structs/KwolokTongueStatue_KwolowTongueTriggerSource__Enum.h>
+#include <Modloader/app/structs/KwolokTongueStatue_TongueState.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::KwolokTongueStatue {
     IL2CPP_REGISTER_METHOD(0x012FD6B0, app::IByteUberState*, get_ResolvedUberState, (app::KwolokTongueStatue * this_ptr))
@@ -36,7 +37,6 @@ namespace app::classes::KwolokTongueStatue {
     IL2CPP_REGISTER_METHOD(0x012FE000, void, OnEnable, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012FE1D0, void, OnDisable, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012FE3A0, void, OnRestoreCheckpoint, (app::KwolokTongueStatue * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04743588, KwolokTongueStatue_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012FE510, void, Awake, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012FE830, void, OnDestroy, (app::KwolokTongueStatue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012FE8F0, void, FixedUpdate, (app::KwolokTongueStatue * this_ptr))

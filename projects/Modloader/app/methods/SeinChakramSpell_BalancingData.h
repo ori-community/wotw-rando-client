@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinChakramSpell_BalancingData_ChakramSettings.h>
+
+#include <Modloader/app/structs/SeinChakramSpell_BalancingData_ChakramSettings.h>
 #include <Modloader/app/structs/SeinChakramSpell_BalancingData.h>
 #include <Modloader/app/structs/SeinChakramSpell_BalancingData_ChakramDamageSettings.h>
 

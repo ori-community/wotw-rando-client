@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Coord__Class.h>
 #include <Modloader/app/structs/Coord.h>
 #include <Modloader/app/structs/Coord__Boxed.h>
+#include <Modloader/app/structs/Coord__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Coord {
-        namespace {
-            inline app::Coord__Class* type_info_ref = nullptr;
+        inline app::Coord__Class** type_info() {
+            static app::Coord__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Coord__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Coord__Class** type_info = &type_info_ref;
         inline app::Coord__Class* get_class() {
-            return il2cpp::get_class<app::Coord__Class>(type_info, "System", "Coord");
+            return il2cpp::get_class<app::Coord__Class>(type_info(), "System", "Coord");
         }
         inline app::Coord* create() {
             return il2cpp::create_object<app::Coord>(get_class());

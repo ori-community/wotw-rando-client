@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/MoonEffectWisps.h>
-#include <Modloader/app/structs/List_1_Moon_EffectsFramework_MoonEffectVariationModifier_.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IInstantiationHandler.h>
+#include <Modloader/app/structs/List_1_Moon_EffectsFramework_MoonEffectVariationModifier_.h>
+#include <Modloader/app/structs/MoonEffectWisps.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::EffectsFramework::Wisps::MoonEffectWisps {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::GameObject*, get_Prefab, (app::MoonEffectWisps * this_ptr))

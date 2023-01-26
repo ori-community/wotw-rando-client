@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UnaryNode.h>
-#include <Modloader/app/structs/DataTable.h>
-#include <Modloader/app/structs/ExpressionNode.h>
-#include <Modloader/app/structs/List_1_System_Data_DataColumn_.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/UnaryNode.h>
+#include <Modloader/app/structs/DataColumn.h>
 #include <Modloader/app/structs/DataRow.h>
 #include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/ExpressionNode.h>
 #include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/List_1_System_Data_DataColumn_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Data::UnaryNode {
     IL2CPP_REGISTER_METHOD(0x0199E410, void, ctor, (app::UnaryNode * this_ptr, app::DataTable* table, int32_t op, app::ExpressionNode* right))
@@ -17,7 +18,6 @@ namespace app::classes::System::Data::UnaryNode {
     IL2CPP_REGISTER_METHOD(0x022BE980, app::Object*, Eval_2, (app::UnaryNode * this_ptr, app::DataRow* row, app::DataRowVersion__Enum version))
     IL2CPP_REGISTER_METHOD(0x022BE9D0, app::Object*, Eval_3, (app::UnaryNode * this_ptr, app::Int32__Array* record_nos))
     IL2CPP_REGISTER_METHOD(0x022BEA00, app::Object*, EvalUnaryOp, (app::UnaryNode * this_ptr, int32_t op, app::Object* vl))
-    IL2CPP_REGISTER_METHODINFO(0x0475ADC0, UnaryNode_EvalUnaryOp__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022BF7B0, bool, IsConstant, (app::UnaryNode * this_ptr))
     IL2CPP_REGISTER_METHOD(0x022BF7E0, bool, IsTableConstant, (app::UnaryNode * this_ptr))
     IL2CPP_REGISTER_METHOD(0x022BF810, bool, HasLocalAggregate, (app::UnaryNode * this_ptr))

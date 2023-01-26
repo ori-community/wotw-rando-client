@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
-#include <Modloader/app/structs/MinerHitReactionBehaviour.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/EventTriggerAnimator.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/EventTriggerAnimator.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MinerHitReactionBehaviour.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::MinerHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::EntityDamageEvent*, get_DamageEvent, (app::MinerHitReactionBehaviour * this_ptr))
@@ -18,7 +19,6 @@ namespace app::classes::MinerHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x0144A440, void, StartSecondaryTimeline, (app::MinerHitReactionBehaviour * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x0144A490, void, PlayAdditiveHit, (app::MinerHitReactionBehaviour * this_ptr, bool hit_from_front, float damage_amount))
     IL2CPP_REGISTER_METHOD(0x00876500, void, TimelineFinished, (app::MinerHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473FF58, MinerHitReactionBehaviour_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0144A610, bool, PlayedAdditiveAnim, (app::MinerHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0144A720, void, Awake, (app::MinerHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0144A900, void, OnDestroy, (app::MinerHitReactionBehaviour * this_ptr))
@@ -33,6 +33,5 @@ namespace app::classes::MinerHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00420230, app::BehaviourStatus__Enum, OnExecuteTask, (app::MinerHitReactionBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x0144B770, void, OnExitTask, (app::MinerHitReactionBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x0144B7B0, void, OnShieldDestroyed, (app::MinerHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04725648, MinerHitReactionBehaviour_OnShieldDestroyed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0144B870, void, ctor, (app::MinerHitReactionBehaviour * this_ptr))
 } // namespace app::classes::MinerHitReactionBehaviour

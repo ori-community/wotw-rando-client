@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VirtualTimelineConstrainedTimelineEntity.h>
-#include <Modloader/app/structs/IConstrainedEntityWithChildren.h>
-#include <Modloader/app/structs/IConstrainedEntity.h>
+
+#include <Modloader/app/structs/VirtualTimelineConstrainedTimelineEntity.h>
 #include <Modloader/app/structs/EntityId.h>
-#include <Modloader/app/structs/VirtualMoonTimeline.h>
+#include <Modloader/app/structs/IConstrainedEntity.h>
+#include <Modloader/app/structs/IConstrainedEntityWithChildren.h>
 #include <Modloader/app/structs/ITimelineEntityParent.h>
 #include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/VirtualMoonTimeline.h>
 
 namespace app::classes::Moon::Timeline::VirtualTimelineConstrainedTimelineEntity {
     IL2CPP_REGISTER_METHOD(0x01E92970, int32_t, get_ConstrainedEntitiesCount, (app::VirtualTimelineConstrainedTimelineEntity * this_ptr))

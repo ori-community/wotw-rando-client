@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameplaySoundManager.h>
-#include <Modloader/app/structs/GameplaySoundManager_AudioQualitySetting__Enum.h>
-#include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/GameplaySoundManager.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AkCallbackInfo.h>
+#include <Modloader/app/structs/AkCallbackType__Enum.h>
 #include <Modloader/app/structs/ArtificialSoundHostReference.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/EnemyEntity.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GameplaySoundManager_AudioQualitySetting__Enum.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/AkCallbackType__Enum.h>
-#include <Modloader/app/structs/AkCallbackInfo.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::GameplaySoundManager {
@@ -22,7 +23,6 @@ namespace app::classes::GameplaySoundManager {
     IL2CPP_REGISTER_METHOD(0x00410CA0, void, Awake, (app::GameplaySoundManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00410D70, void, Start, (app::GameplaySoundManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00411020, void, CacheCinematicStateId, (app::GameplaySoundManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047386E0, GameplaySoundManager_CacheCinematicStateId__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00411090, void, OnDestroy, (app::GameplaySoundManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00411130, void, FixedUpdate, (app::GameplaySoundManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004111F0, void, ProcessOriHit, (app::GameplaySoundManager * this_ptr, app::DamageResult damage_result, app::GameObject* weapon, app::AbilityType__Enum ability_type, app::String* hit_name))
@@ -34,7 +34,6 @@ namespace app::classes::GameplaySoundManager {
     IL2CPP_REGISTER_METHOD(0x00412C10, bool, IsGameSoftPaused, (app::GameplaySoundManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00412DC0, void, UpdateMusicLoopEvent, (app::GameplaySoundManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00413000, void, SyncedMusicCueCallback, (app::GameplaySoundManager * this_ptr, app::Object* in_cookie, app::AkCallbackType__Enum in_type, app::AkCallbackInfo* in_info))
-    IL2CPP_REGISTER_METHODINFO(0x04701BD0, GameplaySoundManager_SyncedMusicCueCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00413160, bool, get_IsSuspended, (app::GameplaySoundManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00413170, void, set_IsSuspended, (app::GameplaySoundManager * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00413180, app::SuspendableMask__Enum, get_Mask, (app::GameplaySoundManager * this_ptr))

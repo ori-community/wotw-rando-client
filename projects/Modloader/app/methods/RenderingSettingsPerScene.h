@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RenderingSettingsPerScene.h>
+
+#include <Modloader/app/structs/RenderingSettingsPerScene.h>
 
 namespace app::classes::RenderingSettingsPerScene {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_DeferredLightingEnabled, (app::RenderingSettingsPerScene * this_ptr))

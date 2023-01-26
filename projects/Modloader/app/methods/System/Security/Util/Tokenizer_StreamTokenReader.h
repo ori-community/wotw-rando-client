@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Tokenizer_StreamTokenReader.h>
+
+#include <Modloader/app/structs/Tokenizer_StreamTokenReader.h>
 #include <Modloader/app/structs/StreamReader.h>
 
 namespace app::classes::System::Security::Util::Tokenizer_StreamTokenReader {

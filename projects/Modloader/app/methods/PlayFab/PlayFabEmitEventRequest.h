@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayFabEvent.h>
+
+#include <Modloader/app/structs/PlayFabEvent.h>
 #include <Modloader/app/structs/PlayFabEmitEventRequest.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TaskCompletionSource_1_PlayFab_IPlayFabEmitEventResponse_.h>

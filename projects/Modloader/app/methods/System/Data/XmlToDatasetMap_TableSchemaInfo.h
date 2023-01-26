@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlToDatasetMap_TableSchemaInfo.h>
+
+#include <Modloader/app/structs/XmlToDatasetMap_TableSchemaInfo.h>
 #include <Modloader/app/structs/DataTable.h>
 
 namespace app::classes::System::Data::XmlToDatasetMap_TableSchemaInfo {

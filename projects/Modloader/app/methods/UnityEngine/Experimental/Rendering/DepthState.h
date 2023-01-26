@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DepthState__Boxed.h>
+
+#include <Modloader/app/structs/DepthState__Boxed.h>
 #include <Modloader/app/structs/CompareFunction__Enum.h>
 #include <Modloader/app/structs/DepthState.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 #include <Modloader/app/structs/DynamicProxy_1_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
 

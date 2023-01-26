@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
-#include <Modloader/app/structs/GhostTimelineEventsPlugin_TimelineEventData.h>
+
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
 #include <Modloader/app/structs/BinaryReader.h>
 #include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/GhostTimelineEventsPlugin_TimelineEventData.h>
 
 namespace app::classes::GhostTimelineEventsPlugin_TimelineEventData {
     IL2CPP_REGISTER_METHOD(0x007EC140, app::GhostFrame_FrameDataTypes__Enum, get_FrameType, (app::GhostTimelineEventsPlugin_TimelineEventData * this_ptr))

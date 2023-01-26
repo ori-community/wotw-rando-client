@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ContentSizeFitter.h>
+
+#include <Modloader/app/structs/ContentSizeFitter.h>
 #include <Modloader/app/structs/ContentSizeFitter_FitMode__Enum.h>
 #include <Modloader/app/structs/RectTransform.h>
 

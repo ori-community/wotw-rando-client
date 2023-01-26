@@ -1,13 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DESTransform.h>
-#include <Modloader/app/structs/SymmetricAlgorithm.h>
+
+#include <Modloader/app/structs/DESTransform.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/SymmetricAlgorithm.h>
 #include <Modloader/app/structs/UInt32__Array.h>
 
 namespace app::classes::System::Security::Cryptography::DESTransform {
     IL2CPP_REGISTER_METHOD(0x020D1FF0, void, ctor, (app::DESTransform * this_ptr, app::SymmetricAlgorithm* symm_algo, bool encryption, app::Byte__Array* key, app::Byte__Array* iv))
-    IL2CPP_REGISTER_METHODINFO(0x04793038, DESTransform__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x020D2410, uint32_t, CipherFunct, (app::DESTransform * this_ptr, uint32_t r, int32_t n))
     IL2CPP_REGISTER_METHOD(0x020D2850, void, Permutation, (app::Byte__Array * input, app::Byte__Array* output, app::UInt32__Array* perm_tab, bool pre_swap))
     IL2CPP_REGISTER_METHOD(0x020D2E10, void, BSwap, (app::Byte__Array * byte_buff))

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneManagerScene.h>
-#include <Modloader/app/structs/SceneRoot.h>
-#include <Modloader/app/structs/RuntimeSceneMetaData.h>
-#include <Modloader/app/structs/SceneState__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/SceneManagerScene.h>
 #include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/RuntimeSceneMetaData.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/SceneState__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SceneManagerScene {
     IL2CPP_REGISTER_METHOD(0x00BA9A60, void, ctor_1, (app::SceneManagerScene * this_ptr, app::SceneRoot* scene_root, app::RuntimeSceneMetaData* scene_meta_data, app::SceneState__Enum inital_state))
@@ -49,7 +50,5 @@ namespace app::classes::SceneManagerScene {
     IL2CPP_REGISTER_METHOD(0x00BAAEB0, void, PostEnableScene, (app::SceneManagerScene * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BAB060, void, PostDisableScene, (app::SceneManagerScene * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BAB230, void, _DisableScene_b__65_0, (app::SceneManagerScene * this_ptr, bool result))
-    IL2CPP_REGISTER_METHODINFO(0x04787D18, SceneManagerScene__DisableScene_b__65_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BAB240, void, _EnableDisabledSceneTimesliced_b__70_0, (app::SceneManagerScene * this_ptr, bool result))
-    IL2CPP_REGISTER_METHODINFO(0x04705980, SceneManagerScene__EnableDisabledSceneTimesliced_b__70_0__MethodInfo)
 } // namespace app::classes::SceneManagerScene

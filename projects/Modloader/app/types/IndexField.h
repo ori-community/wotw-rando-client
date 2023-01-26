@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/IndexField.h>
+#include <Modloader/app/structs/IndexField__Array.h>
+#include <Modloader/app/structs/IndexField__Boxed.h>
+#include <Modloader/app/structs/IndexField__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/IndexField__Class.h>
-#include <Modloader/app/structs/IndexField.h>
-#include <Modloader/app/structs/IndexField__Boxed.h>
-#include <Modloader/app/structs/IndexField__Array.h>
 
 namespace app::classes::types {
     namespace IndexField {
-        inline app::IndexField__Class** type_info = (app::IndexField__Class**)(modloader::win::memory::resolve_rva(0x047253B8));
+        inline app::IndexField__Class** type_info() {
+            static app::IndexField__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::IndexField__Class**)(modloader::win::memory::resolve_rva(0x047253B8));
+            }
+            return cache;
+        }
         inline app::IndexField__Class* get_class() {
-            return il2cpp::get_class<app::IndexField__Class>(type_info, "System.Data", "IndexField");
+            return il2cpp::get_class<app::IndexField__Class>(type_info(), "System.Data", "IndexField");
         }
         inline app::IndexField* create() {
             return il2cpp::create_object<app::IndexField>(get_class());

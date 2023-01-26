@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Action_1_Int32_.h>
-#include <Modloader/app/structs/SaveSlotBackupsManager.h>
-#include <Modloader/app/structs/SaveSlotBackup.h>
-#include <Modloader/app/structs/List_1_SaveSlotBackupsManager_BackupParseQueue_.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/Action_1_Int32_.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/List_1_SaveSlotBackupsManager_BackupParseQueue_.h>
+#include <Modloader/app/structs/SaveSlotBackup.h>
+#include <Modloader/app/structs/SaveSlotBackupsManager.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SaveSlotBackupsManager {
     IL2CPP_REGISTER_METHOD(0x0091DD70, void, add_OnFinishedReadingBackups, (app::Action_1_Int32_ * value))
@@ -22,7 +23,6 @@ namespace app::classes::SaveSlotBackupsManager {
     IL2CPP_REGISTER_METHOD(0x0091E150, void, Awake, (app::SaveSlotBackupsManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0091E320, void, OnDestroy, (app::SaveSlotBackupsManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0091E630, void, OnGameReset, (app::SaveSlotBackupsManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04765798, SaveSlotBackupsManager_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0091E630, void, OnSaveGameCacheCleared, (app::SaveSlotBackupsManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0091E640, void, RequestReadBackups, (int32_t slot_index))
     IL2CPP_REGISTER_METHOD(0x0091EA40, app::SaveSlotBackup*, SaveSlotBackupAtIndex, (int32_t index))

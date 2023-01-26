@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkeetoMoveToSemiRandomPositionBehaviour.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SkeetoLocomotion.h>
+
+#include <Modloader/app/structs/SkeetoMoveToSemiRandomPositionBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SkeetoLocomotion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SkeetoMoveToSemiRandomPositionBehaviour {
     IL2CPP_REGISTER_METHOD(0x0075A130, int32_t, get_RandomIndex, (app::SkeetoMoveToSemiRandomPositionBehaviour * this_ptr))
@@ -18,7 +19,6 @@ namespace app::classes::SkeetoMoveToSemiRandomPositionBehaviour {
     IL2CPP_REGISTER_METHOD(0x0075B230, void, OnEnter, (app::SkeetoMoveToSemiRandomPositionBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x0075B3D0, void, OnExit, (app::SkeetoMoveToSemiRandomPositionBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00754B80, void, OnWontReachTarget, (app::SkeetoMoveToSemiRandomPositionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04745110, SkeetoMoveToSemiRandomPositionBehaviour_OnWontReachTarget__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0075B6F0, void, CalculateTargetOffsets, (app::SkeetoMoveToSemiRandomPositionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0075C2D0, bool, TryCalculateTargetPosition, (app::SkeetoMoveToSemiRandomPositionBehaviour * this_ptr, int32_t longtitude_index, int32_t latitude_index, app::Vector3* move_target))
     IL2CPP_REGISTER_METHOD(0x0075C7C0, bool, NoGoZoneOnTheWay, (app::SkeetoMoveToSemiRandomPositionBehaviour * this_ptr, app::Vector3 candidate_position))

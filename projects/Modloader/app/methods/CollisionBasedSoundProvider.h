@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoundDescriptor.h>
-#include <Modloader/app/structs/CollisionBasedSoundProvider.h>
+
+#include <Modloader/app/structs/SoundDescriptor.h>
 #include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/CollisionBasedSoundProvider.h>
 #include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::CollisionBasedSoundProvider {

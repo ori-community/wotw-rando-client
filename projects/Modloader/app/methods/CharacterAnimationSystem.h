@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterAnimationSystem.h>
-#include <Modloader/app/structs/CharacterAnimationSystem_CharacterAnimationState.h>
-#include <Modloader/app/structs/TextureAnimationWithTransitions.h>
-#include <Modloader/app/structs/Func_1_Boolean_.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/CharacterAnimationSystem.h>
 #include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/CharacterAnimationSystem_CharacterAnimationState.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 #include <Modloader/app/structs/MoonAnimation.h>
-#include <Modloader/app/structs/TextureAnimationWithTransitions__Array.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TextureAnimation.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions.h>
+#include <Modloader/app/structs/TextureAnimationWithTransitions__Array.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CharacterAnimationSystem {
@@ -29,11 +30,9 @@ namespace app::classes::CharacterAnimationSystem {
     IL2CPP_REGISTER_METHOD(0x01048F50, void, Awake, (app::CharacterAnimationSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01049220, void, OnDestroy, (app::CharacterAnimationSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010494F0, void, OnAnimationEnd_1, (app::CharacterAnimationSystem * this_ptr, app::TextureAnimation* animation))
-    IL2CPP_REGISTER_METHODINFO(0x04769890, CharacterAnimationSystem_OnAnimationEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01049660, void, OnAnimationEnd_2, (app::CharacterAnimationSystem * this_ptr, app::String* animation_name))
     IL2CPP_REGISTER_METHOD(0x01049770, void, EnableRootMotion, (app::CharacterAnimationSystem * this_ptr, bool disable_stick_to_platforms))
     IL2CPP_REGISTER_METHOD(0x010498B0, void, DisableRootMotion, (app::CharacterAnimationSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010499F0, void, OnProcessRootMotion, (app::CharacterAnimationSystem * this_ptr, app::Vector3 root_velocity))
-    IL2CPP_REGISTER_METHODINFO(0x0474B9E0, CharacterAnimationSystem_OnProcessRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01049CE0, void, ctor, (app::CharacterAnimationSystem * this_ptr))
 } // namespace app::classes::CharacterAnimationSystem

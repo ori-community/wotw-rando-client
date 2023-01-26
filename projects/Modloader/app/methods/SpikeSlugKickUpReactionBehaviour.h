@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpikeSlugKickUpReactionBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/SpikeSlugKickUpReactionBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SpikeSlugKickUpReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x011D0C90, bool, get_ShouldLetGoOfSurface, (app::SpikeSlugKickUpReactionBehaviour * this_ptr))

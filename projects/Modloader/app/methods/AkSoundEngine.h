@@ -1,71 +1,72 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/AkCallbackManager_EventCallback.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/AkDynamicSequenceType__Enum.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/AKRESULT__Enum.h>
-#include <Modloader/app/structs/AkCurveInterpolation__Enum.h>
-#include <Modloader/app/structs/AkPlaylist.h>
-#include <Modloader/app/structs/AkAudioSettings.h>
-#include <Modloader/app/structs/AkChannelConfig.h>
-#include <Modloader/app/structs/AkPanningRule__Enum.h>
-#include <Modloader/app/structs/Single__Array.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/AkExternalSourceInfoArray.h>
+#include <Modloader/app/structs/AkAcousticSurfaceArray.h>
 #include <Modloader/app/structs/AkActionOnEventType__Enum.h>
-#include <Modloader/app/structs/AkMIDIPostArray.h>
-#include <Modloader/app/structs/AkPluginType__Enum.h>
-#include <Modloader/app/structs/AkPositionArray.h>
-#include <Modloader/app/structs/AkMultiPositionType__Enum.h>
-#include <Modloader/app/structs/AkChannelEmitterArray.h>
-#include <Modloader/app/structs/AkCallbackManager_BankCallback.h>
-#include <Modloader/app/structs/AkPreparationType__Enum.h>
-#include <Modloader/app/structs/AkBankContent__Enum.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/UInt32__Array.h>
-#include <Modloader/app/structs/AkSourceSettingsArray.h>
-#include <Modloader/app/structs/AkGroupType__Enum.h>
+#include <Modloader/app/structs/AkAudioDeviceState__Enum.h>
+#include <Modloader/app/structs/AkAudioInputManager_AudioFormatInteropDelegate.h>
+#include <Modloader/app/structs/AkAudioInputManager_AudioSamplesInteropDelegate.h>
+#include <Modloader/app/structs/AkAudioSettings.h>
 #include <Modloader/app/structs/AkAuxSendArray.h>
-#include <Modloader/app/structs/AkObstructionOcclusionValuesArray.h>
-#include <Modloader/app/structs/AkOutputSettings.h>
-#include <Modloader/app/structs/AkSegmentInfo.h>
+#include <Modloader/app/structs/AkBankContent__Enum.h>
+#include <Modloader/app/structs/AkCallbackManager_BankCallback.h>
+#include <Modloader/app/structs/AkCallbackManager_EventCallback.h>
+#include <Modloader/app/structs/AkChannelConfig.h>
+#include <Modloader/app/structs/AkChannelEmitterArray.h>
+#include <Modloader/app/structs/AkChannelOrdering__Enum.h>
+#include <Modloader/app/structs/AkCommunicationSettings.h>
+#include <Modloader/app/structs/AkCurveInterpolation__Enum.h>
+#include <Modloader/app/structs/AkDeviceSettings.h>
+#include <Modloader/app/structs/AkDiffractionPathInfoArray.h>
+#include <Modloader/app/structs/AkDynamicSequenceType__Enum.h>
+#include <Modloader/app/structs/AkEmitterSettings.h>
+#include <Modloader/app/structs/AkExternalSourceInfo.h>
+#include <Modloader/app/structs/AkExternalSourceInfoArray.h>
+#include <Modloader/app/structs/AkGroupType__Enum.h>
+#include <Modloader/app/structs/AkImageSourceSettings.h>
+#include <Modloader/app/structs/AkInitSettings.h>
+#include <Modloader/app/structs/AkInitializationSettings.h>
+#include <Modloader/app/structs/AkLogger_ErrorLoggerInteropDelegate.h>
+#include <Modloader/app/structs/AkMIDIPostArray.h>
 #include <Modloader/app/structs/AkMonitorErrorCode__Enum.h>
 #include <Modloader/app/structs/AkMonitorErrorLevel__Enum.h>
+#include <Modloader/app/structs/AkMultiPositionType__Enum.h>
+#include <Modloader/app/structs/AkMusicSettings.h>
+#include <Modloader/app/structs/AkObjectInfoArray.h>
+#include <Modloader/app/structs/AkObstructionOcclusionValuesArray.h>
+#include <Modloader/app/structs/AkOutputSettings.h>
+#include <Modloader/app/structs/AkPanningRule__Enum.h>
+#include <Modloader/app/structs/AkPathParams.h>
+#include <Modloader/app/structs/AkPlatformInitSettings.h>
+#include <Modloader/app/structs/AkPlaylist.h>
+#include <Modloader/app/structs/AkPluginType__Enum.h>
+#include <Modloader/app/structs/AkPositionArray.h>
+#include <Modloader/app/structs/AkPositioningInfo.h>
+#include <Modloader/app/structs/AkPreparationType__Enum.h>
+#include <Modloader/app/structs/AkReflectionPathInfoArray.h>
+#include <Modloader/app/structs/AkRoomParams.h>
+#include <Modloader/app/structs/AkSegmentInfo.h>
+#include <Modloader/app/structs/AkSoundEngine.h>
+#include <Modloader/app/structs/AkSoundEngine_GameObjectHashFunction.h>
+#include <Modloader/app/structs/AkSourceSettingsArray.h>
+#include <Modloader/app/structs/AkSpatialAudioInitSettings.h>
+#include <Modloader/app/structs/AkStreamMgrSettings.h>
 #include <Modloader/app/structs/AkThreadProperties.h>
 #include <Modloader/app/structs/AkTransform.h>
-#include <Modloader/app/structs/AkObjectInfoArray.h>
-#include <Modloader/app/structs/AkPositioningInfo.h>
-#include <Modloader/app/structs/AkChannelOrdering__Enum.h>
-#include <Modloader/app/structs/AkEmitterSettings.h>
-#include <Modloader/app/structs/AkImageSourceSettings.h>
-#include <Modloader/app/structs/AkVector.h>
-#include <Modloader/app/structs/AkReflectionPathInfoArray.h>
-#include <Modloader/app/structs/AkAudioDeviceState__Enum.h>
-#include <Modloader/app/structs/AkLogger_ErrorLoggerInteropDelegate.h>
-#include <Modloader/app/structs/AkAudioInputManager_AudioSamplesInteropDelegate.h>
-#include <Modloader/app/structs/AkAudioInputManager_AudioFormatInteropDelegate.h>
-#include <Modloader/app/structs/AkInitializationSettings.h>
-#include <Modloader/app/structs/AkSpatialAudioInitSettings.h>
-#include <Modloader/app/structs/AkCommunicationSettings.h>
-#include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/UInt64__Array.h>
-#include <Modloader/app/structs/AkStreamMgrSettings.h>
-#include <Modloader/app/structs/AkDeviceSettings.h>
-#include <Modloader/app/structs/AkMusicSettings.h>
-#include <Modloader/app/structs/AkInitSettings.h>
-#include <Modloader/app/structs/AkPlatformInitSettings.h>
-#include <Modloader/app/structs/AkPathParams.h>
-#include <Modloader/app/structs/AkDiffractionPathInfoArray.h>
-#include <Modloader/app/structs/AkRoomParams.h>
 #include <Modloader/app/structs/AkTriangleArray.h>
+#include <Modloader/app/structs/AkVector.h>
 #include <Modloader/app/structs/AkVertexArray.h>
-#include <Modloader/app/structs/AkAcousticSurfaceArray.h>
-#include <Modloader/app/structs/AkSoundEngine_GameObjectHashFunction.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/UInt64__Array.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/AkExternalSourceInfo.h>
-#include <Modloader/app/structs/AkSoundEngine.h>
 
 namespace app::classes::AkSoundEngine {
     IL2CPP_REGISTER_METHOD(0x01898660, uint32_t, get_AK_SOUNDBANK_VERSION, ())
@@ -140,8 +141,8 @@ namespace app::classes::AkSoundEngine {
     IL2CPP_REGISTER_METHOD(0x0189E2C0, app::AKRESULT__Enum, StopMIDIOnEvent_1, (uint32_t in_event_i_d, app::GameObject* in_game_object_i_d))
     IL2CPP_REGISTER_METHOD(0x0189E410, app::AKRESULT__Enum, StopMIDIOnEvent_2, (uint32_t in_event_i_d))
     IL2CPP_REGISTER_METHOD(0x0189E530, app::AKRESULT__Enum, StopMIDIOnEvent_3, ())
-    IL2CPP_REGISTER_METHOD(0x0189E640, app::AKRESULT__Enum, PinEventInStreamCache_1, (uint32_t in_event_i_d, uint16_t in_u_active_priority, uint16_t in_u_inactive_priority))
-    IL2CPP_REGISTER_METHOD(0x0189E780, app::AKRESULT__Enum, PinEventInStreamCache_2, (app::String * in_psz_event_name, uint16_t in_u_active_priority, uint16_t in_u_inactive_priority))
+    IL2CPP_REGISTER_METHOD(0x0189E640, app::AKRESULT__Enum, PinEventInStreamCache_1, (uint32_t in_event_i_d, char16_t in_u_active_priority, char16_t in_u_inactive_priority))
+    IL2CPP_REGISTER_METHOD(0x0189E780, app::AKRESULT__Enum, PinEventInStreamCache_2, (app::String * in_psz_event_name, char16_t in_u_active_priority, char16_t in_u_inactive_priority))
     IL2CPP_REGISTER_METHOD(0x0189E8D0, app::AKRESULT__Enum, UnpinEventInStreamCache_1, (uint32_t in_event_i_d))
     IL2CPP_REGISTER_METHOD(0x0189E9F0, app::AKRESULT__Enum, UnpinEventInStreamCache_2, (app::String * in_psz_event_name))
     IL2CPP_REGISTER_METHOD(0x0189EB20, app::AKRESULT__Enum, GetBufferStatusForPinnedEvent_1, (uint32_t in_event_i_d, float* out_f_percent_buffered, int32_t* out_b_cache_pinned_memory_full))
@@ -184,7 +185,7 @@ namespace app::classes::AkSoundEngine {
     IL2CPP_REGISTER_METHOD(0x018A1AE0, app::AKRESULT__Enum, SetMultiplePositions_4, (app::GameObject * in__game_object_i_d, app::AkChannelEmitterArray* in_p_positions, uint16_t in__num_positions))
     IL2CPP_REGISTER_METHOD(0x018A1C60, app::AKRESULT__Enum, SetScalingFactor, (app::GameObject * in__game_object_i_d, float in_f_attenuation_scaling_factor))
     IL2CPP_REGISTER_METHOD(0x018A1DC0, app::AKRESULT__Enum, ClearBanks, ())
-    IL2CPP_REGISTER_METHOD(0x018A1ED0, app::AKRESULT__Enum, SetBankLoadIOSettings, (float in_f_throughput, uint16_t in_priority))
+    IL2CPP_REGISTER_METHOD(0x018A1ED0, app::AKRESULT__Enum, SetBankLoadIOSettings, (float in_f_throughput, char16_t in_priority))
     IL2CPP_REGISTER_METHOD(0x018A2000, app::AKRESULT__Enum, LoadBank_1, (app::String * in_psz_string, int32_t in_mem_pool_id, uint32_t* out_bank_i_d))
     IL2CPP_REGISTER_METHOD(0x018A2140, app::AKRESULT__Enum, LoadBank_2, (uint32_t in_bank_i_d, int32_t in_mem_pool_id))
     IL2CPP_REGISTER_METHOD(0x018A2270, app::AKRESULT__Enum, LoadBank_3, (void* in_p_in_memory_bank_ptr, uint32_t in_u_in_memory_bank_size, uint32_t* out_bank_i_d))
@@ -421,7 +422,6 @@ namespace app::classes::AkSoundEngine {
     IL2CPP_REGISTER_METHOD(0x018B5CE0, app::String*, StringFromIntPtrWString, (void* ptr))
     IL2CPP_REGISTER_METHOD(0x018B5DD0, app::String*, StringFromIntPtrOSString, (void* ptr))
     IL2CPP_REGISTER_METHOD(0x018B5E70, uint64_t, InternalGameObjectHash, (app::GameObject * game_object))
-    IL2CPP_REGISTER_METHODINFO(0x04786F90, AkSoundEngine_InternalGameObjectHash__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x018B5F40, void, set_GameObjectHash, (app::AkSoundEngine_GameObjectHashFunction * value))
     IL2CPP_REGISTER_METHOD(0x018B60D0, uint64_t, GetAkGameObjectID, (app::GameObject * game_object))
     IL2CPP_REGISTER_METHOD(0x018B6190, app::AKRESULT__Enum, RegisterGameObj_1, (app::GameObject * game_object))

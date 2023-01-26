@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/GUIText.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/FontStyle__Enum.h>
+#include <Modloader/app/structs/GUIText.h>
 
 namespace app::classes::UnityEngine::GUIText {
     IL2CPP_REGISTER_METHOD(0x0319B000, app::String*, get_text, (app::GUIText * this_ptr))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/AxisTools.h>
 #include <Modloader/app/structs/Axis__Enum.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/AxisTools.h>
 
 namespace app::classes::RootMotion::AxisTools {
     IL2CPP_REGISTER_METHOD(0x021FB560, app::Vector3, ToVector3, (app::Axis__Enum axis))

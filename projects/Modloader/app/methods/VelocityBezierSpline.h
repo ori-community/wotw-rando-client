@@ -1,18 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VelocityBezierSpline.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/VelocityBezierSpline.h>
 #include <Modloader/app/structs/BaseSpline_SplinePointType__Enum.h>
-#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment.h>
-#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplinePoint.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplinePoint.h>
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment.h>
 
 namespace app::classes::VelocityBezierSpline {
     IL2CPP_REGISTER_METHOD(0x013BCE90, void, ReversePoints, (app::VelocityBezierSpline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013BD030, void, FlipXPoints, (app::VelocityBezierSpline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013BD150, void, FlipYPoints, (app::VelocityBezierSpline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013BD270, void, InsertPoint, (app::VelocityBezierSpline * this_ptr, int32_t idx, app::Vector3 pos, app::BaseSpline_SplinePointType__Enum type, app::Vector3 cp1, app::Vector3 cp2, app::Vector3 v, app::Vector3 p_v, app::Vector3 n_v))
-    IL2CPP_REGISTER_METHODINFO(0x04713770, VelocityBezierSpline_InsertPoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x013BD4C0, void, Rebuild, (app::VelocityBezierSpline * this_ptr, bool calculate_length))
     IL2CPP_REGISTER_METHOD(0x013BDB80, void, BuildSegment, (app::VelocityBezierSpline * this_ptr, app::VelocityBezierSpline_VelocityBezierSplineSegment* ss, app::VelocityBezierSpline_VelocityBezierSplinePoint* pp, app::VelocityBezierSpline_VelocityBezierSplinePoint* sp, app::VelocityBezierSpline_VelocityBezierSplinePoint* ep, app::VelocityBezierSpline_VelocityBezierSplinePoint* np))
     IL2CPP_REGISTER_METHOD(0x013BE3A0, void, PreparePoint, (app::VelocityBezierSpline * this_ptr, app::VelocityBezierSpline_VelocityBezierSplinePoint* pp, app::VelocityBezierSpline_VelocityBezierSplinePoint* pt, app::VelocityBezierSpline_VelocityBezierSplinePoint* np))

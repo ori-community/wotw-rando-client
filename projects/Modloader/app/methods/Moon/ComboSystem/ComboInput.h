@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComboInput.h>
-#include <Modloader/app/structs/InputDirection__Enum.h>
+
+#include <Modloader/app/structs/ComboInput.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/ButtonInputType__Enum.h>
+#include <Modloader/app/structs/InputDirection__Enum.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::ComboSystem::ComboInput {

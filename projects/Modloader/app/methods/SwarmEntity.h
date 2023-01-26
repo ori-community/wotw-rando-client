@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SwarmEntity.h>
-#include <Modloader/app/structs/List_1_SwarmAgent_.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SwarmAgent.h>
+
+#include <Modloader/app/structs/SwarmEntity.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/List_1_SwarmAgent_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/SwarmAgent.h>
 #include <Modloader/app/structs/SwarmNestEntity.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SwarmEntity {
     IL2CPP_REGISTER_METHOD(0x018191D0, bool, IsAggro, (app::SwarmEntity * this_ptr))
@@ -22,9 +23,7 @@ namespace app::classes::SwarmEntity {
     IL2CPP_REGISTER_METHOD(0x0181A770, void, OnDisable, (app::SwarmEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0181A960, void, OnUpdate, (app::SwarmEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0181AA20, void, OnSuspended, (app::SwarmEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04720F20, SwarmEntity_OnSuspended__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0181AA30, void, OnResumed, (app::SwarmEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047959A8, SwarmEntity_OnResumed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0181AA40, void, AddPatrolNodes, (app::SwarmEntity * this_ptr, app::List_1_UnityEngine_Vector3_* nodes))
     IL2CPP_REGISTER_METHOD(0x0181AB20, void, InitiateSwarmCount, (app::SwarmEntity * this_ptr, int32_t count))
     IL2CPP_REGISTER_METHOD(0x0181AD70, void, CreateAndAssignAgents, (app::SwarmEntity * this_ptr))

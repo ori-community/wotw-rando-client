@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CommandEnumComparer__Boxed.h>
+
+#include <Modloader/app/structs/CommandEnumComparer__Boxed.h>
 #include <Modloader/app/structs/Input_Command__Enum.h>
 
 namespace app::classes::CommandEnumComparer {

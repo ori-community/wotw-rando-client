@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ArrayTypeMismatchException.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/ArrayTypeMismatchException.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ArrayTypeMismatchException {
     IL2CPP_REGISTER_METHOD(0x02298F80, void, ctor_1, (app::ArrayTypeMismatchException * this_ptr))

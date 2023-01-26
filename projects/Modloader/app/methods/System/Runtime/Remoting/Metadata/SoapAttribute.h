@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoapAttribute.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/SoapAttribute.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::Remoting::Metadata::SoapAttribute {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SoapAttribute * this_ptr))

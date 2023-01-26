@@ -1,33 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_UnityEngine_EventSystems_RaycastResult_.h>
-#include <Modloader/app/structs/RaycastResult.h>
-#include <Modloader/app/structs/Comparison_1_UnityEngine_EventSystems_RaycastResult_.h>
-#include <Modloader/app/structs/IEnumerable_1_UnityEngine_EventSystems_RaycastResult_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_EventSystems_RaycastResult_.h>
-#include <Modloader/app/structs/IComparer_1_UnityEngine_EventSystems_RaycastResult_.h>
-#include <Modloader/app/structs/RaycastResult__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_UnityEngine_EventSystems_RaycastResult_.h>
+
+#include <Modloader/app/structs/List_1_UnityEngine_EventSystems_RaycastResult_.h>
 #include <Modloader/app/structs/Action_1_UnityEngine_EventSystems_RaycastResult_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_EventSystems_RaycastResult_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_EventSystems_RaycastResult_.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/RaycastResult.h>
+#include <Modloader/app/structs/RaycastResult__Array.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_EventSystems_RaycastResult_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_EventSystems_RaycastResult_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_UnityEngine_EventSystems_RaycastResult_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047533A0, List_1_UnityEngine_EventSystems_RaycastResult___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D22420, app::RaycastResult, get_Item, (app::List_1_UnityEngine_EventSystems_RaycastResult_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0473A1F8, List_1_UnityEngine_EventSystems_RaycastResult__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_UnityEngine_EventSystems_RaycastResult_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04757138, List_1_UnityEngine_EventSystems_RaycastResult__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_UnityEngine_EventSystems_RaycastResult_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476EC20, List_1_UnityEngine_EventSystems_RaycastResult__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAEA0, void, Sort_1, (app::List_1_UnityEngine_EventSystems_RaycastResult_ * this_ptr, app::Comparison_1_UnityEngine_EventSystems_RaycastResult_* comparison))
-    IL2CPP_REGISTER_METHODINFO(0x0478D558, List_1_UnityEngine_EventSystems_RaycastResult__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D228B0, void, Add, (app::List_1_UnityEngine_EventSystems_RaycastResult_ * this_ptr, app::RaycastResult item))
-    IL2CPP_REGISTER_METHODINFO(0x0470B008, List_1_UnityEngine_EventSystems_RaycastResult__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_UnityEngine_EventSystems_RaycastResult_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02D21E10, void, ctor_3, (app::List_1_UnityEngine_EventSystems_RaycastResult_ * this_ptr, app::IEnumerable_1_UnityEngine_EventSystems_RaycastResult_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_UnityEngine_EventSystems_RaycastResult_ * this_ptr))

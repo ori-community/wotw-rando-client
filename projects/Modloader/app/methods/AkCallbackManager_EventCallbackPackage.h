@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkCallbackManager_EventCallbackPackage.h>
+
+#include <Modloader/app/structs/AkCallbackManager_EventCallbackPackage.h>
 #include <Modloader/app/structs/AkCallbackManager_EventCallback.h>
 #include <Modloader/app/structs/Object.h>
 

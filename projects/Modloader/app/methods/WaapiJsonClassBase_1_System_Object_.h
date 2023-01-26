@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/WaapiJsonClassBase_1_System_Object_.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/WaapiJsonClassBase_1_System_Object_.h>
 
 namespace app::classes::WaapiJsonClassBase_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00C4CBF0, app::String*, ToString, (app::WaapiJsonClassBase_1_System_Object_ * this_ptr))

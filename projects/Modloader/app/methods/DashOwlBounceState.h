@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DashOwlBounceState.h>
+
+#include <Modloader/app/structs/DashOwlBounceState.h>
 #include <Modloader/app/structs/DashOwlEnemy.h>
 
 namespace app::classes::DashOwlBounceState {

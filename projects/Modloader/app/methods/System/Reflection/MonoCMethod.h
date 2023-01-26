@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MethodImplAttributes__Enum.h>
+
+#include <Modloader/app/structs/MethodImplAttributes__Enum.h>
+#include <Modloader/app/structs/Binder.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/CallingConventions__Enum.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeData_.h>
+#include <Modloader/app/structs/MethodAttributes__Enum.h>
+#include <Modloader/app/structs/MethodBody.h>
 #include <Modloader/app/structs/MonoCMethod.h>
-#include <Modloader/app/structs/ParameterInfo_1__Array.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/BindingFlags__Enum.h>
-#include <Modloader/app/structs/Binder.h>
-#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
 #include <Modloader/app/structs/RuntimeMethodHandle.h>
-#include <Modloader/app/structs/MethodAttributes__Enum.h>
-#include <Modloader/app/structs/CallingConventions__Enum.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/MethodBody.h>
-#include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeData_.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Reflection::MonoCMethod {
     IL2CPP_REGISTER_METHOD(0x0268F2D0, app::MethodImplAttributes__Enum, GetMethodImplementationFlags, (app::MonoCMethod * this_ptr))
@@ -24,11 +25,8 @@ namespace app::classes::System::Reflection::MonoCMethod {
     IL2CPP_REGISTER_METHOD(0x0268F340, int32_t, GetParametersCount, (app::MonoCMethod * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0268F380, app::Object*, InternalInvoke_1, (app::MonoCMethod * this_ptr, app::Object* obj, app::Object__Array* parameters, app::Exception** exc))
     IL2CPP_REGISTER_METHOD(0x0268F390, app::Object*, Invoke_1, (app::MonoCMethod * this_ptr, app::Object* obj, app::BindingFlags__Enum invoke_attr, app::Binder* binder, app::Object__Array* parameters, app::CultureInfo* culture))
-    IL2CPP_REGISTER_METHODINFO(0x04704008, MonoCMethod_Invoke__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0268F500, app::Object*, DoInvoke, (app::MonoCMethod * this_ptr, app::Object* obj, app::BindingFlags__Enum invoke_attr, app::Binder* binder, app::Object__Array* parameters, app::CultureInfo* culture))
-    IL2CPP_REGISTER_METHODINFO(0x0475B3A0, MonoCMethod_DoInvoke__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0268F750, app::Object*, InternalInvoke_2, (app::MonoCMethod * this_ptr, app::Object* obj, app::Object__Array* parameters))
-    IL2CPP_REGISTER_METHODINFO(0x04733140, MonoCMethod_InternalInvoke_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0268F860, app::Object*, Invoke_2, (app::MonoCMethod * this_ptr, app::BindingFlags__Enum invoke_attr, app::Binder* binder, app::Object__Array* parameters, app::CultureInfo* culture))
     IL2CPP_REGISTER_METHOD(0x002FA280, app::RuntimeMethodHandle, get_MethodHandle, (app::MonoCMethod * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0268F890, app::MethodAttributes__Enum, get_Attributes, (app::MonoCMethod * this_ptr))

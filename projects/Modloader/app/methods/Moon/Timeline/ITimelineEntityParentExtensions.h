@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ITimelineEntityParent.h>
+
+#include <Modloader/app/structs/ITimelineEntityParent.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
 #include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/IConstraint.h>
 #include <Modloader/app/structs/ITimelineEntity.h>
 #include <Modloader/app/structs/TimelineConstraint.h>
-#include <Modloader/app/structs/Constraint__Enum.h>
-#include <Modloader/app/structs/IConstraint.h>
 #include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::ITimelineEntityParentExtensions {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XblAchievementMediaAsset.h>
+
+#include <Modloader/app/structs/XblAchievementMediaAsset.h>
 #include <Modloader/app/structs/XblAchievementMediaAsset_1.h>
 
 namespace app::classes::XGamingRuntime::XblAchievementMediaAsset {

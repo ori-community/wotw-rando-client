@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEvent__Boxed.h>
+
+#include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEvent__Boxed.h>
 #include <Modloader/app/structs/SoundZoneProcessor_Job_PositionZoneEventType__Enum.h>
 #include <Modloader/app/structs/SoundZoneProcessor_Job_ZoneType__Enum.h>
 #include <Modloader/app/structs/Vector2.h>

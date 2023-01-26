@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DamageText.h>
+
+#include <Modloader/app/structs/DamageText.h>
 #include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::DamageText {

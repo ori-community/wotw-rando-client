@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/List_1_Moon_Race_LeaderBoardEntry_.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Database.h>
-#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
 #include <Modloader/app/structs/ITrialData.h>
-#include <Modloader/app/structs/RaceSettings.h>
 #include <Modloader/app/structs/LeaderBoardEntry.h>
+#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
+#include <Modloader/app/structs/List_1_Moon_Race_LeaderBoardEntry_.h>
+#include <Modloader/app/structs/RaceSettings.h>
 
 namespace app::classes::Moon::Race::Database {
     IL2CPP_REGISTER_METHOD(0x00C3F180, app::String*, get_RacesFolder, ())

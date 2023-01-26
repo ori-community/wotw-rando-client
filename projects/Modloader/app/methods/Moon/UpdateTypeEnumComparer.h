@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UpdateTypeEnumComparer__Boxed.h>
+
+#include <Modloader/app/structs/UpdateTypeEnumComparer__Boxed.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::UpdateTypeEnumComparer {

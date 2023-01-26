@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberStateModifierDataVirtualAnimator_1_T_Context_System_Object___Boxed.h>
+
+#include <Modloader/app/structs/UberStateModifierDataVirtualAnimator_1_T_Context_System_Object___Boxed.h>
 #include <Modloader/app/structs/NewSetupStateController.h>
 #include <Modloader/app/structs/SetupStateModifier.h>
 

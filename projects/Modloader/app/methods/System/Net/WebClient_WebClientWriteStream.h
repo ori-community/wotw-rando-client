@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WebClient_WebClientWriteStream.h>
-#include <Modloader/app/structs/Stream.h>
-#include <Modloader/app/structs/WebRequest.h>
-#include <Modloader/app/structs/WebClient.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/Byte__Array.h>
+
+#include <Modloader/app/structs/WebClient_WebClientWriteStream.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SeekOrigin__Enum.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/WebClient.h>
+#include <Modloader/app/structs/WebRequest.h>
 
 namespace app::classes::System::Net::WebClient_WebClientWriteStream {
     IL2CPP_REGISTER_METHOD(0x01D611E0, void, ctor, (app::WebClient_WebClientWriteStream * this_ptr, app::Stream* stream, app::WebRequest* request, app::WebClient* web_client))

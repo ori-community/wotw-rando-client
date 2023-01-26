@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostTimeTrackingPlugin.h>
-#include <Modloader/app/structs/PreRecordingData.h>
+
+#include <Modloader/app/structs/GhostTimeTrackingPlugin.h>
 #include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
+#include <Modloader/app/structs/PreRecordingData.h>
 
 namespace app::classes::GhostTimeTrackingPlugin {
     IL2CPP_REGISTER_METHOD(0x007E9F70, void, OnStartRecording, (app::GhostTimeTrackingPlugin * this_ptr, app::PreRecordingData* pre_recording_data))

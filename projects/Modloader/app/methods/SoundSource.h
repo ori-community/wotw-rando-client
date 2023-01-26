@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoundSource.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/SoundSource.h>
+#include <Modloader/app/structs/AkCallbackInfo.h>
+#include <Modloader/app/structs/AkCallbackType__Enum.h>
+#include <Modloader/app/structs/Func_1_Single_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RTPC.h>
 #include <Modloader/app/structs/SelectableCategory__Enum.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/RTPC.h>
-#include <Modloader/app/structs/Func_1_Single_.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/AkCallbackType__Enum.h>
-#include <Modloader/app/structs/AkCallbackInfo.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SoundSource {
     IL2CPP_REGISTER_METHOD(0x00EED000, bool, get_IsPlaying, (app::SoundSource * this_ptr))
@@ -38,5 +39,4 @@ namespace app::classes::SoundSource {
     IL2CPP_REGISTER_METHOD(0x00597B10, app::UpdateType__Enum, get_UpdateType, (app::SoundSource * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004FA630, void, ctor, (app::SoundSource * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EED3B0, void, _Play_b__18_0, (app::SoundSource * this_ptr, app::Object* cookie, app::AkCallbackType__Enum type, app::AkCallbackInfo* info))
-    IL2CPP_REGISTER_METHODINFO(0x04792590, SoundSource__Play_b__18_0__MethodInfo)
 } // namespace app::classes::SoundSource

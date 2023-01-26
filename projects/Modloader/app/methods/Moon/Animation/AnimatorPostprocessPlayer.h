@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
+
+#include <Modloader/app/structs/UpdateType__Enum.h>
 #include <Modloader/app/structs/AnimatorPostprocessPlayer.h>
 
 namespace app::classes::Moon::Animation::AnimatorPostprocessPlayer {

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttributesBasedDataReader.h>
-#include <Modloader/app/structs/IRequest.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/AttributesBasedDataReader.h>
 #include <Modloader/app/structs/Dictionary_2_System_String_System_Object_.h>
+#include <Modloader/app/structs/IRequest.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Network::Web::AttributesBasedDataReader {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, SetRequest, (app::AttributesBasedDataReader * this_ptr, app::IRequest* request))

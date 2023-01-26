@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SkeetoEntity.h>
-#include <Modloader/app/structs/SkeetoSpawnType__Enum.h>
-#include <Modloader/app/structs/SkeetoEntity_SkeetoType__Enum.h>
-#include <Modloader/app/structs/SkeetoEntity_SkeetoState__Enum.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/SkeetoEntity.h>
+#include <Modloader/app/structs/SkeetoEntity_SkeetoState__Enum.h>
+#include <Modloader/app/structs/SkeetoEntity_SkeetoType__Enum.h>
+#include <Modloader/app/structs/SkeetoSpawnType__Enum.h>
 
 namespace app::classes::SkeetoEntity {
     IL2CPP_REGISTER_METHOD(0x00755320, void, ResetStatics, ())
@@ -27,7 +28,6 @@ namespace app::classes::SkeetoEntity {
     IL2CPP_REGISTER_METHOD(0x00755700, bool, get_AutoResetSpotOriBool, (app::SkeetoEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00755710, void, OnAwake, (app::SkeetoEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007558C0, void, OnRestoreCheckpoint, (app::SkeetoEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470F1C0, SkeetoEntity_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007559F0, void, UnserializedInitialization, (app::SkeetoEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00755AD0, void, OnEnable, (app::SkeetoEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00755C30, void, OnDestroy, (app::SkeetoEntity * this_ptr))

@@ -1,29 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo_.h>
-#include <Modloader/app/structs/List_1_LoadDebugMenuPage_DebugSaveInfo_.h>
-#include <Modloader/app/structs/IComparer_1_LoadDebugMenuPage_DebugSaveInfo_.h>
-#include <Modloader/app/structs/LoadDebugMenuPage_DebugSaveInfo.h>
-#include <Modloader/app/structs/IEnumerable_1_LoadDebugMenuPage_DebugSaveInfo_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_LoadDebugMenuPage_DebugSaveInfo_.h>
-#include <Modloader/app/structs/LoadDebugMenuPage_DebugSaveInfo__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo_.h>
 #include <Modloader/app/structs/Action_1_LoadDebugMenuPage_DebugSaveInfo_.h>
-#include <Modloader/app/structs/IEnumerator_1_LoadDebugMenuPage_DebugSaveInfo_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/IComparer_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/IEnumerable_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/List_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/LoadDebugMenuPage_DebugSaveInfo.h>
+#include <Modloader/app/structs/LoadDebugMenuPage_DebugSaveInfo__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_LoadDebugMenuPage_DebugSaveInfo_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_LoadDebugMenuPage_DebugSaveInfo_ {
     IL2CPP_REGISTER_METHOD(0x02C1F070, app::List_1_T_Enumerator_LoadDebugMenuPage_DebugSaveInfo_, GetEnumerator, (app::List_1_LoadDebugMenuPage_DebugSaveInfo_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473FBD8, List_1_LoadDebugMenuPage_DebugSaveInfo__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_LoadDebugMenuPage_DebugSaveInfo_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04732458, List_1_LoadDebugMenuPage_DebugSaveInfo___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EADB0, void, Sort_1, (app::List_1_LoadDebugMenuPage_DebugSaveInfo_ * this_ptr, app::IComparer_1_LoadDebugMenuPage_DebugSaveInfo_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0471EFA0, List_1_LoadDebugMenuPage_DebugSaveInfo__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C1E360, void, Add, (app::List_1_LoadDebugMenuPage_DebugSaveInfo_ * this_ptr, app::LoadDebugMenuPage_DebugSaveInfo item))
-    IL2CPP_REGISTER_METHODINFO(0x0475BB18, List_1_LoadDebugMenuPage_DebugSaveInfo__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_LoadDebugMenuPage_DebugSaveInfo_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02DF7B30, void, ctor_3, (app::List_1_LoadDebugMenuPage_DebugSaveInfo_ * this_ptr, app::IEnumerable_1_LoadDebugMenuPage_DebugSaveInfo_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_LoadDebugMenuPage_DebugSaveInfo_ * this_ptr))

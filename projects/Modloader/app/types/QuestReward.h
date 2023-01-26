@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/QuestReward__Class.h>
 #include <Modloader/app/structs/QuestReward.h>
 #include <Modloader/app/structs/QuestReward__Array.h>
+#include <Modloader/app/structs/QuestReward__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace QuestReward {
-        namespace {
-            inline app::QuestReward__Class* type_info_ref = nullptr;
+        inline app::QuestReward__Class** type_info() {
+            static app::QuestReward__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::QuestReward__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::QuestReward__Class** type_info = &type_info_ref;
         inline app::QuestReward__Class* get_class() {
-            return il2cpp::get_class<app::QuestReward__Class>(type_info, "", "QuestReward");
+            return il2cpp::get_class<app::QuestReward__Class>(type_info(), "", "QuestReward");
         }
         inline app::QuestReward* create() {
             return il2cpp::create_object<app::QuestReward>(get_class());

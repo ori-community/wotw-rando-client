@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
-#include <Modloader/app/structs/UpgradableShardItem.h>
-#include <Modloader/app/structs/MessageProvider.h>
-#include <Modloader/app/structs/Texture2D.h>
+
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 #include <Modloader/app/structs/Action_1_MessageProvider_.h>
-#include <Modloader/app/structs/UISoundSettingsAsset.h>
-#include <Modloader/app/structs/ShopKeeperHints.h>
+#include <Modloader/app/structs/MessageProvider.h>
 #include <Modloader/app/structs/PurchaseContext.h>
+#include <Modloader/app/structs/ShopKeeperHints.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/UISoundSettingsAsset.h>
+#include <Modloader/app/structs/UpgradableShardItem.h>
 
 namespace app::classes::UpgradableShardItem {
     IL2CPP_REGISTER_METHOD(0x013AE4A0, app::PlayerUberStateShards_Shard*, get_ShardState, (app::UpgradableShardItem * this_ptr))
@@ -32,5 +33,4 @@ namespace app::classes::UpgradableShardItem {
     IL2CPP_REGISTER_METHOD(0x013AF2D0, float, get_GameModeBasedCostMultiplier, (app::UpgradableShardItem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::UpgradableShardItem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013AF390, bool, _get_ShardState_b__2_0, (app::UpgradableShardItem * this_ptr, app::PlayerUberStateShards_Shard* x))
-    IL2CPP_REGISTER_METHODINFO(0x0470E4A8, UpgradableShardItem__get_ShardState_b__2_0__MethodInfo)
 } // namespace app::classes::UpgradableShardItem

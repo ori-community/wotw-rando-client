@@ -1,23 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/DataColumn__Array.h>
-#include <Modloader/app/structs/UniqueConstraint.h>
-#include <Modloader/app/structs/ForeignKeyConstraint.h>
-#include <Modloader/app/structs/DataTable.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/DataColumn.h>
-#include <Modloader/app/structs/Constraint_1.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/DataSetDateTime__Enum.h>
-#include <Modloader/app/structs/DataRowState__Enum.h>
-#include <Modloader/app/structs/SerializationFormat__Enum_1.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/AggregateType__Enum.h>
-#include <Modloader/app/structs/TypeCode__Enum.h>
-#include <Modloader/app/structs/RBTreeError__Enum.h>
+#include <Modloader/app/structs/Constraint_1.h>
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/DataColumn__Array.h>
+#include <Modloader/app/structs/DataRowState__Enum.h>
+#include <Modloader/app/structs/DataSetDateTime__Enum.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/ForeignKeyConstraint.h>
 #include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/RBTreeError__Enum.h>
+#include <Modloader/app/structs/SerializationFormat__Enum_1.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
+#include <Modloader/app/structs/UniqueConstraint.h>
 
 namespace app::classes::System::Data::ExceptionBuilder {
     IL2CPP_REGISTER_METHOD(0x01F4D2B0, void, TraceException, (app::String * trace, app::Exception* e))
@@ -33,7 +34,6 @@ namespace app::classes::System::Data::ExceptionBuilder {
     IL2CPP_REGISTER_METHOD(0x01F4DD70, app::Exception*, _InvalidOperation, (app::String * error))
     IL2CPP_REGISTER_METHOD(0x01F4DED0, app::Exception*, _InvalidEnumArgumentException_1, (app::String * error))
     IL2CPP_REGISTER_METHOD(0x01F4E030, void, ThrowDataException, (app::String * error, app::Exception* inner_exception))
-    IL2CPP_REGISTER_METHODINFO(0x04739CF0, ExceptionBuilder_ThrowDataException__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F4E0A0, app::Exception*, _Data, (app::String * error))
     IL2CPP_REGISTER_METHOD(0x01F4E200, app::Exception*, _Constraint, (app::String * error))
     IL2CPP_REGISTER_METHOD(0x01F4E360, app::Exception*, _InvalidConstraint, (app::String * error))
@@ -242,7 +242,7 @@ namespace app::classes::System::Data::ExceptionBuilder {
     IL2CPP_REGISTER_METHOD(0x01F56350, app::Exception*, RangeArgument, (int32_t min, int32_t max))
     IL2CPP_REGISTER_METHOD(0x01F56450, app::Exception*, NullRange, ())
     IL2CPP_REGISTER_METHOD(0x01F564D0, app::Exception*, NegativeMinimumCapacity, ())
-    IL2CPP_REGISTER_METHOD(0x01F56550, app::Exception*, ProblematicChars, (uint16_t char_value))
+    IL2CPP_REGISTER_METHOD(0x01F56550, app::Exception*, ProblematicChars, (char16_t char_value))
     IL2CPP_REGISTER_METHOD(0x01F56640, app::Exception*, StorageSetFailed, ())
     IL2CPP_REGISTER_METHOD(0x01F566C0, app::Exception*, SimpleTypeNotSupported, ())
     IL2CPP_REGISTER_METHOD(0x01F56740, app::Exception*, MissingAttribute_1, (app::String * attribute))
@@ -286,10 +286,7 @@ namespace app::classes::System::Data::ExceptionBuilder {
     IL2CPP_REGISTER_METHOD(0x01F57C90, app::Exception*, EnumeratorModified, ())
     IL2CPP_REGISTER_METHOD(0x02652A50, app::Exception*, _InvalidEnumArgumentException_2, (app::Object * value))
     IL2CPP_REGISTER_METHOD(0x02652910, app::Exception*, _InvalidEnumArgumentException_3, (app::DataSetDateTime__Enum value))
-    IL2CPP_REGISTER_METHODINFO(0x04721218, ExceptionBuilder__InvalidEnumArgumentException_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02652910, app::Exception*, _InvalidEnumArgumentException_4, (app::DataRowState__Enum value))
-    IL2CPP_REGISTER_METHODINFO(0x04747700, ExceptionBuilder__InvalidEnumArgumentException_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02652910, app::Exception*, _InvalidEnumArgumentException_5, (app::SerializationFormat__Enum_1 value))
-    IL2CPP_REGISTER_METHODINFO(0x0477A130, ExceptionBuilder__InvalidEnumArgumentException_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02652910, app::Exception*, _InvalidEnumArgumentException_6, (app::Int32Enum__Enum value))
 } // namespace app::classes::System::Data::ExceptionBuilder

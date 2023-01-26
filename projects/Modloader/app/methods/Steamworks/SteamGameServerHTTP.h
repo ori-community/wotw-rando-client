@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HTTPRequestHandle.h>
-#include <Modloader/app/structs/EHTTPMethod__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SteamAPICall_t.h>
+
+#include <Modloader/app/structs/HTTPRequestHandle.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/EHTTPMethod__Enum.h>
 #include <Modloader/app/structs/HTTPCookieContainerHandle.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::SteamGameServerHTTP {
     IL2CPP_REGISTER_METHOD(0x027F9090, app::HTTPRequestHandle, CreateHTTPRequest, (app::EHTTPMethod__Enum e_h_t_t_p_request_method, app::String* pch_absolute_u_r_l))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlWellFormedWriter_AttributeValueCache_BufferChunk.h>
+
+#include <Modloader/app/structs/XmlWellFormedWriter_AttributeValueCache_BufferChunk.h>
 #include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::XmlWellFormedWriter_AttributeValueCache_BufferChunk {

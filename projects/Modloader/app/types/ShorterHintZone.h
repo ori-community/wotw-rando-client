@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ShorterHintZone__Class.h>
 #include <Modloader/app/structs/ShorterHintZone.h>
 #include <Modloader/app/structs/ShorterHintZone__Array.h>
+#include <Modloader/app/structs/ShorterHintZone__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace ShorterHintZone {
-        namespace {
-            inline app::ShorterHintZone__Class* type_info_ref = nullptr;
+        inline app::ShorterHintZone__Class** type_info() {
+            static app::ShorterHintZone__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ShorterHintZone__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ShorterHintZone__Class** type_info = &type_info_ref;
         inline app::ShorterHintZone__Class* get_class() {
-            return il2cpp::get_class<app::ShorterHintZone__Class>(type_info, "", "ShorterHintZone");
+            return il2cpp::get_class<app::ShorterHintZone__Class>(type_info(), "", "ShorterHintZone");
         }
         inline app::ShorterHintZone* create() {
             return il2cpp::create_object<app::ShorterHintZone>(get_class());

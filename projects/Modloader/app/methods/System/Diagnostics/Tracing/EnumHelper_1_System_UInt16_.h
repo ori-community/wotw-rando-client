@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Object_.h>
 #include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/DateTimeOffset.h>
 #include <Modloader/app/structs/Decimal.h>
@@ -12,7 +13,7 @@
 namespace app::classes::System::Diagnostics::Tracing::EnumHelper_1_System_UInt16_ {
     IL2CPP_REGISTER_METHOD(0x02FF68C0, uint16_t, Cast_1, (bool value))
     IL2CPP_REGISTER_METHOD(0x02FF68C0, uint16_t, Cast_2, (uint8_t value))
-    IL2CPP_REGISTER_METHOD(0x02FF6990, uint16_t, Cast_3, (uint16_t value))
+    IL2CPP_REGISTER_METHOD(0x02FF6990, uint16_t, Cast_3, (char16_t value))
     IL2CPP_REGISTER_METHOD(0x02FF6A60, uint16_t, Cast_4, (app::KeyValuePair_2_System_Object_System_Object_ value))
     IL2CPP_REGISTER_METHOD(0x02FF6B30, uint16_t, Cast_5, (app::DateTime value))
     IL2CPP_REGISTER_METHOD(0x02FF6A60, uint16_t, Cast_6, (app::DateTimeOffset value))

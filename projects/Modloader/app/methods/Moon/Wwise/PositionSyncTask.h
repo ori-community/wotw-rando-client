@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoundListenerReference.h>
+
+#include <Modloader/app/structs/SoundListenerReference.h>
 #include <Modloader/app/structs/PositionSyncTask.h>
 #include <Modloader/app/structs/SoundHostReference.h>
 

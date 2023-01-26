@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Moon_EffectsFramework_IMoonEffectComposition_.h>
+
+#include <Modloader/app/structs/List_1_Moon_EffectsFramework_IMoonEffectComposition_.h>
 #include <Modloader/app/structs/MoonEffectWispsRoot.h>
 
 namespace app::classes::Moon::EffectsFramework::Wisps::MoonEffectWispsRoot {

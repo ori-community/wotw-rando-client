@@ -1,12 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TaskCompletionSource_1_System_IO_Stream_.h>
+
+#include <Modloader/app/structs/TaskCompletionSource_1_System_IO_Stream_.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Task_1_System_IO_Stream_.h>
 
 namespace app::classes::System::Threading::Tasks::TaskCompletionSource_1_System_IO_Stream_ {
     IL2CPP_REGISTER_METHOD(0x02776D20, void, ctor, (app::TaskCompletionSource_1_System_IO_Stream_ * this_ptr, app::Object* state))
-    IL2CPP_REGISTER_METHODINFO(0x04798C28, TaskCompletionSource_1_System_IO_Stream___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Task_1_System_IO_Stream_*, get_Task, (app::TaskCompletionSource_1_System_IO_Stream_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04745200, TaskCompletionSource_1_System_IO_Stream__get_Task__MethodInfo)
 } // namespace app::classes::System::Threading::Tasks::TaskCompletionSource_1_System_IO_Stream_

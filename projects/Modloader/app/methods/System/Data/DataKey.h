@@ -1,25 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataKey__Boxed.h>
-#include <Modloader/app/structs/DataColumn__Array.h>
-#include <Modloader/app/structs/DataTable.h>
-#include <Modloader/app/structs/DataKey.h>
+
+#include <Modloader/app/structs/DataKey__Boxed.h>
 #include <Modloader/app/structs/DataColumn.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/IndexField__Array.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/Index.h>
+#include <Modloader/app/structs/DataColumn__Array.h>
+#include <Modloader/app/structs/DataKey.h>
+#include <Modloader/app/structs/DataTable.h>
 #include <Modloader/app/structs/DataViewRowState__Enum.h>
+#include <Modloader/app/structs/Index.h>
+#include <Modloader/app/structs/IndexField__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::Data::DataKey {
     IL2CPP_REGISTER_METHOD(0x001E9F50, void, ctor, (app::DataKey__Boxed * this_ptr, app::DataColumn__Array* columns, bool copy_columns))
-    IL2CPP_REGISTER_METHODINFO(0x04722508, DataKey__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00107C00, app::DataColumn__Array*, get_ColumnsReference, (app::DataKey__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0011D880, bool, get_HasValue, (app::DataKey__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001E9F60, app::DataTable*, get_Table, (app::DataKey__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001E9FB0, void, CheckState, (app::DataKey__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047973D8, DataKey_CheckState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001E9FC0, bool, ColumnsEqual_1, (app::DataKey__Boxed * this_ptr, app::DataKey key))
     IL2CPP_REGISTER_METHOD(0x023A0CC0, bool, ColumnsEqual_2, (app::DataColumn__Array * column1, app::DataColumn__Array* column2))
     IL2CPP_REGISTER_METHOD(0x001E9FD0, bool, ContainsColumn, (app::DataKey__Boxed * this_ptr, app::DataColumn* column))

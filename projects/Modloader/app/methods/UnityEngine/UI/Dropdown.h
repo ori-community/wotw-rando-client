@@ -1,25 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Dropdown.h>
-#include <Modloader/app/structs/RectTransform.h>
-#include <Modloader/app/structs/Text.h>
-#include <Modloader/app/structs/Image.h>
-#include <Modloader/app/structs/List_1_UnityEngine_UI_Dropdown_OptionData_.h>
-#include <Modloader/app/structs/Dropdown_DropdownEvent.h>
-#include <Modloader/app/structs/List_1_System_String_.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Sprite_.h>
-#include <Modloader/app/structs/PointerEventData.h>
+
+#include <Modloader/app/structs/Dropdown.h>
 #include <Modloader/app/structs/BaseEventData.h>
-#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/Canvas.h>
+#include <Modloader/app/structs/CanvasGroup.h>
+#include <Modloader/app/structs/Dropdown_DropdownEvent.h>
 #include <Modloader/app/structs/Dropdown_DropdownItem.h>
 #include <Modloader/app/structs/Dropdown_OptionData.h>
-#include <Modloader/app/structs/List_1_UnityEngine_UI_Dropdown_DropdownItem_.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Toggle.h>
-#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/GraphicRaycaster.h>
-#include <Modloader/app/structs/CanvasGroup.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Image.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Sprite_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UI_Dropdown_DropdownItem_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_UI_Dropdown_OptionData_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/Text.h>
+#include <Modloader/app/structs/Toggle.h>
 
 namespace app::classes::UnityEngine::UI::Dropdown {
     IL2CPP_REGISTER_METHOD(0x01F36670, void, ctor, (app::Dropdown * this_ptr))
@@ -61,17 +62,12 @@ namespace app::classes::UnityEngine::UI::Dropdown {
     IL2CPP_REGISTER_METHOD(0x01F39F80, void, AlphaFadeList_1, (app::Dropdown * this_ptr, float duration, float alpha))
     IL2CPP_REGISTER_METHOD(0x01F3A0A0, void, AlphaFadeList_2, (app::Dropdown * this_ptr, float duration, float start, float end))
     IL2CPP_REGISTER_METHOD(0x01F3A300, void, SetAlpha, (app::Dropdown * this_ptr, float alpha))
-    IL2CPP_REGISTER_METHODINFO(0x04795BC8, Dropdown_SetAlpha__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F3A430, void, Hide, (app::Dropdown * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047336B0, Dropdown_Hide__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F3A790, app::IEnumerator*, DelayedDestroyDropdownList, (app::Dropdown * this_ptr, float delay))
     IL2CPP_REGISTER_METHOD(0x01F3A900, void, OnSelectItem, (app::Dropdown * this_ptr, app::Toggle* toggle))
     IL2CPP_REGISTER_METHOD(0x01F3AB70, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x0157DAE0, app::Object*, GetOrAddComponent_1, (app::GameObject * go))
     IL2CPP_REGISTER_METHOD(0x0157DAE0, app::Canvas*, GetOrAddComponent_2, (app::GameObject * go))
-    IL2CPP_REGISTER_METHODINFO(0x04702908, Dropdown_GetOrAddComponent_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157DAE0, app::GraphicRaycaster*, GetOrAddComponent_3, (app::GameObject * go))
-    IL2CPP_REGISTER_METHODINFO(0x047188B0, Dropdown_GetOrAddComponent_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157DAE0, app::CanvasGroup*, GetOrAddComponent_4, (app::GameObject * go))
-    IL2CPP_REGISTER_METHODINFO(0x04725BE8, Dropdown_GetOrAddComponent_3__MethodInfo)
 } // namespace app::classes::UnityEngine::UI::Dropdown

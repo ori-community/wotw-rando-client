@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FixedDurationSceneEntity.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/TimelineEntity.h>
+
+#include <Modloader/app/structs/FixedDurationSceneEntity.h>
 #include <Modloader/app/structs/List_1_Moon_Timeline_FixedDurationSceneEntity_.h>
 #include <Modloader/app/structs/List_1_Moon_Timeline_TimelineEntityRecord_.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/TimelineEntity.h>
 #include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::ScenePreloading {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinBowMark.h>
+
+#include <Modloader/app/structs/SeinBowMark.h>
 #include <Modloader/app/structs/SeinBowMark_State__Enum.h>
 
 namespace app::classes::SeinBowMark {

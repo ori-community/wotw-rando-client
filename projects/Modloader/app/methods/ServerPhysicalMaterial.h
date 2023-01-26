@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ServerPhysicalMaterial_PhysicalMaterialData.h>
+
+#include <Modloader/app/structs/ServerPhysicalMaterial_PhysicalMaterialData.h>
 #include <Modloader/app/structs/PhysicMaterial.h>
 #include <Modloader/app/structs/ServerPhysicalMaterial.h>
 

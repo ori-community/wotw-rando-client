@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
-#include <Modloader/app/structs/IEnumerable_1_Newtonsoft_Json_Utilities_StructMultiKey_2__3.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/StructMultiKey_2_System_Object_System_Object_.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
-#include <Modloader/app/structs/IComparer_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
-#include <Modloader/app/structs/StructMultiKey_2_System_Object_System_Object___Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
+
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
 #include <Modloader/app/structs/Action_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
-#include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
+#include <Modloader/app/structs/IComparer_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
+#include <Modloader/app/structs/IEnumerable_1_Newtonsoft_Json_Utilities_StructMultiKey_2__3.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
+#include <Modloader/app/structs/StructMultiKey_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/StructMultiKey_2_System_Object_System_Object___Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Newtonsoft_Json_Utilities_StructMultiKey_2_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_Newtonsoft_Json_Utilities_StructMultiKey_2_ * this_ptr))

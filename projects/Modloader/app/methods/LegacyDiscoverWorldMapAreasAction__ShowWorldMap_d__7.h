@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyDiscoverWorldMapAreasAction_ShowWorldMap_d_7.h>
+
+#include <Modloader/app/structs/LegacyDiscoverWorldMapAreasAction_ShowWorldMap_d_7.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::LegacyDiscoverWorldMapAreasAction__ShowWorldMap_d__7 {
@@ -9,6 +10,5 @@ namespace app::classes::LegacyDiscoverWorldMapAreasAction__ShowWorldMap_d__7 {
     IL2CPP_REGISTER_METHOD(0x00A191A0, bool, MoveNext, (app::LegacyDiscoverWorldMapAreasAction_ShowWorldMap_d_7 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::LegacyDiscoverWorldMapAreasAction_ShowWorldMap_d_7 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A19E40, void, IEnumerator_Reset, (app::LegacyDiscoverWorldMapAreasAction_ShowWorldMap_d_7 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474C730, LegacyDiscoverWorldMapAreasAction_ShowWorldMap_d_7_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::LegacyDiscoverWorldMapAreasAction_ShowWorldMap_d_7 * this_ptr))
 } // namespace app::classes::LegacyDiscoverWorldMapAreasAction__ShowWorldMap_d__7

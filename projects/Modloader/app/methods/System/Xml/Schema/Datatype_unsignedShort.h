@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FacetsChecker.h>
+
+#include <Modloader/app/structs/FacetsChecker.h>
 #include <Modloader/app/structs/Datatype_unsignedShort.h>
-#include <Modloader/app/structs/XmlTypeCode__Enum.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlNameTable.h>
 #include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
 
 namespace app::classes::System::Xml::Schema::Datatype_unsignedShort {
     IL2CPP_REGISTER_METHOD(0x02363020, app::FacetsChecker*, get_FacetsChecker, (app::Datatype_unsignedShort * this_ptr))

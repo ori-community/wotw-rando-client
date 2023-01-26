@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ValidationEventArgs.h>
+
+#include <Modloader/app/structs/ValidationEventArgs.h>
 #include <Modloader/app/structs/XmlSchemaException.h>
 #include <Modloader/app/structs/XmlSeverityType__Enum.h>
 

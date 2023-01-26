@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LightDarkeningErasingComparer.h>
+
+#include <Modloader/app/structs/LightDarkeningErasingComparer.h>
 #include <Modloader/app/structs/PointLightMaskModifier.h>
 
 namespace app::classes::LightDarkeningErasingComparer {

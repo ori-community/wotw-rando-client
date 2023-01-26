@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SerializationObjectManager.h>
-#include <Modloader/app/structs/StreamingContext.h>
+
+#include <Modloader/app/structs/SerializationObjectManager.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Runtime::Serialization::SerializationObjectManager {
     IL2CPP_REGISTER_METHOD(0x01EE1730, void, ctor, (app::SerializationObjectManager * this_ptr, app::StreamingContext context))

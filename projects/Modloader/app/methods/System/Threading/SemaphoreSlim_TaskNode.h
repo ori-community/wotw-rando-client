@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SemaphoreSlim_TaskNode.h>
+
+#include <Modloader/app/structs/SemaphoreSlim_TaskNode.h>
 #include <Modloader/app/structs/ThreadAbortException.h>
 
 namespace app::classes::System::Threading::SemaphoreSlim_TaskNode {

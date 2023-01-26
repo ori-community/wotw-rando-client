@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TitleScreenManager.h>
-#include <Modloader/app/structs/TitleScreenManager_Screen__Enum.h>
+
+#include <Modloader/app/structs/TitleScreenManager.h>
 #include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/TitleScreenManager_Screen__Enum.h>
 
 namespace app::classes::TitleScreenManager {
     IL2CPP_REGISTER_METHOD(0x00AF74D0, bool, get_MainMenuActive, ())
@@ -23,7 +24,6 @@ namespace app::classes::TitleScreenManager {
     IL2CPP_REGISTER_METHOD(0x00AF9BF0, void, StartExternalTimelines, (app::TitleScreenManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AF9DF0, void, OnDisable, (app::TitleScreenManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AF9E20, void, OnUserChanged, ())
-    IL2CPP_REGISTER_METHODINFO(0x04707D90, TitleScreenManager_OnUserChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AF9FD0, void, CheckForFirstTimeQualitySettings, (app::TitleScreenManager * this_ptr, bool immediate))
     IL2CPP_REGISTER_METHOD(0x00AFA0A0, app::IEnumerator*, WaitToShowFirstTimeQualitySettings, (app::TitleScreenManager * this_ptr, bool immediate))
     IL2CPP_REGISTER_METHOD(0x00AFA200, app::ITimelineEntity*, get_PrologueMaster, ())

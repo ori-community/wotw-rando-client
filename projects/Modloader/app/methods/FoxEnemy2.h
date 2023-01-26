@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FoxEnemy2.h>
-#include <Modloader/app/structs/IPinnable.h>
+
+#include <Modloader/app/structs/FoxEnemy2.h>
 #include <Modloader/app/structs/Animator.h>
 #include <Modloader/app/structs/AnimatorStateInfo.h>
+#include <Modloader/app/structs/IPinnable.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::FoxEnemy2 {

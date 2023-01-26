@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HitFlash3DNew.h>
+
+#include <Modloader/app/structs/HitFlash3DNew.h>
 #include <Modloader/app/structs/EntityEvent.h>
 #include <Modloader/app/structs/Vector3.h>
 

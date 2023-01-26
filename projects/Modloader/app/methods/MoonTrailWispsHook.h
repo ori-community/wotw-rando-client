@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTrailWispsHook.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/MoonTrailWispsHook.h>
 #include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
 #include <Modloader/app/structs/Vector3.h>
 

@@ -1,25 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinChargeJump.h>
-#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
-#include <Modloader/app/structs/SeinChargeJumpPuppet.h>
-#include <Modloader/app/structs/CharacterSpriteMirror.h>
-#include <Modloader/app/structs/ButtonInputType__Enum.h>
-#include <Modloader/app/structs/PlatformMovement.h>
+
+#include <Modloader/app/structs/SeinChargeJump.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
-#include <Modloader/app/structs/ComboMoveType__Enum.h>
-#include <Modloader/app/structs/IAttackable.h>
-#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/ButtonInputType__Enum.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/CharacterSpriteMirror.h>
 #include <Modloader/app/structs/ComboInput.h>
-#include <Modloader/app/structs/SeinChargeJump_State__Enum.h>
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
 #include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/EffectSpawn.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/SeinChargeJumpPuppet.h>
+#include <Modloader/app/structs/SeinChargeJump_State__Enum.h>
 #include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
-#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinChargeJump {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinChargeJump * this_ptr))
@@ -56,20 +57,14 @@ namespace app::classes::SeinChargeJump {
     IL2CPP_REGISTER_METHOD(0x00A481A0, app::IComboMove*, GetComboMove, (app::SeinChargeJump * this_ptr, app::ComboInput* input))
     IL2CPP_REGISTER_METHOD(0x00A48230, void, OnAwake, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A488E0, void, OnPostRestoreCheckpoint, (app::SeinChargeJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477B7D8, SeinChargeJump_OnPostRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A48950, void, OnExit, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A48970, void, ResetChargeJump, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A48970, void, OnResetAirLimits, (app::SeinChargeJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04754AC8, SeinChargeJump_OnResetAirLimits__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A48980, void, JumpTimelineFinished, (app::SeinChargeJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470B0A0, SeinChargeJump_JumpTimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A489A0, void, DashTimelineFinished, (app::SeinChargeJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04746C08, SeinChargeJump_DashTimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A489C0, void, BounceTimelineFinished, (app::SeinChargeJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478CBB0, SeinChargeJump_BounceTimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A489E0, void, EnterMove, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnGoThroughPortal, (app::SeinChargeJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04731A48, SeinChargeJump_OnGoThroughPortal__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A48BC0, void, OnWentThroughPortal, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateMove, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A48FC0, void, ExitMove, (app::SeinChargeJump * this_ptr))
@@ -79,7 +74,6 @@ namespace app::classes::SeinChargeJump {
     IL2CPP_REGISTER_METHOD(0x00A49770, void, Update, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A49780, void, UpdateTurnAnimations, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A49B70, bool, JumpAnimationContinueCondition, (app::SeinChargeJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04775388, SeinChargeJump_JumpAnimationContinueCondition__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A49BE0, void, EnableGenericJumpFlipTransition, (app::SeinChargeJump * this_ptr, float time))
     IL2CPP_REGISTER_METHOD(0x00A488E0, void, CancelGenericJumpFlipTransition, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A49C50, void, UpdateCharacterState, (app::SeinChargeJump * this_ptr))
@@ -93,9 +87,7 @@ namespace app::classes::SeinChargeJump {
     IL2CPP_REGISTER_METHOD(0x00A4A8F0, void, UpdateCharged, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A4A930, void, DealDamage, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A4AF60, void, DamageTicked, (app::SeinChargeJump * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x047809F0, SeinChargeJump_DamageTicked__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A4B0E0, app::EffectSpawn, DamageEffectProvider, (app::SeinChargeJump * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x04792438, SeinChargeJump_DamageEffectProvider__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A4B200, void, OnEnterDashAttack, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A4B2D0, void, OnEnterBounceAttack, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A4B6A0, void, OnExitDashAttack, (app::SeinChargeJump * this_ptr))
@@ -122,12 +114,10 @@ namespace app::classes::SeinChargeJump {
     IL2CPP_REGISTER_METHOD(0x00A4F0C0, void, UpdateJumpSpeed, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A4F830, void, UpdateDirectionParameter, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A4FA30, void, OnCollision, (app::SeinChargeJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470A2C8, SeinChargeJump_OnCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A4FA50, void, OnExitJumping, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnAnimationEvent, (app::SeinChargeJump * this_ptr, app::SeinController3D_EventId__Enum event_id))
     IL2CPP_REGISTER_METHOD(0x005D06F0, app::CharacterLeftRightMovement*, get_LeftRightMovement, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A4FB10, void, OnPreTurningHandlerTurn, (app::SeinChargeJump * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474B740, SeinChargeJump_OnPreTurningHandlerTurn__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A4FEE0, void, OnSetReferenceToSein, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A504E0, void, OnDestroy, (app::SeinChargeJump * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A50960, void, ctor, (app::SeinChargeJump * this_ptr))

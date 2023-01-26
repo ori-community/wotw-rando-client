@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ByRefUpdater.h>
+
+#include <Modloader/app/structs/ByRefUpdater.h>
 #include <Modloader/app/structs/InstructionList.h>
 #include <Modloader/app/structs/LocalVariables.h>
 

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/fsResult.h>
-#include <Modloader/app/structs/LayerMask_DirectConverter.h>
-#include <Modloader/app/structs/LayerMask.h>
+
+#include <Modloader/app/structs/fsResult.h>
 #include <Modloader/app/structs/Dictionary_2_System_String_FullSerializer_fsData_.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/LayerMask_DirectConverter.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/fsData.h>
 #include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/fsData.h>
 
 namespace app::classes::FullSerializer::Internal::DirectConverters::LayerMask_DirectConverter {
     IL2CPP_REGISTER_METHOD(0x0164FB40, app::fsResult, DoSerialize, (app::LayerMask_DirectConverter * this_ptr, app::LayerMask model, app::Dictionary_2_System_String_FullSerializer_fsData_* serialized))

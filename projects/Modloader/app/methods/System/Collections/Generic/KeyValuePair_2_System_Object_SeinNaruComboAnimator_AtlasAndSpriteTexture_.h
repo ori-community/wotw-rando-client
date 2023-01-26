@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_SeinNaruComboAnimator_AtlasAndSpriteTexture___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_SeinNaruComboAnimator_AtlasAndSpriteTexture___Boxed.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SeinNaruComboAnimator_AtlasAndSpriteTexture.h>
 #include <Modloader/app/structs/String.h>

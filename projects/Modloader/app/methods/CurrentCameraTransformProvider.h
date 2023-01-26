@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/CurrentCameraTransformProvider.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
 

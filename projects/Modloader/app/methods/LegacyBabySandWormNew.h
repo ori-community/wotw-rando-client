@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyBabySandWormNew.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/LegacyBabySandWormNew_BabySandwormState__Enum.h>
+
+#include <Modloader/app/structs/LegacyBabySandWormNew.h>
 #include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/DigZone.h>
-#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/DigZone.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/LegacyBabySandWormNew_BabySandwormState__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LegacyBabySandWormNew {
     IL2CPP_REGISTER_METHOD(0x00C754B0, int32_t, get_BashPriority, (app::LegacyBabySandWormNew * this_ptr))
@@ -82,9 +83,7 @@ namespace app::classes::LegacyBabySandWormNew {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeTeleportedByBeacon, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeGlowed, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D6C40, void, OnRecieveDamage, (app::LegacyBabySandWormNew * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x0477AFF8, LegacyBabySandWormNew_OnRecieveDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015D6E20, void, OnDamageDealt, (app::LegacyBabySandWormNew * this_ptr, app::DamageDealer* damage_dealer, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x0478F530, LegacyBabySandWormNew_OnDamageDealt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015D6E30, void, AreaDamage, (app::LegacyBabySandWormNew * this_ptr, app::GameObject* collided_object))
     IL2CPP_REGISTER_METHOD(0x015D7370, void, RefreshClosestTarget, (app::LegacyBabySandWormNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015D7A00, void, OnProcessRootMotion, (app::LegacyBabySandWormNew * this_ptr, app::Vector3 motion))

@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StateMachine_1.h>
+
+#include <Modloader/app/structs/StateMachine_1.h>
+#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/IState_1.h>
+#include <Modloader/app/structs/IState_1__Array.h>
+#include <Modloader/app/structs/ITrigger.h>
 #include <Modloader/app/structs/List_1_Moon_InteractionGraph_IState_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/StateConfigurator.h>
 #include <Modloader/app/structs/TransitionManager.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/ITrigger.h>
-#include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/IState_1__Array.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::InteractionGraph::StateMachine {
     IL2CPP_REGISTER_METHOD(0x004C87B0, float, get_CurrentStateTime, (app::StateMachine_1 * this_ptr))
@@ -21,7 +22,6 @@ namespace app::classes::Moon::InteractionGraph::StateMachine {
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::List_1_Moon_InteractionGraph_IState_*, get_States, (app::StateMachine_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01992000, void, ChangeState_1, (app::StateMachine_1 * this_ptr, int32_t id))
     IL2CPP_REGISTER_METHOD(0x01992190, void, ChangeState_2, (app::StateMachine_1 * this_ptr, app::IState_1* state))
-    IL2CPP_REGISTER_METHODINFO(0x0473BAA0, StateMachine_1_ChangeState_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01992510, void, UpdateState, (app::StateMachine_1 * this_ptr, float dt))
     IL2CPP_REGISTER_METHOD(0x019925B0, app::StateConfigurator*, Configure, (app::StateMachine_1 * this_ptr, app::IState_1* state))
     IL2CPP_REGISTER_METHOD(0x01992700, app::TransitionManager*, FindTransitionManager, (app::StateMachine_1 * this_ptr, app::Type* trigger))
@@ -36,5 +36,4 @@ namespace app::classes::Moon::InteractionGraph::StateMachine {
     IL2CPP_REGISTER_METHOD(0x01550340, void, Trigger_2, (app::StateMachine_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018EFF10, app::TransitionManager*, GetTransistionManager_1, (app::StateMachine_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018EFF10, app::TransitionManager*, GetTransistionManager_2, (app::StateMachine_1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04770A20, StateMachine_1_GetTransistionManager_1__MethodInfo)
 } // namespace app::classes::Moon::InteractionGraph::StateMachine

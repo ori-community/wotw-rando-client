@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LogicalCallContext_Reader__Boxed.h>
+
+#include <Modloader/app/structs/LogicalCallContext_Reader__Boxed.h>
 #include <Modloader/app/structs/LogicalCallContext.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::LogicalCallContext_Reader {

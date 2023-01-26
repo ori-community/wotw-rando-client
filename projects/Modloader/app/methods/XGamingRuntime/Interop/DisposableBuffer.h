@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DisposableBuffer.h>
+
+#include <Modloader/app/structs/DisposableBuffer.h>
 
 namespace app::classes::XGamingRuntime::Interop::DisposableBuffer {
     IL2CPP_REGISTER_METHOD(0x030B10C0, void, ctor_1, (app::DisposableBuffer * this_ptr))

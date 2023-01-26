@@ -1,27 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ControllerHandle_t__Array.h>
+
+#include <Modloader/app/structs/ControllerHandle_t__Array.h>
 #include <Modloader/app/structs/ControllerActionSetHandle_t.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ControllerHandle_t.h>
 #include <Modloader/app/structs/ControllerActionSetHandle_t__Array.h>
-#include <Modloader/app/structs/ControllerDigitalActionHandle_t.h>
-#include <Modloader/app/structs/ControllerDigitalActionData_t.h>
-#include <Modloader/app/structs/EControllerActionOrigin__Enum__Array.h>
-#include <Modloader/app/structs/ControllerAnalogActionHandle_t.h>
 #include <Modloader/app/structs/ControllerAnalogActionData_t.h>
-#include <Modloader/app/structs/EControllerActionOrigin__Enum.h>
+#include <Modloader/app/structs/ControllerAnalogActionHandle_t.h>
+#include <Modloader/app/structs/ControllerDigitalActionData_t.h>
+#include <Modloader/app/structs/ControllerDigitalActionHandle_t.h>
+#include <Modloader/app/structs/ControllerHandle_t.h>
 #include <Modloader/app/structs/ControllerMotionData_t.h>
+#include <Modloader/app/structs/EControllerActionOrigin__Enum.h>
+#include <Modloader/app/structs/EControllerActionOrigin__Enum__Array.h>
 #include <Modloader/app/structs/ESteamControllerPad__Enum.h>
 #include <Modloader/app/structs/ESteamInputType__Enum.h>
 #include <Modloader/app/structs/EXboxOrigin__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::SteamController {
     IL2CPP_REGISTER_METHOD(0x027E75F0, bool, Init, ())
     IL2CPP_REGISTER_METHOD(0x027E76A0, bool, Shutdown, ())
     IL2CPP_REGISTER_METHOD(0x027E7750, void, RunFrame, ())
     IL2CPP_REGISTER_METHOD(0x027E7800, int32_t, GetConnectedControllers, (app::ControllerHandle_t__Array * handles_out))
-    IL2CPP_REGISTER_METHODINFO(0x0470B828, SteamController_GetConnectedControllers__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x027E7960, app::ControllerActionSetHandle_t, GetActionSetHandle, (app::String * psz_action_set_name))
     IL2CPP_REGISTER_METHOD(0x027E7C40, void, ActivateActionSet, (app::ControllerHandle_t controller_handle, app::ControllerActionSetHandle_t action_set_handle))
     IL2CPP_REGISTER_METHOD(0x027E7D10, app::ControllerActionSetHandle_t, GetCurrentActionSet, (app::ControllerHandle_t controller_handle))
@@ -29,15 +29,12 @@ namespace app::classes::Steamworks::SteamController {
     IL2CPP_REGISTER_METHOD(0x027E7EA0, void, DeactivateActionSetLayer, (app::ControllerHandle_t controller_handle, app::ControllerActionSetHandle_t action_set_layer_handle))
     IL2CPP_REGISTER_METHOD(0x027E7F70, void, DeactivateAllActionSetLayers, (app::ControllerHandle_t controller_handle))
     IL2CPP_REGISTER_METHOD(0x027E8030, int32_t, GetActiveActionSetLayers, (app::ControllerHandle_t controller_handle, app::ControllerActionSetHandle_t__Array* handles_out))
-    IL2CPP_REGISTER_METHODINFO(0x0473B940, SteamController_GetActiveActionSetLayers__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x027E81A0, app::ControllerDigitalActionHandle_t, GetDigitalActionHandle, (app::String * psz_action_name))
     IL2CPP_REGISTER_METHOD(0x027E8480, app::ControllerDigitalActionData_t, GetDigitalActionData, (app::ControllerHandle_t controller_handle, app::ControllerDigitalActionHandle_t digital_action_handle))
     IL2CPP_REGISTER_METHOD(0x027E8550, int32_t, GetDigitalActionOrigins, (app::ControllerHandle_t controller_handle, app::ControllerActionSetHandle_t action_set_handle, app::ControllerDigitalActionHandle_t digital_action_handle, app::EControllerActionOrigin__Enum__Array* origins_out))
-    IL2CPP_REGISTER_METHODINFO(0x0475D968, SteamController_GetDigitalActionOrigins__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x027E86F0, app::ControllerAnalogActionHandle_t, GetAnalogActionHandle, (app::String * psz_action_name))
     IL2CPP_REGISTER_METHOD(0x027E89D0, app::ControllerAnalogActionData_t, GetAnalogActionData, (app::ControllerHandle_t controller_handle, app::ControllerAnalogActionHandle_t analog_action_handle))
     IL2CPP_REGISTER_METHOD(0x027E8AC0, int32_t, GetAnalogActionOrigins, (app::ControllerHandle_t controller_handle, app::ControllerActionSetHandle_t action_set_handle, app::ControllerAnalogActionHandle_t analog_action_handle, app::EControllerActionOrigin__Enum__Array* origins_out))
-    IL2CPP_REGISTER_METHODINFO(0x04763980, SteamController_GetAnalogActionOrigins__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x027E8C60, app::String*, GetGlyphForActionOrigin, (app::EControllerActionOrigin__Enum e_origin))
     IL2CPP_REGISTER_METHOD(0x027E8D20, app::String*, GetStringForActionOrigin, (app::EControllerActionOrigin__Enum e_origin))
     IL2CPP_REGISTER_METHOD(0x027E8DE0, void, StopAnalogActionMomentum, (app::ControllerHandle_t controller_handle, app::ControllerAnalogActionHandle_t e_action))

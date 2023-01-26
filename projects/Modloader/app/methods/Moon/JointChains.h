@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform__Array.h>
+
+#include <Modloader/app/structs/Transform__Array.h>
 #include <Modloader/app/structs/JointChains.h>
 
 namespace app::classes::Moon::JointChains {

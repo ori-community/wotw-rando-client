@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/FocusType__Enum.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/GUISkin.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/FocusType__Enum.h>
+#include <Modloader/app/structs/GUISkin.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::GUIUtility {
@@ -45,7 +46,6 @@ namespace app::classes::UnityEngine::GUIUtility {
     IL2CPP_REGISTER_METHOD(0x029F8F00, bool, IsExitGUIException, (app::Exception * exception))
     IL2CPP_REGISTER_METHOD(0x029F8F00, bool, ShouldRethrowException, (app::Exception * exception))
     IL2CPP_REGISTER_METHOD(0x029F8FC0, void, CheckOnGUI, ())
-    IL2CPP_REGISTER_METHODINFO(0x04798660, GUIUtility_CheckOnGUI__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x029F90A0, void, ScaleAroundPivot, (app::Vector2 scale, app::Vector2 pivot_point))
     IL2CPP_REGISTER_METHOD(0x029F9690, int32_t, GetControlID_Injected, (int32_t hint, app::FocusType__Enum focus_type, app::Rect* rect))
 } // namespace app::classes::UnityEngine::GUIUtility

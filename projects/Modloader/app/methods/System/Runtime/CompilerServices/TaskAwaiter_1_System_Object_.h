@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TaskAwaiter_1_System_Object___Boxed.h>
-#include <Modloader/app/structs/Task_1_System_Object_.h>
+
+#include <Modloader/app/structs/TaskAwaiter_1_System_Object___Boxed.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Task_1_System_Object_.h>
 
 namespace app::classes::System::Runtime::CompilerServices::TaskAwaiter_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x0018EEE0, bool, get_IsCompleted, (app::TaskAwaiter_1_System_Object___Boxed * this_ptr))

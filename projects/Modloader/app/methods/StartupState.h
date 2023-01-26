@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StartupState.h>
+
+#include <Modloader/app/structs/StartupState.h>
 #include <Modloader/app/structs/GameController.h>
 #include <Modloader/app/structs/IState.h>
 

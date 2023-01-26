@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WeaponMasterEntity.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/WeaponMasterEntity.h>
 #include <Modloader/app/structs/ICharacter.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::WeaponMasterEntity {
     IL2CPP_REGISTER_METHOD(0x008E79D0, bool, get_OnGround, (app::WeaponMasterEntity * this_ptr))
@@ -12,7 +13,6 @@ namespace app::classes::WeaponMasterEntity {
     IL2CPP_REGISTER_METHOD(0x008E7C00, void, OnEnable, (app::WeaponMasterEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008E7E80, void, OnDisable, (app::WeaponMasterEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008E8100, void, LeftTree, (app::WeaponMasterEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04704968, WeaponMasterEntity_LeftTree__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008E8120, app::String*, get_DialogActorName, (app::WeaponMasterEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008E81A0, app::String*, get_InteractionActorName, (app::WeaponMasterEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008E8220, void, OnUpdate, (app::WeaponMasterEntity * this_ptr))

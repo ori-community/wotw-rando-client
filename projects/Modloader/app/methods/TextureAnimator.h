@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextureAnimator.h>
-#include <Modloader/app/structs/TextureAnimation.h>
+
+#include <Modloader/app/structs/TextureAnimator.h>
 #include <Modloader/app/structs/AtlasSpriteTexture.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextureAnimation.h>
 
 namespace app::classes::TextureAnimator {
     IL2CPP_REGISTER_METHOD(0x004C87B0, float, get_SpeedMultiplier, (app::TextureAnimator * this_ptr))

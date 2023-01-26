@@ -1,19 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpherecastCommand.h>
-#include <Modloader/app/structs/RaycastHit.h>
-#include <Modloader/app/structs/SpherecastCommand__Array.h>
-#include <Modloader/app/structs/RaycastHit__Array.h>
+
+#include <Modloader/app/structs/SpherecastCommand.h>
 #include <Modloader/app/structs/Boolean__Array.h>
 #include <Modloader/app/structs/GenericCastManager_1_UnityEngine_SpherecastCommand_.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/RaycastHit__Array.h>
+#include <Modloader/app/structs/SpherecastCommand__Array.h>
 
 namespace app::classes::GenericCastManager_1_UnityEngine_SpherecastCommand_ {
     IL2CPP_REGISTER_METHOD(0x019F5A80, bool, PerformCastInternal, (app::SpherecastCommand cmd, app::RaycastHit* hit, int32_t* request_i_d, bool guarantee_immediate_result))
-    IL2CPP_REGISTER_METHODINFO(0x047227C0, GenericCastManager_1_UnityEngine_SpherecastCommand__PerformCastInternal__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019F6BB0, bool, PerformMultipleCastsInternal, (app::SpherecastCommand__Array * cmds, app::RaycastHit__Array* hits, app::Boolean__Array* hit_results, int32_t cmd_count, int32_t* request_i_d, bool guarantee_immediate_result))
-    IL2CPP_REGISTER_METHODINFO(0x0471F290, GenericCastManager_1_UnityEngine_SpherecastCommand__PerformMultipleCastsInternal__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019EE1D0, void, ctor, (app::GenericCastManager_1_UnityEngine_SpherecastCommand_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04729C20, GenericCastManager_1_UnityEngine_SpherecastCommand___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019E8F60, bool, get_Immediate, (app::GenericCastManager_1_UnityEngine_SpherecastCommand_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019E8F70, bool, get_Buffered, (app::GenericCastManager_1_UnityEngine_SpherecastCommand_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019E8F80, bool, get_BatchJob, (app::GenericCastManager_1_UnityEngine_SpherecastCommand_ * this_ptr))

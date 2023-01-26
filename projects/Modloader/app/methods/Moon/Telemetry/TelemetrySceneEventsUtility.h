@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Color.h>
+
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/MoonTelemetrySceneEvent_EventSceneState__Enum.h>
 #include <Modloader/app/structs/String.h>
 

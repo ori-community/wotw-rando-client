@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyPressurePlate.h>
-#include <Modloader/app/structs/LegacyPressurePlate_Target__Enum.h>
-#include <Modloader/app/structs/ICanActivatePressurePlate.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/LegacyPressurePlate.h>
 #include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/ICanActivatePressurePlate.h>
+#include <Modloader/app/structs/LegacyPressurePlate_Target__Enum.h>
 
 namespace app::classes::LegacyPressurePlate {
     IL2CPP_REGISTER_METHOD(0x00A31F10, void, Update, (app::LegacyPressurePlate * this_ptr))

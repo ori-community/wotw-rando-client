@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TerrainTracer.h>
+
+#include <Modloader/app/structs/TerrainTracer.h>
 #include <Modloader/app/structs/PlatformMovement.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector3.h>

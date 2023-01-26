@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SwampNightDayTransition.h>
+
+#include <Modloader/app/structs/SwampNightDayTransition.h>
+#include <Modloader/app/structs/GameObject__Array.h>
 #include <Modloader/app/structs/SceneRoot.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/GameObject__Array.h>
 
 namespace app::classes::SwampNightDayTransition {
     IL2CPP_REGISTER_METHOD(0x00675960, bool, get_DayTime, (app::SwampNightDayTransition * this_ptr))
@@ -17,7 +18,6 @@ namespace app::classes::SwampNightDayTransition {
     IL2CPP_REGISTER_METHOD(0x006761B0, bool, DayTimeCondition, (app::SwampNightDayTransition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00676310, void, UpdateStateBasedOnCondition, (app::SwampNightDayTransition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006761A0, void, OnSceneStartLateAfterSerialize, (app::SwampNightDayTransition * this_ptr, app::SceneRoot* root))
-    IL2CPP_REGISTER_METHODINFO(0x04794118, SwampNightDayTransition_OnSceneStartLateAfterSerialize__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00676720, void, SetupNightTime, (app::SwampNightDayTransition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006769C0, void, SetupDayTime, (app::SwampNightDayTransition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00676C60, void, SetupPhysics, (app::SwampNightDayTransition * this_ptr, app::String* time_state_name))

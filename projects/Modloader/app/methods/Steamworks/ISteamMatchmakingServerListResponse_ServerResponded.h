@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ISteamMatchmakingServerListResponse_ServerResponded.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/ISteamMatchmakingServerListResponse_ServerResponded.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 #include <Modloader/app/structs/HServerListRequest.h>
 #include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Steamworks::ISteamMatchmakingServerListResponse_ServerResponded {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::ISteamMatchmakingServerListResponse_ServerResponded * this_ptr, app::Object* object, void* method_1))

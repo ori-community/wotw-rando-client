@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AsyncTaskMethodBuilder__Class.h>
 #include <Modloader/app/structs/AsyncTaskMethodBuilder.h>
 #include <Modloader/app/structs/AsyncTaskMethodBuilder__Boxed.h>
+#include <Modloader/app/structs/AsyncTaskMethodBuilder__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace AsyncTaskMethodBuilder {
-        inline app::AsyncTaskMethodBuilder__Class** type_info = (app::AsyncTaskMethodBuilder__Class**)(modloader::win::memory::resolve_rva(0x04719530));
+        inline app::AsyncTaskMethodBuilder__Class** type_info() {
+            static app::AsyncTaskMethodBuilder__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::AsyncTaskMethodBuilder__Class**)(modloader::win::memory::resolve_rva(0x04719530));
+            }
+            return cache;
+        }
         inline app::AsyncTaskMethodBuilder__Class* get_class() {
-            return il2cpp::get_class<app::AsyncTaskMethodBuilder__Class>(type_info, "System.Runtime.CompilerServices", "AsyncTaskMethodBuilder");
+            return il2cpp::get_class<app::AsyncTaskMethodBuilder__Class>(type_info(), "System.Runtime.CompilerServices", "AsyncTaskMethodBuilder");
         }
         inline app::AsyncTaskMethodBuilder* create() {
             return il2cpp::create_object<app::AsyncTaskMethodBuilder>(get_class());

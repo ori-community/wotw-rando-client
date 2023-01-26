@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StressTester_SceneIdentifier.h>
+
+#include <Modloader/app/structs/StressTester_SceneIdentifier.h>
 #include <Modloader/app/structs/SceneMetaData.h>
 
 namespace app::classes::StressTester_SceneIdentifier {

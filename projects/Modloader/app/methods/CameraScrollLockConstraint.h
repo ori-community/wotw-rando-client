@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraScrollLockConstraint.h>
+
+#include <Modloader/app/structs/CameraScrollLockConstraint.h>
 #include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/Vector3__Array.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/CameraScrollLock.h>
 #include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/CameraScrollLock.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
 
 namespace app::classes::CameraScrollLockConstraint {
     IL2CPP_REGISTER_METHOD(0x016A30F0, void, ResetStatics, ())

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MMKVPMarshaller.h>
+
+#include <Modloader/app/structs/MMKVPMarshaller.h>
 #include <Modloader/app/structs/MatchMakingKeyValuePair_t__Array.h>
 
 namespace app::classes::Steamworks::MMKVPMarshaller {

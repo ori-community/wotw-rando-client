@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InterleavedRenderingSettings.h>
+
+#include <Modloader/app/structs/InterleavedRenderingSettings.h>
 
 namespace app::classes::Moon::Rendering::InterleavedRenderingSettings {
     IL2CPP_REGISTER_METHOD(0x0078D270, void, ctor, (app::InterleavedRenderingSettings * this_ptr))

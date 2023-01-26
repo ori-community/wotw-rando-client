@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataViewManagerListItemTypeDescriptor.h>
-#include <Modloader/app/structs/DataViewManager.h>
-#include <Modloader/app/structs/DataView.h>
-#include <Modloader/app/structs/DataTable.h>
+
+#include <Modloader/app/structs/DataViewManagerListItemTypeDescriptor.h>
 #include <Modloader/app/structs/AttributeCollection.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/TypeConverter.h>
-#include <Modloader/app/structs/EventDescriptor_1.h>
-#include <Modloader/app/structs/PropertyDescriptor.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/EventDescriptorCollection.h>
 #include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/DataView.h>
+#include <Modloader/app/structs/DataViewManager.h>
+#include <Modloader/app/structs/EventDescriptorCollection.h>
+#include <Modloader/app/structs/EventDescriptor_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
 #include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeConverter.h>
 
 namespace app::classes::System::Data::DataViewManagerListItemTypeDescriptor {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::DataViewManagerListItemTypeDescriptor * this_ptr, app::DataViewManager* data_view_manager))

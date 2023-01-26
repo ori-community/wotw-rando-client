@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BinaryExpression.h>
+
+#include <Modloader/app/structs/BinaryExpression.h>
 #include <Modloader/app/structs/Expression.h>
 #include <Modloader/app/structs/ExpressionType__Enum.h>
-#include <Modloader/app/structs/MethodInfo_1.h>
-#include <Modloader/app/structs/LambdaExpression.h>
 #include <Modloader/app/structs/ExpressionVisitor.h>
+#include <Modloader/app/structs/LambdaExpression.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
 
 namespace app::classes::System::Linq::Expressions::BinaryExpression {
     IL2CPP_REGISTER_METHOD(0x01F9C060, void, ctor, (app::BinaryExpression * this_ptr, app::Expression* left, app::Expression* right))
@@ -18,7 +19,6 @@ namespace app::classes::System::Linq::Expressions::BinaryExpression {
     IL2CPP_REGISTER_METHOD(0x01F9C150, app::BinaryExpression*, Update, (app::BinaryExpression * this_ptr, app::Expression* left, app::LambdaExpression* conversion, app::Expression* right))
     IL2CPP_REGISTER_METHOD(0x01F9C470, app::Expression*, Reduce, (app::BinaryExpression * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F9C4F0, app::ExpressionType__Enum, GetBinaryOpFromAssignmentOp, (app::ExpressionType__Enum op))
-    IL2CPP_REGISTER_METHODINFO(0x04746D70, BinaryExpression_GetBinaryOpFromAssignmentOp__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F9C670, app::Expression*, ReduceVariable, (app::BinaryExpression * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F9C800, app::Expression*, ReduceMember, (app::BinaryExpression * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F9CEC0, app::Expression*, ReduceIndex, (app::BinaryExpression * this_ptr))

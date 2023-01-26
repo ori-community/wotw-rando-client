@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/QualityProfile.h>
+
+#include <Modloader/app/structs/QualityProfile.h>
 
 namespace app::classes::Moon::Rendering::QualityProfile {
     IL2CPP_REGISTER_METHOD(0x00EB1580, void, Apply, (app::QualityProfile * this_ptr))

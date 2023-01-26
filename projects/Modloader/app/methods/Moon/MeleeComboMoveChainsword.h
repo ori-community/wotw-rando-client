@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MeleeComboMoveChainsword.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+
+#include <Modloader/app/structs/MeleeComboMoveChainsword.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/SeinComboHandler.h>
 #include <Modloader/app/structs/MeleeWeapon.h>
 #include <Modloader/app/structs/MoveEventType__Enum.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::MeleeComboMoveChainsword {
     IL2CPP_REGISTER_METHOD(0x01116570, float, get_EffectiveDamage, (app::MeleeComboMoveChainsword * this_ptr))
@@ -27,7 +28,6 @@ namespace app::classes::Moon::MeleeComboMoveChainsword {
     IL2CPP_REGISTER_METHOD(0x01116A30, void, ExitMove, (app::MeleeComboMoveChainsword * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01116B20, bool, get_MoveHasFinished, (app::MeleeComboMoveChainsword * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01116B30, void, OnAnimationFinished, (app::MeleeComboMoveChainsword * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04777758, MeleeComboMoveChainsword_OnAnimationFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01116B40, void, BeginAttackSegment, (app::MeleeComboMoveChainsword * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01116C10, void, EndAttackSegment, (app::MeleeComboMoveChainsword * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01116CF0, void, OnMoveWindowOpen, (app::MeleeComboMoveChainsword * this_ptr, app::MoveEventType__Enum event_type))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/void.h>
 
 namespace app::classes::System::Threading::Interlocked {
@@ -15,10 +16,10 @@ namespace app::classes::System::Threading::Interlocked {
     IL2CPP_REGISTER_METHOD(0x027DE230, app::Object*, Exchange_2, (app::Object * *location1, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x027DE240, float, Exchange_3, (float* location1, float value))
     IL2CPP_REGISTER_METHOD(0x027DE1B0, int64_t, CompareExchange_5, (int64_t * location1, int64_t value, int64_t comparand))
-    IL2CPP_REGISTER_METHOD(0x027DE1B0, void*, CompareExchange_6, (app::void** location1, void* value, void* comparand))
+    IL2CPP_REGISTER_METHOD(0x027DE1B0, void*, CompareExchange_6, (void** location1, void* value, void* comparand))
     IL2CPP_REGISTER_METHOD(0x027DE260, double, CompareExchange_7, (double* location1, double value, double comparand))
     IL2CPP_REGISTER_METHOD(0x027DE230, int64_t, Exchange_4, (int64_t * location1, int64_t value))
-    IL2CPP_REGISTER_METHOD(0x027DE230, void*, Exchange_5, (app::void** location1, void* value))
+    IL2CPP_REGISTER_METHOD(0x027DE230, void*, Exchange_5, (void** location1, void* value))
     IL2CPP_REGISTER_METHOD(0x027DE290, double, Exchange_6, (double* location1, double value))
     IL2CPP_REGISTER_METHOD(0x027DE2B0, int64_t, Read, (int64_t * location))
     IL2CPP_REGISTER_METHOD(0x027DE2C0, int32_t, Add, (int32_t * location1, int32_t value))

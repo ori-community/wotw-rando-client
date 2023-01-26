@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MaskableGraphic.h>
+
+#include <Modloader/app/structs/MaskableGraphic.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/MaskableGraphic_CullStateChangedEvent.h>
 #include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::UnityEngine::UI::MaskableGraphic {
     IL2CPP_REGISTER_METHOD(0x02661200, void, ctor, (app::MaskableGraphic * this_ptr))

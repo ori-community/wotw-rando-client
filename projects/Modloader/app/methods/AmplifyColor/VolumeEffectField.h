@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VolumeEffectField.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/FieldInfo_1.h>
+
+#include <Modloader/app/structs/VolumeEffectField.h>
 #include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::AmplifyColor::VolumeEffectField {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor_1, (app::VolumeEffectField * this_ptr, app::String* field_name, app::String* field_type))

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameplayCameraTargetsProvider.h>
+
+#include <Modloader/app/structs/GameplayCameraTargetsProvider.h>
+#include <Modloader/app/structs/GameplayCameraTargetEntry.h>
 #include <Modloader/app/structs/ICameraTarget.h>
 #include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/GameplayCameraTargetEntry.h>
 
 namespace app::classes::GameplayCameraTargetsProvider {
     IL2CPP_REGISTER_METHOD(0x0040F160, void, Awake, (app::GameplayCameraTargetsProvider * this_ptr))

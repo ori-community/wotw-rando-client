@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KuGlide.h>
+
+#include <Modloader/app/structs/KuGlide.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 
@@ -19,9 +20,7 @@ namespace app::classes::KuGlide {
     IL2CPP_REGISTER_METHOD(0x01239090, void, UpdateState, (app::KuGlide * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01239420, void, HandleFloatZones, (app::KuGlide * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01239870, void, ModifyGravityPlatformMovementSettings, (app::KuGlide * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0474AF68, KuGlide_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01239910, void, ModifyHorizontalPlatformMovementSettings, (app::KuGlide * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x047950D8, KuGlide_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012399A0, bool, get_HasStartedTurning, (app::KuGlide * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012399D0, bool, get_HasFinishedTurning, (app::KuGlide * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008519A0, bool, get_WantsToFaceLeft, (app::KuGlide * this_ptr))

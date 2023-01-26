@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TaskToApm_TaskWrapperAsyncResult.h>
-#include <Modloader/app/structs/Task.h>
+
+#include <Modloader/app/structs/TaskToApm_TaskWrapperAsyncResult.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Task.h>
 #include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::System::Threading::Tasks::TaskToApm_TaskWrapperAsyncResult {

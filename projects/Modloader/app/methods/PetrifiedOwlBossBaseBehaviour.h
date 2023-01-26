@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseStatesSet.h>
-#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
-#include <Modloader/app/structs/StateMachine_2.h>
-#include <Modloader/app/structs/PetrifiedOwlBossLocomotion.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseStatesSet.h>
+#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/DamageDealer_DamageDirectionMode__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_EventTriggerAnimator_.h>
-#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_EventTriggerAnimator_.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
+#include <Modloader/app/structs/PetrifiedOwlBossLocomotion.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PetrifiedOwlBossBaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseStatesSet*, get_States, (app::PetrifiedOwlBossBaseBehaviour * this_ptr))

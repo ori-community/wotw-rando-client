@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraOffsetAnimator.h>
+
+#include <Modloader/app/structs/CameraOffsetAnimator.h>
 
 namespace app::classes::CameraOffsetAnimator {
     IL2CPP_REGISTER_METHOD(0x01696D20, void, Restart, (app::CameraOffsetAnimator * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RegexCharClass_SingleRangeComparer.h>
+
+#include <Modloader/app/structs/RegexCharClass_SingleRangeComparer.h>
 #include <Modloader/app/structs/RegexCharClass_SingleRange.h>
 
 namespace app::classes::System::Text::RegularExpressions::RegexCharClass_SingleRangeComparer {

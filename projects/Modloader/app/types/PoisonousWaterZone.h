@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/PoisonousWaterZone__Class.h>
 #include <Modloader/app/structs/PoisonousWaterZone.h>
 #include <Modloader/app/structs/PoisonousWaterZone__Array.h>
+#include <Modloader/app/structs/PoisonousWaterZone__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace PoisonousWaterZone {
-        namespace {
-            inline app::PoisonousWaterZone__Class* type_info_ref = nullptr;
+        inline app::PoisonousWaterZone__Class** type_info() {
+            static app::PoisonousWaterZone__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::PoisonousWaterZone__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::PoisonousWaterZone__Class** type_info = &type_info_ref;
         inline app::PoisonousWaterZone__Class* get_class() {
-            return il2cpp::get_class<app::PoisonousWaterZone__Class>(type_info, "", "PoisonousWaterZone");
+            return il2cpp::get_class<app::PoisonousWaterZone__Class>(type_info(), "", "PoisonousWaterZone");
         }
         inline app::PoisonousWaterZone* create() {
             return il2cpp::create_object<app::PoisonousWaterZone>(get_class());

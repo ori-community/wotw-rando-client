@@ -1,27 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
+
+#include <Modloader/app/structs/List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
+#include <Modloader/app/structs/Action_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Comparison_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionVie_.h>
+#include <Modloader/app/structs/IComparer_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_Interpreter_InstructionList_DebugVie_InstructionVie_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Linq_Expressions_Interpreter_InstructionList_DebugVie_InstructionVie_.h>
 #include <Modloader/app/structs/InstructionList_DebugView_InstructionView.h>
 #include <Modloader/app/structs/InstructionList_DebugView_InstructionView__Array.h>
-#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
+#include <Modloader/app/structs/List_1_T_Enumerato_Syste_Lin_Expression_Interprete_InstructionLis_DebugVie_InstructionVie_.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
-#include <Modloader/app/structs/IComparer_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
-#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Predicate_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
-#include <Modloader/app/structs/Action_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
-#include <Modloader/app/structs/IEnumerator_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Comparison_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Syste_Lin_Expression_Interprete_InstructionLis_DebugVi_InstructionVi_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04766DC8, List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C1E360, void, Add, (app::List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ * this_ptr, app::InstructionList_DebugView_InstructionView item))
-    IL2CPP_REGISTER_METHODINFO(0x047638C8, List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAEF0, app::InstructionList_DebugView_InstructionView__Array*, ToArray, (app::List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04743460, List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView__ToArray__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02FE6190, void, ctor_3, (app::List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ * this_ptr, app::IEnumerable_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_System_Linq_Expressions_Interpreter_InstructionList_DebugView_InstructionView_ * this_ptr))

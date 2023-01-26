@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
-#include <Modloader/app/structs/SkillUpgradeScreen.h>
+
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/MenuTabBackground__Enum.h>
 #include <Modloader/app/structs/MessageProvider.h>
-#include <Modloader/app/structs/SkillUpgradeShopUIItem.h>
-#include <Modloader/app/structs/UpgradeAbilityItem.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
-#include <Modloader/app/structs/SpiritShardType__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Event_1.h>
 #include <Modloader/app/structs/RTPC.h>
+#include <Modloader/app/structs/SkillUpgradeScreen.h>
+#include <Modloader/app/structs/SkillUpgradeShopUIItem.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UpgradeAbilityItem.h>
 
 namespace app::classes::SkillUpgradeScreen {
     IL2CPP_REGISTER_METHOD(0x006B88C0, void, ResetStatics, ())
@@ -27,9 +28,7 @@ namespace app::classes::SkillUpgradeScreen {
     IL2CPP_REGISTER_METHOD(0x006B8C90, void, Awake, (app::SkillUpgradeScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B8D60, void, OnDestroy, (app::SkillUpgradeScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B8E00, void, OnNewItemHighlighted, (app::SkillUpgradeScreen * this_ptr, bool first_after_populating))
-    IL2CPP_REGISTER_METHODINFO(0x04711910, SkillUpgradeScreen_OnNewItemHighlighted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006B8E10, void, OnItemActivatedCallback, (app::SkillUpgradeScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04746678, SkillUpgradeScreen_OnItemActivatedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006B8EC0, app::SkillUpgradeShopUIItem*, get_SelectedSkillUpgradeUIItem, (app::SkillUpgradeScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B8FC0, app::UpgradeAbilityItem*, get_SelectedUpgradeItem, (app::SkillUpgradeScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B9090, bool, get_IsSuspended, (app::SkillUpgradeScreen * this_ptr))

@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Guid__Array.h>
-#include <Modloader/app/structs/IComparer_1_System_Guid_.h>
-#include <Modloader/app/structs/Guid.h>
+
+#include <Modloader/app/structs/Guid__Array.h>
 #include <Modloader/app/structs/Comparison_1_Guid_.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/IComparer_1_System_Guid_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_System_Guid_ {
     IL2CPP_REGISTER_METHOD(0x02FFF560, void, Sort_1, (app::Guid__Array * keys, int32_t index, int32_t length, app::IComparer_1_System_Guid_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04796DF8, ArraySortHelper_1_System_Guid__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FFF880, int32_t, BinarySearch, (app::Guid__Array * array, int32_t index, int32_t length, app::Guid value, app::IComparer_1_System_Guid_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04731450, ArraySortHelper_1_System_Guid__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FFFA30, void, Sort_2, (app::Guid__Array * keys, int32_t index, int32_t length, app::Comparison_1_Guid_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0477B428, ArraySortHelper_1_System_Guid__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C898B0, int32_t, InternalBinarySearch, (app::Guid__Array * array, int32_t index, int32_t length, app::Guid value, app::IComparer_1_System_Guid_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C89A40, void, SwapIfGreater, (app::Guid__Array * keys, app::Comparison_1_Guid_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C89BD0, void, Swap, (app::Guid__Array * a, int32_t i, int32_t j))

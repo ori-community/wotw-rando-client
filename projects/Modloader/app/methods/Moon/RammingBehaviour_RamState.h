@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SurfaceTypeVFXHandler_2_MaterialBasedHornBugEffectsMap_HornBugMovementEffects_.h>
-#include <Modloader/app/structs/RammingBehaviour_RamState.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/RammingBehaviour.h>
-#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+
+#include <Modloader/app/structs/SurfaceTypeVFXHandler_2_MaterialBasedHornBugEffectsMap_HornBugMovementEffects_.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/HornBugMovementEffects.h>
+#include <Modloader/app/structs/RammingBehaviour.h>
+#include <Modloader/app/structs/RammingBehaviour_RamState.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 
 namespace app::classes::Moon::RammingBehaviour_RamState {
     IL2CPP_REGISTER_METHOD(0x00C52F40, app::SurfaceTypeVFXHandler_2_MaterialBasedHornBugEffectsMap_HornBugMovementEffects_*, get_VfxHandler, (app::RammingBehaviour_RamState * this_ptr))

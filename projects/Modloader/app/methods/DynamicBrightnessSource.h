@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/DynamicBrightnessSource.h>
+
+#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/DynamicBrightnessSource.h>
 #include <Modloader/app/structs/GlobalBrightnessController_BrigthnessContributionOrder__Enum.h>
 
 namespace app::classes::DynamicBrightnessSource {

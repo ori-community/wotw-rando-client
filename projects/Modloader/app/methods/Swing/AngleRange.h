@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AngleRange__Boxed.h>
+
+#include <Modloader/app/structs/AngleRange__Boxed.h>
 #include <Modloader/app/structs/Angle.h>
 
 namespace app::classes::Swing::AngleRange {

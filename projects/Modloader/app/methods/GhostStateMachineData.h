@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonGuid.h>
+
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
 #include <Modloader/app/structs/GhostStateMachineData.h>
 #include <Modloader/app/structs/StateMachine_2.h>
-#include <Modloader/app/structs/BinaryWriter.h>
-#include <Modloader/app/structs/BinaryReader.h>
-#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
 
 namespace app::classes::GhostStateMachineData {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::MoonGuid*, get_Guid, (app::GhostStateMachineData * this_ptr))

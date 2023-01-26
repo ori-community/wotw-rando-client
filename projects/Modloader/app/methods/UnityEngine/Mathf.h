@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Single__Array.h>
+
+#include <Modloader/app/structs/Single__Array.h>
 #include <Modloader/app/structs/Int32__Array.h>
 
 namespace app::classes::UnityEngine::Mathf {
@@ -43,7 +44,6 @@ namespace app::classes::UnityEngine::Mathf {
     IL2CPP_REGISTER_METHOD(0x02535760, int32_t, Clamp_2, (int32_t value, int32_t min, int32_t max))
     IL2CPP_REGISTER_METHOD(0x02535780, float, Clamp01, (float value))
     IL2CPP_REGISTER_METHOD(0x025357A0, float, Lerp, (float a, float b, float t))
-    IL2CPP_REGISTER_METHODINFO(0x0476F4A8, Mathf_Lerp__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02535890, float, LerpAngle, (float a, float b, float t))
     IL2CPP_REGISTER_METHOD(0x025359C0, float, MoveTowards, (float current, float target, float max_delta))
     IL2CPP_REGISTER_METHOD(0x02535B00, float, MoveTowardsAngle, (float current, float target, float max_delta))

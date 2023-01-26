@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_UI_Navigation_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_UI_Navigation_.h>
 #include <Modloader/app/structs/Navigation.h>
 #include <Modloader/app/structs/Navigation__Array.h>
 #include <Modloader/app/structs/Object.h>

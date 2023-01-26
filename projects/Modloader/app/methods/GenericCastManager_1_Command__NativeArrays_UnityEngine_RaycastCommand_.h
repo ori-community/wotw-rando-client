@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_RaycastCommand___Boxed.h>
+
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_RaycastCommand___Boxed.h>
 #include <Modloader/app/structs/RaycastCommand__Array.h>
 #include <Modloader/app/structs/RaycastHit__Array.h>
 

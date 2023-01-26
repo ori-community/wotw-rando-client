@@ -1,14 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JobBasedAnimatorPostprocess_1_MatchJointsJob_.h>
+
+#include <Modloader/app/structs/JobBasedAnimatorPostprocess_1_MatchJointsJob_.h>
+#include <Modloader/app/structs/AnimatorPostprocessUpdateData.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/Playable.h>
 #include <Modloader/app/structs/PlayableGraph.h>
-#include <Modloader/app/structs/MoonAnimator.h>
-#include <Modloader/app/structs/AnimatorPostprocessUpdateData.h>
 
 namespace app::classes::Moon::Animation::JobBasedAnimatorPostprocess_1_MatchJointsJob_ {
     IL2CPP_REGISTER_METHOD(0x019FC330, void, ctor, (app::JobBasedAnimatorPostprocess_1_MatchJointsJob_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04723078, JobBasedAnimatorPostprocess_1_MatchJointsJob___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019FBED0, bool, get_IsActive, (app::JobBasedAnimatorPostprocess_1_MatchJointsJob_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsAllowed, (app::JobBasedAnimatorPostprocess_1_MatchJointsJob_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019FBF70, app::Playable, ConstructPlayable, (app::JobBasedAnimatorPostprocess_1_MatchJointsJob_ * this_ptr, app::PlayableGraph playable_graph))

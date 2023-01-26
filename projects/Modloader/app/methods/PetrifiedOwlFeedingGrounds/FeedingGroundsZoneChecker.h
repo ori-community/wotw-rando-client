@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FeedingGroundsZoneChecker.h>
+
+#include <Modloader/app/structs/FeedingGroundsZoneChecker.h>
 #include <Modloader/app/structs/PetrifiedOwlFeedingGroundsState__Enum.h>
 
 namespace app::classes::PetrifiedOwlFeedingGrounds::FeedingGroundsZoneChecker {

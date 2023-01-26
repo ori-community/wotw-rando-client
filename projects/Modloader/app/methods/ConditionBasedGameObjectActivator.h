@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ConditionBasedGameObjectActivator.h>
+
+#include <Modloader/app/structs/ConditionBasedGameObjectActivator.h>
 
 namespace app::classes::ConditionBasedGameObjectActivator {
     IL2CPP_REGISTER_METHOD(0x011E3EC0, void, Start, (app::ConditionBasedGameObjectActivator * this_ptr))

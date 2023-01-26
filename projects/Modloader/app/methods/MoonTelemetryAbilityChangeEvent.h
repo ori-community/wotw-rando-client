@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/MoonTelemetryAbilityChangeEvent.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/JsonBuilder_Object.h>
+#include <Modloader/app/structs/MoonTelemetryAbilityChangeEvent.h>
 
 namespace app::classes::MoonTelemetryAbilityChangeEvent {
     IL2CPP_REGISTER_METHOD(0x006A63A0, app::String*, get_Name, (app::MoonTelemetryAbilityChangeEvent * this_ptr))

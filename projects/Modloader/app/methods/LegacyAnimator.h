@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyAnimator.h>
+
+#include <Modloader/app/structs/LegacyAnimator.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/AnimationCurve.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>

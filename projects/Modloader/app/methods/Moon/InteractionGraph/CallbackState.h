@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CallbackState.h>
+
+#include <Modloader/app/structs/CallbackState.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/IState_1.h>
 

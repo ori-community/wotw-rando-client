@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PolygonJumpGrid.h>
+
+#include <Modloader/app/structs/PolygonJumpGrid.h>
 #include <Modloader/app/structs/ILocomotionTurningHandler.h>
 #include <Modloader/app/structs/PolygonJumpGridEntry.h>
 #include <Modloader/app/structs/Vector3.h>

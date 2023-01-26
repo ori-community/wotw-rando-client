@@ -15,7 +15,7 @@ struct __declspec(align(8)) XDeferredAxis_1_System_Xml_Linq_XElement___Fields {
 #endif
 #if !defined(IL2CPP_STRUCT_XDeferredAxis_1_System_Xml_Linq_XElement___Fields_FWDDECL)
 #define IL2CPP_STRUCT_XDeferredAxis_1_System_Xml_Linq_XElement___Fields_FWDDECL
-#include <Modloader/app/structs/Func_3_System_Xml_Linq_XElement_System_Xml_Linq_XName_System_Collections_Generic_IEnumerable_1_.h>
+#include <Modloader/app/structs/Func_3_System_Xml_Linq_XElement_System_Xml_Linq_XNam_Syste_Collection_Generi_IEnumerabl_1_.h>
 #include <Modloader/app/structs/XElement.h>
 #include <Modloader/app/structs/XName.h>
 #endif

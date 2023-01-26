@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UpgradeAbilityItem.h>
-#include <Modloader/app/structs/SkillUpgradeShopUIItem.h>
+
+#include <Modloader/app/structs/UpgradeAbilityItem.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SkillUpgradeShopUIItem.h>
 
 namespace app::classes::SkillUpgradeShopUIItem {
     IL2CPP_REGISTER_METHOD(0x002FBB40, app::UpgradeAbilityItem*, get_UpgradeItem, (app::SkillUpgradeShopUIItem * this_ptr))

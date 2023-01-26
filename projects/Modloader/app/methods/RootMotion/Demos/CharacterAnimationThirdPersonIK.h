@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterAnimationThirdPersonIK.h>
+
+#include <Modloader/app/structs/CharacterAnimationThirdPersonIK.h>
 #include <Modloader/app/structs/IKEffector.h>
 #include <Modloader/app/structs/Quaternion.h>
 

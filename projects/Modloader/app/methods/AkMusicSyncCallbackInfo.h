@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkMusicSyncCallbackInfo.h>
+
+#include <Modloader/app/structs/AkMusicSyncCallbackInfo.h>
 #include <Modloader/app/structs/AkCallbackType__Enum.h>
 #include <Modloader/app/structs/String.h>
 

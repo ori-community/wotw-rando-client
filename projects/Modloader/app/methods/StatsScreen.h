@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StatsScreen.h>
-#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+
+#include <Modloader/app/structs/StatsScreen.h>
 #include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
-#include <Modloader/app/structs/StatUISlot.h>
 #include <Modloader/app/structs/List_1_StatSetting_.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/StatSetting_StatDisplayCategory__Enum.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
 #include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/StatSetting_StatDisplayCategory__Enum.h>
+#include <Modloader/app/structs/StatUISlot.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::StatsScreen {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanInterruptTab, (app::StatsScreen * this_ptr))
@@ -24,7 +25,6 @@ namespace app::classes::StatsScreen {
     IL2CPP_REGISTER_METHOD(0x009503F0, void, HideImmediate, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009BD610, void, Show, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009BD770, void, OnBackPressed, (app::StatsScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473A0E0, StatsScreen_OnBackPressed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009BD940, void, PopulateItems_1, (app::StatsScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009BDA00, void, PopulateItems_2, (app::StatsScreen * this_ptr, app::List_1_StatSetting_* settings))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, DestroyItems, (app::StatsScreen * this_ptr))

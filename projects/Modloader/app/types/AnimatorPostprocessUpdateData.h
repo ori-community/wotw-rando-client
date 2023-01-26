@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AnimatorPostprocessUpdateData__Class.h>
 #include <Modloader/app/structs/AnimatorPostprocessUpdateData.h>
 #include <Modloader/app/structs/AnimatorPostprocessUpdateData__Boxed.h>
+#include <Modloader/app/structs/AnimatorPostprocessUpdateData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace AnimatorPostprocessUpdateData {
-        namespace {
-            inline app::AnimatorPostprocessUpdateData__Class* type_info_ref = nullptr;
+        inline app::AnimatorPostprocessUpdateData__Class** type_info() {
+            static app::AnimatorPostprocessUpdateData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AnimatorPostprocessUpdateData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AnimatorPostprocessUpdateData__Class** type_info = &type_info_ref;
         inline app::AnimatorPostprocessUpdateData__Class* get_class() {
-            return il2cpp::get_class<app::AnimatorPostprocessUpdateData__Class>(type_info, "Moon", "AnimatorPostprocessUpdateData");
+            return il2cpp::get_class<app::AnimatorPostprocessUpdateData__Class>(type_info(), "Moon", "AnimatorPostprocessUpdateData");
         }
         inline app::AnimatorPostprocessUpdateData* create() {
             return il2cpp::create_object<app::AnimatorPostprocessUpdateData>(get_class());

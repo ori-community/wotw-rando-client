@@ -1,24 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterPlatformMovement.h>
+
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/CharacterPlatformMovement_ScheduledSpeedCurve.h>
 #include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Collision.h>
 #include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/ExternalForceEntry.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Kickback.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/QueryTriggerInteraction__Enum.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/RaycastHit.h>
-#include <Modloader/app/structs/CharacterPlatformMovement_ScheduledSpeedCurve.h>
-#include <Modloader/app/structs/ExternalForceEntry.h>
-#include <Modloader/app/structs/Object_1.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/MoonControllerColliderHit.h>
-#include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/LayerMask.h>
-#include <Modloader/app/structs/QueryTriggerInteraction__Enum.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
-#include <Modloader/app/structs/Kickback.h>
-#include <Modloader/app/structs/AnimationCurve.h>
-#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::CharacterPlatformMovement {
     IL2CPP_REGISTER_METHOD(0x01303670, void, ResetStatics, ())
@@ -67,7 +68,6 @@ namespace app::classes::CharacterPlatformMovement {
     IL2CPP_REGISTER_METHOD(0x01304B70, void, OnEnable, (app::CharacterPlatformMovement * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01304C20, void, OnDisable, (app::CharacterPlatformMovement * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01304E30, void, OnPreRestore, (app::CharacterPlatformMovement * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04769308, CharacterPlatformMovement_OnPreRestore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01305020, void, OnPrewarm, (app::CharacterPlatformMovement * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01305120, app::CharacterPlatformMovement_ScheduledSpeedCurve*, ScheduleSpeedCurve, (app::CharacterPlatformMovement * this_ptr, app::CharacterPlatformMovement_ScheduledSpeedCurve* curve_entry))
     IL2CPP_REGISTER_METHOD(0x013051F0, void, AddExternalForce, (app::CharacterPlatformMovement * this_ptr, app::ExternalForceEntry entry, bool update_entry_from_same_source))

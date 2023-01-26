@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CallSite.h>
+
+#include <Modloader/app/structs/CallSite.h>
+#include <Modloader/app/structs/CallSiteBinder.h>
 #include <Modloader/app/structs/CallSite_1_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Object__Array.h>
 #include <Modloader/app/structs/RuleCache_1_System_Object_.h>
-#include <Modloader/app/structs/CallSiteBinder.h>
 
 namespace app::classes::System::Runtime::CompilerServices::CallSiteOps {
     IL2CPP_REGISTER_METHOD(0x02FC81E0, bool, SetNotMatched, (app::CallSite * site))

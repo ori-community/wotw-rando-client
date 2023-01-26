@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameController_Start_d_161.h>
+
+#include <Modloader/app/structs/GameController_Start_d_161.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::GameController__Start_d__161 {
@@ -9,6 +10,5 @@ namespace app::classes::GameController__Start_d__161 {
     IL2CPP_REGISTER_METHOD(0x0069AC00, bool, MoveNext, (app::GameController_Start_d_161 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::GameController_Start_d_161 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0069BAB0, void, IEnumerator_Reset, (app::GameController_Start_d_161 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477E828, GameController_Start_d_161_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::GameController_Start_d_161 * this_ptr))
 } // namespace app::classes::GameController__Start_d__161

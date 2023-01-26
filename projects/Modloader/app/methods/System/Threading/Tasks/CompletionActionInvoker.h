@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CompletionActionInvoker.h>
+
+#include <Modloader/app/structs/CompletionActionInvoker.h>
 #include <Modloader/app/structs/ITaskCompletionAction.h>
 #include <Modloader/app/structs/Task.h>
 #include <Modloader/app/structs/ThreadAbortException.h>

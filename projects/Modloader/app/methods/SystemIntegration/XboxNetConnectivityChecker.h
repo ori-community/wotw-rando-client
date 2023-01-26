@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XboxNetConnectivityChecker.h>
+
+#include <Modloader/app/structs/XboxNetConnectivityChecker.h>
 
 namespace app::classes::SystemIntegration::XboxNetConnectivityChecker {
     IL2CPP_REGISTER_METHOD(0x0052B590, bool, get_RunningInBackground, (app::XboxNetConnectivityChecker * this_ptr))

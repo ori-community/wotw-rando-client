@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CompositeTriggerCollider_PropagateCollisionsToSiblings_d_9.h>
+
+#include <Modloader/app/structs/CompositeTriggerCollider_PropagateCollisionsToSiblings_d_9.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::CompositeTriggerCollider__PropagateCollisionsToSiblings_d__9 {
@@ -9,6 +10,5 @@ namespace app::classes::CompositeTriggerCollider__PropagateCollisionsToSiblings_
     IL2CPP_REGISTER_METHOD(0x011E1190, bool, MoveNext, (app::CompositeTriggerCollider_PropagateCollisionsToSiblings_d_9 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::CompositeTriggerCollider_PropagateCollisionsToSiblings_d_9 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011E1850, void, IEnumerator_Reset, (app::CompositeTriggerCollider_PropagateCollisionsToSiblings_d_9 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470D9B0, CompositeTriggerCollider_PropagateCollisionsToSiblings_d_9_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::CompositeTriggerCollider_PropagateCollisionsToSiblings_d_9 * this_ptr))
 } // namespace app::classes::CompositeTriggerCollider__PropagateCollisionsToSiblings_d__9

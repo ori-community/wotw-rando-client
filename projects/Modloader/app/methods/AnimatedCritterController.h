@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimatedCritter.h>
+
+#include <Modloader/app/structs/AnimatedCritter.h>
 #include <Modloader/app/structs/AnimatedCritterController.h>
 
 namespace app::classes::AnimatedCritterController {

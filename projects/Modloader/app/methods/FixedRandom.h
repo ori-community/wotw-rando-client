@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/FixedRandom.h>
-#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_TargetSpheres_Sphere_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/TargetSpheres_Sphere.h>
 #include <Modloader/app/structs/TextureAnimationWithTransitions.h>
 #include <Modloader/app/structs/TextureAnimationWithTransitions__Array.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/TargetSpheres_Sphere.h>
-#include <Modloader/app/structs/List_1_TargetSpheres_Sphere_.h>
+#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/WormHole.h>
 #include <Modloader/app/structs/WormHole__Array.h>
 
@@ -39,11 +40,7 @@ namespace app::classes::FixedRandom {
     IL2CPP_REGISTER_METHOD(0x015E8360, app::Object*, GetRandomArrayItem_1, (app::Object__Array * list, int32_t values_index))
     IL2CPP_REGISTER_METHOD(0x015E8360, app::Object*, GetRandomArrayItem_2, (app::Object__Array * list, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x015E8360, app::TextureAnimationWithTransitions*, GetRandomArrayItem_3, (app::TextureAnimationWithTransitions__Array * list, int32_t values_index))
-    IL2CPP_REGISTER_METHODINFO(0x0472FD00, FixedRandom_GetRandomArrayItem_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E83F0, app::GameObject*, GetRandomListItem_3, (app::List_1_UnityEngine_GameObject_ * list, app::Vector3 position))
-    IL2CPP_REGISTER_METHODINFO(0x0477BA10, FixedRandom_GetRandomListItem_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E83F0, app::TargetSpheres_Sphere*, GetRandomListItem_4, (app::List_1_TargetSpheres_Sphere_ * list, int32_t values_index))
-    IL2CPP_REGISTER_METHODINFO(0x047674A0, FixedRandom_GetRandomListItem_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E8360, app::WormHole*, GetRandomArrayItem_4, (app::WormHole__Array * list, int32_t values_index))
-    IL2CPP_REGISTER_METHODINFO(0x04734608, FixedRandom_GetRandomArrayItem_3__MethodInfo)
 } // namespace app::classes::FixedRandom

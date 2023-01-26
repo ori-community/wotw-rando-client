@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ICryptoTransform.h>
-#include <Modloader/app/structs/CipherSuite.h>
-#include <Modloader/app/structs/KeyedHashAlgorithm.h>
+
+#include <Modloader/app/structs/ICryptoTransform.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/CipherAlgorithmType__Enum.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/CipherMode__Enum.h>
+#include <Modloader/app/structs/CipherSuite.h>
+#include <Modloader/app/structs/Context_1.h>
+#include <Modloader/app/structs/ExchangeAlgorithmType__Enum.h>
 #include <Modloader/app/structs/HashAlgorithm.h>
 #include <Modloader/app/structs/HashAlgorithmType__Enum.h>
-#include <Modloader/app/structs/ExchangeAlgorithmType__Enum.h>
-#include <Modloader/app/structs/CipherMode__Enum.h>
-#include <Modloader/app/structs/Context_1.h>
-#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/KeyedHashAlgorithm.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::CipherSuite {
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::ICryptoTransform*, get_EncryptionCipher, (app::CipherSuite * this_ptr))
@@ -36,9 +37,7 @@ namespace app::classes::Mono::Security::Protocol::Tls::CipherSuite {
     IL2CPP_REGISTER_METHOD(0x002FBA00, void, set_Context, (app::CipherSuite * this_ptr, app::Context_1* value))
     IL2CPP_REGISTER_METHOD(0x01F62DD0, void, ctor, (app::CipherSuite * this_ptr, int16_t code, app::String* name, app::CipherAlgorithmType__Enum cipher_algorithm_type, app::HashAlgorithmType__Enum hash_algorithm_type, app::ExchangeAlgorithmType__Enum exchange_algorithm_type, bool exportable, bool block_mode, uint8_t key_material_size, uint8_t expanded_key_material_size, int16_t effective_key_bits, uint8_t iv_size, uint8_t block_size))
     IL2CPP_REGISTER_METHOD(0x01F62E80, void, Write_1, (app::CipherSuite * this_ptr, app::Byte__Array* array, int32_t offset, int16_t value))
-    IL2CPP_REGISTER_METHODINFO(0x04766738, CipherSuite_Write__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F62F90, void, Write_2, (app::CipherSuite * this_ptr, app::Byte__Array* array, int32_t offset, uint64_t value))
-    IL2CPP_REGISTER_METHODINFO(0x0476F788, CipherSuite_Write_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F631B0, void, InitializeCipher, (app::CipherSuite * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F631D0, app::Byte__Array*, EncryptRecord, (app::CipherSuite * this_ptr, app::Byte__Array* fragment, app::Byte__Array* mac))
     IL2CPP_REGISTER_METHOD(0x01F633A0, void, DecryptRecord, (app::CipherSuite * this_ptr, app::Byte__Array* fragment, app::Byte__Array** dcr_fragment, app::Byte__Array** dcr_m_a_c))

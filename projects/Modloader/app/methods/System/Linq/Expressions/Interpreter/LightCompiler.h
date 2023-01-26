@@ -1,32 +1,33 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LightCompiler.h>
-#include <Modloader/app/structs/InstructionList.h>
-#include <Modloader/app/structs/LightDelegateCreator.h>
-#include <Modloader/app/structs/LambdaExpression.h>
-#include <Modloader/app/structs/Interpreter.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Expression.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/LocalVariable.h>
-#include <Modloader/app/structs/ParameterExpression.h>
-#include <Modloader/app/structs/LocalDefinition__Array.h>
-#include <Modloader/app/structs/BlockExpression.h>
-#include <Modloader/app/structs/IndexExpression.h>
+
+#include <Modloader/app/structs/LightCompiler.h>
 #include <Modloader/app/structs/BinaryExpression.h>
-#include <Modloader/app/structs/MemberInfo_1.h>
-#include <Modloader/app/structs/ExpressionType__Enum.h>
-#include <Modloader/app/structs/UnaryExpression.h>
-#include <Modloader/app/structs/SwitchExpression.h>
-#include <Modloader/app/structs/LabelScopeKind__Enum.h>
-#include <Modloader/app/structs/LabelInfo.h>
-#include <Modloader/app/structs/LabelTarget.h>
-#include <Modloader/app/structs/TryExpression.h>
-#include <Modloader/app/structs/MethodInfo_1.h>
-#include <Modloader/app/structs/IArgumentProvider.h>
+#include <Modloader/app/structs/BlockExpression.h>
 #include <Modloader/app/structs/ByRefUpdater.h>
+#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
+#include <Modloader/app/structs/IArgumentProvider.h>
+#include <Modloader/app/structs/IndexExpression.h>
+#include <Modloader/app/structs/InstructionList.h>
+#include <Modloader/app/structs/Interpreter.h>
+#include <Modloader/app/structs/LabelInfo.h>
+#include <Modloader/app/structs/LabelScopeKind__Enum.h>
+#include <Modloader/app/structs/LabelTarget.h>
+#include <Modloader/app/structs/LambdaExpression.h>
+#include <Modloader/app/structs/LightDelegateCreator.h>
+#include <Modloader/app/structs/LocalDefinition__Array.h>
+#include <Modloader/app/structs/LocalVariable.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/ParameterExpression.h>
 #include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_ElementInit_.h>
 #include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_MemberBinding_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SwitchExpression.h>
+#include <Modloader/app/structs/TryExpression.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/UnaryExpression.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LightCompiler {
     IL2CPP_REGISTER_METHOD(0x01CEBBD0, void, ctor_1, (app::LightCompiler * this_ptr))
@@ -38,7 +39,6 @@ namespace app::classes::System::Linq::Expressions::Interpreter::LightCompiler {
     IL2CPP_REGISTER_METHOD(0x01CECE50, void, CompileDefaultExpression_1, (app::LightCompiler * this_ptr, app::Expression* expr))
     IL2CPP_REGISTER_METHOD(0x01CECFE0, void, CompileDefaultExpression_2, (app::LightCompiler * this_ptr, app::Type* type))
     IL2CPP_REGISTER_METHOD(0x01CED140, app::LocalVariable*, EnsureAvailableForClosure, (app::LightCompiler * this_ptr, app::ParameterExpression* expr))
-    IL2CPP_REGISTER_METHODINFO(0x04736970, LightCompiler_EnsureAvailableForClosure__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01CED2B0, app::LocalVariable*, ResolveLocal, (app::LightCompiler * this_ptr, app::ParameterExpression* variable))
     IL2CPP_REGISTER_METHOD(0x01CED320, void, CompileGetVariable, (app::LightCompiler * this_ptr, app::ParameterExpression* variable))
     IL2CPP_REGISTER_METHOD(0x01CED470, void, EmitCopyValueType, (app::LightCompiler * this_ptr, app::Type* value_type))
@@ -55,23 +55,17 @@ namespace app::classes::System::Linq::Expressions::Interpreter::LightCompiler {
     IL2CPP_REGISTER_METHOD(0x01CEE780, void, CompileIndexAssignment, (app::LightCompiler * this_ptr, app::BinaryExpression* node, bool as_void))
     IL2CPP_REGISTER_METHOD(0x01CEECA0, void, CompileMemberAssignment_1, (app::LightCompiler * this_ptr, app::BinaryExpression* node, bool as_void))
     IL2CPP_REGISTER_METHOD(0x01CEEDF0, void, CompileMemberAssignment_2, (app::LightCompiler * this_ptr, bool as_void, app::MemberInfo_1* ref_member, app::Expression* value, bool for_binding))
-    IL2CPP_REGISTER_METHODINFO(0x0477FCF8, LightCompiler_CompileMemberAssignment_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01CEF400, void, CompileVariableAssignment, (app::LightCompiler * this_ptr, app::BinaryExpression* node, bool as_void))
     IL2CPP_REGISTER_METHOD(0x01CEF510, void, CompileAssignBinaryExpression, (app::LightCompiler * this_ptr, app::Expression* expr, bool as_void))
-    IL2CPP_REGISTER_METHODINFO(0x04707A90, LightCompiler_CompileAssignBinaryExpression__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01CEF870, void, CompileBinaryExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
-    IL2CPP_REGISTER_METHODINFO(0x0477D8F8, LightCompiler_CompileBinaryExpression__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01CF0A90, void, CompileEqual, (app::LightCompiler * this_ptr, app::Expression* left, app::Expression* right, bool lifted_to_null))
     IL2CPP_REGISTER_METHOD(0x01CF0B30, void, CompileNotEqual, (app::LightCompiler * this_ptr, app::Expression* left, app::Expression* right, bool lifted_to_null))
     IL2CPP_REGISTER_METHOD(0x01CF0BD0, void, CompileComparison, (app::LightCompiler * this_ptr, app::BinaryExpression* node))
-    IL2CPP_REGISTER_METHODINFO(0x04795FE8, LightCompiler_CompileComparison__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01CF0E50, void, CompileArithmetic, (app::LightCompiler * this_ptr, app::ExpressionType__Enum node_type, app::Expression* left, app::Expression* right))
-    IL2CPP_REGISTER_METHODINFO(0x0476B860, LightCompiler_CompileArithmetic__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01CF1180, void, CompileConvertUnaryExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
     IL2CPP_REGISTER_METHOD(0x01CF1880, void, CompileConvertToType, (app::LightCompiler * this_ptr, app::Type* type_from, app::Type* type_to, bool is_checked, bool is_lifted_to_null))
     IL2CPP_REGISTER_METHOD(0x01CF22D0, void, CompileNotExpression, (app::LightCompiler * this_ptr, app::UnaryExpression* node))
     IL2CPP_REGISTER_METHOD(0x01CF2350, void, CompileUnaryExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
-    IL2CPP_REGISTER_METHODINFO(0x04785A90, LightCompiler_CompileUnaryExpression__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01CF2790, void, EmitUnaryMethodCall, (app::LightCompiler * this_ptr, app::UnaryExpression* node))
     IL2CPP_REGISTER_METHOD(0x01CF28F0, void, EmitUnaryBoolCheck, (app::LightCompiler * this_ptr, app::UnaryExpression* node))
     IL2CPP_REGISTER_METHOD(0x01CF2BA0, void, CompileAndAlsoBinaryExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
@@ -94,7 +88,6 @@ namespace app::classes::System::Linq::Expressions::Interpreter::LightCompiler {
     IL2CPP_REGISTER_METHOD(0x01CF5FF0, bool, TryPushLabelBlock, (app::LightCompiler * this_ptr, app::Expression* node))
     IL2CPP_REGISTER_METHOD(0x01CF6440, void, DefineBlockLabels, (app::LightCompiler * this_ptr, app::Expression* node))
     IL2CPP_REGISTER_METHOD(0x01CF6650, void, CheckRethrow, (app::LightCompiler * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476D660, LightCompiler_CheckRethrow__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01CF6700, void, CompileThrowUnaryExpression, (app::LightCompiler * this_ptr, app::Expression* expr, bool as_void))
     IL2CPP_REGISTER_METHOD(0x01CF6B90, void, CompileTryExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
     IL2CPP_REGISTER_METHOD(0x01CF7C70, void, CompileTryFaultExpression, (app::LightCompiler * this_ptr, app::TryExpression* expr))
@@ -106,10 +99,8 @@ namespace app::classes::System::Linq::Expressions::Interpreter::LightCompiler {
     IL2CPP_REGISTER_METHOD(0x01CF8DE0, app::ByRefUpdater*, CompileAddress, (app::LightCompiler * this_ptr, app::Expression* node, int32_t index))
     IL2CPP_REGISTER_METHOD(0x01CF99E0, app::ByRefUpdater*, CompileMultiDimArrayAccess, (app::LightCompiler * this_ptr, app::Expression* array, app::IArgumentProvider* arguments, int32_t index))
     IL2CPP_REGISTER_METHOD(0x01CF9E80, void, CompileNewExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
-    IL2CPP_REGISTER_METHODINFO(0x04761F58, LightCompiler_CompileNewExpression__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01CFA5A0, void, CompileMemberExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
     IL2CPP_REGISTER_METHOD(0x01CFA6A0, void, CompileMember, (app::LightCompiler * this_ptr, app::Expression* from, app::MemberInfo_1* member, bool for_binding))
-    IL2CPP_REGISTER_METHODINFO(0x0470DBB0, LightCompiler_CompileMember__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01CFAA30, void, CompileNewArrayExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
     IL2CPP_REGISTER_METHOD(0x01CFB0A0, void, CompileDebugInfoExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
     IL2CPP_REGISTER_METHOD(0x01CFB2F0, void, CompileRuntimeVariablesExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
@@ -120,9 +111,7 @@ namespace app::classes::System::Linq::Expressions::Interpreter::LightCompiler {
     IL2CPP_REGISTER_METHOD(0x01CFC410, void, CompileListInit, (app::LightCompiler * this_ptr, app::ReadOnlyCollection_1_System_Linq_Expressions_ElementInit_* initializers))
     IL2CPP_REGISTER_METHOD(0x01CFC760, void, CompileMemberInitExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
     IL2CPP_REGISTER_METHOD(0x01CFC830, void, CompileMemberInit, (app::LightCompiler * this_ptr, app::ReadOnlyCollection_1_System_Linq_Expressions_MemberBinding_* bindings))
-    IL2CPP_REGISTER_METHODINFO(0x04750238, LightCompiler_CompileMemberInit__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01CFCC70, app::Type*, GetMemberType, (app::MemberInfo_1 * member))
-    IL2CPP_REGISTER_METHODINFO(0x04713040, LightCompiler_GetMemberType__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01CFCDD0, void, CompileQuoteUnaryExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
     IL2CPP_REGISTER_METHOD(0x01CFD310, void, CompileUnboxUnaryExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
     IL2CPP_REGISTER_METHOD(0x01CFD480, void, CompileTypeEqualExpression, (app::LightCompiler * this_ptr, app::Expression* expr))
@@ -134,7 +123,5 @@ namespace app::classes::System::Linq::Expressions::Interpreter::LightCompiler {
     IL2CPP_REGISTER_METHOD(0x01CFE950, void, Compile_2, (app::LightCompiler * this_ptr, app::Expression* expr))
     IL2CPP_REGISTER_METHOD(0x01CFE9B0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01AF07C0, void, CompileIntSwitchExpression_1, (app::LightCompiler * this_ptr, app::SwitchExpression* node))
-    IL2CPP_REGISTER_METHODINFO(0x04711168, LightCompiler_CompileIntSwitchExpression__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01AF00A0, void, CompileIntSwitchExpression_2, (app::LightCompiler * this_ptr, app::SwitchExpression* node))
-    IL2CPP_REGISTER_METHODINFO(0x04748B98, LightCompiler_CompileIntSwitchExpression_1__MethodInfo)
 } // namespace app::classes::System::Linq::Expressions::Interpreter::LightCompiler

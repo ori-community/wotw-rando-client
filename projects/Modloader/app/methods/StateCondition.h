@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StateCondition.h>
+
+#include <Modloader/app/structs/StateCondition.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::StateCondition {
@@ -16,7 +17,6 @@ namespace app::classes::StateCondition {
     IL2CPP_REGISTER_METHOD(0x009B4A00, void, Awake, (app::StateCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009B4BA0, void, OnDestroy, (app::StateCondition * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C15C0, void, OnRestoreCheckpoint, (app::StateCondition * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04743620, StateCondition_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009B4D40, bool, Validate, (app::StateCondition * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x009B4E10, void, Apply, (app::StateCondition * this_ptr, app::UberStateApplyContext__Enum context))
     IL2CPP_REGISTER_METHOD(0x009B5000, void, ctor, (app::StateCondition * this_ptr))

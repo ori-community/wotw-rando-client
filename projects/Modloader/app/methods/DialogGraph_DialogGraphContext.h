@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DialogGraph_DialogGraphContext.h>
+
+#include <Modloader/app/structs/DialogGraph_DialogGraphContext.h>
 #include <Modloader/app/structs/DialogGraph.h>
 #include <Modloader/app/structs/IDialogNode.h>
 

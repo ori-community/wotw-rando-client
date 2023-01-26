@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
+
+#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
 #include <Modloader/app/structs/VirtualMoonTimelineCustomGroup.h>
 
 namespace app::classes::Moon::Timeline::VirtualMoonTimelineCustomGroup {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKSolverHeuristic.h>
+
+#include <Modloader/app/structs/IKSolverHeuristic.h>
 #include <Modloader/app/structs/IKLimb.h>
 #include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/Vector3.h>

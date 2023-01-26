@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DepthOfFieldController.h>
-#include <Modloader/app/structs/SlicedRenderSettingsEditor.h>
-#include <Modloader/app/structs/LayeredRenderSettings_LayerParams__Array.h>
+
+#include <Modloader/app/structs/DepthOfFieldController.h>
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/LayeredRenderSettings.h>
+#include <Modloader/app/structs/LayeredRenderSettings_LayerParams__Array.h>
 #include <Modloader/app/structs/MoonRenderPipelineDebug_Slice__Array.h>
 #include <Modloader/app/structs/SceneSettingsComponent.h>
-#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/SlicedRenderSettingsEditor.h>
 
 namespace app::classes::frameworks::renderPipeline::SlicedRenderSettingsEditor {
     IL2CPP_REGISTER_METHOD(0x00F62DD0, bool, get_IsEnabled, ())
@@ -29,7 +30,6 @@ namespace app::classes::frameworks::renderPipeline::SlicedRenderSettingsEditor {
     IL2CPP_REGISTER_METHOD(0x00F65180, void, OnEnable, (app::SlicedRenderSettingsEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F653C0, void, OnDisable, (app::SlicedRenderSettingsEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F65610, void, OnEndOfFrame, (app::SlicedRenderSettingsEditor * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04753B18, SlicedRenderSettingsEditor_OnEndOfFrame__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F65620, void, Update, (app::SlicedRenderSettingsEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F65710, void, FixedUpdate, (app::SlicedRenderSettingsEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F66800, void, DrawBlurValue, (app::SlicedRenderSettingsEditor * this_ptr, float value, float x, bool clipped, bool selected))

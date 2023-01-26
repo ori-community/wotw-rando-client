@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/HoldableRigidBodyPlaceholder.h>
+#include <Modloader/app/structs/HoldableRigidBodyPlaceholder__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/HoldableRigidBodyPlaceholder__Class.h>
-#include <Modloader/app/structs/HoldableRigidBodyPlaceholder.h>
 
 namespace app::classes::types {
     namespace HoldableRigidBodyPlaceholder {
-        namespace {
-            inline app::HoldableRigidBodyPlaceholder__Class* type_info_ref = nullptr;
+        inline app::HoldableRigidBodyPlaceholder__Class** type_info() {
+            static app::HoldableRigidBodyPlaceholder__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::HoldableRigidBodyPlaceholder__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::HoldableRigidBodyPlaceholder__Class** type_info = &type_info_ref;
         inline app::HoldableRigidBodyPlaceholder__Class* get_class() {
-            return il2cpp::get_class<app::HoldableRigidBodyPlaceholder__Class>(type_info, "", "HoldableRigidBodyPlaceholder");
+            return il2cpp::get_class<app::HoldableRigidBodyPlaceholder__Class>(type_info(), "", "HoldableRigidBodyPlaceholder");
         }
         inline app::HoldableRigidBodyPlaceholder* create() {
             return il2cpp::create_object<app::HoldableRigidBodyPlaceholder>(get_class());

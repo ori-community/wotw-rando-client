@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RuntimeQuest.h>
-#include <Modloader/app/structs/QuestsController.h>
-#include <Modloader/app/structs/Quest.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/RuntimeQuest.h>
 #include <Modloader/app/structs/IGenericUberState.h>
-#include <Modloader/app/structs/SerializedIntUberState.h>
-#include <Modloader/app/structs/QuestReward.h>
-#include <Modloader/app/structs/List_1_RuntimeQuest_.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 #include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_RuntimeQuest_.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Quest.h>
 #include <Modloader/app/structs/QuestItemReward.h>
+#include <Modloader/app/structs/QuestReward.h>
+#include <Modloader/app/structs/QuestsController.h>
+#include <Modloader/app/structs/SerializedIntUberState.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::QuestsController {
     IL2CPP_REGISTER_METHOD(0x00E8D950, void, ResetStatics, ())
@@ -21,7 +22,6 @@ namespace app::classes::QuestsController {
     IL2CPP_REGISTER_METHOD(0x00E8DA00, float, GetSideQuestCompletion, (app::QuestsController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E8DC40, void, OnDestroy, (app::QuestsController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E8DDE0, void, OnRestoreCheckpoint, (app::QuestsController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04711D80, QuestsController_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E8DF40, void, Awake, (app::QuestsController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E8F0B0, void, Update, (app::QuestsController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E8F8C0, void, DebugClearQueue, (app::QuestsController * this_ptr))
@@ -31,7 +31,6 @@ namespace app::classes::QuestsController {
     IL2CPP_REGISTER_METHOD(0x00E8FDD0, bool, get_WaitingToDisplayMessage, (app::QuestsController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FD650, bool, get_MessageVisible, (app::QuestsController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E8FE60, void, MessageHidden, (app::QuestsController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04711DD8, QuestsController_MessageHidden__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E90010, void, QueueMessage, (app::QuestsController * this_ptr, app::Quest* quest))
     IL2CPP_REGISTER_METHOD(0x00E900D0, void, ShowMessage, (app::QuestsController * this_ptr, app::Quest* quest))
     IL2CPP_REGISTER_METHOD(0x00E90310, void, QueueCompleteMessage, (app::QuestsController * this_ptr, app::Quest* quest))
@@ -60,7 +59,6 @@ namespace app::classes::QuestsController {
     IL2CPP_REGISTER_METHOD(0x00E92750, void, ProcessQuest, (app::QuestsController * this_ptr, app::Quest* quest, bool full_state_apply))
     IL2CPP_REGISTER_METHOD(0x00E92AF0, void, GetQuestItemReward, (app::QuestsController * this_ptr, app::QuestItemReward* quest_item_reward))
     IL2CPP_REGISTER_METHOD(0x00E92E80, void, OnGetQuestItemRewardFinished, (app::QuestsController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04760508, QuestsController_OnGetQuestItemRewardFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E930B0, bool, IsShowingMessage, (app::QuestsController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E93150, void, ctor, (app::QuestsController * this_ptr))
 } // namespace app::classes::QuestsController

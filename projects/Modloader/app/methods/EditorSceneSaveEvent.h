@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/EditorSceneSaveEvent.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/DatadogEvent.h>
+#include <Modloader/app/structs/EditorSceneSaveEvent.h>
 
 namespace app::classes::EditorSceneSaveEvent {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_SceneName, (app::EditorSceneSaveEvent * this_ptr))

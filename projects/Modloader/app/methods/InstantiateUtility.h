@@ -1,24 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Object_1.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
-#include <Modloader/app/structs/Component_1.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/InstantiateUtility.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Naru.h>
 #include <Modloader/app/structs/BabySein.h>
+#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/ConfirmOrCancel.h>
 #include <Modloader/app/structs/HealthBar.h>
+#include <Modloader/app/structs/InstantiateUtility.h>
 #include <Modloader/app/structs/LeaderboardRowUI.h>
+#include <Modloader/app/structs/Naru.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/RaceLeaderboardEntry.h>
 #include <Modloader/app/structs/RaceLeaderboardScreen.h>
 #include <Modloader/app/structs/RaceTargetIndicator.h>
-#include <Modloader/app/structs/ConfirmOrCancel.h>
 #include <Modloader/app/structs/SoundSource.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::InstantiateUtility {
     IL2CPP_REGISTER_METHOD(0x0062FA00, app::GameObject*, CreateNewGameObject, (app::String * name))
@@ -49,23 +50,13 @@ namespace app::classes::InstantiateUtility {
     IL2CPP_REGISTER_METHOD(0x015EB540, app::Object*, InstantiateImmediate_7, (app::Object * original, app::Vector3 position, app::Quaternion rotation, app::Transform* parent, app::Object_1* owner, bool record))
     IL2CPP_REGISTER_METHOD(0x015EB360, app::Object*, InstantiateImmediate_8, (app::Object * original, app::Vector3 position, app::Quaternion rotation, app::Object_1* owner, bool record))
     IL2CPP_REGISTER_METHOD(0x015EB010, app::Naru*, InstantiateImmediate_9, (app::Naru * original, app::Object_1* owner, bool record))
-    IL2CPP_REGISTER_METHODINFO(0x04740A60, InstantiateUtility_InstantiateImmediate_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EB360, app::BabySein*, InstantiateImmediate_10, (app::BabySein * original, app::Vector3 position, app::Quaternion rotation, app::Object_1* owner, bool record))
-    IL2CPP_REGISTER_METHODINFO(0x04777A80, InstantiateUtility_InstantiateImmediate_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EB360, app::Naru*, InstantiateImmediate_11, (app::Naru * original, app::Vector3 position, app::Quaternion rotation, app::Object_1* owner, bool record))
-    IL2CPP_REGISTER_METHODINFO(0x0475A490, InstantiateUtility_InstantiateImmediate_10__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EB540, app::HealthBar*, InstantiateImmediate_12, (app::HealthBar * original, app::Vector3 position, app::Quaternion rotation, app::Transform* parent, app::Object_1* owner, bool record))
-    IL2CPP_REGISTER_METHODINFO(0x04793848, InstantiateUtility_InstantiateImmediate_11__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EB010, app::LeaderboardRowUI*, InstantiateImmediate_13, (app::LeaderboardRowUI * original, app::Object_1* owner, bool record))
-    IL2CPP_REGISTER_METHODINFO(0x0473A2B8, InstantiateUtility_InstantiateImmediate_12__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EB360, app::RaceLeaderboardEntry*, InstantiateImmediate_14, (app::RaceLeaderboardEntry * original, app::Vector3 position, app::Quaternion rotation, app::Object_1* owner, bool record))
-    IL2CPP_REGISTER_METHODINFO(0x047221A0, InstantiateUtility_InstantiateImmediate_13__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EB010, app::RaceLeaderboardScreen*, InstantiateImmediate_15, (app::RaceLeaderboardScreen * original, app::Object_1* owner, bool record))
-    IL2CPP_REGISTER_METHODINFO(0x047777F8, InstantiateUtility_InstantiateImmediate_14__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EB010, app::RaceTargetIndicator*, InstantiateImmediate_16, (app::RaceTargetIndicator * original, app::Object_1* owner, bool record))
-    IL2CPP_REGISTER_METHODINFO(0x0472EDD8, InstantiateUtility_InstantiateImmediate_15__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EB360, app::ConfirmOrCancel*, InstantiateImmediate_17, (app::ConfirmOrCancel * original, app::Vector3 position, app::Quaternion rotation, app::Object_1* owner, bool record))
-    IL2CPP_REGISTER_METHODINFO(0x04703BD8, InstantiateUtility_InstantiateImmediate_16__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EB360, app::SoundSource*, InstantiateImmediate_18, (app::SoundSource * original, app::Vector3 position, app::Quaternion rotation, app::Object_1* owner, bool record))
-    IL2CPP_REGISTER_METHODINFO(0x04775B20, InstantiateUtility_InstantiateImmediate_17__MethodInfo)
 } // namespace app::classes::InstantiateUtility

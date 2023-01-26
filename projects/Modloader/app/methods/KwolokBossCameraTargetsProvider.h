@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KwolokBossCameraTargetsProvider.h>
+
+#include <Modloader/app/structs/KwolokBossCameraTargetsProvider.h>
 #include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
@@ -10,7 +11,6 @@ namespace app::classes::KwolokBossCameraTargetsProvider {
     IL2CPP_REGISTER_METHOD(0x0124AA70, void, Awake, (app::KwolokBossCameraTargetsProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0124AC30, void, OnDestroy, (app::KwolokBossCameraTargetsProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0124ADD0, void, OnRestoreCheckpoint, (app::KwolokBossCameraTargetsProvider * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477F778, KwolokBossCameraTargetsProvider_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0124AE20, void, UpdateTargets, (app::KwolokBossCameraTargetsProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0124AF40, void, UpdateKwolokPosition, (app::KwolokBossCameraTargetsProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0124B180, app::List_1_Moon_CameraTargetSettings_*, GetTargets, (app::KwolokBossCameraTargetsProvider * this_ptr))

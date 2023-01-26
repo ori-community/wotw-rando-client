@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Statistic.h>
+
+#include <Modloader/app/structs/Statistic.h>
+#include <Modloader/app/structs/Double__Array.h>
+#include <Modloader/app/structs/ITriangle.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/Mesh_1.h>
-#include <Modloader/app/structs/ITriangle.h>
-#include <Modloader/app/structs/Double__Array.h>
 
 namespace app::classes::TriangleNet::Tools::Statistic {
     IL2CPP_REGISTER_METHOD(0x01433F10, double, get_ShortestEdge, (app::Statistic * this_ptr))

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WebAsyncResult.h>
+
+#include <Modloader/app/structs/WebAsyncResult.h>
 #include <Modloader/app/structs/AsyncCallback.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/HttpWebRequest.h>
 #include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/HttpWebRequest.h>
 #include <Modloader/app/structs/HttpWebResponse.h>
 #include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Stream.h>
 
 namespace app::classes::System::Net::WebAsyncResult {
     IL2CPP_REGISTER_METHOD(0x020AD7F0, void, ctor_1, (app::WebAsyncResult * this_ptr, app::AsyncCallback* cb, app::Object* state))

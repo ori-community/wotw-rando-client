@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReplayValidatorData.h>
+
+#include <Modloader/app/structs/ReplayValidatorData.h>
 #include <Modloader/app/structs/RaceStateMachineContext_OfflineRaceMetaData.h>
 
 namespace app::classes::RaceStateMachineContext_OfflineRaceMetaData {

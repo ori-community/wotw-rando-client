@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_NearbySceneData_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_NearbySceneData_.h>
 #include <Modloader/app/structs/NearbySceneData.h>
 #include <Modloader/app/structs/NearbySceneData__Array.h>
 #include <Modloader/app/structs/Object.h>

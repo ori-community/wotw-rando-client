@@ -1,38 +1,36 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DateTime.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/DateTimeFormatInfo.h>
-#include <Modloader/app/structs/DateTimeStyles__Enum.h>
-#include <Modloader/app/structs/TimeSpan.h>
-#include <Modloader/app/structs/DateTimeResult.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/_DTString.h>
-#include <Modloader/app/structs/DateTimeParse_DS__Enum.h>
-#include <Modloader/app/structs/DateTimeToken.h>
-#include <Modloader/app/structs/DateTimeRawInfo.h>
-#include <Modloader/app/structs/DateTimeParse_TM__Enum.h>
+
+#include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/Calendar.h>
-#include <Modloader/app/structs/ParsingInfo.h>
-#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/DateTimeFormatInfo.h>
+#include <Modloader/app/structs/DateTimeParse_DS__Enum.h>
+#include <Modloader/app/structs/DateTimeParse_TM__Enum.h>
+#include <Modloader/app/structs/DateTimeRawInfo.h>
+#include <Modloader/app/structs/DateTimeResult.h>
+#include <Modloader/app/structs/DateTimeStyles__Enum.h>
+#include <Modloader/app/structs/DateTimeToken.h>
 #include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/ParsingInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/_DTString.h>
 
 namespace app::classes::System::DateTimeParse {
     IL2CPP_REGISTER_METHOD(0x028ACE80, app::DateTime, ParseExact, (app::String * s, app::String* format, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum style))
-    IL2CPP_REGISTER_METHODINFO(0x04765F28, DateTimeParse_ParseExact__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x028ACFF0, bool, TryParseExact_1, (app::String * s, app::String* format, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum style, app::DateTime* result))
     IL2CPP_REGISTER_METHOD(0x028AD160, bool, TryParseExact_2, (app::String * s, app::String* format, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum style, app::DateTime* result, app::TimeSpan* offset))
     IL2CPP_REGISTER_METHOD(0x028AD330, bool, TryParseExact_3, (app::String * s, app::String* format, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum style, app::DateTimeResult* result))
     IL2CPP_REGISTER_METHOD(0x028AD490, app::DateTime, ParseExactMultiple_1, (app::String * s, app::String__Array* formats, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum style))
-    IL2CPP_REGISTER_METHODINFO(0x04799130, DateTimeParse_ParseExactMultiple__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x028AD600, app::DateTime, ParseExactMultiple_2, (app::String * s, app::String__Array* formats, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum style, app::TimeSpan* offset))
-    IL2CPP_REGISTER_METHODINFO(0x04743210, DateTimeParse_ParseExactMultiple_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x028AD7B0, bool, TryParseExactMultiple_1, (app::String * s, app::String__Array* formats, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum style, app::DateTime* result, app::TimeSpan* offset))
     IL2CPP_REGISTER_METHOD(0x028AD980, bool, TryParseExactMultiple_2, (app::String * s, app::String__Array* formats, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum style, app::DateTime* result))
     IL2CPP_REGISTER_METHOD(0x028ADAF0, bool, TryParseExactMultiple_3, (app::String * s, app::String__Array* formats, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum style, app::DateTimeResult* result))
     IL2CPP_REGISTER_METHOD(0x028ADD60, bool, MatchWord, (app::_DTString * str, app::String* target))
     IL2CPP_REGISTER_METHOD(0x028ADF00, bool, GetTimeZoneName, (app::_DTString * str))
-    IL2CPP_REGISTER_METHOD(0x028ADFF0, bool, IsDigit, (uint16_t ch))
+    IL2CPP_REGISTER_METHOD(0x028ADFF0, bool, IsDigit, (char16_t ch))
     IL2CPP_REGISTER_METHOD(0x028AE010, bool, ParseFraction, (app::_DTString * str, double* result))
     IL2CPP_REGISTER_METHOD(0x028AE150, bool, ParseTimeZone, (app::_DTString * str, app::TimeSpan* result))
     IL2CPP_REGISTER_METHOD(0x028AE4E0, bool, HandleTimeZone, (app::_DTString * str, app::DateTimeResult* result))
@@ -70,9 +68,7 @@ namespace app::classes::System::DateTimeParse {
     IL2CPP_REGISTER_METHOD(0x028B2400, bool, ProcessHebrewTerminalState, (app::DateTimeParse_DS__Enum dps, app::DateTimeResult* result, app::DateTimeStyles__Enum* styles, app::DateTimeRawInfo* raw, app::DateTimeFormatInfo* dtfi))
     IL2CPP_REGISTER_METHOD(0x028B28F0, bool, ProcessTerminaltState, (app::DateTimeParse_DS__Enum dps, app::DateTimeResult* result, app::DateTimeStyles__Enum* styles, app::DateTimeRawInfo* raw, app::DateTimeFormatInfo* dtfi))
     IL2CPP_REGISTER_METHOD(0x028B2F50, app::DateTime, Parse_1, (app::String * s, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum styles))
-    IL2CPP_REGISTER_METHODINFO(0x0471F550, DateTimeParse_Parse__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x028B30A0, app::DateTime, Parse_2, (app::String * s, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum styles, app::TimeSpan* offset))
-    IL2CPP_REGISTER_METHODINFO(0x0473C7F0, DateTimeParse_Parse_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x028B3210, bool, TryParse_1, (app::String * s, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum styles, app::DateTime* result))
     IL2CPP_REGISTER_METHOD(0x028B3370, bool, TryParse_2, (app::String * s, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum styles, app::DateTime* result, app::TimeSpan* offset))
     IL2CPP_REGISTER_METHOD(0x028B3520, bool, TryParse_3, (app::String * s, app::DateTimeFormatInfo* dtfi, app::DateTimeStyles__Enum styles, app::DateTimeResult* result))
@@ -82,7 +78,6 @@ namespace app::classes::System::DateTimeParse {
     IL2CPP_REGISTER_METHOD(0x028B4450, bool, AdjustTimeZoneToLocal, (app::DateTimeResult * result, bool b_time_only))
     IL2CPP_REGISTER_METHOD(0x028B46E0, bool, ParseISO8601, (app::DateTimeRawInfo * raw, app::_DTString* str, app::DateTimeStyles__Enum styles, app::DateTimeResult* result))
     IL2CPP_REGISTER_METHOD(0x028B4D70, bool, MatchHebrewDigits, (app::_DTString * str, int32_t digit_len, int32_t* number))
-    IL2CPP_REGISTER_METHODINFO(0x0473A4E8, DateTimeParse_MatchHebrewDigits__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x028B4EA0, bool, ParseDigits_1, (app::_DTString * str, int32_t digit_len, int32_t* result))
     IL2CPP_REGISTER_METHOD(0x028B4F90, bool, ParseDigits_2, (app::_DTString * str, int32_t min_digit_len, int32_t max_digit_len, int32_t* result))
     IL2CPP_REGISTER_METHOD(0x028B5040, bool, ParseFractionExact, (app::_DTString * str, int32_t max_digit_len, double* result))
@@ -95,7 +90,7 @@ namespace app::classes::System::DateTimeParse {
     IL2CPP_REGISTER_METHOD(0x028B5E60, bool, MatchEraName, (app::_DTString * str, app::DateTimeFormatInfo* dtfi, int32_t* result))
     IL2CPP_REGISTER_METHOD(0x028B6000, bool, MatchTimeMark, (app::_DTString * str, app::DateTimeFormatInfo* dtfi, app::DateTimeParse_TM__Enum* result))
     IL2CPP_REGISTER_METHOD(0x028B61E0, bool, MatchAbbreviatedTimeMark, (app::_DTString * str, app::DateTimeFormatInfo* dtfi, app::DateTimeParse_TM__Enum* result))
-    IL2CPP_REGISTER_METHOD(0x028B62E0, bool, CheckNewValue, (int32_t * current_value, int32_t new_value, uint16_t pattern_char, app::DateTimeResult* result))
+    IL2CPP_REGISTER_METHOD(0x028B62E0, bool, CheckNewValue, (int32_t * current_value, int32_t new_value, char16_t pattern_char, app::DateTimeResult* result))
     IL2CPP_REGISTER_METHOD(0x028B63C0, app::DateTime, GetDateTimeNow, (app::DateTimeResult * result, app::DateTimeStyles__Enum* styles))
     IL2CPP_REGISTER_METHOD(0x028B6520, bool, CheckDefaultDateTime, (app::DateTimeResult * result, app::Calendar** cal, app::DateTimeStyles__Enum styles))
     IL2CPP_REGISTER_METHOD(0x028B6780, app::String*, ExpandPredefinedFormat, (app::String * format, app::DateTimeFormatInfo** dtfi, app::ParsingInfo* parse_info, app::DateTimeResult* result))

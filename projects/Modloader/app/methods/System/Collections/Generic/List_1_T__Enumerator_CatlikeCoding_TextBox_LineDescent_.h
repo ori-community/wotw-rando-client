@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_CatlikeCoding_TextBox_LineDescent___Boxed.h>
-#include <Modloader/app/structs/List_1_CatlikeCoding_TextBox_LineDescent_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_CatlikeCoding_TextBox_LineDescent___Boxed.h>
 #include <Modloader/app/structs/LineDescent.h>
+#include <Modloader/app/structs/List_1_CatlikeCoding_TextBox_LineDescent_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_CatlikeCoding_TextBox_LineDescent_ {

@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XboxQualityModeManager_QualityMode__Enum__Class.h>
 #include <Modloader/app/structs/XboxQualityModeManager_QualityMode__Enum.h>
 #include <Modloader/app/structs/XboxQualityModeManager_QualityMode__Enum__Array.h>
+#include <Modloader/app/structs/XboxQualityModeManager_QualityMode__Enum__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace XboxQualityModeManager_QualityMode__Enum {
-        inline app::XboxQualityModeManager_QualityMode__Enum__Class** type_info = (app::XboxQualityModeManager_QualityMode__Enum__Class**)(modloader::win::memory::resolve_rva(0x04740650));
+        inline app::XboxQualityModeManager_QualityMode__Enum__Class** type_info() {
+            static app::XboxQualityModeManager_QualityMode__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::XboxQualityModeManager_QualityMode__Enum__Class**)(modloader::win::memory::resolve_rva(0x04740650));
+            }
+            return cache;
+        }
         inline app::XboxQualityModeManager_QualityMode__Enum__Class* get_class() {
-            return il2cpp::get_nested_class<app::XboxQualityModeManager_QualityMode__Enum__Class>(type_info, "MoonDataPlatform", "XboxQualityModeManager", "QualityMode");
+            return il2cpp::get_nested_class<app::XboxQualityModeManager_QualityMode__Enum__Class>(type_info(), "MoonDataPlatform", "XboxQualityModeManager", "QualityMode");
         }
         inline app::XboxQualityModeManager_QualityMode__Enum* create() {
             return il2cpp::create_object<app::XboxQualityModeManager_QualityMode__Enum>(get_class());

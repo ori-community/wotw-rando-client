@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SpiritLightAffectorRadiusAnimator.h>
+#include <Modloader/app/structs/SpiritLightAffectorRadiusAnimator__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SpiritLightAffectorRadiusAnimator__Class.h>
-#include <Modloader/app/structs/SpiritLightAffectorRadiusAnimator.h>
 
 namespace app::classes::types {
     namespace SpiritLightAffectorRadiusAnimator {
-        namespace {
-            inline app::SpiritLightAffectorRadiusAnimator__Class* type_info_ref = nullptr;
+        inline app::SpiritLightAffectorRadiusAnimator__Class** type_info() {
+            static app::SpiritLightAffectorRadiusAnimator__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SpiritLightAffectorRadiusAnimator__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SpiritLightAffectorRadiusAnimator__Class** type_info = &type_info_ref;
         inline app::SpiritLightAffectorRadiusAnimator__Class* get_class() {
-            return il2cpp::get_class<app::SpiritLightAffectorRadiusAnimator__Class>(type_info, "", "SpiritLightAffectorRadiusAnimator");
+            return il2cpp::get_class<app::SpiritLightAffectorRadiusAnimator__Class>(type_info(), "", "SpiritLightAffectorRadiusAnimator");
         }
         inline app::SpiritLightAffectorRadiusAnimator* create() {
             return il2cpp::create_object<app::SpiritLightAffectorRadiusAnimator>(get_class());

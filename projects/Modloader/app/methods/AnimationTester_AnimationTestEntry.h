@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationTester_AnimationTestEntry.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/AnimationTester_AnimationTestEntry.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::AnimationTester_AnimationTestEntry {
     IL2CPP_REGISTER_METHOD(0x00654950, int32_t, get_CurrentAnimationIndex, (app::AnimationTester_AnimationTestEntry * this_ptr))

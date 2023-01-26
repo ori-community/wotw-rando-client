@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NonGenericProperytWriter_1_System_UInt16_.h>
+
+#include <Modloader/app/structs/NonGenericProperytWriter_1_System_UInt16_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/PropertyAnalysis.h>
 #include <Modloader/app/structs/TraceLoggingDataCollector.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Diagnostics::Tracing::NonGenericProperytWriter_1_System_UInt16_ {
     IL2CPP_REGISTER_METHOD(0x02BA0BD0, void, ctor, (app::NonGenericProperytWriter_1_System_UInt16_ * this_ptr, app::PropertyAnalysis* property))

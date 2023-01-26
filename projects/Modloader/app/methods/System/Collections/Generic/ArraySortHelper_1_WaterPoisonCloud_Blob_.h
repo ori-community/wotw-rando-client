@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WaterPoisonCloud_Blob__Array.h>
+
+#include <Modloader/app/structs/WaterPoisonCloud_Blob__Array.h>
+#include <Modloader/app/structs/Comparison_1_WaterPoisonCloud_Blob_.h>
 #include <Modloader/app/structs/IComparer_1_WaterPoisonCloud_Blob_.h>
 #include <Modloader/app/structs/WaterPoisonCloud_Blob.h>
-#include <Modloader/app/structs/Comparison_1_WaterPoisonCloud_Blob_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_WaterPoisonCloud_Blob_ {
     IL2CPP_REGISTER_METHOD(0x02C8B990, void, Sort_1, (app::WaterPoisonCloud_Blob__Array * keys, int32_t index, int32_t length, app::IComparer_1_WaterPoisonCloud_Blob_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04705BB8, ArraySortHelper_1_WaterPoisonCloud_Blob__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C8BCB0, int32_t, BinarySearch, (app::WaterPoisonCloud_Blob__Array * array, int32_t index, int32_t length, app::WaterPoisonCloud_Blob value, app::IComparer_1_WaterPoisonCloud_Blob_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0472B198, ArraySortHelper_1_WaterPoisonCloud_Blob__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C8BE60, void, Sort_2, (app::WaterPoisonCloud_Blob__Array * keys, int32_t index, int32_t length, app::Comparison_1_WaterPoisonCloud_Blob_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04733618, ArraySortHelper_1_WaterPoisonCloud_Blob__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C8BFB0, int32_t, InternalBinarySearch, (app::WaterPoisonCloud_Blob__Array * array, int32_t index, int32_t length, app::WaterPoisonCloud_Blob value, app::IComparer_1_WaterPoisonCloud_Blob_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C8C170, void, SwapIfGreater, (app::WaterPoisonCloud_Blob__Array * keys, app::Comparison_1_WaterPoisonCloud_Blob_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C8C330, void, Swap, (app::WaterPoisonCloud_Blob__Array * a, int32_t i, int32_t j))

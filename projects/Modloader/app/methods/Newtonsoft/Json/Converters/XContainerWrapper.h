@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XContainer.h>
-#include <Modloader/app/structs/XContainerWrapper.h>
-#include <Modloader/app/structs/List_1_Newtonsoft_Json_Converters_IXmlNode_.h>
+
+#include <Modloader/app/structs/XContainer.h>
 #include <Modloader/app/structs/IXmlNode.h>
+#include <Modloader/app/structs/List_1_Newtonsoft_Json_Converters_IXmlNode_.h>
+#include <Modloader/app/structs/XContainerWrapper.h>
 #include <Modloader/app/structs/XObject.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::XContainerWrapper {

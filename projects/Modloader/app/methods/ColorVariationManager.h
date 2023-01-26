@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ColorVariationManager.h>
-#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
-#include <Modloader/app/structs/ColorVariationSettings.h>
+
+#include <Modloader/app/structs/ColorVariationManager.h>
 #include <Modloader/app/structs/ColorVariationManager_IColorVariationInfluencer.h>
+#include <Modloader/app/structs/ColorVariationSettings.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
 
 namespace app::classes::ColorVariationManager {
     IL2CPP_REGISTER_METHOD(0x006D41F0, float, get_WorkingTime, (app::ColorVariationManager * this_ptr))

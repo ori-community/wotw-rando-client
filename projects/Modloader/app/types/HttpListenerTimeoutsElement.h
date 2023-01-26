@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/HttpListenerTimeoutsElement.h>
+#include <Modloader/app/structs/HttpListenerTimeoutsElement__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/HttpListenerTimeoutsElement__Class.h>
-#include <Modloader/app/structs/HttpListenerTimeoutsElement.h>
 
 namespace app::classes::types {
     namespace HttpListenerTimeoutsElement {
-        namespace {
-            inline app::HttpListenerTimeoutsElement__Class* type_info_ref = nullptr;
+        inline app::HttpListenerTimeoutsElement__Class** type_info() {
+            static app::HttpListenerTimeoutsElement__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::HttpListenerTimeoutsElement__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::HttpListenerTimeoutsElement__Class** type_info = &type_info_ref;
         inline app::HttpListenerTimeoutsElement__Class* get_class() {
-            return il2cpp::get_class<app::HttpListenerTimeoutsElement__Class>(type_info, "System.Net.Configuration", "HttpListenerTimeoutsElement");
+            return il2cpp::get_class<app::HttpListenerTimeoutsElement__Class>(type_info(), "System.Net.Configuration", "HttpListenerTimeoutsElement");
         }
         inline app::HttpListenerTimeoutsElement* create() {
             return il2cpp::create_object<app::HttpListenerTimeoutsElement>(get_class());

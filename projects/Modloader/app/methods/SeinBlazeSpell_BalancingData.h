@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinBlazeSpell_BalancingData.h>
+
+#include <Modloader/app/structs/SeinBlazeSpell_BalancingData.h>
 #include <Modloader/app/structs/SeinBlazeSpell_BalancingData_BlazeSettings.h>
 
 namespace app::classes::SeinBlazeSpell_BalancingData {

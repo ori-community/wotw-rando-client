@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_LegacyTransparencyAnimator_RendererData_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_LegacyTransparencyAnimator_RendererData_.h>
 #include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData.h>
 #include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData__Array.h>
 #include <Modloader/app/structs/Object.h>

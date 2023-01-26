@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TrailerShot.h>
 #include <Modloader/app/structs/TrailerShotAutomation.h>
 
@@ -10,13 +11,10 @@ namespace app::classes::TrailerShotAutomation {
     IL2CPP_REGISTER_METHOD(0x00B03480, void, set_ForceScreendump, (bool value))
     IL2CPP_REGISTER_METHOD(0x00B035B0, void, Initialise, (app::String * replay_path, bool enable_shots))
     IL2CPP_REGISTER_METHOD(0x00B038E0, void, OnRecorderAwake, ())
-    IL2CPP_REGISTER_METHODINFO(0x047549D8, TrailerShotAutomation_OnRecorderAwake__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B03F10, void, Start, ())
     IL2CPP_REGISTER_METHOD(0x00B03FD0, void, OnPlayCycle, ())
-    IL2CPP_REGISTER_METHODINFO(0x04723258, TrailerShotAutomation_OnPlayCycle__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B044B0, void, CustomScreenCapture, (app::String * path))
     IL2CPP_REGISTER_METHOD(0x00B047F0, void, OnFinishedShot, ())
-    IL2CPP_REGISTER_METHODINFO(0x04744780, TrailerShotAutomation_OnFinishedShot__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B04C00, void, FinishedTimeline, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OutputVideoFromShots, (app::String * screendump_path))
     IL2CPP_REGISTER_METHOD(0x00B04C90, void, PerformShot, ())

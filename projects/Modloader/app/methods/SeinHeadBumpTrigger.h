@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinHeadBumpTrigger.h>
+
+#include <Modloader/app/structs/SeinHeadBumpTrigger.h>
 #include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/Collision.h>
 

@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Action_1_Int32_.h>
-#include <Modloader/app/structs/XblAchievementType__Enum.h>
-#include <Modloader/app/structs/XblAchievementOrderBy__Enum.h>
-#include <Modloader/app/structs/Action_1_XGamingRuntime_XblAchievement_.h>
-#include <Modloader/app/structs/XUserGamerPictureSize__Enum.h>
+
+#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Action_1_Byte_.h>
-#include <Modloader/app/structs/XUserGetTokenAndSignatureOptions__Enum.h>
+#include <Modloader/app/structs/Action_1_Int32_.h>
+#include <Modloader/app/structs/Action_1_XGamingRuntime_XblAchievement_.h>
 #include <Modloader/app/structs/Action_2_String_Int32_.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Wrapper.h>
 #include <Modloader/app/structs/XGameSaveUpdateHandle.h>
+#include <Modloader/app/structs/XUserChangeEvent__Enum.h>
+#include <Modloader/app/structs/XUserGamerPictureSize__Enum.h>
+#include <Modloader/app/structs/XUserGetTokenAndSignatureOptions__Enum.h>
 #include <Modloader/app/structs/XUserHandle.h>
 #include <Modloader/app/structs/XUserLocalId.h>
-#include <Modloader/app/structs/XUserChangeEvent__Enum.h>
-#include <Modloader/app/structs/Wrapper.h>
+#include <Modloader/app/structs/XblAchievementOrderBy__Enum.h>
+#include <Modloader/app/structs/XblAchievementType__Enum.h>
 
 namespace app::classes::Grdk::Wrapper {
     IL2CPP_REGISTER_METHOD(0x01083CD0, bool, get_InitializedOk, ())
@@ -69,9 +70,7 @@ namespace app::classes::Grdk::Wrapper {
     IL2CPP_REGISTER_METHOD(0x01088630, void, CleanUpUserHandle, ())
     IL2CPP_REGISTER_METHOD(0x01088810, void, CleanUpUserChangeToken, ())
     IL2CPP_REGISTER_METHOD(0x010889C0, void, UserChanged, (app::XUserLocalId userlocalid, app::XUserChangeEvent__Enum eventtype))
-    IL2CPP_REGISTER_METHODINFO(0x04737A28, Wrapper_UserChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01088A80, void, AddUserAsyncResult, (int32_t hresult, app::XUserHandle* handle))
-    IL2CPP_REGISTER_METHODINFO(0x047712A8, Wrapper_AddUserAsyncResult__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01088DD0, bool, HasSave, (int32_t slot_index))
     IL2CPP_REGISTER_METHOD(0x01088F40, void, CopySave_1, (int32_t from, int32_t to))
     IL2CPP_REGISTER_METHOD(0x01089070, app::Byte__Array*, CopySave_2, (int32_t from, app::String* to_name))

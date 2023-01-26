@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_MeshTrail_MeshTrailEmitter_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_MeshTrail_MeshTrailEmitter_.h>
 #include <Modloader/app/structs/MeshTrail_MeshTrailEmitter.h>
 #include <Modloader/app/structs/MeshTrail_MeshTrailEmitter__Array.h>
 #include <Modloader/app/structs/Object.h>

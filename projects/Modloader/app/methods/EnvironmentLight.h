@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnvironmentLight.h>
+
+#include <Modloader/app/structs/EnvironmentLight.h>
 #include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/EnvironmentLight_Channel__Enum.h>
 #include <Modloader/app/structs/Material.h>

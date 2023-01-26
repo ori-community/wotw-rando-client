@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CageMetaData_1_System_Int32Enum_.h>
+
+#include <Modloader/app/structs/CageMetaData_1_System_Int32Enum_.h>
 #include <Modloader/app/structs/Int32Enum__Enum.h>
 
 namespace app::classes::CageMetaData_1_System_Int32Enum_ {

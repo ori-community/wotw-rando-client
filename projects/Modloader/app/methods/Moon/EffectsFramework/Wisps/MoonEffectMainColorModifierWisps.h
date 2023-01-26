@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonEffectMainColorModifierWisps.h>
+
+#include <Modloader/app/structs/MoonEffectMainColorModifierWisps.h>
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/IMoonEffectComponentCache.h>
+#include <Modloader/app/structs/MoonEffectGenericRevertibleData_MoonEffectRevertibleData.h>
 #include <Modloader/app/structs/MoonEffectRevertHandle.h>
 #include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/MoonEffectGenericRevertibleData_MoonEffectRevertibleData.h>
 
 namespace app::classes::Moon::EffectsFramework::Wisps::MoonEffectMainColorModifierWisps {
     IL2CPP_REGISTER_METHOD(0x0120A510, void, Apply, (app::MoonEffectMainColorModifierWisps * this_ptr, app::IMoonEffectComponentCache* input, app::MoonEffectRevertHandle* revert_handle))

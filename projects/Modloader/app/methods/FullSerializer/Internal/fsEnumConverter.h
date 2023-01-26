@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/fsEnumConverter.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/fsEnumConverter.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/fsData.h>
 #include <Modloader/app/structs/fsResult.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/String.h>
 
 namespace app::classes::FullSerializer::Internal::fsEnumConverter {
     IL2CPP_REGISTER_METHOD(0x01654CA0, bool, CanProcess, (app::fsEnumConverter * this_ptr, app::Type* type))
@@ -19,5 +20,4 @@ namespace app::classes::FullSerializer::Internal::fsEnumConverter {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::fsEnumConverter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018F2990, bool, ArrayContains_1, (app::Object__Array * values, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x018F2990, bool, ArrayContains_2, (app::String__Array * values, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x04790FB0, fsEnumConverter_ArrayContains_1__MethodInfo)
 } // namespace app::classes::FullSerializer::Internal::fsEnumConverter

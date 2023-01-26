@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SteamPlayFabIdPair__Class.h>
 #include <Modloader/app/structs/SteamPlayFabIdPair.h>
 #include <Modloader/app/structs/SteamPlayFabIdPair__Array.h>
+#include <Modloader/app/structs/SteamPlayFabIdPair__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SteamPlayFabIdPair {
-        namespace {
-            inline app::SteamPlayFabIdPair__Class* type_info_ref = nullptr;
+        inline app::SteamPlayFabIdPair__Class** type_info() {
+            static app::SteamPlayFabIdPair__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SteamPlayFabIdPair__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SteamPlayFabIdPair__Class** type_info = &type_info_ref;
         inline app::SteamPlayFabIdPair__Class* get_class() {
-            return il2cpp::get_class<app::SteamPlayFabIdPair__Class>(type_info, "PlayFab.ClientModels", "SteamPlayFabIdPair");
+            return il2cpp::get_class<app::SteamPlayFabIdPair__Class>(type_info(), "PlayFab.ClientModels", "SteamPlayFabIdPair");
         }
         inline app::SteamPlayFabIdPair* create() {
             return il2cpp::create_object<app::SteamPlayFabIdPair>(get_class());

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CrashContext_Data__Class.h>
 #include <Modloader/app/structs/CrashContext_Data.h>
 #include <Modloader/app/structs/CrashContext_Data__Boxed.h>
+#include <Modloader/app/structs/CrashContext_Data__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace CrashContext_Data {
-        namespace {
-            inline app::CrashContext_Data__Class* type_info_ref = nullptr;
+        inline app::CrashContext_Data__Class** type_info() {
+            static app::CrashContext_Data__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CrashContext_Data__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CrashContext_Data__Class** type_info = &type_info_ref;
         inline app::CrashContext_Data__Class* get_class() {
-            return il2cpp::get_nested_class<app::CrashContext_Data__Class>(type_info, "Moon", "CrashContext", "Data");
+            return il2cpp::get_nested_class<app::CrashContext_Data__Class>(type_info(), "Moon", "CrashContext", "Data");
         }
         inline app::CrashContext_Data* create() {
             return il2cpp::create_object<app::CrashContext_Data>(get_class());

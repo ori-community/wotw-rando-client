@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKEffector.h>
-#include <Modloader/app/structs/IKSolverFullBody.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/IKEffector.h>
 #include <Modloader/app/structs/FBIKChain.h>
+#include <Modloader/app/structs/IKSolverFullBody.h>
 #include <Modloader/app/structs/IKSolver_Node.h>
-#include <Modloader/app/structs/IKSolver_Point__Array.h>
 #include <Modloader/app/structs/IKSolver_Point.h>
+#include <Modloader/app/structs/IKSolver_Point__Array.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolverFullBody {
     IL2CPP_REGISTER_METHOD(0x02BF2590, app::IKEffector*, GetEffector, (app::IKSolverFullBody * this_ptr, app::Transform* t))

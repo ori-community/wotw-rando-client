@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OnScreenPositionSetter.h>
+
+#include <Modloader/app/structs/OnScreenPositionSetter.h>
 
 namespace app::classes::OnScreenPositionSetter {
     IL2CPP_REGISTER_METHOD(0x006123C0, void, Awake, (app::OnScreenPositionSetter * this_ptr))

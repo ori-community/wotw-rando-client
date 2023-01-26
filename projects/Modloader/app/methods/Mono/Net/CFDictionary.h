@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CFDictionary.h>
+
+#include <Modloader/app/structs/CFDictionary.h>
 
 namespace app::classes::Mono::Net::CFDictionary {
     IL2CPP_REGISTER_METHOD(0x02173B60, void, cctor, ())

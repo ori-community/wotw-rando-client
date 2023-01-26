@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MicroProfiler_StatType__Enum.h>
+
+#include <Modloader/app/structs/MicroProfiler_StatType__Enum.h>
 #include <Modloader/app/structs/MicroProfiler_StatInfo__Boxed.h>
 
 namespace app::classes::MicroProfiler_StatInfo {

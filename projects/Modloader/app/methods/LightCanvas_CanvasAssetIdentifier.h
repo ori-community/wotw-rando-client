@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LightCanvas_CanvasAssetIdentifier.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/LightCanvas_CanvasAssetIdentifier.h>
 #include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::LightCanvas_CanvasAssetIdentifier {
     IL2CPP_REGISTER_METHOD(0x01143DA0, bool, get_Initialized, (app::LightCanvas_CanvasAssetIdentifier * this_ptr))

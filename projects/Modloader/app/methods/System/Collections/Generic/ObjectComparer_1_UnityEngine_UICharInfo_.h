@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_UICharInfo_.h>
-#include <Modloader/app/structs/UICharInfo.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_UICharInfo_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UICharInfo.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_UnityEngine_UICharInfo_ {
     IL2CPP_REGISTER_METHOD(0x01CCF400, int32_t, Compare, (app::ObjectComparer_1_UnityEngine_UICharInfo_ * this_ptr, app::UICharInfo x, app::UICharInfo y))

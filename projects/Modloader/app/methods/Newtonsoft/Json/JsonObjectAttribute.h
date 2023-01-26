@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MemberSerialization__Enum.h>
+
+#include <Modloader/app/structs/MemberSerialization__Enum.h>
 #include <Modloader/app/structs/JsonObjectAttribute.h>
 
 namespace app::classes::Newtonsoft::Json::JsonObjectAttribute {

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HServerQuery__Boxed.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/HServerQuery__Boxed.h>
 #include <Modloader/app/structs/HServerQuery.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::HServerQuery {
     IL2CPP_REGISTER_METHOD(0x0010DB80, void, ctor, (app::HServerQuery__Boxed * this_ptr, int32_t value))

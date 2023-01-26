@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberID.h>
+
+#include <Modloader/app/structs/UberID.h>
 #include <Modloader/app/structs/CountUberState.h>
 #include <Modloader/app/structs/IUberStateGroup.h>
-#include <Modloader/app/structs/NamedValue_1_System_Int32___Array.h>
-#include <Modloader/app/structs/UberStateCondition.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Nullable_1_Single_.h>
 #include <Modloader/app/structs/List_1_Moon_IUberState_.h>
+#include <Modloader/app/structs/NamedValue_1_System_Int32___Array.h>
+#include <Modloader/app/structs/Nullable_1_Single_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberStateCondition.h>
 
 namespace app::classes::Moon::CountUberState {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::UberID*, get_StateID, (app::CountUberState * this_ptr))

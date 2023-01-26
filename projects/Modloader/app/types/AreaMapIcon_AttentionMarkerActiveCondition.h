@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/AreaMapIcon_AttentionMarkerActiveCondition.h>
+#include <Modloader/app/structs/AreaMapIcon_AttentionMarkerActiveCondition__Array.h>
+#include <Modloader/app/structs/AreaMapIcon_AttentionMarkerActiveCondition__Boxed.h>
+#include <Modloader/app/structs/AreaMapIcon_AttentionMarkerActiveCondition__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AreaMapIcon_AttentionMarkerActiveCondition__Class.h>
-#include <Modloader/app/structs/AreaMapIcon_AttentionMarkerActiveCondition.h>
-#include <Modloader/app/structs/AreaMapIcon_AttentionMarkerActiveCondition__Boxed.h>
-#include <Modloader/app/structs/AreaMapIcon_AttentionMarkerActiveCondition__Array.h>
 
 namespace app::classes::types {
     namespace AreaMapIcon_AttentionMarkerActiveCondition {
-        namespace {
-            inline app::AreaMapIcon_AttentionMarkerActiveCondition__Class* type_info_ref = nullptr;
+        inline app::AreaMapIcon_AttentionMarkerActiveCondition__Class** type_info() {
+            static app::AreaMapIcon_AttentionMarkerActiveCondition__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AreaMapIcon_AttentionMarkerActiveCondition__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AreaMapIcon_AttentionMarkerActiveCondition__Class** type_info = &type_info_ref;
         inline app::AreaMapIcon_AttentionMarkerActiveCondition__Class* get_class() {
-            return il2cpp::get_nested_class<app::AreaMapIcon_AttentionMarkerActiveCondition__Class>(type_info, "", "AreaMapIcon", "AttentionMarkerActiveCondition");
+            return il2cpp::get_nested_class<app::AreaMapIcon_AttentionMarkerActiveCondition__Class>(type_info(), "", "AreaMapIcon", "AttentionMarkerActiveCondition");
         }
         inline app::AreaMapIcon_AttentionMarkerActiveCondition* create() {
             return il2cpp::create_object<app::AreaMapIcon_AttentionMarkerActiveCondition>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinMapstonesFloatProvider.h>
+
+#include <Modloader/app/structs/SeinMapstonesFloatProvider.h>
 
 namespace app::classes::SeinMapstonesFloatProvider {
     IL2CPP_REGISTER_METHOD(0x008A2960, float, GetFloatValue, (app::SeinMapstonesFloatProvider * this_ptr))

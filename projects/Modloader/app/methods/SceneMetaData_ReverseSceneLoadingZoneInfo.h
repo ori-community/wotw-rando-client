@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneMetaData_ReverseSceneLoadingZoneInfo.h>
+
+#include <Modloader/app/structs/SceneMetaData_ReverseSceneLoadingZoneInfo.h>
 #include <Modloader/app/structs/ReverseSceneLoadingZone.h>
 
 namespace app::classes::SceneMetaData_ReverseSceneLoadingZoneInfo {

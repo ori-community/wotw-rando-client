@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DtdParser_UndeclaredNotation.h>
+
+#include <Modloader/app/structs/DtdParser_UndeclaredNotation.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::DtdParser_UndeclaredNotation {

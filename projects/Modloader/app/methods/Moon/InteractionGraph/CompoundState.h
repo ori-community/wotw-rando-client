@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CompoundState.h>
+
+#include <Modloader/app/structs/CompoundState.h>
 #include <Modloader/app/structs/IState_1__Array.h>
 
 namespace app::classes::Moon::InteractionGraph::CompoundState {

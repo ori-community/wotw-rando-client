@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CageMetaData_1_Moon_TentacleStabBehaviour_TentacleAttack_.h>
+
+#include <Modloader/app/structs/CageMetaData_1_Moon_TentacleStabBehaviour_TentacleAttack_.h>
 #include <Modloader/app/structs/TentacleStabBehaviour_TentacleAttack.h>
 
 namespace app::classes::CageMetaData_1_Moon_TentacleStabBehaviour_TentacleAttack_ {

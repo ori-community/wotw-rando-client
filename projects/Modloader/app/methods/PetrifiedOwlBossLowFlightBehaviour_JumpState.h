@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossLowFlightBehaviour_JumpState.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossLowFlightBehaviour_JumpState.h>
 #include <Modloader/app/structs/PetrifiedOwlBossLowFlightBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossLowFlightBehaviour_JumpState {
@@ -8,5 +9,4 @@ namespace app::classes::PetrifiedOwlBossLowFlightBehaviour_JumpState {
     IL2CPP_REGISTER_METHOD(0x01779F10, void, OnEnter, (app::PetrifiedOwlBossLowFlightBehaviour_JumpState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0177A0C0, void, OnExit, (app::PetrifiedOwlBossLowFlightBehaviour_JumpState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01252310, void, OnJumpTimelineFinished, (app::PetrifiedOwlBossLowFlightBehaviour_JumpState * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04720538, PetrifiedOwlBossLowFlightBehaviour_JumpState_OnJumpTimelineFinished__MethodInfo)
 } // namespace app::classes::PetrifiedOwlBossLowFlightBehaviour_JumpState

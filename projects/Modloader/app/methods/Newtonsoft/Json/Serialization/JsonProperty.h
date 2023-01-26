@@ -1,24 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JsonContract.h>
+
+#include <Modloader/app/structs/JsonContract.h>
+#include <Modloader/app/structs/Action_2_Object_Object_.h>
+#include <Modloader/app/structs/IAttributeProvider.h>
+#include <Modloader/app/structs/IValueProvider.h>
+#include <Modloader/app/structs/JsonConverter.h>
 #include <Modloader/app/structs/JsonProperty.h>
+#include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/Nullable_1_Boolean_.h>
+#include <Modloader/app/structs/Nullable_1_Int32_.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_DefaultValueHandling_.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_NullValueHandling_.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_ObjectCreationHandling_.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_ReferenceLoopHandling_.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_TypeNameHandling_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Object_.h>
+#include <Modloader/app/structs/Required__Enum.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/Nullable_1_Int32_.h>
-#include <Modloader/app/structs/IValueProvider.h>
-#include <Modloader/app/structs/IAttributeProvider.h>
-#include <Modloader/app/structs/JsonConverter.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Required__Enum.h>
-#include <Modloader/app/structs/Nullable_1_Boolean_.h>
-#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_NullValueHandling_.h>
-#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_DefaultValueHandling_.h>
-#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_ReferenceLoopHandling_.h>
-#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_ObjectCreationHandling_.h>
-#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_TypeNameHandling_.h>
-#include <Modloader/app/structs/Predicate_1_Object_.h>
-#include <Modloader/app/structs/Action_2_Object_Object_.h>
-#include <Modloader/app/structs/JsonWriter.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonProperty {
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::JsonContract*, get_PropertyContract, (app::JsonProperty * this_ptr))

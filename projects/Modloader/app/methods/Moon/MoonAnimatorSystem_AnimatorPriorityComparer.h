@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonAnimatorSystem_AnimatorPriorityComparer.h>
+
+#include <Modloader/app/structs/MoonAnimatorSystem_AnimatorPriorityComparer.h>
 #include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::Moon::MoonAnimatorSystem_AnimatorPriorityComparer {

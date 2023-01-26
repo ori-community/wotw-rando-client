@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IEnumerable_1_PlayerInputRebinding_PlayerInputKey_.h>
+
+#include <Modloader/app/structs/IEnumerable_1_PlayerInputRebinding_PlayerInputKey_.h>
 #include <Modloader/app/structs/PlayerInputRebinding_KeyBindingSettings.h>
 
 namespace app::classes::PlayerInputRebinding_KeyBindingSettings {

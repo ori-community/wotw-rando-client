@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneSettings.h>
+
+#include <Modloader/app/structs/SceneSettings.h>
 #include <Modloader/app/structs/SceneSettingsTransitionZone.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SelectableCategory__Enum.h>
 
 namespace app::classes::SceneSettingsTransitionZone {
     IL2CPP_REGISTER_METHOD(0x00BBF730, void, ResetStatics, ())

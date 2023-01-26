@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUIStyle.h>
-#include <Modloader/app/structs/UberShaderDetector.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/GUIStyle.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/KeyValuePair_2_System_String_System_Single_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberShaderDetector.h>
 
 namespace app::classes::UberShaderDetector {
     IL2CPP_REGISTER_METHOD(0x01910A70, app::GUIStyle*, get_LabelStyle, (app::UberShaderDetector * this_ptr))
@@ -23,5 +24,4 @@ namespace app::classes::UberShaderDetector {
     IL2CPP_REGISTER_METHOD(0x01911ED0, void, OnGUI, (app::UberShaderDetector * this_ptr))
     IL2CPP_REGISTER_METHOD(0x019121B0, void, ctor, (app::UberShaderDetector * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01912430, float, _Update_b__22_0, (app::UberShaderDetector * this_ptr, app::KeyValuePair_2_System_String_System_Single_ x))
-    IL2CPP_REGISTER_METHODINFO(0x04736910, UberShaderDetector__Update_b__22_0__MethodInfo)
 } // namespace app::classes::UberShaderDetector

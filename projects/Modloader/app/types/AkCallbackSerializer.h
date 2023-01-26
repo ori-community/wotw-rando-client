@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/AkCallbackSerializer.h>
+#include <Modloader/app/structs/AkCallbackSerializer__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AkCallbackSerializer__Class.h>
-#include <Modloader/app/structs/AkCallbackSerializer.h>
 
 namespace app::classes::types {
     namespace AkCallbackSerializer {
-        namespace {
-            inline app::AkCallbackSerializer__Class* type_info_ref = nullptr;
+        inline app::AkCallbackSerializer__Class** type_info() {
+            static app::AkCallbackSerializer__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AkCallbackSerializer__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AkCallbackSerializer__Class** type_info = &type_info_ref;
         inline app::AkCallbackSerializer__Class* get_class() {
-            return il2cpp::get_class<app::AkCallbackSerializer__Class>(type_info, "", "AkCallbackSerializer");
+            return il2cpp::get_class<app::AkCallbackSerializer__Class>(type_info(), "", "AkCallbackSerializer");
         }
         inline app::AkCallbackSerializer* create() {
             return il2cpp::create_object<app::AkCallbackSerializer>(get_class());

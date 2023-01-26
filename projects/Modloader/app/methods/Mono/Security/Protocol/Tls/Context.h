@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Context_1.h>
-#include <Modloader/app/structs/SecurityProtocolType__Enum_1.h>
+
+#include <Modloader/app/structs/Context_1.h>
 #include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/SecurityCompressionType__Enum.h>
-#include <Modloader/app/structs/TlsServerSettings.h>
-#include <Modloader/app/structs/TlsClientSettings.h>
-#include <Modloader/app/structs/HandshakeType__Enum.h>
-#include <Modloader/app/structs/HandshakeState__Enum.h>
 #include <Modloader/app/structs/CipherSuiteCollection.h>
-#include <Modloader/app/structs/TlsStream.h>
+#include <Modloader/app/structs/HandshakeState__Enum.h>
+#include <Modloader/app/structs/HandshakeType__Enum.h>
 #include <Modloader/app/structs/RecordProtocol.h>
+#include <Modloader/app/structs/SecurityCompressionType__Enum.h>
 #include <Modloader/app/structs/SecurityParameters.h>
+#include <Modloader/app/structs/SecurityProtocolType__Enum_1.h>
+#include <Modloader/app/structs/TlsClientSettings.h>
+#include <Modloader/app/structs/TlsServerSettings.h>
+#include <Modloader/app/structs/TlsStream.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::Context {
     IL2CPP_REGISTER_METHOD(0x0051DB40, bool, get_AbbreviatedHandshake, (app::Context_1 * this_ptr))
@@ -21,11 +22,9 @@ namespace app::classes::Mono::Security::Protocol::Tls::Context {
     IL2CPP_REGISTER_METHOD(0x003FFEA0, bool, get_ChangeCipherSpecDone, (app::Context_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008496A0, void, set_ChangeCipherSpecDone, (app::Context_1 * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x01F69090, app::SecurityProtocolType__Enum_1, get_SecurityProtocol, (app::Context_1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04735AD0, Context_1_get_SecurityProtocol__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, set_SecurityProtocol, (app::Context_1 * this_ptr, app::SecurityProtocolType__Enum_1 value))
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::SecurityProtocolType__Enum_1, get_SecurityProtocolFlags, (app::Context_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F69170, int16_t, get_Protocol, (app::Context_1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047217E8, Context_1_get_Protocol__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Byte__Array*, get_SessionId, (app::Context_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB940, void, set_SessionId, (app::Context_1 * this_ptr, app::Byte__Array* value))
     IL2CPP_REGISTER_METHOD(0x002FD1D0, app::SecurityCompressionType__Enum, get_CompressionMethod, (app::Context_1 * this_ptr))
@@ -73,9 +72,7 @@ namespace app::classes::Mono::Security::Protocol::Tls::Context {
     IL2CPP_REGISTER_METHOD(0x01F696F0, void, Clear, (app::Context_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F699E0, void, ClearKeyInfo, (app::Context_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F69B80, app::SecurityProtocolType__Enum_1, DecodeProtocolCode, (app::Context_1 * this_ptr, int16_t code, bool allow_fallback))
-    IL2CPP_REGISTER_METHODINFO(0x047462E0, Context_1_DecodeProtocolCode__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F69C70, void, ChangeProtocol, (app::Context_1 * this_ptr, int16_t protocol))
-    IL2CPP_REGISTER_METHODINFO(0x04710A58, Context_1_ChangeProtocol__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F69DB0, app::SecurityParameters*, get_Current, (app::Context_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F69F20, app::SecurityParameters*, get_Negotiating, (app::Context_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::SecurityParameters*, get_Read, (app::Context_1 * this_ptr))

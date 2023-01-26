@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTelemetryPlayerSessionStartEvent.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/MoonTelemetryPlayerSessionStartEvent.h>
 #include <Modloader/app/structs/JsonBuilder_Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::MoonTelemetryPlayerSessionStartEvent {
     IL2CPP_REGISTER_METHOD(0x0146FB20, void, ctor, (app::MoonTelemetryPlayerSessionStartEvent * this_ptr))

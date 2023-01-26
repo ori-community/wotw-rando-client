@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/Door.h>
+#include <Modloader/app/structs/Door__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Door__Class.h>
-#include <Modloader/app/structs/Door.h>
 
 namespace app::classes::types {
     namespace Door {
-        namespace {
-            inline app::Door__Class* type_info_ref = nullptr;
+        inline app::Door__Class** type_info() {
+            static app::Door__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Door__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Door__Class** type_info = &type_info_ref;
         inline app::Door__Class* get_class() {
-            return il2cpp::get_class<app::Door__Class>(type_info, "", "Door");
+            return il2cpp::get_class<app::Door__Class>(type_info(), "", "Door");
         }
         inline app::Door* create() {
             return il2cpp::create_object<app::Door>(get_class());

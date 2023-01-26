@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ColorCorrectionLookup.h>
-#include <Modloader/app/structs/Texture2D.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/ColorCorrectionLookup.h>
 #include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::ColorCorrectionLookup {
     IL2CPP_REGISTER_METHOD(0x0251CA30, bool, CheckResources, (app::ColorCorrectionLookup * this_ptr))

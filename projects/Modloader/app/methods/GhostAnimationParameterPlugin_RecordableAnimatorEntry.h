@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IRecordable.h>
+
+#include <Modloader/app/structs/IRecordable.h>
 #include <Modloader/app/structs/GhostAnimationParameterPlugin_RecordableAnimatorEntry.h>
 #include <Modloader/app/structs/GlobalRecordingTable_RecordableEntry.h>
 #include <Modloader/app/structs/List_1_System_Tuple_2__1.h>

@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneDefaultSettingsHelper.h>
-#include <Modloader/app/structs/RuntimeSliceRenderSettings.h>
+
+#include <Modloader/app/structs/SceneDefaultSettingsHelper.h>
 #include <Modloader/app/structs/ILayeredRenderInfluencer.h>
 #include <Modloader/app/structs/ISliceRenderSettingsInfluencer.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SliceRenderSettings.h>
-#include <Modloader/app/structs/SceneSettings.h>
 #include <Modloader/app/structs/LayeredRenderSettings.h>
-#include <Modloader/app/structs/MotionBlurController.h>
 #include <Modloader/app/structs/MoonRenderPipelineAsset.h>
+#include <Modloader/app/structs/MotionBlurController.h>
+#include <Modloader/app/structs/RuntimeSliceRenderSettings.h>
+#include <Modloader/app/structs/SceneSettings.h>
+#include <Modloader/app/structs/SliceRenderSettings.h>
 #include <Modloader/app/structs/SliceRenderSettings_Slice.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Rendering::RuntimeSliceRenderSettings {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::SceneDefaultSettingsHelper*, get_DefaultSettingsHelper, (app::RuntimeSliceRenderSettings * this_ptr))

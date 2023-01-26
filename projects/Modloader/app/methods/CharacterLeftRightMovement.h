@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterLeftRightMovement.h>
-#include <Modloader/app/structs/PlatformMovement.h>
+
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/Action_1_HorizontalPlatformMovementSettings_.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/CharacterSpriteMirror.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/ICharacterTurningHandler.h>
-#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings_SpeedSet.h>
-#include <Modloader/app/structs/Action_1_HorizontalPlatformMovementSettings_.h>
+#include <Modloader/app/structs/ICharacterTurningHandler.h>
+#include <Modloader/app/structs/PlatformMovement.h>
 
 namespace app::classes::CharacterLeftRightMovement {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::CharacterLeftRightMovement * this_ptr))

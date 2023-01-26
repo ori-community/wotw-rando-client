@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject__Array.h>
+
+#include <Modloader/app/structs/GameObject__Array.h>
 #include <Modloader/app/structs/HornBugMovementEffects.h>
 
 namespace app::classes::HornBugMovementEffects {

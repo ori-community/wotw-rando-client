@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_KeyValuePair_2_System_Int32_System_Object___Boxed.h>
-#include <Modloader/app/structs/List_1_KeyValuePair_2_System_Int32_System_Object_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_KeyValuePair_2_System_Int32_System_Object___Boxed.h>
 #include <Modloader/app/structs/KeyValuePair_2_System_Int32_System_Object_.h>
+#include <Modloader/app/structs/List_1_KeyValuePair_2_System_Int32_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_KeyValuePair_2_System_Int32_System_Object__ {

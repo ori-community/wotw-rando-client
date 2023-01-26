@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vitals_DamageProcessHelper.h>
+
+#include <Modloader/app/structs/Vitals_DamageProcessHelper.h>
 #include <Modloader/app/structs/DamageReceiver__Array.h>
 #include <Modloader/app/structs/HashSet_1_System_Int32_.h>
 

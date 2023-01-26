@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WindowsVideoPlayer.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/WindowsVideoPlayer.h>
 #include <Modloader/app/structs/OnDelegate.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::WindowsVideoPlayer {
     IL2CPP_REGISTER_METHOD(0x0057B9F0, void, set_Filename, (app::WindowsVideoPlayer * this_ptr, app::String* value))

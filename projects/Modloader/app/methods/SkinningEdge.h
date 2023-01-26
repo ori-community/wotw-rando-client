@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkinningEdge_SkinningCapsule.h>
+
+#include <Modloader/app/structs/SkinningEdge_SkinningCapsule.h>
 #include <Modloader/app/structs/SkinningEdge.h>
 #include <Modloader/app/structs/UberShaderModifier.h>
 

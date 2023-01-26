@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IPAddress.h>
-#include <Modloader/app/structs/PlayFabLoggerBase.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/IPAddress.h>
 #include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/LogType__Enum.h>
+#include <Modloader/app/structs/PlayFabLoggerBase.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::PlayFab::Public::PlayFabLoggerBase {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::IPAddress*, get_ip, (app::PlayFabLoggerBase * this_ptr))
@@ -19,9 +20,7 @@ namespace app::classes::PlayFab::Public::PlayFabLoggerBase {
     IL2CPP_REGISTER_METHOD(0x01AD1A90, void, OnDisable, (app::PlayFabLoggerBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0089F980, void, OnDestroy, (app::PlayFabLoggerBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01AD1CC0, void, HandleUnityLog, (app::PlayFabLoggerBase * this_ptr, app::String* message, app::String* stacktrace, app::LogType__Enum type))
-    IL2CPP_REGISTER_METHODINFO(0x04780200, PlayFabLoggerBase_HandleUnityLog__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01AD2290, void, ActivateThreadWorker, (app::PlayFabLoggerBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01AD25B0, void, WriteLogThreadWorker, (app::PlayFabLoggerBase * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475E258, PlayFabLoggerBase_WriteLogThreadWorker__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01AD2C50, void, cctor, ())
 } // namespace app::classes::PlayFab::Public::PlayFabLoggerBase

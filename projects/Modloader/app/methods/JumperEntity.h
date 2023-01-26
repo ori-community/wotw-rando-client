@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JumperEntity.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/JumperEntity.h>
 #include <Modloader/app/structs/AnimationPlayer.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::JumperEntity {

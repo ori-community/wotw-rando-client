@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/ParticleCollisionEvent__Boxed.h>
 
 namespace app::classes::UnityEngine::ParticleCollisionEvent {

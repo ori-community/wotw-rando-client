@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WandererInteractionBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/WandererInteractionBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::WandererInteractionBehaviour {
     IL2CPP_REGISTER_METHOD(0x008C8600, void, OnEntityInitialized, (app::WandererInteractionBehaviour * this_ptr))

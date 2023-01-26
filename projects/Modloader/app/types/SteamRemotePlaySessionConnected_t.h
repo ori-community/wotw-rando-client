@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SteamRemotePlaySessionConnected_t__Class.h>
 #include <Modloader/app/structs/SteamRemotePlaySessionConnected_t.h>
 #include <Modloader/app/structs/SteamRemotePlaySessionConnected_t__Boxed.h>
+#include <Modloader/app/structs/SteamRemotePlaySessionConnected_t__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SteamRemotePlaySessionConnected_t {
-        namespace {
-            inline app::SteamRemotePlaySessionConnected_t__Class* type_info_ref = nullptr;
+        inline app::SteamRemotePlaySessionConnected_t__Class** type_info() {
+            static app::SteamRemotePlaySessionConnected_t__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SteamRemotePlaySessionConnected_t__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SteamRemotePlaySessionConnected_t__Class** type_info = &type_info_ref;
         inline app::SteamRemotePlaySessionConnected_t__Class* get_class() {
-            return il2cpp::get_class<app::SteamRemotePlaySessionConnected_t__Class>(type_info, "Steamworks", "SteamRemotePlaySessionConnected_t");
+            return il2cpp::get_class<app::SteamRemotePlaySessionConnected_t__Class>(type_info(), "Steamworks", "SteamRemotePlaySessionConnected_t");
         }
         inline app::SteamRemotePlaySessionConnected_t* create() {
             return il2cpp::create_object<app::SteamRemotePlaySessionConnected_t>(get_class());

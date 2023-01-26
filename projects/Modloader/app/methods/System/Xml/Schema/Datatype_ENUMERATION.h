@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
+
+#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
 #include <Modloader/app/structs/Datatype_ENUMERATION.h>
 
 namespace app::classes::System::Xml::Schema::Datatype_ENUMERATION {

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Exception.h>
+
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/ArrayList.h>
 #include <Modloader/app/structs/DurationFacetsChecker.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/XmlSchemaDatatype.h>
 #include <Modloader/app/structs/TimeSpan.h>
-#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
 
 namespace app::classes::System::Xml::Schema::DurationFacetsChecker {
     IL2CPP_REGISTER_METHOD(0x02369080, app::Exception*, CheckValueFacets_1, (app::DurationFacetsChecker * this_ptr, app::Object* value, app::XmlSchemaDatatype* datatype))

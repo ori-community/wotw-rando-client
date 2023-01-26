@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WotwWwiseBootstrapConfiguration.h>
+
+#include <Modloader/app/structs/WotwWwiseBootstrapConfiguration.h>
+#include <Modloader/app/structs/AkInitializationSettings.h>
 #include <Modloader/app/structs/AkWwiseInitializationSettings.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/AkInitializationSettings.h>
 
 namespace app::classes::WotwWwiseBootstrapConfiguration {
     IL2CPP_REGISTER_METHOD(0x00592170, void, SetStatics, (app::WotwWwiseBootstrapConfiguration * this_ptr))

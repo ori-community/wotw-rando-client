@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SessionMask__Boxed.h>
+
+#include <Modloader/app/structs/SessionMask__Boxed.h>
 #include <Modloader/app/structs/SessionMask.h>
 
 namespace app::classes::System::Diagnostics::Tracing::SessionMask {

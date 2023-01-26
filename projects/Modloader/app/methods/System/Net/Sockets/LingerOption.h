@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LingerOption.h>
+
+#include <Modloader/app/structs/LingerOption.h>
 
 namespace app::classes::System::Net::Sockets::LingerOption {
     IL2CPP_REGISTER_METHOD(0x01BE0270, void, ctor, (app::LingerOption * this_ptr, bool enable, int32_t seconds))

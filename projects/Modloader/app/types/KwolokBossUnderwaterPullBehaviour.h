@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/KwolokBossUnderwaterPullBehaviour.h>
+#include <Modloader/app/structs/KwolokBossUnderwaterPullBehaviour__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/KwolokBossUnderwaterPullBehaviour__Class.h>
-#include <Modloader/app/structs/KwolokBossUnderwaterPullBehaviour.h>
 
 namespace app::classes::types {
     namespace KwolokBossUnderwaterPullBehaviour {
-        namespace {
-            inline app::KwolokBossUnderwaterPullBehaviour__Class* type_info_ref = nullptr;
+        inline app::KwolokBossUnderwaterPullBehaviour__Class** type_info() {
+            static app::KwolokBossUnderwaterPullBehaviour__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::KwolokBossUnderwaterPullBehaviour__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::KwolokBossUnderwaterPullBehaviour__Class** type_info = &type_info_ref;
         inline app::KwolokBossUnderwaterPullBehaviour__Class* get_class() {
-            return il2cpp::get_class<app::KwolokBossUnderwaterPullBehaviour__Class>(type_info, "", "KwolokBossUnderwaterPullBehaviour");
+            return il2cpp::get_class<app::KwolokBossUnderwaterPullBehaviour__Class>(type_info(), "", "KwolokBossUnderwaterPullBehaviour");
         }
         inline app::KwolokBossUnderwaterPullBehaviour* create() {
             return il2cpp::create_object<app::KwolokBossUnderwaterPullBehaviour>(get_class());

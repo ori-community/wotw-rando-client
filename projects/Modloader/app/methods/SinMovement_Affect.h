@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SinMovement_Affect.h>
+
+#include <Modloader/app/structs/SinMovement_Affect.h>
 #include <Modloader/app/structs/SinMovement.h>
 
 namespace app::classes::SinMovement_Affect {

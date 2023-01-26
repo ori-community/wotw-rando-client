@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MicroProfilerGraph.h>
+
+#include <Modloader/app/structs/MicroProfilerGraph.h>
 #include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/Metric__Enum.h>
 #include <Modloader/app/structs/Metric__Enum__Array.h>
@@ -19,7 +20,6 @@ namespace app::classes::MicroProfilerGraph {
     IL2CPP_REGISTER_METHOD(0x015A6290, void, OnEnable, (app::MicroProfilerGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015A6460, void, OnDisable, (app::MicroProfilerGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015A6630, void, OnEndOfFrame, (app::MicroProfilerGraph * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04703070, MicroProfilerGraph_OnEndOfFrame__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015A6640, void, CreateLineMaterial, (app::MicroProfilerGraph * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015A67E0, float, FrameTimeToGraphY, (app::MicroProfilerGraph * this_ptr, float t))
     IL2CPP_REGISTER_METHOD(0x015A6800, float, ToXCoordinate, (app::MicroProfilerGraph * this_ptr, float x))

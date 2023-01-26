@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ColosseumBase.h>
+
+#include <Modloader/app/structs/ColosseumBase.h>
 #include <Modloader/app/structs/Collision.h>
 #include <Modloader/app/structs/Damage.h>
 

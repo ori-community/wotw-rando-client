@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextureAnimator.h>
-#include <Modloader/app/structs/SpriteAnimationPlayer.h>
+
+#include <Modloader/app/structs/TextureAnimator.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/Atlas.h>
-#include <Modloader/app/structs/UberScreenMode__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SpriteAnimationPlayer.h>
 #include <Modloader/app/structs/TextureAnimation.h>
+#include <Modloader/app/structs/UberScreenMode__Enum.h>
 
 namespace app::classes::Moon::Timeline::SpriteAnimationPlayer {
     IL2CPP_REGISTER_METHOD(0x002FBCE0, app::TextureAnimator*, get_TextureAnimator, (app::SpriteAnimationPlayer * this_ptr))
@@ -33,7 +34,6 @@ namespace app::classes::Moon::Timeline::SpriteAnimationPlayer {
     IL2CPP_REGISTER_METHOD(0x00D07120, bool, DoesProvideAtlas, (app::SpriteAnimationPlayer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D07220, void, SetAnimation, (app::SpriteAnimationPlayer * this_ptr, app::TextureAnimation* texture_animation, bool reset_time))
     IL2CPP_REGISTER_METHOD(0x00D073D0, void, AnimationStart, (app::SpriteAnimationPlayer * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04736AD0, SpriteAnimationPlayer_AnimationStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D07570, app::TextureAnimation*, get_CurrentAnimation, (app::SpriteAnimationPlayer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D07590, void, SetDirty, (app::SpriteAnimationPlayer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D075A0, void, ctor, (app::SpriteAnimationPlayer * this_ptr))

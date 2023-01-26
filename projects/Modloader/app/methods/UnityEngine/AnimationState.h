@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationState.h>
+
+#include <Modloader/app/structs/AnimationState.h>
 #include <Modloader/app/structs/AnimationClip.h>
 
 namespace app::classes::UnityEngine::AnimationState {

@@ -1,29 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LaserShieldDamageReceiver_FollowingEffect.h>
-#include <Modloader/app/structs/List_1_LaserShieldDamageReceiver_FollowingEffect_.h>
-#include <Modloader/app/structs/IEnumerable_1_LaserShieldDamageReceiver_FollowingEffect_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_LaserShieldDamageReceiver_FollowingEffect_.h>
-#include <Modloader/app/structs/IComparer_1_LaserShieldDamageReceiver_FollowingEffect_.h>
-#include <Modloader/app/structs/LaserShieldDamageReceiver_FollowingEffect__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+
+#include <Modloader/app/structs/LaserShieldDamageReceiver_FollowingEffect.h>
 #include <Modloader/app/structs/Action_1_LaserShieldDamageReceiver_FollowingEffect_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_LaserShieldDamageReceiver_FollowingEffect_.h>
-#include <Modloader/app/structs/IEnumerator_1_LaserShieldDamageReceiver_FollowingEffect_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/IComparer_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/IEnumerable_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/LaserShieldDamageReceiver_FollowingEffect__Array.h>
+#include <Modloader/app/structs/List_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_LaserShieldDamageReceiver_FollowingEffect_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_LaserShieldDamageReceiver_FollowingEffect_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_LaserShieldDamageReceiver_FollowingEffect_ {
     IL2CPP_REGISTER_METHOD(0x025EC760, app::LaserShieldDamageReceiver_FollowingEffect, get_Item, (app::List_1_LaserShieldDamageReceiver_FollowingEffect_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0472D428, List_1_LaserShieldDamageReceiver_FollowingEffect__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_LaserShieldDamageReceiver_FollowingEffect_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04799738, List_1_LaserShieldDamageReceiver_FollowingEffect__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025ECB30, void, Add, (app::List_1_LaserShieldDamageReceiver_FollowingEffect_ * this_ptr, app::LaserShieldDamageReceiver_FollowingEffect item))
-    IL2CPP_REGISTER_METHODINFO(0x04780778, List_1_LaserShieldDamageReceiver_FollowingEffect__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_LaserShieldDamageReceiver_FollowingEffect_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04757AE8, List_1_LaserShieldDamageReceiver_FollowingEffect___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_LaserShieldDamageReceiver_FollowingEffect_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02DF15C0, void, ctor_3, (app::List_1_LaserShieldDamageReceiver_FollowingEffect_ * this_ptr, app::IEnumerable_1_LaserShieldDamageReceiver_FollowingEffect_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_LaserShieldDamageReceiver_FollowingEffect_ * this_ptr))

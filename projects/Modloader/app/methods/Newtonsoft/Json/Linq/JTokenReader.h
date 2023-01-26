@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JToken.h>
+
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/JContainer.h>
 #include <Modloader/app/structs/JTokenReader.h>
 #include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_JsonToken_.h>
-#include <Modloader/app/structs/JContainer.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JTokenReader {
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::JToken*, get_CurrentToken, (app::JTokenReader * this_ptr))
@@ -14,11 +15,9 @@ namespace app::classes::Newtonsoft::Json::Linq::JTokenReader {
     IL2CPP_REGISTER_METHOD(0x018572D0, bool, ReadOver, (app::JTokenReader * this_ptr, app::JToken* t))
     IL2CPP_REGISTER_METHOD(0x018573D0, bool, ReadToEnd, (app::JTokenReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01857400, app::Nullable_1_Newtonsoft_Json_JsonToken_, GetEndToken, (app::JTokenReader * this_ptr, app::JContainer* c))
-    IL2CPP_REGISTER_METHODINFO(0x04747240, JTokenReader_GetEndToken__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01857570, bool, ReadInto, (app::JTokenReader * this_ptr, app::JContainer* c))
     IL2CPP_REGISTER_METHOD(0x018575F0, bool, SetEnd, (app::JTokenReader * this_ptr, app::JContainer* c))
     IL2CPP_REGISTER_METHOD(0x018577E0, void, SetToken, (app::JTokenReader * this_ptr, app::JToken* token))
-    IL2CPP_REGISTER_METHODINFO(0x04706B40, JTokenReader_SetToken__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01857E10, app::String*, SafeToString, (app::JTokenReader * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x01857E30, bool, IJsonLineInfo_HasLineInfo, (app::JTokenReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01857ED0, int32_t, IJsonLineInfo_get_LineNumber, (app::JTokenReader * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberID.h>
+
+#include <Modloader/app/structs/UberID.h>
 #include <Modloader/app/structs/FloatUberState.h>
 #include <Modloader/app/structs/IUberStateGroup.h>
 #include <Modloader/app/structs/NamedValue_1_System_Single___Array.h>

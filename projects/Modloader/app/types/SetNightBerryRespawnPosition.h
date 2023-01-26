@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SetNightBerryRespawnPosition.h>
+#include <Modloader/app/structs/SetNightBerryRespawnPosition__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SetNightBerryRespawnPosition__Class.h>
-#include <Modloader/app/structs/SetNightBerryRespawnPosition.h>
 
 namespace app::classes::types {
     namespace SetNightBerryRespawnPosition {
-        namespace {
-            inline app::SetNightBerryRespawnPosition__Class* type_info_ref = nullptr;
+        inline app::SetNightBerryRespawnPosition__Class** type_info() {
+            static app::SetNightBerryRespawnPosition__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SetNightBerryRespawnPosition__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SetNightBerryRespawnPosition__Class** type_info = &type_info_ref;
         inline app::SetNightBerryRespawnPosition__Class* get_class() {
-            return il2cpp::get_class<app::SetNightBerryRespawnPosition__Class>(type_info, "", "SetNightBerryRespawnPosition");
+            return il2cpp::get_class<app::SetNightBerryRespawnPosition__Class>(type_info(), "", "SetNightBerryRespawnPosition");
         }
         inline app::SetNightBerryRespawnPosition* create() {
             return il2cpp::create_object<app::SetNightBerryRespawnPosition>(get_class());

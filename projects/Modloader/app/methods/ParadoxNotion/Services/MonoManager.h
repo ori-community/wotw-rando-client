@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MonoManager_UpdateMode__Enum.h>
-#include <Modloader/app/structs/MonoManager.h>
+
+#include <Modloader/app/structs/MonoManager_UpdateMode__Enum.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/MonoManager.h>
 
 namespace app::classes::ParadoxNotion::Services::MonoManager {
     IL2CPP_REGISTER_METHOD(0x031BF2F0, app::MonoManager_UpdateMode__Enum, get_updateMode, ())

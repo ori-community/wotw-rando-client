@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TrailerShot__Class.h>
 #include <Modloader/app/structs/TrailerShot.h>
 #include <Modloader/app/structs/TrailerShot__Array.h>
+#include <Modloader/app/structs/TrailerShot__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace TrailerShot {
-        namespace {
-            inline app::TrailerShot__Class* type_info_ref = nullptr;
+        inline app::TrailerShot__Class** type_info() {
+            static app::TrailerShot__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::TrailerShot__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::TrailerShot__Class** type_info = &type_info_ref;
         inline app::TrailerShot__Class* get_class() {
-            return il2cpp::get_class<app::TrailerShot__Class>(type_info, "", "TrailerShot");
+            return il2cpp::get_class<app::TrailerShot__Class>(type_info(), "", "TrailerShot");
         }
         inline app::TrailerShot* create() {
             return il2cpp::create_object<app::TrailerShot>(get_class());

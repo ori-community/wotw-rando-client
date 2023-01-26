@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataView_DataRowReferenceComparer.h>
+
+#include <Modloader/app/structs/DataView_DataRowReferenceComparer.h>
 #include <Modloader/app/structs/DataRow.h>
 
 namespace app::classes::System::Data::DataView_DataRowReferenceComparer {

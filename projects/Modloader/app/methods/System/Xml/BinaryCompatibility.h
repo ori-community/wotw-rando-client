@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::BinaryCompatibility {
     IL2CPP_REGISTER_METHOD(0x021E7500, bool, get_TargetsAtLeast_Desktop_V4_5_2, ())

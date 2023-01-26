@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SslStreamBase_InternalAsyncResult.h>
+
+#include <Modloader/app/structs/SslStreamBase_InternalAsyncResult.h>
 #include <Modloader/app/structs/AsyncCallback.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::SslStreamBase_InternalAsyncResult {

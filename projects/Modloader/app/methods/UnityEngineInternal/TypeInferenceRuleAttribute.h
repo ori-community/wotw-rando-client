@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TypeInferenceRuleAttribute.h>
-#include <Modloader/app/structs/TypeInferenceRules__Enum.h>
+
+#include <Modloader/app/structs/TypeInferenceRuleAttribute.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TypeInferenceRules__Enum.h>
 
 namespace app::classes::UnityEngineInternal::TypeInferenceRuleAttribute {
     IL2CPP_REGISTER_METHOD(0x02C7AB90, void, ctor_1, (app::TypeInferenceRuleAttribute * this_ptr, app::TypeInferenceRules__Enum rule))

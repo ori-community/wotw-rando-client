@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlAsyncCheckReaderWithLineInfo.h>
+
+#include <Modloader/app/structs/XmlAsyncCheckReaderWithLineInfo.h>
 #include <Modloader/app/structs/XmlReader.h>
 
 namespace app::classes::System::Xml::XmlAsyncCheckReaderWithLineInfo {

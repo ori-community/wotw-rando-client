@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LicFileLicenseProvider.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/LicFileLicenseProvider.h>
 #include <Modloader/app/structs/License.h>
 #include <Modloader/app/structs/LicenseContext.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::ComponentModel::LicFileLicenseProvider {
     IL2CPP_REGISTER_METHOD(0x01FEFF90, bool, IsKeyValid, (app::LicFileLicenseProvider * this_ptr, app::String* key, app::Type* type))

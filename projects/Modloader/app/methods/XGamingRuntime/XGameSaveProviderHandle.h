@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XGameSaveProviderHandle.h>
+
+#include <Modloader/app/structs/XGameSaveProviderHandle.h>
 #include <Modloader/app/structs/XGameSaveProviderHandle_1.h>
 
 namespace app::classes::XGamingRuntime::XGameSaveProviderHandle {

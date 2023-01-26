@@ -1,33 +1,34 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InputField.h>
+
+#include <Modloader/app/structs/InputField.h>
+#include <Modloader/app/structs/BaseEventData.h>
 #include <Modloader/app/structs/BaseInput.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Mesh.h>
-#include <Modloader/app/structs/TextGenerator.h>
-#include <Modloader/app/structs/Text.h>
-#include <Modloader/app/structs/Graphic.h>
+#include <Modloader/app/structs/CanvasUpdate__Enum.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/InputField_SubmitEvent.h>
+#include <Modloader/app/structs/Event.h>
+#include <Modloader/app/structs/Graphic.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/InputField_CharacterValidation__Enum.h>
+#include <Modloader/app/structs/InputField_ContentType__Enum.h>
+#include <Modloader/app/structs/InputField_ContentType__Enum__Array.h>
+#include <Modloader/app/structs/InputField_EditState__Enum.h>
+#include <Modloader/app/structs/InputField_InputType__Enum.h>
+#include <Modloader/app/structs/InputField_LineType__Enum.h>
 #include <Modloader/app/structs/InputField_OnChangeEvent.h>
 #include <Modloader/app/structs/InputField_OnValidateInput.h>
-#include <Modloader/app/structs/InputField_ContentType__Enum.h>
-#include <Modloader/app/structs/InputField_LineType__Enum.h>
-#include <Modloader/app/structs/InputField_InputType__Enum.h>
+#include <Modloader/app/structs/InputField_SubmitEvent.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/Selectable_SelectionState__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Text.h>
+#include <Modloader/app/structs/TextGenerator.h>
 #include <Modloader/app/structs/TouchScreenKeyboard.h>
 #include <Modloader/app/structs/TouchScreenKeyboardType__Enum.h>
-#include <Modloader/app/structs/InputField_CharacterValidation__Enum.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/PointerEventData.h>
-#include <Modloader/app/structs/InputField_EditState__Enum.h>
-#include <Modloader/app/structs/Event.h>
-#include <Modloader/app/structs/BaseEventData.h>
-#include <Modloader/app/structs/CanvasUpdate__Enum.h>
-#include <Modloader/app/structs/VertexHelper.h>
-#include <Modloader/app/structs/InputField_ContentType__Enum__Array.h>
-#include <Modloader/app/structs/Selectable_SelectionState__Enum.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/VertexHelper.h>
 
 namespace app::classes::UnityEngine::UI::InputField {
     IL2CPP_REGISTER_METHOD(0x024C0BE0, void, ctor, (app::InputField * this_ptr))
@@ -79,8 +80,8 @@ namespace app::classes::UnityEngine::UI::InputField {
     IL2CPP_REGISTER_METHOD(0x024C3080, bool, get_readOnly, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01173710, void, set_readOnly, (app::InputField * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x024C3090, bool, get_multiLine, (app::InputField * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x024C30B0, uint16_t, get_asteriskChar, (app::InputField * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x024C30C0, void, set_asteriskChar, (app::InputField * this_ptr, uint16_t value))
+    IL2CPP_REGISTER_METHOD(0x024C30B0, char16_t, get_asteriskChar, (app::InputField * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x024C30C0, void, set_asteriskChar, (app::InputField * this_ptr, char16_t value))
     IL2CPP_REGISTER_METHOD(0x024C31A0, bool, get_wasCanceled, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024C31B0, void, ClampPos, (app::InputField * this_ptr, int32_t* pos))
     IL2CPP_REGISTER_METHOD(0x024C3200, int32_t, get_caretPositionInternal, (app::InputField * this_ptr))
@@ -100,7 +101,6 @@ namespace app::classes::UnityEngine::UI::InputField {
     IL2CPP_REGISTER_METHOD(0x024C4070, void, SetCaretVisible, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024C40F0, void, SetCaretActive, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024C4290, void, UpdateCaretMaterial, (app::InputField * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047698F8, InputField_UpdateCaretMaterial__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x024C4440, void, OnFocus, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024C4450, void, SelectAll, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024C44E0, void, MoveTextEnd, (app::InputField * this_ptr, bool shift))
@@ -120,7 +120,7 @@ namespace app::classes::UnityEngine::UI::InputField {
     IL2CPP_REGISTER_METHOD(0x024C5AB0, void, OnEndDrag, (app::InputField * this_ptr, app::PointerEventData* event_data))
     IL2CPP_REGISTER_METHOD(0x024C5AE0, void, OnPointerDown, (app::InputField * this_ptr, app::PointerEventData* event_data))
     IL2CPP_REGISTER_METHOD(0x024C5D00, app::InputField_EditState__Enum, KeyPressed, (app::InputField * this_ptr, app::Event* evt))
-    IL2CPP_REGISTER_METHOD(0x024C6550, bool, IsValidChar, (app::InputField * this_ptr, uint16_t c))
+    IL2CPP_REGISTER_METHOD(0x024C6550, bool, IsValidChar, (app::InputField * this_ptr, char16_t c))
     IL2CPP_REGISTER_METHOD(0x024C65B0, void, ProcessEvent, (app::InputField * this_ptr, app::Event* e))
     IL2CPP_REGISTER_METHOD(0x024C65C0, void, OnUpdateSelected, (app::InputField * this_ptr, app::BaseEventData* event_data))
     IL2CPP_REGISTER_METHOD(0x024C6810, app::String*, GetSelectedString, (app::InputField * this_ptr))
@@ -138,21 +138,19 @@ namespace app::classes::UnityEngine::UI::InputField {
     IL2CPP_REGISTER_METHOD(0x024C8100, void, Delete, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024C8420, void, ForwardSpace, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024C8520, void, Backspace, (app::InputField * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x024C8650, void, Insert, (app::InputField * this_ptr, uint16_t c))
+    IL2CPP_REGISTER_METHOD(0x024C8650, void, Insert, (app::InputField * this_ptr, char16_t c))
     IL2CPP_REGISTER_METHOD(0x024C87B0, void, SendOnValueChangedAndUpdateLabel, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024C87D0, void, SendOnValueChanged, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024C88C0, void, SendOnSubmit, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024C89B0, void, Append_1, (app::InputField * this_ptr, app::String* input))
-    IL2CPP_REGISTER_METHOD(0x024C8A50, void, Append_2, (app::InputField * this_ptr, uint16_t input))
+    IL2CPP_REGISTER_METHOD(0x024C8A50, void, Append_2, (app::InputField * this_ptr, char16_t input))
     IL2CPP_REGISTER_METHOD(0x024C8C20, void, UpdateLabel, (app::InputField * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478F6D0, InputField_UpdateLabel__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x024C9110, bool, IsSelectionVisible, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024C9200, int32_t, GetLineStartPosition, (app::TextGenerator * gen, int32_t line))
     IL2CPP_REGISTER_METHOD(0x024C9390, int32_t, GetLineEndPosition, (app::TextGenerator * gen, int32_t line))
     IL2CPP_REGISTER_METHOD(0x024C9560, void, SetDrawRangeToContainCaretPosition, (app::InputField * this_ptr, int32_t caret_pos))
     IL2CPP_REGISTER_METHOD(0x024C9D40, void, ForceLabelUpdate, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024C9D50, void, MarkGeometryAsDirty, (app::InputField * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470A4D0, InputField_MarkGeometryAsDirty__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x024C9DF0, void, Rebuild, (app::InputField * this_ptr, app::CanvasUpdate__Enum update))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, LayoutComplete, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, GraphicUpdateComplete, (app::InputField * this_ptr))
@@ -162,8 +160,7 @@ namespace app::classes::UnityEngine::UI::InputField {
     IL2CPP_REGISTER_METHOD(0x024CB1E0, void, GenerateCaret, (app::InputField * this_ptr, app::VertexHelper* vbo, app::Vector2 rounding_offset))
     IL2CPP_REGISTER_METHOD(0x024CBEB0, void, CreateCursorVerts, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024CC090, void, GenerateHightlight, (app::InputField * this_ptr, app::VertexHelper* vbo, app::Vector2 rounding_offset))
-    IL2CPP_REGISTER_METHOD(0x024CC960, uint16_t, Validate, (app::InputField * this_ptr, app::String* text, int32_t pos, uint16_t ch))
-    IL2CPP_REGISTER_METHODINFO(0x0472C338, InputField_Validate__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x024CC960, char16_t, Validate, (app::InputField * this_ptr, app::String* text, int32_t pos, char16_t ch))
     IL2CPP_REGISTER_METHOD(0x024CD0B0, void, ActivateInputField, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024CD200, void, ActivateInputFieldInternal, (app::InputField * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024CD410, void, OnSelect, (app::InputField * this_ptr, app::BaseEventData* event_data))

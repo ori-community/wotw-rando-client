@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BehaviourEvents.h>
+
+#include <Modloader/app/structs/BehaviourEvents.h>
 #include <Modloader/app/structs/IBehaviourEvent.h>
 #include <Modloader/app/structs/List_1_UberBehaviourTree_IBehaviourEvent_.h>
 

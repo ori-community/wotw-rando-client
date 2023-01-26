@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BabyWorm.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/BabyWorm.h>
 #include <Modloader/app/structs/BabyWorm_BabySandwormState__Enum.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/MoonControllerColliderHit.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::BabyWorm {
     IL2CPP_REGISTER_METHOD(0x00F78F20, void, SerializeComponents, (app::BabyWorm * this_ptr))
@@ -49,7 +50,6 @@ namespace app::classes::BabyWorm {
     IL2CPP_REGISTER_METHOD(0x00F7C040, void, OnOutOfDigZoneUpdate, (app::BabyWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F7C080, void, OnCollisionEnter, (app::BabyWorm * this_ptr, app::Collision* collision))
     IL2CPP_REGISTER_METHOD(0x00F7C0E0, void, CollisionCheck, (app::BabyWorm * this_ptr, app::MoonControllerColliderHit hit_info))
-    IL2CPP_REGISTER_METHODINFO(0x0477B280, BabyWorm_CollisionCheck__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F7C130, void, ProcessCollisionWithObject, (app::BabyWorm * this_ptr, app::GameObject* collided_object))
     IL2CPP_REGISTER_METHOD(0x00F7C1D0, void, Explode, (app::BabyWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F7C590, void, SetRotation, (app::BabyWorm * this_ptr))
@@ -86,16 +86,13 @@ namespace app::classes::BabyWorm {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeTeleportedByBeacon, (app::BabyWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeGlowed, (app::BabyWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F7E130, void, OnRecieveDamage, (app::BabyWorm * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x04743420, BabyWorm_OnRecieveDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnRecieveBashDamage, (app::BabyWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F7E3F0, void, OnDamageDealt, (app::BabyWorm * this_ptr, app::DamageDealer* damage_dealer, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x0476D1D0, BabyWorm_OnDamageDealt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F7E510, void, AreaDamage, (app::BabyWorm * this_ptr, app::GameObject* collided_object))
     IL2CPP_REGISTER_METHOD(0x00F7EA50, void, RefreshClosestTarget, (app::BabyWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F7F270, void, OnProcessRootMotion, (app::BabyWorm * this_ptr, app::Vector3 motion))
     IL2CPP_REGISTER_METHOD(0x00F7F360, void, OnDrawGizmos, (app::BabyWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F7F3E0, void, OnRestoreCheckpoint, (app::BabyWorm * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476C868, BabyWorm_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F7F4F0, void, InstantSpawnInitiation, (app::BabyWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00813FA0, app::IDamageReciever__Array*, get_AffectedReceivers, (app::BabyWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F7F6C0, void, OnPoolSpawned, (app::BabyWorm * this_ptr))

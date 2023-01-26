@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IdleOverride.h>
+
+#include <Modloader/app/structs/IdleOverride.h>
 #include <Modloader/app/structs/SeinIdlePuppet.h>
 
 namespace app::classes::IdleOverride {

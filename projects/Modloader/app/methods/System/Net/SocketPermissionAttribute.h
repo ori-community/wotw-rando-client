@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SocketPermissionAttribute.h>
+
+#include <Modloader/app/structs/SocketPermissionAttribute.h>
+#include <Modloader/app/structs/IPermission.h>
 #include <Modloader/app/structs/SecurityAction__Enum.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IPermission.h>
 
 namespace app::classes::System::Net::SocketPermissionAttribute {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::SocketPermissionAttribute * this_ptr, app::SecurityAction__Enum action))
@@ -16,7 +17,5 @@ namespace app::classes::System::Net::SocketPermissionAttribute {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::String*, get_Transport, (app::SocketPermissionAttribute * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01BDFAB0, void, set_Transport, (app::SocketPermissionAttribute * this_ptr, app::String* value))
     IL2CPP_REGISTER_METHOD(0x01BDFB50, app::IPermission*, CreatePermission, (app::SocketPermissionAttribute * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474DB90, SocketPermissionAttribute_CreatePermission__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01BE01F0, void, AlreadySet, (app::SocketPermissionAttribute * this_ptr, app::String* property))
-    IL2CPP_REGISTER_METHODINFO(0x047316F0, SocketPermissionAttribute_AlreadySet__MethodInfo)
 } // namespace app::classes::System::Net::SocketPermissionAttribute

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WwiseObjectType__Enum.h>
-#include <Modloader/app/structs/Trigger.h>
+
+#include <Modloader/app/structs/WwiseObjectType__Enum.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Trigger.h>
 
 namespace app::classes::AK::Wwise::Trigger {
     IL2CPP_REGISTER_METHOD(0x00C8F220, app::WwiseObjectType__Enum, get_WwiseObjectType, (app::Trigger * this_ptr))

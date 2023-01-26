@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LocalVariables_VariableScope.h>
+
+#include <Modloader/app/structs/LocalVariables_VariableScope.h>
 #include <Modloader/app/structs/LocalVariable.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LocalVariables_VariableScope {

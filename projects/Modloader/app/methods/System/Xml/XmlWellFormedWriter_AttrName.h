@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlWellFormedWriter_AttrName__Boxed.h>
+
+#include <Modloader/app/structs/XmlWellFormedWriter_AttrName__Boxed.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::XmlWellFormedWriter_AttrName {

@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LabelScopeInfo__Class.h>
 #include <Modloader/app/structs/LabelScopeInfo.h>
 #include <Modloader/app/structs/LabelScopeInfo__Array.h>
+#include <Modloader/app/structs/LabelScopeInfo__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace LabelScopeInfo {
-        inline app::LabelScopeInfo__Class** type_info = (app::LabelScopeInfo__Class**)(modloader::win::memory::resolve_rva(0x047401F0));
+        inline app::LabelScopeInfo__Class** type_info() {
+            static app::LabelScopeInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::LabelScopeInfo__Class**)(modloader::win::memory::resolve_rva(0x047401F0));
+            }
+            return cache;
+        }
         inline app::LabelScopeInfo__Class* get_class() {
-            return il2cpp::get_class<app::LabelScopeInfo__Class>(type_info, "System.Linq.Expressions.Interpreter", "LabelScopeInfo");
+            return il2cpp::get_class<app::LabelScopeInfo__Class>(type_info(), "System.Linq.Expressions.Interpreter", "LabelScopeInfo");
         }
         inline app::LabelScopeInfo* create() {
             return il2cpp::create_object<app::LabelScopeInfo>(get_class());

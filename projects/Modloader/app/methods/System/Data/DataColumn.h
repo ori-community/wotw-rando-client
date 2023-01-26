@@ -1,42 +1,41 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataColumn.h>
+
+#include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/AggregateType__Enum.h>
+#include <Modloader/app/structs/AutoIncrementValue.h>
+#include <Modloader/app/structs/BitArray.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/DataExpression.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRowAction__Enum.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/DataSetDateTime__Enum.h>
+#include <Modloader/app/structs/DataTable.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/Index.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/MappingType__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PropertyChangedEventArgs.h>
+#include <Modloader/app/structs/PropertyCollection.h>
+#include <Modloader/app/structs/SimpleType.h>
+#include <Modloader/app/structs/StorageType__Enum.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/MappingType__Enum.h>
-#include <Modloader/app/structs/StorageType__Enum.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/AutoIncrementValue.h>
-#include <Modloader/app/structs/IFormatProvider.h>
-#include <Modloader/app/structs/CultureInfo.h>
-#include <Modloader/app/structs/DataRow.h>
-#include <Modloader/app/structs/DataRowVersion__Enum.h>
-#include <Modloader/app/structs/DataExpression.h>
-#include <Modloader/app/structs/DataSetDateTime__Enum.h>
-#include <Modloader/app/structs/PropertyCollection.h>
-#include <Modloader/app/structs/Index.h>
-#include <Modloader/app/structs/DataTable.h>
-#include <Modloader/app/structs/SimpleType.h>
-#include <Modloader/app/structs/DataRowAction__Enum.h>
-#include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/AggregateType__Enum.h>
-#include <Modloader/app/structs/PropertyChangedEventArgs.h>
 #include <Modloader/app/structs/XmlReader.h>
 #include <Modloader/app/structs/XmlRootAttribute.h>
 #include <Modloader/app/structs/XmlWriter.h>
-#include <Modloader/app/structs/BitArray.h>
 
 namespace app::classes::System::Data::DataColumn {
     IL2CPP_REGISTER_METHOD(0x02392480, void, ctor_1, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02392550, void, ctor_2, (app::DataColumn * this_ptr, app::String* column_name, app::Type* data_type))
     IL2CPP_REGISTER_METHOD(0x02392580, void, ctor_3, (app::DataColumn * this_ptr, app::String* column_name, app::Type* data_type, app::String* expr, app::MappingType__Enum type))
-    IL2CPP_REGISTER_METHODINFO(0x04772F90, DataColumn__ctor_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02392890, void, UpdateColumnType, (app::DataColumn * this_ptr, app::Type* type, app::StorageType__Enum type_code))
     IL2CPP_REGISTER_METHOD(0x0052A030, bool, get_AllowDBNull, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02392AE0, void, set_AllowDBNull, (app::DataColumn * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x02392CB0, bool, get_AutoIncrement, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02392CD0, void, set_AutoIncrement, (app::DataColumn * this_ptr, bool value))
-    IL2CPP_REGISTER_METHODINFO(0x0473F460, DataColumn_set_AutoIncrement__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02392EC0, app::Object*, get_AutoIncrementCurrent, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02392F80, void, set_AutoIncrementCurrent, (app::DataColumn * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x023930E0, app::AutoIncrementValue*, get_AutoInc, (app::DataColumn * this_ptr))
@@ -48,31 +47,25 @@ namespace app::classes::System::Data::DataColumn {
     IL2CPP_REGISTER_METHOD(0x02393600, void, set_Caption, (app::DataColumn * this_ptr, app::String* value))
     IL2CPP_REGISTER_METHOD(0x002FB990, app::String*, get_ColumnName, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023936E0, void, set_ColumnName, (app::DataColumn * this_ptr, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x047257C8, DataColumn_set_ColumnName__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02393C40, app::String*, get_EncodedColumnName, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02393D00, app::IFormatProvider*, get_FormatProvider, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02393DC0, app::CultureInfo*, get_Locale, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFBD0, int32_t, get_ObjectID, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBD00, app::String*, get_Prefix, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02393E80, void, set_Prefix, (app::DataColumn * this_ptr, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x0472A398, DataColumn_set_Prefix__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02394030, app::String*, GetColumnValueAsString, (app::DataColumn * this_ptr, app::DataRow* row, app::DataRowVersion__Enum version))
     IL2CPP_REGISTER_METHOD(0x02394170, bool, get_Computed, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::DataExpression*, get_DataExpression, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::Type*, get_DataType, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02394180, void, set_DataType, (app::DataColumn * this_ptr, app::Type* value))
-    IL2CPP_REGISTER_METHODINFO(0x04783150, DataColumn_set_DataType__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FD490, app::DataSetDateTime__Enum, get_DateTimeMode, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02394A90, void, set_DateTimeMode, (app::DataColumn * this_ptr, app::DataSetDateTime__Enum value))
-    IL2CPP_REGISTER_METHODINFO(0x04706068, DataColumn_set_DateTimeMode__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02394C20, app::Object*, get_DefaultValue, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02394DA0, void, set_DefaultValue, (app::DataColumn * this_ptr, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x0477DF78, DataColumn_set_DefaultValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E855A0, bool, get_DefaultValueIsNull, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02395090, void, BindExpression, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023950C0, app::String*, get_Expression, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02395150, void, set_Expression, (app::DataColumn * this_ptr, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x047877D0, DataColumn_set_Expression__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02395940, app::PropertyCollection*, get_ExtendedProperties, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02395AB0, bool, get_HasData, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AB7980, bool, get_ImplementsINullable, (app::DataColumn * this_ptr))
@@ -83,29 +76,23 @@ namespace app::classes::System::Data::DataColumn {
     IL2CPP_REGISTER_METHOD(0x02395AF0, void, SetMaxLengthSimpleType, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FD750, int32_t, get_MaxLength, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02395DF0, void, set_MaxLength, (app::DataColumn * this_ptr, int32_t value))
-    IL2CPP_REGISTER_METHODINFO(0x047999D8, DataColumn_set_MaxLength__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02396110, app::String*, get_Namespace, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023961C0, void, set_Namespace, (app::DataColumn * this_ptr, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x0477D298, DataColumn_set_Namespace__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FF3C0, int32_t, get_Ordinal, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02396340, void, SetOrdinalInternal, (app::DataColumn * this_ptr, int32_t ordinal))
     IL2CPP_REGISTER_METHOD(0x0051DB40, bool, get_ReadOnly, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023965A0, void, set_ReadOnly, (app::DataColumn * this_ptr, bool value))
-    IL2CPP_REGISTER_METHODINFO(0x04799DC0, DataColumn_set_ReadOnly__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x023966A0, app::Index*, get_SortIndex, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBBE0, app::DataTable*, get_Table, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023967B0, void, SetTable, (app::DataColumn * this_ptr, app::DataTable* table))
     IL2CPP_REGISTER_METHOD(0x02396880, app::DataRow*, GetDataRow, (app::DataColumn * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x023968E0, app::Object*, get_Item, (app::DataColumn * this_ptr, int32_t record))
     IL2CPP_REGISTER_METHOD(0x02396910, void, set_Item, (app::DataColumn * this_ptr, int32_t record, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x04794760, DataColumn_set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02396B20, void, InitializeRecord, (app::DataColumn * this_ptr, int32_t record))
     IL2CPP_REGISTER_METHOD(0x02396B70, void, SetValue, (app::DataColumn * this_ptr, int32_t record, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x0475AF08, DataColumn_SetValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02396CE0, void, FreeRecord, (app::DataColumn * this_ptr, int32_t record))
     IL2CPP_REGISTER_METHOD(0x0069FA30, bool, get_Unique, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02396D10, void, set_Unique, (app::DataColumn * this_ptr, bool value))
-    IL2CPP_REGISTER_METHODINFO(0x0476EB60, DataColumn_set_Unique__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0069FA40, void, InternalUnique, (app::DataColumn * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00660430, app::String*, get_XmlDataType, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00660440, void, set_XmlDataType, (app::DataColumn * this_ptr, app::String* value))
@@ -113,17 +100,12 @@ namespace app::classes::System::Data::DataColumn {
     IL2CPP_REGISTER_METHOD(0x02397240, void, set_SimpleType, (app::DataColumn * this_ptr, app::SimpleType* value))
     IL2CPP_REGISTER_METHOD(0x00653FB0, app::MappingType__Enum, get_ColumnMapping, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02397290, void, set_ColumnMapping, (app::DataColumn * this_ptr, app::MappingType__Enum value))
-    IL2CPP_REGISTER_METHODINFO(0x0478B038, DataColumn_set_ColumnMapping__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02397550, void, CheckColumnConstraint, (app::DataColumn * this_ptr, app::DataRow* row, app::DataRowAction__Enum action))
     IL2CPP_REGISTER_METHOD(0x02397750, bool, CheckMaxLength_1, (app::DataColumn * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02397A30, void, CheckMaxLength_2, (app::DataColumn * this_ptr, app::DataRow* dr))
-    IL2CPP_REGISTER_METHODINFO(0x047384E0, DataColumn_CheckMaxLength_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02397B20, void, CheckNotAllowNull, (app::DataColumn * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04757090, DataColumn_CheckNotAllowNull__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02397E00, void, CheckNullable, (app::DataColumn * this_ptr, app::DataRow* row))
-    IL2CPP_REGISTER_METHODINFO(0x04728660, DataColumn_CheckNullable__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02397EF0, void, CheckUnique, (app::DataColumn * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04708708, DataColumn_CheckUnique__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02397FB0, int32_t, Compare, (app::DataColumn * this_ptr, int32_t record1, int32_t record2))
     IL2CPP_REGISTER_METHOD(0x02397FE0, bool, CompareValueTo_1, (app::DataColumn * this_ptr, int32_t record1, app::Object* value, bool check_type))
     IL2CPP_REGISTER_METHOD(0x02398250, int32_t, CompareValueTo_2, (app::DataColumn * this_ptr, int32_t record1, app::Object* value))

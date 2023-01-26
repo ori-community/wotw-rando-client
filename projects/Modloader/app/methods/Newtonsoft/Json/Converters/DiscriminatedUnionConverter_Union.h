@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FSharpFunction.h>
+
+#include <Modloader/app/structs/FSharpFunction.h>
 #include <Modloader/app/structs/DiscriminatedUnionConverter_Union.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::DiscriminatedUnionConverter_Union {

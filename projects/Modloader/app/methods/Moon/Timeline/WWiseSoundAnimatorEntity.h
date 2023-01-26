@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/WWiseSoundAnimatorEntity.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/SoundHost.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/WWiseSoundAnimatorEntity.h>
 
 namespace app::classes::Moon::Timeline::WWiseSoundAnimatorEntity {
     IL2CPP_REGISTER_METHOD(0x00D1D730, app::GameObject*, get_ExternalTarget, (app::WWiseSoundAnimatorEntity * this_ptr))

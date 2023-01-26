@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SandwormHitReaction.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+
+#include <Modloader/app/structs/SandwormHitReaction.h>
 #include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
 #include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SandwormHitReaction {

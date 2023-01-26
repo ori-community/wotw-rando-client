@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RemoteStoragePublishedFileUpdated_t__Class.h>
 #include <Modloader/app/structs/RemoteStoragePublishedFileUpdated_t.h>
 #include <Modloader/app/structs/RemoteStoragePublishedFileUpdated_t__Boxed.h>
+#include <Modloader/app/structs/RemoteStoragePublishedFileUpdated_t__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace RemoteStoragePublishedFileUpdated_t {
-        namespace {
-            inline app::RemoteStoragePublishedFileUpdated_t__Class* type_info_ref = nullptr;
+        inline app::RemoteStoragePublishedFileUpdated_t__Class** type_info() {
+            static app::RemoteStoragePublishedFileUpdated_t__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::RemoteStoragePublishedFileUpdated_t__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::RemoteStoragePublishedFileUpdated_t__Class** type_info = &type_info_ref;
         inline app::RemoteStoragePublishedFileUpdated_t__Class* get_class() {
-            return il2cpp::get_class<app::RemoteStoragePublishedFileUpdated_t__Class>(type_info, "Steamworks", "RemoteStoragePublishedFileUpdated_t");
+            return il2cpp::get_class<app::RemoteStoragePublishedFileUpdated_t__Class>(type_info(), "Steamworks", "RemoteStoragePublishedFileUpdated_t");
         }
         inline app::RemoteStoragePublishedFileUpdated_t* create() {
             return il2cpp::create_object<app::RemoteStoragePublishedFileUpdated_t>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TargetTransformPostprocess.h>
+
+#include <Modloader/app/structs/TargetTransformPostprocess.h>
 
 namespace app::classes::TargetTransformPostprocess {
     IL2CPP_REGISTER_METHOD(0x003FF8B0, int32_t, get_Order, (app::TargetTransformPostprocess * this_ptr))

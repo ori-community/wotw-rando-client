@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkeetoLocomotion.h>
-#include <Modloader/app/structs/SkeetoDeathReaction.h>
+
+#include <Modloader/app/structs/SkeetoLocomotion.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SkeetoDeathReaction.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SkeetoDeathReaction {
     IL2CPP_REGISTER_METHOD(0x0074DC90, app::SkeetoLocomotion*, get_Locomotion, (app::SkeetoDeathReaction * this_ptr))
@@ -19,9 +20,7 @@ namespace app::classes::SkeetoDeathReaction {
     IL2CPP_REGISTER_METHOD(0x0074E3E0, void, OnLanded, (app::SkeetoDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0074E4D0, void, OnEnterTask, (app::SkeetoDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x0074E850, void, OnFinishedDeathStart, (app::SkeetoDeathReaction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04743DA0, SkeetoDeathReaction_OnFinishedDeathStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0074E3E0, void, EndReaction, (app::SkeetoDeathReaction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04751138, SkeetoDeathReaction_EndReaction__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0074E890, app::BehaviourStatus__Enum, OnExecuteTask, (app::SkeetoDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x0074EA50, void, OnExitTask, (app::SkeetoDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x0074EAA0, void, EnterDrown, (app::SkeetoDeathReaction * this_ptr))
@@ -32,5 +31,4 @@ namespace app::classes::SkeetoDeathReaction {
     IL2CPP_REGISTER_METHOD(0x0074F410, void, ResetTimeline_2, (app::SkeetoDeathReaction * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x0074F630, void, ctor, (app::SkeetoDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B38C0, void, _EnterDrown_b__30_0, (app::SkeetoDeathReaction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04751AA8, SkeetoDeathReaction__EnterDrown_b__30_0__MethodInfo)
 } // namespace app::classes::SkeetoDeathReaction

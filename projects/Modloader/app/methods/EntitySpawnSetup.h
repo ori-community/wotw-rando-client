@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityPlaceholder.h>
+
+#include <Modloader/app/structs/EntityPlaceholder.h>
 #include <Modloader/app/structs/EntitySpawnSetup.h>
 
 namespace app::classes::EntitySpawnSetup {

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SurfaceMaterialTimelinePlayer.h>
-#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+
+#include <Modloader/app/structs/SurfaceMaterialTimelinePlayer.h>
 #include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 
 namespace app::classes::SurfaceMaterialTimelinePlayer {
     IL2CPP_REGISTER_METHOD(0x00672AD0, void, Update_1, (app::SurfaceMaterialTimelinePlayer * this_ptr, bool is_moving))

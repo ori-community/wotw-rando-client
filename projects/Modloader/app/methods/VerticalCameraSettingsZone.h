@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/VerticalCameraSettingsZone.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/CameraSettings.h>
-#include <Modloader/app/structs/PostProcessInfluencerOrder__Enum.h>
 #include <Modloader/app/structs/CameraSettingsAsset.h>
+#include <Modloader/app/structs/PostProcessInfluencerOrder__Enum.h>
 #include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/VerticalCameraSettingsZone.h>
 
 namespace app::classes::VerticalCameraSettingsZone {
     IL2CPP_REGISTER_METHOD(0x013D4130, app::Vector3, get_PostPosition, (app::VerticalCameraSettingsZone * this_ptr))

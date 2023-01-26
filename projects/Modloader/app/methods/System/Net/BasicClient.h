@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Authorization.h>
+
+#include <Modloader/app/structs/Authorization.h>
 #include <Modloader/app/structs/BasicClient.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/ICredentials.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/WebRequest.h>
-#include <Modloader/app/structs/ICredentials.h>
-#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Net::BasicClient {
     IL2CPP_REGISTER_METHOD(0x020148A0, app::Authorization*, Authenticate, (app::BasicClient * this_ptr, app::String* challenge, app::WebRequest* web_request, app::ICredentials* credentials))

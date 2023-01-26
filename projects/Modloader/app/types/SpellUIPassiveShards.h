@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SpellUIPassiveShards.h>
+#include <Modloader/app/structs/SpellUIPassiveShards__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SpellUIPassiveShards__Class.h>
-#include <Modloader/app/structs/SpellUIPassiveShards.h>
 
 namespace app::classes::types {
     namespace SpellUIPassiveShards {
-        namespace {
-            inline app::SpellUIPassiveShards__Class* type_info_ref = nullptr;
+        inline app::SpellUIPassiveShards__Class** type_info() {
+            static app::SpellUIPassiveShards__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SpellUIPassiveShards__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SpellUIPassiveShards__Class** type_info = &type_info_ref;
         inline app::SpellUIPassiveShards__Class* get_class() {
-            return il2cpp::get_class<app::SpellUIPassiveShards__Class>(type_info, "", "SpellUIPassiveShards");
+            return il2cpp::get_class<app::SpellUIPassiveShards__Class>(type_info(), "", "SpellUIPassiveShards");
         }
         inline app::SpellUIPassiveShards* create() {
             return il2cpp::create_object<app::SpellUIPassiveShards>(get_class());

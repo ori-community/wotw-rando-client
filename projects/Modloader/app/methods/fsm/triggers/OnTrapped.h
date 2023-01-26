@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OnTrapped.h>
+
+#include <Modloader/app/structs/OnTrapped.h>
 #include <Modloader/app/structs/DamageType__Enum.h>
 
 namespace app::classes::fsm::triggers::OnTrapped {

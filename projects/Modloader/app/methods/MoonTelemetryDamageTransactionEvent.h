@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTelemetryDamageTransactionEvent_DamageEntity__Enum.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/MoonTelemetryDamageTransactionEvent_DamageEntity__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/JsonBuilder_Object.h>
 #include <Modloader/app/structs/MoonTelemetryDamageTransactionEvent.h>
 #include <Modloader/app/structs/Object_1.h>
-#include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/JsonBuilder_Object.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::MoonTelemetryDamageTransactionEvent {
     IL2CPP_REGISTER_METHOD(0x0146DB30, app::MoonTelemetryDamageTransactionEvent_DamageEntity__Enum, TypeToDamageEntity, (app::Type * object_to_cast))

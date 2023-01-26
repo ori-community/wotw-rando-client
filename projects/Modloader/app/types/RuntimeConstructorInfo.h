@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RuntimeConstructorInfo__Class.h>
 #include <Modloader/app/structs/RuntimeConstructorInfo.h>
 #include <Modloader/app/structs/RuntimeConstructorInfo__Array.h>
+#include <Modloader/app/structs/RuntimeConstructorInfo__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace RuntimeConstructorInfo {
-        inline app::RuntimeConstructorInfo__Class** type_info = (app::RuntimeConstructorInfo__Class**)(modloader::win::memory::resolve_rva(0x0473A238));
+        inline app::RuntimeConstructorInfo__Class** type_info() {
+            static app::RuntimeConstructorInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::RuntimeConstructorInfo__Class**)(modloader::win::memory::resolve_rva(0x0473A238));
+            }
+            return cache;
+        }
         inline app::RuntimeConstructorInfo__Class* get_class() {
-            return il2cpp::get_class<app::RuntimeConstructorInfo__Class>(type_info, "System.Reflection", "RuntimeConstructorInfo");
+            return il2cpp::get_class<app::RuntimeConstructorInfo__Class>(type_info(), "System.Reflection", "RuntimeConstructorInfo");
         }
         inline app::RuntimeConstructorInfo* create() {
             return il2cpp::create_object<app::RuntimeConstructorInfo>(get_class());

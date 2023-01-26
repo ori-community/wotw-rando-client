@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberSwarm.h>
+
+#include <Modloader/app/structs/UberSwarm.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/UberSwarmer.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::UberSwarmer {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::UberSwarm*, get_Swarm, (app::UberSwarmer * this_ptr))
@@ -22,9 +23,7 @@ namespace app::classes::UberSwarmer {
     IL2CPP_REGISTER_METHOD(0x003FF2B0, app::SuspendableMask__Enum, get_Mask, (app::UberSwarmer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0128F5C0, void, set_Mask, (app::UberSwarmer * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x0128F670, bool, ISwarmer_get_IsActive, (app::UberSwarmer * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04799030, UberSwarmer_ISwarmer_get_IsActive__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0128F6C0, void, ISwarmer_set_IsActive, (app::UberSwarmer * this_ptr, bool value))
-    IL2CPP_REGISTER_METHODINFO(0x047270D8, UberSwarmer_ISwarmer_set_IsActive__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0128F710, void, DrawGizmos, (app::UberSwarmer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01290230, void, ctor, (app::UberSwarmer * this_ptr))
 } // namespace app::classes::UberSwarmer

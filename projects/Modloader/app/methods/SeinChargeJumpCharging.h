@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinChargeJumpCharging.h>
-#include <Modloader/app/structs/PlayerAbilities.h>
+
+#include <Modloader/app/structs/SeinChargeJumpCharging.h>
 #include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/PlayerAbilities.h>
 #include <Modloader/app/structs/SeinChargeJump.h>
 #include <Modloader/app/structs/SeinChargeJumpCharging_State__Enum.h>
 
@@ -25,5 +26,4 @@ namespace app::classes::SeinChargeJumpCharging {
     IL2CPP_REGISTER_METHOD(0x00A52380, void, OnSetReferenceToSein, (app::SeinChargeJumpCharging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A52450, void, ctor, (app::SeinChargeJumpCharging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A52470, void, _ChangeState_b__18_0, (app::SeinChargeJumpCharging * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04785570, SeinChargeJumpCharging__ChangeState_b__18_0__MethodInfo)
 } // namespace app::classes::SeinChargeJumpCharging

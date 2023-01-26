@@ -1,28 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DamageReceiver.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/List_1_Moon_DamageReceiver_DamageEntry_.h>
-#include <Modloader/app/structs/DealDamageOverTime.h>
-#include <Modloader/app/structs/LimitedLifetime.h>
-#include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/EntityTargetting.h>
+
+#include <Modloader/app/structs/DamageReceiver.h>
 #include <Modloader/app/structs/Action_1_Damage_.h>
-#include <Modloader/app/structs/DamageType__Enum.h>
-#include <Modloader/app/structs/DamageReceiver_OverrideInfo.h>
-#include <Modloader/app/structs/IDamageResolver.h>
+#include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/DamageReceiver_DamageEntry.h>
-#include <Modloader/app/structs/HashSet_1_System_Int32_.h>
+#include <Modloader/app/structs/DamageReceiver_OverrideInfo.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/DealDamageOverTime.h>
 #include <Modloader/app/structs/EffectSpawn.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/IDamageReciever.h>
 #include <Modloader/app/structs/EffectTransformType__Enum.h>
+#include <Modloader/app/structs/EntityTargetting.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/HashSet_1_System_Int32_.h>
+#include <Modloader/app/structs/IDamageReciever.h>
+#include <Modloader/app/structs/IDamageResolver.h>
+#include <Modloader/app/structs/LimitedLifetime.h>
+#include <Modloader/app/structs/List_1_Moon_DamageReceiver_DamageEntry_.h>
 #include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
 
 namespace app::classes::Moon::DamageReceiver {

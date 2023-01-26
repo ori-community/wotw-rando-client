@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/TextBoxLine.h>
+#include <Modloader/app/structs/TextBoxLine__Array.h>
+#include <Modloader/app/structs/TextBoxLine__Boxed.h>
+#include <Modloader/app/structs/TextBoxLine__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TextBoxLine__Class.h>
-#include <Modloader/app/structs/TextBoxLine.h>
-#include <Modloader/app/structs/TextBoxLine__Boxed.h>
-#include <Modloader/app/structs/TextBoxLine__Array.h>
 
 namespace app::classes::types {
     namespace TextBoxLine {
-        inline app::TextBoxLine__Class** type_info = (app::TextBoxLine__Class**)(modloader::win::memory::resolve_rva(0x0472EAD0));
+        inline app::TextBoxLine__Class** type_info() {
+            static app::TextBoxLine__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::TextBoxLine__Class**)(modloader::win::memory::resolve_rva(0x0472EAD0));
+            }
+            return cache;
+        }
         inline app::TextBoxLine__Class* get_class() {
-            return il2cpp::get_class<app::TextBoxLine__Class>(type_info, "CatlikeCoding.TextBox", "TextBoxLine");
+            return il2cpp::get_class<app::TextBoxLine__Class>(type_info(), "CatlikeCoding.TextBox", "TextBoxLine");
         }
         inline app::TextBoxLine* create() {
             return il2cpp::create_object<app::TextBoxLine>(get_class());

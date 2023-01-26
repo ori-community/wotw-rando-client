@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AudioMixerGroup__Array.h>
+
+#include <Modloader/app/structs/AudioMixerGroup__Array.h>
 #include <Modloader/app/structs/AudioMixer.h>
 #include <Modloader/app/structs/String.h>
 

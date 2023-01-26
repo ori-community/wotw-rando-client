@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WaitForSecondsRealtime.h>
+
+#include <Modloader/app/structs/WaitForSecondsRealtime.h>
 
 namespace app::classes::UnityEngine::WaitForSecondsRealtime {
     IL2CPP_REGISTER_METHOD(0x02C798A0, void, ctor, (app::WaitForSecondsRealtime * this_ptr, float time))

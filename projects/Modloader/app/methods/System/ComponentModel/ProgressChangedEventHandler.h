@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ProgressChangedEventHandler.h>
+
+#include <Modloader/app/structs/ProgressChangedEventHandler.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ProgressChangedEventArgs.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::ComponentModel::ProgressChangedEventHandler {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::ProgressChangedEventHandler * this_ptr, app::Object* object, void* method_1))

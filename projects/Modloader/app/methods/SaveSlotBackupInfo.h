@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SaveSlotBackupInfo.h>
+
+#include <Modloader/app/structs/SaveSlotBackupInfo.h>
 #include <Modloader/app/structs/SaveSlotInfo.h>
 
 namespace app::classes::SaveSlotBackupInfo {

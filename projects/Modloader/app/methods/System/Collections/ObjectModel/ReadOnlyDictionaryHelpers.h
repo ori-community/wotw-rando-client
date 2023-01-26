@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ICollection_1_System_Object_.h>
+
+#include <Modloader/app/structs/ICollection_1_System_Object_.h>
 #include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::ObjectModel::ReadOnlyDictionaryHelpers {

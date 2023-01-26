@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CrossFadeControl.h>
-#include <Modloader/app/structs/RenderTexture.h>
+
+#include <Modloader/app/structs/CrossFadeControl.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CrossFadeControl {
     IL2CPP_REGISTER_METHOD(0x00DB8960, void, Awake, (app::CrossFadeControl * this_ptr))

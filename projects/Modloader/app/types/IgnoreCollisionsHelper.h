@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/IgnoreCollisionsHelper__Class.h>
 #include <Modloader/app/structs/IgnoreCollisionsHelper.h>
 #include <Modloader/app/structs/IgnoreCollisionsHelper__Boxed.h>
+#include <Modloader/app/structs/IgnoreCollisionsHelper__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace IgnoreCollisionsHelper {
-        namespace {
-            inline app::IgnoreCollisionsHelper__Class* type_info_ref = nullptr;
+        inline app::IgnoreCollisionsHelper__Class** type_info() {
+            static app::IgnoreCollisionsHelper__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::IgnoreCollisionsHelper__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::IgnoreCollisionsHelper__Class** type_info = &type_info_ref;
         inline app::IgnoreCollisionsHelper__Class* get_class() {
-            return il2cpp::get_class<app::IgnoreCollisionsHelper__Class>(type_info, "", "IgnoreCollisionsHelper");
+            return il2cpp::get_class<app::IgnoreCollisionsHelper__Class>(type_info(), "", "IgnoreCollisionsHelper");
         }
         inline app::IgnoreCollisionsHelper* create() {
             return il2cpp::create_object<app::IgnoreCollisionsHelper>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BsonString.h>
+
+#include <Modloader/app/structs/BsonString.h>
 #include <Modloader/app/structs/BsonProperty.h>
 #include <Modloader/app/structs/BsonToken.h>
 

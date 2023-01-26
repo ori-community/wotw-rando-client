@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinStandardSpiritFlameAbility.h>
-#include <Modloader/app/structs/SpiritFlame.h>
+
+#include <Modloader/app/structs/SeinStandardSpiritFlameAbility.h>
 #include <Modloader/app/structs/List_1_ISpiritFlameAttackable_.h>
+#include <Modloader/app/structs/SpiritFlame.h>
 
 namespace app::classes::SeinStandardSpiritFlameAbility {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinStandardSpiritFlameAbility * this_ptr))

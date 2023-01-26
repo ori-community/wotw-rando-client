@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PreloadScene.h>
+
+#include <Modloader/app/structs/PreloadScene.h>
 
 namespace app::classes::Moon::Timeline::PreloadScene {
     IL2CPP_REGISTER_METHOD(0x0077CA30, void, OnEnable, (app::PreloadScene * this_ptr))

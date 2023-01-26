@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/ScenePaddingBoundary.h>
+#include <Modloader/app/structs/ScenePaddingBoundary__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ScenePaddingBoundary__Class.h>
-#include <Modloader/app/structs/ScenePaddingBoundary.h>
 
 namespace app::classes::types {
     namespace ScenePaddingBoundary {
-        namespace {
-            inline app::ScenePaddingBoundary__Class* type_info_ref = nullptr;
+        inline app::ScenePaddingBoundary__Class** type_info() {
+            static app::ScenePaddingBoundary__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ScenePaddingBoundary__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ScenePaddingBoundary__Class** type_info = &type_info_ref;
         inline app::ScenePaddingBoundary__Class* get_class() {
-            return il2cpp::get_class<app::ScenePaddingBoundary__Class>(type_info, "", "ScenePaddingBoundary");
+            return il2cpp::get_class<app::ScenePaddingBoundary__Class>(type_info(), "", "ScenePaddingBoundary");
         }
         inline app::ScenePaddingBoundary* create() {
             return il2cpp::create_object<app::ScenePaddingBoundary>(get_class());

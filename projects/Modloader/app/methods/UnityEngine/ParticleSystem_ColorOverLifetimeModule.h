@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ParticleSystem_ColorOverLifetimeModule__Boxed.h>
+
+#include <Modloader/app/structs/ParticleSystem_ColorOverLifetimeModule__Boxed.h>
 #include <Modloader/app/structs/ParticleSystem.h>
 #include <Modloader/app/structs/ParticleSystem_MinMaxGradient.h>
 

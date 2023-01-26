@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EventSource_OverideEventProvider.h>
-#include <Modloader/app/structs/EventSource.h>
+
+#include <Modloader/app/structs/EventSource_OverideEventProvider.h>
 #include <Modloader/app/structs/ControllerCommand__Enum.h>
+#include <Modloader/app/structs/EventSource.h>
 #include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EventSource_OverideEventProvider {

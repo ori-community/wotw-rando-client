@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MenuScreenManager.h>
-#include <Modloader/app/structs/MenuScreen.h>
-#include <Modloader/app/structs/ISKipUiBackgroundBlur.h>
-#include <Modloader/app/structs/MenuScreenManager_Screens__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/MenuScreenManager.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/MenuScreenManager_Screens__Enum__Array.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/HashSet_1_Moon_ISuspendable_.h>
-#include <Modloader/app/structs/State.h>
-#include <Modloader/app/structs/Objective.h>
+#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/IMenuTab.h>
+#include <Modloader/app/structs/ISKipUiBackgroundBlur.h>
+#include <Modloader/app/structs/MenuScreen.h>
+#include <Modloader/app/structs/MenuScreenManager_Screens__Enum.h>
+#include <Modloader/app/structs/MenuScreenManager_Screens__Enum__Array.h>
 #include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/Objective.h>
+#include <Modloader/app/structs/State.h>
 
 namespace app::classes::MenuScreenManager {
     IL2CPP_REGISTER_METHOD(0x009DA500, void, ResetStatics, ())
@@ -48,7 +49,6 @@ namespace app::classes::MenuScreenManager {
     IL2CPP_REGISTER_METHOD(0x009DCAA0, app::MenuScreen*, GetScreenInstance, (app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen))
     IL2CPP_REGISTER_METHOD(0x009DCBB0, void, OnMenuScreenAwake, (app::MenuScreenManager * this_ptr, app::GameObject* go))
     IL2CPP_REGISTER_METHOD(0x009DCD50, void, OnGameReset, (app::MenuScreenManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04710A18, MenuScreenManager_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009DCD60, bool, CanOpenMenus, (app::MenuScreenManager * this_ptr, bool allow_during_cutscene))
     IL2CPP_REGISTER_METHOD(0x009DD030, bool, IsVisible, (app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen))
     IL2CPP_REGISTER_METHOD(0x009DD070, bool, IsScreenStandalone, (app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen))
@@ -68,9 +68,7 @@ namespace app::classes::MenuScreenManager {
     IL2CPP_REGISTER_METHOD(0x009DF680, app::IEnumerator*, PostFadeMenuOpen, (app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen))
     IL2CPP_REGISTER_METHOD(0x009DF7E0, void, ShowRaceMenuScreen, (app::MenuScreenManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009DFD10, void, OnBeforeShowScreen, (app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen))
-    IL2CPP_REGISTER_METHODINFO(0x047292C8, MenuScreenManager_OnBeforeShowScreen__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009E0530, void, OnAfterShowScreen, (app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen))
-    IL2CPP_REGISTER_METHODINFO(0x047679E0, MenuScreenManager_OnAfterShowScreen__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009E07E0, void, ShowMenuScreenInternal, (app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen, bool play_open_sound, bool pause, bool skip_suspension))
     IL2CPP_REGISTER_METHOD(0x009E09D0, void, HideMenuScreen, (app::MenuScreenManager * this_ptr, bool immediate, bool fade))
     IL2CPP_REGISTER_METHOD(0x009E1300, void, PlayOpenSound, (app::MenuScreenManager * this_ptr, app::MenuScreenManager_Screens__Enum screen))
@@ -96,5 +94,4 @@ namespace app::classes::MenuScreenManager {
     IL2CPP_REGISTER_METHOD(0x009E3710, void, ctor, (app::MenuScreenManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009E54F0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x009E5660, void, _OnStartKeyPressed_b__91_0, (app::MenuScreenManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04795B80, MenuScreenManager__OnStartKeyPressed_b__91_0__MethodInfo)
 } // namespace app::classes::MenuScreenManager

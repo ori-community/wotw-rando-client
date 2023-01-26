@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MapMakerAlternateInteractionBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/MapMakerAlternateInteractionBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::MapMakerAlternateInteractionBehaviour {
     IL2CPP_REGISTER_METHOD(0x0110E3D0, void, OnEnter, (app::MapMakerAlternateInteractionBehaviour * this_ptr, app::IContext* context))

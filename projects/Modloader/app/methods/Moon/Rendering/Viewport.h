@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Viewport__Boxed.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/Viewport__Boxed.h>
 #include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/Viewport.h>
 
 namespace app::classes::Moon::Rendering::Viewport {

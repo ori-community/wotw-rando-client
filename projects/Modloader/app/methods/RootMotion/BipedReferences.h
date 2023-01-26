@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BipedReferences.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/BipedReferences_AutoDetectParams.h>
+
+#include <Modloader/app/structs/BipedReferences.h>
 #include <Modloader/app/structs/Animator.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/BipedNaming_BoneType__Enum.h>
 #include <Modloader/app/structs/BipedNaming_BoneSide__Enum.h>
+#include <Modloader/app/structs/BipedNaming_BoneType__Enum.h>
+#include <Modloader/app/structs/BipedReferences_AutoDetectParams.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Transform__Array.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::RootMotion::BipedReferences {
     IL2CPP_REGISTER_METHOD(0x02201AC0, bool, get_isFilled, (app::BipedReferences * this_ptr))

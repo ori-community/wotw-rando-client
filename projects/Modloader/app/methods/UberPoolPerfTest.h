@@ -1,36 +1,36 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberPoolPerfTest.h>
-#include <Modloader/app/structs/UberPoolPerfTest_TestMode__Enum.h>
-#include <Modloader/app/structs/UberPoolPerfTest_Settings.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Task.h>
-#include <Modloader/app/structs/UberPoolPerfTest_PrefabInfo.h>
-#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+
+#include <Modloader/app/structs/UberPoolPerfTest.h>
 #include <Modloader/app/structs/CsvWriter.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Stopwatch.h>
-#include <Modloader/app/structs/List_1_System_Int64__1.h>
-#include <Modloader/app/structs/Vector3__Array.h>
-#include <Modloader/app/structs/IProfilingDataProvider.h>
-#include <Modloader/app/structs/UberPoolPerfTest_LogCatcher.h>
-#include <Modloader/app/structs/List_1_UberPoolPerfTest_PrefabInfo_.h>
-#include <Modloader/app/structs/Task_1_System_Collections_Generic_List_1_.h>
-#include <Modloader/app/structs/Quaternion.h>
-#include <Modloader/app/structs/UberPoolPerfTest_Timings.h>
-#include <Modloader/app/structs/UberPoolPerfTest_ProfileTimings.h>
 #include <Modloader/app/structs/Double__Array.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Double__Array__Array.h>
-#include <Modloader/app/structs/List_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/IProfilingDataProvider.h>
+#include <Modloader/app/structs/List_1_System_Int64__1.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/List_1_UberPoolPerfTest_PrefabInfo_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Stopwatch.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/Task_1_System_Collections_Generic_List_1_.h>
+#include <Modloader/app/structs/UberPoolPerfTest_LogCatcher.h>
+#include <Modloader/app/structs/UberPoolPerfTest_PrefabInfo.h>
+#include <Modloader/app/structs/UberPoolPerfTest_ProfileTimings.h>
+#include <Modloader/app/structs/UberPoolPerfTest_Settings.h>
+#include <Modloader/app/structs/UberPoolPerfTest_TestMode__Enum.h>
+#include <Modloader/app/structs/UberPoolPerfTest_Timings.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 
 namespace app::classes::UberPoolPerfTest {
     IL2CPP_REGISTER_METHOD(0x00FDFC80, app::UberPoolPerfTest*, get_Instance, ())
     IL2CPP_REGISTER_METHOD(0x00FDFD20, bool, get_IsRunning, ())
     IL2CPP_REGISTER_METHOD(0x00FDFDF0, void, StartTest_1, (app::UberPoolPerfTest_TestMode__Enum mode, bool is_automated_test))
     IL2CPP_REGISTER_METHOD(0x00FE0160, void, StartTest_2, (app::UberPoolPerfTest_TestMode__Enum mode, bool is_automated_test, app::UberPoolPerfTest_Settings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04720C10, UberPoolPerfTest_StartTest_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FE03F0, void, StopTest, ())
     IL2CPP_REGISTER_METHOD(0x00FE0540, void, OnEnable, (app::UberPoolPerfTest * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FE07B0, void, OnDisable, (app::UberPoolPerfTest * this_ptr))
@@ -66,7 +66,6 @@ namespace app::classes::UberPoolPerfTest {
     IL2CPP_REGISTER_METHOD(0x00FE3C90, void, WriteCsvPrefabInfoDiagnostics, (app::CsvWriter * writer, app::UberPoolPerfTest_PrefabInfo* info))
     IL2CPP_REGISTER_METHOD(0x00FE40C0, app::List_1_System_ValueTuple_2__2*, DeduplicateStrings, (app::IEnumerable_1_System_String_ * strings))
     IL2CPP_REGISTER_METHOD(0x00FE4840, app::String*, NormalizeDiagnostic, (app::String * value))
-    IL2CPP_REGISTER_METHODINFO(0x047175F8, UberPoolPerfTest_NormalizeDiagnostic__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FE49D0, void, WriteCsvTimings, (app::CsvWriter * writer, app::UberPoolPerfTest_Timings timings))
     IL2CPP_REGISTER_METHOD(0x00FE4B00, void, WriteCsvProfileTimings, (app::CsvWriter * writer, app::UberPoolPerfTest_ProfileTimings timings))
     IL2CPP_REGISTER_METHOD(0x00FE4D60, void, WriteCsvTicks, (app::CsvWriter * writer, int64_t value))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Position__Boxed.h>
+
+#include <Modloader/app/structs/Position__Boxed.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Xml::Schema::Position {

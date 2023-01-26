@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LizardGroundChaseBehaviour.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/LizardGroundChaseBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::LizardGroundChaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x0074B530, float, get_ChasingTime, (app::LizardGroundChaseBehaviour * this_ptr))

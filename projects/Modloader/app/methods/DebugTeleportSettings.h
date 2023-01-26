@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DebugTeleportSettings.h>
+
+#include <Modloader/app/structs/DebugTeleportSettings.h>
 
 namespace app::classes::DebugTeleportSettings {
     IL2CPP_REGISTER_METHOD(0x002FCE30, bool, ShowPositionOverride, (app::DebugTeleportSettings * this_ptr))

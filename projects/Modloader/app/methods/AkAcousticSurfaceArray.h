@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkAcousticSurfaceArray.h>
+
+#include <Modloader/app/structs/AkAcousticSurfaceArray.h>
 #include <Modloader/app/structs/AkAcousticSurface.h>
 
 namespace app::classes::AkAcousticSurfaceArray {

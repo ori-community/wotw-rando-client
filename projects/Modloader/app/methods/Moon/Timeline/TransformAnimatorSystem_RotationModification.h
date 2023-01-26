@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TransformAnimatorSystem_RotationModification__Boxed.h>
-#include <Modloader/app/structs/TransformAnimatorSystem_ObjectState.h>
-#include <Modloader/app/structs/Rigidbody.h>
+
+#include <Modloader/app/structs/TransformAnimatorSystem_RotationModification__Boxed.h>
 #include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/TransformAnimatorSystem_ObjectState.h>
 
 namespace app::classes::Moon::Timeline::TransformAnimatorSystem_RotationModification {
     IL2CPP_REGISTER_METHOD(0x00247020, void, Apply, (app::TransformAnimatorSystem_RotationModification__Boxed * this_ptr, app::TransformAnimatorSystem_ObjectState* object_state, bool immediately_apply))

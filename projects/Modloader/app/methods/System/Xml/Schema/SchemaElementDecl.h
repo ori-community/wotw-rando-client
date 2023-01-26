@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SchemaElementDecl.h>
-#include <Modloader/app/structs/XmlSchemaDatatype.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IDtdAttributeInfo.h>
-#include <Modloader/app/structs/IEnumerable_1_System_Xml_IDtdDefaultAttributeInfo_.h>
-#include <Modloader/app/structs/XmlSchemaDerivationMethod__Enum.h>
-#include <Modloader/app/structs/ContentValidator.h>
-#include <Modloader/app/structs/XmlSchemaAnyAttribute.h>
+
+#include <Modloader/app/structs/SchemaElementDecl.h>
 #include <Modloader/app/structs/CompiledIdentityConstraint__Array.h>
-#include <Modloader/app/structs/XmlSchemaElement.h>
-#include <Modloader/app/structs/SchemaAttDef.h>
-#include <Modloader/app/structs/IList_1_System_Xml_IDtdDefaultAttributeInfo_.h>
+#include <Modloader/app/structs/ContentValidator.h>
 #include <Modloader/app/structs/Dictionary_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaAttDef_.h>
 #include <Modloader/app/structs/Dictionary_2_System_Xml_XmlQualifiedName_System_Xml_XmlQualifiedName_.h>
 #include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/IDtdAttributeInfo.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Xml_IDtdDefaultAttributeInfo_.h>
+#include <Modloader/app/structs/IList_1_System_Xml_IDtdDefaultAttributeInfo_.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaAnyAttribute.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
+#include <Modloader/app/structs/XmlSchemaDerivationMethod__Enum.h>
+#include <Modloader/app/structs/XmlSchemaElement.h>
 
 namespace app::classes::System::Xml::Schema::SchemaElementDecl {
     IL2CPP_REGISTER_METHOD(0x01AAE900, void, ctor_1, (app::SchemaElementDecl * this_ptr))
@@ -54,6 +55,5 @@ namespace app::classes::System::Xml::Schema::SchemaElementDecl {
     IL2CPP_REGISTER_METHOD(0x002FBB80, app::Dictionary_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaAttDef_*, get_AttDefs, (app::SchemaElementDecl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBBE0, app::Dictionary_2_System_Xml_XmlQualifiedName_System_Xml_XmlQualifiedName_*, get_ProhibitedAttributes, (app::SchemaElementDecl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01AAF860, void, CheckAttributes, (app::SchemaElementDecl * this_ptr, app::Hashtable* presence, bool standalone))
-    IL2CPP_REGISTER_METHODINFO(0x047859D8, SchemaElementDecl_CheckAttributes__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01AAFAF0, void, cctor, ())
 } // namespace app::classes::System::Xml::Schema::SchemaElementDecl

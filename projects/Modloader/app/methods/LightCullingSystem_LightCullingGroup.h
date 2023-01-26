@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LightCullingSystem_LightCullingGroup.h>
+
+#include <Modloader/app/structs/LightCullingSystem_LightCullingGroup.h>
 #include <Modloader/app/structs/LightCullingSystem_LightCullingConfigPerType.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/LightCullingSystem_LightCullingGroupId__Enum.h>
 #include <Modloader/app/structs/LightPriority_Layer__Enum__Array.h>
 #include <Modloader/app/structs/List_1_PointLightMaskModifier_.h>
 #include <Modloader/app/structs/PointLightMaskModifier.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::LightCullingSystem_LightCullingGroup {
     IL2CPP_REGISTER_METHOD(0x00E15170, void, set_Config, (app::LightCullingSystem_LightCullingGroup * this_ptr, app::LightCullingSystem_LightCullingConfigPerType value))

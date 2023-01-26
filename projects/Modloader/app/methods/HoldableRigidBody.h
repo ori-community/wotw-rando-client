@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HoldableRigidBody.h>
+
+#include <Modloader/app/structs/HoldableRigidBody.h>
+#include <Modloader/app/structs/Collision.h>
 #include <Modloader/app/structs/MeleeWeapon.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::HoldableRigidBody {
     IL2CPP_REGISTER_METHOD(0x00B58CA0, bool, get_CanBeHeld, (app::HoldableRigidBody * this_ptr))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextWriter.h>
+
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/StreamWriter.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/fsData.h>
-#include <Modloader/app/structs/StreamWriter.h>
 
 namespace app::classes::FullSerializer::fsJsonPrinter {
     IL2CPP_REGISTER_METHOD(0x0150FB10, void, InsertSpacing, (app::TextWriter * stream, int32_t count))

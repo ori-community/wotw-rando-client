@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ICondition.h>
+
+#include <Modloader/app/structs/ICondition.h>
 #include <Modloader/app/structs/WeaponMasterPlaceholder.h>
 
 namespace app::classes::WeaponMasterPlaceholder {

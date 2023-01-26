@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CallSite.h>
+
+#include <Modloader/app/structs/CallSite.h>
 #include <Modloader/app/structs/CallSiteBinder.h>
 
 namespace app::classes::System::Runtime::CompilerServices::CallSite {

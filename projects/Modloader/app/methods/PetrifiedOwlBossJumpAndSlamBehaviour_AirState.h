@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossJumpAndSlamBehaviour_AirState.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossJumpAndSlamBehaviour_AirState.h>
 #include <Modloader/app/structs/PetrifiedOwlBossJumpAndSlamBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossJumpAndSlamBehaviour_AirState {

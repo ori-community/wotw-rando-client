@@ -1,23 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastCommand___Boxed.h>
+
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastCommand___Boxed.h>
 #include <Modloader/app/structs/Allocator__Enum.h>
-#include <Modloader/app/structs/NativeArrayOptions__Enum.h>
-#include <Modloader/app/structs/RaycastCommand__Array.h>
-#include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastCommand_.h>
-#include <Modloader/app/structs/RaycastCommand.h>
-#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_RaycastCommand_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_RaycastCommand_.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_RaycastCommand_.h>
+#include <Modloader/app/structs/NativeArrayOptions__Enum.h>
+#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_RaycastCommand_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastCommand_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RaycastCommand.h>
+#include <Modloader/app/structs/RaycastCommand__Array.h>
 
 namespace app::classes::Unity::Collections::NativeArray_1_UnityEngine_RaycastCommand_ {
     IL2CPP_REGISTER_METHOD(0x001DF8B0, void, Dispose, (app::NativeArray_1_UnityEngine_RaycastCommand___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472EFE8, NativeArray_1_UnityEngine_RaycastCommand__Dispose__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001DF770, void, ctor, (app::NativeArray_1_UnityEngine_RaycastCommand___Boxed * this_ptr, int32_t length, app::Allocator__Enum allocator, app::NativeArrayOptions__Enum options))
-    IL2CPP_REGISTER_METHODINFO(0x0476E4D0, NativeArray_1_UnityEngine_RaycastCommand___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02264A70, void, Copy_1, (app::RaycastCommand__Array * src, app::NativeArray_1_UnityEngine_RaycastCommand_ dst, int32_t length))
-    IL2CPP_REGISTER_METHODINFO(0x0475EB10, NativeArray_1_UnityEngine_RaycastCommand__Copy__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022647E0, void, Allocate, (int32_t length, app::Allocator__Enum allocator, app::NativeArray_1_UnityEngine_RaycastCommand_* array))
     IL2CPP_REGISTER_METHOD(0x001DF780, int32_t, get_Length, (app::NativeArray_1_UnityEngine_RaycastCommand___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001E0450, app::RaycastCommand, get_Item, (app::NativeArray_1_UnityEngine_RaycastCommand___Boxed * this_ptr, int32_t index))

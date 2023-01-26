@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
+
+#include <Modloader/app/structs/ProfilingSettings_SettingType__Enum.h>
 #include <Modloader/app/structs/DepthPrecullProfilingSetting.h>
 #include <Modloader/app/structs/RenderScope__Enum.h>
 

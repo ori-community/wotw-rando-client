@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EventBatchingStage.h>
-#include <Modloader/app/structs/TimeSpan.h>
+
+#include <Modloader/app/structs/EventBatchingStage.h>
+#include <Modloader/app/structs/IEnumerable_1_PlayFab_IPlayFabEmitEventRequest_.h>
 #include <Modloader/app/structs/ILogger_1.h>
 #include <Modloader/app/structs/IPlayFabEmitEventRequest.h>
-#include <Modloader/app/structs/IEnumerable_1_PlayFab_IPlayFabEmitEventRequest_.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimeSpan.h>
 
 namespace app::classes::PlayFab::Pipeline::EventBatchingStage {
     IL2CPP_REGISTER_METHOD(0x002FB970, int32_t, get_BatchSize, (app::EventBatchingStage * this_ptr))

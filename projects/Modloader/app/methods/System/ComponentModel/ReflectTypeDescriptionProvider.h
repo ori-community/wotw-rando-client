@@ -1,38 +1,38 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Guid.h>
-#include <Modloader/app/structs/ReflectTypeDescriptionProvider.h>
-#include <Modloader/app/structs/Hashtable.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/IServiceProvider.h>
-#include <Modloader/app/structs/Type__Array.h>
-#include <Modloader/app/structs/Object__Array.h>
+
+#include <Modloader/app/structs/Guid.h>
 #include <Modloader/app/structs/AttributeCollection.h>
-#include <Modloader/app/structs/IDictionary.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/TypeConverter.h>
-#include <Modloader/app/structs/EventDescriptor_1.h>
-#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/Attribute__Array.h>
 #include <Modloader/app/structs/EventDescriptorCollection.h>
-#include <Modloader/app/structs/PropertyDescriptorCollection.h>
-#include <Modloader/app/structs/IExtenderProvider__Array.h>
+#include <Modloader/app/structs/EventDescriptor_1.h>
+#include <Modloader/app/structs/EventDescriptor_1__Array.h>
+#include <Modloader/app/structs/Hashtable.h>
 #include <Modloader/app/structs/ICollection.h>
 #include <Modloader/app/structs/ICustomTypeDescriptor.h>
-#include <Modloader/app/structs/Module.h>
-#include <Modloader/app/structs/ReflectTypeDescriptionProvider_ReflectedTypeData.h>
-#include <Modloader/app/structs/Attribute__Array.h>
-#include <Modloader/app/structs/MemberInfo_1.h>
-#include <Modloader/app/structs/EventDescriptor_1__Array.h>
-#include <Modloader/app/structs/PropertyDescriptor__Array.h>
+#include <Modloader/app/structs/IDictionary.h>
 #include <Modloader/app/structs/IExtenderProvider.h>
+#include <Modloader/app/structs/IExtenderProvider__Array.h>
+#include <Modloader/app/structs/IServiceProvider.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/Module.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/PropertyDescriptor__Array.h>
+#include <Modloader/app/structs/ReflectTypeDescriptionProvider.h>
+#include <Modloader/app/structs/ReflectTypeDescriptionProvider_ReflectedTypeData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeConverter.h>
+#include <Modloader/app/structs/Type__Array.h>
 
 namespace app::classes::System::ComponentModel::ReflectTypeDescriptionProvider {
     IL2CPP_REGISTER_METHOD(0x029A1850, app::Guid, get_ExtenderProviderKey, ())
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ReflectTypeDescriptionProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x029A1900, app::Hashtable*, get_IntrinsicTypeConverters, ())
     IL2CPP_REGISTER_METHOD(0x029A2100, void, AddEditorTable, (app::Type * editor_base_type, app::Hashtable* table))
-    IL2CPP_REGISTER_METHODINFO(0x04723CB0, ReflectTypeDescriptionProvider_AddEditorTable__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x029A24E0, app::Object*, CreateInstance_1, (app::ReflectTypeDescriptionProvider * this_ptr, app::IServiceProvider* provider, app::Type* object_type, app::Type__Array* arg_types, app::Object__Array* args))
     IL2CPP_REGISTER_METHOD(0x029A2750, app::Object*, CreateInstance_2, (app::Type * object_type, app::Type* calling_type))
     IL2CPP_REGISTER_METHOD(0x029A28F0, app::AttributeCollection*, GetAttributes, (app::ReflectTypeDescriptionProvider * this_ptr, app::Type* type))
@@ -55,7 +55,6 @@ namespace app::classes::System::ComponentModel::ReflectTypeDescriptionProvider {
     IL2CPP_REGISTER_METHOD(0x029A37C0, app::EventDescriptorCollection*, GetExtendedEvents, (app::ReflectTypeDescriptionProvider * this_ptr, app::Object* instance))
     IL2CPP_REGISTER_METHOD(0x029A3860, app::PropertyDescriptorCollection*, GetExtendedProperties, (app::ReflectTypeDescriptionProvider * this_ptr, app::Object* instance))
     IL2CPP_REGISTER_METHOD(0x029A3EC0, app::IExtenderProvider__Array*, GetExtenderProviders, (app::ReflectTypeDescriptionProvider * this_ptr, app::Object* instance))
-    IL2CPP_REGISTER_METHODINFO(0x047809F8, ReflectTypeDescriptionProvider_GetExtenderProviders__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x029A4160, app::IExtenderProvider__Array*, GetExtenders, (app::ICollection * components, app::Object* instance, app::IDictionary* cache))
     IL2CPP_REGISTER_METHOD(0x029A49F0, app::Object*, GetExtendedPropertyOwner, (app::ReflectTypeDescriptionProvider * this_ptr, app::Object* instance, app::PropertyDescriptor* pd))
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::ICustomTypeDescriptor*, GetExtendedTypeDescriptor, (app::ReflectTypeDescriptionProvider * this_ptr, app::Object* instance))

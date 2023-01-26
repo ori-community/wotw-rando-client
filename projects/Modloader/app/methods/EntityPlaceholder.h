@@ -1,33 +1,33 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityPlaceholder.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/MoonAnimator.h>
-#include <Modloader/app/structs/Vitals.h>
+
+#include <Modloader/app/structs/EntityPlaceholder.h>
+#include <Modloader/app/structs/AxisAlignedBox.h>
 #include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/EntityPlaceholderScalingData.h>
-#include <Modloader/app/structs/EntityPlaceholder_BaseEntityPlaceholderSettings.h>
 #include <Modloader/app/structs/EntityPlaceholderScalingData_EntityCategory__Enum.h>
-#include <Modloader/app/structs/SceneRoot.h>
-#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/EntityPlaceholder_BaseEntityPlaceholderSettings.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 #include <Modloader/app/structs/List_1_Moon_Entity_.h>
 #include <Modloader/app/structs/List_1_Moon_Entity___Array.h>
-#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/RaycastHit.h>
 #include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/AxisAlignedBox.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/SceneRoot.h>
 #include <Modloader/app/structs/SpiritShardType__Enum.h>
-#include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vitals.h>
 
 namespace app::classes::EntityPlaceholder {
     IL2CPP_REGISTER_METHOD(0x00C93750, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x00C93A10, void, ClearEnemyLists, ())
-    IL2CPP_REGISTER_METHODINFO(0x04798DD8, EntityPlaceholder_ClearEnemyLists__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C93AD0, bool, get_EffectivePlaySpawnTask, (app::EntityPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004FBAC0, bool, get_PreventEnemyFromBeingFrustrumSuspended, (app::EntityPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004FBAD0, void, set_PreventEnemyFromBeingFrustrumSuspended, (app::EntityPlaceholder * this_ptr, bool value))
@@ -65,7 +65,6 @@ namespace app::classes::EntityPlaceholder {
     IL2CPP_REGISTER_METHOD(0x00C96DB0, void, Awake, (app::EntityPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C97450, void, PrewarmPooledInstance, (app::EntityPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C97A00, void, OnPrewarmCompleted, (app::EntityPlaceholder * this_ptr, bool success))
-    IL2CPP_REGISTER_METHODINFO(0x04748138, EntityPlaceholder_OnPrewarmCompleted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C97BC0, void, OnEnable, (app::EntityPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnPlaceholderEnable, (app::EntityPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C98040, void, OnDisable, (app::EntityPlaceholder * this_ptr))
@@ -78,7 +77,6 @@ namespace app::classes::EntityPlaceholder {
     IL2CPP_REGISTER_METHOD(0x00C98CB0, app::List_1_Moon_Entity_*, GetAllEntities, (app::Type * entity_type))
     IL2CPP_REGISTER_METHOD(0x00C98E10, app::List_1_Moon_Entity___Array*, GenerateArrayWithGetAllEntities, ())
     IL2CPP_REGISTER_METHOD(0x00C98EE0, void, OnGameSerializeLoad, (app::EntityPlaceholder * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04746AD0, EntityPlaceholder_OnGameSerializeLoad__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C98F10, void, OnSceneRootPreDisable, (app::EntityPlaceholder * this_ptr, app::SceneRoot* scene_root))
     IL2CPP_REGISTER_METHOD(0x00C99160, void, EnsureSceneRootIsCached, (app::EntityPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C99360, void, OnHealthZero, (app::EntityPlaceholder * this_ptr, app::DamageResult damage_result))
@@ -105,7 +103,6 @@ namespace app::classes::EntityPlaceholder {
     IL2CPP_REGISTER_METHOD(0x00C9C260, void, InitializePatrolAreaForEntity, (app::EntityPlaceholder * this_ptr, app::Entity** entity))
     IL2CPP_REGISTER_METHOD(0x00C9C650, app::Rect, ForceBoxAreaToWorldCoords, (app::EntityPlaceholder * this_ptr, app::AxisAlignedBox* box, app::Transform* root))
     IL2CPP_REGISTER_METHOD(0x00C9CB40, void, OnEntityPostAwake, (app::EntityPlaceholder * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04766280, EntityPlaceholder_OnEntityPostAwake__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C9CD90, bool, get_IsSuspended, (app::EntityPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C9CDA0, void, set_IsSuspended, (app::EntityPlaceholder * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00C9CDB0, app::SuspendableMask__Enum, get_Mask, (app::EntityPlaceholder * this_ptr))

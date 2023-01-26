@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WeaponMasterIntroNode.h>
+
+#include <Modloader/app/structs/WeaponMasterIntroNode.h>
 
 namespace app::classes::WeaponMasterIntroNode {
     IL2CPP_REGISTER_METHOD(0x0056F9A0, void, OnEnter, (app::WeaponMasterIntroNode * this_ptr))

@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/DroppedFrameMonitorB_TempData__Class.h>
 #include <Modloader/app/structs/DroppedFrameMonitorB_TempData.h>
 #include <Modloader/app/structs/DroppedFrameMonitorB_TempData__Array.h>
+#include <Modloader/app/structs/DroppedFrameMonitorB_TempData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace DroppedFrameMonitorB_TempData {
-        inline app::DroppedFrameMonitorB_TempData__Class** type_info = (app::DroppedFrameMonitorB_TempData__Class**)(modloader::win::memory::resolve_rva(0x04782140));
+        inline app::DroppedFrameMonitorB_TempData__Class** type_info() {
+            static app::DroppedFrameMonitorB_TempData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::DroppedFrameMonitorB_TempData__Class**)(modloader::win::memory::resolve_rva(0x04782140));
+            }
+            return cache;
+        }
         inline app::DroppedFrameMonitorB_TempData__Class* get_class() {
-            return il2cpp::get_nested_class<app::DroppedFrameMonitorB_TempData__Class>(type_info, "", "DroppedFrameMonitorB", "TempData");
+            return il2cpp::get_nested_class<app::DroppedFrameMonitorB_TempData__Class>(type_info(), "", "DroppedFrameMonitorB", "TempData");
         }
         inline app::DroppedFrameMonitorB_TempData* create() {
             return il2cpp::create_object<app::DroppedFrameMonitorB_TempData>(get_class());

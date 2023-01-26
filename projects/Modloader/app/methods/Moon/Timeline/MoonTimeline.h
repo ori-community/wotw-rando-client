@@ -1,34 +1,35 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/ITimelineEntityParent.h>
-#include <Modloader/app/structs/EntityId.h>
-#include <Modloader/app/structs/TimelineEntity.h>
+
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Constraint__Enum.h>
 #include <Modloader/app/structs/CustomPlaybackSettings.h>
-#include <Modloader/app/structs/Reaction.h>
-#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/IConstrainedEntity.h>
 #include <Modloader/app/structs/IConstrainedEntityWithChildren.h>
+#include <Modloader/app/structs/IConstraint.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/ITimelineEntityParent.h>
+#include <Modloader/app/structs/ITrimController.h>
+#include <Modloader/app/structs/List_1_Moon_AnimationPlayer_.h>
+#include <Modloader/app/structs/List_1_Moon_ScalableAnimationPlayer_.h>
 #include <Modloader/app/structs/List_1_Moon_Timeline_ConstraintsMetaData_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_EventTriggerGameplayAnimator_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ExternalTimelineRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_IEventDescriptor_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ReadyToFinishAnimator_.h>
 #include <Modloader/app/structs/List_1_Moon_Timeline_TimelineEntityRecord_.h>
 #include <Modloader/app/structs/List_1_Moon_Timeline_TimelineMarkerRecord_.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_ExternalTimelineRecord_.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
-#include <Modloader/app/structs/TimelineEntityRecord.h>
-#include <Modloader/app/structs/ITimelineEntity.h>
-#include <Modloader/app/structs/TimelineConstraint.h>
-#include <Modloader/app/structs/IConstraint.h>
-#include <Modloader/app/structs/Constraint__Enum.h>
-#include <Modloader/app/structs/IConstrainedEntity.h>
-#include <Modloader/app/structs/Nullable_1_Single_.h>
-#include <Modloader/app/structs/ITrimController.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_IEventDescriptor_.h>
-#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
 #include <Modloader/app/structs/List_1_System_Object_.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_EventTriggerGameplayAnimator_.h>
-#include <Modloader/app/structs/List_1_Moon_ScalableAnimationPlayer_.h>
-#include <Modloader/app/structs/List_1_Moon_AnimationPlayer_.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_ReadyToFinishAnimator_.h>
+#include <Modloader/app/structs/Nullable_1_Single_.h>
+#include <Modloader/app/structs/Reaction.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimelineConstraint.h>
+#include <Modloader/app/structs/TimelineEntity.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::Timeline::MoonTimeline {
     IL2CPP_REGISTER_METHOD(0x01BC1B00, void, PostEvent, (app::MoonTimeline * this_ptr, app::ITimelineEntityParent* scope, app::EntityId id, int32_t event_id))
@@ -71,7 +72,6 @@ namespace app::classes::Moon::Timeline::MoonTimeline {
     IL2CPP_REGISTER_METHOD(0x01BC58B0, void, OnResumePlayback, (app::MoonTimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00597B10, app::UpdateType__Enum, get_UpdateType, (app::MoonTimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01BC5A00, void, OnUpdateEntity, (app::MoonTimeline * this_ptr, float delta))
-    IL2CPP_REGISTER_METHODINFO(0x047511B0, MoonTimeline_OnUpdateEntity__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01BC5D60, bool, HasPlaying, (app::MoonTimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01BC5F20, void, ProcessReactions, (app::MoonTimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01BC62D0, void, AddEntityRecordUnsafe, (app::MoonTimeline * this_ptr, app::TimelineEntityRecord* record))
@@ -85,9 +85,7 @@ namespace app::classes::Moon::Timeline::MoonTimeline {
     IL2CPP_REGISTER_METHOD(0x01BC6DF0, int32_t, GetEventId, (app::MoonTimeline * this_ptr, app::EntityId entity_id, app::Constraint__Enum constraint))
     IL2CPP_REGISTER_METHOD(0x01BC6E10, float, GetTimeOffset, (app::MoonTimeline * this_ptr, app::EntityId entity_id, app::Constraint__Enum constraint))
     IL2CPP_REGISTER_METHOD(0x01BC6E40, app::IConstraint*, get_StartConstraint, (app::MoonTimeline * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04780B30, MoonTimeline_get_StartConstraint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01BC6E90, app::IConstraint*, get_EndConstraint, (app::MoonTimeline * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04787348, MoonTimeline_get_EndConstraint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::EntityId, get_EntityId, (app::MoonTimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C50A0, app::ITimelineEntity*, get_Entity, (app::MoonTimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01BC6EE0, int32_t, get_ConstrainedEntitiesCount, (app::MoonTimeline * this_ptr))
@@ -119,11 +117,7 @@ namespace app::classes::Moon::Timeline::MoonTimeline {
     IL2CPP_REGISTER_METHOD(0x01BC9480, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01EB9450, app::List_1_System_Object_*, GetAnimators_1, (app::MoonTimeline * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01EB9450, app::List_1_Moon_Timeline_EventTriggerGameplayAnimator_*, GetAnimators_2, (app::MoonTimeline * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04760158, MoonTimeline_GetAnimators_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EB9450, app::List_1_Moon_ScalableAnimationPlayer_*, GetAnimators_3, (app::MoonTimeline * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04729ED0, MoonTimeline_GetAnimators_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EB9450, app::List_1_Moon_AnimationPlayer_*, GetAnimators_4, (app::MoonTimeline * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471F158, MoonTimeline_GetAnimators_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EB9450, app::List_1_Moon_Timeline_ReadyToFinishAnimator_*, GetAnimators_5, (app::MoonTimeline * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04705550, MoonTimeline_GetAnimators_4__MethodInfo)
 } // namespace app::classes::Moon::Timeline::MoonTimeline

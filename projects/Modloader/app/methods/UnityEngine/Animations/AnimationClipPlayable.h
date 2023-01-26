@@ -1,15 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationClipPlayable__Boxed.h>
-#include <Modloader/app/structs/PlayableHandle.h>
-#include <Modloader/app/structs/AnimationClipPlayable.h>
-#include <Modloader/app/structs/PlayableGraph.h>
+
+#include <Modloader/app/structs/AnimationClipPlayable__Boxed.h>
 #include <Modloader/app/structs/AnimationClip.h>
+#include <Modloader/app/structs/AnimationClipPlayable.h>
 #include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/PlayableHandle.h>
 
 namespace app::classes::UnityEngine::Animations::AnimationClipPlayable {
     IL2CPP_REGISTER_METHOD(0x002414B0, void, ctor, (app::AnimationClipPlayable__Boxed * this_ptr, app::PlayableHandle handle))
-    IL2CPP_REGISTER_METHODINFO(0x047126E8, AnimationClipPlayable__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0307C320, app::AnimationClipPlayable, Create, (app::PlayableGraph graph, app::AnimationClip* clip))
     IL2CPP_REGISTER_METHOD(0x0307C4A0, app::PlayableHandle, CreateHandle, (app::PlayableGraph graph, app::AnimationClip* clip))
     IL2CPP_REGISTER_METHOD(0x001D9980, app::PlayableHandle, GetHandle, (app::AnimationClipPlayable__Boxed * this_ptr))

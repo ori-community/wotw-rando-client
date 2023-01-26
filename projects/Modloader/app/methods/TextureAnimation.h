@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextureAnimation.h>
-#include <Modloader/app/structs/AtlasSpriteTexture.h>
+
+#include <Modloader/app/structs/TextureAnimation.h>
 #include <Modloader/app/structs/Atlas.h>
+#include <Modloader/app/structs/AtlasSpriteTexture.h>
 #include <Modloader/app/structs/MoonGuid.h>
 #include <Modloader/app/structs/UberAtlassingPlatform__Enum.h>
 

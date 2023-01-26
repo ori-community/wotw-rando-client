@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TlsServerSettings.h>
-#include <Modloader/app/structs/X509CertificateCollection_2.h>
-#include <Modloader/app/structs/RSA.h>
-#include <Modloader/app/structs/RSAParameters.h>
+
+#include <Modloader/app/structs/TlsServerSettings.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/ClientCertificateType__Enum__Array.h>
+#include <Modloader/app/structs/RSA.h>
+#include <Modloader/app/structs/RSAParameters.h>
 #include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/X509CertificateCollection_2.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::TlsServerSettings {
     IL2CPP_REGISTER_METHOD(0x00405F50, bool, get_ServerKeyExchange, (app::TlsServerSettings * this_ptr))

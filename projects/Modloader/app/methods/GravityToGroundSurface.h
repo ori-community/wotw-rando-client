@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GravityToGroundSurface.h>
+
+#include <Modloader/app/structs/GravityToGroundSurface.h>
 #include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::GravityToGroundSurface {

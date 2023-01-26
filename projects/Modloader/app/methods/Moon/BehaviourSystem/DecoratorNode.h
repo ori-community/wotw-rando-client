@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/DecoratorNode.h>
+
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/BehaviourNode.h>
+#include <Modloader/app/structs/DecoratorNode.h>
 #include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::BehaviourSystem::DecoratorNode {

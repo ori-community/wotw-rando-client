@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RemoteStoragePublishedFileUnsubscribed_t__Class.h>
 #include <Modloader/app/structs/RemoteStoragePublishedFileUnsubscribed_t.h>
 #include <Modloader/app/structs/RemoteStoragePublishedFileUnsubscribed_t__Boxed.h>
+#include <Modloader/app/structs/RemoteStoragePublishedFileUnsubscribed_t__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace RemoteStoragePublishedFileUnsubscribed_t {
-        namespace {
-            inline app::RemoteStoragePublishedFileUnsubscribed_t__Class* type_info_ref = nullptr;
+        inline app::RemoteStoragePublishedFileUnsubscribed_t__Class** type_info() {
+            static app::RemoteStoragePublishedFileUnsubscribed_t__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::RemoteStoragePublishedFileUnsubscribed_t__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::RemoteStoragePublishedFileUnsubscribed_t__Class** type_info = &type_info_ref;
         inline app::RemoteStoragePublishedFileUnsubscribed_t__Class* get_class() {
-            return il2cpp::get_class<app::RemoteStoragePublishedFileUnsubscribed_t__Class>(type_info, "Steamworks", "RemoteStoragePublishedFileUnsubscribed_t");
+            return il2cpp::get_class<app::RemoteStoragePublishedFileUnsubscribed_t__Class>(type_info(), "Steamworks", "RemoteStoragePublishedFileUnsubscribed_t");
         }
         inline app::RemoteStoragePublishedFileUnsubscribed_t* create() {
             return il2cpp::create_object<app::RemoteStoragePublishedFileUnsubscribed_t>(get_class());

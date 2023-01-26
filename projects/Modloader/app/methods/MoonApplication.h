@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IDisposable.h>
+
+#include <Modloader/app/structs/IDisposable.h>
 
 namespace app::classes::MoonApplication {
     IL2CPP_REGISTER_METHOD(0x025739C0, app::IDisposable*, SimulateBuildingPlayerScope, ())

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Polygon_1.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Matrix4x4.h>
+
+#include <Modloader/app/structs/Polygon_1.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Matrix4x4.h>
 #include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Polygon {

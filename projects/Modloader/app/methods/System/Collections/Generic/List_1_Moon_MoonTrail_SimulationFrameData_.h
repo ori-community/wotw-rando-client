@@ -1,25 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Moon_MoonTrail_SimulationFrameData_.h>
-#include <Modloader/app/structs/MoonTrail_SimulationFrameData.h>
-#include <Modloader/app/structs/IEnumerable_1_Moon_MoonTrail_SimulationFrameData_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_MoonTrail_SimulationFrameData_.h>
-#include <Modloader/app/structs/IComparer_1_Moon_MoonTrail_SimulationFrameData_.h>
-#include <Modloader/app/structs/MoonTrail_SimulationFrameData__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Moon_MoonTrail_SimulationFrameData_.h>
+
+#include <Modloader/app/structs/List_1_Moon_MoonTrail_SimulationFrameData_.h>
 #include <Modloader/app/structs/Action_1_Moon_MoonTrail_SimulationFrameData_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_MoonTrail_SimulationFrameData_.h>
-#include <Modloader/app/structs/IEnumerator_1_Moon_MoonTrail_SimulationFrameData_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_Moon_MoonTrail_SimulationFrameData_.h>
+#include <Modloader/app/structs/IComparer_1_Moon_MoonTrail_SimulationFrameData_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_MoonTrail_SimulationFrameData_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_MoonTrail_SimulationFrameData_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_MoonTrail_SimulationFrameData_.h>
+#include <Modloader/app/structs/MoonTrail_SimulationFrameData.h>
+#include <Modloader/app/structs/MoonTrail_SimulationFrameData__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Moon_MoonTrail_SimulationFrameData_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_MoonTrail_SimulationFrameData_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_MoonTrail_SimulationFrameData_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_Moon_MoonTrail_SimulationFrameData_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047794F0, List_1_Moon_MoonTrail_SimulationFrameData__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02DE4ED0, app::MoonTrail_SimulationFrameData, get_Item, (app::List_1_Moon_MoonTrail_SimulationFrameData_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04727BC0, List_1_Moon_MoonTrail_SimulationFrameData__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_Moon_MoonTrail_SimulationFrameData_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_Moon_MoonTrail_SimulationFrameData_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02DE48E0, void, ctor_3, (app::List_1_Moon_MoonTrail_SimulationFrameData_ * this_ptr, app::IEnumerable_1_Moon_MoonTrail_SimulationFrameData_* collection))

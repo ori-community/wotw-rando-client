@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritShardUIConfirmationOverlay_Context__Enum.h>
-#include <Modloader/app/structs/SpiritShardUIConfirmationOverlay.h>
-#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+
+#include <Modloader/app/structs/SpiritShardUIConfirmationOverlay_Context__Enum.h>
 #include <Modloader/app/structs/EquipmentType__Enum.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/SpiritShardUIConfirmationOverlay.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::SpiritShardUIConfirmationOverlay {

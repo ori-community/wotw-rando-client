@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Warning_Logger.h>
+
+#include <Modloader/app/structs/Warning_Logger.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::RootMotion::Warning_Logger {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::Warning_Logger * this_ptr, app::Object* object, void* method_1))

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SkinningModifier__Class.h>
 #include <Modloader/app/structs/SkinningModifier.h>
 #include <Modloader/app/structs/SkinningModifier__Array.h>
+#include <Modloader/app/structs/SkinningModifier__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SkinningModifier {
-        namespace {
-            inline app::SkinningModifier__Class* type_info_ref = nullptr;
+        inline app::SkinningModifier__Class** type_info() {
+            static app::SkinningModifier__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SkinningModifier__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SkinningModifier__Class** type_info = &type_info_ref;
         inline app::SkinningModifier__Class* get_class() {
-            return il2cpp::get_class<app::SkinningModifier__Class>(type_info, "", "SkinningModifier");
+            return il2cpp::get_class<app::SkinningModifier__Class>(type_info(), "", "SkinningModifier");
         }
         inline app::SkinningModifier* create() {
             return il2cpp::create_object<app::SkinningModifier>(get_class());

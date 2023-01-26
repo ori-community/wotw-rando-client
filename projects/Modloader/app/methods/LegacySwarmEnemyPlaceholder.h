@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyEntity.h>
-#include <Modloader/app/structs/LegacySwarmEnemyPlaceholder.h>
+
+#include <Modloader/app/structs/LegacyEntity.h>
 #include <Modloader/app/structs/LegacySwarmEnemy.h>
+#include <Modloader/app/structs/LegacySwarmEnemyPlaceholder.h>
 
 namespace app::classes::LegacySwarmEnemyPlaceholder {
     IL2CPP_REGISTER_METHOD(0x00A3B640, app::LegacyEntity*, Instantiate, (app::LegacySwarmEnemyPlaceholder * this_ptr))

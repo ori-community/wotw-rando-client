@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FloatAnimationParameter.h>
+
+#include <Modloader/app/structs/FloatAnimationParameter.h>
 #include <Modloader/app/structs/GhostAnimationParameterPlugin_FloatParamenterTracker.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::GhostAnimationParameterPlugin_FloatParamenterTracker {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::FloatAnimationParameter*, get_Parameter, (app::GhostAnimationParameterPlugin_FloatParamenterTracker * this_ptr))

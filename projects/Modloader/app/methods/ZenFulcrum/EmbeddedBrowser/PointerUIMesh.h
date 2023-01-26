@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PointerUIMesh.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Ray.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/PointerUIMesh.h>
 #include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::PointerUIMesh {
     IL2CPP_REGISTER_METHOD(0x01662960, void, Awake, (app::PointerUIMesh * this_ptr))

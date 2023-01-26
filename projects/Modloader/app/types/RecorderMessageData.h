@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RecorderMessageData__Class.h>
 #include <Modloader/app/structs/RecorderMessageData.h>
 #include <Modloader/app/structs/RecorderMessageData__Array.h>
+#include <Modloader/app/structs/RecorderMessageData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace RecorderMessageData {
-        inline app::RecorderMessageData__Class** type_info = (app::RecorderMessageData__Class**)(modloader::win::memory::resolve_rva(0x0472D2A8));
+        inline app::RecorderMessageData__Class** type_info() {
+            static app::RecorderMessageData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::RecorderMessageData__Class**)(modloader::win::memory::resolve_rva(0x0472D2A8));
+            }
+            return cache;
+        }
         inline app::RecorderMessageData__Class* get_class() {
-            return il2cpp::get_class<app::RecorderMessageData__Class>(type_info, "", "RecorderMessageData");
+            return il2cpp::get_class<app::RecorderMessageData__Class>(type_info(), "", "RecorderMessageData");
         }
         inline app::RecorderMessageData* create() {
             return il2cpp::create_object<app::RecorderMessageData>(get_class());

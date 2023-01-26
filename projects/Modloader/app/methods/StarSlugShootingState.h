@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StarSlugShootingState.h>
+
+#include <Modloader/app/structs/StarSlugShootingState.h>
 #include <Modloader/app/structs/StarSlugEnemy.h>
 #include <Modloader/app/structs/Vector3.h>
 

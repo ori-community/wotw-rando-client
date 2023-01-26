@@ -17,7 +17,7 @@ struct Expression__StaticFields {
 #define IL2CPP_STRUCT_Expression__StaticFields_FWDDECL
 #include <Modloader/app/structs/CacheDict_2_System_Type_System_Func_5_.h>
 #include <Modloader/app/structs/CacheDict_2_System_Type_System_Reflection_MethodInfo_.h>
-#include <Modloader/app/structs/ConditionalWeakTable_2_System_Linq_Expressions_Expression_System_Linq_Expressions_Expression_ExtensionInfo_.h>
+#include <Modloader/app/structs/ConditionalWeakTable_2_Syste_Li_Expressio_Expressi_Syst_Li_Expressio_Expressi_ExtensionIn_.h>
 #endif
 #undef IL2CPP_STRUCT_Expression__StaticFields_INITIALIZING
 #if !defined(IL2CPP_STRUCT_Expression__StaticFields_DEFINED) && !defined(IL2CPP_STRUCT_Expression__StaticFields_FWDDECL)

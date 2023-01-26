@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StomperTrigger.h>
+
+#include <Modloader/app/structs/StomperTrigger.h>
 #include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/SelectableCategory__Enum.h>
 

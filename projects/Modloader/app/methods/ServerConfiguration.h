@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ServerConfigurationProperties.h>
-#include <Modloader/app/structs/ServerConfiguration.h>
+
+#include <Modloader/app/structs/ServerConfigurationProperties.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/ServerConfiguration.h>
 
 namespace app::classes::ServerConfiguration {
     IL2CPP_REGISTER_METHOD(0x00ABE2D0, app::ServerConfigurationProperties, get_Configuration, (app::ServerConfiguration * this_ptr))

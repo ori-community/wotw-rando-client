@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SceneManagementSystem_SceneLoadedState__Class.h>
 #include <Modloader/app/structs/SceneManagementSystem_SceneLoadedState.h>
 #include <Modloader/app/structs/SceneManagementSystem_SceneLoadedState__Array.h>
+#include <Modloader/app/structs/SceneManagementSystem_SceneLoadedState__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SceneManagementSystem_SceneLoadedState {
-        inline app::SceneManagementSystem_SceneLoadedState__Class** type_info = (app::SceneManagementSystem_SceneLoadedState__Class**)(modloader::win::memory::resolve_rva(0x0470F388));
+        inline app::SceneManagementSystem_SceneLoadedState__Class** type_info() {
+            static app::SceneManagementSystem_SceneLoadedState__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::SceneManagementSystem_SceneLoadedState__Class**)(modloader::win::memory::resolve_rva(0x0470F388));
+            }
+            return cache;
+        }
         inline app::SceneManagementSystem_SceneLoadedState__Class* get_class() {
-            return il2cpp::get_nested_class<app::SceneManagementSystem_SceneLoadedState__Class>(type_info, "Moon.Timeline.Systems", "SceneManagementSystem", "SceneLoadedState");
+            return il2cpp::get_nested_class<app::SceneManagementSystem_SceneLoadedState__Class>(type_info(), "Moon.Timeline.Systems", "SceneManagementSystem", "SceneLoadedState");
         }
         inline app::SceneManagementSystem_SceneLoadedState* create() {
             return il2cpp::create_object<app::SceneManagementSystem_SceneLoadedState>(get_class());

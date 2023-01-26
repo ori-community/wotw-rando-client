@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
 #include <Modloader/app/structs/Comparison_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
 #include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket.h>
 

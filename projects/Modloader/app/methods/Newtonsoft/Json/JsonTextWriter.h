@@ -1,33 +1,32 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Base64Encoder_1.h>
-#include <Modloader/app/structs/JsonTextWriter.h>
-#include <Modloader/app/structs/TextWriter.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/JsonToken__Enum_1.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Nullable_1_Single_.h>
-#include <Modloader/app/structs/Nullable_1_Double_.h>
-#include <Modloader/app/structs/Decimal.h>
-#include <Modloader/app/structs/DateTime.h>
+
+#include <Modloader/app/structs/Base64Encoder_1.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Decimal.h>
 #include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/JsonTextWriter.h>
+#include <Modloader/app/structs/JsonToken__Enum_1.h>
+#include <Modloader/app/structs/Nullable_1_Double_.h>
+#include <Modloader/app/structs/Nullable_1_Single_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextWriter.h>
 #include <Modloader/app/structs/TimeSpan.h>
 #include <Modloader/app/structs/Uri.h>
 
 namespace app::classes::Newtonsoft::Json::JsonTextWriter {
     IL2CPP_REGISTER_METHOD(0x01EFAB00, app::Base64Encoder_1*, get_Base64Encoder, (app::JsonTextWriter * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01EFACE0, uint16_t, get_QuoteChar, (app::JsonTextWriter * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x01EFACE0, char16_t, get_QuoteChar, (app::JsonTextWriter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01EFACF0, void, ctor, (app::JsonTextWriter * this_ptr, app::TextWriter* text_writer))
-    IL2CPP_REGISTER_METHODINFO(0x047952A0, JsonTextWriter__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EFAE60, void, Close, (app::JsonTextWriter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01EFAF00, void, CloseBufferAndWriter, (app::JsonTextWriter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01EFAF60, void, WriteStartObject, (app::JsonTextWriter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01EFAFC0, void, WriteStartArray, (app::JsonTextWriter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01EFB020, void, WriteStartConstructor, (app::JsonTextWriter * this_ptr, app::String* name))
     IL2CPP_REGISTER_METHOD(0x01EFB140, void, WriteEnd, (app::JsonTextWriter * this_ptr, app::JsonToken__Enum_1 token))
-    IL2CPP_REGISTER_METHODINFO(0x0472F4B0, JsonTextWriter_WriteEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EFB280, void, WritePropertyName_1, (app::JsonTextWriter * this_ptr, app::String* name))
     IL2CPP_REGISTER_METHOD(0x01EFB2F0, void, WritePropertyName_2, (app::JsonTextWriter * this_ptr, app::String* name, bool escape))
     IL2CPP_REGISTER_METHOD(0x01EFB3F0, void, OnStringEscapeHandlingChanged, (app::JsonTextWriter * this_ptr))
@@ -54,7 +53,7 @@ namespace app::classes::Newtonsoft::Json::JsonTextWriter {
     IL2CPP_REGISTER_METHOD(0x01EFC420, void, WriteValue_11, (app::JsonTextWriter * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x01EFC5C0, void, WriteValue_12, (app::JsonTextWriter * this_ptr, int16_t value))
     IL2CPP_REGISTER_METHOD(0x01EFC600, void, WriteValue_13, (app::JsonTextWriter * this_ptr, uint16_t value))
-    IL2CPP_REGISTER_METHOD(0x01EFC640, void, WriteValue_14, (app::JsonTextWriter * this_ptr, uint16_t value))
+    IL2CPP_REGISTER_METHOD(0x01EFC640, void, WriteValue_14, (app::JsonTextWriter * this_ptr, char16_t value))
     IL2CPP_REGISTER_METHOD(0x01EFC7D0, void, WriteValue_15, (app::JsonTextWriter * this_ptr, uint8_t value))
     IL2CPP_REGISTER_METHOD(0x01EFC810, void, WriteValue_16, (app::JsonTextWriter * this_ptr, int8_t value))
     IL2CPP_REGISTER_METHOD(0x01EFC850, void, WriteValue_17, (app::JsonTextWriter * this_ptr, app::Decimal value))

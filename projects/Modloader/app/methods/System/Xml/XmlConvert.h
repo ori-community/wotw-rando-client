@@ -1,48 +1,43 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ArgumentException.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
+#include <Modloader/app/structs/Decimal.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/ExceptionType__Enum.h>
-#include <Modloader/app/structs/Decimal.h>
-#include <Modloader/app/structs/TimeSpan.h>
-#include <Modloader/app/structs/DateTime.h>
-#include <Modloader/app/structs/XmlDateTimeSerializationMode__Enum.h>
-#include <Modloader/app/structs/DateTimeOffset.h>
 #include <Modloader/app/structs/Guid.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/TimeSpan.h>
 #include <Modloader/app/structs/Uri.h>
-#include <Modloader/app/structs/Char__Array.h>
-#include <Modloader/app/structs/ArgumentException.h>
+#include <Modloader/app/structs/XmlDateTimeSerializationMode__Enum.h>
 
 namespace app::classes::System::Xml::XmlConvert {
     IL2CPP_REGISTER_METHOD(0x01960BB0, app::String*, EncodeName_1, (app::String * name))
     IL2CPP_REGISTER_METHOD(0x01960C50, app::String*, EncodeLocalName, (app::String * name))
     IL2CPP_REGISTER_METHOD(0x01960CF0, app::String*, DecodeName, (app::String * name))
     IL2CPP_REGISTER_METHOD(0x019616B0, app::String*, EncodeName_2, (app::String * name, bool first, bool local))
-    IL2CPP_REGISTER_METHOD(0x01962170, int32_t, FromHex, (uint16_t digit))
+    IL2CPP_REGISTER_METHOD(0x01962170, int32_t, FromHex, (char16_t digit))
     IL2CPP_REGISTER_METHOD(0x019621A0, app::Byte__Array*, FromBinHexString_1, (app::String * s))
     IL2CPP_REGISTER_METHOD(0x01962240, app::Byte__Array*, FromBinHexString_2, (app::String * s, bool allow_odd_count))
-    IL2CPP_REGISTER_METHODINFO(0x047645F8, XmlConvert_FromBinHexString_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01962310, app::String*, ToBinHexString, (app::Byte__Array * in_array))
-    IL2CPP_REGISTER_METHODINFO(0x04792F08, XmlConvert_ToBinHexString__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019623D0, app::String*, VerifyName, (app::String * name))
-    IL2CPP_REGISTER_METHODINFO(0x047208C0, XmlConvert_VerifyName__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01962550, app::Exception*, TryVerifyName, (app::String * name))
     IL2CPP_REGISTER_METHOD(0x01962830, app::String*, VerifyQName, (app::String * name, app::ExceptionType__Enum exception_type))
-    IL2CPP_REGISTER_METHODINFO(0x0471D988, XmlConvert_VerifyQName__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019629E0, app::String*, VerifyNCName_1, (app::String * name))
     IL2CPP_REGISTER_METHOD(0x01962BD0, app::String*, VerifyNCName_2, (app::String * name, app::ExceptionType__Enum exception_type))
-    IL2CPP_REGISTER_METHODINFO(0x04791680, XmlConvert_VerifyNCName_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01962D50, app::Exception*, TryVerifyNCName, (app::String * name))
     IL2CPP_REGISTER_METHOD(0x01962E50, app::String*, VerifyTOKEN, (app::String * token))
-    IL2CPP_REGISTER_METHODINFO(0x04790260, XmlConvert_VerifyTOKEN__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01962FC0, app::Exception*, TryVerifyTOKEN, (app::String * token))
     IL2CPP_REGISTER_METHOD(0x019631E0, app::Exception*, TryVerifyNMTOKEN, (app::String * name))
     IL2CPP_REGISTER_METHOD(0x019635A0, app::Exception*, TryVerifyNormalizedString, (app::String * str))
     IL2CPP_REGISTER_METHOD(0x01963760, app::String*, ToString_1, (bool value))
-    IL2CPP_REGISTER_METHOD(0x019637F0, app::String*, ToString_2, (uint16_t value))
+    IL2CPP_REGISTER_METHOD(0x019637F0, app::String*, ToString_2, (char16_t value))
     IL2CPP_REGISTER_METHOD(0x01963810, app::String*, ToString_3, (app::Decimal value))
     IL2CPP_REGISTER_METHOD(0x01963850, app::String*, ToString_4, (int8_t value))
     IL2CPP_REGISTER_METHOD(0x01963880, app::String*, ToString_5, (int16_t value))
@@ -57,15 +52,12 @@ namespace app::classes::System::Xml::XmlConvert {
     IL2CPP_REGISTER_METHOD(0x01963C60, app::String*, ToString_14, (app::TimeSpan value))
     IL2CPP_REGISTER_METHOD(0x01963CC0, app::String*, ToString_15, (app::DateTime value, app::String* format))
     IL2CPP_REGISTER_METHOD(0x01963D70, app::String*, ToString_16, (app::DateTime value, app::XmlDateTimeSerializationMode__Enum date_time_option))
-    IL2CPP_REGISTER_METHODINFO(0x0470D708, XmlConvert_ToString_15__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01963F70, app::String*, ToString_17, (app::DateTimeOffset value))
     IL2CPP_REGISTER_METHOD(0x01963FB0, app::String*, ToString_18, (app::Guid value))
     IL2CPP_REGISTER_METHOD(0x01963FC0, bool, ToBoolean, (app::String * s))
-    IL2CPP_REGISTER_METHODINFO(0x04742A08, XmlConvert_ToBoolean__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019641E0, app::Exception*, TryToBoolean, (app::String * s, bool* result))
-    IL2CPP_REGISTER_METHOD(0x01964500, uint16_t, ToChar, (app::String * s))
-    IL2CPP_REGISTER_METHODINFO(0x0474C2D0, XmlConvert_ToChar__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01964610, app::Exception*, TryToChar, (app::String * s, uint16_t* result))
+    IL2CPP_REGISTER_METHOD(0x01964500, char16_t, ToChar, (app::String * s))
+    IL2CPP_REGISTER_METHOD(0x01964610, app::Exception*, TryToChar, (app::String * s, char16_t* result))
     IL2CPP_REGISTER_METHOD(0x019648A0, app::Decimal, ToDecimal, (app::String * s))
     IL2CPP_REGISTER_METHOD(0x01964990, app::Exception*, TryToDecimal, (app::String * s, app::Decimal* result))
     IL2CPP_REGISTER_METHOD(0x01964C30, app::Decimal, ToInteger, (app::String * s))
@@ -92,22 +84,18 @@ namespace app::classes::System::Xml::XmlConvert {
     IL2CPP_REGISTER_METHOD(0x01966D30, app::Exception*, TryToDouble, (app::String * s, double* result))
     IL2CPP_REGISTER_METHOD(0x019670C0, double, ToXPathDouble, (app::Object * o))
     IL2CPP_REGISTER_METHOD(0x01967320, app::TimeSpan, ToTimeSpan, (app::String * s))
-    IL2CPP_REGISTER_METHODINFO(0x0470B3D8, XmlConvert_ToTimeSpan__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019674A0, app::Exception*, TryToTimeSpan, (app::String * s, app::TimeSpan* result))
     IL2CPP_REGISTER_METHOD(0x019675B0, app::String__Array*, get_AllDateTimeFormats, ())
     IL2CPP_REGISTER_METHOD(0x019676C0, void, CreateAllDateTimeFormats, ())
     IL2CPP_REGISTER_METHOD(0x01968070, app::DateTime, ToDateTime_1, (app::String * s))
     IL2CPP_REGISTER_METHOD(0x019682D0, app::DateTime, ToDateTime_2, (app::String * s, app::String__Array* formats))
     IL2CPP_REGISTER_METHOD(0x019683C0, app::DateTime, ToDateTime_3, (app::String * s, app::XmlDateTimeSerializationMode__Enum date_time_option))
-    IL2CPP_REGISTER_METHODINFO(0x04759880, XmlConvert_ToDateTime_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01968600, app::DateTimeOffset, ToDateTimeOffset, (app::String * s))
-    IL2CPP_REGISTER_METHODINFO(0x047785A0, XmlConvert_ToDateTimeOffset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01968720, app::Guid, ToGuid, (app::String * s))
     IL2CPP_REGISTER_METHOD(0x01968740, app::Exception*, TryToGuid, (app::String * s, app::Guid* result))
     IL2CPP_REGISTER_METHOD(0x01968A90, app::DateTime, SwitchToLocalTime, (app::DateTime value))
     IL2CPP_REGISTER_METHOD(0x01968B20, app::DateTime, SwitchToUtcTime, (app::DateTime value))
     IL2CPP_REGISTER_METHOD(0x01968BC0, app::Uri*, ToUri, (app::String * s))
-    IL2CPP_REGISTER_METHODINFO(0x04786240, XmlConvert_ToUri__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01968E30, app::Exception*, TryToUri, (app::String * s, app::Uri** result))
     IL2CPP_REGISTER_METHOD(0x01969260, bool, StrEqual, (app::Char__Array * chars, int32_t str_pos1, int32_t str_len1, app::String* str2))
     IL2CPP_REGISTER_METHOD(0x01969310, app::String*, TrimString, (app::String * value))
@@ -117,21 +105,20 @@ namespace app::classes::System::Xml::XmlConvert {
     IL2CPP_REGISTER_METHOD(0x01969650, bool, IsNegativeZero, (double value))
     IL2CPP_REGISTER_METHOD(0x01969710, int64_t, DoubleToInt64Bits, (double value))
     IL2CPP_REGISTER_METHOD(0x01969720, void, VerifyCharData, (app::String * data, app::ExceptionType__Enum inv_char_exception_type, app::ExceptionType__Enum inv_surrogate_exception_type))
-    IL2CPP_REGISTER_METHODINFO(0x04782808, XmlConvert_VerifyCharData__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019699C0, app::String*, EscapeValueForDebuggerDisplay, (app::String * value))
     IL2CPP_REGISTER_METHOD(0x01969CD0, app::Exception*, CreateException_1, (app::String * res, app::ExceptionType__Enum exception_type, int32_t line_no, int32_t line_pos))
     IL2CPP_REGISTER_METHOD(0x01969F40, app::Exception*, CreateException_2, (app::String * res, app::String* arg, app::ExceptionType__Enum exception_type, int32_t line_no, int32_t line_pos))
     IL2CPP_REGISTER_METHOD(0x0196A220, app::Exception*, CreateException_3, (app::String * res, app::String__Array* args, app::ExceptionType__Enum exception_type))
     IL2CPP_REGISTER_METHOD(0x0196A2F0, app::Exception*, CreateException_4, (app::String * res, app::String__Array* args, app::ExceptionType__Enum exception_type, int32_t line_no, int32_t line_pos))
-    IL2CPP_REGISTER_METHOD(0x0196A560, app::Exception*, CreateInvalidSurrogatePairException_1, (uint16_t low, uint16_t hi))
-    IL2CPP_REGISTER_METHOD(0x0196A6A0, app::Exception*, CreateInvalidSurrogatePairException_2, (uint16_t low, uint16_t hi, app::ExceptionType__Enum exception_type))
-    IL2CPP_REGISTER_METHOD(0x0196A770, app::Exception*, CreateInvalidSurrogatePairException_3, (uint16_t low, uint16_t hi, app::ExceptionType__Enum exception_type, int32_t line_no, int32_t line_pos))
-    IL2CPP_REGISTER_METHOD(0x0196A990, app::Exception*, CreateInvalidHighSurrogateCharException_1, (uint16_t hi))
-    IL2CPP_REGISTER_METHOD(0x0196AB90, app::Exception*, CreateInvalidHighSurrogateCharException_2, (uint16_t hi, app::ExceptionType__Enum exception_type))
-    IL2CPP_REGISTER_METHOD(0x0196AD20, app::Exception*, CreateInvalidHighSurrogateCharException_3, (uint16_t hi, app::ExceptionType__Enum exception_type, int32_t line_no, int32_t line_pos))
+    IL2CPP_REGISTER_METHOD(0x0196A560, app::Exception*, CreateInvalidSurrogatePairException_1, (char16_t low, char16_t hi))
+    IL2CPP_REGISTER_METHOD(0x0196A6A0, app::Exception*, CreateInvalidSurrogatePairException_2, (char16_t low, char16_t hi, app::ExceptionType__Enum exception_type))
+    IL2CPP_REGISTER_METHOD(0x0196A770, app::Exception*, CreateInvalidSurrogatePairException_3, (char16_t low, char16_t hi, app::ExceptionType__Enum exception_type, int32_t line_no, int32_t line_pos))
+    IL2CPP_REGISTER_METHOD(0x0196A990, app::Exception*, CreateInvalidHighSurrogateCharException_1, (char16_t hi))
+    IL2CPP_REGISTER_METHOD(0x0196AB90, app::Exception*, CreateInvalidHighSurrogateCharException_2, (char16_t hi, app::ExceptionType__Enum exception_type))
+    IL2CPP_REGISTER_METHOD(0x0196AD20, app::Exception*, CreateInvalidHighSurrogateCharException_3, (char16_t hi, app::ExceptionType__Enum exception_type, int32_t line_no, int32_t line_pos))
     IL2CPP_REGISTER_METHOD(0x0196AE50, app::Exception*, CreateInvalidCharException_1, (app::String * data, int32_t inv_char_pos, app::ExceptionType__Enum exception_type))
-    IL2CPP_REGISTER_METHOD(0x0196AF70, app::Exception*, CreateInvalidCharException_2, (uint16_t inv_char, uint16_t next_char))
-    IL2CPP_REGISTER_METHOD(0x0196B020, app::Exception*, CreateInvalidCharException_3, (uint16_t inv_char, uint16_t next_char, app::ExceptionType__Enum exception_type))
+    IL2CPP_REGISTER_METHOD(0x0196AF70, app::Exception*, CreateInvalidCharException_2, (char16_t inv_char, char16_t next_char))
+    IL2CPP_REGISTER_METHOD(0x0196B020, app::Exception*, CreateInvalidCharException_3, (char16_t inv_char, char16_t next_char, app::ExceptionType__Enum exception_type))
     IL2CPP_REGISTER_METHOD(0x0196B180, app::Exception*, CreateInvalidNameCharException, (app::String * name, int32_t index, app::ExceptionType__Enum exception_type))
     IL2CPP_REGISTER_METHOD(0x0196B2B0, app::ArgumentException*, CreateInvalidNameArgumentException, (app::String * name, app::String* argument_name))
     IL2CPP_REGISTER_METHOD(0x0196B500, void, cctor, ())

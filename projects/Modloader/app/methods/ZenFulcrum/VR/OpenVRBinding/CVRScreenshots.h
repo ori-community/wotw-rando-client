@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CVRScreenshots.h>
+
+#include <Modloader/app/structs/CVRScreenshots.h>
 #include <Modloader/app/structs/EVRScreenshotError__Enum.h>
-#include <Modloader/app/structs/EVRScreenshotType__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/EVRScreenshotType__Enum__Array.h>
 #include <Modloader/app/structs/EVRScreenshotPropertyFilenames__Enum.h>
+#include <Modloader/app/structs/EVRScreenshotType__Enum.h>
+#include <Modloader/app/structs/EVRScreenshotType__Enum__Array.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRScreenshots {

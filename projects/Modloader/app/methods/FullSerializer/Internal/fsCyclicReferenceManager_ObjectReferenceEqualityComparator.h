@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/fsCyclicReferenceManager_ObjectReferenceEqualityComparator.h>
+
+#include <Modloader/app/structs/fsCyclicReferenceManager_ObjectReferenceEqualityComparator.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::FullSerializer::Internal::fsCyclicReferenceManager_ObjectReferenceEqualityComparator {

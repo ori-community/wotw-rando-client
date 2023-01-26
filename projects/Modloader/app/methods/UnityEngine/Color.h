@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Color__Boxed.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Color__Boxed.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UnityEngine::Color {
@@ -40,7 +41,6 @@ namespace app::classes::UnityEngine::Color {
     IL2CPP_REGISTER_METHOD(0x02428250, app::Vector4, op_Implicit_1, (app::Color c))
     IL2CPP_REGISTER_METHOD(0x02428250, app::Color, op_Implicit_2, (app::Vector4 v))
     IL2CPP_REGISTER_METHOD(0x001EC1B0, float, get_Item, (app::Color__Boxed * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0472BDC0, Color_get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02428370, void, RGBToHSV, (app::Color rgb_color, float* H, float* S, float* V))
     IL2CPP_REGISTER_METHOD(0x024283F0, void, RGBToHSVHelper, (float offset, float dominantcolor, float colorone, float colortwo, float* H, float* S, float* V))
     IL2CPP_REGISTER_METHOD(0x02428490, app::Color, HSVToRGB_1, (float H, float S, float V))

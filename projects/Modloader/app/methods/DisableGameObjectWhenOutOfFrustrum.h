@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DisableGameObjectWhenOutOfFrustrum.h>
+
+#include <Modloader/app/structs/DisableGameObjectWhenOutOfFrustrum.h>
 #include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/SceneRoot.h>
@@ -40,5 +41,4 @@ namespace app::classes::DisableGameObjectWhenOutOfFrustrum {
     IL2CPP_REGISTER_METHOD(0x00B97A80, void, ctor, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B97F10, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x00B97FB0, void, _OnFrustumEnter_b__25_0, (app::DisableGameObjectWhenOutOfFrustrum * this_ptr, bool success))
-    IL2CPP_REGISTER_METHODINFO(0x047187B0, DisableGameObjectWhenOutOfFrustrum__OnFrustumEnter_b__25_0__MethodInfo)
 } // namespace app::classes::DisableGameObjectWhenOutOfFrustrum

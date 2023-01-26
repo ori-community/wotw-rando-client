@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityHitReactionBehaviour_1_System_Object_.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+
+#include <Modloader/app/structs/EntityHitReactionBehaviour_1_System_Object_.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/DamageType__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::EntityHitReactionBehaviour_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x006C14C0, bool, get_HasLocomotion, (app::EntityHitReactionBehaviour_1_System_Object_ * this_ptr))

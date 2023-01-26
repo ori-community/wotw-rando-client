@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Ku.h>
-#include <Modloader/app/structs/KuState.h>
+
+#include <Modloader/app/structs/Ku.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/CharacterGravity.h>
 #include <Modloader/app/structs/CharacterLeftRightMovement.h>
 #include <Modloader/app/structs/CharacterPlatformMovement.h>
-#include <Modloader/app/structs/MoonAnimation.h>
-#include <Modloader/app/structs/Func_1_Boolean_.h>
-#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Event_1.h>
 #include <Modloader/app/structs/FloatAnimationParameter.h>
-#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/KuState.h>
+#include <Modloader/app/structs/MoonAnimation.h>
 
 namespace app::classes::KuState {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::Ku*, get_Ku, (app::KuState * this_ptr))

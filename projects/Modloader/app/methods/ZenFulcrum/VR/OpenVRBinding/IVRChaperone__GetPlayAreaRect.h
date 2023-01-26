@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IVRChaperone_GetPlayAreaRect.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/IVRChaperone_GetPlayAreaRect.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 #include <Modloader/app/structs/HmdQuad_t.h>
 #include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVRChaperone__GetPlayAreaRect {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVRChaperone_GetPlayAreaRect * this_ptr, app::Object* object, void* method_1))

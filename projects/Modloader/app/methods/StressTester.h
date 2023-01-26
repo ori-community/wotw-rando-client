@@ -1,26 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/StressTester.h>
-#include <Modloader/app/structs/List_1_StressTester_StressTestPoint_.h>
-#include <Modloader/app/structs/StressTester_SceneIdentifier.h>
-#include <Modloader/app/structs/IStressTest.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/CageStructureTool.h>
-#include <Modloader/app/structs/List_1_StressTester_SceneIdentifier_.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/List_1_SceneMetaData_.h>
-#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/CageStructureTool_Vertex.h>
-#include <Modloader/app/structs/HashSet_1_CageStructureTool_Vertex_.h>
-#include <Modloader/app/structs/SceneMetaData.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/DebugTeleportSettings.h>
-#include <Modloader/app/structs/StressTester_TesterState__Enum.h>
-#include <Modloader/app/structs/StressTester_ScreenshotMethod__Enum.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HashSet_1_CageStructureTool_Vertex_.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IStressTest.h>
+#include <Modloader/app/structs/List_1_SceneMetaData_.h>
+#include <Modloader/app/structs/List_1_StressTester_SceneIdentifier_.h>
+#include <Modloader/app/structs/List_1_StressTester_StressTestPoint_.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/StressTester.h>
+#include <Modloader/app/structs/StressTester_SceneIdentifier.h>
+#include <Modloader/app/structs/StressTester_ScreenshotMethod__Enum.h>
+#include <Modloader/app/structs/StressTester_TesterState__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::StressTester {
     IL2CPP_REGISTER_METHOD(0x0065F850, bool, get_StartingTest, ())
@@ -105,7 +106,6 @@ namespace app::classes::StressTester {
     IL2CPP_REGISTER_METHOD(0x00668250, float, GetPauseTime, ())
     IL2CPP_REGISTER_METHOD(0x00668330, void, HandleMoving, (app::StressTester * this_ptr, float delta_time))
     IL2CPP_REGISTER_METHOD(0x00668670, void, HandleStressTests, (app::StressTester * this_ptr, float delta_time))
-    IL2CPP_REGISTER_METHODINFO(0x0470B228, StressTester_HandleStressTests__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006689D0, void, SearchForNextTest, (app::StressTester * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateResting, (app::StressTester * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00668BA0, void, CreateFile, (app::StressTester * this_ptr, app::String* path, app::String* text))

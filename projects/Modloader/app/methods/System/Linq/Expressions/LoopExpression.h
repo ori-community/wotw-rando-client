@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LoopExpression.h>
+
+#include <Modloader/app/structs/LoopExpression.h>
 #include <Modloader/app/structs/Expression.h>
-#include <Modloader/app/structs/LabelTarget.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/ExpressionType__Enum.h>
 #include <Modloader/app/structs/ExpressionVisitor.h>
+#include <Modloader/app/structs/LabelTarget.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::LoopExpression {
     IL2CPP_REGISTER_METHOD(0x02417930, void, ctor, (app::LoopExpression * this_ptr, app::Expression* body, app::LabelTarget* break_1, app::LabelTarget* continue_1))

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlTypeCode__Enum.h>
+
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
 #include <Modloader/app/structs/Datatype_integer.h>
 #include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlNameTable.h>
 #include <Modloader/app/structs/IXmlNamespaceResolver.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNameTable.h>
 
 namespace app::classes::System::Xml::Schema::Datatype_integer {
     IL2CPP_REGISTER_METHOD(0x00C754B0, app::XmlTypeCode__Enum, get_TypeCode, (app::Datatype_integer * this_ptr))

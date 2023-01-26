@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaInferenceException.h>
+
+#include <Modloader/app/structs/XmlSchemaInferenceException.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
 #include <Modloader/app/structs/String.h>

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkBankCallbackInfo.h>
+
+#include <Modloader/app/structs/AkBankCallbackInfo.h>
 #include <Modloader/app/structs/AKRESULT__Enum.h>
 
 namespace app::classes::AkBankCallbackInfo {

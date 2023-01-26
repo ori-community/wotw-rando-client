@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RecordableIdData__Class.h>
 #include <Modloader/app/structs/RecordableIdData.h>
 #include <Modloader/app/structs/RecordableIdData__Boxed.h>
+#include <Modloader/app/structs/RecordableIdData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace RecordableIdData {
-        namespace {
-            inline app::RecordableIdData__Class* type_info_ref = nullptr;
+        inline app::RecordableIdData__Class** type_info() {
+            static app::RecordableIdData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::RecordableIdData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::RecordableIdData__Class** type_info = &type_info_ref;
         inline app::RecordableIdData__Class* get_class() {
-            return il2cpp::get_class<app::RecordableIdData__Class>(type_info, "", "RecordableIdData");
+            return il2cpp::get_class<app::RecordableIdData__Class>(type_info(), "", "RecordableIdData");
         }
         inline app::RecordableIdData* create() {
             return il2cpp::create_object<app::RecordableIdData>(get_class());

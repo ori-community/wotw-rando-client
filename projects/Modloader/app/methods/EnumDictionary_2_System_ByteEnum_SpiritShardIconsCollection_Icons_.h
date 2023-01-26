@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnumDictionary_2_System_ByteEnum_SpiritShardIconsCollection_Icons_.h>
-#include <Modloader/app/structs/SpiritShardIconsCollection_Icons.h>
+
+#include <Modloader/app/structs/EnumDictionary_2_System_ByteEnum_SpiritShardIconsCollection_Icons_.h>
 #include <Modloader/app/structs/ByteEnum__Enum.h>
+#include <Modloader/app/structs/SpiritShardIconsCollection_Icons.h>
 
 namespace app::classes::EnumDictionary_2_System_ByteEnum_SpiritShardIconsCollection_Icons_ {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBeforeSerialize, (app::EnumDictionary_2_System_ByteEnum_SpiritShardIconsCollection_Icons_ * this_ptr))

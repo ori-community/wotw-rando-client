@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMoonType_1_System_String_.h>
+
+#include <Modloader/app/structs/IMoonType_1_System_String_.h>
 #include <Modloader/app/structs/BlackboardVariableString.h>
 #include <Modloader/app/structs/String.h>
 

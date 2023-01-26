@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Blend2DSegmentState.h>
-#include <Modloader/app/structs/ISegment.h>
+
+#include <Modloader/app/structs/Blend2DSegmentState.h>
 #include <Modloader/app/structs/BlendAnimation2D_Input__Array.h>
+#include <Modloader/app/structs/ISegment.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Blend2DSegmentState {

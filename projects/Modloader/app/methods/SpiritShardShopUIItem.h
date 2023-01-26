@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
-#include <Modloader/app/structs/SpiritShardShopUIItem.h>
+
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SpiritShardShopUIItem.h>
 
 namespace app::classes::SpiritShardShopUIItem {
     IL2CPP_REGISTER_METHOD(0x002FBC20, app::PlayerUberStateShards_Shard*, get_SpiritShard, (app::SpiritShardShopUIItem * this_ptr))

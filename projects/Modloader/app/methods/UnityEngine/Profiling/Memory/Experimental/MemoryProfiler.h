@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Action_2_String_Boolean_.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/CaptureFlags__Enum.h>
+
+#include <Modloader/app/structs/Action_2_String_Boolean_.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CaptureFlags__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Profiling::Memory::Experimental::MemoryProfiler {
     IL2CPP_REGISTER_METHOD(0x029688E0, void, add_snapshotFinished, (app::Action_2_String_Boolean_ * value))

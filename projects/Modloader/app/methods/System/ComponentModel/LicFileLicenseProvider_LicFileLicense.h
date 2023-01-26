@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LicFileLicenseProvider_LicFileLicense.h>
+
+#include <Modloader/app/structs/LicFileLicenseProvider_LicFileLicense.h>
 #include <Modloader/app/structs/LicFileLicenseProvider.h>
 #include <Modloader/app/structs/String.h>
 

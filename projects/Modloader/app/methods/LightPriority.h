@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Dictionary_2_LightPriority_Layer_System_Int32_.h>
-#include <Modloader/app/structs/LightPriority_Layer__Enum.h>
+
+#include <Modloader/app/structs/Dictionary_2_LightPriority_Layer_System_Int32_.h>
 #include <Modloader/app/structs/LightPriority.h>
+#include <Modloader/app/structs/LightPriority_Layer__Enum.h>
 
 namespace app::classes::LightPriority {
     IL2CPP_REGISTER_METHOD(0x0114E930, app::Dictionary_2_LightPriority_Layer_System_Int32_*, get_DarkeningErasingPriorityMap, ())

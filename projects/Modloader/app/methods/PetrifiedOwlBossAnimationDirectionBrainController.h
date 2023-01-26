@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Enum__Array.h>
-#include <Modloader/app/structs/PetrifiedOwlBossAnimationDirectionBrainController.h>
+
+#include <Modloader/app/structs/Enum__Array.h>
 #include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/PetrifiedOwlBossAnimationDirectionBrainController.h>
 
 namespace app::classes::PetrifiedOwlBossAnimationDirectionBrainController {
     IL2CPP_REGISTER_METHOD(0x0049C110, app::Enum__Array*, GetEntries, (app::PetrifiedOwlBossAnimationDirectionBrainController * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlTypeMapMemberExpandable.h>
+
+#include <Modloader/app/structs/XmlTypeMapMemberExpandable.h>
 
 namespace app::classes::System::Xml::Serialization::XmlTypeMapMemberExpandable {
     IL2CPP_REGISTER_METHOD(0x003FF8B0, int32_t, get_FlatArrayIndex, (app::XmlTypeMapMemberExpandable * this_ptr))

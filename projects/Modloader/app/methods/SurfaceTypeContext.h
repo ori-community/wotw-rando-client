@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SurfaceTypeContext.h>
+
+#include <Modloader/app/structs/SurfaceTypeContext.h>
 #include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 
 namespace app::classes::SurfaceTypeContext {

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AllConditions_1.h>
-#include <Modloader/app/structs/ICondition__Array.h>
+
+#include <Modloader/app/structs/AllConditions_1.h>
 #include <Modloader/app/structs/Func_1_Boolean___Array.h>
+#include <Modloader/app/structs/ICondition__Array.h>
 #include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::fsm::AllConditions {

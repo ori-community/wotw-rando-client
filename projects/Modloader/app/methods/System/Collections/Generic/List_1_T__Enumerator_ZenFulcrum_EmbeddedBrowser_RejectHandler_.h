@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_ZenFulcrum_EmbeddedBrowser_RejectHandler___Boxed.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_ZenFulcrum_EmbeddedBrowser_RejectHandler___Boxed.h>
 #include <Modloader/app/structs/List_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_.h>
-#include <Modloader/app/structs/RejectHandler.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RejectHandler.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_ZenFulcrum_EmbeddedBrowser_RejectHandler_ {
     IL2CPP_REGISTER_METHOD(0x0014CA00, void, ctor, (app::List_1_T_Enumerator_ZenFulcrum_EmbeddedBrowser_RejectHandler___Boxed * this_ptr, app::List_1_ZenFulcrum_EmbeddedBrowser_RejectHandler_* list))

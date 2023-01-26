@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinSwimmingPuppet.h>
+
+#include <Modloader/app/structs/SeinSwimmingPuppet.h>
 
 namespace app::classes::SeinSwimmingPuppet {
     IL2CPP_REGISTER_METHOD(0x004FA040, int32_t, get_Id, (app::SeinSwimmingPuppet * this_ptr))

@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/LightTorchIsSolidCondition.h>
+#include <Modloader/app/structs/LightTorchIsSolidCondition__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LightTorchIsSolidCondition__Class.h>
-#include <Modloader/app/structs/LightTorchIsSolidCondition.h>
 
 namespace app::classes::types {
     namespace LightTorchIsSolidCondition {
-        namespace {
-            inline app::LightTorchIsSolidCondition__Class* type_info_ref = nullptr;
+        inline app::LightTorchIsSolidCondition__Class** type_info() {
+            static app::LightTorchIsSolidCondition__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LightTorchIsSolidCondition__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LightTorchIsSolidCondition__Class** type_info = &type_info_ref;
         inline app::LightTorchIsSolidCondition__Class* get_class() {
-            return il2cpp::get_class<app::LightTorchIsSolidCondition__Class>(type_info, "", "LightTorchIsSolidCondition");
+            return il2cpp::get_class<app::LightTorchIsSolidCondition__Class>(type_info(), "", "LightTorchIsSolidCondition");
         }
         inline app::LightTorchIsSolidCondition* create() {
             return il2cpp::create_object<app::LightTorchIsSolidCondition>(get_class());

@@ -1,29 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameController.h>
+
+#include <Modloader/app/structs/GameController.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/ExecuteCloudScriptResult.h>
 #include <Modloader/app/structs/GameController_GameDifficultyModes__Enum.h>
+#include <Modloader/app/structs/GameController_GameModeBalanceSettings.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/GameParameters.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IRaceServiceProvider.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
+#include <Modloader/app/structs/List_1_TelemetryFpsSample_.h>
+#include <Modloader/app/structs/LogType__Enum.h>
+#include <Modloader/app/structs/Objective.h>
+#include <Modloader/app/structs/PlatformServiceProvider.h>
+#include <Modloader/app/structs/PlayFabError.h>
+#include <Modloader/app/structs/PlayerLoopSystem.h>
+#include <Modloader/app/structs/RestartReason__Enum.h>
+#include <Modloader/app/structs/SceneRoot.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/RestartReason__Enum.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/PlayerLoopSystem.h>
 #include <Modloader/app/structs/Type__Array.h>
-#include <Modloader/app/structs/PlatformServiceProvider.h>
-#include <Modloader/app/structs/IRaceServiceProvider.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/LogType__Enum.h>
-#include <Modloader/app/structs/List_1_System_String_.h>
-#include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/SceneRoot.h>
 #include <Modloader/app/structs/WorldEventsOnAwake.h>
-#include <Modloader/app/structs/Action_1_Boolean_.h>
-#include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/Objective.h>
-#include <Modloader/app/structs/List_1_TelemetryFpsSample_.h>
-#include <Modloader/app/structs/GameController_GameModeBalanceSettings.h>
-#include <Modloader/app/structs/ExecuteCloudScriptResult.h>
-#include <Modloader/app/structs/PlayFabError.h>
 
 namespace app::classes::GameController {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_IsPressTourBuild, (app::GameController * this_ptr))
@@ -63,9 +64,7 @@ namespace app::classes::GameController {
     IL2CPP_REGISTER_METHOD(0x0068A5F0, void, PerformSaveGameSequence, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0068A770, void, GoToEndTrialScreen, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0068A9B0, void, OnFinishedLoadingTrialEndScene, (app::GameController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04736358, GameController_OnFinishedLoadingTrialEndScene__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0068A9C0, void, OnGameReset, (app::GameController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478EA78, GameController_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0068ACD0, void, RemoveGameplayObjects, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0068B710, void, ResetStateForDebugMenuGoToScene, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0068B730, void, ResetStateForLoremasterReplayGoToScene, (app::GameController * this_ptr))
@@ -74,7 +73,6 @@ namespace app::classes::GameController {
     IL2CPP_REGISTER_METHOD(0x0068B8C0, bool, get_IsRestarting, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0068B8D0, void, RestartGame, (app::GameController * this_ptr, bool select_saveslot))
     IL2CPP_REGISTER_METHOD(0x0068BF00, void, OnFinishedRestarting, (app::GameController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04749850, GameController_OnFinishedRestarting__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0068C050, app::IEnumerator*, RestartingCleanupNextFrame, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0068C1A0, void, StartNewGame, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0068C1E0, app::PlayerLoopSystem, FilterLoopSubsytems, (app::GameController * this_ptr, app::PlayerLoopSystem root, app::Type__Array* types))
@@ -86,16 +84,13 @@ namespace app::classes::GameController {
     IL2CPP_REGISTER_METHOD(0x0068D690, void, set_RestartReason, (app::GameController * this_ptr, app::RestartReason__Enum value))
     IL2CPP_REGISTER_METHOD(0x0068D6A0, void, PutUnderSystems, (app::GameController * this_ptr, app::GameObject* go))
     IL2CPP_REGISTER_METHOD(0x0068D780, void, OnGameAwake, (app::GameController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04754608, GameController_OnGameAwake__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0068DE80, void, InitializeSwitch, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0068E050, void, HandleTestRunners, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0068E390, app::IEnumerator*, Start, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldRegisterToHandleLogMessageReceived, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ShouldHashAndSendExceptionTelemetry, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0068E4E0, void, OnCurrentValueStoreChanged, (app::GameController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04706EA8, GameController_OnCurrentValueStoreChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0068E580, void, OnLogMessageReceived, (app::GameController * this_ptr, app::String* condition, app::String* stacktrace, app::LogType__Enum type))
-    IL2CPP_REGISTER_METHODINFO(0x04742440, GameController_OnLogMessageReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0068ECA0, int32_t, get_TotalExceptionsCount, ())
     IL2CPP_REGISTER_METHOD(0x0068ED40, int32_t, get_RecentExceptionsCount, ())
     IL2CPP_REGISTER_METHOD(0x0068EDE0, void, ResetRecentExceptionsCount, ())
@@ -108,7 +103,6 @@ namespace app::classes::GameController {
     IL2CPP_REGISTER_METHOD(0x006907D0, app::IEnumerator*, LoadAssets, (app::GameController * this_ptr, app::List_1_System_String_* assets_to_load))
     IL2CPP_REGISTER_METHOD(0x00690920, void, OnDestroy, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00690BF0, void, OnPostRestoreCheckpoint, (app::GameController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047352C8, GameController_OnPostRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00690C00, void, FixBrokenSave, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00690CD0, void, FixQuestStateNotSavedAfterAct1, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00690EB0, void, DiscoverSilentWoodsAreasIfNeeded, (app::GameController * this_ptr))
@@ -126,7 +120,6 @@ namespace app::classes::GameController {
     IL2CPP_REGISTER_METHOD(0x00692E00, void, HandleOnlineCallback, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00692F70, void, OnNetworkStatusChanged, (app::GameController * this_ptr, bool online))
     IL2CPP_REGISTER_METHOD(0x00693060, void, ShowOfflineHint, (app::GameController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04767C10, GameController_ShowOfflineHint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005F0520, bool, get_UnityInputJoystickConnected, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00693140, void, set_UnityInputJoystickConnected, (app::GameController * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00693150, void, HandleControllerConnectionTracking, (app::GameController * this_ptr))
@@ -141,11 +134,9 @@ namespace app::classes::GameController {
     IL2CPP_REGISTER_METHOD(0x00695800, void, SuspendGameplayForUI, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006958C0, void, ResumeGameplayForUI, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00695970, void, CreateCheckpointWithSave, (app::GameController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04729F08, GameController_CreateCheckpointWithSave__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00695980, void, CreateCheckpoint, (app::GameController * this_ptr, bool do_perform_save, bool respect_restrict_checkpoint_zone))
     IL2CPP_REGISTER_METHOD(0x00695BF0, void, RestoreCheckpoint, (app::GameController * this_ptr, app::Action* on_finished))
     IL2CPP_REGISTER_METHOD(0x00695D80, void, RestoreCheckpointImmediate_1, (app::GameController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047030A8, GameController_RestoreCheckpointImmediate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00695FF0, void, RestoreCheckpointImmediate_2, (app::GameController * this_ptr, bool from_disc))
     IL2CPP_REGISTER_METHOD(0x00696040, bool, IsOriInSafeSpotForCheckpoint, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00696100, void, HandleTrialData, (app::GameController * this_ptr))
@@ -198,13 +189,9 @@ namespace app::classes::GameController {
     IL2CPP_REGISTER_METHOD(0x00697ED0, void, ctor, (app::GameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00698BE0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x00698E60, void, _HandleTelemetryKillSwitch_b__332_0, (app::GameController * this_ptr, app::ExecuteCloudScriptResult* success))
-    IL2CPP_REGISTER_METHODINFO(0x0477CEC8, GameController__HandleTelemetryKillSwitch_b__332_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00699050, void, _HandleTelemetryKillSwitch_b__332_1, (app::GameController * this_ptr, app::PlayFabError* error))
-    IL2CPP_REGISTER_METHODINFO(0x0476B8D8, GameController__HandleTelemetryKillSwitch_b__332_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00699150, void, _HandleTelemetryKillSwitch_b__332_2, (app::GameController * this_ptr, app::ExecuteCloudScriptResult* success))
-    IL2CPP_REGISTER_METHODINFO(0x0471BB68, GameController__HandleTelemetryKillSwitch_b__332_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00699340, void, _HandleTelemetryKillSwitch_b__332_3, (app::GameController * this_ptr, app::PlayFabError* error))
-    IL2CPP_REGISTER_METHODINFO(0x047481F8, GameController__HandleTelemetryKillSwitch_b__332_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00699440, void, _HandleFriendsKillSwitch_b__333_0, (app::GameController * this_ptr, app::ExecuteCloudScriptResult* success))
     IL2CPP_REGISTER_METHOD(0x00699630, void, _HandleFriendsKillSwitch_b__333_1, (app::GameController * this_ptr, app::PlayFabError* error))
 } // namespace app::classes::GameController

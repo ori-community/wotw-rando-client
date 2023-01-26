@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Action_1_Moon_Timeline_EventTriggerAnimator_.h>
-#include <Modloader/app/structs/EventTriggerAnimator.h>
+
+#include <Modloader/app/structs/Action_1_Moon_Timeline_EventTriggerAnimator_.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/EventTriggerAnimator.h>
 #include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::Timeline::EventTriggerAnimator {

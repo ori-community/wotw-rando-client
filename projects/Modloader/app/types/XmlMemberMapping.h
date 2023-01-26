@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XmlMemberMapping__Class.h>
 #include <Modloader/app/structs/XmlMemberMapping.h>
 #include <Modloader/app/structs/XmlMemberMapping__Array.h>
+#include <Modloader/app/structs/XmlMemberMapping__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace XmlMemberMapping {
-        namespace {
-            inline app::XmlMemberMapping__Class* type_info_ref = nullptr;
+        inline app::XmlMemberMapping__Class** type_info() {
+            static app::XmlMemberMapping__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::XmlMemberMapping__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::XmlMemberMapping__Class** type_info = &type_info_ref;
         inline app::XmlMemberMapping__Class* get_class() {
-            return il2cpp::get_class<app::XmlMemberMapping__Class>(type_info, "System.Xml.Serialization", "XmlMemberMapping");
+            return il2cpp::get_class<app::XmlMemberMapping__Class>(type_info(), "System.Xml.Serialization", "XmlMemberMapping");
         }
         inline app::XmlMemberMapping* create() {
             return il2cpp::create_object<app::XmlMemberMapping>(get_class());

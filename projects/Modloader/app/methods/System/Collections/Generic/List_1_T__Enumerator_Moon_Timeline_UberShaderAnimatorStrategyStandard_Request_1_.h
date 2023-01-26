@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1___Boxed.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Object_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1__Boxed.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Single_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2__Boxed.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1___Boxed.h>
 #include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Color_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3__Boxed.h>
 #include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1__Boxed.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2__Boxed.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3__Boxed.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Object_.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Single_.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Color_.h>
 #include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Vector4_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_ {

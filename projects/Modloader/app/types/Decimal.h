@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/Decimal__Array.h>
+#include <Modloader/app/structs/Decimal__Boxed.h>
+#include <Modloader/app/structs/Decimal__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Decimal__Class.h>
-#include <Modloader/app/structs/Decimal.h>
-#include <Modloader/app/structs/Decimal__Boxed.h>
-#include <Modloader/app/structs/Decimal__Array.h>
 
 namespace app::classes::types {
     namespace Decimal {
-        inline app::Decimal__Class** type_info = (app::Decimal__Class**)(modloader::win::memory::resolve_rva(0x04770388));
+        inline app::Decimal__Class** type_info() {
+            static app::Decimal__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Decimal__Class**)(modloader::win::memory::resolve_rva(0x04770388));
+            }
+            return cache;
+        }
         inline app::Decimal__Class* get_class() {
-            return il2cpp::get_class<app::Decimal__Class>(type_info, "System", "Decimal");
+            return il2cpp::get_class<app::Decimal__Class>(type_info(), "System", "Decimal");
         }
         inline app::Decimal* create() {
             return il2cpp::create_object<app::Decimal>(get_class());

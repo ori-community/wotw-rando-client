@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LockQueue.h>
+
+#include <Modloader/app/structs/LockQueue.h>
 #include <Modloader/app/structs/ReaderWriterLock.h>
 
 namespace app::classes::System::Threading::LockQueue {

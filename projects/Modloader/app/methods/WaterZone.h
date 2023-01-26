@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WaterZone.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/WaterZone.h>
 #include <Modloader/app/structs/NavigationType__Enum.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/SelectableCategory__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::WaterZone {
     IL2CPP_REGISTER_METHOD(0x008E5E60, void, OnValidate, (app::WaterZone * this_ptr))

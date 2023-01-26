@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LessThanOrEqualInstruction.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/LessThanOrEqualInstruction.h>
 #include <Modloader/app/structs/Instruction.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::LessThanOrEqualInstruction {
@@ -12,5 +13,4 @@ namespace app::classes::System::Linq::Expressions::Interpreter::LessThanOrEqualI
     IL2CPP_REGISTER_METHOD(0x01CE9200, app::String*, get_InstructionName, (app::LessThanOrEqualInstruction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::LessThanOrEqualInstruction * this_ptr, app::Object* null_value))
     IL2CPP_REGISTER_METHOD(0x01CE9280, app::Instruction*, Create, (app::Type * type, bool lifted_to_null))
-    IL2CPP_REGISTER_METHODINFO(0x0472C408, LessThanOrEqualInstruction_Create__MethodInfo)
 } // namespace app::classes::System::Linq::Expressions::Interpreter::LessThanOrEqualInstruction

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_TextureAnimation_AnimationTextureInfo_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_TextureAnimation_AnimationTextureInfo_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/TextureAnimation_AnimationTextureInfo.h>
 #include <Modloader/app/structs/TextureAnimation_AnimationTextureInfo__Array.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_TextureAnimation_AnimationTextureInfo_ {
     IL2CPP_REGISTER_METHOD(0x01CD0840, bool, Equals_1, (app::ObjectEqualityComparer_1_TextureAnimation_AnimationTextureInfo_ * this_ptr, app::TextureAnimation_AnimationTextureInfo x, app::TextureAnimation_AnimationTextureInfo y))

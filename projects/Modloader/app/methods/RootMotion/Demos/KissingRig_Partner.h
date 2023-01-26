@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KissingRig_Partner.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/KissingRig_Partner.h>
 #include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::Demos::KissingRig_Partner {

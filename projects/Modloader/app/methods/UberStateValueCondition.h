@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberStateValueCondition.h>
+
+#include <Modloader/app/structs/UberStateValueCondition.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>

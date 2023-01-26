@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObjectActivator.h>
+
+#include <Modloader/app/structs/GameObjectActivator.h>
 #include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::GameObjectActivator {

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Firefly.h>
-#include <Modloader/app/structs/OrbSpawner.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Firefly.h>
 #include <Modloader/app/structs/Action_1_Boolean_.h>
 #include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/OrbSpawner.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Firefly {
     IL2CPP_REGISTER_METHOD(0x009CA200, bool, get_IsAlive, (app::Firefly * this_ptr))
@@ -30,9 +31,7 @@ namespace app::classes::Firefly {
     IL2CPP_REGISTER_METHOD(0x0125EBB0, void, UpdateFireflyTarget, (app::Firefly * this_ptr, app::Vector3 target))
     IL2CPP_REGISTER_METHOD(0x0125EBD0, app::Vector3, InternalIdle, (app::Firefly * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0125ED60, void, SpawnOrbs, (app::Firefly * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04797110, Firefly_SpawnOrbs__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0125EE40, void, KillFirefly, (app::Firefly * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04747070, Firefly_KillFirefly__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0125EF80, void, KillImmediately, (app::Firefly * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsDead, (app::Firefly * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeChargeFlamed, (app::Firefly * this_ptr))

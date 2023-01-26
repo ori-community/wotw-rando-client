@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CharacterPlatformMovement_ScheduledSpeedCurve__Class.h>
 #include <Modloader/app/structs/CharacterPlatformMovement_ScheduledSpeedCurve.h>
 #include <Modloader/app/structs/CharacterPlatformMovement_ScheduledSpeedCurve__Array.h>
+#include <Modloader/app/structs/CharacterPlatformMovement_ScheduledSpeedCurve__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace CharacterPlatformMovement_ScheduledSpeedCurve {
-        inline app::CharacterPlatformMovement_ScheduledSpeedCurve__Class** type_info = (app::CharacterPlatformMovement_ScheduledSpeedCurve__Class**)(modloader::win::memory::resolve_rva(0x0472D8B8));
+        inline app::CharacterPlatformMovement_ScheduledSpeedCurve__Class** type_info() {
+            static app::CharacterPlatformMovement_ScheduledSpeedCurve__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::CharacterPlatformMovement_ScheduledSpeedCurve__Class**)(modloader::win::memory::resolve_rva(0x0472D8B8));
+            }
+            return cache;
+        }
         inline app::CharacterPlatformMovement_ScheduledSpeedCurve__Class* get_class() {
-            return il2cpp::get_nested_class<app::CharacterPlatformMovement_ScheduledSpeedCurve__Class>(type_info, "", "CharacterPlatformMovement", "ScheduledSpeedCurve");
+            return il2cpp::get_nested_class<app::CharacterPlatformMovement_ScheduledSpeedCurve__Class>(type_info(), "", "CharacterPlatformMovement", "ScheduledSpeedCurve");
         }
         inline app::CharacterPlatformMovement_ScheduledSpeedCurve* create() {
             return il2cpp::create_object<app::CharacterPlatformMovement_ScheduledSpeedCurve>(get_class());

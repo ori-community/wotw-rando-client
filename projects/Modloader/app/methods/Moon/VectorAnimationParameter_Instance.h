@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/VectorAnimationParameter_Instance.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/VectorAnimationParameter.h>
+#include <Modloader/app/structs/VectorAnimationParameter_Instance.h>
 
 namespace app::classes::Moon::VectorAnimationParameter_Instance {
     IL2CPP_REGISTER_METHOD(0x0064EB90, app::Vector3, get_TargetValue, (app::VectorAnimationParameter_Instance * this_ptr))

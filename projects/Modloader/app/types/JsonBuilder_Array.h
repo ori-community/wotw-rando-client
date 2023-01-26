@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/JsonBuilder_Array__Class.h>
 #include <Modloader/app/structs/JsonBuilder_Array.h>
 #include <Modloader/app/structs/JsonBuilder_Array__Boxed.h>
+#include <Modloader/app/structs/JsonBuilder_Array__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace JsonBuilder_Array {
-        namespace {
-            inline app::JsonBuilder_Array__Class* type_info_ref = nullptr;
+        inline app::JsonBuilder_Array__Class** type_info() {
+            static app::JsonBuilder_Array__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::JsonBuilder_Array__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::JsonBuilder_Array__Class** type_info = &type_info_ref;
         inline app::JsonBuilder_Array__Class* get_class() {
-            return il2cpp::get_nested_class<app::JsonBuilder_Array__Class>(type_info, "Moon", "JsonBuilder", "Array");
+            return il2cpp::get_nested_class<app::JsonBuilder_Array__Class>(type_info(), "Moon", "JsonBuilder", "Array");
         }
         inline app::JsonBuilder_Array* create() {
             return il2cpp::create_object<app::JsonBuilder_Array>(get_class());

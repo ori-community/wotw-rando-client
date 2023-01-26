@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/EntityDataObject__Class.h>
 #include <Modloader/app/structs/EntityDataObject.h>
 #include <Modloader/app/structs/EntityDataObject__Array.h>
+#include <Modloader/app/structs/EntityDataObject__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace EntityDataObject {
-        namespace {
-            inline app::EntityDataObject__Class* type_info_ref = nullptr;
+        inline app::EntityDataObject__Class** type_info() {
+            static app::EntityDataObject__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::EntityDataObject__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::EntityDataObject__Class** type_info = &type_info_ref;
         inline app::EntityDataObject__Class* get_class() {
-            return il2cpp::get_class<app::EntityDataObject__Class>(type_info, "PlayFab.ProfilesModels", "EntityDataObject");
+            return il2cpp::get_class<app::EntityDataObject__Class>(type_info(), "PlayFab.ProfilesModels", "EntityDataObject");
         }
         inline app::EntityDataObject* create() {
             return il2cpp::create_object<app::EntityDataObject>(get_class());

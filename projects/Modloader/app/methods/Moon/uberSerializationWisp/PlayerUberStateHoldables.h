@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateHoldables.h>
+
+#include <Modloader/app/structs/PlayerUberStateHoldables.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/NavigableOnGUI.h>
 #include <Modloader/app/structs/UberStateArchive.h>

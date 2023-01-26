@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NotInstruction_NotSByte.h>
+
+#include <Modloader/app/structs/NotInstruction_NotSByte.h>
 #include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::NotInstruction_NotSByte {

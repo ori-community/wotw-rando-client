@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Array_InternalEnumerator_1_Moon_MoonTrailUpdateContext___Boxed.h>
+
+#include <Modloader/app/structs/Array_InternalEnumerator_1_Moon_MoonTrailUpdateContext___Boxed.h>
 #include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/MoonTrailUpdateContext.h>
 #include <Modloader/app/structs/Object.h>
@@ -10,7 +11,6 @@ namespace app::classes::System::Array_InternalEnumerator_1_Moon_MoonTrailUpdateC
     IL2CPP_REGISTER_METHOD(0x00002890, void, Dispose, (app::Array_InternalEnumerator_1_Moon_MoonTrailUpdateContext___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00160590, bool, MoveNext, (app::Array_InternalEnumerator_1_Moon_MoonTrailUpdateContext___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00164F90, app::MoonTrailUpdateContext, get_Current, (app::Array_InternalEnumerator_1_Moon_MoonTrailUpdateContext___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04704390, Array_InternalEnumerator_1_Moon_MoonTrailUpdateContext__get_Current__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00160610, void, IEnumerator_Reset, (app::Array_InternalEnumerator_1_Moon_MoonTrailUpdateContext___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00165030, app::Object*, IEnumerator_get_Current, (app::Array_InternalEnumerator_1_Moon_MoonTrailUpdateContext___Boxed * this_ptr))
 } // namespace app::classes::System::Array_InternalEnumerator_1_Moon_MoonTrailUpdateContext_

@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/ServerBoxCollider.h>
+#include <Modloader/app/structs/ServerBoxCollider__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ServerBoxCollider__Class.h>
-#include <Modloader/app/structs/ServerBoxCollider.h>
 
 namespace app::classes::types {
     namespace ServerBoxCollider {
-        namespace {
-            inline app::ServerBoxCollider__Class* type_info_ref = nullptr;
+        inline app::ServerBoxCollider__Class** type_info() {
+            static app::ServerBoxCollider__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ServerBoxCollider__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ServerBoxCollider__Class** type_info = &type_info_ref;
         inline app::ServerBoxCollider__Class* get_class() {
-            return il2cpp::get_class<app::ServerBoxCollider__Class>(type_info, "", "ServerBoxCollider");
+            return il2cpp::get_class<app::ServerBoxCollider__Class>(type_info(), "", "ServerBoxCollider");
         }
         inline app::ServerBoxCollider* create() {
             return il2cpp::create_object<app::ServerBoxCollider>(get_class());

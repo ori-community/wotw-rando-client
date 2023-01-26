@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Fader.h>
+
+#include <Modloader/app/structs/Fader.h>
 #include <Modloader/app/structs/Fader_State__Enum.h>
 
 namespace app::classes::Fader {

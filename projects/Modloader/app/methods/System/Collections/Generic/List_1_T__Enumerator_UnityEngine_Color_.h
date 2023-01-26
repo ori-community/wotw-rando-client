@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Color___Boxed.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Color_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Color___Boxed.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Color_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_UnityEngine_Color_ {

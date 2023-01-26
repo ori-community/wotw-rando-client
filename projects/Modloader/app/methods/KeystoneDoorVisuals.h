@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeystoneDoorVisuals.h>
+
+#include <Modloader/app/structs/KeystoneDoorVisuals.h>
 #include <Modloader/app/structs/DesiredUberStateDoor.h>
 #include <Modloader/app/structs/KeystoneDoorLogic.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TriggerZone.h>
+
+#include <Modloader/app/structs/TriggerZone.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Collider2D.h>
 

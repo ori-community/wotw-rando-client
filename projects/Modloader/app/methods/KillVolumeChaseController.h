@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/KillVolumeChaseController.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 

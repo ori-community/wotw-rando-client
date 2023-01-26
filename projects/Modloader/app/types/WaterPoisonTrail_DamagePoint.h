@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint.h>
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint__Array.h>
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint__Boxed.h>
+#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint__Class.h>
-#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint.h>
-#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint__Boxed.h>
-#include <Modloader/app/structs/WaterPoisonTrail_DamagePoint__Array.h>
 
 namespace app::classes::types {
     namespace WaterPoisonTrail_DamagePoint {
-        inline app::WaterPoisonTrail_DamagePoint__Class** type_info = (app::WaterPoisonTrail_DamagePoint__Class**)(modloader::win::memory::resolve_rva(0x0474E240));
+        inline app::WaterPoisonTrail_DamagePoint__Class** type_info() {
+            static app::WaterPoisonTrail_DamagePoint__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::WaterPoisonTrail_DamagePoint__Class**)(modloader::win::memory::resolve_rva(0x0474E240));
+            }
+            return cache;
+        }
         inline app::WaterPoisonTrail_DamagePoint__Class* get_class() {
-            return il2cpp::get_nested_class<app::WaterPoisonTrail_DamagePoint__Class>(type_info, "", "WaterPoisonTrail", "DamagePoint");
+            return il2cpp::get_nested_class<app::WaterPoisonTrail_DamagePoint__Class>(type_info(), "", "WaterPoisonTrail", "DamagePoint");
         }
         inline app::WaterPoisonTrail_DamagePoint* create() {
             return il2cpp::create_object<app::WaterPoisonTrail_DamagePoint>(get_class());

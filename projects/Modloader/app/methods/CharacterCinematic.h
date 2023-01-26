@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterCinematic.h>
-#include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/CharacterCinematic.h>
 #include <Modloader/app/structs/Action_1_Boolean_.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/ActiveAnimationHandle.h>
-#include <Modloader/app/structs/MoonAnimation.h>
 #include <Modloader/app/structs/AnimationCurve.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CharacterCinematic {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::CharacterCinematic * this_ptr))
@@ -34,10 +35,7 @@ namespace app::classes::CharacterCinematic {
     IL2CPP_REGISTER_METHOD(0x0104CF30, void, OnEnable, (app::CharacterCinematic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0104D0D0, void, OnDisable, (app::CharacterCinematic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0104D280, void, OnModifyHorizontalPlatformMovementSettings, (app::CharacterCinematic * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04752EC8, CharacterCinematic_OnModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A5ACC0, void, ModifyGravityPlatformMovementSettingsEvent, (app::CharacterCinematic * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04750178, CharacterCinematic_ModifyGravityPlatformMovementSettingsEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0104D2E0, void, OnRootMotionProcess, (app::CharacterCinematic * this_ptr, app::Vector3 root_speed))
-    IL2CPP_REGISTER_METHODINFO(0x04793F18, CharacterCinematic_OnRootMotionProcess__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0104D410, void, ctor, (app::CharacterCinematic * this_ptr))
 } // namespace app::classes::CharacterCinematic

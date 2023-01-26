@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraLookAheadController.h>
+
+#include <Modloader/app/structs/CameraLookAheadController.h>
 
 namespace app::classes::CameraLookAheadController {
     IL2CPP_REGISTER_METHOD(0x01692AC0, void, Update, (app::CameraLookAheadController * this_ptr))

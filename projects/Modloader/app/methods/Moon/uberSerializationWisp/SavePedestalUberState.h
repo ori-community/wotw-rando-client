@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SavePedestalUberState.h>
+
+#include <Modloader/app/structs/SavePedestalUberState.h>
+#include <Modloader/app/structs/IUberStateGroup.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SavePedestalUberState_PedestalState.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UberID.h>
 #include <Modloader/app/structs/UberStateArchive.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/UberStateHeader_UberStateType__Enum.h>
-#include <Modloader/app/structs/IUberStateGroup.h>
-#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::uberSerializationWisp::SavePedestalUberState {
     IL2CPP_REGISTER_METHOD(0x00F442B0, bool, get_HasGameBeenSaved, (app::SavePedestalUberState * this_ptr))

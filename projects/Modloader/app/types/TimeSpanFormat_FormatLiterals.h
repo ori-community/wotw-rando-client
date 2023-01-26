@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TimeSpanFormat_FormatLiterals__Class.h>
 #include <Modloader/app/structs/TimeSpanFormat_FormatLiterals.h>
 #include <Modloader/app/structs/TimeSpanFormat_FormatLiterals__Boxed.h>
+#include <Modloader/app/structs/TimeSpanFormat_FormatLiterals__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace TimeSpanFormat_FormatLiterals {
-        namespace {
-            inline app::TimeSpanFormat_FormatLiterals__Class* type_info_ref = nullptr;
+        inline app::TimeSpanFormat_FormatLiterals__Class** type_info() {
+            static app::TimeSpanFormat_FormatLiterals__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::TimeSpanFormat_FormatLiterals__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::TimeSpanFormat_FormatLiterals__Class** type_info = &type_info_ref;
         inline app::TimeSpanFormat_FormatLiterals__Class* get_class() {
-            return il2cpp::get_nested_class<app::TimeSpanFormat_FormatLiterals__Class>(type_info, "System.Globalization", "TimeSpanFormat", "FormatLiterals");
+            return il2cpp::get_nested_class<app::TimeSpanFormat_FormatLiterals__Class>(type_info(), "System.Globalization", "TimeSpanFormat", "FormatLiterals");
         }
         inline app::TimeSpanFormat_FormatLiterals* create() {
             return il2cpp::create_object<app::TimeSpanFormat_FormatLiterals>(get_class());

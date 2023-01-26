@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SinMovement.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/SinMovement.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::SinMovement {
     IL2CPP_REGISTER_METHOD(0x00749550, bool, get_IsSuspended, (app::SinMovement * this_ptr))

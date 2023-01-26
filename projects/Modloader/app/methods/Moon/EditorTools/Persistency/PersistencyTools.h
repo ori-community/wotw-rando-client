@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::Moon::EditorTools::Persistency::PersistencyTools {
     IL2CPP_REGISTER_METHOD(0x01207E80, void, LinkPrefab, (app::GameObject * prefab, app::GameObject* go))

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DeathStartEffectSpawnSetting.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/DeathStartEffectSpawnSetting.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::DeathStartEffectSpawnSetting {
     IL2CPP_REGISTER_METHOD(0x002FB9C0, void, OnEntityInitialized, (app::DeathStartEffectSpawnSetting * this_ptr, app::Entity* entity))

@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
-#include <Modloader/app/structs/LeaderboardsB.h>
-#include <Modloader/app/structs/LeaderboardRowUI.h>
+
+#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
 #include <Modloader/app/structs/CleverMenuItemGroup.h>
-#include <Modloader/app/structs/LeaderboardData.h>
-#include <Modloader/app/structs/LeaderboardB__Enum.h>
-#include <Modloader/app/structs/Leaderboard__Enum.h>
 #include <Modloader/app/structs/DifficultyMode__Enum.h>
-#include <Modloader/app/structs/List_1_PlayFab_ClientModels_PlayerLeaderboardEntry_.h>
+#include <Modloader/app/structs/LeaderboardB__Enum.h>
+#include <Modloader/app/structs/LeaderboardData.h>
+#include <Modloader/app/structs/LeaderboardRowUI.h>
+#include <Modloader/app/structs/Leaderboard__Enum.h>
+#include <Modloader/app/structs/LeaderboardsB.h>
 #include <Modloader/app/structs/LeaderboardsB_LeaderboardQueryState__Enum.h>
+#include <Modloader/app/structs/List_1_PlayFab_ClientModels_PlayerLeaderboardEntry_.h>
 
 namespace app::classes::LeaderboardsB {
     IL2CPP_REGISTER_METHOD(0x015BA0C0, app::LeaderboardFilter__Enum, get_m_currentFilter, (app::LeaderboardsB * this_ptr))
@@ -20,7 +21,6 @@ namespace app::classes::LeaderboardsB {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CanBeEntered, (app::LeaderboardsB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015BA590, void, OnEnable, (app::LeaderboardsB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015BA900, void, OnOnlineStateChanged, (app::LeaderboardsB * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472B208, LeaderboardsB_OnOnlineStateChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015BA940, void, OnDisable, (app::LeaderboardsB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DB59E0, bool, get_IsActive, (app::LeaderboardsB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015BABF0, void, set_IsActive, (app::LeaderboardsB * this_ptr, bool value))

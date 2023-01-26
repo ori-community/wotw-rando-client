@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AspectRatioFitter.h>
+
+#include <Modloader/app/structs/AspectRatioFitter.h>
 #include <Modloader/app/structs/AspectRatioFitter_AspectMode__Enum.h>
 #include <Modloader/app/structs/RectTransform.h>
 #include <Modloader/app/structs/Vector2.h>

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_AttackTokens_Request___Boxed.h>
-#include <Modloader/app/structs/List_1_AttackTokens_Request_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_AttackTokens_Request___Boxed.h>
 #include <Modloader/app/structs/AttackTokens_Request.h>
+#include <Modloader/app/structs/List_1_AttackTokens_Request_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_AttackTokens_Request_ {

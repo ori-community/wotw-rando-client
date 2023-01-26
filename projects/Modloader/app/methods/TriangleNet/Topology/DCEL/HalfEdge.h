@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HalfEdge.h>
-#include <Modloader/app/structs/Vertex_1.h>
+
+#include <Modloader/app/structs/HalfEdge.h>
 #include <Modloader/app/structs/Face.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vertex_1.h>
 
 namespace app::classes::TriangleNet::Topology::DCEL::HalfEdge {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, int32_t, get_ID, (app::HalfEdge * this_ptr))

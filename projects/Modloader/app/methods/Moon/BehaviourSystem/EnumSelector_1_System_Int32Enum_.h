@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/EnumSelector_1_System_Int32Enum_.h>
 #include <Modloader/app/structs/IContext.h>
 

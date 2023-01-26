@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData__Boxed.h>
+
+#include <Modloader/app/structs/LegacyTransparencyAnimator_RendererData__Boxed.h>
 #include <Modloader/app/structs/Renderer.h>
 #include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
 

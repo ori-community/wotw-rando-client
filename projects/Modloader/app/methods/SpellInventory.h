@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateInventory.h>
-#include <Modloader/app/structs/SpellInventory.h>
-#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_.h>
-#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
-#include <Modloader/app/structs/EquipmentType__Enum.h>
-#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
-#include <Modloader/app/structs/List_1_EquipmentType_.h>
+
+#include <Modloader/app/structs/PlayerUberStateInventory.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
-#include <Modloader/app/structs/SpiritShardType__Enum.h>
-#include <Modloader/app/structs/SeinCharacter.h>
-#include <Modloader/app/structs/Input_Command__Enum.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/EquipmentType__Enum.h>
 #include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/Input_Command__Enum.h>
+#include <Modloader/app/structs/List_1_EquipmentType_.h>
+#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/SpellInventory.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::SpellInventory {
     IL2CPP_REGISTER_METHOD(0x00EF8A00, app::PlayerUberStateInventory*, get_PlayerUberStateInventory, (app::SpellInventory * this_ptr))
@@ -39,7 +40,6 @@ namespace app::classes::SpellInventory {
     IL2CPP_REGISTER_METHOD(0x00EF9FC0, bool, IsShardSocketedToCurrentlyBoundEquipmentByAbility, (app::SpellInventory * this_ptr, app::AbilityType__Enum ability_type, app::SpiritShardType__Enum shard_type))
     IL2CPP_REGISTER_METHOD(0x00EFA080, void, SetReferenceToSein, (app::SpellInventory * this_ptr, app::SeinCharacter* sein))
     IL2CPP_REGISTER_METHOD(0x00EFA160, app::Input_Command__Enum, BindingToButton, (app::SpellInventory_Binding__Enum binding))
-    IL2CPP_REGISTER_METHODINFO(0x0474DD70, SpellInventory_BindingToButton__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EFA230, void, ClearInventory, (app::SpellInventory * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EFA3E0, void, DebugAddSpells, (app::SpellInventory * this_ptr, bool missing_only, app::List_1_EquipmentType_* except))
     IL2CPP_REGISTER_METHOD(0x00EFA7A0, void, Apply, (app::SpellInventory * this_ptr, app::UberStateApplyContext__Enum context))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Int32Enum_SpellIconsCollection_Icons___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32Enum_SpellIconsCollection_Icons___Boxed.h>
 #include <Modloader/app/structs/Int32Enum__Enum.h>
 #include <Modloader/app/structs/SpellIconsCollection_Icons.h>
 #include <Modloader/app/structs/String.h>

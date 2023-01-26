@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DroppedFrameMonitorB_TempData.h>
+
+#include <Modloader/app/structs/DroppedFrameMonitorB_TempData.h>
 #include <Modloader/app/structs/DroppedFrameMonitor_FrameState__Enum.h>
 
 namespace app::classes::DroppedFrameMonitorB_TempData {

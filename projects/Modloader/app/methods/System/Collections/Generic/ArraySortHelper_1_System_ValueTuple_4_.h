@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ValueTuple_4_Object_Int32_Int32_Single___Array.h>
+
+#include <Modloader/app/structs/ValueTuple_4_Object_Int32_Int32_Single___Array.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_4_Object_Int32_Int32_Single_.h>
 #include <Modloader/app/structs/IComparer_1_System_ValueTuple_4_.h>
 #include <Modloader/app/structs/ValueTuple_4_Object_Int32_Int32_Single_.h>
-#include <Modloader/app/structs/Comparison_1_ValueTuple_4_Object_Int32_Int32_Single_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_System_ValueTuple_4_ {
     IL2CPP_REGISTER_METHOD(0x02F83320, void, Sort_1, (app::ValueTuple_4_Object_Int32_Int32_Single___Array * keys, int32_t index, int32_t length, app::IComparer_1_System_ValueTuple_4_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0476AD98, ArraySortHelper_1_System_ValueTuple_4__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F83640, int32_t, BinarySearch, (app::ValueTuple_4_Object_Int32_Int32_Single___Array * array, int32_t index, int32_t length, app::ValueTuple_4_Object_Int32_Int32_Single_ value, app::IComparer_1_System_ValueTuple_4_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x047950A0, ArraySortHelper_1_System_ValueTuple_4__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F837F0, void, Sort_2, (app::ValueTuple_4_Object_Int32_Int32_Single___Array * keys, int32_t index, int32_t length, app::Comparison_1_ValueTuple_4_Object_Int32_Int32_Single_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0470AC58, ArraySortHelper_1_System_ValueTuple_4__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C8BFB0, int32_t, InternalBinarySearch, (app::ValueTuple_4_Object_Int32_Int32_Single___Array * array, int32_t index, int32_t length, app::ValueTuple_4_Object_Int32_Int32_Single_ value, app::IComparer_1_System_ValueTuple_4_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C8C170, void, SwapIfGreater, (app::ValueTuple_4_Object_Int32_Int32_Single___Array * keys, app::Comparison_1_ValueTuple_4_Object_Int32_Int32_Single_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C8C330, void, Swap, (app::ValueTuple_4_Object_Int32_Int32_Single___Array * a, int32_t i, int32_t j))

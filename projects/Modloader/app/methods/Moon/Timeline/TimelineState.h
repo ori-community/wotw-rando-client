@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Action_1_Single_.h>
+
+#include <Modloader/app/structs/Action_1_Single_.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/ITimelineStateObserver.h>
 #include <Modloader/app/structs/TimelineState.h>

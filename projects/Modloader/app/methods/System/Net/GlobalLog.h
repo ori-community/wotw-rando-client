@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BaseLoggingObject.h>
-#include <Modloader/app/structs/ThreadKinds__Enum.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/BaseLoggingObject.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ThreadKinds__Enum.h>
 
 namespace app::classes::System::Net::GlobalLog {
     IL2CPP_REGISTER_METHOD(0x01D383E0, app::BaseLoggingObject*, LoggingInitialize, ())
@@ -14,7 +15,6 @@ namespace app::classes::System::Net::GlobalLog {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SetThreadSource, (app::ThreadKinds__Enum source))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ThreadContract_1, (app::ThreadKinds__Enum kind, app::String* error_msg))
     IL2CPP_REGISTER_METHOD(0x01D38520, void, ThreadContract_2, (app::ThreadKinds__Enum kind, app::ThreadKinds__Enum allowed_sources, app::String* error_msg))
-    IL2CPP_REGISTER_METHODINFO(0x04791D20, GlobalLog_ThreadContract_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, AddToArray, (app::String * msg))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Ignore, (app::Object * msg))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Print, (app::String * msg))

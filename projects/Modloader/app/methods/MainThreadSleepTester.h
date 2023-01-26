@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUIStyle.h>
+
+#include <Modloader/app/structs/GUIStyle.h>
 #include <Modloader/app/structs/MainThreadSleepTester.h>
 
 namespace app::classes::MainThreadSleepTester {
@@ -14,7 +15,6 @@ namespace app::classes::MainThreadSleepTester {
     IL2CPP_REGISTER_METHOD(0x009F6FB0, void, EnableSleep, (app::MainThreadSleepTester * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009F7180, void, DisableSleep, (app::MainThreadSleepTester * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009F7350, void, OnEndOfFrame, (app::MainThreadSleepTester * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472F510, MainThreadSleepTester_OnEndOfFrame__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009F7400, void, OnGUI, (app::MainThreadSleepTester * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009F75E0, void, ctor, (app::MainThreadSleepTester * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009F7670, void, cctor, ())

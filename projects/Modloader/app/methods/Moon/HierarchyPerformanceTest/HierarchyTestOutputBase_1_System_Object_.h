@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HierarchyTestOutputBase_1_System_Object_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
-#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
+
+#include <Modloader/app/structs/HierarchyTestOutputBase_1_System_Object_.h>
 #include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
+#include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::HierarchyTestOutputBase_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x0271F050, void, ctor, (app::HierarchyTestOutputBase_1_System_Object_ * this_ptr, app::Object* data))

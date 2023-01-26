@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkeetoDiveAttackBehaviour_DiveAttackState__Enum.h>
-#include <Modloader/app/structs/SkeetoDiveAttackBehaviour.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/SkeetoLocomotion.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/SkeetoDiveAttackBehaviour_DiveAttackState__Enum.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SkeetoDiveAttackBehaviour.h>
+#include <Modloader/app/structs/SkeetoLocomotion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SkeetoDiveAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x0074F800, app::SkeetoDiveAttackBehaviour_DiveAttackState__Enum, get_State, (app::SkeetoDiveAttackBehaviour * this_ptr))
@@ -56,28 +57,18 @@ namespace app::classes::SkeetoDiveAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00753A60, void, OnExit, (app::SkeetoDiveAttackBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00754000, void, OnCollision, (app::SkeetoDiveAttackBehaviour * this_ptr, app::GameObject* go, app::Vector3 normal))
     IL2CPP_REGISTER_METHOD(0x00754570, void, OnNativeCollision, (app::SkeetoDiveAttackBehaviour * this_ptr, app::Collision* collision))
-    IL2CPP_REGISTER_METHODINFO(0x0478E960, SkeetoDiveAttackBehaviour_OnNativeCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::SkeetoDiveAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00754610, void, PlayTimeline, (app::SkeetoDiveAttackBehaviour * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop))
     IL2CPP_REGISTER_METHOD(0x00754680, void, ResetCurrentTimeline, (app::SkeetoDiveAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B33C0, void, OnInterrupted, (app::SkeetoDiveAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475ECA0, SkeetoDiveAttackBehaviour_OnInterrupted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00754770, app::Vector3, OnRootMotion, (app::SkeetoDiveAttackBehaviour * this_ptr, app::Vector3 motion))
-    IL2CPP_REGISTER_METHODINFO(0x0470A338, SkeetoDiveAttackBehaviour_OnRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00754860, void, OnDestroy, (app::SkeetoDiveAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00754A10, void, ctor, (app::SkeetoDiveAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00754B20, void, _OnEnterFlipTowardsTarget_b__71_0, (app::SkeetoDiveAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04750D08, SkeetoDiveAttackBehaviour__OnEnterFlipTowardsTarget_b__71_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00754B60, void, _OnEnterFlipTowardsTarget_b__71_1, (app::SkeetoDiveAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04718678, SkeetoDiveAttackBehaviour__OnEnterFlipTowardsTarget_b__71_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00754B70, void, _OnEnterAttackAnticipation_b__74_0, (app::SkeetoDiveAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476A320, SkeetoDiveAttackBehaviour__OnEnterAttackAnticipation_b__74_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00754B80, void, _OnEnterAttackResolve_b__80_0, (app::SkeetoDiveAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04788298, SkeetoDiveAttackBehaviour__OnEnterAttackResolve_b__80_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00754B90, void, _OnEnterHitWallHit_b__86_0, (app::SkeetoDiveAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474A438, SkeetoDiveAttackBehaviour__OnEnterHitWallHit_b__86_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00754B80, void, _OnEnterHitWallResolve_b__89_0, (app::SkeetoDiveAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04706560, SkeetoDiveAttackBehaviour__OnEnterHitWallResolve_b__89_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00754B80, void, _OnEnterHitWallBackward_b__92_0, (app::SkeetoDiveAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047631E0, SkeetoDiveAttackBehaviour__OnEnterHitWallBackward_b__92_0__MethodInfo)
 } // namespace app::classes::SkeetoDiveAttackBehaviour

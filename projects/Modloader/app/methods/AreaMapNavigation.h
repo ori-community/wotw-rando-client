@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AreaMapNavigation.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/AreaMapNavigation.h>
 #include <Modloader/app/structs/AreaMapNavigation_State__Enum.h>
-#include <Modloader/app/structs/Quest.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/Nullable_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::AreaMapNavigation {
     IL2CPP_REGISTER_METHOD(0x0050F110, float, get_ZoomTime, (app::AreaMapNavigation * this_ptr))
@@ -24,16 +25,12 @@ namespace app::classes::AreaMapNavigation {
     IL2CPP_REGISTER_METHOD(0x005100A0, void, SetTargetPosition, (app::AreaMapNavigation * this_ptr, app::Vector3 target_pos))
     IL2CPP_REGISTER_METHOD(0x005100D0, app::Vector3, GetTargetPosition, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005100F0, void, ResetFlags, (app::AreaMapNavigation * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04755678, AreaMapNavigation_ResetFlags__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00510100, void, SetFollowTransform, (app::AreaMapNavigation * this_ptr, app::Transform* t))
     IL2CPP_REGISTER_METHOD(0x00510110, void, OptionChangeCallback, (app::AreaMapNavigation * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04700BB8, AreaMapNavigation_OptionChangeCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00510130, void, OnVisibilityChangedCallback, (app::AreaMapNavigation * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476D9F8, AreaMapNavigation_OnVisibilityChangedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00510200, void, UpdateMapTarget, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00510310, void, SetScrollPositionToPlayer, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00510420, void, UpdateTargetPosition, (app::AreaMapNavigation * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04708C18, AreaMapNavigation_UpdateTargetPosition__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00510780, void, OnEnable, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005107C0, void, OnDisable, (app::AreaMapNavigation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00510800, app::Bounds, get_Bounds, (app::AreaMapNavigation * this_ptr))

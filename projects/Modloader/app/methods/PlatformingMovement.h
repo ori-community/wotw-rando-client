@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlatformingMovement.h>
+
+#include <Modloader/app/structs/PlatformingMovement.h>
 #include <Modloader/app/structs/Collision.h>
 #include <Modloader/app/structs/Vector3.h>
 

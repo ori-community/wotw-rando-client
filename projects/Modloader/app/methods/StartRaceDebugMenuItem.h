@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StartRaceDebugMenuItem.h>
+
+#include <Modloader/app/structs/StartRaceDebugMenuItem.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::StartRaceDebugMenuItem {
@@ -10,5 +11,4 @@ namespace app::classes::StartRaceDebugMenuItem {
     IL2CPP_REGISTER_METHOD(0x009B2D60, void, PreviousRace, ())
     IL2CPP_REGISTER_METHOD(0x009B2EB0, bool, StartRace, (app::StartRaceDebugMenuItem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009B3170, void, OnFinishedLoadingRaceScene, (app::StartRaceDebugMenuItem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04778720, StartRaceDebugMenuItem_OnFinishedLoadingRaceScene__MethodInfo)
 } // namespace app::classes::StartRaceDebugMenuItem

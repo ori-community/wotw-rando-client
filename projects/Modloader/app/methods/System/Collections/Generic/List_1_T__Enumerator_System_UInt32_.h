@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_System_UInt32___Boxed.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_System_UInt32___Boxed.h>
 #include <Modloader/app/structs/List_1_System_UInt32_.h>
 #include <Modloader/app/structs/Object.h>
 

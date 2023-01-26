@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TaskAwaiter_1_System_Threading_Tasks_VoidTaskResult___Boxed.h>
-#include <Modloader/app/structs/Task_1_VoidTaskResult_.h>
+
+#include <Modloader/app/structs/TaskAwaiter_1_System_Threading_Tasks_VoidTaskResult___Boxed.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Task_1_VoidTaskResult_.h>
 #include <Modloader/app/structs/VoidTaskResult.h>
 
 namespace app::classes::System::Runtime::CompilerServices::TaskAwaiter_1_System_Threading_Tasks_VoidTaskResult_ {

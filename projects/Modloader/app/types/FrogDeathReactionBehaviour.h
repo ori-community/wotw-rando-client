@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/FrogDeathReactionBehaviour.h>
+#include <Modloader/app/structs/FrogDeathReactionBehaviour__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/FrogDeathReactionBehaviour__Class.h>
-#include <Modloader/app/structs/FrogDeathReactionBehaviour.h>
 
 namespace app::classes::types {
     namespace FrogDeathReactionBehaviour {
-        namespace {
-            inline app::FrogDeathReactionBehaviour__Class* type_info_ref = nullptr;
+        inline app::FrogDeathReactionBehaviour__Class** type_info() {
+            static app::FrogDeathReactionBehaviour__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::FrogDeathReactionBehaviour__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::FrogDeathReactionBehaviour__Class** type_info = &type_info_ref;
         inline app::FrogDeathReactionBehaviour__Class* get_class() {
-            return il2cpp::get_class<app::FrogDeathReactionBehaviour__Class>(type_info, "", "FrogDeathReactionBehaviour");
+            return il2cpp::get_class<app::FrogDeathReactionBehaviour__Class>(type_info(), "", "FrogDeathReactionBehaviour");
         }
         inline app::FrogDeathReactionBehaviour* create() {
             return il2cpp::create_object<app::FrogDeathReactionBehaviour>(get_class());

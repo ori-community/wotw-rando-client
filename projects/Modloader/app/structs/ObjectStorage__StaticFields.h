@@ -16,7 +16,7 @@ struct ObjectStorage__StaticFields {
 #endif
 #if !defined(IL2CPP_STRUCT_ObjectStorage__StaticFields_FWDDECL)
 #define IL2CPP_STRUCT_ObjectStorage__StaticFields_FWDDECL
-#include <Modloader/app/structs/Dictionary_2_KeyValuePair_2_System_Type_System_Xml_Serialization_XmlRootAttribute_System_Xml_Serialization_XmlSerializer_.h>
+#include <Modloader/app/structs/Dictionary_2_KeyValueP_2_Sys_T_Sys_X_Serializat_XmlRootAttrib_Sys_X_Serializat_XmlSeriali_.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/XmlSerializerFactory.h>
 #endif

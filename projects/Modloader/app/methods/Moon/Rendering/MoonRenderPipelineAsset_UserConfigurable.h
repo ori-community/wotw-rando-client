@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonRenderPipelineAsset_UserConfigurable.h>
+
+#include <Modloader/app/structs/MoonRenderPipelineAsset_UserConfigurable.h>
 #include <Modloader/app/structs/MoonRenderPipelineAsset_ConfigurableOn__Enum.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderPipelineAsset_UserConfigurable {

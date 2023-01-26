@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UserControlAI.h>
+
+#include <Modloader/app/structs/UserControlAI.h>
 
 namespace app::classes::RootMotion::Demos::UserControlAI {
     IL2CPP_REGISTER_METHOD(0x0204A230, void, Update, (app::UserControlAI * this_ptr))

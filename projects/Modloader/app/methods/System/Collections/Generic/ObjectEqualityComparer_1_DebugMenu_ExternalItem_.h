@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_DebugMenu_ExternalItem_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_DebugMenu_ExternalItem_.h>
 #include <Modloader/app/structs/DebugMenu_ExternalItem.h>
 #include <Modloader/app/structs/DebugMenu_ExternalItem__Array.h>
 #include <Modloader/app/structs/Object.h>

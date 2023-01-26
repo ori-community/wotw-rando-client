@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActionTimer.h>
+
+#include <Modloader/app/structs/ActionTimer.h>
 #include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/IEnumerator.h>
 

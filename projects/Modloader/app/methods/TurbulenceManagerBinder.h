@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Texture2D.h>
+
+#include <Modloader/app/structs/Texture2D.h>
 #include <Modloader/app/structs/TurbulenceManagerBinder.h>
 #include <Modloader/app/structs/TurbulenceManagerBinder_CurrentShaderSettings.h>
 #include <Modloader/app/structs/TurbulenceSettings.h>

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Alert.h>
-#include <Modloader/app/structs/TlsException.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/Alert.h>
+#include <Modloader/app/structs/AlertDescription__Enum_1.h>
+#include <Modloader/app/structs/AlertLevel__Enum.h>
+#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
-#include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/AlertLevel__Enum.h>
-#include <Modloader/app/structs/AlertDescription__Enum_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TlsException.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::TlsException {
     IL2CPP_REGISTER_METHOD(0x002FBC20, app::Alert*, get_Alert, (app::TlsException * this_ptr))

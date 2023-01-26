@@ -1,17 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector2__Boxed.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/Vector2__Boxed.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::Vector2 {
     IL2CPP_REGISTER_METHOD(0x00125480, void, ctor, (app::Vector2__Boxed * this_ptr, float x, float y))
     IL2CPP_REGISTER_METHOD(0x00229340, float, get_Item, (app::Vector2__Boxed * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04735570, Vector2_get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00229350, void, set_Item, (app::Vector2__Boxed * this_ptr, int32_t index, float value))
-    IL2CPP_REGISTER_METHODINFO(0x0470D428, Vector2_set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00125480, void, Set, (app::Vector2__Boxed * this_ptr, float new_x, float new_y))
     IL2CPP_REGISTER_METHOD(0x02C72900, app::Vector2, Lerp, (app::Vector2 a, app::Vector2 b, float t))
     IL2CPP_REGISTER_METHOD(0x02C72A00, app::Vector2, MoveTowards, (app::Vector2 current, app::Vector2 target, float max_distance_delta))

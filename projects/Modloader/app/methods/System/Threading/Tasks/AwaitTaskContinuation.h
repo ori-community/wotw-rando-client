@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AwaitTaskContinuation.h>
+
+#include <Modloader/app/structs/AwaitTaskContinuation.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/StackCrawlMark__Enum.h>
-#include <Modloader/app/structs/Task.h>
 #include <Modloader/app/structs/Action_1_Object_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/TaskScheduler.h>
-#include <Modloader/app/structs/ThreadAbortException.h>
 #include <Modloader/app/structs/ContextCallback.h>
 #include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StackCrawlMark__Enum.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/TaskScheduler.h>
+#include <Modloader/app/structs/ThreadAbortException.h>
 
 namespace app::classes::System::Threading::Tasks::AwaitTaskContinuation {
     IL2CPP_REGISTER_METHOD(0x0232E5F0, void, ctor_1, (app::AwaitTaskContinuation * this_ptr, app::Action* action, bool flow_execution_context, app::StackCrawlMark__Enum* stack_mark))
@@ -21,7 +22,6 @@ namespace app::classes::System::Threading::Tasks::AwaitTaskContinuation {
     IL2CPP_REGISTER_METHOD(0x0232ED60, void, IThreadPoolWorkItem_ExecuteWorkItem, (app::AwaitTaskContinuation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IThreadPoolWorkItem_MarkAborted, (app::AwaitTaskContinuation * this_ptr, app::ThreadAbortException* tae))
     IL2CPP_REGISTER_METHOD(0x0232ED90, void, InvokeAction, (app::Object * state))
-    IL2CPP_REGISTER_METHODINFO(0x04703390, AwaitTaskContinuation_InvokeAction__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0232EE40, app::ContextCallback*, GetInvokeActionCallback, ())
     IL2CPP_REGISTER_METHOD(0x0232EFC0, void, RunCallback, (app::AwaitTaskContinuation * this_ptr, app::ContextCallback* callback, app::Object* state, app::Task** current_task))
     IL2CPP_REGISTER_METHOD(0x0232F180, void, RunOrScheduleAction, (app::Action * action, bool allow_inlining, app::Task** current_task))

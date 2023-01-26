@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/CameraOffsetController.h>
 #include <Modloader/app/structs/CameraOffsetController_OffsetLayer.h>
 #include <Modloader/app/structs/CameraOffsetZone.h>
@@ -23,11 +24,8 @@ namespace app::classes::CameraOffsetController {
     IL2CPP_REGISTER_METHOD(0x01697F30, void, OnDestroy, (app::CameraOffsetController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01698300, void, Reset, (app::CameraOffsetController * this_ptr, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x01698830, void, OnAspectChanged, (app::CameraOffsetController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047710F8, CameraOffsetController_OnAspectChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01698850, void, OnGameReset, (app::CameraOffsetController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477DF30, CameraOffsetController_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01698900, void, OnScrollLockPassed, (app::CameraOffsetController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470A020, CameraOffsetController_OnScrollLockPassed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00933260, app::Vector3, get_LastOffsetWithoutCamera, (app::CameraOffsetController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F0E6F0, app::Vector3, get_LastRotationWithoutCamera, (app::CameraOffsetController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016989B0, void, GetCurrentOffsetTarget, (app::CameraOffsetController * this_ptr, float time_delta, bool instant, int32_t max_priority, app::Vector3* offset, app::Vector3* rotation))

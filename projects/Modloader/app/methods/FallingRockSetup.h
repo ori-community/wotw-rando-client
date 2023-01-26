@@ -1,18 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FallingRockSetup.h>
+
+#include <Modloader/app/structs/FallingRockSetup.h>
+#include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/DamageDealer.h>
 #include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::FallingRockSetup {
     IL2CPP_REGISTER_METHOD(0x00996AA0, void, OnDamageDealt, (app::FallingRockSetup * this_ptr, app::DamageDealer* dealer, app::DamageResult result))
-    IL2CPP_REGISTER_METHODINFO(0x04753D30, FallingRockSetup_OnDamageDealt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00996C80, void, OnEnable, (app::FallingRockSetup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00996F90, void, OnDisable, (app::FallingRockSetup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ApplyOnEditor, (app::FallingRockSetup * this_ptr))

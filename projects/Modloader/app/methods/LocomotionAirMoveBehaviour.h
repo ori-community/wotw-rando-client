@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/LocomotionAirMoveBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/LocomotionAirMoveBehaviour.h>
 
 namespace app::classes::LocomotionAirMoveBehaviour {
     IL2CPP_REGISTER_METHOD(0x009EB5F0, app::Vector3, get_TargetPosition, (app::LocomotionAirMoveBehaviour * this_ptr))
@@ -23,7 +24,6 @@ namespace app::classes::LocomotionAirMoveBehaviour {
     IL2CPP_REGISTER_METHOD(0x00FC4640, void, SetAnimationSpeed, (app::LocomotionAirMoveBehaviour * this_ptr, float speed))
     IL2CPP_REGISTER_METHOD(0x00FC4660, void, PlayAnimation, (app::LocomotionAirMoveBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009EC110, bool, ContinuePlayingMovementAnim, (app::LocomotionAirMoveBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477FDB8, LocomotionAirMoveBehaviour_ContinuePlayingMovementAnim__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FC4A60, void, OnMovementStoppedPlaying, (app::LocomotionAirMoveBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FC4AA0, void, OnTraversalSpeedChange, (app::LocomotionAirMoveBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnResetTask, (app::LocomotionAirMoveBehaviour * this_ptr, app::IContext* context))

@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AnimationMontage_Entry__Class.h>
 #include <Modloader/app/structs/AnimationMontage_Entry.h>
 #include <Modloader/app/structs/AnimationMontage_Entry__Array.h>
+#include <Modloader/app/structs/AnimationMontage_Entry__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace AnimationMontage_Entry {
-        inline app::AnimationMontage_Entry__Class** type_info = (app::AnimationMontage_Entry__Class**)(modloader::win::memory::resolve_rva(0x04731B38));
+        inline app::AnimationMontage_Entry__Class** type_info() {
+            static app::AnimationMontage_Entry__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::AnimationMontage_Entry__Class**)(modloader::win::memory::resolve_rva(0x04731B38));
+            }
+            return cache;
+        }
         inline app::AnimationMontage_Entry__Class* get_class() {
-            return il2cpp::get_nested_class<app::AnimationMontage_Entry__Class>(type_info, "Moon", "AnimationMontage", "Entry");
+            return il2cpp::get_nested_class<app::AnimationMontage_Entry__Class>(type_info(), "Moon", "AnimationMontage", "Entry");
         }
         inline app::AnimationMontage_Entry* create() {
             return il2cpp::create_object<app::AnimationMontage_Entry>(get_class());

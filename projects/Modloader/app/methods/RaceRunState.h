@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaceRunState.h>
-#include <Modloader/app/structs/RaceSystem.h>
+
+#include <Modloader/app/structs/RaceRunState.h>
 #include <Modloader/app/structs/RaceConfiguration.h>
+#include <Modloader/app/structs/RaceSystem.h>
 
 namespace app::classes::RaceRunState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::RaceRunState * this_ptr, app::RaceSystem* race_system))
@@ -18,7 +19,6 @@ namespace app::classes::RaceRunState {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SkipRequested, (app::RaceRunState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00718350, void, SetupGhosts, (app::RaceRunState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00718480, void, HandleDeath, (app::RaceRunState * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04780AB8, RaceRunState_HandleDeath__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00718560, void, StartRaceSyncables, (app::RaceRunState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00718880, void, SyncRaceSyncables, (app::RaceRunState * this_ptr, float time))
 } // namespace app::classes::RaceRunState

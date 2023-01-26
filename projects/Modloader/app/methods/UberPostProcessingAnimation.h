@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraSettings.h>
-#include <Modloader/app/structs/VignettingSettings.h>
-#include <Modloader/app/structs/NoiseSettings.h>
-#include <Modloader/app/structs/ContrastSettings.h>
-#include <Modloader/app/structs/DesaturationSettings.h>
-#include <Modloader/app/structs/ColorCorrectionSettings.h>
+
+#include <Modloader/app/structs/CameraSettings.h>
 #include <Modloader/app/structs/AnimationCurve.h>
 #include <Modloader/app/structs/BloomSettings.h>
+#include <Modloader/app/structs/ColorCorrectionSettings.h>
+#include <Modloader/app/structs/ContrastSettings.h>
+#include <Modloader/app/structs/DesaturationSettings.h>
 #include <Modloader/app/structs/EmissiveSettings.h>
+#include <Modloader/app/structs/NoiseSettings.h>
+#include <Modloader/app/structs/VignettingSettings.h>
 
 namespace app::classes::UberPostProcessingAnimation {
     IL2CPP_REGISTER_METHOD(0x018F3EC0, void, CopyCameraSettings, (app::CameraSettings * *settings, app::CameraSettings* from_settings))

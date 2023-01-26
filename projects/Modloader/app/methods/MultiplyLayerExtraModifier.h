@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MultiplyLayerExtraModifier.h>
+
+#include <Modloader/app/structs/MultiplyLayerExtraModifier.h>
 
 namespace app::classes::MultiplyLayerExtraModifier {
     IL2CPP_REGISTER_METHOD(0x0087BFC0, void, ApplyMultipliers, (app::MultiplyLayerExtraModifier * this_ptr, float strength, float speed))

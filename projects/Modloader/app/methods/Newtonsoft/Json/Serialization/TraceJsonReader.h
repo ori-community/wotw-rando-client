@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TraceJsonReader.h>
-#include <Modloader/app/structs/JsonReader.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Nullable_1_Int32_.h>
+
+#include <Modloader/app/structs/TraceJsonReader.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/JsonToken__Enum_1.h>
+#include <Modloader/app/structs/Nullable_1_Boolean_.h>
+#include <Modloader/app/structs/Nullable_1_DateTimeOffset_.h>
+#include <Modloader/app/structs/Nullable_1_DateTime_.h>
 #include <Modloader/app/structs/Nullable_1_Decimal_.h>
 #include <Modloader/app/structs/Nullable_1_Double_.h>
-#include <Modloader/app/structs/Nullable_1_Boolean_.h>
-#include <Modloader/app/structs/Nullable_1_DateTime_.h>
-#include <Modloader/app/structs/Nullable_1_DateTimeOffset_.h>
-#include <Modloader/app/structs/JsonToken__Enum_1.h>
+#include <Modloader/app/structs/Nullable_1_Int32_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::TraceJsonReader {

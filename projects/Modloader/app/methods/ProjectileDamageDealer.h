@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ProjectileDamageDealer.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/ProjectileDamageDealer.h>
 #include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::ProjectileDamageDealer {
     IL2CPP_REGISTER_METHOD(0x00C7B450, void, Awake, (app::ProjectileDamageDealer * this_ptr))

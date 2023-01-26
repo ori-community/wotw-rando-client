@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationTriggers.h>
+
+#include <Modloader/app/structs/AnimationTriggers.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::UI::AnimationTriggers {

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VirtualTimelineEntityPool.h>
-#include <Modloader/app/structs/IPoolableTimelineEntity.h>
+
+#include <Modloader/app/structs/VirtualTimelineEntityPool.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/IPoolableTimelineEntity.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::Timeline::VirtualTimelineEntityPool {

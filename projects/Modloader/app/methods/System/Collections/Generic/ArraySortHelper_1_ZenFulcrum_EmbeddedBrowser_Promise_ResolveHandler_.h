@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Promise_ResolveHandler__Array.h>
+
+#include <Modloader/app/structs/Promise_ResolveHandler__Array.h>
+#include <Modloader/app/structs/Comparison_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_.h>
 #include <Modloader/app/structs/IComparer_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_.h>
 #include <Modloader/app/structs/Promise_ResolveHandler.h>
-#include <Modloader/app/structs/Comparison_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_ {
     IL2CPP_REGISTER_METHOD(0x02C8FE20, void, Sort_1, (app::Promise_ResolveHandler__Array * keys, int32_t index, int32_t length, app::IComparer_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0472B460, ArraySortHelper_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C90140, int32_t, BinarySearch, (app::Promise_ResolveHandler__Array * array, int32_t index, int32_t length, app::Promise_ResolveHandler value, app::IComparer_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0475A5B0, ArraySortHelper_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C902F0, void, Sort_2, (app::Promise_ResolveHandler__Array * keys, int32_t index, int32_t length, app::Comparison_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0477FD90, ArraySortHelper_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C898B0, int32_t, InternalBinarySearch, (app::Promise_ResolveHandler__Array * array, int32_t index, int32_t length, app::Promise_ResolveHandler value, app::IComparer_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C89A40, void, SwapIfGreater, (app::Promise_ResolveHandler__Array * keys, app::Comparison_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C89BD0, void, Swap, (app::Promise_ResolveHandler__Array * a, int32_t i, int32_t j))

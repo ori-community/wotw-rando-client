@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AssetBundle.h>
-#include <Modloader/app/structs/Object_1.h>
+
+#include <Modloader/app/structs/AssetBundle.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Object_1.h>
 
 namespace app::classes::UnityEngine::AssetBundle {
     IL2CPP_REGISTER_METHOD(0x031C3A30, void, ctor, (app::AssetBundle * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataTableNewRowEventArgs.h>
+
+#include <Modloader/app/structs/DataTableNewRowEventArgs.h>
 #include <Modloader/app/structs/DataRow.h>
 
 namespace app::classes::System::Data::DataTableNewRowEventArgs {

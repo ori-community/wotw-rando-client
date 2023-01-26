@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_System_ValueTuple_4_.h>
-#include <Modloader/app/structs/ValueTuple_4_Object_Int32_Int32_Single___Array.h>
-#include <Modloader/app/structs/ValueTuple_4_Object_Int32_Int32_Single_.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_System_ValueTuple_4_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ValueTuple_4_Object_Int32_Int32_Single_.h>
+#include <Modloader/app/structs/ValueTuple_4_Object_Int32_Int32_Single___Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_System_ValueTuple_4_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_System_ValueTuple_4_*, get_Default, ())

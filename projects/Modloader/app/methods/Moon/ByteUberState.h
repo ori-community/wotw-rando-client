@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberID.h>
+
+#include <Modloader/app/structs/UberID.h>
 #include <Modloader/app/structs/ByteUberState.h>
 #include <Modloader/app/structs/IUberStateGroup.h>
 #include <Modloader/app/structs/NamedValue_1_System_Byte___Array.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Nullable_1_Single_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::ByteUberState {
     IL2CPP_REGISTER_METHOD(0x002FB930, app::UberID*, get_StateID, (app::ByteUberState * this_ptr))

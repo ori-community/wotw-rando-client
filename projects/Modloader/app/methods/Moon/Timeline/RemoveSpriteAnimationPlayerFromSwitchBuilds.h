@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RemoveSpriteAnimationPlayerFromSwitchBuilds.h>
+
+#include <Modloader/app/structs/RemoveSpriteAnimationPlayerFromSwitchBuilds.h>
 
 namespace app::classes::Moon::Timeline::RemoveSpriteAnimationPlayerFromSwitchBuilds {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, DoStrip, (app::RemoveSpriteAnimationPlayerFromSwitchBuilds * this_ptr))

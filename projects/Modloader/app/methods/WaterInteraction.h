@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WaterInteraction.h>
+
+#include <Modloader/app/structs/WaterInteraction.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Collider.h>
 
@@ -17,7 +18,6 @@ namespace app::classes::WaterInteraction {
     IL2CPP_REGISTER_METHOD(0x008D74E0, void, OnTriggerEnter, (app::WaterInteraction * this_ptr, app::Collider* other))
     IL2CPP_REGISTER_METHOD(0x008D77E0, void, OnTriggerExit, (app::WaterInteraction * this_ptr, app::Collider* other))
     IL2CPP_REGISTER_METHOD(0x008D7AC0, void, OnRestoreCheckpoint, (app::WaterInteraction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471E6D8, WaterInteraction_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008D7AD0, void, InitialTriggerCheck, (app::WaterInteraction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008D7E20, void, SetUnderwaterRtpc, (app::WaterInteraction * this_ptr, bool underwater))
     IL2CPP_REGISTER_METHOD(0x008D7EB0, void, ctor, (app::WaterInteraction * this_ptr))

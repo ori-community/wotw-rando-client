@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_System_Xml_Schema_RangePositionInfo_.h>
-#include <Modloader/app/structs/RangePositionInfo.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_System_Xml_Schema_RangePositionInfo_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RangePositionInfo.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_System_Xml_Schema_RangePositionInfo_ {
     IL2CPP_REGISTER_METHOD(0x01CCCB70, int32_t, Compare, (app::ObjectComparer_1_System_Xml_Schema_RangePositionInfo_ * this_ptr, app::RangePositionInfo x, app::RangePositionInfo y))

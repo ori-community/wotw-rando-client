@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DebugHub.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Material.h>
+
+#include <Modloader/app/structs/DebugHub.h>
 #include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::DebugHub {
     IL2CPP_REGISTER_METHOD(0x00DE59B0, bool, get_IsActive, ())
@@ -16,7 +17,6 @@ namespace app::classes::DebugHub {
     IL2CPP_REGISTER_METHOD(0x00DE64C0, void, OnEnable, (app::DebugHub * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DE6690, void, OnDisable, (app::DebugHub * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DE6860, void, OnEndOfFrame, (app::DebugHub * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04782980, DebugHub_OnEndOfFrame__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DE6870, void, Draw, (app::DebugHub * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DE6CE0, void, _initializeItems, (app::DebugHub * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DE8D50, void, ActivateItemByName, (app::DebugHub * this_ptr, app::String* name))

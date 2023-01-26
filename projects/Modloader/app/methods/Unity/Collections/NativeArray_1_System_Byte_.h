@@ -1,24 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/NativeArray_1_System_Byte___Boxed.h>
+
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/Allocator__Enum.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Byte_.h>
 #include <Modloader/app/structs/NativeArrayOptions__Enum.h>
 #include <Modloader/app/structs/NativeArray_1_System_Byte_.h>
+#include <Modloader/app/structs/NativeArray_1_System_Byte___Boxed.h>
 #include <Modloader/app/structs/NativeArray_1_T_Enumerator_System_Byte_.h>
-#include <Modloader/app/structs/IEnumerator_1_System_Byte_.h>
-#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Unity::Collections::NativeArray_1_System_Byte_ {
     IL2CPP_REGISTER_METHOD(0x001DFA50, app::Byte__Array*, ToArray, (app::NativeArray_1_System_Byte___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04721B58, NativeArray_1_System_Byte__ToArray__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001DF770, void, ctor, (app::NativeArray_1_System_Byte___Boxed * this_ptr, int32_t length, app::Allocator__Enum allocator, app::NativeArrayOptions__Enum options))
-    IL2CPP_REGISTER_METHODINFO(0x04736840, NativeArray_1_System_Byte___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001D9B60, bool, get_IsCreated, (app::NativeArray_1_System_Byte___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04709978, NativeArray_1_System_Byte__get_IsCreated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001DF8B0, void, Dispose, (app::NativeArray_1_System_Byte___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04742AC0, NativeArray_1_System_Byte__Dispose__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022647E0, void, Allocate, (int32_t length, app::Allocator__Enum allocator, app::NativeArray_1_System_Byte_* array))
     IL2CPP_REGISTER_METHOD(0x001DF780, int32_t, get_Length, (app::NativeArray_1_System_Byte___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001DF790, uint8_t, get_Item, (app::NativeArray_1_System_Byte___Boxed * this_ptr, int32_t index))

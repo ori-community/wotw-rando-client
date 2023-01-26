@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PersistentCallGroup.h>
+
+#include <Modloader/app/structs/PersistentCallGroup.h>
 #include <Modloader/app/structs/InvokableCallList.h>
 #include <Modloader/app/structs/UnityEventBase.h>
 

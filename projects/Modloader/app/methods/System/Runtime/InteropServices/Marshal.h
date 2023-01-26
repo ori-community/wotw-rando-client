@@ -1,28 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Array.h>
+
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CCallbackBaseVTable.h>
 #include <Modloader/app/structs/Char__Array.h>
-#include <Modloader/app/structs/IntPtr__Array.h>
-#include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/SecureString.h>
 #include <Modloader/app/structs/Delegate.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/UnityTls_unitytls_interface_struct.h>
-#include <Modloader/app/structs/Win32IPGlobalProperties_Win32_MIB_TCPROW.h>
-#include <Modloader/app/structs/Win32IPGlobalProperties_Win32_MIB_TCP6ROW.h>
-#include <Modloader/app/structs/Win32_FIXED_INFO.h>
-#include <Modloader/app/structs/XalService_AsyncBlock.h>
+#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/ISteamMatchmakingPingResponse_VTable.h>
 #include <Modloader/app/structs/ISteamMatchmakingPlayersResponse_VTable.h>
 #include <Modloader/app/structs/ISteamMatchmakingRulesResponse_VTable.h>
 #include <Modloader/app/structs/ISteamMatchmakingServerListResponse_VTable.h>
-#include <Modloader/app/structs/SteamParamStringArray_t.h>
+#include <Modloader/app/structs/IntPtr__Array.h>
 #include <Modloader/app/structs/MatchMakingKeyValuePair_t.h>
-#include <Modloader/app/structs/CCallbackBaseVTable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/SecureString.h>
+#include <Modloader/app/structs/SteamParamStringArray_t.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/UnityTls_unitytls_interface_struct.h>
+#include <Modloader/app/structs/Win32IPGlobalProperties_Win32_MIB_TCP6ROW.h>
+#include <Modloader/app/structs/Win32IPGlobalProperties_Win32_MIB_TCPROW.h>
+#include <Modloader/app/structs/Win32_FIXED_INFO.h>
+#include <Modloader/app/structs/XalService_AsyncBlock.h>
 
 namespace app::classes::System::Runtime::InteropServices::Marshal {
     IL2CPP_REGISTER_METHOD(0x01A94B10, void*, AllocCoTaskMem, (int32_t cb))
@@ -58,17 +59,13 @@ namespace app::classes::System::Runtime::InteropServices::Marshal {
     IL2CPP_REGISTER_METHOD(0x01A95990, void*, ReadIntPtr, (void* ptr))
     IL2CPP_REGISTER_METHOD(0x01A95A60, int32_t, ReleaseInternal, (void* p_unk))
     IL2CPP_REGISTER_METHOD(0x01A95A70, int32_t, Release, (void* p_unk))
-    IL2CPP_REGISTER_METHODINFO(0x04728170, Marshal_Release__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01A95B50, int32_t, SizeOf_1, (app::Object * structure))
     IL2CPP_REGISTER_METHOD(0x01A95CE0, int32_t, SizeOf_2, (app::Type * t))
     IL2CPP_REGISTER_METHOD(0x01A95DD0, void*, StringToBSTR, (app::String * s))
     IL2CPP_REGISTER_METHOD(0x01A95E10, void*, StringToHGlobalUni, (app::String * s))
     IL2CPP_REGISTER_METHOD(0x01A95E70, void*, SecureStringToBSTR, (app::SecureString * s))
-    IL2CPP_REGISTER_METHODINFO(0x0472B7E0, Marshal_SecureStringToBSTR__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01A96010, void*, SecureStringToCoTaskMemUnicode, (app::SecureString * s))
-    IL2CPP_REGISTER_METHODINFO(0x04743348, Marshal_SecureStringToCoTaskMemUnicode__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01A96320, void*, SecureStringToGlobalAllocUnicode, (app::SecureString * s))
-    IL2CPP_REGISTER_METHODINFO(0x04746008, Marshal_SecureStringToGlobalAllocUnicode__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01A963F0, void, StructureToPtr_1, (app::Object * structure, void* ptr, bool f_delete_old))
     IL2CPP_REGISTER_METHOD(0x0173D7D0, void*, BufferToBSTR, (app::Array * ptr, int32_t slen))
     IL2CPP_REGISTER_METHOD(0x01A96510, void*, UnsafeAddrOfPinnedArrayElement_1, (app::Array * arr, int32_t index))
@@ -80,10 +77,8 @@ namespace app::classes::System::Runtime::InteropServices::Marshal {
     IL2CPP_REGISTER_METHOD(0x01A96600, void, WriteIntPtr, (void* ptr, void* val))
     IL2CPP_REGISTER_METHOD(0x01A966D0, app::Delegate*, GetDelegateForFunctionPointerInternal, (void* ptr, app::Type* t))
     IL2CPP_REGISTER_METHOD(0x01A96700, app::Delegate*, GetDelegateForFunctionPointer, (void* ptr, app::Type* t))
-    IL2CPP_REGISTER_METHODINFO(0x04772898, Marshal_GetDelegateForFunctionPointer__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01A96950, void*, GetFunctionPointerForDelegateInternal, (app::Delegate * d))
     IL2CPP_REGISTER_METHOD(0x01A96960, void*, GetFunctionPointerForDelegate, (app::Delegate * d))
-    IL2CPP_REGISTER_METHODINFO(0x0473E4D0, Marshal_GetFunctionPointerForDelegate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01A96A30, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x015E14C0, void, PtrToStructure_3, (void* ptr, app::Object* structure))
     IL2CPP_REGISTER_METHOD(0x0157A900, app::Object*, PtrToStructure_4, (void* ptr))
@@ -91,31 +86,17 @@ namespace app::classes::System::Runtime::InteropServices::Marshal {
     IL2CPP_REGISTER_METHOD(0x015E1B90, void, StructureToPtr_2, (app::Object * structure, void* ptr, bool f_delete_old))
     IL2CPP_REGISTER_METHOD(0x0153B880, void*, UnsafeAddrOfPinnedArrayElement_2, (app::Object__Array * arr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x0157A900, app::UnityTls_unitytls_interface_struct*, PtrToStructure_5, (void* ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475AD58, Marshal_PtrToStructure_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E14C0, void, PtrToStructure_6, (void* ptr, app::Win32IPGlobalProperties_Win32_MIB_TCPROW* structure))
-    IL2CPP_REGISTER_METHODINFO(0x047946E0, Marshal_PtrToStructure_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E14C0, void, PtrToStructure_7, (void* ptr, app::Win32IPGlobalProperties_Win32_MIB_TCP6ROW* structure))
-    IL2CPP_REGISTER_METHODINFO(0x04715740, Marshal_PtrToStructure_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157A7A0, app::Win32_FIXED_INFO, PtrToStructure_8, (void* ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476EB30, Marshal_PtrToStructure_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0153B7C0, void*, UnsafeAddrOfPinnedArrayElement_3, (app::Byte__Array * arr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04764070, Marshal_UnsafeAddrOfPinnedArrayElement_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015397B0, int32_t, SizeOf_4, (app::XalService_AsyncBlock structure))
-    IL2CPP_REGISTER_METHODINFO(0x04761178, Marshal_SizeOf_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E1620, void, StructureToPtr_3, (app::XalService_AsyncBlock structure, void* ptr, bool f_delete_old))
-    IL2CPP_REGISTER_METHODINFO(0x04762B98, Marshal_StructureToPtr_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E1B90, void, StructureToPtr_4, (app::ISteamMatchmakingPingResponse_VTable * structure, void* ptr, bool f_delete_old))
-    IL2CPP_REGISTER_METHODINFO(0x0471A180, Marshal_StructureToPtr_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E1B90, void, StructureToPtr_5, (app::ISteamMatchmakingPlayersResponse_VTable * structure, void* ptr, bool f_delete_old))
-    IL2CPP_REGISTER_METHODINFO(0x04750570, Marshal_StructureToPtr_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E1B90, void, StructureToPtr_6, (app::ISteamMatchmakingRulesResponse_VTable * structure, void* ptr, bool f_delete_old))
-    IL2CPP_REGISTER_METHODINFO(0x04742F10, Marshal_StructureToPtr_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E1B90, void, StructureToPtr_7, (app::ISteamMatchmakingServerListResponse_VTable * structure, void* ptr, bool f_delete_old))
-    IL2CPP_REGISTER_METHODINFO(0x04748798, Marshal_StructureToPtr_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E19D0, void, StructureToPtr_8, (app::SteamParamStringArray_t structure, void* ptr, bool f_delete_old))
-    IL2CPP_REGISTER_METHODINFO(0x04710140, Marshal_StructureToPtr_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E1810, void, StructureToPtr_9, (app::MatchMakingKeyValuePair_t structure, void* ptr, bool f_delete_old))
-    IL2CPP_REGISTER_METHODINFO(0x0474C7B0, Marshal_StructureToPtr_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E1B90, void, StructureToPtr_10, (app::CCallbackBaseVTable * structure, void* ptr, bool f_delete_old))
-    IL2CPP_REGISTER_METHODINFO(0x0472D8E8, Marshal_StructureToPtr_9__MethodInfo)
 } // namespace app::classes::System::Runtime::InteropServices::Marshal

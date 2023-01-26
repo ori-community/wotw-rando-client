@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_CatlikeCoding_TextBox_AppliedTextStyle_.h>
-#include <Modloader/app/structs/AppliedTextStyle__Array.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_CatlikeCoding_TextBox_AppliedTextStyle_.h>
 #include <Modloader/app/structs/AppliedTextStyle.h>
+#include <Modloader/app/structs/AppliedTextStyle__Array.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_CatlikeCoding_TextBox_AppliedTextStyle_ {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NoiseSettings.h>
+
+#include <Modloader/app/structs/NoiseSettings.h>
 
 namespace app::classes::NoiseSettings {
     IL2CPP_REGISTER_METHOD(0x0060BC50, app::NoiseSettings*, Clone, (app::NoiseSettings * this_ptr))

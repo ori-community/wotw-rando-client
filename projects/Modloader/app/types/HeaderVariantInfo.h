@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/HeaderVariantInfo.h>
+#include <Modloader/app/structs/HeaderVariantInfo__Array.h>
+#include <Modloader/app/structs/HeaderVariantInfo__Boxed.h>
+#include <Modloader/app/structs/HeaderVariantInfo__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/HeaderVariantInfo__Class.h>
-#include <Modloader/app/structs/HeaderVariantInfo.h>
-#include <Modloader/app/structs/HeaderVariantInfo__Boxed.h>
-#include <Modloader/app/structs/HeaderVariantInfo__Array.h>
 
 namespace app::classes::types {
     namespace HeaderVariantInfo {
-        namespace {
-            inline app::HeaderVariantInfo__Class* type_info_ref = nullptr;
+        inline app::HeaderVariantInfo__Class** type_info() {
+            static app::HeaderVariantInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::HeaderVariantInfo__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::HeaderVariantInfo__Class** type_info = &type_info_ref;
         inline app::HeaderVariantInfo__Class* get_class() {
-            return il2cpp::get_class<app::HeaderVariantInfo__Class>(type_info, "System.Net", "HeaderVariantInfo");
+            return il2cpp::get_class<app::HeaderVariantInfo__Class>(type_info(), "System.Net", "HeaderVariantInfo");
         }
         inline app::HeaderVariantInfo* create() {
             return il2cpp::create_object<app::HeaderVariantInfo>(get_class());

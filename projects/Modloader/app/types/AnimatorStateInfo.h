@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AnimatorStateInfo__Class.h>
 #include <Modloader/app/structs/AnimatorStateInfo.h>
 #include <Modloader/app/structs/AnimatorStateInfo__Boxed.h>
+#include <Modloader/app/structs/AnimatorStateInfo__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace AnimatorStateInfo {
-        namespace {
-            inline app::AnimatorStateInfo__Class* type_info_ref = nullptr;
+        inline app::AnimatorStateInfo__Class** type_info() {
+            static app::AnimatorStateInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AnimatorStateInfo__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AnimatorStateInfo__Class** type_info = &type_info_ref;
         inline app::AnimatorStateInfo__Class* get_class() {
-            return il2cpp::get_class<app::AnimatorStateInfo__Class>(type_info, "UnityEngine", "AnimatorStateInfo");
+            return il2cpp::get_class<app::AnimatorStateInfo__Class>(type_info(), "UnityEngine", "AnimatorStateInfo");
         }
         inline app::AnimatorStateInfo* create() {
             return il2cpp::create_object<app::AnimatorStateInfo>(get_class());

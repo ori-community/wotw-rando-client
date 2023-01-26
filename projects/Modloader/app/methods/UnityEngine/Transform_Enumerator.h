@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform_Enumerator.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/Transform_Enumerator.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::UnityEngine::Transform_Enumerator {
     IL2CPP_REGISTER_METHOD(0x01DC2A00, void, ctor, (app::Transform_Enumerator * this_ptr, app::Transform* outer))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MotionAbsorbCharacter.h>
+
+#include <Modloader/app/structs/MotionAbsorbCharacter.h>
 
 namespace app::classes::RootMotion::Demos::MotionAbsorbCharacter {
     IL2CPP_REGISTER_METHOD(0x02228220, void, Start, (app::MotionAbsorbCharacter * this_ptr))

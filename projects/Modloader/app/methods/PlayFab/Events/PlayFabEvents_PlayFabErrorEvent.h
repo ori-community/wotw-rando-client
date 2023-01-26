@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayFabEvents_PlayFabErrorEvent.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/PlayFabRequestCommon.h>
-#include <Modloader/app/structs/PlayFabError.h>
-#include <Modloader/app/structs/IAsyncResult.h>
+
+#include <Modloader/app/structs/PlayFabEvents_PlayFabErrorEvent.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PlayFabError.h>
+#include <Modloader/app/structs/PlayFabRequestCommon.h>
 
 namespace app::classes::PlayFab::Events::PlayFabEvents_PlayFabErrorEvent {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::PlayFabEvents_PlayFabErrorEvent * this_ptr, app::Object* object, void* method_1))

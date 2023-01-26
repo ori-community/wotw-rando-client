@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DrivableGroup.h>
+
+#include <Modloader/app/structs/DrivableGroup.h>
 #include <Modloader/app/structs/IDrivable.h>
 #include <Modloader/app/structs/String.h>
 

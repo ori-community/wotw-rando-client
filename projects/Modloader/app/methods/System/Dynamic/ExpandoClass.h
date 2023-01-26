@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ExpandoClass.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/List_1_System_WeakReference_.h>
+
+#include <Modloader/app/structs/ExpandoClass.h>
 #include <Modloader/app/structs/ExpandoObject.h>
+#include <Modloader/app/structs/List_1_System_WeakReference_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::Dynamic::ExpandoClass {
     IL2CPP_REGISTER_METHOD(0x01F8BAC0, void, ctor_1, (app::ExpandoClass * this_ptr))

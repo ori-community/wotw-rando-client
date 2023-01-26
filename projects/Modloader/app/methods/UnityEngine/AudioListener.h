@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AudioListener.h>
-#include <Modloader/app/structs/PropertyName.h>
+
+#include <Modloader/app/structs/AudioListener.h>
 #include <Modloader/app/structs/AudioListenerExtension.h>
+#include <Modloader/app/structs/PropertyName.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::UnityEngine::AudioListener {

@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MonoCustomAttrs_AttributeInfo__Class.h>
 #include <Modloader/app/structs/MonoCustomAttrs_AttributeInfo.h>
 #include <Modloader/app/structs/MonoCustomAttrs_AttributeInfo__Array.h>
+#include <Modloader/app/structs/MonoCustomAttrs_AttributeInfo__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace MonoCustomAttrs_AttributeInfo {
-        inline app::MonoCustomAttrs_AttributeInfo__Class** type_info = (app::MonoCustomAttrs_AttributeInfo__Class**)(modloader::win::memory::resolve_rva(0x0476E808));
+        inline app::MonoCustomAttrs_AttributeInfo__Class** type_info() {
+            static app::MonoCustomAttrs_AttributeInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::MonoCustomAttrs_AttributeInfo__Class**)(modloader::win::memory::resolve_rva(0x0476E808));
+            }
+            return cache;
+        }
         inline app::MonoCustomAttrs_AttributeInfo__Class* get_class() {
-            return il2cpp::get_nested_class<app::MonoCustomAttrs_AttributeInfo__Class>(type_info, "System", "MonoCustomAttrs", "AttributeInfo");
+            return il2cpp::get_nested_class<app::MonoCustomAttrs_AttributeInfo__Class>(type_info(), "System", "MonoCustomAttrs", "AttributeInfo");
         }
         inline app::MonoCustomAttrs_AttributeInfo* create() {
             return il2cpp::create_object<app::MonoCustomAttrs_AttributeInfo>(get_class());

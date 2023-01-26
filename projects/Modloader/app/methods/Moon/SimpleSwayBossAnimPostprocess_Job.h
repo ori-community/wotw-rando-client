@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SimpleSwayBossAnimPostprocess_Job__Boxed.h>
+
+#include <Modloader/app/structs/SimpleSwayBossAnimPostprocess_Job__Boxed.h>
 #include <Modloader/app/structs/TransformAccess.h>
 
 namespace app::classes::Moon::SimpleSwayBossAnimPostprocess_Job {

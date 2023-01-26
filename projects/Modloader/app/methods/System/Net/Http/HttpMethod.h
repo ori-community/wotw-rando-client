@@ -1,12 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HttpMethod.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/HttpMethod.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::Http::HttpMethod {
     IL2CPP_REGISTER_METHOD(0x02D1B840, void, ctor, (app::HttpMethod * this_ptr, app::String* method_1))
-    IL2CPP_REGISTER_METHODINFO(0x04753B20, HttpMethod__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D1B910, app::HttpMethod*, get_Get, ())
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_Method, (app::HttpMethod * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02D1B9B0, app::HttpMethod*, get_Post, ())

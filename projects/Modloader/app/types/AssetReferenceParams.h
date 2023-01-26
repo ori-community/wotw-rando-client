@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AssetReferenceParams__Class.h>
 #include <Modloader/app/structs/AssetReferenceParams.h>
 #include <Modloader/app/structs/AssetReferenceParams__Array.h>
+#include <Modloader/app/structs/AssetReferenceParams__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace AssetReferenceParams {
-        namespace {
-            inline app::AssetReferenceParams__Class* type_info_ref = nullptr;
+        inline app::AssetReferenceParams__Class** type_info() {
+            static app::AssetReferenceParams__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AssetReferenceParams__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AssetReferenceParams__Class** type_info = &type_info_ref;
         inline app::AssetReferenceParams__Class* get_class() {
-            return il2cpp::get_class<app::AssetReferenceParams__Class>(type_info, "PlayFab.MultiplayerModels", "AssetReferenceParams");
+            return il2cpp::get_class<app::AssetReferenceParams__Class>(type_info(), "PlayFab.MultiplayerModels", "AssetReferenceParams");
         }
         inline app::AssetReferenceParams* create() {
             return il2cpp::create_object<app::AssetReferenceParams>(get_class());

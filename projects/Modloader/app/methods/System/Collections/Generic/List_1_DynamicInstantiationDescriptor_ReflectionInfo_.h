@@ -1,29 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
-#include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_DynamicInstantiationDescriptor_ReflectionInfo_.h>
-#include <Modloader/app/structs/IEnumerable_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
-#include <Modloader/app/structs/IComparer_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
-#include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
+
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
 #include <Modloader/app/structs/Action_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
-#include <Modloader/app/structs/IEnumerator_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
+#include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo.h>
+#include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo__Array.h>
+#include <Modloader/app/structs/IComparer_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
+#include <Modloader/app/structs/IEnumerable_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_DynamicInstantiationDescriptor_ReflectionInfo_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_DynamicInstantiationDescriptor_ReflectionInfo_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_DynamicInstantiationDescriptor_ReflectionInfo_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04797E78, List_1_DynamicInstantiationDescriptor_ReflectionInfo___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C1E360, void, Add, (app::List_1_DynamicInstantiationDescriptor_ReflectionInfo_ * this_ptr, app::DynamicInstantiationDescriptor_ReflectionInfo item))
-    IL2CPP_REGISTER_METHODINFO(0x047515F0, List_1_DynamicInstantiationDescriptor_ReflectionInfo__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C1F070, app::List_1_T_Enumerator_DynamicInstantiationDescriptor_ReflectionInfo_, GetEnumerator, (app::List_1_DynamicInstantiationDescriptor_ReflectionInfo_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477FD58, List_1_DynamicInstantiationDescriptor_ReflectionInfo__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_DynamicInstantiationDescriptor_ReflectionInfo_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473CB60, List_1_DynamicInstantiationDescriptor_ReflectionInfo__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_DynamicInstantiationDescriptor_ReflectionInfo_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02E5DB00, void, ctor_3, (app::List_1_DynamicInstantiationDescriptor_ReflectionInfo_ * this_ptr, app::IEnumerable_1_DynamicInstantiationDescriptor_ReflectionInfo_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_DynamicInstantiationDescriptor_ReflectionInfo_ * this_ptr))

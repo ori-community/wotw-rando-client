@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KamikazeSootEnemyRunState.h>
+
+#include <Modloader/app/structs/KamikazeSootEnemyRunState.h>
 #include <Modloader/app/structs/KamikazeSootEnemy.h>
 
 namespace app::classes::KamikazeSootEnemyRunState {

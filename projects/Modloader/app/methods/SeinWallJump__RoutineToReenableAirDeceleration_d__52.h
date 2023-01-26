@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinWallJump_RoutineToReenableAirDeceleration_d_52.h>
+
+#include <Modloader/app/structs/SeinWallJump_RoutineToReenableAirDeceleration_d_52.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::SeinWallJump__RoutineToReenableAirDeceleration_d__52 {
@@ -9,6 +10,5 @@ namespace app::classes::SeinWallJump__RoutineToReenableAirDeceleration_d__52 {
     IL2CPP_REGISTER_METHOD(0x00AB1340, bool, MoveNext, (app::SeinWallJump_RoutineToReenableAirDeceleration_d_52 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::SeinWallJump_RoutineToReenableAirDeceleration_d_52 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AB14E0, void, IEnumerator_Reset, (app::SeinWallJump_RoutineToReenableAirDeceleration_d_52 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04762FC8, SeinWallJump_RoutineToReenableAirDeceleration_d_52_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::SeinWallJump_RoutineToReenableAirDeceleration_d_52 * this_ptr))
 } // namespace app::classes::SeinWallJump__RoutineToReenableAirDeceleration_d__52

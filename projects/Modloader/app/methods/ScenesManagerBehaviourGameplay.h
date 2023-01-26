@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/ScenesManagerBehaviourGameplay.h>
 #include <Modloader/app/structs/ScenesManagerUpdateType__Enum.h>
 #include <Modloader/app/structs/Vector3.h>

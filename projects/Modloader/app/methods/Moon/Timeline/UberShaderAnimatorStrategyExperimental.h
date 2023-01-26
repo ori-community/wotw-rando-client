@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental.h>
-#include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
+
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/UberShaderProperty_Vector__Enum.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/UberShaderProperty_Float__Enum.h>
+#include <Modloader/app/structs/Renderer.h>
 #include <Modloader/app/structs/Renderer__Array.h>
 #include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_RendererState.h>
+#include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
+#include <Modloader/app/structs/UberShaderProperty_Float__Enum.h>
+#include <Modloader/app/structs/UberShaderProperty_Vector__Enum.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::Moon::Timeline::UberShaderAnimatorStrategyExperimental {
     IL2CPP_REGISTER_METHOD(0x00D124C0, void, cctor, ())

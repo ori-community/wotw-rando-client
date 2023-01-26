@@ -1,30 +1,31 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CVRSystem.h>
-#include <Modloader/app/structs/HmdMatrix44_t.h>
-#include <Modloader/app/structs/EVREye__Enum.h>
+
+#include <Modloader/app/structs/CVRSystem.h>
 #include <Modloader/app/structs/DistortionCoordinates_t.h>
-#include <Modloader/app/structs/HmdMatrix34_t.h>
-#include <Modloader/app/structs/ETextureType__Enum.h>
-#include <Modloader/app/structs/ETrackingUniverseOrigin__Enum.h>
-#include <Modloader/app/structs/TrackedDevicePose_t__Array.h>
-#include <Modloader/app/structs/ETrackedDeviceClass__Enum.h>
-#include <Modloader/app/structs/UInt32__Array.h>
 #include <Modloader/app/structs/EDeviceActivityLevel__Enum.h>
-#include <Modloader/app/structs/TrackedDevicePose_t.h>
+#include <Modloader/app/structs/EHiddenAreaMeshType__Enum.h>
+#include <Modloader/app/structs/ETextureType__Enum.h>
 #include <Modloader/app/structs/ETrackedControllerRole__Enum.h>
+#include <Modloader/app/structs/ETrackedDeviceClass__Enum.h>
 #include <Modloader/app/structs/ETrackedDeviceProperty__Enum.h>
 #include <Modloader/app/structs/ETrackedPropertyError__Enum.h>
-#include <Modloader/app/structs/StringBuilder.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/VREvent_t.h>
-#include <Modloader/app/structs/EVREventType__Enum.h>
-#include <Modloader/app/structs/HiddenAreaMesh_t.h>
-#include <Modloader/app/structs/EHiddenAreaMeshType__Enum.h>
-#include <Modloader/app/structs/VRControllerState_t.h>
+#include <Modloader/app/structs/ETrackingUniverseOrigin__Enum.h>
 #include <Modloader/app/structs/EVRButtonId__Enum.h>
 #include <Modloader/app/structs/EVRControllerAxisType__Enum.h>
+#include <Modloader/app/structs/EVREventType__Enum.h>
+#include <Modloader/app/structs/EVREye__Enum.h>
 #include <Modloader/app/structs/EVRFirmwareError__Enum.h>
+#include <Modloader/app/structs/HiddenAreaMesh_t.h>
+#include <Modloader/app/structs/HmdMatrix34_t.h>
+#include <Modloader/app/structs/HmdMatrix44_t.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/TrackedDevicePose_t.h>
+#include <Modloader/app/structs/TrackedDevicePose_t__Array.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/VRControllerState_t.h>
+#include <Modloader/app/structs/VREvent_t.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRSystem {
     IL2CPP_REGISTER_METHOD(0x0167BAF0, void, ctor, (app::CVRSystem * this_ptr, void* p_interface))
@@ -63,7 +64,7 @@ namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRSystem {
     IL2CPP_REGISTER_METHOD(0x0167C720, app::HiddenAreaMesh_t, GetHiddenAreaMesh, (app::CVRSystem * this_ptr, app::EVREye__Enum e_eye, app::EHiddenAreaMeshType__Enum type))
     IL2CPP_REGISTER_METHOD(0x0167C760, bool, GetControllerState, (app::CVRSystem * this_ptr, uint32_t un_controller_device_index, app::VRControllerState_t* p_controller_state, uint32_t un_controller_state_size))
     IL2CPP_REGISTER_METHOD(0x0167CB40, bool, GetControllerStateWithPose, (app::CVRSystem * this_ptr, app::ETrackingUniverseOrigin__Enum e_origin, uint32_t un_controller_device_index, app::VRControllerState_t* p_controller_state, uint32_t un_controller_state_size, app::TrackedDevicePose_t* p_tracked_device_pose))
-    IL2CPP_REGISTER_METHOD(0x0167CF50, void, TriggerHapticPulse, (app::CVRSystem * this_ptr, uint32_t un_controller_device_index, uint32_t un_axis_id, uint16_t us_duration_micro_sec))
+    IL2CPP_REGISTER_METHOD(0x0167CF50, void, TriggerHapticPulse, (app::CVRSystem * this_ptr, uint32_t un_controller_device_index, uint32_t un_axis_id, char16_t us_duration_micro_sec))
     IL2CPP_REGISTER_METHOD(0x0167CF80, app::String*, GetButtonIdNameFromEnum, (app::CVRSystem * this_ptr, app::EVRButtonId__Enum e_button_id))
     IL2CPP_REGISTER_METHOD(0x0167D070, app::String*, GetControllerAxisTypeNameFromEnum, (app::CVRSystem * this_ptr, app::EVRControllerAxisType__Enum e_axis_type))
     IL2CPP_REGISTER_METHOD(0x0167D160, bool, CaptureInputFocus, (app::CVRSystem * this_ptr))

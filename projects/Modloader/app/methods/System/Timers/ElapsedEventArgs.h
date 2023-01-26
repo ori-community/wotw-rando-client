@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ElapsedEventArgs.h>
+
+#include <Modloader/app/structs/ElapsedEventArgs.h>
 #include <Modloader/app/structs/DateTime.h>
 
 namespace app::classes::System::Timers::ElapsedEventArgs {

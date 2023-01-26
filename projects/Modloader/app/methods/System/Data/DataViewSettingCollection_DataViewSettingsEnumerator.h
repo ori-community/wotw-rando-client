@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataViewSettingCollection_DataViewSettingsEnumerator.h>
+
+#include <Modloader/app/structs/DataViewSettingCollection_DataViewSettingsEnumerator.h>
 #include <Modloader/app/structs/DataViewManager.h>
 #include <Modloader/app/structs/Object.h>
 

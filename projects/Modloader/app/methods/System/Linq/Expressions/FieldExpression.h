@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FieldExpression.h>
+
+#include <Modloader/app/structs/FieldExpression.h>
 #include <Modloader/app/structs/Expression.h>
 #include <Modloader/app/structs/FieldInfo_1.h>
 #include <Modloader/app/structs/MemberInfo_1.h>

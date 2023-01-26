@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CubemapArray.h>
+
+#include <Modloader/app/structs/CubemapArray.h>
 #include <Modloader/app/structs/GraphicsFormat__Enum.h>
 #include <Modloader/app/structs/TextureCreationFlags__Enum.h>
 #include <Modloader/app/structs/TextureFormat__Enum.h>
@@ -12,5 +13,4 @@ namespace app::classes::UnityEngine::CubemapArray {
     IL2CPP_REGISTER_METHOD(0x0242B5D0, bool, get_isReadable, (app::CubemapArray * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0242B620, bool, Internal_CreateImpl, (app::CubemapArray * mono, int32_t ext, int32_t count, app::GraphicsFormat__Enum format, app::TextureCreationFlags__Enum flags))
     IL2CPP_REGISTER_METHOD(0x0242B6A0, void, Internal_Create, (app::CubemapArray * mono, int32_t ext, int32_t count, app::GraphicsFormat__Enum format, app::TextureCreationFlags__Enum flags))
-    IL2CPP_REGISTER_METHODINFO(0x04734A08, CubemapArray_Internal_Create__MethodInfo)
 } // namespace app::classes::UnityEngine::CubemapArray

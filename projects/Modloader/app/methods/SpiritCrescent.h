@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritCrescent.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/SeinSpiritCrescentSpell.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SpiritCrescent_State__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/SpiritCrescent.h>
 #include <Modloader/app/structs/DamageDealer.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/SeinSpiritCrescentSpell.h>
+#include <Modloader/app/structs/SpiritCrescent_State__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SpiritCrescent {
     IL2CPP_REGISTER_METHOD(0x003FD650, bool, get_IsSuspended, (app::SpiritCrescent * this_ptr))
@@ -24,8 +25,6 @@ namespace app::classes::SpiritCrescent {
     IL2CPP_REGISTER_METHOD(0x00BE9110, float, get_Period, (app::SpiritCrescent * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D3B00, void, Update, (app::SpiritCrescent * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D4580, bool, ShouldDealDamage, (app::SpiritCrescent * this_ptr, app::GameObject* target))
-    IL2CPP_REGISTER_METHODINFO(0x04751D50, SpiritCrescent_ShouldDealDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011D4700, void, OnDamageDealt, (app::SpiritCrescent * this_ptr, app::DamageDealer* dealer, app::DamageResult result))
-    IL2CPP_REGISTER_METHODINFO(0x04754190, SpiritCrescent_OnDamageDealt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011D4710, void, ctor, (app::SpiritCrescent * this_ptr))
 } // namespace app::classes::SpiritCrescent

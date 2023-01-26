@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossEntity_OnDamageReceivedDelegate.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossEntity_OnDamageReceivedDelegate.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 #include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::PetrifiedOwlBossEntity_OnDamageReceivedDelegate {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::PetrifiedOwlBossEntity_OnDamageReceivedDelegate * this_ptr, app::Object* object, void* method_1))

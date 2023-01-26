@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/DtdValidator_NamespaceManager.h>
 
 namespace app::classes::System::Xml::Schema::DtdValidator_NamespaceManager {

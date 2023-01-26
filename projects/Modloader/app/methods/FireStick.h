@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FireStick.h>
-#include <Modloader/app/structs/FireStick_Usability__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/FireStick.h>
 #include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/FireStick_Usability__Enum.h>
+#include <Modloader/app/structs/Flammable.h>
 #include <Modloader/app/structs/Flammable_FlameColor__Enum.h>
 #include <Modloader/app/structs/Flammable_FlameState__Enum.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Flammable.h>
-#include <Modloader/app/structs/ThrowAnimationType__Enum.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/WaterfallIntersectionMode__Enum.h>
-#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/ThrowAnimationType__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/WaterfallIntersectionMode__Enum.h>
 
 namespace app::classes::FireStick {
     IL2CPP_REGISTER_METHOD(0x01256710, bool, get_IsLit, (app::FireStick * this_ptr))
@@ -50,17 +51,12 @@ namespace app::classes::FireStick {
     IL2CPP_REGISTER_METHOD(0x012595B0, void, BeginUse, (app::FireStick * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B59FC0, void, EndUse, (app::FireStick * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01259930, void, OnLightTorchAnimationFinishedStep1, (app::FireStick * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04753A90, FireStick_OnLightTorchAnimationFinishedStep1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01259AF0, void, OnLightTorchAnimationFinishedStep2, (app::FireStick * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047538D0, FireStick_OnLightTorchAnimationFinishedStep2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01259B10, void, OnPlaceTorchAnimationFinishedStep1, (app::FireStick * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04727038, FireStick_OnPlaceTorchAnimationFinishedStep1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01259F00, app::IEnumerator*, DeactivateWithDelay, (app::FireStick * this_ptr, float delay))
     IL2CPP_REGISTER_METHOD(0x0125A060, app::IEnumerator*, DestroyAfter, (app::FireStick * this_ptr, float time))
     IL2CPP_REGISTER_METHOD(0x0125A1C0, bool, ShouldPlaceTorchAnimationKeepPlaying, (app::FireStick * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470B278, FireStick_ShouldPlaceTorchAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0125A370, void, OnFlammableStateChange, (app::FireStick * this_ptr, app::Flammable* flame))
-    IL2CPP_REGISTER_METHODINFO(0x04758718, FireStick_OnFlammableStateChange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0071F5B0, app::ThrowAnimationType__Enum, GetAnimationType, (app::FireStick * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0125A520, float, GetGravity, (app::FireStick * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0125A530, float, GetThrowVelocityMultiplier, (app::FireStick * this_ptr))
@@ -70,7 +66,6 @@ namespace app::classes::FireStick {
     IL2CPP_REGISTER_METHOD(0x0125ADC0, void, HoldTorchUp, (app::FireStick * this_ptr, bool hold_up))
     IL2CPP_REGISTER_METHOD(0x0125AE10, void, OnExtinguishingAbilityPerform, (app::FireStick * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0125AE70, app::GameObject*, GetCurrentSparkPrefab, (app::FireStick * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04764330, FireStick_GetCurrentSparkPrefab__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0125AEB0, app::Vector2, get_PreviusPositionForWaterfallInteraction, (app::FireStick * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0125AED0, void, set_PreviusPositionForWaterfallInteraction, (app::FireStick * this_ptr, app::Vector2 value))
     IL2CPP_REGISTER_METHOD(0x0125AF00, app::Vector2, get_PositionForWaterfallInteraction, (app::FireStick * this_ptr))

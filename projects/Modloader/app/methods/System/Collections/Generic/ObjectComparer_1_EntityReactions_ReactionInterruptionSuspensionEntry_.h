@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_EntityReactions_ReactionInterruptionSuspensionEntry_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_EntityReactions_ReactionInterruptionSuspensionEntry_.h>
 #include <Modloader/app/structs/EntityReactions_ReactionInterruptionSuspensionEntry.h>
 #include <Modloader/app/structs/Object.h>
 

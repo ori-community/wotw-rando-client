@@ -1,27 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinBashAttack.h>
-#include <Modloader/app/structs/IBashAttackable.h>
-#include <Modloader/app/structs/CharacterLeftRightMovement.h>
-#include <Modloader/app/structs/Action_1_UnityEngine_Vector2_.h>
+
+#include <Modloader/app/structs/SeinBashAttack.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Action_1_EntityTargetting_.h>
-#include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/CharacterAirNoDeceleration.h>
-#include <Modloader/app/structs/SeinDoubleJump.h>
 #include <Modloader/app/structs/CharacterApplyFrictionToSpeed.h>
 #include <Modloader/app/structs/CharacterGravity.h>
-#include <Modloader/app/structs/PlayerAbilities.h>
-#include <Modloader/app/structs/PlatformMovement.h>
-#include <Modloader/app/structs/SeinController.h>
-#include <Modloader/app/structs/SeinBashAttackPuppet_SetElement__Enum.h>
-#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/Component_1.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 #include <Modloader/app/structs/Guid.h>
-#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/IBashAttackable.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/PlayerAbilities.h>
 #include <Modloader/app/structs/SeinBashAttackPuppet.h>
+#include <Modloader/app/structs/SeinBashAttackPuppet_SetElement__Enum.h>
+#include <Modloader/app/structs/SeinController.h>
+#include <Modloader/app/structs/SeinDoubleJump.h>
 
 namespace app::classes::SeinBashAttack {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinBashAttack * this_ptr))
@@ -53,13 +54,9 @@ namespace app::classes::SeinBashAttack {
     IL2CPP_REGISTER_METHOD(0x00D86820, void, Start, (app::SeinBashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D86E60, void, OnDestroy, (app::SeinBashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D87460, void, ModifyGravityPlatformMovementSettings, (app::SeinBashAttack * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04787C70, SeinBashAttack_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D87490, void, ModifyHorizontalPlatformMovementSettings, (app::SeinBashAttack * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04790A60, SeinBashAttack_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D874C0, void, OnRestoreCheckpoint, (app::SeinBashAttack * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04720628, SeinBashAttack_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnSpiritLeashEnded, (app::SeinBashAttack * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04797590, SeinBashAttack_OnSpiritLeashEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D87530, void, OnDisable, (app::SeinBashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D87580, void, ExitBash, (app::SeinBashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D876F0, void, MovePlayerToTargetAndCreateEffect, (app::SeinBashAttack * this_ptr))
@@ -67,13 +64,10 @@ namespace app::classes::SeinBashAttack {
     IL2CPP_REGISTER_METHOD(0x00D87FE0, void, BeginBash, (app::SeinBashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D89170, void, PlayBashStartSound, (app::SeinBashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D89270, void, BashGameComplete, (app::SeinBashAttack * this_ptr, float angle))
-    IL2CPP_REGISTER_METHODINFO(0x04764080, SeinBashAttack_BashGameComplete__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D892E0, void, JumpOffTarget, (app::SeinBashAttack * this_ptr, float angle))
     IL2CPP_REGISTER_METHOD(0x00D8A560, void, OnPreTurningHandlerTurn, (app::SeinBashAttack * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04795A30, SeinBashAttack_OnPreTurningHandlerTurn__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D8A770, bool, CanPerfomBashCustomTurn, (app::SeinBashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D8A7E0, void, PerformBashTurn, (app::SeinBashAttack * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472E7D8, SeinBashAttack_PerformBashTurn__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D8AAD0, bool, get_JustBashed, (app::SeinBashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D8AAF0, void, AttackTarget, (app::SeinBashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D8B2B0, float, GetThrowForce, (app::SeinBashAttack * this_ptr, app::GameObject* bashed_object))
@@ -101,11 +95,8 @@ namespace app::classes::SeinBashAttack {
     IL2CPP_REGISTER_METHOD(0x00D8E0C0, void, set_AttackableConsumerID, (app::SeinBashAttack * this_ptr, app::Guid value))
     IL2CPP_REGISTER_METHOD(0x00D8E0D0, app::IBashAttackable*, FindClosestAttackHandler, (app::SeinBashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004B6800, bool, ShouldBashChargeAnimationKeepPlaying, (app::SeinBashAttack * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047579E8, SeinBashAttack_ShouldBashChargeAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D8E6B0, bool, ShouldBashJumpAnimationKeepPlaying, (app::SeinBashAttack * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04774FB0, SeinBashAttack_ShouldBashJumpAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D8E750, bool, ShouldSwimBashJumpAnimationKeepPlaying, (app::SeinBashAttack * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047564F0, SeinBashAttack_ShouldSwimBashJumpAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D8E840, void, Serialize, (app::SeinBashAttack * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x00D8E9C0, app::SeinBashAttackPuppet*, get_Puppet, (app::SeinBashAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D8EA80, void, ctor, (app::SeinBashAttack * this_ptr))

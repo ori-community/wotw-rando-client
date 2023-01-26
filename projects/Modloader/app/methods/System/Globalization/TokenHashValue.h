@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TokenHashValue.h>
+
+#include <Modloader/app/structs/TokenHashValue.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TokenType__Enum.h>
 

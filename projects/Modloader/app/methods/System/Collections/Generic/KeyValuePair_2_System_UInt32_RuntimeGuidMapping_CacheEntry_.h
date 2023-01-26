@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_UInt32_RuntimeGuidMapping_CacheEntry___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_UInt32_RuntimeGuidMapping_CacheEntry___Boxed.h>
 #include <Modloader/app/structs/RuntimeGuidMapping_CacheEntry.h>
 #include <Modloader/app/structs/String.h>
 

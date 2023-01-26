@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CrabEntity_DamageTime__Class.h>
 #include <Modloader/app/structs/CrabEntity_DamageTime.h>
 #include <Modloader/app/structs/CrabEntity_DamageTime__Array.h>
+#include <Modloader/app/structs/CrabEntity_DamageTime__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace CrabEntity_DamageTime {
-        inline app::CrabEntity_DamageTime__Class** type_info = (app::CrabEntity_DamageTime__Class**)(modloader::win::memory::resolve_rva(0x0478DF00));
+        inline app::CrabEntity_DamageTime__Class** type_info() {
+            static app::CrabEntity_DamageTime__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::CrabEntity_DamageTime__Class**)(modloader::win::memory::resolve_rva(0x0478DF00));
+            }
+            return cache;
+        }
         inline app::CrabEntity_DamageTime__Class* get_class() {
-            return il2cpp::get_nested_class<app::CrabEntity_DamageTime__Class>(type_info, "", "CrabEntity", "DamageTime");
+            return il2cpp::get_nested_class<app::CrabEntity_DamageTime__Class>(type_info(), "", "CrabEntity", "DamageTime");
         }
         inline app::CrabEntity_DamageTime* create() {
             return il2cpp::create_object<app::CrabEntity_DamageTime>(get_class());

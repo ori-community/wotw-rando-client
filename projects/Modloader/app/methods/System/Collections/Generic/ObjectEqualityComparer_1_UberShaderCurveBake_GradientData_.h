@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_UberShaderCurveBake_GradientData_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UberShaderCurveBake_GradientData_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/UberShaderCurveBake_GradientData.h>
 #include <Modloader/app/structs/UberShaderCurveBake_GradientData__Array.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_UberShaderCurveBake_GradientData_ {
     IL2CPP_REGISTER_METHOD(0x01CD2D60, bool, Equals_1, (app::ObjectEqualityComparer_1_UberShaderCurveBake_GradientData_ * this_ptr, app::UberShaderCurveBake_GradientData x, app::UberShaderCurveBake_GradientData y))

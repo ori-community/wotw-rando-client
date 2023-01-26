@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostRecorderData.h>
+
+#include <Modloader/app/structs/GhostRecorderData.h>
+#include <Modloader/app/structs/BinaryReader.h>
 #include <Modloader/app/structs/GhostFrame.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/BinaryReader.h>
 
 namespace app::classes::GhostRecorderData {
     IL2CPP_REGISTER_METHOD(0x003FC830, int32_t, get_FlushedFramesCount, (app::GhostRecorderData * this_ptr))

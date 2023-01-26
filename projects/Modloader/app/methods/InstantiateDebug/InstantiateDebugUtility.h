@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InstantiateDebugIgnore.h>
+
+#include <Modloader/app/structs/InstantiateDebugIgnore.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/InstantiateDebugUtility.h>
+#include <Modloader/app/structs/InstantiateDebugUtility_InstanceInfo.h>
+#include <Modloader/app/structs/InstantiateDebugUtility_InstantiationType__Enum.h>
 #include <Modloader/app/structs/List_1_UberPoolPrefabSetting_.h>
 #include <Modloader/app/structs/Object_1.h>
-#include <Modloader/app/structs/InstantiateDebugUtility_InstantiationType__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/InstantiateDebugUtility_InstanceInfo.h>
-#include <Modloader/app/structs/InstantiateDebugUtility.h>
 
 namespace app::classes::InstantiateDebug::InstantiateDebugUtility {
     IL2CPP_REGISTER_METHOD(0x0062D3F0, void, ResetStatics, ())

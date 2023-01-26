@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Point_1.h>
 #include <Modloader/app/structs/PrimitiveSpace__Enum.h>
 #include <Modloader/app/structs/Transform.h>

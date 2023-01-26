@@ -1,14 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ListProvider_1_System_Linq_Expressions_Expression_.h>
+
+#include <Modloader/app/structs/ListProvider_1_System_Linq_Expressions_Expression_.h>
 #include <Modloader/app/structs/Expression.h>
 #include <Modloader/app/structs/Expression__Array.h>
-#include <Modloader/app/structs/IEnumerator_1_System_Linq_Expressions_Expression_.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Linq_Expressions_Expression_.h>
 
 namespace app::classes::System::Dynamic::Utils::ListProvider_1_System_Linq_Expressions_Expression_ {
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::ListProvider_1_System_Linq_Expressions_Expression_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04749F60, ListProvider_1_System_Linq_Expressions_Expression___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02879B70, app::Expression*, get_Item, (app::ListProvider_1_System_Linq_Expressions_Expression_ * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x02879BC0, void, set_Item, (app::ListProvider_1_System_Linq_Expressions_Expression_ * this_ptr, int32_t index, app::Expression* value))
     IL2CPP_REGISTER_METHOD(0x02879A30, int32_t, IndexOf, (app::ListProvider_1_System_Linq_Expressions_Expression_ * this_ptr, app::Expression* item))

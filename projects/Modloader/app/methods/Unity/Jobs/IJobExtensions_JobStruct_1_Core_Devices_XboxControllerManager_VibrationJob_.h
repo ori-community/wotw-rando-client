@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XboxControllerManager_VibrationJob.h>
+
+#include <Modloader/app/structs/XboxControllerManager_VibrationJob.h>
 #include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::Unity::Jobs::IJobExtensions_JobStruct_1_Core_Devices_XboxControllerManager_VibrationJob_ {

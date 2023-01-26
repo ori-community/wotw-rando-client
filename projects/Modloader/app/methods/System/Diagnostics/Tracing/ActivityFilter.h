@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActivityFilter.h>
-#include <Modloader/app/structs/EventSource.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Guid.h>
-#include <Modloader/app/structs/EventKeywords__Enum.h>
-#include <Modloader/app/structs/IEnumerable_1_System_Tuple_2__1.h>
+
+#include <Modloader/app/structs/ActivityFilter.h>
 #include <Modloader/app/structs/Action_1_Guid_.h>
 #include <Modloader/app/structs/ConcurrentDictionary_2_System_Guid_System_Int32_.h>
+#include <Modloader/app/structs/EventKeywords__Enum.h>
+#include <Modloader/app/structs/EventSource.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Tuple_2__1.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Diagnostics::Tracing::ActivityFilter {
     IL2CPP_REGISTER_METHOD(0x01742A20, void, DisableFilter, (app::ActivityFilter * *filter_list, app::EventSource* source))

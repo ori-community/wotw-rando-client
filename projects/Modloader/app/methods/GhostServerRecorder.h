@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostServerRecorder.h>
+
+#include <Modloader/app/structs/GhostServerRecorder.h>
 #include <Modloader/app/structs/Action_1_Byte_.h>
+#include <Modloader/app/structs/MoonGuid__Array.h>
 #include <Modloader/app/structs/Rigidbody__Array.h>
 #include <Modloader/app/structs/ServerConfigurationProperties.h>
-#include <Modloader/app/structs/MoonGuid__Array.h>
 
 namespace app::classes::GhostServerRecorder {
     IL2CPP_REGISTER_METHOD(0x007E7A20, bool, get_Available, (app::GhostServerRecorder * this_ptr))

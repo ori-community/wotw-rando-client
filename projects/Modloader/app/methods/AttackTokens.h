@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttackTokens_Request.h>
-#include <Modloader/app/structs/IAttackTokenHolder.h>
+
+#include <Modloader/app/structs/AttackTokens_Request.h>
 #include <Modloader/app/structs/AttackTokenPriority__Enum.h>
+#include <Modloader/app/structs/IAttackTokenHolder.h>
 
 namespace app::classes::AttackTokens {
     IL2CPP_REGISTER_METHOD(0x00852AE0, bool, TryClaimToken, (app::AttackTokens_Request request))

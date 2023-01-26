@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_AlphaState.h>
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Array.h>
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Boxed.h>
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Class.h>
-#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_AlphaState.h>
-#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Boxed.h>
-#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Array.h>
 
 namespace app::classes::types {
     namespace ExperimentalTransparencyAnimatorSystemStrategy_AlphaState {
-        namespace {
-            inline app::ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Class* type_info_ref = nullptr;
+        inline app::ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Class** type_info() {
+            static app::ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Class** type_info = &type_info_ref;
         inline app::ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Class* get_class() {
-            return il2cpp::get_nested_class<app::ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Class>(type_info, "Moon.Timeline", "ExperimentalTransparencyAnimatorSystemStrategy", "AlphaState");
+            return il2cpp::get_nested_class<app::ExperimentalTransparencyAnimatorSystemStrategy_AlphaState__Class>(type_info(), "Moon.Timeline", "ExperimentalTransparencyAnimatorSystemStrategy", "AlphaState");
         }
         inline app::ExperimentalTransparencyAnimatorSystemStrategy_AlphaState* create() {
             return il2cpp::create_object<app::ExperimentalTransparencyAnimatorSystemStrategy_AlphaState>(get_class());

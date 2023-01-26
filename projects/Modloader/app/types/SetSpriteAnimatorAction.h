@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SetSpriteAnimatorAction.h>
+#include <Modloader/app/structs/SetSpriteAnimatorAction__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SetSpriteAnimatorAction__Class.h>
-#include <Modloader/app/structs/SetSpriteAnimatorAction.h>
 
 namespace app::classes::types {
     namespace SetSpriteAnimatorAction {
-        namespace {
-            inline app::SetSpriteAnimatorAction__Class* type_info_ref = nullptr;
+        inline app::SetSpriteAnimatorAction__Class** type_info() {
+            static app::SetSpriteAnimatorAction__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SetSpriteAnimatorAction__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SetSpriteAnimatorAction__Class** type_info = &type_info_ref;
         inline app::SetSpriteAnimatorAction__Class* get_class() {
-            return il2cpp::get_class<app::SetSpriteAnimatorAction__Class>(type_info, "", "SetSpriteAnimatorAction");
+            return il2cpp::get_class<app::SetSpriteAnimatorAction__Class>(type_info(), "", "SetSpriteAnimatorAction");
         }
         inline app::SetSpriteAnimatorAction* create() {
             return il2cpp::create_object<app::SetSpriteAnimatorAction>(get_class());

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUIStyle.h>
-#include <Modloader/app/structs/SceneFrameworkDebugger.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/GUIStyle.h>
 #include <Modloader/app/structs/LoadingBoostController_BoostModeLevel__Enum.h>
-#include <Modloader/app/structs/SceneState__Enum.h>
 #include <Modloader/app/structs/RuntimeSceneMetaData.h>
+#include <Modloader/app/structs/SceneFrameworkDebugger.h>
 #include <Modloader/app/structs/SceneManagerScene.h>
+#include <Modloader/app/structs/SceneState__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SceneFrameworkDebugger {
     IL2CPP_REGISTER_METHOD(0x00B9D820, app::GUIStyle*, get_LabelStyle, (app::SceneFrameworkDebugger * this_ptr))

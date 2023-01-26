@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HierarchyTester.h>
+
+#include <Modloader/app/structs/HierarchyTester.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/SceneTestData.h>
-#include <Modloader/app/structs/SceneRoot.h>
-#include <Modloader/app/structs/HierarchyTester_State__Enum.h>
 #include <Modloader/app/structs/CompositeTask.h>
-#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
-#include <Modloader/app/structs/SceneSample.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
+#include <Modloader/app/structs/HierarchyTester_State__Enum.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/SceneSample.h>
+#include <Modloader/app/structs/SceneTestData.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::HierarchyTester {
@@ -43,9 +44,7 @@ namespace app::classes::Moon::HierarchyPerformanceTest::HierarchyTester {
     IL2CPP_REGISTER_METHOD(0x014A81D0, app::SceneRoot*, GetCurrentScene, ())
     IL2CPP_REGISTER_METHOD(0x014A8270, app::String*, FormatEstimateTime, (app::HierarchyTester * this_ptr, int32_t total_seconds))
     IL2CPP_REGISTER_METHOD(0x014A83A0, void, OnBaselineMeasureTaskFailed, (app::HierarchyTester * this_ptr, app::String* message))
-    IL2CPP_REGISTER_METHODINFO(0x04799668, HierarchyTester_OnBaselineMeasureTaskFailed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014A83B0, void, ctor, (app::HierarchyTester * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014A8740, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x014A87C0, void, _AddObjectMeasureTaskRecursively_b__54_0, (app::HierarchyTester * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04715620, HierarchyTester__AddObjectMeasureTaskRecursively_b__54_0__MethodInfo)
 } // namespace app::classes::Moon::HierarchyPerformanceTest::HierarchyTester

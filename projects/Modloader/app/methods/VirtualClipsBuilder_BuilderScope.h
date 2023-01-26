@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VirtualClipsBuilder_BuilderScope.h>
-#include <Modloader/app/structs/VirtualMoonTimeline.h>
+
+#include <Modloader/app/structs/VirtualClipsBuilder_BuilderScope.h>
 #include <Modloader/app/structs/VirtualClipsBuilder_Layout__Enum.h>
+#include <Modloader/app/structs/VirtualMoonTimeline.h>
 
 namespace app::classes::VirtualClipsBuilder_BuilderScope {
     IL2CPP_REGISTER_METHOD(0x031C4090, void, ctor, (app::VirtualClipsBuilder_BuilderScope * this_ptr, app::VirtualMoonTimeline* root))

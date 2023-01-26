@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinComboHandler_StubbedComboMove.h>
-#include <Modloader/app/structs/ComboMoveType__Enum.h>
-#include <Modloader/app/structs/IComboMove.h>
-#include <Modloader/app/structs/ComboInput.h>
-#include <Modloader/app/structs/ButtonInputType__Enum.h>
-#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
+
+#include <Modloader/app/structs/SeinComboHandler_StubbedComboMove.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/ButtonInputType__Enum.h>
+#include <Modloader/app/structs/ComboInput.h>
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
 #include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
 
 namespace app::classes::SeinComboHandler_StubbedComboMove {

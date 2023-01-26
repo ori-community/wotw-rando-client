@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
-#include <Modloader/app/structs/WebImpl__Enum.h>
 #include <Modloader/app/structs/MoonTelemetryWebConfig.h>
+#include <Modloader/app/structs/WebImpl__Enum.h>
 
 namespace app::classes::Moon::Telemetry::Web::MoonTelemetryWebConfig {
     IL2CPP_REGISTER_METHOD(0x02E9AC10, bool, get_IsInited, ())

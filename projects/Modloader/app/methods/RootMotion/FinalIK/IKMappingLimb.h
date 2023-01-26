@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKMappingLimb.h>
-#include <Modloader/app/structs/IKSolver.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IKMapping_BoneMap.h>
+
+#include <Modloader/app/structs/IKMappingLimb.h>
 #include <Modloader/app/structs/IKMappingLimb_BoneMapType__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/IKMapping_BoneMap.h>
+#include <Modloader/app/structs/IKSolver.h>
 #include <Modloader/app/structs/IKSolverFullBody.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::IKMappingLimb {
     IL2CPP_REGISTER_METHOD(0x02BDEE00, bool, IsValid, (app::IKMappingLimb * this_ptr, app::IKSolver* solver, app::String** message))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DelayedActionExecuter.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/ActionWithDuration.h>
+
+#include <Modloader/app/structs/DelayedActionExecuter.h>
 #include <Modloader/app/structs/ActionMethod.h>
+#include <Modloader/app/structs/ActionWithDuration.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::DelayedActionExecuter {
     IL2CPP_REGISTER_METHOD(0x00724010, void, set_StartTime, (app::DelayedActionExecuter * this_ptr, float value))

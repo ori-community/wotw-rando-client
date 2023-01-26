@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TogglePlaymodeTask.h>
+
+#include <Modloader/app/structs/TogglePlaymodeTask.h>
 
 namespace app::classes::Moon::ArtOptimization::TogglePlaymodeTask {
     IL2CPP_REGISTER_METHOD(0x0052A040, void, ctor, (app::TogglePlaymodeTask * this_ptr, bool playmode_state))

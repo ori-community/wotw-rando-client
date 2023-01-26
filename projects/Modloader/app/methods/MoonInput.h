@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/KeyCode__Enum.h>
 #include <Modloader/app/structs/MoonInput.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::MoonInput {
     IL2CPP_REGISTER_METHOD(0x0145B130, bool, get_anyKeyDown, ())
@@ -14,7 +15,6 @@ namespace app::classes::MoonInput {
     IL2CPP_REGISTER_METHOD(0x0145B2F0, bool, GetButton, (app::String * button_name))
     IL2CPP_REGISTER_METHOD(0x0145B340, bool, GetButtonDown, (app::String * button_name))
     IL2CPP_REGISTER_METHOD(0x0145B390, bool, GetKey, (app::KeyCode__Enum key_code))
-    IL2CPP_REGISTER_METHODINFO(0x04760B00, MoonInput_GetKey__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0145B3E0, bool, GetKeyDown_1, (app::String * name))
     IL2CPP_REGISTER_METHOD(0x0145B430, bool, GetKeyDown_2, (app::KeyCode__Enum key_code))
     IL2CPP_REGISTER_METHOD(0x0145B480, bool, GetKeyUp_1, (app::String * name))

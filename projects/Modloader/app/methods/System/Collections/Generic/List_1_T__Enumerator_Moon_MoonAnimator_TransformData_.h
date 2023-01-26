@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_MoonAnimator_TransformData___Boxed.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_MoonAnimator_TransformData___Boxed.h>
 #include <Modloader/app/structs/List_1_Moon_MoonAnimator_TransformData_.h>
 #include <Modloader/app/structs/MoonAnimator_TransformData.h>
 #include <Modloader/app/structs/Object.h>

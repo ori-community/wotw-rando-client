@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ControllerShakeLogic.h>
+
+#include <Modloader/app/structs/ControllerShakeLogic.h>
 
 namespace app::classes::ControllerShakeLogic {
     IL2CPP_REGISTER_METHOD(0x011F22A0, void, ResetStatics, ())

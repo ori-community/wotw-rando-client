@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SparselyPopulatedArrayFragment_1_System_Object_.h>
+
+#include <Modloader/app/structs/SparselyPopulatedArrayFragment_1_System_Object_.h>
 #include <Modloader/app/structs/SparselyPopulatedArrayAddInfo_1_System_Object___Boxed.h>
 
 namespace app::classes::System::Threading::SparselyPopulatedArrayAddInfo_1_System_Object_ {

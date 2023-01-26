@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_Moon_Rendering_SrpSampler_.h>
-#include <Modloader/app/structs/SrpSampler__Array.h>
-#include <Modloader/app/structs/SrpSampler.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_Moon_Rendering_SrpSampler_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SrpSampler.h>
+#include <Modloader/app/structs/SrpSampler__Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_Moon_Rendering_SrpSampler_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_Moon_Rendering_SrpSampler_*, get_Default, ())

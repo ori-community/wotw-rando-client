@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/AxisTools.h>
+#include <Modloader/app/structs/AxisTools__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AxisTools__Class.h>
-#include <Modloader/app/structs/AxisTools.h>
 
 namespace app::classes::types {
     namespace AxisTools {
-        namespace {
-            inline app::AxisTools__Class* type_info_ref = nullptr;
+        inline app::AxisTools__Class** type_info() {
+            static app::AxisTools__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AxisTools__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AxisTools__Class** type_info = &type_info_ref;
         inline app::AxisTools__Class* get_class() {
-            return il2cpp::get_class<app::AxisTools__Class>(type_info, "RootMotion", "AxisTools");
+            return il2cpp::get_class<app::AxisTools__Class>(type_info(), "RootMotion", "AxisTools");
         }
         inline app::AxisTools* create() {
             return il2cpp::create_object<app::AxisTools>(get_class());

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DrivenZRotation.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
+
+#include <Modloader/app/structs/DrivenZRotation.h>
 #include <Modloader/app/structs/ITweenLerpInputProvider.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::DrivenZRotation {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_ShouldUpdate, (app::DrivenZRotation * this_ptr))

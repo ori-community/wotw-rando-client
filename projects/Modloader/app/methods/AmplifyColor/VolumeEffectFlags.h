@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VolumeEffectFlags.h>
-#include <Modloader/app/structs/Component_1.h>
-#include <Modloader/app/structs/VolumeEffect.h>
+
+#include <Modloader/app/structs/VolumeEffectFlags.h>
+#include <Modloader/app/structs/AmplifyColorBase.h>
 #include <Modloader/app/structs/AmplifyColorBase__Array.h>
 #include <Modloader/app/structs/AmplifyColorVolumeBase__Array.h>
-#include <Modloader/app/structs/AmplifyColorBase.h>
-#include <Modloader/app/structs/VolumeEffectComponentFlags.h>
+#include <Modloader/app/structs/Component_1.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/VolumeEffect.h>
+#include <Modloader/app/structs/VolumeEffectComponentFlags.h>
 
 namespace app::classes::AmplifyColor::VolumeEffectFlags {
     IL2CPP_REGISTER_METHOD(0x030D3480, void, ctor, (app::VolumeEffectFlags * this_ptr))

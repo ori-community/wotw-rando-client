@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JValue.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/JTokenType__Enum.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/JValue.h>
 #include <Modloader/app/structs/BigInteger_2.h>
-#include <Modloader/app/structs/JToken.h>
-#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_Linq_JTokenType_.h>
-#include <Modloader/app/structs/JsonWriter.h>
-#include <Modloader/app/structs/JsonConverter__Array.h>
-#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Decimal.h>
 #include <Modloader/app/structs/DynamicMetaObject.h>
 #include <Modloader/app/structs/Expression.h>
-#include <Modloader/app/structs/TypeCode__Enum.h>
-#include <Modloader/app/structs/Decimal.h>
-#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/JTokenType__Enum.h>
+#include <Modloader/app/structs/JsonConverter__Array.h>
+#include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/Nullable_1_Newtonsoft_Json_Linq_JTokenType_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JValue {
     IL2CPP_REGISTER_METHOD(0x0185A290, void, ctor_1, (app::JValue * this_ptr, app::Object* value, app::JTokenType__Enum type))
@@ -26,19 +27,16 @@ namespace app::classes::Newtonsoft::Json::Linq::JValue {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_HasValues, (app::JValue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0185A520, int32_t, CompareBigInteger, (app::BigInteger_2 i1, app::Object* i2))
     IL2CPP_REGISTER_METHOD(0x0185A9F0, int32_t, Compare, (app::JTokenType__Enum value_type, app::Object* obj_a, app::Object* obj_b))
-    IL2CPP_REGISTER_METHODINFO(0x04792DD8, JValue_Compare__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0185B650, int32_t, CompareFloat, (app::Object * obj_a, app::Object* obj_b))
     IL2CPP_REGISTER_METHOD(0x0185B790, app::JToken*, CloneToken, (app::JValue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0185B8E0, app::JValue*, CreateComment, (app::String * value))
     IL2CPP_REGISTER_METHOD(0x0185BA30, app::JValue*, CreateNull, ())
     IL2CPP_REGISTER_METHOD(0x0185BB80, app::JValue*, CreateUndefined, ())
     IL2CPP_REGISTER_METHOD(0x0185BCD0, app::JTokenType__Enum, GetValueType, (app::Nullable_1_Newtonsoft_Json_Linq_JTokenType_ current, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x04756450, JValue_GetValueType__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0185C130, app::JTokenType__Enum, GetStringValueType, (app::Nullable_1_Newtonsoft_Json_Linq_JTokenType_ current))
     IL2CPP_REGISTER_METHOD(0x00654950, app::JTokenType__Enum, get_Type, (app::JValue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::Object*, get_Value, (app::JValue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0185C1D0, void, WriteTo, (app::JValue * this_ptr, app::JsonWriter* writer, app::JsonConverter__Array* converters))
-    IL2CPP_REGISTER_METHODINFO(0x04731528, JValue_WriteTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0185CC10, bool, ValuesEquals, (app::JValue * v1, app::JValue* v2))
     IL2CPP_REGISTER_METHOD(0x0185CC70, bool, Equals_1, (app::JValue * this_ptr, app::JValue* other))
     IL2CPP_REGISTER_METHOD(0x0185CCC0, bool, Equals_2, (app::JValue * this_ptr, app::Object* obj))
@@ -51,7 +49,7 @@ namespace app::classes::Newtonsoft::Json::Linq::JValue {
     IL2CPP_REGISTER_METHOD(0x0185D460, int32_t, CompareTo, (app::JValue * this_ptr, app::JValue* obj))
     IL2CPP_REGISTER_METHOD(0x0185D490, app::TypeCode__Enum, IConvertible_GetTypeCode, (app::JValue * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0185D540, bool, IConvertible_ToBoolean, (app::JValue * this_ptr, app::IFormatProvider* provider))
-    IL2CPP_REGISTER_METHOD(0x0185D5E0, uint16_t, IConvertible_ToChar, (app::JValue * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x0185D5E0, char16_t, IConvertible_ToChar, (app::JValue * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x0185D680, int8_t, IConvertible_ToSByte, (app::JValue * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x0185D720, uint8_t, IConvertible_ToByte, (app::JValue * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x0185D7C0, int16_t, IConvertible_ToInt16, (app::JValue * this_ptr, app::IFormatProvider* provider))

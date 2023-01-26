@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BitStack.h>
+
+#include <Modloader/app/structs/BitStack.h>
 
 namespace app::classes::System::Xml::BitStack {
     IL2CPP_REGISTER_METHOD(0x021E7820, void, ctor, (app::BitStack * this_ptr))

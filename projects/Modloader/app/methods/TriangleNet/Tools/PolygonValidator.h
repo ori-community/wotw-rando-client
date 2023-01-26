@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IPolygon.h>
+
+#include <Modloader/app/structs/IPolygon.h>
 #include <Modloader/app/structs/Point.h>
 
 namespace app::classes::TriangleNet::Tools::PolygonValidator {

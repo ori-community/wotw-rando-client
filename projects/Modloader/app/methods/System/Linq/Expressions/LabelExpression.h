@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LabelExpression.h>
-#include <Modloader/app/structs/LabelTarget.h>
+
+#include <Modloader/app/structs/LabelExpression.h>
 #include <Modloader/app/structs/Expression.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/ExpressionType__Enum.h>
 #include <Modloader/app/structs/ExpressionVisitor.h>
+#include <Modloader/app/structs/LabelTarget.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::LabelExpression {
     IL2CPP_REGISTER_METHOD(0x02417070, void, ctor, (app::LabelExpression * this_ptr, app::LabelTarget* label, app::Expression* default_value))

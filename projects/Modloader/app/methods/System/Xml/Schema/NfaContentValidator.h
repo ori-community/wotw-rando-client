@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NfaContentValidator.h>
+
+#include <Modloader/app/structs/NfaContentValidator.h>
+#include <Modloader/app/structs/ArrayList.h>
 #include <Modloader/app/structs/BitSet.h>
 #include <Modloader/app/structs/BitSet__Array.h>
-#include <Modloader/app/structs/SymbolsDictionary.h>
-#include <Modloader/app/structs/Positions.h>
-#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
-#include <Modloader/app/structs/ValidationState.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Positions.h>
+#include <Modloader/app/structs/SymbolsDictionary.h>
+#include <Modloader/app/structs/ValidationState.h>
 #include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
 #include <Modloader/app/structs/XmlSchemaSet.h>
 
 namespace app::classes::System::Xml::Schema::NfaContentValidator {

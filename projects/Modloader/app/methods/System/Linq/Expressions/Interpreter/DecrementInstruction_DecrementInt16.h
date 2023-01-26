@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DecrementInstruction_DecrementInt16.h>
+
+#include <Modloader/app/structs/DecrementInstruction_DecrementInt16.h>
 #include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::DecrementInstruction_DecrementInt16 {

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/LocomotionGroundMoveBehaviour.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::LocomotionGroundMoveBehaviour {
     IL2CPP_REGISTER_METHOD(0x00A1FBC0, app::Vector3, get_TargetPosition, (app::LocomotionGroundMoveBehaviour * this_ptr))
@@ -29,7 +30,6 @@ namespace app::classes::LocomotionGroundMoveBehaviour {
     IL2CPP_REGISTER_METHOD(0x00FC6440, void, SetAnimationSpeed, (app::LocomotionGroundMoveBehaviour * this_ptr, float speed))
     IL2CPP_REGISTER_METHOD(0x00FC6460, void, PlayAnimation, (app::LocomotionGroundMoveBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FC6830, bool, ContinuePlayingMovementAnim, (app::LocomotionGroundMoveBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04717400, LocomotionGroundMoveBehaviour_ContinuePlayingMovementAnim__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FC6860, void, OnMovementStoppedPlaying, (app::LocomotionGroundMoveBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FC68A0, void, OnTraversalSpeedChange, (app::LocomotionGroundMoveBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FC6940, void, OnIsMovingBackwardsChanged, (app::LocomotionGroundMoveBehaviour * this_ptr))

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKConstraintBend.h>
+
+#include <Modloader/app/structs/IKConstraintBend.h>
 #include <Modloader/app/structs/IKSolverFullBody.h>
-#include <Modloader/app/structs/Warning_Logger.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Warning_Logger.h>
 
 namespace app::classes::RootMotion::FinalIK::IKConstraintBend {
     IL2CPP_REGISTER_METHOD(0x02077D90, bool, IsValid, (app::IKConstraintBend * this_ptr, app::IKSolverFullBody* solver, app::Warning_Logger* logger))

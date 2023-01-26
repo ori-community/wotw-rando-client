@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/UtilityDecorator.h>
+
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/UtilityDecorator.h>
 
 namespace app::classes::Moon::BehaviourSystem::UtilityDecorator {
     IL2CPP_REGISTER_METHOD(0x030121D0, app::BehaviourStatus__Enum, OnExecute, (app::UtilityDecorator * this_ptr, app::IContext* context))

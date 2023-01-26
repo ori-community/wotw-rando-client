@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Matrix4x4__Array.h>
+#include <Modloader/app/structs/Matrix4x4__Boxed.h>
+#include <Modloader/app/structs/Matrix4x4__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Matrix4x4__Class.h>
-#include <Modloader/app/structs/Matrix4x4.h>
-#include <Modloader/app/structs/Matrix4x4__Boxed.h>
-#include <Modloader/app/structs/Matrix4x4__Array.h>
 
 namespace app::classes::types {
     namespace Matrix4x4 {
-        inline app::Matrix4x4__Class** type_info = (app::Matrix4x4__Class**)(modloader::win::memory::resolve_rva(0x0470EE60));
+        inline app::Matrix4x4__Class** type_info() {
+            static app::Matrix4x4__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Matrix4x4__Class**)(modloader::win::memory::resolve_rva(0x0470EE60));
+            }
+            return cache;
+        }
         inline app::Matrix4x4__Class* get_class() {
-            return il2cpp::get_class<app::Matrix4x4__Class>(type_info, "UnityEngine", "Matrix4x4");
+            return il2cpp::get_class<app::Matrix4x4__Class>(type_info(), "UnityEngine", "Matrix4x4");
         }
         inline app::Matrix4x4* create() {
             return il2cpp::create_object<app::Matrix4x4>(get_class());

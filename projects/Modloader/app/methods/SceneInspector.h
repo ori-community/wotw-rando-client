@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneInspector.h>
+
+#include <Modloader/app/structs/SceneInspector.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/SceneMetaData.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::SceneInspector {
     IL2CPP_REGISTER_METHOD(0x00BA1150, int32_t, get_QueryRange, ())
@@ -23,7 +24,6 @@ namespace app::classes::SceneInspector {
     IL2CPP_REGISTER_METHOD(0x00BA2A30, app::Rect, _toScreenSpace_2, (app::SceneInspector * this_ptr, app::Rect world_space_rect))
     IL2CPP_REGISTER_METHOD(0x00BA2B00, void, Draw, (app::SceneInspector * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BA4010, void, OnEndOfFrame, (app::SceneInspector * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476B158, SceneInspector_OnEndOfFrame__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BA4020, void, SuspendGameplay, ())
     IL2CPP_REGISTER_METHOD(0x00BA4160, void, ResumeGameplay, ())
     IL2CPP_REGISTER_METHOD(0x00BA42A0, void, DrawCross, (app::SceneInspector * this_ptr, app::Vector2 center))

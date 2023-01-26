@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Func_2_UnityEngine_Vector3_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Func_3_UnityEngine_Vector3_UnityEngine_Vector3_Boolean_.h>
 #include <Modloader/app/structs/TargetBreadcrumbsTracker.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Func_3_UnityEngine_Vector3_UnityEngine_Vector3_Boolean_.h>
-#include <Modloader/app/structs/Func_2_UnityEngine_Vector3_UnityEngine_Vector3_.h>
 
 namespace app::classes::TargetBreadcrumbsTracker {
     IL2CPP_REGISTER_METHOD(0x002FBBC0, app::Transform*, get_FollowedTarget, (app::TargetBreadcrumbsTracker * this_ptr))
@@ -32,9 +33,7 @@ namespace app::classes::TargetBreadcrumbsTracker {
     IL2CPP_REGISTER_METHOD(0x00CE1B20, app::Vector3, NewestPoint, (app::TargetBreadcrumbsTracker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CE1BE0, app::Vector3, OldestPoint, (app::TargetBreadcrumbsTracker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CE1CA0, bool, DefaultClearanceBetweenPointsFunction, (app::TargetBreadcrumbsTracker * this_ptr, app::Vector3 point1, app::Vector3 point2))
-    IL2CPP_REGISTER_METHODINFO(0x047545C8, TargetBreadcrumbsTracker_DefaultClearanceBetweenPointsFunction__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B68B50, app::Vector3, DefaultProcessAddedPointFunction, (app::TargetBreadcrumbsTracker * this_ptr, app::Vector3 point))
-    IL2CPP_REGISTER_METHODINFO(0x0473CB28, TargetBreadcrumbsTracker_DefaultProcessAddedPointFunction__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00CE1DE0, void, OnDrawGizmos, (app::TargetBreadcrumbsTracker * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00CE1FD0, void, ctor, (app::TargetBreadcrumbsTracker * this_ptr))
 } // namespace app::classes::TargetBreadcrumbsTracker

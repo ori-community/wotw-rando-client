@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ManifestBuilder.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Guid.h>
-#include <Modloader/app/structs/ResourceManager.h>
-#include <Modloader/app/structs/EventManifestOptions__Enum.h>
-#include <Modloader/app/structs/EventAttribute.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/ManifestBuilder.h>
 #include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/IList_1_System_String_.h>
-#include <Modloader/app/structs/StringBuilder.h>
 #include <Modloader/app/structs/CultureInfo.h>
-#include <Modloader/app/structs/List_1_System_Globalization_CultureInfo_.h>
+#include <Modloader/app/structs/EventAttribute.h>
 #include <Modloader/app/structs/EventLevel__Enum.h>
-#include <Modloader/app/structs/EventTask__Enum.h>
+#include <Modloader/app/structs/EventManifestOptions__Enum.h>
 #include <Modloader/app/structs/EventOpcode__Enum.h>
+#include <Modloader/app/structs/EventTask__Enum.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/IList_1_System_String_.h>
+#include <Modloader/app/structs/List_1_System_Globalization_CultureInfo_.h>
+#include <Modloader/app/structs/ResourceManager.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Diagnostics::Tracing::ManifestBuilder {
     IL2CPP_REGISTER_METHOD(0x019FF750, void, ctor, (app::ManifestBuilder * this_ptr, app::String* provider_name, app::Guid provider_guid, app::String* dll_name, app::ResourceManager* resources, app::EventManifestOptions__Enum flags))
@@ -27,7 +28,6 @@ namespace app::classes::System::Diagnostics::Tracing::ManifestBuilder {
     IL2CPP_REGISTER_METHOD(0x01A02140, app::Byte__Array*, CreateManifest, (app::ManifestBuilder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBB80, app::IList_1_System_String_*, get_Errors, (app::ManifestBuilder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01A02180, void, ManifestError, (app::ManifestBuilder * this_ptr, app::String* msg, bool runtime_critical))
-    IL2CPP_REGISTER_METHODINFO(0x04716DC8, ManifestBuilder_ManifestError__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01A02270, app::String*, CreateManifestString, (app::ManifestBuilder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01A043B0, void, WriteNameAndMessageAttribs, (app::ManifestBuilder * this_ptr, app::StringBuilder* string_builder, app::String* element_name, app::String* name))
     IL2CPP_REGISTER_METHOD(0x01A044C0, void, WriteMessageAttrib, (app::ManifestBuilder * this_ptr, app::StringBuilder* string_builder, app::String* element_name, app::String* name, app::String* value))

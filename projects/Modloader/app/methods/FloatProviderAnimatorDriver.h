@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FloatProviderAnimatorDriver.h>
+
+#include <Modloader/app/structs/FloatProviderAnimatorDriver.h>
 
 namespace app::classes::FloatProviderAnimatorDriver {
     IL2CPP_REGISTER_METHOD(0x01270E80, void, Start, (app::FloatProviderAnimatorDriver * this_ptr))

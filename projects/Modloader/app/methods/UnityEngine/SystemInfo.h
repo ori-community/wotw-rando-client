@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/OperatingSystemFamily__Enum.h>
-#include <Modloader/app/structs/DeviceType__Enum.h>
-#include <Modloader/app/structs/GraphicsDeviceType__Enum.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/CopyTextureSupport__Enum.h>
+#include <Modloader/app/structs/DeviceType__Enum.h>
 #include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/FormatUsage__Enum.h>
+#include <Modloader/app/structs/GraphicsDeviceType__Enum.h>
+#include <Modloader/app/structs/GraphicsFormat__Enum.h>
+#include <Modloader/app/structs/NPOTSupport__Enum.h>
+#include <Modloader/app/structs/OperatingSystemFamily__Enum.h>
 #include <Modloader/app/structs/RenderTextureFormat__Enum.h>
 #include <Modloader/app/structs/TextureFormat__Enum.h>
-#include <Modloader/app/structs/NPOTSupport__Enum.h>
-#include <Modloader/app/structs/GraphicsFormat__Enum.h>
-#include <Modloader/app/structs/FormatUsage__Enum.h>
 
 namespace app::classes::UnityEngine::SystemInfo {
     IL2CPP_REGISTER_METHOD(0x02C648F0, app::String*, get_operatingSystem, ())
@@ -57,11 +58,8 @@ namespace app::classes::UnityEngine::SystemInfo {
     IL2CPP_REGISTER_METHOD(0x02C65520, uint8_t*, GetDyingMessagePointer, (int32_t size))
     IL2CPP_REGISTER_METHOD(0x02C65580, bool, IsValidEnumValue, (app::Enum value))
     IL2CPP_REGISTER_METHOD(0x02C65650, bool, SupportsRenderTextureFormat, (app::RenderTextureFormat__Enum format))
-    IL2CPP_REGISTER_METHODINFO(0x04771D00, SystemInfo_SupportsRenderTextureFormat__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C65760, bool, SupportsBlendingOnRenderTextureFormat, (app::RenderTextureFormat__Enum format))
-    IL2CPP_REGISTER_METHODINFO(0x04772C08, SystemInfo_SupportsBlendingOnRenderTextureFormat__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C65870, bool, SupportsTextureFormat, (app::TextureFormat__Enum format))
-    IL2CPP_REGISTER_METHODINFO(0x04746420, SystemInfo_SupportsTextureFormat__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C65980, app::NPOTSupport__Enum, get_npotSupport, ())
     IL2CPP_REGISTER_METHOD(0x02C648F0, app::String*, GetOperatingSystem, ())
     IL2CPP_REGISTER_METHOD(0x02C64940, app::OperatingSystemFamily__Enum, GetOperatingSystemFamily, ())

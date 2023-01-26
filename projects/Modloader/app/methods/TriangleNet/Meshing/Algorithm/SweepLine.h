@@ -1,20 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMesh.h>
-#include <Modloader/app/structs/SweepLine.h>
-#include <Modloader/app/structs/IList_1_TriangleNet_Geometry_Vertex_.h>
+
+#include <Modloader/app/structs/IMesh.h>
 #include <Modloader/app/structs/Configuration_1.h>
-#include <Modloader/app/structs/SweepLine_SweepEvent__Array.h>
-#include <Modloader/app/structs/SweepLine_SweepEvent.h>
-#include <Modloader/app/structs/SweepLine_SplayNode.h>
-#include <Modloader/app/structs/Point.h>
+#include <Modloader/app/structs/IList_1_TriangleNet_Geometry_Vertex_.h>
 #include <Modloader/app/structs/Otri.h>
+#include <Modloader/app/structs/Point.h>
+#include <Modloader/app/structs/SweepLine.h>
+#include <Modloader/app/structs/SweepLine_SplayNode.h>
+#include <Modloader/app/structs/SweepLine_SweepEvent.h>
+#include <Modloader/app/structs/SweepLine_SweepEvent__Array.h>
 #include <Modloader/app/structs/Vertex.h>
 
 namespace app::classes::TriangleNet::Meshing::Algorithm::SweepLine {
     IL2CPP_REGISTER_METHOD(0x02636B70, int32_t, randomnation, (int32_t choices))
     IL2CPP_REGISTER_METHOD(0x02636C60, app::IMesh*, Triangulate, (app::SweepLine * this_ptr, app::IList_1_TriangleNet_Geometry_Vertex_* points, app::Configuration_1* config))
-    IL2CPP_REGISTER_METHODINFO(0x04782238, SweepLine_Triangulate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02638200, void, HeapInsert, (app::SweepLine * this_ptr, app::SweepLine_SweepEvent__Array* heap, int32_t heapsize, app::SweepLine_SweepEvent* newevent))
     IL2CPP_REGISTER_METHOD(0x026383A0, void, Heapify, (app::SweepLine * this_ptr, app::SweepLine_SweepEvent__Array* heap, int32_t heapsize, int32_t eventnum))
     IL2CPP_REGISTER_METHOD(0x02638630, void, HeapDelete, (app::SweepLine * this_ptr, app::SweepLine_SweepEvent__Array* heap, int32_t heapsize, int32_t eventnum))

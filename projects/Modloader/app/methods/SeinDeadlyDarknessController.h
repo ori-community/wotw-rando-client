@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinDeadlyDarknessController.h>
-#include <Modloader/app/structs/ZoneDamageSettings.h>
+
+#include <Modloader/app/structs/SeinDeadlyDarknessController.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/ZoneDamageSettings.h>
 
 namespace app::classes::SeinDeadlyDarknessController {
     IL2CPP_REGISTER_METHOD(0x006FD880, bool, get_ControllerShakeActive, (app::SeinDeadlyDarknessController * this_ptr))
@@ -15,7 +16,6 @@ namespace app::classes::SeinDeadlyDarknessController {
     IL2CPP_REGISTER_METHOD(0x006FDB50, void, OnEnable, (app::SeinDeadlyDarknessController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006FDD60, void, OnDisable, (app::SeinDeadlyDarknessController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006FDFB0, void, OnRestoreCheckpoint, (app::SeinDeadlyDarknessController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04745580, SeinDeadlyDarknessController_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006FE050, void, OriKilled, (app::SeinDeadlyDarknessController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006FE080, void, OriEnter, (app::SeinDeadlyDarknessController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006FE190, void, OriExit, (app::SeinDeadlyDarknessController * this_ptr))

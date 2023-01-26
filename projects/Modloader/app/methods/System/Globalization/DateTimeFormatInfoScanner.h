@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/DateTimeFormatInfoScanner.h>
-#include <Modloader/app/structs/String__Array.h>
+
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
 #include <Modloader/app/structs/DateTimeFormatInfo.h>
+#include <Modloader/app/structs/DateTimeFormatInfoScanner.h>
 #include <Modloader/app/structs/FORMATFLAGS__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::Globalization::DateTimeFormatInfoScanner {
     IL2CPP_REGISTER_METHOD(0x02605430, app::Dictionary_2_System_String_System_String_*, get_KnownWords, ())
     IL2CPP_REGISTER_METHOD(0x026059D0, int32_t, SkipWhiteSpacesAndNonLetter, (app::String * pattern, int32_t current_index))
     IL2CPP_REGISTER_METHOD(0x02605AE0, void, AddDateWordOrPostfix, (app::DateTimeFormatInfoScanner * this_ptr, app::String* format_postfix, app::String* str))
     IL2CPP_REGISTER_METHOD(0x02605E50, int32_t, AddDateWords, (app::DateTimeFormatInfoScanner * this_ptr, app::String* pattern, int32_t index, app::String* format_postfix))
-    IL2CPP_REGISTER_METHOD(0x026061D0, int32_t, ScanRepeatChar, (app::String * pattern, uint16_t ch, int32_t index, int32_t* count))
+    IL2CPP_REGISTER_METHOD(0x026061D0, int32_t, ScanRepeatChar, (app::String * pattern, char16_t ch, int32_t index, int32_t* count))
     IL2CPP_REGISTER_METHOD(0x02606240, void, AddIgnorableSymbols, (app::DateTimeFormatInfoScanner * this_ptr, app::String* text))
     IL2CPP_REGISTER_METHOD(0x026063F0, void, ScanDateWord, (app::DateTimeFormatInfoScanner * this_ptr, app::String* pattern))
     IL2CPP_REGISTER_METHOD(0x02606670, app::String__Array*, GetDateWordsOfDTFI, (app::DateTimeFormatInfoScanner * this_ptr, app::DateTimeFormatInfo* dtfi))

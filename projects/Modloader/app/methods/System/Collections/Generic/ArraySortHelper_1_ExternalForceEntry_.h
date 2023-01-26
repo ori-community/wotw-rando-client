@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ExternalForceEntry__Array.h>
-#include <Modloader/app/structs/IComparer_1_ExternalForceEntry_.h>
-#include <Modloader/app/structs/ExternalForceEntry.h>
+
+#include <Modloader/app/structs/ExternalForceEntry__Array.h>
 #include <Modloader/app/structs/Comparison_1_ExternalForceEntry_.h>
+#include <Modloader/app/structs/ExternalForceEntry.h>
+#include <Modloader/app/structs/IComparer_1_ExternalForceEntry_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_ExternalForceEntry_ {
     IL2CPP_REGISTER_METHOD(0x02F316F0, void, Sort_1, (app::ExternalForceEntry__Array * keys, int32_t index, int32_t length, app::IComparer_1_ExternalForceEntry_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04743D38, ArraySortHelper_1_ExternalForceEntry__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F31A10, int32_t, BinarySearch, (app::ExternalForceEntry__Array * array, int32_t index, int32_t length, app::ExternalForceEntry value, app::IComparer_1_ExternalForceEntry_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0476A7C0, ArraySortHelper_1_ExternalForceEntry__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F31BE0, void, Sort_2, (app::ExternalForceEntry__Array * keys, int32_t index, int32_t length, app::Comparison_1_ExternalForceEntry_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04781DB0, ArraySortHelper_1_ExternalForceEntry__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F31D30, int32_t, InternalBinarySearch, (app::ExternalForceEntry__Array * array, int32_t index, int32_t length, app::ExternalForceEntry value, app::IComparer_1_ExternalForceEntry_* comparer))
     IL2CPP_REGISTER_METHOD(0x02F31EA0, void, SwapIfGreater, (app::ExternalForceEntry__Array * keys, app::Comparison_1_ExternalForceEntry_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02F32090, void, Swap, (app::ExternalForceEntry__Array * a, int32_t i, int32_t j))

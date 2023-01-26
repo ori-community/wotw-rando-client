@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DebugGUIText.h>
+
+#include <Modloader/app/structs/DebugGUIText.h>
 #include <Modloader/app/structs/Action.h>
 
 namespace app::classes::DebugGUIText {
@@ -14,7 +15,6 @@ namespace app::classes::DebugGUIText {
     IL2CPP_REGISTER_METHOD(0x00DE4BA0, void, OnGUI, (app::DebugGUIText * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DE5200, void, OnDestroy, (app::DebugGUIText * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DE54B0, void, OnEnabledChanged, (app::DebugGUIText * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478C718, DebugGUIText_OnEnabledChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::DebugGUIText * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DE56E0, void, cctor, ())
 } // namespace app::classes::DebugGUIText

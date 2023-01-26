@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FPSBrowserUI.h>
-#include <Modloader/app/structs/MeshCollider.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/FPSCursorRenderer.h>
-#include <Modloader/app/structs/Ray.h>
+
+#include <Modloader/app/structs/FPSBrowserUI.h>
 #include <Modloader/app/structs/BrowserCursor.h>
+#include <Modloader/app/structs/FPSCursorRenderer.h>
+#include <Modloader/app/structs/MeshCollider.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::FPSBrowserUI {
     IL2CPP_REGISTER_METHOD(0x01DDCF60, void, Start, (app::FPSBrowserUI * this_ptr))

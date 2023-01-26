@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkeetoResetAttacksInRowIfOverMaxNode.h>
+
+#include <Modloader/app/structs/SkeetoResetAttacksInRowIfOverMaxNode.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/IContext.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GuessHFRPrewarmOperation.h>
+
+#include <Modloader/app/structs/GuessHFRPrewarmOperation.h>
 
 namespace app::classes::frameworks::loading::Prewarmers::GuessHFRPrewarmOperation {
     IL2CPP_REGISTER_METHOD(0x00F5FF40, void, ctor, (app::GuessHFRPrewarmOperation * this_ptr))

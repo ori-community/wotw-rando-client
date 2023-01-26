@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderBlock.h>
-#include <Modloader/app/structs/MeshFilter.h>
-#include <Modloader/app/structs/UberShaderComponent.h>
-#include <Modloader/app/structs/Renderer.h>
+
+#include <Modloader/app/structs/UberShaderBlock.h>
 #include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/MeshFilter.h>
+#include <Modloader/app/structs/Renderer.h>
 #include <Modloader/app/structs/RuntimeTypeHandle.h>
+#include <Modloader/app/structs/UberShaderComponent.h>
 
 namespace app::classes::UberShaderBlock {
     IL2CPP_REGISTER_METHOD(0x0190AE40, bool, get_HasRotateZ, (app::UberShaderBlock * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinPrefabFactory.h>
+
+#include <Modloader/app/structs/SeinPrefabFactory.h>
 #include <Modloader/app/structs/SeinCharacter.h>
 
 namespace app::classes::SeinPrefabFactory {

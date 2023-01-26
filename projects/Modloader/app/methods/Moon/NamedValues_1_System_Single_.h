@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/NamedValues_1_System_Single_.h>
 
 namespace app::classes::Moon::NamedValues_1_System_Single_ {

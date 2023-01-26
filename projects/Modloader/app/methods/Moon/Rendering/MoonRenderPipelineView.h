@@ -1,47 +1,48 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonRenderPipelineView.h>
-#include <Modloader/app/structs/MoonRenderPipelineViewType__Enum.h>
-#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
-#include <Modloader/app/structs/MoonRenderPipelineSettings.h>
-#include <Modloader/app/structs/CommandBuffer.h>
-#include <Modloader/app/structs/ScriptableRenderContext.h>
+
+#include <Modloader/app/structs/MoonRenderPipelineView.h>
 #include <Modloader/app/structs/Camera.h>
-#include <Modloader/app/structs/MoonRenderPipelineView_CachedCBType__Enum.h>
+#include <Modloader/app/structs/CommandBuffer.h>
+#include <Modloader/app/structs/CullResults.h>
+#include <Modloader/app/structs/Dictionary_2_Swing_Int2_Moon_Rendering_SrpSampler___Array.h>
+#include <Modloader/app/structs/DrawRendererSettings.h>
+#include <Modloader/app/structs/FilterMode__Enum.h>
 #include <Modloader/app/structs/FilterResults.h>
 #include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/List_1_GodRayModifier_.h>
+#include <Modloader/app/structs/List_1_IRenderPostprocessor_.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
+#include <Modloader/app/structs/MoonRenderPipelineAsset_RenderQueues__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineDebug_Slice__Array.h>
+#include <Modloader/app/structs/MoonRenderPipelineSettings.h>
+#include <Modloader/app/structs/MoonRenderPipelineSettings_Slice__Array.h>
+#include <Modloader/app/structs/MoonRenderPipelineViewType__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_CachedCBType__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_FilterBounds.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_ReleaseReason__Enum.h>
+#include <Modloader/app/structs/MoonRenderPipelineView_SrpProfilerFrame.h>
+#include <Modloader/app/structs/Nullable_1_Moon_Rendering_MoonRenderPipelineView_FilterBounds_.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Experimental_Rendering_RenderStateBlock_.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/RenderFlags__Enum.h>
+#include <Modloader/app/structs/RenderTarget.h>
 #include <Modloader/app/structs/RenderTargetDescriptor.h>
 #include <Modloader/app/structs/RenderTargetType__Enum.h>
-#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
-#include <Modloader/app/structs/FilterMode__Enum.h>
 #include <Modloader/app/structs/RenderTexture.h>
-#include <Modloader/app/structs/List_1_IRenderPostprocessor_.h>
-#include <Modloader/app/structs/RenderTarget.h>
-#include <Modloader/app/structs/DrawRendererSettings.h>
-#include <Modloader/app/structs/ShaderPassName.h>
-#include <Modloader/app/structs/CullResults.h>
-#include <Modloader/app/structs/Nullable_1_Moon_Rendering_MoonRenderPipelineView_FilterBounds_.h>
-#include <Modloader/app/structs/RenderFlags__Enum.h>
-#include <Modloader/app/structs/MoonRenderPipelineAsset_RenderQueues__Enum.h>
-#include <Modloader/app/structs/Nullable_1_UnityEngine_Experimental_Rendering_RenderStateBlock_.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Vector2__Array.h>
-#include <Modloader/app/structs/Matrix4x4.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Texture.h>
-#include <Modloader/app/structs/MoonRenderPipelineView_ReleaseReason__Enum.h>
-#include <Modloader/app/structs/MoonRenderPipelineView_FilterBounds.h>
-#include <Modloader/app/structs/Viewport.h>
-#include <Modloader/app/structs/List_1_GodRayModifier_.h>
-#include <Modloader/app/structs/RenderingSettingsPerScene.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
 #include <Modloader/app/structs/RendererCullingCategoryResults__Array.h>
-#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/RenderingSettingsPerScene.h>
+#include <Modloader/app/structs/ScriptableRenderContext.h>
+#include <Modloader/app/structs/ShaderPassName.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector2__Array.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/MoonRenderPipelineView_SrpProfilerFrame.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/MoonRenderPipelineSettings_Slice__Array.h>
-#include <Modloader/app/structs/MoonRenderPipelineDebug_Slice__Array.h>
-#include <Modloader/app/structs/Dictionary_2_Swing_Int2_Moon_Rendering_SrpSampler___Array.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Viewport.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderPipelineView {
     IL2CPP_REGISTER_METHOD(0x007A3190, bool, get_isGameView, (app::MoonRenderPipelineView * this_ptr))
@@ -75,7 +76,6 @@ namespace app::classes::Moon::Rendering::MoonRenderPipelineView {
     IL2CPP_REGISTER_METHOD(0x007AB430, void, renderUI, (app::MoonRenderPipelineView * this_ptr, app::Camera* ui_cam, app::RenderTarget* ui_r_t))
     IL2CPP_REGISTER_METHOD(0x007AB890, app::DrawRendererSettings, getDrawRendererSettings, (app::Camera * sort_camera, app::ShaderPassName shader_pass_name))
     IL2CPP_REGISTER_METHOD(0x007AB980, void, drawRenderers, (app::MoonRenderPipelineView * this_ptr, app::CullResults* cull_results, app::DrawRendererSettings* renderer_settings, app::ShaderPassName shader_pass_name, app::Nullable_1_Moon_Rendering_MoonRenderPipelineView_FilterBounds_ filter_bounds, int32_t layer_mask, app::RenderFlags__Enum render_flags, app::MoonRenderPipelineAsset_RenderQueues__Enum render_queues, app::Nullable_1_UnityEngine_Experimental_Rendering_RenderStateBlock_ render_state_block, bool only_prepare))
-    IL2CPP_REGISTER_METHODINFO(0x04764C98, MoonRenderPipelineView_drawRenderers__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007AC2C0, app::CommandBuffer*, getCommandBuffer, (app::String * name))
     IL2CPP_REGISTER_METHOD(0x007AC490, void, Dispose_Sliced, (app::MoonRenderPipelineView * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007AC6C0, void, render_Sliced, (app::MoonRenderPipelineView * this_ptr, app::RenderTarget* scene_r_t1, app::RenderTarget* scene_r_t2, float current_d_r_s_scale, float current_d_r_s_scale_y, bool isr_dirty))
@@ -98,7 +98,6 @@ namespace app::classes::Moon::Rendering::MoonRenderPipelineView {
     IL2CPP_REGISTER_METHOD(0x007B13E0, bool, godraysNeedHDR, (app::MoonRenderPipelineView * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007B1410, void, setupSliceRTs, (app::MoonRenderPipelineView * this_ptr, app::Int2 size))
     IL2CPP_REGISTER_METHOD(0x007B2070, void, releaseRT, (app::MoonRenderPipelineView * this_ptr, app::RenderTarget* rt, app::MoonRenderPipelineView_ReleaseReason__Enum reason))
-    IL2CPP_REGISTER_METHODINFO(0x04750BA8, MoonRenderPipelineView_releaseRT__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007B21B0, void, InitResources, (app::MoonRenderPipelineView * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007B2400, void, EmissivityDownMip, (app::MoonRenderPipelineView * this_ptr, app::CommandBuffer* cmd, app::RenderTarget* src, app::RenderTarget* tmp, app::RenderTarget* dst, float radius, float mul, int32_t pass, float blur_limit))
     IL2CPP_REGISTER_METHOD(0x007B2A10, void, PrepareDarkeningRender, (app::MoonRenderPipelineView * this_ptr, app::DrawRendererSettings* renderer_settings, app::MoonRenderPipelineView_FilterBounds* cull_bounds, int32_t slice_index, app::RenderFlags__Enum darkening_render_flags))
@@ -116,7 +115,6 @@ namespace app::classes::Moon::Rendering::MoonRenderPipelineView {
     IL2CPP_REGISTER_METHOD(0x007B58F0, void, UpdateSceneRenderingSettings, (app::RenderingSettingsPerScene * settings))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, DeferredLightingEnabled, (app::MoonRenderPipelineView * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007B59B0, void, OnCullingCategoryResultsReady, (app::MoonRenderPipelineView * this_ptr, app::RendererCullingCategoryResults__Array* visible_renderer_categories))
-    IL2CPP_REGISTER_METHODINFO(0x047290C8, MoonRenderPipelineView_OnCullingCategoryResultsReady__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007B5B30, float, _calculateResolutionBasedAdditionalDownsamplingRatio, (app::MoonRenderPipelineView * this_ptr, float scene_r_t_height, bool* use_alt_downsampling))
     IL2CPP_REGISTER_METHOD(0x007B5CF0, void, _calculateAltDownsamplingRatio, (app::MoonRenderPipelineView * this_ptr, float scene_r_t_height, float slice_scale, bool* use_alt_downsampling, float* alt_downsampling_scale))
     IL2CPP_REGISTER_METHOD(0x007B5EC0, void, OnRenderImage, (app::MoonRenderPipelineView * this_ptr, app::RenderTarget* scene_r_t1, app::RenderTarget* scene_r_t2, float current_d_r_s_scale, float current_d_r_s_scale_y, bool isr_dirty))
@@ -143,9 +141,6 @@ namespace app::classes::Moon::Rendering::MoonRenderPipelineView {
     IL2CPP_REGISTER_METHOD(0x007D90D0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01550D20, void, alloc_1, (app::Object__Array * *array, int32_t size))
     IL2CPP_REGISTER_METHOD(0x01550D20, void, alloc_2, (app::MoonRenderPipelineSettings_Slice__Array * *array, int32_t size))
-    IL2CPP_REGISTER_METHODINFO(0x04724CE8, MoonRenderPipelineView_alloc_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01550D20, void, alloc_3, (app::MoonRenderPipelineDebug_Slice__Array * *array, int32_t size))
-    IL2CPP_REGISTER_METHODINFO(0x0477C378, MoonRenderPipelineView_alloc_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01550D20, void, alloc_4, (app::Dictionary_2_Swing_Int2_Moon_Rendering_SrpSampler___Array * *array, int32_t size))
-    IL2CPP_REGISTER_METHODINFO(0x04711400, MoonRenderPipelineView_alloc_3__MethodInfo)
 } // namespace app::classes::Moon::Rendering::MoonRenderPipelineView

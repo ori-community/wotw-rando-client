@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TypeBinaryExpression.h>
+
+#include <Modloader/app/structs/TypeBinaryExpression.h>
 #include <Modloader/app/structs/Expression.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/ExpressionType__Enum.h>
 #include <Modloader/app/structs/ExpressionVisitor.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::TypeBinaryExpression {
     IL2CPP_REGISTER_METHOD(0x02FC5520, void, ctor, (app::TypeBinaryExpression * this_ptr, app::Expression* expression, app::Type* type_operand, app::ExpressionType__Enum node_type))

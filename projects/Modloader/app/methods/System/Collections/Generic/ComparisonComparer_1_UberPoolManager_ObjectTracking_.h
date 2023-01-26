@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_UberPoolManager_ObjectTracking_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_UberPoolManager_ObjectTracking_.h>
 #include <Modloader/app/structs/Comparison_1_UberPoolManager_ObjectTracking_.h>
 #include <Modloader/app/structs/UberPoolManager_ObjectTracking.h>
 

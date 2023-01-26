@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
-#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket__Array.h>
-#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket.h>
+#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket__Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_Moon_Vitals_DamageProcessHelper_DamageBucket_*, get_Default, ())

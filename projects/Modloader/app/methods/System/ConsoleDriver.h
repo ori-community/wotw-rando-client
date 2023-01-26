@@ -2,10 +2,10 @@
 #include <Modloader/interception_macros.h>
 
 #include <Modloader/app/structs/IConsoleDriver.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ConsoleKeyInfo.h>
 #include <Modloader/app/structs/Byte__Array.h>
-
+#include <Modloader/app/structs/ConsoleKeyInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/int32_t.h>
 
 namespace app::classes::System::ConsoleDriver {
     IL2CPP_REGISTER_METHOD(0x020349F0, void, cctor, ())

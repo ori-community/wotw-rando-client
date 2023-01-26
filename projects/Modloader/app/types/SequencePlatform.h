@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SequencePlatform__Class.h>
 #include <Modloader/app/structs/SequencePlatform.h>
 #include <Modloader/app/structs/SequencePlatform__Array.h>
+#include <Modloader/app/structs/SequencePlatform__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SequencePlatform {
-        namespace {
-            inline app::SequencePlatform__Class* type_info_ref = nullptr;
+        inline app::SequencePlatform__Class** type_info() {
+            static app::SequencePlatform__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SequencePlatform__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SequencePlatform__Class** type_info = &type_info_ref;
         inline app::SequencePlatform__Class* get_class() {
-            return il2cpp::get_class<app::SequencePlatform__Class>(type_info, "", "SequencePlatform");
+            return il2cpp::get_class<app::SequencePlatform__Class>(type_info(), "", "SequencePlatform");
         }
         inline app::SequencePlatform* create() {
             return il2cpp::create_object<app::SequencePlatform>(get_class());

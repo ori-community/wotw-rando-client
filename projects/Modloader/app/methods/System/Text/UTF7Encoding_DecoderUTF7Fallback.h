@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UTF7Encoding_DecoderUTF7Fallback.h>
+
+#include <Modloader/app/structs/UTF7Encoding_DecoderUTF7Fallback.h>
 #include <Modloader/app/structs/DecoderFallbackBuffer.h>
 #include <Modloader/app/structs/Object.h>
 

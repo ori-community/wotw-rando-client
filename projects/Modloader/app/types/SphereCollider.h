@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SphereCollider__Class.h>
 #include <Modloader/app/structs/SphereCollider.h>
 #include <Modloader/app/structs/SphereCollider__Array.h>
+#include <Modloader/app/structs/SphereCollider__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SphereCollider {
-        inline app::SphereCollider__Class** type_info = (app::SphereCollider__Class**)(modloader::win::memory::resolve_rva(0x0477F318));
+        inline app::SphereCollider__Class** type_info() {
+            static app::SphereCollider__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::SphereCollider__Class**)(modloader::win::memory::resolve_rva(0x0477F318));
+            }
+            return cache;
+        }
         inline app::SphereCollider__Class* get_class() {
-            return il2cpp::get_class<app::SphereCollider__Class>(type_info, "UnityEngine", "SphereCollider");
+            return il2cpp::get_class<app::SphereCollider__Class>(type_info(), "UnityEngine", "SphereCollider");
         }
         inline app::SphereCollider* create() {
             return il2cpp::create_object<app::SphereCollider>(get_class());

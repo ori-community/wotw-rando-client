@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SecurityPermissionAttribute.h>
+
+#include <Modloader/app/structs/SecurityPermissionAttribute.h>
 #include <Modloader/app/structs/IPermission.h>
 
 namespace app::classes::System::Security::Permissions::SecurityPermissionAttribute {

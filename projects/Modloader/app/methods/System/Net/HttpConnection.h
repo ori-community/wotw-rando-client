@@ -1,23 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HttpConnection.h>
-#include <Modloader/app/structs/Socket.h>
+
+#include <Modloader/app/structs/HttpConnection.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/EndPointListener.h>
-#include <Modloader/app/structs/X509Certificate_1.h>
-#include <Modloader/app/structs/SslStream.h>
-#include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/X509Certificate2.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 #include <Modloader/app/structs/IPEndPoint.h>
+#include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/ListenerPrefix.h>
+#include <Modloader/app/structs/MemoryStream.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/RequestStream.h>
 #include <Modloader/app/structs/ResponseStream.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/MemoryStream.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/X509Chain.h>
+#include <Modloader/app/structs/Socket.h>
 #include <Modloader/app/structs/SslPolicyErrors__Enum.h>
+#include <Modloader/app/structs/SslStream.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/X509Certificate2.h>
+#include <Modloader/app/structs/X509Certificate_1.h>
+#include <Modloader/app/structs/X509Chain.h>
 
 namespace app::classes::System::Net::HttpConnection {
     IL2CPP_REGISTER_METHOD(0x01D3DAA0, void, ctor, (app::HttpConnection * this_ptr, app::Socket* sock, app::EndPointListener* epl, bool secure, app::X509Certificate_1* cert))
@@ -33,12 +34,10 @@ namespace app::classes::System::Net::HttpConnection {
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::ListenerPrefix*, get_Prefix, (app::HttpConnection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBA00, void, set_Prefix, (app::HttpConnection * this_ptr, app::ListenerPrefix* value))
     IL2CPP_REGISTER_METHOD(0x01D3E5A0, void, OnTimeout, (app::HttpConnection * this_ptr, app::Object* unused))
-    IL2CPP_REGISTER_METHODINFO(0x04711FF8, HttpConnection_OnTimeout__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D3E600, void, BeginReadRequest, (app::HttpConnection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D3E7B0, app::RequestStream*, GetRequestStream, (app::HttpConnection * this_ptr, bool chunked, int64_t contentlength))
     IL2CPP_REGISTER_METHOD(0x01D3EBC0, app::ResponseStream*, GetResponseStream, (app::HttpConnection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D3EE70, void, OnRead, (app::IAsyncResult * ares))
-    IL2CPP_REGISTER_METHODINFO(0x0477C830, HttpConnection_OnRead__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D3EF40, void, OnReadInternal, (app::HttpConnection * this_ptr, app::IAsyncResult* ares))
     IL2CPP_REGISTER_METHOD(0x01D3F420, void, RemoveConnection, (app::HttpConnection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D3F480, bool, ProcessInput, (app::HttpConnection * this_ptr, app::MemoryStream* ms))
@@ -51,5 +50,4 @@ namespace app::classes::System::Net::HttpConnection {
     IL2CPP_REGISTER_METHOD(0x01D3FF00, void, Close_2, (app::HttpConnection * this_ptr, bool force_close))
     IL2CPP_REGISTER_METHOD(0x01D40360, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01D404C0, bool, __ctor_b__24_0, (app::HttpConnection * this_ptr, app::Object* t, app::X509Certificate_1* c, app::X509Chain* ch, app::SslPolicyErrors__Enum e))
-    IL2CPP_REGISTER_METHODINFO(0x0475E478, HttpConnection___ctor_b__24_0__MethodInfo)
 } // namespace app::classes::System::Net::HttpConnection

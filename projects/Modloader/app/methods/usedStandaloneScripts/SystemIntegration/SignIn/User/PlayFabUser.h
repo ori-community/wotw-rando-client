@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayFabUser.h>
+
+#include <Modloader/app/structs/PlayFabUser.h>
 #include <Modloader/app/structs/LoginResult.h>
-#include <Modloader/app/structs/Texture2D.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::usedStandaloneScripts::SystemIntegration::SignIn::User::PlayFabUser {
     IL2CPP_REGISTER_METHOD(0x03127490, void, ctor, (app::PlayFabUser * this_ptr, app::LoginResult* login_result))

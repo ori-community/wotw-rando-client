@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/EarlyZParentDebugger_GridOptions__Class.h>
 #include <Modloader/app/structs/EarlyZParentDebugger_GridOptions.h>
 #include <Modloader/app/structs/EarlyZParentDebugger_GridOptions__Boxed.h>
+#include <Modloader/app/structs/EarlyZParentDebugger_GridOptions__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace EarlyZParentDebugger_GridOptions {
-        namespace {
-            inline app::EarlyZParentDebugger_GridOptions__Class* type_info_ref = nullptr;
+        inline app::EarlyZParentDebugger_GridOptions__Class** type_info() {
+            static app::EarlyZParentDebugger_GridOptions__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::EarlyZParentDebugger_GridOptions__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::EarlyZParentDebugger_GridOptions__Class** type_info = &type_info_ref;
         inline app::EarlyZParentDebugger_GridOptions__Class* get_class() {
-            return il2cpp::get_nested_class<app::EarlyZParentDebugger_GridOptions__Class>(type_info, "Moon.Rendering", "EarlyZParentDebugger", "GridOptions");
+            return il2cpp::get_nested_class<app::EarlyZParentDebugger_GridOptions__Class>(type_info(), "Moon.Rendering", "EarlyZParentDebugger", "GridOptions");
         }
         inline app::EarlyZParentDebugger_GridOptions* create() {
             return il2cpp::create_object<app::EarlyZParentDebugger_GridOptions>(get_class());

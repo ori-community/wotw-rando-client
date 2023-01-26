@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ColorVariation.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/LayeredRenderSettings.h>
+
+#include <Modloader/app/structs/ColorVariation.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/LayeredRenderSettings.h>
+#include <Modloader/app/structs/Vector4.h>
 #include <Modloader/app/structs/Vector4__Array.h>
 
 namespace app::classes::ColorVariation {

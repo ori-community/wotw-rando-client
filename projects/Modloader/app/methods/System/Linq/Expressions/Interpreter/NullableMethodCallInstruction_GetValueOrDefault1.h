@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NullableMethodCallInstruction_GetValueOrDefault1.h>
+
+#include <Modloader/app/structs/NullableMethodCallInstruction_GetValueOrDefault1.h>
 #include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::NullableMethodCallInstruction_GetValueOrDefault1 {

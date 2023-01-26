@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/RuntimeLicenseContext.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Assembly.h>
+#include <Modloader/app/structs/RuntimeLicenseContext.h>
 #include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Uri.h>
 
 namespace app::classes::System::ComponentModel::Design::RuntimeLicenseContext {

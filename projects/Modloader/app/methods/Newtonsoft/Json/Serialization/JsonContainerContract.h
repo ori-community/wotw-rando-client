@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JsonContract.h>
+
+#include <Modloader/app/structs/JsonContract.h>
 #include <Modloader/app/structs/JsonContainerContract.h>
 #include <Modloader/app/structs/JsonConverter.h>
 #include <Modloader/app/structs/Nullable_1_Boolean_.h>

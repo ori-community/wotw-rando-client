@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OverlapPlatform.h>
+
+#include <Modloader/app/structs/OverlapPlatform.h>
 #include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/Collider.h>
 

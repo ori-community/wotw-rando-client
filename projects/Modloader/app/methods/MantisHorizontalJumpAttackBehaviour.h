@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MantisHorizontalJumpAttackBehaviour.h>
+
+#include <Modloader/app/structs/MantisHorizontalJumpAttackBehaviour.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/MantisHorizontalJumpAttackBehaviour_State__Enum.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MantisHorizontalJumpAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x009FE820, void, Awake, (app::MantisHorizontalJumpAttackBehaviour * this_ptr))
@@ -18,10 +19,8 @@ namespace app::classes::MantisHorizontalJumpAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x009FECD0, void, ResetTimeline, (app::MantisHorizontalJumpAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009FEF30, void, ForceStopTimeline, (app::MantisHorizontalJumpAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009FF170, void, MoveToNextState, (app::MantisHorizontalJumpAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047322D0, MantisHorizontalJumpAttackBehaviour_MoveToNextState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009FF1C0, void, OnEntityInitialized, (app::MantisHorizontalJumpAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009FF580, void, OnCollisionWithWall, (app::MantisHorizontalJumpAttackBehaviour * this_ptr, app::Vector3 local_normal, app::Collider* other))
-    IL2CPP_REGISTER_METHODINFO(0x04704EF8, MantisHorizontalJumpAttackBehaviour_OnCollisionWithWall__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009FF5F0, void, OnEnter, (app::MantisHorizontalJumpAttackBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x009FFB90, void, SetupJump, (app::MantisHorizontalJumpAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A00730, void, CalculateJumpParameters, (app::MantisHorizontalJumpAttackBehaviour * this_ptr))
@@ -38,7 +37,6 @@ namespace app::classes::MantisHorizontalJumpAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00A039A0, bool, SolidsInRay, (app::MantisHorizontalJumpAttackBehaviour * this_ptr, app::Vector3 ray_start, app::Vector3 direction, float distance))
     IL2CPP_REGISTER_METHOD(0x00A03B20, bool, WillHitSolids, (app::MantisHorizontalJumpAttackBehaviour * this_ptr, app::Vector3 check_distance))
     IL2CPP_REGISTER_METHOD(0x00A03BD0, app::Vector3, ProcessRootMotion, (app::MantisHorizontalJumpAttackBehaviour * this_ptr, app::Vector3 motion))
-    IL2CPP_REGISTER_METHODINFO(0x047511F8, MantisHorizontalJumpAttackBehaviour_ProcessRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A03D10, void, OnDrawGizmos, (app::MantisHorizontalJumpAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A03FD0, void, DrawDebugJumpGizmos, (app::MantisHorizontalJumpAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A04950, void, ctor, (app::MantisHorizontalJumpAttackBehaviour * this_ptr))

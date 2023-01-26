@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerEditorConnectionEvents.h>
-#include <Modloader/app/structs/Guid.h>
+
+#include <Modloader/app/structs/PlayerEditorConnectionEvents.h>
 #include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/UnityEvent_1_UnityEngine_Networking_PlayerConnection_MessageEventArgs_.h>
+#include <Modloader/app/structs/Guid.h>
 #include <Modloader/app/structs/UnityAction_1_UnityEngine_Networking_PlayerConnection_MessageEventArgs_.h>
+#include <Modloader/app/structs/UnityEvent_1_UnityEngine_Networking_PlayerConnection_MessageEventArgs_.h>
 
 namespace app::classes::UnityEngine::Networking::PlayerConnection::PlayerEditorConnectionEvents {
     IL2CPP_REGISTER_METHOD(0x0253F770, void, ctor, (app::PlayerEditorConnectionEvents * this_ptr))

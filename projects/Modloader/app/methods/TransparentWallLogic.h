@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TransparentWallLogic.h>
-#include <Modloader/app/structs/IMoonSetupAnimator.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/TransparentWallLogic.h>
 #include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::TransparentWallLogic {
     IL2CPP_REGISTER_METHOD(0x005D6880, bool, get_IsRevealed, (app::TransparentWallLogic * this_ptr))
@@ -14,7 +15,6 @@ namespace app::classes::TransparentWallLogic {
     IL2CPP_REGISTER_METHOD(0x00446590, bool, ShowIsSecret, (app::TransparentWallLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0DE00, void, Awake, (app::TransparentWallLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0E1E0, void, OnCheckpointRestore, (app::TransparentWallLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472A590, TransparentWallLogic_OnCheckpointRestore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B0E200, void, OnDestroy, (app::TransparentWallLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0E3D0, void, OnEnable, (app::TransparentWallLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0E490, void, OnDisable, (app::TransparentWallLogic * this_ptr))
@@ -23,10 +23,8 @@ namespace app::classes::TransparentWallLogic {
     IL2CPP_REGISTER_METHOD(0x0085D750, bool, get_IsSuspended, (app::TransparentWallLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFE00, void, set_IsSuspended, (app::TransparentWallLogic * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x00B0E560, void, Hide, (app::TransparentWallLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04754008, TransparentWallLogic_Hide__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B0E6A0, void, Show, (app::TransparentWallLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0E7F0, void, OnTrigger, (app::TransparentWallLogic * this_ptr, app::GameObject* other))
-    IL2CPP_REGISTER_METHODINFO(0x04773A20, TransparentWallLogic_OnTrigger__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B0EB10, void, OnFixedUpdate, (app::TransparentWallLogic * this_ptr, float delta))
     IL2CPP_REGISTER_METHOD(0x00B0EBA0, void, OnUpdate, (app::TransparentWallLogic * this_ptr, float delta))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsAvailable, (app::TransparentWallLogic * this_ptr))

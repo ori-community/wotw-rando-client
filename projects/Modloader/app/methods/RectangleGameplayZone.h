@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RectangleGameplayZone.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/RectangleGameplayZone.h>
 #include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::RectangleGameplayZone {
     IL2CPP_REGISTER_METHOD(0x008FB270, bool, ContainsPoint, (app::RectangleGameplayZone * this_ptr, app::Vector2 point))

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReflectionMethodsCache_GetRayIntersectionAllCallback.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/RaycastHit2D__Array.h>
-#include <Modloader/app/structs/Ray.h>
-#include <Modloader/app/structs/IAsyncResult.h>
+
+#include <Modloader/app/structs/ReflectionMethodsCache_GetRayIntersectionAllCallback.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/RaycastHit2D__Array.h>
 
 namespace app::classes::UnityEngine::UI::ReflectionMethodsCache_GetRayIntersectionAllCallback {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::ReflectionMethodsCache_GetRayIntersectionAllCallback * this_ptr, app::Object* object, void* method_1))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberStateWwiseStateManager.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+
+#include <Modloader/app/structs/UberStateWwiseStateManager.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::Moon::Wwise::UberStateWwiseStateManager {
     IL2CPP_REGISTER_METHOD(0x0270DF40, void, Awake, (app::UberStateWwiseStateManager * this_ptr))

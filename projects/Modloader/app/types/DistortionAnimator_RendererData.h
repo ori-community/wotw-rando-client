@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/DistortionAnimator_RendererData.h>
+#include <Modloader/app/structs/DistortionAnimator_RendererData__Array.h>
+#include <Modloader/app/structs/DistortionAnimator_RendererData__Boxed.h>
+#include <Modloader/app/structs/DistortionAnimator_RendererData__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/DistortionAnimator_RendererData__Class.h>
-#include <Modloader/app/structs/DistortionAnimator_RendererData.h>
-#include <Modloader/app/structs/DistortionAnimator_RendererData__Boxed.h>
-#include <Modloader/app/structs/DistortionAnimator_RendererData__Array.h>
 
 namespace app::classes::types {
     namespace DistortionAnimator_RendererData {
-        inline app::DistortionAnimator_RendererData__Class** type_info = (app::DistortionAnimator_RendererData__Class**)(modloader::win::memory::resolve_rva(0x0476B7E0));
+        inline app::DistortionAnimator_RendererData__Class** type_info() {
+            static app::DistortionAnimator_RendererData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::DistortionAnimator_RendererData__Class**)(modloader::win::memory::resolve_rva(0x0476B7E0));
+            }
+            return cache;
+        }
         inline app::DistortionAnimator_RendererData__Class* get_class() {
-            return il2cpp::get_nested_class<app::DistortionAnimator_RendererData__Class>(type_info, "", "DistortionAnimator", "RendererData");
+            return il2cpp::get_nested_class<app::DistortionAnimator_RendererData__Class>(type_info(), "", "DistortionAnimator", "RendererData");
         }
         inline app::DistortionAnimator_RendererData* create() {
             return il2cpp::create_object<app::DistortionAnimator_RendererData>(get_class());

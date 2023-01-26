@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_ByteEnum_SpiritShardIconsCollection_Icons___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_ByteEnum_SpiritShardIconsCollection_Icons___Boxed.h>
 #include <Modloader/app/structs/ByteEnum__Enum.h>
 #include <Modloader/app/structs/SpiritShardIconsCollection_Icons.h>
 #include <Modloader/app/structs/String.h>

@@ -27,7 +27,7 @@ struct __declspec(align(8)) Dictionary_2_Moon_ThrowAnimationType_SeinHold_ThrowA
 #define IL2CPP_STRUCT_Dictionary_2_Moon_ThrowAnimationType_SeinHold_ThrowAnimationSet___Fields_FWDDECL
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_Moon_ThrowAnimationType_SeinHold_ThrowAnimationSet___Array.h>
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_Moon_ThrowAnimationType_SeinHold_ThrowAnimationSet_.h>
-#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_Moon_ThrowAnimationType_SeinHold_ThrowAnimationSet_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_Moon_ThrowAnimationType_SeinHol_ThrowAnimationSe_.h>
 #include <Modloader/app/structs/IEqualityComparer_1_Moon_ThrowAnimationType_.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/Object.h>

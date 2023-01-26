@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IState.h>
-#include <Modloader/app/structs/StateMachine.h>
-#include <Modloader/app/structs/Stack_1_Moon_FSM_IInterruptState_.h>
+
+#include <Modloader/app/structs/IState.h>
 #include <Modloader/app/structs/IInterruptState.h>
 #include <Modloader/app/structs/IInterruptable.h>
+#include <Modloader/app/structs/Stack_1_Moon_FSM_IInterruptState_.h>
+#include <Modloader/app/structs/StateMachine.h>
 
 namespace app::classes::Moon::FSM::StateMachine {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::IState*, get_CurrentState, (app::StateMachine * this_ptr))

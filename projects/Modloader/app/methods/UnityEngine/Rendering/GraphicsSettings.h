@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScriptableObject.h>
+
+#include <Modloader/app/structs/ScriptableObject.h>
 #include <Modloader/app/structs/RenderPipelineAsset.h>
 
 namespace app::classes::UnityEngine::Rendering::GraphicsSettings {

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XmlAtomicValue_Union__Class.h>
 #include <Modloader/app/structs/XmlAtomicValue_Union.h>
 #include <Modloader/app/structs/XmlAtomicValue_Union__Boxed.h>
+#include <Modloader/app/structs/XmlAtomicValue_Union__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace XmlAtomicValue_Union {
-        namespace {
-            inline app::XmlAtomicValue_Union__Class* type_info_ref = nullptr;
+        inline app::XmlAtomicValue_Union__Class** type_info() {
+            static app::XmlAtomicValue_Union__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::XmlAtomicValue_Union__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::XmlAtomicValue_Union__Class** type_info = &type_info_ref;
         inline app::XmlAtomicValue_Union__Class* get_class() {
-            return il2cpp::get_nested_class<app::XmlAtomicValue_Union__Class>(type_info, "System.Xml.Schema", "XmlAtomicValue", "Union");
+            return il2cpp::get_nested_class<app::XmlAtomicValue_Union__Class>(type_info(), "System.Xml.Schema", "XmlAtomicValue", "Union");
         }
         inline app::XmlAtomicValue_Union* create() {
             return il2cpp::create_object<app::XmlAtomicValue_Union>(get_class());

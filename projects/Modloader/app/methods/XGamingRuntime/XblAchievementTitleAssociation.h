@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XblAchievementTitleAssociation.h>
+
+#include <Modloader/app/structs/XblAchievementTitleAssociation.h>
 #include <Modloader/app/structs/XblAchievementTitleAssociation_1.h>
 
 namespace app::classes::XGamingRuntime::XblAchievementTitleAssociation {

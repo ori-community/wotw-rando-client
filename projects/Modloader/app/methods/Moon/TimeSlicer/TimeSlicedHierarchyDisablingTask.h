@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimeSlicedHierarchyDisablingTask.h>
-#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/TimeSlicedHierarchyDisablingTask.h>
 #include <Modloader/app/structs/Action_1_Boolean_.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::TimeSlicer::TimeSlicedHierarchyDisablingTask {
     IL2CPP_REGISTER_METHOD(0x010C4020, void, ctor, (app::TimeSlicedHierarchyDisablingTask * this_ptr, app::List_1_UnityEngine_GameObject_* objects_to_time_slice_disable, app::GameObject* owner, app::Action_1_Boolean_* on_job_completed, app::String* scene_name))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PiranhaLocomotionIdleBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/PiranhaLocomotionIdleBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/PiranhaLocomotionIdleBehaviour_State__Enum.h>
 #include <Modloader/app/structs/Vector2.h>
 

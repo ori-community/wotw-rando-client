@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BadTriQueue.h>
+
+#include <Modloader/app/structs/BadTriQueue.h>
 #include <Modloader/app/structs/BadTriangle.h>
 #include <Modloader/app/structs/Otri.h>
 #include <Modloader/app/structs/Vertex.h>

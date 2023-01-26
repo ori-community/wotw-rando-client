@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinEnergyMinVisualNormalizedProvider.h>
+
+#include <Modloader/app/structs/SeinEnergyMinVisualNormalizedProvider.h>
 
 namespace app::classes::SeinEnergyMinVisualNormalizedProvider {
     IL2CPP_REGISTER_METHOD(0x00AD0960, float, GetFloatValue, (app::SeinEnergyMinVisualNormalizedProvider * this_ptr))

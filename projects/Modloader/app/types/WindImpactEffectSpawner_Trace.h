@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/WindImpactEffectSpawner_Trace.h>
+#include <Modloader/app/structs/WindImpactEffectSpawner_Trace__Array.h>
+#include <Modloader/app/structs/WindImpactEffectSpawner_Trace__Boxed.h>
+#include <Modloader/app/structs/WindImpactEffectSpawner_Trace__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/WindImpactEffectSpawner_Trace__Class.h>
-#include <Modloader/app/structs/WindImpactEffectSpawner_Trace.h>
-#include <Modloader/app/structs/WindImpactEffectSpawner_Trace__Boxed.h>
-#include <Modloader/app/structs/WindImpactEffectSpawner_Trace__Array.h>
 
 namespace app::classes::types {
     namespace WindImpactEffectSpawner_Trace {
-        namespace {
-            inline app::WindImpactEffectSpawner_Trace__Class* type_info_ref = nullptr;
+        inline app::WindImpactEffectSpawner_Trace__Class** type_info() {
+            static app::WindImpactEffectSpawner_Trace__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::WindImpactEffectSpawner_Trace__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::WindImpactEffectSpawner_Trace__Class** type_info = &type_info_ref;
         inline app::WindImpactEffectSpawner_Trace__Class* get_class() {
-            return il2cpp::get_nested_class<app::WindImpactEffectSpawner_Trace__Class>(type_info, "", "WindImpactEffectSpawner", "Trace");
+            return il2cpp::get_nested_class<app::WindImpactEffectSpawner_Trace__Class>(type_info(), "", "WindImpactEffectSpawner", "Trace");
         }
         inline app::WindImpactEffectSpawner_Trace* create() {
             return il2cpp::create_object<app::WindImpactEffectSpawner_Trace>(get_class());

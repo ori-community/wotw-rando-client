@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_VectorRequest_.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorRequest__Array.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorRequest.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_VectorRequest_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorRequest.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorRequest__Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_VectorRequest_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyExperimental_VectorRequest_*, get_Default, ())

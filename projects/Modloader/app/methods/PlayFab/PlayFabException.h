@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayFabException.h>
+
+#include <Modloader/app/structs/PlayFabException.h>
 #include <Modloader/app/structs/PlayFabExceptionCode__Enum.h>
 #include <Modloader/app/structs/String.h>
 

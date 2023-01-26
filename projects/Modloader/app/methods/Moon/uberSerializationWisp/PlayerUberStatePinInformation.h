@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStatePinInformation.h>
-#include <Modloader/app/structs/GameMapPins_PinColour__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/List_1_GameMapPins_Pin_.h>
-#include <Modloader/app/structs/UberStateArchive.h>
+
+#include <Modloader/app/structs/PlayerUberStatePinInformation.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/NavigableOnGUI.h>
 #include <Modloader/app/structs/GameMapPins_Pin.h>
+#include <Modloader/app/structs/GameMapPins_PinColour__Enum.h>
+#include <Modloader/app/structs/List_1_GameMapPins_Pin_.h>
+#include <Modloader/app/structs/NavigableOnGUI.h>
+#include <Modloader/app/structs/UberStateArchive.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStatePinInformation {
     IL2CPP_REGISTER_METHOD(0x00F3ED30, void, SetPinActiveState, (app::PlayerUberStatePinInformation * this_ptr, app::GameMapPins_PinColour__Enum color, bool state))

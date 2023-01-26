@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TypeDescriptor_MemberDescriptorComparer.h>
+
+#include <Modloader/app/structs/TypeDescriptor_MemberDescriptorComparer.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::TypeDescriptor_MemberDescriptorComparer {

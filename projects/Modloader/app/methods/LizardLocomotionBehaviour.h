@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/LizardLocomotionBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/LizardLocomotionBehaviour.h>
 #include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 
 namespace app::classes::LizardLocomotionBehaviour {

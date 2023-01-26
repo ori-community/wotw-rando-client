@@ -1,14 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OverflowException.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/InvalidExpressionException.h>
-#include <Modloader/app/structs/SyntaxErrorException.h>
+
+#include <Modloader/app/structs/OverflowException.h>
 #include <Modloader/app/structs/EvaluateException.h>
 #include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/InvalidExpressionException.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/OperatorInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SyntaxErrorException.h>
 #include <Modloader/app/structs/Tokens__Enum.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Data::ExprException {
     IL2CPP_REGISTER_METHOD(0x01F57D10, app::OverflowException*, _Overflow, (app::String * error))
@@ -18,8 +20,7 @@ namespace app::classes::System::Data::ExprException {
     IL2CPP_REGISTER_METHOD(0x01F58290, app::EvaluateException*, _Eval_2, (app::String * error, app::Exception* inner_exception))
     IL2CPP_REGISTER_METHOD(0x01F583F0, app::Exception*, InvokeArgument, ())
     IL2CPP_REGISTER_METHOD(0x01F58470, app::Exception*, NYI, (app::String * moreinfo))
-    IL2CPP_REGISTER_METHOD(0x01F58640, app::Exception*, MissingOperand, inline(app
-                                                                               : operatorInfo* before))
+    IL2CPP_REGISTER_METHOD(0x01F58640, app::Exception*, MissingOperand, (app::OperatorInfo * before))
     IL2CPP_REGISTER_METHOD(0x01F58710, app::Exception*, MissingOperator, (app::String * token))
     IL2CPP_REGISTER_METHOD(0x01F587A0, app::Exception*, TypeMismatch, (app::String * expr))
     IL2CPP_REGISTER_METHOD(0x01F58830, app::Exception*, FunctionArgumentOutOfRange, (app::String * arg, app::String* func))

@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/RaceLeaderboardScreen_Filter__Enum.h>
+#include <Modloader/app/structs/RaceLeaderboardScreen_Filter__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RaceLeaderboardScreen_Filter__Enum__Class.h>
-#include <Modloader/app/structs/RaceLeaderboardScreen_Filter__Enum.h>
 
 namespace app::classes::types {
     namespace RaceLeaderboardScreen_Filter__Enum {
-        namespace {
-            inline app::RaceLeaderboardScreen_Filter__Enum__Class* type_info_ref = nullptr;
+        inline app::RaceLeaderboardScreen_Filter__Enum__Class** type_info() {
+            static app::RaceLeaderboardScreen_Filter__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::RaceLeaderboardScreen_Filter__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::RaceLeaderboardScreen_Filter__Enum__Class** type_info = &type_info_ref;
         inline app::RaceLeaderboardScreen_Filter__Enum__Class* get_class() {
-            return il2cpp::get_nested_class<app::RaceLeaderboardScreen_Filter__Enum__Class>(type_info, "", "RaceLeaderboardScreen", "Filter");
+            return il2cpp::get_nested_class<app::RaceLeaderboardScreen_Filter__Enum__Class>(type_info(), "", "RaceLeaderboardScreen", "Filter");
         }
         inline app::RaceLeaderboardScreen_Filter__Enum* create() {
             return il2cpp::create_object<app::RaceLeaderboardScreen_Filter__Enum>(get_class());

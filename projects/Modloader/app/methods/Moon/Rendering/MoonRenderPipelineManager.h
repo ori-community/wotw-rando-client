@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
+
+#include <Modloader/app/structs/MoonRenderPipelineAsset.h>
 #include <Modloader/app/structs/MoonRenderPipeline.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderPipelineManager {

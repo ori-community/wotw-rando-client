@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedHorizontalMovementSetting.h>
+#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Array.h>
+#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Boxed.h>
+#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Class.h>
-#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedHorizontalMovementSetting.h>
-#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Boxed.h>
-#include <Modloader/app/structs/SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Array.h>
 
 namespace app::classes::types {
     namespace SeinAbilityRestrictZone_LerpedHorizontalMovementSetting {
-        namespace {
-            inline app::SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Class* type_info_ref = nullptr;
+        inline app::SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Class** type_info() {
+            static app::SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Class** type_info = &type_info_ref;
         inline app::SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Class* get_class() {
-            return il2cpp::get_nested_class<app::SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Class>(type_info, "", "SeinAbilityRestrictZone", "LerpedHorizontalMovementSetting");
+            return il2cpp::get_nested_class<app::SeinAbilityRestrictZone_LerpedHorizontalMovementSetting__Class>(type_info(), "", "SeinAbilityRestrictZone", "LerpedHorizontalMovementSetting");
         }
         inline app::SeinAbilityRestrictZone_LerpedHorizontalMovementSetting* create() {
             return il2cpp::create_object<app::SeinAbilityRestrictZone_LerpedHorizontalMovementSetting>(get_class());

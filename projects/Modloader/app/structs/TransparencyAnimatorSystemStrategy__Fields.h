@@ -17,7 +17,7 @@ struct __declspec(align(8)) TransparencyAnimatorSystemStrategy__Fields {
 #endif
 #if !defined(IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy__Fields_FWDDECL)
 #define IL2CPP_STRUCT_TransparencyAnimatorSystemStrategy__Fields_FWDDECL
-#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_Timeline_TransparencyAnimatorSystemStrategy_RendererState___Array.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int3_Moo_Timelin_TransparencyAnimatorSystemStrateg_RendererStat___Arra.h>
 #include <Modloader/app/structs/List_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_RendererState_.h>
 #include <Modloader/app/structs/List_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_.h>
 #include <Modloader/app/structs/Queue_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_RendererState_.h>

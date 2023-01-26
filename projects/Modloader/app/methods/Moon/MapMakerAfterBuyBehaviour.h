@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MapMakerAfterBuyBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/MapMakerAfterBuyBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::MapMakerAfterBuyBehaviour {
     IL2CPP_REGISTER_METHOD(0x0110E280, void, OnEnter, (app::MapMakerAfterBuyBehaviour * this_ptr, app::IContext* context))

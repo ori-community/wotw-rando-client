@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MethodReturnDictionary.h>
+
+#include <Modloader/app/structs/MethodReturnDictionary.h>
 #include <Modloader/app/structs/IMethodReturnMessage.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::MethodReturnDictionary {

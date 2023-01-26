@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Material.h>
+
+#include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/CageTextureMaker.h>
 #include <Modloader/app/structs/Mesh.h>
 #include <Modloader/app/structs/Texture2D.h>
-#include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/CageTextureMaker.h>
 
 namespace app::classes::Moon::CageTextureMaker {
     IL2CPP_REGISTER_METHOD(0x00CC0780, app::Material*, get_baseMaterial, ())

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::GUIClip {
     IL2CPP_REGISTER_METHOD(0x029E2440, app::Rect, get_visibleRect, ())

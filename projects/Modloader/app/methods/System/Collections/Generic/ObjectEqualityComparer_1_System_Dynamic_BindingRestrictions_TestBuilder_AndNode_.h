@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_System_Dynamic_BindingRestrictions_TestBuilder_AndNode_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_System_Dynamic_BindingRestrictions_TestBuilder_AndNode_.h>
 #include <Modloader/app/structs/BindingRestrictions_TestBuilder_AndNode.h>
 #include <Modloader/app/structs/BindingRestrictions_TestBuilder_AndNode__Array.h>
 #include <Modloader/app/structs/Object.h>

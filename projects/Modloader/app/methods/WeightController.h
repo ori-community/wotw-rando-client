@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WeightController.h>
+
+#include <Modloader/app/structs/WeightController.h>
 #include <Modloader/app/structs/Ease_Easing__Enum.h>
 
 namespace app::classes::WeightController {

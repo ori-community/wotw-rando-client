@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NativeVerletAnimationPostprocess.h>
+
+#include <Modloader/app/structs/NativeVerletAnimationPostprocess.h>
 #include <Modloader/app/structs/AnimationVerletPlayable.h>
+#include <Modloader/app/structs/AnimatorPostprocessUpdateData.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/Playable.h>
 #include <Modloader/app/structs/PlayableGraph.h>
-#include <Modloader/app/structs/MoonAnimator.h>
-#include <Modloader/app/structs/AnimatorPostprocessUpdateData.h>
 
 namespace app::classes::Moon::Animation::NativeVerletAnimationPostprocess {
     IL2CPP_REGISTER_METHOD(0x01B026D0, bool, get_IsAllowed, (app::NativeVerletAnimationPostprocess * this_ptr))

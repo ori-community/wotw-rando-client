@@ -1,11 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SHA384Managed.h>
+
+#include <Modloader/app/structs/SHA384Managed.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::SHA384Managed {
     IL2CPP_REGISTER_METHOD(0x028F9440, void, ctor, (app::SHA384Managed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471D500, SHA384Managed__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x028F9500, void, Initialize, (app::SHA384Managed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x028F9550, void, HashCore, (app::SHA384Managed * this_ptr, app::Byte__Array* rgb, int32_t ib_start, int32_t cb_size))
     IL2CPP_REGISTER_METHOD(0x028F9560, app::Byte__Array*, HashFinal, (app::SHA384Managed * this_ptr))

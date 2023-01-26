@@ -1,22 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinComboHandlerOld.h>
-#include <Modloader/app/structs/CharacterPlatformMovement.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/SeinComboHandlerOld.h>
 #include <Modloader/app/structs/Animator.h>
-#include <Modloader/app/structs/MeleeWeapon.h>
-#include <Modloader/app/structs/ComboMove.h>
-#include <Modloader/app/structs/MeleeComboMoveSettings.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
 #include <Modloader/app/structs/ComboInput.h>
-#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/ComboMove.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 #include <Modloader/app/structs/IHoldable.h>
+#include <Modloader/app/structs/MeleeComboMoveSettings.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
 #include <Modloader/app/structs/MeleeWeaponTorch.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::SeinComboHandlerOld {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinComboHandlerOld * this_ptr))
@@ -55,16 +56,11 @@ namespace app::classes::SeinComboHandlerOld {
     IL2CPP_REGISTER_METHOD(0x00A674E0, void, BeginCombo, (app::SeinComboHandlerOld * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A67740, void, EndCombo, (app::SeinComboHandlerOld * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A67990, void, ModifyGravityPlatformMovementSettings, (app::SeinComboHandlerOld * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0476BC10, SeinComboHandlerOld_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A679B0, void, ModifyHorizontalPlatformMovementSettings, (app::SeinComboHandlerOld * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04739950, SeinComboHandlerOld_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A679D0, void, OnAnimationEvent, (app::SeinComboHandlerOld * this_ptr, app::SeinController3D_EventId__Enum event_id))
-    IL2CPP_REGISTER_METHODINFO(0x04753FF8, SeinComboHandlerOld_OnAnimationEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, LateUpdate, (app::SeinComboHandlerOld * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A679F0, void, OnOriTakeDamage, (app::SeinComboHandlerOld * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x0473C658, SeinComboHandlerOld_OnOriTakeDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A67B30, void, OnDamageResultReceived, (app::SeinComboHandlerOld * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x047025F0, SeinComboHandlerOld_OnDamageResultReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A68260, float, GetCooldown, (app::SeinComboHandlerOld * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A682C0, void, UpdateTargetting, (app::SeinComboHandlerOld * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A68400, void, UpdateTargetHighlight, (app::SeinComboHandlerOld * this_ptr))
@@ -73,9 +69,7 @@ namespace app::classes::SeinComboHandlerOld {
     IL2CPP_REGISTER_METHOD(0x00A68B90, void, ResetAllUsedMoves, (app::SeinComboHandlerOld * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A68D20, void, CreateMoveInstances, (app::SeinComboHandlerOld * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A69210, void, OnHoldablePickUp, (app::SeinComboHandlerOld * this_ptr, app::IHoldable* holdable))
-    IL2CPP_REGISTER_METHODINFO(0x0474AC38, SeinComboHandlerOld_OnHoldablePickUp__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A694C0, void, SetTorchWeaponToTorchMoves, (app::SeinComboHandlerOld * this_ptr, app::MeleeWeaponTorch* torch))
     IL2CPP_REGISTER_METHOD(0x00A695D0, void, ctor, (app::SeinComboHandlerOld * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A69AD0, bool, _OnDamageResultReceived_b__81_0, (app::SeinComboHandlerOld * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04774C50, SeinComboHandlerOld__OnDamageResultReceived_b__81_0__MethodInfo)
 } // namespace app::classes::SeinComboHandlerOld

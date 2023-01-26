@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Expression_DebugInfoExpressionProxy.h>
+
+#include <Modloader/app/structs/Expression_DebugInfoExpressionProxy.h>
 #include <Modloader/app/structs/DebugInfoExpression.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/SymbolDocumentInfo.h>
-#include <Modloader/app/structs/ExpressionType__Enum.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Expression_DebugInfoExpressionProxy {

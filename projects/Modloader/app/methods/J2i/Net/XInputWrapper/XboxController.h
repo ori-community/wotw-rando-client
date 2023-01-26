@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XboxController.h>
+
+#include <Modloader/app/structs/XboxController.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TimeSpan.h>
 #include <Modloader/app/structs/XInputVibration.h>
-#include <Modloader/app/structs/String.h>
 
 namespace app::classes::J2i::Net::XInputWrapper::XboxController {
     IL2CPP_REGISTER_METHOD(0x031B8910, void, set_UpdateFrequency, (int32_t value))
@@ -36,7 +37,6 @@ namespace app::classes::J2i::Net::XInputWrapper::XboxController {
     IL2CPP_REGISTER_METHOD(0x031B92B0, void, StartPolling, ())
     IL2CPP_REGISTER_METHOD(0x031B9670, void, StopPolling, ())
     IL2CPP_REGISTER_METHOD(0x031B9740, void, PollerLoop, ())
-    IL2CPP_REGISTER_METHODINFO(0x0473C650, XboxController_PollerLoop__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x031B9B30, void, UpdateState, (app::XboxController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031B9D20, void, Vibrate_1, (app::XboxController * this_ptr, double left_motor, double right_motor))
     IL2CPP_REGISTER_METHOD(0x031B9E00, void, Vibrate_2, (app::XboxController * this_ptr, double left_motor, double right_motor, app::TimeSpan length))

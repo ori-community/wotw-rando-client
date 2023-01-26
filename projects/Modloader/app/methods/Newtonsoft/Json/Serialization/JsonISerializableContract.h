@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
+
+#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
 #include <Modloader/app/structs/JsonISerializableContract.h>
 #include <Modloader/app/structs/Type.h>
 

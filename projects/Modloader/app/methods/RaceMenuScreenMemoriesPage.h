@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
-#include <Modloader/app/structs/RaceMenuScreenMemoriesPage.h>
+
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/structs/MemoryUISlot.h>
+#include <Modloader/app/structs/RaceMenuScreenMemoriesPage.h>
 #include <Modloader/app/structs/ReplaySetting__Array.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
@@ -14,9 +15,7 @@ namespace app::classes::RaceMenuScreenMemoriesPage {
     IL2CPP_REGISTER_METHOD(0x0070D5B0, void, OnDestroy, (app::RaceMenuScreenMemoriesPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0070D7A0, void, OnEnable, (app::RaceMenuScreenMemoriesPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0070D9E0, void, OnBackPressed, (app::RaceMenuScreenMemoriesPage * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476D7C8, RaceMenuScreenMemoriesPage_OnBackPressed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070DAD0, void, OnNavigate, (app::RaceMenuScreenMemoriesPage * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478FEB0, RaceMenuScreenMemoriesPage_OnNavigate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070DD00, void, PopulateItems_1, (app::RaceMenuScreenMemoriesPage * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0070DD10, void, PopulateItems_2, (app::RaceMenuScreenMemoriesPage * this_ptr, app::ReplaySetting__Array* replay_settings))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, DestroyItems, (app::RaceMenuScreenMemoriesPage * this_ptr))

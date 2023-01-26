@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiderBatClimbBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/SpiderBatClimbBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SpiderBatClimbBehaviour {
     IL2CPP_REGISTER_METHOD(0x009552D0, bool, ShouldClimb, (app::SpiderBatClimbBehaviour * this_ptr))
@@ -12,6 +13,5 @@ namespace app::classes::SpiderBatClimbBehaviour {
     IL2CPP_REGISTER_METHOD(0x009555D0, void, OnExit, (app::SpiderBatClimbBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00955610, void, StartTimeline, (app::SpiderBatClimbBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009557E0, void, OnTimelineSequenceStopEvent, (app::SpiderBatClimbBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472AA98, SpiderBatClimbBehaviour_OnTimelineSequenceStopEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009559A0, void, ctor, (app::SpiderBatClimbBehaviour * this_ptr))
 } // namespace app::classes::SpiderBatClimbBehaviour

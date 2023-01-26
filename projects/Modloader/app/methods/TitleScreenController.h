@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TitleScreenController.h>
+
+#include <Modloader/app/structs/TitleScreenController.h>
 
 namespace app::classes::TitleScreenController {
     IL2CPP_REGISTER_METHOD(0x00AF73E0, void, FixedUpdate, (app::TitleScreenController * this_ptr))

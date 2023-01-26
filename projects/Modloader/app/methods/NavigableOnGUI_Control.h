@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NavigableOnGUI_Control_1__Boxed.h>
+
+#include <Modloader/app/structs/NavigableOnGUI_Control_1__Boxed.h>
 #include <Modloader/app/structs/NavigableOnGUI_1.h>
 
 namespace app::classes::NavigableOnGUI_Control {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AsyncCompletedEventArgs.h>
+
+#include <Modloader/app/structs/AsyncCompletedEventArgs.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/Object.h>
 
@@ -11,5 +12,4 @@ namespace app::classes::System::ComponentModel::AsyncCompletedEventArgs {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Exception*, get_Error, (app::AsyncCompletedEventArgs * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB950, app::Object*, get_UserState, (app::AsyncCompletedEventArgs * this_ptr))
     IL2CPP_REGISTER_METHOD(0x024A03E0, void, RaiseExceptionIfNecessary, (app::AsyncCompletedEventArgs * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04734D58, AsyncCompletedEventArgs_RaiseExceptionIfNecessary__MethodInfo)
 } // namespace app::classes::System::ComponentModel::AsyncCompletedEventArgs

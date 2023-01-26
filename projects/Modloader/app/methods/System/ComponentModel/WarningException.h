@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WarningException.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/WarningException.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ComponentModel::WarningException {
     IL2CPP_REGISTER_METHOD(0x0295DC00, void, ctor_1, (app::WarningException * this_ptr))
@@ -16,5 +17,4 @@ namespace app::classes::System::ComponentModel::WarningException {
     IL2CPP_REGISTER_METHOD(0x002FBC20, app::String*, get_HelpUrl, (app::WarningException * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::String*, get_HelpTopic, (app::WarningException * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0295DE60, void, GetObjectData, (app::WarningException * this_ptr, app::SerializationInfo* info, app::StreamingContext context))
-    IL2CPP_REGISTER_METHODINFO(0x04730A00, WarningException_GetObjectData__MethodInfo)
 } // namespace app::classes::System::ComponentModel::WarningException

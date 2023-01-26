@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SchemaBuilder.h>
+#include <Modloader/app/structs/SchemaBuilder__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SchemaBuilder__Class.h>
-#include <Modloader/app/structs/SchemaBuilder.h>
 
 namespace app::classes::types {
     namespace SchemaBuilder {
-        namespace {
-            inline app::SchemaBuilder__Class* type_info_ref = nullptr;
+        inline app::SchemaBuilder__Class** type_info() {
+            static app::SchemaBuilder__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SchemaBuilder__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SchemaBuilder__Class** type_info = &type_info_ref;
         inline app::SchemaBuilder__Class* get_class() {
-            return il2cpp::get_class<app::SchemaBuilder__Class>(type_info, "System.Xml.Schema", "SchemaBuilder");
+            return il2cpp::get_class<app::SchemaBuilder__Class>(type_info(), "System.Xml.Schema", "SchemaBuilder");
         }
         inline app::SchemaBuilder* create() {
             return il2cpp::create_object<app::SchemaBuilder>(get_class());

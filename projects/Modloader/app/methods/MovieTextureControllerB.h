@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MovieTextureControllerB.h>
+
+#include <Modloader/app/structs/MovieTextureControllerB.h>
 #include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::MovieTextureControllerB {

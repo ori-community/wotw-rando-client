@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/GradientColorKey.h>
+#include <Modloader/app/structs/GradientColorKey__Array.h>
+#include <Modloader/app/structs/GradientColorKey__Boxed.h>
+#include <Modloader/app/structs/GradientColorKey__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GradientColorKey__Class.h>
-#include <Modloader/app/structs/GradientColorKey.h>
-#include <Modloader/app/structs/GradientColorKey__Boxed.h>
-#include <Modloader/app/structs/GradientColorKey__Array.h>
 
 namespace app::classes::types {
     namespace GradientColorKey {
-        namespace {
-            inline app::GradientColorKey__Class* type_info_ref = nullptr;
+        inline app::GradientColorKey__Class** type_info() {
+            static app::GradientColorKey__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GradientColorKey__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GradientColorKey__Class** type_info = &type_info_ref;
         inline app::GradientColorKey__Class* get_class() {
-            return il2cpp::get_class<app::GradientColorKey__Class>(type_info, "UnityEngine", "GradientColorKey");
+            return il2cpp::get_class<app::GradientColorKey__Class>(type_info(), "UnityEngine", "GradientColorKey");
         }
         inline app::GradientColorKey* create() {
             return il2cpp::create_object<app::GradientColorKey>(get_class());

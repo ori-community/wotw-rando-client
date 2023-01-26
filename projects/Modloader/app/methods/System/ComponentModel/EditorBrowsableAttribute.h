@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EditorBrowsableAttribute.h>
+
+#include <Modloader/app/structs/EditorBrowsableAttribute.h>
 #include <Modloader/app/structs/EditorBrowsableState__Enum.h>
 #include <Modloader/app/structs/Object.h>
 

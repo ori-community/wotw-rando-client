@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AccountID_t__Boxed.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/AccountID_t__Boxed.h>
 #include <Modloader/app/structs/AccountID_t.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::AccountID_t {
     IL2CPP_REGISTER_METHOD(0x0010DB80, void, ctor, (app::AccountID_t__Boxed * this_ptr, uint32_t value))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Char__Array.h>
+
+#include <Modloader/app/structs/Char__Array.h>
 #include <Modloader/app/structs/IArrayPool_1_System_Char_.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::BufferUtils {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CancellationCallbackCoreWorkArguments__Boxed.h>
+
+#include <Modloader/app/structs/CancellationCallbackCoreWorkArguments__Boxed.h>
 #include <Modloader/app/structs/SparselyPopulatedArrayFragment_1_CancellationCallbackInfo_.h>
 
 namespace app::classes::System::Threading::CancellationCallbackCoreWorkArguments {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WormState.h>
+
+#include <Modloader/app/structs/WormState.h>
 #include <Modloader/app/structs/WormEnemy.h>
 
 namespace app::classes::WormState {

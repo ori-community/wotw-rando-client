@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinGrenadeAttack.h>
+
+#include <Modloader/app/structs/SeinGrenadeAttack.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
-#include <Modloader/app/structs/CharacterLeftRightMovement.h>
 #include <Modloader/app/structs/CharacterGravity.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/IGreanade.h>
 #include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/IGreanade.h>
 #include <Modloader/app/structs/StartLoopEndEffect.h>
 #include <Modloader/app/structs/StressTestStatus__Enum.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinGrenadeAttack {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinGrenadeAttack * this_ptr))
@@ -37,13 +38,11 @@ namespace app::classes::SeinGrenadeAttack {
     IL2CPP_REGISTER_METHOD(0x014D13B0, void, Start, (app::SeinGrenadeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014D18C0, void, OnDestroy, (app::SeinGrenadeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014D1E00, void, OnRestoreCheckpoint, (app::SeinGrenadeAttack * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04796D20, SeinGrenadeAttack_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005D06F0, app::CharacterLeftRightMovement*, get_CharacterLeftRightMovement, (app::SeinGrenadeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006E4240, app::CharacterGravity*, get_CharacterGravity, (app::SeinGrenadeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014D1E10, void, ModifyGravityPlatformMovementSettings, (app::SeinGrenadeAttack * this_ptr, app::GravityPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHOD(0x014D1EA0, void, ModifyHorizontalPlatformMovementSettings, (app::SeinGrenadeAttack * this_ptr, app::HorizontalPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHOD(0x014D20D0, void, OnDamageReceived, (app::SeinGrenadeAttack * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x04744210, SeinGrenadeAttack_OnDamageReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014D2100, void, OnSetReferenceToSein, (app::SeinGrenadeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014D21E0, void, FixedUpdate, (app::SeinGrenadeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014D21F0, void, UpdateCharacterState, (app::SeinGrenadeAttack * this_ptr))
@@ -55,7 +54,6 @@ namespace app::classes::SeinGrenadeAttack {
     IL2CPP_REGISTER_METHOD(0x014D2BD0, app::Vector3, get_RightHandPosition, (app::SeinGrenadeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014D2D80, app::Vector3, get_SeinCenterPosition, (app::SeinGrenadeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014D2F00, void, OnDoubleJump, (app::SeinGrenadeAttack * this_ptr, float strength))
-    IL2CPP_REGISTER_METHODINFO(0x0475E070, SeinGrenadeAttack_OnDoubleJump__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014D3000, void, SpawnGrenadeDelayed, (app::SeinGrenadeAttack * this_ptr, app::Vector2 velocity))
     IL2CPP_REGISTER_METHOD(0x014D3030, void, OnGrenadeSpawn, (app::SeinGrenadeAttack * this_ptr, app::IGreanade* grenade, app::Vector2 velocity, bool bashable, float damage, bool can_fracture, bool is_fractured_piece))
     IL2CPP_REGISTER_METHOD(0x014D3280, void, SpawnGrenade, (app::SeinGrenadeAttack * this_ptr, app::Vector2 velocity, bool bashable, app::Vector3 position))
@@ -85,7 +83,6 @@ namespace app::classes::SeinGrenadeAttack {
     IL2CPP_REGISTER_METHOD(0x014D6A60, bool, IsNonFracturedGrenadeAlive, (app::SeinGrenadeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014D6BF0, void, UpdateNormal, (app::SeinGrenadeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014D4770, bool, KeepPlayingAimAnimation, (app::SeinGrenadeAttack * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04745DF0, SeinGrenadeAttack_KeepPlayingAimAnimation__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014D7530, bool, KeepPlayingNotEnoughEnergyAnimation, (app::SeinGrenadeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014D7630, void, BeginAiming, (app::SeinGrenadeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014D7CC0, app::IAttackable*, get_FindAutoAttackable, (app::SeinGrenadeAttack * this_ptr))

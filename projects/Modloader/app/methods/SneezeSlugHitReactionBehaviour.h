@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
-#include <Modloader/app/structs/SneezeSlugHitReactionBehaviour.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SneezeSlugHitReactionBehaviour.h>
 #include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::SneezeSlugHitReactionBehaviour {
@@ -27,13 +28,9 @@ namespace app::classes::SneezeSlugHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::SneezeSlugHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EDEBD0, bool, PlayedAdditiveAnim, (app::SneezeSlugHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EDEBE0, void, TimelineFinished, (app::SneezeSlugHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473B2E8, SneezeSlugHitReactionBehaviour_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EDEC00, bool, CanInterrupt, (app::SneezeSlugHitReactionBehaviour * this_ptr, app::EntityReactionBehaviour_ReasonWhyReactionWontInterrupt* reason))
     IL2CPP_REGISTER_METHOD(0x00B667A0, void, FlipEventStart, (app::SneezeSlugHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478A8C8, SneezeSlugHitReactionBehaviour_FlipEventStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EDEF40, void, SetBlastinflateStart, (app::SneezeSlugHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04751370, SneezeSlugHitReactionBehaviour_SetBlastinflateStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EDEF50, void, SetBlastinflateStop, (app::SneezeSlugHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04703580, SneezeSlugHitReactionBehaviour_SetBlastinflateStop__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EDEF60, void, ctor, (app::SneezeSlugHitReactionBehaviour * this_ptr))
 } // namespace app::classes::SneezeSlugHitReactionBehaviour

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LeverSetupData.h>
+
+#include <Modloader/app/structs/LeverSetupData.h>
 #include <Modloader/app/structs/LeverSetupHolder.h>
 #include <Modloader/app/structs/List_1_IIndexedItem_.h>
 

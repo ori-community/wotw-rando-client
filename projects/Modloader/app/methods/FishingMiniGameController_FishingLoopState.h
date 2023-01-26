@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FishingMiniGameController_FishingLoopState.h>
+
+#include <Modloader/app/structs/FishingMiniGameController_FishingLoopState.h>
 #include <Modloader/app/structs/FishingMiniGameController.h>
 
 namespace app::classes::FishingMiniGameController_FishingLoopState {

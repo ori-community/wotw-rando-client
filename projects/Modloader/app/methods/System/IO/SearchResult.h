@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SearchResult.h>
+
+#include <Modloader/app/structs/SearchResult.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Win32Native_WIN32_FIND_DATA.h>
 

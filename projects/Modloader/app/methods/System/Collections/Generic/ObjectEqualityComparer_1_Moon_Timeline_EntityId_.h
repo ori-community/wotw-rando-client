@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Timeline_EntityId_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Timeline_EntityId_.h>
 #include <Modloader/app/structs/EntityId.h>
 #include <Modloader/app/structs/EntityId__Array.h>
 #include <Modloader/app/structs/Object.h>

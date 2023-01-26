@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinGrabWallPuppet.h>
+
+#include <Modloader/app/structs/SeinGrabWallPuppet.h>
 
 namespace app::classes::SeinGrabWallPuppet {
     IL2CPP_REGISTER_METHOD(0x00E3B530, int32_t, get_Id, (app::SeinGrabWallPuppet * this_ptr))

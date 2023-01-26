@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BaseProcessor.h>
-#include <Modloader/app/structs/XmlNameTable.h>
+
+#include <Modloader/app/structs/BaseProcessor.h>
+#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/SchemaNames.h>
-#include <Modloader/app/structs/ValidationEventHandler.h>
-#include <Modloader/app/structs/XmlSchemaCompilationSettings.h>
-#include <Modloader/app/structs/XmlSchemaObjectTable.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/XmlSchemaObject.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/XmlSeverityType__Enum.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaCompilationSettings.h>
 #include <Modloader/app/structs/XmlSchemaException.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable.h>
+#include <Modloader/app/structs/XmlSeverityType__Enum.h>
 
 namespace app::classes::System::Xml::Schema::BaseProcessor {
     IL2CPP_REGISTER_METHOD(0x019A3F00, void, ctor_1, (app::BaseProcessor * this_ptr, app::XmlNameTable* name_table, app::SchemaNames* schema_names, app::ValidationEventHandler* event_handler))
@@ -35,6 +36,5 @@ namespace app::classes::System::Xml::Schema::BaseProcessor {
     IL2CPP_REGISTER_METHOD(0x019A56D0, void, SendValidationEvent_7, (app::BaseProcessor * this_ptr, app::XmlSchemaException* e))
     IL2CPP_REGISTER_METHOD(0x019A56E0, void, SendValidationEvent_8, (app::BaseProcessor * this_ptr, app::String* code, app::String* msg, app::XmlSchemaObject* source, app::XmlSeverityType__Enum severity))
     IL2CPP_REGISTER_METHOD(0x019A5870, void, SendValidationEvent_9, (app::BaseProcessor * this_ptr, app::XmlSchemaException* e, app::XmlSeverityType__Enum severity))
-    IL2CPP_REGISTER_METHODINFO(0x04769540, BaseProcessor_SendValidationEvent_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x019A5A20, void, SendValidationEventNoThrow, (app::BaseProcessor * this_ptr, app::XmlSchemaException* e, app::XmlSeverityType__Enum severity))
 } // namespace app::classes::System::Xml::Schema::BaseProcessor

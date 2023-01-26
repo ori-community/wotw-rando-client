@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateAbilities.h>
-#include <Modloader/app/structs/PlayerAbilities.h>
-#include <Modloader/app/structs/SeinCharacter.h>
-#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
-#include <Modloader/app/structs/IUberState__Array.h>
-#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+
+#include <Modloader/app/structs/PlayerUberStateAbilities.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/HashSet_1_AbilityType_.h>
+#include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/PlayerAbilities.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::PlayerAbilities {
     IL2CPP_REGISTER_METHOD(0x0117BB70, app::PlayerUberStateAbilities*, get_Abilities, (app::PlayerAbilities * this_ptr))
@@ -17,9 +18,7 @@ namespace app::classes::PlayerAbilities {
     IL2CPP_REGISTER_METHOD(0x0117BD00, void, SetReferenceToSein, (app::PlayerAbilities * this_ptr, app::SeinCharacter* sein))
     IL2CPP_REGISTER_METHOD(0x0117BD30, void, Awake, (app::PlayerAbilities * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011808D0, void, OnGlobalShardsEquip, (app::PlayerAbilities * this_ptr, app::PlayerUberStateShards_Shard* shard))
-    IL2CPP_REGISTER_METHODINFO(0x04748C48, PlayerAbilities_OnGlobalShardsEquip__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01180920, void, OnGlobalShardsUnequip, (app::PlayerAbilities * this_ptr, app::PlayerUberStateShards_Shard* shard))
-    IL2CPP_REGISTER_METHODINFO(0x0472E6A0, PlayerAbilities_OnGlobalShardsUnequip__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01180970, void, OnDestroy, (app::PlayerAbilities * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ApplyOnEditor, (app::PlayerAbilities * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01180CD0, void, Apply, (app::PlayerAbilities * this_ptr, app::UberStateApplyContext__Enum context))

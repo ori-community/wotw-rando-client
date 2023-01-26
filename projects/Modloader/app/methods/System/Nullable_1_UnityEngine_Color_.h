@@ -1,16 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Nullable_1_UnityEngine_Color___Boxed.h>
+
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Color___Boxed.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Nullable_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_UnityEngine_Color_ {
     IL2CPP_REGISTER_METHOD(0x00120520, void, ctor, (app::Nullable_1_UnityEngine_Color___Boxed * this_ptr, app::Color value))
     IL2CPP_REGISTER_METHOD(0x001F4750, bool, get_HasValue, (app::Nullable_1_UnityEngine_Color___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00210BE0, app::Color, get_Value, (app::Nullable_1_UnityEngine_Color___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478C8B8, Nullable_1_UnityEngine_Color__get_Value__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00210CD0, bool, Equals_1, (app::Nullable_1_UnityEngine_Color___Boxed * this_ptr, app::Object* other))
     IL2CPP_REGISTER_METHOD(0x00210D20, bool, Equals_2, (app::Nullable_1_UnityEngine_Color___Boxed * this_ptr, app::Nullable_1_UnityEngine_Color_ other))
     IL2CPP_REGISTER_METHOD(0x00210E10, int32_t, GetHashCode, (app::Nullable_1_UnityEngine_Color___Boxed * this_ptr))

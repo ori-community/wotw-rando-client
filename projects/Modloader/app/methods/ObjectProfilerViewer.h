@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectProfilerViewer.h>
+
+#include <Modloader/app/structs/ObjectProfilerViewer.h>
 
 namespace app::classes::ObjectProfilerViewer {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_Enabled, ())

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoftJointLimitSpring__Boxed.h>
+
+#include <Modloader/app/structs/SoftJointLimitSpring__Boxed.h>
 
 namespace app::classes::UnityEngine::SoftJointLimitSpring {
     IL2CPP_REGISTER_METHOD(0x001EB400, float, get_spring, (app::SoftJointLimitSpring__Boxed * this_ptr))

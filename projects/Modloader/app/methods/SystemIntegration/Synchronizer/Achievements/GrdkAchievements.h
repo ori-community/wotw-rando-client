@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/GrdkAchievements.h>
-#include <Modloader/app/structs/CacheData__Array.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/CacheData.h>
+#include <Modloader/app/structs/CacheData__Array.h>
+#include <Modloader/app/structs/GrdkAchievements.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::Achievements::GrdkAchievements {
     IL2CPP_REGISTER_METHOD(0x0052BB80, app::String*, get_Name, (app::GrdkAchievements * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WotwUberStateToWwiseData_WotwUberStateToWWiseEntry.h>
+
+#include <Modloader/app/structs/WotwUberStateToWwiseData_WotwUberStateToWWiseEntry.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
 
 namespace app::classes::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry {

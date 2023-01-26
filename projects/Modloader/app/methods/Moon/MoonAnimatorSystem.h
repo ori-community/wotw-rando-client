@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonAnimator.h>
+
+#include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/MoonAnimatorSystem.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
 #include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::MoonAnimatorSystem {
     IL2CPP_REGISTER_METHOD(0x0211D880, void, RegisterAnimatorForPreview, (app::MoonAnimator * animator))
@@ -12,7 +13,6 @@ namespace app::classes::Moon::MoonAnimatorSystem {
     IL2CPP_REGISTER_METHOD(0x0211DBA0, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x0211DD10, void, RuntimeInitializeOnLoad, ())
     IL2CPP_REGISTER_METHOD(0x0211DDA0, void, ClearAll, ())
-    IL2CPP_REGISTER_METHODINFO(0x04774AC0, MoonAnimatorSystem_ClearAll__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0211DF60, bool, HasInstance, ())
     IL2CPP_REGISTER_METHOD(0x0211E030, app::MoonAnimatorSystem*, GetInstance, ())
     IL2CPP_REGISTER_METHOD(0x00597B10, app::UpdateType__Enum, get_UpdateType, (app::MoonAnimatorSystem * this_ptr))

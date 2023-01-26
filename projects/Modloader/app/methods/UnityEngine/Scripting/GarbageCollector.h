@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GarbageCollector_Mode__Enum.h>
+
+#include <Modloader/app/structs/GarbageCollector_Mode__Enum.h>
 
 namespace app::classes::UnityEngine::Scripting::GarbageCollector {
     IL2CPP_REGISTER_METHOD(0x0297B0B0, app::GarbageCollector_Mode__Enum, get_GCMode, ())

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/PiranhaLocomotionSwimmingBehaviour.h>
 #include <Modloader/app/structs/PiranhaLocomotionSwimmingBehaviour_SpeedSetting.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/PiranhaLocomotionSwimmingBehaviour_State__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::PiranhaLocomotionSwimmingBehaviour {
@@ -28,7 +29,6 @@ namespace app::classes::PiranhaLocomotionSwimmingBehaviour {
     IL2CPP_REGISTER_METHOD(0x01161D50, void, OnVerticalFlipEnter, (app::PiranhaLocomotionSwimmingBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01161FB0, void, OnHorizontalFlipEnter, (app::PiranhaLocomotionSwimmingBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011621D0, void, ChangeStateToSwimming, (app::PiranhaLocomotionSwimmingBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047042F0, PiranhaLocomotionSwimmingBehaviour_ChangeStateToSwimming__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01162200, void, PlayTimeline, (app::PiranhaLocomotionSwimmingBehaviour * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop))
     IL2CPP_REGISTER_METHOD(0x01162340, void, ResetTimeline, (app::PiranhaLocomotionSwimmingBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01162430, void, AccelerateTowards, (app::PiranhaLocomotionSwimmingBehaviour * this_ptr, app::Vector2 target_velocity, app::PiranhaLocomotionSwimmingBehaviour_SpeedSetting* setting))

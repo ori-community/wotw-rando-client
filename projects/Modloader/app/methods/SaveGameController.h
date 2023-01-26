@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SaveGameController.h>
-#include <Modloader/app/structs/UberStateValueStore.h>
+
+#include <Modloader/app/structs/SaveGameController.h>
+#include <Modloader/app/structs/BinaryReader.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/SaveFileInfo.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UberStateSaveFileHandler_LoadStatus__Enum.h>
-#include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/UberStateValueStore.h>
 
 namespace app::classes::SaveGameController {
     IL2CPP_REGISTER_METHOD(0x00C2B3D0, int32_t, get_CurrentSlotIndex, (app::SaveGameController * this_ptr))
@@ -50,9 +51,7 @@ namespace app::classes::SaveGameController {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnSaveComplete, (app::SaveGameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C2E870, void, RestoreCheckpoint, (app::SaveGameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C2EA70, void, RestoreCheckpointPart1, (app::SaveGameController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04793108, SaveGameController_RestoreCheckpointPart1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C2F1C0, void, OnFinishedLoading, (app::SaveGameController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047033F8, SaveGameController_OnFinishedLoading__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C2F470, void, CorruptSaveForTesting, (app::SaveGameController * this_ptr, app::String* filename, app::Byte__Array* data, int32_t slot_index, int32_t backup_slot_index))
     IL2CPP_REGISTER_METHOD(0x00C2F5A0, void, ctor, (app::SaveGameController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())

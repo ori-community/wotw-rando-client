@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ListBindableAttribute.h>
+
+#include <Modloader/app/structs/ListBindableAttribute.h>
 #include <Modloader/app/structs/BindableSupport__Enum.h>
 #include <Modloader/app/structs/Object.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DamageLayerMask__Enum.h>
+
+#include <Modloader/app/structs/DamageLayerMask__Enum.h>
 #include <Modloader/app/structs/DamageLayer__Enum.h>
 
 namespace app::classes::Moon::DamageLayerMaskExtensions {

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DestroyManager.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Object_.h>
+
+#include <Modloader/app/structs/DestroyManager.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/DestroyManager_CountAndCallback.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/List_1_DestroyManager_CountAndCallback_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Object_.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::DestroyManager {
     IL2CPP_REGISTER_METHOD(0x00B8A5C0, void, ctor, (app::DestroyManager * this_ptr))

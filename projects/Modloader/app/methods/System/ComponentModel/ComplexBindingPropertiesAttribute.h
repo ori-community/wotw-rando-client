@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComplexBindingPropertiesAttribute.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/ComplexBindingPropertiesAttribute.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ComponentModel::ComplexBindingPropertiesAttribute {
     IL2CPP_REGISTER_METHOD(0x00B70200, void, ctor_1, (app::ComplexBindingPropertiesAttribute * this_ptr))

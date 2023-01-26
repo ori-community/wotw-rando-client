@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FishingMiniGameController_ExitingState.h>
+
+#include <Modloader/app/structs/FishingMiniGameController_ExitingState.h>
 #include <Modloader/app/structs/FishingMiniGameController.h>
 
 namespace app::classes::FishingMiniGameController_ExitingState {
@@ -9,5 +10,4 @@ namespace app::classes::FishingMiniGameController_ExitingState {
     IL2CPP_REGISTER_METHOD(0x0073DA40, void, UpdateState, (app::FishingMiniGameController_ExitingState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0126E940, void, OnExit, (app::FishingMiniGameController_ExitingState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0126EB30, void, OnExitTimelineEnded, (app::FishingMiniGameController_ExitingState * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04786B70, FishingMiniGameController_ExitingState_OnExitTimelineEnded__MethodInfo)
 } // namespace app::classes::FishingMiniGameController_ExitingState

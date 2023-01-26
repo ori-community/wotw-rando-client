@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MicroProfiler_MetricStats__Array.h>
-#include <Modloader/app/structs/MicroProfiler_SampleStats.h>
-#include <Modloader/app/structs/MicroProfiler_StatInfo__Array.h>
-#include <Modloader/app/structs/MicroProfiler_MarkerInfo__Array.h>
-#include <Modloader/app/structs/MicroProfiler_StatInfo.h>
-#include <Modloader/app/structs/Stat__Enum.h>
-#include <Modloader/app/structs/Metric__Enum.h>
+
+#include <Modloader/app/structs/MicroProfiler_MetricStats__Array.h>
 #include <Modloader/app/structs/Marker__Enum.h>
+#include <Modloader/app/structs/Metric__Enum.h>
+#include <Modloader/app/structs/MicroProfiler_MarkerInfo__Array.h>
 #include <Modloader/app/structs/MicroProfiler_MetricStats.h>
+#include <Modloader/app/structs/MicroProfiler_SampleStats.h>
+#include <Modloader/app/structs/MicroProfiler_StatInfo.h>
+#include <Modloader/app/structs/MicroProfiler_StatInfo__Array.h>
+#include <Modloader/app/structs/Stat__Enum.h>
 
 namespace app::classes::MicroProfiler_SampleStats {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::MicroProfiler_MetricStats__Array*, GetMetricStats, (app::MicroProfiler_SampleStats * this_ptr))

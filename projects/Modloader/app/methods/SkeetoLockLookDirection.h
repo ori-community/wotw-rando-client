@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SkeetoLockLookDirection.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SkeetoLockLookDirection.h>
 
 namespace app::classes::SkeetoLockLookDirection {
     IL2CPP_REGISTER_METHOD(0x007586C0, app::Vector3, get_TargetPosition, (app::SkeetoLockLookDirection * this_ptr))

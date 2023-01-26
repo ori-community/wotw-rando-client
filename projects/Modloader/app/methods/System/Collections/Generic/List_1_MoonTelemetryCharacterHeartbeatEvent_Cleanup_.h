@@ -1,31 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
-#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
-#include <Modloader/app/structs/IEnumerable_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
-#include <Modloader/app/structs/IComparer_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
-#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+
+#include <Modloader/app/structs/List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
 #include <Modloader/app/structs/Action_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
-#include <Modloader/app/structs/IEnumerator_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+#include <Modloader/app/structs/IComparer_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+#include <Modloader/app/structs/IEnumerable_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup.h>
+#include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04713C78, List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04765F18, List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025ECB30, void, Add, (app::List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_ * this_ptr, app::MoonTelemetryCharacterHeartbeatEvent_Cleanup item))
-    IL2CPP_REGISTER_METHODINFO(0x04784EC8, List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025ED850, app::List_1_T_Enumerator_MoonTelemetryCharacterHeartbeatEvent_Cleanup_, GetEnumerator, (app::List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04701FF0, List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477DDD0, List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02E0E6F0, void, ctor_3, (app::List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_ * this_ptr, app::IEnumerable_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_ * this_ptr))

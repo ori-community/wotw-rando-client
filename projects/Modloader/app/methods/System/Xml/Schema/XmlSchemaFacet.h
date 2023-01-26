@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSchemaFacet.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/FacetType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaFacet.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaFacet {
     IL2CPP_REGISTER_METHOD(0x002FBB40, app::String*, get_Value, (app::XmlSchemaFacet * this_ptr))

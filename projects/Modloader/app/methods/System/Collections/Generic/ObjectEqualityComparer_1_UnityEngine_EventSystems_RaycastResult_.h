@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_EventSystems_RaycastResult_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/RaycastResult.h>
 #include <Modloader/app/structs/RaycastResult__Array.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_UnityEngine_EventSystems_RaycastResult_ {
     IL2CPP_REGISTER_METHOD(0x02438520, bool, Equals_1, (app::ObjectEqualityComparer_1_UnityEngine_EventSystems_RaycastResult_ * this_ptr, app::RaycastResult x, app::RaycastResult y))

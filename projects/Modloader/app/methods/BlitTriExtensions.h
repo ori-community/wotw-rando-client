@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Material.h>
+
+#include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/CommandBuffer.h>
-#include <Modloader/app/structs/Viewport.h>
-#include <Modloader/app/structs/RenderTargetIdentifier.h>
-#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector4_.h>
 #include <Modloader/app/structs/Nullable_1_UnityEngine_Rect_.h>
 #include <Modloader/app/structs/Nullable_1_UnityEngine_Rendering_RenderTargetIdentifier_.h>
 #include <Modloader/app/structs/Nullable_1_UnityEngine_Vector2_.h>
-#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/RenderTargetIdentifier.h>
 #include <Modloader/app/structs/RenderTargetIdentifier__Array.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Viewport.h>
 
 namespace app::classes::BlitTriExtensions {
     IL2CPP_REGISTER_METHOD(0x00D2B910, app::Material*, get_defaultMaterial, ())

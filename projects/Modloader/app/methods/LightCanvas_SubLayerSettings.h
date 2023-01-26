@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LightCanvas_SubLayerSettings.h>
+
+#include <Modloader/app/structs/LightCanvas_SubLayerSettings.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::LightCanvas_SubLayerSettings {

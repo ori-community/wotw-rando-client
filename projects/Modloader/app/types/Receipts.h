@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Receipts__Class.h>
 #include <Modloader/app/structs/Receipts.h>
 #include <Modloader/app/structs/Receipts__Array.h>
+#include <Modloader/app/structs/Receipts__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Receipts {
-        namespace {
-            inline app::Receipts__Class* type_info_ref = nullptr;
+        inline app::Receipts__Class** type_info() {
+            static app::Receipts__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Receipts__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Receipts__Class** type_info = &type_info_ref;
         inline app::Receipts__Class* get_class() {
-            return il2cpp::get_class<app::Receipts__Class>(type_info, "Microsoft.Applications.Events.DataModels", "Receipts");
+            return il2cpp::get_class<app::Receipts__Class>(type_info(), "Microsoft.Applications.Events.DataModels", "Receipts");
         }
         inline app::Receipts* create() {
             return il2cpp::create_object<app::Receipts>(get_class());

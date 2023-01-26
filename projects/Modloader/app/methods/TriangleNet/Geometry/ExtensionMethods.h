@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMesh.h>
-#include <Modloader/app/structs/IPolygon.h>
+
+#include <Modloader/app/structs/IMesh.h>
 #include <Modloader/app/structs/ConstraintOptions.h>
-#include <Modloader/app/structs/QualityOptions.h>
-#include <Modloader/app/structs/ITriangulator.h>
+#include <Modloader/app/structs/IPolygon.h>
 #include <Modloader/app/structs/ITriangle.h>
+#include <Modloader/app/structs/ITriangulator.h>
 #include <Modloader/app/structs/Point.h>
+#include <Modloader/app/structs/QualityOptions.h>
 #include <Modloader/app/structs/Rectangle.h>
 
 namespace app::classes::TriangleNet::Geometry::ExtensionMethods {

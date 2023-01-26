@@ -1,29 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinSwimming.h>
-#include <Modloader/app/structs/SeinSwimmingPuppet.h>
-#include <Modloader/app/structs/WaterZone.h>
-#include <Modloader/app/structs/SeinDigging.h>
+
+#include <Modloader/app/structs/SeinSwimming.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
-#include <Modloader/app/structs/CharacterPlatformMovement.h>
-#include <Modloader/app/structs/CharacterLeftRightMovement.h>
-#include <Modloader/app/structs/CharacterGravity.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/ActiveAnimationHandle.h>
-#include <Modloader/app/structs/SeinDamageReceiverPuppet.h>
 #include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/SeinSwimming_State__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/MoonControllerColliderHit.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SoundProvider.h>
-#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/CharacterGravity.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/DigZone.h>
 #include <Modloader/app/structs/EffectSpawn.h>
-#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/SeinDamageReceiverPuppet.h>
+#include <Modloader/app/structs/SeinDigging.h>
+#include <Modloader/app/structs/SeinSwimmingPuppet.h>
+#include <Modloader/app/structs/SeinSwimming_State__Enum.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/WaterZone.h>
 
 namespace app::classes::SeinSwimming {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinSwimming * this_ptr))
@@ -102,12 +103,9 @@ namespace app::classes::SeinSwimming {
     IL2CPP_REGISTER_METHOD(0x00A890A0, void, OnDestroy, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A89AE0, void, Serialize, (app::SeinSwimming * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x00A89C20, void, OnRestoreCheckpoint, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047965C8, SeinSwimming_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A89C50, void, DestroySwimDashEffect, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A89D40, void, ModifyHorizontalPlatformMovementSettings, (app::SeinSwimming * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04777A40, SeinSwimming_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A89E50, void, ModifyGravityPlatformMovementSettings, (app::SeinSwimming * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04759408, SeinSwimming_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A89EB0, void, OnEnter, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A89FE0, void, OnExit, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A8A010, void, UpdateCharacterState, (app::SeinSwimming * this_ptr))
@@ -129,9 +127,7 @@ namespace app::classes::SeinSwimming {
     IL2CPP_REGISTER_METHOD(0x00A8DE40, void, VerticalFlip, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A8E0B0, void, HorizontalVerticalFlip, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A8E2F0, void, OnBashBegin, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047533B8, SeinSwimming_OnBashBegin__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A8E540, void, OnBashPerformed, (app::SeinSwimming * this_ptr, app::Vector2 vel))
-    IL2CPP_REGISTER_METHODINFO(0x0470E5C8, SeinSwimming_OnBashPerformed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A8E590, void, OnBash, (app::SeinSwimming * this_ptr, float angle))
     IL2CPP_REGISTER_METHOD(0x00A8E650, void, StartDashing, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A8E8C0, void, EndDash, (app::SeinSwimming * this_ptr))
@@ -146,7 +142,6 @@ namespace app::classes::SeinSwimming {
     IL2CPP_REGISTER_METHOD(0x00A8EFE0, void, OnEnterDashing, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A8F3A0, void, OnExitDashing, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A8F3C0, void, OnMoonControllerCollision, (app::SeinSwimming * this_ptr, app::MoonControllerColliderHit hit))
-    IL2CPP_REGISTER_METHODINFO(0x04747688, SeinSwimming_OnMoonControllerCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A8FF00, void, WallImpact, (app::SeinSwimming * this_ptr, app::Vector3 impact_point, app::Vector3 normal))
     IL2CPP_REGISTER_METHOD(0x00A904B0, void, SurfaceWallImpact, (app::SeinSwimming * this_ptr, app::Vector3 impact_point, app::Vector3 normal))
     IL2CPP_REGISTER_METHOD(0x00A90A60, void, UpdateDashingState, (app::SeinSwimming * this_ptr))
@@ -155,7 +150,6 @@ namespace app::classes::SeinSwimming {
     IL2CPP_REGISTER_METHOD(0x00A92000, void, OnEnterDashingOutOfWater, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A92CB0, float, GetWaterCurrentForceMultiplier, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A92DE0, void, OnRootMotionForWallImpact, (app::SeinSwimming * this_ptr, app::Vector3 root))
-    IL2CPP_REGISTER_METHODINFO(0x0475F6A0, SeinSwimming_OnRootMotionForWallImpact__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A92EE0, void, OnWallImpactAnimationEnded, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A930A0, void, OnRootMotionForExitSand, (app::SeinSwimming * this_ptr, app::Vector3 root))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnExitDashingOutOfWater, (app::SeinSwimming * this_ptr))
@@ -172,22 +166,15 @@ namespace app::classes::SeinSwimming {
     IL2CPP_REGISTER_METHOD(0x00A96690, void, OnExitWallImpact, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A968E0, void, UpdateWallImpactState, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A96CB0, void, OnWallImpactCancellationWindowStarted, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04759E40, SeinSwimming_OnWallImpactCancellationWindowStarted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A96DE0, void, OnWallImpactCancellationWindowEnded, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474A5F8, SeinSwimming_OnWallImpactCancellationWindowEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A96DF0, void, OnWallImpactTimelineEnded, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04768590, SeinSwimming_OnWallImpactTimelineEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A97020, void, OnEnterSurfaceWallImpact, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A97630, void, OnExitSurfaceWallImpact, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A97880, void, UpdateSurfaceWallImpactState, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A97C40, void, OnSurfaceWallImpactCancellationWindowStarted, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047422E8, SeinSwimming_OnSurfaceWallImpactCancellationWindowStarted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A97C50, void, OnSurfaceWallImpactCancellationWindowEnded, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04713610, SeinSwimming_OnSurfaceWallImpactCancellationWindowEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A97C60, void, OnSurfaceWallImpactTimelineEnded, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04745D00, SeinSwimming_OnSurfaceWallImpactTimelineEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A97C70, void, OnRootMotionForSurfaceWallImpact, (app::SeinSwimming * this_ptr, app::Vector3 root))
-    IL2CPP_REGISTER_METHODINFO(0x04752CE0, SeinSwimming_OnRootMotionForSurfaceWallImpact__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A97D70, void, OnEnterSurfaceDash, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A98460, void, OnExitSurfaceDash, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A984D0, void, UpdateSurfaceDashState, (app::SeinSwimming * this_ptr))
@@ -196,25 +183,18 @@ namespace app::classes::SeinSwimming {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnExitDashIntoWater, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A99360, void, UpdateDashIntoWaterState, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A9A170, void, OnSurfaceDashStartAnimationEnded, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04712F00, SeinSwimming_OnSurfaceDashStartAnimationEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnSurfaceDashEndAnimationEnded, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A9A380, bool, CanJump, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A9A3A0, app::Vector2, ComputeIntersectionWithWaterSurface, (app::SeinSwimming * this_ptr, app::Vector3 p0, app::Vector3 p1, app::WaterZone* zone))
     IL2CPP_REGISTER_METHOD(0x00A9A590, void, SurfaceSwimJump, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A9A990, float, ComputeDashIntoWaterMaxDistance, (app::SeinSwimming * this_ptr, app::Vector2 input_axis))
     IL2CPP_REGISTER_METHOD(0x00706210, bool, ShouldSwimUnderwaterAnimationPlay, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470FB08, SeinSwimming_ShouldSwimUnderwaterAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A9AA40, bool, ShouldIdleUnderwaterAnimationPlay, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475DCC8, SeinSwimming_ShouldIdleUnderwaterAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A9AA50, bool, ShouldSwimSurfaceAnimationPlay, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477FB00, SeinSwimming_ShouldSwimSurfaceAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A9AA60, bool, ShouldJumpOutOfWaterAnimationIdleKeepPlaying, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04770498, SeinSwimming_ShouldJumpOutOfWaterAnimationIdleKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A9AC10, bool, ShouldJumpOutOfWaterAnimationMovingKeepPlaying, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477CE90, SeinSwimming_ShouldJumpOutOfWaterAnimationMovingKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A9ADC0, bool, CanGlow, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A9ADE0, void, OnQuickGlowStarted, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04789E60, SeinSwimming_OnQuickGlowStarted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A9AF50, void, SetShouldStartDigDashing, (app::SeinSwimming * this_ptr, app::DigZone* zone, app::Vector3 adjusted_dig_direction))
     IL2CPP_REGISTER_METHOD(0x00A9B2E0, void, OnEnterDigging, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnExitDigging, (app::SeinSwimming * this_ptr))
@@ -230,15 +210,9 @@ namespace app::classes::SeinSwimming {
     IL2CPP_REGISTER_METHOD(0x00A9BE70, void, ctor, (app::SeinSwimming * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A9C400, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x00A84C50, bool, _StartDashing_b__300_0, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476B7B0, SeinSwimming__StartDashing_b__300_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A9C480, app::EffectSpawn, _UpdateDashDamage_b__317_0, (app::SeinSwimming * this_ptr, app::DamageResult result))
-    IL2CPP_REGISTER_METHODINFO(0x04701C18, SeinSwimming__UpdateDashDamage_b__317_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070CE70, bool, _OnEnterDashingOutOfWater_b__318_0, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474AA00, SeinSwimming__OnEnterDashingOutOfWater_b__318_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A84C60, bool, _OnEnterSurfaceDash_b__346_0, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047956B0, SeinSwimming__OnEnterSurfaceDash_b__346_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A84C70, bool, _OnEnterDashIntoWater_b__350_0, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04779800, SeinSwimming__OnEnterDashIntoWater_b__350_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A84C60, bool, _OnSurfaceDashStartAnimationEnded_b__353_0, (app::SeinSwimming * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04795178, SeinSwimming__OnSurfaceDashStartAnimationEnded_b__353_0__MethodInfo)
 } // namespace app::classes::SeinSwimming

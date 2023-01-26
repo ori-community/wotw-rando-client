@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnvoyInfo.h>
+
+#include <Modloader/app/structs/EnvoyInfo.h>
 #include <Modloader/app/structs/IMessageSink.h>
 
 namespace app::classes::System::Runtime::Remoting::EnvoyInfo {

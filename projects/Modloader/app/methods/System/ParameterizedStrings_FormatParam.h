@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ParameterizedStrings_FormatParam__Boxed.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ParameterizedStrings_FormatParam.h>
+
+#include <Modloader/app/structs/ParameterizedStrings_FormatParam__Boxed.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ParameterizedStrings_FormatParam.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ParameterizedStrings_FormatParam {
     IL2CPP_REGISTER_METHOD(0x001E1180, void, ctor_1, (app::ParameterizedStrings_FormatParam__Boxed * this_ptr, int32_t value))

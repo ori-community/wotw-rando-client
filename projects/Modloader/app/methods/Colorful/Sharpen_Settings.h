@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Sharpen_Settings.h>
+
+#include <Modloader/app/structs/Sharpen_Settings.h>
 
 namespace app::classes::Colorful::Sharpen_Settings {
     IL2CPP_REGISTER_METHOD(0x03053090, app::Sharpen_Settings, get_defaultSettings, ())

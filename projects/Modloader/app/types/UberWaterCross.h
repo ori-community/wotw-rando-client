@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UberWaterCross__Class.h>
 #include <Modloader/app/structs/UberWaterCross.h>
 #include <Modloader/app/structs/UberWaterCross__Array.h>
+#include <Modloader/app/structs/UberWaterCross__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace UberWaterCross {
-        inline app::UberWaterCross__Class** type_info = (app::UberWaterCross__Class**)(modloader::win::memory::resolve_rva(0x04760690));
+        inline app::UberWaterCross__Class** type_info() {
+            static app::UberWaterCross__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::UberWaterCross__Class**)(modloader::win::memory::resolve_rva(0x04760690));
+            }
+            return cache;
+        }
         inline app::UberWaterCross__Class* get_class() {
-            return il2cpp::get_class<app::UberWaterCross__Class>(type_info, "", "UberWaterCross");
+            return il2cpp::get_class<app::UberWaterCross__Class>(type_info(), "", "UberWaterCross");
         }
         inline app::UberWaterCross* create() {
             return il2cpp::create_object<app::UberWaterCross>(get_class());

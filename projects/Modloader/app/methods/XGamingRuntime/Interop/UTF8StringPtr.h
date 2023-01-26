@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UTF8StringPtr__Boxed.h>
 
 namespace app::classes::XGamingRuntime::Interop::UTF8StringPtr {

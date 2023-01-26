@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CompositeTask.h>
+
+#include <Modloader/app/structs/CompositeTask.h>
 #include <Modloader/app/structs/IOptimizationTask.h>
 
 namespace app::classes::Moon::ArtOptimization::CompositeTask {

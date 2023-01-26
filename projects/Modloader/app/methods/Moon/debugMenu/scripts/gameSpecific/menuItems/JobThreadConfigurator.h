@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JobThreadConfigurator_SaveIOThreadingMode__Enum.h>
+
+#include <Modloader/app/structs/JobThreadConfigurator_SaveIOThreadingMode__Enum.h>
+#include <Modloader/app/structs/JobThreadConfigurator.h>
+#include <Modloader/app/structs/JobThreadConfigurator_PreloadManagerThreadingMode__Enum.h>
 #include <Modloader/app/structs/JobThreadConfigurator_ThreadingMode__Enum.h>
 #include <Modloader/app/structs/ThreadPriority__Enum_1.h>
-#include <Modloader/app/structs/JobThreadConfigurator_PreloadManagerThreadingMode__Enum.h>
-#include <Modloader/app/structs/JobThreadConfigurator.h>
 
 namespace app::classes::Moon::debugMenu::scripts::gameSpecific::menuItems::JobThreadConfigurator {
     IL2CPP_REGISTER_METHOD(0x00F2BFB0, app::JobThreadConfigurator_SaveIOThreadingMode__Enum, get_SaveIOThreadMode, ())

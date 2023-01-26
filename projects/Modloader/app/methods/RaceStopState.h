@@ -1,14 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaceStopState.h>
-#include <Modloader/app/structs/RaceSystem.h>
+
+#include <Modloader/app/structs/RaceStopState.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/RaceConfiguration.h>
+#include <Modloader/app/structs/RaceSystem.h>
 
 namespace app::classes::RaceStopState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::RaceStopState * this_ptr, app::RaceSystem* race_system))
     IL2CPP_REGISTER_METHOD(0x0071BC20, void, OnEnter, (app::RaceStopState * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475D140, RaceStopState_OnEnter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0071C190, void, OnPlayerArrivedUpdate, (app::RaceStopState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0071C670, void, OnPlayerInterruptedUpdate, (app::RaceStopState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0071C980, void, LogException, (app::RaceStopState * this_ptr, app::Exception* ex))

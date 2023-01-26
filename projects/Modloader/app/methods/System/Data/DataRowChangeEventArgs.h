@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataRowChangeEventArgs.h>
+
+#include <Modloader/app/structs/DataRowChangeEventArgs.h>
 #include <Modloader/app/structs/DataRow.h>
 #include <Modloader/app/structs/DataRowAction__Enum.h>
 

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/PointerUIBase_PointerState.h>
 #include <Modloader/app/structs/PointerUIBase_PointerState__Array.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_ {
     IL2CPP_REGISTER_METHOD(0x0243A6F0, bool, Equals_1, (app::ObjectEqualityComparer_1_ZenFulcrum_EmbeddedBrowser_PointerUIBase_PointerState_ * this_ptr, app::PointerUIBase_PointerState x, app::PointerUIBase_PointerState y))

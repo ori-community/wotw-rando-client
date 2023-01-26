@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AimBoxing.h>
+
+#include <Modloader/app/structs/AimBoxing.h>
 
 namespace app::classes::RootMotion::Demos::AimBoxing {
     IL2CPP_REGISTER_METHOD(0x02208410, void, LateUpdate, (app::AimBoxing * this_ptr))

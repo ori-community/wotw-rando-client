@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterGravityToGround.h>
+
+#include <Modloader/app/structs/CharacterGravityToGround.h>
 #include <Modloader/app/structs/CharacterGravity.h>
 #include <Modloader/app/structs/PlatformMovement.h>
 

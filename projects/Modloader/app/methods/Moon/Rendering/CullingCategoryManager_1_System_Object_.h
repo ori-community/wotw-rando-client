@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/CullingCategoryManager_1_System_Object_.h>
-#include <Modloader/app/structs/CullingCategory__Enum.h>
-#include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/CullingCategoryManager_1_System_Object_.h>
 #include <Modloader/app/structs/CullingCategoryManager_1_T_Enumerator_System_Object_.h>
+#include <Modloader/app/structs/CullingCategory__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Renderer.h>
 #include <Modloader/app/structs/RendererCullingCategoryResults.h>
 
 namespace app::classes::Moon::Rendering::CullingCategoryManager_1_System_Object_ {

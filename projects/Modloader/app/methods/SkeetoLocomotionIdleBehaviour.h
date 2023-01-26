@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkeetoLocomotionIdleBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/SkeetoLocomotionIdleBehaviour_State__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/SkeetoLocomotionIdleBehaviour.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SkeetoLocomotionIdleBehaviour_State__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::SkeetoLocomotionIdleBehaviour {
     IL2CPP_REGISTER_METHOD(0x00758D90, bool, get_IsTurning, (app::SkeetoLocomotionIdleBehaviour * this_ptr))
@@ -23,10 +24,8 @@ namespace app::classes::SkeetoLocomotionIdleBehaviour {
     IL2CPP_REGISTER_METHOD(0x007599E0, void, PlayTimeline, (app::SkeetoLocomotionIdleBehaviour * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop))
     IL2CPP_REGISTER_METHOD(0x00759B20, void, ResetTimeline, (app::SkeetoLocomotionIdleBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00759C10, void, FlipTransform, (app::SkeetoLocomotionIdleBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047780F8, SkeetoLocomotionIdleBehaviour_FlipTransform__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00759C60, void, Unset, (app::SkeetoLocomotionIdleBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00759F20, void, UpdateYDirAnimationParameter, (app::SkeetoLocomotionIdleBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00759F80, void, ctor, (app::SkeetoLocomotionIdleBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00759FB0, void, _OnFlipEnter_b__26_0, (app::SkeetoLocomotionIdleBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04769C38, SkeetoLocomotionIdleBehaviour__OnFlipEnter_b__26_0__MethodInfo)
 } // namespace app::classes::SkeetoLocomotionIdleBehaviour

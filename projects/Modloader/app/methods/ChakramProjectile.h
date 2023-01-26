@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ChakramProjectile.h>
-#include <Modloader/app/structs/SeinChakramSpell.h>
+
+#include <Modloader/app/structs/ChakramProjectile.h>
 #include <Modloader/app/structs/ChakramProjectile_ChakramState__Enum.h>
+#include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageOwner.h>
 #include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/IBowAttackable.h>
 #include <Modloader/app/structs/Projectile_ExplodeCollisionInfo.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/SeinChakramSpell.h>
 #include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
-#include <Modloader/app/structs/DamageOwner.h>
-#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ChakramProjectile {
     IL2CPP_REGISTER_METHOD(0x0103CD30, void, Awake, (app::ChakramProjectile * this_ptr))

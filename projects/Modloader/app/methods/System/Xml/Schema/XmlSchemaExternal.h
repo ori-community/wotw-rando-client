@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSchemaExternal.h>
-#include <Modloader/app/structs/XmlSchema.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Compositor__Enum.h>
 #include <Modloader/app/structs/Uri.h>
 #include <Modloader/app/structs/XmlAttribute__Array.h>
-#include <Modloader/app/structs/Compositor__Enum.h>
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlSchemaExternal.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaExternal {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::String*, get_SchemaLocation, (app::XmlSchemaExternal * this_ptr))

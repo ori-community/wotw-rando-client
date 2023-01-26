@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberWaterReflectionView_PlaneData__Boxed.h>
+
+#include <Modloader/app/structs/UberWaterReflectionView_PlaneData__Boxed.h>
 #include <Modloader/app/structs/UberWaterReflectionPlane.h>
 
 namespace app::classes::UberWaterReflectionView_PlaneData {

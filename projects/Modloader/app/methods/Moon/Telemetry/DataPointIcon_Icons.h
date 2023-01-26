@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Texture2D.h>
+
+#include <Modloader/app/structs/Texture2D.h>
 #include <Modloader/app/structs/DataPointType__Enum.h>
 
 namespace app::classes::Moon::Telemetry::DataPointIcon_Icons {

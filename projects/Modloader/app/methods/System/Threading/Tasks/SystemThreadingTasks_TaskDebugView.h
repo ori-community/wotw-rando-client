@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SystemThreadingTasks_TaskDebugView.h>
-#include <Modloader/app/structs/Task.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/TaskCreationOptions__Enum.h>
+
+#include <Modloader/app/structs/SystemThreadingTasks_TaskDebugView.h>
 #include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Task.h>
+#include <Modloader/app/structs/TaskCreationOptions__Enum.h>
 #include <Modloader/app/structs/TaskStatus__Enum.h>
 
 namespace app::classes::System::Threading::Tasks::SystemThreadingTasks_TaskDebugView {

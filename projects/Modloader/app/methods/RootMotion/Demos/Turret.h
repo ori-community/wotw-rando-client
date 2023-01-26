@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Turret.h>
+
+#include <Modloader/app/structs/Turret.h>
 
 namespace app::classes::RootMotion::Demos::Turret {
     IL2CPP_REGISTER_METHOD(0x02049F90, void, Update, (app::Turret * this_ptr))

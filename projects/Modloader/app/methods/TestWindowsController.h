@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TestWindowsController.h>
+
+#include <Modloader/app/structs/TestWindowsController.h>
 
 namespace app::classes::TestWindowsController {
     IL2CPP_REGISTER_METHOD(0x010E2930, void, Start, (app::TestWindowsController * this_ptr))

@@ -13,7 +13,7 @@ struct NtlmClient_c__StaticFields {
 #endif
 #if !defined(IL2CPP_STRUCT_NtlmClient_c__StaticFields_FWDDECL)
 #define IL2CPP_STRUCT_NtlmClient_c__StaticFields_FWDDECL
-#include <Modloader/app/structs/ConditionalWeakTable_2_TKey_TValue_CreateValueCallback_System_Net_HttpWebRequest_Mono_Http_NtlmSession_.h>
+#include <Modloader/app/structs/ConditionalWeakTable_2_TKe_TValu_CreateValueCallbac_Syste_Ne_HttpWebReque_Mo_Ht_NtlmSessi_.h>
 #include <Modloader/app/structs/NtlmClient_c.h>
 #endif
 #undef IL2CPP_STRUCT_NtlmClient_c__StaticFields_INITIALIZING

@@ -1,22 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimelineEntity.h>
-#include <Modloader/app/structs/PlaybackStatus.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/TimelineEntity.h>
 #include <Modloader/app/structs/AnimatorPlayState__Enum.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
-#include <Modloader/app/structs/UpdateCategory__Enum.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/TimelineEntityRecord.h>
 #include <Modloader/app/structs/Constraint__Enum.h>
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/FixedDurationSceneEntity_Markers__Enum.h>
+#include <Modloader/app/structs/GennadiysDice_DiceEvents__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/IEventReciever.h>
 #include <Modloader/app/structs/ITimelineEntityParent.h>
-#include <Modloader/app/structs/EntityId.h>
-#include <Modloader/app/structs/GennadiysDice_DiceEvents__Enum.h>
-#include <Modloader/app/structs/FixedDurationSceneEntity_Markers__Enum.h>
 #include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/PlaybackStatus.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/TimelineEntityRecord.h>
+#include <Modloader/app/structs/UpdateCategory__Enum.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::Timeline::TimelineEntity {
     IL2CPP_REGISTER_METHOD(0x01E85270, bool, get_IsReadOnly, (app::TimelineEntity * this_ptr))
@@ -72,8 +73,6 @@ namespace app::classes::Moon::Timeline::TimelineEntity {
     IL2CPP_REGISTER_METHOD(0x01E85EC0, void, ctor, (app::TimelineEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01552AE0, void, PostEvent_3, (app::TimelineEntity * this_ptr, app::GennadiysDice_DiceEvents__Enum evt))
-    IL2CPP_REGISTER_METHODINFO(0x047143C8, TimelineEntity_PostEvent_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01552AE0, void, PostEvent_4, (app::TimelineEntity * this_ptr, app::FixedDurationSceneEntity_Markers__Enum evt))
-    IL2CPP_REGISTER_METHODINFO(0x04765A18, TimelineEntity_PostEvent_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01552AE0, void, PostEvent_5, (app::TimelineEntity * this_ptr, app::Int32Enum__Enum evt))
 } // namespace app::classes::Moon::Timeline::TimelineEntity

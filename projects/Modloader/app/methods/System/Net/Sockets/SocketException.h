@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SocketException.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SocketError__Enum.h>
+
+#include <Modloader/app/structs/SocketException.h>
 #include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/SocketError__Enum.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::Sockets::SocketException {
     IL2CPP_REGISTER_METHOD(0x020A2700, int32_t, WSAGetLastError_internal, ())

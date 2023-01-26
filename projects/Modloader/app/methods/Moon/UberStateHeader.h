@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType_.h>
-#include <Modloader/app/structs/UberStateArchive.h>
+
+#include <Modloader/app/structs/ValueTuple_2_Moon_UberID_Moon_UberStateHeader_UberStateType_.h>
 #include <Modloader/app/structs/UberID.h>
+#include <Modloader/app/structs/UberStateArchive.h>
 #include <Modloader/app/structs/UberStateHeader_UberStateType__Enum.h>
 
 namespace app::classes::Moon::UberStateHeader {

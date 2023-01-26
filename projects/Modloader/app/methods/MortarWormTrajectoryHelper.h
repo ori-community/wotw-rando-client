@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MortarWormTrajectoryHelper.h>
+
+#include <Modloader/app/structs/MortarWormTrajectoryHelper.h>
 #include <Modloader/app/structs/MortarWormEnemy.h>
 
 namespace app::classes::MortarWormTrajectoryHelper {

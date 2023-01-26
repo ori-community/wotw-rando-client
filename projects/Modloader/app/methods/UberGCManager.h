@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UberGCLogic_CleanupOutsideOfGameplayTrigger__Enum.h>
 #include <Modloader/app/structs/UberGCLogic_CleanupTrigger__Enum.h>
 
@@ -35,7 +36,6 @@ namespace app::classes::UberGCManager {
     IL2CPP_REGISTER_METHOD(0x013EC6A0, bool, CollectResourcesIfOutOfMem, (bool allow_ignore_timeout, float override_threshold, app::UberGCLogic_CleanupTrigger__Enum trigger))
     IL2CPP_REGISTER_METHOD(0x013EC7B0, bool, RunGcIfHeapUsageIsBig, (app::UberGCLogic_CleanupTrigger__Enum trigger))
     IL2CPP_REGISTER_METHOD(0x013EC8C0, void, Update, ())
-    IL2CPP_REGISTER_METHODINFO(0x04726048, UberGCManager_Update__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x013ED9C0, float, get_LastPanicTime, ())
     IL2CPP_REGISTER_METHOD(0x013EDA70, void, set_LastPanicTime, (float value))
     IL2CPP_REGISTER_METHOD(0x013EDB20, void, UpdateLastPanicTime, ())

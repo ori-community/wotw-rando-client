@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
 #include <Modloader/app/structs/GiantSlugHitReactionBehaviour.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
-#include <Modloader/app/structs/EntityEvent.h>
-#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::GiantSlugHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x006A63A0, app::EntityDamageEvent*, get_DamageEvent, (app::GiantSlugHitReactionBehaviour * this_ptr))
@@ -25,6 +26,5 @@ namespace app::classes::GiantSlugHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::GiantSlugHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007F3D50, bool, PlayedAdditiveAnim, (app::GiantSlugHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00757DD0, void, TimelineFinished, (app::GiantSlugHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475B750, GiantSlugHitReactionBehaviour_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007F3E60, void, ctor, (app::GiantSlugHitReactionBehaviour * this_ptr))
 } // namespace app::classes::GiantSlugHitReactionBehaviour

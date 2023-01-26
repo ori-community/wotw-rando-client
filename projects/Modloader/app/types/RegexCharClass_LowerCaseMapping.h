@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/RegexCharClass_LowerCaseMapping.h>
+#include <Modloader/app/structs/RegexCharClass_LowerCaseMapping__Array.h>
+#include <Modloader/app/structs/RegexCharClass_LowerCaseMapping__Boxed.h>
+#include <Modloader/app/structs/RegexCharClass_LowerCaseMapping__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RegexCharClass_LowerCaseMapping__Class.h>
-#include <Modloader/app/structs/RegexCharClass_LowerCaseMapping.h>
-#include <Modloader/app/structs/RegexCharClass_LowerCaseMapping__Boxed.h>
-#include <Modloader/app/structs/RegexCharClass_LowerCaseMapping__Array.h>
 
 namespace app::classes::types {
     namespace RegexCharClass_LowerCaseMapping {
-        namespace {
-            inline app::RegexCharClass_LowerCaseMapping__Class* type_info_ref = nullptr;
+        inline app::RegexCharClass_LowerCaseMapping__Class** type_info() {
+            static app::RegexCharClass_LowerCaseMapping__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::RegexCharClass_LowerCaseMapping__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::RegexCharClass_LowerCaseMapping__Class** type_info = &type_info_ref;
         inline app::RegexCharClass_LowerCaseMapping__Class* get_class() {
-            return il2cpp::get_nested_class<app::RegexCharClass_LowerCaseMapping__Class>(type_info, "System.Text.RegularExpressions", "RegexCharClass", "LowerCaseMapping");
+            return il2cpp::get_nested_class<app::RegexCharClass_LowerCaseMapping__Class>(type_info(), "System.Text.RegularExpressions", "RegexCharClass", "LowerCaseMapping");
         }
         inline app::RegexCharClass_LowerCaseMapping* create() {
             return il2cpp::create_object<app::RegexCharClass_LowerCaseMapping>(get_class());

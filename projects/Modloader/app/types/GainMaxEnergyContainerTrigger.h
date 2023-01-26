@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/GainMaxEnergyContainerTrigger.h>
+#include <Modloader/app/structs/GainMaxEnergyContainerTrigger__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GainMaxEnergyContainerTrigger__Class.h>
-#include <Modloader/app/structs/GainMaxEnergyContainerTrigger.h>
 
 namespace app::classes::types {
     namespace GainMaxEnergyContainerTrigger {
-        namespace {
-            inline app::GainMaxEnergyContainerTrigger__Class* type_info_ref = nullptr;
+        inline app::GainMaxEnergyContainerTrigger__Class** type_info() {
+            static app::GainMaxEnergyContainerTrigger__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GainMaxEnergyContainerTrigger__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GainMaxEnergyContainerTrigger__Class** type_info = &type_info_ref;
         inline app::GainMaxEnergyContainerTrigger__Class* get_class() {
-            return il2cpp::get_class<app::GainMaxEnergyContainerTrigger__Class>(type_info, "", "GainMaxEnergyContainerTrigger");
+            return il2cpp::get_class<app::GainMaxEnergyContainerTrigger__Class>(type_info(), "", "GainMaxEnergyContainerTrigger");
         }
         inline app::GainMaxEnergyContainerTrigger* create() {
             return il2cpp::create_object<app::GainMaxEnergyContainerTrigger>(get_class());

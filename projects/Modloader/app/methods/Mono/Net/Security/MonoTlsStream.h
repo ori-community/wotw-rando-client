@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HttpWebRequest.h>
+
+#include <Modloader/app/structs/HttpWebRequest.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/MonoTlsStream.h>
-#include <Modloader/app/structs/WebExceptionStatus__Enum.h>
 #include <Modloader/app/structs/NetworkStream.h>
 #include <Modloader/app/structs/Stream.h>
-#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/WebExceptionStatus__Enum.h>
 
 namespace app::classes::Mono::Net::Security::MonoTlsStream {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::HttpWebRequest*, get_Request, (app::MonoTlsStream * this_ptr))
@@ -14,5 +15,4 @@ namespace app::classes::Mono::Net::Security::MonoTlsStream {
     IL2CPP_REGISTER_METHOD(0x004E5A10, void, set_CertificateValidationFailed, (app::MonoTlsStream * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x02184DA0, void, ctor, (app::MonoTlsStream * this_ptr, app::HttpWebRequest* request, app::NetworkStream* network_stream))
     IL2CPP_REGISTER_METHOD(0x02184EA0, app::Stream*, CreateStream, (app::MonoTlsStream * this_ptr, app::Byte__Array* buffer))
-    IL2CPP_REGISTER_METHODINFO(0x04781F30, MonoTlsStream_CreateStream__MethodInfo)
 } // namespace app::classes::Mono::Net::Security::MonoTlsStream

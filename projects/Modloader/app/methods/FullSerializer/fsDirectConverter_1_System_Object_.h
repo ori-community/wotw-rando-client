@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/fsDirectConverter_1_System_Object_.h>
-#include <Modloader/app/structs/fsResult.h>
+
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/fsData.h>
+#include <Modloader/app/structs/fsDirectConverter_1_System_Object_.h>
+#include <Modloader/app/structs/fsResult.h>
 
 namespace app::classes::FullSerializer::fsDirectConverter_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x019E6080, app::Type*, get_ModelType, (app::fsDirectConverter_1_System_Object_ * this_ptr))

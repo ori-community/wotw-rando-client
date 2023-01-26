@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonMath_VerletDynamicsValue.h>
+
+#include <Modloader/app/structs/MoonMath_VerletDynamicsValue.h>
 
 namespace app::classes::MoonMath_VerletDynamicsValue {
     IL2CPP_REGISTER_METHOD(0x0257AAB0, void, ctor, (app::MoonMath_VerletDynamicsValue * this_ptr, float X, float K, float friction, float max_speed, float min_x, float max_x))

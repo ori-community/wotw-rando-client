@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ContrastSettings.h>
+
+#include <Modloader/app/structs/ContrastSettings.h>
 
 namespace app::classes::ContrastSettings {
     IL2CPP_REGISTER_METHOD(0x00863E90, float, get_DebugOverrideContrast, (app::ContrastSettings * this_ptr))

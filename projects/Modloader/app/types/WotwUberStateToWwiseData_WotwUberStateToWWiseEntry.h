@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/WotwUberStateToWwiseData_WotwUberStateToWWiseEntry__Class.h>
 #include <Modloader/app/structs/WotwUberStateToWwiseData_WotwUberStateToWWiseEntry.h>
 #include <Modloader/app/structs/WotwUberStateToWwiseData_WotwUberStateToWWiseEntry__Array.h>
+#include <Modloader/app/structs/WotwUberStateToWwiseData_WotwUberStateToWWiseEntry__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace WotwUberStateToWwiseData_WotwUberStateToWWiseEntry {
-        inline app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry__Class** type_info = (app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry__Class**)(modloader::win::memory::resolve_rva(0x04750B60));
+        inline app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry__Class** type_info() {
+            static app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry__Class**)(modloader::win::memory::resolve_rva(0x04750B60));
+            }
+            return cache;
+        }
         inline app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry__Class* get_class() {
-            return il2cpp::get_nested_class<app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry__Class>(type_info, "", "WotwUberStateToWwiseData", "WotwUberStateToWWiseEntry");
+            return il2cpp::get_nested_class<app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry__Class>(type_info(), "", "WotwUberStateToWwiseData", "WotwUberStateToWWiseEntry");
         }
         inline app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry* create() {
             return il2cpp::create_object<app::WotwUberStateToWwiseData_WotwUberStateToWWiseEntry>(get_class());

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PhysicsCage.h>
-#include <Modloader/app/structs/ConfigurableJoint.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/PhysicsCage.h>
 #include <Modloader/app/structs/AttachJointSettings.h>
-#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/ConfigurableJoint.h>
 #include <Modloader/app/structs/IPhysicsAttachable.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PhysicsCage {
     IL2CPP_REGISTER_METHOD(0x013C9650, bool, get_IsSuspended, (app::PhysicsCage * this_ptr))

@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ParameterInfo_1.h>
+
+#include <Modloader/app/structs/ParameterInfo_1.h>
+#include <Modloader/app/structs/CallingConventions__Enum.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/ParameterAttributes__Enum.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/StreamingContext.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/StringBuilder.h>
-#include <Modloader/app/structs/ParameterInfo_1__Array.h>
-#include <Modloader/app/structs/CallingConventions__Enum.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/ParameterAttributes__Enum.h>
-#include <Modloader/app/structs/MemberInfo_1.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::System::Reflection::ParameterInfo {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ParameterInfo_1 * this_ptr))
@@ -28,11 +29,9 @@ namespace app::classes::System::Reflection::ParameterInfo {
     IL2CPP_REGISTER_METHOD(0x02694BE0, app::Object__Array*, GetPseudoCustomAttributes, (app::ParameterInfo_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, GetDefaultValueImpl, (app::ParameterInfo_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02695210, app::Object*, get_DefaultValue, (app::ParameterInfo_1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04781B48, ParameterInfo_1_get_DefaultValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02695260, app::Object__Array*, GetCustomAttributes_1, (app::ParameterInfo_1 * this_ptr, bool inherit))
     IL2CPP_REGISTER_METHOD(0x026952E0, app::Object__Array*, GetCustomAttributes_2, (app::ParameterInfo_1 * this_ptr, app::Type* attribute_type, bool inherit))
     IL2CPP_REGISTER_METHOD(0x02695360, app::Object*, GetRealObject, (app::ParameterInfo_1 * this_ptr, app::StreamingContext context))
-    IL2CPP_REGISTER_METHODINFO(0x047240F0, ParameterInfo_1_GetRealObject__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsDefined, (app::ParameterInfo_1 * this_ptr, app::Type* attribute_type, bool inherit))
     IL2CPP_REGISTER_METHOD(0x026953B0, app::ParameterInfo_1*, New, (app::ParameterInfo_1 * pinfo, app::MemberInfo_1* member))
 } // namespace app::classes::System::Reflection::ParameterInfo

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AcidSlugState.h>
+
+#include <Modloader/app/structs/AcidSlugState.h>
 #include <Modloader/app/structs/AcidSlugEnemy.h>
 
 namespace app::classes::AcidSlugState {

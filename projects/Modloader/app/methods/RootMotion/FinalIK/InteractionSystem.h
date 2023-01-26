@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InteractionSystem.h>
-#include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
-#include <Modloader/app/structs/InteractionObject.h>
-#include <Modloader/app/structs/InteractionTarget.h>
-#include <Modloader/app/structs/InteractionTrigger_Range.h>
-#include <Modloader/app/structs/InteractionObject__Array.h>
-#include <Modloader/app/structs/InteractionTarget__Array.h>
-#include <Modloader/app/structs/FullBodyBipedIK.h>
-#include <Modloader/app/structs/List_1_RootMotion_FinalIK_InteractionTrigger_.h>
+
+#include <Modloader/app/structs/InteractionSystem.h>
 #include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/FullBodyBipedEffector__Enum.h>
+#include <Modloader/app/structs/FullBodyBipedIK.h>
+#include <Modloader/app/structs/InteractionObject.h>
+#include <Modloader/app/structs/InteractionObject__Array.h>
+#include <Modloader/app/structs/InteractionTarget.h>
+#include <Modloader/app/structs/InteractionTarget__Array.h>
+#include <Modloader/app/structs/InteractionTrigger_Range.h>
+#include <Modloader/app/structs/List_1_RootMotion_FinalIK_InteractionTrigger_.h>
 
 namespace app::classes::RootMotion::FinalIK::InteractionSystem {
     IL2CPP_REGISTER_METHOD(0x02A0E140, void, OpenTutorial1, (app::InteractionSystem * this_ptr))
@@ -49,13 +50,9 @@ namespace app::classes::RootMotion::FinalIK::InteractionSystem {
     IL2CPP_REGISTER_METHOD(0x002FBB90, void, set_triggersInRange, (app::InteractionSystem * this_ptr, app::List_1_RootMotion_FinalIK_InteractionTrigger_* value))
     IL2CPP_REGISTER_METHOD(0x02A10CC0, void, Start, (app::InteractionSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A11740, void, InteractionPause, (app::InteractionSystem * this_ptr, app::FullBodyBipedEffector__Enum effector, app::InteractionObject* interaction_object))
-    IL2CPP_REGISTER_METHODINFO(0x04702378, InteractionSystem_InteractionPause__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02A11760, void, InteractionResume, (app::InteractionSystem * this_ptr, app::FullBodyBipedEffector__Enum effector, app::InteractionObject* interaction_object))
-    IL2CPP_REGISTER_METHODINFO(0x04767150, InteractionSystem_InteractionResume__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02A11760, void, InteractionStop, (app::InteractionSystem * this_ptr, app::FullBodyBipedEffector__Enum effector, app::InteractionObject* interaction_object))
-    IL2CPP_REGISTER_METHODINFO(0x0472DB60, InteractionSystem_InteractionStop__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02A11780, void, LookAtInteraction, (app::InteractionSystem * this_ptr, app::FullBodyBipedEffector__Enum effector, app::InteractionObject* interaction_object))
-    IL2CPP_REGISTER_METHODINFO(0x0475C678, InteractionSystem_LookAtInteraction__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02A118D0, void, OnTriggerEnter, (app::InteractionSystem * this_ptr, app::Collider* c))
     IL2CPP_REGISTER_METHOD(0x02A119F0, void, OnTriggerExit, (app::InteractionSystem * this_ptr, app::Collider* c))
     IL2CPP_REGISTER_METHOD(0x02A11AF0, bool, ContactIsInRange, (app::InteractionSystem * this_ptr, int32_t index, int32_t* best_range_index))
@@ -65,9 +62,7 @@ namespace app::classes::RootMotion::FinalIK::InteractionSystem {
     IL2CPP_REGISTER_METHOD(0x02A12430, void, UpdateTriggerEventBroadcasting, (app::InteractionSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A12750, void, LateUpdate, (app::InteractionSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A12970, void, OnPreFBBIK, (app::InteractionSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04756820, InteractionSystem_OnPreFBBIK__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02A12A80, void, OnPostFBBIK, (app::InteractionSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047781C0, InteractionSystem_OnPostFBBIK__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02A12C10, void, OnDestroy, (app::InteractionSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A133A0, bool, IsValid, (app::InteractionSystem * this_ptr, bool log))
     IL2CPP_REGISTER_METHOD(0x02A134C0, bool, TriggerIndexIsValid, (app::InteractionSystem * this_ptr, int32_t index))

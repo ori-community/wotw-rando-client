@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Int2__Boxed.h>
+
+#include <Modloader/app/structs/Int2__Boxed.h>
 #include <Modloader/app/structs/Int2.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Swing::Int2 {
     IL2CPP_REGISTER_METHOD(0x00115520, void, ctor, (app::Int2__Boxed * this_ptr, int32_t x, int32_t y))
@@ -32,9 +33,7 @@ namespace app::classes::Swing::Int2 {
     IL2CPP_REGISTER_METHOD(0x0182B3D0, app::Int2, op_Implicit_3, (app::Vector3 v))
     IL2CPP_REGISTER_METHOD(0x0182B400, app::Vector3, op_Implicit_4, (app::Int2 v))
     IL2CPP_REGISTER_METHOD(0x0014B350, int32_t, get_Item, (app::Int2__Boxed * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x047882F0, Int2_get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0014B420, void, set_Item, (app::Int2__Boxed * this_ptr, int32_t index, int32_t value))
-    IL2CPP_REGISTER_METHODINFO(0x04712D28, Int2_set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0014B500, float, get_magnitude, (app::Int2__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0014B5C0, int32_t, get_sqrMagnitude, (app::Int2__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0014B5D0, app::String*, ToString_1, (app::Int2__Boxed * this_ptr))

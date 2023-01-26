@@ -1,53 +1,38 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/Vector3__Array.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/Comparison_1_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/IComparer_1_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_UnityEngine_Vector3_.h>
+
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
 #include <Modloader/app/structs/Action_1_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Vector3_.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_Vector3_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_UnityEngine_Vector3_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470BB40, List_1_UnityEngine_Vector3__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D49F20, void, Add, (app::List_1_UnityEngine_Vector3_ * this_ptr, app::Vector3 item))
-    IL2CPP_REGISTER_METHODINFO(0x047309F8, List_1_UnityEngine_Vector3__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_UnityEngine_Vector3_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04723348, List_1_UnityEngine_Vector3___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D49B80, app::Vector3, get_Item, (app::List_1_UnityEngine_Vector3_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04728978, List_1_UnityEngine_Vector3__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_UnityEngine_Vector3_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047024F0, List_1_UnityEngine_Vector3__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E9020, void, AddRange, (app::List_1_UnityEngine_Vector3_ * this_ptr, app::IEnumerable_1_UnityEngine_Vector3_* collection))
-    IL2CPP_REGISTER_METHODINFO(0x04732298, List_1_UnityEngine_Vector3__AddRange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D49BC0, void, set_Item, (app::List_1_UnityEngine_Vector3_ * this_ptr, int32_t index, app::Vector3 value))
-    IL2CPP_REGISTER_METHODINFO(0x0473D160, List_1_UnityEngine_Vector3__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAEF0, app::Vector3__Array*, ToArray, (app::List_1_UnityEngine_Vector3_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04731FD0, List_1_UnityEngine_Vector3__ToArray__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D4AC20, app::List_1_T_Enumerator_UnityEngine_Vector3_, GetEnumerator, (app::List_1_UnityEngine_Vector3_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475A338, List_1_UnityEngine_Vector3__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D4B890, void, RemoveAt, (app::List_1_UnityEngine_Vector3_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0470C5C0, List_1_UnityEngine_Vector3__RemoveAt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D4A2B0, bool, Contains, (app::List_1_UnityEngine_Vector3_ * this_ptr, app::Vector3 item))
-    IL2CPP_REGISTER_METHODINFO(0x047522F8, List_1_UnityEngine_Vector3__Contains__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAC80, void, Reverse_1, (app::List_1_UnityEngine_Vector3_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472CF08, List_1_UnityEngine_Vector3__Reverse__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAEA0, void, Sort_1, (app::List_1_UnityEngine_Vector3_ * this_ptr, app::Comparison_1_UnityEngine_Vector3_* comparison))
-    IL2CPP_REGISTER_METHODINFO(0x04729F18, List_1_UnityEngine_Vector3__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02EEC150, void, ctor_2, (app::List_1_UnityEngine_Vector3_ * this_ptr, app::IEnumerable_1_UnityEngine_Vector3_* collection))
-    IL2CPP_REGISTER_METHODINFO(0x04748D50, List_1_UnityEngine_Vector3___ctor_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_3, (app::List_1_UnityEngine_Vector3_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x0470BB38, List_1_UnityEngine_Vector3___ctor_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EABD0, void, RemoveRange, (app::List_1_UnityEngine_Vector3_ * this_ptr, int32_t index, int32_t count))
-    IL2CPP_REGISTER_METHODINFO(0x047278F8, List_1_UnityEngine_Vector3__RemoveRange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_UnityEngine_Vector3_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025E8790, void, set_Capacity, (app::List_1_UnityEngine_Vector3_ * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IList_get_IsFixedSize, (app::List_1_UnityEngine_Vector3_ * this_ptr))

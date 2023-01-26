@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaCollectionEnumerator.h>
+
+#include <Modloader/app/structs/XmlSchemaCollectionEnumerator.h>
 #include <Modloader/app/structs/Hashtable.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/XmlSchema.h>

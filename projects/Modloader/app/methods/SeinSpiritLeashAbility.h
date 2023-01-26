@@ -1,43 +1,44 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinSpiritLeashAbility.h>
+
+#include <Modloader/app/structs/SeinSpiritLeashAbility.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
 #include <Modloader/app/structs/ButtonInputType__Enum.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/LayerMask.h>
-#include <Modloader/app/structs/IAttackable.h>
-#include <Modloader/app/structs/Input_InputButtonProcessor.h>
-#include <Modloader/app/structs/GrabbableSurface.h>
+#include <Modloader/app/structs/CharacterAirNoDeceleration.h>
+#include <Modloader/app/structs/CharacterApplyFrictionToSpeed.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/ComboInput.h>
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GrabbableSurface.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/ISpiritLeashAttackable.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/SeinLeashPuppet.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility_LeashableInfo.h>
+#include <Modloader/app/structs/SeinSpiritLeashAbility_State__Enum.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/MoonControllerColliderHit.h>
-#include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
-#include <Modloader/app/structs/ComboMoveType__Enum.h>
-#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/SeinSpiritLeashAbility_State__Enum.h>
-#include <Modloader/app/structs/DamageType__Enum.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/SoundProvider.h>
-#include <Modloader/app/structs/SeinSpiritLeashAbility_LeashableInfo.h>
-#include <Modloader/app/structs/PlatformMovement.h>
-#include <Modloader/app/structs/CharacterApplyFrictionToSpeed.h>
-#include <Modloader/app/structs/CharacterAirNoDeceleration.h>
-#include <Modloader/app/structs/ISpiritLeashAttackable.h>
-#include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Guid.h>
-#include <Modloader/app/structs/ActiveAnimationHandle.h>
-#include <Modloader/app/structs/MoonAnimation.h>
-#include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/Func_1_Boolean_.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IComboMove.h>
-#include <Modloader/app/structs/ComboInput.h>
-#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
-#include <Modloader/app/structs/AbilityType__Enum.h>
-#include <Modloader/app/structs/SeinLeashPuppet.h>
-#include <Modloader/app/structs/StressTestStatus__Enum.h>
 
 namespace app::classes::SeinSpiritLeashAbility {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinSpiritLeashAbility * this_ptr))
@@ -63,18 +64,12 @@ namespace app::classes::SeinSpiritLeashAbility {
     IL2CPP_REGISTER_METHOD(0x005E70B0, app::GrabbableSurface*, GetAndCacheObjectSurface, (app::SeinSpiritLeashAbility * this_ptr, app::GameObject* obj))
     IL2CPP_REGISTER_METHOD(0x005E7370, void, PruneRecentHitSurfaces, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005E7710, void, PreDash, (app::SeinSpiritLeashAbility * this_ptr, bool* allow))
-    IL2CPP_REGISTER_METHODINFO(0x0477C118, SeinSpiritLeashAbility_PreDash__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005E79D0, void, OnDash, (app::SeinSpiritLeashAbility * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04723820, SeinSpiritLeashAbility_OnDash__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005E7A90, void, OnBash, (app::SeinSpiritLeashAbility * this_ptr, app::Vector2 speed))
-    IL2CPP_REGISTER_METHODINFO(0x04719908, SeinSpiritLeashAbility_OnBash__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005E7B40, void, OnCollision, (app::SeinSpiritLeashAbility * this_ptr, app::GameObject* other_obj, app::Vector3 normal))
     IL2CPP_REGISTER_METHOD(0x005E7DC0, void, OnMoonControllerCollision, (app::SeinSpiritLeashAbility * this_ptr, app::MoonControllerColliderHit hit))
-    IL2CPP_REGISTER_METHODINFO(0x04753BD0, SeinSpiritLeashAbility_OnMoonControllerCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005E7E80, void, OnNativeCollision, (app::SeinSpiritLeashAbility * this_ptr, app::Collision* collision))
-    IL2CPP_REGISTER_METHODINFO(0x04745E10, SeinSpiritLeashAbility_OnNativeCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005E8110, void, ModifyHorizontalPlatformMovementSettings, (app::SeinSpiritLeashAbility * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0473A778, SeinSpiritLeashAbility_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005E8360, float, get_MoveCooldown, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005E8370, float, get_MoveCooldownTimer, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005E8380, void, set_MoveCooldownTimer, (app::SeinSpiritLeashAbility * this_ptr, float value))
@@ -97,7 +92,6 @@ namespace app::classes::SeinSpiritLeashAbility {
     IL2CPP_REGISTER_METHOD(0x005E8770, void, ChangeState, (app::SeinSpiritLeashAbility * this_ptr, app::SeinSpiritLeashAbility_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x005E8DB0, bool, WillDamageInterruptLeash, (app::SeinSpiritLeashAbility * this_ptr, app::DamageType__Enum type))
     IL2CPP_REGISTER_METHOD(0x005E8E10, void, OnTakeDamage, (app::SeinSpiritLeashAbility * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x04751120, SeinSpiritLeashAbility_OnTakeDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005E8E90, bool, get_IsStatePerforming, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005E8F60, bool, ShouldPullNeedToPlay, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005E9020, void, UpdateCharacterState, (app::SeinSpiritLeashAbility * this_ptr))
@@ -134,23 +128,18 @@ namespace app::classes::SeinSpiritLeashAbility {
     IL2CPP_REGISTER_METHOD(0x005EE4B0, void, SetAnimationAngle, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005EE680, void, ThrowLeashStartAnimation, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005EED80, void, EndThrowing, (app::SeinSpiritLeashAbility * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04707468, SeinSpiritLeashAbility_EndThrowing__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005EED90, void, LeashPulledStartAnimation, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005EF0E0, void, LeashPullStartAnimation, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005EF660, void, FlingJumpStartAnimation, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005EF9B0, void, EnableGenericJumpFlipTransition, (app::SeinSpiritLeashAbility * this_ptr, float time))
     IL2CPP_REGISTER_METHOD(0x005EFA20, void, CancelGenericJumpFlipTransition, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ReleaseLock, (app::SeinSpiritLeashAbility * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047120A0, SeinSpiritLeashAbility_ReleaseLock__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005EFA90, void, LeashGrabWallHookAnimation, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005EFD20, void, LeashGrabCeilingHookAnimation, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005EFF40, void, LeashGrabRotatingHookAnimation, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005F0020, void, LeashWallHookIdle, (app::SeinSpiritLeashAbility * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047294D8, SeinSpiritLeashAbility_LeashWallHookIdle__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005F02F0, void, LeashCeilingHookIdle, (app::SeinSpiritLeashAbility * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475CEE0, SeinSpiritLeashAbility_LeashCeilingHookIdle__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005F0520, bool, StayHooked, (app::SeinSpiritLeashAbility * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04753648, SeinSpiritLeashAbility_StayHooked__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005F0530, bool, IsHookedIdling, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005F0540, void, EnterQuickAttack, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement*, get_PlatformMovement, (app::SeinSpiritLeashAbility * this_ptr))
@@ -191,7 +180,6 @@ namespace app::classes::SeinSpiritLeashAbility {
     IL2CPP_REGISTER_METHOD(0x005F7410, bool, get_IsHooking, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005F7490, bool, get_CanPerformFlingJump, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005F74C0, void, OnPreRestoreCheckpoint, (app::SeinSpiritLeashAbility * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04722848, SeinSpiritLeashAbility_OnPreRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005E9E50, void, LetGoOffHook, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005F7530, bool, ShouldHookJumpAnimationKeepPlaying, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005F75C0, void, FinishedHookJump, (app::SeinSpiritLeashAbility * this_ptr))
@@ -223,9 +211,6 @@ namespace app::classes::SeinSpiritLeashAbility {
     IL2CPP_REGISTER_METHOD(0x005F8DF0, void, ctor, (app::SeinSpiritLeashAbility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005F9B30, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x005F9BE0, bool, _ThrowLeashStartAnimation_b__209_0, (app::SeinSpiritLeashAbility * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04708F58, SeinSpiritLeashAbility__ThrowLeashStartAnimation_b__209_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005F9BE0, bool, _ThrowLeashStartAnimation_b__209_1, (app::SeinSpiritLeashAbility * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04731DB8, SeinSpiritLeashAbility__ThrowLeashStartAnimation_b__209_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005F9C20, bool, _FlingJumpStartAnimation_b__216_0, (app::SeinSpiritLeashAbility * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04733B50, SeinSpiritLeashAbility__FlingJumpStartAnimation_b__216_0__MethodInfo)
 } // namespace app::classes::SeinSpiritLeashAbility

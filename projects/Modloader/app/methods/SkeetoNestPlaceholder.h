@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkeetoNestPlaceholder.h>
+
+#include <Modloader/app/structs/SkeetoNestPlaceholder.h>
 
 namespace app::classes::SkeetoNestPlaceholder {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanUseAutosetupPositionInOnSand, (app::SkeetoNestPlaceholder * this_ptr))

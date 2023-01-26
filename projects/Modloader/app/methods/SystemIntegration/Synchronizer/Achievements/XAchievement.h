@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XProgressState__Enum.h>
+
+#include <Modloader/app/structs/XProgressState__Enum.h>
 #include <Modloader/app/structs/XAchievement.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::Achievements::XAchievement {

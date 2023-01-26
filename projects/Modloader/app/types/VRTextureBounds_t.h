@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/VRTextureBounds_t__Class.h>
 #include <Modloader/app/structs/VRTextureBounds_t.h>
 #include <Modloader/app/structs/VRTextureBounds_t__Boxed.h>
+#include <Modloader/app/structs/VRTextureBounds_t__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace VRTextureBounds_t {
-        inline app::VRTextureBounds_t__Class** type_info = (app::VRTextureBounds_t__Class**)(modloader::win::memory::resolve_rva(0x04790208));
+        inline app::VRTextureBounds_t__Class** type_info() {
+            static app::VRTextureBounds_t__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::VRTextureBounds_t__Class**)(modloader::win::memory::resolve_rva(0x04790208));
+            }
+            return cache;
+        }
         inline app::VRTextureBounds_t__Class* get_class() {
-            return il2cpp::get_class<app::VRTextureBounds_t__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "VRTextureBounds_t");
+            return il2cpp::get_class<app::VRTextureBounds_t__Class>(type_info(), "ZenFulcrum.VR.OpenVRBinding", "VRTextureBounds_t");
         }
         inline app::VRTextureBounds_t* create() {
             return il2cpp::create_object<app::VRTextureBounds_t>(get_class());

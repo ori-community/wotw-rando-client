@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/ContactPoint__Boxed.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/ContactPoint__Boxed.h>
 
 namespace app::classes::UnityEngine::ContactPoint {
     IL2CPP_REGISTER_METHOD(0x001EB5F0, app::Vector3, get_point, (app::ContactPoint__Boxed * this_ptr))

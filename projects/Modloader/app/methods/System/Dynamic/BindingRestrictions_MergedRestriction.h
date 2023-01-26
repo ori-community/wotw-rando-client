@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BindingRestrictions_MergedRestriction.h>
+
+#include <Modloader/app/structs/BindingRestrictions_MergedRestriction.h>
 #include <Modloader/app/structs/BindingRestrictions.h>
 #include <Modloader/app/structs/Expression.h>
 

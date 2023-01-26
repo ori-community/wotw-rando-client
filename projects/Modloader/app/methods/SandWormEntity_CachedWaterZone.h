@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SandWormEntity_CachedWaterZone__Boxed.h>
+
+#include <Modloader/app/structs/SandWormEntity_CachedWaterZone__Boxed.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SandWormEntity_CachedWaterZone {

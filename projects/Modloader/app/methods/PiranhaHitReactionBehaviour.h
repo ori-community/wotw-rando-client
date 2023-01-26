@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
-#include <Modloader/app/structs/PiranhaHitReactionBehaviour.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
-#include <Modloader/app/structs/EntityEvent.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/PiranhaHitReactionBehaviour.h>
 
 namespace app::classes::PiranhaHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00418200, app::EntityDamageEvent*, get_DamageEvent, (app::PiranhaHitReactionBehaviour * this_ptr))
@@ -22,5 +23,4 @@ namespace app::classes::PiranhaHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::PiranhaHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0115FA00, void, ctor, (app::PiranhaHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B38C0, void, _OnEnterTask_b__11_0, (app::PiranhaHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047523C8, PiranhaHitReactionBehaviour__OnEnterTask_b__11_0__MethodInfo)
 } // namespace app::classes::PiranhaHitReactionBehaviour

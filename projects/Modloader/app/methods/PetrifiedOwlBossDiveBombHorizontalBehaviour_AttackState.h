@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossDiveBombHorizontalBehaviour_AttackState.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossDiveBombHorizontalBehaviour_AttackState.h>
 #include <Modloader/app/structs/PetrifiedOwlBossDiveBombHorizontalBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossDiveBombHorizontalBehaviour_AttackState {

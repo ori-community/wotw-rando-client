@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AnimationClip__Class.h>
 #include <Modloader/app/structs/AnimationClip.h>
 #include <Modloader/app/structs/AnimationClip__Array.h>
+#include <Modloader/app/structs/AnimationClip__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace AnimationClip {
-        namespace {
-            inline app::AnimationClip__Class* type_info_ref = nullptr;
+        inline app::AnimationClip__Class** type_info() {
+            static app::AnimationClip__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AnimationClip__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AnimationClip__Class** type_info = &type_info_ref;
         inline app::AnimationClip__Class* get_class() {
-            return il2cpp::get_class<app::AnimationClip__Class>(type_info, "UnityEngine", "AnimationClip");
+            return il2cpp::get_class<app::AnimationClip__Class>(type_info(), "UnityEngine", "AnimationClip");
         }
         inline app::AnimationClip* create() {
             return il2cpp::create_object<app::AnimationClip>(get_class());

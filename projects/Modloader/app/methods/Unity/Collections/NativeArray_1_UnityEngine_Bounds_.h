@@ -1,23 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds___Boxed.h>
+
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds___Boxed.h>
 #include <Modloader/app/structs/Allocator__Enum.h>
-#include <Modloader/app/structs/NativeArrayOptions__Enum.h>
-#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds_.h>
 #include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/Bounds__Array.h>
-#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_Bounds_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Bounds_.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Bounds_.h>
+#include <Modloader/app/structs/NativeArrayOptions__Enum.h>
+#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_Bounds_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Unity::Collections::NativeArray_1_UnityEngine_Bounds_ {
     IL2CPP_REGISTER_METHOD(0x001DF770, void, ctor, (app::NativeArray_1_UnityEngine_Bounds___Boxed * this_ptr, int32_t length, app::Allocator__Enum allocator, app::NativeArrayOptions__Enum options))
-    IL2CPP_REGISTER_METHODINFO(0x04786D70, NativeArray_1_UnityEngine_Bounds___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001D9B60, bool, get_IsCreated, (app::NativeArray_1_UnityEngine_Bounds___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474AB10, NativeArray_1_UnityEngine_Bounds__get_IsCreated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001DF8B0, void, Dispose, (app::NativeArray_1_UnityEngine_Bounds___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047231A8, NativeArray_1_UnityEngine_Bounds__Dispose__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022647E0, void, Allocate, (int32_t length, app::Allocator__Enum allocator, app::NativeArray_1_UnityEngine_Bounds_* array))
     IL2CPP_REGISTER_METHOD(0x001DF780, int32_t, get_Length, (app::NativeArray_1_UnityEngine_Bounds___Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001DFEF0, app::Bounds, get_Item, (app::NativeArray_1_UnityEngine_Bounds___Boxed * this_ptr, int32_t index))

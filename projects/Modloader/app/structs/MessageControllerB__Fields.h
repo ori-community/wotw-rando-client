@@ -60,7 +60,7 @@ struct MessageControllerB__Fields {
 #endif
 #if !defined(IL2CPP_STRUCT_MessageControllerB__Fields_FWDDECL)
 #define IL2CPP_STRUCT_MessageControllerB__Fields_FWDDECL
-#include <Modloader/app/structs/Dictionary_2_MessageControllerB_NpcMessageStyle_Moon_Timeline_ShowFixedTimeTextEntity_TextVisuals_.h>
+#include <Modloader/app/structs/Dictionary_2_MessageController_NpcMessageStyl_Moo_Timelin_ShowFixedTimeTextEnti_TextVisua_.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/MessageBox.h>

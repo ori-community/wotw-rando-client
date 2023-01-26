@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReflectionMethodsCache_Raycast3DCallback.h>
+
+#include <Modloader/app/structs/ReflectionMethodsCache_Raycast3DCallback.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Ray.h>
 #include <Modloader/app/structs/RaycastHit.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::UnityEngine::UI::ReflectionMethodsCache_Raycast3DCallback {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::ReflectionMethodsCache_Raycast3DCallback * this_ptr, app::Object* object, void* method_1))

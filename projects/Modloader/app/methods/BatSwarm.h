@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/BatEnemy.h>
 #include <Modloader/app/structs/BatSwarm.h>
 #include <Modloader/app/structs/BatSwarmPlaceholder_BatSwarmPlaceholderSettings.h>
-#include <Modloader/app/structs/BatEnemy.h>
 #include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::BatSwarm {
@@ -18,7 +19,6 @@ namespace app::classes::BatSwarm {
     IL2CPP_REGISTER_METHOD(0x00F94BE0, void, FixedUpdate, (app::BatSwarm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F94DC0, bool, ShouldUpdatePath, (app::BatSwarm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F94ED0, void, UpdateSpawning, (app::BatSwarm * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04798240, BatSwarm_UpdateSpawning__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F95570, app::Vector2, get_AvoidanceSpot, (app::BatSwarm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F95630, void, set_AvoidanceSpot, (app::BatSwarm * this_ptr, app::Vector2 value))
     IL2CPP_REGISTER_METHOD(0x003FDD40, float, get_AvoidanceSpotWeight, (app::BatSwarm * this_ptr))

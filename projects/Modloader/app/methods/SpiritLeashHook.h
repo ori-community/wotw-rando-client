@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritLeashHook.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/SpiritLeashHook.h>
+#include <Modloader/app/structs/CameraTargetData.h>
+#include <Modloader/app/structs/CameraTargetType__Enum.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/SceneRoot.h>
 #include <Modloader/app/structs/SpiritLeashMode__Enum.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/CameraTargetType__Enum.h>
-#include <Modloader/app/structs/CameraTargetData.h>
-#include <Modloader/app/structs/SceneRoot.h>
-#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SpiritLeashHook {
     IL2CPP_REGISTER_METHOD(0x003FCB00, bool, get_Activated, (app::SpiritLeashHook * this_ptr))
@@ -56,9 +57,7 @@ namespace app::classes::SpiritLeashHook {
     IL2CPP_REGISTER_METHOD(0x00D5EEF0, void, OnEnable, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D5F220, void, OnDisable, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D5F550, void, Deactivate, (app::SpiritLeashHook * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04743440, SpiritLeashHook_Deactivate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D5F560, void, Reactivate, (app::SpiritLeashHook * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478B3B0, SpiritLeashHook_Reactivate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D5F570, void, OnDestroy, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CameraTargetActive, (app::SpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D5F620, app::Vector3, get_CameraTargetPosition, (app::SpiritLeashHook * this_ptr))

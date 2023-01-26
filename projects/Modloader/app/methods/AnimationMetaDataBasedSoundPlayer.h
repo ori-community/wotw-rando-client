@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationMetaDataBasedSoundPlayer.h>
+
+#include <Modloader/app/structs/AnimationMetaDataBasedSoundPlayer.h>
 #include <Modloader/app/structs/AnimationMetaData_AnimationData.h>
 
 namespace app::classes::AnimationMetaDataBasedSoundPlayer {

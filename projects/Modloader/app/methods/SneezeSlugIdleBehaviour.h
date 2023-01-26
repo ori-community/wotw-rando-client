@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SneezeSlugIdleBehaviour.h>
+
+#include <Modloader/app/structs/SneezeSlugIdleBehaviour.h>
 #include <Modloader/app/structs/IBlackboard.h>
 
 namespace app::classes::SneezeSlugIdleBehaviour {

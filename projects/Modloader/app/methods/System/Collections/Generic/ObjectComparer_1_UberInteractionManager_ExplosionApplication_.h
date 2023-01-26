@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_UberInteractionManager_ExplosionApplication_.h>
-#include <Modloader/app/structs/UberInteractionManager_ExplosionApplication.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_UberInteractionManager_ExplosionApplication_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberInteractionManager_ExplosionApplication.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_UberInteractionManager_ExplosionApplication_ {
     IL2CPP_REGISTER_METHOD(0x01CCD690, int32_t, Compare, (app::ObjectComparer_1_UberInteractionManager_ExplosionApplication_ * this_ptr, app::UberInteractionManager_ExplosionApplication x, app::UberInteractionManager_ExplosionApplication y))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ContextCallbackObject.h>
+
+#include <Modloader/app/structs/ContextCallbackObject.h>
 #include <Modloader/app/structs/CrossContextDelegate.h>
 
 namespace app::classes::System::Runtime::Remoting::Contexts::ContextCallbackObject {

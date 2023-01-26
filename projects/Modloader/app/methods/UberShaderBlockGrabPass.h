@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderBlockGrabPass.h>
+
+#include <Modloader/app/structs/UberShaderBlockGrabPass.h>
 
 namespace app::classes::UberShaderBlockGrabPass {
     IL2CPP_REGISTER_METHOD(0x00CC2AF0, void, Awake, (app::UberShaderBlockGrabPass * this_ptr))

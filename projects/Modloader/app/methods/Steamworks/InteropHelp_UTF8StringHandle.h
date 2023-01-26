@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InteropHelp_UTF8StringHandle.h>
+
+#include <Modloader/app/structs/InteropHelp_UTF8StringHandle.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::InteropHelp_UTF8StringHandle {

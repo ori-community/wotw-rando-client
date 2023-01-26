@@ -1,28 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaceSystem.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/RaceTimer.h>
+
+#include <Modloader/app/structs/RaceSystem.h>
 #include <Modloader/app/structs/GhostRecorder.h>
-#include <Modloader/app/structs/RaceLeaderboardScreen.h>
-#include <Modloader/app/structs/RaceTargetIndicator.h>
-#include <Modloader/app/structs/IUberState.h>
-#include <Modloader/app/structs/List_1_SceneMetaData_.h>
-#include <Modloader/app/structs/RaceStateMachineContext.h>
-#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
-#include <Modloader/app/structs/RaceSystem_PrimaryFilter__Enum.h>
-#include <Modloader/app/structs/RaceSystem_SecondaryFilter__Enum.h>
-#include <Modloader/app/structs/StateMachine_2.h>
-#include <Modloader/app/structs/RaceBaseState.h>
 #include <Modloader/app/structs/GhostService.h>
+#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/IState_2.h>
 #include <Modloader/app/structs/ITrialData.h>
-#include <Modloader/app/structs/RaceConfiguration.h>
 #include <Modloader/app/structs/ITrialHandler.h>
+#include <Modloader/app/structs/IUberState.h>
+#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
+#include <Modloader/app/structs/List_1_SceneMetaData_.h>
 #include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/RaceBaseState.h>
+#include <Modloader/app/structs/RaceConfiguration.h>
+#include <Modloader/app/structs/RaceLeaderboardScreen.h>
 #include <Modloader/app/structs/RaceSettings.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/RaceStateMachineContext.h>
+#include <Modloader/app/structs/RaceSystem_PrimaryFilter__Enum.h>
+#include <Modloader/app/structs/RaceSystem_SecondaryFilter__Enum.h>
+#include <Modloader/app/structs/RaceTargetIndicator.h>
+#include <Modloader/app/structs/RaceTimer.h>
+#include <Modloader/app/structs/StateMachine_2.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::RaceSystem {
     IL2CPP_REGISTER_METHOD(0x0071E490, app::RaceSystem*, get_Instance, ())
@@ -65,7 +66,6 @@ namespace app::classes::RaceSystem {
     IL2CPP_REGISTER_METHOD(0x00720190, bool, get_ShouldLockEquipment, (app::RaceSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00720290, void, Awake, (app::RaceSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00720630, void, NetworkStatusChangedCallback, (app::RaceSystem * this_ptr, bool online))
-    IL2CPP_REGISTER_METHODINFO(0x04761A40, RaceSystem_NetworkStatusChangedCallback__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00720640, void, SetupContext, (app::RaceSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00720BF0, void, FixedUpdate, (app::RaceSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00720ED0, bool, get_IsShowingFloatingLeaderboard, (app::RaceSystem * this_ptr))
@@ -73,7 +73,6 @@ namespace app::classes::RaceSystem {
     IL2CPP_REGISTER_METHOD(0x00721120, void, HideFloatingLeaderboards, (app::RaceSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00721180, void, OnDestroy, (app::RaceSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00721330, void, OnGameReset, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04720DE0, RaceSystem_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00721380, void, StartRace, (app::RaceSystem * this_ptr, app::RaceConfiguration* config))
     IL2CPP_REGISTER_METHOD(0x007213C0, void, Spectate, (app::RaceSystem * this_ptr, app::ITrialData* data, app::ITrialHandler* handler))
     IL2CPP_REGISTER_METHOD(0x00721560, void, Race, (app::RaceSystem * this_ptr, app::ITrialData* data, app::ITrialHandler* handler))
@@ -90,43 +89,25 @@ namespace app::classes::RaceSystem {
     IL2CPP_REGISTER_METHOD(0x00722460, void, StartRaceFromMainMenu, (app::RaceSystem * this_ptr, app::RaceSettings* settings))
     IL2CPP_REGISTER_METHOD(0x00722890, app::IEnumerator*, StartRaceFromMainMenuCoroutine, (app::RaceSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007229E0, void, OnFinishedLoadingGoingToScene, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04798E60, RaceSystem_OnFinishedLoadingGoingToScene__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00722DE0, void, OnFinishedLoadingRace, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04763E38, RaceSystem_OnFinishedLoadingRace__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00722F40, void, UnloadScene, (app::RaceSystem * this_ptr, app::String* scene_name))
     IL2CPP_REGISTER_METHOD(0x00723050, void, ctor, (app::RaceSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00723480, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01B350F0, bool, IsInState_2, (app::RaceSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01555460, void, ChangeState_1, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04759468, RaceSystem_ChangeState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01B350F0, bool, IsInState_3, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473CE80, RaceSystem_IsInState_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01555460, void, ChangeState_2, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04739238, RaceSystem_ChangeState_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01555460, void, ChangeState_3, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475BCC0, RaceSystem_ChangeState_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01555460, void, ChangeState_4, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04732CA8, RaceSystem_ChangeState_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01555460, void, ChangeState_5, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047397F8, RaceSystem_ChangeState_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01555460, void, ChangeState_6, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475BC70, RaceSystem_ChangeState_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01555460, void, ChangeState_7, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04773CD0, RaceSystem_ChangeState_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01555460, void, ChangeState_8, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474BDE0, RaceSystem_ChangeState_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01555460, void, ChangeState_9, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04771580, RaceSystem_ChangeState_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01555460, void, ChangeState_10, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04792DB8, RaceSystem_ChangeState_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01B350F0, bool, IsInState_4, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04736188, RaceSystem_IsInState_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01B350F0, bool, IsInState_5, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477E890, RaceSystem_IsInState_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01B350F0, bool, IsInState_6, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472AC78, RaceSystem_IsInState_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01B350F0, bool, IsInState_7, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470F440, RaceSystem_IsInState_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01B350F0, bool, IsInState_8, (app::RaceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472AC50, RaceSystem_IsInState_7__MethodInfo)
 } // namespace app::classes::RaceSystem

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CFRunLoop.h>
+
+#include <Modloader/app/structs/CFRunLoop.h>
 #include <Modloader/app/structs/CFString.h>
 
 namespace app::classes::Mono::Net::CFRunLoop {

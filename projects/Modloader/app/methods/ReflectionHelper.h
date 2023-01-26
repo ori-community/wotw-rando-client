@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object__Array.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Type__Array.h>
 
 namespace app::classes::ReflectionHelper {

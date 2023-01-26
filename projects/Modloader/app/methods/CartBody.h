@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CartBody.h>
+
+#include <Modloader/app/structs/CartBody.h>
 
 namespace app::classes::CartBody {
     IL2CPP_REGISTER_METHOD(0x00990EC0, void, set_AddtiveRotation, (app::CartBody * this_ptr, float value))

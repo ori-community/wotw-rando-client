@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StickyMine.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/StickyMine.h>
 #include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/IAttackable.h>
-#include <Modloader/app/structs/StickyMine_State__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/DamageDealer.h>
 #include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IAttackable.h>
 #include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/StickyMine_State__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::StickyMine {
     IL2CPP_REGISTER_METHOD(0x006513C0, bool, get_IsLockOnTargetValid, (app::StickyMine * this_ptr))
@@ -51,9 +52,7 @@ namespace app::classes::StickyMine {
     IL2CPP_REGISTER_METHOD(0x00651F80, void, Start, (app::StickyMine * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00651F90, void, OnDestroy, (app::StickyMine * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006522C0, bool, ShouldDealDamage, (app::StickyMine * this_ptr, app::GameObject* target))
-    IL2CPP_REGISTER_METHODINFO(0x047934C8, StickyMine_ShouldDealDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006523E0, void, OnDamageDealt, (app::StickyMine * this_ptr, app::DamageDealer* dealer, app::DamageResult result))
-    IL2CPP_REGISTER_METHODINFO(0x047058D8, StickyMine_OnDamageDealt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006524E0, void, Invalidate, (app::StickyMine * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006524F0, void, Explode, (app::StickyMine * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00652760, void, SetTrajectory, (app::StickyMine * this_ptr, app::Vector2 speed))

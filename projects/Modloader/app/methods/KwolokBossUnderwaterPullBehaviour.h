@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KwolokBossUnderwaterPullBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/KwolokBossUnderwaterPullBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/KwolokBossUnderwaterPullBehaviour_State__Enum.h>
 #include <Modloader/app/structs/List_1_Moon_CameraTargetSettings_.h>
-#include <Modloader/app/structs/Enum__Array.h>
-#include <Modloader/app/structs/Enum.h>
 
 namespace app::classes::KwolokBossUnderwaterPullBehaviour {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IsLocomotionFollowAllowed, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
@@ -20,14 +21,10 @@ namespace app::classes::KwolokBossUnderwaterPullBehaviour {
     IL2CPP_REGISTER_METHOD(0x012F4D20, void, SubscribeToSpawnEvents, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012F4FB0, void, UnsubscribeFromSpawnEvents, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012F5240, void, OnSpawnEvent, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476EF98, KwolokBossUnderwaterPullBehaviour_OnSpawnEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F57C0, void, SubscribeToTimelineEvents, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012F5B00, void, OnPullStartEnded, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473E7A8, KwolokBossUnderwaterPullBehaviour_OnPullStartEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F5C00, void, OnSpitEvent, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04742C80, KwolokBossUnderwaterPullBehaviour_OnSpitEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F5C20, void, OnDamageEvent, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04798DD0, KwolokBossUnderwaterPullBehaviour_OnDamageEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F5F80, void, ChangeState, (app::KwolokBossUnderwaterPullBehaviour * this_ptr, app::KwolokBossUnderwaterPullBehaviour_State__Enum new_state))
     IL2CPP_REGISTER_METHOD(0x012F6360, void, UpdateState, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012F6430, void, EnterStatePositioning, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
@@ -50,17 +47,11 @@ namespace app::classes::KwolokBossUnderwaterPullBehaviour {
     IL2CPP_REGISTER_METHOD(0x012F8020, void, SwallowOri, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012F83C0, void, SpitOri, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012F8900, void, ModifyAcceleration, (app::KwolokBossUnderwaterPullBehaviour * this_ptr, float* acceleration, float* deceleration))
-    IL2CPP_REGISTER_METHODINFO(0x0475A070, KwolokBossUnderwaterPullBehaviour_ModifyAcceleration__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F8930, void, ModifyMaxSpeed, (app::KwolokBossUnderwaterPullBehaviour * this_ptr, float* speed))
-    IL2CPP_REGISTER_METHODINFO(0x0474C648, KwolokBossUnderwaterPullBehaviour_ModifyMaxSpeed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F8950, void, ModifyDesiredLookAngle, (app::KwolokBossUnderwaterPullBehaviour * this_ptr, float* angle))
-    IL2CPP_REGISTER_METHODINFO(0x04793550, KwolokBossUnderwaterPullBehaviour_ModifyDesiredLookAngle__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F8AF0, void, ModifyLookAngleChangeSpeed, (app::KwolokBossUnderwaterPullBehaviour * this_ptr, float* speed))
-    IL2CPP_REGISTER_METHODINFO(0x0475D960, KwolokBossUnderwaterPullBehaviour_ModifyLookAngleChangeSpeed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F8B10, void, ModifyLegsIK, (app::KwolokBossUnderwaterPullBehaviour * this_ptr, float* fl, float* fr, float* bl, float* br))
-    IL2CPP_REGISTER_METHODINFO(0x047149B8, KwolokBossUnderwaterPullBehaviour_ModifyLegsIK__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F8B40, void, ModifyCameraTargets, (app::KwolokBossUnderwaterPullBehaviour * this_ptr, app::List_1_Moon_CameraTargetSettings_* targets))
-    IL2CPP_REGISTER_METHODINFO(0x0470FE10, KwolokBossUnderwaterPullBehaviour_ModifyCameraTargets__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F8D20, void, ClearMoveRequest, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012F8D80, app::Enum__Array*, GetEntries, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012F8E20, app::Enum, Evaluate, (app::KwolokBossUnderwaterPullBehaviour * this_ptr))

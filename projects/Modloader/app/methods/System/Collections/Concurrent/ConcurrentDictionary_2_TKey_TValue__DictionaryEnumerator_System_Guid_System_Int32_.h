@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_DictionaryEnumerator_System_Guid_System_Int32_.h>
+
+#include <Modloader/app/structs/ConcurrentDictionary_2_TKey_TValue_DictionaryEnumerator_System_Guid_System_Int32_.h>
 #include <Modloader/app/structs/ConcurrentDictionary_2_System_Guid_System_Int32_.h>
 #include <Modloader/app/structs/DictionaryEntry.h>
 #include <Modloader/app/structs/Object.h>

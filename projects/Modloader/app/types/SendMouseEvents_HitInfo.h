@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/SendMouseEvents_HitInfo.h>
+#include <Modloader/app/structs/SendMouseEvents_HitInfo__Array.h>
+#include <Modloader/app/structs/SendMouseEvents_HitInfo__Boxed.h>
+#include <Modloader/app/structs/SendMouseEvents_HitInfo__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SendMouseEvents_HitInfo__Class.h>
-#include <Modloader/app/structs/SendMouseEvents_HitInfo.h>
-#include <Modloader/app/structs/SendMouseEvents_HitInfo__Boxed.h>
-#include <Modloader/app/structs/SendMouseEvents_HitInfo__Array.h>
 
 namespace app::classes::types {
     namespace SendMouseEvents_HitInfo {
-        namespace {
-            inline app::SendMouseEvents_HitInfo__Class* type_info_ref = nullptr;
+        inline app::SendMouseEvents_HitInfo__Class** type_info() {
+            static app::SendMouseEvents_HitInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SendMouseEvents_HitInfo__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SendMouseEvents_HitInfo__Class** type_info = &type_info_ref;
         inline app::SendMouseEvents_HitInfo__Class* get_class() {
-            return il2cpp::get_nested_class<app::SendMouseEvents_HitInfo__Class>(type_info, "UnityEngine", "SendMouseEvents", "HitInfo");
+            return il2cpp::get_nested_class<app::SendMouseEvents_HitInfo__Class>(type_info(), "UnityEngine", "SendMouseEvents", "HitInfo");
         }
         inline app::SendMouseEvents_HitInfo* create() {
             return il2cpp::create_object<app::SendMouseEvents_HitInfo>(get_class());

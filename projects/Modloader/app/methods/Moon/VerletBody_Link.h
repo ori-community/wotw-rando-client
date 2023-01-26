@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VerletBody_Point.h>
-#include <Modloader/app/structs/VerletBody_Link.h>
+
+#include <Modloader/app/structs/VerletBody_Point.h>
 #include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/VerletBody_Link.h>
 
 namespace app::classes::Moon::VerletBody_Link {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::VerletBody_Point*, get_Point0, (app::VerletBody_Link * this_ptr))

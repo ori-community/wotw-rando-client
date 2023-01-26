@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Int32_LightCanvasEditorTextureCache_LightCanvasEditorTextureData___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_LightCanvasEditorTextureCache_LightCanvasEditorTextureData___Boxed.h>
 #include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData.h>
 #include <Modloader/app/structs/String.h>
 

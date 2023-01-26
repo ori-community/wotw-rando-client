@@ -1,15 +1,20 @@
 #pragma once
+#include <Modloader/app/structs/SubInstruction_SubUInt16.h>
+#include <Modloader/app/structs/SubInstruction_SubUInt16__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SubInstruction_SubUInt16__Class.h>
-#include <Modloader/app/structs/SubInstruction_SubUInt16.h>
 
 namespace app::classes::types {
     namespace SubInstruction_SubUInt16 {
-        inline app::SubInstruction_SubUInt16__Class** type_info = (app::SubInstruction_SubUInt16__Class**)(modloader::win::memory::resolve_rva(0x047101C8));
+        inline app::SubInstruction_SubUInt16__Class** type_info() {
+            static app::SubInstruction_SubUInt16__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::SubInstruction_SubUInt16__Class**)(modloader::win::memory::resolve_rva(0x047101C8));
+            }
+            return cache;
+        }
         inline app::SubInstruction_SubUInt16__Class* get_class() {
-            return il2cpp::get_nested_class<app::SubInstruction_SubUInt16__Class>(type_info, "System.Linq.Expressions.Interpreter", "SubInstruction", "SubUInt16");
+            return il2cpp::get_nested_class<app::SubInstruction_SubUInt16__Class>(type_info(), "System.Linq.Expressions.Interpreter", "SubInstruction", "SubUInt16");
         }
         inline app::SubInstruction_SubUInt16* create() {
             return il2cpp::create_object<app::SubInstruction_SubUInt16>(get_class());

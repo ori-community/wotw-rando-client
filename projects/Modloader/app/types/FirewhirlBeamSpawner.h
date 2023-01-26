@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/FirewhirlBeamSpawner__Class.h>
 #include <Modloader/app/structs/FirewhirlBeamSpawner.h>
 #include <Modloader/app/structs/FirewhirlBeamSpawner__Array.h>
+#include <Modloader/app/structs/FirewhirlBeamSpawner__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace FirewhirlBeamSpawner {
-        namespace {
-            inline app::FirewhirlBeamSpawner__Class* type_info_ref = nullptr;
+        inline app::FirewhirlBeamSpawner__Class** type_info() {
+            static app::FirewhirlBeamSpawner__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::FirewhirlBeamSpawner__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::FirewhirlBeamSpawner__Class** type_info = &type_info_ref;
         inline app::FirewhirlBeamSpawner__Class* get_class() {
-            return il2cpp::get_class<app::FirewhirlBeamSpawner__Class>(type_info, "", "FirewhirlBeamSpawner");
+            return il2cpp::get_class<app::FirewhirlBeamSpawner__Class>(type_info(), "", "FirewhirlBeamSpawner");
         }
         inline app::FirewhirlBeamSpawner* create() {
             return il2cpp::create_object<app::FirewhirlBeamSpawner>(get_class());

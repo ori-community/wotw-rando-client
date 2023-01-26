@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextEditor.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/TextEditor.h>
 #include <Modloader/app/structs/Event.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/TextEditor_DblClickSnapping__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TextEditor_CharacterType__Enum.h>
+#include <Modloader/app/structs/TextEditor_DblClickSnapping__Enum.h>
 #include <Modloader/app/structs/TextEditor_Direction__Enum.h>
 #include <Modloader/app/structs/TextEditor_TextEditOp__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::TextEditor {
     IL2CPP_REGISTER_METHOD(0x03182CE0, void, ctor, (app::TextEditor * this_ptr))
@@ -36,7 +37,7 @@ namespace app::classes::UnityEngine::TextEditor {
     IL2CPP_REGISTER_METHOD(0x03183CF0, bool, get_hasSelection, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03183D00, bool, DeleteSelection, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03183EE0, void, ReplaceSelection, (app::TextEditor * this_ptr, app::String* replace))
-    IL2CPP_REGISTER_METHOD(0x03183FE0, void, Insert, (app::TextEditor * this_ptr, uint16_t c))
+    IL2CPP_REGISTER_METHOD(0x03183FE0, void, Insert, (app::TextEditor * this_ptr, char16_t c))
     IL2CPP_REGISTER_METHOD(0x03184010, void, MoveRight, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03184130, void, MoveLeft, (app::TextEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03184240, void, MoveUp, (app::TextEditor * this_ptr))

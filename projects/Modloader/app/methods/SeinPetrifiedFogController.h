@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ZoneDamageSettings.h>
+
+#include <Modloader/app/structs/ZoneDamageSettings.h>
 #include <Modloader/app/structs/SeinPetrifiedFogController.h>
 
 namespace app::classes::SeinPetrifiedFogController {

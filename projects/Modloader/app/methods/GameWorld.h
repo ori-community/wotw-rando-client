@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameWorld.h>
-#include <Modloader/app/structs/MoonGuid.h>
+
+#include <Modloader/app/structs/GameWorld.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/GameWorldArea.h>
 #include <Modloader/app/structs/GameWorldAreaID__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MoonGuid.h>
 #include <Modloader/app/structs/RuntimeGameWorldArea.h>
-#include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/WorldMapIconType__Enum.h>
 #include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/WorldMapIconType__Enum.h>
 
 namespace app::classes::GameWorld {
     IL2CPP_REGISTER_METHOD(0x00406190, bool, HasCompletedEverything, (app::GameWorld * this_ptr))
@@ -25,9 +26,7 @@ namespace app::classes::GameWorld {
     IL2CPP_REGISTER_METHOD(0x00407370, void, Awake, (app::GameWorld * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00407900, void, OnDestroy, (app::GameWorld * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00407BB0, void, OnRestoreCheckpoint, (app::GameWorld * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473E538, GameWorld_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00407D60, void, OnGameReset, (app::GameWorld * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477B0D8, GameWorld_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00407EC0, app::GameWorldArea*, AreaFromIndex, (app::GameWorld * this_ptr, int32_t i))
     IL2CPP_REGISTER_METHOD(0x00407FA0, int32_t, IndexOfArea, (app::GameWorld * this_ptr, app::GameWorldArea* area))
     IL2CPP_REGISTER_METHOD(0x00408200, void, Serialize, (app::GameWorld * this_ptr, app::Archive* ar))

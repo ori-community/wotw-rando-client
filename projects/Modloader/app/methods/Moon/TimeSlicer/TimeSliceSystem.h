@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Queue_1_Moon_TimeSlicer_ITimeSlicedJob_.h>
-#include <Modloader/app/structs/TimeSliceSystem.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ITimeSlicedJob.h>
-#include <Modloader/app/structs/TimeSlicedJobPriority__Enum.h>
+
+#include <Modloader/app/structs/Queue_1_Moon_TimeSlicer_ITimeSlicedJob_.h>
 #include <Modloader/app/structs/Func_1_Moon_TimeSlicer_TimeSlicedJobPriority_.h>
+#include <Modloader/app/structs/ITimeSlicedJob.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimeSliceSystem.h>
+#include <Modloader/app/structs/TimeSlicedJobPriority__Enum.h>
 #include <Modloader/app/structs/Type__Array.h>
 
 namespace app::classes::Moon::TimeSlicer::TimeSliceSystem {
@@ -24,7 +25,6 @@ namespace app::classes::Moon::TimeSlicer::TimeSliceSystem {
     IL2CPP_REGISTER_METHOD(0x010BD320, void, Awake, (app::TimeSliceSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010BD580, void, OnDestroy, (app::TimeSliceSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010BD720, void, EndOfFrameUpdate, (app::TimeSliceSystem * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04738AA8, TimeSliceSystem_EndOfFrameUpdate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x010BD7E0, void, LateUpdate, (app::TimeSliceSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010BD8A0, void, UpdateJobs, (app::TimeSliceSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010BDD20, void, EnqueueTimeSlicedJob_1, (app::ITimeSlicedJob * job, app::TimeSlicedJobPriority__Enum priority))
@@ -46,13 +46,8 @@ namespace app::classes::Moon::TimeSlicer::TimeSliceSystem {
     IL2CPP_REGISTER_METHOD(0x015512E0, void, ExecuteAllJobsOfTypeOnSingleFrame, (app::Queue_1_Moon_TimeSlicer_ITimeSlicedJob_ * queue, app::Type__Array* exclusions))
     IL2CPP_REGISTER_METHOD(0x015514C0, void, FinishAllJobsOfTypeImmediately_1, (app::Type__Array * exclusions))
     IL2CPP_REGISTER_METHOD(0x015514C0, void, FinishAllJobsOfTypeImmediately_2, (app::Type__Array * exclusions))
-    IL2CPP_REGISTER_METHODINFO(0x04736430, TimeSliceSystem_FinishAllJobsOfTypeImmediately_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015515F0, void, UpdateCustomBudgetForJobsOfType_2, (float new_budget))
-    IL2CPP_REGISTER_METHODINFO(0x04788A88, TimeSliceSystem_UpdateCustomBudgetForJobsOfType_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015514C0, void, FinishAllJobsOfTypeImmediately_3, (app::Type__Array * exclusions))
-    IL2CPP_REGISTER_METHODINFO(0x04701BB8, TimeSliceSystem_FinishAllJobsOfTypeImmediately_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015514C0, void, FinishAllJobsOfTypeImmediately_4, (app::Type__Array * exclusions))
-    IL2CPP_REGISTER_METHODINFO(0x04747C60, TimeSliceSystem_FinishAllJobsOfTypeImmediately_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015514C0, void, FinishAllJobsOfTypeImmediately_5, (app::Type__Array * exclusions))
-    IL2CPP_REGISTER_METHODINFO(0x04789670, TimeSliceSystem_FinishAllJobsOfTypeImmediately_4__MethodInfo)
 } // namespace app::classes::Moon::TimeSlicer::TimeSliceSystem

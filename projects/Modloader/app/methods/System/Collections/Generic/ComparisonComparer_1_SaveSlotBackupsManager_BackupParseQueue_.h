@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_SaveSlotBackupsManager_BackupParseQueue_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_SaveSlotBackupsManager_BackupParseQueue_.h>
 #include <Modloader/app/structs/Comparison_1_SaveSlotBackupsManager_BackupParseQueue_.h>
 #include <Modloader/app/structs/SaveSlotBackupsManager_BackupParseQueue.h>
 

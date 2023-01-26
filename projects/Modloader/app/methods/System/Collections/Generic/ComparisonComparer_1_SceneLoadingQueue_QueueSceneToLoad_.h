@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_SceneLoadingQueue_QueueSceneToLoad_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_SceneLoadingQueue_QueueSceneToLoad_.h>
 #include <Modloader/app/structs/Comparison_1_SceneLoadingQueue_QueueSceneToLoad_.h>
 #include <Modloader/app/structs/SceneLoadingQueue_QueueSceneToLoad.h>
 

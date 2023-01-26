@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LinkedListNode_1_System_Object_.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/LinkedListNode_1_System_Object_.h>
 #include <Modloader/app/structs/LinkedList_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::LinkedListNode_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x018E6AD0, app::LinkedListNode_1_System_Object_*, get_Next, (app::LinkedListNode_1_System_Object_ * this_ptr))

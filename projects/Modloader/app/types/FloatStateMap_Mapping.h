@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/FloatStateMap_Mapping.h>
+#include <Modloader/app/structs/FloatStateMap_Mapping__Array.h>
+#include <Modloader/app/structs/FloatStateMap_Mapping__Boxed.h>
+#include <Modloader/app/structs/FloatStateMap_Mapping__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/FloatStateMap_Mapping__Class.h>
-#include <Modloader/app/structs/FloatStateMap_Mapping.h>
-#include <Modloader/app/structs/FloatStateMap_Mapping__Boxed.h>
-#include <Modloader/app/structs/FloatStateMap_Mapping__Array.h>
 
 namespace app::classes::types {
     namespace FloatStateMap_Mapping {
-        inline app::FloatStateMap_Mapping__Class** type_info = (app::FloatStateMap_Mapping__Class**)(modloader::win::memory::resolve_rva(0x047726F0));
+        inline app::FloatStateMap_Mapping__Class** type_info() {
+            static app::FloatStateMap_Mapping__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::FloatStateMap_Mapping__Class**)(modloader::win::memory::resolve_rva(0x047726F0));
+            }
+            return cache;
+        }
         inline app::FloatStateMap_Mapping__Class* get_class() {
-            return il2cpp::get_nested_class<app::FloatStateMap_Mapping__Class>(type_info, "", "FloatStateMap", "Mapping");
+            return il2cpp::get_nested_class<app::FloatStateMap_Mapping__Class>(type_info(), "", "FloatStateMap", "Mapping");
         }
         inline app::FloatStateMap_Mapping* create() {
             return il2cpp::create_object<app::FloatStateMap_Mapping>(get_class());

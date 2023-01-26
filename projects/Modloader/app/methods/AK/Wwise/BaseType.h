@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AKRESULT__Enum.h>
 #include <Modloader/app/structs/BaseType.h>
 #include <Modloader/app/structs/Object_1.h>
-#include <Modloader/app/structs/AKRESULT__Enum.h>
 
 namespace app::classes::AK::Wwise::BaseType {
     IL2CPP_REGISTER_METHOD(0x026C1570, app::String*, get_Name, (app::BaseType * this_ptr))

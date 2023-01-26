@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AudioPrewarmOperation.h>
+
+#include <Modloader/app/structs/AudioPrewarmOperation.h>
 
 namespace app::classes::frameworks::loading::Prewarmers::AudioPrewarmOperation {
     IL2CPP_REGISTER_METHOD(0x00F5DDD0, void, ctor, (app::AudioPrewarmOperation * this_ptr))

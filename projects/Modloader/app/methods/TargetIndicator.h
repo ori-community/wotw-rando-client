@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TargetIndicator.h>
+
+#include <Modloader/app/structs/TargetIndicator.h>
 
 namespace app::classes::TargetIndicator {
     IL2CPP_REGISTER_METHOD(0x00CE2970, void, Start, (app::TargetIndicator * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ControlListOptions.h>
+
+#include <Modloader/app/structs/ControlListOptions.h>
 #include <Modloader/app/structs/ControlsScreen_ControlListEnum__Enum.h>
 
 namespace app::classes::ControlListOptions {
@@ -12,9 +13,6 @@ namespace app::classes::ControlListOptions {
     IL2CPP_REGISTER_METHOD(0x011EF360, void, Init, (app::ControlListOptions * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008578B0, void, ctor, (app::ControlListOptions * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011EF790, void, _Init_b__6_0, (app::ControlListOptions * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474D438, ControlListOptions__Init_b__6_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011EF7A0, void, _Init_b__6_1, (app::ControlListOptions * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471F770, ControlListOptions__Init_b__6_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011EF7B0, void, _Init_b__6_2, (app::ControlListOptions * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475BBE0, ControlListOptions__Init_b__6_2__MethodInfo)
 } // namespace app::classes::ControlListOptions

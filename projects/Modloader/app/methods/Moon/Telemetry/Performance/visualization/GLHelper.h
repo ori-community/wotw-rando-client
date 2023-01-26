@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/GLHelper.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Telemetry::Performance::visualization::GLHelper {
     IL2CPP_REGISTER_METHOD(0x010A3D60, void, DrawRect, (float x1, float y1, float x2, float y2))
@@ -14,7 +15,7 @@ namespace app::classes::Moon::Telemetry::Performance::visualization::GLHelper {
     IL2CPP_REGISTER_METHOD(0x010A4FD0, void, DrawFloatWithBackground, (float value, app::Color background_color, app::Color text_color, int32_t x, int32_t y))
     IL2CPP_REGISTER_METHOD(0x010A5300, void, DrawStringWithBackground, (app::String * str, int32_t x_offset, int32_t y_offset, app::Color background_color, app::Color string_color))
     IL2CPP_REGISTER_METHOD(0x010A5550, void, DrawString, (app::String * str, int32_t x_offset, int32_t y_offset))
-    IL2CPP_REGISTER_METHOD(0x010A5660, void, DrawLetter_1, (uint16_t c, int32_t x_offset, int32_t y_offset))
+    IL2CPP_REGISTER_METHOD(0x010A5660, void, DrawLetter_1, (char16_t c, int32_t x_offset, int32_t y_offset))
     IL2CPP_REGISTER_METHOD(0x010A5730, void, DrawLetter_2, (int32_t letter, int32_t x_offset, int32_t y_offset))
     IL2CPP_REGISTER_METHOD(0x010A5A10, int32_t, LetterOffset, (int32_t letter))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GLHelper * this_ptr))

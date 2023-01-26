@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraShakeAsset.h>
+
+#include <Modloader/app/structs/CameraShakeAsset.h>
 
 namespace app::classes::CameraShakeAsset {
     IL2CPP_REGISTER_METHOD(0x00B1D590, float, get_Duration, (app::CameraShakeAsset * this_ptr))

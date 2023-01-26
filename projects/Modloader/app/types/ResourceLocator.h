@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/ResourceLocator.h>
+#include <Modloader/app/structs/ResourceLocator__Array.h>
+#include <Modloader/app/structs/ResourceLocator__Boxed.h>
+#include <Modloader/app/structs/ResourceLocator__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ResourceLocator__Class.h>
-#include <Modloader/app/structs/ResourceLocator.h>
-#include <Modloader/app/structs/ResourceLocator__Boxed.h>
-#include <Modloader/app/structs/ResourceLocator__Array.h>
 
 namespace app::classes::types {
     namespace ResourceLocator {
-        namespace {
-            inline app::ResourceLocator__Class* type_info_ref = nullptr;
+        inline app::ResourceLocator__Class** type_info() {
+            static app::ResourceLocator__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ResourceLocator__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ResourceLocator__Class** type_info = &type_info_ref;
         inline app::ResourceLocator__Class* get_class() {
-            return il2cpp::get_class<app::ResourceLocator__Class>(type_info, "System.Resources", "ResourceLocator");
+            return il2cpp::get_class<app::ResourceLocator__Class>(type_info(), "System.Resources", "ResourceLocator");
         }
         inline app::ResourceLocator* create() {
             return il2cpp::create_object<app::ResourceLocator>(get_class());

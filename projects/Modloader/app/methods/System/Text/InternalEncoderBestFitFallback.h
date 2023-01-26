@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InternalEncoderBestFitFallback.h>
-#include <Modloader/app/structs/Encoding.h>
+
+#include <Modloader/app/structs/InternalEncoderBestFitFallback.h>
 #include <Modloader/app/structs/EncoderFallbackBuffer.h>
+#include <Modloader/app/structs/Encoding.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Text::InternalEncoderBestFitFallback {

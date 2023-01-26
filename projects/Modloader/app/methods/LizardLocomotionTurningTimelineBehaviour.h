@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/LizardLocomotionTurningTimelineBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/LizardLocomotionTurningTimelineBehaviour.h>
 #include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LizardLocomotionTurningTimelineBehaviour {
     IL2CPP_REGISTER_METHOD(0x00FB17C0, app::Transform*, get_VFXHolder, (app::LizardLocomotionTurningTimelineBehaviour * this_ptr))

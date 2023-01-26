@@ -1,15 +1,20 @@
 #pragma once
+#include <Modloader/app/structs/CharacterLeftRightMovement_PreDashDelegateType.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement_PreDashDelegateType__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CharacterLeftRightMovement_PreDashDelegateType__Class.h>
-#include <Modloader/app/structs/CharacterLeftRightMovement_PreDashDelegateType.h>
 
 namespace app::classes::types {
     namespace CharacterLeftRightMovement_PreDashDelegateType {
-        inline app::CharacterLeftRightMovement_PreDashDelegateType__Class** type_info = (app::CharacterLeftRightMovement_PreDashDelegateType__Class**)(modloader::win::memory::resolve_rva(0x0470A6B0));
+        inline app::CharacterLeftRightMovement_PreDashDelegateType__Class** type_info() {
+            static app::CharacterLeftRightMovement_PreDashDelegateType__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::CharacterLeftRightMovement_PreDashDelegateType__Class**)(modloader::win::memory::resolve_rva(0x0470A6B0));
+            }
+            return cache;
+        }
         inline app::CharacterLeftRightMovement_PreDashDelegateType__Class* get_class() {
-            return il2cpp::get_nested_class<app::CharacterLeftRightMovement_PreDashDelegateType__Class>(type_info, "", "CharacterLeftRightMovement", "PreDashDelegateType");
+            return il2cpp::get_nested_class<app::CharacterLeftRightMovement_PreDashDelegateType__Class>(type_info(), "", "CharacterLeftRightMovement", "PreDashDelegateType");
         }
         inline app::CharacterLeftRightMovement_PreDashDelegateType* create() {
             return il2cpp::create_object<app::CharacterLeftRightMovement_PreDashDelegateType>(get_class());

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UpdateCategory__Enum.h>
-#include <Modloader/app/structs/RigidbodyTranslationAnimatorEntity.h>
+
+#include <Modloader/app/structs/UpdateCategory__Enum.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/RigidbodyTranslationAnimatorEntity.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Timeline::RigidbodyTranslationAnimatorEntity {

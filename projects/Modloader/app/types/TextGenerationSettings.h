@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TextGenerationSettings__Class.h>
 #include <Modloader/app/structs/TextGenerationSettings.h>
 #include <Modloader/app/structs/TextGenerationSettings__Boxed.h>
+#include <Modloader/app/structs/TextGenerationSettings__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace TextGenerationSettings {
-        namespace {
-            inline app::TextGenerationSettings__Class* type_info_ref = nullptr;
+        inline app::TextGenerationSettings__Class** type_info() {
+            static app::TextGenerationSettings__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::TextGenerationSettings__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::TextGenerationSettings__Class** type_info = &type_info_ref;
         inline app::TextGenerationSettings__Class* get_class() {
-            return il2cpp::get_class<app::TextGenerationSettings__Class>(type_info, "UnityEngine", "TextGenerationSettings");
+            return il2cpp::get_class<app::TextGenerationSettings__Class>(type_info(), "UnityEngine", "TextGenerationSettings");
         }
         inline app::TextGenerationSettings* create() {
             return il2cpp::create_object<app::TextGenerationSettings>(get_class());

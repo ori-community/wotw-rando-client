@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinPowerslideSpell.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/SeinPowerslideSpell.h>
 #include <Modloader/app/structs/SeinPowerslideSpell_FireTrailPoint.h>
 #include <Modloader/app/structs/SeinPowerslideSpell_State__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinPowerslideSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinPowerslideSpell * this_ptr))
@@ -16,7 +17,6 @@ namespace app::classes::SeinPowerslideSpell {
     IL2CPP_REGISTER_METHOD(0x005CA030, void, UpdateNormalState, (app::SeinPowerslideSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005CA190, void, DebugDrawFireTrail, (app::SeinPowerslideSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005CA230, bool, UpdateFirePoint, (app::SeinPowerslideSpell * this_ptr, app::SeinPowerslideSpell_FireTrailPoint* fire))
-    IL2CPP_REGISTER_METHODINFO(0x0470CE50, SeinPowerslideSpell_UpdateFirePoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005CA480, void, UpdateFireTrail, (app::SeinPowerslideSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005CA600, void, SpawnFire, (app::SeinPowerslideSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005CAD40, void, UpdatePowerslidingState, (app::SeinPowerslideSpell * this_ptr))
@@ -28,7 +28,6 @@ namespace app::classes::SeinPowerslideSpell {
     IL2CPP_REGISTER_METHOD(0x005CB580, bool, IsAgainstWall, (app::SeinPowerslideSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005CB730, bool, CanPerformPowerslide, (app::SeinPowerslideSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005CB7B0, bool, KeepAnimationPlaying, (app::SeinPowerslideSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471E7C0, SeinPowerslideSpell_KeepAnimationPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005CB850, void, PerformPowerslide, (app::SeinPowerslideSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005CBC20, void, ChangeState, (app::SeinPowerslideSpell * this_ptr, app::SeinPowerslideSpell_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x005CBD10, void, KnockNearbyEnemies, (app::SeinPowerslideSpell * this_ptr))

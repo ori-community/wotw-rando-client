@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DebugPlayerTeleporter.h>
+
+#include <Modloader/app/structs/DebugPlayerTeleporter.h>
 #include <Modloader/app/structs/DebugPlayerTeleporter_DebugMarkerMode__Enum.h>
 #include <Modloader/app/structs/Entity.h>
 

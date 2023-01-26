@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderRuntimeZShift.h>
+
+#include <Modloader/app/structs/UberShaderRuntimeZShift.h>
 #include <Modloader/app/structs/Renderer.h>
 
 namespace app::classes::UberShaderRuntimeZShift {

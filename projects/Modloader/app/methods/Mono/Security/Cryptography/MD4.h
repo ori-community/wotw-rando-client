@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MD4.h>
+
+#include <Modloader/app/structs/MD4.h>
 #include <Modloader/app/structs/MD4_1.h>
 
 namespace app::classes::Mono::Security::Cryptography::MD4 {

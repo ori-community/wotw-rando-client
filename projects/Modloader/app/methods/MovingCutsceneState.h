@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinCharacter.h>
+
+#include <Modloader/app/structs/SeinCharacter.h>
 #include <Modloader/app/structs/MovingCutsceneState.h>
 
 namespace app::classes::MovingCutsceneState {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GridObject.h>
+
+#include <Modloader/app/structs/GridObject.h>
 #include <Modloader/app/structs/Shelf.h>
 
 namespace app::classes::Shelf {

@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/WotwUberStateToWwiseData_AbilityRequirementCondition__Class.h>
 #include <Modloader/app/structs/WotwUberStateToWwiseData_AbilityRequirementCondition.h>
 #include <Modloader/app/structs/WotwUberStateToWwiseData_AbilityRequirementCondition__Array.h>
+#include <Modloader/app/structs/WotwUberStateToWwiseData_AbilityRequirementCondition__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace WotwUberStateToWwiseData_AbilityRequirementCondition {
-        inline app::WotwUberStateToWwiseData_AbilityRequirementCondition__Class** type_info = (app::WotwUberStateToWwiseData_AbilityRequirementCondition__Class**)(modloader::win::memory::resolve_rva(0x0474B230));
+        inline app::WotwUberStateToWwiseData_AbilityRequirementCondition__Class** type_info() {
+            static app::WotwUberStateToWwiseData_AbilityRequirementCondition__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::WotwUberStateToWwiseData_AbilityRequirementCondition__Class**)(modloader::win::memory::resolve_rva(0x0474B230));
+            }
+            return cache;
+        }
         inline app::WotwUberStateToWwiseData_AbilityRequirementCondition__Class* get_class() {
-            return il2cpp::get_nested_class<app::WotwUberStateToWwiseData_AbilityRequirementCondition__Class>(type_info, "", "WotwUberStateToWwiseData", "AbilityRequirementCondition");
+            return il2cpp::get_nested_class<app::WotwUberStateToWwiseData_AbilityRequirementCondition__Class>(type_info(), "", "WotwUberStateToWwiseData", "AbilityRequirementCondition");
         }
         inline app::WotwUberStateToWwiseData_AbilityRequirementCondition* create() {
             return il2cpp::create_object<app::WotwUberStateToWwiseData_AbilityRequirementCondition>(get_class());

@@ -1,34 +1,33 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectWriter.h>
-#include <Modloader/app/structs/ISurrogateSelector.h>
-#include <Modloader/app/structs/StreamingContext.h>
-#include <Modloader/app/structs/InternalFE.h>
-#include <Modloader/app/structs/SerializationBinder.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Header__Array.h>
-#include <Modloader/app/structs/_BinaryWriter.h>
-#include <Modloader/app/structs/SerializationObjectManager.h>
-#include <Modloader/app/structs/WriteObjectInfo.h>
-#include <Modloader/app/structs/NameInfo.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/Type__Array.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/WriteObjectInfo__Array.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/Int32__Array.h>
+
+#include <Modloader/app/structs/ObjectWriter.h>
 #include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/InternalPrimitiveTypeE__Enum.h>
 #include <Modloader/app/structs/FormatterTypeStyle__Enum.h>
+#include <Modloader/app/structs/Header__Array.h>
+#include <Modloader/app/structs/ISurrogateSelector.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/InternalFE.h>
+#include <Modloader/app/structs/InternalPrimitiveTypeE__Enum.h>
+#include <Modloader/app/structs/NameInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/SerializationBinder.h>
+#include <Modloader/app/structs/SerializationObjectManager.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Type__Array.h>
+#include <Modloader/app/structs/WriteObjectInfo.h>
+#include <Modloader/app/structs/WriteObjectInfo__Array.h>
+#include <Modloader/app/structs/_BinaryWriter.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::ObjectWriter {
     IL2CPP_REGISTER_METHOD(0x01D9A180, void, ctor, (app::ObjectWriter * this_ptr, app::ISurrogateSelector* selector, app::StreamingContext context, app::InternalFE* formatter_enums, app::SerializationBinder* binder))
     IL2CPP_REGISTER_METHOD(0x01D9A3F0, void, Serialize, (app::ObjectWriter * this_ptr, app::Object* graph, app::Header__Array* in_headers, app::_BinaryWriter* ser_writer, bool f_check))
-    IL2CPP_REGISTER_METHODINFO(0x04743E28, ObjectWriter_Serialize__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::SerializationObjectManager*, get_ObjectManager, (app::ObjectWriter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D9ABB0, void, Write_1, (app::ObjectWriter * this_ptr, app::WriteObjectInfo* object_info, app::NameInfo* member_name_info, app::NameInfo* type_name_info))
-    IL2CPP_REGISTER_METHODINFO(0x04775B10, ObjectWriter_Write__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D9B1F0, void, Write_2, (app::ObjectWriter * this_ptr, app::WriteObjectInfo* object_info, app::NameInfo* member_name_info, app::NameInfo* type_name_info, app::String__Array* member_names, app::Type__Array* member_types, app::Object__Array* member_data, app::WriteObjectInfo__Array* member_object_infos))
     IL2CPP_REGISTER_METHOD(0x01D9B670, void, WriteMemberSetup, (app::ObjectWriter * this_ptr, app::WriteObjectInfo* object_info, app::NameInfo* member_name_info, app::NameInfo* type_name_info, app::String* member_name, app::Type* member_type, app::Object* member_data, app::WriteObjectInfo* member_object_info))
     IL2CPP_REGISTER_METHOD(0x01D9B7E0, void, WriteMembers, (app::ObjectWriter * this_ptr, app::NameInfo* member_name_info, app::NameInfo* member_type_name_info, app::Object* member_data, app::WriteObjectInfo* object_info, app::NameInfo* type_name_info, app::WriteObjectInfo* member_object_info))
@@ -36,7 +35,6 @@ namespace app::classes::System::Runtime::Serialization::Formatters::Binary::Obje
     IL2CPP_REGISTER_METHOD(0x01D9C840, void, WriteArrayMember, (app::ObjectWriter * this_ptr, app::WriteObjectInfo* object_info, app::NameInfo* array_elem_type_name_info, app::Object* data))
     IL2CPP_REGISTER_METHOD(0x01D9CC50, void, WriteRectangle, (app::ObjectWriter * this_ptr, app::WriteObjectInfo* object_info, int32_t rank, app::Int32__Array* max_a, app::Array* array, app::NameInfo* array_elem_name_type_info, app::Int32__Array* lower_bound_a))
     IL2CPP_REGISTER_METHOD(0x01D9CF40, app::Object*, GetNext, (app::ObjectWriter * this_ptr, int64_t* obj_i_d))
-    IL2CPP_REGISTER_METHODINFO(0x04712148, ObjectWriter_GetNext__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D9D110, int64_t, InternalGetId, (app::ObjectWriter * this_ptr, app::Object* obj, bool assign_unique_id_to_value_type, app::Type* type, bool* is_new))
     IL2CPP_REGISTER_METHOD(0x01D9D200, int64_t, Schedule_1, (app::ObjectWriter * this_ptr, app::Object* obj, bool assign_unique_id_to_value_type, app::Type* type))
     IL2CPP_REGISTER_METHOD(0x01D9D280, int64_t, Schedule_2, (app::ObjectWriter * this_ptr, app::Object* obj, bool assign_unique_id_to_value_type, app::Type* type, app::WriteObjectInfo* object_info))

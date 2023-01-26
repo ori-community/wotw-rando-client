@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScenarioRecorderState__Enum.h>
+
+#include <Modloader/app/structs/ScenarioRecorderState__Enum.h>
 #include <Modloader/app/structs/ScenariosRecorder.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/String__Array.h>

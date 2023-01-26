@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_FullSerializer_fsAotConfiguration_Entry_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_FullSerializer_fsAotConfiguration_Entry_.h>
 #include <Modloader/app/structs/Comparison_1_FullSerializer_fsAotConfiguration_Entry_.h>
 #include <Modloader/app/structs/fsAotConfiguration_Entry.h>
 

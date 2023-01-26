@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
 #include <Modloader/app/structs/Comparison_1_Newtonsoft_Json_Utilities_StructMultiKey_2_.h>
 #include <Modloader/app/structs/StructMultiKey_2_System_Object_System_Object_.h>
 

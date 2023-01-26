@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritShardType__Enum__Array.h>
+
+#include <Modloader/app/structs/SpiritShardType__Enum__Array.h>
 #include <Modloader/app/structs/SpiritShardTypeListProvider.h>
 
 namespace app::classes::SpiritShardTypeListProvider {

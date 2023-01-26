@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinInvisibilitySpell.h>
+
+#include <Modloader/app/structs/SeinInvisibilitySpell.h>
 
 namespace app::classes::SeinInvisibilitySpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinInvisibilitySpell * this_ptr))

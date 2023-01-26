@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LayerMask.h>
+
+#include <Modloader/app/structs/LayerMask.h>
 #include <Modloader/app/structs/Comparer_1_UnityEngine_RaycastHit_.h>
 #include <Modloader/app/structs/PhysicsUtils_Mask__Enum.h>
 #include <Modloader/app/structs/Vector3.h>

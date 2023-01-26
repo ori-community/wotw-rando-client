@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XPathNodePageInfo.h>
+
+#include <Modloader/app/structs/XPathNodePageInfo.h>
 #include <Modloader/app/structs/XPathNode__Array.h>
 
 namespace app::classes::MS::Internal::Xml::Cache::XPathNodePageInfo {

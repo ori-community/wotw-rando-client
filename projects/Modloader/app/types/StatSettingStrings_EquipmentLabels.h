@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/StatSettingStrings_EquipmentLabels.h>
+#include <Modloader/app/structs/StatSettingStrings_EquipmentLabels__Array.h>
+#include <Modloader/app/structs/StatSettingStrings_EquipmentLabels__Boxed.h>
+#include <Modloader/app/structs/StatSettingStrings_EquipmentLabels__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/StatSettingStrings_EquipmentLabels__Class.h>
-#include <Modloader/app/structs/StatSettingStrings_EquipmentLabels.h>
-#include <Modloader/app/structs/StatSettingStrings_EquipmentLabels__Boxed.h>
-#include <Modloader/app/structs/StatSettingStrings_EquipmentLabels__Array.h>
 
 namespace app::classes::types {
     namespace StatSettingStrings_EquipmentLabels {
-        namespace {
-            inline app::StatSettingStrings_EquipmentLabels__Class* type_info_ref = nullptr;
+        inline app::StatSettingStrings_EquipmentLabels__Class** type_info() {
+            static app::StatSettingStrings_EquipmentLabels__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::StatSettingStrings_EquipmentLabels__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::StatSettingStrings_EquipmentLabels__Class** type_info = &type_info_ref;
         inline app::StatSettingStrings_EquipmentLabels__Class* get_class() {
-            return il2cpp::get_nested_class<app::StatSettingStrings_EquipmentLabels__Class>(type_info, "", "StatSettingStrings", "EquipmentLabels");
+            return il2cpp::get_nested_class<app::StatSettingStrings_EquipmentLabels__Class>(type_info(), "", "StatSettingStrings", "EquipmentLabels");
         }
         inline app::StatSettingStrings_EquipmentLabels* create() {
             return il2cpp::create_object<app::StatSettingStrings_EquipmentLabels>(get_class());

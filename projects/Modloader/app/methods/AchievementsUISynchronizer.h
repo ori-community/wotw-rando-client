@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AchievementsUISynchronizer.h>
+
+#include <Modloader/app/structs/AchievementsUISynchronizer.h>
 
 namespace app::classes::AchievementsUISynchronizer {
     IL2CPP_REGISTER_METHOD(0x004C0670, bool, get_IsSynchronized, (app::AchievementsUISynchronizer * this_ptr))

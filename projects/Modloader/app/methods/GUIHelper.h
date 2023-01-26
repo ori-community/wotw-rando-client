@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUIStyle.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/GUIStyle.h>
 #include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/GUIHelper.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::GUIHelper {
     IL2CPP_REGISTER_METHOD(0x0151D9B0, app::GUIStyle*, get_BigTextStyle, ())

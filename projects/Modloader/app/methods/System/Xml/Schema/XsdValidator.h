@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XsdValidator.h>
+
+#include <Modloader/app/structs/XsdValidator.h>
 #include <Modloader/app/structs/BaseValidator.h>
-#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
-#include <Modloader/app/structs/XmlSchemaCollection.h>
 #include <Modloader/app/structs/IValidationEventHandling.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SchemaElementDecl.h>
-#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
 #include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/SchemaElementDecl.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaCollection.h>
+#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
+#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
 
 namespace app::classes::System::Xml::Schema::XsdValidator {
     IL2CPP_REGISTER_METHOD(0x01C83140, void, ctor_1, (app::XsdValidator * this_ptr, app::BaseValidator* validator))
@@ -31,7 +32,6 @@ namespace app::classes::System::Xml::Schema::XsdValidator {
     IL2CPP_REGISTER_METHOD(0x01C86200, void, ValidateEndStartElement, (app::XsdValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01C86690, void, LoadSchemaFromLocation, (app::XsdValidator * this_ptr, app::String* uri, app::String* url))
     IL2CPP_REGISTER_METHOD(0x01C86E60, void, LoadSchema, (app::XsdValidator * this_ptr, app::String* uri, app::String* url))
-    IL2CPP_REGISTER_METHODINFO(0x047925A8, XsdValidator_LoadSchema__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01C87090, bool, get_HasSchema, (app::XsdValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01C870B0, bool, get_PreserveWhitespace, (app::XsdValidator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01C87110, void, ProcessTokenizedType, (app::XsdValidator * this_ptr, app::XmlTokenizedType__Enum ttype, app::String* name))

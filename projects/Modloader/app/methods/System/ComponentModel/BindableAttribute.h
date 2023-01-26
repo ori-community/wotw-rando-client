@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BindableAttribute.h>
-#include <Modloader/app/structs/BindingDirection__Enum.h>
+
+#include <Modloader/app/structs/BindableAttribute.h>
 #include <Modloader/app/structs/BindableSupport__Enum.h>
+#include <Modloader/app/structs/BindingDirection__Enum.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::BindableAttribute {

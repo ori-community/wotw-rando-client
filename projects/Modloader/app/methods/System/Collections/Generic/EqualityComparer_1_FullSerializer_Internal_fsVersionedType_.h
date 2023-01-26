@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_FullSerializer_Internal_fsVersionedType_.h>
-#include <Modloader/app/structs/fsVersionedType__Array.h>
-#include <Modloader/app/structs/fsVersionedType.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_FullSerializer_Internal_fsVersionedType_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/fsVersionedType.h>
+#include <Modloader/app/structs/fsVersionedType__Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_FullSerializer_Internal_fsVersionedType_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_FullSerializer_Internal_fsVersionedType_*, get_Default, ())

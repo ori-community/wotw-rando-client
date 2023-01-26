@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SwarmAllowedArea.h>
+
+#include <Modloader/app/structs/SwarmAllowedArea.h>
 #include <Modloader/app/structs/List_1_UnityEngine_Transform_.h>
 #include <Modloader/app/structs/Transform.h>
 

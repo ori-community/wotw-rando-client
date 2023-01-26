@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HPerfTestResult.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/HPerfTestResult.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::HPerfTestResult {
     IL2CPP_REGISTER_METHOD(0x0149BC20, void, ctor, (app::HPerfTestResult * this_ptr, int32_t id, double cpu_time, double gpu_time, double srp_game_view_time, int32_t child_count, app::String* path, app::GameObject* target))

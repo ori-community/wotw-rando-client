@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Bounds.h>
+
+#include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/MixerSnapshotZone.h>
 
 namespace app::classes::MixerSnapshotZone {

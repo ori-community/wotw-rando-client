@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_DebugMenu_ExternalItem_.h>
-#include <Modloader/app/structs/DebugMenu_ExternalItem__Array.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_DebugMenu_ExternalItem_.h>
 #include <Modloader/app/structs/DebugMenu_ExternalItem.h>
+#include <Modloader/app/structs/DebugMenu_ExternalItem__Array.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_DebugMenu_ExternalItem_ {

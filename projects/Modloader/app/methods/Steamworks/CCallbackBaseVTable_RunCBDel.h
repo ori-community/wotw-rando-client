@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CCallbackBaseVTable_RunCBDel.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/IAsyncResult.h>
+
+#include <Modloader/app/structs/CCallbackBaseVTable_RunCBDel.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Steamworks::CCallbackBaseVTable_RunCBDel {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::CCallbackBaseVTable_RunCBDel * this_ptr, app::Object* object, void* method_1))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_FrogEntity_.h>
-#include <Modloader/app/structs/FrogGroup.h>
+
+#include <Modloader/app/structs/List_1_FrogEntity_.h>
 #include <Modloader/app/structs/FrogEntity.h>
+#include <Modloader/app/structs/FrogGroup.h>
 
 namespace app::classes::FrogGroup {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::List_1_FrogEntity_*, get_AliveFrogsInGroup, (app::FrogGroup * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MotionAbsorb_Absorber.h>
+
+#include <Modloader/app/structs/MotionAbsorb_Absorber.h>
 #include <Modloader/app/structs/IKSolverFullBodyBiped.h>
 
 namespace app::classes::RootMotion::Demos::MotionAbsorb_Absorber {

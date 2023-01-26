@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReplayValidator_Constraint.h>
+
+#include <Modloader/app/structs/ReplayValidator_Constraint.h>
 #include <Modloader/app/structs/ReplayValidator_Snapshot.h>
 
 namespace app::classes::Moon::Race::ReplayValidator_Constraint {

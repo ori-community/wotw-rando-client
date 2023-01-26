@@ -1,31 +1,32 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JsonSerializerProxy.h>
-#include <Modloader/app/structs/EventHandler_1_Newtonsoft_Json_Serialization_ErrorEventArgs_.h>
-#include <Modloader/app/structs/IReferenceResolver.h>
-#include <Modloader/app/structs/ITraceWriter.h>
-#include <Modloader/app/structs/IEqualityComparer.h>
-#include <Modloader/app/structs/JsonConverterCollection.h>
-#include <Modloader/app/structs/DefaultValueHandling__Enum.h>
-#include <Modloader/app/structs/IContractResolver.h>
-#include <Modloader/app/structs/MissingMemberHandling__Enum.h>
-#include <Modloader/app/structs/NullValueHandling__Enum.h>
-#include <Modloader/app/structs/ObjectCreationHandling__Enum.h>
-#include <Modloader/app/structs/ReferenceLoopHandling__Enum.h>
-#include <Modloader/app/structs/PreserveReferencesHandling__Enum.h>
-#include <Modloader/app/structs/TypeNameHandling__Enum.h>
-#include <Modloader/app/structs/MetadataPropertyHandling__Enum.h>
-#include <Modloader/app/structs/TypeNameAssemblyFormatHandling__Enum.h>
+
+#include <Modloader/app/structs/JsonSerializerProxy.h>
 #include <Modloader/app/structs/ConstructorHandling__Enum.h>
+#include <Modloader/app/structs/DefaultValueHandling__Enum.h>
+#include <Modloader/app/structs/EventHandler_1_Newtonsoft_Json_Serialization_ErrorEventArgs_.h>
+#include <Modloader/app/structs/IContractResolver.h>
+#include <Modloader/app/structs/IEqualityComparer.h>
+#include <Modloader/app/structs/IReferenceResolver.h>
 #include <Modloader/app/structs/ISerializationBinder.h>
-#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/ITraceWriter.h>
+#include <Modloader/app/structs/JsonConverterCollection.h>
+#include <Modloader/app/structs/JsonReader.h>
 #include <Modloader/app/structs/JsonSerializerInternalBase.h>
 #include <Modloader/app/structs/JsonSerializerInternalReader.h>
 #include <Modloader/app/structs/JsonSerializerInternalWriter.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/JsonReader.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/JsonWriter.h>
+#include <Modloader/app/structs/MetadataPropertyHandling__Enum.h>
+#include <Modloader/app/structs/MissingMemberHandling__Enum.h>
+#include <Modloader/app/structs/NullValueHandling__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ObjectCreationHandling__Enum.h>
+#include <Modloader/app/structs/PreserveReferencesHandling__Enum.h>
+#include <Modloader/app/structs/ReferenceLoopHandling__Enum.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeNameAssemblyFormatHandling__Enum.h>
+#include <Modloader/app/structs/TypeNameHandling__Enum.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonSerializerProxy {
     IL2CPP_REGISTER_METHOD(0x01BF85F0, void, add_Error, (app::JsonSerializerProxy * this_ptr, app::EventHandler_1_Newtonsoft_Json_Serialization_ErrorEventArgs_* value))

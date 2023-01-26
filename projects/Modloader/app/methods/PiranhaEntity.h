@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PiranhaEntity.h>
+
+#include <Modloader/app/structs/PiranhaEntity.h>
 #include <Modloader/app/structs/CameraTargetData.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PiranhaEntity {
     IL2CPP_REGISTER_METHOD(0x0115E6D0, bool, get_ShouldFollowOri, (app::PiranhaEntity * this_ptr))

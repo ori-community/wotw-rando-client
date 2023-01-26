@@ -1,9 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReflectionUtils_ThreadSafeDictionary_2_System_Type_ReflectionUtils_ConstructorDelegate_.h>
-#include <Modloader/app/structs/ReflectionUtils_ThreadSafeDictionaryValueFactory_2_System_Type_ReflectionUtils_ConstructorDelegate_.h>
+
+#include <Modloader/app/structs/ReflectionUtils_ThreadSafeDictionary_2_System_Type_ReflectionUtils_ConstructorDelegate_.h>
+#include <Modloader/app/structs/ReflectionUtils_ThreadSafeDictionaryValueFactor_2_Syst_Ty_ReflectionUti_ConstructorDelega_.h>
 
 namespace app::classes::PlayFab::Json::ReflectionUtils_ThreadSafeDictionary_2_System_Type_ReflectionUtils_ConstructorDelegate_ {
     IL2CPP_REGISTER_METHOD(0x01D15670, void, ctor, (app::ReflectionUtils_ThreadSafeDictionary_2_System_Type_ReflectionUtils_ConstructorDelegate_ * this_ptr, app::ReflectionUtils_ThreadSafeDictionaryValueFactory_2_System_Type_ReflectionUtils_ConstructorDelegate_* value_factory))
-    IL2CPP_REGISTER_METHODINFO(0x0475F388, ReflectionUtils_ThreadSafeDictionary_2_System_Type_ReflectionUtils_ConstructorDelegate___ctor__MethodInfo)
-} // namespace app::classes::PlayFab::Json::ReflectionUtils_ThreadSafeDictionary_2_System_Type_ReflectionUtils_ConstructorDelegate_
+}

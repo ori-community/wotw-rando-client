@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ITweenLerpInputProvider.h>
+
+#include <Modloader/app/structs/ITweenLerpInputProvider.h>
 #include <Modloader/app/structs/DrivenAlpha.h>
 #include <Modloader/app/structs/Renderer.h>
 

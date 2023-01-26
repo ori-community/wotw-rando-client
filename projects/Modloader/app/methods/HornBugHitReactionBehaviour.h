@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
-#include <Modloader/app/structs/HornBugHitReactionBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
-#include <Modloader/app/structs/EntityEvent.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/HornBugHitReactionBehaviour.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::HornBugHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x0065FBE0, app::EntityDamageEvent*, get_DamageEvent, (app::HornBugHitReactionBehaviour * this_ptr))
@@ -25,10 +26,8 @@ namespace app::classes::HornBugHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::HornBugHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A640A0, bool, PlayedAdditiveAnim, (app::HornBugHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B6C890, void, TimelineFinished, (app::HornBugHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474DFB0, HornBugHitReactionBehaviour_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B6C8B0, bool, CanInterrupt, (app::HornBugHitReactionBehaviour * this_ptr, app::EntityReactionBehaviour_ReasonWhyReactionWontInterrupt* reason))
     IL2CPP_REGISTER_METHOD(0x00B6CB50, void, FlipEventStart, (app::HornBugHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047185A8, HornBugHitReactionBehaviour_FlipEventStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B6CBA0, bool, IsHeavyAttack, (app::HornBugHitReactionBehaviour * this_ptr, app::DamageWeight__Enum weight))
     IL2CPP_REGISTER_METHOD(0x00B6CBB0, void, PlayShake, (app::HornBugHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B6CCB0, void, ctor, (app::HornBugHitReactionBehaviour * this_ptr))

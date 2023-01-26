@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DefaultDllImportSearchPathsAttribute.h>
+
+#include <Modloader/app/structs/DefaultDllImportSearchPathsAttribute.h>
 #include <Modloader/app/structs/DllImportSearchPath__Enum.h>
 
 namespace app::classes::System::Runtime::InteropServices::DefaultDllImportSearchPathsAttribute {

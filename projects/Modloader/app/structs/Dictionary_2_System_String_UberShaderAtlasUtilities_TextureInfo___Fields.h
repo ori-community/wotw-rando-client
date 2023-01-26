@@ -27,7 +27,7 @@ struct __declspec(align(8)) Dictionary_2_System_String_UberShaderAtlasUtilities_
 #define IL2CPP_STRUCT_Dictionary_2_System_String_UberShaderAtlasUtilities_TextureInfo___Fields_FWDDECL
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_System_String_UberShaderAtlasUtilities_TextureInfo___Array.h>
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_System_String_UberShaderAtlasUtilities_TextureInfo_.h>
-#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_String_UberShaderAtlasUtilities_TextureInfo_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_String_UberShaderAtlasUtilitie_TextureInf_.h>
 #include <Modloader/app/structs/IEqualityComparer_1_System_String_.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/Object.h>

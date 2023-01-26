@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NetConfig.h>
+
+#include <Modloader/app/structs/NetConfig.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::NetConfig {

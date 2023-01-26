@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraSettings.h>
+
+#include <Modloader/app/structs/CameraSettings.h>
 #include <Modloader/app/structs/CameraSettingOverrides.h>
 
 namespace app::classes::CameraSettingOverrides {

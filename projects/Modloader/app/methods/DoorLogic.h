@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IUberState.h>
+
+#include <Modloader/app/structs/IUberState.h>
 #include <Modloader/app/structs/DoorLogic.h>
-#include <Modloader/app/structs/IMoonSetupAnimator.h>
 #include <Modloader/app/structs/IDesiredUberState.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::DoorLogic {
     IL2CPP_REGISTER_METHOD(0x00BDA9A0, app::IUberState*, get_UberState, (app::DoorLogic * this_ptr))

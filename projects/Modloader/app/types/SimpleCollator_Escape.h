@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SimpleCollator_Escape__Class.h>
 #include <Modloader/app/structs/SimpleCollator_Escape.h>
 #include <Modloader/app/structs/SimpleCollator_Escape__Boxed.h>
+#include <Modloader/app/structs/SimpleCollator_Escape__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SimpleCollator_Escape {
-        namespace {
-            inline app::SimpleCollator_Escape__Class* type_info_ref = nullptr;
+        inline app::SimpleCollator_Escape__Class** type_info() {
+            static app::SimpleCollator_Escape__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SimpleCollator_Escape__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SimpleCollator_Escape__Class** type_info = &type_info_ref;
         inline app::SimpleCollator_Escape__Class* get_class() {
-            return il2cpp::get_nested_class<app::SimpleCollator_Escape__Class>(type_info, "Mono.Globalization.Unicode", "SimpleCollator", "Escape");
+            return il2cpp::get_nested_class<app::SimpleCollator_Escape__Class>(type_info(), "Mono.Globalization.Unicode", "SimpleCollator", "Escape");
         }
         inline app::SimpleCollator_Escape* create() {
             return il2cpp::create_object<app::SimpleCollator_Escape>(get_class());

@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnemyEntity_SpawnPopFixState__Enum.h>
+
+#include <Modloader/app/structs/EnemyEntity_SpawnPopFixState__Enum.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/EnemyEntity.h>
 #include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
-#include <Modloader/app/structs/DamageOwner.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/SuspendWhenOutOfFrustrumWithCondition.h>
-#include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::Moon::EnemyEntity {
     IL2CPP_REGISTER_METHOD(0x0120D000, void, ResetStatics, ())
@@ -33,7 +34,6 @@ namespace app::classes::Moon::EnemyEntity {
     IL2CPP_REGISTER_METHOD(0x0120D600, void, OnUpdate, (app::EnemyEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0120D8B0, void, OnCacheSerializedComponents, (app::EnemyEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0120DAC0, void, DropAttackToken, (app::EnemyEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047962F0, EnemyEntity_DropAttackToken__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0120DC90, void, OnDied, (app::EnemyEntity * this_ptr, app::DamageResult result))
     IL2CPP_REGISTER_METHOD(0x0120DFB0, void, SpawnOrbs, (app::EnemyEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0120E180, void, OnAttackTokenStolen, (app::EnemyEntity * this_ptr))
@@ -45,7 +45,6 @@ namespace app::classes::Moon::EnemyEntity {
     IL2CPP_REGISTER_METHOD(0x0120F420, void, OnDisable, (app::EnemyEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0120F520, void, InstantKill, (app::EnemyEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0120F880, void, OnDamageResultReceived, (app::EnemyEntity * this_ptr, app::DamageResult result))
-    IL2CPP_REGISTER_METHODINFO(0x0474A290, EnemyEntity_OnDamageResultReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012104A0, void, MoonCleanup, (app::EnemyEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012104D0, void, ResetDeathLoopTimeLimitState, (app::EnemyEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012104E0, void, UpdateDeathLoopTimeLimit, (app::EnemyEntity * this_ptr, float d_time))

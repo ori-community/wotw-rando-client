@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CastInstruction_CastInstructionT_1_System_Object_.h>
+
+#include <Modloader/app/structs/CastInstruction_CastInstructionT_1_System_Object_.h>
 #include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::CastInstruction_CastInstructionT_1_System_Object_ {

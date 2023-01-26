@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReflectionDelegateFactory.h>
-#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
+
+#include <Modloader/app/structs/ReflectionDelegateFactory.h>
+#include <Modloader/app/structs/Action_2_Object_Object_.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/Func_1_Object_.h>
+#include <Modloader/app/structs/Func_2_Object_Object_.h>
 #include <Modloader/app/structs/LateBoundReflectionDelegateFactory.h>
 #include <Modloader/app/structs/MethodBase.h>
 #include <Modloader/app/structs/MethodCall_2_System_Object_System_Object_.h>
-#include <Modloader/app/structs/Func_1_Object_.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/Func_2_Object_Object_.h>
+#include <Modloader/app/structs/ObjectConstructor_1_System_Object_.h>
 #include <Modloader/app/structs/PropertyInfo_1.h>
-#include <Modloader/app/structs/FieldInfo_1.h>
-#include <Modloader/app/structs/Action_2_Object_Object_.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::LateBoundReflectionDelegateFactory {
     IL2CPP_REGISTER_METHOD(0x0301DA30, app::ReflectionDelegateFactory*, get_Instance, ())

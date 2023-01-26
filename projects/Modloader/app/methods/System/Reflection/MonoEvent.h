@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MethodInfo_1.h>
-#include <Modloader/app/structs/MonoEvent.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object__Array.h>
+
+#include <Modloader/app/structs/MethodInfo_1.h>
 #include <Modloader/app/structs/IList_1_System_Reflection_CustomAttributeData_.h>
+#include <Modloader/app/structs/MonoEvent.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Reflection::MonoEvent {
     IL2CPP_REGISTER_METHOD(0x0268FF20, app::MethodInfo_1*, GetAddMethod, (app::MonoEvent * this_ptr, bool non_public))

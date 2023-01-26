@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WwiseObjectType__Enum.h>
-#include <Modloader/app/structs/RTPC.h>
+
+#include <Modloader/app/structs/WwiseObjectType__Enum.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/RTPC.h>
 
 namespace app::classes::AK::Wwise::RTPC {
     IL2CPP_REGISTER_METHOD(0x004AB2B0, app::WwiseObjectType__Enum, get_WwiseObjectType, (app::RTPC * this_ptr))

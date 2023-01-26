@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimeTrackerForMoonGuid_TrackerEntry.h>
+
+#include <Modloader/app/structs/TimeTrackerForMoonGuid_TrackerEntry.h>
 #include <Modloader/app/structs/MoonGuid.h>
 
 namespace app::classes::TimeTrackerForMoonGuid_TrackerEntry {

@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PhysicalInteractable.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/PhysicalInteractable.h>
 #include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/SoundHost.h>
 #include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/UberInteractionActor.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/FloatRange_1.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/FloatRange_1.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UberInteractionActor.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::PhysicalInteractable {
     IL2CPP_REGISTER_METHOD(0x014EB3D0, bool, get_CanInteract, (app::PhysicalInteractable * this_ptr))
@@ -41,7 +42,6 @@ namespace app::classes::PhysicalInteractable {
     IL2CPP_REGISTER_METHOD(0x00C7C010, app::Vector3, GetPosition, (app::PhysicalInteractable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B68B50, app::Vector3, GetExplodePoint, (app::PhysicalInteractable * this_ptr, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x014ECCC0, void, OnRecieveDamage, (app::PhysicalInteractable * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x04750460, PhysicalInteractable_OnRecieveDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014ECEB0, void, PlaySound, (app::PhysicalInteractable * this_ptr, app::Event_1* event))
     IL2CPP_REGISTER_METHOD(0x010CDA20, void, OnDrawGizmosSelected, (app::PhysicalInteractable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014ED090, void, ctor, (app::PhysicalInteractable * this_ptr))

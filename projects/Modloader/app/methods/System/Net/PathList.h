@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PathList.h>
+
+#include <Modloader/app/structs/PathList.h>
 #include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Net::PathList {
     IL2CPP_REGISTER_METHOD(0x01BCB300, void, ctor, (app::PathList * this_ptr))

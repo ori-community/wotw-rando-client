@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraManager.h>
+
+#include <Modloader/app/structs/CameraManager.h>
 #include <Modloader/app/structs/CameraController_1.h>
 
 namespace app::classes::CameraManager {

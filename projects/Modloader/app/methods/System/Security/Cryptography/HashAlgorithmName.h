@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HashAlgorithmName.h>
+
+#include <Modloader/app/structs/HashAlgorithmName.h>
 #include <Modloader/app/structs/HashAlgorithmName__Boxed.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::HashAlgorithmName {
     IL2CPP_REGISTER_METHOD(0x020DBC10, app::HashAlgorithmName, get_MD5, ())

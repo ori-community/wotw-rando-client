@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/CartographerEntity.h>
-#include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/GameWorldArea.h>
 #include <Modloader/app/structs/MessageProvider.h>
 #include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 
 namespace app::classes::CartographerEntity {
     IL2CPP_REGISTER_METHOD(0x00B405E0, app::String*, get_DialogActorName, (app::CartographerEntity * this_ptr))

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Interpreter.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/LocalVariables.h>
-#include <Modloader/app/structs/InstructionArray.h>
+
+#include <Modloader/app/structs/Interpreter.h>
 #include <Modloader/app/structs/DebugInfo__Array.h>
-#include <Modloader/app/structs/Dictionary_2_System_Linq_Expressions_ParameterExpression_System_Linq_Expressions_Interpreter_LocalVariable_.h>
+#include <Modloader/app/structs/Dictionary_2_Syste_Li_Expressio_ParameterExpressi_Syst_Li_Expressio_Interpret_LocalVariab_.h>
+#include <Modloader/app/structs/InstructionArray.h>
 #include <Modloader/app/structs/InterpretedFrame.h>
+#include <Modloader/app/structs/LocalVariables.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::Interpreter {
     IL2CPP_REGISTER_METHOD(0x01CE2F00, void, ctor, (app::Interpreter * this_ptr, app::String* name, app::LocalVariables* locals, app::InstructionArray instructions, app::DebugInfo__Array* debug_infos))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RagdollUtility_Child.h>
+
+#include <Modloader/app/structs/RagdollUtility_Child.h>
 #include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::RagdollUtility_Child {

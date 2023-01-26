@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScaleToTextBox.h>
+
+#include <Modloader/app/structs/ScaleToTextBox.h>
 
 namespace app::classes::ScaleToTextBox {
     IL2CPP_REGISTER_METHOD(0x009343B0, void, FixedUpdate, (app::ScaleToTextBox * this_ptr))

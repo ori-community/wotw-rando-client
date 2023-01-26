@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MobileAuthenticatedStream_InnerWrite_d_67__Class.h>
 #include <Modloader/app/structs/MobileAuthenticatedStream_InnerWrite_d_67.h>
 #include <Modloader/app/structs/MobileAuthenticatedStream_InnerWrite_d_67__Boxed.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream_InnerWrite_d_67__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace MobileAuthenticatedStream_InnerWrite_d_67 {
-        namespace {
-            inline app::MobileAuthenticatedStream_InnerWrite_d_67__Class* type_info_ref = nullptr;
+        inline app::MobileAuthenticatedStream_InnerWrite_d_67__Class** type_info() {
+            static app::MobileAuthenticatedStream_InnerWrite_d_67__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::MobileAuthenticatedStream_InnerWrite_d_67__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::MobileAuthenticatedStream_InnerWrite_d_67__Class** type_info = &type_info_ref;
         inline app::MobileAuthenticatedStream_InnerWrite_d_67__Class* get_class() {
-            return il2cpp::get_nested_class<app::MobileAuthenticatedStream_InnerWrite_d_67__Class>(type_info, "Mono.Net.Security", "MobileAuthenticatedStream", "<InnerWrite>d__67");
+            return il2cpp::get_nested_class<app::MobileAuthenticatedStream_InnerWrite_d_67__Class>(type_info(), "Mono.Net.Security", "MobileAuthenticatedStream", "<InnerWrite>d__67");
         }
         inline app::MobileAuthenticatedStream_InnerWrite_d_67* create() {
             return il2cpp::create_object<app::MobileAuthenticatedStream_InnerWrite_d_67>(get_class());

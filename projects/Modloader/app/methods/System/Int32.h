@@ -1,18 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Int32__Boxed.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/Int32__Boxed.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Decimal.h>
 #include <Modloader/app/structs/IFormatProvider.h>
 #include <Modloader/app/structs/NumberStyles__Enum.h>
-#include <Modloader/app/structs/TypeCode__Enum.h>
-#include <Modloader/app/structs/Decimal.h>
-#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeCode__Enum.h>
 
 namespace app::classes::System::Int32 {
     IL2CPP_REGISTER_METHOD(0x001E7F80, int32_t, CompareTo_1, (app::Int32__Boxed * this_ptr, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x04756800, Int32_CompareTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001312E0, int32_t, CompareTo_2, (app::Int32__Boxed * this_ptr, int32_t value))
     IL2CPP_REGISTER_METHOD(0x001E7F90, bool, Equals_1, (app::Int32__Boxed * this_ptr, app::Object* obj))
     IL2CPP_REGISTER_METHOD(0x0012EDC0, bool, Equals_2, (app::Int32__Boxed * this_ptr, int32_t obj))
@@ -29,7 +29,7 @@ namespace app::classes::System::Int32 {
     IL2CPP_REGISTER_METHOD(0x0238CE50, bool, TryParse_2, (app::String * s, app::NumberStyles__Enum style, app::IFormatProvider* provider, int32_t* result))
     IL2CPP_REGISTER_METHOD(0x001E8050, app::TypeCode__Enum, GetTypeCode, (app::Int32__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x001E8060, bool, IConvertible_ToBoolean, (app::Int32__Boxed * this_ptr, app::IFormatProvider* provider))
-    IL2CPP_REGISTER_METHOD(0x001E8100, uint16_t, IConvertible_ToChar, (app::Int32__Boxed * this_ptr, app::IFormatProvider* provider))
+    IL2CPP_REGISTER_METHOD(0x001E8100, char16_t, IConvertible_ToChar, (app::Int32__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x001E81A0, int8_t, IConvertible_ToSByte, (app::Int32__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x001E8240, uint8_t, IConvertible_ToByte, (app::Int32__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x001E82E0, int16_t, IConvertible_ToInt16, (app::Int32__Boxed * this_ptr, app::IFormatProvider* provider))
@@ -42,6 +42,5 @@ namespace app::classes::System::Int32 {
     IL2CPP_REGISTER_METHOD(0x001E86A0, double, IConvertible_ToDouble, (app::Int32__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x001E8740, app::Decimal, IConvertible_ToDecimal, (app::Int32__Boxed * this_ptr, app::IFormatProvider* provider))
     IL2CPP_REGISTER_METHOD(0x001E8890, app::DateTime, IConvertible_ToDateTime, (app::Int32__Boxed * this_ptr, app::IFormatProvider* provider))
-    IL2CPP_REGISTER_METHODINFO(0x04725AE8, Int32_System_IConvertible_ToDateTime__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001E88A0, app::Object*, IConvertible_ToType, (app::Int32__Boxed * this_ptr, app::Type* type, app::IFormatProvider* provider))
 } // namespace app::classes::System::Int32

@@ -1,22 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Func_1_Object_.h>
-#include <Modloader/app/structs/SemaphoreSlim.h>
-#include <Modloader/app/structs/Func_1_System_Threading_SemaphoreSlim_.h>
-#include <Modloader/app/structs/ManualResetEvent.h>
 #include <Modloader/app/structs/Func_1_System_Threading_ManualResetEvent_.h>
-#include <Modloader/app/structs/Task_ContingentProperties.h>
+#include <Modloader/app/structs/Func_1_System_Threading_SemaphoreSlim_.h>
 #include <Modloader/app/structs/Func_1_System_Threading_Tasks_Task_ContingentProperties_.h>
+#include <Modloader/app/structs/ManualResetEvent.h>
+#include <Modloader/app/structs/SemaphoreSlim.h>
+#include <Modloader/app/structs/Task_ContingentProperties.h>
 
 namespace app::classes::System::Threading::LazyInitializer {
     IL2CPP_REGISTER_METHOD(0x0157AA30, app::Object*, EnsureInitialized_1, (app::Object * *target, app::Func_1_Object_* value_factory))
     IL2CPP_REGISTER_METHOD(0x0157AA60, app::Object*, EnsureInitializedCore, (app::Object * *target, app::Func_1_Object_* value_factory))
-    IL2CPP_REGISTER_METHODINFO(0x04755080, LazyInitializer_EnsureInitializedCore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157AA30, app::SemaphoreSlim*, EnsureInitialized_2, (app::SemaphoreSlim * *target, app::Func_1_System_Threading_SemaphoreSlim_* value_factory))
-    IL2CPP_REGISTER_METHODINFO(0x04780648, LazyInitializer_EnsureInitialized_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157AA30, app::ManualResetEvent*, EnsureInitialized_3, (app::ManualResetEvent * *target, app::Func_1_System_Threading_ManualResetEvent_* value_factory))
-    IL2CPP_REGISTER_METHODINFO(0x047657C8, LazyInitializer_EnsureInitialized_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157AA30, app::Task_ContingentProperties*, EnsureInitialized_4, (app::Task_ContingentProperties * *target, app::Func_1_System_Threading_Tasks_Task_ContingentProperties_* value_factory))
-    IL2CPP_REGISTER_METHODINFO(0x04779198, LazyInitializer_EnsureInitialized_3__MethodInfo)
 } // namespace app::classes::System::Threading::LazyInitializer

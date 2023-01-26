@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Dropdown_OptionData__Class.h>
 #include <Modloader/app/structs/Dropdown_OptionData.h>
 #include <Modloader/app/structs/Dropdown_OptionData__Array.h>
+#include <Modloader/app/structs/Dropdown_OptionData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Dropdown_OptionData {
-        inline app::Dropdown_OptionData__Class** type_info = (app::Dropdown_OptionData__Class**)(modloader::win::memory::resolve_rva(0x04731DA8));
+        inline app::Dropdown_OptionData__Class** type_info() {
+            static app::Dropdown_OptionData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Dropdown_OptionData__Class**)(modloader::win::memory::resolve_rva(0x04731DA8));
+            }
+            return cache;
+        }
         inline app::Dropdown_OptionData__Class* get_class() {
-            return il2cpp::get_nested_class<app::Dropdown_OptionData__Class>(type_info, "UnityEngine.UI", "Dropdown", "OptionData");
+            return il2cpp::get_nested_class<app::Dropdown_OptionData__Class>(type_info(), "UnityEngine.UI", "Dropdown", "OptionData");
         }
         inline app::Dropdown_OptionData* create() {
             return il2cpp::create_object<app::Dropdown_OptionData>(get_class());

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ColliderAnimatorSystem.h>
+
+#include <Modloader/app/structs/ColliderAnimatorSystem.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/SphereColliderAnimator_AnimationMode__Enum.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
 #include <Modloader/app/structs/ColliderAnimatorSystem_SphereColliderAnimationState.h>
 #include <Modloader/app/structs/SphereCollider.h>
+#include <Modloader/app/structs/SphereColliderAnimator_AnimationMode__Enum.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::ColliderAnimatorSystem {
     IL2CPP_REGISTER_METHOD(0x012CE280, app::ColliderAnimatorSystem*, get_Instance, ())

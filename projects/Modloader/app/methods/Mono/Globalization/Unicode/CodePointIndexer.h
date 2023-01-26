@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CodePointIndexer.h>
+
+#include <Modloader/app/structs/CodePointIndexer.h>
 #include <Modloader/app/structs/Int32__Array.h>
 
 namespace app::classes::Mono::Globalization::Unicode::CodePointIndexer {

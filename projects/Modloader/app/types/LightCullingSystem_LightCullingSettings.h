@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LightCullingSystem_LightCullingSettings__Class.h>
 #include <Modloader/app/structs/LightCullingSystem_LightCullingSettings.h>
 #include <Modloader/app/structs/LightCullingSystem_LightCullingSettings__Boxed.h>
+#include <Modloader/app/structs/LightCullingSystem_LightCullingSettings__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace LightCullingSystem_LightCullingSettings {
-        namespace {
-            inline app::LightCullingSystem_LightCullingSettings__Class* type_info_ref = nullptr;
+        inline app::LightCullingSystem_LightCullingSettings__Class** type_info() {
+            static app::LightCullingSystem_LightCullingSettings__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LightCullingSystem_LightCullingSettings__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LightCullingSystem_LightCullingSettings__Class** type_info = &type_info_ref;
         inline app::LightCullingSystem_LightCullingSettings__Class* get_class() {
-            return il2cpp::get_nested_class<app::LightCullingSystem_LightCullingSettings__Class>(type_info, "", "LightCullingSystem", "LightCullingSettings");
+            return il2cpp::get_nested_class<app::LightCullingSystem_LightCullingSettings__Class>(type_info(), "", "LightCullingSystem", "LightCullingSettings");
         }
         inline app::LightCullingSystem_LightCullingSettings* create() {
             return il2cpp::create_object<app::LightCullingSystem_LightCullingSettings>(get_class());

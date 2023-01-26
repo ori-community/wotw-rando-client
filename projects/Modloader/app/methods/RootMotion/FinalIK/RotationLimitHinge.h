@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RotationLimitHinge.h>
+
+#include <Modloader/app/structs/RotationLimitHinge.h>
 #include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::RootMotion::FinalIK::RotationLimitHinge {

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnumerableSorter_2_MicroProfilerInspector_MetricData_System_Int32Enum_.h>
+
+#include <Modloader/app/structs/EnumerableSorter_2_MicroProfilerInspector_MetricData_System_Int32Enum_.h>
+#include <Modloader/app/structs/EnumerableSorter_1_MicroProfilerInspector_MetricData_.h>
 #include <Modloader/app/structs/Func_2_MicroProfilerInspector_MetricData_Int32Enum_.h>
 #include <Modloader/app/structs/IComparer_1_System_Int32Enum_.h>
-#include <Modloader/app/structs/EnumerableSorter_1_MicroProfilerInspector_MetricData_.h>
 #include <Modloader/app/structs/MicroProfilerInspector_MetricData__Array.h>
 
 namespace app::classes::System::Linq::EnumerableSorter_2_MicroProfilerInspector_MetricData_System_Int32Enum_ {

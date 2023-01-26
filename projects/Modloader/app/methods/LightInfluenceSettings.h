@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Dictionary_2_LightPriority_Layer_LightInfluence_.h>
-#include <Modloader/app/structs/LightInfluenceSettings.h>
-#include <Modloader/app/structs/PointLightMaskModifier.h>
+
+#include <Modloader/app/structs/Dictionary_2_LightPriority_Layer_LightInfluence_.h>
 #include <Modloader/app/structs/LightInfluence.h>
+#include <Modloader/app/structs/LightInfluenceSettings.h>
 #include <Modloader/app/structs/LightPriority_Layer__Enum.h>
+#include <Modloader/app/structs/PointLightMaskModifier.h>
 
 namespace app::classes::LightInfluenceSettings {
     IL2CPP_REGISTER_METHOD(0x0114D1F0, int32_t, get_LayerCount, ())

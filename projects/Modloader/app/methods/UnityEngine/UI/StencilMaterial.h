@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Material.h>
-#include <Modloader/app/structs/StencilOp__Enum.h>
-#include <Modloader/app/structs/CompareFunction__Enum.h>
+
+#include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/ColorWriteMask__Enum.h>
+#include <Modloader/app/structs/CompareFunction__Enum.h>
+#include <Modloader/app/structs/StencilOp__Enum.h>
 
 namespace app::classes::UnityEngine::UI::StencilMaterial {
     IL2CPP_REGISTER_METHOD(0x01F1B660, app::Material*, Add_1, (app::Material * base_mat, int32_t stencil_i_d))

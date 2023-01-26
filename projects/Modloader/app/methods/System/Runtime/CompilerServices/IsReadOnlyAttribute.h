@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IsReadOnlyAttribute.h>
+
+#include <Modloader/app/structs/IsReadOnlyAttribute.h>
 #include <Modloader/app/structs/IsReadOnlyAttribute_1.h>
 
 namespace app::classes::System::Runtime::CompilerServices::IsReadOnlyAttribute {

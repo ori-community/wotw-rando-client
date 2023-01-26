@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_Datadog_ThresholdItem_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_Datadog_ThresholdItem_.h>
 #include <Modloader/app/structs/Datadog_ThresholdItem.h>
 #include <Modloader/app/structs/Object.h>
 

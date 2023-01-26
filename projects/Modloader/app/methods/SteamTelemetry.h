@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SteamTelemetry.h>
-#include <Modloader/app/structs/TelemetryEvent__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IEnumerator.h>
+
+#include <Modloader/app/structs/SteamTelemetry.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TelemetryEvent__Enum.h>
 
 namespace app::classes::SteamTelemetry {
     IL2CPP_REGISTER_METHOD(0x009BFC70, void, Awake, (app::SteamTelemetry * this_ptr))

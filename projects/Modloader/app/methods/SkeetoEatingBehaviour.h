@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkeetoLocomotion.h>
-#include <Modloader/app/structs/SkeetoEatingBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/SkeetoLocomotion.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SkeetoEatingBehaviour.h>
 
 namespace app::classes::SkeetoEatingBehaviour {
     IL2CPP_REGISTER_METHOD(0x00754CE0, app::SkeetoLocomotion*, get_Locomotion, (app::SkeetoEatingBehaviour * this_ptr))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GPUAutoProfiler_SamplingHandler.h>
-#include <Modloader/app/structs/List_1_Moon_Telemetry_Performance_profilers_GPUAutoProfiler_Sample_.h>
+
+#include <Modloader/app/structs/GPUAutoProfiler_SamplingHandler.h>
 #include <Modloader/app/structs/GPUAutoProfilerReport.h>
+#include <Modloader/app/structs/List_1_Moon_Telemetry_Performance_profilers_GPUAutoProfiler_Sample_.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::Telemetry::Performance::profilers::GPUAutoProfiler_SamplingHandler {

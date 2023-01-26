@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XRNodeState__Boxed.h>
+
+#include <Modloader/app/structs/XRNodeState__Boxed.h>
 #include <Modloader/app/structs/XRNode__Enum.h>
 
 namespace app::classes::UnityEngine::XR::XRNodeState {

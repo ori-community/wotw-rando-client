@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XboxLiveLoginScreen.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/CancellationTokenSource.h>
+#include <Modloader/app/structs/XboxLiveLoginScreen.h>
 
 namespace app::classes::XboxLiveLoginScreen {
     IL2CPP_REGISTER_METHOD(0x00596340, app::String*, get_Code, ())
@@ -13,6 +14,5 @@ namespace app::classes::XboxLiveLoginScreen {
     IL2CPP_REGISTER_METHOD(0x00596810, void, OnDisable, (app::XboxLiveLoginScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00596900, void, Update, (app::XboxLiveLoginScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00596D60, void, ShowHandler, (app::String * url, app::String* code, app::CancellationTokenSource* cancellation_token_source))
-    IL2CPP_REGISTER_METHODINFO(0x0475BB10, XboxLiveLoginScreen_ShowHandler__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::XboxLiveLoginScreen * this_ptr))
 } // namespace app::classes::XboxLiveLoginScreen

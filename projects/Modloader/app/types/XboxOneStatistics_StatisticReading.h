@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/XboxOneStatistics_StatisticReading.h>
+#include <Modloader/app/structs/XboxOneStatistics_StatisticReading__Array.h>
+#include <Modloader/app/structs/XboxOneStatistics_StatisticReading__Boxed.h>
+#include <Modloader/app/structs/XboxOneStatistics_StatisticReading__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XboxOneStatistics_StatisticReading__Class.h>
-#include <Modloader/app/structs/XboxOneStatistics_StatisticReading.h>
-#include <Modloader/app/structs/XboxOneStatistics_StatisticReading__Boxed.h>
-#include <Modloader/app/structs/XboxOneStatistics_StatisticReading__Array.h>
 
 namespace app::classes::types {
     namespace XboxOneStatistics_StatisticReading {
-        inline app::XboxOneStatistics_StatisticReading__Class** type_info = (app::XboxOneStatistics_StatisticReading__Class**)(modloader::win::memory::resolve_rva(0x04793590));
+        inline app::XboxOneStatistics_StatisticReading__Class** type_info() {
+            static app::XboxOneStatistics_StatisticReading__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::XboxOneStatistics_StatisticReading__Class**)(modloader::win::memory::resolve_rva(0x04793590));
+            }
+            return cache;
+        }
         inline app::XboxOneStatistics_StatisticReading__Class* get_class() {
-            return il2cpp::get_nested_class<app::XboxOneStatistics_StatisticReading__Class>(type_info, "", "XboxOneStatistics", "StatisticReading");
+            return il2cpp::get_nested_class<app::XboxOneStatistics_StatisticReading__Class>(type_info(), "", "XboxOneStatistics", "StatisticReading");
         }
         inline app::XboxOneStatistics_StatisticReading* create() {
             return il2cpp::create_object<app::XboxOneStatistics_StatisticReading>(get_class());

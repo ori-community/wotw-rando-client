@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FfmpegCommandLineBuilder.h>
+
+#include <Modloader/app/structs/FfmpegCommandLineBuilder.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::FfmpegCommandLineBuilder {
@@ -18,7 +19,6 @@ namespace app::classes::FfmpegCommandLineBuilder {
     IL2CPP_REGISTER_METHOD(0x0099B020, app::FfmpegCommandLineBuilder*, WithFramerate, (app::FfmpegCommandLineBuilder * this_ptr, int32_t framerate))
     IL2CPP_REGISTER_METHOD(0x0099B0E0, app::FfmpegCommandLineBuilder*, WithOutputFile, (app::FfmpegCommandLineBuilder * this_ptr, app::String* out_file))
     IL2CPP_REGISTER_METHOD(0x0099B0F0, app::String*, BuildCommandLine, (app::FfmpegCommandLineBuilder * this_ptr, bool do_prores, bool bake_frame_count, int32_t start_frame))
-    IL2CPP_REGISTER_METHODINFO(0x047722B0, FfmpegCommandLineBuilder_BuildCommandLine__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0099B590, void, ctor, (app::FfmpegCommandLineBuilder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0099B670, void, cctor, ())
 } // namespace app::classes::FfmpegCommandLineBuilder

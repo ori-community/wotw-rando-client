@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RammingBehaviour_TurnChargeSlamState.h>
+
+#include <Modloader/app/structs/RammingBehaviour_TurnChargeSlamState.h>
 #include <Modloader/app/structs/RammingBehaviour.h>
 
 namespace app::classes::Moon::RammingBehaviour_TurnChargeSlamState {
@@ -9,5 +10,4 @@ namespace app::classes::Moon::RammingBehaviour_TurnChargeSlamState {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateState, (app::RammingBehaviour_TurnChargeSlamState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnExit, (app::RammingBehaviour_TurnChargeSlamState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C50380, void, OnTurnSlamChargeFinished, (app::RammingBehaviour_TurnChargeSlamState * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04776FF8, RammingBehaviour_TurnChargeSlamState_OnTurnSlamChargeFinished__MethodInfo)
 } // namespace app::classes::Moon::RammingBehaviour_TurnChargeSlamState

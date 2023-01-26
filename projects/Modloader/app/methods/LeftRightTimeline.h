@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LeftRightTimeline__Boxed.h>
+
+#include <Modloader/app/structs/LeftRightTimeline__Boxed.h>
 #include <Modloader/app/structs/LeftRightTimeline_Side__Enum.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 

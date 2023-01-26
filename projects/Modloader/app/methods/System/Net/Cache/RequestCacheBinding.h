@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RequestCacheBinding.h>
+
+#include <Modloader/app/structs/RequestCacheBinding.h>
 #include <Modloader/app/structs/RequestCache.h>
-#include <Modloader/app/structs/RequestCacheValidator.h>
 #include <Modloader/app/structs/RequestCachePolicy.h>
+#include <Modloader/app/structs/RequestCacheValidator.h>
 
 namespace app::classes::System::Net::Cache::RequestCacheBinding {
     IL2CPP_REGISTER_METHOD(0x00522850, void, ctor, (app::RequestCacheBinding * this_ptr, app::RequestCache* request_cache, app::RequestCacheValidator* cache_validator, app::RequestCachePolicy* policy))

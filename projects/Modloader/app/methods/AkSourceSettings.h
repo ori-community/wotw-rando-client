@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkSourceSettings.h>
+
+#include <Modloader/app/structs/AkSourceSettings.h>
 
 namespace app::classes::AkSourceSettings {
     IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkSourceSettings * this_ptr, void* c_ptr, bool c_memory_own))

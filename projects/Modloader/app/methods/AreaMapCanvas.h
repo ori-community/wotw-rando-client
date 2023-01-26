@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AreaMapCanvas.h>
-#include <Modloader/app/structs/Texture.h>
+
+#include <Modloader/app/structs/AreaMapCanvas.h>
 #include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/CageStructureTool.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/WorldMapAreaState__Enum.h>
 #include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/WorldMapAreaState__Enum.h>
 
 namespace app::classes::AreaMapCanvas {
     IL2CPP_REGISTER_METHOD(0x00508FE0, bool, get_WantsToUpdateMask, (app::AreaMapCanvas * this_ptr))

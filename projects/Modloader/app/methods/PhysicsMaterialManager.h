@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Switch_1.h>
+
+#include <Modloader/app/structs/Switch_1.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/PhysicMaterial.h>
 #include <Modloader/app/structs/PhysicsMaterialManager.h>
 #include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
-#include <Modloader/app/structs/PhysicMaterial.h>
-#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::PhysicsMaterialManager {
     IL2CPP_REGISTER_METHOD(0x01153E30, app::Switch_1*, SurfaceMaterialTypeToSwitch, (app::PhysicsMaterialManager * this_ptr, app::SurfaceMaterialType__Enum type))

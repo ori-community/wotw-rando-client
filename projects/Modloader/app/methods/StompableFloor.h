@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/StompableFloor.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/IDamageReciever__Array.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/StompableFloor.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::StompableFloor {
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::StompableFloor * this_ptr))
@@ -37,7 +38,6 @@ namespace app::classes::StompableFloor {
     IL2CPP_REGISTER_METHOD(0x00654970, void, Awake, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00654ED0, void, OnDestroy, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00443CC0, void, OnRestoreCheckpoint, (app::StompableFloor * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04717CF8, StompableFloor_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00655060, void, OnEnable, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00655150, void, OnDisable, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00655240, void, OnValidate, (app::StompableFloor * this_ptr))
@@ -47,7 +47,6 @@ namespace app::classes::StompableFloor {
     IL2CPP_REGISTER_METHOD(0x00655A70, void, FixedUpdate, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00655D70, void, Highlight, (app::StompableFloor * this_ptr, bool on))
     IL2CPP_REGISTER_METHOD(0x00656130, void, PlayHighlightLoop, (app::StompableFloor * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047328D0, StompableFloor_PlayHighlightLoop__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00656300, void, UpdateWorldMap, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006565F0, void, ComputeRuntimeGasBallAttractionZone, (app::StompableFloor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00656780, bool, OnRange, (app::StompableFloor * this_ptr, app::Vector2 point))

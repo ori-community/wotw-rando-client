@@ -1,15 +1,20 @@
 #pragma once
+#include <Modloader/app/structs/TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0.h>
+#include <Modloader/app/structs/TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class.h>
-#include <Modloader/app/structs/TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0.h>
 
 namespace app::classes::types {
     namespace TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0 {
-        inline app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class** type_info = (app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class**)(modloader::win::memory::resolve_rva(0x04726A58));
+        inline app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class** type_info() {
+            static app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class**)(modloader::win::memory::resolve_rva(0x04726A58));
+            }
+            return cache;
+        }
         inline app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class* get_class() {
-            return il2cpp::get_nested_class<app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class>(type_info, "UnityEngine.Experimental.TerrainAPI", "TerrainUtility+TerrainMap", "<CreateFromPlacement>c__AnonStorey0");
+            return il2cpp::get_nested_class<app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0__Class>(type_info(), "UnityEngine.Experimental.TerrainAPI", "TerrainUtility+TerrainMap", "<CreateFromPlacement>c__AnonStorey0");
         }
         inline app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0* create() {
             return il2cpp::create_object<app::TerrainUtility_TerrainMap_CreateFromPlacement_c_AnonStorey0>(get_class());

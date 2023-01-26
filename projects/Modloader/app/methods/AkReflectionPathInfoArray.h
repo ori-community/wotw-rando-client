@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkReflectionPathInfoArray.h>
+
+#include <Modloader/app/structs/AkReflectionPathInfoArray.h>
 #include <Modloader/app/structs/AkReflectionPathInfo.h>
 
 namespace app::classes::AkReflectionPathInfoArray {

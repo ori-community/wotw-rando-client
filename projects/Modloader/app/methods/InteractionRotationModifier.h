@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InteractionRotationModifier.h>
+
+#include <Modloader/app/structs/InteractionRotationModifier.h>
+#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UberInteractionManager_PropertyIDCache.h>
-#include <Modloader/app/structs/IEnumerable_1_System_String_.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::InteractionRotationModifier {
@@ -17,7 +18,6 @@ namespace app::classes::InteractionRotationModifier {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, RequiresVertexColor, (app::InteractionRotationModifier * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0063A080, void, WarmUpResource, ())
     IL2CPP_REGISTER_METHOD(0x0063A340, void, OnPlay, (app::InteractionRotationModifier * this_ptr, float strength, bool explosion))
-    IL2CPP_REGISTER_METHODINFO(0x0470E9E0, InteractionRotationModifier_OnPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0063A6E0, int32_t, GetFlip, (app::InteractionRotationModifier * this_ptr, app::Vector3 pos, bool explode))
     IL2CPP_REGISTER_METHOD(0x0063A9F0, app::Vector2, Rotate, (app::Vector2 v, float degrees))
     IL2CPP_REGISTER_METHOD(0x0063AAF0, float, GetStrength, (app::InteractionRotationModifier * this_ptr, app::Vector3 velocity, app::Vector4 strength_val))

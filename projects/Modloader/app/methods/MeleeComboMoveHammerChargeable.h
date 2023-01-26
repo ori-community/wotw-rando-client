@@ -1,24 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HammerComboMoveBase_BalancingData.h>
-#include <Modloader/app/structs/MeleeComboMoveHammerChargeable.h>
-#include <Modloader/app/structs/SoundProvider.h>
-#include <Modloader/app/structs/SeinComboHandler.h>
-#include <Modloader/app/structs/MeleeWeapon.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/RaycastHit.h>
-#include <Modloader/app/structs/Ray.h>
+
+#include <Modloader/app/structs/HammerComboMoveBase_BalancingData.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/MoveEventType__Enum.h>
-#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/MeleeComboMoveHammerChargeable_State__Enum.h>
-#include <Modloader/app/structs/IComboMove.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/EffectSpawn.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/EffectSpawn.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/MeleeComboMoveHammerChargeable.h>
+#include <Modloader/app/structs/MeleeComboMoveHammerChargeable_State__Enum.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/MoveEventType__Enum.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MeleeComboMoveHammerChargeable {
     IL2CPP_REGISTER_METHOD(0x006FB810, app::HammerComboMoveBase_BalancingData*, get_BalancingBase, (app::MeleeComboMoveHammerChargeable * this_ptr))
@@ -43,7 +44,6 @@ namespace app::classes::MeleeComboMoveHammerChargeable {
     IL2CPP_REGISTER_METHOD(0x013929A0, void, OnMoveWindowClosed, (app::MeleeComboMoveHammerChargeable * this_ptr, app::MoveEventType__Enum event_type))
     IL2CPP_REGISTER_METHOD(0x01392A00, void, OnAnimationEvent, (app::MeleeComboMoveHammerChargeable * this_ptr, app::SeinController3D_EventId__Enum event_id))
     IL2CPP_REGISTER_METHOD(0x01392BC0, void, SpawnEffects, (app::MeleeComboMoveHammerChargeable * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04746D28, MeleeComboMoveHammerChargeable_SpawnEffects__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01392C90, app::GameObject*, GetEffectInstance, (app::MeleeComboMoveHammerChargeable * this_ptr, app::GameObject* current_shock_wave, bool track_as_suspendable))
     IL2CPP_REGISTER_METHOD(0x01392EB0, app::GameObject*, SpawnEffect_1, (app::MeleeComboMoveHammerChargeable * this_ptr, app::GameObject* current_shock_wave, app::Vector3 position, float angle, bool flip, bool track_as_suspendable))
     IL2CPP_REGISTER_METHOD(0x013932A0, void, SpawnEffect_2, (app::MeleeComboMoveHammerChargeable * this_ptr, app::GameObject* current_shock_wave, app::Vector3 position, app::Vector3 up_direction, bool flip, bool track_as_suspendable))
@@ -55,35 +55,28 @@ namespace app::classes::MeleeComboMoveHammerChargeable {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdatePrepareState, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01393F90, bool, KeepPrepareAnimationPlaying, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01393FB0, void, OnPrepareAnimationEnd, (app::MeleeComboMoveHammerChargeable * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477A8D0, MeleeComboMoveHammerChargeable_OnPrepareAnimationEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x013940B0, void, EnterNormalAttackState, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateNormalAttackState, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01394530, bool, KeepNormalAttackAnimationPlaying, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01394550, void, OnNormalAttackAnimationEnd, (app::MeleeComboMoveHammerChargeable * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04791BD8, MeleeComboMoveHammerChargeable_OnNormalAttackAnimationEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01394630, void, EnterChargedAttackState, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateChargedAttackState, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01394AD0, bool, KeepChargedAttackAnimationPlaying, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01394AF0, void, OnChargedAttackAnimationEnd, (app::MeleeComboMoveHammerChargeable * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474A8B0, MeleeComboMoveHammerChargeable_OnChargedAttackAnimationEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01394D60, void, OnEnterGroundMiss, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0138CD40, void, OnGroundMissEnd, (app::MeleeComboMoveHammerChargeable * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04746FA0, MeleeComboMoveHammerChargeable_OnGroundMissEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01395070, void, EnterGroundHit, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0138CD40, void, EndChargeHitResolve, (app::MeleeComboMoveHammerChargeable * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471EA70, MeleeComboMoveHammerChargeable_EndChargeHitResolve__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01395490, bool, CanBeInterruptedBy, (app::MeleeComboMoveHammerChargeable * this_ptr, app::IComboMove* move))
     IL2CPP_REGISTER_METHOD(0x013954B0, void, EnterChargeHold, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01395800, void, ExitChargeHold, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateChargeHold, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01395910, void, ChargeHoldAnimationComplete, (app::MeleeComboMoveHammerChargeable * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04770E48, MeleeComboMoveHammerChargeable_ChargeHoldAnimationComplete__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01395960, bool, KeppPlayingHold, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01395970, void, BeginAttackSegment, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013959B0, void, EndAttackSegment, (app::MeleeComboMoveHammerChargeable * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013959F0, app::Vector2, ComputeEffectiveKickback, (app::MeleeComboMoveHammerChargeable * this_ptr, app::Vector3 enemy_position))
     IL2CPP_REGISTER_METHOD(0x01395BE0, void, TryToDealDamage, (app::MeleeComboMoveHammerChargeable * this_ptr, app::Collider* collider, bool top_hit, app::Vector3 hit_direction, app::Vector3 damage_position))
     IL2CPP_REGISTER_METHOD(0x013965E0, app::EffectSpawn, DamageEffectProvider, (app::MeleeComboMoveHammerChargeable * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x0470D240, MeleeComboMoveHammerChargeable_DamageEffectProvider__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x013968E0, void, ctor, (app::MeleeComboMoveHammerChargeable * this_ptr))
 } // namespace app::classes::MeleeComboMoveHammerChargeable

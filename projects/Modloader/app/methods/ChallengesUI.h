@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ChallengesUI.h>
+
+#include <Modloader/app/structs/ChallengesUI.h>
 #include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::ChallengesUI {

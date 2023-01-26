@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/EventSource_EventMetadata.h>
+#include <Modloader/app/structs/EventSource_EventMetadata__Array.h>
+#include <Modloader/app/structs/EventSource_EventMetadata__Boxed.h>
+#include <Modloader/app/structs/EventSource_EventMetadata__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/EventSource_EventMetadata__Class.h>
-#include <Modloader/app/structs/EventSource_EventMetadata.h>
-#include <Modloader/app/structs/EventSource_EventMetadata__Boxed.h>
-#include <Modloader/app/structs/EventSource_EventMetadata__Array.h>
 
 namespace app::classes::types {
     namespace EventSource_EventMetadata {
-        namespace {
-            inline app::EventSource_EventMetadata__Class* type_info_ref = nullptr;
+        inline app::EventSource_EventMetadata__Class** type_info() {
+            static app::EventSource_EventMetadata__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::EventSource_EventMetadata__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::EventSource_EventMetadata__Class** type_info = &type_info_ref;
         inline app::EventSource_EventMetadata__Class* get_class() {
-            return il2cpp::get_nested_class<app::EventSource_EventMetadata__Class>(type_info, "System.Diagnostics.Tracing", "EventSource", "EventMetadata");
+            return il2cpp::get_nested_class<app::EventSource_EventMetadata__Class>(type_info(), "System.Diagnostics.Tracing", "EventSource", "EventMetadata");
         }
         inline app::EventSource_EventMetadata* create() {
             return il2cpp::create_object<app::EventSource_EventMetadata>(get_class());

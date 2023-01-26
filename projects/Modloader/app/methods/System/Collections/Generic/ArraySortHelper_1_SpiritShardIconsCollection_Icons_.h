@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Array.h>
+
+#include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Array.h>
+#include <Modloader/app/structs/Comparison_1_SpiritShardIconsCollection_Icons_.h>
 #include <Modloader/app/structs/IComparer_1_SpiritShardIconsCollection_Icons_.h>
 #include <Modloader/app/structs/SpiritShardIconsCollection_Icons.h>
-#include <Modloader/app/structs/Comparison_1_SpiritShardIconsCollection_Icons_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_SpiritShardIconsCollection_Icons_ {
     IL2CPP_REGISTER_METHOD(0x02FF2DD0, void, Sort_1, (app::SpiritShardIconsCollection_Icons__Array * keys, int32_t index, int32_t length, app::IComparer_1_SpiritShardIconsCollection_Icons_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04773180, ArraySortHelper_1_SpiritShardIconsCollection_Icons__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF30F0, int32_t, BinarySearch, (app::SpiritShardIconsCollection_Icons__Array * array, int32_t index, int32_t length, app::SpiritShardIconsCollection_Icons value, app::IComparer_1_SpiritShardIconsCollection_Icons_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x047961F0, ArraySortHelper_1_SpiritShardIconsCollection_Icons__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF32A0, void, Sort_2, (app::SpiritShardIconsCollection_Icons__Array * keys, int32_t index, int32_t length, app::Comparison_1_SpiritShardIconsCollection_Icons_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0471F3C0, ArraySortHelper_1_SpiritShardIconsCollection_Icons__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C8AB70, int32_t, InternalBinarySearch, (app::SpiritShardIconsCollection_Icons__Array * array, int32_t index, int32_t length, app::SpiritShardIconsCollection_Icons value, app::IComparer_1_SpiritShardIconsCollection_Icons_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C8AD30, void, SwapIfGreater, (app::SpiritShardIconsCollection_Icons__Array * keys, app::Comparison_1_SpiritShardIconsCollection_Icons_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C8AEE0, void, Swap, (app::SpiritShardIconsCollection_Icons__Array * a, int32_t i, int32_t j))

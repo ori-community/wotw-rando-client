@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderDictionary_2_System_Object_UnityEngine_Quaternion_.h>
-#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Object_UnityEngine_Quaternion_.h>
+
+#include <Modloader/app/structs/UberShaderDictionary_2_System_Object_UnityEngine_Quaternion_.h>
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_System_Object_UnityEngine_Quaternion_.h>
-#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_System_Object_UnityEngine_Quaternion_.h>
 #include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_UnityEngine_Quaternion_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Quaternion.h>
 
 namespace app::classes::UberShaderDictionary_2_System_Object_UnityEngine_Quaternion_ {
     IL2CPP_REGISTER_METHOD(0x022608C0, void, OnBeforeSerialize, (app::UberShaderDictionary_2_System_Object_UnityEngine_Quaternion_ * this_ptr))

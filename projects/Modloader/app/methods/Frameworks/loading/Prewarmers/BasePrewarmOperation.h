@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PrewarmOperationType__Enum.h>
+
+#include <Modloader/app/structs/PrewarmOperationType__Enum.h>
 #include <Modloader/app/structs/BasePrewarmOperation.h>
 #include <Modloader/app/structs/PrewarmOperationSlot__Enum.h>
 #include <Modloader/app/structs/String.h>

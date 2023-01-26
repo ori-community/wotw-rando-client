@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LightningAnimator.h>
+
+#include <Modloader/app/structs/LightningAnimator.h>
 #include <Modloader/app/structs/LightningAnimator_LightningEvent.h>
 
 namespace app::classes::LightningAnimator {

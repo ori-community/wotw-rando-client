@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AutoValidator.h>
-#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
-#include <Modloader/app/structs/XmlSchemaCollection.h>
+
+#include <Modloader/app/structs/AutoValidator.h>
 #include <Modloader/app/structs/IValidationEventHandling.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/ValidationType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaCollection.h>
+#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
 
 namespace app::classes::System::Xml::Schema::AutoValidator {
     IL2CPP_REGISTER_METHOD(0x019A2480, void, ctor, (app::AutoValidator * this_ptr, app::XmlValidatingReaderImpl* reader, app::XmlSchemaCollection* schema_collection, app::IValidationEventHandling* event_handling))

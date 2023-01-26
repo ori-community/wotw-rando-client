@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RectTransform.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/RectTransform.h>
 #include <Modloader/app/structs/Camera.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Ray.h>
-#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Canvas.h>
+#include <Modloader/app/structs/Ray.h>
 #include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::RectTransformUtility {
     IL2CPP_REGISTER_METHOD(0x031A6C20, bool, RectangleContainsScreenPoint, (app::RectTransform * rect, app::Vector2 screen_point, app::Camera* cam))

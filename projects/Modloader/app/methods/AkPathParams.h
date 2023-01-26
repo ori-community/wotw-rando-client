@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkPathParams.h>
+
+#include <Modloader/app/structs/AkPathParams.h>
 #include <Modloader/app/structs/AkVector.h>
 
 namespace app::classes::AkPathParams {

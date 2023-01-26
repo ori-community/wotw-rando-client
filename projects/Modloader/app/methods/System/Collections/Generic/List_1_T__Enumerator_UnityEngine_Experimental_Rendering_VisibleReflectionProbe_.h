@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Experimental_Rendering_VisibleReflectionProbe___Boxed.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Experimental_Rendering_VisibleReflectionProbe___Boxed.h>
 #include <Modloader/app/structs/List_1_UnityEngine_Experimental_Rendering_VisibleReflectionProbe_.h>
-#include <Modloader/app/structs/VisibleReflectionProbe.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/VisibleReflectionProbe.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_UnityEngine_Experimental_Rendering_VisibleReflectionProbe_ {
     IL2CPP_REGISTER_METHOD(0x001FA900, void, ctor, (app::List_1_T_Enumerator_UnityEngine_Experimental_Rendering_VisibleReflectionProbe___Boxed * this_ptr, app::List_1_UnityEngine_Experimental_Rendering_VisibleReflectionProbe_* list))

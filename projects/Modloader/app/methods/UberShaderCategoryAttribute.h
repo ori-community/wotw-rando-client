@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderCategoryAttribute.h>
+
+#include <Modloader/app/structs/UberShaderCategoryAttribute.h>
 #include <Modloader/app/structs/UberShaderCategory__Enum.h>
 
 namespace app::classes::UberShaderCategoryAttribute {

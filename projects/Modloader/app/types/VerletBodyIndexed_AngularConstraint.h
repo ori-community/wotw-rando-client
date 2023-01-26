@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/VerletBodyIndexed_AngularConstraint.h>
+#include <Modloader/app/structs/VerletBodyIndexed_AngularConstraint__Array.h>
+#include <Modloader/app/structs/VerletBodyIndexed_AngularConstraint__Boxed.h>
+#include <Modloader/app/structs/VerletBodyIndexed_AngularConstraint__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/VerletBodyIndexed_AngularConstraint__Class.h>
-#include <Modloader/app/structs/VerletBodyIndexed_AngularConstraint.h>
-#include <Modloader/app/structs/VerletBodyIndexed_AngularConstraint__Boxed.h>
-#include <Modloader/app/structs/VerletBodyIndexed_AngularConstraint__Array.h>
 
 namespace app::classes::types {
     namespace VerletBodyIndexed_AngularConstraint {
-        namespace {
-            inline app::VerletBodyIndexed_AngularConstraint__Class* type_info_ref = nullptr;
+        inline app::VerletBodyIndexed_AngularConstraint__Class** type_info() {
+            static app::VerletBodyIndexed_AngularConstraint__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::VerletBodyIndexed_AngularConstraint__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::VerletBodyIndexed_AngularConstraint__Class** type_info = &type_info_ref;
         inline app::VerletBodyIndexed_AngularConstraint__Class* get_class() {
-            return il2cpp::get_nested_class<app::VerletBodyIndexed_AngularConstraint__Class>(type_info, "Moon", "VerletBodyIndexed", "AngularConstraint");
+            return il2cpp::get_nested_class<app::VerletBodyIndexed_AngularConstraint__Class>(type_info(), "Moon", "VerletBodyIndexed", "AngularConstraint");
         }
         inline app::VerletBodyIndexed_AngularConstraint* create() {
             return il2cpp::create_object<app::VerletBodyIndexed_AngularConstraint>(get_class());

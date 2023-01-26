@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VerletEdgeMetaData.h>
+
+#include <Modloader/app/structs/VerletEdgeMetaData.h>
 #include <Modloader/app/structs/CageStructureTool_Edge.h>
 
 namespace app::classes::VerletEdgeMetaData {

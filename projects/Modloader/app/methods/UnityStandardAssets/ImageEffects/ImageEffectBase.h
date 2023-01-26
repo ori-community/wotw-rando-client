@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ImageEffectBase.h>
+
+#include <Modloader/app/structs/ImageEffectBase.h>
 #include <Modloader/app/structs/Material.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::ImageEffectBase {

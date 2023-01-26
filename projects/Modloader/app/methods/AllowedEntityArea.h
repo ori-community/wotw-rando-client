@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AllowedEntityArea.h>
+
+#include <Modloader/app/structs/AllowedEntityArea.h>
 #include <Modloader/app/structs/List_1_UnityEngine_Rect_.h>
 #include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/Vector2.h>

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RecorderAsset.h>
+
+#include <Modloader/app/structs/RecorderAsset.h>
 #include <Modloader/app/structs/RecorderData.h>
 
 namespace app::classes::RecorderAsset {

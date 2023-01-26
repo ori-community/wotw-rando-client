@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SafeGPtrArrayHandle__Boxed.h>
+
+#include <Modloader/app/structs/SafeGPtrArrayHandle__Boxed.h>
 
 namespace app::classes::Mono::SafeGPtrArrayHandle {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::SafeGPtrArrayHandle__Boxed * this_ptr, void* ptr))

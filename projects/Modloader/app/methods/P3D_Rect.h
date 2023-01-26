@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/P3D_Rect__Boxed.h>
+
+#include <Modloader/app/structs/P3D_Rect__Boxed.h>
 #include <Modloader/app/structs/P3D_Rect.h>
 #include <Modloader/app/structs/Rect.h>
 

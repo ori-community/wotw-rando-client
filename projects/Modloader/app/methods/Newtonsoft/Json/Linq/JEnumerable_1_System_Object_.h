@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JEnumerable_1_System_Object___Boxed.h>
+
+#include <Modloader/app/structs/JEnumerable_1_System_Object___Boxed.h>
 #include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
-#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
 #include <Modloader/app/structs/JEnumerable_1_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
 

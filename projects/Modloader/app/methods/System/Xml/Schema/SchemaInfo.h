@@ -1,22 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SchemaInfo.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/SchemaInfo.h>
+#include <Modloader/app/structs/AttributeMatchState__Enum.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Boolean_.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Xml_Schema_SchemaNotation_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaAttDef_.h>
 #include <Modloader/app/structs/Dictionary_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaElementDecl_.h>
 #include <Modloader/app/structs/Dictionary_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaEntity_.h>
-#include <Modloader/app/structs/SchemaType__Enum.h>
-#include <Modloader/app/structs/Dictionary_2_System_String_System_Boolean_.h>
-#include <Modloader/app/structs/Dictionary_2_System_Xml_XmlQualifiedName_System_Xml_Schema_SchemaAttDef_.h>
-#include <Modloader/app/structs/Dictionary_2_System_String_System_Xml_Schema_SchemaNotation_.h>
-#include <Modloader/app/structs/SchemaElementDecl.h>
-#include <Modloader/app/structs/XmlSchemaElement.h>
-#include <Modloader/app/structs/SchemaAttDef.h>
-#include <Modloader/app/structs/XmlSchemaObject.h>
-#include <Modloader/app/structs/AttributeMatchState__Enum.h>
-#include <Modloader/app/structs/ValidationEventHandler.h>
 #include <Modloader/app/structs/IDtdAttributeListInfo.h>
 #include <Modloader/app/structs/IDtdEntityInfo.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/SchemaElementDecl.h>
+#include <Modloader/app/structs/SchemaType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaElement.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
 
 namespace app::classes::System::Xml::Schema::SchemaInfo {
     IL2CPP_REGISTER_METHOD(0x01AB00D0, void, ctor, (app::SchemaInfo * this_ptr))
@@ -41,10 +42,8 @@ namespace app::classes::System::Xml::Schema::SchemaInfo {
     IL2CPP_REGISTER_METHOD(0x01AB0D10, bool, HasSchema, (app::SchemaInfo * this_ptr, app::String* ns))
     IL2CPP_REGISTER_METHOD(0x01AB0DD0, bool, Contains, (app::SchemaInfo * this_ptr, app::String* ns))
     IL2CPP_REGISTER_METHOD(0x01AB0E90, app::SchemaAttDef*, GetAttributeXdr, (app::SchemaInfo * this_ptr, app::SchemaElementDecl* ed, app::XmlQualifiedName* qname))
-    IL2CPP_REGISTER_METHODINFO(0x047371D8, SchemaInfo_GetAttributeXdr__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01AB10F0, app::SchemaAttDef*, GetAttributeXsd_1, (app::SchemaInfo * this_ptr, app::SchemaElementDecl* ed, app::XmlQualifiedName* qname, app::XmlSchemaObject* partial_validation_type, app::AttributeMatchState__Enum* attribute_match_state))
     IL2CPP_REGISTER_METHOD(0x01AB1480, app::SchemaAttDef*, GetAttributeXsd_2, (app::SchemaInfo * this_ptr, app::SchemaElementDecl* ed, app::XmlQualifiedName* qname, bool* skip))
-    IL2CPP_REGISTER_METHODINFO(0x0474B918, SchemaInfo_GetAttributeXsd_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01AB1620, void, Add, (app::SchemaInfo * this_ptr, app::SchemaInfo* sinfo, app::ValidationEventHandler* eventhandler))
     IL2CPP_REGISTER_METHOD(0x01AB1FF0, void, Finish, (app::SchemaInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00444DC0, bool, IDtdInfo_get_HasDefaultAttributes, (app::SchemaInfo * this_ptr))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TentacleEntity.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/TentacleEntity.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::TentacleEntity {
     IL2CPP_REGISTER_METHOD(0x00CFDBE0, bool, get_IsTentacleFacingTarget, (app::TentacleEntity * this_ptr))

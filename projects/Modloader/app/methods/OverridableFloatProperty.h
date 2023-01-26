@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OverridableFloatProperty.h>
+
+#include <Modloader/app/structs/OverridableFloatProperty.h>
 
 namespace app::classes::OverridableFloatProperty {
     IL2CPP_REGISTER_METHOD(0x00443210, int32_t, get_ID, (app::OverridableFloatProperty * this_ptr))

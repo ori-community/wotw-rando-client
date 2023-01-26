@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CheckpointFunctionality__Class.h>
 #include <Modloader/app/structs/CheckpointFunctionality.h>
 #include <Modloader/app/structs/CheckpointFunctionality__Boxed.h>
+#include <Modloader/app/structs/CheckpointFunctionality__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace CheckpointFunctionality {
-        namespace {
-            inline app::CheckpointFunctionality__Class* type_info_ref = nullptr;
+        inline app::CheckpointFunctionality__Class** type_info() {
+            static app::CheckpointFunctionality__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CheckpointFunctionality__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CheckpointFunctionality__Class** type_info = &type_info_ref;
         inline app::CheckpointFunctionality__Class* get_class() {
-            return il2cpp::get_class<app::CheckpointFunctionality__Class>(type_info, "", "CheckpointFunctionality");
+            return il2cpp::get_class<app::CheckpointFunctionality__Class>(type_info(), "", "CheckpointFunctionality");
         }
         inline app::CheckpointFunctionality* create() {
             return il2cpp::create_object<app::CheckpointFunctionality>(get_class());

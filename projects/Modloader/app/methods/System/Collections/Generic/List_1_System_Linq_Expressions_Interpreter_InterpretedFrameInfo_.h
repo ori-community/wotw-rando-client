@@ -1,25 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
-#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
-#include <Modloader/app/structs/InterpretedFrameInfo__Array.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/InterpretedFrameInfo.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
-#include <Modloader/app/structs/IComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
+
+#include <Modloader/app/structs/List_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
 #include <Modloader/app/structs/Action_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
-#include <Modloader/app/structs/IEnumerator_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
+#include <Modloader/app/structs/IComparer_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
+#include <Modloader/app/structs/InterpretedFrameInfo.h>
+#include <Modloader/app/structs/InterpretedFrameInfo__Array.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_ {
     IL2CPP_REGISTER_METHOD(0x02FE7260, void, ctor_1, (app::List_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_ * this_ptr, app::IEnumerable_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_* collection))
-    IL2CPP_REGISTER_METHODINFO(0x04765620, List_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAEF0, app::InterpretedFrameInfo__Array*, ToArray, (app::List_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470F408, List_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo__ToArray__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_2, (app::List_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_3, (app::List_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_System_Linq_Expressions_Interpreter_InterpretedFrameInfo_ * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonAnimation.h>
+
+#include <Modloader/app/structs/MoonAnimation.h>
 #include <Modloader/app/structs/SpiderBossLocationAnimationSet.h>
 #include <Modloader/app/structs/SpiderBossLocationZone__Enum.h>
 

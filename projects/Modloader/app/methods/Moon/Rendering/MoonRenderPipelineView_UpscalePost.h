@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonRenderPipelineView_UpscalePost.h>
+
+#include <Modloader/app/structs/MoonRenderPipelineView_UpscalePost.h>
 #include <Modloader/app/structs/PostProcessRenderContext.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderPipelineView_UpscalePost {

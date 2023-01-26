@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FastEncoderWindow.h>
-#include <Modloader/app/structs/DeflateInput.h>
+
+#include <Modloader/app/structs/FastEncoderWindow.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/DeflateInput.h>
 #include <Modloader/app/structs/Match_1.h>
 
 namespace app::classes::Unity::IO::Compression::FastEncoderWindow {

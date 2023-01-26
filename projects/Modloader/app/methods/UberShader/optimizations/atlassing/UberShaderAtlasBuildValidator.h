@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/UberShaderBlockTextured.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UberShaderAtlasBuildValidator.h>
+#include <Modloader/app/structs/UberShaderBlockTextured.h>
 
 namespace app::classes::UberShader::optimizations::atlassing::UberShaderAtlasBuildValidator {
     IL2CPP_REGISTER_METHOD(0x018FD510, void, FlushChecksForScene, (app::String * scene, app::String* area))

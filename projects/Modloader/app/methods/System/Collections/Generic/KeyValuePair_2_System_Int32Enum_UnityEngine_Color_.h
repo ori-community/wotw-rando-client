@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Int32Enum_UnityEngine_Color___Boxed.h>
-#include <Modloader/app/structs/Int32Enum__Enum.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32Enum_UnityEngine_Color___Boxed.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_Int32Enum_UnityEngine_Color_ {

@@ -1,26 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritLightRadialVisualAffector.h>
-#include <Modloader/app/structs/SeinCharacter.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/CharacterAnimationSystem.h>
-#include <Modloader/app/structs/MoonAnimator.h>
+
+#include <Modloader/app/structs/SpiritLightRadialVisualAffector.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
-#include <Modloader/app/structs/CharacterState.h>
-#include <Modloader/app/structs/NavigationType__Enum.h>
-#include <Modloader/app/structs/SoundHost.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/CharacterLeftRightMovement.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/WaterfallIntersectionMode__Enum.h>
-#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/CharacterAnimationSystem.h>
 #include <Modloader/app/structs/CharacterCapsuleController.h>
-#include <Modloader/app/structs/DamageOwner.h>
-#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/CharacterState.h>
 #include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/NavigationType__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/WaterfallIntersectionMode__Enum.h>
 
 namespace app::classes::SeinCharacter {
     IL2CPP_REGISTER_METHOD(0x006A63A0, app::SpiritLightRadialVisualAffector*, get_LightAffector, (app::SeinCharacter * this_ptr))
@@ -53,12 +54,9 @@ namespace app::classes::SeinCharacter {
     IL2CPP_REGISTER_METHOD(0x00A409A0, void, Start, (app::SeinCharacter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A40D70, void, OnDestroy, (app::SeinCharacter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A410C0, void, OnPostRestoreCheckpoint, (app::SeinCharacter * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04766900, SeinCharacter_OnPostRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A41200, void, OnPostCreateCheckpoint, (app::SeinCharacter * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478CA48, SeinCharacter_OnPostCreateCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A412E0, void, MakeBelongToSein, (app::SeinCharacter * this_ptr, app::GameObject* go))
     IL2CPP_REGISTER_METHOD(0x00A415B0, void, OnSetTurningHandler, (app::SeinCharacter * this_ptr, app::CharacterLeftRightMovement* left_right_movement))
-    IL2CPP_REGISTER_METHODINFO(0x0470F510, SeinCharacter_OnSetTurningHandler__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A41D80, void, DetectAreas, (app::SeinCharacter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A41F60, void, FixedUpdate, (app::SeinCharacter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008612A0, void, Activate, (app::SeinCharacter * this_ptr, bool active))

@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMoonSetupAnimator.h>
-#include <Modloader/app/structs/KeystoneDoorLogic.h>
-#include <Modloader/app/structs/MoonReference_1_IGenericUberState_.h>
-#include <Modloader/app/structs/Object_1.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
 #include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/KeystoneDoorLogic.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/MoonReference_1_IGenericUberState_.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Object_1.h>
 #include <Modloader/app/structs/StressTestStatus__Enum.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::KeystoneDoorLogic {
     IL2CPP_REGISTER_METHOD(0x002FB9D0, app::IMoonSetupAnimator*, get_MoonSetupAnimator, (app::KeystoneDoorLogic * this_ptr))
@@ -55,5 +56,4 @@ namespace app::classes::KeystoneDoorLogic {
     IL2CPP_REGISTER_METHOD(0x00E70040, app::IDesiredUberState*, GetRequirementsForTimeline, (app::KeystoneDoorLogic * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x00E70120, void, ctor, (app::KeystoneDoorLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E701F0, void, _OpenDoor_b__65_0, (app::KeystoneDoorLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04735148, KeystoneDoorLogic__OpenDoor_b__65_0__MethodInfo)
 } // namespace app::classes::KeystoneDoorLogic

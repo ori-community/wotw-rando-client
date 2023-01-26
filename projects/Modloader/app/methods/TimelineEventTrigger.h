@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/TimelineEventTrigger.h>
-#include <Modloader/app/structs/Action_1_TimelineEventTrigger_.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Action_1_TimelineEventTrigger_.h>
+#include <Modloader/app/structs/TimelineEventTrigger.h>
 
 namespace app::classes::TimelineEventTrigger {
     IL2CPP_REGISTER_METHOD(0x004C65D0, app::String*, get_EventProviderName, (app::TimelineEventTrigger * this_ptr))

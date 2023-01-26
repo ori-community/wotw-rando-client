@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ListenerSyncProcessor_ListenerSyncTask.h>
+
+#include <Modloader/app/structs/ListenerSyncProcessor_ListenerSyncTask.h>
 #include <Modloader/app/structs/SoundListenerReference.h>
 
 namespace app::classes::Moon::Wwise::ListenerSyncProcessor_ListenerSyncTask {

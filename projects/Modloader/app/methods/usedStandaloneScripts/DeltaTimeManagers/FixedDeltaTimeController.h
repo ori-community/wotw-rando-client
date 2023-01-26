@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FixedDeltaTimeController.h>
+
+#include <Modloader/app/structs/FixedDeltaTimeController.h>
 
 namespace app::classes::usedStandaloneScripts::DeltaTimeManagers::FixedDeltaTimeController {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::FixedDeltaTimeController * this_ptr, int32_t f_p_s))

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Camera.h>
-#include <Modloader/app/structs/GameplayCamera.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/CameraPostProcessing.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Camera.h>
 #include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/CameraPostProcessing.h>
+#include <Modloader/app/structs/GameplayCamera.h>
 #include <Modloader/app/structs/Object_1.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::GameplayCamera {
     IL2CPP_REGISTER_METHOD(0x0040B220, app::Camera*, get_Camera, (app::GameplayCamera * this_ptr))
@@ -22,13 +23,11 @@ namespace app::classes::GameplayCamera {
     IL2CPP_REGISTER_METHOD(0x0040B940, void, MoveToTarget, (app::GameplayCamera * this_ptr, app::Vector3 target, float duration, bool ignore_scroll_lock))
     IL2CPP_REGISTER_METHOD(0x0040BCB0, void, MoveToTargetCharacter, (app::GameplayCamera * this_ptr, float duration))
     IL2CPP_REGISTER_METHOD(0x0040BFB0, void, GoToChaseMode, (app::GameplayCamera * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473C718, GameplayCamera_GoToChaseMode__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0040C1E0, void, OnDestroy, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040C470, void, Awake, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040C730, void, OnEnable, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040CAE0, void, OnDisable, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040CBD0, void, OnRestoreCheckpoint, (app::GameplayCamera * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478EC30, GameplayCamera_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0040CC00, void, UpdateTargetHelperPosition, (app::GameplayCamera * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0040CC50, void, set_Target, (app::GameplayCamera * this_ptr, app::Transform* value))
     IL2CPP_REGISTER_METHOD(0x0040CC90, app::Transform*, get_Target, (app::GameplayCamera * this_ptr))

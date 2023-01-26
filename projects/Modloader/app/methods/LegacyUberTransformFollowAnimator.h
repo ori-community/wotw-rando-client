@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyUberTransformFollowAnimator.h>
+
+#include <Modloader/app/structs/LegacyUberTransformFollowAnimator.h>
 
 namespace app::classes::LegacyUberTransformFollowAnimator {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsLooping, (app::LegacyUberTransformFollowAnimator * this_ptr))

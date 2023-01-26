@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlatformMovementEnvironmentForceController.h>
+
+#include <Modloader/app/structs/PlatformMovementEnvironmentForceController.h>
 #include <Modloader/app/structs/Rigidbody.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 

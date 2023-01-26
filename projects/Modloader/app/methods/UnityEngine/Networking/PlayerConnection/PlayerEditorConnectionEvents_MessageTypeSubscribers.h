@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerEditorConnectionEvents_MessageTypeSubscribers.h>
+
+#include <Modloader/app/structs/PlayerEditorConnectionEvents_MessageTypeSubscribers.h>
 #include <Modloader/app/structs/Guid.h>
 
 namespace app::classes::UnityEngine::Networking::PlayerConnection::PlayerEditorConnectionEvents_MessageTypeSubscribers {

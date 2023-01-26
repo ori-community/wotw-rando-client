@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationTester_IToogleGroup.h>
-#include <Modloader/app/structs/AnimationTester_ToggleElementButton.h>
+
+#include <Modloader/app/structs/AnimationTester_IToogleGroup.h>
 #include <Modloader/app/structs/AnimationTester_IHierarchyUiElement.h>
+#include <Modloader/app/structs/AnimationTester_ToggleElementButton.h>
 
 namespace app::classes::AnimationTester_ToggleElementButton {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::AnimationTester_IToogleGroup*, get_ToogleGroup, (app::AnimationTester_ToggleElementButton * this_ptr))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Single_.h>
-#include <Modloader/app/structs/OrderedEnumerable_1_System_Collections_Generic_KeyValuePair_2_.h>
+
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Single_.h>
 #include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/OrderedEnumerable_1_System_Collections_Generic_KeyValuePair_2_.h>
 #include <Modloader/app/structs/OrderedEnumerable_1_System_Collections_Generic_KeyValuePair_2__1.h>
 
 namespace app::classes::System::Linq::OrderedEnumerable_1_System_Collections_Generic_KeyValuePair_2_ {

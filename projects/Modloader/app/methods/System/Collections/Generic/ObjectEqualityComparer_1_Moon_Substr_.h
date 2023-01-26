@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Substr_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Substr_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Substr.h>
 #include <Modloader/app/structs/Substr__Array.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_Moon_Substr_ {
     IL2CPP_REGISTER_METHOD(0x01CD1020, bool, Equals_1, (app::ObjectEqualityComparer_1_Moon_Substr_ * this_ptr, app::Substr x, app::Substr y))

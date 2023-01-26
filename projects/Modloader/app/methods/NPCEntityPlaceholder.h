@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ICharacterInteractable.h>
-#include <Modloader/app/structs/NPCEntityPlaceholder.h>
-#include <Modloader/app/structs/NPCEntity.h>
+
+#include <Modloader/app/structs/ICharacterInteractable.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/NPCEntity.h>
+#include <Modloader/app/structs/NPCEntityPlaceholder.h>
 
 namespace app::classes::NPCEntityPlaceholder {
     IL2CPP_REGISTER_METHOD(0x0087F600, app::ICharacterInteractable*, get_CharacterInteractable, (app::NPCEntityPlaceholder * this_ptr))

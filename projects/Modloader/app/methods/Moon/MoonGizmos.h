@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonGizmos.h>
-#include <Modloader/app/structs/List_1_Moon_IGizmo_.h>
+
+#include <Modloader/app/structs/MoonGizmos.h>
 #include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/List_1_Moon_IGizmo_.h>
 #include <Modloader/app/structs/List_1_System_Object_.h>
 
 namespace app::classes::Moon::MoonGizmos {

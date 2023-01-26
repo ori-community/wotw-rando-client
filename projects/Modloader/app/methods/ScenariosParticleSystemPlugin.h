@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ParticleSystem.h>
-#include <Modloader/app/structs/ScenariosParticleSystemPlugin_TrackingID.h>
-#include <Modloader/app/structs/ScenariosParticleSystemPlugin.h>
+
+#include <Modloader/app/structs/ParticleSystem.h>
 #include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
+#include <Modloader/app/structs/ScenariosParticleSystemPlugin.h>
+#include <Modloader/app/structs/ScenariosParticleSystemPlugin_TrackingID.h>
 
 namespace app::classes::ScenariosParticleSystemPlugin {
     IL2CPP_REGISTER_METHOD(0x00934FD0, void, StartTracking, (app::ParticleSystem * particle_system, app::ScenariosParticleSystemPlugin_TrackingID* trackingi_d))

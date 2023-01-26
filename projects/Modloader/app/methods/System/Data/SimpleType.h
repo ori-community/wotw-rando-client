@@ -1,24 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SimpleType.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSchemaSimpleType.h>
-#include <Modloader/app/structs/SerializationInfo.h>
-#include <Modloader/app/structs/StreamingContext.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/XmlNode.h>
-#include <Modloader/app/structs/XmlDocument.h>
+
+#include <Modloader/app/structs/SimpleType.h>
 #include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StorageType__Enum.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
 
 namespace app::classes::System::Data::SimpleType {
     IL2CPP_REGISTER_METHOD(0x01E4C230, void, ctor_1, (app::SimpleType * this_ptr, app::String* base_type))
     IL2CPP_REGISTER_METHOD(0x01E4C370, void, ctor_2, (app::SimpleType * this_ptr, app::XmlSchemaSimpleType* node))
     IL2CPP_REGISTER_METHOD(0x01E4C540, void, ISerializable_GetObjectData, (app::SimpleType * this_ptr, app::SerializationInfo* info, app::StreamingContext context))
-    IL2CPP_REGISTER_METHODINFO(0x0478BC78, SimpleType_System_Runtime_Serialization_ISerializable_GetObjectData__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E4C590, void, LoadTypeValues, (app::SimpleType * this_ptr, app::XmlSchemaSimpleType* node))
-    IL2CPP_REGISTER_METHODINFO(0x047290E8, SimpleType_LoadTypeValues__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E4CD10, bool, IsPlainString, (app::SimpleType * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_BaseType, (app::SimpleType * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB950, app::XmlQualifiedName*, get_XmlBaseType, (app::SimpleType * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Texture.h>
+
+#include <Modloader/app/structs/Texture.h>
 #include <Modloader/app/structs/CustomizeMaterial.h>
 
 namespace app::classes::CustomizeMaterial {

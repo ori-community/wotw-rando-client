@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VerletStructure.h>
+
+#include <Modloader/app/structs/VerletStructure.h>
 #include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
@@ -28,7 +29,6 @@ namespace app::classes::VerletStructure {
     IL2CPP_REGISTER_METHOD(0x013C9BB0, void, OnEnable, (app::VerletStructure * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013C9D90, void, OnDisable, (app::VerletStructure * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013C9F70, void, OnExtraLateUpdate, (app::VerletStructure * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04773DB8, VerletStructure_OnExtraLateUpdate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x013CA090, void, OnUpdate_1, (app::VerletStructure * this_ptr, float dt))
     IL2CPP_REGISTER_METHOD(0x013CA1C0, void, OnUpdatePhysics, (app::VerletStructure * this_ptr, float dt))
     IL2CPP_REGISTER_METHOD(0x013CA210, void, OnUpdate_2, (app::VerletStructure * this_ptr, float dt, bool update_handlers))

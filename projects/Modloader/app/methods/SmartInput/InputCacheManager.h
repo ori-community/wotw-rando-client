@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InputCacheManager.h>
+
+#include <Modloader/app/structs/InputCacheManager.h>
 #include <Modloader/app/structs/ICachableInput.h>
 
 namespace app::classes::SmartInput::InputCacheManager {

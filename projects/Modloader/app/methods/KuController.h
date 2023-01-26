@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KuController.h>
-#include <Modloader/app/structs/KuState.h>
+
+#include <Modloader/app/structs/KuController.h>
 #include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/KuState.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::KuController {
@@ -16,7 +17,6 @@ namespace app::classes::KuController {
     IL2CPP_REGISTER_METHOD(0x0122DD60, bool, IsPerforming, (app::KuController * this_ptr, app::KuState* character_state))
     IL2CPP_REGISTER_METHOD(0x0122DE20, void, FixedUpdate, (app::KuController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0122E360, void, OnSetTurningHandler, (app::KuController * this_ptr, app::CharacterLeftRightMovement* left_right_movement))
-    IL2CPP_REGISTER_METHODINFO(0x04780868, KuController_OnSetTurningHandler__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0122E630, void, EnterMountState, (app::KuController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004430B0, bool, get_IsSuspended, (app::KuController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0058ED80, void, set_IsSuspended, (app::KuController * this_ptr, bool value))

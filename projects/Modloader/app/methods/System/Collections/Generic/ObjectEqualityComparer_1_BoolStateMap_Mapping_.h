@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_BoolStateMap_Mapping_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_BoolStateMap_Mapping_.h>
 #include <Modloader/app/structs/BoolStateMap_Mapping.h>
 #include <Modloader/app/structs/BoolStateMap_Mapping__Array.h>
 #include <Modloader/app/structs/Object.h>

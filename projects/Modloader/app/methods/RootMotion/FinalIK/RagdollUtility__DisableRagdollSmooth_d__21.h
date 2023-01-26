@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RagdollUtility_DisableRagdollSmooth_d_21.h>
+
+#include <Modloader/app/structs/RagdollUtility_DisableRagdollSmooth_d_21.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::RootMotion::FinalIK::RagdollUtility__DisableRagdollSmooth_d__21 {
@@ -9,6 +10,5 @@ namespace app::classes::RootMotion::FinalIK::RagdollUtility__DisableRagdollSmoot
     IL2CPP_REGISTER_METHOD(0x02A1B920, bool, MoveNext, (app::RagdollUtility_DisableRagdollSmooth_d_21 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::RagdollUtility_DisableRagdollSmooth_d_21 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A1BD60, void, IEnumerator_Reset, (app::RagdollUtility_DisableRagdollSmooth_d_21 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475CF40, RagdollUtility_DisableRagdollSmooth_d_21_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::RagdollUtility_DisableRagdollSmooth_d_21 * this_ptr))
 } // namespace app::classes::RootMotion::FinalIK::RagdollUtility__DisableRagdollSmooth_d__21

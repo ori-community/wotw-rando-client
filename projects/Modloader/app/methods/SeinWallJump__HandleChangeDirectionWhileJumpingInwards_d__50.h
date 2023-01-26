@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50.h>
+
+#include <Modloader/app/structs/SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::SeinWallJump__HandleChangeDirectionWhileJumpingInwards_d__50 {
@@ -9,6 +10,5 @@ namespace app::classes::SeinWallJump__HandleChangeDirectionWhileJumpingInwards_d
     IL2CPP_REGISTER_METHOD(0x00AB0710, bool, MoveNext, (app::SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AB12F0, void, IEnumerator_Reset, (app::SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474B0F0, SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::SeinWallJump_HandleChangeDirectionWhileJumpingInwards_d_50 * this_ptr))
 } // namespace app::classes::SeinWallJump__HandleChangeDirectionWhileJumpingInwards_d__50

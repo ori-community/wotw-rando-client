@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KwolokBossSludgeLaserBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/KwolokBossSludgeLaserBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::KwolokBossSludgeLaserBehaviour {
     IL2CPP_REGISTER_METHOD(0x012EA390, bool, get_IsInShootinWindow, (app::KwolokBossSludgeLaserBehaviour * this_ptr))
@@ -12,6 +13,5 @@ namespace app::classes::KwolokBossSludgeLaserBehaviour {
     IL2CPP_REGISTER_METHOD(0x012EB510, float, ComputeUtility, (app::KwolokBossSludgeLaserBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012E9180, void, InitializeHitReactionController, (app::KwolokBossSludgeLaserBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012EB630, void, ModifyLookAngleChangeSpeed, (app::KwolokBossSludgeLaserBehaviour * this_ptr, float* speed))
-    IL2CPP_REGISTER_METHODINFO(0x0470F900, KwolokBossSludgeLaserBehaviour_ModifyLookAngleChangeSpeed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012EB650, void, ctor, (app::KwolokBossSludgeLaserBehaviour * this_ptr))
 } // namespace app::classes::KwolokBossSludgeLaserBehaviour

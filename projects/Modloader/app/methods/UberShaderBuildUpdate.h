@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderBuildUpdate.h>
+
+#include <Modloader/app/structs/UberShaderBuildUpdate.h>
 
 namespace app::classes::UberShaderBuildUpdate {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Start, (app::UberShaderBuildUpdate * this_ptr))

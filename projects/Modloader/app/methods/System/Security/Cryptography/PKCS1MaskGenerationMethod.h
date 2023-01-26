@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PKCS1MaskGenerationMethod.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/PKCS1MaskGenerationMethod.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::PKCS1MaskGenerationMethod {
     IL2CPP_REGISTER_METHOD(0x020DF880, void, ctor, (app::PKCS1MaskGenerationMethod * this_ptr))

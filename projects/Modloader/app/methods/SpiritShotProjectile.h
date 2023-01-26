@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritShotProjectile.h>
+
+#include <Modloader/app/structs/SpiritShotProjectile.h>
 
 namespace app::classes::SpiritShotProjectile {
     IL2CPP_REGISTER_METHOD(0x00D7BD70, void, Awake, (app::SpiritShotProjectile * this_ptr))

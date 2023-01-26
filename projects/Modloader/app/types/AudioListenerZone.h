@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AudioListenerZone__Class.h>
 #include <Modloader/app/structs/AudioListenerZone.h>
 #include <Modloader/app/structs/AudioListenerZone__Array.h>
+#include <Modloader/app/structs/AudioListenerZone__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace AudioListenerZone {
-        namespace {
-            inline app::AudioListenerZone__Class* type_info_ref = nullptr;
+        inline app::AudioListenerZone__Class** type_info() {
+            static app::AudioListenerZone__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AudioListenerZone__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AudioListenerZone__Class** type_info = &type_info_ref;
         inline app::AudioListenerZone__Class* get_class() {
-            return il2cpp::get_class<app::AudioListenerZone__Class>(type_info, "Moon.Wwise", "AudioListenerZone");
+            return il2cpp::get_class<app::AudioListenerZone__Class>(type_info(), "Moon.Wwise", "AudioListenerZone");
         }
         inline app::AudioListenerZone* create() {
             return il2cpp::create_object<app::AudioListenerZone>(get_class());

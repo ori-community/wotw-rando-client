@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PositionAsUV1.h>
+
+#include <Modloader/app/structs/PositionAsUV1.h>
 #include <Modloader/app/structs/VertexHelper.h>
 
 namespace app::classes::UnityEngine::UI::PositionAsUV1 {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossTripleSlamBehaviour_StartState.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossTripleSlamBehaviour_StartState.h>
 #include <Modloader/app/structs/PetrifiedOwlBossTripleSlamBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossTripleSlamBehaviour_StartState {

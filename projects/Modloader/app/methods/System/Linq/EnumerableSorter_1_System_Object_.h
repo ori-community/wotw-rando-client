@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Int32__Array.h>
+
+#include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/EnumerableSorter_1_System_Object_.h>
 #include <Modloader/app/structs/Object__Array.h>
 

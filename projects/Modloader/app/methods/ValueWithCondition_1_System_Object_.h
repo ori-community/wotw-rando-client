@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ValueWithCondition_1_System_Object_.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/ValueWithCondition_1_System_Object_.h>
 
 namespace app::classes::ValueWithCondition_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02ACF1E0, app::Object*, get_m_value, (app::ValueWithCondition_1_System_Object_ * this_ptr))

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LaserShooterMinibossBeamAttackBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/LaserShooterMinibossBeamAttackBehaviour.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/LaserShooterMinibossBeamAttackBehaviour_State__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::LaserShooterMinibossBeamAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnEntityInitialized, (app::LaserShooterMinibossBeamAttackBehaviour * this_ptr))
@@ -22,11 +23,8 @@ namespace app::classes::LaserShooterMinibossBeamAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00F17C00, void, EnterBeamState, (app::LaserShooterMinibossBeamAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F18020, void, UpdateBeamAttack, (app::LaserShooterMinibossBeamAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F18350, void, OnBeamCycleEnd, (app::LaserShooterMinibossBeamAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473BBC0, LaserShooterMinibossBeamAttackBehaviour_OnBeamCycleEnd__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F184F0, void, EnterAnticState, (app::LaserShooterMinibossBeamAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F186C0, void, OnAnticTimelineEnds, (app::LaserShooterMinibossBeamAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470C110, LaserShooterMinibossBeamAttackBehaviour_OnAnticTimelineEnds__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F186F0, void, ctor, (app::LaserShooterMinibossBeamAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F18780, void, _EnterState_b__19_0, (app::LaserShooterMinibossBeamAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471CB98, LaserShooterMinibossBeamAttackBehaviour__EnterState_b__19_0__MethodInfo)
 } // namespace app::classes::LaserShooterMinibossBeamAttackBehaviour

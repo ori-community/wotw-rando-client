@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_OrbSpawnerManager_ItemToSpawn_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_OrbSpawnerManager_ItemToSpawn_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/OrbSpawnerManager_ItemToSpawn.h>
 #include <Modloader/app/structs/OrbSpawnerManager_ItemToSpawn__Array.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_OrbSpawnerManager_ItemToSpawn_ {
     IL2CPP_REGISTER_METHOD(0x0265A070, bool, Equals_1, (app::ObjectEqualityComparer_1_OrbSpawnerManager_ItemToSpawn_ * this_ptr, app::OrbSpawnerManager_ItemToSpawn x, app::OrbSpawnerManager_ItemToSpawn y))

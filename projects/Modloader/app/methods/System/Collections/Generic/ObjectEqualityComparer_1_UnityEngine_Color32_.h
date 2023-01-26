@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_Color32_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_UnityEngine_Color32_.h>
 #include <Modloader/app/structs/Color32.h>
 #include <Modloader/app/structs/Color32__Array.h>
 #include <Modloader/app/structs/Object.h>

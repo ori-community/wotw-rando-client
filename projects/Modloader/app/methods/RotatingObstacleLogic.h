@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RotatingObstacleLogic.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/RotatingObstacleLogic.h>
 #include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::RotatingObstacleLogic {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_IsSuspended, (app::RotatingObstacleLogic * this_ptr))

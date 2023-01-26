@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/GameMapPins.h>
-#include <Modloader/app/structs/GameMapPins_PinColour__Enum.h>
-#include <Modloader/app/structs/List_1_GameMapPins_Pin_.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/GameMapPins_Pin.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/GameMapPins_PinColour__Enum.h>
 #include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_GameMapPins_Pin_.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::GameMapPins {
     IL2CPP_REGISTER_METHOD(0x0069E090, app::GameObject*, GetPinObject, (app::GameMapPins * this_ptr, app::GameMapPins_PinColour__Enum pin))

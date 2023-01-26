@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OnDelegate.h>
-#include <Modloader/app/structs/UnityVideoPlayer.h>
+
+#include <Modloader/app/structs/OnDelegate.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UnityVideoPlayer.h>
 #include <Modloader/app/structs/VideoPlayer.h>
 
 namespace app::classes::UnityVideoPlayer {
@@ -16,7 +17,6 @@ namespace app::classes::UnityVideoPlayer {
     IL2CPP_REGISTER_METHOD(0x013ABDF0, void, Stop, (app::UnityVideoPlayer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013ABE50, void, Update, (app::UnityVideoPlayer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013ABE60, void, EndReached, (app::UnityVideoPlayer * this_ptr, app::VideoPlayer* vp))
-    IL2CPP_REGISTER_METHODINFO(0x0475C9E8, UnityVideoPlayer_EndReached__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x013ABEA0, void, EnsureImgui, (app::UnityVideoPlayer * this_ptr, bool registered))
     IL2CPP_REGISTER_METHOD(0x013ABF90, void, OnDestroy, (app::UnityVideoPlayer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::UnityVideoPlayer * this_ptr))

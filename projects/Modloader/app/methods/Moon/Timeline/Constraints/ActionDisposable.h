@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActionDisposable_1.h>
+
+#include <Modloader/app/structs/ActionDisposable_1.h>
 #include <Modloader/app/structs/Action.h>
 
 namespace app::classes::Moon::Timeline::Constraints::ActionDisposable {

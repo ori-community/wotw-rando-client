@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IVROverlay_GetOverlayInputMethod.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/EVROverlayError__Enum.h>
-#include <Modloader/app/structs/VROverlayInputMethod__Enum.h>
-#include <Modloader/app/structs/IAsyncResult.h>
+
+#include <Modloader/app/structs/IVROverlay_GetOverlayInputMethod.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/EVROverlayError__Enum.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/VROverlayInputMethod__Enum.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVROverlay__GetOverlayInputMethod {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVROverlay_GetOverlayInputMethod * this_ptr, app::Object* object, void* method_1))

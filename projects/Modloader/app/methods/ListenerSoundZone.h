@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ListenerSoundZone.h>
+
+#include <Modloader/app/structs/ListenerSoundZone.h>
 #include <Modloader/app/structs/ISoundListener.h>
 #include <Modloader/app/structs/Vector2.h>
 

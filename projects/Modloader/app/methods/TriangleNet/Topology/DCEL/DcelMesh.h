@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DcelMesh.h>
-#include <Modloader/app/structs/List_1_TriangleNet_Topology_DCEL_Vertex_.h>
-#include <Modloader/app/structs/List_1_TriangleNet_Topology_DCEL_HalfEdge_.h>
-#include <Modloader/app/structs/List_1_TriangleNet_Topology_DCEL_Face_.h>
+
+#include <Modloader/app/structs/DcelMesh.h>
 #include <Modloader/app/structs/IEnumerable_1_TriangleNet_Geometry_IEdge_.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Topology_DCEL_Face_.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Topology_DCEL_HalfEdge_.h>
+#include <Modloader/app/structs/List_1_TriangleNet_Topology_DCEL_Vertex_.h>
 
 namespace app::classes::TriangleNet::Topology::DCEL::DcelMesh {
     IL2CPP_REGISTER_METHOD(0x02AA0220, void, ctor_1, (app::DcelMesh * this_ptr))

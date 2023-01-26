@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/fsPrimitiveConverter.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/fsResult.h>
+
+#include <Modloader/app/structs/fsPrimitiveConverter.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/fsData.h>
+#include <Modloader/app/structs/fsResult.h>
 
 namespace app::classes::FullSerializer::Internal::fsPrimitiveConverter {
     IL2CPP_REGISTER_METHOD(0x0165B220, bool, CanProcess, (app::fsPrimitiveConverter * this_ptr, app::Type* type))

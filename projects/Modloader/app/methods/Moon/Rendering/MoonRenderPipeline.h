@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonRenderPipeline.h>
+
+#include <Modloader/app/structs/MoonRenderPipeline.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/Camera__Array.h>
 #include <Modloader/app/structs/MoonRenderPipelineAsset.h>
 #include <Modloader/app/structs/MoonRenderPipelineView.h>
-#include <Modloader/app/structs/ScriptableRenderContext.h>
-#include <Modloader/app/structs/Camera__Array.h>
 #include <Modloader/app/structs/MoonRenderPipelineViewType__Enum.h>
-#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/ScriptableRenderContext.h>
 
 namespace app::classes::Moon::Rendering::MoonRenderPipeline {
     IL2CPP_REGISTER_METHOD(0x007917F0, void, ctor, (app::MoonRenderPipeline * this_ptr, app::MoonRenderPipelineAsset* owner))

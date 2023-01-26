@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorValue.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorValue__Array.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorValue__Boxed.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorValue__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorValue__Class.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorValue.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorValue__Boxed.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyExperimental_VectorValue__Array.h>
 
 namespace app::classes::types {
     namespace UberShaderAnimatorStrategyExperimental_VectorValue {
-        namespace {
-            inline app::UberShaderAnimatorStrategyExperimental_VectorValue__Class* type_info_ref = nullptr;
+        inline app::UberShaderAnimatorStrategyExperimental_VectorValue__Class** type_info() {
+            static app::UberShaderAnimatorStrategyExperimental_VectorValue__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::UberShaderAnimatorStrategyExperimental_VectorValue__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::UberShaderAnimatorStrategyExperimental_VectorValue__Class** type_info = &type_info_ref;
         inline app::UberShaderAnimatorStrategyExperimental_VectorValue__Class* get_class() {
-            return il2cpp::get_nested_class<app::UberShaderAnimatorStrategyExperimental_VectorValue__Class>(type_info, "Moon.Timeline", "UberShaderAnimatorStrategyExperimental", "VectorValue");
+            return il2cpp::get_nested_class<app::UberShaderAnimatorStrategyExperimental_VectorValue__Class>(type_info(), "Moon.Timeline", "UberShaderAnimatorStrategyExperimental", "VectorValue");
         }
         inline app::UberShaderAnimatorStrategyExperimental_VectorValue* create() {
             return il2cpp::create_object<app::UberShaderAnimatorStrategyExperimental_VectorValue>(get_class());

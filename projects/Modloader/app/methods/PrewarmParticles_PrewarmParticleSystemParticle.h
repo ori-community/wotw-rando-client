@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PrewarmParticles_PrewarmParticleSystemParticle.h>
+
+#include <Modloader/app/structs/PrewarmParticles_PrewarmParticleSystemParticle.h>
 #include <Modloader/app/structs/ParticleSystem_Particle.h>
 
 namespace app::classes::PrewarmParticles_PrewarmParticleSystemParticle {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritLightVisualAffectorManager.h>
+
+#include <Modloader/app/structs/SpiritLightVisualAffectorManager.h>
 
 namespace app::classes::SpiritLightVisualAffectorManager {
     IL2CPP_REGISTER_METHOD(0x00D63300, void, OnEnable, (app::SpiritLightVisualAffectorManager * this_ptr))

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HornBugDeathReaction.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/HornBugDeathReaction.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/MoonControllerColliderHit.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/HornBugDeathReaction_State__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::HornBugDeathReaction {
@@ -14,7 +15,6 @@ namespace app::classes::HornBugDeathReaction {
     IL2CPP_REGISTER_METHOD(0x00B69510, void, StartTimeline, (app::HornBugDeathReaction * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop))
     IL2CPP_REGISTER_METHOD(0x00B69560, void, ResetTimeline, (app::HornBugDeathReaction * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x00B69780, void, HandleCollision, (app::HornBugDeathReaction * this_ptr, app::MoonControllerColliderHit hit))
-    IL2CPP_REGISTER_METHODINFO(0x04703298, HornBugDeathReaction_HandleCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B697D0, void, OnEnterTask, (app::HornBugDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00B69C40, app::BehaviourStatus__Enum, OnExecuteTask, (app::HornBugDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00B69D70, void, OnExitTask, (app::HornBugDeathReaction * this_ptr, app::IContext* context))
@@ -36,8 +36,6 @@ namespace app::classes::HornBugDeathReaction {
     IL2CPP_REGISTER_METHOD(0x00B6AC70, void, UpdateDrown, (app::HornBugDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B6A350, void, ExitDrown, (app::HornBugDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B68B50, app::Vector3, ProcessRootMotion, (app::HornBugDeathReaction * this_ptr, app::Vector3 motion))
-    IL2CPP_REGISTER_METHODINFO(0x047287A8, HornBugDeathReaction_ProcessRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B6AEB0, void, ctor, (app::HornBugDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B6AF60, void, _EnterDeathEnd_b__36_0, (app::HornBugDeathReaction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04784C60, HornBugDeathReaction__EnterDeathEnd_b__36_0__MethodInfo)
 } // namespace app::classes::HornBugDeathReaction

@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Object_.h>
-#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Object___Array.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1_.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__1.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Object_.h>
+#include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Object___Array.h>
 #include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Single_.h>
 #include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_System_Single___Array.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__2.h>
 #include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Color_.h>
 #include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Color___Array.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_Timeline_UberShaderAnimatorStrategyStandard_Request_1__3.h>
 #include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Vector4_.h>
 #include <Modloader/app/structs/UberShaderAnimatorStrategyStandard_Request_1_UnityEngine_Vector4___Array.h>
 

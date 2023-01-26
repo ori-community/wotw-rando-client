@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimelineMarkerRecord.h>
+
+#include <Modloader/app/structs/TimelineMarkerRecord.h>
 #include <Modloader/app/structs/EntityId.h>
 #include <Modloader/app/structs/String.h>
 

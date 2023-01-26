@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossRainOfFeathersBehaviour_LoopState.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossRainOfFeathersBehaviour_LoopState.h>
 #include <Modloader/app/structs/PetrifiedOwlBossRainOfFeathersBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossRainOfFeathersBehaviour_LoopState {

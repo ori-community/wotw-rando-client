@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Color__Array.h>
+
+#include <Modloader/app/structs/Color__Array.h>
 #include <Modloader/app/structs/CCMoonTextColorer.h>
 #include <Modloader/app/structs/CCText.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InventoryScreenHealthEnergyElements.h>
+
+#include <Modloader/app/structs/InventoryScreenHealthEnergyElements.h>
 
 namespace app::classes::InventoryScreenHealthEnergyElements {
     IL2CPP_REGISTER_METHOD(0x006435E0, int32_t, get_HealthCellCount, (app::InventoryScreenHealthEnergyElements * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberPoolPerfTest_FinishPendingTasks_d_43__Boxed.h>
+
+#include <Modloader/app/structs/UberPoolPerfTest_FinishPendingTasks_d_43__Boxed.h>
 #include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::UberPoolPerfTest__FinishPendingTasks_d__43 {

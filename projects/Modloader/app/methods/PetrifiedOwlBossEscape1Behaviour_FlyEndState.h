@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_FlyEndState.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour_FlyEndState.h>
 #include <Modloader/app/structs/PetrifiedOwlBossEscape1Behaviour.h>
 
 namespace app::classes::PetrifiedOwlBossEscape1Behaviour_FlyEndState {
@@ -9,6 +10,5 @@ namespace app::classes::PetrifiedOwlBossEscape1Behaviour_FlyEndState {
     IL2CPP_REGISTER_METHOD(0x01762B10, void, UpdateState, (app::PetrifiedOwlBossEscape1Behaviour_FlyEndState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01762BE0, void, OnExit, (app::PetrifiedOwlBossEscape1Behaviour_FlyEndState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014E8710, void, OnTimelineEnded, (app::PetrifiedOwlBossEscape1Behaviour_FlyEndState * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04789540, PetrifiedOwlBossEscape1Behaviour_FlyEndState_OnTimelineEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014E8710, void, GoToNextState, (app::PetrifiedOwlBossEscape1Behaviour_FlyEndState * this_ptr))
 } // namespace app::classes::PetrifiedOwlBossEscape1Behaviour_FlyEndState

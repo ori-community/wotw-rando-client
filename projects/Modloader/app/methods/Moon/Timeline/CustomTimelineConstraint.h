@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CustomTimelineConstraint.h>
-#include <Modloader/app/structs/EntityId.h>
+
+#include <Modloader/app/structs/CustomTimelineConstraint.h>
 #include <Modloader/app/structs/ConstraintFlag__Enum.h>
+#include <Modloader/app/structs/EntityId.h>
 
 namespace app::classes::Moon::Timeline::CustomTimelineConstraint {
     IL2CPP_REGISTER_METHOD(0x0052B590, bool, get_Dirty, (app::CustomTimelineConstraint * this_ptr))

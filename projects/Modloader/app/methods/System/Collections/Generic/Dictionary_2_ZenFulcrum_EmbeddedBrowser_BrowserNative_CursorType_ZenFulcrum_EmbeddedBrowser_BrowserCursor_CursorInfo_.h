@@ -1,14 +1,0 @@
-#pragma once
-#include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Dictionary_2_ZenFulcrum_EmbeddedBrowser_BrowserNative_CursorType_ZenFulcrum_EmbeddedBrowser_BrowserCursor_CursorInfo_.h>
-#include <Modloader/app/structs/BrowserNative_CursorType__Enum.h>
-#include <Modloader/app/structs/BrowserCursor_CursorInfo.h>
-
-namespace app::classes::System::Collections::Generic::Dictionary_2_ZenFulcrum_EmbeddedBrowser_BrowserNative_CursorType_ZenFulcrum_EmbeddedBrowser_BrowserCursor_CursorInfo_ {
-    IL2CPP_REGISTER_METHOD(0x02BAC140, void, set_Item, (app::Dictionary_2_ZenFulcrum_EmbeddedBrowser_BrowserNative_CursorType_ZenFulcrum_EmbeddedBrowser_BrowserCursor_CursorInfo_ * this_ptr, app::BrowserNative_CursorType__Enum key, app::BrowserCursor_CursorInfo* value))
-    IL2CPP_REGISTER_METHODINFO(0x04742E98, Dictionary_2_ZenFulcrum_EmbeddedBrowser_BrowserNative_CursorType_ZenFulcrum_EmbeddedBrowser_BrowserCursor_CursorInfo__set_Item__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x02C35530, app::BrowserCursor_CursorInfo*, get_Item, (app::Dictionary_2_ZenFulcrum_EmbeddedBrowser_BrowserNative_CursorType_ZenFulcrum_EmbeddedBrowser_BrowserCursor_CursorInfo_ * this_ptr, app::BrowserNative_CursorType__Enum key))
-    IL2CPP_REGISTER_METHODINFO(0x0476D820, Dictionary_2_ZenFulcrum_EmbeddedBrowser_BrowserNative_CursorType_ZenFulcrum_EmbeddedBrowser_BrowserCursor_CursorInfo__get_Item__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_ZenFulcrum_EmbeddedBrowser_BrowserNative_CursorType_ZenFulcrum_EmbeddedBrowser_BrowserCursor_CursorInfo_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047624B8, Dictionary_2_ZenFulcrum_EmbeddedBrowser_BrowserNative_CursorType_ZenFulcrum_EmbeddedBrowser_BrowserCursor_CursorInfo___ctor__MethodInfo)
-} // namespace app::classes::System::Collections::Generic::Dictionary_2_ZenFulcrum_EmbeddedBrowser_BrowserNative_CursorType_ZenFulcrum_EmbeddedBrowser_BrowserCursor_CursorInfo_

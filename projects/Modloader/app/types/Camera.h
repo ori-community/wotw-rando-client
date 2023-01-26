@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Camera__Class.h>
 #include <Modloader/app/structs/Camera.h>
 #include <Modloader/app/structs/Camera__Array.h>
+#include <Modloader/app/structs/Camera__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Camera {
-        inline app::Camera__Class** type_info = (app::Camera__Class**)(modloader::win::memory::resolve_rva(0x047639B8));
+        inline app::Camera__Class** type_info() {
+            static app::Camera__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Camera__Class**)(modloader::win::memory::resolve_rva(0x047639B8));
+            }
+            return cache;
+        }
         inline app::Camera__Class* get_class() {
-            return il2cpp::get_class<app::Camera__Class>(type_info, "UnityEngine", "Camera");
+            return il2cpp::get_class<app::Camera__Class>(type_info(), "UnityEngine", "Camera");
         }
         inline app::Camera* create() {
             return il2cpp::create_object<app::Camera>(get_class());

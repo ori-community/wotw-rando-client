@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnemyPlatformMovement.h>
+
+#include <Modloader/app/structs/EnemyPlatformMovement.h>
+#include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::EnemyPlatformMovement {
     IL2CPP_REGISTER_METHOD(0x00417FF0, float, get_OnGroundSpeedTreshold, (app::EnemyPlatformMovement * this_ptr))
@@ -23,10 +24,7 @@ namespace app::classes::EnemyPlatformMovement {
     IL2CPP_REGISTER_METHOD(0x00C83050, void, OnAwake, (app::EnemyPlatformMovement * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C833A0, void, OnDestroy, (app::EnemyPlatformMovement * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C836C0, void, OnGroundUpdate, (app::EnemyPlatformMovement * this_ptr, app::Vector3 local_normal, app::Collider* collider))
-    IL2CPP_REGISTER_METHODINFO(0x047566D8, EnemyPlatformMovement_OnGroundUpdate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C838B0, void, OnCollisionWallLeftUpdate, (app::EnemyPlatformMovement * this_ptr, app::Vector3 local_normal, app::Collider* collider))
-    IL2CPP_REGISTER_METHODINFO(0x0471DDB8, EnemyPlatformMovement_OnCollisionWallLeftUpdate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C838D0, void, OnCollisionWallRightUpdate, (app::EnemyPlatformMovement * this_ptr, app::Vector3 local_normal, app::Collider* collider))
-    IL2CPP_REGISTER_METHODINFO(0x047833A8, EnemyPlatformMovement_OnCollisionWallRightUpdate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0095E530, void, ctor, (app::EnemyPlatformMovement * this_ptr))
 } // namespace app::classes::EnemyPlatformMovement

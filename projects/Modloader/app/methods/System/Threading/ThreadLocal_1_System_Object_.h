@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ThreadLocal_1_System_Object_.h>
-#include <Modloader/app/structs/List_1_System_Object_.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Func_1_Object_.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ThreadLocal_1_System_Object_.h>
 #include <Modloader/app/structs/ThreadLocal_1_T_LinkedSlotVolatile_System_Object___Array.h>
 
 namespace app::classes::System::Threading::ThreadLocal_1_System_Object_ {
@@ -12,7 +13,6 @@ namespace app::classes::System::Threading::ThreadLocal_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02A606F0, void, set_Value, (app::ThreadLocal_1_System_Object_ * this_ptr, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x02A61570, int32_t, get_ValuesCountForDebugDisplay, (app::ThreadLocal_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A615C0, bool, get_IsValueCreated, (app::ThreadLocal_1_System_Object_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04741640, ThreadLocal_1_System_Object__get_IsValueCreated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02A617A0, app::Object*, get_ValueForDebugDisplay, (app::ThreadLocal_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A618F0, app::List_1_System_Object_*, get_ValuesForDebugDisplay, (app::ThreadLocal_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A5FDF0, void, ctor, (app::ThreadLocal_1_System_Object_ * this_ptr))
@@ -22,11 +22,8 @@ namespace app::classes::System::Threading::ThreadLocal_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02A601B0, void, Dispose_2, (app::ThreadLocal_1_System_Object_ * this_ptr, bool disposing))
     IL2CPP_REGISTER_METHOD(0x02A60540, app::String*, ToString, (app::ThreadLocal_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A60860, app::Object*, GetValueSlow, (app::ThreadLocal_1_System_Object_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477D430, ThreadLocal_1_System_Object__GetValueSlow__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02A609F0, void, SetValueSlow, (app::ThreadLocal_1_System_Object_ * this_ptr, app::Object* value, app::ThreadLocal_1_T_LinkedSlotVolatile_System_Object___Array* slot_array))
-    IL2CPP_REGISTER_METHODINFO(0x047131B0, ThreadLocal_1_System_Object__SetValueSlow__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02A61000, void, CreateLinkedSlot, (app::ThreadLocal_1_System_Object_ * this_ptr, app::ThreadLocal_1_T_LinkedSlotVolatile_System_Object___Array* slot_array, int32_t id, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x0477D438, ThreadLocal_1_System_Object__CreateLinkedSlot__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02A613F0, app::List_1_System_Object_*, GetValuesAsList, (app::ThreadLocal_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02A61920, void, GrowTable, (app::ThreadLocal_1_System_Object_ * this_ptr, app::ThreadLocal_1_T_LinkedSlotVolatile_System_Object___Array** table, int32_t min_length))
     IL2CPP_REGISTER_METHOD(0x02A61BE0, int32_t, GetNewTableSize, (int32_t min_size))

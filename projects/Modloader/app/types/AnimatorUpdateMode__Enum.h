@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/AnimatorUpdateMode__Enum.h>
+#include <Modloader/app/structs/AnimatorUpdateMode__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AnimatorUpdateMode__Enum__Class.h>
-#include <Modloader/app/structs/AnimatorUpdateMode__Enum.h>
 
 namespace app::classes::types {
     namespace AnimatorUpdateMode__Enum {
-        namespace {
-            inline app::AnimatorUpdateMode__Enum__Class* type_info_ref = nullptr;
+        inline app::AnimatorUpdateMode__Enum__Class** type_info() {
+            static app::AnimatorUpdateMode__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AnimatorUpdateMode__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AnimatorUpdateMode__Enum__Class** type_info = &type_info_ref;
         inline app::AnimatorUpdateMode__Enum__Class* get_class() {
-            return il2cpp::get_class<app::AnimatorUpdateMode__Enum__Class>(type_info, "UnityEngine", "AnimatorUpdateMode");
+            return il2cpp::get_class<app::AnimatorUpdateMode__Enum__Class>(type_info(), "UnityEngine", "AnimatorUpdateMode");
         }
         inline app::AnimatorUpdateMode__Enum* create() {
             return il2cpp::create_object<app::AnimatorUpdateMode__Enum>(get_class());

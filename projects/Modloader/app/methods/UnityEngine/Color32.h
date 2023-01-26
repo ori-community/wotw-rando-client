@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Color32__Boxed.h>
-#include <Modloader/app/structs/Color32.h>
+
+#include <Modloader/app/structs/Color32__Boxed.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Color32.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::Color32 {

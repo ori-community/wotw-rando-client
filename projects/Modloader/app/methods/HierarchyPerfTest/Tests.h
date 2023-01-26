@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Transform_.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
 #include <Modloader/app/structs/List_1_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Transform_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Tests_CompoentRunnerID__Enum.h>
 #include <Modloader/app/structs/Tests_UnityFunctionID__Enum.h>
-#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::HierarchyPerfTest::Tests {
     IL2CPP_REGISTER_METHOD(0x019776A0, app::IEnumerator*, RunTests, (app::String * scene_name))
@@ -27,11 +28,8 @@ namespace app::classes::HierarchyPerfTest::Tests {
     IL2CPP_REGISTER_METHOD(0x019788B0, app::IEnumerator*, DoReparentAndTransformTest, (app::String * base_test_name, app::List_1_UnityEngine_Transform_* transforms_to_reparent, app::List_1_UnityEngine_Transform_* new_parents, app::List_1_UnityEngine_Vector3_* positions, app::List_1_UnityEngine_Quaternion_* rotations, app::List_1_UnityEngine_Vector3_* scales))
     IL2CPP_REGISTER_METHOD(0x01978A40, app::IEnumerator*, WaitForNSeconds, (float seconds))
     IL2CPP_REGISTER_METHOD(0x01978BA0, void, OnFirstLastRunnerFunctionCalled, (app::Tests_CompoentRunnerID__Enum runner_i_d, app::Tests_UnityFunctionID__Enum function))
-    IL2CPP_REGISTER_METHODINFO(0x047352D0, Tests_OnFirstLastRunnerFunctionCalled__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01978D10, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01549CA0, void, ShuffleList_1, (app::List_1_System_Object_ * list))
     IL2CPP_REGISTER_METHOD(0x01549CA0, void, ShuffleList_2, (app::List_1_UnityEngine_GameObject_ * list))
-    IL2CPP_REGISTER_METHODINFO(0x0478E588, Tests_ShuffleList_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01549CA0, void, ShuffleList_3, (app::List_1_UnityEngine_Transform_ * list))
-    IL2CPP_REGISTER_METHODINFO(0x047017E8, Tests_ShuffleList_2__MethodInfo)
 } // namespace app::classes::HierarchyPerfTest::Tests

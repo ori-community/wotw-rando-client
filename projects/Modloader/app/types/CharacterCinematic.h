@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/CharacterCinematic.h>
+#include <Modloader/app/structs/CharacterCinematic__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CharacterCinematic__Class.h>
-#include <Modloader/app/structs/CharacterCinematic.h>
 
 namespace app::classes::types {
     namespace CharacterCinematic {
-        namespace {
-            inline app::CharacterCinematic__Class* type_info_ref = nullptr;
+        inline app::CharacterCinematic__Class** type_info() {
+            static app::CharacterCinematic__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CharacterCinematic__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CharacterCinematic__Class** type_info = &type_info_ref;
         inline app::CharacterCinematic__Class* get_class() {
-            return il2cpp::get_class<app::CharacterCinematic__Class>(type_info, "", "CharacterCinematic");
+            return il2cpp::get_class<app::CharacterCinematic__Class>(type_info(), "", "CharacterCinematic");
         }
         inline app::CharacterCinematic* create() {
             return il2cpp::create_object<app::CharacterCinematic>(get_class());

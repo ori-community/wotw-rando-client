@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RecorderFrame_FrameDataTypes__Enum.h>
-#include <Modloader/app/structs/LogCallbackData.h>
-#include <Modloader/app/structs/BinaryWriter.h>
+
+#include <Modloader/app/structs/RecorderFrame_FrameDataTypes__Enum.h>
 #include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/LogCallbackData.h>
 
 namespace app::classes::LogCallbackData {
     IL2CPP_REGISTER_METHOD(0x00910BD0, app::RecorderFrame_FrameDataTypes__Enum, FrameType, (app::LogCallbackData * this_ptr))

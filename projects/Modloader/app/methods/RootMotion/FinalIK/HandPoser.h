@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HandPoser.h>
+
+#include <Modloader/app/structs/HandPoser.h>
 
 namespace app::classes::RootMotion::FinalIK::HandPoser {
     IL2CPP_REGISTER_METHOD(0x02075430, void, Start, (app::HandPoser * this_ptr))

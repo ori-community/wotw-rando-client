@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SteamSignInProvider.h>
+
+#include <Modloader/app/structs/SteamSignInProvider.h>
 #include <Modloader/app/structs/INetworkConnectivityChecker.h>
 #include <Modloader/app/structs/IPlatformUser.h>
 #include <Modloader/app/structs/String.h>
@@ -23,5 +24,4 @@ namespace app::classes::SystemIntegration::SteamSignInProvider {
     IL2CPP_REGISTER_METHOD(0x0052A2A0, void, SignIn, (app::SteamSignInProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052A5A0, void, InjectSteamAuthTicket, (app::SteamSignInProvider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0052AA80, app::Texture2D*, GetSteamImageAsTexture2D, (int32_t i_image))
-    IL2CPP_REGISTER_METHODINFO(0x0470C858, SteamSignInProvider_GetSteamImageAsTexture2D__MethodInfo)
 } // namespace app::classes::SystemIntegration::SteamSignInProvider

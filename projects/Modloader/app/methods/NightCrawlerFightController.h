@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NightCrawlerFightController.h>
+
+#include <Modloader/app/structs/NightCrawlerFightController.h>
 #include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::NightCrawlerFightController {
@@ -13,17 +14,12 @@ namespace app::classes::NightCrawlerFightController {
     IL2CPP_REGISTER_METHOD(0x006046F0, void, OnEnable, (app::NightCrawlerFightController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00604AF0, void, OnDisable, (app::NightCrawlerFightController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00604EF0, void, OnFirstHit, (app::NightCrawlerFightController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04784F58, NightCrawlerFightController_OnFirstHit__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006050F0, void, ResetFight, (app::NightCrawlerFightController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00605300, void, StartFight, (app::NightCrawlerFightController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477E438, NightCrawlerFightController_StartFight__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00605770, void, FinishFight, (app::NightCrawlerFightController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00605B50, void, OriDamaged, (app::NightCrawlerFightController * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x04793498, NightCrawlerFightController_OriDamaged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00605B90, void, EscapeFinished, (app::NightCrawlerFightController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04753D58, NightCrawlerFightController_EscapeFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00605D60, void, FixedUpdate, (app::NightCrawlerFightController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00606040, void, DamageReceived, (app::NightCrawlerFightController * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x0475B0B8, NightCrawlerFightController_DamageReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00606740, void, ctor, (app::NightCrawlerFightController * this_ptr))
 } // namespace app::classes::NightCrawlerFightController

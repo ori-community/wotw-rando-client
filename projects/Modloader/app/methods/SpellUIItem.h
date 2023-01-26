@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
-#include <Modloader/app/structs/SpellUIItem.h>
+
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SpellUIItem.h>
 
 namespace app::classes::SpellUIItem {
     IL2CPP_REGISTER_METHOD(0x002FBBC0, app::PlayerUberStateInventory_InventoryItem*, get_Spell, (app::SpellUIItem * this_ptr))

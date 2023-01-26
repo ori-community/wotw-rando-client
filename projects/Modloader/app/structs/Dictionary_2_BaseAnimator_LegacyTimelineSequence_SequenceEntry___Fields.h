@@ -27,7 +27,7 @@ struct __declspec(align(8)) Dictionary_2_BaseAnimator_LegacyTimelineSequence_Seq
 #define IL2CPP_STRUCT_Dictionary_2_BaseAnimator_LegacyTimelineSequence_SequenceEntry___Fields_FWDDECL
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_BaseAnimator_LegacyTimelineSequence_SequenceEntry___Array.h>
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_BaseAnimator_LegacyTimelineSequence_SequenceEntry_.h>
-#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_BaseAnimator_LegacyTimelineSequence_SequenceEntry_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_BaseAnimator_LegacyTimelineSequence_SequenceEntr_.h>
 #include <Modloader/app/structs/IEqualityComparer_1_BaseAnimator_.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/Object.h>

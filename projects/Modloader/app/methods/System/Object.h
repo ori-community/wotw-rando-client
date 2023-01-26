@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Object {
     IL2CPP_REGISTER_METHOD(0x015F8190, bool, Equals_1, (app::Object * this_ptr, app::Object* obj))

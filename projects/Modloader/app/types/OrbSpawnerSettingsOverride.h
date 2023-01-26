@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/OrbSpawnerSettingsOverride.h>
+#include <Modloader/app/structs/OrbSpawnerSettingsOverride__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/OrbSpawnerSettingsOverride__Class.h>
-#include <Modloader/app/structs/OrbSpawnerSettingsOverride.h>
 
 namespace app::classes::types {
     namespace OrbSpawnerSettingsOverride {
-        namespace {
-            inline app::OrbSpawnerSettingsOverride__Class* type_info_ref = nullptr;
+        inline app::OrbSpawnerSettingsOverride__Class** type_info() {
+            static app::OrbSpawnerSettingsOverride__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::OrbSpawnerSettingsOverride__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::OrbSpawnerSettingsOverride__Class** type_info = &type_info_ref;
         inline app::OrbSpawnerSettingsOverride__Class* get_class() {
-            return il2cpp::get_class<app::OrbSpawnerSettingsOverride__Class>(type_info, "", "OrbSpawnerSettingsOverride");
+            return il2cpp::get_class<app::OrbSpawnerSettingsOverride__Class>(type_info(), "", "OrbSpawnerSettingsOverride");
         }
         inline app::OrbSpawnerSettingsOverride* create() {
             return il2cpp::create_object<app::OrbSpawnerSettingsOverride>(get_class());

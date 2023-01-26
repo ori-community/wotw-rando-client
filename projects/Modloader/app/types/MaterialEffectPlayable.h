@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MaterialEffectPlayable__Class.h>
 #include <Modloader/app/structs/MaterialEffectPlayable.h>
 #include <Modloader/app/structs/MaterialEffectPlayable__Boxed.h>
+#include <Modloader/app/structs/MaterialEffectPlayable__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace MaterialEffectPlayable {
-        namespace {
-            inline app::MaterialEffectPlayable__Class* type_info_ref = nullptr;
+        inline app::MaterialEffectPlayable__Class** type_info() {
+            static app::MaterialEffectPlayable__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::MaterialEffectPlayable__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::MaterialEffectPlayable__Class** type_info = &type_info_ref;
         inline app::MaterialEffectPlayable__Class* get_class() {
-            return il2cpp::get_class<app::MaterialEffectPlayable__Class>(type_info, "UnityEngine.Experimental.Playables", "MaterialEffectPlayable");
+            return il2cpp::get_class<app::MaterialEffectPlayable__Class>(type_info(), "UnityEngine.Experimental.Playables", "MaterialEffectPlayable");
         }
         inline app::MaterialEffectPlayable* create() {
             return il2cpp::create_object<app::MaterialEffectPlayable>(get_class());

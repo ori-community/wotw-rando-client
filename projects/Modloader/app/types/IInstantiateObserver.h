@@ -1,19 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/IInstantiateObserver.h>
+#include <Modloader/app/structs/IInstantiateObserver__Array.h>
+#include <Modloader/app/structs/IInstantiateObserver__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/IInstantiateObserver__Class.h>
-#include <Modloader/app/structs/IInstantiateObserver__Array.h>
-#include <Modloader/app/structs/IInstantiateObserver.h>
 
 namespace app::classes::types {
     namespace IInstantiateObserver {
-        namespace {
-            inline app::IInstantiateObserver__Class* type_info_ref = nullptr;
+        inline app::IInstantiateObserver__Class** type_info() {
+            static app::IInstantiateObserver__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::IInstantiateObserver__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::IInstantiateObserver__Class** type_info = &type_info_ref;
         inline app::IInstantiateObserver__Class* get_class() {
-            return il2cpp::get_class<app::IInstantiateObserver__Class>(type_info, "", "IInstantiateObserver");
+            return il2cpp::get_class<app::IInstantiateObserver__Class>(type_info(), "", "IInstantiateObserver");
         }
         inline app::IInstantiateObserver__Array* create_array(int size) {
             return il2cpp::array_new<app::IInstantiateObserver__Array>(get_class(), size);

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_Color___Boxed.h>
-#include <Modloader/app/structs/NativeArray_1_UnityEngine_Color_.h>
+
+#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_Color___Boxed.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Color_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Unity::Collections::NativeArray_1_T__Enumerator_UnityEngine_Color_ {

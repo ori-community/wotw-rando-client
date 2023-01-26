@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
-#include <Modloader/app/structs/GhostLineRendererPlugin_LineRendererData.h>
-#include <Modloader/app/structs/BinaryWriter.h>
+
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
 #include <Modloader/app/structs/BinaryReader.h>
+#include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/GhostLineRendererPlugin_LineRendererData.h>
 
 namespace app::classes::GhostLineRendererPlugin_LineRendererData {
     IL2CPP_REGISTER_METHOD(0x00E21D20, app::GhostFrame_FrameDataTypes__Enum, get_FrameType, (app::GhostLineRendererPlugin_LineRendererData * this_ptr))

@@ -1,17 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationVerletPlayable__Boxed.h>
-#include <Modloader/app/structs/PlayableHandle.h>
-#include <Modloader/app/structs/AnimationVerletPlayableConfiguration.h>
+
+#include <Modloader/app/structs/AnimationVerletPlayable__Boxed.h>
 #include <Modloader/app/structs/AnimationVerletPlayable.h>
-#include <Modloader/app/structs/PlayableGraph.h>
-#include <Modloader/app/structs/Playable.h>
-#include <Modloader/app/structs/Transform__Array.h>
+#include <Modloader/app/structs/AnimationVerletPlayableConfiguration.h>
 #include <Modloader/app/structs/AnimationVerletPlayableParametersAsset.h>
+#include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/PlayableHandle.h>
+#include <Modloader/app/structs/Transform__Array.h>
 
 namespace app::classes::UnityEngine::Animations::AnimationVerletPlayable {
     IL2CPP_REGISTER_METHOD(0x00241FC0, void, ctor, (app::AnimationVerletPlayable__Boxed * this_ptr, app::PlayableHandle handle))
-    IL2CPP_REGISTER_METHODINFO(0x0477F550, AnimationVerletPlayable__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00241FE0, void, set_configuration, (app::AnimationVerletPlayable__Boxed * this_ptr, app::AnimationVerletPlayableConfiguration value))
     IL2CPP_REGISTER_METHOD(0x0307E820, app::AnimationVerletPlayable, Create, (app::PlayableGraph graph))
     IL2CPP_REGISTER_METHOD(0x0307E990, app::PlayableHandle, CreateHandle, (app::PlayableGraph graph))

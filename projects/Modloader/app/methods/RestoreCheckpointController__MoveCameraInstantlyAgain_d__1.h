@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RestoreCheckpointController_MoveCameraInstantlyAgain_d_1.h>
+
+#include <Modloader/app/structs/RestoreCheckpointController_MoveCameraInstantlyAgain_d_1.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::RestoreCheckpointController__MoveCameraInstantlyAgain_d__1 {
@@ -9,6 +10,5 @@ namespace app::classes::RestoreCheckpointController__MoveCameraInstantlyAgain_d_
     IL2CPP_REGISTER_METHOD(0x0090CA10, bool, MoveNext, (app::RestoreCheckpointController_MoveCameraInstantlyAgain_d_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::RestoreCheckpointController_MoveCameraInstantlyAgain_d_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0090CC40, void, IEnumerator_Reset, (app::RestoreCheckpointController_MoveCameraInstantlyAgain_d_1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04741560, RestoreCheckpointController_MoveCameraInstantlyAgain_d_1_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::RestoreCheckpointController_MoveCameraInstantlyAgain_d_1 * this_ptr))
 } // namespace app::classes::RestoreCheckpointController__MoveCameraInstantlyAgain_d__1

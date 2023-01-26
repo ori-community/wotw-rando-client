@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CutsceneTransition.h>
+
+#include <Modloader/app/structs/CutsceneTransition.h>
 #include <Modloader/app/structs/CutsceneState.h>
 
 namespace app::classes::CutsceneTransition {

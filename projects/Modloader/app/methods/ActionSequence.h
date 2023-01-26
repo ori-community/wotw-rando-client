@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActionSequence.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/ActionSequence.h>
 #include <Modloader/app/structs/ActionMethod.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/List_1_ActionMethod_.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::ActionSequence {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, get_IsRunning, (app::ActionSequence * this_ptr))
@@ -22,17 +23,13 @@ namespace app::classes::ActionSequence {
     IL2CPP_REGISTER_METHOD(0x004C54D0, void, OnDisable, (app::ActionSequence * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C5570, void, OnDestroy, (app::ActionSequence * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C5840, void, OnGameReset, (app::ActionSequence * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04703640, ActionSequence_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004C5860, void, OnRestoreCheckpoint, (app::ActionSequence * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04737D18, ActionSequence_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004C5930, void, FindActions, (app::ActionSequence * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C5D30, void, Perform_1, (app::ActionSequence * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C5D50, void, Perform_2, (app::ActionSequence * this_ptr, app::IContext* context))
-    IL2CPP_REGISTER_METHODINFO(0x0471FCF0, ActionSequence_Perform_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004C5F00, void, RunAction, (app::ActionSequence * this_ptr, app::ActionMethod* action))
     IL2CPP_REGISTER_METHOD(0x004C5FD0, void, OnUpdate, (app::ActionSequence * this_ptr, float delta_time))
     IL2CPP_REGISTER_METHOD(0x004C5FE0, void, UpdateActions, (app::ActionSequence * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475AF10, ActionSequence_UpdateActions__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004C6200, void, Rename, (app::List_1_ActionMethod_ * actions))
     IL2CPP_REGISTER_METHOD(0x004C6480, app::String*, FormatName, (int32_t number, app::String* name))
     IL2CPP_REGISTER_METHOD(0x004C6580, app::String*, UnformatName, (app::String * name))

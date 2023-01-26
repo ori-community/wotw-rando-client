@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RollingRockParticlesController.h>
+
+#include <Modloader/app/structs/RollingRockParticlesController.h>
 #include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::RollingRockParticlesController {

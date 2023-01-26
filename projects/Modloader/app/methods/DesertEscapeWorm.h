@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DesertEscapeWorm.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/DesertEscapeWorm_States__Enum.h>
-#include <Modloader/app/structs/SeinCharacter.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_MoonTimeline_.h>
+
+#include <Modloader/app/structs/DesertEscapeWorm.h>
 #include <Modloader/app/structs/DesertEscapeWorm_AdditionalTimelineSet.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/DesertEscapeWorm_States__Enum.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_MoonTimeline_.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::DesertEscapeWorm {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_IsSuspended, (app::DesertEscapeWorm * this_ptr))
@@ -32,14 +33,11 @@ namespace app::classes::DesertEscapeWorm {
     IL2CPP_REGISTER_METHOD(0x00B84E70, void, UpdateState, (app::DesertEscapeWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B850F0, void, LateUpdate, (app::DesertEscapeWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B85100, void, OnPreRestoreCheckpoint, (app::DesertEscapeWorm * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477C108, DesertEscapeWorm_OnPreRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B85250, void, ResetTimelines, (app::DesertEscapeWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B852C0, void, StopTimeline_1, (app::DesertEscapeWorm * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x00B85390, void, StopTimeline_2, (app::DesertEscapeWorm * this_ptr, app::MoonReference_1_Moon_Timeline_MoonTimeline_* timeline))
     IL2CPP_REGISTER_METHOD(0x00B85440, void, OnIntroEnded, (app::DesertEscapeWorm * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04794470, DesertEscapeWorm_OnIntroEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B85450, void, OnTimelineAEnded, (app::DesertEscapeWorm * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470BFD0, DesertEscapeWorm_OnTimelineAEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B85480, void, UpdateAnimationSpeed, (app::DesertEscapeWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B857D0, void, SetSpeedToAnimations, (app::DesertEscapeWorm * this_ptr, float speed))
     IL2CPP_REGISTER_METHOD(0x00B85930, bool, IsBodySpinningAllowed, (app::DesertEscapeWorm * this_ptr))

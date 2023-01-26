@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FastHashSet_1_T_FastHashSetEqualityComparer_System_UInt32_.h>
+
+#include <Modloader/app/structs/FastHashSet_1_T_FastHashSetEqualityComparer_System_UInt32_.h>
 #include <Modloader/app/structs/FastHashSet_1_System_UInt32_.h>
 
 namespace app::classes::Motvin::Collections::FastHashSet_1_T__FastHashSetEqualityComparer_System_UInt32_ {

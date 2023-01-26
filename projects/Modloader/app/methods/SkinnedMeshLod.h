@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkinnedMeshLod.h>
+
+#include <Modloader/app/structs/SkinnedMeshLod.h>
 #include <Modloader/app/structs/SkinnedMeshRenderer.h>
 #include <Modloader/app/structs/SkinnedMeshRenderer__Array.h>
 #include <Modloader/app/structs/String.h>

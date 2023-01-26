@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_RaycastCommand___Boxed.h>
+
+#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_RaycastCommand___Boxed.h>
 #include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastCommand_.h>
-#include <Modloader/app/structs/RaycastCommand.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RaycastCommand.h>
 
 namespace app::classes::Unity::Collections::NativeArray_1_T__Enumerator_UnityEngine_RaycastCommand_ {
     IL2CPP_REGISTER_METHOD(0x001DF020, void, ctor, (app::NativeArray_1_T_Enumerator_UnityEngine_RaycastCommand___Boxed * this_ptr, app::NativeArray_1_UnityEngine_RaycastCommand_* array))

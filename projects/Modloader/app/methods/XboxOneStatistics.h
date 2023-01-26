@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Action_1_System_Collections_Generic_List_1__1.h>
+
+#include <Modloader/app/structs/Action_1_System_Collections_Generic_List_1__1.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/XboxOneStatistics.h>
 

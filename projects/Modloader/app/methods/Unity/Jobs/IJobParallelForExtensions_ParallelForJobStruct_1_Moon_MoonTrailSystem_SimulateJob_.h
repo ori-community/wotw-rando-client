@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTrailSystem_SimulateJob.h>
+
+#include <Modloader/app/structs/MoonTrailSystem_SimulateJob.h>
 #include <Modloader/app/structs/JobRanges.h>
 
 namespace app::classes::Unity::Jobs::IJobParallelForExtensions_ParallelForJobStruct_1_Moon_MoonTrailSystem_SimulateJob_ {

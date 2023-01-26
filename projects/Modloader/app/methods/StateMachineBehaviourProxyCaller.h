@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StateMachineBehaviourProxy_IReceiver.h>
-#include <Modloader/app/structs/StateMachineBehaviourProxyCaller.h>
+
+#include <Modloader/app/structs/StateMachineBehaviourProxy_IReceiver.h>
 #include <Modloader/app/structs/Animator.h>
 #include <Modloader/app/structs/AnimatorStateInfo.h>
+#include <Modloader/app/structs/StateMachineBehaviourProxyCaller.h>
 
 namespace app::classes::StateMachineBehaviourProxyCaller {
     IL2CPP_REGISTER_METHOD(0x009B5F10, app::StateMachineBehaviourProxy_IReceiver*, GetReceiver, (app::StateMachineBehaviourProxyCaller * this_ptr, app::Animator* animator))

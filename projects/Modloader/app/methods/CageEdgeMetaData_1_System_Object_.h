@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CageEdgeMetaData_1_System_Object_.h>
+
+#include <Modloader/app/structs/CageEdgeMetaData_1_System_Object_.h>
 #include <Modloader/app/structs/CageStructureTool_Edge.h>
 #include <Modloader/app/structs/Object.h>
 

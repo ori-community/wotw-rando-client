@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MemoryCleanUpTask.h>
+
+#include <Modloader/app/structs/MemoryCleanUpTask.h>
 #include <Modloader/app/structs/ArtOptimizationDataModel.h>
 #include <Modloader/app/structs/UberShaderComponent.h>
 

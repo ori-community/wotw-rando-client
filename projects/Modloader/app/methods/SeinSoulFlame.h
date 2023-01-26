@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinSoulFlame.h>
+
+#include <Modloader/app/structs/SeinSoulFlame.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SeinSoulFlame_SoulFlamePlacementSafety__Enum.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SeinSoulFlame_SoulFlamePlacementSafety__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinSoulFlame {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinSoulFlame * this_ptr))
@@ -14,9 +15,7 @@ namespace app::classes::SeinSoulFlame {
     IL2CPP_REGISTER_METHOD(0x005DB810, app::Vector3, get_SoulFlamePosition, (app::SeinSoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005DB900, void, OnAwake, (app::SeinSoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005DBBB0, void, OnGameReset, (app::SeinSoulFlame * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047372B8, SeinSoulFlame_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005DBBC0, void, OnRestoreCheckpoint, (app::SeinSoulFlame * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04710640, SeinSoulFlame_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005DBC20, void, OnDestroy, (app::SeinSoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005DBF60, void, FillSoulFlameBar, (app::SeinSoulFlame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005DBF70, bool, get_InsideCheckpointMarker, (app::SeinSoulFlame * this_ptr))

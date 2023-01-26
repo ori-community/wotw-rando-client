@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiderlingLocomotion.h>
+
+#include <Modloader/app/structs/SpiderlingLocomotion.h>
 #include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::SpiderlingLocomotion {
@@ -14,7 +15,6 @@ namespace app::classes::SpiderlingLocomotion {
     IL2CPP_REGISTER_METHOD(0x011C5B70, void, OnDisable, (app::SpiderlingLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011C5DA0, void, OnEntityReset, (app::SpiderlingLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011C5ED0, void, DamageReceived, (app::SpiderlingLocomotion * this_ptr, app::DamageResult obj))
-    IL2CPP_REGISTER_METHODINFO(0x04769B78, SpiderlingLocomotion_DamageReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011C5EE0, void, OnFixedUpdate, (app::SpiderlingLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011C6590, bool, ShouldStartFalling, (app::SpiderlingLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011C6700, void, OnDrawGizmosSelected, (app::SpiderlingLocomotion * this_ptr))

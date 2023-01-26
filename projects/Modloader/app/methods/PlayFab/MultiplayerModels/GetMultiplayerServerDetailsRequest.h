@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GetMultiplayerServerDetailsRequest.h>
+
+#include <Modloader/app/structs/GetMultiplayerServerDetailsRequest.h>
 
 namespace app::classes::PlayFab::MultiplayerModels::GetMultiplayerServerDetailsRequest {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GetMultiplayerServerDetailsRequest * this_ptr))

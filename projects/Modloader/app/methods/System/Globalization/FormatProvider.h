@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/NumberFormatInfo.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Char__Array.h>
-#include <Modloader/app/structs/ReadOnlySpan_1_Char_.h>
+#include <Modloader/app/structs/NumberFormatInfo.h>
 #include <Modloader/app/structs/NumberStyles__Enum.h>
+#include <Modloader/app/structs/ReadOnlySpan_1_Char_.h>
 #include <Modloader/app/structs/StringBuilder.h>
 
 namespace app::classes::System::Globalization::FormatProvider {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Color.h>
+
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/GuiChangeColor.h>
 
 namespace app::classes::Moon::Gui::GuiChangeColor {

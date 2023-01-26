@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector4.h>
+
+#include <Modloader/app/structs/Vector4.h>
 #include <Modloader/app/structs/UberScreenMode__Enum.h>
 
 namespace app::classes::UberScreenManager {

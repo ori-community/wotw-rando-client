@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReflectionMethodsCache.h>
+
+#include <Modloader/app/structs/ReflectionMethodsCache.h>
 
 namespace app::classes::UnityEngine::UI::ReflectionMethodsCache {
     IL2CPP_REGISTER_METHOD(0x026657F0, void, ctor, (app::ReflectionMethodsCache * this_ptr))

@@ -1,28 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CVROverlay.h>
+
+#include <Modloader/app/structs/CVROverlay.h>
+#include <Modloader/app/structs/EColorSpace__Enum.h>
+#include <Modloader/app/structs/EOverlayDirection__Enum.h>
+#include <Modloader/app/structs/ETextureType__Enum.h>
+#include <Modloader/app/structs/ETrackingUniverseOrigin__Enum.h>
 #include <Modloader/app/structs/EVROverlayError__Enum.h>
+#include <Modloader/app/structs/HmdColor_t.h>
+#include <Modloader/app/structs/HmdMatrix34_t.h>
+#include <Modloader/app/structs/HmdRect2_t.h>
+#include <Modloader/app/structs/HmdVector2_t.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/StringBuilder.h>
-#include <Modloader/app/structs/VROverlayFlags__Enum.h>
-#include <Modloader/app/structs/EColorSpace__Enum.h>
-#include <Modloader/app/structs/VRTextureBounds_t.h>
-#include <Modloader/app/structs/HmdColor_t.h>
-#include <Modloader/app/structs/VROverlayTransformType__Enum.h>
-#include <Modloader/app/structs/ETrackingUniverseOrigin__Enum.h>
-#include <Modloader/app/structs/HmdMatrix34_t.h>
-#include <Modloader/app/structs/HmdVector2_t.h>
+#include <Modloader/app/structs/Texture_t.h>
 #include <Modloader/app/structs/VREvent_t.h>
+#include <Modloader/app/structs/VRMessageOverlayResponse__Enum.h>
+#include <Modloader/app/structs/VROverlayFlags__Enum.h>
 #include <Modloader/app/structs/VROverlayInputMethod__Enum.h>
+#include <Modloader/app/structs/VROverlayIntersectionMaskPrimitive_t.h>
 #include <Modloader/app/structs/VROverlayIntersectionParams_t.h>
 #include <Modloader/app/structs/VROverlayIntersectionResults_t.h>
-#include <Modloader/app/structs/EOverlayDirection__Enum.h>
-#include <Modloader/app/structs/Texture_t.h>
+#include <Modloader/app/structs/VROverlayTransformType__Enum.h>
+#include <Modloader/app/structs/VRTextureBounds_t.h>
 #include <Modloader/app/structs/void.h>
-#include <Modloader/app/structs/ETextureType__Enum.h>
-#include <Modloader/app/structs/HmdRect2_t.h>
-#include <Modloader/app/structs/VROverlayIntersectionMaskPrimitive_t.h>
-#include <Modloader/app/structs/VRMessageOverlayResponse__Enum.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVROverlay {
     IL2CPP_REGISTER_METHOD(0x01678A40, void, ctor, (app::CVROverlay * this_ptr, void* p_interface))
@@ -87,7 +88,7 @@ namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVROverlay {
     IL2CPP_REGISTER_METHOD(0x01679990, app::EVROverlayError__Enum, ClearOverlayTexture, (app::CVROverlay * this_ptr, uint64_t ul_overlay_handle))
     IL2CPP_REGISTER_METHOD(0x016799C0, app::EVROverlayError__Enum, SetOverlayRaw, (app::CVROverlay * this_ptr, uint64_t ul_overlay_handle, void* pv_buffer, uint32_t un_width, uint32_t un_height, uint32_t un_depth))
     IL2CPP_REGISTER_METHOD(0x016799F0, app::EVROverlayError__Enum, SetOverlayFromFile, (app::CVROverlay * this_ptr, uint64_t ul_overlay_handle, app::String* pch_file_path))
-    IL2CPP_REGISTER_METHOD(0x01679A20, app::EVROverlayError__Enum, GetOverlayTexture, (app::CVROverlay * this_ptr, uint64_t ul_overlay_handle, app::void** p_native_texture_handle, void* p_native_texture_ref, uint32_t* p_width, uint32_t* p_height, uint32_t* p_native_format, app::ETextureType__Enum* p_a_p_i_type, app::EColorSpace__Enum* p_color_space, app::VRTextureBounds_t* p_texture_bounds))
+    IL2CPP_REGISTER_METHOD(0x01679A20, app::EVROverlayError__Enum, GetOverlayTexture, (app::CVROverlay * this_ptr, uint64_t ul_overlay_handle, void** p_native_texture_handle, void* p_native_texture_ref, uint32_t* p_width, uint32_t* p_height, uint32_t* p_native_format, app::ETextureType__Enum* p_a_p_i_type, app::EColorSpace__Enum* p_color_space, app::VRTextureBounds_t* p_texture_bounds))
     IL2CPP_REGISTER_METHOD(0x01679A70, app::EVROverlayError__Enum, ReleaseNativeOverlayHandle, (app::CVROverlay * this_ptr, uint64_t ul_overlay_handle, void* p_native_texture_handle))
     IL2CPP_REGISTER_METHOD(0x01679AA0, app::EVROverlayError__Enum, GetOverlayTextureSize, (app::CVROverlay * this_ptr, uint64_t ul_overlay_handle, uint32_t* p_width, uint32_t* p_height))
     IL2CPP_REGISTER_METHOD(0x01679AD0, app::EVROverlayError__Enum, CreateDashboardOverlay, (app::CVROverlay * this_ptr, app::String* pch_overlay_key, app::String* pch_overlay_friendly_name, uint64_t* p_main_handle, uint64_t* p_thumbnail_handle))

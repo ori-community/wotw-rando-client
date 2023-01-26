@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NickDeathReaction.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/MoonControllerColliderHit.h>
-#include <Modloader/app/structs/NickDeathReaction_DeathState__Enum.h>
+
+#include <Modloader/app/structs/NickDeathReaction.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/NickDeathReaction_DeathState__Enum.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::NickDeathReaction {
@@ -13,7 +14,6 @@ namespace app::classes::NickDeathReaction {
     IL2CPP_REGISTER_METHOD(0x005FC990, void, StartTimeline, (app::NickDeathReaction * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x005FC9C0, void, ResetTimeline, (app::NickDeathReaction * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x005FCBE0, void, HandleCollision, (app::NickDeathReaction * this_ptr, app::MoonControllerColliderHit hit))
-    IL2CPP_REGISTER_METHODINFO(0x04720C48, NickDeathReaction_HandleCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005FCC40, app::NickDeathReaction_DeathState__Enum, GetNextOnHitGroundState, (app::NickDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005FCC70, void, OnEnterTask, (app::NickDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x005FCDF0, app::BehaviourStatus__Enum, OnExecuteTask, (app::NickDeathReaction * this_ptr, app::IContext* context))

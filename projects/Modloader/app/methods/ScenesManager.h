@@ -1,36 +1,37 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScenesManager.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/MoonGuid.h>
-#include <Modloader/app/structs/SceneMetaData.h>
-#include <Modloader/app/structs/StringBuilder.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/ScenesManager.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/AsyncOperation_1.h>
+#include <Modloader/app/structs/Dictionary_2_MoonGuid_NearbySceneData_.h>
+#include <Modloader/app/structs/HashSet_1_System_UInt32_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IScenesManagerBehaviour.h>
+#include <Modloader/app/structs/List_1_MoonGuid_.h>
+#include <Modloader/app/structs/List_1_Moon_IRectProvider_.h>
+#include <Modloader/app/structs/List_1_RuntimeSceneMetaData_.h>
 #include <Modloader/app/structs/List_1_System_Int32_.h>
-#include <Modloader/app/structs/SceneRoot.h>
-#include <Modloader/app/structs/SceneManagerScene.h>
+#include <Modloader/app/structs/LoadSceneMode__Enum.h>
+#include <Modloader/app/structs/MoonGuid.h>
+#include <Modloader/app/structs/MoonTelemetrySceneEvent.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/RuntimeSceneMetaData.h>
 #include <Modloader/app/structs/Scene.h>
-#include <Modloader/app/structs/List_1_RuntimeSceneMetaData_.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IScenesManagerBehaviour.h>
-#include <Modloader/app/structs/ScenesManager_SceneManagementMode__Enum.h>
-#include <Modloader/app/structs/HashSet_1_System_UInt32_.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/SceneLoadingQueue.h>
-#include <Modloader/app/structs/LoadSceneMode__Enum.h>
-#include <Modloader/app/structs/List_1_Moon_IRectProvider_.h>
+#include <Modloader/app/structs/SceneManagerScene.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/SceneRoot.h>
 #include <Modloader/app/structs/SceneState__Enum.h>
-#include <Modloader/app/structs/Action_1_Boolean_.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/AsyncOperation_1.h>
-#include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/Dictionary_2_MoonGuid_NearbySceneData_.h>
-#include <Modloader/app/structs/List_1_MoonGuid_.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/MoonTelemetrySceneEvent.h>
 #include <Modloader/app/structs/ScenesManager_LoadingCameraState__Enum.h>
+#include <Modloader/app/structs/ScenesManager_SceneManagementMode__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ScenesManager {
     IL2CPP_REGISTER_METHOD(0x00BC1A90, bool, SceneVisibleAtPosition, (app::ScenesManager * this_ptr, app::Vector3 position))
@@ -86,7 +87,6 @@ namespace app::classes::ScenesManager {
     IL2CPP_REGISTER_METHOD(0x00BC7A80, void, Update, (app::ScenesManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BC7B70, void, OnDestroy, (app::ScenesManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BC8170, void, OnSceneLoaded, (app::ScenesManager * this_ptr, app::Scene scene, app::LoadSceneMode__Enum load_mode))
-    IL2CPP_REGISTER_METHODINFO(0x04724088, ScenesManager_OnSceneLoaded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BC82E0, void, ResetStatics, ())
     IL2CPP_REGISTER_METHOD(0x00BC83C0, void, FixedUpdate, (app::ScenesManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BC8620, void, LateUpdate, (app::ScenesManager * this_ptr))
@@ -99,16 +99,12 @@ namespace app::classes::ScenesManager {
     IL2CPP_REGISTER_METHOD(0x00BC9790, void, UnloadScenesForStreaming, (app::ScenesManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BC9A10, void, EnableDisabledScenesForStreaming, (app::ScenesManager * this_ptr, bool limit_once))
     IL2CPP_REGISTER_METHOD(0x00BC9D40, void, OnGameReset, (app::ScenesManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471DE80, ScenesManager_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BC9E30, void, OnAspectRatioChanged, (app::ScenesManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474A288, ScenesManager_OnAspectRatioChanged__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BC9FC0, void, OnCreateCheckpoint, (app::ScenesManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047188D0, ScenesManager_OnCreateCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BC9FD0, void, OnCheckpointRestore, (app::ScenesManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BC9FE0, void, CleanUpAfterSaveLoad, (app::ScenesManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00BCA100, void, OnTeleport, (app::ScenesManager * this_ptr, bool update_camera_target, bool move_camera_to_target))
     IL2CPP_REGISTER_METHOD(0x00BCA470, void, OnPassThroughScrollLock, (app::ScenesManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04712AB8, ScenesManager_OnPassThroughScrollLock__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00BCA520, void, Register, (app::ScenesManager * this_ptr, app::SceneRoot* scene_root, bool async))
     IL2CPP_REGISTER_METHOD(0x00BCAE60, app::SceneRoot*, RegisterSceneByName, (app::ScenesManager * this_ptr, app::String* scene_name, bool async, bool report_failure))
     IL2CPP_REGISTER_METHOD(0x00BCB180, void, GenerateGuidToRuntimeSceneMetaDataDictionaryAndQuadTree, (app::ScenesManager * this_ptr, bool generate_quad_tree))

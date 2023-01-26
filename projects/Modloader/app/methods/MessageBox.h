@@ -1,25 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HashSet_1_Moon_ISuspendable_.h>
-#include <Modloader/app/structs/MessageBox.h>
-#include <Modloader/app/structs/SoundHost.h>
-#include <Modloader/app/structs/Action_1_MessageBox_HideAction_.h>
+
+#include <Modloader/app/structs/HashSet_1_Moon_ISuspendable_.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/Language__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Quest.h>
-#include <Modloader/app/structs/QuestMessageIcon_QuestMode__Enum.h>
-#include <Modloader/app/structs/WispMessageIcon_Wisp__Enum.h>
+#include <Modloader/app/structs/Action_1_MessageBox_HideAction_.h>
+#include <Modloader/app/structs/EmotionType__Enum.h>
 #include <Modloader/app/structs/EquipmentType__Enum.h>
-#include <Modloader/app/structs/SpiritShardType__Enum.h>
-#include <Modloader/app/structs/PickupContext.h>
+#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/GameObject__Array.h>
+#include <Modloader/app/structs/Language__Enum.h>
+#include <Modloader/app/structs/MessageBox.h>
 #include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
 #include <Modloader/app/structs/MessageDescriptor.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/MessageProvider.h>
-#include <Modloader/app/structs/EmotionType__Enum.h>
-#include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/PickupContext.h>
+#include <Modloader/app/structs/Quest.h>
+#include <Modloader/app/structs/QuestMessageIcon_QuestMode__Enum.h>
+#include <Modloader/app/structs/SoundHost.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WispMessageIcon_Wisp__Enum.h>
 
 namespace app::classes::MessageBox {
     IL2CPP_REGISTER_METHOD(0x0158DA80, app::HashSet_1_Moon_ISuspendable_*, GetSuspendables, (app::MessageBox * this_ptr))
@@ -50,7 +51,6 @@ namespace app::classes::MessageBox {
     IL2CPP_REGISTER_METHOD(0x01590140, void, SetMessageFade, (app::MessageBox * this_ptr, float time))
     IL2CPP_REGISTER_METHOD(0x015908C0, void, SetMessage, (app::MessageBox * this_ptr, app::MessageDescriptor message_descriptor, app::String* replace, app::String* with))
     IL2CPP_REGISTER_METHOD(0x01590A00, void, RefreshText_1, (app::MessageBox * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474DFA8, MessageBox_RefreshText__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01590AB0, void, RefreshText_2, (app::MessageBox * this_ptr, app::String* replace, app::String* with))
     IL2CPP_REGISTER_METHOD(0x003F8E90, void, OnEnable, (app::MessageBox * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01591640, void, SetMessageProvider, (app::MessageBox * this_ptr, app::MessageProvider* message_provider, app::String* replace, app::String* with))

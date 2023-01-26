@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RigidbodyState.h>
+
+#include <Modloader/app/structs/RigidbodyState.h>
 #include <Modloader/app/structs/GoThroughPlatform.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Rigidbody.h>

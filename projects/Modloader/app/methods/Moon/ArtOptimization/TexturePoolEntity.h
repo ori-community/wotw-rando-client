@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TexturePoolEntity.h>
-#include <Modloader/app/structs/TexturesPool.h>
+
+#include <Modloader/app/structs/TexturePoolEntity.h>
 #include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/TexturesPool.h>
 
 namespace app::classes::Moon::ArtOptimization::TexturePoolEntity {
     IL2CPP_REGISTER_METHOD(0x00CB2DB0, void, ctor, (app::TexturePoolEntity * this_ptr, app::TexturesPool* pool))

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UnparentTrailRenderer__Class.h>
 #include <Modloader/app/structs/UnparentTrailRenderer.h>
 #include <Modloader/app/structs/UnparentTrailRenderer__Array.h>
+#include <Modloader/app/structs/UnparentTrailRenderer__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace UnparentTrailRenderer {
-        namespace {
-            inline app::UnparentTrailRenderer__Class* type_info_ref = nullptr;
+        inline app::UnparentTrailRenderer__Class** type_info() {
+            static app::UnparentTrailRenderer__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::UnparentTrailRenderer__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::UnparentTrailRenderer__Class** type_info = &type_info_ref;
         inline app::UnparentTrailRenderer__Class* get_class() {
-            return il2cpp::get_class<app::UnparentTrailRenderer__Class>(type_info, "", "UnparentTrailRenderer");
+            return il2cpp::get_class<app::UnparentTrailRenderer__Class>(type_info(), "", "UnparentTrailRenderer");
         }
         inline app::UnparentTrailRenderer* create() {
             return il2cpp::create_object<app::UnparentTrailRenderer>(get_class());

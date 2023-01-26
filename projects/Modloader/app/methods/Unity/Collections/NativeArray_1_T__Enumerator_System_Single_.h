@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NativeArray_1_T_Enumerator_System_Single___Boxed.h>
+
+#include <Modloader/app/structs/NativeArray_1_T_Enumerator_System_Single___Boxed.h>
 #include <Modloader/app/structs/NativeArray_1_System_Single_.h>
 #include <Modloader/app/structs/Object.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaceStateMachineContext_OfflineRaceMetaData_WaypointRect.h>
+
+#include <Modloader/app/structs/RaceStateMachineContext_OfflineRaceMetaData_WaypointRect.h>
 #include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::RaceStateMachineContext_OfflineRaceMetaData_WaypointRect {

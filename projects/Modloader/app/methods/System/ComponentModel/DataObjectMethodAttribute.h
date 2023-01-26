@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataObjectMethodAttribute.h>
+
+#include <Modloader/app/structs/DataObjectMethodAttribute.h>
 #include <Modloader/app/structs/DataObjectMethodType__Enum.h>
 #include <Modloader/app/structs/Object.h>
 

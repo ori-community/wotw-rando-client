@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTelemetrySpawnEvent.h>
+
+#include <Modloader/app/structs/MoonTelemetrySpawnEvent.h>
+#include <Modloader/app/structs/JsonBuilder_Object.h>
 #include <Modloader/app/structs/MoonTelemetrySpawnEvent_SpawnReason__Enum.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/JsonBuilder_Object.h>
 
 namespace app::classes::MoonTelemetrySpawnEvent {
     IL2CPP_REGISTER_METHOD(0x01472DB0, void, ctor, (app::MoonTelemetrySpawnEvent * this_ptr, app::MoonTelemetrySpawnEvent_SpawnReason__Enum reason))

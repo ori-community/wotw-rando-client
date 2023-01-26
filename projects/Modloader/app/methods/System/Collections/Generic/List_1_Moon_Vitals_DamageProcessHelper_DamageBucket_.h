@@ -1,35 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
-#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
-#include <Modloader/app/structs/IEnumerable_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
-#include <Modloader/app/structs/IComparer_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
-#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+
+#include <Modloader/app/structs/List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
 #include <Modloader/app/structs/Action_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
-#include <Modloader/app/structs/IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Vitals_DamageProcessHelper_DamageBucket_.h>
+#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket.h>
+#include <Modloader/app/structs/Vitals_DamageProcessHelper_DamageBucket__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04737970, List_1_Moon_Vitals_DamageProcessHelper_DamageBucket__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D49B80, app::Vitals_DamageProcessHelper_DamageBucket, get_Item, (app::List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04756AB8, List_1_Moon_Vitals_DamageProcessHelper_DamageBucket__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470F1D8, List_1_Moon_Vitals_DamageProcessHelper_DamageBucket__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D49F20, void, Add, (app::List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ * this_ptr, app::Vitals_DamageProcessHelper_DamageBucket item))
-    IL2CPP_REGISTER_METHODINFO(0x04753430, List_1_Moon_Vitals_DamageProcessHelper_DamageBucket__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D49BC0, void, set_Item, (app::List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ * this_ptr, int32_t index, app::Vitals_DamageProcessHelper_DamageBucket value))
-    IL2CPP_REGISTER_METHODINFO(0x04747950, List_1_Moon_Vitals_DamageProcessHelper_DamageBucket__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D4AC20, app::List_1_T_Enumerator_Moon_Vitals_DamageProcessHelper_DamageBucket_, GetEnumerator, (app::List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478BC00, List_1_Moon_Vitals_DamageProcessHelper_DamageBucket__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x0478D190, List_1_Moon_Vitals_DamageProcessHelper_DamageBucket___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_2, (app::List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02E092A0, void, ctor_3, (app::List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ * this_ptr, app::IEnumerable_1_Moon_Vitals_DamageProcessHelper_DamageBucket_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_Moon_Vitals_DamageProcessHelper_DamageBucket_ * this_ptr))

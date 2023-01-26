@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InvalidOperationException.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/InvalidOperationException.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::InvalidOperationException {
     IL2CPP_REGISTER_METHOD(0x02265E10, void, ctor_1, (app::InvalidOperationException * this_ptr))

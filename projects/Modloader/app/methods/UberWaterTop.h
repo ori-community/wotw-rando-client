@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberWaterTop.h>
+
+#include <Modloader/app/structs/UberWaterTop.h>
 #include <Modloader/app/structs/UberWaterReflectionPlane.h>
 #include <Modloader/app/structs/UberWaterReflectionView.h>
 

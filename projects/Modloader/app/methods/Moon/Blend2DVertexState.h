@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Blend2DVertexState.h>
+
+#include <Modloader/app/structs/Blend2DVertexState.h>
 #include <Modloader/app/structs/Blend2DVertex_1_BlendAnimation2D_Input_.h>
 
 namespace app::classes::Moon::Blend2DVertexState {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneMetaData_SceneSavePedestal.h>
+
+#include <Modloader/app/structs/SceneMetaData_SceneSavePedestal.h>
 #include <Modloader/app/structs/SavePedestal.h>
 
 namespace app::classes::SceneMetaData_SceneSavePedestal {

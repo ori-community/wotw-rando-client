@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CC_PhotoFilter.h>
+
+#include <Modloader/app/structs/CC_PhotoFilter.h>
 #include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::CC_PhotoFilter {

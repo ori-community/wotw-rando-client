@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OutputWindow.h>
-#include <Modloader/app/structs/InputBuffer.h>
+
+#include <Modloader/app/structs/OutputWindow.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/InputBuffer.h>
 
 namespace app::classes::Unity::IO::Compression::OutputWindow {
     IL2CPP_REGISTER_METHOD(0x02B7D5A0, void, Write, (app::OutputWindow * this_ptr, uint8_t b))

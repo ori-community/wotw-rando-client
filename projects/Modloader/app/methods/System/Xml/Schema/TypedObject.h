@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TypedObject.h>
+
+#include <Modloader/app/structs/TypedObject.h>
 #include <Modloader/app/structs/Decimal__Array.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/XmlSchemaDatatype.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
 
 namespace app::classes::System::Xml::Schema::TypedObject {
     IL2CPP_REGISTER_METHOD(0x00654950, int32_t, get_Dim, (app::TypedObject * this_ptr))

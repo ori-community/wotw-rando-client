@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberInteractionManager_ExplosionApplicationComparer.h>
+
+#include <Modloader/app/structs/UberInteractionManager_ExplosionApplicationComparer.h>
 #include <Modloader/app/structs/UberInteractionManager_ExplosionApplication.h>
 
 namespace app::classes::UberInteractionManager_ExplosionApplicationComparer {

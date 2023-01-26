@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Input_InputButtonProcessor__Array.h>
-#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Input_1.h>
 #include <Modloader/app/structs/Input_Button__Enum.h>
 #include <Modloader/app/structs/Input_Command__Enum.h>
-#include <Modloader/app/structs/Input_1.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor__Array.h>
 
 namespace app::classes::Core::Input {
     IL2CPP_REGISTER_METHOD(0x011F91E0, int32_t, get_NormalizedHorizontal, ())

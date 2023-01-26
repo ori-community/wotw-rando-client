@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacySpiritLeashHook.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/LegacySpiritLeashHook.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/CameraTargetData.h>
+#include <Modloader/app/structs/CameraTargetType__Enum.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/SceneRoot.h>
 #include <Modloader/app/structs/SpiritLeashMode__Enum.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/CameraTargetType__Enum.h>
-#include <Modloader/app/structs/CameraTargetData.h>
-#include <Modloader/app/structs/SceneRoot.h>
-#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LegacySpiritLeashHook {
     IL2CPP_REGISTER_METHOD(0x0051DB40, bool, get_Activated, (app::LegacySpiritLeashHook * this_ptr))
@@ -61,9 +62,7 @@ namespace app::classes::LegacySpiritLeashHook {
     IL2CPP_REGISTER_METHOD(0x00A36DC0, void, OnDestroy, (app::LegacySpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Serialize, (app::LegacySpiritLeashHook * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x00A36E60, void, Deactivate, (app::LegacySpiritLeashHook * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472BB48, LegacySpiritLeashHook_Deactivate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A36E70, void, Reactivate, (app::LegacySpiritLeashHook * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475A558, LegacySpiritLeashHook_Reactivate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A36E80, bool, CreepBlocked, (app::LegacySpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CameraTargetActive, (app::LegacySpiritLeashHook * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A36FB0, app::Vector3, get_CameraTargetPosition, (app::LegacySpiritLeashHook * this_ptr))

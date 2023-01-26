@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpeechError__Enum.h>
+
+#include <Modloader/app/structs/SpeechError__Enum.h>
 #include <Modloader/app/structs/SpeechSystemStatus__Enum.h>
 
 namespace app::classes::UnityEngine::Windows::Speech::PhraseRecognitionSystem {

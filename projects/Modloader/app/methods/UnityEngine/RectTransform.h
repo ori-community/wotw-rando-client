@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RectTransform_ReapplyDrivenProperties.h>
+
+#include <Modloader/app/structs/RectTransform_ReapplyDrivenProperties.h>
 #include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/RectTransform_Axis__Enum.h>
+#include <Modloader/app/structs/RectTransform_Edge__Enum.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3__Array.h>
-#include <Modloader/app/structs/RectTransform_Edge__Enum.h>
-#include <Modloader/app/structs/RectTransform_Axis__Enum.h>
 
 namespace app::classes::UnityEngine::RectTransform {
     IL2CPP_REGISTER_METHOD(0x0296E8B0, void, add_reapplyDrivenProperties, (app::RectTransform_ReapplyDrivenProperties * value))

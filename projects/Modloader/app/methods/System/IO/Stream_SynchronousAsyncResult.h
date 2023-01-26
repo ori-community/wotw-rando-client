@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Stream_SynchronousAsyncResult.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Stream_SynchronousAsyncResult.h>
 #include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/WaitHandle.h>
 #include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::System::IO::Stream_SynchronousAsyncResult {
     IL2CPP_REGISTER_METHOD(0x0237F2D0, void, ctor_1, (app::Stream_SynchronousAsyncResult * this_ptr, int32_t bytes_read, app::Object* async_state_object))

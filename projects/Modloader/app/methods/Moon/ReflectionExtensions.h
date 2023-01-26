@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type__Array.h>
+
+#include <Modloader/app/structs/Type__Array.h>
 #include <Modloader/app/structs/Assembly.h>
 
 namespace app::classes::Moon::ReflectionExtensions {

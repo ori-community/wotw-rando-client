@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RuntimeGameWorldArea.h>
+
+#include <Modloader/app/structs/RuntimeGameWorldArea.h>
 #include <Modloader/app/structs/World.h>
 
 namespace app::classes::Game::World {

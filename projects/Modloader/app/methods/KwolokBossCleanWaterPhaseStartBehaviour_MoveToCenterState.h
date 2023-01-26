@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KwolokBossCleanWaterPhaseStartBehaviour_MoveToCenterState.h>
+
+#include <Modloader/app/structs/KwolokBossCleanWaterPhaseStartBehaviour_MoveToCenterState.h>
 #include <Modloader/app/structs/KwolokBossCleanWaterPhaseStartBehaviour.h>
 
 namespace app::classes::KwolokBossCleanWaterPhaseStartBehaviour_MoveToCenterState {

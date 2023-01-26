@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SetAnimatorSpeedAction.h>
+
+#include <Modloader/app/structs/SetAnimatorSpeedAction.h>
 #include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::SetAnimatorSpeedAction {

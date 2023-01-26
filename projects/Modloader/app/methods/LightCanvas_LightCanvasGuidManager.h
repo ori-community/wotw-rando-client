@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Dictionary_2_SceneMetaData_HashSet_1_System_Int32_.h>
-#include <Modloader/app/structs/SceneMetaData.h>
+
+#include <Modloader/app/structs/Dictionary_2_SceneMetaData_HashSet_1_System_Int32_.h>
 #include <Modloader/app/structs/Scene.h>
+#include <Modloader/app/structs/SceneMetaData.h>
 
 namespace app::classes::LightCanvas_LightCanvasGuidManager {
     IL2CPP_REGISTER_METHOD(0x01144960, app::Dictionary_2_SceneMetaData_HashSet_1_System_Int32_*, get_UsedGuidsPerScene, ())

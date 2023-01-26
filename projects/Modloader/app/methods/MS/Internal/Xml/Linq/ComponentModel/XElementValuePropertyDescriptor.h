@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XElementValuePropertyDescriptor.h>
+
+#include <Modloader/app/structs/XElementValuePropertyDescriptor.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/XObjectChangeEventArgs.h>
 

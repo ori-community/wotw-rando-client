@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/Substr.h>
+#include <Modloader/app/structs/Substr__Array.h>
+#include <Modloader/app/structs/Substr__Boxed.h>
+#include <Modloader/app/structs/Substr__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Substr__Class.h>
-#include <Modloader/app/structs/Substr.h>
-#include <Modloader/app/structs/Substr__Boxed.h>
-#include <Modloader/app/structs/Substr__Array.h>
 
 namespace app::classes::types {
     namespace Substr {
-        inline app::Substr__Class** type_info = (app::Substr__Class**)(modloader::win::memory::resolve_rva(0x047792D8));
+        inline app::Substr__Class** type_info() {
+            static app::Substr__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Substr__Class**)(modloader::win::memory::resolve_rva(0x047792D8));
+            }
+            return cache;
+        }
         inline app::Substr__Class* get_class() {
-            return il2cpp::get_class<app::Substr__Class>(type_info, "Moon", "Substr");
+            return il2cpp::get_class<app::Substr__Class>(type_info(), "Moon", "Substr");
         }
         inline app::Substr* create() {
             return il2cpp::create_object<app::Substr>(get_class());

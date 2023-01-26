@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum__Class.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::types {
     namespace UberStateApplyContext__Enum {
-        namespace {
-            inline app::UberStateApplyContext__Enum__Class* type_info_ref = nullptr;
+        inline app::UberStateApplyContext__Enum__Class** type_info() {
+            static app::UberStateApplyContext__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::UberStateApplyContext__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::UberStateApplyContext__Enum__Class** type_info = &type_info_ref;
         inline app::UberStateApplyContext__Enum__Class* get_class() {
-            return il2cpp::get_class<app::UberStateApplyContext__Enum__Class>(type_info, "Moon", "UberStateApplyContext");
+            return il2cpp::get_class<app::UberStateApplyContext__Enum__Class>(type_info(), "Moon", "UberStateApplyContext");
         }
         inline app::UberStateApplyContext__Enum* create() {
             return il2cpp::create_object<app::UberStateApplyContext__Enum>(get_class());

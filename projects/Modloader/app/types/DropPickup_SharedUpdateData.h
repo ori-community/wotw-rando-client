@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/DropPickup_SharedUpdateData__Class.h>
 #include <Modloader/app/structs/DropPickup_SharedUpdateData.h>
 #include <Modloader/app/structs/DropPickup_SharedUpdateData__Boxed.h>
+#include <Modloader/app/structs/DropPickup_SharedUpdateData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace DropPickup_SharedUpdateData {
-        namespace {
-            inline app::DropPickup_SharedUpdateData__Class* type_info_ref = nullptr;
+        inline app::DropPickup_SharedUpdateData__Class** type_info() {
+            static app::DropPickup_SharedUpdateData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::DropPickup_SharedUpdateData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::DropPickup_SharedUpdateData__Class** type_info = &type_info_ref;
         inline app::DropPickup_SharedUpdateData__Class* get_class() {
-            return il2cpp::get_nested_class<app::DropPickup_SharedUpdateData__Class>(type_info, "", "DropPickup", "SharedUpdateData");
+            return il2cpp::get_nested_class<app::DropPickup_SharedUpdateData__Class>(type_info(), "", "DropPickup", "SharedUpdateData");
         }
         inline app::DropPickup_SharedUpdateData* create() {
             return il2cpp::create_object<app::DropPickup_SharedUpdateData>(get_class());

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LizardSpitAttackBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/LizardSpitAttackBehaviour.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::LizardSpitAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x01109E10, void, OnEntityInitialized, (app::LizardSpitAttackBehaviour * this_ptr))
@@ -16,8 +17,6 @@ namespace app::classes::Moon::LizardSpitAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x00F17370, void, StartTimeline, (app::LizardSpitAttackBehaviour * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop))
     IL2CPP_REGISTER_METHOD(0x008C8490, void, StopCurrentTimeline, (app::LizardSpitAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0110A460, void, ShootProjectile, (app::LizardSpitAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471F978, LizardSpitAttackBehaviour_ShootProjectile__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0110A910, void, ctor, (app::LizardSpitAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00754B80, void, _OnEnter_b__9_0, (app::LizardSpitAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475A7F0, LizardSpitAttackBehaviour__OnEnter_b__9_0__MethodInfo)
 } // namespace app::classes::Moon::LizardSpitAttackBehaviour

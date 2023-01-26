@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MenuScreen.h>
+
+#include <Modloader/app/structs/MenuScreen.h>
 #include <Modloader/app/structs/Event_1.h>
 
 namespace app::classes::MenuScreen {

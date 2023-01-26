@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkCommonAdvancedSettings.h>
+
+#include <Modloader/app/structs/AkCommonAdvancedSettings.h>
 #include <Modloader/app/structs/AkDeviceSettings.h>
 #include <Modloader/app/structs/AkInitSettings.h>
 #include <Modloader/app/structs/AkPlatformInitSettings.h>

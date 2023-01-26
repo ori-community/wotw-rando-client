@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/XmlWellFormedWriter_AttrName.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_AttrName__Array.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_AttrName__Boxed.h>
+#include <Modloader/app/structs/XmlWellFormedWriter_AttrName__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XmlWellFormedWriter_AttrName__Class.h>
-#include <Modloader/app/structs/XmlWellFormedWriter_AttrName.h>
-#include <Modloader/app/structs/XmlWellFormedWriter_AttrName__Boxed.h>
-#include <Modloader/app/structs/XmlWellFormedWriter_AttrName__Array.h>
 
 namespace app::classes::types {
     namespace XmlWellFormedWriter_AttrName {
-        namespace {
-            inline app::XmlWellFormedWriter_AttrName__Class* type_info_ref = nullptr;
+        inline app::XmlWellFormedWriter_AttrName__Class** type_info() {
+            static app::XmlWellFormedWriter_AttrName__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::XmlWellFormedWriter_AttrName__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::XmlWellFormedWriter_AttrName__Class** type_info = &type_info_ref;
         inline app::XmlWellFormedWriter_AttrName__Class* get_class() {
-            return il2cpp::get_nested_class<app::XmlWellFormedWriter_AttrName__Class>(type_info, "System.Xml", "XmlWellFormedWriter", "AttrName");
+            return il2cpp::get_nested_class<app::XmlWellFormedWriter_AttrName__Class>(type_info(), "System.Xml", "XmlWellFormedWriter", "AttrName");
         }
         inline app::XmlWellFormedWriter_AttrName* create() {
             return il2cpp::create_object<app::XmlWellFormedWriter_AttrName>(get_class());

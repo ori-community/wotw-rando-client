@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchema.h>
 #include <Modloader/app/structs/XmlSchemaGroup.h>
 #include <Modloader/app/structs/XmlSchemaGroupBase.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/XmlSchemaParticle.h>
 #include <Modloader/app/structs/XmlSchemaObject.h>
-#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/XmlSchemaParticle.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaGroup {
     IL2CPP_REGISTER_METHOD(0x002FBB40, app::String*, get_Name, (app::XmlSchemaGroup * this_ptr))

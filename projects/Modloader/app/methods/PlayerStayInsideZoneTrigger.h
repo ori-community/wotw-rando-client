@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/PlayerStayInsideZoneTrigger.h>
 #include <Modloader/app/structs/Vector3.h>
 

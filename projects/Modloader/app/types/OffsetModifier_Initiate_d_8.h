@@ -1,15 +1,20 @@
 #pragma once
+#include <Modloader/app/structs/OffsetModifier_Initiate_d_8.h>
+#include <Modloader/app/structs/OffsetModifier_Initiate_d_8__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/OffsetModifier_Initiate_d_8__Class.h>
-#include <Modloader/app/structs/OffsetModifier_Initiate_d_8.h>
 
 namespace app::classes::types {
     namespace OffsetModifier_Initiate_d_8 {
-        inline app::OffsetModifier_Initiate_d_8__Class** type_info = (app::OffsetModifier_Initiate_d_8__Class**)(modloader::win::memory::resolve_rva(0x04772B90));
+        inline app::OffsetModifier_Initiate_d_8__Class** type_info() {
+            static app::OffsetModifier_Initiate_d_8__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::OffsetModifier_Initiate_d_8__Class**)(modloader::win::memory::resolve_rva(0x04772B90));
+            }
+            return cache;
+        }
         inline app::OffsetModifier_Initiate_d_8__Class* get_class() {
-            return il2cpp::get_nested_class<app::OffsetModifier_Initiate_d_8__Class>(type_info, "RootMotion.FinalIK", "OffsetModifier", "<Initiate>d__8");
+            return il2cpp::get_nested_class<app::OffsetModifier_Initiate_d_8__Class>(type_info(), "RootMotion.FinalIK", "OffsetModifier", "<Initiate>d__8");
         }
         inline app::OffsetModifier_Initiate_d_8* create() {
             return il2cpp::create_object<app::OffsetModifier_Initiate_d_8>(get_class());

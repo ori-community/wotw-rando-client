@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AudioClip.h>
+
+#include <Modloader/app/structs/AudioClip.h>
 #include <Modloader/app/structs/AudioClipLoadType__Enum.h>
+#include <Modloader/app/structs/AudioClip_PCMReaderCallback.h>
+#include <Modloader/app/structs/AudioClip_PCMSetPositionCallback.h>
 #include <Modloader/app/structs/AudioDataLoadState__Enum.h>
 #include <Modloader/app/structs/Single__Array.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/AudioClip_PCMReaderCallback.h>
-#include <Modloader/app/structs/AudioClip_PCMSetPositionCallback.h>
 
 namespace app::classes::UnityEngine::AudioClip {
     IL2CPP_REGISTER_METHOD(0x0313DB80, void, ctor, (app::AudioClip * this_ptr))
@@ -30,7 +31,6 @@ namespace app::classes::UnityEngine::AudioClip {
     IL2CPP_REGISTER_METHOD(0x0313E160, app::AudioClip*, Create_4, (app::String * name, int32_t length_samples, int32_t channels, int32_t frequency, bool stream))
     IL2CPP_REGISTER_METHOD(0x0313E190, app::AudioClip*, Create_5, (app::String * name, int32_t length_samples, int32_t channels, int32_t frequency, bool stream, app::AudioClip_PCMReaderCallback* pcmreadercallback))
     IL2CPP_REGISTER_METHOD(0x0313E1C0, app::AudioClip*, Create_6, (app::String * name, int32_t length_samples, int32_t channels, int32_t frequency, bool stream, app::AudioClip_PCMReaderCallback* pcmreadercallback, app::AudioClip_PCMSetPositionCallback* pcmsetpositioncallback))
-    IL2CPP_REGISTER_METHODINFO(0x0470EA78, AudioClip_Create_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0313E5A0, void, add_m_PCMReaderCallback, (app::AudioClip * this_ptr, app::AudioClip_PCMReaderCallback* value))
     IL2CPP_REGISTER_METHOD(0x0313E690, void, remove_m_PCMReaderCallback, (app::AudioClip * this_ptr, app::AudioClip_PCMReaderCallback* value))
     IL2CPP_REGISTER_METHOD(0x0313E780, void, add_m_PCMSetPositionCallback, (app::AudioClip * this_ptr, app::AudioClip_PCMSetPositionCallback* value))

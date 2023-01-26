@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VolumeEffectFieldFlags.h>
+
+#include <Modloader/app/structs/VolumeEffectFieldFlags.h>
 #include <Modloader/app/structs/FieldInfo_1.h>
 #include <Modloader/app/structs/VolumeEffectField.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/CapsuleCollider.h>
 #include <Modloader/app/structs/CapsuleCollider__Array.h>
 #include <Modloader/app/structs/Single__Array.h>

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RecordingLink.h>
+
+#include <Modloader/app/structs/RecordingLink.h>
 
 namespace app::classes::RecordingLink {
     IL2CPP_REGISTER_METHOD(0x008FADF0, void, BeginInteraction, (app::RecordingLink * this_ptr))

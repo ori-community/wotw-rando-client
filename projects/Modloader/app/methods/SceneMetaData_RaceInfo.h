@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneMetaData_RaceInfo.h>
+
+#include <Modloader/app/structs/SceneMetaData_RaceInfo.h>
 #include <Modloader/app/structs/RaceData.h>
 
 namespace app::classes::SceneMetaData_RaceInfo {

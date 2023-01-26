@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InitializeLocalInstruction_ImmutableValue.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/InterpretedFrame.h>
+
+#include <Modloader/app/structs/InitializeLocalInstruction_ImmutableValue.h>
 #include <Modloader/app/structs/Instruction.h>
+#include <Modloader/app/structs/InterpretedFrame.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::InitializeLocalInstruction_ImmutableValue {

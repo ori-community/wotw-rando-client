@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaceMenuScreenDifficultyLabel.h>
+
+#include <Modloader/app/structs/RaceMenuScreenDifficultyLabel.h>
 #include <Modloader/app/structs/DifficultyMode__Enum.h>
 #include <Modloader/app/structs/MessageDescriptor.h>
 

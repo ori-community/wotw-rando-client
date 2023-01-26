@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FixedUpdateScheduler.h>
-#include <Modloader/app/structs/ISuspendable.h>
+
+#include <Modloader/app/structs/FixedUpdateScheduler.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/ISuspendable.h>
 
 namespace app::classes::FixedUpdateScheduler {
     IL2CPP_REGISTER_METHOD(0x0126F940, void, Awake, (app::FixedUpdateScheduler * this_ptr))

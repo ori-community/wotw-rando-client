@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FlameExtinguisher.h>
+
+#include <Modloader/app/structs/FlameExtinguisher.h>
 #include <Modloader/app/structs/Flammable.h>
 
 namespace app::classes::Moon::FlameExtinguisher {

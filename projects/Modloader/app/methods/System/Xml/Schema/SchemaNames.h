@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SchemaNames.h>
-#include <Modloader/app/structs/XmlNameTable.h>
+
+#include <Modloader/app/structs/SchemaNames.h>
 #include <Modloader/app/structs/SchemaType__Enum.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNameTable.h>
 
 namespace app::classes::System::Xml::Schema::SchemaNames {
     IL2CPP_REGISTER_METHOD(0x01AB25D0, void, ctor, (app::SchemaNames * this_ptr, app::XmlNameTable* name_table))

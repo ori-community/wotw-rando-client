@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberWaterControl.h>
+
+#include <Modloader/app/structs/UberWaterControl.h>
 #include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/UberWaterControl_VisualDebugMode__Enum.h>
-#include <Modloader/app/structs/RenderingType__Enum.h>
-#include <Modloader/app/structs/RenderTexture.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Vector4.h>
 #include <Modloader/app/structs/Material.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/UberInteractionActor.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/UberWaterControl_ImpactBuf.h>
-#include <Modloader/app/structs/SceneRoot.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/UberWaterControl_c_DisplayClass116_0.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/RenderingType__Enum.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UberInteractionActor.h>
+#include <Modloader/app/structs/UberWaterControl_ImpactBuf.h>
+#include <Modloader/app/structs/UberWaterControl_VisualDebugMode__Enum.h>
+#include <Modloader/app/structs/UberWaterControl_c_DisplayClass116_0.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UberWaterControl {
     IL2CPP_REGISTER_METHOD(0x00B1B670, bool, get_TimelineUpdate, (app::UberWaterControl * this_ptr))
@@ -55,7 +56,6 @@ namespace app::classes::UberWaterControl {
     IL2CPP_REGISTER_METHOD(0x01299B60, app::UberWaterControl_ImpactBuf, GetBufFromSettings, (app::UberWaterControl * this_ptr, app::Vector2 local_uv, float power, float radius))
     IL2CPP_REGISTER_METHOD(0x01299C70, void, OnDestroy, (app::UberWaterControl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01299F80, void, OnRestoreCheckpoint, (app::UberWaterControl * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04745BF8, UberWaterControl_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0129A050, void, BindShaderVariablesToMaterial, (app::UberWaterControl * this_ptr, app::Material* mat))
     IL2CPP_REGISTER_METHOD(0x0129AA20, app::UberWaterControl*, GetNearestWaterControl, (app::Vector3 point))
     IL2CPP_REGISTER_METHOD(0x0129AEF0, float, GetDistanceToNearestWaterControlSurface, (app::Vector3 point))
@@ -98,7 +98,5 @@ namespace app::classes::UberWaterControl {
     IL2CPP_REGISTER_METHOD(0x0129C970, void, _SetImpact_g__DequeueEmpty_116_1, (int32_t buf_name, app::UberWaterControl_c_DisplayClass116_0* param_000163f0))
     IL2CPP_REGISTER_METHOD(0x015E3770, void, DestroyImmediate_1, (app::Object * *o))
     IL2CPP_REGISTER_METHOD(0x015E3770, void, DestroyImmediate_2, (app::RenderTexture * *o))
-    IL2CPP_REGISTER_METHODINFO(0x0470B5C8, UberWaterControl_DestroyImmediate_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E3770, void, DestroyImmediate_3, (app::Material * *o))
-    IL2CPP_REGISTER_METHODINFO(0x04798178, UberWaterControl_DestroyImmediate_2__MethodInfo)
 } // namespace app::classes::UberWaterControl

@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/PreRecordingInstantiationEntry.h>
+#include <Modloader/app/structs/PreRecordingInstantiationEntry__Array.h>
+#include <Modloader/app/structs/PreRecordingInstantiationEntry__Boxed.h>
+#include <Modloader/app/structs/PreRecordingInstantiationEntry__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/PreRecordingInstantiationEntry__Class.h>
-#include <Modloader/app/structs/PreRecordingInstantiationEntry.h>
-#include <Modloader/app/structs/PreRecordingInstantiationEntry__Boxed.h>
-#include <Modloader/app/structs/PreRecordingInstantiationEntry__Array.h>
 
 namespace app::classes::types {
     namespace PreRecordingInstantiationEntry {
-        inline app::PreRecordingInstantiationEntry__Class** type_info = (app::PreRecordingInstantiationEntry__Class**)(modloader::win::memory::resolve_rva(0x047062C8));
+        inline app::PreRecordingInstantiationEntry__Class** type_info() {
+            static app::PreRecordingInstantiationEntry__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::PreRecordingInstantiationEntry__Class**)(modloader::win::memory::resolve_rva(0x047062C8));
+            }
+            return cache;
+        }
         inline app::PreRecordingInstantiationEntry__Class* get_class() {
-            return il2cpp::get_class<app::PreRecordingInstantiationEntry__Class>(type_info, "", "PreRecordingInstantiationEntry");
+            return il2cpp::get_class<app::PreRecordingInstantiationEntry__Class>(type_info(), "", "PreRecordingInstantiationEntry");
         }
         inline app::PreRecordingInstantiationEntry* create() {
             return il2cpp::create_object<app::PreRecordingInstantiationEntry>(get_class());

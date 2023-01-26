@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal___Boxed.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal___Boxed.h>
 #include <Modloader/app/structs/List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
-#include <Modloader/app/structs/PlayerLoopSystemInternal.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PlayerLoopSystemInternal.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_ {
     IL2CPP_REGISTER_METHOD(0x00152840, void, ctor, (app::List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal___Boxed * this_ptr, app::List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_* list))

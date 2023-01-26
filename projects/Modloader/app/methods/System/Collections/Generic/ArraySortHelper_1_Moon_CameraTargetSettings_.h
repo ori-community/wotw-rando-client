@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraTargetSettings__Array.h>
-#include <Modloader/app/structs/IComparer_1_Moon_CameraTargetSettings_.h>
+
+#include <Modloader/app/structs/CameraTargetSettings__Array.h>
 #include <Modloader/app/structs/CameraTargetSettings.h>
 #include <Modloader/app/structs/Comparison_1_Moon_CameraTargetSettings_.h>
+#include <Modloader/app/structs/IComparer_1_Moon_CameraTargetSettings_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_CameraTargetSettings_ {
     IL2CPP_REGISTER_METHOD(0x02F344E0, void, Sort_1, (app::CameraTargetSettings__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_CameraTargetSettings_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0473BA18, ArraySortHelper_1_Moon_CameraTargetSettings__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F34800, int32_t, BinarySearch, (app::CameraTargetSettings__Array * array, int32_t index, int32_t length, app::CameraTargetSettings value, app::IComparer_1_Moon_CameraTargetSettings_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0473E200, ArraySortHelper_1_Moon_CameraTargetSettings__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F349B0, void, Sort_2, (app::CameraTargetSettings__Array * keys, int32_t index, int32_t length, app::Comparison_1_Moon_CameraTargetSettings_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0471B018, ArraySortHelper_1_Moon_CameraTargetSettings__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C8AB70, int32_t, InternalBinarySearch, (app::CameraTargetSettings__Array * array, int32_t index, int32_t length, app::CameraTargetSettings value, app::IComparer_1_Moon_CameraTargetSettings_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C8AD30, void, SwapIfGreater, (app::CameraTargetSettings__Array * keys, app::Comparison_1_Moon_CameraTargetSettings_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C8AEE0, void, Swap, (app::CameraTargetSettings__Array * a, int32_t i, int32_t j))

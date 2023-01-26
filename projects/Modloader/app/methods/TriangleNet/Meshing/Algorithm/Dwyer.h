@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMesh.h>
+
+#include <Modloader/app/structs/IMesh.h>
+#include <Modloader/app/structs/Configuration_1.h>
 #include <Modloader/app/structs/Dwyer.h>
 #include <Modloader/app/structs/IList_1_TriangleNet_Geometry_Vertex_.h>
-#include <Modloader/app/structs/Configuration_1.h>
 #include <Modloader/app/structs/Otri.h>
 
 namespace app::classes::TriangleNet::Meshing::Algorithm::Dwyer {

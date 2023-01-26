@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CVRRenderModels.h>
+
+#include <Modloader/app/structs/CVRRenderModels.h>
 #include <Modloader/app/structs/EVRRenderModelError__Enum.h>
+#include <Modloader/app/structs/RenderModel_ComponentState_t.h>
+#include <Modloader/app/structs/RenderModel_ControllerMode_State_t.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/void.h>
 #include <Modloader/app/structs/StringBuilder.h>
 #include <Modloader/app/structs/VRControllerState_t.h>
-#include <Modloader/app/structs/RenderModel_ControllerMode_State_t.h>
-#include <Modloader/app/structs/RenderModel_ComponentState_t.h>
+#include <Modloader/app/structs/void.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRRenderModels {
     IL2CPP_REGISTER_METHOD(0x0167A3B0, void, ctor, (app::CVRRenderModels * this_ptr, void* p_interface))
-    IL2CPP_REGISTER_METHOD(0x0167A510, app::EVRRenderModelError__Enum, LoadRenderModel_Async, (app::CVRRenderModels * this_ptr, app::String* pch_render_model_name, app::void** pp_render_model))
+    IL2CPP_REGISTER_METHOD(0x0167A510, app::EVRRenderModelError__Enum, LoadRenderModel_Async, (app::CVRRenderModels * this_ptr, app::String* pch_render_model_name, void** pp_render_model))
     IL2CPP_REGISTER_METHOD(0x0167A530, void, FreeRenderModel, (app::CVRRenderModels * this_ptr, void* p_render_model))
-    IL2CPP_REGISTER_METHOD(0x0167A550, app::EVRRenderModelError__Enum, LoadTexture_Async, (app::CVRRenderModels * this_ptr, int32_t texture_id, app::void** pp_texture))
+    IL2CPP_REGISTER_METHOD(0x0167A550, app::EVRRenderModelError__Enum, LoadTexture_Async, (app::CVRRenderModels * this_ptr, int32_t texture_id, void** pp_texture))
     IL2CPP_REGISTER_METHOD(0x0167A570, void, FreeTexture, (app::CVRRenderModels * this_ptr, void* p_texture))
-    IL2CPP_REGISTER_METHOD(0x01677EA0, app::EVRRenderModelError__Enum, LoadTextureD3D11_Async, (app::CVRRenderModels * this_ptr, int32_t texture_id, void* p_d3_d11_device, app::void** pp_d3_d11_texture2_d))
+    IL2CPP_REGISTER_METHOD(0x01677EA0, app::EVRRenderModelError__Enum, LoadTextureD3D11_Async, (app::CVRRenderModels * this_ptr, int32_t texture_id, void* p_d3_d11_device, void** pp_d3_d11_texture2_d))
     IL2CPP_REGISTER_METHOD(0x0167A590, app::EVRRenderModelError__Enum, LoadIntoTextureD3D11_Async, (app::CVRRenderModels * this_ptr, int32_t texture_id, void* p_dst_texture))
     IL2CPP_REGISTER_METHOD(0x0167A5B0, void, FreeTextureD3D11, (app::CVRRenderModels * this_ptr, void* p_d3_d11_texture2_d))
     IL2CPP_REGISTER_METHOD(0x0167A5D0, uint32_t, GetRenderModelName, (app::CVRRenderModels * this_ptr, uint32_t un_render_model_index, app::StringBuilder* pch_render_model_name, uint32_t un_render_model_name_len))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RammingHitWallState.h>
+
+#include <Modloader/app/structs/RammingHitWallState.h>
 #include <Modloader/app/structs/RammingEnemy.h>
 
 namespace app::classes::RammingHitWallState {

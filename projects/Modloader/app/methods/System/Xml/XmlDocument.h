@@ -1,40 +1,41 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlDocument.h>
-#include <Modloader/app/structs/XmlNameTable.h>
-#include <Modloader/app/structs/XmlImplementation.h>
+
+#include <Modloader/app/structs/XmlDocument.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/IXmlSchemaInfo.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/SchemaElementDecl.h>
 #include <Modloader/app/structs/SchemaInfo.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlName.h>
-#include <Modloader/app/structs/IXmlSchemaInfo.h>
 #include <Modloader/app/structs/WeakReference.h>
-#include <Modloader/app/structs/ArrayList.h>
-#include <Modloader/app/structs/XmlElement.h>
-#include <Modloader/app/structs/XmlNode.h>
-#include <Modloader/app/structs/XmlNodeType__Enum.h>
-#include <Modloader/app/structs/XmlDocumentType.h>
-#include <Modloader/app/structs/XmlDeclaration.h>
-#include <Modloader/app/structs/XmlLinkedNode.h>
-#include <Modloader/app/structs/XmlSchemaSet.h>
-#include <Modloader/app/structs/XmlResolver.h>
 #include <Modloader/app/structs/XmlAttribute.h>
 #include <Modloader/app/structs/XmlCDataSection.h>
 #include <Modloader/app/structs/XmlComment.h>
+#include <Modloader/app/structs/XmlDeclaration.h>
 #include <Modloader/app/structs/XmlDocumentFragment.h>
-#include <Modloader/app/structs/SchemaElementDecl.h>
-#include <Modloader/app/structs/SchemaAttDef.h>
-#include <Modloader/app/structs/XmlEntityReference.h>
-#include <Modloader/app/structs/XmlProcessingInstruction.h>
-#include <Modloader/app/structs/XmlText.h>
-#include <Modloader/app/structs/XmlSignificantWhitespace.h>
-#include <Modloader/app/structs/XmlWhitespace.h>
-#include <Modloader/app/structs/XmlNamedNodeMap.h>
-#include <Modloader/app/structs/XmlReader.h>
-#include <Modloader/app/structs/XmlTextReader.h>
-#include <Modloader/app/structs/XmlWriter.h>
-#include <Modloader/app/structs/XmlNodeChangedEventArgs.h>
-#include <Modloader/app/structs/XmlNodeChangedAction__Enum.h>
+#include <Modloader/app/structs/XmlDocumentType.h>
+#include <Modloader/app/structs/XmlElement.h>
 #include <Modloader/app/structs/XmlEntity.h>
+#include <Modloader/app/structs/XmlEntityReference.h>
+#include <Modloader/app/structs/XmlImplementation.h>
+#include <Modloader/app/structs/XmlLinkedNode.h>
+#include <Modloader/app/structs/XmlName.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlNamedNodeMap.h>
+#include <Modloader/app/structs/XmlNode.h>
+#include <Modloader/app/structs/XmlNodeChangedAction__Enum.h>
+#include <Modloader/app/structs/XmlNodeChangedEventArgs.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlProcessingInstruction.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/XmlSchemaSet.h>
+#include <Modloader/app/structs/XmlSignificantWhitespace.h>
+#include <Modloader/app/structs/XmlText.h>
+#include <Modloader/app/structs/XmlTextReader.h>
+#include <Modloader/app/structs/XmlWhitespace.h>
+#include <Modloader/app/structs/XmlWriter.h>
 
 namespace app::classes::System::Xml::XmlDocument {
     IL2CPP_REGISTER_METHOD(0x0196C010, void, ctor_1, (app::XmlDocument * this_ptr))
@@ -43,11 +44,9 @@ namespace app::classes::System::Xml::XmlDocument {
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::SchemaInfo*, get_DtdSchemaInfo, (app::XmlDocument * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBA00, void, set_DtdSchemaInfo, (app::XmlDocument * this_ptr, app::SchemaInfo* value))
     IL2CPP_REGISTER_METHOD(0x0196C8E0, void, CheckName, (app::String * name))
-    IL2CPP_REGISTER_METHODINFO(0x04714688, XmlDocument_CheckName__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0196C9E0, app::XmlName*, AddXmlName, (app::XmlDocument * this_ptr, app::String* prefix, app::String* local_name, app::String* namespace_u_r_i, app::IXmlSchemaInfo* schema_info))
     IL2CPP_REGISTER_METHOD(0x0196CA10, app::XmlName*, GetXmlName, (app::XmlDocument * this_ptr, app::String* prefix, app::String* local_name, app::String* namespace_u_r_i, app::IXmlSchemaInfo* schema_info))
     IL2CPP_REGISTER_METHOD(0x0196CA40, app::XmlName*, AddAttrXmlName, (app::XmlDocument * this_ptr, app::String* prefix, app::String* local_name, app::String* namespace_u_r_i, app::IXmlSchemaInfo* schema_info))
-    IL2CPP_REGISTER_METHODINFO(0x04759130, XmlDocument_AddAttrXmlName__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0196CBE0, bool, AddIdInfo, (app::XmlDocument * this_ptr, app::XmlName* ele_name, app::XmlName* attr_name))
     IL2CPP_REGISTER_METHOD(0x0196CDA0, app::XmlName*, GetIDInfoByElement_, (app::XmlDocument * this_ptr, app::XmlName* ele_name))
     IL2CPP_REGISTER_METHOD(0x0196CF00, app::XmlName*, GetIDInfoByElement, (app::XmlDocument * this_ptr, app::XmlName* ele_name))
@@ -72,9 +71,7 @@ namespace app::classes::System::Xml::XmlDocument {
     IL2CPP_REGISTER_METHOD(0x00757DC0, bool, get_HasSetResolver, (app::XmlDocument * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A64220, app::XmlResolver*, GetResolver, (app::XmlDocument * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0196DF60, void, set_XmlResolver, (app::XmlDocument * this_ptr, app::XmlResolver* value))
-    IL2CPP_REGISTER_METHODINFO(0x0471DA30, XmlDocument_set_XmlResolver__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0196E170, bool, IsValidChildType, (app::XmlDocument * this_ptr, app::XmlNodeType__Enum type))
-    IL2CPP_REGISTER_METHODINFO(0x0475BBD0, XmlDocument_IsValidChildType__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0196E350, bool, HasNodeTypeInPrevSiblings, (app::XmlDocument * this_ptr, app::XmlNodeType__Enum nt, app::XmlNode* ref_node))
     IL2CPP_REGISTER_METHOD(0x0196E430, bool, HasNodeTypeInNextSiblings, (app::XmlDocument * this_ptr, app::XmlNodeType__Enum nt, app::XmlNode* ref_node))
     IL2CPP_REGISTER_METHOD(0x0196E4A0, bool, CanInsertBefore, (app::XmlDocument * this_ptr, app::XmlNode* new_child, app::XmlNode* ref_child))
@@ -98,7 +95,6 @@ namespace app::classes::System::Xml::XmlDocument {
     IL2CPP_REGISTER_METHOD(0x01970180, app::XmlAttribute*, CreateAttribute_2, (app::XmlDocument * this_ptr, app::String* qualified_name, app::String* namespace_u_r_i))
     IL2CPP_REGISTER_METHOD(0x01970310, app::XmlElement*, CreateElement_2, (app::XmlDocument * this_ptr, app::String* qualified_name, app::String* namespace_u_r_i))
     IL2CPP_REGISTER_METHOD(0x019704A0, app::XmlNode*, ImportNodeInternal, (app::XmlDocument * this_ptr, app::XmlNode* node, bool deep))
-    IL2CPP_REGISTER_METHODINFO(0x04782450, XmlDocument_ImportNodeInternal__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01970A20, void, ImportAttributes, (app::XmlDocument * this_ptr, app::XmlNode* from_elem, app::XmlNode* to_elem))
     IL2CPP_REGISTER_METHOD(0x01970BA0, void, ImportChildren, (app::XmlDocument * this_ptr, app::XmlNode* from_node, app::XmlNode* to_node, bool deep))
     IL2CPP_REGISTER_METHOD(0x0195B0F0, app::XmlNameTable*, get_NameTable, (app::XmlDocument * this_ptr))
@@ -116,7 +112,6 @@ namespace app::classes::System::Xml::XmlDocument {
     IL2CPP_REGISTER_METHOD(0x019715D0, void, Load, (app::XmlDocument * this_ptr, app::XmlReader* reader))
     IL2CPP_REGISTER_METHOD(0x019717F0, void, LoadXml, (app::XmlDocument * this_ptr, app::String* xml))
     IL2CPP_REGISTER_METHOD(0x01971BA0, void, set_InnerText, (app::XmlDocument * this_ptr, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x0478CF58, XmlDocument_set_InnerText__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01971C10, void, set_InnerXml, (app::XmlDocument * this_ptr, app::String* value))
     IL2CPP_REGISTER_METHOD(0x01971C30, void, Save, (app::XmlDocument * this_ptr, app::XmlWriter* w))
     IL2CPP_REGISTER_METHOD(0x01971EE0, void, WriteTo, (app::XmlDocument * this_ptr, app::XmlWriter* w))
@@ -134,6 +129,5 @@ namespace app::classes::System::Xml::XmlDocument {
     IL2CPP_REGISTER_METHOD(0x0065FBE0, app::String*, get_BaseURI, (app::XmlDocument * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0065FBF0, void, SetBaseURI, (app::XmlDocument * this_ptr, app::String* in_base_u_r_i))
     IL2CPP_REGISTER_METHOD(0x01972BB0, app::XmlNode*, AppendChildForLoad, (app::XmlDocument * this_ptr, app::XmlNode* new_child, app::XmlDocument* doc))
-    IL2CPP_REGISTER_METHODINFO(0x04717940, XmlDocument_AppendChildForLoad__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01972DF0, void, cctor, ())
 } // namespace app::classes::System::Xml::XmlDocument

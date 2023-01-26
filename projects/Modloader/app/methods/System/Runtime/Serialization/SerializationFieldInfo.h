@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Module.h>
-#include <Modloader/app/structs/SerializationFieldInfo.h>
+
+#include <Modloader/app/structs/Module.h>
+#include <Modloader/app/structs/Binder.h>
+#include <Modloader/app/structs/BindingFlags__Enum.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/FieldAttributes__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/RuntimeFieldHandle.h>
 #include <Modloader/app/structs/RuntimeFieldInfo.h>
+#include <Modloader/app/structs/SerializationFieldInfo.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/BindingFlags__Enum.h>
-#include <Modloader/app/structs/Binder.h>
-#include <Modloader/app/structs/CultureInfo.h>
-#include <Modloader/app/structs/RuntimeFieldHandle.h>
-#include <Modloader/app/structs/FieldAttributes__Enum.h>
 
 namespace app::classes::System::Runtime::Serialization::SerializationFieldInfo {
     IL2CPP_REGISTER_METHOD(0x017171B0, app::Module*, get_Module, (app::SerializationFieldInfo * this_ptr))

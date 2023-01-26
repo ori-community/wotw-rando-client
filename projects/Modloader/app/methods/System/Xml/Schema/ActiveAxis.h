@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActiveAxis.h>
+
+#include <Modloader/app/structs/ActiveAxis.h>
 #include <Modloader/app/structs/Asttree.h>
 #include <Modloader/app/structs/String.h>
 

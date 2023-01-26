@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Request_1_System_Object_.h>
-#include <Modloader/app/structs/Method__Enum.h>
-#include <Modloader/app/structs/IDataReader.h>
-#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Action_1_Object_.h>
-#include <Modloader/app/structs/IServerCommunicator.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/IDataReader.h>
 #include <Modloader/app/structs/IRequestCallback.h>
+#include <Modloader/app/structs/IServerCommunicator.h>
+#include <Modloader/app/structs/Method__Enum.h>
+#include <Modloader/app/structs/Request_1_System_Object_.h>
 
 namespace app::classes::Moon::Network::Web::Request_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::String*, get_Path, (app::Request_1_System_Object_ * this_ptr))

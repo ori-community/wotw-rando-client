@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LightSpear.h>
+
+#include <Modloader/app/structs/LightSpear.h>
 #include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::LightSpear {

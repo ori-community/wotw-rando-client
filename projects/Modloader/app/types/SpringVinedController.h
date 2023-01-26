@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SpringVinedController.h>
+#include <Modloader/app/structs/SpringVinedController__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SpringVinedController__Class.h>
-#include <Modloader/app/structs/SpringVinedController.h>
 
 namespace app::classes::types {
     namespace SpringVinedController {
-        namespace {
-            inline app::SpringVinedController__Class* type_info_ref = nullptr;
+        inline app::SpringVinedController__Class** type_info() {
+            static app::SpringVinedController__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SpringVinedController__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SpringVinedController__Class** type_info = &type_info_ref;
         inline app::SpringVinedController__Class* get_class() {
-            return il2cpp::get_class<app::SpringVinedController__Class>(type_info, "", "SpringVinedController");
+            return il2cpp::get_class<app::SpringVinedController__Class>(type_info(), "", "SpringVinedController");
         }
         inline app::SpringVinedController* create() {
             return il2cpp::create_object<app::SpringVinedController>(get_class());

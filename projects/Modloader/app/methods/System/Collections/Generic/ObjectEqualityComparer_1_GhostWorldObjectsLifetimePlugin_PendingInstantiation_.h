@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_GhostWorldObjectsLifetimePlugin_PendingInstantiation_.h>
 #include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_PendingInstantiation.h>
 #include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin_PendingInstantiation__Array.h>
 #include <Modloader/app/structs/Object.h>

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateStats.h>
+
+#include <Modloader/app/structs/PlayerUberStateStats.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/UberStateArchive.h>
 #include <Modloader/app/structs/NavigableOnGUI.h>
+#include <Modloader/app/structs/UberStateArchive.h>
 
 namespace app::classes::Moon::uberSerializationWisp::PlayerUberStateStats {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_Completed, (app::PlayerUberStateStats * this_ptr))

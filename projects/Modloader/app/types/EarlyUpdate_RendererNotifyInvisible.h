@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/EarlyUpdate_RendererNotifyInvisible__Class.h>
 #include <Modloader/app/structs/EarlyUpdate_RendererNotifyInvisible.h>
 #include <Modloader/app/structs/EarlyUpdate_RendererNotifyInvisible__Boxed.h>
+#include <Modloader/app/structs/EarlyUpdate_RendererNotifyInvisible__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace EarlyUpdate_RendererNotifyInvisible {
-        namespace {
-            inline app::EarlyUpdate_RendererNotifyInvisible__Class* type_info_ref = nullptr;
+        inline app::EarlyUpdate_RendererNotifyInvisible__Class** type_info() {
+            static app::EarlyUpdate_RendererNotifyInvisible__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::EarlyUpdate_RendererNotifyInvisible__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::EarlyUpdate_RendererNotifyInvisible__Class** type_info = &type_info_ref;
         inline app::EarlyUpdate_RendererNotifyInvisible__Class* get_class() {
-            return il2cpp::get_nested_class<app::EarlyUpdate_RendererNotifyInvisible__Class>(type_info, "UnityEngine.Experimental.PlayerLoop", "EarlyUpdate", "RendererNotifyInvisible");
+            return il2cpp::get_nested_class<app::EarlyUpdate_RendererNotifyInvisible__Class>(type_info(), "UnityEngine.Experimental.PlayerLoop", "EarlyUpdate", "RendererNotifyInvisible");
         }
         inline app::EarlyUpdate_RendererNotifyInvisible* create() {
             return il2cpp::create_object<app::EarlyUpdate_RendererNotifyInvisible>(get_class());

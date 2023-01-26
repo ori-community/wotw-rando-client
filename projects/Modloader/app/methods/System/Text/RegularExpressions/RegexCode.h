@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RegexCode.h>
+
+#include <Modloader/app/structs/RegexCode.h>
+#include <Modloader/app/structs/Hashtable.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/List_1_System_String_.h>
-#include <Modloader/app/structs/Hashtable.h>
 #include <Modloader/app/structs/RegexBoyerMoore.h>
 #include <Modloader/app/structs/RegexPrefix.h>
 

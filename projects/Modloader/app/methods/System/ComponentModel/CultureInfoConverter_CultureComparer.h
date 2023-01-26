@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CultureInfoConverter_CultureComparer.h>
+
+#include <Modloader/app/structs/CultureInfoConverter_CultureComparer.h>
 #include <Modloader/app/structs/CultureInfoConverter.h>
 #include <Modloader/app/structs/Object.h>
 

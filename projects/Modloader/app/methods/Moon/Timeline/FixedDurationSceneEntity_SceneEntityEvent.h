@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FixedDurationSceneEntity_SceneEntityEvent.h>
+
+#include <Modloader/app/structs/FixedDurationSceneEntity_SceneEntityEvent.h>
 #include <Modloader/app/structs/FixedDurationSceneEntity_Markers__Enum.h>
 #include <Modloader/app/structs/String.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScenesManagerBehaviourUtility_SceneMetaAndData__Boxed.h>
+
+#include <Modloader/app/structs/ScenesManagerBehaviourUtility_SceneMetaAndData__Boxed.h>
 #include <Modloader/app/structs/ScenesManagerBehaviourUtility_SceneMetaAndData.h>
 
 namespace app::classes::ScenesManagerBehaviourUtility_SceneMetaAndData {

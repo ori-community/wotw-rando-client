@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkSerializedCallbackHeader.h>
+
+#include <Modloader/app/structs/AkSerializedCallbackHeader.h>
 #include <Modloader/app/structs/AkCallbackType__Enum.h>
 
 namespace app::classes::AkSerializedCallbackHeader {

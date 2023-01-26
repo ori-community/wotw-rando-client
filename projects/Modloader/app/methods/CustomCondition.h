@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CustomCondition.h>
-#include <Modloader/app/structs/ICustomConditionDefinition.h>
+
+#include <Modloader/app/structs/CustomCondition.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/ICustomConditionDefinition.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::CustomCondition {

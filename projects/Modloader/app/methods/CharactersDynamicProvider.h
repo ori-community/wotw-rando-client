@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/CharactersDynamicProvider.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 #include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/SoundHost.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SoundHost.h>
-#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::CharactersDynamicProvider {
     IL2CPP_REGISTER_METHOD(0x01316FD0, app::GameObject*, get_GameplayOri, (app::CharactersDynamicProvider * this_ptr))

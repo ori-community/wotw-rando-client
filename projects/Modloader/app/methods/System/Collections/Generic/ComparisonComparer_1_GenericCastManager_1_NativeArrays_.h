@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_GenericCastManager_1_NativeArrays_.h>
-#include <Modloader/app/structs/Comparison_1_GenericCastManager_1_NativeArrays_.h>
-#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_GenericCastManager_1_NativeArrays_.h>
 #include <Modloader/app/structs/ComparisonComparer_1_GenericCastManager_1_NativeArrays__1.h>
-#include <Modloader/app/structs/Comparison_1_GenericCastManager_1_NativeArrays__1.h>
-#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_RaycastCommand_.h>
 #include <Modloader/app/structs/ComparisonComparer_1_GenericCastManager_1_NativeArrays__2.h>
+#include <Modloader/app/structs/Comparison_1_GenericCastManager_1_NativeArrays_.h>
+#include <Modloader/app/structs/Comparison_1_GenericCastManager_1_NativeArrays__1.h>
 #include <Modloader/app/structs/Comparison_1_GenericCastManager_1_NativeArrays__2.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_CapsulecastCommand_.h>
+#include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_RaycastCommand_.h>
 #include <Modloader/app/structs/GenericCastManager_1_Command_NativeArrays_UnityEngine_SpherecastCommand_.h>
 
 namespace app::classes::System::Collections::Generic::ComparisonComparer_1_GenericCastManager_1_NativeArrays_ {

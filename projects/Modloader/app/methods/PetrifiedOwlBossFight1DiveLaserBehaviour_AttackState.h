@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossFight1DiveLaserBehaviour_AttackState.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossFight1DiveLaserBehaviour_AttackState.h>
 #include <Modloader/app/structs/PetrifiedOwlBossFight1DiveLaserBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossFight1DiveLaserBehaviour_AttackState {

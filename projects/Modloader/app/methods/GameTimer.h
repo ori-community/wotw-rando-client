@@ -1,21 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameTimer.h>
-#include <Modloader/app/structs/UberStateValueStore.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/GameTimer.h>
 #include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/UberStateValueStore.h>
 
 namespace app::classes::GameTimer {
     IL2CPP_REGISTER_METHOD(0x00404DA0, void, Awake, (app::GameTimer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004050A0, void, OnEnable, (app::GameTimer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004050D0, void, UpdateValueStoreOnDeath, (app::GameTimer * this_ptr, app::UberStateValueStore* value_store))
     IL2CPP_REGISTER_METHOD(0x00405220, void, OnCheckpointPreRestore, (app::GameTimer * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04708968, GameTimer_OnCheckpointPreRestore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00405240, void, OnCheckpointPostRestore, (app::GameTimer * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047323B0, GameTimer_OnCheckpointPostRestore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00405260, void, OnDestroy, (app::GameTimer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00405550, void, Update, (app::GameTimer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00405810, app::String*, get_DisplayTimeAsString, (app::GameTimer * this_ptr))

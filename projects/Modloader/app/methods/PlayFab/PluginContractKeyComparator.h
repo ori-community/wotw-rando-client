@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PluginContractKeyComparator.h>
+
+#include <Modloader/app/structs/PluginContractKeyComparator.h>
 #include <Modloader/app/structs/PluginContractKey.h>
 
 namespace app::classes::PlayFab::PluginContractKeyComparator {

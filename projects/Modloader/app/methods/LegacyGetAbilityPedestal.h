@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyGetAbilityPedestal.h>
-#include <Modloader/app/structs/LegacyGetAbilityPedestal_States__Enum.h>
+
+#include <Modloader/app/structs/LegacyGetAbilityPedestal.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/LegacyGetAbilityPedestal_States__Enum.h>
 #include <Modloader/app/structs/StressTestStatus__Enum.h>
 #include <Modloader/app/structs/String.h>
 
@@ -18,7 +19,6 @@ namespace app::classes::LegacyGetAbilityPedestal {
     IL2CPP_REGISTER_METHOD(0x00A26360, void, Serialize, (app::LegacyGetAbilityPedestal * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x00A263E0, void, Awake, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A26450, void, OnStopPlaying, (app::LegacyGetAbilityPedestal * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475CF48, LegacyGetAbilityPedestal_OnStopPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A26550, void, OnEnable, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A26630, void, OnDisable, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A26710, void, StartStressTest, (app::LegacyGetAbilityPedestal * this_ptr))
@@ -29,7 +29,6 @@ namespace app::classes::LegacyGetAbilityPedestal {
     IL2CPP_REGISTER_METHOD(0x00A26C20, bool, get_CanExecuteStressTest, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_StopMovingPlayerWhilePerforming, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A26DE0, void, FinishGetAbilityStressTest, (app::LegacyGetAbilityPedestal * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04751480, LegacyGetAbilityPedestal_FinishGetAbilityStressTest__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A26DF0, app::String*, get_StressTestName, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A26E70, void, ctor, (app::LegacyGetAbilityPedestal * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A26E90, void, cctor, ())

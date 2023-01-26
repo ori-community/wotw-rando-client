@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Evidence_EvidenceEnumerator.h>
+
+#include <Modloader/app/structs/Evidence_EvidenceEnumerator.h>
 #include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Object.h>
 

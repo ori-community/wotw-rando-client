@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XGameSaveUpdateHandle.h>
+
+#include <Modloader/app/structs/XGameSaveUpdateHandle.h>
 #include <Modloader/app/structs/XGameSaveUpdateHandle_1.h>
 
 namespace app::classes::XGamingRuntime::XGameSaveUpdateHandle {

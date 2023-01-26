@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneLoadingQueue_QueueListComparer.h>
+
+#include <Modloader/app/structs/SceneLoadingQueue_QueueListComparer.h>
 #include <Modloader/app/structs/SceneLoadingQueue_QueueSceneToLoad.h>
 
 namespace app::classes::SceneLoadingQueue_QueueListComparer {

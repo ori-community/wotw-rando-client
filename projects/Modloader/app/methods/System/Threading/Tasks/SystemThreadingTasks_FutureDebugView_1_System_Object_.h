@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/SystemThreadingTasks_FutureDebugView_1_System_Object_.h>
 #include <Modloader/app/structs/TaskCreationOptions__Enum.h>
-#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/TaskStatus__Enum.h>
 #include <Modloader/app/structs/Task_1_System_Object_.h>
 

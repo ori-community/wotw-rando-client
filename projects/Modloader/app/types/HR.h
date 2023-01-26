@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/HR.h>
+#include <Modloader/app/structs/HR__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/HR__Class.h>
-#include <Modloader/app/structs/HR.h>
 
 namespace app::classes::types {
     namespace HR {
-        namespace {
-            inline app::HR__Class* type_info_ref = nullptr;
+        inline app::HR__Class** type_info() {
+            static app::HR__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::HR__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::HR__Class** type_info = &type_info_ref;
         inline app::HR__Class* get_class() {
-            return il2cpp::get_class<app::HR__Class>(type_info, "XGamingRuntime.Interop", "HR");
+            return il2cpp::get_class<app::HR__Class>(type_info(), "XGamingRuntime.Interop", "HR");
         }
         inline app::HR* create() {
             return il2cpp::create_object<app::HR>(get_class());

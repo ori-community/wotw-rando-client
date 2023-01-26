@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PauseScreen.h>
+
+#include <Modloader/app/structs/PauseScreen.h>
 #include <Modloader/app/structs/MenuTabBackground__Enum.h>
 
 namespace app::classes::PauseScreen {
@@ -12,7 +13,6 @@ namespace app::classes::PauseScreen {
     IL2CPP_REGISTER_METHOD(0x0044AA50, void, Awake, (app::PauseScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0044AB20, void, OnDestroy, (app::PauseScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0044AD20, void, OnBackPressed, (app::PauseScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04769288, PauseScreen_OnBackPressed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0044AF50, void, Hide, (app::PauseScreen * this_ptr, bool change))
     IL2CPP_REGISTER_METHOD(0x0044AF80, void, DeregisterCallbacks, (app::PauseScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0044B250, void, HideImmediate, (app::PauseScreen * this_ptr))
@@ -20,10 +20,8 @@ namespace app::classes::PauseScreen {
     IL2CPP_REGISTER_METHOD(0x0044B510, void, RegisterCallbacks, (app::PauseScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0044B7E0, void, ShowImmediate, (app::PauseScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0044B820, void, OnNavigate, (app::PauseScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04746978, PauseScreen_OnNavigate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0044B910, void, OnShow, (app::PauseScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0044BB40, void, OnPressed, (app::PauseScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476D9F0, PauseScreen_OnPressed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0044BB70, void, OnPostTimeSlicedEnable, (app::PauseScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0044BC80, void, OnInstantiate, (app::PauseScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::PauseScreen * this_ptr))

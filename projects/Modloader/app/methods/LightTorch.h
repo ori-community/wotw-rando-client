@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LightTorch.h>
+
+#include <Modloader/app/structs/LightTorch.h>
 #include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LightTorch {
     IL2CPP_REGISTER_METHOD(0x00601090, bool, get_IsChasing, (app::LightTorch * this_ptr))
@@ -14,7 +15,6 @@ namespace app::classes::LightTorch {
     IL2CPP_REGISTER_METHOD(0x0058E140, app::Vector3, get_Position, (app::LightTorch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011503A0, bool, get_SeinInsideTorchZone, (app::LightTorch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01150610, void, OnGameReset, (app::LightTorch * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473D350, LightTorch_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01150740, void, SetToNormal, (app::LightTorch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011508F0, void, ChangeToNormalImmediate, (app::LightTorch * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01150A90, void, ChangeToNormal, (app::LightTorch * this_ptr))

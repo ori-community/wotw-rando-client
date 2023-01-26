@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataError.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/DataError.h>
 #include <Modloader/app/structs/DataColumn.h>
 #include <Modloader/app/structs/DataColumn__Array.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Data::DataError {
     IL2CPP_REGISTER_METHOD(0x0239F0B0, void, ctor_1, (app::DataError * this_ptr))

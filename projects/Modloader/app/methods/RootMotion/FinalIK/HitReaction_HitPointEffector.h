@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HitReaction_HitPointEffector.h>
+
+#include <Modloader/app/structs/HitReaction_HitPointEffector.h>
 #include <Modloader/app/structs/IKSolverFullBodyBiped.h>
 
 namespace app::classes::RootMotion::FinalIK::HitReaction_HitPointEffector {

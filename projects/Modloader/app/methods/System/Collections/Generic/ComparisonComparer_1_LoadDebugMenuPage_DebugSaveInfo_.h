@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_LoadDebugMenuPage_DebugSaveInfo_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_LoadDebugMenuPage_DebugSaveInfo_.h>
 #include <Modloader/app/structs/Comparison_1_LoadDebugMenuPage_DebugSaveInfo_.h>
 #include <Modloader/app/structs/LoadDebugMenuPage_DebugSaveInfo.h>
 

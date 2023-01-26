@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/BlackboardVariableObject__Class.h>
 #include <Modloader/app/structs/BlackboardVariableObject.h>
 #include <Modloader/app/structs/BlackboardVariableObject__Array.h>
+#include <Modloader/app/structs/BlackboardVariableObject__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace BlackboardVariableObject {
-        namespace {
-            inline app::BlackboardVariableObject__Class* type_info_ref = nullptr;
+        inline app::BlackboardVariableObject__Class** type_info() {
+            static app::BlackboardVariableObject__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::BlackboardVariableObject__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::BlackboardVariableObject__Class** type_info = &type_info_ref;
         inline app::BlackboardVariableObject__Class* get_class() {
-            return il2cpp::get_class<app::BlackboardVariableObject__Class>(type_info, "Moon.BehaviourSystem", "BlackboardVariableObject");
+            return il2cpp::get_class<app::BlackboardVariableObject__Class>(type_info(), "Moon.BehaviourSystem", "BlackboardVariableObject");
         }
         inline app::BlackboardVariableObject* create() {
             return il2cpp::create_object<app::BlackboardVariableObject>(get_class());

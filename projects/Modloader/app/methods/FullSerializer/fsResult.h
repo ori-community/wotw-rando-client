@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/fsResult__Boxed.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/fsResult.h>
+
+#include <Modloader/app/structs/fsResult__Boxed.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/fsResult.h>
 
 namespace app::classes::FullSerializer::fsResult {
     IL2CPP_REGISTER_METHOD(0x0012C5C0, void, AddMessage, (app::fsResult__Boxed * this_ptr, app::String* message))
@@ -17,11 +18,8 @@ namespace app::classes::FullSerializer::fsResult {
     IL2CPP_REGISTER_METHOD(0x0010E100, bool, get_Succeeded, (app::fsResult__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0012C640, bool, get_HasWarnings, (app::fsResult__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0012C6D0, app::fsResult, AssertSuccess, (app::fsResult__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04726208, fsResult_AssertSuccess__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012C700, app::fsResult, AssertSuccessWithoutWarnings, (app::fsResult__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04745B58, fsResult_AssertSuccessWithoutWarnings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012C730, app::Exception*, get_AsException, (app::fsResult__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478FC90, fsResult_get_AsException__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012C740, app::IEnumerable_1_System_String_*, get_RawMessages, (app::fsResult__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0012C750, app::String*, get_FormattedMessages, (app::fsResult__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01515380, void, cctor, ())

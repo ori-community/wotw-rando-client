@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BoolStateMap_Mapping__Array.h>
-#include <Modloader/app/structs/IComparer_1_BoolStateMap_Mapping_.h>
+
+#include <Modloader/app/structs/BoolStateMap_Mapping__Array.h>
 #include <Modloader/app/structs/BoolStateMap_Mapping.h>
 #include <Modloader/app/structs/Comparison_1_BoolStateMap_Mapping_.h>
+#include <Modloader/app/structs/IComparer_1_BoolStateMap_Mapping_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_BoolStateMap_Mapping_ {
     IL2CPP_REGISTER_METHOD(0x02F2AD20, void, Sort_1, (app::BoolStateMap_Mapping__Array * keys, int32_t index, int32_t length, app::IComparer_1_BoolStateMap_Mapping_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x047433A0, ArraySortHelper_1_BoolStateMap_Mapping__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F2B040, int32_t, BinarySearch, (app::BoolStateMap_Mapping__Array * array, int32_t index, int32_t length, app::BoolStateMap_Mapping value, app::IComparer_1_BoolStateMap_Mapping_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0470B998, ArraySortHelper_1_BoolStateMap_Mapping__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F2B1E0, void, Sort_2, (app::BoolStateMap_Mapping__Array * keys, int32_t index, int32_t length, app::Comparison_1_BoolStateMap_Mapping_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0475FCC8, ArraySortHelper_1_BoolStateMap_Mapping__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F2B330, int32_t, InternalBinarySearch, (app::BoolStateMap_Mapping__Array * array, int32_t index, int32_t length, app::BoolStateMap_Mapping value, app::IComparer_1_BoolStateMap_Mapping_* comparer))
     IL2CPP_REGISTER_METHOD(0x02F2B450, void, SwapIfGreater, (app::BoolStateMap_Mapping__Array * keys, app::Comparison_1_BoolStateMap_Mapping_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02F2B5E0, void, Swap, (app::BoolStateMap_Mapping__Array * a, int32_t i, int32_t j))

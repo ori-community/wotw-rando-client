@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSchemaNotation.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaNotation.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaNotation {
     IL2CPP_REGISTER_METHOD(0x002FBB40, app::String*, get_Name, (app::XmlSchemaNotation * this_ptr))

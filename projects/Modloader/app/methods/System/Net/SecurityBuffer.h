@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SecurityBuffer.h>
-#include <Modloader/app/structs/Byte__Array.h>
+
+#include <Modloader/app/structs/SecurityBuffer.h>
 #include <Modloader/app/structs/BufferType__Enum.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/ChannelBinding.h>
 
 namespace app::classes::System::Net::SecurityBuffer {

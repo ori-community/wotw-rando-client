@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/EntityId__Array.h>
+#include <Modloader/app/structs/EntityId__Boxed.h>
+#include <Modloader/app/structs/EntityId__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/EntityId__Class.h>
-#include <Modloader/app/structs/EntityId.h>
-#include <Modloader/app/structs/EntityId__Boxed.h>
-#include <Modloader/app/structs/EntityId__Array.h>
 
 namespace app::classes::types {
     namespace EntityId {
-        inline app::EntityId__Class** type_info = (app::EntityId__Class**)(modloader::win::memory::resolve_rva(0x04774920));
+        inline app::EntityId__Class** type_info() {
+            static app::EntityId__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::EntityId__Class**)(modloader::win::memory::resolve_rva(0x04774920));
+            }
+            return cache;
+        }
         inline app::EntityId__Class* get_class() {
-            return il2cpp::get_class<app::EntityId__Class>(type_info, "Moon.Timeline", "EntityId");
+            return il2cpp::get_class<app::EntityId__Class>(type_info(), "Moon.Timeline", "EntityId");
         }
         inline app::EntityId* create() {
             return il2cpp::create_object<app::EntityId>(get_class());

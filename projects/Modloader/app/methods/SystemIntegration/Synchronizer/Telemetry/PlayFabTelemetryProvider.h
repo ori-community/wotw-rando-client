@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayFabTelemetryProvider.h>
+
+#include <Modloader/app/structs/PlayFabTelemetryProvider.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Object_.h>
 #include <Modloader/app/structs/INetworkConnectivityChecker.h>
 #include <Modloader/app/structs/MoonTelemetryEvent.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Dictionary_2_System_String_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::SystemIntegration::Synchronizer::Telemetry::PlayFabTelemetryProvider {
     IL2CPP_REGISTER_METHOD(0x00CD9930, void, ctor, (app::PlayFabTelemetryProvider * this_ptr, app::INetworkConnectivityChecker* network_connectivity_checker))

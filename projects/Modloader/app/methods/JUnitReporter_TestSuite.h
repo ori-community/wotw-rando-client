@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JUnitReporter_TestSuite.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/JUnitReporter_TestSuite.h>
 #include <Modloader/app/structs/JUnitReporter_TestCase.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TimeSpan.h>
 
 namespace app::classes::JUnitReporter_TestSuite {

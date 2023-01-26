@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Listeners_1_System_Object_.h>
+
+#include <Modloader/app/structs/Listeners_1_System_Object_.h>
+#include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/Listeners_1_TElem_Actio_4_Syste_Objec_Syste_Objec_Syste_Int32Enu_Syste_Objec_Syste_Boolea_.h>
+#include <Modloader/app/structs/Listeners_1_TElem_Action_4_System_Objec_Syste_Objec_Syste_Objec_Syste_Boolea_Syste_Boolea_.h>
+#include <Modloader/app/structs/Listeners_1_TElem_Action_4_System_Object_System_Objec_Syste_Objec_Syste_Objec_Syste_Objec_.h>
 #include <Modloader/app/structs/Listeners_1_TElem_Func_2_System_Object_System_Object_System_Boolean_.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Listeners_1_TElem_Action_4_System_Object_System_Object_System_Object_System_Object_System_Object_.h>
-#include <Modloader/app/structs/Int32Enum__Enum.h>
-#include <Modloader/app/structs/Listeners_1_TElem_Action_4_System_Object_System_Object_System_Int32Enum_System_Object_System_Boolean_.h>
-#include <Modloader/app/structs/Listeners_1_TElem_Action_4_System_Object_System_Object_System_Object_System_Boolean_System_Boolean_.h>
 
 namespace app::classes::System::Data::Listeners_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02FAEDD0, bool, get_HasListeners, (app::Listeners_1_System_Object_ * this_ptr))

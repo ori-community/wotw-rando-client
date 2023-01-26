@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMoonSetupVisuals.h>
+
+#include <Modloader/app/structs/IMoonSetupVisuals.h>
 #include <Modloader/app/structs/RotatingObstacleAnimator.h>
 
 namespace app::classes::RotatingObstacleAnimator {

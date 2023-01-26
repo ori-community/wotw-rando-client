@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameScheduler.h>
+
+#include <Modloader/app/structs/GameScheduler.h>
 #include <Modloader/app/structs/Events_1.h>
 
 namespace app::classes::Game::Events {

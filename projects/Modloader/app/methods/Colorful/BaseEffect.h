@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Shader.h>
+
+#include <Modloader/app/structs/Shader.h>
 #include <Modloader/app/structs/BaseEffect.h>
 #include <Modloader/app/structs/Material.h>
-#include <Modloader/app/structs/Texture.h>
 #include <Modloader/app/structs/RenderTexture.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Texture.h>
 
 namespace app::classes::Colorful::BaseEffect {
     IL2CPP_REGISTER_METHOD(0x0303DB90, app::Shader*, get_ShaderSafe, (app::BaseEffect * this_ptr))

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShellSlugShell.h>
-#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Damage.h>
+
+#include <Modloader/app/structs/ShellSlugShell.h>
 #include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::ShellSlugShell {
     IL2CPP_REGISTER_METHOD(0x005B3ED0, void, ShatterEffectPrefabsInstantiation, (app::ShellSlugShell * this_ptr, app::List_1_DynamicInstantiationDescriptor_* instantiations))

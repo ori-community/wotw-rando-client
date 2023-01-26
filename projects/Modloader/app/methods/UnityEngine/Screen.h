@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Resolution.h>
+
+#include <Modloader/app/structs/Resolution.h>
 #include <Modloader/app/structs/FullScreenMode__Enum.h>
 #include <Modloader/app/structs/Resolution__Array.h>
 

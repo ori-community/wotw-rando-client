@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array.h>
+
+#include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_.h>
 #include <Modloader/app/structs/IComparer_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_.h>
 #include <Modloader/app/structs/TransparencyAnimatorSystemStrategy_SetSceneHiddenAction.h>
-#include <Modloader/app/structs/Comparison_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_ {
     IL2CPP_REGISTER_METHOD(0x02F3C060, void, Sort_1, (app::TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04789260, ArraySortHelper_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F3C380, int32_t, BinarySearch, (app::TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array * array, int32_t index, int32_t length, app::TransparencyAnimatorSystemStrategy_SetSceneHiddenAction value, app::IComparer_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04718EF0, ArraySortHelper_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F3C530, void, Sort_2, (app::TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array * keys, int32_t index, int32_t length, app::Comparison_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0477F498, ArraySortHelper_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C898B0, int32_t, InternalBinarySearch, (app::TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array * array, int32_t index, int32_t length, app::TransparencyAnimatorSystemStrategy_SetSceneHiddenAction value, app::IComparer_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C89A40, void, SwapIfGreater, (app::TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array * keys, app::Comparison_1_Moon_Timeline_TransparencyAnimatorSystemStrategy_SetSceneHiddenAction_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C89BD0, void, Swap, (app::TransparencyAnimatorSystemStrategy_SetSceneHiddenAction__Array * a, int32_t i, int32_t j))

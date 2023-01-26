@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpeedBasedEmissionRateMultiplier.h>
+
+#include <Modloader/app/structs/SpeedBasedEmissionRateMultiplier.h>
 
 namespace app::classes::SpeedBasedEmissionRateMultiplier {
     IL2CPP_REGISTER_METHOD(0x00EF7FE0, void, OnPoolSpawned, (app::SpeedBasedEmissionRateMultiplier * this_ptr))

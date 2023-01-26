@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
-#include <Modloader/app/structs/MudkisserHitReactionBehaviour.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
-#include <Modloader/app/structs/EntityEvent.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/MudkisserHitReactionBehaviour.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::MudkisserHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00418200, app::EntityDamageEvent*, get_DamageEvent, (app::MudkisserHitReactionBehaviour * this_ptr))
@@ -16,7 +17,6 @@ namespace app::classes::MudkisserHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x008760D0, void, StartTimeline, (app::MudkisserHitReactionBehaviour * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x008762A0, void, ResetTimeline, (app::MudkisserHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00876500, void, TimelineFinished, (app::MudkisserHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476BE68, MudkisserHitReactionBehaviour_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00876520, bool, PlayedAdditiveAnim, (app::MudkisserHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00876630, void, OnHit, (app::MudkisserHitReactionBehaviour * this_ptr, app::EntityDamageEvent* damage_event))
     IL2CPP_REGISTER_METHOD(0x00876960, app::Vector2, ProcessSpecialMultipliers, (app::MudkisserHitReactionBehaviour * this_ptr, app::Damage* damage, app::Vector2 final_force))

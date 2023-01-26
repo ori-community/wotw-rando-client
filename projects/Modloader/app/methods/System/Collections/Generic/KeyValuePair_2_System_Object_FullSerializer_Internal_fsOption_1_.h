@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1___Boxed.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/fsOption_1_fsVersionedType_.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/fsOption_1_fsVersionedType_.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1_ {
     IL2CPP_REGISTER_METHOD(0x00151460, void, ctor, (app::KeyValuePair_2_System_Object_FullSerializer_Internal_fsOption_1___Boxed * this_ptr, app::Object* key, app::fsOption_1_fsVersionedType_ value))

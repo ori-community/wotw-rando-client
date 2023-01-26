@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CustomerContentKind__Enum.h>
+
+#include <Modloader/app/structs/CustomerContentKind__Enum.h>
 #include <Modloader/app/structs/CustomerContent.h>
 #include <Modloader/app/structs/String.h>
 

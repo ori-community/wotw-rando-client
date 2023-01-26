@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ConcurrentQueue_1_T_Segment_System_Object_.h>
+
+#include <Modloader/app/structs/ConcurrentQueue_1_T_Segment_System_Object_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Concurrent::ConcurrentQueue_1_T__Segment_System_Object_ {

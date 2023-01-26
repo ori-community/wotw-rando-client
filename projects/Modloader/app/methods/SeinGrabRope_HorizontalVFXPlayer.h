@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/SeinGrabRope_HorizontalVFXPlayer.h>
+
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/MaterialBasedResourceMap.h>
+#include <Modloader/app/structs/SeinGrabRope_HorizontalVFXPlayer.h>
 #include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
 
 namespace app::classes::SeinGrabRope_HorizontalVFXPlayer {

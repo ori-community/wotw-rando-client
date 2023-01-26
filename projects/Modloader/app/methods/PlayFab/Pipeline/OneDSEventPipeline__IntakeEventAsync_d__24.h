@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OneDSEventPipeline_IntakeEventAsync_d_24__Boxed.h>
+
+#include <Modloader/app/structs/OneDSEventPipeline_IntakeEventAsync_d_24__Boxed.h>
 #include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::PlayFab::Pipeline::OneDSEventPipeline__IntakeEventAsync_d__24 {

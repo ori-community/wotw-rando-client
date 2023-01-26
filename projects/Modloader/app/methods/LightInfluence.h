@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LightInfluence.h>
+
+#include <Modloader/app/structs/LightInfluence.h>
 #include <Modloader/app/structs/LightPriority_Layer__Enum.h>
 
 namespace app::classes::LightInfluence {

@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/VisibleLight__Array.h>
+#include <Modloader/app/structs/VisibleLight__Array__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/VisibleLight__Array__Class.h>
-#include <Modloader/app/structs/VisibleLight__Array.h>
 
 namespace app::classes::types {
     namespace VisibleLight__Array {
-        namespace {
-            inline app::VisibleLight__Array__Class* type_info_ref = nullptr;
+        inline app::VisibleLight__Array__Class** type_info() {
+            static app::VisibleLight__Array__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::VisibleLight__Array__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::VisibleLight__Array__Class** type_info = &type_info_ref;
         inline app::VisibleLight__Array__Class* get_class() {
-            return il2cpp::get_class<app::VisibleLight__Array__Class>(type_info, "UnityEngine.Experimental.Rendering", "VisibleLight[]");
+            return il2cpp::get_class<app::VisibleLight__Array__Class>(type_info(), "UnityEngine.Experimental.Rendering", "VisibleLight[]");
         }
         inline app::VisibleLight__Array* create() {
             return il2cpp::create_object<app::VisibleLight__Array>(get_class());

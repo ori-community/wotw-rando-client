@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ExceptionEventArgs.h>
+
+#include <Modloader/app/structs/ExceptionEventArgs.h>
 #include <Modloader/app/structs/Exception.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::ExceptionEventArgs {

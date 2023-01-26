@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ParenthesizePropertyNameAttribute.h>
+
+#include <Modloader/app/structs/ParenthesizePropertyNameAttribute.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::ComponentModel::ParenthesizePropertyNameAttribute {

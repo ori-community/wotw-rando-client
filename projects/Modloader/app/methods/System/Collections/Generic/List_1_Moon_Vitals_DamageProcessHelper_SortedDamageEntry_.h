@@ -1,37 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
-#include <Modloader/app/structs/Vitals_DamageProcessHelper_SortedDamageEntry.h>
+
+#include <Modloader/app/structs/List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
+#include <Modloader/app/structs/Action_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Comparison_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
 #include <Modloader/app/structs/IComparer_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
 #include <Modloader/app/structs/IEnumerable_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
-#include <Modloader/app/structs/Vitals_DamageProcessHelper_SortedDamageEntry__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
-#include <Modloader/app/structs/Action_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
-#include <Modloader/app/structs/IEnumerator_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
 #include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Comparison_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_.h>
+#include <Modloader/app/structs/Vitals_DamageProcessHelper_SortedDamageEntry.h>
+#include <Modloader/app/structs/Vitals_DamageProcessHelper_SortedDamageEntry__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047480B8, List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04798CD8, List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry__get_Capacity__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8790, void, set_Capacity, (app::List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ * this_ptr, int32_t value))
-    IL2CPP_REGISTER_METHODINFO(0x04750868, List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry__set_Capacity__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025ECB30, void, Add, (app::List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ * this_ptr, app::Vitals_DamageProcessHelper_SortedDamageEntry item))
-    IL2CPP_REGISTER_METHODINFO(0x04730738, List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EC7A0, void, set_Item, (app::List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ * this_ptr, int32_t index, app::Vitals_DamageProcessHelper_SortedDamageEntry value))
-    IL2CPP_REGISTER_METHODINFO(0x0473A320, List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAE20, void, Sort_1, (app::List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ * this_ptr, int32_t index, int32_t count, app::IComparer_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04774BA0, List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EC760, app::Vitals_DamageProcessHelper_SortedDamageEntry, get_Item, (app::List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0472D438, List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x04747F68, List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_2, (app::List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02E0A370, void, ctor_3, (app::List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ * this_ptr, app::IEnumerable_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_* collection))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, IList_get_IsFixedSize, (app::List_1_Moon_Vitals_DamageProcessHelper_SortedDamageEntry_ * this_ptr))

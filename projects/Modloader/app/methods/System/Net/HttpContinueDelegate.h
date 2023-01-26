@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HttpContinueDelegate.h>
+
+#include <Modloader/app/structs/HttpContinueDelegate.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/WebHeaderCollection.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::System::Net::HttpContinueDelegate {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::HttpContinueDelegate * this_ptr, app::Object* object, void* method_1))

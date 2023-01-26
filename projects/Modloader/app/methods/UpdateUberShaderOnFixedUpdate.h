@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderComponent.h>
+
+#include <Modloader/app/structs/UberShaderComponent.h>
 #include <Modloader/app/structs/UpdateUberShaderOnFixedUpdate.h>
 
 namespace app::classes::UpdateUberShaderOnFixedUpdate {

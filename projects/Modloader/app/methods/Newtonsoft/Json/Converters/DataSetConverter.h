@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataSetConverter.h>
+
+#include <Modloader/app/structs/DataSetConverter.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/JsonSerializer.h>
 #include <Modloader/app/structs/JsonWriter.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/JsonSerializer.h>
-#include <Modloader/app/structs/JsonReader.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::DataSetConverter {

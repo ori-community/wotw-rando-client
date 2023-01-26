@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Color__Array.h>
+
+#include <Modloader/app/structs/Color__Array.h>
 #include <Modloader/app/structs/Texture.h>
 #include <Modloader/app/structs/Texture2D.h>
 

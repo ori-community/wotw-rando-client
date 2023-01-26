@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FrogEntity.h>
-#include <Modloader/app/structs/FrogGroup.h>
-#include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/FrogEntity.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/FrogGroup.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::FrogEntity {
     IL2CPP_REGISTER_METHOD(0x01646F60, bool, CanAnySeeCharacter, (app::FrogEntity * this_ptr))
@@ -23,5 +24,4 @@ namespace app::classes::FrogEntity {
     IL2CPP_REGISTER_METHOD(0x00B68B50, app::Vector3, ModifyKickbackForce, (app::FrogEntity * this_ptr, app::Vector3 force, app::Damage* damage, bool apply_death_modification))
     IL2CPP_REGISTER_METHOD(0x01647BD0, void, ctor, (app::FrogEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01647C70, void, _TemporarlyDisableDieOnTouch_b__22_0, (app::FrogEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470B478, FrogEntity__TemporarlyDisableDieOnTouch_b__22_0__MethodInfo)
 } // namespace app::classes::FrogEntity

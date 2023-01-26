@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RigidbodyInteractionController_InteractionInformation__Boxed.h>
+
+#include <Modloader/app/structs/RigidbodyInteractionController_InteractionInformation__Boxed.h>
 #include <Modloader/app/structs/Collision.h>
 #include <Modloader/app/structs/Vector3.h>
 

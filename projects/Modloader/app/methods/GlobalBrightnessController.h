@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IBrigthnessContributionAgent.h>
+
+#include <Modloader/app/structs/IBrigthnessContributionAgent.h>
 #include <Modloader/app/structs/GlobalBrightnessController.h>
 
 namespace app::classes::GlobalBrightnessController {

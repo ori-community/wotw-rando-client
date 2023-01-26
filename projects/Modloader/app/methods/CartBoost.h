@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CartBoost.h>
+
+#include <Modloader/app/structs/CartBoost.h>
 
 namespace app::classes::CartBoost {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::CartBoost * this_ptr))

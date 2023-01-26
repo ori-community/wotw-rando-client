@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Trigger_ProcessTrigger_d_39.h>
+
+#include <Modloader/app/structs/Trigger_ProcessTrigger_d_39.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Trigger__ProcessTrigger_d__39 {
@@ -9,6 +10,5 @@ namespace app::classes::Trigger__ProcessTrigger_d__39 {
     IL2CPP_REGISTER_METHOD(0x00B12320, bool, MoveNext, (app::Trigger_ProcessTrigger_d_39 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::Trigger_ProcessTrigger_d_39 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B12570, void, IEnumerator_Reset, (app::Trigger_ProcessTrigger_d_39 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047035D0, Trigger_ProcessTrigger_d_39_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::Trigger_ProcessTrigger_d_39 * this_ptr))
 } // namespace app::classes::Trigger__ProcessTrigger_d__39

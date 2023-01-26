@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SneezeSlugBurrowBehaviour.h>
+
+#include <Modloader/app/structs/SneezeSlugBurrowBehaviour.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/SneezeSlugBurrowBehaviour_State__Enum.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/SneezeSlugBurrowBehaviour_State__Enum.h>
 
 namespace app::classes::SneezeSlugBurrowBehaviour {
     IL2CPP_REGISTER_METHOD(0x00ED5050, bool, IsBlockingInterruption, (app::SneezeSlugBurrowBehaviour * this_ptr, app::EntityDamageEvent* damage_event, app::EntityReactionBehaviour_ReasonWhyReactionWontInterrupt* reason))
@@ -23,12 +24,8 @@ namespace app::classes::SneezeSlugBurrowBehaviour {
     IL2CPP_REGISTER_METHOD(0x00ED6AE0, void, Hide, (app::SneezeSlugBurrowBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ED6BF0, void, Show, (app::SneezeSlugBurrowBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ED6D00, void, BlastAttack, (app::SneezeSlugBurrowBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047289F0, SneezeSlugBurrowBehaviour_BlastAttack__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ED7080, void, SneezeAttack, (app::SneezeSlugBurrowBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477B6A8, SneezeSlugBurrowBehaviour_SneezeAttack__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ED7CA0, void, ctor, (app::SneezeSlugBurrowBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00ED8280, void, _SetState_b__49_0, (app::SneezeSlugBurrowBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475BEE0, SneezeSlugBurrowBehaviour__SetState_b__49_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00ED8290, void, _SetState_b__49_1, (app::SneezeSlugBurrowBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04741E78, SneezeSlugBurrowBehaviour__SetState_b__49_1__MethodInfo)
 } // namespace app::classes::SneezeSlugBurrowBehaviour

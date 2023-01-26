@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/WindowState__Enum.h>
+#include <Modloader/app/structs/WindowState__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/WindowState__Enum__Class.h>
-#include <Modloader/app/structs/WindowState__Enum.h>
 
 namespace app::classes::types {
     namespace WindowState__Enum {
-        namespace {
-            inline app::WindowState__Enum__Class* type_info_ref = nullptr;
+        inline app::WindowState__Enum__Class** type_info() {
+            static app::WindowState__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::WindowState__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::WindowState__Enum__Class** type_info = &type_info_ref;
         inline app::WindowState__Enum__Class* get_class() {
-            return il2cpp::get_class<app::WindowState__Enum__Class>(type_info, "", "WindowState");
+            return il2cpp::get_class<app::WindowState__Enum__Class>(type_info(), "", "WindowState");
         }
         inline app::WindowState__Enum* create() {
             return il2cpp::create_object<app::WindowState__Enum>(get_class());

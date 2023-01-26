@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/ServerAnimatorHelper_SequenceEntryData.h>
+#include <Modloader/app/structs/ServerAnimatorHelper_SequenceEntryData__Array.h>
+#include <Modloader/app/structs/ServerAnimatorHelper_SequenceEntryData__Boxed.h>
+#include <Modloader/app/structs/ServerAnimatorHelper_SequenceEntryData__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ServerAnimatorHelper_SequenceEntryData__Class.h>
-#include <Modloader/app/structs/ServerAnimatorHelper_SequenceEntryData.h>
-#include <Modloader/app/structs/ServerAnimatorHelper_SequenceEntryData__Boxed.h>
-#include <Modloader/app/structs/ServerAnimatorHelper_SequenceEntryData__Array.h>
 
 namespace app::classes::types {
     namespace ServerAnimatorHelper_SequenceEntryData {
-        namespace {
-            inline app::ServerAnimatorHelper_SequenceEntryData__Class* type_info_ref = nullptr;
+        inline app::ServerAnimatorHelper_SequenceEntryData__Class** type_info() {
+            static app::ServerAnimatorHelper_SequenceEntryData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ServerAnimatorHelper_SequenceEntryData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ServerAnimatorHelper_SequenceEntryData__Class** type_info = &type_info_ref;
         inline app::ServerAnimatorHelper_SequenceEntryData__Class* get_class() {
-            return il2cpp::get_nested_class<app::ServerAnimatorHelper_SequenceEntryData__Class>(type_info, "", "ServerAnimatorHelper", "SequenceEntryData");
+            return il2cpp::get_nested_class<app::ServerAnimatorHelper_SequenceEntryData__Class>(type_info(), "", "ServerAnimatorHelper", "SequenceEntryData");
         }
         inline app::ServerAnimatorHelper_SequenceEntryData* create() {
             return il2cpp::create_object<app::ServerAnimatorHelper_SequenceEntryData>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ExclusiveOrInstruction_ExclusiveOrUInt32.h>
+
+#include <Modloader/app/structs/ExclusiveOrInstruction_ExclusiveOrUInt32.h>
 #include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::ExclusiveOrInstruction_ExclusiveOrUInt32 {

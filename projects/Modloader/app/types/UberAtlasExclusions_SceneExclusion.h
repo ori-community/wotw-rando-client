@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/UberAtlasExclusions_SceneExclusion.h>
+#include <Modloader/app/structs/UberAtlasExclusions_SceneExclusion__Array.h>
+#include <Modloader/app/structs/UberAtlasExclusions_SceneExclusion__Boxed.h>
+#include <Modloader/app/structs/UberAtlasExclusions_SceneExclusion__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UberAtlasExclusions_SceneExclusion__Class.h>
-#include <Modloader/app/structs/UberAtlasExclusions_SceneExclusion.h>
-#include <Modloader/app/structs/UberAtlasExclusions_SceneExclusion__Boxed.h>
-#include <Modloader/app/structs/UberAtlasExclusions_SceneExclusion__Array.h>
 
 namespace app::classes::types {
     namespace UberAtlasExclusions_SceneExclusion {
-        inline app::UberAtlasExclusions_SceneExclusion__Class** type_info = (app::UberAtlasExclusions_SceneExclusion__Class**)(modloader::win::memory::resolve_rva(0x0474D048));
+        inline app::UberAtlasExclusions_SceneExclusion__Class** type_info() {
+            static app::UberAtlasExclusions_SceneExclusion__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::UberAtlasExclusions_SceneExclusion__Class**)(modloader::win::memory::resolve_rva(0x0474D048));
+            }
+            return cache;
+        }
         inline app::UberAtlasExclusions_SceneExclusion__Class* get_class() {
-            return il2cpp::get_nested_class<app::UberAtlasExclusions_SceneExclusion__Class>(type_info, "", "UberAtlasExclusions", "SceneExclusion");
+            return il2cpp::get_nested_class<app::UberAtlasExclusions_SceneExclusion__Class>(type_info(), "", "UberAtlasExclusions", "SceneExclusion");
         }
         inline app::UberAtlasExclusions_SceneExclusion* create() {
             return il2cpp::create_object<app::UberAtlasExclusions_SceneExclusion>(get_class());

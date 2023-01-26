@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinSpiritSlash.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/PlatformMovement.h>
+
+#include <Modloader/app/structs/SeinSpiritSlash.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/SeinSpiritSlash_State__Enum.h>
 #include <Modloader/app/structs/ISpiritSlashAttackable.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/SeinSpiritSlash_State__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinSpiritSlash {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinSpiritSlash * this_ptr))
@@ -22,12 +23,10 @@ namespace app::classes::SeinSpiritSlash {
     IL2CPP_REGISTER_METHOD(0x00A6D860, void, Start, (app::SeinSpiritSlash * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A6DB60, void, OnDestroy, (app::SeinSpiritSlash * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A6DE70, void, ModifyGravityPlatformMovementSettings, (app::SeinSpiritSlash * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x047948A0, SeinSpiritSlash_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A6DEA0, void, ChangeState, (app::SeinSpiritSlash * this_ptr, app::SeinSpiritSlash_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x00A6DF20, bool, CanPerformStinger, (app::SeinSpiritSlash * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A6DFD0, void, BeginAttack, (app::SeinSpiritSlash * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A6D210, bool, ShouldAnimationKeepPlaying, (app::SeinSpiritSlash * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04729E38, SeinSpiritSlash_ShouldAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A6E7C0, void, UpdateCharacterState, (app::SeinSpiritSlash * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A6E940, void, UpdateClosestAttackable, (app::SeinSpiritSlash * this_ptr, bool both_directions))
     IL2CPP_REGISTER_METHOD(0x00A6EA50, void, UpdateIdle, (app::SeinSpiritSlash * this_ptr))
@@ -38,7 +37,6 @@ namespace app::classes::SeinSpiritSlash {
     IL2CPP_REGISTER_METHOD(0x00A701B0, bool, CanLightAttack, (app::SeinSpiritSlash * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A706F0, void, DealDamage, (app::SeinSpiritSlash * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00A71100, void, OnResetAirLimits, (app::SeinSpiritSlash * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478B970, SeinSpiritSlash_OnResetAirLimits__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00A71120, app::ISpiritSlashAttackable*, FindClosestAttackHandler, (app::SeinSpiritSlash * this_ptr, bool both_directions))
     IL2CPP_REGISTER_METHOD(0x00A71810, void, ctor, (app::SeinSpiritSlash * this_ptr))
 } // namespace app::classes::SeinSpiritSlash

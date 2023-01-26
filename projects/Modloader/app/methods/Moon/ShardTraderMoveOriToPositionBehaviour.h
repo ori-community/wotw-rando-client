@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShardTraderMoveOriToPositionBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/ShardTraderMoveOriToPositionBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::ShardTraderMoveOriToPositionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00E274D0, void, OnEnter, (app::ShardTraderMoveOriToPositionBehaviour * this_ptr, app::IContext* context))

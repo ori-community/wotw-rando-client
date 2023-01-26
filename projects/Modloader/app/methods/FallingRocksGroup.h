@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FallingRocksGroup.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/FallingRocksGroup.h>
 #include <Modloader/app/structs/List_1_DynamicInstantiationDescriptor_.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Projectile.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::FallingRocksGroup {
     IL2CPP_REGISTER_METHOD(0x00998560, int32_t, get_GroundMask, (app::FallingRocksGroup * this_ptr))
@@ -25,8 +26,6 @@ namespace app::classes::FallingRocksGroup {
     IL2CPP_REGISTER_METHOD(0x00999F00, void, UpdateDelayedAntics, (app::FallingRocksGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0099A150, int32_t, GetRandomWeightIndex, (app::FallingRocksGroup * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0099A380, void, OnRestoreCheckpoint, (app::FallingRocksGroup * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04741F00, FallingRocksGroup_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0099A430, void, OnRockExploded, (app::FallingRocksGroup * this_ptr, app::Projectile* proj))
-    IL2CPP_REGISTER_METHODINFO(0x0474BAA0, FallingRocksGroup_OnRockExploded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0099A680, void, ctor, (app::FallingRocksGroup * this_ptr))
 } // namespace app::classes::FallingRocksGroup

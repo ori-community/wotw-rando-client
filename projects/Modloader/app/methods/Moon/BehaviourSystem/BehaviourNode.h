@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/BehaviourNode.h>
-#include <Modloader/app/structs/Nullable_1_Moon_BehaviourSystem_BehaviourStatus_.h>
-#include <Modloader/app/structs/Action_1_Moon_BehaviourSystem_DecoratorNode_.h>
+
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Action_1_Moon_BehaviourSystem_DecoratorNode_.h>
 #include <Modloader/app/structs/Action_2_Moon_BehaviourSystem_TreeBehaviour_Exception_.h>
-#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_DecoratorNode_.h>
+#include <Modloader/app/structs/BehaviourNode.h>
 #include <Modloader/app/structs/DecoratorNode.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_DecoratorNode_.h>
 #include <Modloader/app/structs/List_1_Moon_BehaviourSystem_IUtilityProvider_.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Nullable_1_Moon_BehaviourSystem_BehaviourStatus_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::BehaviourSystem::BehaviourNode {
     IL2CPP_REGISTER_METHOD(0x004E57A0, app::BehaviourStatus__Enum, get_Status, (app::BehaviourNode * this_ptr))
@@ -49,7 +50,6 @@ namespace app::classes::Moon::BehaviourSystem::BehaviourNode {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnReset, (app::BehaviourNode * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBehaviourTreeInitialize, (app::BehaviourNode * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x03005A00, int32_t, CompareTo, (app::BehaviourNode * this_ptr, app::Object* obj))
-    IL2CPP_REGISTER_METHODINFO(0x04712390, BehaviourNode_CompareTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03005B70, void, PerformSanityCheck, (app::BehaviourNode * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03005CA0, void, OnExceptionThrown, (app::BehaviourNode * this_ptr, app::Exception* e))
     IL2CPP_REGISTER_METHOD(0x004E57A0, app::BehaviourStatus__Enum, get_TaskStatus, (app::BehaviourNode * this_ptr))
@@ -63,5 +63,4 @@ namespace app::classes::Moon::BehaviourSystem::BehaviourNode {
     IL2CPP_REGISTER_METHOD(0x015EBC30, app::Object*, GetDecorator, (app::BehaviourNode * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0154ABD0, void, GetDecorators_1, (app::BehaviourNode * this_ptr, app::List_1_System_Object_* list))
     IL2CPP_REGISTER_METHOD(0x0154ABD0, void, GetDecorators_2, (app::BehaviourNode * this_ptr, app::List_1_Moon_BehaviourSystem_IUtilityProvider_* list))
-    IL2CPP_REGISTER_METHODINFO(0x04730758, BehaviourNode_GetDecorators_1__MethodInfo)
 } // namespace app::classes::Moon::BehaviourSystem::BehaviourNode

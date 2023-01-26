@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MovieTexture.h>
+
+#include <Modloader/app/structs/MovieTexture.h>
 #include <Modloader/app/structs/AudioClip.h>
 
 namespace app::classes::UnityEngine::MovieTexture {

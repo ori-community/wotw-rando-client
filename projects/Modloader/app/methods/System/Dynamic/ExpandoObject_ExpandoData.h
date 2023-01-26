@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ExpandoObject_ExpandoData.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ExpandoClass.h>
+#include <Modloader/app/structs/ExpandoObject_ExpandoData.h>
 #include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Dynamic::ExpandoObject_ExpandoData {

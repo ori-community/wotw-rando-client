@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AutoIncrementValue.h>
+
+#include <Modloader/app/structs/AutoIncrementValue.h>
 
 namespace app::classes::System::Data::AutoIncrementValue {
     IL2CPP_REGISTER_METHOD(0x0052B590, bool, get_Auto, (app::AutoIncrementValue * this_ptr))

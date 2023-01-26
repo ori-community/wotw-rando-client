@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UnobservedTaskExceptionEventArgs.h>
+
+#include <Modloader/app/structs/UnobservedTaskExceptionEventArgs.h>
 #include <Modloader/app/structs/AggregateException.h>
 
 namespace app::classes::System::Threading::Tasks::UnobservedTaskExceptionEventArgs {

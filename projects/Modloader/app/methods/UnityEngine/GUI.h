@@ -1,22 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Material.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/FocusType__Enum.h>
+#include <Modloader/app/structs/GUIContent.h>
 #include <Modloader/app/structs/GUISkin.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/GUI_WindowFunction.h>
+#include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/Matrix4x4.h>
 #include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Texture.h>
-#include <Modloader/app/structs/GUIContent.h>
-#include <Modloader/app/structs/GUIStyle.h>
 #include <Modloader/app/structs/ScaleMode__Enum.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/FocusType__Enum.h>
-#include <Modloader/app/structs/TextEditor.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/ScrollViewState.h>
-#include <Modloader/app/structs/GUI_WindowFunction.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextEditor.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UnityEngine::GUI {
     IL2CPP_REGISTER_METHOD(0x029D8A00, void, cctor, ())
@@ -80,13 +81,13 @@ namespace app::classes::UnityEngine::GUI {
     IL2CPP_REGISTER_METHOD(0x029DC030, bool, Button_4, (app::Rect position, int32_t id, app::GUIContent* content, app::GUIStyle* style))
     IL2CPP_REGISTER_METHOD(0x029DC1A0, bool, RepeatButton, (app::Rect position, app::String* text))
     IL2CPP_REGISTER_METHOD(0x029DC2B0, bool, DoRepeatButton, (app::Rect position, app::GUIContent* content, app::GUIStyle* style, app::FocusType__Enum focus_type))
-    IL2CPP_REGISTER_METHOD(0x029DC630, app::String*, PasswordFieldGetStrToShow, (app::String * password, uint16_t mask_char))
+    IL2CPP_REGISTER_METHOD(0x029DC630, app::String*, PasswordFieldGetStrToShow, (app::String * password, char16_t mask_char))
     IL2CPP_REGISTER_METHOD(0x029DC7C0, app::String*, TextArea_1, (app::Rect position, app::String* text))
     IL2CPP_REGISTER_METHOD(0x029DC940, app::String*, TextArea_2, (app::Rect position, app::String* text, app::GUIStyle* style))
     IL2CPP_REGISTER_METHOD(0x029DCAC0, void, DoTextField_1, (app::Rect position, int32_t id, app::GUIContent* content, bool multiline, int32_t max_length, app::GUIStyle* style))
     IL2CPP_REGISTER_METHOD(0x029DCC50, void, DoTextField_2, (app::Rect position, int32_t id, app::GUIContent* content, bool multiline, int32_t max_length, app::GUIStyle* style, app::String* secure_text))
-    IL2CPP_REGISTER_METHOD(0x029DCD60, void, DoTextField_3, (app::Rect position, int32_t id, app::GUIContent* content, bool multiline, int32_t max_length, app::GUIStyle* style, app::String* secure_text, uint16_t mask_char))
-    IL2CPP_REGISTER_METHOD(0x029DD170, void, HandleTextFieldEventForTouchscreen, (app::Rect position, int32_t id, app::GUIContent* content, bool multiline, int32_t max_length, app::GUIStyle* style, app::String* secure_text, uint16_t mask_char, app::TextEditor* editor))
+    IL2CPP_REGISTER_METHOD(0x029DCD60, void, DoTextField_3, (app::Rect position, int32_t id, app::GUIContent* content, bool multiline, int32_t max_length, app::GUIStyle* style, app::String* secure_text, char16_t mask_char))
+    IL2CPP_REGISTER_METHOD(0x029DD170, void, HandleTextFieldEventForTouchscreen, (app::Rect position, int32_t id, app::GUIContent* content, bool multiline, int32_t max_length, app::GUIStyle* style, app::String* secure_text, char16_t mask_char, app::TextEditor* editor))
     IL2CPP_REGISTER_METHOD(0x029DD620, void, HandleTextFieldEventForDesktop, (app::Rect position, int32_t id, app::GUIContent* content, bool multiline, int32_t max_length, app::GUIStyle* style, app::TextEditor* editor))
     IL2CPP_REGISTER_METHOD(0x029DDEF0, bool, Toggle, (app::Rect position, bool value, app::GUIContent* content, app::GUIStyle* style))
     IL2CPP_REGISTER_METHOD(0x029DE0C0, bool, DoControl, (app::Rect position, int32_t id, bool on, app::GUIContent* content, app::GUIStyle* style))

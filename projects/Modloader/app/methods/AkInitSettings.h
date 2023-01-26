@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkInitSettings.h>
+
+#include <Modloader/app/structs/AkInitSettings.h>
+#include <Modloader/app/structs/AkFloorPlane__Enum.h>
 #include <Modloader/app/structs/AkOutputSettings.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/AkFloorPlane__Enum.h>
 
 namespace app::classes::AkInitSettings {
     IL2CPP_REGISTER_METHOD(0x01880BB0, void, ctor_1, (app::AkInitSettings * this_ptr, void* c_ptr, bool c_memory_own))

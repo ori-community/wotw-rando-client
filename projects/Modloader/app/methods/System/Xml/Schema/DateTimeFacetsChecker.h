@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Exception.h>
+
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/DateTimeFacetsChecker.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/XmlSchemaDatatype.h>
-#include <Modloader/app/structs/DateTime.h>
-#include <Modloader/app/structs/ArrayList.h>
 
 namespace app::classes::System::Xml::Schema::DateTimeFacetsChecker {
     IL2CPP_REGISTER_METHOD(0x02364270, app::Exception*, CheckValueFacets_1, (app::DateTimeFacetsChecker * this_ptr, app::Object* value, app::XmlSchemaDatatype* datatype))

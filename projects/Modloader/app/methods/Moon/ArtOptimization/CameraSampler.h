@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraSampler.h>
-#include <Modloader/app/structs/SceneMetaData.h>
+
+#include <Modloader/app/structs/CameraSampler.h>
 #include <Modloader/app/structs/Camera.h>
-#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/List_1_SceneMetaData_.h>
 #include <Modloader/app/structs/List_1_UnityEngine_Rect_.h>
 #include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/List_1_SceneMetaData_.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/SceneMetaData.h>
 
 namespace app::classes::Moon::ArtOptimization::CameraSampler {
     IL2CPP_REGISTER_METHOD(0x01349100, void, ctor, (app::CameraSampler * this_ptr, app::SceneMetaData* scene_meta, app::Camera* camera))

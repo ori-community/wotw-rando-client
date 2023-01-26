@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaycastCommand.h>
-#include <Modloader/app/structs/RayCastManager.h>
+
+#include <Modloader/app/structs/RaycastCommand.h>
+#include <Modloader/app/structs/Boolean__Array.h>
 #include <Modloader/app/structs/JobHandle.h>
 #include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastCommand_.h>
 #include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastHit_.h>
-#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/RayCastManager.h>
 #include <Modloader/app/structs/RaycastCommand__Array.h>
+#include <Modloader/app/structs/RaycastHit.h>
 #include <Modloader/app/structs/RaycastHit__Array.h>
-#include <Modloader/app/structs/Boolean__Array.h>
 
 namespace app::classes::RayCastManager {
     IL2CPP_REGISTER_METHOD(0x0072FBC0, app::RaycastCommand, get_InvalidCmd, (app::RayCastManager * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Tests_DoEnableDisableTest_d_14.h>
+
+#include <Modloader/app/structs/Tests_DoEnableDisableTest_d_14.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::HierarchyPerfTest::Tests__DoEnableDisableTest_d__14 {
@@ -9,6 +10,5 @@ namespace app::classes::HierarchyPerfTest::Tests__DoEnableDisableTest_d__14 {
     IL2CPP_REGISTER_METHOD(0x01979BC0, bool, MoveNext, (app::Tests_DoEnableDisableTest_d_14 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::Tests_DoEnableDisableTest_d_14 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0197A350, void, IEnumerator_Reset, (app::Tests_DoEnableDisableTest_d_14 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04737EF0, Tests_DoEnableDisableTest_d_14_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::Tests_DoEnableDisableTest_d_14 * this_ptr))
 } // namespace app::classes::HierarchyPerfTest::Tests__DoEnableDisableTest_d__14

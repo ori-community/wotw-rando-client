@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry__Boxed.h>
+
+#include <Modloader/app/structs/XmlSchemaObjectTable_XmlSchemaObjectEntry__Boxed.h>
 #include <Modloader/app/structs/XmlQualifiedName.h>
 #include <Modloader/app/structs/XmlSchemaObject.h>
 

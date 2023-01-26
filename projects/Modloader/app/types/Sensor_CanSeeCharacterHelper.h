@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Sensor_CanSeeCharacterHelper__Class.h>
 #include <Modloader/app/structs/Sensor_CanSeeCharacterHelper.h>
 #include <Modloader/app/structs/Sensor_CanSeeCharacterHelper__Boxed.h>
+#include <Modloader/app/structs/Sensor_CanSeeCharacterHelper__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Sensor_CanSeeCharacterHelper {
-        namespace {
-            inline app::Sensor_CanSeeCharacterHelper__Class* type_info_ref = nullptr;
+        inline app::Sensor_CanSeeCharacterHelper__Class** type_info() {
+            static app::Sensor_CanSeeCharacterHelper__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Sensor_CanSeeCharacterHelper__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Sensor_CanSeeCharacterHelper__Class** type_info = &type_info_ref;
         inline app::Sensor_CanSeeCharacterHelper__Class* get_class() {
-            return il2cpp::get_nested_class<app::Sensor_CanSeeCharacterHelper__Class>(type_info, "Moon", "Sensor", "CanSeeCharacterHelper");
+            return il2cpp::get_nested_class<app::Sensor_CanSeeCharacterHelper__Class>(type_info(), "Moon", "Sensor", "CanSeeCharacterHelper");
         }
         inline app::Sensor_CanSeeCharacterHelper* create() {
             return il2cpp::create_object<app::Sensor_CanSeeCharacterHelper>(get_class());

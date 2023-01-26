@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaycastHit__Array.h>
+
+#include <Modloader/app/structs/RaycastHit__Array.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_RaycastHit_.h>
 #include <Modloader/app/structs/IComparer_1_UnityEngine_RaycastHit_.h>
 #include <Modloader/app/structs/RaycastHit.h>
-#include <Modloader/app/structs/Comparison_1_UnityEngine_RaycastHit_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_UnityEngine_RaycastHit_ {
     IL2CPP_REGISTER_METHOD(0x02F6CC60, void, Sort_1, (app::RaycastHit__Array * keys, int32_t index, int32_t length, app::IComparer_1_UnityEngine_RaycastHit_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04783A78, ArraySortHelper_1_UnityEngine_RaycastHit__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F6CF80, int32_t, BinarySearch, (app::RaycastHit__Array * array, int32_t index, int32_t length, app::RaycastHit value, app::IComparer_1_UnityEngine_RaycastHit_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0476DBF0, ArraySortHelper_1_UnityEngine_RaycastHit__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F6D150, void, Sort_2, (app::RaycastHit__Array * keys, int32_t index, int32_t length, app::Comparison_1_UnityEngine_RaycastHit_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0477C090, ArraySortHelper_1_UnityEngine_RaycastHit__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F6D2A0, int32_t, InternalBinarySearch, (app::RaycastHit__Array * array, int32_t index, int32_t length, app::RaycastHit value, app::IComparer_1_UnityEngine_RaycastHit_* comparer))
     IL2CPP_REGISTER_METHOD(0x02F6D420, void, SwapIfGreater, (app::RaycastHit__Array * keys, app::Comparison_1_UnityEngine_RaycastHit_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02F6D630, void, Swap, (app::RaycastHit__Array * a, int32_t i, int32_t j))

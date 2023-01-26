@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DateTimeParser__Boxed.h>
+
+#include <Modloader/app/structs/DateTimeParser__Boxed.h>
 #include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::DateTimeParser {
@@ -12,5 +13,5 @@ namespace app::classes::Newtonsoft::Json::Utilities::DateTimeParser {
     IL2CPP_REGISTER_METHOD(0x001C24D0, bool, ParseZone, (app::DateTimeParser__Boxed * this_ptr, int32_t start))
     IL2CPP_REGISTER_METHOD(0x001C24E0, bool, Parse4Digit, (app::DateTimeParser__Boxed * this_ptr, int32_t start, int32_t* num))
     IL2CPP_REGISTER_METHOD(0x001C24F0, bool, Parse2Digit, (app::DateTimeParser__Boxed * this_ptr, int32_t start, int32_t* num))
-    IL2CPP_REGISTER_METHOD(0x001C2500, bool, ParseChar, (app::DateTimeParser__Boxed * this_ptr, int32_t start, uint16_t ch))
+    IL2CPP_REGISTER_METHOD(0x001C2500, bool, ParseChar, (app::DateTimeParser__Boxed * this_ptr, int32_t start, char16_t ch))
 } // namespace app::classes::Newtonsoft::Json::Utilities::DateTimeParser

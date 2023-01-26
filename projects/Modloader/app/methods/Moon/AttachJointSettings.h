@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AttachJointSettings.h>
+
+#include <Modloader/app/structs/AttachJointSettings.h>
 #include <Modloader/app/structs/ConfigurableJoint.h>
 
 namespace app::classes::Moon::AttachJointSettings {

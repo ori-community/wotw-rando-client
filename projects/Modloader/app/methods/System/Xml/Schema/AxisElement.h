@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DoubleLinkAxis.h>
+
+#include <Modloader/app/structs/DoubleLinkAxis.h>
 #include <Modloader/app/structs/AxisElement.h>
 #include <Modloader/app/structs/ForwardAxis.h>
 #include <Modloader/app/structs/String.h>

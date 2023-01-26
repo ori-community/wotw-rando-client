@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/MatchmakingUserTicketCompleteEventData.h>
+#include <Modloader/app/structs/MatchmakingUserTicketCompleteEventData__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MatchmakingUserTicketCompleteEventData__Class.h>
-#include <Modloader/app/structs/MatchmakingUserTicketCompleteEventData.h>
 
 namespace app::classes::types {
     namespace MatchmakingUserTicketCompleteEventData {
-        namespace {
-            inline app::MatchmakingUserTicketCompleteEventData__Class* type_info_ref = nullptr;
+        inline app::MatchmakingUserTicketCompleteEventData__Class** type_info() {
+            static app::MatchmakingUserTicketCompleteEventData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::MatchmakingUserTicketCompleteEventData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::MatchmakingUserTicketCompleteEventData__Class** type_info = &type_info_ref;
         inline app::MatchmakingUserTicketCompleteEventData__Class* get_class() {
-            return il2cpp::get_class<app::MatchmakingUserTicketCompleteEventData__Class>(type_info, "PlayFab.PlayStreamModels", "MatchmakingUserTicketCompleteEventData");
+            return il2cpp::get_class<app::MatchmakingUserTicketCompleteEventData__Class>(type_info(), "PlayFab.PlayStreamModels", "MatchmakingUserTicketCompleteEventData");
         }
         inline app::MatchmakingUserTicketCompleteEventData* create() {
             return il2cpp::create_object<app::MatchmakingUserTicketCompleteEventData>(get_class());

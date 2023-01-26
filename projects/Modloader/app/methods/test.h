@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/test.h>
-#include <Modloader/app/structs/Test.h>
+
+#include <Modloader/app/structs/test.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Test.h>
 
 namespace app::classes::test {
     IL2CPP_REGISTER_METHOD(0x00F729A0, void, Update, (app::test * this_ptr))

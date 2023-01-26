@@ -1,11 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SHA1Managed.h>
+
+#include <Modloader/app/structs/SHA1Managed.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::SHA1Managed {
     IL2CPP_REGISTER_METHOD(0x028F6F80, void, ctor, (app::SHA1Managed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04752B98, SHA1Managed__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x028F7040, void, Initialize, (app::SHA1Managed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x028F7090, void, HashCore, (app::SHA1Managed * this_ptr, app::Byte__Array* rgb, int32_t ib_start, int32_t cb_size))
     IL2CPP_REGISTER_METHOD(0x028F70A0, app::Byte__Array*, HashFinal, (app::SHA1Managed * this_ptr))

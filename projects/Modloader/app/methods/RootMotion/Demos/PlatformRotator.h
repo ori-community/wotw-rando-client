@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlatformRotator.h>
-#include <Modloader/app/structs/IEnumerator.h>
+
+#include <Modloader/app/structs/PlatformRotator.h>
 #include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::RootMotion::Demos::PlatformRotator {
     IL2CPP_REGISTER_METHOD(0x0222D600, void, Start, (app::PlatformRotator * this_ptr))

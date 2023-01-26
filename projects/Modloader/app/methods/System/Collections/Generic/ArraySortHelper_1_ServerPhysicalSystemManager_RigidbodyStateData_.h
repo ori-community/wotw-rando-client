@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ServerPhysicalSystemManager_RigidbodyStateData__Array.h>
+
+#include <Modloader/app/structs/ServerPhysicalSystemManager_RigidbodyStateData__Array.h>
+#include <Modloader/app/structs/Comparison_1_ServerPhysicalSystemManager_RigidbodyStateData_.h>
 #include <Modloader/app/structs/IComparer_1_ServerPhysicalSystemManager_RigidbodyStateData_.h>
 #include <Modloader/app/structs/ServerPhysicalSystemManager_RigidbodyStateData.h>
-#include <Modloader/app/structs/Comparison_1_ServerPhysicalSystemManager_RigidbodyStateData_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_ServerPhysicalSystemManager_RigidbodyStateData_ {
     IL2CPP_REGISTER_METHOD(0x02FF02B0, void, Sort_1, (app::ServerPhysicalSystemManager_RigidbodyStateData__Array * keys, int32_t index, int32_t length, app::IComparer_1_ServerPhysicalSystemManager_RigidbodyStateData_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x047365E0, ArraySortHelper_1_ServerPhysicalSystemManager_RigidbodyStateData__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF05D0, int32_t, BinarySearch, (app::ServerPhysicalSystemManager_RigidbodyStateData__Array * array, int32_t index, int32_t length, app::ServerPhysicalSystemManager_RigidbodyStateData value, app::IComparer_1_ServerPhysicalSystemManager_RigidbodyStateData_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04703310, ArraySortHelper_1_ServerPhysicalSystemManager_RigidbodyStateData__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF07A0, void, Sort_2, (app::ServerPhysicalSystemManager_RigidbodyStateData__Array * keys, int32_t index, int32_t length, app::Comparison_1_ServerPhysicalSystemManager_RigidbodyStateData_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0474CBC8, ArraySortHelper_1_ServerPhysicalSystemManager_RigidbodyStateData__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F37310, int32_t, InternalBinarySearch, (app::ServerPhysicalSystemManager_RigidbodyStateData__Array * array, int32_t index, int32_t length, app::ServerPhysicalSystemManager_RigidbodyStateData value, app::IComparer_1_ServerPhysicalSystemManager_RigidbodyStateData_* comparer))
     IL2CPP_REGISTER_METHOD(0x02F37490, void, SwapIfGreater, (app::ServerPhysicalSystemManager_RigidbodyStateData__Array * keys, app::Comparison_1_ServerPhysicalSystemManager_RigidbodyStateData_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02F376A0, void, Swap, (app::ServerPhysicalSystemManager_RigidbodyStateData__Array * a, int32_t i, int32_t j))

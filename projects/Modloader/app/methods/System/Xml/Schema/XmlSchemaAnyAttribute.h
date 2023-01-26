@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaAnyAttribute.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSchemaContentProcessing__Enum.h>
+
+#include <Modloader/app/structs/XmlSchemaAnyAttribute.h>
 #include <Modloader/app/structs/NamespaceList.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaContentProcessing__Enum.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaAnyAttribute {
     IL2CPP_REGISTER_METHOD(0x002FBB50, void, set_Namespace, (app::XmlSchemaAnyAttribute * this_ptr, app::String* value))

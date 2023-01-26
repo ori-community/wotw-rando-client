@@ -1,29 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/Cart.h>
-#include <Modloader/app/structs/Rail.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Collider__Array.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/RideableTypes__Enum.h>
-#include <Modloader/app/structs/PlatformBehaviour.h>
+
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/Action_1_Single_.h>
-#include <Modloader/app/structs/CartBody.h>
+#include <Modloader/app/structs/Cart.h>
 #include <Modloader/app/structs/CartAnimation.h>
-#include <Modloader/app/structs/ISoundHost.h>
+#include <Modloader/app/structs/CartBody.h>
+#include <Modloader/app/structs/CartBouncer.h>
 #include <Modloader/app/structs/CartStopper.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/CartBouncer.h>
+#include <Modloader/app/structs/Collider__Array.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/Enemy.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/ISoundHost.h>
 #include <Modloader/app/structs/LegacyTimelineSequence.h>
-#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/PlatformBehaviour.h>
+#include <Modloader/app/structs/Rail.h>
 #include <Modloader/app/structs/RaycastHit.h>
 #include <Modloader/app/structs/RaycastHit__Array.h>
-#include <Modloader/app/structs/Enemy.h>
-#include <Modloader/app/structs/DamageType__Enum.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/RideableTypes__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Cart {
     IL2CPP_REGISTER_METHOD(0x00B29A80, app::Rect, get_WorldRectBounds, (app::Cart * this_ptr))
@@ -68,19 +69,15 @@ namespace app::classes::Cart {
     IL2CPP_REGISTER_METHOD(0x00B2D5D0, void, Stop, (app::Cart * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B2D660, void, OnHorizontalCollision, (app::Cart * this_ptr, app::Collider* col))
     IL2CPP_REGISTER_METHOD(0x00B2D690, void, OnRightCollision, (app::Cart * this_ptr, app::Vector3 point, app::Collider* col))
-    IL2CPP_REGISTER_METHODINFO(0x0471ABD8, Cart_OnRightCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B2D690, void, OnLeftCollision, (app::Cart * this_ptr, app::Vector3 point, app::Collider* col))
-    IL2CPP_REGISTER_METHODINFO(0x04720288, Cart_OnLeftCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B2D6C0, void, OnBounce, (app::Cart * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B2D750, bool, BounceCondition, (app::Cart * this_ptr, app::CartBouncer* bouncer))
     IL2CPP_REGISTER_METHOD(0x00B2D9A0, void, OnLand, (app::Cart * this_ptr, app::Vector3 normal, app::Collider* col))
-    IL2CPP_REGISTER_METHODINFO(0x0475E958, Cart_OnLand__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B2DC50, void, PlaySequence, (app::Cart * this_ptr, app::LegacyTimelineSequence* sequence))
     IL2CPP_REGISTER_METHOD(0x00B2DD90, void, StopSequence, (app::Cart * this_ptr, app::LegacyTimelineSequence* sequence))
     IL2CPP_REGISTER_METHOD(0x00B2DDD0, void, StartCarrying, (app::Cart * this_ptr, bool skip_animation))
     IL2CPP_REGISTER_METHOD(0x00B2E060, void, StartMovingEmpty, (app::Cart * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B2E110, void, OnPlayerDeath, (app::Cart * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04788280, Cart_OnPlayerDeath__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B2E240, void, StopCarrying_1, (app::Cart * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B2E330, void, StopCarrying_2, (app::Cart * this_ptr, app::Vector2 extra_force))
     IL2CPP_REGISTER_METHOD(0x00B2E540, void, IgnoreColliders, (app::Cart * this_ptr, app::Collider__Array* colliders, bool ignore))
@@ -88,7 +85,6 @@ namespace app::classes::Cart {
     IL2CPP_REGISTER_METHOD(0x00B2ED70, int32_t, RaycastHitsInFront, (app::Cart * this_ptr, app::RaycastHit__Array** hits))
     IL2CPP_REGISTER_METHOD(0x00B2F070, app::Enemy*, RaycastEnemy, (app::Cart * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B2F3D0, void, DestroyCart, (app::Cart * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04744648, Cart_DestroyCart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B2F9C0, void, DestroyAndKillPassenger, (app::Cart * this_ptr, app::DamageType__Enum damage_type))
     IL2CPP_REGISTER_METHOD(0x00B2FD10, void, GetValidRails, (app::Cart * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B305E0, bool, ShouldIgnoreRail, (app::Cart * this_ptr, app::Rail* rail, app::RaycastHit hit))
@@ -120,7 +116,6 @@ namespace app::classes::Cart {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBashDehighlight, (app::Cart * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B30BE0, void, OnRecieveDamage, (app::Cart * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x00B30E20, float, CalculateVelocityRtpcValue, (app::Cart * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04729CF8, Cart_CalculateVelocityRtpcValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B30F60, void, OnDrawGizmos, (app::Cart * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B31550, bool, ShouldRespawn, (app::Cart * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B31590, app::IDamageReciever__Array*, get_AffectedReceivers, (app::Cart * this_ptr))

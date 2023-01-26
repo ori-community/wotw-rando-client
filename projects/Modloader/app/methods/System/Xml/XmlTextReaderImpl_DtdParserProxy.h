@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlTextReaderImpl_DtdParserProxy.h>
-#include <Modloader/app/structs/XmlTextReaderImpl.h>
-#include <Modloader/app/structs/XmlNameTable.h>
-#include <Modloader/app/structs/IXmlNamespaceResolver.h>
-#include <Modloader/app/structs/Uri.h>
+
+#include <Modloader/app/structs/XmlTextReaderImpl_DtdParserProxy.h>
 #include <Modloader/app/structs/Char__Array.h>
-#include <Modloader/app/structs/StringBuilder.h>
-#include <Modloader/app/structs/IDtdEntityInfo.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/LineInfo.h>
+#include <Modloader/app/structs/IDtdEntityInfo.h>
 #include <Modloader/app/structs/IValidationEventHandling.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/LineInfo.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlTextReaderImpl.h>
 
 namespace app::classes::System::Xml::XmlTextReaderImpl_DtdParserProxy {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::XmlTextReaderImpl_DtdParserProxy * this_ptr, app::XmlTextReaderImpl* reader))

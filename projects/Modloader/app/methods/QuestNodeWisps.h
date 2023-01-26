@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/QuestNodeWisps.h>
-#include <Modloader/app/structs/NPCEventTriggerAnimator.h>
-#include <Modloader/app/structs/NPCEntity.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/NPCEntity.h>
+#include <Modloader/app/structs/NPCEventTriggerAnimator.h>
+#include <Modloader/app/structs/QuestNodeWisps.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::QuestNodeWisps {
     IL2CPP_REGISTER_METHOD(0x002FBC40, app::MoonTimeline*, get_IntroTimeline, (app::QuestNodeWisps * this_ptr))
@@ -31,10 +32,8 @@ namespace app::classes::QuestNodeWisps {
     IL2CPP_REGISTER_METHOD(0x00E8CA20, void, OnEnter, (app::QuestNodeWisps * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E8CAC0, bool, Interact, (app::QuestNodeWisps * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E8CC80, void, ApplyReward, (app::QuestNodeWisps * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477BDF0, QuestNodeWisps_ApplyReward__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E8D180, void, StartTimeline, (app::QuestNodeWisps * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x00E8D350, void, TimelineFinished, (app::QuestNodeWisps * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047962E8, QuestNodeWisps_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E8D580, void, StartReward, (app::QuestNodeWisps * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E8D830, void, EndInteraction, (app::QuestNodeWisps * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E8D910, void, GotQuestItemReward, (app::QuestNodeWisps * this_ptr))

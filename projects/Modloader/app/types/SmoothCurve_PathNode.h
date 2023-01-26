@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SmoothCurve_PathNode__Class.h>
 #include <Modloader/app/structs/SmoothCurve_PathNode.h>
 #include <Modloader/app/structs/SmoothCurve_PathNode__Array.h>
+#include <Modloader/app/structs/SmoothCurve_PathNode__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SmoothCurve_PathNode {
-        namespace {
-            inline app::SmoothCurve_PathNode__Class* type_info_ref = nullptr;
+        inline app::SmoothCurve_PathNode__Class** type_info() {
+            static app::SmoothCurve_PathNode__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SmoothCurve_PathNode__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SmoothCurve_PathNode__Class** type_info = &type_info_ref;
         inline app::SmoothCurve_PathNode__Class* get_class() {
-            return il2cpp::get_nested_class<app::SmoothCurve_PathNode__Class>(type_info, "", "SmoothCurve", "PathNode");
+            return il2cpp::get_nested_class<app::SmoothCurve_PathNode__Class>(type_info(), "", "SmoothCurve", "PathNode");
         }
         inline app::SmoothCurve_PathNode* create() {
             return il2cpp::create_object<app::SmoothCurve_PathNode>(get_class());

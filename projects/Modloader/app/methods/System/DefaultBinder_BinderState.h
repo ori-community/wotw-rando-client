@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DefaultBinder_BinderState.h>
+
+#include <Modloader/app/structs/DefaultBinder_BinderState.h>
 #include <Modloader/app/structs/Int32__Array.h>
 
 namespace app::classes::System::DefaultBinder_BinderState {

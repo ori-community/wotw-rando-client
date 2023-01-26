@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TransparentWallB.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
+
+#include <Modloader/app/structs/TransparentWallB.h>
 #include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::TransparentWallB {
     IL2CPP_REGISTER_METHOD(0x00B0C830, bool, CanPlaySound, (app::TransparentWallB * this_ptr))
@@ -16,7 +17,6 @@ namespace app::classes::TransparentWallB {
     IL2CPP_REGISTER_METHOD(0x00B0C950, void, Awake, (app::TransparentWallB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0CB30, void, OnDestroy, (app::TransparentWallB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0CD00, void, OnCheckpointRestore, (app::TransparentWallB * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047441A0, TransparentWallB_OnCheckpointRestore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B0CD10, void, OnEnable, (app::TransparentWallB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B0CDD0, void, OnDisable, (app::TransparentWallB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B5B90, void, Serialize, (app::TransparentWallB * this_ptr, app::Archive* ar))

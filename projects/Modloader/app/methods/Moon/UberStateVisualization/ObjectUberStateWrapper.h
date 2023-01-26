@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectUberStateWrapper.h>
-#include <Modloader/app/structs/IUberState.h>
+
+#include <Modloader/app/structs/ObjectUberStateWrapper.h>
 #include <Modloader/app/structs/ControllerInput.h>
+#include <Modloader/app/structs/IUberState.h>
 
 namespace app::classes::Moon::UberStateVisualization::ObjectUberStateWrapper {
     IL2CPP_REGISTER_METHOD(0x0199AEF0, void, ctor, (app::ObjectUberStateWrapper * this_ptr, app::IUberState* state))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UberInteractionManager_ActorInfo___Boxed.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_UberInteractionManager_ActorInfo___Boxed.h>
 #include <Modloader/app/structs/List_1_UberInteractionManager_ActorInfo_.h>
-#include <Modloader/app/structs/UberInteractionManager_ActorInfo.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberInteractionManager_ActorInfo.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_UberInteractionManager_ActorInfo_ {
     IL2CPP_REGISTER_METHOD(0x0014D4F0, void, ctor, (app::List_1_T_Enumerator_UberInteractionManager_ActorInfo___Boxed * this_ptr, app::List_1_UberInteractionManager_ActorInfo_* list))

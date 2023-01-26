@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_AchievementAsset_.h>
-#include <Modloader/app/structs/AchievementsLogic.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/List_1_AchievementAsset_.h>
 #include <Modloader/app/structs/AchievementAsset.h>
-#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
-#include <Modloader/app/structs/List_1_AbilityType_.h>
-#include <Modloader/app/structs/List_1_SpiritShardType_.h>
-#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
-#include <Modloader/app/structs/RaceConfiguration.h>
+#include <Modloader/app/structs/AchievementsLogic.h>
+#include <Modloader/app/structs/AchievementsLogic_Func_3_System_Int32_System_Int32_System_Boolean_.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/EnemyEntity.h>
-#include <Modloader/app/structs/AchievementsLogic_Func_3_System_Int32_System_Int32_System_Boolean_.h>
+#include <Modloader/app/structs/List_1_AbilityType_.h>
+#include <Modloader/app/structs/List_1_SpiritShardType_.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
+#include <Modloader/app/structs/RaceConfiguration.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::AchievementsLogic {
     IL2CPP_REGISTER_METHOD(0x004B6340, app::List_1_AchievementAsset_*, get_WispsAchievements, (app::AchievementsLogic * this_ptr))
@@ -26,51 +27,35 @@ namespace app::classes::AchievementsLogic {
     IL2CPP_REGISTER_METHOD(0x004B6DF0, void, AssignDelegates, (app::AchievementsLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004B77B0, void, OnDestroy, (app::AchievementsLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004B8250, void, OnGameReset, (app::AchievementsLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476E7B8, AchievementsLogic_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B8270, void, OnGameLoadFromMainMenu, (app::AchievementsLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047660D8, AchievementsLogic_OnGameLoadFromMainMenu__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B8340, void, FixedUpdate, (app::AchievementsLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004B8730, void, CommitPickupCollectionProgressIfNeeded, (app::AchievementsLogic * this_ptr, bool force))
     IL2CPP_REGISTER_METHOD(0x004B8870, void, CommitJuggleProjectilesAchievementIfNeeded, (app::AchievementsLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004B8930, void, HandleTrialAchievements, (app::AchievementsLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04713D68, AchievementsLogic_HandleTrialAchievements__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B8AC0, int32_t, get_MinShardSlots, (app::AchievementsLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004B8B50, int32_t, get_MaxShardSlots, (app::AchievementsLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004B8BE0, void, OnAbilityUnlocked_1, (app::AchievementsLogic * this_ptr, app::PlayerUberStateInventory_InventoryItem* item))
-    IL2CPP_REGISTER_METHODINFO(0x04718F80, AchievementsLogic_OnAbilityUnlocked__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B8CD0, app::List_1_AbilityType_*, get_m_allAbilities, (app::AchievementsLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004B8D70, app::List_1_SpiritShardType_*, get_m_allShards, (app::AchievementsLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004B8E10, void, OnAbilityUnlocked_2, (app::AchievementsLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478D3C0, AchievementsLogic_OnAbilityUnlocked_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B8F00, bool, GetUnlockedAbilitiesProgress, (app::AchievementsLogic * this_ptr, int32_t* unlocked_count, int32_t* all_count))
-    IL2CPP_REGISTER_METHODINFO(0x0476ADD0, AchievementsLogic_GetUnlockedAbilitiesProgress__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B91C0, void, OnSkillUpgraded_1, (app::AchievementsLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04722F70, AchievementsLogic_OnSkillUpgraded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B92B0, bool, GetSkillUpgradesProgress, (app::AchievementsLogic * this_ptr, int32_t* upgraded, int32_t* all))
-    IL2CPP_REGISTER_METHODINFO(0x0476CFF8, AchievementsLogic_GetSkillUpgradesProgress__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B9540, void, OnSkillUpgraded_2, (app::AchievementsLogic * this_ptr, float progress))
     IL2CPP_REGISTER_METHOD(0x004B9600, void, OnShardSlotUnlocked_1, (app::AchievementsLogic * this_ptr, app::PlayerUberStateShards_Shard* item))
     IL2CPP_REGISTER_METHOD(0x004B9610, void, OnShardSlotUnlocked_2, (app::AchievementsLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047179F0, AchievementsLogic_OnShardSlotUnlocked_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B9720, bool, GetShardSlotsUpgradeProgress, (app::AchievementsLogic * this_ptr, int32_t* unlocked_count, int32_t* all_count))
-    IL2CPP_REGISTER_METHODINFO(0x04751850, AchievementsLogic_GetShardSlotsUpgradeProgress__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B98F0, void, OnShardUpdated_1, (app::AchievementsLogic * this_ptr, app::PlayerUberStateShards_Shard* item))
-    IL2CPP_REGISTER_METHODINFO(0x04723388, AchievementsLogic_OnShardUpdated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B9900, void, OnShardUpdated_2, (app::AchievementsLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04705020, AchievementsLogic_OnShardUpdated_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B9AC0, bool, GetShardsUnlockedProgress, (app::AchievementsLogic * this_ptr, int32_t* unlocked_count, int32_t* all_count))
-    IL2CPP_REGISTER_METHODINFO(0x04719D00, AchievementsLogic_GetShardsUnlockedProgress__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B9CF0, bool, GetShardsUpgradedProgress, (app::AchievementsLogic * this_ptr, int32_t* upgraded_count, int32_t* all_count))
-    IL2CPP_REGISTER_METHODINFO(0x04798990, AchievementsLogic_GetShardsUpgradedProgress__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004B9F70, void, OnCollectedPickup, (app::AchievementsLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004BA060, void, OnCollectedHealthContainer, (app::AchievementsLogic * this_ptr, int32_t collected_halfs))
     IL2CPP_REGISTER_METHOD(0x004BA1C0, float, GetHealthCollectionCompletion, (app::AchievementsLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004BA200, bool, GetHealthContainerProgress, (app::AchievementsLogic * this_ptr, int32_t* collected_count, int32_t* all_count))
-    IL2CPP_REGISTER_METHODINFO(0x0471E0D8, AchievementsLogic_GetHealthContainerProgress__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004BA2E0, void, OnCollectedEnergyContainer, (app::AchievementsLogic * this_ptr, int32_t collected_halfs))
     IL2CPP_REGISTER_METHOD(0x004BA440, float, GetEnergyCollectionCompletion, (app::AchievementsLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004BA480, bool, GetEnergyContainerProgress, (app::AchievementsLogic * this_ptr, int32_t* collected_count, int32_t* all_count))
-    IL2CPP_REGISTER_METHODINFO(0x04781130, AchievementsLogic_GetEnergyContainerProgress__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004BA560, float, GetBoughtMapCompletion, (app::AchievementsLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnRaceEnd, (app::AchievementsLogic * this_ptr, app::RaceConfiguration* configuration))
     IL2CPP_REGISTER_METHOD(0x004BA590, void, OnKwolokBossFightStart, (app::AchievementsLogic * this_ptr))

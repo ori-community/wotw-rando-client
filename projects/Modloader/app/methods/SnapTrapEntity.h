@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SnapTrapEntity.h>
+
+#include <Modloader/app/structs/SnapTrapEntity.h>
+#include <Modloader/app/structs/AttachJointSettings.h>
+#include <Modloader/app/structs/PhysicalSystemManager.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/SerializedBooleanUberState.h>
+#include <Modloader/app/structs/SnapTrapEntity_SnapTrapParameters.h>
+#include <Modloader/app/structs/SnapTrapEntity_State__Enum.h>
 #include <Modloader/app/structs/SoundHost.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/SnapTrapEntity_State__Enum.h>
-#include <Modloader/app/structs/SnapTrapEntity_SnapTrapParameters.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/SerializedBooleanUberState.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/PhysicalSystemManager.h>
-#include <Modloader/app/structs/Rigidbody.h>
-#include <Modloader/app/structs/AttachJointSettings.h>
-#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
 #include <Modloader/app/structs/TrackingExclusions.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::SnapTrapEntity {
     IL2CPP_REGISTER_METHOD(0x006D6470, bool, get_IsSuspended, (app::SnapTrapEntity * this_ptr))
@@ -29,7 +30,6 @@ namespace app::classes::SnapTrapEntity {
     IL2CPP_REGISTER_METHOD(0x006D6C30, void, OnEnable, (app::SnapTrapEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006D6D00, void, FixedUpdate, (app::SnapTrapEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006D7540, void, ForceCrushDetectorsOn, (app::SnapTrapEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04794A68, SnapTrapEntity_ForceCrushDetectorsOn__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006D7700, void, HandleCrushDetectors, (app::SnapTrapEntity * this_ptr, bool force_opened))
     IL2CPP_REGISTER_METHOD(0x006D7940, void, Suspend, (app::SnapTrapEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006D7AA0, void, Resume, (app::SnapTrapEntity * this_ptr))
@@ -37,12 +37,9 @@ namespace app::classes::SnapTrapEntity {
     IL2CPP_REGISTER_METHOD(0x006D7FD0, void, ActivateTrap, (app::SnapTrapEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006D81A0, void, InstantCatch, (app::SnapTrapEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006D81B0, void, StartClose, (app::SnapTrapEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04701670, SnapTrapEntity_StartClose__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006D85F0, void, CheckTrap, (app::SnapTrapEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047297F0, SnapTrapEntity_CheckTrap__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006D9400, void, Closed, (app::SnapTrapEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006D9850, void, DoDamage, (app::SnapTrapEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478ABE8, SnapTrapEntity_DoDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006D9E90, void, ReactivateOri, (app::SnapTrapEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006DA310, void, DoneChewing, (app::SnapTrapEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006DA740, void, OpenedAfterCatch, (app::SnapTrapEntity * this_ptr))

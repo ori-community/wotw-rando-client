@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AlertLevel__Enum.h>
+
+#include <Modloader/app/structs/AlertLevel__Enum.h>
 #include <Modloader/app/structs/Alert.h>
 #include <Modloader/app/structs/AlertDescription__Enum_1.h>
 #include <Modloader/app/structs/String.h>

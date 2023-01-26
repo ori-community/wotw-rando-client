@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SwitchBoostController_HandheldGPUBoostMode__Enum.h>
+
+#include <Modloader/app/structs/SwitchBoostController_HandheldGPUBoostMode__Enum.h>
 #include <Modloader/app/structs/SwitchBoostController.h>
 
 namespace app::classes::frameworks::Switch::SwitchBoostController {

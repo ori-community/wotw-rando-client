@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityKickbackEvent.h>
-#include <Modloader/app/structs/Entity.h>
+
+#include <Modloader/app/structs/EntityKickbackEvent.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Moon::EntityKickbackEvent {

@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_.h>
-#include <Modloader/app/structs/NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData.h>
-#include <Modloader/app/structs/MemberInfo_1.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/SetupStateModifierDataType__Enum.h>
-#include <Modloader/app/structs/NewSetupStateController.h>
-#include <Modloader/app/structs/SetupStateModifierData.h>
+
+#include <Modloader/app/structs/NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_.h>
 #include <Modloader/app/structs/IMoonResolverContext.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
+#include <Modloader/app/structs/NewSetupStateController.h>
+#include <Modloader/app/structs/NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData.h>
+#include <Modloader/app/structs/SetupStateModifierData.h>
+#include <Modloader/app/structs/SetupStateModifierDataType__Enum.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Moon::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x0272ED10, bool, Init, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_ * this_ptr, app::NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData* serialized_data, app::MemberInfo_1* member_info))
@@ -22,13 +23,10 @@ namespace app::classes::Moon::NewSetupStateControllerResolver_RuntimeUberStateCo
     IL2CPP_REGISTER_METHOD(0x027275C0, app::SetupStateModifierData*, get_ModifierData, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA280, app::NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData*, get_Data, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0272F1F0, int32_t, GetValue, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_ * this_ptr, app::IMoonResolverContext* context))
-    IL2CPP_REGISTER_METHODINFO(0x04720310, NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32__GetValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0272F4D0, bool, IsLinkForObjectAndMemberInfoCombo, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_ * this_ptr, app::NewSetupStateController* target_controller, int32_t state_guid, int32_t modifier_guid, app::MemberInfo_1* target_member_info))
     IL2CPP_REGISTER_METHOD(0x01CFFD20, app::NewSetupStateControllerResolver_SetupStateControllerLinkSerializedData*, GetSerializedData, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0272F6F0, void, CreateReflectionModifierData, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_ * this_ptr, app::MemberInfo_1* member_info))
-    IL2CPP_REGISTER_METHODINFO(0x0476C560, NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32__CreateReflectionModifierData__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0272FC20, void, CreateReflectionModifier, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_ * this_ptr, app::MemberInfo_1* member_info))
-    IL2CPP_REGISTER_METHODINFO(0x04792A78, NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32__CreateReflectionModifier__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02730130, app::String*, ToString, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018E6D70, void, ctor, (app::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_ * this_ptr))
 } // namespace app::classes::Moon::NewSetupStateControllerResolver_RuntimeUberStateControllerDataLink_1_System_Int32_

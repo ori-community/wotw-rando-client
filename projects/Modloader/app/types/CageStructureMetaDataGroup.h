@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/CageStructureMetaDataGroup.h>
+#include <Modloader/app/structs/CageStructureMetaDataGroup__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CageStructureMetaDataGroup__Class.h>
-#include <Modloader/app/structs/CageStructureMetaDataGroup.h>
 
 namespace app::classes::types {
     namespace CageStructureMetaDataGroup {
-        namespace {
-            inline app::CageStructureMetaDataGroup__Class* type_info_ref = nullptr;
+        inline app::CageStructureMetaDataGroup__Class** type_info() {
+            static app::CageStructureMetaDataGroup__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CageStructureMetaDataGroup__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CageStructureMetaDataGroup__Class** type_info = &type_info_ref;
         inline app::CageStructureMetaDataGroup__Class* get_class() {
-            return il2cpp::get_class<app::CageStructureMetaDataGroup__Class>(type_info, "", "CageStructureMetaDataGroup");
+            return il2cpp::get_class<app::CageStructureMetaDataGroup__Class>(type_info(), "", "CageStructureMetaDataGroup");
         }
         inline app::CageStructureMetaDataGroup* create() {
             return il2cpp::create_object<app::CageStructureMetaDataGroup>(get_class());

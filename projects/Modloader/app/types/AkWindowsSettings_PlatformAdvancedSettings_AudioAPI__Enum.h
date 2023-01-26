@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum.h>
+#include <Modloader/app/structs/AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum__Class.h>
-#include <Modloader/app/structs/AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum.h>
 
 namespace app::classes::types {
     namespace AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum {
-        namespace {
-            inline app::AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum__Class* type_info_ref = nullptr;
+        inline app::AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum__Class** type_info() {
+            static app::AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum__Class** type_info = &type_info_ref;
         inline app::AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum__Class* get_class() {
-            return il2cpp::get_nested_class<app::AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum__Class>(type_info, "", "AkWindowsSettings+PlatformAdvancedSettings", "AudioAPI");
+            return il2cpp::get_nested_class<app::AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum__Class>(type_info(), "", "AkWindowsSettings+PlatformAdvancedSettings", "AudioAPI");
         }
         inline app::AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum* create() {
             return il2cpp::create_object<app::AkWindowsSettings_PlatformAdvancedSettings_AudioAPI__Enum>(get_class());

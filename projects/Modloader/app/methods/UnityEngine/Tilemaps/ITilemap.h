@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ITilemap.h>
+
+#include <Modloader/app/structs/ITilemap.h>
 #include <Modloader/app/structs/Vector3Int.h>
 
 namespace app::classes::UnityEngine::Tilemaps::ITilemap {

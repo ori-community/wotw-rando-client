@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HttpAbortDelegate.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/HttpWebRequest.h>
-#include <Modloader/app/structs/WebException.h>
-#include <Modloader/app/structs/IAsyncResult.h>
+
+#include <Modloader/app/structs/HttpAbortDelegate.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/HttpWebRequest.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/WebException.h>
 
 namespace app::classes::System::Net::HttpAbortDelegate {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::HttpAbortDelegate * this_ptr, app::Object* object, void* method_1))

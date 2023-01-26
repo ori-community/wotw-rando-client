@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaInclude.h>
+
+#include <Modloader/app/structs/XmlSchemaInclude.h>
 #include <Modloader/app/structs/XmlSchemaAnnotation.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaInclude {

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Exception.h>
+
+#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/Datatype_yearMonthDuration.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlNameTable.h>
 #include <Modloader/app/structs/IXmlNamespaceResolver.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlNameTable.h>
 #include <Modloader/app/structs/XmlTypeCode__Enum.h>
 
 namespace app::classes::System::Xml::Schema::Datatype_yearMonthDuration {

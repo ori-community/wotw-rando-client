@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EdgeIterator.h>
-#include <Modloader/app/structs/Mesh_1.h>
+
+#include <Modloader/app/structs/EdgeIterator.h>
 #include <Modloader/app/structs/Edge.h>
+#include <Modloader/app/structs/Mesh_1.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::TriangleNet::Meshing::Iterators::EdgeIterator {

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_FullSerializer_Internal_fsVersionedType_.h>
-#include <Modloader/app/structs/fsVersionedType.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_FullSerializer_Internal_fsVersionedType_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/fsVersionedType.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_FullSerializer_Internal_fsVersionedType_ {
     IL2CPP_REGISTER_METHOD(0x02C2AB70, int32_t, Compare, (app::ObjectComparer_1_FullSerializer_Internal_fsVersionedType_ * this_ptr, app::fsVersionedType x, app::fsVersionedType y))

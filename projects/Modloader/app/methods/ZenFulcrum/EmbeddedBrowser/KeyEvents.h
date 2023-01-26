@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Event_.h>
-#include <Modloader/app/structs/KeyEvents.h>
+
+#include <Modloader/app/structs/List_1_UnityEngine_Event_.h>
 #include <Modloader/app/structs/Event.h>
 #include <Modloader/app/structs/KeyCode__Enum.h>
+#include <Modloader/app/structs/KeyEvents.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::KeyEvents {

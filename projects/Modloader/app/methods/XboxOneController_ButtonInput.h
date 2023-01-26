@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XboxOneController_Button__Enum.h>
+
+#include <Modloader/app/structs/XboxOneController_Button__Enum.h>
 #include <Modloader/app/structs/XboxOneController_ButtonInput.h>
 
 namespace app::classes::XboxOneController_ButtonInput {

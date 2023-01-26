@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Enum__Array.h>
-#include <Modloader/app/structs/NightCrawlerBackAttackController.h>
+
+#include <Modloader/app/structs/Enum__Array.h>
 #include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/NightCrawlerBackAttackController.h>
 
 namespace app::classes::NightCrawlerBackAttackController {
     IL2CPP_REGISTER_METHOD(0x006018D0, app::Enum__Array*, GetEntries, (app::NightCrawlerBackAttackController * this_ptr))

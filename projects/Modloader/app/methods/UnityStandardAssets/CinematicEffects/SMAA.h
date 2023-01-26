@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Shader.h>
-#include <Modloader/app/structs/SMAA.h>
-#include <Modloader/app/structs/Texture2D.h>
-#include <Modloader/app/structs/Material.h>
+
+#include <Modloader/app/structs/Shader.h>
 #include <Modloader/app/structs/AntiAliasing.h>
 #include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/PostProcessRenderContext.h>
 #include <Modloader/app/structs/RenderTexture.h>
 #include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/SMAA.h>
+#include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::UnityStandardAssets::CinematicEffects::SMAA {
     IL2CPP_REGISTER_METHOD(0x02508F20, app::Shader*, get_shader, (app::SMAA * this_ptr))

@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DeflateManager.h>
-#include <Modloader/app/structs/Int16__Array.h>
-#include <Modloader/app/structs/SByte__Array.h>
-#include <Modloader/app/structs/Byte__Array.h>
+
+#include <Modloader/app/structs/DeflateManager.h>
 #include <Modloader/app/structs/BlockState__Enum.h>
-#include <Modloader/app/structs/FlushType__Enum.h>
-#include <Modloader/app/structs/ZlibCodec.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/CompressionLevel__Enum.h>
 #include <Modloader/app/structs/CompressionStrategy__Enum.h>
+#include <Modloader/app/structs/FlushType__Enum.h>
+#include <Modloader/app/structs/Int16__Array.h>
+#include <Modloader/app/structs/SByte__Array.h>
+#include <Modloader/app/structs/ZlibCodec.h>
 
 namespace app::classes::Ionic::Zlib::DeflateManager {
     IL2CPP_REGISTER_METHOD(0x03065460, void, ctor, (app::DeflateManager * this_ptr))
@@ -33,23 +34,18 @@ namespace app::classes::Ionic::Zlib::DeflateManager {
     IL2CPP_REGISTER_METHOD(0x03068010, void, copy_block, (app::DeflateManager * this_ptr, int32_t buf, int32_t len, bool header))
     IL2CPP_REGISTER_METHOD(0x03068190, void, flush_block_only, (app::DeflateManager * this_ptr, bool eof))
     IL2CPP_REGISTER_METHOD(0x030681F0, app::BlockState__Enum, DeflateNone, (app::DeflateManager * this_ptr, app::FlushType__Enum flush))
-    IL2CPP_REGISTER_METHODINFO(0x0471E438, DeflateManager_DeflateNone__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x030684A0, void, _tr_stored_block, (app::DeflateManager * this_ptr, int32_t buf, int32_t stored_len, bool eof))
     IL2CPP_REGISTER_METHOD(0x030685B0, void, _tr_flush_block, (app::DeflateManager * this_ptr, int32_t buf, int32_t stored_len, bool eof))
     IL2CPP_REGISTER_METHOD(0x03068880, void, _fillWindow, (app::DeflateManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03068D20, app::BlockState__Enum, DeflateFast, (app::DeflateManager * this_ptr, app::FlushType__Enum flush))
-    IL2CPP_REGISTER_METHODINFO(0x0474A650, DeflateManager_DeflateFast__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03069460, app::BlockState__Enum, DeflateSlow, (app::DeflateManager * this_ptr, app::FlushType__Enum flush))
-    IL2CPP_REGISTER_METHODINFO(0x04744588, DeflateManager_DeflateSlow__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03069D30, int32_t, longest_match, (app::DeflateManager * this_ptr, int32_t cur_match))
     IL2CPP_REGISTER_METHOD(0x00FB00D0, bool, get_WantRfc1950HeaderBytes, (app::DeflateManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011A6EE0, void, set_WantRfc1950HeaderBytes, (app::DeflateManager * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x0306A580, int32_t, Initialize_1, (app::DeflateManager * this_ptr, app::ZlibCodec* codec, app::CompressionLevel__Enum level, int32_t bits, app::CompressionStrategy__Enum compression_strategy))
     IL2CPP_REGISTER_METHOD(0x0306A680, int32_t, Initialize_2, (app::DeflateManager * this_ptr, app::ZlibCodec* codec, app::CompressionLevel__Enum level, int32_t window_bits, int32_t mem_level, app::CompressionStrategy__Enum strategy))
-    IL2CPP_REGISTER_METHODINFO(0x04773000, DeflateManager_Initialize_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0306A960, void, Reset, (app::DeflateManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0306ACA0, void, SetDeflater, (app::DeflateManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0306AFB0, int32_t, Deflate, (app::DeflateManager * this_ptr, app::FlushType__Enum flush))
-    IL2CPP_REGISTER_METHODINFO(0x04716390, DeflateManager_Deflate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0306BA60, void, cctor, ())
 } // namespace app::classes::Ionic::Zlib::DeflateManager

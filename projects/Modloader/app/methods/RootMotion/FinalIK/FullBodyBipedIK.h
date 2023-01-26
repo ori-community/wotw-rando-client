@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FullBodyBipedIK.h>
+
+#include <Modloader/app/structs/FullBodyBipedIK.h>
 #include <Modloader/app/structs/BipedReferences.h>
-#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/IKSolver.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::FullBodyBipedIK {
     IL2CPP_REGISTER_METHOD(0x02063330, void, OpenUserManual, (app::FullBodyBipedIK * this_ptr))

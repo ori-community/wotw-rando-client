@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkMonitoringCallbackInfo.h>
+
+#include <Modloader/app/structs/AkMonitoringCallbackInfo.h>
 #include <Modloader/app/structs/AkMonitorErrorCode__Enum.h>
 #include <Modloader/app/structs/AkMonitorErrorLevel__Enum.h>
 #include <Modloader/app/structs/String.h>

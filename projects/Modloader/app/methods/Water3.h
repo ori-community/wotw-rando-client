@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Water3.h>
-#include <Modloader/app/structs/Mesh.h>
+
+#include <Modloader/app/structs/Water3.h>
 #include <Modloader/app/structs/Camera.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Water3_WaterMode__Enum.h>
-#include <Modloader/app/structs/Vector4.h>
 #include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Water3_WaterMode__Enum.h>
 
 namespace app::classes::Water3 {
     IL2CPP_REGISTER_METHOD(0x02D70900, void, Start, (app::Water3 * this_ptr))

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKSolver.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/IKSolver.h>
 #include <Modloader/app/structs/IKSolver_Bone__Array.h>
 #include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolver {
     IL2CPP_REGISTER_METHOD(0x02BE42F0, bool, IsValid, (app::IKSolver * this_ptr))

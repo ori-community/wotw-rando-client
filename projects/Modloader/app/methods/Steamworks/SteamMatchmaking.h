@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AppId_t.h>
-#include <Modloader/app/structs/SteamAPICall_t.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/AppId_t.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CSteamID.h>
+#include <Modloader/app/structs/EChatEntryType__Enum.h>
 #include <Modloader/app/structs/ELobbyComparison__Enum.h>
 #include <Modloader/app/structs/ELobbyDistanceFilter__Enum.h>
-#include <Modloader/app/structs/CSteamID.h>
 #include <Modloader/app/structs/ELobbyType__Enum.h>
-#include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/EChatEntryType__Enum.h>
+#include <Modloader/app/structs/SteamAPICall_t.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::SteamMatchmaking {
     IL2CPP_REGISTER_METHOD(0x02786860, int32_t, GetFavoriteGameCount, ())

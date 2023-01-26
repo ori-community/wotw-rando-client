@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RecorderData.h>
-#include <Modloader/app/structs/RecorderFrame.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/RecorderData.h>
 #include <Modloader/app/structs/BinaryReader.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/RecorderFrame.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::RecorderData {
     IL2CPP_REGISTER_METHOD(0x003FC7F0, int32_t, get_FlushedFramesCount, (app::RecorderData * this_ptr))

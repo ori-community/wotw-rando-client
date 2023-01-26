@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Image.h>
-#include <Modloader/app/structs/Sprite.h>
-#include <Modloader/app/structs/Image_Type__Enum.h>
+
+#include <Modloader/app/structs/Image.h>
+#include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/Color32.h>
 #include <Modloader/app/structs/Image_FillMethod__Enum.h>
+#include <Modloader/app/structs/Image_Type__Enum.h>
 #include <Modloader/app/structs/Material.h>
-#include <Modloader/app/structs/Texture.h>
 #include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Sprite.h>
+#include <Modloader/app/structs/SpriteAtlas.h>
+#include <Modloader/app/structs/Texture.h>
 #include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 #include <Modloader/app/structs/Vector4.h>
 #include <Modloader/app/structs/VertexHelper.h>
-#include <Modloader/app/structs/Vector3__Array.h>
-#include <Modloader/app/structs/Color32.h>
-#include <Modloader/app/structs/Camera.h>
-#include <Modloader/app/structs/SpriteAtlas.h>
 
 namespace app::classes::UnityEngine::UI::Image {
     IL2CPP_REGISTER_METHOD(0x024B7660, void, ctor, (app::Image * this_ptr))
@@ -80,7 +81,6 @@ namespace app::classes::UnityEngine::UI::Image {
     IL2CPP_REGISTER_METHOD(0x024BF8F0, bool, IsRaycastLocationValid, (app::Image * this_ptr, app::Vector2 screen_point, app::Camera* event_camera))
     IL2CPP_REGISTER_METHOD(0x024BFE40, app::Vector2, MapCoordinate, (app::Image * this_ptr, app::Vector2 local, app::Rect rect))
     IL2CPP_REGISTER_METHOD(0x024C03A0, void, RebuildImage, (app::SpriteAtlas * sprite_atlas))
-    IL2CPP_REGISTER_METHODINFO(0x04707558, Image_RebuildImage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x024C0580, void, TrackImage, (app::Image * g))
     IL2CPP_REGISTER_METHOD(0x024C0930, void, UnTrackImage, (app::Image * g))
     IL2CPP_REGISTER_METHOD(0x024C09F0, void, cctor, ())

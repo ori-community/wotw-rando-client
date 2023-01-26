@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TransformAnimatorSystem_PositionModification__Boxed.h>
-#include <Modloader/app/structs/TransformAnimatorSystem_ObjectState.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/TransformAnimatorSystem_PositionModification__Boxed.h>
 #include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/TransformAnimatorSystem_ObjectState.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Timeline::TransformAnimatorSystem_PositionModification {

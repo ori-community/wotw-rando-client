@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BidirectionalValuePair_2_System_Object_System_Object_.h>
+
+#include <Modloader/app/structs/BidirectionalValuePair_2_System_Object_System_Object_.h>
 #include <Modloader/app/structs/BidirectionalDictionary_2_T1_T2_Enumerator_System_Object_System_Object___Boxed.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Dictionary_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Moon::BidirectionalDictionary_2_T1_T2__Enumerator_System_Object_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x001FEFA0, app::BidirectionalValuePair_2_System_Object_System_Object_, get_Current, (app::BidirectionalDictionary_2_T1_T2_Enumerator_System_Object_System_Object___Boxed * this_ptr))

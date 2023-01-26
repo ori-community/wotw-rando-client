@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayableAsset.h>
+
+#include <Modloader/app/structs/PlayableAsset.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IEnumerable_1_UnityEngine_Playables_PlayableBinding_.h>
 #include <Modloader/app/structs/PlayableGraph.h>
-#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::UnityEngine::Playables::PlayableAsset {
     IL2CPP_REGISTER_METHOD(0x004140E0, void, ctor, (app::PlayableAsset * this_ptr))

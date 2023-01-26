@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_FramePerformanceMonitor_PerformanceFrameData_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_FramePerformanceMonitor_PerformanceFrameData_.h>
 #include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData.h>
 #include <Modloader/app/structs/Object.h>
 

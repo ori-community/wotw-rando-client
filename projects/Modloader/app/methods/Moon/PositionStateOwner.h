@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PositionStateOwner.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+
+#include <Modloader/app/structs/PositionStateOwner.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::PositionStateOwner {
     IL2CPP_REGISTER_METHOD(0x00C3DD90, void, Awake, (app::PositionStateOwner * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BinXmlSqlMoney__Boxed.h>
+
+#include <Modloader/app/structs/BinXmlSqlMoney__Boxed.h>
 #include <Modloader/app/structs/Decimal.h>
 #include <Modloader/app/structs/String.h>
 

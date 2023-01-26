@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/CapsulecastCommand.h>
+#include <Modloader/app/structs/CapsulecastCommand__Array.h>
+#include <Modloader/app/structs/CapsulecastCommand__Boxed.h>
+#include <Modloader/app/structs/CapsulecastCommand__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CapsulecastCommand__Class.h>
-#include <Modloader/app/structs/CapsulecastCommand.h>
-#include <Modloader/app/structs/CapsulecastCommand__Boxed.h>
-#include <Modloader/app/structs/CapsulecastCommand__Array.h>
 
 namespace app::classes::types {
     namespace CapsulecastCommand {
-        namespace {
-            inline app::CapsulecastCommand__Class* type_info_ref = nullptr;
+        inline app::CapsulecastCommand__Class** type_info() {
+            static app::CapsulecastCommand__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CapsulecastCommand__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CapsulecastCommand__Class** type_info = &type_info_ref;
         inline app::CapsulecastCommand__Class* get_class() {
-            return il2cpp::get_class<app::CapsulecastCommand__Class>(type_info, "UnityEngine", "CapsulecastCommand");
+            return il2cpp::get_class<app::CapsulecastCommand__Class>(type_info(), "UnityEngine", "CapsulecastCommand");
         }
         inline app::CapsulecastCommand* create() {
             return il2cpp::create_object<app::CapsulecastCommand>(get_class());

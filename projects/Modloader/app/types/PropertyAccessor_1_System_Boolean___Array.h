@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/PropertyAccessor_1_System_Boolean___Array.h>
+#include <Modloader/app/structs/PropertyAccessor_1_System_Boolean___Array__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/PropertyAccessor_1_System_Boolean___Array__Class.h>
-#include <Modloader/app/structs/PropertyAccessor_1_System_Boolean___Array.h>
 
 namespace app::classes::types {
     namespace PropertyAccessor_1_System_Boolean___Array {
-        namespace {
-            inline app::PropertyAccessor_1_System_Boolean___Array__Class* type_info_ref = nullptr;
+        inline app::PropertyAccessor_1_System_Boolean___Array__Class** type_info() {
+            static app::PropertyAccessor_1_System_Boolean___Array__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::PropertyAccessor_1_System_Boolean___Array__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::PropertyAccessor_1_System_Boolean___Array__Class** type_info = &type_info_ref;
         inline app::PropertyAccessor_1_System_Boolean___Array__Class* get_class() {
-            return il2cpp::get_class<app::PropertyAccessor_1_System_Boolean___Array__Class>(type_info, "System.Diagnostics.Tracing", "PropertyAccessor`1[System.Boolean][]");
+            return il2cpp::get_class<app::PropertyAccessor_1_System_Boolean___Array__Class>(type_info(), "System.Diagnostics.Tracing", "PropertyAccessor`1[System.Boolean][]");
         }
         inline app::PropertyAccessor_1_System_Boolean___Array* create() {
             return il2cpp::create_object<app::PropertyAccessor_1_System_Boolean___Array>(get_class());

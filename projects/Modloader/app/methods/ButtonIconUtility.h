@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/AxisButtonInput.h>
+#include <Modloader/app/structs/AxisInput.h>
+#include <Modloader/app/structs/Axis__Enum_1.h>
+#include <Modloader/app/structs/ButtonInput.h>
+#include <Modloader/app/structs/Button__Enum.h>
+#include <Modloader/app/structs/CompoundButtonInput.h>
+#include <Modloader/app/structs/ControllerButtonInput.h>
+#include <Modloader/app/structs/IAxisInput.h>
+#include <Modloader/app/structs/KeyCodeButtonInput.h>
 #include <Modloader/app/structs/KeyCode__Enum.h>
 #include <Modloader/app/structs/XboxControllerInput_Button__Enum.h>
-#include <Modloader/app/structs/Button__Enum.h>
-#include <Modloader/app/structs/XboxOneController_Button__Enum.h>
-#include <Modloader/app/structs/XboxOneController_Axis__Enum.h>
-#include <Modloader/app/structs/Axis__Enum_1.h>
-#include <Modloader/app/structs/KeyCodeButtonInput.h>
-#include <Modloader/app/structs/XboxOneController_ButtonInput.h>
 #include <Modloader/app/structs/XboxOneController_AxisInput.h>
-#include <Modloader/app/structs/AxisInput.h>
-#include <Modloader/app/structs/ControllerButtonInput.h>
-#include <Modloader/app/structs/AxisButtonInput.h>
-#include <Modloader/app/structs/ButtonInput.h>
-#include <Modloader/app/structs/IAxisInput.h>
-#include <Modloader/app/structs/CompoundButtonInput.h>
+#include <Modloader/app/structs/XboxOneController_Axis__Enum.h>
+#include <Modloader/app/structs/XboxOneController_ButtonInput.h>
+#include <Modloader/app/structs/XboxOneController_Button__Enum.h>
 
 namespace app::classes::ButtonIconUtility {
     IL2CPP_REGISTER_METHOD(0x0081E660, app::String*, KeyCodeToString, (app::KeyCode__Enum key_code))

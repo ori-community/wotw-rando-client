@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MergeFailedEventArgs.h>
+
+#include <Modloader/app/structs/MergeFailedEventArgs.h>
 #include <Modloader/app/structs/DataTable.h>
 #include <Modloader/app/structs/String.h>
 

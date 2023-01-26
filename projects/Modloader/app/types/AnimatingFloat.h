@@ -1,15 +1,20 @@
 #pragma once
+#include <Modloader/app/structs/AnimatingFloat.h>
+#include <Modloader/app/structs/AnimatingFloat__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AnimatingFloat__Class.h>
-#include <Modloader/app/structs/AnimatingFloat.h>
 
 namespace app::classes::types {
     namespace AnimatingFloat {
-        inline app::AnimatingFloat__Class** type_info = (app::AnimatingFloat__Class**)(modloader::win::memory::resolve_rva(0x0476BDA0));
+        inline app::AnimatingFloat__Class** type_info() {
+            static app::AnimatingFloat__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::AnimatingFloat__Class**)(modloader::win::memory::resolve_rva(0x0476BDA0));
+            }
+            return cache;
+        }
         inline app::AnimatingFloat__Class* get_class() {
-            return il2cpp::get_class<app::AnimatingFloat__Class>(type_info, "", "AnimatingFloat");
+            return il2cpp::get_class<app::AnimatingFloat__Class>(type_info(), "", "AnimatingFloat");
         }
         inline app::AnimatingFloat* create() {
             return il2cpp::create_object<app::AnimatingFloat>(get_class());

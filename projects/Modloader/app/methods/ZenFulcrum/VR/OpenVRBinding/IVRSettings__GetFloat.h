@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IVRSettings_GetFloat.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/IVRSettings_GetFloat.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 #include <Modloader/app/structs/EVRSettingsError__Enum.h>
 #include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVRSettings__GetFloat {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVRSettings_GetFloat * this_ptr, app::Object* object, void* method_1))

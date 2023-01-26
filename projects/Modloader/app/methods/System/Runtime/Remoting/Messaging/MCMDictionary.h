@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MCMDictionary.h>
+
+#include <Modloader/app/structs/MCMDictionary.h>
 #include <Modloader/app/structs/IMethodMessage.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::MCMDictionary {

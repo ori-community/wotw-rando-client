@@ -1,13 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossGroundPiece.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossGroundPiece.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PetrifiedOwlBossGroundPiece {
     IL2CPP_REGISTER_METHOD(0x017727F0, void, Awake, (app::PetrifiedOwlBossGroundPiece * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01772990, void, OnDestroy, (app::PetrifiedOwlBossGroundPiece * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01772B30, void, OnPostRestoreCheckpoint, (app::PetrifiedOwlBossGroundPiece * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04728BD8, PetrifiedOwlBossGroundPiece_OnPostRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, IsBreakable, (app::PetrifiedOwlBossGroundPiece * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01772C00, bool, IsBroken, (app::PetrifiedOwlBossGroundPiece * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01772C30, void, Break, (app::PetrifiedOwlBossGroundPiece * this_ptr))

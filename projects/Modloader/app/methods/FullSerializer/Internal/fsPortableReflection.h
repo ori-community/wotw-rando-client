@@ -1,24 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MemberInfo_1.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/MemberInfo_1.h>
 #include <Modloader/app/structs/Attribute.h>
-#include <Modloader/app/structs/PropertyInfo_1.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/MethodInfo_1.h>
 #include <Modloader/app/structs/ConstructorInfo.h>
-#include <Modloader/app/structs/Type__Array.h>
 #include <Modloader/app/structs/ConstructorInfo__Array.h>
-#include <Modloader/app/structs/MemberInfo_1__Array.h>
-#include <Modloader/app/structs/IEnumerable_1_System_Reflection_MethodInfo_.h>
-#include <Modloader/app/structs/MethodInfo_1__Array.h>
-#include <Modloader/app/structs/PropertyInfo_1__Array.h>
 #include <Modloader/app/structs/FieldInfo_1__Array.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/FlagsAttribute.h>
-#include <Modloader/app/structs/fsPropertyAttribute.h>
-#include <Modloader/app/structs/fsObjectAttribute.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Reflection_MethodInfo_.h>
+#include <Modloader/app/structs/MemberInfo_1__Array.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/MethodInfo_1__Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PropertyInfo_1.h>
+#include <Modloader/app/structs/PropertyInfo_1__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Type__Array.h>
 #include <Modloader/app/structs/fsForwardAttribute.h>
+#include <Modloader/app/structs/fsObjectAttribute.h>
+#include <Modloader/app/structs/fsPropertyAttribute.h>
 
 namespace app::classes::FullSerializer::Internal::fsPortableReflection {
     IL2CPP_REGISTER_METHOD(0x01659200, bool, HasAttribute_1, (app::MemberInfo_1 * element, app::Type* attribute_type))
@@ -47,11 +48,7 @@ namespace app::classes::FullSerializer::Internal::fsPortableReflection {
     IL2CPP_REGISTER_METHOD(0x0157F020, app::Object*, GetAttribute_2, (app::MemberInfo_1 * element, bool should_cache))
     IL2CPP_REGISTER_METHOD(0x0157EF70, app::Object*, GetAttribute_3, (app::MemberInfo_1 * element))
     IL2CPP_REGISTER_METHOD(0x0157EF70, app::FlagsAttribute*, GetAttribute_4, (app::MemberInfo_1 * element))
-    IL2CPP_REGISTER_METHODINFO(0x047069B8, fsPortableReflection_GetAttribute_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157EF70, app::fsPropertyAttribute*, GetAttribute_5, (app::MemberInfo_1 * element))
-    IL2CPP_REGISTER_METHODINFO(0x0473C3D0, fsPortableReflection_GetAttribute_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157EF70, app::fsObjectAttribute*, GetAttribute_6, (app::MemberInfo_1 * element))
-    IL2CPP_REGISTER_METHODINFO(0x04733018, fsPortableReflection_GetAttribute_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0157EF70, app::fsForwardAttribute*, GetAttribute_7, (app::MemberInfo_1 * element))
-    IL2CPP_REGISTER_METHODINFO(0x0474F638, fsPortableReflection_GetAttribute_6__MethodInfo)
 } // namespace app::classes::FullSerializer::Internal::fsPortableReflection

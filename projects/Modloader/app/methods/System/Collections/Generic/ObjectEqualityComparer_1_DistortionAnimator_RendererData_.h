@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_DistortionAnimator_RendererData_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_DistortionAnimator_RendererData_.h>
 #include <Modloader/app/structs/DistortionAnimator_RendererData.h>
 #include <Modloader/app/structs/DistortionAnimator_RendererData__Array.h>
 #include <Modloader/app/structs/Object.h>

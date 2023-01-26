@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkCallbackManager_BankCallbackPackage.h>
+
+#include <Modloader/app/structs/AkCallbackManager_BankCallbackPackage.h>
 #include <Modloader/app/structs/AkCallbackManager_BankCallback.h>
 #include <Modloader/app/structs/Object.h>
 

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnemyNoGoZone.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/WaterZone.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/EnemyNoGoZone.h>
 #include <Modloader/app/structs/DigZone.h>
 #include <Modloader/app/structs/List_1_DigZone_.h>
 #include <Modloader/app/structs/List_1_WaterZone_.h>
 #include <Modloader/app/structs/NavigationType__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/WaterZone.h>
 
 namespace app::classes::Game::Zones {
     IL2CPP_REGISTER_METHOD(0x00687630, app::EnemyNoGoZone*, GetNoGoZoneAtPoint, (app::Vector3 position))

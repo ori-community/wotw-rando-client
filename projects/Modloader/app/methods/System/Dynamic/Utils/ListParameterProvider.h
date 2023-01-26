@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ListParameterProvider.h>
+
+#include <Modloader/app/structs/ListParameterProvider.h>
 #include <Modloader/app/structs/IParameterProvider.h>
 #include <Modloader/app/structs/ParameterExpression.h>
 

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScreenshotHandle__Boxed.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/ScreenshotHandle__Boxed.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ScreenshotHandle.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::ScreenshotHandle {
     IL2CPP_REGISTER_METHOD(0x0010DB80, void, ctor, (app::ScreenshotHandle__Boxed * this_ptr, uint32_t value))

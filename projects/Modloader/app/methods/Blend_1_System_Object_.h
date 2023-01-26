@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Blend_1_System_Object_.h>
 #include <Modloader/app/structs/Func_2_Single_Single_.h>
 #include <Modloader/app/structs/Func_4_Object_Object_Single_Object_.h>

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BufferOffsetSize.h>
+
+#include <Modloader/app/structs/BufferOffsetSize.h>
 #include <Modloader/app/structs/AsyncReadOrWriteRequest.h>
-#include <Modloader/app/structs/MobileAuthenticatedStream.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/MobileAuthenticatedStream.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Net::Security::AsyncReadOrWriteRequest {

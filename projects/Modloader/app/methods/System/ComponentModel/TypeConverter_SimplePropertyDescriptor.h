@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TypeConverter_SimplePropertyDescriptor.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/TypeConverter_SimplePropertyDescriptor.h>
 #include <Modloader/app/structs/Attribute__Array.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::ComponentModel::TypeConverter_SimplePropertyDescriptor {
     IL2CPP_REGISTER_METHOD(0x02945A00, void, ctor_1, (app::TypeConverter_SimplePropertyDescriptor * this_ptr, app::Type* component_type, app::String* name, app::Type* property_type))

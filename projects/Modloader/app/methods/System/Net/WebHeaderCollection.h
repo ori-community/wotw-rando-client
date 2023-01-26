@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/WebHeaderCollection.h>
-#include <Modloader/app/structs/NameValueCollection.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/DataParseStatus__Enum.h>
 #include <Modloader/app/structs/HttpRequestHeader__Enum.h>
 #include <Modloader/app/structs/HttpResponseHeader__Enum.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/WebHeaderCollectionType__Enum.h>
-#include <Modloader/app/structs/SerializationInfo.h>
-#include <Modloader/app/structs/StreamingContext.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/DataParseStatus__Enum.h>
-#include <Modloader/app/structs/WebParseError.h>
 #include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/NameObjectCollectionBase_KeysCollection.h>
+#include <Modloader/app/structs/NameValueCollection.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/WebHeaderCollection.h>
+#include <Modloader/app/structs/WebHeaderCollectionType__Enum.h>
+#include <Modloader/app/structs/WebParseError.h>
 
 namespace app::classes::System::Net::WebHeaderCollection {
     IL2CPP_REGISTER_METHOD(0x01D70310, app::String*, get_ContentLength, (app::WebHeaderCollection * this_ptr))
@@ -36,29 +37,17 @@ namespace app::classes::System::Net::WebHeaderCollection {
     IL2CPP_REGISTER_METHOD(0x01D715A0, bool, get_AllowHttpRequestHeader, (app::WebHeaderCollection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D715E0, bool, get_AllowHttpResponseHeader, (app::WebHeaderCollection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D71620, app::String*, get_Item_1, (app::WebHeaderCollection * this_ptr, app::HttpRequestHeader__Enum header))
-    IL2CPP_REGISTER_METHODINFO(0x0471E580, WebHeaderCollection_get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D71750, void, set_Item_1, (app::WebHeaderCollection * this_ptr, app::HttpRequestHeader__Enum header, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x04731B20, WebHeaderCollection_set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D71880, app::String*, get_Item_2, (app::WebHeaderCollection * this_ptr, app::HttpResponseHeader__Enum header))
-    IL2CPP_REGISTER_METHODINFO(0x04748F58, WebHeaderCollection_get_Item_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D71A10, void, set_Item_2, (app::WebHeaderCollection * this_ptr, app::HttpResponseHeader__Enum header, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x0473FC78, WebHeaderCollection_set_Item_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D71C10, void, Add_1, (app::WebHeaderCollection * this_ptr, app::HttpRequestHeader__Enum header, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x04702F00, WebHeaderCollection_Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D71D40, void, Add_2, (app::WebHeaderCollection * this_ptr, app::HttpResponseHeader__Enum header, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x04783810, WebHeaderCollection_Add_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D71F40, void, Set_1, (app::WebHeaderCollection * this_ptr, app::HttpRequestHeader__Enum header, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x0471E2B0, WebHeaderCollection_Set__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D72070, void, Set_2, (app::WebHeaderCollection * this_ptr, app::HttpResponseHeader__Enum header, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x04793EB8, WebHeaderCollection_Set_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D72270, void, SetInternal_1, (app::WebHeaderCollection * this_ptr, app::HttpResponseHeader__Enum header, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x04707588, WebHeaderCollection_SetInternal__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D72460, void, Remove_1, (app::WebHeaderCollection * this_ptr, app::HttpRequestHeader__Enum header))
-    IL2CPP_REGISTER_METHODINFO(0x04725C90, WebHeaderCollection_Remove__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D72590, void, Remove_2, (app::WebHeaderCollection * this_ptr, app::HttpResponseHeader__Enum header))
-    IL2CPP_REGISTER_METHODINFO(0x0477C140, WebHeaderCollection_Remove_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D726C0, void, AddWithoutValidate, (app::WebHeaderCollection * this_ptr, app::String* header_name, app::String* header_value))
-    IL2CPP_REGISTER_METHODINFO(0x0477C218, WebHeaderCollection_AddWithoutValidate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D72890, void, SetAddVerified, (app::WebHeaderCollection * this_ptr, app::String* name, app::String* value))
     IL2CPP_REGISTER_METHOD(0x01D72A00, void, AddInternal, (app::WebHeaderCollection * this_ptr, app::String* name, app::String* value))
     IL2CPP_REGISTER_METHOD(0x01D72A70, void, ChangeInternal, (app::WebHeaderCollection * this_ptr, app::String* name, app::String* value))
@@ -66,26 +55,18 @@ namespace app::classes::System::Net::WebHeaderCollection {
     IL2CPP_REGISTER_METHOD(0x01D72B30, void, CheckUpdate, (app::WebHeaderCollection * this_ptr, app::String* name, app::String* value))
     IL2CPP_REGISTER_METHOD(0x01D72C30, void, AddInternalNotCommon, (app::WebHeaderCollection * this_ptr, app::String* name, app::String* value))
     IL2CPP_REGISTER_METHOD(0x01D72C80, app::String*, CheckBadChars, (app::String * name, bool is_header_value))
-    IL2CPP_REGISTER_METHODINFO(0x04735D30, WebHeaderCollection_CheckBadChars__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D73150, bool, IsValidToken, (app::String * token))
     IL2CPP_REGISTER_METHOD(0x01D73290, bool, ContainsNonAsciiChars, (app::String * token))
     IL2CPP_REGISTER_METHOD(0x01D73300, void, ThrowOnRestrictedHeader, (app::WebHeaderCollection * this_ptr, app::String* header_name))
-    IL2CPP_REGISTER_METHODINFO(0x04736ED0, WebHeaderCollection_ThrowOnRestrictedHeader__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D73560, void, Add_3, (app::WebHeaderCollection * this_ptr, app::String* name, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x04789728, WebHeaderCollection_Add_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D73740, void, Add_4, (app::WebHeaderCollection * this_ptr, app::String* header))
-    IL2CPP_REGISTER_METHODINFO(0x0474A9B8, WebHeaderCollection_Add_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D73A10, void, Set_3, (app::WebHeaderCollection * this_ptr, app::String* name, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x0473DAF0, WebHeaderCollection_Set_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D73C50, void, SetInternal_2, (app::WebHeaderCollection * this_ptr, app::String* name, app::String* value))
-    IL2CPP_REGISTER_METHODINFO(0x0472B4C8, WebHeaderCollection_SetInternal_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D73E80, void, Remove_3, (app::WebHeaderCollection * this_ptr, app::String* name))
-    IL2CPP_REGISTER_METHODINFO(0x0475F8F8, WebHeaderCollection_Remove_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D73FD0, app::String__Array*, GetValues_1, (app::WebHeaderCollection * this_ptr, app::String* header))
     IL2CPP_REGISTER_METHOD(0x01D74300, app::String*, ToString_1, (app::WebHeaderCollection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D743A0, app::String*, ToString_2, (app::WebHeaderCollection * this_ptr, bool for_trace))
     IL2CPP_REGISTER_METHOD(0x01D74440, app::String*, GetAsString, (app::NameValueCollection * cc, bool win_inet_compat, bool for_trace))
-    IL2CPP_REGISTER_METHODINFO(0x0476FFE0, WebHeaderCollection_GetAsString__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D747B0, app::Byte__Array*, ToByteArray, (app::WebHeaderCollection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D748C0, bool, IsRestricted_1, (app::String * header_name))
     IL2CPP_REGISTER_METHOD(0x01D74A20, bool, IsRestricted_2, (app::String * header_name, bool response))

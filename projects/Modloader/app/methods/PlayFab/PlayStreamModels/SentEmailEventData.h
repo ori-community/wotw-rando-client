@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SentEmailEventData.h>
+
+#include <Modloader/app/structs/SentEmailEventData.h>
 
 namespace app::classes::PlayFab::PlayStreamModels::SentEmailEventData {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SentEmailEventData * this_ptr))

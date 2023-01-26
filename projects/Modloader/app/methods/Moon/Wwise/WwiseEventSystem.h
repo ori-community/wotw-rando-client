@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WwiseEventSystem.h>
+
+#include <Modloader/app/structs/WwiseEventSystem.h>
 #include <Modloader/app/structs/AkWwiseInitializationSettings.h>
 #include <Modloader/app/structs/Event_1.h>
 #include <Modloader/app/structs/ISoundHost.h>

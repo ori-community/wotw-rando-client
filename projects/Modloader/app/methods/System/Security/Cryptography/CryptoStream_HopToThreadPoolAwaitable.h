@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CryptoStream_HopToThreadPoolAwaitable.h>
-#include <Modloader/app/structs/CryptoStream_HopToThreadPoolAwaitable__Boxed.h>
+
+#include <Modloader/app/structs/CryptoStream_HopToThreadPoolAwaitable.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/CryptoStream_HopToThreadPoolAwaitable__Boxed.h>
 
 namespace app::classes::System::Security::Cryptography::CryptoStream_HopToThreadPoolAwaitable {
     IL2CPP_REGISTER_METHOD(0x0010E100, app::CryptoStream_HopToThreadPoolAwaitable, GetAwaiter, (app::CryptoStream_HopToThreadPoolAwaitable__Boxed * this_ptr))

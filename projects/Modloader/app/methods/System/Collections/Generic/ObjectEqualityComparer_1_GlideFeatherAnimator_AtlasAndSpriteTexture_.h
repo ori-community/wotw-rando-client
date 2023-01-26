@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_GlideFeatherAnimator_AtlasAndSpriteTexture_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_GlideFeatherAnimator_AtlasAndSpriteTexture_.h>
 #include <Modloader/app/structs/GlideFeatherAnimator_AtlasAndSpriteTexture.h>
 #include <Modloader/app/structs/GlideFeatherAnimator_AtlasAndSpriteTexture__Array.h>
 #include <Modloader/app/structs/Object.h>

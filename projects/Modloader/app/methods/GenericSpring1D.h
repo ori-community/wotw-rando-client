@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GenericSpring1D.h>
+
+#include <Modloader/app/structs/GenericSpring1D.h>
 #include <Modloader/app/structs/GenericSpring1D_Particle.h>
 
 namespace app::classes::GenericSpring1D {

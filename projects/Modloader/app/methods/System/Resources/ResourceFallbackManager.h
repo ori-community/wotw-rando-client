@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ResourceFallbackManager.h>
+
+#include <Modloader/app/structs/ResourceFallbackManager.h>
 #include <Modloader/app/structs/CultureInfo.h>
 #include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/IEnumerator_1_System_Globalization_CultureInfo_.h>

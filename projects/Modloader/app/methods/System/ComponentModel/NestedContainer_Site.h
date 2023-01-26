@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NestedContainer_Site.h>
+
+#include <Modloader/app/structs/NestedContainer_Site.h>
 #include <Modloader/app/structs/IComponent.h>
-#include <Modloader/app/structs/NestedContainer.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/IContainer.h>
+#include <Modloader/app/structs/NestedContainer.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::ComponentModel::NestedContainer_Site {

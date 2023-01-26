@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TernaryTreeReadOnly.h>
+
+#include <Modloader/app/structs/TernaryTreeReadOnly.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/String.h>
 

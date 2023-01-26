@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Input_InputButtonProcessor.h>
+
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
 
 namespace app::classes::Core::Input_InputButtonProcessor {
     IL2CPP_REGISTER_METHOD(0x00CC59E0, int32_t, get_ForcePressedFrames, (app::Input_InputButtonProcessor * this_ptr))

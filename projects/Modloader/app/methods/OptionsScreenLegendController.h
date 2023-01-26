@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OptionsScreenLegendController.h>
+
+#include <Modloader/app/structs/OptionsScreenLegendController.h>
 
 namespace app::classes::OptionsScreenLegendController {
     IL2CPP_REGISTER_METHOD(0x00619220, void, Update, (app::OptionsScreenLegendController * this_ptr))

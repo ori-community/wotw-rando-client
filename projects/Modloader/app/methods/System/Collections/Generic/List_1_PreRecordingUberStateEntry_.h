@@ -1,33 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_PreRecordingUberStateEntry_.h>
-#include <Modloader/app/structs/PreRecordingUberStateEntry.h>
-#include <Modloader/app/structs/IEnumerable_1_PreRecordingUberStateEntry_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_PreRecordingUberStateEntry_.h>
-#include <Modloader/app/structs/IComparer_1_PreRecordingUberStateEntry_.h>
-#include <Modloader/app/structs/PreRecordingUberStateEntry__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_PreRecordingUberStateEntry_.h>
+
+#include <Modloader/app/structs/List_1_PreRecordingUberStateEntry_.h>
 #include <Modloader/app/structs/Action_1_PreRecordingUberStateEntry_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_PreRecordingUberStateEntry_.h>
-#include <Modloader/app/structs/IEnumerator_1_PreRecordingUberStateEntry_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_PreRecordingUberStateEntry_.h>
+#include <Modloader/app/structs/IComparer_1_PreRecordingUberStateEntry_.h>
+#include <Modloader/app/structs/IEnumerable_1_PreRecordingUberStateEntry_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_PreRecordingUberStateEntry_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_PreRecordingUberStateEntry_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PreRecordingUberStateEntry.h>
+#include <Modloader/app/structs/PreRecordingUberStateEntry__Array.h>
+#include <Modloader/app/structs/Predicate_1_PreRecordingUberStateEntry_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_PreRecordingUberStateEntry_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_PreRecordingUberStateEntry_ {
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add, (app::List_1_PreRecordingUberStateEntry_ * this_ptr, app::PreRecordingUberStateEntry item))
-    IL2CPP_REGISTER_METHODINFO(0x0476C598, List_1_PreRecordingUberStateEntry__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_PreRecordingUberStateEntry_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474CCB8, List_1_PreRecordingUberStateEntry__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAB40, void, RemoveAt, (app::List_1_PreRecordingUberStateEntry_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04789360, List_1_PreRecordingUberStateEntry__RemoveAt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::PreRecordingUberStateEntry, get_Item, (app::List_1_PreRecordingUberStateEntry_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0472F1B0, List_1_PreRecordingUberStateEntry__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_PreRecordingUberStateEntry_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478FE48, List_1_PreRecordingUberStateEntry__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_PreRecordingUberStateEntry_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04712400, List_1_PreRecordingUberStateEntry___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_PreRecordingUberStateEntry_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02E51000, void, ctor_3, (app::List_1_PreRecordingUberStateEntry_ * this_ptr, app::IEnumerable_1_PreRecordingUberStateEntry_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_PreRecordingUberStateEntry_ * this_ptr))

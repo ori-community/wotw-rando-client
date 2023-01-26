@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DepthOfFieldDeprecated.h>
-#include <Modloader/app/structs/RenderTexture.h>
+
+#include <Modloader/app/structs/DepthOfFieldDeprecated.h>
 #include <Modloader/app/structs/DepthOfFieldDeprecated_DofBlurriness__Enum.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::DepthOfFieldDeprecated {
     IL2CPP_REGISTER_METHOD(0x02D54500, void, CreateMaterials, (app::DepthOfFieldDeprecated * this_ptr))

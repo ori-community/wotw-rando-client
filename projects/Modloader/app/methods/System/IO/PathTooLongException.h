@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PathTooLongException.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/PathTooLongException.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IO::PathTooLongException {
     IL2CPP_REGISTER_METHOD(0x0237B060, void, ctor_1, (app::PathTooLongException * this_ptr))

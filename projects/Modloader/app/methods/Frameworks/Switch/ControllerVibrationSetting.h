@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ControllerVibrationSetting__Boxed.h>
+
+#include <Modloader/app/structs/ControllerVibrationSetting__Boxed.h>
 #include <Modloader/app/structs/ControllerVibrationSetting.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritShardUIShardUpgradeFill.h>
+
+#include <Modloader/app/structs/SpiritShardUIShardUpgradeFill.h>
 
 namespace app::classes::SpiritShardUIShardUpgradeFill {
     IL2CPP_REGISTER_METHOD(0x00D70650, void, SetFill, (app::SpiritShardUIShardUpgradeFill * this_ptr, float fill, bool ignore_time))

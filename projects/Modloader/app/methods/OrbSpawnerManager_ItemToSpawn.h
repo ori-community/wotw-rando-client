@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OrbSpawnerManager_ItemToSpawn__Boxed.h>
-#include <Modloader/app/structs/OrbSpawnerManager_ItemType__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/OrbSpawnerManager_ItemToSpawn__Boxed.h>
 #include <Modloader/app/structs/DropPickup_State__Enum.h>
+#include <Modloader/app/structs/OrbSpawnerManager_ItemType__Enum.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::OrbSpawnerManager_ItemToSpawn {

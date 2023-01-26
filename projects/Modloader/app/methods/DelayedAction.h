@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DelayedAction.h>
+
+#include <Modloader/app/structs/DelayedAction.h>
+#include <Modloader/app/structs/Component_1.h>
 #include <Modloader/app/structs/DelayedAction_Action.h>
 #include <Modloader/app/structs/Func_1_Boolean_.h>
-#include <Modloader/app/structs/Component_1.h>
 
 namespace app::classes::DelayedAction {
     IL2CPP_REGISTER_METHOD(0x00B7FB70, float, get_DonePercentage, (app::DelayedAction * this_ptr))
@@ -15,7 +16,6 @@ namespace app::classes::DelayedAction {
     IL2CPP_REGISTER_METHOD(0x00B7FC40, void, PerformDelayed, (app::DelayedAction * this_ptr, app::DelayedAction_Action* action))
     IL2CPP_REGISTER_METHOD(0x00B7FE10, void, Release, (app::DelayedAction * this_ptr, bool force_pending_action_to_run))
     IL2CPP_REGISTER_METHOD(0x00B7FE30, void, OnFixedUpdate, (app::DelayedAction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474C190, DelayedAction_OnFixedUpdate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B7FFF0, void, CleanUp, (app::DelayedAction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00B801B0, void, PerformAction, (app::DelayedAction * this_ptr))
 } // namespace app::classes::DelayedAction

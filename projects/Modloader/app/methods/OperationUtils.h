@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OperationMethod__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/OperationMethod__Enum.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::OperationUtils {
     IL2CPP_REGISTER_METHOD(0x031137A0, float, Operate_1, (float a, float b, app::OperationMethod__Enum om, float delta))

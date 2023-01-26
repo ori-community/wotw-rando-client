@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyInstantiateAnimator.h>
+
+#include <Modloader/app/structs/LegacyInstantiateAnimator.h>
 
 namespace app::classes::LegacyInstantiateAnimator {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsLooping, (app::LegacyInstantiateAnimator * this_ptr))

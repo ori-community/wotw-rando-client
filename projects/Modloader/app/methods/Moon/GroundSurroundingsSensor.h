@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GroundSurroundingsSensor__Boxed.h>
+
+#include <Modloader/app/structs/GroundSurroundingsSensor__Boxed.h>
 #include <Modloader/app/structs/GroundEntityLocomotion.h>
 #include <Modloader/app/structs/Vector3.h>
 

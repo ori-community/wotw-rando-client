@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FileStream.h>
+
+#include <Modloader/app/structs/FileStream.h>
 #include <Modloader/app/structs/HoloLensFileWriteState.h>
 
 namespace app::classes::HoloLensFileWriteState {

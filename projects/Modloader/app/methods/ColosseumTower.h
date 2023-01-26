@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ColosseumTower.h>
+
+#include <Modloader/app/structs/ColosseumTower.h>
 #include <Modloader/app/structs/ColosseumTower_SentryStats.h>
 
 namespace app::classes::ColosseumTower {

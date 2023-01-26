@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IUpdateHandlerBase.h>
+
+#include <Modloader/app/structs/IUpdateHandlerBase.h>
 #include <Modloader/app/structs/UpdateManager_GenericEntry.h>
 
 namespace app::classes::Moon::Driver::UpdateManager_GenericEntry {

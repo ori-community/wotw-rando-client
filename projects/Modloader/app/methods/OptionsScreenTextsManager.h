@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OptionsScreenTextsManager.h>
-#include <Modloader/app/structs/MessageProvider.h>
+
+#include <Modloader/app/structs/OptionsScreenTextsManager.h>
 #include <Modloader/app/structs/AkAudioAPI__Enum.h>
-#include <Modloader/app/structs/TranslatedMessageProvider.h>
 #include <Modloader/app/structs/Language__Enum.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/TranslatedMessageProvider.h>
 
 namespace app::classes::OptionsScreenTextsManager {
     IL2CPP_REGISTER_METHOD(0x006193E0, void, UpdateItems, (app::OptionsScreenTextsManager * this_ptr))

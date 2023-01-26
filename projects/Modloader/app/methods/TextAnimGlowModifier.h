@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextAnimGlowModifier.h>
+
+#include <Modloader/app/structs/TextAnimGlowModifier.h>
 
 namespace app::classes::TextAnimGlowModifier {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, RequiresNormals, (app::TextAnimGlowModifier * this_ptr))

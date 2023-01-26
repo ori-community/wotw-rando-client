@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PointerInputModule.h>
+
+#include <Modloader/app/structs/PointerInputModule.h>
+#include <Modloader/app/structs/BaseEventData.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/PointerEventData.h>
-#include <Modloader/app/structs/Touch.h>
 #include <Modloader/app/structs/PointerEventData_FramePressState__Enum.h>
 #include <Modloader/app/structs/PointerInputModule_MouseState.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/BaseEventData.h>
+#include <Modloader/app/structs/Touch.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::EventSystems::PointerInputModule {
     IL2CPP_REGISTER_METHOD(0x01F23A50, void, ctor, (app::PointerInputModule * this_ptr))

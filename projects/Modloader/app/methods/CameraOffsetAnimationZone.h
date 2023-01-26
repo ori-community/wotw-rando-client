@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraOffsetAnimationZone.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/CameraOffsetAnimationZone.h>
 #include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/SelectableCategory__Enum.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/SelectableCategory__Enum.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/VirtualClipsBuilder.h>
+#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
 
 namespace app::classes::CameraOffsetAnimationZone {
     IL2CPP_REGISTER_METHOD(0x01693660, bool, get_IsActivated, (app::CameraOffsetAnimationZone * this_ptr))
@@ -26,7 +27,6 @@ namespace app::classes::CameraOffsetAnimationZone {
     IL2CPP_REGISTER_METHOD(0x016949B0, void, Deactivate, (app::CameraOffsetAnimationZone * this_ptr, bool instant))
     IL2CPP_REGISTER_METHOD(0x01694BF0, void, Remove, (app::CameraOffsetAnimationZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01694DD0, void, OnRestoreCheckpoint, (app::CameraOffsetAnimationZone * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04719158, CameraOffsetAnimationZone_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005BDAA0, bool, Changed, (app::CameraOffsetAnimationZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01694DE0, app::Rect, get_Rect, (app::CameraOffsetAnimationZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01694F40, bool, IsWithinRect, (app::CameraOffsetAnimationZone * this_ptr))

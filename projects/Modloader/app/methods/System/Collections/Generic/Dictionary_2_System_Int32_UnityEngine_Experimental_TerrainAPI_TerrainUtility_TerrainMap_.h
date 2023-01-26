@@ -1,34 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
-#include <Modloader/app/structs/TerrainUtility_TerrainMap.h>
-#include <Modloader/app/structs/Dictionary_2_TKey_TValue_Enumerator_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
+
+#include <Modloader/app/structs/Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Dictionary_2_TK_TVal_Enumerat_Syst_Int_UnityEngi_Experiment_TerrainA_TerrainUtili_Terrain_.h>
+#include <Modloader/app/structs/ICollection.h>
 #include <Modloader/app/structs/ICollection_1_System_Int32_.h>
 #include <Modloader/app/structs/ICollection_1_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap___Array.h>
-#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ICollection.h>
 #include <Modloader/app/structs/IDictionaryEnumerator.h>
-#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/IEnumerable_1_System_Int32_.h>
 #include <Modloader/app/structs/IEnumerable_1_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePai_2_Syste_Int_UnityEngi_Experiment_TerrainA_TerrainUtili_TerrainM_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int3_UnityEngin_Experimenta_TerrainAP_TerrainUtilit_TerrainMa___Arra.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/TerrainUtility_TerrainMap.h>
 
 namespace app::classes::System::Collections::Generic::Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_ {
     IL2CPP_REGISTER_METHOD(0x02BA5090, bool, ContainsKey, (app::Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_ * this_ptr, int32_t key))
-    IL2CPP_REGISTER_METHODINFO(0x04784408, Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap__ContainsKey__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02BAC170, void, Add, (app::Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_ * this_ptr, int32_t key, app::TerrainUtility_TerrainMap* value))
-    IL2CPP_REGISTER_METHODINFO(0x0473DE98, Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0283B2A0, int32_t, get_Count, (app::Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472C190, Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02BA5400, app::Dictionary_2_TKey_TValue_Enumerator_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_, GetEnumerator, (app::Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474FA78, Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0283AC20, void, ctor, (app::Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04703B30, Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02BB8880, app::TerrainUtility_TerrainMap*, get_Item, (app::Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_ * this_ptr, int32_t key))
     IL2CPP_REGISTER_METHOD(0x02BAC140, void, set_Item, (app::Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_ * this_ptr, int32_t key, app::TerrainUtility_TerrainMap* value))
     IL2CPP_REGISTER_METHOD(0x0283B2B0, app::ICollection_1_System_Int32_*, System_Collections_Generic_IDictionary_TKey_TValue__get_Keys, (app::Dictionary_2_System_Int32_UnityEngine_Experimental_TerrainAPI_TerrainUtility_TerrainMap_ * this_ptr))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GroundMoveInDirectionBehaviour.h>
-#include <Modloader/app/structs/IBlackboard.h>
+
+#include <Modloader/app/structs/GroundMoveInDirectionBehaviour.h>
 #include <Modloader/app/structs/EntityBehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IBlackboard.h>
 #include <Modloader/app/structs/Locomotion.h>
 
 namespace app::classes::Moon::GroundMoveInDirectionBehaviour {

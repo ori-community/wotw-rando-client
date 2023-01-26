@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DelayedAction_1_System_Object_.h>
+
+#include <Modloader/app/structs/DelayedAction_1_System_Object_.h>
 #include <Modloader/app/structs/Action_1_Object_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Func_1_Boolean_.h>
 #include <Modloader/app/structs/Component_1.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::DelayedAction_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00B7FB70, float, get_DonePercentage, (app::DelayedAction_1_System_Object_ * this_ptr))

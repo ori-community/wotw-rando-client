@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SlugDirectionalAnimationPicker.h>
+
+#include <Modloader/app/structs/SlugDirectionalAnimationPicker.h>
 #include <Modloader/app/structs/SlugDirectionalAnimation.h>
 #include <Modloader/app/structs/TextureAnimationWithTransitions.h>
 #include <Modloader/app/structs/Vector3.h>

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostTimelineEventsPlugin_PendingEvent__Boxed.h>
-#include <Modloader/app/structs/ITimelineEntity.h>
+
+#include <Modloader/app/structs/GhostTimelineEventsPlugin_PendingEvent__Boxed.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
 #include <Modloader/app/structs/MoonTimelineNotifier_Action__Enum.h>
 
 namespace app::classes::GhostTimelineEventsPlugin_PendingEvent {

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/AttachToRope__Class.h>
 #include <Modloader/app/structs/AttachToRope.h>
 #include <Modloader/app/structs/AttachToRope__Array.h>
+#include <Modloader/app/structs/AttachToRope__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace AttachToRope {
-        namespace {
-            inline app::AttachToRope__Class* type_info_ref = nullptr;
+        inline app::AttachToRope__Class** type_info() {
+            static app::AttachToRope__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::AttachToRope__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::AttachToRope__Class** type_info = &type_info_ref;
         inline app::AttachToRope__Class* get_class() {
-            return il2cpp::get_class<app::AttachToRope__Class>(type_info, "", "AttachToRope");
+            return il2cpp::get_class<app::AttachToRope__Class>(type_info(), "", "AttachToRope");
         }
         inline app::AttachToRope* create() {
             return il2cpp::create_object<app::AttachToRope>(get_class());

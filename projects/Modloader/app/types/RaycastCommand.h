@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/RaycastCommand.h>
+#include <Modloader/app/structs/RaycastCommand__Array.h>
+#include <Modloader/app/structs/RaycastCommand__Boxed.h>
+#include <Modloader/app/structs/RaycastCommand__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RaycastCommand__Class.h>
-#include <Modloader/app/structs/RaycastCommand.h>
-#include <Modloader/app/structs/RaycastCommand__Boxed.h>
-#include <Modloader/app/structs/RaycastCommand__Array.h>
 
 namespace app::classes::types {
     namespace RaycastCommand {
-        namespace {
-            inline app::RaycastCommand__Class* type_info_ref = nullptr;
+        inline app::RaycastCommand__Class** type_info() {
+            static app::RaycastCommand__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::RaycastCommand__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::RaycastCommand__Class** type_info = &type_info_ref;
         inline app::RaycastCommand__Class* get_class() {
-            return il2cpp::get_class<app::RaycastCommand__Class>(type_info, "UnityEngine", "RaycastCommand");
+            return il2cpp::get_class<app::RaycastCommand__Class>(type_info(), "UnityEngine", "RaycastCommand");
         }
         inline app::RaycastCommand* create() {
             return il2cpp::create_object<app::RaycastCommand>(get_class());

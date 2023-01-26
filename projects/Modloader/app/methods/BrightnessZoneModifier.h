@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GlobalBrightnessController_BrigthnessContributionOrder__Enum.h>
+
+#include <Modloader/app/structs/GlobalBrightnessController_BrigthnessContributionOrder__Enum.h>
 #include <Modloader/app/structs/BrightnessZoneModifier.h>
 
 namespace app::classes::BrightnessZoneModifier {

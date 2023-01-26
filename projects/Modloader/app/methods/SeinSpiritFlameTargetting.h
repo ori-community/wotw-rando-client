@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinSpiritFlameTargetting.h>
+
+#include <Modloader/app/structs/SeinSpiritFlameTargetting.h>
 #include <Modloader/app/structs/IAttackable.h>
 
 namespace app::classes::SeinSpiritFlameTargetting {

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BossHealthbar2.h>
-#include <Modloader/app/structs/Vitals.h>
+
+#include <Modloader/app/structs/BossHealthbar2.h>
+#include <Modloader/app/structs/BossHealthbar2_BossNameType__Enum.h>
 #include <Modloader/app/structs/Func_1_Boolean_.h>
 #include <Modloader/app/structs/MessageProvider.h>
-#include <Modloader/app/structs/BossHealthbar2_BossNameType__Enum.h>
+#include <Modloader/app/structs/Vitals.h>
 
 namespace app::classes::BossHealthbar2 {
     IL2CPP_REGISTER_METHOD(0x00D3B6E0, app::BossHealthbar2*, get_Instance, ())
@@ -16,7 +17,6 @@ namespace app::classes::BossHealthbar2 {
     IL2CPP_REGISTER_METHOD(0x00D3BFF0, void, Awake, (app::BossHealthbar2 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D3C340, void, OnDestroy, (app::BossHealthbar2 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D3C4E0, void, OnRestoreCheckpoint, (app::BossHealthbar2 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473AB18, BossHealthbar2_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D3C4F0, bool, get_ShouldBeShown, (app::BossHealthbar2 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D3C780, void, UpdateValue, (app::BossHealthbar2 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D3C8B0, void, FixedUpdate, (app::BossHealthbar2 * this_ptr))
@@ -29,5 +29,4 @@ namespace app::classes::BossHealthbar2 {
     IL2CPP_REGISTER_METHOD(0x00D3D460, void, ctor, (app::BossHealthbar2 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x00D3D4C0, void, _PlayHideTimeline_b__42_0, (app::BossHealthbar2 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474F038, BossHealthbar2__PlayHideTimeline_b__42_0__MethodInfo)
 } // namespace app::classes::BossHealthbar2

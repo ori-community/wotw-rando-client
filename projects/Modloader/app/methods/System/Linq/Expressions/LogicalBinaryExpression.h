@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LogicalBinaryExpression.h>
-#include <Modloader/app/structs/ExpressionType__Enum.h>
+
+#include <Modloader/app/structs/LogicalBinaryExpression.h>
 #include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/ExpressionType__Enum.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::LogicalBinaryExpression {

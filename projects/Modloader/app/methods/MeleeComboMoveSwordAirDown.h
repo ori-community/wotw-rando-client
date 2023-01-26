@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MeleeComboMoveSwordAirDown.h>
+
+#include <Modloader/app/structs/MeleeComboMoveSwordAirDown.h>
 
 namespace app::classes::MeleeComboMoveSwordAirDown {
     IL2CPP_REGISTER_METHOD(0x013A5BD0, float, get_EffectiveKnockbackAddY, (app::MeleeComboMoveSwordAirDown * this_ptr))

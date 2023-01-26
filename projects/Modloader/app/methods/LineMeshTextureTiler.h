@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LineMeshTextureTiler.h>
+
+#include <Modloader/app/structs/LineMeshTextureTiler.h>
 
 namespace app::classes::LineMeshTextureTiler {
     IL2CPP_REGISTER_METHOD(0x00FA6DD0, void, Awake, (app::LineMeshTextureTiler * this_ptr))

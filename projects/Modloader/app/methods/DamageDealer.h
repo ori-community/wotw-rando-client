@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DamageDealer.h>
+
+#include <Modloader/app/structs/DamageDealer.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/Polygon_1.h>
-#include <Modloader/app/structs/DamageLayerMask__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/DamageDealer_OverrideInfo.h>
 #include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/DamageDealer_OverrideInfo.h>
+#include <Modloader/app/structs/DamageLayerMask__Enum.h>
 #include <Modloader/app/structs/DamageOwner.h>
 #include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Polygon_1.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/VirtualTimelineRepresentationGroup__Enum.h>
 
 namespace app::classes::DamageDealer {
     IL2CPP_REGISTER_METHOD(0x004358D0, bool, ShouldUseDamageByAreaResolver, (app::DamageDealer * this_ptr))
@@ -58,7 +59,6 @@ namespace app::classes::DamageDealer {
     IL2CPP_REGISTER_METHOD(0x00DC53C0, bool, ColliderContainsPoint, (app::Collider * collider, app::Vector3 point_world))
     IL2CPP_REGISTER_METHOD(0x00DC57F0, void, DealDamage, (app::DamageDealer * this_ptr, app::GameObject* target, app::DamageOwner* damage_owner))
     IL2CPP_REGISTER_METHOD(0x00DC6D90, void, OnDamageTicked, (app::DamageDealer * this_ptr, app::DamageResult result))
-    IL2CPP_REGISTER_METHODINFO(0x04757480, DamageDealer_OnDamageTicked__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004F4750, app::GameObject*, get_VirtualTimelineTarget, (app::DamageDealer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00420230, app::VirtualTimelineRepresentationGroup__Enum, get_VirtualTimelineGroup, (app::DamageDealer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DC7010, app::String*, get_NameDisplayedOnClip, (app::DamageDealer * this_ptr))

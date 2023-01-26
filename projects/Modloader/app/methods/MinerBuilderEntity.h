@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MinerBuilderEntity.h>
+
+#include <Modloader/app/structs/MinerBuilderEntity.h>
 #include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::MinerBuilderEntity {

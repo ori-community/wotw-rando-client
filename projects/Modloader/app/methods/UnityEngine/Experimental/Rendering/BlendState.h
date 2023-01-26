@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BlendState__Boxed.h>
+
+#include <Modloader/app/structs/BlendState__Boxed.h>
 #include <Modloader/app/structs/BlendState.h>
 #include <Modloader/app/structs/RenderTargetBlendState.h>
 

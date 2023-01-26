@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InteractionC2CDemo.h>
+
+#include <Modloader/app/structs/InteractionC2CDemo.h>
 
 namespace app::classes::RootMotion::Demos::InteractionC2CDemo {
     IL2CPP_REGISTER_METHOD(0x02220FD0, void, OnGUI, (app::InteractionC2CDemo * this_ptr))

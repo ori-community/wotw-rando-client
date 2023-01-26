@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_GeneralDebugMenuPage_SceneInfo_.h>
-#include <Modloader/app/structs/GeneralDebugMenuPage_SceneInfo__Array.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_GeneralDebugMenuPage_SceneInfo_.h>
 #include <Modloader/app/structs/GeneralDebugMenuPage_SceneInfo.h>
+#include <Modloader/app/structs/GeneralDebugMenuPage_SceneInfo__Array.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_GeneralDebugMenuPage_SceneInfo_ {

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MechSpiderLeg__Class.h>
 #include <Modloader/app/structs/MechSpiderLeg.h>
 #include <Modloader/app/structs/MechSpiderLeg__Array.h>
+#include <Modloader/app/structs/MechSpiderLeg__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace MechSpiderLeg {
-        namespace {
-            inline app::MechSpiderLeg__Class* type_info_ref = nullptr;
+        inline app::MechSpiderLeg__Class** type_info() {
+            static app::MechSpiderLeg__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::MechSpiderLeg__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::MechSpiderLeg__Class** type_info = &type_info_ref;
         inline app::MechSpiderLeg__Class* get_class() {
-            return il2cpp::get_class<app::MechSpiderLeg__Class>(type_info, "RootMotion.Demos", "MechSpiderLeg");
+            return il2cpp::get_class<app::MechSpiderLeg__Class>(type_info(), "RootMotion.Demos", "MechSpiderLeg");
         }
         inline app::MechSpiderLeg* create() {
             return il2cpp::create_object<app::MechSpiderLeg>(get_class());

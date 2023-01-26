@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AxisInput.h>
+
+#include <Modloader/app/structs/AxisInput.h>
 #include <Modloader/app/structs/Axis__Enum_1.h>
 
 namespace app::classes::frameworks::Switch::AxisInput {

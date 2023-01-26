@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SHA1Internal.h>
+
+#include <Modloader/app/structs/SHA1Internal.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/UInt32__Array.h>
 

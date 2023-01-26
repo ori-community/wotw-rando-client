@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShopkeeperUISubItem.h>
+
+#include <Modloader/app/structs/ShopkeeperUISubItem.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ShopkeeperItem.h>
 

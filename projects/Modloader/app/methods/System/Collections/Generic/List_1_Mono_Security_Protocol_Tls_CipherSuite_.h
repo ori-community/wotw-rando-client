@@ -1,25 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CipherSuite.h>
+
+#include <Modloader/app/structs/CipherSuite.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/CipherSuite__Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Mono_Security_Protocol_Tls_CipherSuite_.h>
 #include <Modloader/app/structs/List_1_Mono_Security_Protocol_Tls_CipherSuite_.h>
 #include <Modloader/app/structs/List_1_T_Enumerator_Mono_Security_Protocol_Tls_CipherSuite_.h>
-#include <Modloader/app/structs/CipherSuite__Array.h>
-#include <Modloader/app/structs/IEnumerator_1_Mono_Security_Protocol_Tls_CipherSuite_.h>
-#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Mono_Security_Protocol_Tls_CipherSuite_ {
     IL2CPP_REGISTER_METHOD(0x025EFC50, app::CipherSuite*, get_Item, (app::List_1_Mono_Security_Protocol_Tls_CipherSuite_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04778B28, List_1_Mono_Security_Protocol_Tls_CipherSuite__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor, (app::List_1_Mono_Security_Protocol_Tls_CipherSuite_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047107C8, List_1_Mono_Security_Protocol_Tls_CipherSuite___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025F0B10, app::List_1_T_Enumerator_Mono_Security_Protocol_Tls_CipherSuite_, GetEnumerator, (app::List_1_Mono_Security_Protocol_Tls_CipherSuite_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04710850, List_1_Mono_Security_Protocol_Tls_CipherSuite__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F1E150, void, Add, (app::List_1_Mono_Security_Protocol_Tls_CipherSuite_ * this_ptr, app::CipherSuite* item))
-    IL2CPP_REGISTER_METHODINFO(0x0478E760, List_1_Mono_Security_Protocol_Tls_CipherSuite__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_Mono_Security_Protocol_Tls_CipherSuite_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047436E8, List_1_Mono_Security_Protocol_Tls_CipherSuite__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EFC80, void, set_Item, (app::List_1_Mono_Security_Protocol_Tls_CipherSuite_ * this_ptr, int32_t index, app::CipherSuite* value))
     IL2CPP_REGISTER_METHOD(0x025F0BE0, int32_t, IndexOf, (app::List_1_Mono_Security_Protocol_Tls_CipherSuite_ * this_ptr, app::CipherSuite* item))
     IL2CPP_REGISTER_METHOD(0x02F1EA40, void, Insert, (app::List_1_Mono_Security_Protocol_Tls_CipherSuite_ * this_ptr, int32_t index, app::CipherSuite* item))

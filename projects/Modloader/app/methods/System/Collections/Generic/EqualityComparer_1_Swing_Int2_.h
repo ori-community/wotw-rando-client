@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_Swing_Int2_.h>
-#include <Modloader/app/structs/Int2__Array.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_Swing_Int2_.h>
 #include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/Int2__Array.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_Swing_Int2_ {

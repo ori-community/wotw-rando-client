@@ -1,25 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinGrabSurfacePuppet.h>
-#include <Modloader/app/structs/SeinGrabSurface.h>
+
+#include <Modloader/app/structs/SeinGrabSurfacePuppet.h>
+#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/ActiveAnimationHandle.h>
-#include <Modloader/app/structs/GrabbableSurface.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/CapsuleCollider.h>
 #include <Modloader/app/structs/CharacterGravity.h>
 #include <Modloader/app/structs/CharacterLeftRightMovement.h>
 #include <Modloader/app/structs/CharacterPlatformMovement.h>
-#include <Modloader/app/structs/CapsuleCollider.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GrabbableSurface.h>
 #include <Modloader/app/structs/GrabbableSurfaceMovingWheel.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/MoonAnimation.h>
-#include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/SeinGrabSurface.h>
 #include <Modloader/app/structs/SeinGrabSurface_AnimationState__Enum.h>
-#include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinGrabSurface {
     IL2CPP_REGISTER_METHOD(0x014BE840, app::SeinGrabSurfacePuppet*, get_Puppet, (app::SeinGrabSurface * this_ptr))
@@ -81,21 +82,15 @@ namespace app::classes::SeinGrabSurface {
     IL2CPP_REGISTER_METHOD(0x014C1430, void, OnEnable, (app::SeinGrabSurface * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014C16D0, void, OnDisable, (app::SeinGrabSurface * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014C1990, void, OnPreRestoreCheckpoint, (app::SeinGrabSurface * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472DA18, SeinGrabSurface_OnPreRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014C19C0, void, OnRestoreCheckpoint, (app::SeinGrabSurface * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471ECE8, SeinGrabSurface_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014BEFB0, bool, ShouldGrabAnimationKeepPlaying, (app::SeinGrabSurface * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04740670, SeinGrabSurface_ShouldGrabAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005E1300, bool, ShouldJumpDownAnimationKeepPlaying, (app::SeinGrabSurface * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472F360, SeinGrabSurface_ShouldJumpDownAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014C1D30, void, OnSetReferenceToSein, (app::SeinGrabSurface * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014C1E10, void, Start, (app::SeinGrabSurface * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014C2220, void, OnAwake, (app::SeinGrabSurface * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014C2400, void, OnDestroy, (app::SeinGrabSurface * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014C2820, void, ModifyGravityPlatformMovementSettings, (app::SeinGrabSurface * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0470B068, SeinGrabSurface_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014C2850, void, ModifyHorizontalPlatformMovementSettings, (app::SeinGrabSurface * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0470C098, SeinGrabSurface_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014C29A0, void, OnExit, (app::SeinGrabSurface * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014C29D0, void, StartIgnoringColliders, (app::SeinGrabSurface * this_ptr, app::GameObject* target))
     IL2CPP_REGISTER_METHOD(0x014C2B60, void, StopIgnoringColliders, (app::SeinGrabSurface * this_ptr))
@@ -135,9 +130,7 @@ namespace app::classes::SeinGrabSurface {
     IL2CPP_REGISTER_METHOD(0x014CA690, void, PerformJump, (app::SeinGrabSurface * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014CB040, void, TransitionToWalkOnGround, (app::SeinGrabSurface * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014CB1A0, void, OnTakeDamage, (app::SeinGrabSurface * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x04772200, SeinGrabSurface_OnTakeDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014CB1F0, void, OnPreDash, (app::SeinGrabSurface * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471ED60, SeinGrabSurface_OnPreDash__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014CB370, bool, CanDash, (app::SeinGrabSurface * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014CB550, bool, CanChargeJump, (app::SeinGrabSurface * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014CB710, bool, get_IsStandingOnTopOfSurface, (app::SeinGrabSurface * this_ptr))
@@ -146,7 +139,5 @@ namespace app::classes::SeinGrabSurface {
     IL2CPP_REGISTER_METHOD(0x014CBEE0, void, StopAllEfffects, (app::SeinGrabSurface * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014CC060, void, ctor, (app::SeinGrabSurface * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014BEFB0, bool, _EnterWheel_b__194_0, (app::SeinGrabSurface * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477A3B8, SeinGrabSurface__EnterWheel_b__194_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005E1300, bool, _ShootOutFromWheel_b__196_0, (app::SeinGrabSurface * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04702310, SeinGrabSurface__ShootOutFromWheel_b__196_0__MethodInfo)
 } // namespace app::classes::SeinGrabSurface

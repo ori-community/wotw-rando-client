@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WwiseIntegration.h>
+
+#include <Modloader/app/structs/WwiseIntegration.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/SoundHost.h>
 #include <Modloader/app/structs/SoundListener.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/WwiseSyncProcessor.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/WwiseEventSystem.h>
 #include <Modloader/app/structs/WwiseGameObjectSystem.h>
 #include <Modloader/app/structs/WwiseSoundBankSystem.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/WwiseSyncProcessor.h>
 
 namespace app::classes::Moon::Wwise::Wwise {
     IL2CPP_REGISTER_METHOD(0x0270E620, app::WwiseIntegration*, get_Engine, ())

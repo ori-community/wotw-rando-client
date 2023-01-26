@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AxisAlignedBox.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/AxisAlignedBox.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::AxisAlignedBox {
     IL2CPP_REGISTER_METHOD(0x00CB5430, void, ctor_1, (app::AxisAlignedBox * this_ptr))

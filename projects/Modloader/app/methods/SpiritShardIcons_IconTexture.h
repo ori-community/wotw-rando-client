@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritShardIcons_IconTexture__Boxed.h>
+
+#include <Modloader/app/structs/SpiritShardIcons_IconTexture__Boxed.h>
 #include <Modloader/app/structs/SpiritShardType__Enum.h>
 #include <Modloader/app/structs/Texture2D.h>
 

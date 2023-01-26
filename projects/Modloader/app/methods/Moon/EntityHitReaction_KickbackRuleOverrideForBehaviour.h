@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityHitReaction_KickbackRuleOverrideForBehaviour.h>
+
+#include <Modloader/app/structs/EntityHitReaction_KickbackRuleOverrideForBehaviour.h>
 #include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::Moon::EntityHitReaction_KickbackRuleOverrideForBehaviour {

@@ -1,17 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JsonBuilder_Slot__Boxed.h>
-#include <Modloader/app/structs/JsonBuilder.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/JsonBuilder_Slot__Boxed.h>
 #include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/Guid.h>
-#include <Modloader/app/structs/JsonBuilder_Object.h>
+#include <Modloader/app/structs/JsonBuilder.h>
 #include <Modloader/app/structs/JsonBuilder_Array.h>
+#include <Modloader/app/structs/JsonBuilder_Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Moon::JsonBuilder_Slot {
     IL2CPP_REGISTER_METHOD(0x0013C010, void, ctor, (app::JsonBuilder_Slot__Boxed * this_ptr, int32_t ident, app::JsonBuilder* builder))
     IL2CPP_REGISTER_METHOD(0x002454B0, void, Validate, (app::JsonBuilder_Slot__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476DFF8, JsonBuilder_Slot_Validate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002454C0, void, WriteRawUnsafe, (app::JsonBuilder_Slot__Boxed * this_ptr, app::String* json_value_string))
     IL2CPP_REGISTER_METHOD(0x00245510, void, WriteNull, (app::JsonBuilder_Slot__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00245520, void, Write_1, (app::JsonBuilder_Slot__Boxed * this_ptr, app::String* value))

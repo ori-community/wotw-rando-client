@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData.h>
+#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Array.h>
+#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Boxed.h>
+#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Class.h>
-#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData.h>
-#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Boxed.h>
-#include <Modloader/app/structs/LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Array.h>
 
 namespace app::classes::types {
     namespace LightCanvasEditorTextureCache_LightCanvasEditorTextureData {
-        inline app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Class** type_info = (app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Class**)(modloader::win::memory::resolve_rva(0x04784898));
+        inline app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Class** type_info() {
+            static app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Class**)(modloader::win::memory::resolve_rva(0x04784898));
+            }
+            return cache;
+        }
         inline app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Class* get_class() {
-            return il2cpp::get_nested_class<app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Class>(type_info, "", "LightCanvasEditorTextureCache", "LightCanvasEditorTextureData");
+            return il2cpp::get_nested_class<app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData__Class>(type_info(), "", "LightCanvasEditorTextureCache", "LightCanvasEditorTextureData");
         }
         inline app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData* create() {
             return il2cpp::create_object<app::LightCanvasEditorTextureCache_LightCanvasEditorTextureData>(get_class());

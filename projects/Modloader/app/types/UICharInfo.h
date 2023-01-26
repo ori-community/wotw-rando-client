@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/UICharInfo.h>
+#include <Modloader/app/structs/UICharInfo__Array.h>
+#include <Modloader/app/structs/UICharInfo__Boxed.h>
+#include <Modloader/app/structs/UICharInfo__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UICharInfo__Class.h>
-#include <Modloader/app/structs/UICharInfo.h>
-#include <Modloader/app/structs/UICharInfo__Boxed.h>
-#include <Modloader/app/structs/UICharInfo__Array.h>
 
 namespace app::classes::types {
     namespace UICharInfo {
-        inline app::UICharInfo__Class** type_info = (app::UICharInfo__Class**)(modloader::win::memory::resolve_rva(0x0473FA50));
+        inline app::UICharInfo__Class** type_info() {
+            static app::UICharInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::UICharInfo__Class**)(modloader::win::memory::resolve_rva(0x0473FA50));
+            }
+            return cache;
+        }
         inline app::UICharInfo__Class* get_class() {
-            return il2cpp::get_class<app::UICharInfo__Class>(type_info, "UnityEngine", "UICharInfo");
+            return il2cpp::get_class<app::UICharInfo__Class>(type_info(), "UnityEngine", "UICharInfo");
         }
         inline app::UICharInfo* create() {
             return il2cpp::create_object<app::UICharInfo>(get_class());

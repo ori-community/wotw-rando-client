@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiderBossBaseBehaviour.h>
-#include <Modloader/app/structs/SpiderBossLocationZone__Enum.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/SpiderBossBaseBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/SpiderBossLocationZone__Enum.h>
 
 namespace app::classes::SpiderBossBaseBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::SpiderBossBaseBehaviour * this_ptr))

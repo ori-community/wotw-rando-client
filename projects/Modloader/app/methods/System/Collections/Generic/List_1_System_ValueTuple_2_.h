@@ -1,87 +1,71 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_System_ValueTuple_2_.h>
-#include <Modloader/app/structs/ValueTuple_2_Action_UberPoolItem_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2_.h>
-#include <Modloader/app/structs/List_1_System_ValueTuple_2__2.h>
-#include <Modloader/app/structs/ValueTuple_2_Int32_String_.h>
-#include <Modloader/app/structs/Predicate_1_ValueTuple_2_Int32_String_.h>
+
+#include <Modloader/app/structs/List_1_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/Action_1_ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/Action_1_ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/Action_1_ValueTuple_2_Object_Single_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Object_Single_.h>
+#include <Modloader/app/structs/IComparer_1_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/IComparer_1_System_ValueTuple_2__1.h>
+#include <Modloader/app/structs/IComparer_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/IEnumerable_1_System_ValueTuple_2__4.h>
+#include <Modloader/app/structs/IEnumerable_1_System_ValueTuple_2__5.h>
+#include <Modloader/app/structs/IEnumerable_1_System_ValueTuple_2__6.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_System_ValueTuple_2__7.h>
+#include <Modloader/app/structs/IEnumerator_1_System_ValueTuple_2__8.h>
+#include <Modloader/app/structs/IEnumerator_1_System_ValueTuple_2__9.h>
 #include <Modloader/app/structs/List_1_System_ValueTuple_2__1.h>
-#include <Modloader/app/structs/ValueTuple_2_String_Single_.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__3.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__4.h>
+#include <Modloader/app/structs/List_1_System_ValueTuple_2__5.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2_.h>
 #include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__1.h>
 #include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__2.h>
-#include <Modloader/app/structs/List_1_System_ValueTuple_2__3.h>
-#include <Modloader/app/structs/IEnumerable_1_System_ValueTuple_2__4.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ValueTuple_2_Int32_Object_.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_ValueTuple_2_.h>
-#include <Modloader/app/structs/IComparer_1_System_ValueTuple_2_.h>
-#include <Modloader/app/structs/ValueTuple_2_Int32_Object___Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_ValueTuple_2_Int32_Object_.h>
-#include <Modloader/app/structs/Action_1_ValueTuple_2_Int32_Object_.h>
 #include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__3.h>
-#include <Modloader/app/structs/IEnumerator_1_System_ValueTuple_2__7.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Int32_Object_.h>
-#include <Modloader/app/structs/List_1_System_ValueTuple_2__4.h>
-#include <Modloader/app/structs/IEnumerable_1_System_ValueTuple_2__5.h>
-#include <Modloader/app/structs/ValueTuple_2_Object_Object_.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_ValueTuple_2__1.h>
-#include <Modloader/app/structs/IComparer_1_System_ValueTuple_2__1.h>
-#include <Modloader/app/structs/ValueTuple_2_Object_Object___Array.h>
-#include <Modloader/app/structs/Predicate_1_ValueTuple_2_Object_Object_.h>
-#include <Modloader/app/structs/Action_1_ValueTuple_2_Object_Object_.h>
 #include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__4.h>
-#include <Modloader/app/structs/IEnumerator_1_System_ValueTuple_2__8.h>
-#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Object_Object_.h>
-#include <Modloader/app/structs/List_1_System_ValueTuple_2__5.h>
-#include <Modloader/app/structs/IEnumerable_1_System_ValueTuple_2__6.h>
-#include <Modloader/app/structs/ValueTuple_2_Object_Single_.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_ValueTuple_2__2.h>
-#include <Modloader/app/structs/IComparer_1_System_ValueTuple_2__2.h>
-#include <Modloader/app/structs/ValueTuple_2_Object_Single___Array.h>
-#include <Modloader/app/structs/Predicate_1_ValueTuple_2_Object_Single_.h>
-#include <Modloader/app/structs/Action_1_ValueTuple_2_Object_Single_.h>
 #include <Modloader/app/structs/List_1_T_Enumerator_System_ValueTuple_2__5.h>
-#include <Modloader/app/structs/IEnumerator_1_System_ValueTuple_2__9.h>
-#include <Modloader/app/structs/Comparison_1_ValueTuple_2_Object_Single_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/Predicate_1_ValueTuple_2_Int32_String_.h>
+#include <Modloader/app/structs/Predicate_1_ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/Predicate_1_ValueTuple_2_Object_Single_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_ValueTuple_2_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_ValueTuple_2__1.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/ValueTuple_2_Action_UberPoolItem_.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Object___Array.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_String_.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Object___Array.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Single_.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Single___Array.h>
+#include <Modloader/app/structs/ValueTuple_2_String_Single_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_System_ValueTuple_2_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count_1, (app::List_1_System_ValueTuple_2_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04786228, List_1_System_ValueTuple_2__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add_1, (app::List_1_System_ValueTuple_2_ * this_ptr, app::ValueTuple_2_Action_UberPoolItem_ item))
-    IL2CPP_REGISTER_METHODINFO(0x0470CCD0, List_1_System_ValueTuple_2__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E9D20, app::List_1_T_Enumerator_System_ValueTuple_2_, GetEnumerator_1, (app::List_1_System_ValueTuple_2_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04788208, List_1_System_ValueTuple_2__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear_1, (app::List_1_System_ValueTuple_2_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04788668, List_1_System_ValueTuple_2__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::ValueTuple_2_Action_UberPoolItem_, get_Item_1, (app::List_1_System_ValueTuple_2_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x047261C0, List_1_System_ValueTuple_2__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_System_ValueTuple_2_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047912E8, List_1_System_ValueTuple_2___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_2, (app::List_1_System_ValueTuple_2__2 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474DA50, List_1_System_ValueTuple_2__2__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add_2, (app::List_1_System_ValueTuple_2__2 * this_ptr, app::ValueTuple_2_Int32_String_ item))
-    IL2CPP_REGISTER_METHODINFO(0x04743688, List_1_System_ValueTuple_2__2_Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E9A20, int32_t, FindIndex_1, (app::List_1_System_ValueTuple_2__2 * this_ptr, app::Predicate_1_ValueTuple_2_Int32_String_* match))
-    IL2CPP_REGISTER_METHODINFO(0x047894C0, List_1_System_ValueTuple_2__2_FindIndex__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAB40, void, RemoveAt_1, (app::List_1_System_ValueTuple_2__2 * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04744458, List_1_System_ValueTuple_2__2_RemoveAt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count_2, (app::List_1_System_ValueTuple_2__2 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04715190, List_1_System_ValueTuple_2__2_get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::ValueTuple_2_Int32_String_, get_Item_2, (app::List_1_System_ValueTuple_2__2 * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04755CA8, List_1_System_ValueTuple_2__2_get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add_3, (app::List_1_System_ValueTuple_2__1 * this_ptr, app::ValueTuple_2_String_Single_ item))
-    IL2CPP_REGISTER_METHODINFO(0x0470CAC8, List_1_System_ValueTuple_2__1_Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_3, (app::List_1_System_ValueTuple_2__1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047175F0, List_1_System_ValueTuple_2__1__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E9D20, app::List_1_T_Enumerator_System_ValueTuple_2__1, GetEnumerator_2, (app::List_1_System_ValueTuple_2__1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047402A8, List_1_System_ValueTuple_2__1_GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear_2, (app::List_1_System_ValueTuple_2__1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475DD48, List_1_System_ValueTuple_2__1_Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E9D20, app::List_1_T_Enumerator_System_ValueTuple_2__2, GetEnumerator_3, (app::List_1_System_ValueTuple_2__2 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470D700, List_1_System_ValueTuple_2__2_GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_4, (app::List_1_System_ValueTuple_2__3 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_5, (app::List_1_System_ValueTuple_2__3 * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02F1F1D0, void, ctor_6, (app::List_1_System_ValueTuple_2__3 * this_ptr, app::IEnumerable_1_System_ValueTuple_2__4* collection))

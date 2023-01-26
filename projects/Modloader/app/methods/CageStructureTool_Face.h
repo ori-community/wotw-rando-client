@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CageStructureTool_Face.h>
+
+#include <Modloader/app/structs/CageStructureTool_Face.h>
 #include <Modloader/app/structs/List_1_System_Int32_.h>
 
 namespace app::classes::CageStructureTool_Face {

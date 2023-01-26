@@ -1,29 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
+
+#include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Collection_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
+#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/IList_1_Newtonsoft_Json_Serialization_JsonProperty_.h>
 #include <Modloader/app/structs/JsonProperty.h>
 #include <Modloader/app/structs/JsonProperty__Array.h>
-#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::ObjectModel::Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ {
     IL2CPP_REGISTER_METHOD(0x02B833F0, app::IEnumerator_1_Newtonsoft_Json_Serialization_JsonProperty_*, GetEnumerator, (app::Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04725468, Collection_1_Newtonsoft_Json_Serialization_JsonProperty__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA280, app::IList_1_Newtonsoft_Json_Serialization_JsonProperty_*, get_Items, (app::Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475E8A8, Collection_1_Newtonsoft_Json_Serialization_JsonProperty__get_Items__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02CFA8D0, bool, Remove, (app::Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ * this_ptr, app::JsonProperty* item))
-    IL2CPP_REGISTER_METHODINFO(0x04771EB8, Collection_1_Newtonsoft_Json_Serialization_JsonProperty__Remove__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02CFA500, void, Add, (app::Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ * this_ptr, app::JsonProperty* item))
-    IL2CPP_REGISTER_METHODINFO(0x0475F538, Collection_1_Newtonsoft_Json_Serialization_JsonProperty__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02B7DF30, int32_t, get_Count, (app::Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474B078, Collection_1_Newtonsoft_Json_Serialization_JsonProperty__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02CFA760, int32_t, IndexOf, (app::Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ * this_ptr, app::JsonProperty* item))
-    IL2CPP_REGISTER_METHODINFO(0x0474B670, Collection_1_Newtonsoft_Json_Serialization_JsonProperty__IndexOf__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02CFA3A0, app::JsonProperty*, get_Item, (app::Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04733C10, Collection_1_Newtonsoft_Json_Serialization_JsonProperty__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02CFA400, void, set_Item, (app::Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ * this_ptr, int32_t index, app::JsonProperty* value))
     IL2CPP_REGISTER_METHOD(0x02CFA7D0, void, Insert, (app::Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ * this_ptr, int32_t index, app::JsonProperty* item))
     IL2CPP_REGISTER_METHOD(0x02CFA9D0, void, RemoveAt, (app::Collection_1_Newtonsoft_Json_Serialization_JsonProperty_ * this_ptr, int32_t index))

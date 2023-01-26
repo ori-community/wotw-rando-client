@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonDoorWithSlots.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+
+#include <Modloader/app/structs/MoonDoorWithSlots.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/StressTestStatus__Enum.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IDesiredUberState.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::MoonDoorWithSlots {
     IL2CPP_REGISTER_METHOD(0x00F4A720, int32_t, get_NumberOfOrbsUsed, (app::MoonDoorWithSlots * this_ptr))
@@ -31,7 +32,6 @@ namespace app::classes::MoonDoorWithSlots {
     IL2CPP_REGISTER_METHOD(0x00F4C0D0, bool, get_SeinInRange, (app::MoonDoorWithSlots * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F4C340, void, FixedUpdate, (app::MoonDoorWithSlots * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F4D480, void, FinishThrow, (app::MoonDoorWithSlots * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474A608, MoonDoorWithSlots_FinishThrow__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F4D610, void, OpenDoor, (app::MoonDoorWithSlots * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F4DDA0, void, MakeSureItsAtEnd, (app::MoonDoorWithSlots * this_ptr, app::Transform* c))
     IL2CPP_REGISTER_METHOD(0x00F4DE90, void, StartStressTest, (app::MoonDoorWithSlots * this_ptr))
@@ -45,7 +45,5 @@ namespace app::classes::MoonDoorWithSlots {
     IL2CPP_REGISTER_METHOD(0x00F4E0E0, app::IDesiredUberState*, GetRequirementsForTimeline, (app::MoonDoorWithSlots * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x00F4E1C0, void, ctor, (app::MoonDoorWithSlots * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F4E290, void, _OpenDoor_b__53_1, (app::MoonDoorWithSlots * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04746DE0, MoonDoorWithSlots__OpenDoor_b__53_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007F3820, void, _OpenDoor_b__53_0, (app::MoonDoorWithSlots * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04729268, MoonDoorWithSlots__OpenDoor_b__53_0__MethodInfo)
 } // namespace app::classes::MoonDoorWithSlots

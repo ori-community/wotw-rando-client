@@ -1,29 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_ShardTraderPlaceholder_ConditionalStockList_.h>
-#include <Modloader/app/structs/List_1_ShardTraderPlaceholder_ConditionalStockList_.h>
-#include <Modloader/app/structs/ShardTraderPlaceholder_ConditionalStockList.h>
-#include <Modloader/app/structs/IEnumerable_1_ShardTraderPlaceholder_ConditionalStockList_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_ShardTraderPlaceholder_ConditionalStockList_.h>
-#include <Modloader/app/structs/IComparer_1_ShardTraderPlaceholder_ConditionalStockList_.h>
-#include <Modloader/app/structs/ShardTraderPlaceholder_ConditionalStockList__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_ShardTraderPlaceholder_ConditionalStockList_.h>
 #include <Modloader/app/structs/Action_1_ShardTraderPlaceholder_ConditionalStockList_.h>
-#include <Modloader/app/structs/IEnumerator_1_ShardTraderPlaceholder_ConditionalStockList_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/IComparer_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/IEnumerable_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/List_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_ShardTraderPlaceholder_ConditionalStockList_.h>
+#include <Modloader/app/structs/ShardTraderPlaceholder_ConditionalStockList.h>
+#include <Modloader/app/structs/ShardTraderPlaceholder_ConditionalStockList__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_ShardTraderPlaceholder_ConditionalStockList_ {
     IL2CPP_REGISTER_METHOD(0x025E9D20, app::List_1_T_Enumerator_ShardTraderPlaceholder_ConditionalStockList_, GetEnumerator, (app::List_1_ShardTraderPlaceholder_ConditionalStockList_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047382A8, List_1_ShardTraderPlaceholder_ConditionalStockList__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_ShardTraderPlaceholder_ConditionalStockList_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04765858, List_1_ShardTraderPlaceholder_ConditionalStockList___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_ShardTraderPlaceholder_ConditionalStockList_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475CBC0, List_1_ShardTraderPlaceholder_ConditionalStockList__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::ShardTraderPlaceholder_ConditionalStockList, get_Item, (app::List_1_ShardTraderPlaceholder_ConditionalStockList_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x047796A0, List_1_ShardTraderPlaceholder_ConditionalStockList__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_ShardTraderPlaceholder_ConditionalStockList_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02D87570, void, ctor_3, (app::List_1_ShardTraderPlaceholder_ConditionalStockList_ * this_ptr, app::IEnumerable_1_ShardTraderPlaceholder_ConditionalStockList_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_ShardTraderPlaceholder_ConditionalStockList_ * this_ptr))

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayableHandle.h>
-#include <Modloader/app/structs/Playable.h>
-#include <Modloader/app/structs/PlayableHandle__Boxed.h>
+
+#include <Modloader/app/structs/PlayableHandle.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Playable.h>
 #include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/PlayableHandle__Boxed.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::UnityEngine::Playables::PlayableHandle {
     IL2CPP_REGISTER_METHOD(0x02964F40, app::PlayableHandle, get_Null, ())
@@ -19,7 +20,6 @@ namespace app::classes::UnityEngine::Playables::PlayableHandle {
     IL2CPP_REGISTER_METHOD(0x029651B0, bool, CompareVersion, (app::PlayableHandle lhs, app::PlayableHandle rhs))
     IL2CPP_REGISTER_METHOD(0x00216CA0, bool, CheckInputBounds_1, (app::PlayableHandle__Boxed * this_ptr, int32_t input_index))
     IL2CPP_REGISTER_METHOD(0x00216CB0, bool, CheckInputBounds_2, (app::PlayableHandle__Boxed * this_ptr, int32_t input_index, bool accept_any))
-    IL2CPP_REGISTER_METHODINFO(0x04746E98, PlayableHandle_CheckInputBounds_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00216CC0, bool, IsValid, (app::PlayableHandle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00216CD0, app::Type*, GetPlayableType, (app::PlayableHandle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00216CE0, app::Type*, GetJobType, (app::PlayableHandle__Boxed * this_ptr))
@@ -59,23 +59,14 @@ namespace app::classes::UnityEngine::Playables::PlayableHandle {
     IL2CPP_REGISTER_METHOD(0x02966A20, float, GetInputWeightFromIndex_Injected, (app::PlayableHandle * _unity_self, int32_t index))
     IL2CPP_REGISTER_METHOD(0x0012CE70, bool, IsPlayableOfType_1, (app::PlayableHandle__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0012CF30, bool, IsPlayableOfType_2, (app::PlayableHandle__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474DAC8, PlayableHandle_IsPlayableOfType_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012CFF0, bool, IsPlayableOfType_3, (app::PlayableHandle__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047362F8, PlayableHandle_IsPlayableOfType_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012D0B0, bool, IsPlayableOfType_4, (app::PlayableHandle__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04710CE8, PlayableHandle_IsPlayableOfType_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012D170, bool, IsPlayableOfType_5, (app::PlayableHandle__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478CAD0, PlayableHandle_IsPlayableOfType_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012D230, bool, IsPlayableOfType_6, (app::PlayableHandle__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04723FD0, PlayableHandle_IsPlayableOfType_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012D2F0, bool, IsPlayableOfType_7, (app::PlayableHandle__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473BEE8, PlayableHandle_IsPlayableOfType_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012D3B0, bool, IsPlayableOfType_8, (app::PlayableHandle__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047138E8, PlayableHandle_IsPlayableOfType_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012D470, bool, IsPlayableOfType_9, (app::PlayableHandle__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04722318, PlayableHandle_IsPlayableOfType_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0012D530, bool, IsPlayableOfType_10, (app::PlayableHandle__Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477FE20, PlayableHandle_IsPlayableOfType_9__MethodInfo)
     inline bool operator==(app::PlayableHandle x, app::PlayableHandle y) {
         return op_Equality(x, y);
     }

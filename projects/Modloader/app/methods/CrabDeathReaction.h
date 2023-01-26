@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CrabDeathReaction.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/MoonControllerColliderHit.h>
-#include <Modloader/app/structs/CrabDeathReaction_DeathState__Enum.h>
+
+#include <Modloader/app/structs/CrabDeathReaction.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/CrabDeathReaction_DeathState__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CrabDeathReaction {
@@ -13,7 +14,6 @@ namespace app::classes::CrabDeathReaction {
     IL2CPP_REGISTER_METHOD(0x00DB1FA0, void, StartTimeline, (app::CrabDeathReaction * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x00DB1FD0, void, ResetTimeline, (app::CrabDeathReaction * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x00DB21F0, void, HandleCollision, (app::CrabDeathReaction * this_ptr, app::MoonControllerColliderHit hit))
-    IL2CPP_REGISTER_METHODINFO(0x0470C1C8, CrabDeathReaction_HandleCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DB2250, app::CrabDeathReaction_DeathState__Enum, GetNextOnHitGroundState, (app::CrabDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DB2280, void, OnEnterTask, (app::CrabDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x00DB2720, app::BehaviourStatus__Enum, OnExecuteTask, (app::CrabDeathReaction * this_ptr, app::IContext* context))
@@ -43,8 +43,6 @@ namespace app::classes::CrabDeathReaction {
     IL2CPP_REGISTER_METHOD(0x00DB38E0, void, UpdateDrown, (app::CrabDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DB3B20, void, PlayShake, (app::CrabDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DB3C10, void, EndReaction, (app::CrabDeathReaction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047658D0, CrabDeathReaction_EndReaction__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DB3C70, app::Vector3, ProcessRootMotion, (app::CrabDeathReaction * this_ptr, app::Vector3 motion))
-    IL2CPP_REGISTER_METHODINFO(0x04786578, CrabDeathReaction_ProcessRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DB3CC0, void, ctor, (app::CrabDeathReaction * this_ptr))
 } // namespace app::classes::CrabDeathReaction

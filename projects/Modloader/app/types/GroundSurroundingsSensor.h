@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GroundSurroundingsSensor__Class.h>
 #include <Modloader/app/structs/GroundSurroundingsSensor.h>
 #include <Modloader/app/structs/GroundSurroundingsSensor__Boxed.h>
+#include <Modloader/app/structs/GroundSurroundingsSensor__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace GroundSurroundingsSensor {
-        namespace {
-            inline app::GroundSurroundingsSensor__Class* type_info_ref = nullptr;
+        inline app::GroundSurroundingsSensor__Class** type_info() {
+            static app::GroundSurroundingsSensor__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GroundSurroundingsSensor__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GroundSurroundingsSensor__Class** type_info = &type_info_ref;
         inline app::GroundSurroundingsSensor__Class* get_class() {
-            return il2cpp::get_class<app::GroundSurroundingsSensor__Class>(type_info, "Moon", "GroundSurroundingsSensor");
+            return il2cpp::get_class<app::GroundSurroundingsSensor__Class>(type_info(), "Moon", "GroundSurroundingsSensor");
         }
         inline app::GroundSurroundingsSensor* create() {
             return il2cpp::create_object<app::GroundSurroundingsSensor>(get_class());

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CleverValueSlider.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/CleverValueSlider.h>
 #include <Modloader/app/structs/CleverMenuItemGroup.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::CleverValueSlider {
@@ -41,7 +42,5 @@ namespace app::classes::CleverValueSlider {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, UpdateStep, (app::CleverValueSlider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00867970, void, ctor, (app::CleverValueSlider * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00420240, void, _PlayDownSound_b__54_0, (app::CleverValueSlider * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477E830, CleverValueSlider__PlayDownSound_b__54_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420240, void, _PlayUpSound_b__55_0, (app::CleverValueSlider * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04731790, CleverValueSlider__PlayUpSound_b__55_0__MethodInfo)
 } // namespace app::classes::CleverValueSlider

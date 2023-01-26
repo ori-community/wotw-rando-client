@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MemberHolder.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/StreamingContext.h>
+
+#include <Modloader/app/structs/MemberHolder.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Runtime::Serialization::MemberHolder {
     IL2CPP_REGISTER_METHOD(0x01ED5870, void, ctor, (app::MemberHolder * this_ptr, app::Type* type, app::StreamingContext ctx))

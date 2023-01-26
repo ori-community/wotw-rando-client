@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritShardPickupPlaceholder.h>
+
+#include <Modloader/app/structs/SpiritShardPickupPlaceholder.h>
 #include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::SpiritShardPickupPlaceholder {

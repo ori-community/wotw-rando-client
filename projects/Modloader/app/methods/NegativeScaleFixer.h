@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/List_1_NegativeScaleFixer_TransformAndWorldMatrix_.h>
 #include <Modloader/app/structs/Mesh.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/List_1_NegativeScaleFixer_TransformAndWorldMatrix_.h>
 
 namespace app::classes::NegativeScaleFixer {
     IL2CPP_REGISTER_METHOD(0x0088AD00, app::Transform*, GetCauseOfNegativeGlobalScale, (app::Transform * transform))

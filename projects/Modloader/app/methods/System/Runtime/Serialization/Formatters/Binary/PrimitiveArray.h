@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PrimitiveArray.h>
-#include <Modloader/app/structs/InternalPrimitiveTypeE__Enum.h>
+
+#include <Modloader/app/structs/PrimitiveArray.h>
 #include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/InternalPrimitiveTypeE__Enum.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::PrimitiveArray {

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberStateValueStore.h>
+
+#include <Modloader/app/structs/UberStateValueStore.h>
 #include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/UberStateSaveFileHandler_LoadStatus__Enum.h>
 #include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_Moon_UberID_Moon_UberStateValueGroup_.h>
 #include <Modloader/app/structs/ISerializedUberState.h>
-#include <Modloader/app/structs/UberStateValueGroup.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberStateSaveFileHandler_LoadStatus__Enum.h>
+#include <Modloader/app/structs/UberStateValueGroup.h>
 
 namespace app::classes::Moon::UberStateValueStore {
     IL2CPP_REGISTER_METHOD(0x00CC59E0, int32_t, get_Version, (app::UberStateValueStore * this_ptr))
@@ -22,7 +23,6 @@ namespace app::classes::Moon::UberStateValueStore {
     IL2CPP_REGISTER_METHOD(0x01B70B80, void, PopulateValueStore, (app::UberStateValueStore * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01B71170, app::UberStateSaveFileHandler_LoadStatus__Enum, ParseData, (app::UberStateValueStore * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01B715F0, void, ApplyStateToByteArray, (app::UberStateValueStore * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04777A50, UberStateValueStore_ApplyStateToByteArray__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01B719E0, bool, get_IsDirty, (app::UberStateValueStore * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::IEnumerable_1_KeyValuePair_2_Moon_UberID_Moon_UberStateValueGroup_*, get_GroupMap, (app::UberStateValueStore * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01B71BC0, bool, TryGetGroup, (app::UberStateValueStore * this_ptr, app::ISerializedUberState* descriptor, app::UberStateValueGroup** uber_state_value_group))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FlutteringTakeOffBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/FlutteringTakeOffBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::Moon::FlutteringTakeOffBehaviour {
@@ -15,9 +16,7 @@ namespace app::classes::Moon::FlutteringTakeOffBehaviour {
     IL2CPP_REGISTER_METHOD(0x014872C0, float, GetLookDirection, (app::FlutteringTakeOffBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014873A0, float, GetDirectionToTarget, (app::FlutteringTakeOffBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014874C0, void, SpawnTakeOffSlamEffect, (app::FlutteringTakeOffBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475E210, FlutteringTakeOffBehaviour_SpawnTakeOffSlamEffect__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01487600, void, OnTurnFlipEvent, (app::FlutteringTakeOffBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04798D40, FlutteringTakeOffBehaviour_OnTurnFlipEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014876E0, void, Stop, (app::FlutteringTakeOffBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014877F0, void, ctor, (app::FlutteringTakeOffBehaviour * this_ptr))
 } // namespace app::classes::Moon::FlutteringTakeOffBehaviour

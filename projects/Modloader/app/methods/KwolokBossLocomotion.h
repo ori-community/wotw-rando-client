@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/KwolokBossLocomotion.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Action_1_KwolokBossLocomotion_StayAtRangeSettings_.h>
+#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/EntityLocomotionTask.h>
-#include <Modloader/app/structs/KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/KwolokBossLocomotion.h>
+#include <Modloader/app/structs/KwolokBossLocomotion_LocomotionMode__Enum.h>
 #include <Modloader/app/structs/KwolokBossLocomotion_ModifyAccelerationDelegate.h>
 #include <Modloader/app/structs/KwolokBossLocomotion_ModifyBodyHeightDelegate.h>
-#include <Modloader/app/structs/Action_1_KwolokBossLocomotion_StayAtRangeSettings_.h>
+#include <Modloader/app/structs/KwolokBossLocomotion_ModifyMaxMovementSpeedDelegate.h>
+#include <Modloader/app/structs/KwolokBossLocomotion_MoveRequest.h>
 #include <Modloader/app/structs/KwolokBossLocomotion_OverrideTurnMultiplier.h>
-#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/List_1_KwolokBossLocomotion_StepSoundInfo_.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/KwolokBossLocomotion_LocomotionMode__Enum.h>
-#include <Modloader/app/structs/KwolokBossLocomotion_MoveRequest.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::KwolokBossLocomotion {
     IL2CPP_REGISTER_METHOD(0x005B0220, app::Transform*, get_FeetTransform, (app::KwolokBossLocomotion * this_ptr))

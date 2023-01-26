@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UpdateManager_UpdatedEntryComparer.h>
+
+#include <Modloader/app/structs/UpdateManager_UpdatedEntryComparer.h>
 #include <Modloader/app/structs/UpdateManager_Entry.h>
 
 namespace app::classes::Moon::Driver::UpdateManager_UpdatedEntryComparer {

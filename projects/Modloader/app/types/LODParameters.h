@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LODParameters__Class.h>
 #include <Modloader/app/structs/LODParameters.h>
 #include <Modloader/app/structs/LODParameters__Boxed.h>
+#include <Modloader/app/structs/LODParameters__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace LODParameters {
-        namespace {
-            inline app::LODParameters__Class* type_info_ref = nullptr;
+        inline app::LODParameters__Class** type_info() {
+            static app::LODParameters__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LODParameters__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LODParameters__Class** type_info = &type_info_ref;
         inline app::LODParameters__Class* get_class() {
-            return il2cpp::get_class<app::LODParameters__Class>(type_info, "UnityEngine.Experimental.Rendering", "LODParameters");
+            return il2cpp::get_class<app::LODParameters__Class>(type_info(), "UnityEngine.Experimental.Rendering", "LODParameters");
         }
         inline app::LODParameters* create() {
             return il2cpp::create_object<app::LODParameters>(get_class());

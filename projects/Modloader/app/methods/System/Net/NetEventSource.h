@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/FormattableString.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/NetEventSource.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/FormattableString.h>
+#include <Modloader/app/structs/NetEventSource.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::NetEventSource {
     IL2CPP_REGISTER_METHOD(0x01E71D10, void, Enter_1, (app::Object * this_or_context_object, app::FormattableString* formattable_string, app::String* member_name))
@@ -40,17 +41,11 @@ namespace app::classes::System::Net::NetEventSource {
     IL2CPP_REGISTER_METHOD(0x01E74270, app::Object*, Format_1, (app::Object * value))
     IL2CPP_REGISTER_METHOD(0x01E745F0, app::String*, Format_2, (app::FormattableString * s))
     IL2CPP_REGISTER_METHOD(0x01E749E0, void, WriteEvent_1, (app::NetEventSource * this_ptr, int32_t event_id, app::String* arg1, app::String* arg2, app::String* arg3, app::String* arg4))
-    IL2CPP_REGISTER_METHODINFO(0x0476E760, NetEventSource_WriteEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E74BA0, void, WriteEvent_2, (app::NetEventSource * this_ptr, int32_t event_id, app::String* arg1, app::String* arg2, app::Byte__Array* arg3))
-    IL2CPP_REGISTER_METHODINFO(0x04727F08, NetEventSource_WriteEvent_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E74DE0, void, WriteEvent_3, (app::NetEventSource * this_ptr, int32_t event_id, app::String* arg1, int32_t arg2, int32_t arg3, int32_t arg4))
-    IL2CPP_REGISTER_METHODINFO(0x047078A8, NetEventSource_WriteEvent_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E74F20, void, WriteEvent_4, (app::NetEventSource * this_ptr, int32_t event_id, app::String* arg1, int32_t arg2, app::String* arg3))
-    IL2CPP_REGISTER_METHODINFO(0x04771138, NetEventSource_WriteEvent_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E75070, void, WriteEvent_5, (app::NetEventSource * this_ptr, int32_t event_id, app::String* arg1, app::String* arg2, int32_t arg3))
-    IL2CPP_REGISTER_METHODINFO(0x0474F4F8, NetEventSource_WriteEvent_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E751D0, void, WriteEvent_6, (app::NetEventSource * this_ptr, int32_t event_id, app::String* arg1, app::String* arg2, app::String* arg3, int32_t arg4))
-    IL2CPP_REGISTER_METHODINFO(0x047408A8, NetEventSource_WriteEvent_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E75370, void, ctor, (app::NetEventSource * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E75410, void, cctor, ())
 } // namespace app::classes::System::Net::NetEventSource

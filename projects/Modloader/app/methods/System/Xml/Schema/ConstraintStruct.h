@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ConstraintStruct.h>
+
+#include <Modloader/app/structs/ConstraintStruct.h>
 #include <Modloader/app/structs/CompiledIdentityConstraint.h>
 
 namespace app::classes::System::Xml::Schema::ConstraintStruct {

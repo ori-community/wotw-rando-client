@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Face.h>
+
+#include <Modloader/app/structs/Face.h>
 #include <Modloader/app/structs/HalfEdge.h>
-#include <Modloader/app/structs/Point.h>
 #include <Modloader/app/structs/IEnumerable_1_TriangleNet_Topology_DCEL_HalfEdge_.h>
+#include <Modloader/app/structs/Point.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::TriangleNet::Topology::DCEL::Face {

@@ -1,9 +1,0 @@
-#pragma once
-#include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_LinkNintendoSwitchDeviceIdRequest_.h>
-#include <Modloader/app/structs/LinkNintendoSwitchDeviceIdRequest.h>
-
-namespace app::classes::PlayFab::Events::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_LinkNintendoSwitchDeviceIdRequest_ {
-    IL2CPP_REGISTER_METHOD(0x00673B90, void, Invoke, (app::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_LinkNintendoSwitchDeviceIdRequest_ * this_ptr, app::LinkNintendoSwitchDeviceIdRequest* request))
-    IL2CPP_REGISTER_METHODINFO(0x0477EB40, PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_LinkNintendoSwitchDeviceIdRequest__Invoke__MethodInfo)
-} // namespace app::classes::PlayFab::Events::PlayFabEvents_PlayFabRequestEvent_1_PlayFab_ClientModels_LinkNintendoSwitchDeviceIdRequest_

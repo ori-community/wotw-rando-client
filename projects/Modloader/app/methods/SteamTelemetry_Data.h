@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Dictionary_2_System_String_System_Object_.h>
+
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Object_.h>
 #include <Modloader/app/structs/SteamTelemetry_Data.h>
 #include <Modloader/app/structs/String.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersEndState.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersEndState.h>
 #include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossFinalComboBehaviour_RainOfFeathersEndState {

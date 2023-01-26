@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKMappingBone.h>
+
+#include <Modloader/app/structs/IKMappingBone.h>
 #include <Modloader/app/structs/IKSolver.h>
+#include <Modloader/app/structs/IKSolverFullBody.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/IKSolverFullBody.h>
 
 namespace app::classes::RootMotion::FinalIK::IKMappingBone {
     IL2CPP_REGISTER_METHOD(0x02BDE790, bool, IsValid, (app::IKMappingBone * this_ptr, app::IKSolver* solver, app::String** message))

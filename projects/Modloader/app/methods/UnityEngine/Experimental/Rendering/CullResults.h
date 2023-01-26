@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CullResults__Boxed.h>
+
+#include <Modloader/app/structs/CullResults__Boxed.h>
 #include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/CullResults.h>
 #include <Modloader/app/structs/ScriptableCullingParameters.h>
 #include <Modloader/app/structs/ScriptableRenderContext.h>
-#include <Modloader/app/structs/CullResults.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::CullResults {
     IL2CPP_REGISTER_METHOD(0x001EC720, void, Init, (app::CullResults__Boxed * this_ptr))

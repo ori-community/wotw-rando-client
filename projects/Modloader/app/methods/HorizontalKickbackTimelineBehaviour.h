@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HorizontalKickbackTimelineBehaviour.h>
+
+#include <Modloader/app/structs/HorizontalKickbackTimelineBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::HorizontalKickbackTimelineBehaviour {
     IL2CPP_REGISTER_METHOD(0x006B8960, bool, get_PlayingAirAnimation, (app::HorizontalKickbackTimelineBehaviour * this_ptr))

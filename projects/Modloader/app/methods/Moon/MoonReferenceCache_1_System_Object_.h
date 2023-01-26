@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/MoonReferenceCache_1_System_Object_.h>
 #include <Modloader/app/structs/MoonReference_1_System_Object_.h>
 

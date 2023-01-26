@@ -1,23 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaSimpleType.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/XmlTypeCode__Enum.h>
-#include <Modloader/app/structs/XmlSchemaComplexType.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSchemaType.h>
-#include <Modloader/app/structs/XmlSchemaDerivationMethod__Enum.h>
-#include <Modloader/app/structs/XmlSchemaDatatype.h>
-#include <Modloader/app/structs/XmlValueConverter.h>
-#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
+
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
 #include <Modloader/app/structs/SchemaElementDecl.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaComplexType.h>
+#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaDatatype.h>
+#include <Modloader/app/structs/XmlSchemaDerivationMethod__Enum.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
+#include <Modloader/app/structs/XmlValueConverter.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaType {
     IL2CPP_REGISTER_METHOD(0x0191E340, app::XmlSchemaSimpleType*, GetBuiltInSimpleType_1, (app::XmlQualifiedName * qualified_name))
-    IL2CPP_REGISTER_METHODINFO(0x04775358, XmlSchemaType_GetBuiltInSimpleType__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0191E430, app::XmlSchemaSimpleType*, GetBuiltInSimpleType_2, (app::XmlTypeCode__Enum type_code))
     IL2CPP_REGISTER_METHOD(0x0191E4D0, app::XmlSchemaComplexType*, GetBuiltInComplexType, (app::XmlQualifiedName * qualified_name))
-    IL2CPP_REGISTER_METHODINFO(0x0471C880, XmlSchemaType_GetBuiltInComplexType__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FBB40, app::String*, get_Name, (app::XmlSchemaType * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FBB50, void, set_Name, (app::XmlSchemaType * this_ptr, app::String* value))
     IL2CPP_REGISTER_METHOD(0x004C6660, app::XmlSchemaDerivationMethod__Enum, get_Final, (app::XmlSchemaType * this_ptr))

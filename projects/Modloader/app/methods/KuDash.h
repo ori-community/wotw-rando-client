@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComboMoveType__Enum.h>
-#include <Modloader/app/structs/KuDash.h>
-#include <Modloader/app/structs/ButtonInputType__Enum.h>
-#include <Modloader/app/structs/KuDash_PreDashDelegateType.h>
-#include <Modloader/app/structs/KuDashPuppet.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/IComboMove.h>
-#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/IComboMove__Array.h>
+
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/ButtonInputType__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/IComboMove__Array.h>
+#include <Modloader/app/structs/KuDash.h>
+#include <Modloader/app/structs/KuDashPuppet.h>
+#include <Modloader/app/structs/KuDash_PreDashDelegateType.h>
 #include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::KuDash {
     IL2CPP_REGISTER_METHOD(0x00417920, app::ComboMoveType__Enum, get_ComboMoveType, (app::KuDash * this_ptr))
@@ -39,7 +40,6 @@ namespace app::classes::KuDash {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnAwake, (app::KuDash * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01230F90, void, OnDestroy, (app::KuDash * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01231440, void, OnTakeDamage, (app::KuDash * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x0476AE00, KuDash_OnTakeDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01231440, void, InterruptDash, (app::KuDash * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01231460, void, UpdateState, (app::KuDash * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012316B0, void, FixedUpdate, (app::KuDash * this_ptr))
@@ -70,16 +70,11 @@ namespace app::classes::KuDash {
     IL2CPP_REGISTER_METHOD(0x006FB830, app::AbilityType__Enum, get_ComboAbilityType, (app::KuDash * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012332B0, void, ModifyHorizontalPlatformMovementSettings, (app::KuDash * this_ptr, app::HorizontalPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHOD(0x01233460, void, OnStartTimelineStoppedPlaying, (app::KuDash * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04730218, KuDash_OnStartTimelineStoppedPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01232BC0, void, OnEndTimelineStoppedPlaying, (app::KuDash * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478CAB0, KuDash_OnEndTimelineStoppedPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01233540, void, OnProcessRootMotion, (app::KuDash * this_ptr, app::Vector3 root_velocity))
-    IL2CPP_REGISTER_METHODINFO(0x04748448, KuDash_OnProcessRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01233760, bool, IsHittingWall, (app::KuDash * this_ptr, int32_t dash_direction))
     IL2CPP_REGISTER_METHOD(0x01233840, float, GetRootMotionScale, (app::KuDash * this_ptr, float root_motion_distance))
     IL2CPP_REGISTER_METHOD(0x01233E90, void, OnResetAirLimits, (app::KuDash * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04736D08, KuDash_OnResetAirLimits__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01233EB0, void, OnMoonControllerCollision, (app::KuDash * this_ptr, app::MoonControllerColliderHit hit))
-    IL2CPP_REGISTER_METHODINFO(0x0472E858, KuDash_OnMoonControllerCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01234080, void, ctor, (app::KuDash * this_ptr))
 } // namespace app::classes::KuDash

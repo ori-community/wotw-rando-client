@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WaterFallMask_WaterLineInterruption.h>
+
+#include <Modloader/app/structs/WaterFallMask_WaterLineInterruption.h>
 #include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Moon::WaterFallMask_WaterLineInterruption {

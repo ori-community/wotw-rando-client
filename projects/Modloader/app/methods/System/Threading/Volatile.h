@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Threading::Volatile {
     IL2CPP_REGISTER_METHOD(0x0234B710, bool, Read_1, (bool* location))

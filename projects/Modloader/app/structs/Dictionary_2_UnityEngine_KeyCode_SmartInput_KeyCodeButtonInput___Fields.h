@@ -27,7 +27,7 @@ struct __declspec(align(8)) Dictionary_2_UnityEngine_KeyCode_SmartInput_KeyCodeB
 #define IL2CPP_STRUCT_Dictionary_2_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput___Fields_FWDDECL
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_Entry_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput___Array.h>
 #include <Modloader/app/structs/Dictionary_2_TKey_TValue_KeyCollection_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput_.h>
-#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInput_.h>
+#include <Modloader/app/structs/Dictionary_2_TKey_TValue_ValueCollection_UnityEngine_KeyCode_SmartInput_KeyCodeButtonInpu_.h>
 #include <Modloader/app/structs/IEqualityComparer_1_UnityEngine_KeyCode_.h>
 #include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/Object.h>

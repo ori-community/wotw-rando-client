@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CatalogItem__Class.h>
 #include <Modloader/app/structs/CatalogItem.h>
 #include <Modloader/app/structs/CatalogItem__Array.h>
+#include <Modloader/app/structs/CatalogItem__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace CatalogItem {
-        namespace {
-            inline app::CatalogItem__Class* type_info_ref = nullptr;
+        inline app::CatalogItem__Class** type_info() {
+            static app::CatalogItem__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CatalogItem__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CatalogItem__Class** type_info = &type_info_ref;
         inline app::CatalogItem__Class* get_class() {
-            return il2cpp::get_class<app::CatalogItem__Class>(type_info, "PlayFab.ClientModels", "CatalogItem");
+            return il2cpp::get_class<app::CatalogItem__Class>(type_info(), "PlayFab.ClientModels", "CatalogItem");
         }
         inline app::CatalogItem* create() {
             return il2cpp::create_object<app::CatalogItem>(get_class());

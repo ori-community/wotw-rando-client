@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GrounderFBBIK_SpineEffector__Class.h>
 #include <Modloader/app/structs/GrounderFBBIK_SpineEffector.h>
 #include <Modloader/app/structs/GrounderFBBIK_SpineEffector__Array.h>
+#include <Modloader/app/structs/GrounderFBBIK_SpineEffector__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace GrounderFBBIK_SpineEffector {
-        namespace {
-            inline app::GrounderFBBIK_SpineEffector__Class* type_info_ref = nullptr;
+        inline app::GrounderFBBIK_SpineEffector__Class** type_info() {
+            static app::GrounderFBBIK_SpineEffector__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GrounderFBBIK_SpineEffector__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GrounderFBBIK_SpineEffector__Class** type_info = &type_info_ref;
         inline app::GrounderFBBIK_SpineEffector__Class* get_class() {
-            return il2cpp::get_nested_class<app::GrounderFBBIK_SpineEffector__Class>(type_info, "RootMotion.FinalIK", "GrounderFBBIK", "SpineEffector");
+            return il2cpp::get_nested_class<app::GrounderFBBIK_SpineEffector__Class>(type_info(), "RootMotion.FinalIK", "GrounderFBBIK", "SpineEffector");
         }
         inline app::GrounderFBBIK_SpineEffector* create() {
             return il2cpp::create_object<app::GrounderFBBIK_SpineEffector>(get_class());

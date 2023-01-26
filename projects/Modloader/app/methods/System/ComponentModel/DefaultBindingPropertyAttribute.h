@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DefaultBindingPropertyAttribute.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/DefaultBindingPropertyAttribute.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::ComponentModel::DefaultBindingPropertyAttribute {
     IL2CPP_REGISTER_METHOD(0x0063D180, void, ctor_1, (app::DefaultBindingPropertyAttribute * this_ptr))

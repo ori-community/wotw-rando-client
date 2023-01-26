@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NpcProject.h>
+
+#include <Modloader/app/structs/NpcProject.h>
 
 namespace app::classes::NpcProject {
     IL2CPP_REGISTER_METHOD(0x0060CEB0, void, Start, (app::NpcProject * this_ptr))

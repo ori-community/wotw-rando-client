@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HorizontalOrVerticalLayoutGroup.h>
+
+#include <Modloader/app/structs/HorizontalOrVerticalLayoutGroup.h>
 #include <Modloader/app/structs/RectTransform.h>
 
 namespace app::classes::UnityEngine::UI::HorizontalOrVerticalLayoutGroup {

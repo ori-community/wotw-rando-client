@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RotationLimit.h>
+
+#include <Modloader/app/structs/RotationLimit.h>
 #include <Modloader/app/structs/IKSolver_Bone.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/IKSolver_Bone__Array.h>
 #include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolver_Bone {
     IL2CPP_REGISTER_METHOD(0x02BE5490, app::RotationLimit*, get_rotationLimit, (app::IKSolver_Bone * this_ptr))

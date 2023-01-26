@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinMindControlSpell.h>
+
+#include <Modloader/app/structs/SeinMindControlSpell.h>
 
 namespace app::classes::SeinMindControlSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinMindControlSpell * this_ptr))

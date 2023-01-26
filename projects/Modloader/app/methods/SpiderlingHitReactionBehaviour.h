@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
-#include <Modloader/app/structs/SpiderlingHitReactionBehaviour.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SpiderlingHitReactionBehaviour.h>
 #include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::SpiderlingHitReactionBehaviour {
@@ -26,6 +27,5 @@ namespace app::classes::SpiderlingHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::SpiderlingHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061E5C0, bool, PlayedAdditiveAnim, (app::SpiderlingHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011C5730, void, TimelineFinished, (app::SpiderlingHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04779720, SpiderlingHitReactionBehaviour_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011C5750, void, ctor, (app::SpiderlingHitReactionBehaviour * this_ptr))
 } // namespace app::classes::SpiderlingHitReactionBehaviour

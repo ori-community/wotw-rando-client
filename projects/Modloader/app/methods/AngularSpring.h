@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AngularSpring.h>
+
+#include <Modloader/app/structs/AngularSpring.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::AngularSpring {

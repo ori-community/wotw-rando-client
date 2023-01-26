@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
-#include <Modloader/app/structs/SpiderBatHitReaction.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
 #include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SpiderBatHitReaction.h>
 
 namespace app::classes::SpiderBatHitReaction {
     IL2CPP_REGISTER_METHOD(0x006A63A0, app::EntityDamageEvent*, get_DamageEvent, (app::SpiderBatHitReaction * this_ptr))
@@ -21,6 +22,5 @@ namespace app::classes::SpiderBatHitReaction {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::SpiderBatHitReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00875720, bool, PlayedAdditiveAnim, (app::SpiderBatHitReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0095C600, void, TimelineFinished, (app::SpiderBatHitReaction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473C860, SpiderBatHitReaction_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0095C660, void, ctor, (app::SpiderBatHitReaction * this_ptr))
 } // namespace app::classes::SpiderBatHitReaction

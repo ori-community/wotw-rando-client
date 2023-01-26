@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayFabRaceServiceProvider_GetRaceResultEntry_d_15__Boxed.h>
+
+#include <Modloader/app/structs/PlayFabRaceServiceProvider_GetRaceResultEntry_d_15__Boxed.h>
 #include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::SystemIntegration::Races::PlayFabRaceServiceProvider__GetRaceResultEntry_d__15 {

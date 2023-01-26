@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GetReplaysCallback.h>
+
+#include <Modloader/app/structs/GetReplaysCallback.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/List_1_ReplayModel_.h>
 

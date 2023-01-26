@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMessage.h>
-#include <Modloader/app/structs/ServerContextTerminatorSink.h>
+
+#include <Modloader/app/structs/IMessage.h>
 #include <Modloader/app/structs/IMessageCtrl.h>
 #include <Modloader/app/structs/IMessageSink.h>
+#include <Modloader/app/structs/ServerContextTerminatorSink.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::ServerContextTerminatorSink {
     IL2CPP_REGISTER_METHOD(0x02319F80, app::IMessage*, SyncProcessMessage, (app::ServerContextTerminatorSink * this_ptr, app::IMessage* msg))

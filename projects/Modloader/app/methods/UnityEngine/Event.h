@@ -1,18 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Event.h>
-#include <Modloader/app/structs/EventType__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
+
+#include <Modloader/app/structs/Event.h>
 #include <Modloader/app/structs/EventModifiers__Enum.h>
+#include <Modloader/app/structs/EventType__Enum.h>
 #include <Modloader/app/structs/KeyCode__Enum.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::Event {
     IL2CPP_REGISTER_METHOD(0x029D52C0, void, ctor_1, (app::Event * this_ptr))
     IL2CPP_REGISTER_METHOD(0x029D5320, void, ctor_2, (app::Event * this_ptr, int32_t display_index))
     IL2CPP_REGISTER_METHOD(0x029D5380, void, ctor_3, (app::Event * this_ptr, app::Event* other))
-    IL2CPP_REGISTER_METHODINFO(0x0471A110, Event__ctor_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x029D5480, app::EventType__Enum, get_rawType, (app::Event * this_ptr))
     IL2CPP_REGISTER_METHOD(0x029D54D0, app::Vector2, get_mousePosition, (app::Event * this_ptr))
     IL2CPP_REGISTER_METHOD(0x029D5540, app::Vector2, get_delta, (app::Event * this_ptr))
@@ -20,8 +20,8 @@ namespace app::classes::UnityEngine::Event {
     IL2CPP_REGISTER_METHOD(0x029D5600, app::EventModifiers__Enum, get_modifiers, (app::Event * this_ptr))
     IL2CPP_REGISTER_METHOD(0x029D5650, void, set_modifiers, (app::Event * this_ptr, app::EventModifiers__Enum value))
     IL2CPP_REGISTER_METHOD(0x029D56B0, int32_t, get_clickCount, (app::Event * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x029D5700, uint16_t, get_character, (app::Event * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x029D5750, void, set_character, (app::Event * this_ptr, uint16_t value))
+    IL2CPP_REGISTER_METHOD(0x029D5700, char16_t, get_character, (app::Event * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x029D5750, void, set_character, (app::Event * this_ptr, char16_t value))
     IL2CPP_REGISTER_METHOD(0x029D57B0, app::KeyCode__Enum, get_keyCode, (app::Event * this_ptr))
     IL2CPP_REGISTER_METHOD(0x029D5800, void, set_keyCode, (app::Event * this_ptr, app::KeyCode__Enum value))
     IL2CPP_REGISTER_METHOD(0x029D5860, void, set_displayIndex, (app::Event * this_ptr, int32_t value))

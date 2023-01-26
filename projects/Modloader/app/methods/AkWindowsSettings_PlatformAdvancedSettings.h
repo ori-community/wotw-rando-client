@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkWindowsSettings_PlatformAdvancedSettings.h>
+
+#include <Modloader/app/structs/AkWindowsSettings_PlatformAdvancedSettings.h>
 #include <Modloader/app/structs/AkPlatformInitSettings.h>
 
 namespace app::classes::AkWindowsSettings_PlatformAdvancedSettings {

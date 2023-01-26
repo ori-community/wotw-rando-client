@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour__Class.h>
 #include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
 #include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour__Array.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace PetrifiedOwlBossBaseBehaviour {
-        namespace {
-            inline app::PetrifiedOwlBossBaseBehaviour__Class* type_info_ref = nullptr;
+        inline app::PetrifiedOwlBossBaseBehaviour__Class** type_info() {
+            static app::PetrifiedOwlBossBaseBehaviour__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::PetrifiedOwlBossBaseBehaviour__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::PetrifiedOwlBossBaseBehaviour__Class** type_info = &type_info_ref;
         inline app::PetrifiedOwlBossBaseBehaviour__Class* get_class() {
-            return il2cpp::get_class<app::PetrifiedOwlBossBaseBehaviour__Class>(type_info, "", "PetrifiedOwlBossBaseBehaviour");
+            return il2cpp::get_class<app::PetrifiedOwlBossBaseBehaviour__Class>(type_info(), "", "PetrifiedOwlBossBaseBehaviour");
         }
         inline app::PetrifiedOwlBossBaseBehaviour* create() {
             return il2cpp::create_object<app::PetrifiedOwlBossBaseBehaviour>(get_class());

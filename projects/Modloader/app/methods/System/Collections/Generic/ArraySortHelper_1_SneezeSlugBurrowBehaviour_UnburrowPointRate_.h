@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SneezeSlugBurrowBehaviour_UnburrowPointRate__Array.h>
+
+#include <Modloader/app/structs/SneezeSlugBurrowBehaviour_UnburrowPointRate__Array.h>
+#include <Modloader/app/structs/Comparison_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_.h>
 #include <Modloader/app/structs/IComparer_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_.h>
 #include <Modloader/app/structs/SneezeSlugBurrowBehaviour_UnburrowPointRate.h>
-#include <Modloader/app/structs/Comparison_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_ {
     IL2CPP_REGISTER_METHOD(0x02FF1B70, void, Sort_1, (app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Array * keys, int32_t index, int32_t length, app::IComparer_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04777CE0, ArraySortHelper_1_SneezeSlugBurrowBehaviour_UnburrowPointRate__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF1E90, int32_t, BinarySearch, (app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Array * array, int32_t index, int32_t length, app::SneezeSlugBurrowBehaviour_UnburrowPointRate value, app::IComparer_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04718F90, ArraySortHelper_1_SneezeSlugBurrowBehaviour_UnburrowPointRate__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FF2040, void, Sort_2, (app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Array * keys, int32_t index, int32_t length, app::Comparison_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04772C58, ArraySortHelper_1_SneezeSlugBurrowBehaviour_UnburrowPointRate__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C898B0, int32_t, InternalBinarySearch, (app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Array * array, int32_t index, int32_t length, app::SneezeSlugBurrowBehaviour_UnburrowPointRate value, app::IComparer_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C89A40, void, SwapIfGreater, (app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Array * keys, app::Comparison_1_SneezeSlugBurrowBehaviour_UnburrowPointRate_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C89BD0, void, Swap, (app::SneezeSlugBurrowBehaviour_UnburrowPointRate__Array * a, int32_t i, int32_t j))

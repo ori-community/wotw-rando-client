@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HitReactionSettings.h>
+
+#include <Modloader/app/structs/HitReactionSettings.h>
 
 namespace app::classes::HitReactionSettings {
     IL2CPP_REGISTER_METHOD(0x00B58030, app::HitReactionSettings*, get_Instance, ())

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CommandBuffer.h>
+
+#include <Modloader/app/structs/CommandBuffer.h>
 
 namespace app::classes::Moon::Rendering::ShaderTime_UnityShaderTime {
     IL2CPP_REGISTER_METHOD(0x00EBC550, void, setTimeConstants, (app::CommandBuffer * cb, float time, float delta_time, float smooth_delta_time))

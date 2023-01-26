@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Triangle.h>
+
+#include <Modloader/app/structs/Triangle.h>
+#include <Modloader/app/structs/Osub.h>
+#include <Modloader/app/structs/Otri.h>
 #include <Modloader/app/structs/Otri__Boxed.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Otri.h>
-#include <Modloader/app/structs/Vertex.h>
-#include <Modloader/app/structs/Osub.h>
 #include <Modloader/app/structs/SubSegment.h>
+#include <Modloader/app/structs/Vertex.h>
 
 namespace app::classes::TriangleNet::Topology::Otri {
     IL2CPP_REGISTER_METHOD(0x00107C00, app::Triangle*, get_Triangle, (app::Otri__Boxed * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MethodBody.h>
+
+#include <Modloader/app/structs/MethodBody.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Reflection::MethodBody {

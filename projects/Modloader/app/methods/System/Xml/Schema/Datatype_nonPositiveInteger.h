@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FacetsChecker.h>
+
+#include <Modloader/app/structs/FacetsChecker.h>
 #include <Modloader/app/structs/Datatype_nonPositiveInteger.h>
 #include <Modloader/app/structs/XmlTypeCode__Enum.h>
 

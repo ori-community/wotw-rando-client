@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MicroProfilerDataProvider.h>
+
+#include <Modloader/app/structs/MicroProfilerDataProvider.h>
+#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/List_1_Moon_Profile_Metric_.h>
 #include <Modloader/app/structs/Metric__Enum.h>
-#include <Modloader/app/structs/Action.h>
 
 namespace app::classes::Moon::MicroProfilerDataProvider {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_SupportsGraph, (app::MicroProfilerDataProvider * this_ptr))

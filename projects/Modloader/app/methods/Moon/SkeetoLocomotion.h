@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkeetoAirEntityMovementProcessor.h>
-#include <Modloader/app/structs/SkeetoLocomotion.h>
-#include <Modloader/app/structs/MovementProcessor.h>
-#include <Modloader/app/structs/LayerMask.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
-#include <Modloader/app/structs/EntityLocomotionTask.h>
-#include <Modloader/app/structs/SkeetoAirMoveBehaviour.h>
+
+#include <Modloader/app/structs/SkeetoAirEntityMovementProcessor.h>
 #include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/MovementProcessor.h>
+#include <Modloader/app/structs/SkeetoAirMoveBehaviour.h>
+#include <Modloader/app/structs/SkeetoLocomotion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::SkeetoLocomotion {
     IL2CPP_REGISTER_METHOD(0x00418200, app::SkeetoAirEntityMovementProcessor*, get_SkeetoMovementProcessor, (app::SkeetoLocomotion * this_ptr))
@@ -32,9 +33,7 @@ namespace app::classes::Moon::SkeetoLocomotion {
     IL2CPP_REGISTER_METHOD(0x00E2AA60, void, ConfigureStateMachine, (app::SkeetoLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005B0220, app::EntityLocomotionTask*, get_DefaultFSMState, (app::SkeetoLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E2AD80, bool, ShouldTriggerMove, (app::SkeetoLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04703228, SkeetoLocomotion_ShouldTriggerMove__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E2AF40, bool, ShouldTriggerIdle, (app::SkeetoLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04712C18, SkeetoLocomotion_ShouldTriggerIdle__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0065FBE0, app::SkeetoAirMoveBehaviour*, get_MovementBehaviour, (app::SkeetoLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E2AF80, bool, get_ShouldReset, (app::SkeetoLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00AE6060, bool, IsLookDirectionLocked, (app::SkeetoLocomotion * this_ptr))

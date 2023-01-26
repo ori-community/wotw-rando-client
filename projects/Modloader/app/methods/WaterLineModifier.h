@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WaterLineModifier.h>
+
+#include <Modloader/app/structs/WaterLineModifier.h>
 
 namespace app::classes::WaterLineModifier {
     IL2CPP_REGISTER_METHOD(0x008D8010, void, OnEnable, (app::WaterLineModifier * this_ptr))

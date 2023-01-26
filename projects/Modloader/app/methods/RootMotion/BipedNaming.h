@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform__Array.h>
-#include <Modloader/app/structs/BipedNaming_BoneType__Enum.h>
+
+#include <Modloader/app/structs/Transform__Array.h>
 #include <Modloader/app/structs/BipedNaming_BoneSide__Enum.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/String__Array__Array.h>
+#include <Modloader/app/structs/BipedNaming_BoneType__Enum.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/String__Array__Array.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::BipedNaming {
     IL2CPP_REGISTER_METHOD(0x021FCD40, app::Transform__Array*, GetBonesOfType, (app::BipedNaming_BoneType__Enum bone_type, app::Transform__Array* bones))

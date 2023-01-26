@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyInputLockAnimator.h>
+
+#include <Modloader/app/structs/LegacyInputLockAnimator.h>
 
 namespace app::classes::LegacyInputLockAnimator {
     IL2CPP_REGISTER_METHOD(0x00A28990, void, OnStartPlay, (app::LegacyInputLockAnimator * this_ptr))

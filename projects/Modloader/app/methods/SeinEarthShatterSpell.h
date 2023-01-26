@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinEarthShatterSpell.h>
+
+#include <Modloader/app/structs/SeinEarthShatterSpell.h>
 
 namespace app::classes::SeinEarthShatterSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinEarthShatterSpell * this_ptr))

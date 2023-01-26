@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NpcProjectItem.h>
+
+#include <Modloader/app/structs/NpcProjectItem.h>
 
 namespace app::classes::NpcProjectItem {
     IL2CPP_REGISTER_METHOD(0x0060D030, bool, PurchasedNotFinished, (app::NpcProjectItem * this_ptr))

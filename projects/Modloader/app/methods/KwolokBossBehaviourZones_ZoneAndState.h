@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KwolokBossBehaviourZones_ZoneAndState.h>
+
+#include <Modloader/app/structs/KwolokBossBehaviourZones_ZoneAndState.h>
 #include <Modloader/app/structs/CageStructureTool.h>
 
 namespace app::classes::KwolokBossBehaviourZones_ZoneAndState {

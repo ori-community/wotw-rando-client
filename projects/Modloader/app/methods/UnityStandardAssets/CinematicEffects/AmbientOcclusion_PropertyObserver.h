@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AmbientOcclusion_PropertyObserver__Boxed.h>
+
+#include <Modloader/app/structs/AmbientOcclusion_PropertyObserver__Boxed.h>
 #include <Modloader/app/structs/AmbientOcclusion_Settings.h>
 #include <Modloader/app/structs/Camera.h>
 

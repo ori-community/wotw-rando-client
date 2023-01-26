@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MemoryLabelDebugger_MemoryLabelAllocationCache__Class.h>
 #include <Modloader/app/structs/MemoryLabelDebugger_MemoryLabelAllocationCache.h>
 #include <Modloader/app/structs/MemoryLabelDebugger_MemoryLabelAllocationCache__Array.h>
+#include <Modloader/app/structs/MemoryLabelDebugger_MemoryLabelAllocationCache__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace MemoryLabelDebugger_MemoryLabelAllocationCache {
-        inline app::MemoryLabelDebugger_MemoryLabelAllocationCache__Class** type_info = (app::MemoryLabelDebugger_MemoryLabelAllocationCache__Class**)(modloader::win::memory::resolve_rva(0x0470BC40));
+        inline app::MemoryLabelDebugger_MemoryLabelAllocationCache__Class** type_info() {
+            static app::MemoryLabelDebugger_MemoryLabelAllocationCache__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::MemoryLabelDebugger_MemoryLabelAllocationCache__Class**)(modloader::win::memory::resolve_rva(0x0470BC40));
+            }
+            return cache;
+        }
         inline app::MemoryLabelDebugger_MemoryLabelAllocationCache__Class* get_class() {
-            return il2cpp::get_nested_class<app::MemoryLabelDebugger_MemoryLabelAllocationCache__Class>(type_info, "UberShader.optimizations.gc", "MemoryLabelDebugger", "MemoryLabelAllocationCache");
+            return il2cpp::get_nested_class<app::MemoryLabelDebugger_MemoryLabelAllocationCache__Class>(type_info(), "UberShader.optimizations.gc", "MemoryLabelDebugger", "MemoryLabelAllocationCache");
         }
         inline app::MemoryLabelDebugger_MemoryLabelAllocationCache* create() {
             return il2cpp::create_object<app::MemoryLabelDebugger_MemoryLabelAllocationCache>(get_class());

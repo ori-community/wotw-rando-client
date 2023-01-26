@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OrbSpawner.h>
+
+#include <Modloader/app/structs/OrbSpawner.h>
 #include <Modloader/app/structs/EventTriggerAnimator.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/OrbSpawnerManager_ItemType__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::OrbSpawner {
     IL2CPP_REGISTER_METHOD(0x0061AEE0, void, CopySettings, (app::OrbSpawner * this_ptr, app::OrbSpawner* other))
@@ -17,7 +18,6 @@ namespace app::classes::OrbSpawner {
     IL2CPP_REGISTER_METHOD(0x0061BA70, void, SpawnEnergyOrbs, (app::OrbSpawner * this_ptr, app::Vector2 force, int32_t* spawned_orb_index))
     IL2CPP_REGISTER_METHOD(0x0061BAF0, float, get_DamageDirectionSpeed, (app::OrbSpawner * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061BB00, void, SpawnOrbs_1, (app::OrbSpawner * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047456C0, OrbSpawner_SpawnOrbs__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0061BB10, void, SpawnOrbs_2, (app::OrbSpawner * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x0061BE70, bool, SpawnLoot, (app::OrbSpawner * this_ptr, app::Vector2 force))
     IL2CPP_REGISTER_METHOD(0x0061C2E0, void, SpawnPickup, (app::OrbSpawner * this_ptr, app::OrbSpawnerManager_ItemType__Enum item, app::Vector2 force, int32_t i, int32_t override_value))

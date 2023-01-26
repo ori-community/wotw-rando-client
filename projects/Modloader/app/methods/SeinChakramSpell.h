@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinChakramSpell.h>
+
+#include <Modloader/app/structs/SeinChakramSpell.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/ButtonInputType__Enum.h>
 #include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/ComboInput.h>
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
 #include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
-#include <Modloader/app/structs/SeinChakramSpell_State__Enum.h>
 #include <Modloader/app/structs/IBowAttackable.h>
-#include <Modloader/app/structs/ComboMoveType__Enum.h>
-#include <Modloader/app/structs/ButtonInputType__Enum.h>
 #include <Modloader/app/structs/IComboMove.h>
-#include <Modloader/app/structs/ComboInput.h>
 #include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
-#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/SeinChakramSpell_State__Enum.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
 
 namespace app::classes::SeinChakramSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinChakramSpell * this_ptr))
@@ -34,20 +35,15 @@ namespace app::classes::SeinChakramSpell {
     IL2CPP_REGISTER_METHOD(0x00DA84D0, void, ChakramDestroyed, (app::SeinChakramSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA84F0, void, ChakramCaught, (app::SeinChakramSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA8AB0, void, SpawnChakramCaughtEffect, (app::SeinChakramSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04726FE8, SeinChakramSpell_SpawnChakramCaughtEffect__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DA8AE0, void, ForceStopThrowAnimation, (app::SeinChakramSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA8AF0, bool, PlayCatchAnimation, (app::SeinChakramSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047579E0, SeinChakramSpell_PlayCatchAnimation__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DA8B50, bool, PlayAirCatchAnimation, (app::SeinChakramSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04743A08, SeinChakramSpell_PlayAirCatchAnimation__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DA8CF0, bool, PlayAirThrowAnimation, (app::SeinChakramSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04788390, SeinChakramSpell_PlayAirThrowAnimation__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DA8DD0, void, UpdateCharacterState, (app::SeinChakramSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA9150, void, TryBeginSpell, (app::SeinChakramSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA7FF0, void, CancelSpell, (app::SeinChakramSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA9C80, void, UpdateNormalState, (app::SeinChakramSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DA9CF0, bool, KeepPlayingAnimation, (app::SeinChakramSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04795180, SeinChakramSpell_KeepPlayingAnimation__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DA9DC0, void, EnterPreCharge, (app::SeinChakramSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DAA060, void, UpdatePreChargeState, (app::SeinChakramSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DAA0A0, void, UpdatePreAirShotState, (app::SeinChakramSpell * this_ptr))

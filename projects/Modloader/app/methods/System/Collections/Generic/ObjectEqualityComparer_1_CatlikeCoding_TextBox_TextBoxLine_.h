@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_CatlikeCoding_TextBox_TextBoxLine_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_CatlikeCoding_TextBox_TextBoxLine_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/TextBoxLine.h>
 #include <Modloader/app/structs/TextBoxLine__Array.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::ObjectEqualityComparer_1_CatlikeCoding_TextBox_TextBoxLine_ {
     IL2CPP_REGISTER_METHOD(0x01CD1C30, bool, Equals_1, (app::ObjectEqualityComparer_1_CatlikeCoding_TextBox_TextBoxLine_ * this_ptr, app::TextBoxLine x, app::TextBoxLine y))

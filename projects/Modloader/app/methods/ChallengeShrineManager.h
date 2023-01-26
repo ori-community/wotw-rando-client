@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ChallengeShrineManager.h>
-#include <Modloader/app/structs/LegacyTrigger.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/ChallengeShrineTrigger.h>
+
+#include <Modloader/app/structs/ChallengeShrineManager.h>
 #include <Modloader/app/structs/ChallengeShrineAnimatorEntity_ChallengeShrineActionType__Enum.h>
+#include <Modloader/app/structs/ChallengeShrineTrigger.h>
+#include <Modloader/app/structs/LegacyTrigger.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ChallengeShrineManager {
     IL2CPP_REGISTER_METHOD(0x00A35F10, bool, get_IsChallengeOngoing, (app::ChallengeShrineManager * this_ptr))
@@ -15,9 +16,7 @@ namespace app::classes::ChallengeShrineManager {
     IL2CPP_REGISTER_METHOD(0x01042C80, void, OnDisable, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01042D60, void, Update, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01042E70, void, RewardPickedUp, (app::ChallengeShrineManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04732048, ChallengeShrineManager_RewardPickedUp__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01042EA0, void, HandleDeath, (app::ChallengeShrineManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047619C8, ChallengeShrineManager_HandleDeath__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x010430A0, void, ResetChallenge, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01043470, void, StartChallenge, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01043880, void, PauseTimer, (app::ChallengeShrineManager * this_ptr, bool paused))
@@ -26,9 +25,7 @@ namespace app::classes::ChallengeShrineManager {
     IL2CPP_REGISTER_METHOD(0x01043FA0, void, TeleportBackToStart, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x010440C0, void, AddTime, (app::ChallengeShrineManager * this_ptr, float time_to_add))
     IL2CPP_REGISTER_METHOD(0x01044110, void, AddTimeFromTrigger, (app::ChallengeShrineManager * this_ptr, app::LegacyTrigger* trigger))
-    IL2CPP_REGISTER_METHODINFO(0x047055D0, ChallengeShrineManager_AddTimeFromTrigger__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x010442E0, void, FinishWave, (app::ChallengeShrineManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047700E8, ChallengeShrineManager_FinishWave__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01044310, void, ChallengeFailed, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01044540, void, ChallengeCompleted, (app::ChallengeShrineManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01044760, void, ActivateShrineUI, (app::ChallengeShrineManager * this_ptr, bool on))

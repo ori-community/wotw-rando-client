@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WriteEventsRequest.h>
+
+#include <Modloader/app/structs/WriteEventsRequest.h>
 #include <Modloader/app/structs/Action_1_PlayFab_EventsModels_WriteEventsResponse_.h>
 #include <Modloader/app/structs/Action_1_PlayFab_PlayFabError_.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::PlayFab::PlayFabEventsAPI {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())

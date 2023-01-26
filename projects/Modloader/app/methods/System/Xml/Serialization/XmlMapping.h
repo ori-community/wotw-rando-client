@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlMapping.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ObjectMap_1.h>
+
+#include <Modloader/app/structs/XmlMapping.h>
 #include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/ObjectMap_1.h>
 #include <Modloader/app/structs/SerializationFormat__Enum.h>
 #include <Modloader/app/structs/SerializationSource.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::Serialization::XmlMapping {
     IL2CPP_REGISTER_METHOD(0x00D09510, void, ctor, (app::XmlMapping * this_ptr, app::String* element_name, app::String* ns))

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XsdDuration__Class.h>
 #include <Modloader/app/structs/XsdDuration.h>
 #include <Modloader/app/structs/XsdDuration__Boxed.h>
+#include <Modloader/app/structs/XsdDuration__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace XsdDuration {
-        namespace {
-            inline app::XsdDuration__Class* type_info_ref = nullptr;
+        inline app::XsdDuration__Class** type_info() {
+            static app::XsdDuration__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::XsdDuration__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::XsdDuration__Class** type_info = &type_info_ref;
         inline app::XsdDuration__Class* get_class() {
-            return il2cpp::get_class<app::XsdDuration__Class>(type_info, "System.Xml.Schema", "XsdDuration");
+            return il2cpp::get_class<app::XsdDuration__Class>(type_info(), "System.Xml.Schema", "XsdDuration");
         }
         inline app::XsdDuration* create() {
             return il2cpp::create_object<app::XsdDuration>(get_class());

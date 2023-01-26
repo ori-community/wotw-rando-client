@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TexturesPool.h>
+
+#include <Modloader/app/structs/TexturesPool.h>
 #include <Modloader/app/structs/TexturePoolEntity.h>
 
 namespace app::classes::Moon::ArtOptimization::TexturesPool {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_System_DateTimeOffset_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_System_DateTimeOffset_.h>
 #include <Modloader/app/structs/DateTimeOffset.h>
 #include <Modloader/app/structs/DateTimeOffset__Array.h>
 #include <Modloader/app/structs/Object.h>

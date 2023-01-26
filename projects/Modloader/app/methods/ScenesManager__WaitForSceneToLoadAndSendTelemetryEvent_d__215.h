@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScenesManager_WaitForSceneToLoadAndSendTelemetryEvent_d_215.h>
+
+#include <Modloader/app/structs/ScenesManager_WaitForSceneToLoadAndSendTelemetryEvent_d_215.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ScenesManager__WaitForSceneToLoadAndSendTelemetryEvent_d__215 {
@@ -9,6 +10,5 @@ namespace app::classes::ScenesManager__WaitForSceneToLoadAndSendTelemetryEvent_d
     IL2CPP_REGISTER_METHOD(0x01052CA0, bool, MoveNext, (app::ScenesManager_WaitForSceneToLoadAndSendTelemetryEvent_d_215 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::ScenesManager_WaitForSceneToLoadAndSendTelemetryEvent_d_215 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01052D30, void, IEnumerator_Reset, (app::ScenesManager_WaitForSceneToLoadAndSendTelemetryEvent_d_215 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04722110, ScenesManager_WaitForSceneToLoadAndSendTelemetryEvent_d_215_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::ScenesManager_WaitForSceneToLoadAndSendTelemetryEvent_d_215 * this_ptr))
 } // namespace app::classes::ScenesManager__WaitForSceneToLoadAndSendTelemetryEvent_d__215

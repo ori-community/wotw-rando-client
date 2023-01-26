@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_.h>
 #include <Modloader/app/structs/Comparison_1_System_Diagnostics_Tracing_EventProvider_SessionInfo_.h>
 #include <Modloader/app/structs/EventProvider_SessionInfo.h>
 

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Ori.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/Ori_State__Enum.h>
+
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/AnimationCurve.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/Ori.h>
+#include <Modloader/app/structs/Ori_State__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Ori {
     IL2CPP_REGISTER_METHOD(0x0061E140, app::Transform*, get_m_target, (app::Ori * this_ptr))
@@ -26,7 +27,6 @@ namespace app::classes::Ori {
     IL2CPP_REGISTER_METHOD(0x0061E930, void, OnDestroy, (app::Ori * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061EB00, void, Serialize, (app::Ori * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x0061EB70, void, OnRestoreCheckpoint, (app::Ori * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04735C90, Ori_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0061EBC0, bool, IsListening, (app::Ori * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0061EBD0, void, ChangeState, (app::Ori * this_ptr, app::Ori_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x0061E920, void, MoveOriToPlayer, (app::Ori * this_ptr))

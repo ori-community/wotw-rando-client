@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XNamespace.h>
+
+#include <Modloader/app/structs/XNamespace.h>
 #include <Modloader/app/structs/NamespaceCache__Boxed.h>
 #include <Modloader/app/structs/String.h>
 

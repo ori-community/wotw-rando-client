@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SceneCollection.h>
+#include <Modloader/app/structs/SceneCollection__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SceneCollection__Class.h>
-#include <Modloader/app/structs/SceneCollection.h>
 
 namespace app::classes::types {
     namespace SceneCollection {
-        namespace {
-            inline app::SceneCollection__Class* type_info_ref = nullptr;
+        inline app::SceneCollection__Class** type_info() {
+            static app::SceneCollection__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SceneCollection__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SceneCollection__Class** type_info = &type_info_ref;
         inline app::SceneCollection__Class* get_class() {
-            return il2cpp::get_class<app::SceneCollection__Class>(type_info, "", "SceneCollection");
+            return il2cpp::get_class<app::SceneCollection__Class>(type_info(), "", "SceneCollection");
         }
         inline app::SceneCollection* create() {
             return il2cpp::create_object<app::SceneCollection>(get_class());

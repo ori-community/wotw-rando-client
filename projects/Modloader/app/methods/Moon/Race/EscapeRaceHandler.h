@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaceStateMachineContext.h>
-#include <Modloader/app/structs/EscapeRaceHandler.h>
-#include <Modloader/app/structs/Collider.h>
+
+#include <Modloader/app/structs/RaceStateMachineContext.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/EscapeRaceHandler.h>
 #include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::Moon::Race::EscapeRaceHandler {
@@ -11,7 +12,6 @@ namespace app::classes::Moon::Race::EscapeRaceHandler {
     IL2CPP_REGISTER_METHOD(0x00C41A60, void, Awake, (app::EscapeRaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C41C20, void, OnDestroy, (app::EscapeRaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C41DE0, void, OnEnterEndTrigger, (app::EscapeRaceHandler * this_ptr, app::Collider* collider))
-    IL2CPP_REGISTER_METHODINFO(0x04765CA0, EscapeRaceHandler_OnEnterEndTrigger__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C41FE0, void, OnStart, (app::EscapeRaceHandler * this_ptr, bool spectate))
     IL2CPP_REGISTER_METHOD(0x00C420F0, void, OnFinished, (app::EscapeRaceHandler * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C421C0, void, PlaceOriAtStart, (app::EscapeRaceHandler * this_ptr))

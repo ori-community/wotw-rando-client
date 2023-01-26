@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TurbulenceStateDefinition_TurbulenceState.h>
+
+#include <Modloader/app/structs/TurbulenceStateDefinition_TurbulenceState.h>
 #include <Modloader/app/structs/TurbulenceInfluencerOrder__Enum.h>
 
 namespace app::classes::TurbulenceStateDefinition_TurbulenceState {

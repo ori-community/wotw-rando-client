@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_AchievementToDisplay_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_AchievementToDisplay_.h>
 #include <Modloader/app/structs/AchievementToDisplay.h>
 #include <Modloader/app/structs/AchievementToDisplay__Array.h>
 #include <Modloader/app/structs/Object.h>

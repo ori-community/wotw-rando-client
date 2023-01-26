@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour.h>
-#include <Modloader/app/structs/StateMachine_2.h>
-#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseStatesSet.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/DamageDealer_DamageDirectionMode__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Projectile.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/ProjectileSpawner.h>
-#include <Modloader/app/structs/Enum__Array.h>
 #include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour_PetrifiedOwlBossBaseStatesSet.h>
+#include <Modloader/app/structs/Projectile.h>
+#include <Modloader/app/structs/ProjectileSpawner.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PetrifiedOwlBossFinalComboBehaviour {
     IL2CPP_REGISTER_METHOD(0x0068A180, bool, CanSpawnSeekers, (app::PetrifiedOwlBossFinalComboBehaviour * this_ptr))

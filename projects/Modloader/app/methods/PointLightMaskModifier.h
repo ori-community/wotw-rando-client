@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Color.h>
+
+#include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/MeshFilter.h>
 #include <Modloader/app/structs/PointLightMaskModifier.h>
 #include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/MeshFilter.h>
 
 namespace app::classes::PointLightMaskModifier {
     IL2CPP_REGISTER_METHOD(0x0142FB20, app::Color, get_LightColor, (app::PointLightMaskModifier * this_ptr))

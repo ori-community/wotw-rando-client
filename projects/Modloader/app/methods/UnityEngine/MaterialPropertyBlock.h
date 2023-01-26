@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MaterialPropertyBlock.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/Texture.h>
+
+#include <Modloader/app/structs/MaterialPropertyBlock.h>
 #include <Modloader/app/structs/ComputeBuffer.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UnityEngine::MaterialPropertyBlock {
     IL2CPP_REGISTER_METHOD(0x02533D50, void, ctor, (app::MaterialPropertyBlock * this_ptr))

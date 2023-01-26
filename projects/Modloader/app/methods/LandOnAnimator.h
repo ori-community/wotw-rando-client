@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/LandOnAnimator.h>
+
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/IMoonSetupVisuals.h>
+#include <Modloader/app/structs/LandOnAnimator.h>
 #include <Modloader/app/structs/LandOnState__Enum.h>
 
 namespace app::classes::LandOnAnimator {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BaseRaycaster.h>
+
+#include <Modloader/app/structs/BaseRaycaster.h>
 #include <Modloader/app/structs/List_1_UnityEngine_EventSystems_BaseRaycaster_.h>
 
 namespace app::classes::UnityEngine::EventSystems::RaycasterManager {

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/fsResult.h>
-#include <Modloader/app/structs/Gradient_DirectConverter.h>
-#include <Modloader/app/structs/Gradient.h>
+
+#include <Modloader/app/structs/fsResult.h>
 #include <Modloader/app/structs/Dictionary_2_System_String_FullSerializer_fsData_.h>
+#include <Modloader/app/structs/Gradient.h>
+#include <Modloader/app/structs/Gradient_DirectConverter.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/fsData.h>
 #include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/fsData.h>
 
 namespace app::classes::FullSerializer::Internal::DirectConverters::Gradient_DirectConverter {
     IL2CPP_REGISTER_METHOD(0x0164ED90, app::fsResult, DoSerialize, (app::Gradient_DirectConverter * this_ptr, app::Gradient* model, app::Dictionary_2_System_String_FullSerializer_fsData_* serialized))

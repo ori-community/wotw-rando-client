@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CookieTokenizer.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/CookieTokenizer.h>
 #include <Modloader/app/structs/CookieToken__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::CookieTokenizer {
     IL2CPP_REGISTER_METHOD(0x01EA8A40, void, ctor, (app::CookieTokenizer * this_ptr, app::String* token_stream))

@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DeadEnemyRagdoll.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/DeadEnemyRagdoll_State__Enum.h>
+
+#include <Modloader/app/structs/DeadEnemyRagdoll.h>
 #include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DeadEnemyRagdoll_State__Enum.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::DeadEnemyRagdoll {
     IL2CPP_REGISTER_METHOD(0x00DD7B80, void, OnReceiveContext, (app::DeadEnemyRagdoll * this_ptr, app::IContext* context))

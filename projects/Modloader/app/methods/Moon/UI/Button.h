@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Button_1.h>
+
+#include <Modloader/app/structs/Button_1.h>
 #include <Modloader/app/structs/Image_1.h>
-#include <Modloader/app/structs/Text_1.h>
-#include <Modloader/app/structs/InputTrigger.h>
 #include <Modloader/app/structs/InputInfo.h>
+#include <Modloader/app/structs/InputTrigger.h>
+#include <Modloader/app/structs/Text_1.h>
 
 namespace app::classes::Moon::UI::Button {
     IL2CPP_REGISTER_METHOD(0x00D23FF0, void, OnSelected, (app::Button_1 * this_ptr))

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Array_SorterObjectArray__Class.h>
 #include <Modloader/app/structs/Array_SorterObjectArray.h>
 #include <Modloader/app/structs/Array_SorterObjectArray__Boxed.h>
+#include <Modloader/app/structs/Array_SorterObjectArray__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Array_SorterObjectArray {
-        namespace {
-            inline app::Array_SorterObjectArray__Class* type_info_ref = nullptr;
+        inline app::Array_SorterObjectArray__Class** type_info() {
+            static app::Array_SorterObjectArray__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Array_SorterObjectArray__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Array_SorterObjectArray__Class** type_info = &type_info_ref;
         inline app::Array_SorterObjectArray__Class* get_class() {
-            return il2cpp::get_nested_class<app::Array_SorterObjectArray__Class>(type_info, "System", "Array", "SorterObjectArray");
+            return il2cpp::get_nested_class<app::Array_SorterObjectArray__Class>(type_info(), "System", "Array", "SorterObjectArray");
         }
         inline app::Array_SorterObjectArray* create() {
             return il2cpp::create_object<app::Array_SorterObjectArray>(get_class());

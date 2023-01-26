@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UIContext.h>
+
+#include <Modloader/app/structs/UIContext.h>
 #include <Modloader/app/structs/IUIComponent.h>
 
 namespace app::classes::Moon::UI::UIContext {

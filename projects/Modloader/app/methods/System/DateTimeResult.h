@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DateTimeResult__Boxed.h>
+
+#include <Modloader/app/structs/DateTimeResult__Boxed.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ParseFailureKind__Enum.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::DateTimeResult {
     IL2CPP_REGISTER_METHOD(0x0013D290, void, Init, (app::DateTimeResult__Boxed * this_ptr))

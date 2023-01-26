@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextureAnimator.h>
-#include <Modloader/app/structs/SpriteAnimator.h>
+
+#include <Modloader/app/structs/TextureAnimator.h>
 #include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/Atlas.h>
-#include <Modloader/app/structs/UberScreenMode__Enum.h>
+#include <Modloader/app/structs/SpriteAnimator.h>
 #include <Modloader/app/structs/TextureAnimation.h>
+#include <Modloader/app/structs/UberScreenMode__Enum.h>
 
 namespace app::classes::SpriteAnimator {
     IL2CPP_REGISTER_METHOD(0x002FBD60, app::TextureAnimator*, get_TextureAnimator, (app::SpriteAnimator * this_ptr))
@@ -36,7 +37,6 @@ namespace app::classes::SpriteAnimator {
     IL2CPP_REGISTER_METHOD(0x009AB790, void, SetAnimation, (app::SpriteAnimator * this_ptr, app::TextureAnimation* texture_animation, bool reset_time))
     IL2CPP_REGISTER_METHOD(0x009AB960, float, get_Duration, (app::SpriteAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009ABA70, void, AnimationStart, (app::SpriteAnimator * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473E7B0, SpriteAnimator_AnimationStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009ABC10, bool, get_IsLooping, (app::SpriteAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009ABD10, app::TextureAnimation*, get_CurrentAnimation, (app::SpriteAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009ABD30, void, SetDirty, (app::SpriteAnimator * this_ptr))

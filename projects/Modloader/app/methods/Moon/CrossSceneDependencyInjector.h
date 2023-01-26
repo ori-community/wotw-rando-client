@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CrossSceneDependencyInjector.h>
+
+#include <Modloader/app/structs/CrossSceneDependencyInjector.h>
 #include <Modloader/app/structs/CrossSceneDependencyInjector_ObjectReference.h>
 
 namespace app::classes::Moon::CrossSceneDependencyInjector {

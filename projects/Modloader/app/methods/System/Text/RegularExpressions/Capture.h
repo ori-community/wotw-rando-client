@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Capture.h>
+
+#include <Modloader/app/structs/Capture.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Text::RegularExpressions::Capture {
@@ -13,5 +14,4 @@ namespace app::classes::System::Text::RegularExpressions::Capture {
     IL2CPP_REGISTER_METHOD(0x02580B70, app::String*, GetLeftSubstring, (app::Capture * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02580BA0, app::String*, GetRightSubstring, (app::Capture * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02580BE0, void, ctor_2, (app::Capture * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478A9D0, Capture__ctor_1__MethodInfo)
 } // namespace app::classes::System::Text::RegularExpressions::Capture

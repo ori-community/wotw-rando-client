@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TrackableId.h>
-#include <Modloader/app/structs/MeshGenerationResult__Boxed.h>
+
+#include <Modloader/app/structs/TrackableId.h>
 #include <Modloader/app/structs/Mesh.h>
 #include <Modloader/app/structs/MeshCollider.h>
+#include <Modloader/app/structs/MeshGenerationResult.h>
+#include <Modloader/app/structs/MeshGenerationResult__Boxed.h>
 #include <Modloader/app/structs/MeshGenerationStatus__Enum.h>
 #include <Modloader/app/structs/MeshVertexAttributes__Enum.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/MeshGenerationResult.h>
 
 namespace app::classes::UnityEngine::Experimental::XR::MeshGenerationResult {
     IL2CPP_REGISTER_METHOD(0x001D9980, app::TrackableId, get_MeshId, (app::MeshGenerationResult__Boxed * this_ptr))

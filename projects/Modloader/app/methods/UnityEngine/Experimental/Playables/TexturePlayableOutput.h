@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayableOutputHandle.h>
+
+#include <Modloader/app/structs/PlayableOutputHandle.h>
 #include <Modloader/app/structs/TexturePlayableOutput__Boxed.h>
 
 namespace app::classes::UnityEngine::Experimental::Playables::TexturePlayableOutput {

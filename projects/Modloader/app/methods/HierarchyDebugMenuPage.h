@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HierarchyDebugMenuPage.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/HierarchyDebugMenuPage.h>
 #include <Modloader/app/structs/IDebugMenuPage.h>
 #include <Modloader/app/structs/List_1_List_1_IDebugMenuItem_.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::HierarchyDebugMenuPage {
     IL2CPP_REGISTER_METHOD(0x00420EE0, int32_t, get_ColumnOffset, (app::HierarchyDebugMenuPage * this_ptr))

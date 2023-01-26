@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/MicroProfiler_MetricStats.h>
+#include <Modloader/app/structs/MicroProfiler_MetricStats__Array.h>
+#include <Modloader/app/structs/MicroProfiler_MetricStats__Boxed.h>
+#include <Modloader/app/structs/MicroProfiler_MetricStats__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MicroProfiler_MetricStats__Class.h>
-#include <Modloader/app/structs/MicroProfiler_MetricStats.h>
-#include <Modloader/app/structs/MicroProfiler_MetricStats__Boxed.h>
-#include <Modloader/app/structs/MicroProfiler_MetricStats__Array.h>
 
 namespace app::classes::types {
     namespace MicroProfiler_MetricStats {
-        namespace {
-            inline app::MicroProfiler_MetricStats__Class* type_info_ref = nullptr;
+        inline app::MicroProfiler_MetricStats__Class** type_info() {
+            static app::MicroProfiler_MetricStats__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::MicroProfiler_MetricStats__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::MicroProfiler_MetricStats__Class** type_info = &type_info_ref;
         inline app::MicroProfiler_MetricStats__Class* get_class() {
-            return il2cpp::get_nested_class<app::MicroProfiler_MetricStats__Class>(type_info, "", "MicroProfiler", "MetricStats");
+            return il2cpp::get_nested_class<app::MicroProfiler_MetricStats__Class>(type_info(), "", "MicroProfiler", "MetricStats");
         }
         inline app::MicroProfiler_MetricStats* create() {
             return il2cpp::create_object<app::MicroProfiler_MetricStats>(get_class());

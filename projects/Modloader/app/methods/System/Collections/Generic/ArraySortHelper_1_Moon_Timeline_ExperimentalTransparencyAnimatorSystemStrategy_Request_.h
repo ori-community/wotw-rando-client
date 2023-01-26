@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_Request__Array.h>
-#include <Modloader/app/structs/IComparer_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
-#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_Request.h>
+
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_Request__Array.h>
 #include <Modloader/app/structs/Comparison_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_Request.h>
+#include <Modloader/app/structs/IComparer_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_ {
     IL2CPP_REGISTER_METHOD(0x02F3A7E0, void, Sort_1, (app::ExperimentalTransparencyAnimatorSystemStrategy_Request__Array * keys, int32_t index, int32_t length, app::IComparer_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04712D38, ArraySortHelper_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F3AB00, int32_t, BinarySearch, (app::ExperimentalTransparencyAnimatorSystemStrategy_Request__Array * array, int32_t index, int32_t length, app::ExperimentalTransparencyAnimatorSystemStrategy_Request value, app::IComparer_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04734B98, ArraySortHelper_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F3ACB0, void, Sort_2, (app::ExperimentalTransparencyAnimatorSystemStrategy_Request__Array * keys, int32_t index, int32_t length, app::Comparison_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04716F90, ArraySortHelper_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C884A0, int32_t, InternalBinarySearch, (app::ExperimentalTransparencyAnimatorSystemStrategy_Request__Array * array, int32_t index, int32_t length, app::ExperimentalTransparencyAnimatorSystemStrategy_Request value, app::IComparer_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C88650, void, SwapIfGreater, (app::ExperimentalTransparencyAnimatorSystemStrategy_Request__Array * keys, app::Comparison_1_Moon_Timeline_ExperimentalTransparencyAnimatorSystemStrategy_Request_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C88810, void, Swap, (app::ExperimentalTransparencyAnimatorSystemStrategy_Request__Array * a, int32_t i, int32_t j))

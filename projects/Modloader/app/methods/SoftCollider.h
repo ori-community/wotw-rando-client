@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoftCollider.h>
+
+#include <Modloader/app/structs/SoftCollider.h>
 #include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::SoftCollider {

@@ -1,31 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_CatlikeCoding_TextBox_LineDescent_.h>
-#include <Modloader/app/structs/LineDescent.h>
-#include <Modloader/app/structs/IEnumerable_1_CatlikeCoding_TextBox_LineDescent_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_CatlikeCoding_TextBox_LineDescent_.h>
-#include <Modloader/app/structs/IComparer_1_CatlikeCoding_TextBox_LineDescent_.h>
-#include <Modloader/app/structs/LineDescent__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_CatlikeCoding_TextBox_LineDescent_.h>
+
+#include <Modloader/app/structs/List_1_CatlikeCoding_TextBox_LineDescent_.h>
 #include <Modloader/app/structs/Action_1_CatlikeCoding_TextBox_LineDescent_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_CatlikeCoding_TextBox_LineDescent_.h>
-#include <Modloader/app/structs/IEnumerator_1_CatlikeCoding_TextBox_LineDescent_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_CatlikeCoding_TextBox_LineDescent_.h>
+#include <Modloader/app/structs/IComparer_1_CatlikeCoding_TextBox_LineDescent_.h>
+#include <Modloader/app/structs/IEnumerable_1_CatlikeCoding_TextBox_LineDescent_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_CatlikeCoding_TextBox_LineDescent_.h>
+#include <Modloader/app/structs/LineDescent.h>
+#include <Modloader/app/structs/LineDescent__Array.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_CatlikeCoding_TextBox_LineDescent_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_CatlikeCoding_TextBox_LineDescent_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_CatlikeCoding_TextBox_LineDescent_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_CatlikeCoding_TextBox_LineDescent_ {
     IL2CPP_REGISTER_METHOD(0x02DC6010, void, Add, (app::List_1_CatlikeCoding_TextBox_LineDescent_ * this_ptr, app::LineDescent item))
-    IL2CPP_REGISTER_METHODINFO(0x04783CC8, List_1_CatlikeCoding_TextBox_LineDescent__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_CatlikeCoding_TextBox_LineDescent_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470CC78, List_1_CatlikeCoding_TextBox_LineDescent__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02DC5DD0, app::LineDescent, get_Item, (app::List_1_CatlikeCoding_TextBox_LineDescent_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x047872C0, List_1_CatlikeCoding_TextBox_LineDescent__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_CatlikeCoding_TextBox_LineDescent_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474D838, List_1_CatlikeCoding_TextBox_LineDescent__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_CatlikeCoding_TextBox_LineDescent_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047255F8, List_1_CatlikeCoding_TextBox_LineDescent___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_CatlikeCoding_TextBox_LineDescent_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02E553E0, void, ctor_3, (app::List_1_CatlikeCoding_TextBox_LineDescent_ * this_ptr, app::IEnumerable_1_CatlikeCoding_TextBox_LineDescent_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_CatlikeCoding_TextBox_LineDescent_ * this_ptr))

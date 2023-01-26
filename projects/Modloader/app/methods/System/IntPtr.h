@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IntPtr__Boxed.h>
-#include <Modloader/app/structs/Void.h>
+
+#include <Modloader/app/structs/IntPtr__Boxed.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Void.h>
 
 namespace app::classes::System::IntPtr {
     IL2CPP_REGISTER_METHOD(0x001DE610, void, ctor_1, (app::IntPtr__Boxed * this_ptr, int32_t value))
@@ -14,7 +15,6 @@ namespace app::classes::System::IntPtr {
     IL2CPP_REGISTER_METHOD(0x001E9770, void, ctor_4, (app::IntPtr__Boxed * this_ptr, app::SerializationInfo* info, app::StreamingContext context))
     IL2CPP_REGISTER_METHOD(0x0043D9A0, int32_t, get_Size, ())
     IL2CPP_REGISTER_METHOD(0x001E9810, void, ISerializable_GetObjectData, (app::IntPtr__Boxed * this_ptr, app::SerializationInfo* info, app::StreamingContext context))
-    IL2CPP_REGISTER_METHODINFO(0x04708FA8, IntPtr_System_Runtime_Serialization_ISerializable_GetObjectData__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001E98E0, bool, Equals, (app::IntPtr__Boxed * this_ptr, app::Object* obj))
     IL2CPP_REGISTER_METHOD(0x0010E170, int32_t, GetHashCode, (app::IntPtr__Boxed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0010E170, int32_t, ToInt32, (app::IntPtr__Boxed * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_Motvin_Collections_ChainLevelAndCount_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Motvin_Collections_ChainLevelAndCount_.h>
 #include <Modloader/app/structs/ChainLevelAndCount.h>
 #include <Modloader/app/structs/ChainLevelAndCount__Array.h>
 #include <Modloader/app/structs/Object.h>

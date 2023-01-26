@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MechSpiderParticles.h>
+
+#include <Modloader/app/structs/MechSpiderParticles.h>
 
 namespace app::classes::RootMotion::Demos::MechSpiderParticles {
     IL2CPP_REGISTER_METHOD(0x02226ED0, void, Start, (app::MechSpiderParticles * this_ptr))

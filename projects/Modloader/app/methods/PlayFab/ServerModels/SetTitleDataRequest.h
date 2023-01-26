@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SetTitleDataRequest.h>
+
+#include <Modloader/app/structs/SetTitleDataRequest.h>
 
 namespace app::classes::PlayFab::ServerModels::SetTitleDataRequest {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SetTitleDataRequest * this_ptr))

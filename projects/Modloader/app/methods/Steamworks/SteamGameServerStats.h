@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SteamAPICall_t.h>
+
+#include <Modloader/app/structs/SteamAPICall_t.h>
 #include <Modloader/app/structs/CSteamID.h>
 #include <Modloader/app/structs/String.h>
 

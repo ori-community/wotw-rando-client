@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/FeedingGroundsDangerZone__Class.h>
 #include <Modloader/app/structs/FeedingGroundsDangerZone.h>
 #include <Modloader/app/structs/FeedingGroundsDangerZone__Array.h>
+#include <Modloader/app/structs/FeedingGroundsDangerZone__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace FeedingGroundsDangerZone {
-        namespace {
-            inline app::FeedingGroundsDangerZone__Class* type_info_ref = nullptr;
+        inline app::FeedingGroundsDangerZone__Class** type_info() {
+            static app::FeedingGroundsDangerZone__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::FeedingGroundsDangerZone__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::FeedingGroundsDangerZone__Class** type_info = &type_info_ref;
         inline app::FeedingGroundsDangerZone__Class* get_class() {
-            return il2cpp::get_class<app::FeedingGroundsDangerZone__Class>(type_info, "PetrifiedOwlFeedingGrounds", "FeedingGroundsDangerZone");
+            return il2cpp::get_class<app::FeedingGroundsDangerZone__Class>(type_info(), "PetrifiedOwlFeedingGrounds", "FeedingGroundsDangerZone");
         }
         inline app::FeedingGroundsDangerZone* create() {
             return il2cpp::create_object<app::FeedingGroundsDangerZone>(get_class());

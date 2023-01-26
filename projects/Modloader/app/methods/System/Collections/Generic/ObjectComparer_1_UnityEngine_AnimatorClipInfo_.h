@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_AnimatorClipInfo_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_AnimatorClipInfo_.h>
 #include <Modloader/app/structs/AnimatorClipInfo.h>
 #include <Modloader/app/structs/Object.h>
 

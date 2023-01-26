@@ -1,21 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/IJsonSerializerStrategy.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/IDictionary_2_System_String_System_Object_.h>
-#include <Modloader/app/structs/JsonArray.h>
-#include <Modloader/app/structs/PlayFabSimpleJson_TokenType__Enum.h>
-#include <Modloader/app/structs/StringBuilder.h>
 #include <Modloader/app/structs/IEnumerable.h>
-#include <Modloader/app/structs/PocoJsonSerializerStrategy.h>
+#include <Modloader/app/structs/IJsonSerializerStrategy.h>
+#include <Modloader/app/structs/JsonArray.h>
 #include <Modloader/app/structs/JsonObject.h>
+#include <Modloader/app/structs/PlayFabSimpleJson_TokenType__Enum.h>
+#include <Modloader/app/structs/PocoJsonSerializerStrategy.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::PlayFab::Json::PlayFabSimpleJson {
     IL2CPP_REGISTER_METHOD(0x01848270, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x018487B0, app::Object*, DeserializeObject_1, (app::String * json))
-    IL2CPP_REGISTER_METHODINFO(0x04726788, PlayFabSimpleJson_DeserializeObject__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01848930, bool, TryDeserializeObject, (app::String * json, app::Object** obj))
     IL2CPP_REGISTER_METHOD(0x01848A20, app::Object*, DeserializeObject_2, (app::String * json, app::Type* type, app::IJsonSerializerStrategy* json_serializer_strategy))
     IL2CPP_REGISTER_METHOD(0x01848D00, app::String*, SerializeObject_1, (app::Object * json, app::IJsonSerializerStrategy* json_serializer_strategy))
@@ -25,7 +25,6 @@ namespace app::classes::PlayFab::Json::PlayFabSimpleJson {
     IL2CPP_REGISTER_METHOD(0x018498B0, app::Object*, ParseValue, (app::String * json, int32_t* index, bool* success))
     IL2CPP_REGISTER_METHOD(0x01849B40, app::String*, ParseString, (app::String * json, int32_t* index, bool* success))
     IL2CPP_REGISTER_METHOD(0x0184A6B0, app::String*, ConvertFromUtf32, (int32_t utf32))
-    IL2CPP_REGISTER_METHODINFO(0x047693B8, PlayFabSimpleJson_ConvertFromUtf32__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0184A870, app::Object*, ParseNumber, (app::String * json, int32_t* index, bool* success))
     IL2CPP_REGISTER_METHOD(0x0184AC70, int32_t, GetLastIndexOfNumber, (app::String * json, int32_t index))
     IL2CPP_REGISTER_METHOD(0x0184AD50, void, EatWhitespace, (app::String * json, int32_t* index))
@@ -42,6 +41,5 @@ namespace app::classes::PlayFab::Json::PlayFabSimpleJson {
     IL2CPP_REGISTER_METHOD(0x0184C6F0, app::PocoJsonSerializerStrategy*, get_PocoJsonSerializerStrategy, ())
     IL2CPP_REGISTER_METHOD(0x016A9D10, app::Object*, DeserializeObject_3, (app::String * json, app::IJsonSerializerStrategy* json_serializer_strategy))
     IL2CPP_REGISTER_METHOD(0x016A9D10, app::JsonObject*, DeserializeObject_4, (app::String * json, app::IJsonSerializerStrategy* json_serializer_strategy))
-    IL2CPP_REGISTER_METHODINFO(0x047283A0, PlayFabSimpleJson_DeserializeObject_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x016A9BD0, bool, DeserializeObject_5, (app::String * json, app::IJsonSerializerStrategy* json_serializer_strategy))
 } // namespace app::classes::PlayFab::Json::PlayFabSimpleJson

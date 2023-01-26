@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Bounds.h>
+
+#include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/SwarmSuspendWhenOutOfFrustrum.h>
 
 namespace app::classes::SwarmSuspendWhenOutOfFrustrum {

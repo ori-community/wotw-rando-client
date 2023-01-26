@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IComboMove.h>
+
+#include <Modloader/app/structs/IComboMove.h>
 #include <Modloader/app/structs/ComboMoveStressTest.h>
 #include <Modloader/app/structs/StressTestStatus__Enum.h>
 #include <Modloader/app/structs/String.h>

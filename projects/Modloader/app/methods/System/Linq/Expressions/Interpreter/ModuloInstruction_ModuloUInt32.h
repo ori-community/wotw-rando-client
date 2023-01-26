@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ModuloInstruction_ModuloUInt32.h>
+
+#include <Modloader/app/structs/ModuloInstruction_ModuloUInt32.h>
 #include <Modloader/app/structs/InterpretedFrame.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::ModuloInstruction_ModuloUInt32 {

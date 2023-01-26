@@ -16,7 +16,7 @@ struct SqlXml__StaticFields {
 #endif
 #if !defined(IL2CPP_STRUCT_SqlXml__StaticFields_FWDDECL)
 #define IL2CPP_STRUCT_SqlXml__StaticFields_FWDDECL
-#include <Modloader/app/structs/Func_4_System_IO_Stream_System_Xml_XmlReaderSettings_System_Xml_XmlParserContext_System_Xml_XmlReader_.h>
+#include <Modloader/app/structs/Func_4_Syste_I_Strea_Syste_Xm_XmlReaderSetting_Syste_Xm_XmlParserContex_Syste_Xm_XmlReade_.h>
 #include <Modloader/app/structs/MethodInfo_1.h>
 #include <Modloader/app/structs/XmlReaderSettings.h>
 #endif

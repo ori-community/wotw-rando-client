@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WeaponVFXSet.h>
+
+#include <Modloader/app/structs/WeaponVFXSet.h>
+#include <Modloader/app/structs/DamageRecieverType__Enum.h>
 #include <Modloader/app/structs/EquipmentType__Enum.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/MaterialTypeVFXSettings_EffectSize__Enum.h>
-#include <Modloader/app/structs/DamageRecieverType__Enum.h>
 
 namespace app::classes::WeaponVFXSet {
     IL2CPP_REGISTER_METHOD(0x005709F0, void, ctor, (app::WeaponVFXSet * this_ptr, app::EquipmentType__Enum weapon))

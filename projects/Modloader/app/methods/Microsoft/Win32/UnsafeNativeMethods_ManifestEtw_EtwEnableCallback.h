@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_EtwEnableCallback.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_EtwEnableCallback.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 #include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/IAsyncResult.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/UnsafeNativeMethods_ManifestEtw_EVENT_FILTER_DESCRIPTOR.h>
 #include <Modloader/app/structs/Void.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Microsoft::Win32::UnsafeNativeMethods_ManifestEtw_EtwEnableCallback {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::UnsafeNativeMethods_ManifestEtw_EtwEnableCallback * this_ptr, app::Object* object, void* method_1))

@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NumberFormatInfo.h>
-#include <Modloader/app/structs/StreamingContext.h>
+
+#include <Modloader/app/structs/NumberFormatInfo.h>
 #include <Modloader/app/structs/CultureData.h>
 #include <Modloader/app/structs/IFormatProvider.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/NumberStyles__Enum.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Globalization::NumberFormatInfo {
     IL2CPP_REGISTER_METHOD(0x01DE9EB0, void, ctor_1, (app::NumberFormatInfo * this_ptr))
@@ -48,9 +49,6 @@ namespace app::classes::System::Globalization::NumberFormatInfo {
     IL2CPP_REGISTER_METHOD(0x002FBC60, app::String*, get_PerMilleSymbol, (app::NumberFormatInfo * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DEAFA0, app::Object*, GetFormat, (app::NumberFormatInfo * this_ptr, app::Type* format_type))
     IL2CPP_REGISTER_METHOD(0x01DEB070, app::NumberFormatInfo*, ReadOnly, (app::NumberFormatInfo * nfi))
-    IL2CPP_REGISTER_METHODINFO(0x04754570, NumberFormatInfo_ReadOnly__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01DEB200, void, ValidateParseStyleInteger, (app::NumberStyles__Enum style))
-    IL2CPP_REGISTER_METHODINFO(0x047920B8, NumberFormatInfo_ValidateParseStyleInteger__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01DEB320, void, ValidateParseStyleFloatingPoint, (app::NumberStyles__Enum style))
-    IL2CPP_REGISTER_METHODINFO(0x04745AD0, NumberFormatInfo_ValidateParseStyleFloatingPoint__MethodInfo)
 } // namespace app::classes::System::Globalization::NumberFormatInfo

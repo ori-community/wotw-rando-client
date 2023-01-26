@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpinLock_SystemThreading_SpinLockDebugView.h>
-#include <Modloader/app/structs/SpinLock.h>
+
+#include <Modloader/app/structs/SpinLock_SystemThreading_SpinLockDebugView.h>
 #include <Modloader/app/structs/Nullable_1_Boolean_.h>
 #include <Modloader/app/structs/Nullable_1_Int32_.h>
+#include <Modloader/app/structs/SpinLock.h>
 
 namespace app::classes::System::Threading::SpinLock_SystemThreading_SpinLockDebugView {
     IL2CPP_REGISTER_METHOD(0x002FC6E0, void, ctor, (app::SpinLock_SystemThreading_SpinLockDebugView * this_ptr, app::SpinLock spin_lock))

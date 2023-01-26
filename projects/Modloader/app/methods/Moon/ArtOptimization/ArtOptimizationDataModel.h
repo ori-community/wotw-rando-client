@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TexturesPool.h>
+
+#include <Modloader/app/structs/TexturesPool.h>
 #include <Modloader/app/structs/ArtOptimizationDataModel.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Dictionary_2_UberShaderComponent_Moon_ArtOptimization_SerializableUberShaderWrapper_.h>
+#include <Modloader/app/structs/List_1_Moon_ArtOptimization_SerializableUberShaderWrapper_.h>
+#include <Modloader/app/structs/List_1_UberShaderComponent_.h>
 #include <Modloader/app/structs/SerializableUberShaderWrapper.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UberShaderComponent.h>
 #include <Modloader/app/structs/UberShaderWrapper.h>
-#include <Modloader/app/structs/List_1_UberShaderComponent_.h>
-#include <Modloader/app/structs/List_1_Moon_ArtOptimization_SerializableUberShaderWrapper_.h>
-#include <Modloader/app/structs/Dictionary_2_UberShaderComponent_Moon_ArtOptimization_SerializableUberShaderWrapper_.h>
 
 namespace app::classes::Moon::ArtOptimization::ArtOptimizationDataModel {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::TexturesPool*, get_Pool, (app::ArtOptimizationDataModel * this_ptr))

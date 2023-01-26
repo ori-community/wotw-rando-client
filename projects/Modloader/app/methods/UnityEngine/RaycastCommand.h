@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaycastCommand__Boxed.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/RaycastCommand__Boxed.h>
 #include <Modloader/app/structs/JobHandle.h>
+#include <Modloader/app/structs/JobsUtility_JobScheduleParameters.h>
 #include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastCommand_.h>
 #include <Modloader/app/structs/NativeArray_1_UnityEngine_RaycastHit_.h>
-#include <Modloader/app/structs/JobsUtility_JobScheduleParameters.h>
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Void.h>
 
 namespace app::classes::UnityEngine::RaycastCommand {

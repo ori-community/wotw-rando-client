@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UriParser_BuiltInUriParser.h>
+
+#include <Modloader/app/structs/UriParser_BuiltInUriParser.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/UriSyntaxFlags__Enum.h>
 

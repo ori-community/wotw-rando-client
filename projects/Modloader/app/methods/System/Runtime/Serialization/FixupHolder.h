@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FixupHolder.h>
+
+#include <Modloader/app/structs/FixupHolder.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Runtime::Serialization::FixupHolder {

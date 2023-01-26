@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ControlItem.h>
+
+#include <Modloader/app/structs/ControlItem.h>
 #include <Modloader/app/structs/CommandBinding.h>
-#include <Modloader/app/structs/KeyCode__Enum__Array.h>
 #include <Modloader/app/structs/KeyCode__Enum.h>
+#include <Modloader/app/structs/KeyCode__Enum__Array.h>
 
 namespace app::classes::ControlItem {
     IL2CPP_REGISTER_METHOD(0x011E8210, void, ctor, (app::ControlItem * this_ptr, app::CommandBinding* binding))

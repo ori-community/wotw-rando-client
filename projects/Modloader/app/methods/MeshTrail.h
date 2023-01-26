@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Mesh.h>
-#include <Modloader/app/structs/MeshTrail.h>
-#include <Modloader/app/structs/MaterialPropertyBlock.h>
-#include <Modloader/app/structs/CommandBuffer.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/HideFlags__Enum.h>
-#include <Modloader/app/structs/Texture2D.h>
+
+#include <Modloader/app/structs/Mesh.h>
 #include <Modloader/app/structs/BoneWeight.h>
-#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/CommandBuffer.h>
+#include <Modloader/app/structs/HideFlags__Enum.h>
 #include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/Vector3__Array.h>
-#include <Modloader/app/structs/Vector2__Array.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/MaterialPropertyBlock.h>
+#include <Modloader/app/structs/MeshTrail.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 
 namespace app::classes::MeshTrail {
     IL2CPP_REGISTER_METHOD(0x011354B0, app::Mesh*, get_RenderMesh, (app::MeshTrail * this_ptr))
@@ -59,9 +60,6 @@ namespace app::classes::MeshTrail {
     IL2CPP_REGISTER_METHOD(0x03110DB0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x0154A350, void, DestroyASAP_1, (app::Object * *obj))
     IL2CPP_REGISTER_METHOD(0x0154A350, void, DestroyASAP_2, (app::Texture2D * *obj))
-    IL2CPP_REGISTER_METHODINFO(0x0472F5F8, MeshTrail_DestroyASAP_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0154A350, void, DestroyASAP_3, (app::Mesh * *obj))
-    IL2CPP_REGISTER_METHODINFO(0x04755AE0, MeshTrail_DestroyASAP_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0154A350, void, DestroyASAP_4, (app::Material * *obj))
-    IL2CPP_REGISTER_METHODINFO(0x0474A890, MeshTrail_DestroyASAP_3__MethodInfo)
 } // namespace app::classes::MeshTrail

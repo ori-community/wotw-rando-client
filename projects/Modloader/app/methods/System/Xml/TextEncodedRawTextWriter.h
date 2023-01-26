@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextEncodedRawTextWriter.h>
-#include <Modloader/app/structs/TextWriter.h>
-#include <Modloader/app/structs/XmlWriterSettings.h>
-#include <Modloader/app/structs/Stream.h>
-#include <Modloader/app/structs/XmlStandalone__Enum.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/TextEncodedRawTextWriter.h>
 #include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/XmlStandalone__Enum.h>
+#include <Modloader/app/structs/XmlWriterSettings.h>
 
 namespace app::classes::System::Xml::TextEncodedRawTextWriter {
     IL2CPP_REGISTER_METHOD(0x019507C0, void, ctor_1, (app::TextEncodedRawTextWriter * this_ptr, app::TextWriter* writer, app::XmlWriterSettings* settings))
@@ -26,8 +27,8 @@ namespace app::classes::System::Xml::TextEncodedRawTextWriter {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, WriteComment, (app::TextEncodedRawTextWriter * this_ptr, app::String* text))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, WriteProcessingInstruction, (app::TextEncodedRawTextWriter * this_ptr, app::String* name, app::String* text))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, WriteEntityRef, (app::TextEncodedRawTextWriter * this_ptr, app::String* name))
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, WriteCharEntity, (app::TextEncodedRawTextWriter * this_ptr, uint16_t ch))
-    IL2CPP_REGISTER_METHOD(0x002FA000, void, WriteSurrogateCharEntity, (app::TextEncodedRawTextWriter * this_ptr, uint16_t low_char, uint16_t high_char))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, WriteCharEntity, (app::TextEncodedRawTextWriter * this_ptr, char16_t ch))
+    IL2CPP_REGISTER_METHOD(0x002FA000, void, WriteSurrogateCharEntity, (app::TextEncodedRawTextWriter * this_ptr, char16_t low_char, char16_t high_char))
     IL2CPP_REGISTER_METHOD(0x01950870, void, WriteWhitespace, (app::TextEncodedRawTextWriter * this_ptr, app::String* ws))
     IL2CPP_REGISTER_METHOD(0x01950870, void, WriteString, (app::TextEncodedRawTextWriter * this_ptr, app::String* text_block))
     IL2CPP_REGISTER_METHOD(0x01950880, void, WriteChars, (app::TextEncodedRawTextWriter * this_ptr, app::Char__Array* buffer, int32_t index, int32_t count))

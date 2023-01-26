@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/FacetsChecker_FacetsCompiler_Map.h>
+#include <Modloader/app/structs/FacetsChecker_FacetsCompiler_Map__Array.h>
+#include <Modloader/app/structs/FacetsChecker_FacetsCompiler_Map__Boxed.h>
+#include <Modloader/app/structs/FacetsChecker_FacetsCompiler_Map__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/FacetsChecker_FacetsCompiler_Map__Class.h>
-#include <Modloader/app/structs/FacetsChecker_FacetsCompiler_Map.h>
-#include <Modloader/app/structs/FacetsChecker_FacetsCompiler_Map__Boxed.h>
-#include <Modloader/app/structs/FacetsChecker_FacetsCompiler_Map__Array.h>
 
 namespace app::classes::types {
     namespace FacetsChecker_FacetsCompiler_Map {
-        namespace {
-            inline app::FacetsChecker_FacetsCompiler_Map__Class* type_info_ref = nullptr;
+        inline app::FacetsChecker_FacetsCompiler_Map__Class** type_info() {
+            static app::FacetsChecker_FacetsCompiler_Map__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::FacetsChecker_FacetsCompiler_Map__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::FacetsChecker_FacetsCompiler_Map__Class** type_info = &type_info_ref;
         inline app::FacetsChecker_FacetsCompiler_Map__Class* get_class() {
-            return il2cpp::get_nested_class<app::FacetsChecker_FacetsCompiler_Map__Class>(type_info, "System.Xml.Schema", "FacetsChecker+FacetsCompiler", "Map");
+            return il2cpp::get_nested_class<app::FacetsChecker_FacetsCompiler_Map__Class>(type_info(), "System.Xml.Schema", "FacetsChecker+FacetsCompiler", "Map");
         }
         inline app::FacetsChecker_FacetsCompiler_Map* create() {
             return il2cpp::create_object<app::FacetsChecker_FacetsCompiler_Map>(get_class());

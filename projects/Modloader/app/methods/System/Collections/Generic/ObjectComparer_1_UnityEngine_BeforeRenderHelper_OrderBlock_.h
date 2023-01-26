@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
 #include <Modloader/app/structs/BeforeRenderHelper_OrderBlock.h>
 #include <Modloader/app/structs/Object.h>
 

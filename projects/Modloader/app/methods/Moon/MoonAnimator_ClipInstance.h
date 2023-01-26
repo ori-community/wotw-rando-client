@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Playable.h>
-#include <Modloader/app/structs/MoonAnimator_ClipInstance.h>
+
+#include <Modloader/app/structs/Playable.h>
 #include <Modloader/app/structs/AnimationClip.h>
-#include <Modloader/app/structs/MoonAnimator_AnimationInstanceType__Enum.h>
 #include <Modloader/app/structs/IAnimation.h>
+#include <Modloader/app/structs/MoonAnimator_AnimationInstanceType__Enum.h>
+#include <Modloader/app/structs/MoonAnimator_ClipInstance.h>
 
 namespace app::classes::Moon::MoonAnimator_ClipInstance {
     IL2CPP_REGISTER_METHOD(0x021142B0, app::Playable, get_Playable, (app::MoonAnimator_ClipInstance * this_ptr))

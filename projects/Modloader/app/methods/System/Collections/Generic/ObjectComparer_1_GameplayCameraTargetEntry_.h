@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_GameplayCameraTargetEntry_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_GameplayCameraTargetEntry_.h>
 #include <Modloader/app/structs/GameplayCameraTargetEntry.h>
 #include <Modloader/app/structs/Object.h>
 

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CVRChaperone.h>
+
+#include <Modloader/app/structs/CVRChaperone.h>
 #include <Modloader/app/structs/ChaperoneCalibrationState__Enum.h>
-#include <Modloader/app/structs/HmdQuad_t.h>
 #include <Modloader/app/structs/HmdColor_t.h>
+#include <Modloader/app/structs/HmdQuad_t.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRChaperone {
     IL2CPP_REGISTER_METHOD(0x01677280, void, ctor, (app::CVRChaperone * this_ptr, void* p_interface))

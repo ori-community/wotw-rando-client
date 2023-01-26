@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShopkeeperItem__Array.h>
-#include <Modloader/app/structs/ShardUpgradeScreen.h>
-#include <Modloader/app/structs/ShopkeeperScreen.h>
+
+#include <Modloader/app/structs/ShopkeeperItem__Array.h>
 #include <Modloader/app/structs/Event_1.h>
 #include <Modloader/app/structs/RTPC.h>
+#include <Modloader/app/structs/ShardUpgradeScreen.h>
+#include <Modloader/app/structs/ShopkeeperScreen.h>
 
 namespace app::classes::ShardUpgradeScreen {
     IL2CPP_REGISTER_METHOD(0x005B0220, app::ShopkeeperItem__Array*, get_Items, (app::ShardUpgradeScreen * this_ptr))

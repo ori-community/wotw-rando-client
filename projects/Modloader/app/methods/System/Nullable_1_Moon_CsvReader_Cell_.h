@@ -1,18 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Nullable_1_Moon_CsvReader_Cell___Boxed.h>
+
+#include <Modloader/app/structs/Nullable_1_Moon_CsvReader_Cell___Boxed.h>
 #include <Modloader/app/structs/CsvReader_Cell.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Nullable_1_Moon_CsvReader_Cell_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_Moon_CsvReader_Cell_ {
     IL2CPP_REGISTER_METHOD(0x001F4750, bool, get_HasValue, (app::Nullable_1_Moon_CsvReader_Cell___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477D520, Nullable_1_Moon_CsvReader_Cell__get_HasValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001F4760, app::CsvReader_Cell, get_Value, (app::Nullable_1_Moon_CsvReader_Cell___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04772920, Nullable_1_Moon_CsvReader_Cell__get_Value__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00120520, void, ctor, (app::Nullable_1_Moon_CsvReader_Cell___Boxed * this_ptr, app::CsvReader_Cell value))
-    IL2CPP_REGISTER_METHODINFO(0x0470C978, Nullable_1_Moon_CsvReader_Cell___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001F4850, bool, Equals_1, (app::Nullable_1_Moon_CsvReader_Cell___Boxed * this_ptr, app::Object* other))
     IL2CPP_REGISTER_METHOD(0x001F48A0, bool, Equals_2, (app::Nullable_1_Moon_CsvReader_Cell___Boxed * this_ptr, app::Nullable_1_Moon_CsvReader_Cell_ other))
     IL2CPP_REGISTER_METHOD(0x001F4900, int32_t, GetHashCode, (app::Nullable_1_Moon_CsvReader_Cell___Boxed * this_ptr))

@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Event__Class.h>
 #include <Modloader/app/structs/Event.h>
 #include <Modloader/app/structs/Event__Array.h>
+#include <Modloader/app/structs/Event__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Event {
-        inline app::Event__Class** type_info = (app::Event__Class**)(modloader::win::memory::resolve_rva(0x04747B50));
+        inline app::Event__Class** type_info() {
+            static app::Event__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Event__Class**)(modloader::win::memory::resolve_rva(0x04747B50));
+            }
+            return cache;
+        }
         inline app::Event__Class* get_class() {
-            return il2cpp::get_class<app::Event__Class>(type_info, "UnityEngine", "Event");
+            return il2cpp::get_class<app::Event__Class>(type_info(), "UnityEngine", "Event");
         }
         inline app::Event* create() {
             return il2cpp::create_object<app::Event>(get_class());

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKSolverFABRIK.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/IKSolverFABRIK.h>
 #include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolverFABRIK {
     IL2CPP_REGISTER_METHOD(0x02BEB790, void, SolveForward, (app::IKSolverFABRIK * this_ptr, app::Vector3 position))

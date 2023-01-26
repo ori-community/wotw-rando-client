@@ -1,23 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Projectile.h>
-#include <Modloader/app/structs/Projectile_ExplodeCollisionInfo.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/DamageDealer.h>
-#include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/DamageOwner.h>
-#include <Modloader/app/structs/DamageWeight__Enum.h>
-#include <Modloader/app/structs/DamageLayerMask__Enum.h>
+
+#include <Modloader/app/structs/Projectile.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
-#include <Modloader/app/structs/TrackingExclusions.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageLayerMask__Enum.h>
+#include <Modloader/app/structs/DamageOwner.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/Projectile_ExplodeCollisionInfo.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/TrackingExclusions.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Projectile {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CanGoThroughPortals, (app::Projectile * this_ptr))
@@ -99,7 +100,6 @@ namespace app::classes::Projectile {
     IL2CPP_REGISTER_METHOD(0x00C76EA0, void, OnDisable, (app::Projectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C77010, void, OnDestroy, (app::Projectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C77370, bool, ShouldDealDamage, (app::Projectile * this_ptr, app::GameObject* go))
-    IL2CPP_REGISTER_METHODINFO(0x04707100, Projectile_ShouldDealDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C77480, void, OnDamageDealt, (app::Projectile * this_ptr, app::DamageDealer* damage_dealer, app::DamageResult damage_result))
     IL2CPP_REGISTER_METHOD(0x00C77640, void, FixedUpdate, (app::Projectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnBeforeExplodeOnWater, (app::Projectile * this_ptr))
@@ -108,7 +108,6 @@ namespace app::classes::Projectile {
     IL2CPP_REGISTER_METHOD(0x00C781F0, void, ExplodeProjectile, (app::Projectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C78450, void, Destroy, (app::Projectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C787A0, void, OnDestroyTimelineEnded, (app::Projectile * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04796848, Projectile_OnDestroyTimelineEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C78A80, bool, RicochetProjectile, (app::Projectile * this_ptr, app::Collision* collision))
     IL2CPP_REGISTER_METHOD(0x00C78EA0, void, OnRicochet, (app::Projectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C79040, void, OnCollisionEnter, (app::Projectile * this_ptr, app::Collision* collision))

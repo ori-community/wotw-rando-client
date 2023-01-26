@@ -1,18 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Nullable_1_Moon_JsonParser_Array___Boxed.h>
+
+#include <Modloader/app/structs/Nullable_1_Moon_JsonParser_Array___Boxed.h>
 #include <Modloader/app/structs/JsonParser_Array.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Nullable_1_Moon_JsonParser_Array_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_Moon_JsonParser_Array_ {
     IL2CPP_REGISTER_METHOD(0x00120520, void, ctor, (app::Nullable_1_Moon_JsonParser_Array___Boxed * this_ptr, app::JsonParser_Array value))
-    IL2CPP_REGISTER_METHODINFO(0x0476C658, Nullable_1_Moon_JsonParser_Array___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001F4750, bool, get_HasValue, (app::Nullable_1_Moon_JsonParser_Array___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04732690, Nullable_1_Moon_JsonParser_Array__get_HasValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001F4B30, app::JsonParser_Array, get_Value, (app::Nullable_1_Moon_JsonParser_Array___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047500D0, Nullable_1_Moon_JsonParser_Array__get_Value__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001F4C20, bool, Equals_1, (app::Nullable_1_Moon_JsonParser_Array___Boxed * this_ptr, app::Object* other))
     IL2CPP_REGISTER_METHOD(0x001F48A0, bool, Equals_2, (app::Nullable_1_Moon_JsonParser_Array___Boxed * this_ptr, app::Nullable_1_Moon_JsonParser_Array_ other))
     IL2CPP_REGISTER_METHOD(0x001F4900, int32_t, GetHashCode, (app::Nullable_1_Moon_JsonParser_Array___Boxed * this_ptr))

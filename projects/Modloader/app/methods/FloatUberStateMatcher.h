@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FloatUberStateMatcher.h>
-#include <Modloader/app/structs/IUberState.h>
-#include <Modloader/app/structs/GenericDataContainer.h>
+
+#include <Modloader/app/structs/FloatUberStateMatcher.h>
 #include <Modloader/app/structs/FloatRangeUberStatePair.h>
+#include <Modloader/app/structs/GenericDataContainer.h>
+#include <Modloader/app/structs/IUberState.h>
 
 namespace app::classes::FloatUberStateMatcher {
     IL2CPP_REGISTER_METHOD(0x01B5BC20, void, ctor, (app::FloatUberStateMatcher * this_ptr))

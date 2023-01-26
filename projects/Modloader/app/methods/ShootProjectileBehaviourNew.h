@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShootProjectileBehaviourNew.h>
+
+#include <Modloader/app/structs/ShootProjectileBehaviourNew.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
 #include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::ShootProjectileBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x005B8000, bool, IsBlockingInterruption, (app::ShootProjectileBehaviourNew * this_ptr, app::EntityDamageEvent* damage_event, app::EntityReactionBehaviour_ReasonWhyReactionWontInterrupt* reason))
@@ -16,7 +17,6 @@ namespace app::classes::ShootProjectileBehaviourNew {
     IL2CPP_REGISTER_METHOD(0x005B8890, void, ShootProjectile, (app::ShootProjectileBehaviourNew * this_ptr, float angle))
     IL2CPP_REGISTER_METHOD(0x005B8DB0, void, Shoot, (app::ShootProjectileBehaviourNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005B90C0, void, ShootingFinished, (app::ShootProjectileBehaviourNew * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04774508, ShootProjectileBehaviourNew_ShootingFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005B90D0, void, OnDrawGizmosSelected, (app::ShootProjectileBehaviourNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005B9380, void, ctor, (app::ShootProjectileBehaviourNew * this_ptr))
 } // namespace app::classes::ShootProjectileBehaviourNew

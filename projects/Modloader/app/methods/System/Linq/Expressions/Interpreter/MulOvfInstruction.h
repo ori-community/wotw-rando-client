@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MulOvfInstruction.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/MulOvfInstruction.h>
 #include <Modloader/app/structs/Instruction.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::MulOvfInstruction {

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IKSolverTrigonometric_TrigonometricBone.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/IKSolverTrigonometric_TrigonometricBone.h>
 #include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::IKSolverTrigonometric_TrigonometricBone {
     IL2CPP_REGISTER_METHOD(0x02A05EA0, void, Initiate, (app::IKSolverTrigonometric_TrigonometricBone * this_ptr, app::Vector3 child_position, app::Vector3 bend_normal))

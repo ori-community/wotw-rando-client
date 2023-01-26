@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Recoil_RecoilOffset__Class.h>
 #include <Modloader/app/structs/Recoil_RecoilOffset.h>
 #include <Modloader/app/structs/Recoil_RecoilOffset__Array.h>
+#include <Modloader/app/structs/Recoil_RecoilOffset__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Recoil_RecoilOffset {
-        namespace {
-            inline app::Recoil_RecoilOffset__Class* type_info_ref = nullptr;
+        inline app::Recoil_RecoilOffset__Class** type_info() {
+            static app::Recoil_RecoilOffset__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Recoil_RecoilOffset__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Recoil_RecoilOffset__Class** type_info = &type_info_ref;
         inline app::Recoil_RecoilOffset__Class* get_class() {
-            return il2cpp::get_nested_class<app::Recoil_RecoilOffset__Class>(type_info, "RootMotion.FinalIK", "Recoil", "RecoilOffset");
+            return il2cpp::get_nested_class<app::Recoil_RecoilOffset__Class>(type_info(), "RootMotion.FinalIK", "Recoil", "RecoilOffset");
         }
         inline app::Recoil_RecoilOffset* create() {
             return il2cpp::create_object<app::Recoil_RecoilOffset>(get_class());

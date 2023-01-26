@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SpellShardCompatibility__Class.h>
 #include <Modloader/app/structs/SpellShardCompatibility.h>
 #include <Modloader/app/structs/SpellShardCompatibility__Array.h>
+#include <Modloader/app/structs/SpellShardCompatibility__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SpellShardCompatibility {
-        namespace {
-            inline app::SpellShardCompatibility__Class* type_info_ref = nullptr;
+        inline app::SpellShardCompatibility__Class** type_info() {
+            static app::SpellShardCompatibility__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SpellShardCompatibility__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SpellShardCompatibility__Class** type_info = &type_info_ref;
         inline app::SpellShardCompatibility__Class* get_class() {
-            return il2cpp::get_class<app::SpellShardCompatibility__Class>(type_info, "", "SpellShardCompatibility");
+            return il2cpp::get_class<app::SpellShardCompatibility__Class>(type_info(), "", "SpellShardCompatibility");
         }
         inline app::SpellShardCompatibility* create() {
             return il2cpp::create_object<app::SpellShardCompatibility>(get_class());

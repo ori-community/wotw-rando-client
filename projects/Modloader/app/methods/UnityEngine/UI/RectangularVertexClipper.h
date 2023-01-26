@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RectangularVertexClipper.h>
+
+#include <Modloader/app/structs/RectangularVertexClipper.h>
+#include <Modloader/app/structs/Canvas.h>
 #include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/RectTransform.h>
-#include <Modloader/app/structs/Canvas.h>
 
 namespace app::classes::UnityEngine::UI::RectangularVertexClipper {
     IL2CPP_REGISTER_METHOD(0x02665480, void, ctor, (app::RectangularVertexClipper * this_ptr))

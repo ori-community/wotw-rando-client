@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StomperLogic.h>
-#include <Modloader/app/structs/StomperLogic_State__Enum.h>
-#include <Modloader/app/structs/Rigidbody.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
+
+#include <Modloader/app/structs/StomperLogic.h>
 #include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/StomperLogic_State__Enum.h>
 #include <Modloader/app/structs/StomperVisuals_SoundEvent__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::StomperLogic {
     IL2CPP_REGISTER_METHOD(0x00659560, void, Awake, (app::StomperLogic * this_ptr))
@@ -17,7 +18,6 @@ namespace app::classes::StomperLogic {
     IL2CPP_REGISTER_METHOD(0x00659FA0, void, InitializeIfNeeded, (app::StomperLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0065A770, void, FixedUpdate, (app::StomperLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0065AD40, void, OnRestoreCheckpoint, (app::StomperLogic * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04790BD8, StomperLogic_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0065AD80, void, UpdatePosition, (app::StomperLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0065B030, void, ChangeState, (app::StomperLogic * this_ptr, app::StomperLogic_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x0065B1B0, void, PlayerTouchedTrigger, (app::StomperLogic * this_ptr))

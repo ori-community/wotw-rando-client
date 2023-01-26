@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_GhostTimelineEventsPlugin_PendingEvent_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_GhostTimelineEventsPlugin_PendingEvent_.h>
 #include <Modloader/app/structs/GhostTimelineEventsPlugin_PendingEvent.h>
 #include <Modloader/app/structs/GhostTimelineEventsPlugin_PendingEvent__Array.h>
 #include <Modloader/app/structs/Object.h>

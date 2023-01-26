@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlBaseConverter.h>
-#include <Modloader/app/structs/XmlSchemaType.h>
-#include <Modloader/app/structs/XmlTypeCode__Enum.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/XmlBaseConverter.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/DateTime.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/DateTimeOffset.h>
 #include <Modloader/app/structs/Decimal.h>
-#include <Modloader/app/structs/IXmlNamespaceResolver.h>
 #include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
 
 namespace app::classes::System::Xml::Schema::XmlBaseConverter {
     IL2CPP_REGISTER_METHOD(0x0223D4D0, void, ctor_1, (app::XmlBaseConverter * this_ptr, app::XmlSchemaType* schema_type))
@@ -86,7 +87,6 @@ namespace app::classes::System::Xml::Schema::XmlBaseConverter {
     IL2CPP_REGISTER_METHOD(0x02241640, app::Exception*, CreateInvalidClrMappingException, (app::XmlBaseConverter * this_ptr, app::Type* source_type, app::Type* destination_type))
     IL2CPP_REGISTER_METHOD(0x02241A90, app::String*, QNameToString_1, (app::XmlQualifiedName * name))
     IL2CPP_REGISTER_METHOD(0x02241C00, app::Object*, ChangeListType, (app::XmlBaseConverter * this_ptr, app::Object* value, app::Type* destination_type, app::IXmlNamespaceResolver* ns_resolver))
-    IL2CPP_REGISTER_METHODINFO(0x0473D7A8, XmlBaseConverter_ChangeListType__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02241C70, app::Byte__Array*, StringToBase64Binary, (app::String * value))
     IL2CPP_REGISTER_METHOD(0x02241D40, app::DateTime, StringToDate, (app::String * value))
     IL2CPP_REGISTER_METHOD(0x02241E10, app::DateTime, StringToDateTime, (app::String * value))
@@ -105,9 +105,7 @@ namespace app::classes::System::Xml::Schema::XmlBaseConverter {
     IL2CPP_REGISTER_METHOD(0x02242820, app::DateTimeOffset, StringToGYearOffset, (app::String * value))
     IL2CPP_REGISTER_METHOD(0x02242900, app::DateTimeOffset, StringToGYearMonthOffset, (app::String * value))
     IL2CPP_REGISTER_METHOD(0x022429E0, app::Byte__Array*, StringToHexBinary, (app::String * value))
-    IL2CPP_REGISTER_METHODINFO(0x0472F748, XmlBaseConverter_StringToHexBinary__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02242AF0, app::XmlQualifiedName*, StringToQName, (app::String * value, app::IXmlNamespaceResolver* ns_resolver))
-    IL2CPP_REGISTER_METHODINFO(0x047817A0, XmlBaseConverter_StringToQName__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02242E60, app::DateTime, StringToTime, (app::String * value))
     IL2CPP_REGISTER_METHOD(0x02242F30, app::DateTimeOffset, StringToTimeOffset, (app::String * value))
     IL2CPP_REGISTER_METHOD(0x02243010, app::TimeSpan, StringToYearMonthDuration, (app::String * value))
@@ -130,29 +128,19 @@ namespace app::classes::System::Xml::Schema::XmlBaseConverter {
     IL2CPP_REGISTER_METHOD(0x02243530, app::String*, GYearOffsetToString, (app::DateTimeOffset value))
     IL2CPP_REGISTER_METHOD(0x02243580, app::String*, GYearMonthOffsetToString, (app::DateTimeOffset value))
     IL2CPP_REGISTER_METHOD(0x022435D0, app::String*, QNameToString_2, (app::XmlQualifiedName * qname, app::IXmlNamespaceResolver* ns_resolver))
-    IL2CPP_REGISTER_METHODINFO(0x04776EF8, XmlBaseConverter_QNameToString_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022437C0, app::String*, TimeToString, (app::DateTime value))
     IL2CPP_REGISTER_METHOD(0x02243800, app::String*, TimeOffsetToString, (app::DateTimeOffset value))
     IL2CPP_REGISTER_METHOD(0x02243850, app::String*, YearMonthDurationToString, (app::TimeSpan value))
     IL2CPP_REGISTER_METHOD(0x022438B0, app::DateTime, DateTimeOffsetToDateTime, (app::DateTimeOffset value))
     IL2CPP_REGISTER_METHOD(0x022438D0, int32_t, DecimalToInt32, (app::Decimal value))
-    IL2CPP_REGISTER_METHODINFO(0x047020F0, XmlBaseConverter_DecimalToInt32__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02243B80, int64_t, DecimalToInt64, (app::Decimal value))
-    IL2CPP_REGISTER_METHODINFO(0x0471D9B0, XmlBaseConverter_DecimalToInt64__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02243DC0, uint64_t, DecimalToUInt64, (app::Decimal value))
-    IL2CPP_REGISTER_METHODINFO(0x04792180, XmlBaseConverter_DecimalToUInt64__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02244000, uint8_t, Int32ToByte, (int32_t value))
-    IL2CPP_REGISTER_METHODINFO(0x0471D7A0, XmlBaseConverter_Int32ToByte__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02244150, int16_t, Int32ToInt16, (int32_t value))
-    IL2CPP_REGISTER_METHODINFO(0x0476A2B0, XmlBaseConverter_Int32ToInt16__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022442B0, int8_t, Int32ToSByte, (int32_t value))
-    IL2CPP_REGISTER_METHODINFO(0x0470A9D0, XmlBaseConverter_Int32ToSByte__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02244410, uint16_t, Int32ToUInt16, (int32_t value))
-    IL2CPP_REGISTER_METHODINFO(0x047883E8, XmlBaseConverter_Int32ToUInt16__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02244560, int32_t, Int64ToInt32, (int64_t value))
-    IL2CPP_REGISTER_METHODINFO(0x0471F6F8, XmlBaseConverter_Int64ToInt32__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022446C0, uint32_t, Int64ToUInt32, (int64_t value))
-    IL2CPP_REGISTER_METHODINFO(0x0472CCC8, XmlBaseConverter_Int64ToUInt32__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02244820, app::DateTime, UntypedAtomicToDateTime, (app::String * value))
     IL2CPP_REGISTER_METHOD(0x022448F0, app::DateTimeOffset, UntypedAtomicToDateTimeOffset, (app::String * value))
     IL2CPP_REGISTER_METHOD(0x022449E0, void, cctor, ())

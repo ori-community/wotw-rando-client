@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Datadog_ThresholdItem___Boxed.h>
-#include <Modloader/app/structs/List_1_Datadog_ThresholdItem_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_Datadog_ThresholdItem___Boxed.h>
 #include <Modloader/app/structs/Datadog_ThresholdItem.h>
+#include <Modloader/app/structs/List_1_Datadog_ThresholdItem_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Datadog_ThresholdItem_ {

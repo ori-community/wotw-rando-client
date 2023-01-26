@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
-#include <Modloader/app/structs/List_1_Vector2Ser_.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/List_1_Vector3Ser_.h>
-#include <Modloader/app/structs/Vector3__Array.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector4_.h>
-#include <Modloader/app/structs/List_1_Vector4Ser_.h>
+
+#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
 #include <Modloader/app/structs/List_1_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/List_1_Vector2Ser_.h>
+#include <Modloader/app/structs/List_1_Vector3Ser_.h>
+#include <Modloader/app/structs/List_1_Vector4Ser_.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 #include <Modloader/app/structs/VectorSerializer.h>
 
 namespace app::classes::VectorSerializer {

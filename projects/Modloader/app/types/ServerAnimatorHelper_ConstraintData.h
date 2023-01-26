@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ServerAnimatorHelper_ConstraintData__Class.h>
 #include <Modloader/app/structs/ServerAnimatorHelper_ConstraintData.h>
 #include <Modloader/app/structs/ServerAnimatorHelper_ConstraintData__Boxed.h>
+#include <Modloader/app/structs/ServerAnimatorHelper_ConstraintData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace ServerAnimatorHelper_ConstraintData {
-        namespace {
-            inline app::ServerAnimatorHelper_ConstraintData__Class* type_info_ref = nullptr;
+        inline app::ServerAnimatorHelper_ConstraintData__Class** type_info() {
+            static app::ServerAnimatorHelper_ConstraintData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ServerAnimatorHelper_ConstraintData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ServerAnimatorHelper_ConstraintData__Class** type_info = &type_info_ref;
         inline app::ServerAnimatorHelper_ConstraintData__Class* get_class() {
-            return il2cpp::get_nested_class<app::ServerAnimatorHelper_ConstraintData__Class>(type_info, "", "ServerAnimatorHelper", "ConstraintData");
+            return il2cpp::get_nested_class<app::ServerAnimatorHelper_ConstraintData__Class>(type_info(), "", "ServerAnimatorHelper", "ConstraintData");
         }
         inline app::ServerAnimatorHelper_ConstraintData* create() {
             return il2cpp::create_object<app::ServerAnimatorHelper_ConstraintData>(get_class());

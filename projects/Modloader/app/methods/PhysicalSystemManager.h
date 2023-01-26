@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PhysicalSystemManager.h>
-#include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/Rigidbody.h>
-#include <Modloader/app/structs/PhysicalSystemState.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SceneRoot.h>
-#include <Modloader/app/structs/RigidbodyState.h>
-#include <Modloader/app/structs/IPhysicsUpdateHandler.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/RigidbodyState__Array.h>
-#include <Modloader/app/structs/ApplyTurbulentForce__Array.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IEnumerator.h>
+
+#include <Modloader/app/structs/PhysicalSystemManager.h>
 #include <Modloader/app/structs/ApplyForceToPhysicsSystem_ExplosionSettings.h>
+#include <Modloader/app/structs/ApplyTurbulentForce__Array.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IPhysicsUpdateHandler.h>
+#include <Modloader/app/structs/PhysicalSystemState.h>
 #include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/RigidbodyState.h>
+#include <Modloader/app/structs/RigidbodyState__Array.h>
 #include <Modloader/app/structs/Rigidbody__Array.h>
+#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PhysicalSystemManager {
     IL2CPP_REGISTER_METHOD(0x014EF460, void, ResetStatics, ())
@@ -82,7 +83,6 @@ namespace app::classes::PhysicalSystemManager {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, SetOwnership, (app::PhysicalSystemManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014F5390, void, OnLateUpdate, (app::PhysicalSystemManager * this_ptr, float dt))
     IL2CPP_REGISTER_METHOD(0x014F5590, void, VeryLateUpdate, (app::PhysicalSystemManager * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047466F0, PhysicalSystemManager_VeryLateUpdate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014F57A0, void, OnFixedUpdate, (app::PhysicalSystemManager * this_ptr, float delta))
     IL2CPP_REGISTER_METHOD(0x014F6610, app::PhysicalSystemState*, get_LastState, (app::PhysicalSystemManager * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014F6650, void, FreezeRigidbodies, (app::PhysicalSystemManager * this_ptr))

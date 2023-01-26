@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DamageContext__Boxed.h>
+
+#include <Modloader/app/structs/DamageContext__Boxed.h>
 #include <Modloader/app/structs/Damage.h>
 
 namespace app::classes::DamageContext {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GCFinalizerTablePrewarm_ObjWithFinalizer.h>
+
+#include <Modloader/app/structs/GCFinalizerTablePrewarm_ObjWithFinalizer.h>
 #include <Modloader/app/structs/GCFinalizerTablePrewarm.h>
 
 namespace app::classes::frameworks::loading::Prewarmers::GCFinalizerTablePrewarm_ObjWithFinalizer {

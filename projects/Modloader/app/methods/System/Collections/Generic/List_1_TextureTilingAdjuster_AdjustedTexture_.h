@@ -1,29 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_TextureTilingAdjuster_AdjustedTexture_.h>
-#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture.h>
-#include <Modloader/app/structs/IEnumerable_1_TextureTilingAdjuster_AdjustedTexture_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_TextureTilingAdjuster_AdjustedTexture_.h>
-#include <Modloader/app/structs/IComparer_1_TextureTilingAdjuster_AdjustedTexture_.h>
-#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_TextureTilingAdjuster_AdjustedTexture_.h>
+
+#include <Modloader/app/structs/List_1_TextureTilingAdjuster_AdjustedTexture_.h>
 #include <Modloader/app/structs/Action_1_TextureTilingAdjuster_AdjustedTexture_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_TextureTilingAdjuster_AdjustedTexture_.h>
-#include <Modloader/app/structs/IEnumerator_1_TextureTilingAdjuster_AdjustedTexture_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/IComparer_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/IEnumerable_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_TextureTilingAdjuster_AdjustedTexture_.h>
+#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture.h>
+#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_TextureTilingAdjuster_AdjustedTexture_ {
     IL2CPP_REGISTER_METHOD(0x02D49F20, void, Add, (app::List_1_TextureTilingAdjuster_AdjustedTexture_ * this_ptr, app::TextureTilingAdjuster_AdjustedTexture item))
-    IL2CPP_REGISTER_METHODINFO(0x04752060, List_1_TextureTilingAdjuster_AdjustedTexture__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D49B80, app::TextureTilingAdjuster_AdjustedTexture, get_Item, (app::List_1_TextureTilingAdjuster_AdjustedTexture_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0474C258, List_1_TextureTilingAdjuster_AdjustedTexture__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_TextureTilingAdjuster_AdjustedTexture_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04721ED8, List_1_TextureTilingAdjuster_AdjustedTexture__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_TextureTilingAdjuster_AdjustedTexture_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047189D0, List_1_TextureTilingAdjuster_AdjustedTexture___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_TextureTilingAdjuster_AdjustedTexture_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02F257B0, void, ctor_3, (app::List_1_TextureTilingAdjuster_AdjustedTexture_ * this_ptr, app::IEnumerable_1_TextureTilingAdjuster_AdjustedTexture_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_TextureTilingAdjuster_AdjustedTexture_ * this_ptr))

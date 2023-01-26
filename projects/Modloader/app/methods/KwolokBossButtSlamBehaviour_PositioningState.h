@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KwolokBossButtSlamBehaviour_PositioningState.h>
+
+#include <Modloader/app/structs/KwolokBossButtSlamBehaviour_PositioningState.h>
 #include <Modloader/app/structs/KwolokBossButtSlamBehaviour.h>
 
 namespace app::classes::KwolokBossButtSlamBehaviour_PositioningState {

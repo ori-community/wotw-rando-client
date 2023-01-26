@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextAnimFadeModifier.h>
+
+#include <Modloader/app/structs/TextAnimFadeModifier.h>
 
 namespace app::classes::TextAnimFadeModifier {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, RequiresNormals, (app::TextAnimFadeModifier * this_ptr))

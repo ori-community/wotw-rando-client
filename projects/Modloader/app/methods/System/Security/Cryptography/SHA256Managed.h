@@ -1,11 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SHA256Managed.h>
+
+#include <Modloader/app/structs/SHA256Managed.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Security::Cryptography::SHA256Managed {
     IL2CPP_REGISTER_METHOD(0x028F7DA0, void, ctor, (app::SHA256Managed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477D3F8, SHA256Managed__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x028F7E60, void, Initialize, (app::SHA256Managed * this_ptr))
     IL2CPP_REGISTER_METHOD(0x028F7EB0, void, HashCore, (app::SHA256Managed * this_ptr, app::Byte__Array* rgb, int32_t ib_start, int32_t cb_size))
     IL2CPP_REGISTER_METHOD(0x028F7EC0, app::Byte__Array*, HashFinal, (app::SHA256Managed * this_ptr))

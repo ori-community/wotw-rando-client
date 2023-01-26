@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CrabKickUpReactionBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/CrabKickUpReactionBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::CrabKickUpReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00DB6450, bool, get_ShouldSkipUpdate, (app::CrabKickUpReactionBehaviour * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GuiBeginVertical.h>
+
+#include <Modloader/app/structs/GuiBeginVertical.h>
 #include <Modloader/app/structs/GUILayoutOption__Array.h>
 #include <Modloader/app/structs/GUIStyle.h>
 

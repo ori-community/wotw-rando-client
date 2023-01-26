@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityPlaceholder_BaseEntityPlaceholderSettings.h>
+
+#include <Modloader/app/structs/EntityPlaceholder_BaseEntityPlaceholderSettings.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::EntityPlaceholder_BaseEntityPlaceholderSettings {

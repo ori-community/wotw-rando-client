@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTelemetrySendCallback.h>
+
+#include <Modloader/app/structs/MoonTelemetrySendCallback.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Moon::Telemetry::Web::MoonTelemetrySendCallback {

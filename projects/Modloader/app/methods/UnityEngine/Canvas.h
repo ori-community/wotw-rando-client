@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Canvas.h>
-#include <Modloader/app/structs/Canvas_WillRenderCanvases.h>
-#include <Modloader/app/structs/RenderMode__Enum.h>
+
+#include <Modloader/app/structs/Canvas.h>
 #include <Modloader/app/structs/Camera.h>
+#include <Modloader/app/structs/Canvas_WillRenderCanvases.h>
 #include <Modloader/app/structs/Material.h>
+#include <Modloader/app/structs/RenderMode__Enum.h>
 
 namespace app::classes::UnityEngine::Canvas {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Canvas * this_ptr))

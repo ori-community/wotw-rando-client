@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_UberAtlasExclusions_SceneExclusion_.h>
-#include <Modloader/app/structs/UberAtlasExclusions_SceneExclusion.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_UberAtlasExclusions_SceneExclusion_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberAtlasExclusions_SceneExclusion.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_UberAtlasExclusions_SceneExclusion_ {
     IL2CPP_REGISTER_METHOD(0x01CCD260, int32_t, Compare, (app::ObjectComparer_1_UberAtlasExclusions_SceneExclusion_ * this_ptr, app::UberAtlasExclusions_SceneExclusion x, app::UberAtlasExclusions_SceneExclusion y))

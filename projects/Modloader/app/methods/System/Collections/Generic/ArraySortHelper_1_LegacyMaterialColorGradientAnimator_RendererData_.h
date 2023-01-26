@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyMaterialColorGradientAnimator_RendererData__Array.h>
+
+#include <Modloader/app/structs/LegacyMaterialColorGradientAnimator_RendererData__Array.h>
+#include <Modloader/app/structs/Comparison_1_LegacyMaterialColorGradientAnimator_RendererData_.h>
 #include <Modloader/app/structs/IComparer_1_LegacyMaterialColorGradientAnimator_RendererData_.h>
 #include <Modloader/app/structs/LegacyMaterialColorGradientAnimator_RendererData.h>
-#include <Modloader/app/structs/Comparison_1_LegacyMaterialColorGradientAnimator_RendererData_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_LegacyMaterialColorGradientAnimator_RendererData_ {
     IL2CPP_REGISTER_METHOD(0x02F602F0, void, Sort_1, (app::LegacyMaterialColorGradientAnimator_RendererData__Array * keys, int32_t index, int32_t length, app::IComparer_1_LegacyMaterialColorGradientAnimator_RendererData_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04742E20, ArraySortHelper_1_LegacyMaterialColorGradientAnimator_RendererData__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F60610, int32_t, BinarySearch, (app::LegacyMaterialColorGradientAnimator_RendererData__Array * array, int32_t index, int32_t length, app::LegacyMaterialColorGradientAnimator_RendererData value, app::IComparer_1_LegacyMaterialColorGradientAnimator_RendererData_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04775250, ArraySortHelper_1_LegacyMaterialColorGradientAnimator_RendererData__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F607C0, void, Sort_2, (app::LegacyMaterialColorGradientAnimator_RendererData__Array * keys, int32_t index, int32_t length, app::Comparison_1_LegacyMaterialColorGradientAnimator_RendererData_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x047312A8, ArraySortHelper_1_LegacyMaterialColorGradientAnimator_RendererData__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C8BFB0, int32_t, InternalBinarySearch, (app::LegacyMaterialColorGradientAnimator_RendererData__Array * array, int32_t index, int32_t length, app::LegacyMaterialColorGradientAnimator_RendererData value, app::IComparer_1_LegacyMaterialColorGradientAnimator_RendererData_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C8C170, void, SwapIfGreater, (app::LegacyMaterialColorGradientAnimator_RendererData__Array * keys, app::Comparison_1_LegacyMaterialColorGradientAnimator_RendererData_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C8C330, void, Swap, (app::LegacyMaterialColorGradientAnimator_RendererData__Array * a, int32_t i, int32_t j))

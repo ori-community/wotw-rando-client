@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/QuestItemUI.h>
+
+#include <Modloader/app/structs/QuestItemUI.h>
 #include <Modloader/app/structs/RuntimeQuest.h>
 
 namespace app::classes::QuestItemUI {

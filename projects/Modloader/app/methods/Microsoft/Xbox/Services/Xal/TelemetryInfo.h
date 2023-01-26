@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TelemetryInfo.h>
 
 namespace app::classes::Microsoft::Xbox::Services::Xal::TelemetryInfo {

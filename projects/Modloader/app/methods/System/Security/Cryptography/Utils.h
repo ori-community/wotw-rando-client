@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RNGCryptoServiceProvider.h>
+
+#include <Modloader/app/structs/RNGCryptoServiceProvider.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/HashAlgorithm.h>
+#include <Modloader/app/structs/HashAlgorithmName.h>
+#include <Modloader/app/structs/PKCS1MaskGenerationMethod.h>
+#include <Modloader/app/structs/RSA.h>
+#include <Modloader/app/structs/RandomNumberGenerator.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Type__Array.h>
 #include <Modloader/app/structs/UInt32__Array.h>
 #include <Modloader/app/structs/UInt64__Array.h>
-#include <Modloader/app/structs/RSA.h>
-#include <Modloader/app/structs/HashAlgorithm.h>
-#include <Modloader/app/structs/PKCS1MaskGenerationMethod.h>
-#include <Modloader/app/structs/RandomNumberGenerator.h>
-#include <Modloader/app/structs/HashAlgorithmName.h>
-#include <Modloader/app/structs/Type__Array.h>
-#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Security::Cryptography::Utils {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())
@@ -33,12 +34,9 @@ namespace app::classes::System::Security::Cryptography::Utils {
     IL2CPP_REGISTER_METHOD(0x01E15120, app::Byte__Array*, Int, (uint32_t i))
     IL2CPP_REGISTER_METHOD(0x01E15230, app::Byte__Array*, RsaOaepEncrypt, (app::RSA * rsa, app::HashAlgorithm* hash, app::PKCS1MaskGenerationMethod* mgf, app::RandomNumberGenerator* rng, app::Byte__Array* data))
     IL2CPP_REGISTER_METHOD(0x01E15300, app::Byte__Array*, RsaOaepDecrypt, (app::RSA * rsa, app::HashAlgorithm* hash, app::PKCS1MaskGenerationMethod* mgf, app::Byte__Array* encrypted_data))
-    IL2CPP_REGISTER_METHODINFO(0x04768AD8, Utils_RsaOaepDecrypt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E15400, app::Byte__Array*, RsaPkcs1Padding, (app::RSA * rsa, app::Byte__Array* oid, app::Byte__Array* hash))
-    IL2CPP_REGISTER_METHODINFO(0x047629E0, Utils_RsaPkcs1Padding__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E157A0, bool, CompareBigIntArrays, (app::Byte__Array * lhs, app::Byte__Array* rhs))
     IL2CPP_REGISTER_METHOD(0x01E158F0, app::HashAlgorithmName, OidToHashAlgorithmName, (app::String * oid))
-    IL2CPP_REGISTER_METHODINFO(0x04782120, Utils_OidToHashAlgorithmName__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01E15A80, bool, DoesRsaKeyOverride, (app::RSA * rsa_key, app::String* method_name, app::Type__Array* parameter_types))
     IL2CPP_REGISTER_METHOD(0x01E15CA0, bool, DoesRsaKeyOverrideSlowPath, (app::Type * t, app::String* method_name, app::Type__Array* parameter_types))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, _ProduceLegacyHmacValues, ())

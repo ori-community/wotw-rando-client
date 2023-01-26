@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ControllerInput.h>
+
+#include <Modloader/app/structs/ControllerInput.h>
 
 namespace app::classes::Moon::UberStateVisualization::ControllerInput {
     IL2CPP_REGISTER_METHOD(0x019975D0, bool, get_InputDownActive, (app::ControllerInput * this_ptr))

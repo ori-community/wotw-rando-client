@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlValueConverter.h>
+
+#include <Modloader/app/structs/XmlValueConverter.h>
 #include <Modloader/app/structs/Datatype_NOTATION.h>
-#include <Modloader/app/structs/XmlSchemaType.h>
-#include <Modloader/app/structs/FacetsChecker.h>
-#include <Modloader/app/structs/XmlTypeCode__Enum.h>
-#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
-#include <Modloader/app/structs/RestrictionFlags__Enum.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/XmlSchemaWhiteSpace__Enum.h>
 #include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/FacetsChecker.h>
 #include <Modloader/app/structs/IXmlNamespaceResolver.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/XmlSchemaObjectTable.h>
+#include <Modloader/app/structs/RestrictionFlags__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XmlNameTable.h>
 #include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlSchemaWhiteSpace__Enum.h>
+#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
 
 namespace app::classes::System::Xml::Schema::Datatype_NOTATION {
     IL2CPP_REGISTER_METHOD(0x02356E60, app::XmlValueConverter*, CreateValueConverter, (app::Datatype_NOTATION * this_ptr, app::XmlSchemaType* schema_type))
@@ -28,7 +29,6 @@ namespace app::classes::System::Xml::Schema::Datatype_NOTATION {
     IL2CPP_REGISTER_METHOD(0x0043D9E0, app::XmlSchemaWhiteSpace__Enum, get_BuiltInWhitespaceFacet, (app::Datatype_NOTATION * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02357050, app::Exception*, TryParseValue, (app::Datatype_NOTATION * this_ptr, app::String* s, app::XmlNameTable* name_table, app::IXmlNamespaceResolver* nsmgr, app::Object** typed_value))
     IL2CPP_REGISTER_METHOD(0x02357320, void, VerifySchemaValid, (app::Datatype_NOTATION * this_ptr, app::XmlSchemaObjectTable* notations, app::XmlSchemaObject* caller))
-    IL2CPP_REGISTER_METHODINFO(0x0473C240, Datatype_NOTATION_VerifySchemaValid__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02357570, void, ctor, (app::Datatype_NOTATION * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02357610, void, cctor, ())
 } // namespace app::classes::System::Xml::Schema::Datatype_NOTATION

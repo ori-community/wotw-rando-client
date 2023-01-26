@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KwolokBossTendrilStrikeBehaviour_StabRightOutState.h>
+
+#include <Modloader/app/structs/KwolokBossTendrilStrikeBehaviour_StabRightOutState.h>
 #include <Modloader/app/structs/KwolokBossTendrilStrikeBehaviour.h>
 
 namespace app::classes::KwolokBossTendrilStrikeBehaviour_StabRightOutState {

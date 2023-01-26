@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WaitWhile.h>
+
+#include <Modloader/app/structs/WaitWhile.h>
 #include <Modloader/app/structs/Func_1_Boolean_.h>
 
 namespace app::classes::UnityEngine::WaitWhile {

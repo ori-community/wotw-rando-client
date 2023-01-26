@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaException.h>
+
+#include <Modloader/app/structs/XmlSchemaException.h>
+#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/String__Array.h>
 #include <Modloader/app/structs/XmlSchemaObject.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkAudioFormat.h>
+
+#include <Modloader/app/structs/AkAudioFormat.h>
 #include <Modloader/app/structs/AkChannelConfig.h>
 
 namespace app::classes::AkAudioFormat {

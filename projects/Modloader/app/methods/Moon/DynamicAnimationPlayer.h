@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DynamicAnimationPlayer.h>
+
+#include <Modloader/app/structs/DynamicAnimationPlayer.h>
 #include <Modloader/app/structs/AnimationPlayer.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/TimelineEntityRecord.h>

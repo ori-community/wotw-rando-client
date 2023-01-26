@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CinematicEntityAnimator.h>
+
+#include <Modloader/app/structs/CinematicEntityAnimator.h>
 #include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/MoonAnimation.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonAnimation.h>
 
 namespace app::classes::CinematicEntityAnimator {
     IL2CPP_REGISTER_METHOD(0x010C76D0, bool, get_IsTargetPlaceholder, (app::CinematicEntityAnimator * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::Util {
     IL2CPP_REGISTER_METHOD(0x016700E0, bool, SafeStartsWith, (app::String * check, app::String* starter))

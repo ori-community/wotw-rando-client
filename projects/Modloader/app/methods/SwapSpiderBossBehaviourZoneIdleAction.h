@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/SwapSpiderBossBehaviourZoneIdleAction.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/SwapSpiderBossBehaviourZoneIdleAction.h>
 
 namespace app::classes::SwapSpiderBossBehaviourZoneIdleAction {
     IL2CPP_REGISTER_METHOD(0x00676F10, app::String*, get_Info, (app::SwapSpiderBossBehaviourZoneIdleAction * this_ptr))

@@ -1,23 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinController.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/CharacterState.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Component_1__Array.h>
-#include <Modloader/app/structs/SeinCharacter.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/QueryTriggerInteraction__Enum.h>
-#include <Modloader/app/structs/LayerMask.h>
-#include <Modloader/app/structs/RaycastHit.h>
-#include <Modloader/app/structs/RaycastCommand.h>
-#include <Modloader/app/structs/Rigidbody.h>
-#include <Modloader/app/structs/MoonAnimation.h>
+
+#include <Modloader/app/structs/SeinController.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/CharacterState.h>
+#include <Modloader/app/structs/Component_1__Array.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IPressurePlate.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/QueryTriggerInteraction__Enum.h>
+#include <Modloader/app/structs/RaycastCommand.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/Rigidbody.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinController {
     IL2CPP_REGISTER_METHOD(0x006DB840, bool, get_IsPlayingAnimation, (app::SeinController * this_ptr))
@@ -52,7 +53,6 @@ namespace app::classes::SeinController {
     IL2CPP_REGISTER_METHOD(0x006DCBD0, void, Awake, (app::SeinController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006DD010, void, OnDestroy, (app::SeinController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006DD250, void, OnGoThroughPortal, (app::SeinController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047789D8, SeinController_OnGoThroughPortal__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006DD2A0, void, Start, (app::SeinController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006DD840, bool, RayTest_1, (app::SeinController * this_ptr, app::GameObject* target))
     IL2CPP_REGISTER_METHOD(0x006DD930, bool, RayTest_2, (app::SeinController * this_ptr, app::Vector3 target))

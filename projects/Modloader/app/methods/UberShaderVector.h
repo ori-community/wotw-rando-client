@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderVector.h>
+
+#include <Modloader/app/structs/UberShaderVector.h>
 #include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UberShaderVector {

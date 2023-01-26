@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SslStreamBase_AsyncHandshakeDelegate.h>
+
+#include <Modloader/app/structs/SslStreamBase_AsyncHandshakeDelegate.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SslStreamBase_InternalAsyncResult.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::SslStreamBase_AsyncHandshakeDelegate {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::SslStreamBase_AsyncHandshakeDelegate * this_ptr, app::Object* object, void* method_1))

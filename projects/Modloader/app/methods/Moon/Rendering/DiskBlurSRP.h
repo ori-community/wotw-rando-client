@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DiskBlurSRP.h>
-#include <Modloader/app/structs/Material.h>
-#include <Modloader/app/structs/Vector4.h>
+
+#include <Modloader/app/structs/DiskBlurSRP.h>
 #include <Modloader/app/structs/Int2.h>
+#include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::Moon::Rendering::DiskBlurSRP {
     IL2CPP_REGISTER_METHOD(0x00C55F60, void, InitMaterials, (app::DiskBlurSRP * this_ptr, int32_t slice_count, app::Material* material))

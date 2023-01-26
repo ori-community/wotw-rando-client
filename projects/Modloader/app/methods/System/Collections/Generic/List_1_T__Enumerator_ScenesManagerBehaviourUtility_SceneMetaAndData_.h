@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_ScenesManagerBehaviourUtility_SceneMetaAndData___Boxed.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_ScenesManagerBehaviourUtility_SceneMetaAndData___Boxed.h>
 #include <Modloader/app/structs/List_1_ScenesManagerBehaviourUtility_SceneMetaAndData_.h>
-#include <Modloader/app/structs/ScenesManagerBehaviourUtility_SceneMetaAndData.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ScenesManagerBehaviourUtility_SceneMetaAndData.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_ScenesManagerBehaviourUtility_SceneMetaAndData_ {
     IL2CPP_REGISTER_METHOD(0x0014D4F0, void, ctor, (app::List_1_T_Enumerator_ScenesManagerBehaviourUtility_SceneMetaAndData___Boxed * this_ptr, app::List_1_ScenesManagerBehaviourUtility_SceneMetaAndData_* list))

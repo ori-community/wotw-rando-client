@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlAnimatorBehaviour.h>
+
+#include <Modloader/app/structs/PetrifiedOwlAnimatorBehaviour.h>
 
 namespace app::classes::Moon::PetrifiedOwlAnimatorBehaviour {
     IL2CPP_REGISTER_METHOD(0x00C33A70, void, OnStartBehaviour, (app::PetrifiedOwlAnimatorBehaviour * this_ptr))

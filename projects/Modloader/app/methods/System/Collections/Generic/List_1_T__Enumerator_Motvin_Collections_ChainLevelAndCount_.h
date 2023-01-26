@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Motvin_Collections_ChainLevelAndCount___Boxed.h>
-#include <Modloader/app/structs/List_1_Motvin_Collections_ChainLevelAndCount_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_Motvin_Collections_ChainLevelAndCount___Boxed.h>
 #include <Modloader/app/structs/ChainLevelAndCount.h>
+#include <Modloader/app/structs/List_1_Motvin_Collections_ChainLevelAndCount_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_Motvin_Collections_ChainLevelAndCount_ {

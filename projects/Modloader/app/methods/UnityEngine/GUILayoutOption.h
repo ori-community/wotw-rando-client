@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUILayoutOption.h>
+
+#include <Modloader/app/structs/GUILayoutOption.h>
 #include <Modloader/app/structs/GUILayoutOption_Type__Enum.h>
 #include <Modloader/app/structs/Object.h>
 

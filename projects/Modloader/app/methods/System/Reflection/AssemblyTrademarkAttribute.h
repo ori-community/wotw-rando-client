@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AssemblyTrademarkAttribute.h>
+
+#include <Modloader/app/structs/AssemblyTrademarkAttribute.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Reflection::AssemblyTrademarkAttribute {

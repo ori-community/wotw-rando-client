@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NamespaceList.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/NamespaceList_ListType__Enum.h>
+
+#include <Modloader/app/structs/NamespaceList.h>
 #include <Modloader/app/structs/ICollection.h>
+#include <Modloader/app/structs/NamespaceList_ListType__Enum.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XmlQualifiedName.h>
 
 namespace app::classes::System::Xml::Schema::NamespaceList {
@@ -13,7 +14,6 @@ namespace app::classes::System::Xml::Schema::NamespaceList {
     IL2CPP_REGISTER_METHOD(0x002FC6D0, app::NamespaceList_ListType__Enum, get_Type, (app::NamespaceList * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB950, app::String*, get_Excluded, (app::NamespaceList * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016CDF40, app::ICollection*, get_Enumerate, (app::NamespaceList * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471C220, NamespaceList_get_Enumerate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x016CE010, bool, Allows_1, (app::NamespaceList * this_ptr, app::String* ns))
     IL2CPP_REGISTER_METHOD(0x016CE0B0, bool, Allows_2, (app::NamespaceList * this_ptr, app::XmlQualifiedName* qname))
     IL2CPP_REGISTER_METHOD(0x016CE0E0, app::String*, ToString, (app::NamespaceList * this_ptr))

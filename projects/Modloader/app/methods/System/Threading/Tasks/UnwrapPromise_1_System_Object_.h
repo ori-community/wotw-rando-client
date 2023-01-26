@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UnwrapPromise_1_System_Object_.h>
+
+#include <Modloader/app/structs/UnwrapPromise_1_System_Object_.h>
 #include <Modloader/app/structs/Task.h>
 
 namespace app::classes::System::Threading::Tasks::UnwrapPromise_1_System_Object_ {

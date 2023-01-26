@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/UberInteractionManagerAccelerator_CellInteractionData.h>
+#include <Modloader/app/structs/UberInteractionManagerAccelerator_CellInteractionData__Array.h>
+#include <Modloader/app/structs/UberInteractionManagerAccelerator_CellInteractionData__Boxed.h>
+#include <Modloader/app/structs/UberInteractionManagerAccelerator_CellInteractionData__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UberInteractionManagerAccelerator_CellInteractionData__Class.h>
-#include <Modloader/app/structs/UberInteractionManagerAccelerator_CellInteractionData.h>
-#include <Modloader/app/structs/UberInteractionManagerAccelerator_CellInteractionData__Boxed.h>
-#include <Modloader/app/structs/UberInteractionManagerAccelerator_CellInteractionData__Array.h>
 
 namespace app::classes::types {
     namespace UberInteractionManagerAccelerator_CellInteractionData {
-        namespace {
-            inline app::UberInteractionManagerAccelerator_CellInteractionData__Class* type_info_ref = nullptr;
+        inline app::UberInteractionManagerAccelerator_CellInteractionData__Class** type_info() {
+            static app::UberInteractionManagerAccelerator_CellInteractionData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::UberInteractionManagerAccelerator_CellInteractionData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::UberInteractionManagerAccelerator_CellInteractionData__Class** type_info = &type_info_ref;
         inline app::UberInteractionManagerAccelerator_CellInteractionData__Class* get_class() {
-            return il2cpp::get_nested_class<app::UberInteractionManagerAccelerator_CellInteractionData__Class>(type_info, "", "UberInteractionManagerAccelerator", "CellInteractionData");
+            return il2cpp::get_nested_class<app::UberInteractionManagerAccelerator_CellInteractionData__Class>(type_info(), "", "UberInteractionManagerAccelerator", "CellInteractionData");
         }
         inline app::UberInteractionManagerAccelerator_CellInteractionData* create() {
             return il2cpp::create_object<app::UberInteractionManagerAccelerator_CellInteractionData>(get_class());

@@ -1,17 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/IUberShaderRebindService.h>
+#include <Modloader/app/structs/IUberShaderRebindService__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/IUberShaderRebindService__Class.h>
 
 namespace app::classes::types {
     namespace IUberShaderRebindService {
-        namespace {
-            inline app::IUberShaderRebindService__Class* type_info_ref = nullptr;
+        inline app::IUberShaderRebindService__Class** type_info() {
+            static app::IUberShaderRebindService__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::IUberShaderRebindService__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::IUberShaderRebindService__Class** type_info = &type_info_ref;
         inline app::IUberShaderRebindService__Class* get_class() {
-            return il2cpp::get_class<app::IUberShaderRebindService__Class>(type_info, "", "IUberShaderRebindService");
+            return il2cpp::get_class<app::IUberShaderRebindService__Class>(type_info(), "", "IUberShaderRebindService");
         }
     } // namespace IUberShaderRebindService
 } // namespace app::classes::types

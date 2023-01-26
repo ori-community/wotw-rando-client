@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BaseNPC.h>
-#include <Modloader/app/structs/InteractionSettings.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/MessageProvider.h>
+
+#include <Modloader/app/structs/BaseNPC.h>
 #include <Modloader/app/structs/Action_1_MessageBox_HideAction_.h>
-#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/InteractionSettings.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::BaseNPC {
@@ -18,7 +19,6 @@ namespace app::classes::BaseNPC {
     IL2CPP_REGISTER_METHOD(0x00F87220, void, ShowText, (app::BaseNPC * this_ptr, app::MessageProvider* message_provider, app::Action_1_MessageBox_HideAction_* on_message_hide, app::String* replace, app::String* with))
     IL2CPP_REGISTER_METHOD(0x00F875B0, void, HideCurrentMessageBox, (app::BaseNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F87680, void, OnMessageScreenHide, (app::BaseNPC * this_ptr, app::MessageBox_HideAction__Enum action))
-    IL2CPP_REGISTER_METHODINFO(0x04737298, BaseNPC_OnMessageScreenHide__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F87850, void, AssertNPCScreenVisible, (app::BaseNPC * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F87940, void, HideNPCScreen, (app::BaseNPC * this_ptr, bool stop_anim))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Serialize, (app::BaseNPC * this_ptr, app::Archive* ar))

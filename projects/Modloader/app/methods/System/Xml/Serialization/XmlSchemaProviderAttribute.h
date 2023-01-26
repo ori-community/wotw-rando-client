@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaProviderAttribute.h>
+
+#include <Modloader/app/structs/XmlSchemaProviderAttribute.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::Serialization::XmlSchemaProviderAttribute {

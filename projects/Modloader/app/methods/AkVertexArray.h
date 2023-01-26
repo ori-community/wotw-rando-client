@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkVertexArray.h>
+
+#include <Modloader/app/structs/AkVertexArray.h>
 #include <Modloader/app/structs/AkVertex.h>
 
 namespace app::classes::AkVertexArray {

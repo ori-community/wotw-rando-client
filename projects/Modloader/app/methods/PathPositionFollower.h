@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PathPositionFollower.h>
+
+#include <Modloader/app/structs/PathPositionFollower.h>
 #include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::PathPositionFollower {
     IL2CPP_REGISTER_METHOD(0x004486A0, void, Awake, (app::PathPositionFollower * this_ptr))

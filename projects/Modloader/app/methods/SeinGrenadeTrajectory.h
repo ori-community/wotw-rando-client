@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinGrenadeTrajectory.h>
+
+#include <Modloader/app/structs/SeinGrenadeTrajectory.h>
 
 namespace app::classes::SeinGrenadeTrajectory {
     IL2CPP_REGISTER_METHOD(0x014D9200, void, Awake, (app::SeinGrenadeTrajectory * this_ptr))

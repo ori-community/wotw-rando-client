@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NonSerializedByteUberStateWrapper.h>
+
+#include <Modloader/app/structs/NonSerializedByteUberStateWrapper.h>
 #include <Modloader/app/structs/ByteUberState.h>
 #include <Modloader/app/structs/ControllerInput.h>
 

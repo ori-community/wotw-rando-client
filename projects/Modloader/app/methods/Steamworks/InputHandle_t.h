@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InputHandle_t__Boxed.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/InputHandle_t__Boxed.h>
 #include <Modloader/app/structs/InputHandle_t.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Steamworks::InputHandle_t {
     IL2CPP_REGISTER_METHOD(0x0010FD20, void, ctor, (app::InputHandle_t__Boxed * this_ptr, uint64_t value))

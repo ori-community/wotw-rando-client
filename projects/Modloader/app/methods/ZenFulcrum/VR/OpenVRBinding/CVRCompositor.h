@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CVRCompositor.h>
+
+#include <Modloader/app/structs/CVRCompositor.h>
+#include <Modloader/app/structs/Compositor_CumulativeStats.h>
+#include <Modloader/app/structs/Compositor_FrameTiming.h>
 #include <Modloader/app/structs/ETrackingUniverseOrigin__Enum.h>
 #include <Modloader/app/structs/EVRCompositorError__Enum.h>
-#include <Modloader/app/structs/TrackedDevicePose_t__Array.h>
-#include <Modloader/app/structs/TrackedDevicePose_t.h>
 #include <Modloader/app/structs/EVREye__Enum.h>
-#include <Modloader/app/structs/Texture_t.h>
-#include <Modloader/app/structs/VRTextureBounds_t.h>
 #include <Modloader/app/structs/EVRSubmitFlags__Enum.h>
-#include <Modloader/app/structs/Compositor_FrameTiming.h>
-#include <Modloader/app/structs/Compositor_CumulativeStats.h>
 #include <Modloader/app/structs/HmdColor_t.h>
-#include <Modloader/app/structs/Texture_t__Array.h>
-#include <Modloader/app/structs/void.h>
 #include <Modloader/app/structs/StringBuilder.h>
+#include <Modloader/app/structs/Texture_t.h>
+#include <Modloader/app/structs/Texture_t__Array.h>
+#include <Modloader/app/structs/TrackedDevicePose_t.h>
+#include <Modloader/app/structs/TrackedDevicePose_t__Array.h>
+#include <Modloader/app/structs/VRTextureBounds_t.h>
+#include <Modloader/app/structs/void.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRCompositor {
     IL2CPP_REGISTER_METHOD(0x01677C10, void, ctor, (app::CVRCompositor * this_ptr, void* p_interface))
@@ -51,7 +52,7 @@ namespace app::classes::ZenFulcrum::VR::OpenVRBinding::CVRCompositor {
     IL2CPP_REGISTER_METHOD(0x01678330, void, ForceInterleavedReprojectionOn, (app::CVRCompositor * this_ptr, bool b_override))
     IL2CPP_REGISTER_METHOD(0x01678360, void, ForceReconnectProcess, (app::CVRCompositor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01678390, void, SuspendRendering, (app::CVRCompositor * this_ptr, bool b_suspend))
-    IL2CPP_REGISTER_METHOD(0x016783C0, app::EVRCompositorError__Enum, GetMirrorTextureD3D11, (app::CVRCompositor * this_ptr, app::EVREye__Enum e_eye, void* p_d3_d11_device_or_resource, app::void** pp_d3_d11_shader_resource_view))
+    IL2CPP_REGISTER_METHOD(0x016783C0, app::EVRCompositorError__Enum, GetMirrorTextureD3D11, (app::CVRCompositor * this_ptr, app::EVREye__Enum e_eye, void* p_d3_d11_device_or_resource, void** pp_d3_d11_shader_resource_view))
     IL2CPP_REGISTER_METHOD(0x016783F0, void, ReleaseMirrorTextureD3D11, (app::CVRCompositor * this_ptr, void* p_d3_d11_shader_resource_view))
     IL2CPP_REGISTER_METHOD(0x01678420, app::EVRCompositorError__Enum, GetMirrorTextureGL, (app::CVRCompositor * this_ptr, app::EVREye__Enum e_eye, uint32_t* pgl_texture_id, void* pgl_shared_texture_handle))
     IL2CPP_REGISTER_METHOD(0x01678450, bool, ReleaseSharedGLTexture, (app::CVRCompositor * this_ptr, uint32_t gl_texture_id, void* gl_shared_texture_handle))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkTriangleArray.h>
+
+#include <Modloader/app/structs/AkTriangleArray.h>
 #include <Modloader/app/structs/AkTriangle.h>
 
 namespace app::classes::AkTriangleArray {

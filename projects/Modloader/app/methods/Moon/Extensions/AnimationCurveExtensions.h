@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationCurve__Array.h>
-#include <Modloader/app/structs/ParticleSystem_MinMaxCurve.h>
+
+#include <Modloader/app/structs/AnimationCurve__Array.h>
 #include <Modloader/app/structs/AnimationCurve.h>
-#include <Modloader/app/structs/Keyframe.h>
-#include <Modloader/app/structs/AnimationCurveExtensions_TangentMode__Enum.h>
-#include <Modloader/app/structs/Single__Array.h>
 #include <Modloader/app/structs/AnimationCurveExtensions_TangentDirection__Enum.h>
+#include <Modloader/app/structs/AnimationCurveExtensions_TangentMode__Enum.h>
+#include <Modloader/app/structs/Keyframe.h>
+#include <Modloader/app/structs/ParticleSystem_MinMaxCurve.h>
+#include <Modloader/app/structs/Single__Array.h>
 
 namespace app::classes::Moon::Extensions::AnimationCurveExtensions {
     IL2CPP_REGISTER_METHOD(0x031B38E0, float, GetMaxAnimationCurveDuration, (app::AnimationCurve__Array * curves))

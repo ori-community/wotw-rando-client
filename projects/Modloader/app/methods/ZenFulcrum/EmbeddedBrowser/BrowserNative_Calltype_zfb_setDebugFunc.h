@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BrowserNative_Calltype_zfb_setDebugFunc.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/BrowserNative_Calltype_zfb_setDebugFunc.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 #include <Modloader/app/structs/BrowserNative_MessageFunc.h>
 #include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::BrowserNative_Calltype_zfb_setDebugFunc {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::BrowserNative_Calltype_zfb_setDebugFunc * this_ptr, app::Object* object, void* method_1))

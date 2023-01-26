@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IProfilingSetting.h>
+
+#include <Modloader/app/structs/IProfilingSetting.h>
 #include <Modloader/app/structs/ProfilingSettings_SettingAction__Enum.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::IProfilingSetting {

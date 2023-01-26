@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SetNightberryPositionAction.h>
+#include <Modloader/app/structs/SetNightberryPositionAction__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SetNightberryPositionAction__Class.h>
-#include <Modloader/app/structs/SetNightberryPositionAction.h>
 
 namespace app::classes::types {
     namespace SetNightberryPositionAction {
-        namespace {
-            inline app::SetNightberryPositionAction__Class* type_info_ref = nullptr;
+        inline app::SetNightberryPositionAction__Class** type_info() {
+            static app::SetNightberryPositionAction__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SetNightberryPositionAction__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SetNightberryPositionAction__Class** type_info = &type_info_ref;
         inline app::SetNightberryPositionAction__Class* get_class() {
-            return il2cpp::get_class<app::SetNightberryPositionAction__Class>(type_info, "", "SetNightberryPositionAction");
+            return il2cpp::get_class<app::SetNightberryPositionAction__Class>(type_info(), "", "SetNightberryPositionAction");
         }
         inline app::SetNightberryPositionAction* create() {
             return il2cpp::create_object<app::SetNightberryPositionAction>(get_class());

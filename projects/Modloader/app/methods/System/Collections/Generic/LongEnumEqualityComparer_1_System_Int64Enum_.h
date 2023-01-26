@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LongEnumEqualityComparer_1_System_Int64Enum_.h>
+
+#include <Modloader/app/structs/LongEnumEqualityComparer_1_System_Int64Enum_.h>
 #include <Modloader/app/structs/Int64Enum__Enum.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SerializationInfo.h>

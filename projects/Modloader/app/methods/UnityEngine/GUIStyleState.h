@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUIStyleState.h>
+
+#include <Modloader/app/structs/GUIStyleState.h>
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/GUIStyle.h>
 #include <Modloader/app/structs/Texture2D.h>
-#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::UnityEngine::GUIStyleState {
     IL2CPP_REGISTER_METHOD(0x029F75C0, void, ctor_1, (app::GUIStyleState * this_ptr))

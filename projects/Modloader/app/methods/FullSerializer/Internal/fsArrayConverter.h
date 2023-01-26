@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/fsArrayConverter.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/fsResult.h>
+
+#include <Modloader/app/structs/fsArrayConverter.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/fsData.h>
+#include <Modloader/app/structs/fsResult.h>
 
 namespace app::classes::FullSerializer::Internal::fsArrayConverter {
     IL2CPP_REGISTER_METHOD(0x01650EE0, bool, CanProcess, (app::fsArrayConverter * this_ptr, app::Type* type))

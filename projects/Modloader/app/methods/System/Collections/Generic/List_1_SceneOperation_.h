@@ -1,33 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_SceneOperation_.h>
-#include <Modloader/app/structs/List_1_SceneOperation_.h>
-#include <Modloader/app/structs/SceneOperation.h>
-#include <Modloader/app/structs/IEnumerable_1_SceneOperation_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_SceneOperation_.h>
-#include <Modloader/app/structs/IComparer_1_SceneOperation_.h>
-#include <Modloader/app/structs/SceneOperation__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_SceneOperation_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_SceneOperation_.h>
 #include <Modloader/app/structs/Action_1_SceneOperation_.h>
-#include <Modloader/app/structs/IEnumerator_1_SceneOperation_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_SceneOperation_.h>
+#include <Modloader/app/structs/IComparer_1_SceneOperation_.h>
+#include <Modloader/app/structs/IEnumerable_1_SceneOperation_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_SceneOperation_.h>
+#include <Modloader/app/structs/List_1_SceneOperation_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_SceneOperation_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_SceneOperation_.h>
+#include <Modloader/app/structs/SceneOperation.h>
+#include <Modloader/app/structs/SceneOperation__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_SceneOperation_ {
     IL2CPP_REGISTER_METHOD(0x025E9D20, app::List_1_T_Enumerator_SceneOperation_, GetEnumerator, (app::List_1_SceneOperation_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471E338, List_1_SceneOperation__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::SceneOperation, get_Item, (app::List_1_SceneOperation_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04701768, List_1_SceneOperation__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_SceneOperation_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04787BD8, List_1_SceneOperation__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_SceneOperation_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476B1B8, List_1_SceneOperation___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_SceneOperation_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04792260, List_1_SceneOperation__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add, (app::List_1_SceneOperation_ * this_ptr, app::SceneOperation item))
-    IL2CPP_REGISTER_METHODINFO(0x04781968, List_1_SceneOperation__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_SceneOperation_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02E542E0, void, ctor_3, (app::List_1_SceneOperation_ * this_ptr, app::IEnumerable_1_SceneOperation_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_SceneOperation_ * this_ptr))

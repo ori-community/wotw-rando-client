@@ -1,14 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaceCountdownState.h>
-#include <Modloader/app/structs/RaceSystem.h>
+
+#include <Modloader/app/structs/RaceCountdownState.h>
 #include <Modloader/app/structs/RaceConfiguration.h>
+#include <Modloader/app/structs/RaceSystem.h>
 
 namespace app::classes::RaceCountdownState {
     IL2CPP_REGISTER_METHOD(0x002FA490, void, ctor, (app::RaceCountdownState * this_ptr, app::RaceSystem* race_system))
     IL2CPP_REGISTER_METHOD(0x00E97820, void, OnEnter, (app::RaceCountdownState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E97D20, void, OnCountdownFinished, (app::RaceCountdownState * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04740400, RaceCountdownState_OnCountdownFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E97E10, void, UpdateState, (app::RaceCountdownState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E97F70, void, EnterRace, (app::RaceCountdownState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E98050, void, OnExit, (app::RaceCountdownState * this_ptr))

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScenesManager.h>
+
+#include <Modloader/app/structs/ScenesManager.h>
+#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/GoToSceneController.h>
 #include <Modloader/app/structs/MoonGuid.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/SceneMetaData.h>
 #include <Modloader/app/structs/RuntimeSceneMetaData.h>
+#include <Modloader/app/structs/SceneMetaData.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::GoToSceneController {
     IL2CPP_REGISTER_METHOD(0x007FE740, app::ScenesManager*, get_ScenesManager, (app::GoToSceneController * this_ptr))
@@ -17,7 +18,6 @@ namespace app::classes::GoToSceneController {
     IL2CPP_REGISTER_METHOD(0x007FEAA0, void, OnDestroy, (app::GoToSceneController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007FEB80, void, GoToScene_1, (app::GoToSceneController * this_ptr, app::MoonGuid* scene_guid, app::Vector3 position, app::String* scene_name, app::Action* on_complete, bool create_checkpoint, bool async))
     IL2CPP_REGISTER_METHOD(0x007FECF0, void, FinishGoingToPositionImmediately, (app::GoToSceneController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04783E48, GoToSceneController_FinishGoingToPositionImmediately__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007FEEB0, void, OnScenesEnabled, (app::GoToSceneController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007FEED0, void, CompleteGoingToAScene, (app::GoToSceneController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007FF220, void, OnInstantLoadScenesControllerCompletedLoading, (app::GoToSceneController * this_ptr))

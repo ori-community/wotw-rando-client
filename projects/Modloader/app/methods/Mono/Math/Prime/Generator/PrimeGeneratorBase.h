@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ConfidenceFactor__Enum.h>
-#include <Modloader/app/structs/PrimeGeneratorBase.h>
-#include <Modloader/app/structs/PrimalityTest.h>
+
+#include <Modloader/app/structs/ConfidenceFactor__Enum.h>
 #include <Modloader/app/structs/ConfidenceFactor__Enum_1.h>
-#include <Modloader/app/structs/PrimeGeneratorBase_1.h>
+#include <Modloader/app/structs/PrimalityTest.h>
 #include <Modloader/app/structs/PrimalityTest_1.h>
+#include <Modloader/app/structs/PrimeGeneratorBase.h>
+#include <Modloader/app/structs/PrimeGeneratorBase_1.h>
 
 namespace app::classes::Mono::Math::Prime::Generator::PrimeGeneratorBase {
     IL2CPP_REGISTER_METHOD(0x0043D9E0, app::ConfidenceFactor__Enum, get_Confidence_1, (app::PrimeGeneratorBase * this_ptr))

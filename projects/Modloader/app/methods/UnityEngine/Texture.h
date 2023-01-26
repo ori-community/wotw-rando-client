@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Texture.h>
-#include <Modloader/app/structs/TextureDimension__Enum.h>
-#include <Modloader/app/structs/TextureWrapMode__Enum.h>
+
+#include <Modloader/app/structs/Texture.h>
 #include <Modloader/app/structs/FilterMode__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
-#include <Modloader/app/structs/TextureFormat__Enum.h>
-#include <Modloader/app/structs/GraphicsFormat__Enum.h>
 #include <Modloader/app/structs/FormatUsage__Enum.h>
+#include <Modloader/app/structs/GraphicsFormat__Enum.h>
+#include <Modloader/app/structs/RenderTextureFormat__Enum.h>
+#include <Modloader/app/structs/TextureDimension__Enum.h>
+#include <Modloader/app/structs/TextureFormat__Enum.h>
+#include <Modloader/app/structs/TextureWrapMode__Enum.h>
 #include <Modloader/app/structs/UnityException.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::Texture {
     IL2CPP_REGISTER_METHOD(0x02C65D20, void, ctor, (app::Texture * this_ptr))
@@ -17,12 +18,9 @@ namespace app::classes::UnityEngine::Texture {
     IL2CPP_REGISTER_METHOD(0x02C65E00, int32_t, GetDataHeight, (app::Texture * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C65DB0, int32_t, get_width, (app::Texture * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C65E50, void, set_width, (app::Texture * this_ptr, int32_t value))
-    IL2CPP_REGISTER_METHODINFO(0x04798C18, Texture_set_width__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C65E00, int32_t, get_height, (app::Texture * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C65EA0, void, set_height, (app::Texture * this_ptr, int32_t value))
-    IL2CPP_REGISTER_METHODINFO(0x0471D7C8, Texture_set_height__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C65EF0, void, set_dimension, (app::Texture * this_ptr, app::TextureDimension__Enum value))
-    IL2CPP_REGISTER_METHODINFO(0x04731EE0, Texture_set_dimension__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C65F40, bool, get_isReadable, (app::Texture * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C65F90, app::TextureWrapMode__Enum, get_wrapMode, (app::Texture * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02C65FE0, void, set_wrapMode, (app::Texture * this_ptr, app::TextureWrapMode__Enum value))

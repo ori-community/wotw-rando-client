@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/X520_Oid.h>
+
+#include <Modloader/app/structs/X520_Oid.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Security::X509::X520_Oid {

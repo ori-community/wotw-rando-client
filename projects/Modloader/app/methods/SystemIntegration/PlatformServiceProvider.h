@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CacheData__Array.h>
-#include <Modloader/app/structs/PlatformServiceProvider.h>
-#include <Modloader/app/structs/IPlatformUser.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/PlayFabRaceServiceProvider.h>
-#include <Modloader/app/structs/ISignInProvider.h>
-#include <Modloader/app/structs/IDataProvider.h>
-#include <Modloader/app/structs/IAchievementData.h>
-#include <Modloader/app/structs/TelemetryEvent__Enum.h>
-#include <Modloader/app/structs/Dictionary_2_System_String_System_Object_.h>
-#include <Modloader/app/structs/MoonTelemetryClientBaseEvent.h>
-#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
+
+#include <Modloader/app/structs/CacheData__Array.h>
+#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Action_1_System_Collections_Generic_List_1__2.h>
 #include <Modloader/app/structs/Action_1_System_Collections_Generic_List_1__3.h>
-#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Object_.h>
+#include <Modloader/app/structs/IAchievementData.h>
+#include <Modloader/app/structs/IDataProvider.h>
+#include <Modloader/app/structs/IPlatformUser.h>
+#include <Modloader/app/structs/ISignInProvider.h>
+#include <Modloader/app/structs/LeaderboardFilter__Enum.h>
+#include <Modloader/app/structs/MoonTelemetryClientBaseEvent.h>
+#include <Modloader/app/structs/PlatformServiceProvider.h>
+#include <Modloader/app/structs/PlayFabRaceServiceProvider.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TelemetryEvent__Enum.h>
 
 namespace app::classes::SystemIntegration::PlatformServiceProvider {
     IL2CPP_REGISTER_METHOD(0x00518D60, app::CacheData__Array*, get_AchievementData, (app::PlatformServiceProvider * this_ptr))
@@ -55,7 +56,6 @@ namespace app::classes::SystemIntegration::PlatformServiceProvider {
     IL2CPP_REGISTER_METHOD(0x0051C050, void, RegisterUserChanged, (app::PlatformServiceProvider * this_ptr, app::Action* on_user_changed))
     IL2CPP_REGISTER_METHOD(0x0051C0F0, void, UnRegisterUserChanged, (app::PlatformServiceProvider * this_ptr, app::Action* on_user_changed))
     IL2CPP_REGISTER_METHOD(0x0051C190, app::PlatformServiceProvider*, BuildForPlatform, ())
-    IL2CPP_REGISTER_METHODINFO(0x0476B668, PlatformServiceProvider_BuildForPlatform__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0051C6A0, app::IDataProvider*, get_PrimaryAchievementDataProviders, ())
     IL2CPP_REGISTER_METHOD(0x0051C9F0, app::IDataProvider*, get_SecondaryWinAchievementDataProviders, ())
     IL2CPP_REGISTER_METHOD(0x0051CC90, app::IDataProvider*, get_XboxOneAchievementDataProviders, ())

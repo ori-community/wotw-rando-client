@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IInteractionNode.h>
+
+#include <Modloader/app/structs/IInteractionNode.h>
 #include <Modloader/app/structs/FinishedInteractionTransition.h>
 #include <Modloader/app/structs/IContext.h>
 

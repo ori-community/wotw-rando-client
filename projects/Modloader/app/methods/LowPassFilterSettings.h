@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LowPassFilterSettings.h>
+
+#include <Modloader/app/structs/LowPassFilterSettings.h>
 
 namespace app::classes::LowPassFilterSettings {
     IL2CPP_REGISTER_METHOD(0x009F3CF0, app::LowPassFilterSettings*, get_StandardSetting, ())

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_Moon_DynamicDataResolver_SerializedDynamicDataLinkItem_.h>
 #include <Modloader/app/structs/DynamicDataResolver_SerializedDynamicDataLinkItem.h>
 #include <Modloader/app/structs/Object.h>
 

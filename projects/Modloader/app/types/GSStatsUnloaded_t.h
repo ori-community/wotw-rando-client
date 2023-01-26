@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GSStatsUnloaded_t__Class.h>
 #include <Modloader/app/structs/GSStatsUnloaded_t.h>
 #include <Modloader/app/structs/GSStatsUnloaded_t__Boxed.h>
+#include <Modloader/app/structs/GSStatsUnloaded_t__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace GSStatsUnloaded_t {
-        namespace {
-            inline app::GSStatsUnloaded_t__Class* type_info_ref = nullptr;
+        inline app::GSStatsUnloaded_t__Class** type_info() {
+            static app::GSStatsUnloaded_t__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GSStatsUnloaded_t__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GSStatsUnloaded_t__Class** type_info = &type_info_ref;
         inline app::GSStatsUnloaded_t__Class* get_class() {
-            return il2cpp::get_class<app::GSStatsUnloaded_t__Class>(type_info, "Steamworks", "GSStatsUnloaded_t");
+            return il2cpp::get_class<app::GSStatsUnloaded_t__Class>(type_info(), "Steamworks", "GSStatsUnloaded_t");
         }
         inline app::GSStatsUnloaded_t* create() {
             return il2cpp::create_object<app::GSStatsUnloaded_t>(get_class());

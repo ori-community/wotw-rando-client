@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CrossAppDomainSink.h>
-#include <Modloader/app/structs/CrossAppDomainSink_ProcessMessageRes.h>
+
+#include <Modloader/app/structs/CrossAppDomainSink.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/CADMethodCallMessage.h>
+#include <Modloader/app/structs/CrossAppDomainSink_ProcessMessageRes.h>
 #include <Modloader/app/structs/IMessage.h>
 #include <Modloader/app/structs/IMessageCtrl.h>
 #include <Modloader/app/structs/IMessageSink.h>
@@ -19,5 +20,4 @@ namespace app::classes::System::Runtime::Remoting::Channels::CrossAppDomainSink 
     IL2CPP_REGISTER_METHOD(0x01A9F8F0, void, SendAsyncMessage, (app::CrossAppDomainSink * this_ptr, app::Object* data))
     IL2CPP_REGISTER_METHOD(0x01A9FA00, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01A9FBC0, void, _AsyncProcessMessage_b__10_0, (app::CrossAppDomainSink * this_ptr, app::Object* data))
-    IL2CPP_REGISTER_METHODINFO(0x04793E58, CrossAppDomainSink__AsyncProcessMessage_b__10_0__MethodInfo)
 } // namespace app::classes::System::Runtime::Remoting::Channels::CrossAppDomainSink

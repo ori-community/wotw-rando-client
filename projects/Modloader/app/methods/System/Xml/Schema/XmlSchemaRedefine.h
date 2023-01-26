@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaRedefine.h>
+
+#include <Modloader/app/structs/XmlSchemaRedefine.h>
+#include <Modloader/app/structs/XmlSchemaAnnotation.h>
 #include <Modloader/app/structs/XmlSchemaObjectCollection.h>
 #include <Modloader/app/structs/XmlSchemaObjectTable.h>
-#include <Modloader/app/structs/XmlSchemaAnnotation.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaRedefine {
     IL2CPP_REGISTER_METHOD(0x01CBA3A0, void, ctor, (app::XmlSchemaRedefine * this_ptr))

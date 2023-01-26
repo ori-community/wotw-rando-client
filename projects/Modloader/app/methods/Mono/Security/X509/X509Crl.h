@@ -1,22 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/X509Crl.h>
-#include <Modloader/app/structs/Byte__Array.h>
+
+#include <Modloader/app/structs/X509Crl.h>
 #include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/AsymmetricAlgorithm.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/DSA.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/RSA.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/X509Certificate_2.h>
 #include <Modloader/app/structs/X509Crl_X509CrlEntry.h>
 #include <Modloader/app/structs/X509ExtensionCollection_1.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/DateTime.h>
-#include <Modloader/app/structs/X509Certificate_2.h>
-#include <Modloader/app/structs/DSA.h>
-#include <Modloader/app/structs/RSA.h>
-#include <Modloader/app/structs/AsymmetricAlgorithm.h>
 
 namespace app::classes::Mono::Security::X509::X509Crl {
     IL2CPP_REGISTER_METHOD(0x029414D0, void, ctor, (app::X509Crl * this_ptr, app::Byte__Array* crl))
-    IL2CPP_REGISTER_METHODINFO(0x0472EA88, X509Crl__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02941660, void, Parse, (app::X509Crl * this_ptr, app::Byte__Array* crl))
-    IL2CPP_REGISTER_METHODINFO(0x04798DC0, X509Crl_Parse__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02942000, app::ArrayList*, get_Entries, (app::X509Crl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x029420A0, app::X509Crl_X509CrlEntry*, get_Item_1, (app::X509Crl * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x029421A0, app::X509Crl_X509CrlEntry*, get_Item_2, (app::X509Crl * this_ptr, app::Byte__Array* serial_number))
@@ -34,16 +33,10 @@ namespace app::classes::Mono::Security::X509::X509Crl {
     IL2CPP_REGISTER_METHOD(0x02942A80, app::Byte__Array*, GetBytes, (app::X509Crl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0293FC80, bool, Compare, (app::X509Crl * this_ptr, app::Byte__Array* array1, app::Byte__Array* array2))
     IL2CPP_REGISTER_METHOD(0x02942BC0, app::X509Crl_X509CrlEntry*, GetCrlEntry_1, (app::X509Crl * this_ptr, app::X509Certificate_2* x509))
-    IL2CPP_REGISTER_METHODINFO(0x04764308, X509Crl_GetCrlEntry__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02942CA0, app::X509Crl_X509CrlEntry*, GetCrlEntry_2, (app::X509Crl * this_ptr, app::Byte__Array* serial_number))
-    IL2CPP_REGISTER_METHODINFO(0x04701200, X509Crl_GetCrlEntry_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02942F80, bool, VerifySignature_1, (app::X509Crl * this_ptr, app::X509Certificate_2* x509))
-    IL2CPP_REGISTER_METHODINFO(0x0473BBB0, X509Crl_VerifySignature__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02943370, bool, VerifySignature_2, (app::X509Crl * this_ptr, app::DSA* dsa))
-    IL2CPP_REGISTER_METHODINFO(0x0477E040, X509Crl_VerifySignature_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x029437C0, bool, VerifySignature_3, (app::X509Crl * this_ptr, app::RSA* rsa))
     IL2CPP_REGISTER_METHOD(0x02943980, bool, VerifySignature_4, (app::X509Crl * this_ptr, app::AsymmetricAlgorithm* aa))
-    IL2CPP_REGISTER_METHODINFO(0x04790BC8, X509Crl_VerifySignature_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02943B90, app::X509Crl*, CreateFromFile, (app::String * filename))
-    IL2CPP_REGISTER_METHODINFO(0x04768768, X509Crl_CreateFromFile__MethodInfo)
 } // namespace app::classes::Mono::Security::X509::X509Crl

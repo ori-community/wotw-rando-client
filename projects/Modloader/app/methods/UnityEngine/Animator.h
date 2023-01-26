@@ -1,34 +1,35 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Animator.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
-#include <Modloader/app/structs/AnimatorUpdateMode__Enum.h>
-#include <Modloader/app/structs/AvatarIKGoal__Enum.h>
-#include <Modloader/app/structs/AvatarIKHint__Enum.h>
-#include <Modloader/app/structs/HumanBodyBones__Enum.h>
-#include <Modloader/app/structs/ScriptableObject.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/ScriptableObject__Array.h>
-#include <Modloader/app/structs/StateMachineBehaviour__Array.h>
-#include <Modloader/app/structs/StateInfoIndex__Enum.h>
-#include <Modloader/app/structs/AnimatorStateInfo.h>
-#include <Modloader/app/structs/AnimatorTransitionInfo.h>
+
+#include <Modloader/app/structs/Animator.h>
 #include <Modloader/app/structs/AnimatorClipInfo__Array.h>
-#include <Modloader/app/structs/List_1_UnityEngine_AnimatorClipInfo_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/AnimatorControllerParameter__Array.h>
 #include <Modloader/app/structs/AnimatorControllerParameter.h>
-#include <Modloader/app/structs/MatchTargetWeightMask.h>
-#include <Modloader/app/structs/AvatarTarget__Enum.h>
-#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/AnimatorControllerParameter__Array.h>
 #include <Modloader/app/structs/AnimatorCullingMode__Enum.h>
 #include <Modloader/app/structs/AnimatorRecorderMode__Enum.h>
-#include <Modloader/app/structs/RuntimeAnimatorController.h>
+#include <Modloader/app/structs/AnimatorStateInfo.h>
+#include <Modloader/app/structs/AnimatorTransitionInfo.h>
+#include <Modloader/app/structs/AnimatorUpdateMode__Enum.h>
 #include <Modloader/app/structs/Avatar.h>
-#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/AvatarIKGoal__Enum.h>
+#include <Modloader/app/structs/AvatarIKHint__Enum.h>
+#include <Modloader/app/structs/AvatarTarget__Enum.h>
+#include <Modloader/app/structs/HumanBodyBones__Enum.h>
+#include <Modloader/app/structs/List_1_UnityEngine_AnimatorClipInfo_.h>
+#include <Modloader/app/structs/MatchTargetWeightMask.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/RuntimeAnimatorController.h>
+#include <Modloader/app/structs/ScriptableObject.h>
+#include <Modloader/app/structs/ScriptableObject__Array.h>
+#include <Modloader/app/structs/StateInfoIndex__Enum.h>
+#include <Modloader/app/structs/StateMachineBehaviour__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::Animator {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Animator * this_ptr))
@@ -157,16 +158,13 @@ namespace app::classes::UnityEngine::Animator {
     IL2CPP_REGISTER_METHOD(0x030826F0, app::AnimatorClipInfo__Array*, GetCurrentAnimatorClipInfo_1, (app::Animator * this_ptr, int32_t layer_index))
     IL2CPP_REGISTER_METHOD(0x03082750, app::AnimatorClipInfo__Array*, GetNextAnimatorClipInfo_1, (app::Animator * this_ptr, int32_t layer_index))
     IL2CPP_REGISTER_METHOD(0x030827B0, void, GetCurrentAnimatorClipInfo_2, (app::Animator * this_ptr, int32_t layer_index, app::List_1_UnityEngine_AnimatorClipInfo_* clips))
-    IL2CPP_REGISTER_METHODINFO(0x0475C318, Animator_GetCurrentAnimatorClipInfo_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03082890, void, GetAnimatorClipInfoInternal, (app::Animator * this_ptr, int32_t layer_index, bool is_current, app::Object* clips))
     IL2CPP_REGISTER_METHOD(0x03082910, app::AnimatorClipInfo__Array*, GetAnimatorClipInfoInternalWinRT, (app::Animator * this_ptr, int32_t layer_index, bool is_current))
     IL2CPP_REGISTER_METHOD(0x03082980, void, GetNextAnimatorClipInfo_2, (app::Animator * this_ptr, int32_t layer_index, app::List_1_UnityEngine_AnimatorClipInfo_* clips))
-    IL2CPP_REGISTER_METHODINFO(0x04711628, Animator_GetNextAnimatorClipInfo_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03082A60, bool, IsInTransition, (app::Animator * this_ptr, int32_t layer_index))
     IL2CPP_REGISTER_METHOD(0x03082AC0, app::AnimatorControllerParameter__Array*, get_parameters, (app::Animator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03082B10, int32_t, get_parameterCount, (app::Animator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03082B60, app::AnimatorControllerParameter*, GetParameter, (app::Animator * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04784998, Animator_GetParameter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03082D30, float, get_feetPivotActive, (app::Animator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03082D80, void, set_feetPivotActive, (app::Animator * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x03082DE0, float, get_pivotWeight, (app::Animator * this_ptr))
@@ -216,7 +214,6 @@ namespace app::classes::UnityEngine::Animator {
     IL2CPP_REGISTER_METHOD(0x03084150, bool, IsBoneTransform, (app::Animator * this_ptr, app::Transform* transform))
     IL2CPP_REGISTER_METHOD(0x030841B0, app::Transform*, get_avatarRoot, (app::Animator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03084200, app::Transform*, GetBoneTransform, (app::Animator * this_ptr, app::HumanBodyBones__Enum human_bone_id))
-    IL2CPP_REGISTER_METHODINFO(0x04772100, Animator_GetBoneTransform__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03084370, app::Transform*, GetBoneTransformInternal, (app::Animator * this_ptr, int32_t human_bone_id))
     IL2CPP_REGISTER_METHOD(0x030843D0, app::AnimatorCullingMode__Enum, get_cullingMode, (app::Animator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03084420, void, set_cullingMode, (app::Animator * this_ptr, app::AnimatorCullingMode__Enum value))

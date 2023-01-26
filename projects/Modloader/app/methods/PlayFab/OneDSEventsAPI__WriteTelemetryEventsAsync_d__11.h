@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OneDSEventsAPI_WriteTelemetryEventsAsync_d_11__Boxed.h>
+
+#include <Modloader/app/structs/OneDSEventsAPI_WriteTelemetryEventsAsync_d_11__Boxed.h>
 #include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::PlayFab::OneDSEventsAPI__WriteTelemetryEventsAsync_d__11 {

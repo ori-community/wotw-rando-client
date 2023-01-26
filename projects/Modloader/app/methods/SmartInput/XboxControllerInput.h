@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XboxControllerInput_Axis__Enum.h>
-#include <Modloader/app/structs/XboxControllerInput_Button__Enum.h>
+
+#include <Modloader/app/structs/XboxControllerInput_Axis__Enum.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XboxControllerInput_Button__Enum.h>
 
 namespace app::classes::SmartInput::XboxControllerInput {
     IL2CPP_REGISTER_METHOD(0x006CDA80, float, ToAxisFloat, (int32_t axis))

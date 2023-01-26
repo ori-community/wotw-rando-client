@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_MicroProfilerGraph_MarkerCache___Boxed.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_MicroProfilerGraph_MarkerCache___Boxed.h>
 #include <Modloader/app/structs/List_1_MicroProfilerGraph_MarkerCache_.h>
 #include <Modloader/app/structs/MicroProfilerGraph_MarkerCache.h>
 #include <Modloader/app/structs/Object.h>

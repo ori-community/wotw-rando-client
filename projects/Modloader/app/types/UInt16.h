@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/UInt16.h>
+#include <Modloader/app/structs/UInt16__Array.h>
+#include <Modloader/app/structs/UInt16__Boxed.h>
+#include <Modloader/app/structs/UInt16__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UInt16__Class.h>
-#include <Modloader/app/structs/UInt16.h>
-#include <Modloader/app/structs/UInt16__Boxed.h>
-#include <Modloader/app/structs/UInt16__Array.h>
 
 namespace app::classes::types {
     namespace UInt16 {
-        inline app::UInt16__Class** type_info = (app::UInt16__Class**)(modloader::win::memory::resolve_rva(0x04728F80));
+        inline app::UInt16__Class** type_info() {
+            static app::UInt16__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::UInt16__Class**)(modloader::win::memory::resolve_rva(0x04728F80));
+            }
+            return cache;
+        }
         inline app::UInt16__Class* get_class() {
-            return il2cpp::get_class<app::UInt16__Class>(type_info, "System", "UInt16");
+            return il2cpp::get_class<app::UInt16__Class>(type_info(), "System", "UInt16");
         }
         inline app::UInt16* create() {
             return il2cpp::create_object<app::UInt16>(get_class());

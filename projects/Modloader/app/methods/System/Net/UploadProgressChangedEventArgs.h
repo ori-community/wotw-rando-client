@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UploadProgressChangedEventArgs.h>
+
+#include <Modloader/app/structs/UploadProgressChangedEventArgs.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::UploadProgressChangedEventArgs {
@@ -10,5 +11,4 @@ namespace app::classes::System::Net::UploadProgressChangedEventArgs {
     IL2CPP_REGISTER_METHOD(0x002FB990, int64_t, get_BytesSent, (app::UploadProgressChangedEventArgs * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB9B0, int64_t, get_TotalBytesToSend, (app::UploadProgressChangedEventArgs * this_ptr))
     IL2CPP_REGISTER_METHOD(0x020ACFC0, void, ctor_2, (app::UploadProgressChangedEventArgs * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04761460, UploadProgressChangedEventArgs__ctor_1__MethodInfo)
 } // namespace app::classes::System::Net::UploadProgressChangedEventArgs

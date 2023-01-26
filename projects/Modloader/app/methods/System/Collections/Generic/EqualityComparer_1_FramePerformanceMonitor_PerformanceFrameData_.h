@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_FramePerformanceMonitor_PerformanceFrameData_.h>
-#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData__Array.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_FramePerformanceMonitor_PerformanceFrameData_.h>
 #include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData.h>
+#include <Modloader/app/structs/FramePerformanceMonitor_PerformanceFrameData__Array.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_FramePerformanceMonitor_PerformanceFrameData_ {

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform__Array.h>
+
+#include <Modloader/app/structs/Transform__Array.h>
+#include <Modloader/app/structs/Hierarchy.h>
 #include <Modloader/app/structs/Object_1.h>
 #include <Modloader/app/structs/Object_1__Array.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Hierarchy.h>
 
 namespace app::classes::RootMotion::Hierarchy {
     IL2CPP_REGISTER_METHOD(0x02A29070, bool, HierarchyIsValid, (app::Transform__Array * bones))

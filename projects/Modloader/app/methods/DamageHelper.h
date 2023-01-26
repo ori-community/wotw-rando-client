@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DamageWeightMask__Enum.h>
+
+#include <Modloader/app/structs/DamageWeightMask__Enum.h>
 #include <Modloader/app/structs/List_1_DamageWeight_.h>
 
 namespace app::classes::DamageHelper {

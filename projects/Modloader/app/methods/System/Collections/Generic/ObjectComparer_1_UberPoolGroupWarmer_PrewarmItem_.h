@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_UberPoolGroupWarmer_PrewarmItem_.h>
-#include <Modloader/app/structs/UberPoolGroupWarmer_PrewarmItem.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_UberPoolGroupWarmer_PrewarmItem_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/UberPoolGroupWarmer_PrewarmItem.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_UberPoolGroupWarmer_PrewarmItem_ {
     IL2CPP_REGISTER_METHOD(0x01CCD820, int32_t, Compare, (app::ObjectComparer_1_UberPoolGroupWarmer_PrewarmItem_ * this_ptr, app::UberPoolGroupWarmer_PrewarmItem x, app::UberPoolGroupWarmer_PrewarmItem y))

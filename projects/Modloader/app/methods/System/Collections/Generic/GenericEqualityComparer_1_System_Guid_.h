@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GenericEqualityComparer_1_System_Guid_.h>
+
+#include <Modloader/app/structs/GenericEqualityComparer_1_System_Guid_.h>
 #include <Modloader/app/structs/Guid.h>
 #include <Modloader/app/structs/Guid__Array.h>
 #include <Modloader/app/structs/Object.h>

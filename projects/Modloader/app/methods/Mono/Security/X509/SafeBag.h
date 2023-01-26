@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SafeBag.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/SafeBag.h>
 #include <Modloader/app/structs/ASN1.h>
-#include <Modloader/app/structs/SafeBag_1.h>
 #include <Modloader/app/structs/ASN1_1.h>
+#include <Modloader/app/structs/SafeBag_1.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Security::X509::SafeBag {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor_1, (app::SafeBag * this_ptr, app::String* bag_o_i_d, app::ASN1* asn1))

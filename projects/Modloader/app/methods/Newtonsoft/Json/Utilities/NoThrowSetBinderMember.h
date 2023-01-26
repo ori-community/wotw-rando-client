@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NoThrowSetBinderMember.h>
-#include <Modloader/app/structs/SetMemberBinder.h>
+
+#include <Modloader/app/structs/NoThrowSetBinderMember.h>
 #include <Modloader/app/structs/DynamicMetaObject.h>
+#include <Modloader/app/structs/SetMemberBinder.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::NoThrowSetBinderMember {
     IL2CPP_REGISTER_METHOD(0x0301F100, void, ctor, (app::NoThrowSetBinderMember * this_ptr, app::SetMemberBinder* inner_binder))

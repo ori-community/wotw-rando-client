@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TentacleInterestPoint__Class.h>
 #include <Modloader/app/structs/TentacleInterestPoint.h>
 #include <Modloader/app/structs/TentacleInterestPoint__Array.h>
+#include <Modloader/app/structs/TentacleInterestPoint__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace TentacleInterestPoint {
-        namespace {
-            inline app::TentacleInterestPoint__Class* type_info_ref = nullptr;
+        inline app::TentacleInterestPoint__Class** type_info() {
+            static app::TentacleInterestPoint__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::TentacleInterestPoint__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::TentacleInterestPoint__Class** type_info = &type_info_ref;
         inline app::TentacleInterestPoint__Class* get_class() {
-            return il2cpp::get_class<app::TentacleInterestPoint__Class>(type_info, "", "TentacleInterestPoint");
+            return il2cpp::get_class<app::TentacleInterestPoint__Class>(type_info(), "", "TentacleInterestPoint");
         }
         inline app::TentacleInterestPoint* create() {
             return il2cpp::create_object<app::TentacleInterestPoint>(get_class());

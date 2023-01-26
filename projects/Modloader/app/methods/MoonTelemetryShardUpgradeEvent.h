@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTelemetryShardUpgradeEvent.h>
+
+#include <Modloader/app/structs/MoonTelemetryShardUpgradeEvent.h>
+#include <Modloader/app/structs/JsonBuilder_Object.h>
 #include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/JsonBuilder_Object.h>
 
 namespace app::classes::MoonTelemetryShardUpgradeEvent {
     IL2CPP_REGISTER_METHOD(0x01472300, void, ctor, (app::MoonTelemetryShardUpgradeEvent * this_ptr, app::PlayerUberStateShards_Shard* shard, int32_t new_level, int32_t exp_spent))

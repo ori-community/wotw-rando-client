@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Game_AttackableIteratorUnitTester_TestAttackable_.h>
-#include <Modloader/app/structs/IAttackable.h>
+
+#include <Modloader/app/structs/List_1_Game_AttackableIteratorUnitTester_TestAttackable_.h>
 #include <Modloader/app/structs/AttackableIteratorUnitTester_TestAttackable.h>
+#include <Modloader/app/structs/IAttackable.h>
 
 namespace app::classes::Game::AttackableIteratorUnitTester {
     IL2CPP_REGISTER_METHOD(0x0151EC00, app::List_1_Game_AttackableIteratorUnitTester_TestAttackable_*, CreateTestAttackables, (int32_t count))

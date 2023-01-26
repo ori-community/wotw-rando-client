@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CapsulecastCommand.h>
+
+#include <Modloader/app/structs/CapsulecastCommand.h>
 #include <Modloader/app/structs/CapsuleCastManager.h>
 #include <Modloader/app/structs/JobHandle.h>
 #include <Modloader/app/structs/NativeArray_1_UnityEngine_CapsulecastCommand_.h>

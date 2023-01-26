@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NickGrayboxEntity.h>
+
+#include <Modloader/app/structs/NickGrayboxEntity.h>
 
 namespace app::classes::NickGrayboxEntity {
     IL2CPP_REGISTER_METHOD(0x005FDB90, void, Start, (app::NickGrayboxEntity * this_ptr))

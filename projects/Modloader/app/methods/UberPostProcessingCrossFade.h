@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Material.h>
-#include <Modloader/app/structs/UberPostProcessingCrossFade.h>
+
+#include <Modloader/app/structs/Material.h>
 #include <Modloader/app/structs/RenderTexture.h>
+#include <Modloader/app/structs/UberPostProcessingCrossFade.h>
 #include <Modloader/app/structs/UberPostProcessingCrossFade_CameraInformation.h>
 
 namespace app::classes::UberPostProcessingCrossFade {

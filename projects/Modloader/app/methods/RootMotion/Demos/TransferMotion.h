@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TransferMotion.h>
+
+#include <Modloader/app/structs/TransferMotion.h>
 
 namespace app::classes::RootMotion::Demos::TransferMotion {
     IL2CPP_REGISTER_METHOD(0x02049B40, void, OnEnable, (app::TransferMotion * this_ptr))

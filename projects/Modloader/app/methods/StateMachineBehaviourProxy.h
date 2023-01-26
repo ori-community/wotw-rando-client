@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StateMachineBehaviourProxy.h>
+
+#include <Modloader/app/structs/StateMachineBehaviourProxy.h>
 #include <Modloader/app/structs/Action_1_Int32_.h>
 #include <Modloader/app/structs/Action_1_String_.h>
 #include <Modloader/app/structs/StateMachineBehaviourProxy_IReceiver.h>

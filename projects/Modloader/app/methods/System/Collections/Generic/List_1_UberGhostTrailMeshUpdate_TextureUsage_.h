@@ -1,33 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberGhostTrailMeshUpdate_TextureUsage.h>
-#include <Modloader/app/structs/List_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
-#include <Modloader/app/structs/IEnumerable_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
-#include <Modloader/app/structs/IComparer_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
-#include <Modloader/app/structs/UberGhostTrailMeshUpdate_TextureUsage__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate_TextureUsage.h>
 #include <Modloader/app/structs/Action_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UberGhostTrailMeshUpdate_TextureUsage_.h>
-#include <Modloader/app/structs/IEnumerator_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/IComparer_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/IEnumerable_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/List_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UberGhostTrailMeshUpdate_TextureUsage_.h>
+#include <Modloader/app/structs/UberGhostTrailMeshUpdate_TextureUsage__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UberGhostTrailMeshUpdate_TextureUsage_ {
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::UberGhostTrailMeshUpdate_TextureUsage, get_Item, (app::List_1_UberGhostTrailMeshUpdate_TextureUsage_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04759C48, List_1_UberGhostTrailMeshUpdate_TextureUsage__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_UberGhostTrailMeshUpdate_TextureUsage_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04739498, List_1_UberGhostTrailMeshUpdate_TextureUsage__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add, (app::List_1_UberGhostTrailMeshUpdate_TextureUsage_ * this_ptr, app::UberGhostTrailMeshUpdate_TextureUsage item))
-    IL2CPP_REGISTER_METHODINFO(0x0472E4E8, List_1_UberGhostTrailMeshUpdate_TextureUsage__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8A90, void, set_Item, (app::List_1_UberGhostTrailMeshUpdate_TextureUsage_ * this_ptr, int32_t index, app::UberGhostTrailMeshUpdate_TextureUsage value))
-    IL2CPP_REGISTER_METHODINFO(0x04725A10, List_1_UberGhostTrailMeshUpdate_TextureUsage__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAB40, void, RemoveAt, (app::List_1_UberGhostTrailMeshUpdate_TextureUsage_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x047235C0, List_1_UberGhostTrailMeshUpdate_TextureUsage__RemoveAt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_UberGhostTrailMeshUpdate_TextureUsage_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470CC30, List_1_UberGhostTrailMeshUpdate_TextureUsage___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_UberGhostTrailMeshUpdate_TextureUsage_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02ED8300, void, ctor_3, (app::List_1_UberGhostTrailMeshUpdate_TextureUsage_ * this_ptr, app::IEnumerable_1_UberGhostTrailMeshUpdate_TextureUsage_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_UberGhostTrailMeshUpdate_TextureUsage_ * this_ptr))

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/KongregatePlayFabIdPair__Class.h>
 #include <Modloader/app/structs/KongregatePlayFabIdPair.h>
 #include <Modloader/app/structs/KongregatePlayFabIdPair__Array.h>
+#include <Modloader/app/structs/KongregatePlayFabIdPair__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace KongregatePlayFabIdPair {
-        namespace {
-            inline app::KongregatePlayFabIdPair__Class* type_info_ref = nullptr;
+        inline app::KongregatePlayFabIdPair__Class** type_info() {
+            static app::KongregatePlayFabIdPair__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::KongregatePlayFabIdPair__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::KongregatePlayFabIdPair__Class** type_info = &type_info_ref;
         inline app::KongregatePlayFabIdPair__Class* get_class() {
-            return il2cpp::get_class<app::KongregatePlayFabIdPair__Class>(type_info, "PlayFab.ClientModels", "KongregatePlayFabIdPair");
+            return il2cpp::get_class<app::KongregatePlayFabIdPair__Class>(type_info(), "PlayFab.ClientModels", "KongregatePlayFabIdPair");
         }
         inline app::KongregatePlayFabIdPair* create() {
             return il2cpp::create_object<app::KongregatePlayFabIdPair>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NetworkInterfaceManager.h>
+
+#include <Modloader/app/structs/NetworkInterfaceManager.h>
 
 namespace app::classes::nintendoSDKPlugin::NetworkInterfaceManager {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, IsNetworkAvailable, ())

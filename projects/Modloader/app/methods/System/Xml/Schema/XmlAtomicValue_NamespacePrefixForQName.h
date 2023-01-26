@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlAtomicValue_NamespacePrefixForQName.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/XmlAtomicValue_NamespacePrefixForQName.h>
 #include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
 
 namespace app::classes::System::Xml::Schema::XmlAtomicValue_NamespacePrefixForQName {

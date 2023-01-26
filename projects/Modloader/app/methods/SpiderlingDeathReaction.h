@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiderlingDeathReaction.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+
+#include <Modloader/app/structs/SpiderlingDeathReaction.h>
 #include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::SpiderlingDeathReaction {
     IL2CPP_REGISTER_METHOD(0x011BF7D0, void, OnInitializeTask, (app::SpiderlingDeathReaction * this_ptr, app::IContext* context))
@@ -16,11 +17,9 @@ namespace app::classes::SpiderlingDeathReaction {
     IL2CPP_REGISTER_METHOD(0x011C0510, app::BehaviourStatus__Enum, OnExecuteTask, (app::SpiderlingDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x011C0A70, void, OnExitTask, (app::SpiderlingDeathReaction * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x011C0C40, void, OnBurrowFinished, (app::SpiderlingDeathReaction * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047523E8, SpiderlingDeathReaction_OnBurrowFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011C0C80, void, StopCurrentTimeline, (app::SpiderlingDeathReaction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011C0D60, void, StartTimeline, (app::SpiderlingDeathReaction * this_ptr, app::MoonTimeline* timeline, app::Action* on_stop))
     IL2CPP_REGISTER_METHOD(0x011C0DC0, void, PlayShakeTimeline, (app::SpiderlingDeathReaction * this_ptr, bool forced))
     IL2CPP_REGISTER_METHOD(0x011C0EE0, void, HandleCollision, (app::SpiderlingDeathReaction * this_ptr, app::MoonControllerColliderHit hit))
-    IL2CPP_REGISTER_METHODINFO(0x047842C8, SpiderlingDeathReaction_HandleCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011C1090, void, ctor, (app::SpiderlingDeathReaction * this_ptr))
 } // namespace app::classes::SpiderlingDeathReaction

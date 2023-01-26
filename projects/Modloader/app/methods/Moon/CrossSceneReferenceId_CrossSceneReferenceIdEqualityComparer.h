@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CrossSceneReferenceId_CrossSceneReferenceIdEqualityComparer.h>
+
+#include <Modloader/app/structs/CrossSceneReferenceId_CrossSceneReferenceIdEqualityComparer.h>
 #include <Modloader/app/structs/CrossSceneReferenceId.h>
 
 namespace app::classes::Moon::CrossSceneReferenceId_CrossSceneReferenceIdEqualityComparer {

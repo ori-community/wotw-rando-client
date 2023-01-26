@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_WaterPoisonCloud_Blob_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_WaterPoisonCloud_Blob_.h>
 #include <Modloader/app/structs/Comparison_1_WaterPoisonCloud_Blob_.h>
 #include <Modloader/app/structs/WaterPoisonCloud_Blob.h>
 

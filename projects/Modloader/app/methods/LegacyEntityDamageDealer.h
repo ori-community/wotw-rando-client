@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyEntityDamageDealer.h>
+
+#include <Modloader/app/structs/LegacyEntityDamageDealer.h>
 
 namespace app::classes::LegacyEntityDamageDealer {
     IL2CPP_REGISTER_METHOD(0x00A20D70, void, OnValidate, (app::LegacyEntityDamageDealer * this_ptr))

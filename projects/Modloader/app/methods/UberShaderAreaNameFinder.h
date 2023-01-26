@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/UberAtlasArea__Enum.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberAtlasArea__Enum.h>
 
 namespace app::classes::UberShaderAreaNameFinder {
     IL2CPP_REGISTER_METHOD(0x01908630, app::String*, GetAreaImplString, (app::UberAtlasArea__Enum area))

@@ -1,33 +1,34 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TraceJsonWriter.h>
-#include <Modloader/app/structs/JsonWriter.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/TraceJsonWriter.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/DateTimeOffset.h>
 #include <Modloader/app/structs/Decimal.h>
-#include <Modloader/app/structs/Nullable_1_Decimal_.h>
+#include <Modloader/app/structs/Guid.h>
+#include <Modloader/app/structs/JsonWriter.h>
 #include <Modloader/app/structs/Nullable_1_Boolean_.h>
 #include <Modloader/app/structs/Nullable_1_Byte_.h>
 #include <Modloader/app/structs/Nullable_1_Char_.h>
-#include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/DateTime.h>
-#include <Modloader/app/structs/Nullable_1_DateTime_.h>
-#include <Modloader/app/structs/DateTimeOffset.h>
 #include <Modloader/app/structs/Nullable_1_DateTimeOffset_.h>
+#include <Modloader/app/structs/Nullable_1_DateTime_.h>
+#include <Modloader/app/structs/Nullable_1_Decimal_.h>
 #include <Modloader/app/structs/Nullable_1_Double_.h>
-#include <Modloader/app/structs/Nullable_1_Single_.h>
-#include <Modloader/app/structs/Guid.h>
 #include <Modloader/app/structs/Nullable_1_Guid_.h>
+#include <Modloader/app/structs/Nullable_1_Int16_.h>
 #include <Modloader/app/structs/Nullable_1_Int32_.h>
 #include <Modloader/app/structs/Nullable_1_Int64_.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Nullable_1_SByte_.h>
-#include <Modloader/app/structs/Nullable_1_Int16_.h>
-#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Nullable_1_Single_.h>
 #include <Modloader/app/structs/Nullable_1_TimeSpan_.h>
+#include <Modloader/app/structs/Nullable_1_UInt16_.h>
 #include <Modloader/app/structs/Nullable_1_UInt32_.h>
 #include <Modloader/app/structs/Nullable_1_UInt64_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimeSpan.h>
 #include <Modloader/app/structs/Uri.h>
-#include <Modloader/app/structs/Nullable_1_UInt16_.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::TraceJsonWriter {
     IL2CPP_REGISTER_METHOD(0x01BFD6D0, void, ctor, (app::TraceJsonWriter * this_ptr, app::JsonWriter* inner_writer))
@@ -38,7 +39,7 @@ namespace app::classes::Newtonsoft::Json::Serialization::TraceJsonWriter {
     IL2CPP_REGISTER_METHOD(0x01BFDCB0, void, WriteValue_4, (app::TraceJsonWriter * this_ptr, app::Nullable_1_Boolean_ value))
     IL2CPP_REGISTER_METHOD(0x01BFDDC0, void, WriteValue_5, (app::TraceJsonWriter * this_ptr, uint8_t value))
     IL2CPP_REGISTER_METHOD(0x01BFDE40, void, WriteValue_6, (app::TraceJsonWriter * this_ptr, app::Nullable_1_Byte_ value))
-    IL2CPP_REGISTER_METHOD(0x01BFDF50, void, WriteValue_7, (app::TraceJsonWriter * this_ptr, uint16_t value))
+    IL2CPP_REGISTER_METHOD(0x01BFDF50, void, WriteValue_7, (app::TraceJsonWriter * this_ptr, char16_t value))
     IL2CPP_REGISTER_METHOD(0x01BFDFD0, void, WriteValue_8, (app::TraceJsonWriter * this_ptr, app::Nullable_1_Char_ value))
     IL2CPP_REGISTER_METHOD(0x01BFE0D0, void, WriteValue_9, (app::TraceJsonWriter * this_ptr, app::Byte__Array* value))
     IL2CPP_REGISTER_METHOD(0x01BFE170, void, WriteValue_10, (app::TraceJsonWriter * this_ptr, app::DateTime value))

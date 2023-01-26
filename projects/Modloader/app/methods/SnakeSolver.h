@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SnakeSolver.h>
-#include <Modloader/app/structs/Vector2__Array.h>
+
+#include <Modloader/app/structs/SnakeSolver.h>
 #include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector2__Array.h>
 
 namespace app::classes::SnakeSolver {
     IL2CPP_REGISTER_METHOD(0x006D4160, int32_t, get_TotalJoints, (app::SnakeSolver * this_ptr))

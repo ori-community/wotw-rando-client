@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FPSCursorRenderer.h>
+
+#include <Modloader/app/structs/FPSCursorRenderer.h>
 #include <Modloader/app/structs/Browser.h>
-#include <Modloader/app/structs/MeshCollider.h>
 #include <Modloader/app/structs/BrowserCursor.h>
 #include <Modloader/app/structs/FPSBrowserUI.h>
+#include <Modloader/app/structs/MeshCollider.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::FPSCursorRenderer {
     IL2CPP_REGISTER_METHOD(0x01DDD440, app::FPSCursorRenderer*, get_Instance, ())

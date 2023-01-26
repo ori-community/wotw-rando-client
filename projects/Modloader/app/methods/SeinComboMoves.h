@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Moon_ComboSystem_ComboMove_.h>
-#include <Modloader/app/structs/SeinComboMoves.h>
+
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_ComboMove_.h>
 #include <Modloader/app/structs/ComboMove.h>
+#include <Modloader/app/structs/SeinComboMoves.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::SeinComboMoves {

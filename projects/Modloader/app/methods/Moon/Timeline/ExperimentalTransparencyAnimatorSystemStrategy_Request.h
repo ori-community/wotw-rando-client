@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_Request__Boxed.h>
+
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_Request__Boxed.h>
 #include <Modloader/app/structs/UberShaderProperty_Color__Enum.h>
 
 namespace app::classes::Moon::Timeline::ExperimentalTransparencyAnimatorSystemStrategy_Request {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RenderModel_t_Packed__Boxed.h>
+
+#include <Modloader/app/structs/RenderModel_t_Packed__Boxed.h>
 #include <Modloader/app/structs/RenderModel_t.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::RenderModel_t_Packed {

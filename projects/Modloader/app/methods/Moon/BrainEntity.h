@@ -1,22 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/BrainEntity.h>
-#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_ITimelineEntity_.h>
-#include <Modloader/app/structs/List_1_Moon_MoonReference_1__2.h>
-#include <Modloader/app/structs/IBrainController.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineEntityRecord_.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_ConstraintsMetaData_.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineMarkerRecord_.h>
-#include <Modloader/app/structs/List_1_Moon_Timeline_ExternalTimelineRecord_.h>
-#include <Modloader/app/structs/IConstraint.h>
 #include <Modloader/app/structs/EntityId.h>
-#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/IBrainController.h>
 #include <Modloader/app/structs/IConstrainedEntity.h>
+#include <Modloader/app/structs/IConstrainedEntityWithChildren.h>
+#include <Modloader/app/structs/IConstraint.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
 #include <Modloader/app/structs/ITimelineEntityParent.h>
 #include <Modloader/app/structs/ITrimController.h>
-#include <Modloader/app/structs/IConstrainedEntityWithChildren.h>
+#include <Modloader/app/structs/List_1_Moon_MoonReference_1__2.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ConstraintsMetaData_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_ExternalTimelineRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineEntityRecord_.h>
+#include <Modloader/app/structs/List_1_Moon_Timeline_TimelineMarkerRecord_.h>
+#include <Modloader/app/structs/MoonReference_1_Moon_Timeline_ITimelineEntity_.h>
 
 namespace app::classes::Moon::BrainEntity {
     IL2CPP_REGISTER_METHOD(0x01BA63B0, app::String*, get_FullAddress, (app::BrainEntity * this_ptr))
@@ -39,16 +40,12 @@ namespace app::classes::Moon::BrainEntity {
     IL2CPP_REGISTER_METHOD(0x01BA71F0, void, OnResumePlayback, (app::BrainEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01BA72E0, app::List_1_Moon_Timeline_TimelineEntityRecord_*, get_EntityRecords, (app::BrainEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01BA75E0, app::List_1_Moon_Timeline_ConstraintsMetaData_*, get_ConstraintMetaDatas, (app::BrainEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04732390, BrainEntity_get_ConstraintMetaDatas__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01BA7630, app::List_1_Moon_Timeline_TimelineMarkerRecord_*, get_MarkerRecords, (app::BrainEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01BA7780, app::List_1_Moon_Timeline_ExternalTimelineRecord_*, get_ExternalRecords, (app::BrainEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478EEE0, BrainEntity_get_ExternalRecords__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01BA77D0, void, RecursivelySetupExecutionOrder, (app::BrainEntity * this_ptr, int32_t order))
     IL2CPP_REGISTER_METHOD(0x01BA7A40, bool, HasFinished, (app::BrainEntity * this_ptr, int32_t event_id))
     IL2CPP_REGISTER_METHOD(0x01BA7BD0, app::IConstraint*, get_StartConstraint, (app::BrainEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473C8F8, BrainEntity_get_StartConstraint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01BA7C20, app::IConstraint*, get_EndConstraint, (app::BrainEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04799A38, BrainEntity_get_EndConstraint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::EntityId, get_EntityId, (app::BrainEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C50A0, app::ITimelineEntity*, get_Entity, (app::BrainEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01BA7C70, int32_t, get_ConstrainedEntitiesCount, (app::BrainEntity * this_ptr))

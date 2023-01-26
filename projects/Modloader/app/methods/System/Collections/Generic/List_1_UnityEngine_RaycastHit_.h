@@ -1,31 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_UnityEngine_RaycastHit_.h>
-#include <Modloader/app/structs/RaycastHit.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_RaycastHit_.h>
-#include <Modloader/app/structs/IEnumerable_1_UnityEngine_RaycastHit_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_RaycastHit_.h>
-#include <Modloader/app/structs/IComparer_1_UnityEngine_RaycastHit_.h>
-#include <Modloader/app/structs/RaycastHit__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_UnityEngine_RaycastHit_.h>
+
+#include <Modloader/app/structs/List_1_UnityEngine_RaycastHit_.h>
 #include <Modloader/app/structs/Action_1_UnityEngine_RaycastHit_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_RaycastHit_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_RaycastHit_.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/RaycastHit__Array.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_RaycastHit_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_RaycastHit_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_UnityEngine_RaycastHit_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471D1E8, List_1_UnityEngine_RaycastHit___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02EE14F0, void, Add, (app::List_1_UnityEngine_RaycastHit_ * this_ptr, app::RaycastHit item))
-    IL2CPP_REGISTER_METHODINFO(0x04726708, List_1_UnityEngine_RaycastHit__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02EE10D0, app::RaycastHit, get_Item, (app::List_1_UnityEngine_RaycastHit_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04752558, List_1_UnityEngine_RaycastHit__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_UnityEngine_RaycastHit_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474E150, List_1_UnityEngine_RaycastHit__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02EE2350, app::List_1_T_Enumerator_UnityEngine_RaycastHit_, GetEnumerator, (app::List_1_UnityEngine_RaycastHit_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047798D0, List_1_UnityEngine_RaycastHit__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_UnityEngine_RaycastHit_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02EE0AD0, void, ctor_3, (app::List_1_UnityEngine_RaycastHit_ * this_ptr, app::IEnumerable_1_UnityEngine_RaycastHit_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_UnityEngine_RaycastHit_ * this_ptr))

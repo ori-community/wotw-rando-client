@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FABRIKChain.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/FABRIKChain.h>
 #include <Modloader/app/structs/FABRIKChain__Array.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::FABRIKChain {

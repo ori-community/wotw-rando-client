@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GUIGroup__Class.h>
 #include <Modloader/app/structs/GUIGroup.h>
 #include <Modloader/app/structs/GUIGroup__Boxed.h>
+#include <Modloader/app/structs/GUIGroup__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace GUIGroup {
-        namespace {
-            inline app::GUIGroup__Class* type_info_ref = nullptr;
+        inline app::GUIGroup__Class** type_info() {
+            static app::GUIGroup__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GUIGroup__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GUIGroup__Class** type_info = &type_info_ref;
         inline app::GUIGroup__Class* get_class() {
-            return il2cpp::get_class<app::GUIGroup__Class>(type_info, "Sini.Unity", "GUIGroup");
+            return il2cpp::get_class<app::GUIGroup__Class>(type_info(), "Sini.Unity", "GUIGroup");
         }
         inline app::GUIGroup* create() {
             return il2cpp::create_object<app::GUIGroup>(get_class());

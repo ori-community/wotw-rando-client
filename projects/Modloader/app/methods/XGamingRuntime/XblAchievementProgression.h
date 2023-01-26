@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XblAchievementProgression.h>
+
+#include <Modloader/app/structs/XblAchievementProgression.h>
 #include <Modloader/app/structs/XblAchievementProgression_1.h>
 #include <Modloader/app/structs/XblAchievementRequirement__Array.h>
 

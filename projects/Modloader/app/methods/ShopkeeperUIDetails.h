@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShopkeeperUIDetails.h>
+
+#include <Modloader/app/structs/ShopkeeperUIDetails.h>
 #include <Modloader/app/structs/ShopkeeperItem.h>
 
 namespace app::classes::ShopkeeperUIDetails {

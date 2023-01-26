@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderRuntimeAnchoredTexture.h>
-#include <Modloader/app/structs/UberShaderTexture.h>
+
+#include <Modloader/app/structs/UberShaderRuntimeAnchoredTexture.h>
 #include <Modloader/app/structs/UberShaderModifier.h>
+#include <Modloader/app/structs/UberShaderTexture.h>
 
 namespace app::classes::UberShaderRuntimeAnchoredTexture {
     IL2CPP_REGISTER_METHOD(0x00575450, bool, get_HasAnchor, (app::UberShaderRuntimeAnchoredTexture * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlNode.h>
+
+#include <Modloader/app/structs/XmlNode.h>
 #include <Modloader/app/structs/XmlNodeList.h>
 
 namespace app::classes::System::Xml::XmlNodeList {

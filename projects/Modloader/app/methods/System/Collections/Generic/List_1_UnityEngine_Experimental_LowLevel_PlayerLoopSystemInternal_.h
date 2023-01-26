@@ -1,31 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
-#include <Modloader/app/structs/PlayerLoopSystemInternal__Array.h>
-#include <Modloader/app/structs/PlayerLoopSystemInternal.h>
-#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
-#include <Modloader/app/structs/IComparer_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
+
+#include <Modloader/app/structs/List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
 #include <Modloader/app/structs/Action_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PlayerLoopSystemInternal.h>
+#include <Modloader/app/structs/PlayerLoopSystemInternal__Array.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04705840, List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAEF0, app::PlayerLoopSystemInternal__Array*, ToArray, (app::List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047358F0, List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal__ToArray__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470C558, List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D251B0, void, Add, (app::List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_ * this_ptr, app::PlayerLoopSystemInternal item))
-    IL2CPP_REGISTER_METHODINFO(0x0473A020, List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D24DF0, void, set_Item, (app::List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_ * this_ptr, int32_t index, app::PlayerLoopSystemInternal value))
-    IL2CPP_REGISTER_METHODINFO(0x04778D88, List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02D26D90, void, ctor_3, (app::List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_ * this_ptr, app::IEnumerable_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_ * this_ptr))

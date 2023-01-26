@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BoneWeight__Boxed.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/BoneWeight__Boxed.h>
 #include <Modloader/app/structs/BoneWeight.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::UnityEngine::BoneWeight {
     IL2CPP_REGISTER_METHOD(0x001EB400, float, get_weight0, (app::BoneWeight__Boxed * this_ptr))

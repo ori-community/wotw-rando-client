@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterPlatformMovement.h>
+
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
 #include <Modloader/app/structs/EntityPhysicsAnimator.h>
-#include <Modloader/app/structs/MovementProcessor.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/MovementProcessor.h>
 #include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::EntityPhysicsAnimator {

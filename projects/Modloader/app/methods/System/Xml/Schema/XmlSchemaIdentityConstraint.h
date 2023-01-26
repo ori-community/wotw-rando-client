@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSchemaIdentityConstraint.h>
-#include <Modloader/app/structs/XmlSchemaXPath.h>
-#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/CompiledIdentityConstraint.h>
+#include <Modloader/app/structs/XmlQualifiedName.h>
+#include <Modloader/app/structs/XmlSchemaIdentityConstraint.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlSchemaXPath.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaIdentityConstraint {
     IL2CPP_REGISTER_METHOD(0x002FBB40, app::String*, get_Name, (app::XmlSchemaIdentityConstraint * this_ptr))

@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/X509CertificateImplMono.h>
-#include <Modloader/app/structs/X509Certificate.h>
-#include <Modloader/app/structs/X509CertificateImpl.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/X509CertificateImplMono.h>
 #include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/X509Certificate.h>
+#include <Modloader/app/structs/X509CertificateImpl.h>
 
 namespace app::classes::System::Security::Cryptography::X509Certificates::X509CertificateImplMono {
     IL2CPP_REGISTER_METHOD(0x002FB940, void, ctor, (app::X509CertificateImplMono * this_ptr, app::X509Certificate* x509))

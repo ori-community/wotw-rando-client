@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/OrderedEnumerable_1_TElement_GetEnumerator_d_1_System_Object_.h>
 
 namespace app::classes::System::Linq::OrderedEnumerable_1_TElement___GetEnumerator_d__1_System_Object_ {
@@ -10,5 +11,4 @@ namespace app::classes::System::Linq::OrderedEnumerable_1_TElement___GetEnumerat
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IDisposable_Dispose, (app::OrderedEnumerable_1_TElement_GetEnumerator_d_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025493C0, bool, MoveNext, (app::OrderedEnumerable_1_TElement_GetEnumerator_d_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02549540, void, IEnumerator_Reset, (app::OrderedEnumerable_1_TElement_GetEnumerator_d_1_System_Object_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472F8C8, OrderedEnumerable_1_TElement_GetEnumerator_d_1_System_Object__System_Collections_IEnumerator_Reset__MethodInfo)
 } // namespace app::classes::System::Linq::OrderedEnumerable_1_TElement___GetEnumerator_d__1_System_Object_

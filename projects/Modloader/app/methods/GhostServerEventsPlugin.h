@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
+
+#include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/GhostServerEventsPlugin.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::GhostServerEventsPlugin {
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::GhostRecorder_GhostPluginRecordingType__Enum, GetRecordingType, (app::GhostServerEventsPlugin * this_ptr))

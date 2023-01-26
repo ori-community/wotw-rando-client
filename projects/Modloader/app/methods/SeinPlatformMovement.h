@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinPlatformMovement.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SeinCharacter.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+
+#include <Modloader/app/structs/SeinPlatformMovement.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinPlatformMovement {
     IL2CPP_REGISTER_METHOD(0x005C7080, bool, get_IsSphere, (app::SeinPlatformMovement * this_ptr))

@@ -25,7 +25,7 @@ struct __declspec(align(8)) Interpreter__Fields {
 #if !defined(IL2CPP_STRUCT_Interpreter__Fields_FWDDECL)
 #define IL2CPP_STRUCT_Interpreter__Fields_FWDDECL
 #include <Modloader/app/structs/DebugInfo__Array.h>
-#include <Modloader/app/structs/Dictionary_2_System_Linq_Expressions_ParameterExpression_System_Linq_Expressions_Interpreter_LocalVariable_.h>
+#include <Modloader/app/structs/Dictionary_2_Syste_Li_Expressio_ParameterExpressi_Syst_Li_Expressio_Interpret_LocalVariab_.h>
 #include <Modloader/app/structs/Object__Array.h>
 #include <Modloader/app/structs/RuntimeLabel__Array.h>
 #include <Modloader/app/structs/String.h>

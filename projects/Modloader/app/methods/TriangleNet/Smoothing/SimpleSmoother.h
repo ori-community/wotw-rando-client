@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SimpleSmoother.h>
-#include <Modloader/app/structs/IVoronoiFactory.h>
+
+#include <Modloader/app/structs/SimpleSmoother.h>
 #include <Modloader/app/structs/Configuration_1.h>
-#include <Modloader/app/structs/IMesh.h>
-#include <Modloader/app/structs/Mesh_1.h>
-#include <Modloader/app/structs/IPredicates.h>
 #include <Modloader/app/structs/Face.h>
+#include <Modloader/app/structs/IMesh.h>
+#include <Modloader/app/structs/IPredicates.h>
+#include <Modloader/app/structs/IVoronoiFactory.h>
+#include <Modloader/app/structs/Mesh_1.h>
 #include <Modloader/app/structs/Polygon.h>
 #include <Modloader/app/structs/TrianglePool.h>
 
@@ -20,5 +21,4 @@ namespace app::classes::TriangleNet::Smoothing::SimpleSmoother {
     IL2CPP_REGISTER_METHOD(0x02A92920, void, Centroid, (app::SimpleSmoother * this_ptr, app::Face* face, double* x, double* y))
     IL2CPP_REGISTER_METHOD(0x02A92A50, app::Polygon*, Rebuild, (app::SimpleSmoother * this_ptr, app::Mesh_1* mesh))
     IL2CPP_REGISTER_METHOD(0x02A92E00, app::TrianglePool*, __ctor_b__5_1, (app::SimpleSmoother * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047942E8, SimpleSmoother___ctor_b__5_1__MethodInfo)
 } // namespace app::classes::TriangleNet::Smoothing::SimpleSmoother

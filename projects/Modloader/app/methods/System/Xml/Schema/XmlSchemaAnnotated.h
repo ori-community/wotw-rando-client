@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlAttribute__Array.h>
 #include <Modloader/app/structs/XmlSchemaAnnotated.h>
 #include <Modloader/app/structs/XmlSchemaAnnotation.h>
-#include <Modloader/app/structs/XmlAttribute__Array.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaAnnotated {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::String*, get_Id, (app::XmlSchemaAnnotated * this_ptr))

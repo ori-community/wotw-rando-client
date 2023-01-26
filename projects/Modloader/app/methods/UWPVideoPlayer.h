@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UWPVideoPlayer.h>
+
+#include <Modloader/app/structs/UWPVideoPlayer.h>
 #include <Modloader/app/structs/OnDelegate.h>
 #include <Modloader/app/structs/String.h>
 
@@ -9,7 +10,6 @@ namespace app::classes::UWPVideoPlayer {
     IL2CPP_REGISTER_METHOD(0x013DDF50, void, Pause, (app::UWPVideoPlayer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013DE020, void, Stop, (app::UWPVideoPlayer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013DE0D0, void, XAMLFinished, (app::UWPVideoPlayer * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04731088, UWPVideoPlayer_XAMLFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA280, app::OnDelegate*, get_OnPlaybackFinished, (app::UWPVideoPlayer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA490, void, set_OnPlaybackFinished, (app::UWPVideoPlayer * this_ptr, app::OnDelegate* value))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::String*, get_Filename, (app::UWPVideoPlayer * this_ptr))

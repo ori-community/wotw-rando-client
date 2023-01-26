@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CryptographicException.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/CryptographicException.h>
 #include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::CryptographicException {
     IL2CPP_REGISTER_METHOD(0x020CFEC0, void, ctor_1, (app::CryptographicException * this_ptr))
@@ -14,5 +15,4 @@ namespace app::classes::System::Security::Cryptography::CryptographicException {
     IL2CPP_REGISTER_METHOD(0x020D00D0, void, ctor_5, (app::CryptographicException * this_ptr, int32_t hr))
     IL2CPP_REGISTER_METHOD(0x01A0FAA0, void, ctor_6, (app::CryptographicException * this_ptr, app::SerializationInfo* info, app::StreamingContext context))
     IL2CPP_REGISTER_METHOD(0x020D0120, void, ThrowCryptographicException, (int32_t hr))
-    IL2CPP_REGISTER_METHODINFO(0x04736990, CryptographicException_ThrowCryptographicException__MethodInfo)
 } // namespace app::classes::System::Security::Cryptography::CryptographicException

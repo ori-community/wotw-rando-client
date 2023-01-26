@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShadingZoneRendererTarget.h>
+
+#include <Modloader/app/structs/ShadingZoneRendererTarget.h>
 #include <Modloader/app/structs/Renderer.h>
 #include <Modloader/app/structs/Vector3.h>
 

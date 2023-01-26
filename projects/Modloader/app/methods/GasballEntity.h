@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GasballEntity_InflateState__Enum.h>
-#include <Modloader/app/structs/GasballEntity.h>
+
+#include <Modloader/app/structs/GasballEntity_InflateState__Enum.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/GasballEntity.h>
 #include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::GasballEntity {
@@ -20,7 +21,6 @@ namespace app::classes::GasballEntity {
     IL2CPP_REGISTER_METHOD(0x0041F160, void, ResetEntity, (app::GasballEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0041F200, void, OnUpdate, (app::GasballEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0041F560, void, OnRestoreCheckpoint, (app::GasballEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474CA90, GasballEntity_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0041F690, void, Explode, (app::GasballEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0041F6C0, void, ResolveDamage, (app::GasballEntity * this_ptr, app::DamageResult* damage_result))
     IL2CPP_REGISTER_METHOD(0x0041F750, void, BlockInflation, (app::GasballEntity * this_ptr, bool set_to_blocked))

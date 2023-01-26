@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Dictionary_2_System_String_SystemIntegration_Races_RaceEntry_.h>
-#include <Modloader/app/structs/RaceDataCache.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/List_1_PlayFab_ClientModels_PlayerLeaderboardEntry_.h>
+
+#include <Modloader/app/structs/Dictionary_2_System_String_SystemIntegration_Races_RaceEntry_.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/List_1_PlayFab_ClientModels_PlayerLeaderboardEntry_.h>
+#include <Modloader/app/structs/RaceDataCache.h>
 #include <Modloader/app/structs/RaceEntry.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Task_1_System_Byte_.h>
 
 namespace app::classes::SystemIntegration::Races::RaceDataCache {
@@ -21,7 +22,5 @@ namespace app::classes::SystemIntegration::Races::RaceDataCache {
     IL2CPP_REGISTER_METHOD(0x005297B0, void, Clear, (app::RaceDataCache * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00529850, bool, Any, (app::RaceDataCache * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005298E0, bool, _Set_b__15_1, (app::RaceDataCache * this_ptr, app::RaceEntry* o))
-    IL2CPP_REGISTER_METHODINFO(0x0470FE18, RaceDataCache__Set_b__15_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529940, void, _Deserialize_b__17_0, (app::RaceDataCache * this_ptr, app::Task_1_System_Byte_* t))
-    IL2CPP_REGISTER_METHODINFO(0x04701B00, RaceDataCache__Deserialize_b__17_0__MethodInfo)
 } // namespace app::classes::SystemIntegration::Races::RaceDataCache

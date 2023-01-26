@@ -1,16 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/InvisibleCheckpoint.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/SelectableCategory__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::InvisibleCheckpoint {
     IL2CPP_REGISTER_METHOD(0x00643F40, app::Rect, get_Bounds, (app::InvisibleCheckpoint * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00643F50, void, Awake, (app::InvisibleCheckpoint * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006440F0, void, OnDestroy, (app::InvisibleCheckpoint * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C15C0, void, OnRestoreCheckpoint, (app::InvisibleCheckpoint * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472BB78, InvisibleCheckpoint_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00644280, bool, CanCreateCheckpoint, (app::InvisibleCheckpoint * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006444B0, bool, get_WithinBound, (app::InvisibleCheckpoint * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006445D0, void, FixedUpdate, (app::InvisibleCheckpoint * this_ptr))

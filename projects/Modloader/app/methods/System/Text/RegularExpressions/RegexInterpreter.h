@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RegexInterpreter.h>
-#include <Modloader/app/structs/RegexCode.h>
+
+#include <Modloader/app/structs/RegexInterpreter.h>
 #include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/RegexCode.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Text::RegularExpressions::RegexInterpreter {
@@ -34,18 +35,17 @@ namespace app::classes::System::Text::RegularExpressions::RegexInterpreter {
     IL2CPP_REGISTER_METHOD(0x02593CD0, void, StackPop_2, (app::RegexInterpreter * this_ptr, int32_t framesize))
     IL2CPP_REGISTER_METHOD(0x02593CE0, int32_t, StackPeek_1, (app::RegexInterpreter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02593D20, int32_t, StackPeek_2, (app::RegexInterpreter * this_ptr, int32_t i))
-    IL2CPP_REGISTER_METHOD(0x00C03C70, inline int32_t, operator,(app::RegexInterpreter* this_ptr))
+    IL2CPP_REGISTER_METHOD(0x00C03C70, int32_t, Operator, (app::RegexInterpreter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02593D60, int32_t, Operand, (app::RegexInterpreter * this_ptr, int32_t i))
     IL2CPP_REGISTER_METHOD(0x02593DB0, int32_t, Leftchars, (app::RegexInterpreter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02593DC0, int32_t, Rightchars, (app::RegexInterpreter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02593DD0, int32_t, Bump, (app::RegexInterpreter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02593DF0, int32_t, Forwardchars, (app::RegexInterpreter * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x02593E10, uint16_t, Forwardcharnext, (app::RegexInterpreter * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x02593E10, char16_t, Forwardcharnext, (app::RegexInterpreter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02593F20, bool, Stringmatch, (app::RegexInterpreter * this_ptr, app::String* str))
     IL2CPP_REGISTER_METHOD(0x02594110, bool, Refmatch, (app::RegexInterpreter * this_ptr, int32_t index, int32_t len))
     IL2CPP_REGISTER_METHOD(0x02594310, void, Backwardnext, (app::RegexInterpreter * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x02594330, uint16_t, CharAt, (app::RegexInterpreter * this_ptr, int32_t j))
+    IL2CPP_REGISTER_METHOD(0x02594330, char16_t, CharAt, (app::RegexInterpreter * this_ptr, int32_t j))
     IL2CPP_REGISTER_METHOD(0x02594350, bool, FindFirstChar, (app::RegexInterpreter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02594730, void, Go, (app::RegexInterpreter * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04779510, RegexInterpreter_Go__MethodInfo)
 } // namespace app::classes::System::Text::RegularExpressions::RegexInterpreter

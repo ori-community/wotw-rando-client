@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberPoolManager_ContinuousTimesliceJob.h>
-#include <Modloader/app/structs/UberPoolManager.h>
+
+#include <Modloader/app/structs/UberPoolManager_ContinuousTimesliceJob.h>
+#include <Modloader/app/structs/Func_2_UberPoolManager_Boolean_.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TimeSlicedJobPriority__Enum.h>
-#include <Modloader/app/structs/Func_2_UberPoolManager_Boolean_.h>
+#include <Modloader/app/structs/UberPoolManager.h>
 
 namespace app::classes::UberPoolManager_ContinuousTimesliceJob {
     IL2CPP_REGISTER_METHOD(0x00FDF8A0, void, ctor, (app::UberPoolManager_ContinuousTimesliceJob * this_ptr, app::UberPoolManager* manager, app::String* name, app::TimeSlicedJobPriority__Enum priority, app::Func_2_UberPoolManager_Boolean_* callback))

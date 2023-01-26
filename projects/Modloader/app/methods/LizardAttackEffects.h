@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/LizardAttackEffects.h>
 #include <Modloader/app/structs/LizardAttackEffects_Type__Enum.h>
 

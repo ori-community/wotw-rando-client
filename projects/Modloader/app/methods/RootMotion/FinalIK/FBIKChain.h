@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FBIKChain.h>
-#include <Modloader/app/structs/Transform__Array.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/FBIKChain.h>
 #include <Modloader/app/structs/IKSolverFullBody.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/IKSolver_Node.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Transform__Array.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::RootMotion::FinalIK::FBIKChain {
     IL2CPP_REGISTER_METHOD(0x0205C2B0, void, ctor_1, (app::FBIKChain * this_ptr))

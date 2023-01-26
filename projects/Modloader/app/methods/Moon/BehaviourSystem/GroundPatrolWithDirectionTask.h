@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/GroundPatrolWithDirectionTask.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/GroundPatrolWithDirectionTask.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::Moon::BehaviourSystem::GroundPatrolWithDirectionTask {
     IL2CPP_REGISTER_METHOD(0x00CB7600, app::Vector3, get_PatrolOrigin, (app::GroundPatrolWithDirectionTask * this_ptr))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_Bounds___Boxed.h>
-#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds_.h>
+
+#include <Modloader/app/structs/NativeArray_1_T_Enumerator_UnityEngine_Bounds___Boxed.h>
 #include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Unity::Collections::NativeArray_1_T__Enumerator_UnityEngine_Bounds_ {

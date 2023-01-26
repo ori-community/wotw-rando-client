@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SortingLayer__Class.h>
 #include <Modloader/app/structs/SortingLayer.h>
 #include <Modloader/app/structs/SortingLayer__Boxed.h>
+#include <Modloader/app/structs/SortingLayer__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SortingLayer {
-        namespace {
-            inline app::SortingLayer__Class* type_info_ref = nullptr;
+        inline app::SortingLayer__Class** type_info() {
+            static app::SortingLayer__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SortingLayer__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SortingLayer__Class** type_info = &type_info_ref;
         inline app::SortingLayer__Class* get_class() {
-            return il2cpp::get_class<app::SortingLayer__Class>(type_info, "UnityEngine", "SortingLayer");
+            return il2cpp::get_class<app::SortingLayer__Class>(type_info(), "UnityEngine", "SortingLayer");
         }
         inline app::SortingLayer* create() {
             return il2cpp::create_object<app::SortingLayer>(get_class());

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ClickMeshBrowserUI.h>
-#include <Modloader/app/structs/MeshCollider.h>
-#include <Modloader/app/structs/Ray.h>
+
+#include <Modloader/app/structs/ClickMeshBrowserUI.h>
 #include <Modloader/app/structs/BrowserCursor.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/MouseButton__Enum.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Event_.h>
 #include <Modloader/app/structs/BrowserInputSettings.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Event_.h>
+#include <Modloader/app/structs/MeshCollider.h>
+#include <Modloader/app/structs/MouseButton__Enum.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::ClickMeshBrowserUI {
     IL2CPP_REGISTER_METHOD(0x01DCE780, app::ClickMeshBrowserUI*, Create, (app::MeshCollider * mesh_collider))
@@ -18,7 +19,6 @@ namespace app::classes::ZenFulcrum::EmbeddedBrowser::ClickMeshBrowserUI {
     IL2CPP_REGISTER_METHOD(0x01DCF6E0, void, LookOn, (app::ClickMeshBrowserUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DCF720, void, LookOff, (app::ClickMeshBrowserUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DCF760, void, CursorUpdated, (app::ClickMeshBrowserUI * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04749F48, ClickMeshBrowserUI_CursorUpdated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01DCF780, void, SetCursor, (app::ClickMeshBrowserUI * this_ptr, app::BrowserCursor* new_cursor))
     IL2CPP_REGISTER_METHOD(0x008C5DB0, bool, get_MouseHasFocus, (app::ClickMeshBrowserUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008C5DC0, void, set_MouseHasFocus, (app::ClickMeshBrowserUI * this_ptr, bool value))

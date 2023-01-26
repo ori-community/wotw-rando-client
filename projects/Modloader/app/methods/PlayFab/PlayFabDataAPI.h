@@ -1,22 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AbortFileUploadsRequest.h>
+
+#include <Modloader/app/structs/AbortFileUploadsRequest.h>
 #include <Modloader/app/structs/Action_1_PlayFab_DataModels_AbortFileUploadsResponse_.h>
-#include <Modloader/app/structs/Action_1_PlayFab_PlayFabError_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
-#include <Modloader/app/structs/DeleteFilesRequest.h>
 #include <Modloader/app/structs/Action_1_PlayFab_DataModels_DeleteFilesResponse_.h>
-#include <Modloader/app/structs/FinalizeFileUploadsRequest.h>
 #include <Modloader/app/structs/Action_1_PlayFab_DataModels_FinalizeFileUploadsResponse_.h>
-#include <Modloader/app/structs/GetFilesRequest.h>
 #include <Modloader/app/structs/Action_1_PlayFab_DataModels_GetFilesResponse_.h>
-#include <Modloader/app/structs/GetObjectsRequest.h>
 #include <Modloader/app/structs/Action_1_PlayFab_DataModels_GetObjectsResponse_.h>
-#include <Modloader/app/structs/InitiateFileUploadsRequest.h>
 #include <Modloader/app/structs/Action_1_PlayFab_DataModels_InitiateFileUploadsResponse_.h>
-#include <Modloader/app/structs/SetObjectsRequest.h>
 #include <Modloader/app/structs/Action_1_PlayFab_DataModels_SetObjectsResponse_.h>
+#include <Modloader/app/structs/Action_1_PlayFab_PlayFabError_.h>
+#include <Modloader/app/structs/DeleteFilesRequest.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_String_.h>
+#include <Modloader/app/structs/FinalizeFileUploadsRequest.h>
+#include <Modloader/app/structs/GetFilesRequest.h>
+#include <Modloader/app/structs/GetObjectsRequest.h>
+#include <Modloader/app/structs/InitiateFileUploadsRequest.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SetObjectsRequest.h>
 
 namespace app::classes::PlayFab::PlayFabDataAPI {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())

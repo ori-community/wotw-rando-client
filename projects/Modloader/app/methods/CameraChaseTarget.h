@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraChaseTargetSpeedRatioController.h>
+
+#include <Modloader/app/structs/CameraChaseTargetSpeedRatioController.h>
 #include <Modloader/app/structs/CameraChaseTarget.h>
 #include <Modloader/app/structs/Vector3.h>
 

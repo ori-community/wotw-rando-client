@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RespawningPlaceholder.h>
+
+#include <Modloader/app/structs/RespawningPlaceholder.h>
+#include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/LegacyEntity.h>
 #include <Modloader/app/structs/SceneRoot.h>
-#include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Vector3.h>
 
@@ -17,14 +18,10 @@ namespace app::classes::RespawningPlaceholder {
     IL2CPP_REGISTER_METHOD(0x00909510, void, OnEnable, (app::RespawningPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x009097A0, void, OnDisable, (app::RespawningPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00909990, void, OnRestoreCheckpoint, (app::RespawningPlaceholder * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04732C28, RespawningPlaceholder_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x009099A0, void, OnDestroy, (app::RespawningPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00909C80, void, OnGameSerializeLoad, (app::RespawningPlaceholder * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04710B90, RespawningPlaceholder_OnGameSerializeLoad__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00909C90, void, OnSceneRootDisabled, (app::RespawningPlaceholder * this_ptr, app::SceneRoot* scene_root))
-    IL2CPP_REGISTER_METHODINFO(0x047647F8, RespawningPlaceholder_OnSceneRootDisabled__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00909E10, void, OnDeath, (app::RespawningPlaceholder * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x0474DF98, RespawningPlaceholder_OnDeath__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x004E57D0, bool, get_EntityIsDead, (app::RespawningPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008009A0, void, FixedUpdate, (app::RespawningPlaceholder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004FBAC0, bool, get_NeedsToRespawn, (app::RespawningPlaceholder * this_ptr))

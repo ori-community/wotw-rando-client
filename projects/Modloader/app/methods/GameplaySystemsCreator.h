@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameplaySystemsCreator.h>
-#include <Modloader/app/structs/IEnumerator.h>
+
+#include <Modloader/app/structs/GameplaySystemsCreator.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector3.h>
 

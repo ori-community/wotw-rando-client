@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_System_Xml_Schema_SequenceNode_SequenceConstructPosContext_.h>
-#include <Modloader/app/structs/SequenceNode_SequenceConstructPosContext__Array.h>
-#include <Modloader/app/structs/SequenceNode_SequenceConstructPosContext.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_System_Xml_Schema_SequenceNode_SequenceConstructPosContext_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SequenceNode_SequenceConstructPosContext.h>
+#include <Modloader/app/structs/SequenceNode_SequenceConstructPosContext__Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_System_Xml_Schema_SequenceNode_SequenceConstructPosContext_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_System_Xml_Schema_SequenceNode_SequenceConstructPosContext_*, get_Default, ())

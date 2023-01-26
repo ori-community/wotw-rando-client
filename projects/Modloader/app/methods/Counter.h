@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Counter.h>
+
+#include <Modloader/app/structs/Counter.h>
 
 namespace app::classes::Counter {
     IL2CPP_REGISTER_METHOD(0x00DB1360, void, OnDrawGizmos, (app::Counter * this_ptr))

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MinerIdle.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/MinerIdle.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/MinerIdle_IdleStates__Enum.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::MinerIdle {
     IL2CPP_REGISTER_METHOD(0x0144BA50, void, OnInitializeTask, (app::MinerIdle * this_ptr, app::IContext* context))
@@ -15,11 +16,8 @@ namespace app::classes::MinerIdle {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, ShouldPauseLocomotion, (app::MinerIdle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0144BF90, void, PlayTimeline, (app::MinerIdle * this_ptr, app::MoonTimeline* timeline))
     IL2CPP_REGISTER_METHOD(0x0144C1D0, void, ChangeState, (app::MinerIdle * this_ptr, app::MinerIdle_IdleStates__Enum state))
-    IL2CPP_REGISTER_METHODINFO(0x04793258, MinerIdle_ChangeState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0144C310, app::MinerIdle_IdleStates__Enum, PickNewState, (app::MinerIdle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0144C4E0, void, OnTimelineFinished, (app::MinerIdle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04733340, MinerIdle_OnTimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0144C540, void, ctor, (app::MinerIdle * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0144C560, void, _OnEnterTask_b__11_0, (app::MinerIdle * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047533C0, MinerIdle__OnEnterTask_b__11_0__MethodInfo)
 } // namespace app::classes::MinerIdle

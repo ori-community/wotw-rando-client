@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/IKMappingBone__Class.h>
 #include <Modloader/app/structs/IKMappingBone.h>
 #include <Modloader/app/structs/IKMappingBone__Array.h>
+#include <Modloader/app/structs/IKMappingBone__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace IKMappingBone {
-        inline app::IKMappingBone__Class** type_info = (app::IKMappingBone__Class**)(modloader::win::memory::resolve_rva(0x04784C20));
+        inline app::IKMappingBone__Class** type_info() {
+            static app::IKMappingBone__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::IKMappingBone__Class**)(modloader::win::memory::resolve_rva(0x04784C20));
+            }
+            return cache;
+        }
         inline app::IKMappingBone__Class* get_class() {
-            return il2cpp::get_class<app::IKMappingBone__Class>(type_info, "RootMotion.FinalIK", "IKMappingBone");
+            return il2cpp::get_class<app::IKMappingBone__Class>(type_info(), "RootMotion.FinalIK", "IKMappingBone");
         }
         inline app::IKMappingBone* create() {
             return il2cpp::create_object<app::IKMappingBone>(get_class());

@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/RuntimeType__Class.h>
 #include <Modloader/app/structs/RuntimeType.h>
 #include <Modloader/app/structs/RuntimeType__Array.h>
+#include <Modloader/app/structs/RuntimeType__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace RuntimeType {
-        inline app::RuntimeType__Class** type_info = (app::RuntimeType__Class**)(modloader::win::memory::resolve_rva(0x0472BB00));
+        inline app::RuntimeType__Class** type_info() {
+            static app::RuntimeType__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::RuntimeType__Class**)(modloader::win::memory::resolve_rva(0x0472BB00));
+            }
+            return cache;
+        }
         inline app::RuntimeType__Class* get_class() {
-            return il2cpp::get_class<app::RuntimeType__Class>(type_info, "System", "RuntimeType");
+            return il2cpp::get_class<app::RuntimeType__Class>(type_info(), "System", "RuntimeType");
         }
         inline app::RuntimeType* create() {
             return il2cpp::create_object<app::RuntimeType>(get_class());

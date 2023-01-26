@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_KeyValuePair_2_System_Int32_System_Object_.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Int32_System_Object___Array.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_KeyValuePair_2_System_Int32_System_Object_.h>
 #include <Modloader/app/structs/KeyValuePair_2_System_Int32_System_Object_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Int32_System_Object___Array.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_KeyValuePair_2_System_Int32_System_Object__ {

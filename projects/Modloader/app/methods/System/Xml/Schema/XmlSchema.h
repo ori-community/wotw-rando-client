@@ -1,30 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchema.h>
-#include <Modloader/app/structs/XmlReader.h>
-#include <Modloader/app/structs/ValidationEventHandler.h>
-#include <Modloader/app/structs/XmlSchemaCollection.h>
-#include <Modloader/app/structs/XmlResolver.h>
+
+#include <Modloader/app/structs/XmlSchema.h>
+#include <Modloader/app/structs/ArrayList.h>
+#include <Modloader/app/structs/Hashtable.h>
+#include <Modloader/app/structs/IList.h>
 #include <Modloader/app/structs/SchemaInfo.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/XmlAttribute__Array.h>
+#include <Modloader/app/structs/XmlDocument.h>
 #include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/XmlSchemaAnnotation.h>
+#include <Modloader/app/structs/XmlSchemaCollection.h>
 #include <Modloader/app/structs/XmlSchemaCompilationSettings.h>
-#include <Modloader/app/structs/XmlSchemaForm__Enum.h>
 #include <Modloader/app/structs/XmlSchemaDerivationMethod__Enum.h>
+#include <Modloader/app/structs/XmlSchemaForm__Enum.h>
 #include <Modloader/app/structs/XmlSchemaObjectCollection.h>
 #include <Modloader/app/structs/XmlSchemaObjectTable.h>
-#include <Modloader/app/structs/Uri.h>
-#include <Modloader/app/structs/Hashtable.h>
-#include <Modloader/app/structs/XmlDocument.h>
-#include <Modloader/app/structs/XmlAttribute__Array.h>
-#include <Modloader/app/structs/XmlSchemaAnnotation.h>
-#include <Modloader/app/structs/ArrayList.h>
-#include <Modloader/app/structs/IList.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchema {
     IL2CPP_REGISTER_METHOD(0x02256A30, void, ctor, (app::XmlSchema * this_ptr))
     IL2CPP_REGISTER_METHOD(0x022571E0, app::XmlSchema*, Read, (app::XmlReader * reader, app::ValidationEventHandler* validation_event_handler))
-    IL2CPP_REGISTER_METHODINFO(0x0475A9A8, XmlSchema_Read__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022575D0, bool, CompileSchema, (app::XmlSchema * this_ptr, app::XmlSchemaCollection* xsc, app::XmlResolver* resolver, app::SchemaInfo* schema_info, app::String* ns, app::ValidationEventHandler* validation_event_handler, app::XmlNameTable* name_table, bool compile_content_model))
     IL2CPP_REGISTER_METHOD(0x02257980, void, CompileSchemaInSet, (app::XmlSchema * this_ptr, app::XmlNameTable* name_table, app::ValidationEventHandler* event_handler, app::XmlSchemaCompilationSettings* compilation_settings))
     IL2CPP_REGISTER_METHOD(0x003FC7F0, app::XmlSchemaForm__Enum, get_AttributeFormDefault, (app::XmlSchema * this_ptr))

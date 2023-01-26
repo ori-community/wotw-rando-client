@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OutlineModifier.h>
+
+#include <Modloader/app/structs/OutlineModifier.h>
 
 namespace app::classes::OutlineModifier {
     IL2CPP_REGISTER_METHOD(0x004413D0, void, SetProperties, (app::OutlineModifier * this_ptr))

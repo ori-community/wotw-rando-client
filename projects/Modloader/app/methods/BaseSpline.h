@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BaseSpline.h>
-#include <Modloader/app/structs/BaseSpline_SplineWrapMode__Enum.h>
-#include <Modloader/app/structs/BaseSpline_SplineReparamType__Enum.h>
-#include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/BaseSpline.h>
 #include <Modloader/app/structs/BaseSpline_SplineIterator.h>
+#include <Modloader/app/structs/BaseSpline_SplineReparamType__Enum.h>
+#include <Modloader/app/structs/BaseSpline_SplineWrapMode__Enum.h>
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Vector3__Array.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 
 namespace app::classes::BaseSpline {
     IL2CPP_REGISTER_METHOD(0x002FD1D0, int32_t, get_BuildNum, (app::BaseSpline * this_ptr))

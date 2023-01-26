@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CFRange__Class.h>
 #include <Modloader/app/structs/CFRange.h>
 #include <Modloader/app/structs/CFRange__Boxed.h>
+#include <Modloader/app/structs/CFRange__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace CFRange {
-        namespace {
-            inline app::CFRange__Class* type_info_ref = nullptr;
+        inline app::CFRange__Class** type_info() {
+            static app::CFRange__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::CFRange__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::CFRange__Class** type_info = &type_info_ref;
         inline app::CFRange__Class* get_class() {
-            return il2cpp::get_class<app::CFRange__Class>(type_info, "Mono.Net", "CFRange");
+            return il2cpp::get_class<app::CFRange__Class>(type_info(), "Mono.Net", "CFRange");
         }
         inline app::CFRange* create() {
             return il2cpp::create_object<app::CFRange>(get_class());

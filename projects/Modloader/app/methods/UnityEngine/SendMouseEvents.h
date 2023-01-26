@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Camera.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Camera.h>
 #include <Modloader/app/structs/SendMouseEvents_HitInfo.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::SendMouseEvents {
     IL2CPP_REGISTER_METHOD(0x0297B270, void, SetMouseMoved, ())

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberExplosionActor.h>
+
+#include <Modloader/app/structs/UberExplosionActor.h>
 #include <Modloader/app/structs/UberInteractionExplosionAnimator.h>
 
 namespace app::classes::UberInteractionExplosionAnimator {

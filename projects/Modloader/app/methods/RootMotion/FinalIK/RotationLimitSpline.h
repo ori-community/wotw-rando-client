@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RotationLimitSpline.h>
+
+#include <Modloader/app/structs/RotationLimitSpline.h>
 #include <Modloader/app/structs/Keyframe__Array.h>
 #include <Modloader/app/structs/Quaternion.h>
 

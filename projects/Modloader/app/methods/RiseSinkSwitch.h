@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RiseSinkSwitch.h>
-#include <Modloader/app/structs/RiseSinkSwitch_RiseSinkState__Enum.h>
+
+#include <Modloader/app/structs/RiseSinkSwitch.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/RiseSinkSwitch_RiseSinkState__Enum.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::RiseSinkSwitch {

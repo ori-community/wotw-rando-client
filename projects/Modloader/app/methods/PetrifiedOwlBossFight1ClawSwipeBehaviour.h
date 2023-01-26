@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossFight1ClawSwipeBehaviour.h>
-#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossFight1ClawSwipeBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/Enum__Array.h>
 #include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossFight1ClawSwipeBehaviour {
     IL2CPP_REGISTER_METHOD(0x017657D0, void, CopyData, (app::PetrifiedOwlBossFight1ClawSwipeBehaviour * this_ptr, app::PetrifiedOwlBossBaseBehaviour* other))

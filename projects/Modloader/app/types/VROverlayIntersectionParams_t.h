@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/VROverlayIntersectionParams_t__Class.h>
 #include <Modloader/app/structs/VROverlayIntersectionParams_t.h>
 #include <Modloader/app/structs/VROverlayIntersectionParams_t__Boxed.h>
+#include <Modloader/app/structs/VROverlayIntersectionParams_t__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace VROverlayIntersectionParams_t {
-        inline app::VROverlayIntersectionParams_t__Class** type_info = (app::VROverlayIntersectionParams_t__Class**)(modloader::win::memory::resolve_rva(0x04765CD8));
+        inline app::VROverlayIntersectionParams_t__Class** type_info() {
+            static app::VROverlayIntersectionParams_t__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::VROverlayIntersectionParams_t__Class**)(modloader::win::memory::resolve_rva(0x04765CD8));
+            }
+            return cache;
+        }
         inline app::VROverlayIntersectionParams_t__Class* get_class() {
-            return il2cpp::get_class<app::VROverlayIntersectionParams_t__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "VROverlayIntersectionParams_t");
+            return il2cpp::get_class<app::VROverlayIntersectionParams_t__Class>(type_info(), "ZenFulcrum.VR.OpenVRBinding", "VROverlayIntersectionParams_t");
         }
         inline app::VROverlayIntersectionParams_t* create() {
             return il2cpp::create_object<app::VROverlayIntersectionParams_t>(get_class());

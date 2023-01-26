@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector2__Array.h>
+#include <Modloader/app/structs/Vector2__Boxed.h>
+#include <Modloader/app/structs/Vector2__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Vector2__Class.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Vector2__Boxed.h>
-#include <Modloader/app/structs/Vector2__Array.h>
 
 namespace app::classes::types {
     namespace Vector2 {
-        inline app::Vector2__Class** type_info = (app::Vector2__Class**)(modloader::win::memory::resolve_rva(0x04736248));
+        inline app::Vector2__Class** type_info() {
+            static app::Vector2__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Vector2__Class**)(modloader::win::memory::resolve_rva(0x04736248));
+            }
+            return cache;
+        }
         inline app::Vector2__Class* get_class() {
-            return il2cpp::get_class<app::Vector2__Class>(type_info, "UnityEngine", "Vector2");
+            return il2cpp::get_class<app::Vector2__Class>(type_info(), "UnityEngine", "Vector2");
         }
         inline app::Vector2* create() {
             return il2cpp::create_object<app::Vector2>(get_class());

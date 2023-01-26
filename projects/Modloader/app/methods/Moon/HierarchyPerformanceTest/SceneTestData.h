@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneTestData.h>
+
+#include <Modloader/app/structs/SceneTestData.h>
 #include <Modloader/app/structs/SceneMetaData.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::SceneTestData {

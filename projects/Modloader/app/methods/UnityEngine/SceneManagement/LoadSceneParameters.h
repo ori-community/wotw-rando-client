@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LoadSceneParameters__Boxed.h>
+
+#include <Modloader/app/structs/LoadSceneParameters__Boxed.h>
 #include <Modloader/app/structs/LoadSceneMode__Enum.h>
 #include <Modloader/app/structs/LocalPhysicsMode__Enum.h>
 

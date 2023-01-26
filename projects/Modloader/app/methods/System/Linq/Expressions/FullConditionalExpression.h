@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FullConditionalExpression.h>
+
+#include <Modloader/app/structs/FullConditionalExpression.h>
 #include <Modloader/app/structs/Expression.h>
 
 namespace app::classes::System::Linq::Expressions::FullConditionalExpression {

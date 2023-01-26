@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberStateDataView.h>
-#include <Modloader/app/structs/UberStateData.h>
-#include <Modloader/app/structs/Rect.h>
+
+#include <Modloader/app/structs/UberStateDataView.h>
 #include <Modloader/app/structs/ControllerInput.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/UberStateData.h>
 
 namespace app::classes::Moon::UberStateVisualization::UberStateDataView {
     IL2CPP_REGISTER_METHOD(0x030C2840, void, UpdateWithModel, (app::UberStateDataView * this_ptr, app::UberStateData state_data))

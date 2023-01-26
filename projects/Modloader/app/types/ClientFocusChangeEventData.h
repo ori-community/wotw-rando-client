@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/ClientFocusChangeEventData.h>
+#include <Modloader/app/structs/ClientFocusChangeEventData__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ClientFocusChangeEventData__Class.h>
-#include <Modloader/app/structs/ClientFocusChangeEventData.h>
 
 namespace app::classes::types {
     namespace ClientFocusChangeEventData {
-        namespace {
-            inline app::ClientFocusChangeEventData__Class* type_info_ref = nullptr;
+        inline app::ClientFocusChangeEventData__Class** type_info() {
+            static app::ClientFocusChangeEventData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ClientFocusChangeEventData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ClientFocusChangeEventData__Class** type_info = &type_info_ref;
         inline app::ClientFocusChangeEventData__Class* get_class() {
-            return il2cpp::get_class<app::ClientFocusChangeEventData__Class>(type_info, "PlayFab.PlayStreamModels", "ClientFocusChangeEventData");
+            return il2cpp::get_class<app::ClientFocusChangeEventData__Class>(type_info(), "PlayFab.PlayStreamModels", "ClientFocusChangeEventData");
         }
         inline app::ClientFocusChangeEventData* create() {
             return il2cpp::create_object<app::ClientFocusChangeEventData>(get_class());

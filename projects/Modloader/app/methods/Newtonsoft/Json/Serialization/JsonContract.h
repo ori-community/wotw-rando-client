@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/JsonContract.h>
-#include <Modloader/app/structs/Nullable_1_Boolean_.h>
-#include <Modloader/app/structs/JsonConverter.h>
+
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ErrorContext.h>
+#include <Modloader/app/structs/Func_1_Object_.h>
 #include <Modloader/app/structs/IList_1_Newtonsoft_Json_Serialization_SerializationCallback_.h>
 #include <Modloader/app/structs/IList_1_Newtonsoft_Json_Serialization_SerializationErrorCallback_.h>
-#include <Modloader/app/structs/Func_1_Object_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/StreamingContext.h>
-#include <Modloader/app/structs/ErrorContext.h>
-#include <Modloader/app/structs/SerializationCallback.h>
+#include <Modloader/app/structs/JsonContract.h>
+#include <Modloader/app/structs/JsonConverter.h>
 #include <Modloader/app/structs/MethodInfo_1.h>
+#include <Modloader/app/structs/Nullable_1_Boolean_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SerializationCallback.h>
 #include <Modloader/app/structs/SerializationErrorCallback.h>
+#include <Modloader/app/structs/StreamingContext.h>
 
 namespace app::classes::Newtonsoft::Json::Serialization::JsonContract {
     IL2CPP_REGISTER_METHOD(0x002FBB80, app::Type*, get_UnderlyingType, (app::JsonContract * this_ptr))

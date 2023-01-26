@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EmissiveIndividualSettings__Boxed.h>
+
+#include <Modloader/app/structs/EmissiveIndividualSettings__Boxed.h>
 #include <Modloader/app/structs/EmissiveIndividualSettings.h>
 
 namespace app::classes::EmissiveIndividualSettings {

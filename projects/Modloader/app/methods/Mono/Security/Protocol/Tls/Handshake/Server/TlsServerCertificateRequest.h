@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TlsServerCertificateRequest.h>
+
+#include <Modloader/app/structs/TlsServerCertificateRequest.h>
 #include <Modloader/app/structs/Context_1.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::Handshake::Server::TlsServerCertificateRequest {

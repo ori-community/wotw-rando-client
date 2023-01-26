@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TerrainMesherData__Class.h>
 #include <Modloader/app/structs/TerrainMesherData.h>
 #include <Modloader/app/structs/TerrainMesherData__Boxed.h>
+#include <Modloader/app/structs/TerrainMesherData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace TerrainMesherData {
-        namespace {
-            inline app::TerrainMesherData__Class* type_info_ref = nullptr;
+        inline app::TerrainMesherData__Class** type_info() {
+            static app::TerrainMesherData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::TerrainMesherData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::TerrainMesherData__Class** type_info = &type_info_ref;
         inline app::TerrainMesherData__Class* get_class() {
-            return il2cpp::get_class<app::TerrainMesherData__Class>(type_info, "Moon", "TerrainMesherData");
+            return il2cpp::get_class<app::TerrainMesherData__Class>(type_info(), "Moon", "TerrainMesherData");
         }
         inline app::TerrainMesherData* create() {
             return il2cpp::create_object<app::TerrainMesherData>(get_class());

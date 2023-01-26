@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InteractionTrigger.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/InteractionTrigger.h>
 #include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::RootMotion::FinalIK::InteractionTrigger {
     IL2CPP_REGISTER_METHOD(0x02A15DB0, void, OpenTutorial4, (app::InteractionTrigger * this_ptr))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RuntimeClassHandle__Boxed.h>
-#include <Modloader/app/structs/RuntimeStructs_MonoClass.h>
+
+#include <Modloader/app/structs/RuntimeClassHandle__Boxed.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RuntimeStructs_MonoClass.h>
 #include <Modloader/app/structs/RuntimeTypeHandle.h>
 
 namespace app::classes::Mono::RuntimeClassHandle {

@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTrail_MoonTrailParticle__Array.h>
+
+#include <Modloader/app/structs/MoonTrail_MoonTrailParticle__Array.h>
 #include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/MoonTrail.h>
-#include <Modloader/app/structs/MoonTrail_SimulationFrameData.h>
-#include <Modloader/app/structs/TrailPathProvider.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/MeshFilter.h>
 #include <Modloader/app/structs/Camera.h>
 #include <Modloader/app/structs/IMaterialPropertyBlockProvider.h>
-#include <Modloader/app/structs/MoonTrailUpdateContext.h>
 #include <Modloader/app/structs/List_1_Moon_MoonTrail_SimulationFrameData_.h>
-#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/MeshFilter.h>
+#include <Modloader/app/structs/MoonTrail.h>
+#include <Modloader/app/structs/MoonTrailUpdateContext.h>
 #include <Modloader/app/structs/MoonTrail_MoonTrailParticle.h>
+#include <Modloader/app/structs/MoonTrail_SimulationFrameData.h>
+#include <Modloader/app/structs/Nullable_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/TrailPathProvider.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::MoonTrail {
     IL2CPP_REGISTER_METHOD(0x0255A8C0, app::MoonTrail_MoonTrailParticle__Array*, AcquireParticleBuffer, ())

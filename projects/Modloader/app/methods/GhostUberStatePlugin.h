@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostUberStatePlugin.h>
-#include <Modloader/app/structs/PreRecordingData.h>
+
+#include <Modloader/app/structs/GhostUberStatePlugin.h>
 #include <Modloader/app/structs/GhostRecorder_GhostPluginRecordingType__Enum.h>
 #include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/app/structs/PreRecordingData.h>
 
 namespace app::classes::GhostUberStatePlugin {
     IL2CPP_REGISTER_METHOD(0x007EC420, void, OnStartRecording, (app::GhostUberStatePlugin * this_ptr, app::PreRecordingData* pre_recording_data))

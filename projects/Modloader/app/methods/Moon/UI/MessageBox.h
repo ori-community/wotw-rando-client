@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HashSet_1_Moon_ISuspendable_.h>
-#include <Modloader/app/structs/MessageBox_1.h>
-#include <Modloader/app/structs/Action_1_Moon_UI_MessageBox_HideAction_.h>
+
+#include <Modloader/app/structs/HashSet_1_Moon_ISuspendable_.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/Language__Enum.h>
+#include <Modloader/app/structs/Action_1_Moon_UI_MessageBox_HideAction_.h>
+#include <Modloader/app/structs/EmotionType__Enum.h>
+#include <Modloader/app/structs/Event_1.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/GameObject__Array.h>
+#include <Modloader/app/structs/Language__Enum.h>
+#include <Modloader/app/structs/MessageBox_1.h>
 #include <Modloader/app/structs/MessageBox_HideAction__Enum_1.h>
 #include <Modloader/app/structs/MessageDescriptor.h>
 #include <Modloader/app/structs/MessageProvider.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/EmotionType__Enum.h>
-#include <Modloader/app/structs/Event_1.h>
 
 namespace app::classes::Moon::UI::MessageBox {
     IL2CPP_REGISTER_METHOD(0x00D26F90, app::HashSet_1_Moon_ISuspendable_*, GetSuspendables, (app::MessageBox_1 * this_ptr))
@@ -32,7 +33,6 @@ namespace app::classes::Moon::UI::MessageBox {
     IL2CPP_REGISTER_METHOD(0x00D282D0, void, SetMessageFade, (app::MessageBox_1 * this_ptr, float time))
     IL2CPP_REGISTER_METHOD(0x00D28530, void, SetMessage, (app::MessageBox_1 * this_ptr, app::MessageDescriptor message_descriptor))
     IL2CPP_REGISTER_METHOD(0x00D285C0, void, RefreshText, (app::MessageBox_1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04708D70, MessageBox_1_RefreshText__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003F8E90, void, OnEnable, (app::MessageBox_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D28C20, void, SetMessageProvider, (app::MessageBox_1 * this_ptr, app::MessageProvider* message_provider))
     IL2CPP_REGISTER_METHOD(0x00D28C30, int32_t, get_MessageCount, (app::MessageBox_1 * this_ptr))

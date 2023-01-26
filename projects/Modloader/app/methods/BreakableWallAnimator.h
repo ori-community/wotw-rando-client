@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMoonSetupVisuals.h>
+
+#include <Modloader/app/structs/IMoonSetupVisuals.h>
 #include <Modloader/app/structs/BreakableWallAnimator.h>
-#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/ITimelineEntity.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::BreakableWallAnimator {
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::IMoonSetupVisuals*, get_MoonSetupVisuals, (app::BreakableWallAnimator * this_ptr))

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinCharacter.h>
-#include <Modloader/app/structs/MeleeComboMoveSwordCharge.h>
+
+#include <Modloader/app/structs/SeinCharacter.h>
 #include <Modloader/app/structs/ButtonInputType__Enum.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
-#include <Modloader/app/structs/SeinComboHandler.h>
-#include <Modloader/app/structs/MeleeWeapon.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/MeleeComboMoveSwordCharge.h>
 #include <Modloader/app/structs/MeleeComboMoveSwordCharge_State__Enum.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::Moon::MeleeComboMoveSwordCharge {
     IL2CPP_REGISTER_METHOD(0x002FBC20, app::SeinCharacter*, get_Sein, (app::MeleeComboMoveSwordCharge * this_ptr))
@@ -18,7 +19,6 @@ namespace app::classes::Moon::MeleeComboMoveSwordCharge {
     IL2CPP_REGISTER_METHOD(0x00597B10, app::UpdateType__Enum, get_UpdateType, (app::MeleeComboMoveSwordCharge * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011170E0, void, Initialize, (app::MeleeComboMoveSwordCharge * this_ptr, app::SeinComboHandler* handler, app::MeleeWeapon* weapon))
     IL2CPP_REGISTER_METHOD(0x01117330, void, OnDamageReceived, (app::MeleeComboMoveSwordCharge * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x0477F040, MeleeComboMoveSwordCharge_OnDamageReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01117450, void, OnDestroy, (app::MeleeComboMoveSwordCharge * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01117670, void, EnterMove, (app::MeleeComboMoveSwordCharge * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01117740, void, ExitMove, (app::MeleeComboMoveSwordCharge * this_ptr))

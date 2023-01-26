@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XObjectChangeEventArgs.h>
+
+#include <Modloader/app/structs/XObjectChangeEventArgs.h>
 #include <Modloader/app/structs/XObjectChange__Enum.h>
 
 namespace app::classes::System::Xml::Linq::XObjectChangeEventArgs {

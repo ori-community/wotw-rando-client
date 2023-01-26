@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ConsoleKeyInfo.h>
+
+#include <Modloader/app/structs/ConsoleKeyInfo.h>
 #include <Modloader/app/structs/NullConsoleDriver.h>
 
 namespace app::classes::System::NullConsoleDriver {

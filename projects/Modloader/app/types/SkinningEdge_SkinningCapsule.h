@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SkinningEdge_SkinningCapsule__Class.h>
 #include <Modloader/app/structs/SkinningEdge_SkinningCapsule.h>
 #include <Modloader/app/structs/SkinningEdge_SkinningCapsule__Array.h>
+#include <Modloader/app/structs/SkinningEdge_SkinningCapsule__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SkinningEdge_SkinningCapsule {
-        inline app::SkinningEdge_SkinningCapsule__Class** type_info = (app::SkinningEdge_SkinningCapsule__Class**)(modloader::win::memory::resolve_rva(0x0474B2A8));
+        inline app::SkinningEdge_SkinningCapsule__Class** type_info() {
+            static app::SkinningEdge_SkinningCapsule__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::SkinningEdge_SkinningCapsule__Class**)(modloader::win::memory::resolve_rva(0x0474B2A8));
+            }
+            return cache;
+        }
         inline app::SkinningEdge_SkinningCapsule__Class* get_class() {
-            return il2cpp::get_nested_class<app::SkinningEdge_SkinningCapsule__Class>(type_info, "", "SkinningEdge", "SkinningCapsule");
+            return il2cpp::get_nested_class<app::SkinningEdge_SkinningCapsule__Class>(type_info(), "", "SkinningEdge", "SkinningCapsule");
         }
         inline app::SkinningEdge_SkinningCapsule* create() {
             return il2cpp::create_object<app::SkinningEdge_SkinningCapsule>(get_class());

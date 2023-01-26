@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MessageBoxVisibility.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/MessageBoxVisibility.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MessageBoxVisibility {
     IL2CPP_REGISTER_METHOD(0x015935D0, bool, get_Visible, (app::MessageBoxVisibility * this_ptr))
@@ -10,7 +11,6 @@ namespace app::classes::MessageBoxVisibility {
     IL2CPP_REGISTER_METHOD(0x01593950, void, OnDestroy, (app::MessageBoxVisibility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01593BF0, void, OnDisable, (app::MessageBoxVisibility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01593C10, void, Recache, (app::MessageBoxVisibility * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04791FC8, MessageBoxVisibility_Recache__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01593C50, void, Cache, (app::MessageBoxVisibility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01593E80, void, Start, (app::MessageBoxVisibility * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01593ED0, app::Vector3, Flatten, (app::MessageBoxVisibility * this_ptr, app::Vector3 v))

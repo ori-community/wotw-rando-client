@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonCustomDoorWithSlots.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/MoonCustomDoorWithSlots.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MoonCustomDoorWithSlots {
     IL2CPP_REGISTER_METHOD(0x00F47010, int32_t, get_NumberOfOrbsUsed, (app::MoonCustomDoorWithSlots * this_ptr))
@@ -15,7 +16,6 @@ namespace app::classes::MoonCustomDoorWithSlots {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, RestoreOrbs, (app::MoonCustomDoorWithSlots * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F484E0, void, ctor, (app::MoonCustomDoorWithSlots * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F485B0, void, _OpenDoor_b__17_0, (app::MoonCustomDoorWithSlots * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047233D0, MoonCustomDoorWithSlots__OpenDoor_b__17_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00720040, app::IMoonTypeResolver*, GetResolverForType_1, (app::MoonCustomDoorWithSlots * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00720040, app::IMoonTypeResolver*, GetResolverForType_2, (app::MoonCustomDoorWithSlots * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00720040, app::IMoonTypeResolver*, GetResolverForType_3, (app::MoonCustomDoorWithSlots * this_ptr))

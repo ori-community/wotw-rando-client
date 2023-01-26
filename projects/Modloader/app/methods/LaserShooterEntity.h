@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LaserShooterEntity.h>
+
+#include <Modloader/app/structs/LaserShooterEntity.h>
 #include <Modloader/app/structs/DamageResult.h>
 
 namespace app::classes::LaserShooterEntity {

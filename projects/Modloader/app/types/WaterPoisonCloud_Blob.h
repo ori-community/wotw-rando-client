@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/WaterPoisonCloud_Blob.h>
+#include <Modloader/app/structs/WaterPoisonCloud_Blob__Array.h>
+#include <Modloader/app/structs/WaterPoisonCloud_Blob__Boxed.h>
+#include <Modloader/app/structs/WaterPoisonCloud_Blob__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/WaterPoisonCloud_Blob__Class.h>
-#include <Modloader/app/structs/WaterPoisonCloud_Blob.h>
-#include <Modloader/app/structs/WaterPoisonCloud_Blob__Boxed.h>
-#include <Modloader/app/structs/WaterPoisonCloud_Blob__Array.h>
 
 namespace app::classes::types {
     namespace WaterPoisonCloud_Blob {
-        inline app::WaterPoisonCloud_Blob__Class** type_info = (app::WaterPoisonCloud_Blob__Class**)(modloader::win::memory::resolve_rva(0x047157B0));
+        inline app::WaterPoisonCloud_Blob__Class** type_info() {
+            static app::WaterPoisonCloud_Blob__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::WaterPoisonCloud_Blob__Class**)(modloader::win::memory::resolve_rva(0x047157B0));
+            }
+            return cache;
+        }
         inline app::WaterPoisonCloud_Blob__Class* get_class() {
-            return il2cpp::get_nested_class<app::WaterPoisonCloud_Blob__Class>(type_info, "", "WaterPoisonCloud", "Blob");
+            return il2cpp::get_nested_class<app::WaterPoisonCloud_Blob__Class>(type_info(), "", "WaterPoisonCloud", "Blob");
         }
         inline app::WaterPoisonCloud_Blob* create() {
             return il2cpp::create_object<app::WaterPoisonCloud_Blob>(get_class());

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlFeedingGroundsPOwlController.h>
+
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundsPOwlController.h>
 #include <Modloader/app/structs/PetrifiedOwlFeedingGroundsPOwlController_PetrifiedOwlFeedingGroundsPOwlState__Enum.h>
 #include <Modloader/app/structs/String.h>
 

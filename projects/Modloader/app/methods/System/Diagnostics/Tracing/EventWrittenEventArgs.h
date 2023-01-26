@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EventWrittenEventArgs.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/EventWrittenEventArgs.h>
+#include <Modloader/app/structs/EventSource.h>
 #include <Modloader/app/structs/Guid.h>
 #include <Modloader/app/structs/ReadOnlyCollection_1_System_Object_.h>
 #include <Modloader/app/structs/ReadOnlyCollection_1_System_String_.h>
-#include <Modloader/app/structs/EventSource.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Diagnostics::Tracing::EventWrittenEventArgs {
     IL2CPP_REGISTER_METHOD(0x002FB9C0, void, set_EventName, (app::EventWrittenEventArgs * this_ptr, app::String* value))

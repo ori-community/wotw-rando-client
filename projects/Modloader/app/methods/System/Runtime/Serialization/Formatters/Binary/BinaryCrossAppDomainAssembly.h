@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BinaryCrossAppDomainAssembly.h>
+
+#include <Modloader/app/structs/BinaryCrossAppDomainAssembly.h>
 #include <Modloader/app/structs/_BinaryParser.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::BinaryCrossAppDomainAssembly {

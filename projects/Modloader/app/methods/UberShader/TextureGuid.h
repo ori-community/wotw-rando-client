@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/TextureGuid.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/TextureGuid.h>
 
 namespace app::classes::UberShader::TextureGuid {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::String*, get_Guid, (app::TextureGuid * this_ptr))

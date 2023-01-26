@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
-#include <Modloader/app/structs/CrabHitReactionBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
-#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/CrabHitReactionBehaviour.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 
 namespace app::classes::CrabHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00A64230, app::EntityDamageEvent*, get_DamageEvent, (app::CrabHitReactionBehaviour * this_ptr))
@@ -24,10 +25,8 @@ namespace app::classes::CrabHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::CrabHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DB59E0, bool, PlayedAdditiveAnim, (app::CrabHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DB59F0, void, TimelineFinished, (app::CrabHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04750BB8, CrabHitReactionBehaviour_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DB5A10, bool, CanInterrupt, (app::CrabHitReactionBehaviour * this_ptr, app::EntityReactionBehaviour_ReasonWhyReactionWontInterrupt* reason))
     IL2CPP_REGISTER_METHOD(0x00DB5BB0, void, FlipEventStart, (app::CrabHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04768A98, CrabHitReactionBehaviour_FlipEventStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00DB5C00, void, PlayShake, (app::CrabHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00DB5CF0, void, ctor, (app::CrabHitReactionBehaviour * this_ptr))
 } // namespace app::classes::CrabHitReactionBehaviour

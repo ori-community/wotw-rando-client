@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/ScaleAxisTweenAnimator.h>
+
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/ScaleAxisTweenAnimator.h>
 #include <Modloader/app/structs/TimelineEntityRecord.h>
 
 namespace app::classes::Moon::Timeline::ScaleAxisTweenAnimator {
@@ -14,7 +15,6 @@ namespace app::classes::Moon::Timeline::ScaleAxisTweenAnimator {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnEntityCreated, (app::ScaleAxisTweenAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E7FA70, void, OnStartPlayback, (app::ScaleAxisTweenAnimator * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x01E7FB40, void, SetupInitialValues, (app::ScaleAxisTweenAnimator * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470C748, ScaleAxisTweenAnimator_SetupInitialValues__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, CanUpdate, (app::ScaleAxisTweenAnimator * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01E7FD90, void, OnUpdateEntity, (app::ScaleAxisTweenAnimator * this_ptr, float delta_time))
     IL2CPP_REGISTER_METHOD(0x01E801F0, void, OnStopPlayback, (app::ScaleAxisTweenAnimator * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ConcurrentSet_2_System_Object_System_Object___Boxed.h>
 
 namespace app::classes::System::Diagnostics::Tracing::ConcurrentSet_2_System_Object_System_Object_ {

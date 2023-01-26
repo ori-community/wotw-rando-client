@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RotatingObstacleImpactEffect.h>
+
+#include <Modloader/app/structs/RotatingObstacleImpactEffect.h>
 #include <Modloader/app/structs/Collision.h>
 
 namespace app::classes::RotatingObstacleImpactEffect {

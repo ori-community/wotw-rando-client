@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonIconRenderer_IconObject__Boxed.h>
+
+#include <Modloader/app/structs/MoonIconRenderer_IconObject__Boxed.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/Vector2.h>
 

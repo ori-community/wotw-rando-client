@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Root.h>
+
+#include <Modloader/app/structs/Root.h>
 #include <Modloader/app/structs/AstNode_AstType__Enum.h>
 #include <Modloader/app/structs/XPathResultType__Enum.h>
 

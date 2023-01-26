@@ -1,27 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock.h>
-#include <Modloader/app/structs/List_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
-#include <Modloader/app/structs/IEnumerable_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
-#include <Modloader/app/structs/IComparer_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
-#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+
+#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock.h>
 #include <Modloader/app/structs/Action_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/BeforeRenderHelper_OrderBlock__Array.h>
 #include <Modloader/app/structs/Comparison_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_BeforeRenderHelper_OrderBlock_ {
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::BeforeRenderHelper_OrderBlock, get_Item, (app::List_1_UnityEngine_BeforeRenderHelper_OrderBlock_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04708AE0, List_1_UnityEngine_BeforeRenderHelper_OrderBlock__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_UnityEngine_BeforeRenderHelper_OrderBlock_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047196D0, List_1_UnityEngine_BeforeRenderHelper_OrderBlock__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_UnityEngine_BeforeRenderHelper_OrderBlock_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473F9C8, List_1_UnityEngine_BeforeRenderHelper_OrderBlock___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_UnityEngine_BeforeRenderHelper_OrderBlock_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02D1DC80, void, ctor_3, (app::List_1_UnityEngine_BeforeRenderHelper_OrderBlock_ * this_ptr, app::IEnumerable_1_UnityEngine_BeforeRenderHelper_OrderBlock_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_UnityEngine_BeforeRenderHelper_OrderBlock_ * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinPowerOfFriendshipSpell.h>
+
+#include <Modloader/app/structs/SeinPowerOfFriendshipSpell.h>
 
 namespace app::classes::SeinPowerOfFriendshipSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinPowerOfFriendshipSpell * this_ptr))

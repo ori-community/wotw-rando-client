@@ -1,23 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MessageControllerB.h>
-#include <Modloader/app/structs/Quest.h>
-#include <Modloader/app/structs/SpiritShardType__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/MessageProvider.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/MessageDescriptor.h>
-#include <Modloader/app/structs/MessageBox.h>
+
+#include <Modloader/app/structs/MessageControllerB.h>
 #include <Modloader/app/structs/EquipmentType__Enum.h>
-#include <Modloader/app/structs/PickupContext.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/InteractionSettings.h>
+#include <Modloader/app/structs/MessageBox.h>
 #include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
 #include <Modloader/app/structs/MessageControllerB_NpcMessageStyle__Enum.h>
+#include <Modloader/app/structs/MessageDescriptor.h>
+#include <Modloader/app/structs/MessageProvider.h>
+#include <Modloader/app/structs/PickupContext.h>
+#include <Modloader/app/structs/Quest.h>
 #include <Modloader/app/structs/ShowFixedTimeTextEntity_TextVisuals.h>
-#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TextBox.h>
-#include <Modloader/app/structs/InteractionSettings.h>
 #include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/WispMessageIcon_Wisp__Enum.h>
 
 namespace app::classes::MessageControllerB {
@@ -50,9 +51,7 @@ namespace app::classes::MessageControllerB {
     IL2CPP_REGISTER_METHOD(0x015969B0, app::MessageBox*, ShowPickupMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::PickupContext* context, bool lock_input))
     IL2CPP_REGISTER_METHOD(0x01596CD0, app::MessageBox*, ShowShardMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::GameObject* avatar, app::SpiritShardType__Enum shard_type))
     IL2CPP_REGISTER_METHOD(0x01597090, void, StopOpeningShardWindow, (app::MessageControllerB * this_ptr, app::MessageBox_HideAction__Enum action))
-    IL2CPP_REGISTER_METHODINFO(0x047469E8, MessageControllerB_StopOpeningShardWindow__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015974E0, void, StopOpeningQuestWindow, (app::MessageControllerB * this_ptr, app::MessageBox_HideAction__Enum action))
-    IL2CPP_REGISTER_METHODINFO(0x04717238, MessageControllerB_StopOpeningQuestWindow__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01597930, app::MessageBox*, ShowSpellMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::EquipmentType__Enum ability))
     IL2CPP_REGISTER_METHOD(0x01597B10, app::MessageBox*, ShowQuestMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::Quest* quest))
     IL2CPP_REGISTER_METHOD(0x01597F10, app::MessageBox*, ShowCompleteQuestMessage, (app::MessageControllerB * this_ptr, app::MessageProvider* message_provider, app::Quest* quest))
@@ -77,7 +76,5 @@ namespace app::classes::MessageControllerB {
     IL2CPP_REGISTER_METHOD(0x0159AE90, app::MessageBox*, ShowWispMessage, (app::MessageControllerB * this_ptr, app::WispMessageIcon_Wisp__Enum wisp))
     IL2CPP_REGISTER_METHOD(0x0159B080, void, ctor, (app::MessageControllerB * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006B1960, void, _StopOpeningShardWindow_b__73_0, (app::MessageControllerB * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473B008, MessageControllerB__StopOpeningShardWindow_b__73_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0159B150, void, _StopOpeningQuestWindow_b__74_0, (app::MessageControllerB * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471ABE0, MessageControllerB__StopOpeningQuestWindow_b__74_0__MethodInfo)
 } // namespace app::classes::MessageControllerB

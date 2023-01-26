@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InteropHelp_SteamParamStringArray.h>
+
+#include <Modloader/app/structs/InteropHelp_SteamParamStringArray.h>
 #include <Modloader/app/structs/IList_1_System_String_.h>
 
 namespace app::classes::Steamworks::InteropHelp_SteamParamStringArray {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BsonBinaryType__Enum.h>
+
+#include <Modloader/app/structs/BsonBinaryType__Enum.h>
 #include <Modloader/app/structs/BsonBinary.h>
 #include <Modloader/app/structs/Byte__Array.h>
 

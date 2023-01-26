@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MaterialVFXManager.h>
+
+#include <Modloader/app/structs/MaterialVFXManager.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/MaterialTypeVFXSettings_EffectSize__Enum.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/EquipmentType__Enum.h>
-#include <Modloader/app/structs/PhysicMaterial.h>
-#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
-#include <Modloader/app/structs/InstantiationRecycleHelper.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/InstantiationRecycleHelper.h>
+#include <Modloader/app/structs/MaterialTypeVFXSettings_EffectSize__Enum.h>
+#include <Modloader/app/structs/PhysicMaterial.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::MaterialVFXManager {
     IL2CPP_REGISTER_METHOD(0x01383BF0, void, ResetStatics, ())

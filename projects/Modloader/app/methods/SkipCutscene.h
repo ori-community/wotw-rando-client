@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_ICondition_.h>
-#include <Modloader/app/structs/SkipCutscene.h>
+
+#include <Modloader/app/structs/List_1_ICondition_.h>
 #include <Modloader/app/structs/List_1_ISkipCutsceneAction_.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SkipCutscene.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SkipCutscene {
     IL2CPP_REGISTER_METHOD(0x006C0B30, app::List_1_ICondition_*, get_ResolvedConditions, (app::SkipCutscene * this_ptr))
@@ -22,7 +23,6 @@ namespace app::classes::SkipCutscene {
     IL2CPP_REGISTER_METHOD(0x006C1920, void, CollectCustomTriggers, (app::SkipCutscene * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C1B80, void, OnSkip, (app::SkipCutscene * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C2C20, void, OnAfterTandemSpawn, (app::SkipCutscene * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471B4E8, SkipCutscene_OnAfterTandemSpawn__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00446590, bool, ShouldCreateCheckpoint, (app::SkipCutscene * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006C2ED0, bool, ConditionsPassed, (app::SkipCutscene * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::SkipCutscene * this_ptr))

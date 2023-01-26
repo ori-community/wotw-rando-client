@@ -1,25 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InstructionList.h>
+
+#include <Modloader/app/structs/InstructionList.h>
+#include <Modloader/app/structs/BranchLabel.h>
+#include <Modloader/app/structs/ByRefUpdater__Array.h>
+#include <Modloader/app/structs/ConstructorInfo.h>
+#include <Modloader/app/structs/Dictionary_2_System_Int32_System_Int32_.h>
+#include <Modloader/app/structs/Dictionary_2_System_Object_System_Int32_.h>
+#include <Modloader/app/structs/Dictionary_2_System_String_System_Int32_.h>
+#include <Modloader/app/structs/EnterTryFaultInstruction.h>
+#include <Modloader/app/structs/FieldInfo_1.h>
 #include <Modloader/app/structs/Instruction.h>
 #include <Modloader/app/structs/InstructionArray.h>
+#include <Modloader/app/structs/LightDelegateCreator.h>
+#include <Modloader/app/structs/MethodInfo_1.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/OffsetInstruction.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/RuntimeLabel__Array.h>
+#include <Modloader/app/structs/StrongBox_1_System_Int32_.h>
 #include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/TypeCode__Enum.h>
-#include <Modloader/app/structs/ConstructorInfo.h>
-#include <Modloader/app/structs/ParameterInfo_1__Array.h>
-#include <Modloader/app/structs/ByRefUpdater__Array.h>
-#include <Modloader/app/structs/LightDelegateCreator.h>
-#include <Modloader/app/structs/FieldInfo_1.h>
-#include <Modloader/app/structs/MethodInfo_1.h>
-#include <Modloader/app/structs/RuntimeLabel__Array.h>
-#include <Modloader/app/structs/BranchLabel.h>
-#include <Modloader/app/structs/OffsetInstruction.h>
-#include <Modloader/app/structs/EnterTryFaultInstruction.h>
-#include <Modloader/app/structs/Dictionary_2_System_String_System_Int32_.h>
-#include <Modloader/app/structs/StrongBox_1_System_Int32_.h>
-#include <Modloader/app/structs/Dictionary_2_System_Object_System_Int32_.h>
-#include <Modloader/app/structs/Dictionary_2_System_Int32_System_Int32_.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::InstructionList {
     IL2CPP_REGISTER_METHOD(0x01CD7DE0, void, Emit, (app::InstructionList * this_ptr, app::Instruction* instruction))

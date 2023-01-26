@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LockPlayerInputAction_PerformActionCoroutine_d_4.h>
+
+#include <Modloader/app/structs/LockPlayerInputAction_PerformActionCoroutine_d_4.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::LockPlayerInputAction__PerformActionCoroutine_d__4 {
@@ -9,6 +10,5 @@ namespace app::classes::LockPlayerInputAction__PerformActionCoroutine_d__4 {
     IL2CPP_REGISTER_METHOD(0x00FC31D0, bool, MoveNext, (app::LockPlayerInputAction_PerformActionCoroutine_d_4 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::LockPlayerInputAction_PerformActionCoroutine_d_4 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FC3440, void, IEnumerator_Reset, (app::LockPlayerInputAction_PerformActionCoroutine_d_4 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04743370, LockPlayerInputAction_PerformActionCoroutine_d_4_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::LockPlayerInputAction_PerformActionCoroutine_d_4 * this_ptr))
 } // namespace app::classes::LockPlayerInputAction__PerformActionCoroutine_d__4

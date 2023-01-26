@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataColumnChangeEventArgs.h>
-#include <Modloader/app/structs/DataRow.h>
+
+#include <Modloader/app/structs/DataColumnChangeEventArgs.h>
 #include <Modloader/app/structs/DataColumn.h>
+#include <Modloader/app/structs/DataRow.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Data::DataColumnChangeEventArgs {

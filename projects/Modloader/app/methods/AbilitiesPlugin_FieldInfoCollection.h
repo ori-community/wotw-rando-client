@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AbilitiesPlugin_FieldInfoCollection.h>
+
+#include <Modloader/app/structs/AbilitiesPlugin_FieldInfoCollection.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::AbilitiesPlugin_FieldInfoCollection {

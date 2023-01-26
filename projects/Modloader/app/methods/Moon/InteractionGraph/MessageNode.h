@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMessageProvider.h>
+
+#include <Modloader/app/structs/IMessageProvider.h>
 #include <Modloader/app/structs/MessageNode.h>
 
 namespace app::classes::Moon::InteractionGraph::MessageNode {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Assembly_UnmanagedMemoryStreamForModule.h>
+
+#include <Modloader/app/structs/Assembly_UnmanagedMemoryStreamForModule.h>
 #include <Modloader/app/structs/Module.h>
 
 namespace app::classes::System::Reflection::Assembly_UnmanagedMemoryStreamForModule {

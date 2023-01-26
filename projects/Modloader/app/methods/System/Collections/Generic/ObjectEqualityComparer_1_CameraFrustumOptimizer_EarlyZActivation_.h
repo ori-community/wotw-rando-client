@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_CameraFrustumOptimizer_EarlyZActivation_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_CameraFrustumOptimizer_EarlyZActivation_.h>
 #include <Modloader/app/structs/CameraFrustumOptimizer_EarlyZActivation.h>
 #include <Modloader/app/structs/CameraFrustumOptimizer_EarlyZActivation__Array.h>
 #include <Modloader/app/structs/Object.h>

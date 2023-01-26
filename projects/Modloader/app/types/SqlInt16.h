@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/SqlInt16.h>
+#include <Modloader/app/structs/SqlInt16__Array.h>
+#include <Modloader/app/structs/SqlInt16__Boxed.h>
+#include <Modloader/app/structs/SqlInt16__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SqlInt16__Class.h>
-#include <Modloader/app/structs/SqlInt16.h>
-#include <Modloader/app/structs/SqlInt16__Boxed.h>
-#include <Modloader/app/structs/SqlInt16__Array.h>
 
 namespace app::classes::types {
     namespace SqlInt16 {
-        inline app::SqlInt16__Class** type_info = (app::SqlInt16__Class**)(modloader::win::memory::resolve_rva(0x0478D820));
+        inline app::SqlInt16__Class** type_info() {
+            static app::SqlInt16__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::SqlInt16__Class**)(modloader::win::memory::resolve_rva(0x0478D820));
+            }
+            return cache;
+        }
         inline app::SqlInt16__Class* get_class() {
-            return il2cpp::get_class<app::SqlInt16__Class>(type_info, "System.Data.SqlTypes", "SqlInt16");
+            return il2cpp::get_class<app::SqlInt16__Class>(type_info(), "System.Data.SqlTypes", "SqlInt16");
         }
         inline app::SqlInt16* create() {
             return il2cpp::create_object<app::SqlInt16>(get_class());

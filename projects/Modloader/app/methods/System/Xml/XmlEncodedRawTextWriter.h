@@ -2,13 +2,13 @@
 #include <Modloader/interception_macros.h>
 
 #include <Modloader/app/structs/XmlEncodedRawTextWriter.h>
-#include <Modloader/app/structs/XmlWriterSettings.h>
-#include <Modloader/app/structs/TextWriter.h>
-#include <Modloader/app/structs/Stream.h>
-#include <Modloader/app/structs/XmlStandalone__Enum.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Char__Array.h>
-
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/XmlStandalone__Enum.h>
+#include <Modloader/app/structs/XmlWriterSettings.h>
+#include <Modloader/app/structs/char16_t.h>
 
 namespace app::classes::System::Xml::XmlEncodedRawTextWriter {
     IL2CPP_REGISTER_METHOD(0x01DAF800, void, ctor_1, (app::XmlEncodedRawTextWriter * this_ptr, app::XmlWriterSettings* settings))
@@ -31,45 +31,40 @@ namespace app::classes::System::Xml::XmlEncodedRawTextWriter {
     IL2CPP_REGISTER_METHOD(0x01DB1270, void, WriteComment, (app::XmlEncodedRawTextWriter * this_ptr, app::String* text))
     IL2CPP_REGISTER_METHOD(0x01DB1490, void, WriteProcessingInstruction, (app::XmlEncodedRawTextWriter * this_ptr, app::String* name, app::String* text))
     IL2CPP_REGISTER_METHOD(0x01DB1670, void, WriteEntityRef, (app::XmlEncodedRawTextWriter * this_ptr, app::String* name))
-    IL2CPP_REGISTER_METHOD(0x01DB1780, void, WriteCharEntity, (app::XmlEncodedRawTextWriter * this_ptr, uint16_t ch))
-    IL2CPP_REGISTER_METHODINFO(0x04769058, XmlEncodedRawTextWriter_WriteCharEntity__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x01DB1780, void, WriteCharEntity, (app::XmlEncodedRawTextWriter * this_ptr, char16_t ch))
     IL2CPP_REGISTER_METHOD(0x01DB1A30, void, WriteWhitespace, (app::XmlEncodedRawTextWriter * this_ptr, app::String* ws))
     IL2CPP_REGISTER_METHOD(0x01DB1AB0, void, WriteString, (app::XmlEncodedRawTextWriter * this_ptr, app::String* text))
-    IL2CPP_REGISTER_METHOD(0x01DB1B30, void, WriteSurrogateCharEntity, (app::XmlEncodedRawTextWriter * this_ptr, uint16_t low_char, uint16_t high_char))
+    IL2CPP_REGISTER_METHOD(0x01DB1B30, void, WriteSurrogateCharEntity, (app::XmlEncodedRawTextWriter * this_ptr, char16_t low_char, char16_t high_char))
     IL2CPP_REGISTER_METHOD(0x01DB1D60, void, WriteChars, (app::XmlEncodedRawTextWriter * this_ptr, app::Char__Array* buffer, int32_t index, int32_t count))
     IL2CPP_REGISTER_METHOD(0x01DB1E00, void, WriteRaw_1, (app::XmlEncodedRawTextWriter * this_ptr, app::Char__Array* buffer, int32_t index, int32_t count))
     IL2CPP_REGISTER_METHOD(0x01950800, void, WriteRaw_2, (app::XmlEncodedRawTextWriter * this_ptr, app::String* data))
     IL2CPP_REGISTER_METHOD(0x01DB1E90, void, Close, (app::XmlEncodedRawTextWriter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DB2170, void, Flush, (app::XmlEncodedRawTextWriter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DB21E0, void, FlushBuffer, (app::XmlEncodedRawTextWriter * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047936C8, XmlEncodedRawTextWriter_FlushBuffer__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01DB2470, void, EncodeChars, (app::XmlEncodedRawTextWriter * this_ptr, int32_t start_offset, int32_t end_offset, bool write_all_to_stream))
     IL2CPP_REGISTER_METHOD(0x01DB2600, void, FlushEncoder, (app::XmlEncodedRawTextWriter * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01DB26E0, void, WriteAttributeTextBlock, (app::XmlEncodedRawTextWriter * this_ptr, uint16_t* p_src, uint16_t* p_src_end))
-    IL2CPP_REGISTER_METHOD(0x01DB29E0, void, WriteElementTextBlock, (app::XmlEncodedRawTextWriter * this_ptr, uint16_t* p_src, uint16_t* p_src_end))
+    IL2CPP_REGISTER_METHOD(0x01DB26E0, void, WriteAttributeTextBlock, (app::XmlEncodedRawTextWriter * this_ptr, char16_t* p_src, char16_t* p_src_end))
+    IL2CPP_REGISTER_METHOD(0x01DB29E0, void, WriteElementTextBlock, (app::XmlEncodedRawTextWriter * this_ptr, char16_t* p_src, char16_t* p_src_end))
     IL2CPP_REGISTER_METHOD(0x01DB2D50, void, RawText_1, (app::XmlEncodedRawTextWriter * this_ptr, app::String* s))
-    IL2CPP_REGISTER_METHOD(0x01DB2D80, void, RawText_2, (app::XmlEncodedRawTextWriter * this_ptr, uint16_t* p_src_begin, uint16_t* p_src_end))
-    IL2CPP_REGISTER_METHOD(0x01DB2F80, void, WriteRawWithCharChecking, (app::XmlEncodedRawTextWriter * this_ptr, uint16_t* p_src_begin, uint16_t* p_src_end))
+    IL2CPP_REGISTER_METHOD(0x01DB2D80, void, RawText_2, (app::XmlEncodedRawTextWriter * this_ptr, char16_t* p_src_begin, char16_t* p_src_end))
+    IL2CPP_REGISTER_METHOD(0x01DB2F80, void, WriteRawWithCharChecking, (app::XmlEncodedRawTextWriter * this_ptr, char16_t* p_src_begin, char16_t* p_src_end))
     IL2CPP_REGISTER_METHOD(0x01DB32D0, void, WriteCommentOrPi, (app::XmlEncodedRawTextWriter * this_ptr, app::String* text, int32_t stop_char))
     IL2CPP_REGISTER_METHOD(0x01DB3750, void, WriteCDataSection, (app::XmlEncodedRawTextWriter * this_ptr, app::String* text))
-    IL2CPP_REGISTER_METHOD(0x01DB3BA0, uint16_t*, EncodeSurrogate, (uint16_t * p_src, uint16_t* p_src_end, uint16_t* p_dst))
-    IL2CPP_REGISTER_METHODINFO(0x04767A38, XmlEncodedRawTextWriter_EncodeSurrogate__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01DB3D60, uint16_t*, InvalidXmlChar, (app::XmlEncodedRawTextWriter * this_ptr, int32_t ch, uint16_t* p_dst, bool entitize))
-    IL2CPP_REGISTER_METHODINFO(0x04763520, XmlEncodedRawTextWriter_InvalidXmlChar__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x01DB3F20, void, EncodeChar, (app::XmlEncodedRawTextWriter * this_ptr, app::uint16_t** p_src, uint16_t* p_src_end, app::uint16_t** p_dst))
+    IL2CPP_REGISTER_METHOD(0x01DB3BA0, char16_t*, EncodeSurrogate, (char16_t* p_src, char16_t* p_src_end, char16_t* p_dst))
+    IL2CPP_REGISTER_METHOD(0x01DB3D60, char16_t*, InvalidXmlChar, (app::XmlEncodedRawTextWriter * this_ptr, int32_t ch, char16_t* p_dst, bool entitize))
+    IL2CPP_REGISTER_METHOD(0x01DB3F20, void, EncodeChar, (app::XmlEncodedRawTextWriter * this_ptr, app::char16_t** p_src, char16_t* p_src_end, app::char16_t** p_dst))
     IL2CPP_REGISTER_METHOD(0x01DB3FB0, void, ChangeTextContentMark, (app::XmlEncodedRawTextWriter * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x01DB40F0, void, GrowTextContentMarks, (app::XmlEncodedRawTextWriter * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x01DB41C0, uint16_t*, WriteNewLine, (app::XmlEncodedRawTextWriter * this_ptr, uint16_t* p_dst))
-    IL2CPP_REGISTER_METHOD(0x01DB4240, uint16_t*, LtEntity, (uint16_t * p_dst))
-    IL2CPP_REGISTER_METHOD(0x01DB4260, uint16_t*, GtEntity, (uint16_t * p_dst))
-    IL2CPP_REGISTER_METHOD(0x01DB4280, uint16_t*, AmpEntity, (uint16_t * p_dst))
-    IL2CPP_REGISTER_METHOD(0x01DB42A0, uint16_t*, QuoteEntity, (uint16_t * p_dst))
-    IL2CPP_REGISTER_METHOD(0x01DB42C0, uint16_t*, TabEntity, (uint16_t * p_dst))
-    IL2CPP_REGISTER_METHOD(0x01DB42E0, uint16_t*, LineFeedEntity, (uint16_t * p_dst))
-    IL2CPP_REGISTER_METHOD(0x01DB4300, uint16_t*, CarriageReturnEntity, (uint16_t * p_dst))
-    IL2CPP_REGISTER_METHOD(0x01DB4320, uint16_t*, CharEntity, (uint16_t * p_dst, uint16_t ch))
-    IL2CPP_REGISTER_METHOD(0x01DB4420, uint16_t*, RawStartCData, (uint16_t * p_dst))
-    IL2CPP_REGISTER_METHOD(0x01DB4450, uint16_t*, RawEndCData, (uint16_t * p_dst))
+    IL2CPP_REGISTER_METHOD(0x01DB41C0, char16_t*, WriteNewLine, (app::XmlEncodedRawTextWriter * this_ptr, char16_t* p_dst))
+    IL2CPP_REGISTER_METHOD(0x01DB4240, char16_t*, LtEntity, (char16_t* p_dst))
+    IL2CPP_REGISTER_METHOD(0x01DB4260, char16_t*, GtEntity, (char16_t* p_dst))
+    IL2CPP_REGISTER_METHOD(0x01DB4280, char16_t*, AmpEntity, (char16_t* p_dst))
+    IL2CPP_REGISTER_METHOD(0x01DB42A0, char16_t*, QuoteEntity, (char16_t* p_dst))
+    IL2CPP_REGISTER_METHOD(0x01DB42C0, char16_t*, TabEntity, (char16_t* p_dst))
+    IL2CPP_REGISTER_METHOD(0x01DB42E0, char16_t*, LineFeedEntity, (char16_t* p_dst))
+    IL2CPP_REGISTER_METHOD(0x01DB4300, char16_t*, CarriageReturnEntity, (char16_t* p_dst))
+    IL2CPP_REGISTER_METHOD(0x01DB4320, char16_t*, CharEntity, (char16_t* p_dst, char16_t ch))
+    IL2CPP_REGISTER_METHOD(0x01DB4420, char16_t*, RawStartCData, (char16_t* p_dst))
+    IL2CPP_REGISTER_METHOD(0x01DB4450, char16_t*, RawEndCData, (char16_t* p_dst))
     IL2CPP_REGISTER_METHOD(0x01DB4470, void, ValidateContentChars, (app::XmlEncodedRawTextWriter * this_ptr, app::String* chars, app::String* property_name, bool allow_only_whitespace))
-    IL2CPP_REGISTER_METHODINFO(0x047559F0, XmlEncodedRawTextWriter_ValidateContentChars__MethodInfo)
 } // namespace app::classes::System::Xml::XmlEncodedRawTextWriter

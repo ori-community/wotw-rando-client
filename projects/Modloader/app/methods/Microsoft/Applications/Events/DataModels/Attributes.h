@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_PII_.h>
+
+#include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_PII_.h>
 #include <Modloader/app/structs/Attributes.h>
 #include <Modloader/app/structs/List_1_Microsoft_Applications_Events_DataModels_CustomerContent_.h>
 #include <Modloader/app/structs/String.h>

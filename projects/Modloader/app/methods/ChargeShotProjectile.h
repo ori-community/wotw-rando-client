@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ChargeShotProjectile.h>
+
+#include <Modloader/app/structs/ChargeShotProjectile.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IDamageReciever__Array.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/DamageType__Enum.h>
-#include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/IDamageReciever__Array.h>
 
 namespace app::classes::ChargeShotProjectile {
     IL2CPP_REGISTER_METHOD(0x00675C60, bool, get_IsSuspended, (app::ChargeShotProjectile * this_ptr))
@@ -29,7 +30,6 @@ namespace app::classes::ChargeShotProjectile {
     IL2CPP_REGISTER_METHOD(0x008682B0, void, SetExplosionCameraShakeStrength, (app::ChargeShotProjectile * this_ptr, float strength))
     IL2CPP_REGISTER_METHOD(0x0131A9F0, void, Release, (app::ChargeShotProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0131ADF0, void, Awake, (app::ChargeShotProjectile * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047098E8, ChargeShotProjectile_Awake__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0131AE50, void, OnDestroy, (app::ChargeShotProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0131B2B0, void, OnEnable, (app::ChargeShotProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0131B370, void, OnDisable, (app::ChargeShotProjectile * this_ptr))
@@ -39,9 +39,7 @@ namespace app::classes::ChargeShotProjectile {
     IL2CPP_REGISTER_METHOD(0x0131B850, void, Explode, (app::ChargeShotProjectile * this_ptr, bool should_destroy_self))
     IL2CPP_REGISTER_METHOD(0x0131BEA0, void, HandleExplosiveShard, (app::ChargeShotProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0131BF80, void, OnEnemyCollision, (app::ChargeShotProjectile * this_ptr, app::Collider* collider))
-    IL2CPP_REGISTER_METHODINFO(0x047465A8, ChargeShotProjectile_OnEnemyCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0131C3B0, void, OnWallCollision, (app::ChargeShotProjectile * this_ptr, app::Collider* collider))
-    IL2CPP_REGISTER_METHODINFO(0x04747BC8, ChargeShotProjectile_OnWallCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, IReflectable_CanBeReflected, (app::ChargeShotProjectile * this_ptr, float maximum_reflectable_damage))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IReflectable_OnGrabbed, (app::ChargeShotProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, IReflectable_OnReleased, (app::ChargeShotProjectile * this_ptr, float speed, app::Vector3 direction))

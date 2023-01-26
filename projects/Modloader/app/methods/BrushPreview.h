@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BrushPreview.h>
+
+#include <Modloader/app/structs/BrushPreview.h>
 
 namespace app::classes::BrushPreview {
     IL2CPP_REGISTER_METHOD(0x00D515A0, void, OnDrawGizmos, (app::BrushPreview * this_ptr))

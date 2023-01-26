@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StaticTree.h>
+
+#include <Modloader/app/structs/StaticTree.h>
 #include <Modloader/app/structs/Int16__Array.h>
 #include <Modloader/app/structs/Int32__Array.h>
 

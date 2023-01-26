@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FPSCharacter.h>
+
+#include <Modloader/app/structs/FPSCharacter.h>
 
 namespace app::classes::RootMotion::Demos::FPSCharacter {
     IL2CPP_REGISTER_METHOD(0x0221DBE0, void, Start, (app::FPSCharacter * this_ptr))

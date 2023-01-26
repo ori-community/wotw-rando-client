@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InteractionObject_WeightCurve.h>
+
+#include <Modloader/app/structs/InteractionObject_WeightCurve.h>
 
 namespace app::classes::RootMotion::FinalIK::InteractionObject_WeightCurve {
     IL2CPP_REGISTER_METHOD(0x02A0E0D0, float, GetValue, (app::InteractionObject_WeightCurve * this_ptr, float timer))

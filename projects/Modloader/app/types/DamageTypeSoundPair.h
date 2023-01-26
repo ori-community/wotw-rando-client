@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/DamageTypeSoundPair__Class.h>
 #include <Modloader/app/structs/DamageTypeSoundPair.h>
 #include <Modloader/app/structs/DamageTypeSoundPair__Array.h>
+#include <Modloader/app/structs/DamageTypeSoundPair__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace DamageTypeSoundPair {
-        namespace {
-            inline app::DamageTypeSoundPair__Class* type_info_ref = nullptr;
+        inline app::DamageTypeSoundPair__Class** type_info() {
+            static app::DamageTypeSoundPair__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::DamageTypeSoundPair__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::DamageTypeSoundPair__Class** type_info = &type_info_ref;
         inline app::DamageTypeSoundPair__Class* get_class() {
-            return il2cpp::get_class<app::DamageTypeSoundPair__Class>(type_info, "", "DamageTypeSoundPair");
+            return il2cpp::get_class<app::DamageTypeSoundPair__Class>(type_info(), "", "DamageTypeSoundPair");
         }
         inline app::DamageTypeSoundPair* create() {
             return il2cpp::create_object<app::DamageTypeSoundPair>(get_class());

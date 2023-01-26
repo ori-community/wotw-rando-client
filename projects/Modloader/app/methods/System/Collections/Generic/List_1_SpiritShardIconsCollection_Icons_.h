@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_SpiritShardIconsCollection_Icons_.h>
-#include <Modloader/app/structs/IEnumerable_1_SpiritShardIconsCollection_Icons_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/SpiritShardIconsCollection_Icons.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_SpiritShardIconsCollection_Icons_.h>
-#include <Modloader/app/structs/IComparer_1_SpiritShardIconsCollection_Icons_.h>
-#include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_SpiritShardIconsCollection_Icons_.h>
+
+#include <Modloader/app/structs/List_1_SpiritShardIconsCollection_Icons_.h>
 #include <Modloader/app/structs/Action_1_SpiritShardIconsCollection_Icons_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_SpiritShardIconsCollection_Icons_.h>
-#include <Modloader/app/structs/IEnumerator_1_SpiritShardIconsCollection_Icons_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_SpiritShardIconsCollection_Icons_.h>
+#include <Modloader/app/structs/IComparer_1_SpiritShardIconsCollection_Icons_.h>
+#include <Modloader/app/structs/IEnumerable_1_SpiritShardIconsCollection_Icons_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_SpiritShardIconsCollection_Icons_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_SpiritShardIconsCollection_Icons_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_SpiritShardIconsCollection_Icons_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_SpiritShardIconsCollection_Icons_.h>
+#include <Modloader/app/structs/SpiritShardIconsCollection_Icons.h>
+#include <Modloader/app/structs/SpiritShardIconsCollection_Icons__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_SpiritShardIconsCollection_Icons_ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_SpiritShardIconsCollection_Icons_ * this_ptr))

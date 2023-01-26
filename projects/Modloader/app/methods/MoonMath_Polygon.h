@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Vector2__Array.h>
+
+#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Vector2__Array.h>
 
 namespace app::classes::MoonMath_Polygon {
     IL2CPP_REGISTER_METHOD(0x02579280, bool, PointInside2dConvexPoly_1, (app::Vector2 point, app::Vector2__Array* poly))

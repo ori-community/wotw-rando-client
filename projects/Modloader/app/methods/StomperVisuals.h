@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StomperVisuals.h>
+
+#include <Modloader/app/structs/StomperVisuals.h>
+#include <Modloader/app/structs/Rigidbody.h>
 #include <Modloader/app/structs/StomperVisuals_SoundEvent__Enum.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Rigidbody.h>
 
 namespace app::classes::StomperVisuals {
     IL2CPP_REGISTER_METHOD(0x0065C4A0, void, Start, (app::StomperVisuals * this_ptr))

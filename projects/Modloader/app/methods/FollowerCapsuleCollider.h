@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FollowerCapsuleCollider.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/FollowerCapsuleCollider.h>
 #include <Modloader/app/structs/CapsuleCollider.h>
 #include <Modloader/app/structs/CapsuleCollider__Array.h>
 #include <Modloader/app/structs/FollowerCapsuleCollider_CapsulePlacementMode__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::FollowerCapsuleCollider {
     IL2CPP_REGISTER_METHOD(0x0127CE30, bool, HasFromReference, (app::FollowerCapsuleCollider * this_ptr))

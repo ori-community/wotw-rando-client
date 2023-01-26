@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/MoonTrail_MoonTrailParticle.h>
+#include <Modloader/app/structs/MoonTrail_MoonTrailParticle__Array.h>
+#include <Modloader/app/structs/MoonTrail_MoonTrailParticle__Boxed.h>
+#include <Modloader/app/structs/MoonTrail_MoonTrailParticle__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MoonTrail_MoonTrailParticle__Class.h>
-#include <Modloader/app/structs/MoonTrail_MoonTrailParticle.h>
-#include <Modloader/app/structs/MoonTrail_MoonTrailParticle__Boxed.h>
-#include <Modloader/app/structs/MoonTrail_MoonTrailParticle__Array.h>
 
 namespace app::classes::types {
     namespace MoonTrail_MoonTrailParticle {
-        namespace {
-            inline app::MoonTrail_MoonTrailParticle__Class* type_info_ref = nullptr;
+        inline app::MoonTrail_MoonTrailParticle__Class** type_info() {
+            static app::MoonTrail_MoonTrailParticle__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::MoonTrail_MoonTrailParticle__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::MoonTrail_MoonTrailParticle__Class** type_info = &type_info_ref;
         inline app::MoonTrail_MoonTrailParticle__Class* get_class() {
-            return il2cpp::get_nested_class<app::MoonTrail_MoonTrailParticle__Class>(type_info, "Moon", "MoonTrail", "MoonTrailParticle");
+            return il2cpp::get_nested_class<app::MoonTrail_MoonTrailParticle__Class>(type_info(), "Moon", "MoonTrail", "MoonTrailParticle");
         }
         inline app::MoonTrail_MoonTrailParticle* create() {
             return il2cpp::create_object<app::MoonTrail_MoonTrailParticle>(get_class());

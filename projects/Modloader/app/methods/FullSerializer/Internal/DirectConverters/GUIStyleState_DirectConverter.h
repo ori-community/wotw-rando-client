@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/fsResult.h>
-#include <Modloader/app/structs/GUIStyleState_DirectConverter.h>
-#include <Modloader/app/structs/GUIStyleState.h>
+
+#include <Modloader/app/structs/fsResult.h>
 #include <Modloader/app/structs/Dictionary_2_System_String_FullSerializer_fsData_.h>
+#include <Modloader/app/structs/GUIStyleState.h>
+#include <Modloader/app/structs/GUIStyleState_DirectConverter.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/fsData.h>
 #include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/fsData.h>
 
 namespace app::classes::FullSerializer::Internal::DirectConverters::GUIStyleState_DirectConverter {
     IL2CPP_REGISTER_METHOD(0x0164BB60, app::fsResult, DoSerialize, (app::GUIStyleState_DirectConverter * this_ptr, app::GUIStyleState* model, app::Dictionary_2_System_String_FullSerializer_fsData_* serialized))

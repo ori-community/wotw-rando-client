@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OrbSpawnerSettingsOverride.h>
+
+#include <Modloader/app/structs/OrbSpawnerSettingsOverride.h>
 #include <Modloader/app/structs/OrbSpawner.h>
 
 namespace app::classes::OrbSpawnerSettingsOverride {

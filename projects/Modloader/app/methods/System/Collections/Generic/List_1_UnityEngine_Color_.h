@@ -1,41 +1,32 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Color_.h>
+
+#include <Modloader/app/structs/List_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/Color__Array.h>
-#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Color_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_Color_.h>
-#include <Modloader/app/structs/IComparer_1_UnityEngine_Color_.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_UnityEngine_Color_.h>
-#include <Modloader/app/structs/Action_1_UnityEngine_Color_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Color_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Color_.h>
-#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Comparison_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Color_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_Color_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_Color_.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_Color_ {
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_UnityEngine_Color_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470DBA8, List_1_UnityEngine_Color__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add, (app::List_1_UnityEngine_Color_ * this_ptr, app::Color item))
-    IL2CPP_REGISTER_METHODINFO(0x0476C8F8, List_1_UnityEngine_Color__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_UnityEngine_Color_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047590E8, List_1_UnityEngine_Color___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_UnityEngine_Color_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047029B8, List_1_UnityEngine_Color__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::Color, get_Item, (app::List_1_UnityEngine_Color_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04792958, List_1_UnityEngine_Color__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8A90, void, set_Item, (app::List_1_UnityEngine_Color_ * this_ptr, int32_t index, app::Color value))
-    IL2CPP_REGISTER_METHODINFO(0x04761E18, List_1_UnityEngine_Color__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_UnityEngine_Color_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x0471AD88, List_1_UnityEngine_Color___ctor_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAEF0, app::Color__Array*, ToArray, (app::List_1_UnityEngine_Color_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04795978, List_1_UnityEngine_Color__ToArray__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E9020, void, AddRange, (app::List_1_UnityEngine_Color_ * this_ptr, app::IEnumerable_1_UnityEngine_Color_* collection))
-    IL2CPP_REGISTER_METHODINFO(0x04799DD0, List_1_UnityEngine_Color__AddRange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EABD0, void, RemoveRange, (app::List_1_UnityEngine_Color_ * this_ptr, int32_t index, int32_t count))
-    IL2CPP_REGISTER_METHODINFO(0x0471BDF0, List_1_UnityEngine_Color__RemoveRange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02D20D10, void, ctor_3, (app::List_1_UnityEngine_Color_ * this_ptr, app::IEnumerable_1_UnityEngine_Color_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_UnityEngine_Color_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x025E8790, void, set_Capacity, (app::List_1_UnityEngine_Color_ * this_ptr, int32_t value))

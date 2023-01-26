@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ForceBasedFollow.h>
+
+#include <Modloader/app/structs/ForceBasedFollow.h>
 
 namespace app::classes::ForceBasedFollow {
     IL2CPP_REGISTER_METHOD(0x0127FBB0, void, FixedUpdate, (app::ForceBasedFollow * this_ptr))

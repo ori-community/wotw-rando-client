@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Trail_Point__Boxed.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Trail_Point__Boxed.h>
 #include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/Trail_Point.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Trail_Point {
     IL2CPP_REGISTER_METHOD(0x001F9EE0, void, ctor, (app::Trail_Point__Boxed * this_ptr, app::Vector3 position, app::Vector3 tangent, app::Vector3 normal, app::Color color, float thickness, float lifetime, float u))

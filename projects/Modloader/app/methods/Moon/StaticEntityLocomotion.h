@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/StaticEntityLocomotion.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/EntityLocomotionTask.h>
-#include <Modloader/app/structs/EntityBehaviourNode.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/EntityBehaviour.h>
+#include <Modloader/app/structs/EntityBehaviourNode.h>
+#include <Modloader/app/structs/EntityLocomotionTask.h>
+#include <Modloader/app/structs/EntityWeightData_EntityWeight__Enum.h>
+#include <Modloader/app/structs/StaticEntityLocomotion.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::StaticEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x005B0220, app::Transform*, get_FeetTransform, (app::StaticEntityLocomotion * this_ptr))
@@ -24,7 +25,6 @@ namespace app::classes::Moon::StaticEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x00E304F0, void, ConfigureStateMachine, (app::StaticEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0049F2B0, app::EntityLocomotionTask*, get_DefaultFSMState, (app::StaticEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E308D0, bool, ShouldTriggerTurn, (app::StaticEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04713490, StaticEntityLocomotion_ShouldTriggerTurn__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00E30CA0, void, OnEntityReset, (app::StaticEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E30CF0, void, OnFixedUpdate, (app::StaticEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E30DC0, void, SnapToGround, (app::StaticEntityLocomotion * this_ptr))
@@ -44,5 +44,4 @@ namespace app::classes::Moon::StaticEntityLocomotion {
     IL2CPP_REGISTER_METHOD(0x00E31C60, void, OnDrawGizmosSelected, (app::StaticEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E31E80, void, ctor, (app::StaticEntityLocomotion * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00E31EA0, bool, _ConfigureStateMachine_b__29_0, (app::StaticEntityLocomotion * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04755F78, StaticEntityLocomotion__ConfigureStateMachine_b__29_0__MethodInfo)
 } // namespace app::classes::Moon::StaticEntityLocomotion

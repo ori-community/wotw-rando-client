@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MaskedTextProvider_CharDescriptor.h>
+
+#include <Modloader/app/structs/MaskedTextProvider_CharDescriptor.h>
 #include <Modloader/app/structs/MaskedTextProvider_CharType__Enum.h>
 #include <Modloader/app/structs/String.h>
 

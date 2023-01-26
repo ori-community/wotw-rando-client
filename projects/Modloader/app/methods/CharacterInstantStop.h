@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterInstantStop.h>
+
+#include <Modloader/app/structs/CharacterInstantStop.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/CharacterLeftRightMovement.h>
 #include <Modloader/app/structs/PlatformMovement.h>
-#include <Modloader/app/structs/Archive.h>
 
 namespace app::classes::CharacterInstantStop {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::CharacterInstantStop * this_ptr))

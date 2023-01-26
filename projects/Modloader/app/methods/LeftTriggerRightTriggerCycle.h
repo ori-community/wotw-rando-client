@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LeftTriggerRightTriggerCycle.h>
+
+#include <Modloader/app/structs/LeftTriggerRightTriggerCycle.h>
 #include <Modloader/app/structs/Panel.h>
 
 namespace app::classes::LeftTriggerRightTriggerCycle {

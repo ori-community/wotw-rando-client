@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ShrineCombat.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Input_InputButtonProcessor.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SeinCharacter.h>
-#include <Modloader/app/structs/PassiveSetupInfo_State__Enum.h>
+
+#include <Modloader/app/structs/ShrineCombat.h>
 #include <Modloader/app/structs/Func_2_ShrineCombat_WaveProgressMarker_Boolean_.h>
-#include <Modloader/app/structs/ShrineCombat_WaveProgressMarker.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 #include <Modloader/app/structs/IUberState__Array.h>
-#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/Input_InputButtonProcessor.h>
 #include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/PassiveSetupInfo_State__Enum.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/ShrineCombat_WaveProgressMarker.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/String__Array.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::ShrineCombat {
     IL2CPP_REGISTER_METHOD(0x00739A80, bool, get_IsSuspended, (app::ShrineCombat * this_ptr))
@@ -42,7 +43,6 @@ namespace app::classes::ShrineCombat {
     IL2CPP_REGISTER_METHOD(0x0073AF90, void, OnDisable, (app::ShrineCombat * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0073B1D0, void, OnDestroy, (app::ShrineCombat * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0073B270, void, OnRestoreCheckpoint, (app::ShrineCombat * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04722B98, ShrineCombat_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0073B3D0, void, FixedUpdate, (app::ShrineCombat * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0073B440, void, RefillHealthAndEnergy, (app::ShrineCombat * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0073B610, void, InitializeToCorrectState, (app::ShrineCombat * this_ptr))
@@ -50,7 +50,6 @@ namespace app::classes::ShrineCombat {
     IL2CPP_REGISTER_METHOD(0x0073B810, void, SetAllVisualsToState, (app::ShrineCombat * this_ptr, app::PassiveSetupInfo_State__Enum desired_state, bool do_transition, app::Func_2_ShrineCombat_WaveProgressMarker_Boolean_* condition))
     IL2CPP_REGISTER_METHOD(0x0073B9E0, void, UpdateMarkersForWaves, (app::ShrineCombat * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0073BC20, bool, ShouldTurnOffWhenReplayTriggered, (app::ShrineCombat * this_ptr, app::ShrineCombat_WaveProgressMarker* marker))
-    IL2CPP_REGISTER_METHODINFO(0x0472B3E0, ShrineCombat_ShouldTurnOffWhenReplayTriggered__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0073BC30, void, RestrictInteractionButtonSlot, (app::ShrineCombat * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0073BCE0, void, OnPostTimeSlicedEnable, (app::ShrineCombat * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ApplyOnEditor, (app::ShrineCombat * this_ptr))

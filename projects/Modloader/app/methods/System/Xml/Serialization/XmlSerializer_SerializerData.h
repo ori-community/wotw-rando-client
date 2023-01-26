@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSerializationWriter.h>
+
+#include <Modloader/app/structs/XmlSerializationWriter.h>
 #include <Modloader/app/structs/XmlSerializer_SerializerData.h>
 
 namespace app::classes::System::Xml::Serialization::XmlSerializer_SerializerData {

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RotationLimitPolygonal.h>
-#include <Modloader/app/structs/RotationLimitPolygonal_LimitPoint__Array.h>
+
+#include <Modloader/app/structs/RotationLimitPolygonal.h>
 #include <Modloader/app/structs/Quaternion.h>
-#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/RotationLimitPolygonal_LimitPoint__Array.h>
 #include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 
 namespace app::classes::RootMotion::FinalIK::RotationLimitPolygonal {
     IL2CPP_REGISTER_METHOD(0x02A220F0, void, OpenUserManual, (app::RotationLimitPolygonal * this_ptr))

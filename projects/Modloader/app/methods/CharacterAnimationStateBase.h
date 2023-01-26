@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CharacterAnimationStateBase.h>
+
+#include <Modloader/app/structs/CharacterAnimationStateBase.h>
 #include <Modloader/app/structs/TextureAnimation.h>
 
 namespace app::classes::CharacterAnimationStateBase {

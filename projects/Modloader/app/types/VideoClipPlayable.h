@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/VideoClipPlayable__Class.h>
 #include <Modloader/app/structs/VideoClipPlayable.h>
 #include <Modloader/app/structs/VideoClipPlayable__Boxed.h>
+#include <Modloader/app/structs/VideoClipPlayable__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace VideoClipPlayable {
-        namespace {
-            inline app::VideoClipPlayable__Class* type_info_ref = nullptr;
+        inline app::VideoClipPlayable__Class** type_info() {
+            static app::VideoClipPlayable__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::VideoClipPlayable__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::VideoClipPlayable__Class** type_info = &type_info_ref;
         inline app::VideoClipPlayable__Class* get_class() {
-            return il2cpp::get_class<app::VideoClipPlayable__Class>(type_info, "UnityEngine.Experimental.Video", "VideoClipPlayable");
+            return il2cpp::get_class<app::VideoClipPlayable__Class>(type_info(), "UnityEngine.Experimental.Video", "VideoClipPlayable");
         }
         inline app::VideoClipPlayable* create() {
             return il2cpp::create_object<app::VideoClipPlayable>(get_class());

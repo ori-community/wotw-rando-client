@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HierarchyPerformanceTester_Old.h>
+
+#include <Modloader/app/structs/HierarchyPerformanceTester_Old.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/SceneRoot.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/HashSet_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
 #include <Modloader/app/structs/HierarchyDebugMenu_GameObjectItem.h>
+#include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
+#include <Modloader/app/structs/SceneRoot.h>
 #include <Modloader/app/structs/State__Enum.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
-#include <Modloader/app/structs/HashSet_1_Moon_HierarchyPerformanceTest_HPerfTestResult_.h>
-#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::HierarchyPerformanceTester_Old {
     IL2CPP_REGISTER_METHOD(0x0149BDF0, void, add_OnTestComplete, (app::HierarchyPerformanceTester_Old * this_ptr, app::Action* value))
@@ -18,10 +19,8 @@ namespace app::classes::Moon::HierarchyPerformanceTest::HierarchyPerformanceTest
     IL2CPP_REGISTER_METHOD(0x00DFE800, bool, get_IsRunning, (app::HierarchyPerformanceTester_Old * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0149C340, int32_t, get_ObjectsLeft, (app::HierarchyPerformanceTester_Old * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0149C3D0, void, ChangeState, (app::HierarchyPerformanceTester_Old * this_ptr, app::State__Enum state))
-    IL2CPP_REGISTER_METHODINFO(0x04782308, HierarchyPerformanceTester_Old_ChangeState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0149C830, void, Update, (app::HierarchyPerformanceTester_Old * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0149C8A0, void, UpdateState, (app::HierarchyPerformanceTester_Old * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04705BF8, HierarchyPerformanceTester_Old_UpdateState__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0149CAD0, void, SaveResultsIntoFile, (app::HierarchyPerformanceTester_Old * this_ptr, app::String* file_name, app::String* file_extension))
     IL2CPP_REGISTER_METHOD(0x0149D370, app::List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_*, SortResults, (app::HierarchyPerformanceTester_Old * this_ptr, app::HashSet_1_Moon_HierarchyPerformanceTest_HPerfTestResult_* results))
     IL2CPP_REGISTER_METHOD(0x0149D4E0, void, AddResultsRecursively, (app::HierarchyPerformanceTester_Old * this_ptr, app::GameObject* root, app::List_1_Moon_HierarchyPerformanceTest_HPerfTestResult_* sorted_results))

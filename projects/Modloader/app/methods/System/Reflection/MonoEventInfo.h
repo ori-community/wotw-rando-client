@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MonoEvent.h>
+
+#include <Modloader/app/structs/MonoEvent.h>
 #include <Modloader/app/structs/MonoEventInfo.h>
 
 namespace app::classes::System::Reflection::MonoEventInfo {

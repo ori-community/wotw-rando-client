@@ -14,7 +14,7 @@ struct __declspec(align(8)) NewSetupStateControllerResolver__Fields {
 #endif
 #if !defined(IL2CPP_STRUCT_NewSetupStateControllerResolver__Fields_FWDDECL)
 #define IL2CPP_STRUCT_NewSetupStateControllerResolver__Fields_FWDDECL
-#include <Modloader/app/structs/Dictionary_2_System_Int32_Moon_NewSetupStateControllerResolver_IRuntimeUberStateControllerDataLink_.h>
+#include <Modloader/app/structs/Dictionary_2_Syste_Int_Mo_NewSetupStateControllerResolv_IRuntimeUberStateControllerDataLi_.h>
 #include <Modloader/app/structs/List_1_Moon_NewSetupStateControllerResolver_SerializedUberStateControllerLinkItem_.h>
 #endif
 #undef IL2CPP_STRUCT_NewSetupStateControllerResolver__Fields_INITIALIZING

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SinMovement_Affect__Class.h>
 #include <Modloader/app/structs/SinMovement_Affect.h>
 #include <Modloader/app/structs/SinMovement_Affect__Array.h>
+#include <Modloader/app/structs/SinMovement_Affect__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace SinMovement_Affect {
-        namespace {
-            inline app::SinMovement_Affect__Class* type_info_ref = nullptr;
+        inline app::SinMovement_Affect__Class** type_info() {
+            static app::SinMovement_Affect__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SinMovement_Affect__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SinMovement_Affect__Class** type_info = &type_info_ref;
         inline app::SinMovement_Affect__Class* get_class() {
-            return il2cpp::get_nested_class<app::SinMovement_Affect__Class>(type_info, "", "SinMovement", "Affect");
+            return il2cpp::get_nested_class<app::SinMovement_Affect__Class>(type_info(), "", "SinMovement", "Affect");
         }
         inline app::SinMovement_Affect* create() {
             return il2cpp::create_object<app::SinMovement_Affect>(get_class());

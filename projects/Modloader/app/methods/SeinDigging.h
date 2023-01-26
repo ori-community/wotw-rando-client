@@ -1,25 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinDigging.h>
-#include <Modloader/app/structs/SeinDigging_State__Enum.h>
-#include <Modloader/app/structs/SeinDigging_DiggingEffects.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SeinSwimming.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/MoonControllerColliderHit.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/DigZone.h>
-#include <Modloader/app/structs/LayerMask.h>
+
+#include <Modloader/app/structs/SeinDigging.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
-#include <Modloader/app/structs/SoundProvider.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/DigZone.h>
+#include <Modloader/app/structs/EffectSpawn.h>
 #include <Modloader/app/structs/Event_1.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/LayerMask.h>
+#include <Modloader/app/structs/MoonControllerColliderHit.h>
 #include <Modloader/app/structs/SeinDiggingPuppet.h>
+#include <Modloader/app/structs/SeinDigging_DiggingEffects.h>
+#include <Modloader/app/structs/SeinDigging_State__Enum.h>
+#include <Modloader/app/structs/SeinSwimming.h>
+#include <Modloader/app/structs/SoundProvider.h>
 #include <Modloader/app/structs/StressTestStatus__Enum.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/EffectSpawn.h>
-#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinDigging {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinDigging * this_ptr))
@@ -66,7 +67,6 @@ namespace app::classes::SeinDigging {
     IL2CPP_REGISTER_METHOD(0x00705B10, void, DestroyOutOfZoneDashingEffect, (app::SeinDigging * this_ptr, bool imediate))
     IL2CPP_REGISTER_METHOD(0x00705C90, void, StartDigging, (app::SeinDigging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00706210, bool, ShouldDiggingAnimationPlay, (app::SeinDigging * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04745560, SeinDigging_ShouldDiggingAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00706220, float, get_DigLeftStickDeadZone, (app::SeinDigging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00706320, void, UpdateDiggingState, (app::SeinDigging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00707F50, void, LateUpdate, (app::SeinDigging * this_ptr))
@@ -78,16 +78,11 @@ namespace app::classes::SeinDigging {
     IL2CPP_REGISTER_METHOD(0x0070A250, void, UpdateExitingSand, (app::SeinDigging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0070A7C0, float, WrapAngle, (app::SeinDigging * this_ptr, float angle))
     IL2CPP_REGISTER_METHOD(0x0070A8D0, void, OnRootMotionForExitSand, (app::SeinDigging * this_ptr, app::Vector3 root))
-    IL2CPP_REGISTER_METHODINFO(0x04755E98, SeinDigging_OnRootMotionForExitSand__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070AA50, void, OnMoonControllerCollision, (app::SeinDigging * this_ptr, app::MoonControllerColliderHit hit))
-    IL2CPP_REGISTER_METHODINFO(0x0471AD18, SeinDigging_OnMoonControllerCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070ADB0, void, OnDamageReceived, (app::SeinDigging * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x04793D08, SeinDigging_OnDamageReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070B010, void, Ricochet, (app::SeinDigging * this_ptr, app::Vector3 impact_point, app::Vector3 normal))
     IL2CPP_REGISTER_METHOD(0x0070B4A0, void, ModifyHorizontalPlatformMovementSettings, (app::SeinDigging * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0470FFC0, SeinDigging_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070B550, void, ModifyGravityPlatformMovementSettings, (app::SeinDigging * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04700FB0, SeinDigging_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070B580, app::DigZone*, GetDigZoneAtPoint, (app::SeinDigging * this_ptr, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x0070B740, bool, IsInWaterZone, (app::SeinDigging * this_ptr, app::Vector3 position))
     IL2CPP_REGISTER_METHOD(0x0070B910, app::DigZone*, GetDigZoneIntersectingCircle, (app::SeinDigging * this_ptr, app::Vector3 center, float radius))
@@ -100,7 +95,6 @@ namespace app::classes::SeinDigging {
     IL2CPP_REGISTER_METHOD(0x0070BFE0, void, ActivateCameraLookAhead, (app::SeinDigging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0070BFF0, void, DeactivateCameraLookAhead, (app::SeinDigging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0070C0F0, void, OnRestoreCheckpoint, (app::SeinDigging * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476A330, SeinDigging_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070C310, void, OnDrillZoneReleaseEvent, (app::SeinDigging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0070C350, void, PlaySound_1, (app::SeinDigging * this_ptr, app::SoundProvider* provider))
     IL2CPP_REGISTER_METHOD(0x0070C470, void, PlaySound_2, (app::SeinDigging * this_ptr, app::Event_1* wise_event))
@@ -117,17 +111,10 @@ namespace app::classes::SeinDigging {
     IL2CPP_REGISTER_METHOD(0x0070CB20, app::String*, get_StressTestName, (app::SeinDigging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0070CBA0, void, ctor, (app::SeinDigging * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0070CE40, app::EffectSpawn, _UpdateDiggingState_b__182_0, (app::SeinDigging * this_ptr, app::DamageResult result))
-    IL2CPP_REGISTER_METHODINFO(0x04786B68, SeinDigging__UpdateDiggingState_b__182_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070C590, bool, _StartDashing_b__185_0, (app::SeinDigging * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476D1C8, SeinDigging__StartDashing_b__185_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070CE70, bool, _EndDigging_b__187_0, (app::SeinDigging * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478A480, SeinDigging__EndDigging_b__187_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070CF30, bool, _StartExitingSand_b__188_0, (app::SeinDigging * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04794288, SeinDigging__StartExitingSand_b__188_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070CF40, void, _StartExitingSand_b__188_1, (app::SeinDigging * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04786E90, SeinDigging__StartExitingSand_b__188_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070CF30, bool, _StartExitingSand_b__188_2, (app::SeinDigging * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04738B50, SeinDigging__StartExitingSand_b__188_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0070CF30, bool, _StartExitingSand_b__188_3, (app::SeinDigging * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04760400, SeinDigging__StartExitingSand_b__188_3__MethodInfo)
 } // namespace app::classes::SeinDigging

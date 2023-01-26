@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NewSetupStateController_ChangeModel.h>
+
+#include <Modloader/app/structs/NewSetupStateController_ChangeModel.h>
 #include <Modloader/app/structs/SetupControllerStateHolder.h>
 
 namespace app::classes::NewSetupStateController_ChangeModel {

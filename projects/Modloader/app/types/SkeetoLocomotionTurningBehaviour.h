@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SkeetoLocomotionTurningBehaviour.h>
+#include <Modloader/app/structs/SkeetoLocomotionTurningBehaviour__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SkeetoLocomotionTurningBehaviour__Class.h>
-#include <Modloader/app/structs/SkeetoLocomotionTurningBehaviour.h>
 
 namespace app::classes::types {
     namespace SkeetoLocomotionTurningBehaviour {
-        namespace {
-            inline app::SkeetoLocomotionTurningBehaviour__Class* type_info_ref = nullptr;
+        inline app::SkeetoLocomotionTurningBehaviour__Class** type_info() {
+            static app::SkeetoLocomotionTurningBehaviour__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SkeetoLocomotionTurningBehaviour__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SkeetoLocomotionTurningBehaviour__Class** type_info = &type_info_ref;
         inline app::SkeetoLocomotionTurningBehaviour__Class* get_class() {
-            return il2cpp::get_class<app::SkeetoLocomotionTurningBehaviour__Class>(type_info, "", "SkeetoLocomotionTurningBehaviour");
+            return il2cpp::get_class<app::SkeetoLocomotionTurningBehaviour__Class>(type_info(), "", "SkeetoLocomotionTurningBehaviour");
         }
         inline app::SkeetoLocomotionTurningBehaviour* create() {
             return il2cpp::create_object<app::SkeetoLocomotionTurningBehaviour>(get_class());

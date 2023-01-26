@@ -1,18 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Collection_1_Newtonsoft_Json_JsonConverter_.h>
+
+#include <Modloader/app/structs/Collection_1_Newtonsoft_Json_JsonConverter_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_JsonConverter_.h>
 #include <Modloader/app/structs/JsonConverter.h>
 #include <Modloader/app/structs/JsonConverter__Array.h>
-#include <Modloader/app/structs/IEnumerator_1_Newtonsoft_Json_JsonConverter_.h>
-#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Array.h>
 
 namespace app::classes::System::Collections::ObjectModel::Collection_1_Newtonsoft_Json_JsonConverter_ {
     IL2CPP_REGISTER_METHOD(0x02776BF0, void, ctor, (app::Collection_1_Newtonsoft_Json_JsonConverter_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04770850, Collection_1_Newtonsoft_Json_JsonConverter___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02CFA7D0, void, Insert, (app::Collection_1_Newtonsoft_Json_JsonConverter_ * this_ptr, int32_t index, app::JsonConverter* item))
-    IL2CPP_REGISTER_METHODINFO(0x04787AC0, Collection_1_Newtonsoft_Json_JsonConverter__Insert__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02CFA3A0, app::JsonConverter*, get_Item, (app::Collection_1_Newtonsoft_Json_JsonConverter_ * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x02CFA400, void, set_Item, (app::Collection_1_Newtonsoft_Json_JsonConverter_ * this_ptr, int32_t index, app::JsonConverter* value))
     IL2CPP_REGISTER_METHOD(0x02CFA760, int32_t, IndexOf, (app::Collection_1_Newtonsoft_Json_JsonConverter_ * this_ptr, app::JsonConverter* item))

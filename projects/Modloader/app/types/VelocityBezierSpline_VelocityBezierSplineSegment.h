@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment__Class.h>
 #include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment.h>
 #include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment__Array.h>
+#include <Modloader/app/structs/VelocityBezierSpline_VelocityBezierSplineSegment__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace VelocityBezierSpline_VelocityBezierSplineSegment {
-        inline app::VelocityBezierSpline_VelocityBezierSplineSegment__Class** type_info = (app::VelocityBezierSpline_VelocityBezierSplineSegment__Class**)(modloader::win::memory::resolve_rva(0x047377D8));
+        inline app::VelocityBezierSpline_VelocityBezierSplineSegment__Class** type_info() {
+            static app::VelocityBezierSpline_VelocityBezierSplineSegment__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::VelocityBezierSpline_VelocityBezierSplineSegment__Class**)(modloader::win::memory::resolve_rva(0x047377D8));
+            }
+            return cache;
+        }
         inline app::VelocityBezierSpline_VelocityBezierSplineSegment__Class* get_class() {
-            return il2cpp::get_nested_class<app::VelocityBezierSpline_VelocityBezierSplineSegment__Class>(type_info, "", "VelocityBezierSpline", "VelocityBezierSplineSegment");
+            return il2cpp::get_nested_class<app::VelocityBezierSpline_VelocityBezierSplineSegment__Class>(type_info(), "", "VelocityBezierSpline", "VelocityBezierSplineSegment");
         }
         inline app::VelocityBezierSpline_VelocityBezierSplineSegment* create() {
             return il2cpp::create_object<app::VelocityBezierSpline_VelocityBezierSplineSegment>(get_class());

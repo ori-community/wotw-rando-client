@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_AchievementAsset_.h>
+
+#include <Modloader/app/structs/ReadOnlyCollection_1_AchievementAsset_.h>
 #include <Modloader/app/structs/AchievementDatabase.h>
 
 namespace app::classes::AchievementDatabase {

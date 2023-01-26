@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinWallSlidePuppet.h>
+
+#include <Modloader/app/structs/SeinWallSlidePuppet.h>
 #include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::SeinWallSlidePuppet {

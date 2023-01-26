@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityReactionBehaviour.h>
+
+#include <Modloader/app/structs/EntityReactionBehaviour.h>
 #include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/EntityEvent.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/EntityDeathEvent.h>
 #include <Modloader/app/structs/EntityDamageEvent.h>
+#include <Modloader/app/structs/EntityDeathEvent.h>
+#include <Modloader/app/structs/EntityEvent.h>
 #include <Modloader/app/structs/EntityKickbackEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::EntityReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_RunInParallel, (app::EntityReactionBehaviour * this_ptr))
@@ -23,9 +24,6 @@ namespace app::classes::EntityReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x005B3EC0, void, ctor, (app::EntityReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015E8300, app::Object*, GetReactionEvent_1, (app::EntityReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015E8300, app::EntityDeathEvent*, GetReactionEvent_2, (app::EntityReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04723360, EntityReactionBehaviour_GetReactionEvent_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E8300, app::EntityDamageEvent*, GetReactionEvent_3, (app::EntityReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047657D8, EntityReactionBehaviour_GetReactionEvent_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E8300, app::EntityKickbackEvent*, GetReactionEvent_4, (app::EntityReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04744E00, EntityReactionBehaviour_GetReactionEvent_3__MethodInfo)
 } // namespace app::classes::EntityReactionBehaviour

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_Newtonsoft_Json_JsonPosition_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Newtonsoft_Json_JsonPosition_.h>
 #include <Modloader/app/structs/JsonPosition.h>
 #include <Modloader/app/structs/JsonPosition__Array.h>
 #include <Modloader/app/structs/Object.h>

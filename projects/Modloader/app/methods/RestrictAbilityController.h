@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationSwapSet.h>
-#include <Modloader/app/structs/SeinAbilityRestrictZoneMask__Enum.h>
+
+#include <Modloader/app/structs/AnimationSwapSet.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/Input_Command__Enum.h>
-#include <Modloader/app/structs/UpdateType__Enum.h>
 #include <Modloader/app/structs/RestrictAbilityController.h>
+#include <Modloader/app/structs/SeinAbilityRestrictZoneMask__Enum.h>
+#include <Modloader/app/structs/UpdateType__Enum.h>
 
 namespace app::classes::RestrictAbilityController {
     IL2CPP_REGISTER_METHOD(0x0090D040, app::AnimationSwapSet*, get_AnimationSet, ())

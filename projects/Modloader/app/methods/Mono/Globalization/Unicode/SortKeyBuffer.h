@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SortKeyBuffer.h>
-#include <Modloader/app/structs/CompareOptions__Enum.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/SortKeyBuffer.h>
 #include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/CompareOptions__Enum.h>
 #include <Modloader/app/structs/SortKey.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Mono::Globalization::Unicode::SortKeyBuffer {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SortKeyBuffer * this_ptr, int32_t lcid))

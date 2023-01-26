@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IncrementalReadDummyDecoder.h>
+
+#include <Modloader/app/structs/IncrementalReadDummyDecoder.h>
 #include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::IncrementalReadDummyDecoder {

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/TypeInformation_1.h>
+
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/PrimitiveTypeCode__Enum.h>
+#include <Modloader/app/structs/TypeInformation_1.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::TypeInformation {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Type*, get_Type, (app::TypeInformation_1 * this_ptr))

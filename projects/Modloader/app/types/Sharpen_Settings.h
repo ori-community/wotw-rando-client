@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Sharpen_Settings__Class.h>
 #include <Modloader/app/structs/Sharpen_Settings.h>
 #include <Modloader/app/structs/Sharpen_Settings__Boxed.h>
+#include <Modloader/app/structs/Sharpen_Settings__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Sharpen_Settings {
-        namespace {
-            inline app::Sharpen_Settings__Class* type_info_ref = nullptr;
+        inline app::Sharpen_Settings__Class** type_info() {
+            static app::Sharpen_Settings__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Sharpen_Settings__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Sharpen_Settings__Class** type_info = &type_info_ref;
         inline app::Sharpen_Settings__Class* get_class() {
-            return il2cpp::get_nested_class<app::Sharpen_Settings__Class>(type_info, "Colorful", "Sharpen", "Settings");
+            return il2cpp::get_nested_class<app::Sharpen_Settings__Class>(type_info(), "Colorful", "Sharpen", "Settings");
         }
         inline app::Sharpen_Settings* create() {
             return il2cpp::create_object<app::Sharpen_Settings>(get_class());

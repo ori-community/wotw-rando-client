@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FtpWebResponse.h>
-#include <Modloader/app/structs/FtpWebRequest.h>
-#include <Modloader/app/structs/Uri.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/FtpStatusCode__Enum.h>
-#include <Modloader/app/structs/FtpStatus.h>
-#include <Modloader/app/structs/WebHeaderCollection.h>
+
+#include <Modloader/app/structs/FtpWebResponse.h>
 #include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/FtpStatus.h>
+#include <Modloader/app/structs/FtpStatusCode__Enum.h>
+#include <Modloader/app/structs/FtpWebRequest.h>
 #include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/WebHeaderCollection.h>
 
 namespace app::classes::System::Net::FtpWebResponse {
     IL2CPP_REGISTER_METHOD(0x01D37BE0, void, ctor_1, (app::FtpWebResponse * this_ptr, app::FtpWebRequest* request, app::Uri* uri, app::String* method_1, bool keep_alive))
@@ -36,8 +37,6 @@ namespace app::classes::System::Net::FtpWebResponse {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::Stream*, get_Stream, (app::FtpWebResponse * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D38290, void, UpdateStatus, (app::FtpWebResponse * this_ptr, app::FtpStatus* status))
     IL2CPP_REGISTER_METHOD(0x01D382C0, void, CheckDisposed, (app::FtpWebResponse * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047635A8, FtpWebResponse_CheckDisposed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D383A0, bool, IsFinal, (app::FtpWebResponse * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D383B0, void, ctor_4, (app::FtpWebResponse * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474B800, FtpWebResponse__ctor_3__MethodInfo)
 } // namespace app::classes::System::Net::FtpWebResponse

@@ -1,21 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PointerUIGUI.h>
+
+#include <Modloader/app/structs/PointerUIGUI.h>
+#include <Modloader/app/structs/BaseEventData.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Ray.h>
 #include <Modloader/app/structs/Texture2D.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Ray.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
-#include <Modloader/app/structs/BaseEventData.h>
-#include <Modloader/app/structs/PointerEventData.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::PointerUIGUI {
     IL2CPP_REGISTER_METHOD(0x01661A30, void, Awake, (app::PointerUIGUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01661BE0, void, OnEnable, (app::PointerUIGUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01661D40, app::IEnumerator*, WatchResize, (app::PointerUIGUI * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01661E90, void, UpdateTexture, (app::PointerUIGUI * this_ptr, app::Texture2D* texture))
-    IL2CPP_REGISTER_METHODINFO(0x047939B0, PointerUIGUI_UpdateTexture__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01661F40, app::Vector2, MapPointerToBrowser, (app::PointerUIGUI * this_ptr, app::Vector2 screen_position, int32_t pointer_id))
     IL2CPP_REGISTER_METHOD(0x016622D0, app::Vector2, MapRayToBrowser, (app::PointerUIGUI * this_ptr, app::Ray world_ray, int32_t pointer_id))
     IL2CPP_REGISTER_METHOD(0x016623B0, void, GetCurrentHitLocation, (app::PointerUIGUI * this_ptr, app::Vector3* pos, app::Quaternion* rot))

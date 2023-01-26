@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FadeWhileSceneLoading.h>
+
+#include <Modloader/app/structs/FadeWhileSceneLoading.h>
 #include <Modloader/app/structs/SceneManagerScene.h>
 
 namespace app::classes::FadeWhileSceneLoading {

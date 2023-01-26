@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinLifeAbsorbSpell.h>
+
+#include <Modloader/app/structs/SeinLifeAbsorbSpell.h>
+#include <Modloader/app/structs/IAttackable.h>
 #include <Modloader/app/structs/SeinLifeAbsorbArm.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IAttackable.h>
 
 namespace app::classes::SeinLifeAbsorbSpell {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinLifeAbsorbSpell * this_ptr))

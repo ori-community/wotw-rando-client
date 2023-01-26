@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DateTime.h>
+
+#include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/Calendar.h>
 #include <Modloader/app/structs/Object.h>
 
@@ -13,7 +14,6 @@ namespace app::classes::System::Globalization::Calendar {
     IL2CPP_REGISTER_METHOD(0x00724AE0, bool, get_IsReadOnly, (app::Calendar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01A1E560, app::Object*, Clone, (app::Calendar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01A1E700, app::Calendar*, ReadOnly, (app::Calendar * calendar))
-    IL2CPP_REGISTER_METHODINFO(0x04731AC8, Calendar_ReadOnly__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007EA280, void, SetReadOnlyState, (app::Calendar * this_ptr, bool read_only))
     IL2CPP_REGISTER_METHOD(0x01A1E880, int32_t, get_CurrentEraValue, (app::Calendar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01A1E960, bool, IsLeapYear, (app::Calendar * this_ptr, int32_t year))
@@ -24,6 +24,5 @@ namespace app::classes::System::Globalization::Calendar {
     IL2CPP_REGISTER_METHOD(0x01A1EC30, bool, IsValidDay, (app::Calendar * this_ptr, int32_t year, int32_t month, int32_t day, int32_t era))
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_TwoDigitYearMax, (app::Calendar * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01A1ECC0, int32_t, ToFourDigitYear, (app::Calendar * this_ptr, int32_t year))
-    IL2CPP_REGISTER_METHODINFO(0x0477ACF8, Calendar_ToFourDigitYear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01A1EE10, int32_t, GetSystemTwoDigitYearSetting, (int32_t cal_i_d, int32_t default_year_value))
 } // namespace app::classes::System::Globalization::Calendar

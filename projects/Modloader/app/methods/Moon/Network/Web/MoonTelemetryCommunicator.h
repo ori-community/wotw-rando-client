@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonTelemetryCommunicator.h>
+
+#include <Modloader/app/structs/MoonTelemetryCommunicator.h>
 #include <Modloader/app/structs/IRequest.h>
 
 namespace app::classes::Moon::Network::Web::MoonTelemetryCommunicator {

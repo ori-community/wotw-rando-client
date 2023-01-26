@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/Json_Parser_TOKEN__Enum.h>
+#include <Modloader/app/structs/Json_Parser_TOKEN__Enum__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Json_Parser_TOKEN__Enum__Class.h>
-#include <Modloader/app/structs/Json_Parser_TOKEN__Enum.h>
 
 namespace app::classes::types {
     namespace Json_Parser_TOKEN__Enum {
-        namespace {
-            inline app::Json_Parser_TOKEN__Enum__Class* type_info_ref = nullptr;
+        inline app::Json_Parser_TOKEN__Enum__Class** type_info() {
+            static app::Json_Parser_TOKEN__Enum__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Json_Parser_TOKEN__Enum__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Json_Parser_TOKEN__Enum__Class** type_info = &type_info_ref;
         inline app::Json_Parser_TOKEN__Enum__Class* get_class() {
-            return il2cpp::get_nested_class<app::Json_Parser_TOKEN__Enum__Class>(type_info, "Moon.Network.Web", "Json+Parser", "TOKEN");
+            return il2cpp::get_nested_class<app::Json_Parser_TOKEN__Enum__Class>(type_info(), "Moon.Network.Web", "Json+Parser", "TOKEN");
         }
         inline app::Json_Parser_TOKEN__Enum* create() {
             return il2cpp::create_object<app::Json_Parser_TOKEN__Enum>(get_class());

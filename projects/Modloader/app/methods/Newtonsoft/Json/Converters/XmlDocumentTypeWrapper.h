@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlDocumentTypeWrapper.h>
-#include <Modloader/app/structs/XmlDocumentType.h>
+
+#include <Modloader/app/structs/XmlDocumentTypeWrapper.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlDocumentType.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::XmlDocumentTypeWrapper {
     IL2CPP_REGISTER_METHOD(0x01A59FC0, void, ctor, (app::XmlDocumentTypeWrapper * this_ptr, app::XmlDocumentType* document_type))

@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HttpListenerPrefixCollection.h>
+
+#include <Modloader/app/structs/HttpListenerPrefixCollection.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/HttpListener.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_System_String_.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/IEnumerator_1_System_String_.h>
-#include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::System::Net::HttpListenerPrefixCollection {
     IL2CPP_REGISTER_METHOD(0x01D45B30, void, ctor_1, (app::HttpListenerPrefixCollection * this_ptr, app::HttpListener* listener))
@@ -21,7 +22,5 @@ namespace app::classes::System::Net::HttpListenerPrefixCollection {
     IL2CPP_REGISTER_METHOD(0x01D461B0, app::IEnumerator_1_System_String_*, GetEnumerator, (app::HttpListenerPrefixCollection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D46280, app::IEnumerator*, IEnumerable_GetEnumerator, (app::HttpListenerPrefixCollection * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01D46350, bool, Remove, (app::HttpListenerPrefixCollection * this_ptr, app::String* uri_prefix))
-    IL2CPP_REGISTER_METHODINFO(0x04755BF0, HttpListenerPrefixCollection_Remove__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01D464B0, void, ctor_2, (app::HttpListenerPrefixCollection * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04705EE8, HttpListenerPrefixCollection__ctor_1__MethodInfo)
 } // namespace app::classes::System::Net::HttpListenerPrefixCollection

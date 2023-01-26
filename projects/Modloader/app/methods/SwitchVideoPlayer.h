@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OnDelegate.h>
-#include <Modloader/app/structs/SwitchVideoPlayer.h>
+
+#include <Modloader/app/structs/OnDelegate.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SwitchVideoPlayer.h>
 
 namespace app::classes::SwitchVideoPlayer {
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::OnDelegate*, get_OnPlaybackFinished, (app::SwitchVideoPlayer * this_ptr))

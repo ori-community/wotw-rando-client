@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Texture.h>
-#include <Modloader/app/structs/ZoneScalingData.h>
+
+#include <Modloader/app/structs/Texture.h>
 #include <Modloader/app/structs/EntityPlaceholderScalingData.h>
 #include <Modloader/app/structs/ScreenshotIcon_EnemyType__Enum.h>
+#include <Modloader/app/structs/ZoneScalingData.h>
 
 namespace app::classes::ZoneScalingData {
     IL2CPP_REGISTER_METHOD(0x00F59020, app::Texture*, get_DisplayTexture, (app::ZoneScalingData * this_ptr))

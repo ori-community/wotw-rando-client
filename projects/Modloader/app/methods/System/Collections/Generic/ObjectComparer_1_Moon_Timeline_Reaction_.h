@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_Moon_Timeline_Reaction_.h>
-#include <Modloader/app/structs/Reaction.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_Moon_Timeline_Reaction_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Reaction.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_Moon_Timeline_Reaction_ {
     IL2CPP_REGISTER_METHOD(0x01CC5EA0, int32_t, Compare, (app::ObjectComparer_1_Moon_Timeline_Reaction_ * this_ptr, app::Reaction x, app::Reaction y))

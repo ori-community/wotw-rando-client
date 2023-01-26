@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TrackingValidationObjectDictionary.h>
-#include <Modloader/app/structs/IDictionary_2_System_String_System_Net_TrackingValidationObjectDictionary_ValidateAndParseValue_.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/TrackingValidationObjectDictionary.h>
+#include <Modloader/app/structs/IDictionary_2_Syste_Strin_Syste_Ne_TrackingValidationObjectDictionar_ValidateAndParseValu_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::TrackingValidationObjectDictionary {
     IL2CPP_REGISTER_METHOD(0x020AA220, void, ctor, (app::TrackingValidationObjectDictionary * this_ptr, app::IDictionary_2_System_String_System_Net_TrackingValidationObjectDictionary_ValidateAndParseValue_* validators))

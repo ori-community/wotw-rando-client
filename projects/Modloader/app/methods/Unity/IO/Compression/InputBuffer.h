@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InputBuffer.h>
+
+#include <Modloader/app/structs/InputBuffer.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Unity::IO::Compression::InputBuffer {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DynamicDataLinkUtils_InfoStruct__Boxed.h>
+
+#include <Modloader/app/structs/DynamicDataLinkUtils_InfoStruct__Boxed.h>
 #include <Modloader/app/structs/MemberInfo_1.h>
 #include <Modloader/app/structs/Type.h>
 

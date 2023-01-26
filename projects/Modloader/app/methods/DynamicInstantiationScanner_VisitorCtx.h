@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DynamicInstantiationScanner_VisitorCtx.h>
+
+#include <Modloader/app/structs/DynamicInstantiationScanner_VisitorCtx.h>
 #include <Modloader/app/structs/DynamicInstantiationScanner.h>
 
 namespace app::classes::DynamicInstantiationScanner_VisitorCtx {

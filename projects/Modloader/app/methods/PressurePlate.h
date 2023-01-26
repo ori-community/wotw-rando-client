@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/PressurePlate.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/PressurePlate_Target__Enum.h>
-#include <Modloader/app/structs/ICanActivatePressurePlate.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/ICanActivatePressurePlate.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/IDesiredUberState.h>
 #include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/PressurePlate.h>
+#include <Modloader/app/structs/PressurePlate_Target__Enum.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PressurePlate {
     IL2CPP_REGISTER_METHOD(0x00C707B0, app::GameObject*, get_TargetGameObject, (app::PressurePlate * this_ptr))
@@ -20,7 +21,6 @@ namespace app::classes::PressurePlate {
     IL2CPP_REGISTER_METHOD(0x00C708C0, void, Awake, (app::PressurePlate * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C70FE0, void, OnDestroy, (app::PressurePlate * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C717B0, void, OnRestoreCheckpoint, (app::PressurePlate * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04717058, PressurePlate_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C71980, bool, get_CanUpdateState, (app::PressurePlate * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C71B30, void, OnEnable, (app::PressurePlate * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C71BD0, void, OnDisable, (app::PressurePlate * this_ptr))
@@ -31,12 +31,9 @@ namespace app::classes::PressurePlate {
     IL2CPP_REGISTER_METHOD(0x00C72000, void, AddPressing, (app::PressurePlate * this_ptr, app::ICanActivatePressurePlate* target, bool force_add))
     IL2CPP_REGISTER_METHOD(0x00C72410, void, RemovePressing, (app::PressurePlate * this_ptr, app::ICanActivatePressurePlate* target))
     IL2CPP_REGISTER_METHOD(0x00C72760, void, OnCollisionEnter, (app::PressurePlate * this_ptr, app::Collision* collision))
-    IL2CPP_REGISTER_METHODINFO(0x04749690, PressurePlate_OnCollisionEnter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C72770, void, OnCollisionStay, (app::PressurePlate * this_ptr, app::Collision* collision))
-    IL2CPP_REGISTER_METHODINFO(0x0471F368, PressurePlate_OnCollisionStay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C72780, void, OnCollision, (app::PressurePlate * this_ptr, app::Collision* collision, bool force_add))
     IL2CPP_REGISTER_METHOD(0x00C72A20, void, OnCollisionExit, (app::PressurePlate * this_ptr, app::Collision* collision))
-    IL2CPP_REGISTER_METHODINFO(0x0478C168, PressurePlate_OnCollisionExit__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ApplyOnEditor, (app::PressurePlate * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C72AD0, void, Apply, (app::PressurePlate * this_ptr, app::UberStateApplyContext__Enum context))
     IL2CPP_REGISTER_METHOD(0x00C72C20, app::IUberState__Array*, get_AffectingUberStates, (app::PressurePlate * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpaceMongerWidget_UberStateGroupDataSizeComparer.h>
+
+#include <Modloader/app/structs/SpaceMongerWidget_UberStateGroupDataSizeComparer.h>
 #include <Modloader/app/structs/UberStateGroupData.h>
 
 namespace app::classes::Moon::UberStateVisualization::SpaceMongerWidget_UberStateGroupDataSizeComparer {

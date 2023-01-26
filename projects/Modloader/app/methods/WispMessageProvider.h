@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IEnumerable_1_MessageDescriptor_.h>
+
+#include <Modloader/app/structs/IEnumerable_1_MessageDescriptor_.h>
 #include <Modloader/app/structs/WispMessageProvider.h>
 
 namespace app::classes::WispMessageProvider {

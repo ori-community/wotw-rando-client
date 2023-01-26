@@ -1,26 +1,27 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinPickupProcessor.h>
-#include <Modloader/app/structs/SeinPickupProcessor_PickupProcessorState__Enum.h>
-#include <Modloader/app/structs/SeinPickupProcessor_CollectableInfo.h>
-#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
-#include <Modloader/app/structs/SkillPointPickup.h>
-#include <Modloader/app/structs/QuestItemPickup.h>
-#include <Modloader/app/structs/ShardSlotUpgradePickup.h>
+
+#include <Modloader/app/structs/SeinPickupProcessor.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/EnergyOrbPickup.h>
-#include <Modloader/app/structs/MaxEnergyContainerPickup.h>
-#include <Modloader/app/structs/MaxEnergyHalfContainerPickup.h>
-#include <Modloader/app/structs/OrePickup.h>
-#include <Modloader/app/structs/PickupBase.h>
 #include <Modloader/app/structs/ExpOrbPickup.h>
 #include <Modloader/app/structs/KeystonePickup.h>
+#include <Modloader/app/structs/MapStonePickup.h>
+#include <Modloader/app/structs/MaxEnergyContainerPickup.h>
+#include <Modloader/app/structs/MaxEnergyHalfContainerPickup.h>
 #include <Modloader/app/structs/MaxHealthContainerPickup.h>
 #include <Modloader/app/structs/MaxHealthHalfContainerPickup.h>
+#include <Modloader/app/structs/MessageBox_HideAction__Enum.h>
+#include <Modloader/app/structs/OrePickup.h>
+#include <Modloader/app/structs/PickupBase.h>
+#include <Modloader/app/structs/QuestItemPickup.h>
 #include <Modloader/app/structs/RestoreHealthPickup.h>
-#include <Modloader/app/structs/MapStonePickup.h>
-#include <Modloader/app/structs/SpiritShardPickup.h>
 #include <Modloader/app/structs/SeinCharacter.h>
-#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/SeinPickupProcessor_CollectableInfo.h>
+#include <Modloader/app/structs/SeinPickupProcessor_PickupProcessorState__Enum.h>
+#include <Modloader/app/structs/ShardSlotUpgradePickup.h>
+#include <Modloader/app/structs/SkillPointPickup.h>
+#include <Modloader/app/structs/SpiritShardPickup.h>
 
 namespace app::classes::SeinPickupProcessor {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_AreFirstTimeHintsEnabled, (app::SeinPickupProcessor * this_ptr))
@@ -30,16 +31,12 @@ namespace app::classes::SeinPickupProcessor {
     IL2CPP_REGISTER_METHOD(0x008B1260, void, Update, (app::SeinPickupProcessor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008B14D0, void, ChangeState, (app::SeinPickupProcessor * this_ptr, app::SeinPickupProcessor_PickupProcessorState__Enum state))
     IL2CPP_REGISTER_METHOD(0x008B1530, void, OnRestoreCheckpoint, (app::SeinPickupProcessor * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04734508, SeinPickupProcessor_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008B1530, void, OnTimelineFinished, (app::SeinPickupProcessor * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0474C260, SeinPickupProcessor_OnTimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008B1550, void, OnShowItem, (app::SeinPickupProcessor * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04751C58, SeinPickupProcessor_OnShowItem__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008B17F0, void, PerformPickupSequence, (app::SeinPickupProcessor * this_ptr, app::SeinPickupProcessor_CollectableInfo* collectable_info))
     IL2CPP_REGISTER_METHOD(0x008B1BF0, void, SetHasBeenCollectedBefore, (app::SeinPickupProcessor * this_ptr, app::SeinPickupProcessor_CollectableInfo* collectable_info))
     IL2CPP_REGISTER_METHOD(0x008B1E80, bool, GetHasBeenCollectedBefore, (app::SeinPickupProcessor * this_ptr, app::SeinPickupProcessor_CollectableInfo* collectable_info))
     IL2CPP_REGISTER_METHOD(0x008B20D0, void, OnFinishedReading, (app::SeinPickupProcessor * this_ptr, app::MessageBox_HideAction__Enum hide_action))
-    IL2CPP_REGISTER_METHODINFO(0x0478C530, SeinPickupProcessor_OnFinishedReading__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008B2320, void, OnCollectSkillPointPickup, (app::SeinPickupProcessor * this_ptr, app::SkillPointPickup* skill_point_pickup))
     IL2CPP_REGISTER_METHOD(0x008B2600, void, OnCollectQuestItemPickup, (app::SeinPickupProcessor * this_ptr, app::QuestItemPickup* quest_item_pickup))
     IL2CPP_REGISTER_METHOD(0x008B2A00, void, OnCollectedShardSlotUpgrade, (app::SeinPickupProcessor * this_ptr, app::ShardSlotUpgradePickup* shard_slot_pickup))
@@ -61,11 +58,7 @@ namespace app::classes::SeinPickupProcessor {
     IL2CPP_REGISTER_METHOD(0x008B5DD0, void, ctor, (app::SeinPickupProcessor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008B6E60, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x008B6FF0, void, _OnCollectMaxEnergyHalfContainerPickup_b__56_0, (app::SeinPickupProcessor * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04719440, SeinPickupProcessor__OnCollectMaxEnergyHalfContainerPickup_b__56_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008B72E0, void, _OnCollectMaxEnergyHalfContainerPickup_b__56_1, (app::SeinPickupProcessor * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047481D8, SeinPickupProcessor__OnCollectMaxEnergyHalfContainerPickup_b__56_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008B75D0, void, _OnCollectMaxHealthHalfContainerPickup_b__62_0, (app::SeinPickupProcessor * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04790BE0, SeinPickupProcessor__OnCollectMaxHealthHalfContainerPickup_b__62_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008B78C0, void, _OnCollectMaxHealthHalfContainerPickup_b__62_1, (app::SeinPickupProcessor * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477F218, SeinPickupProcessor__OnCollectMaxHealthHalfContainerPickup_b__62_1__MethodInfo)
 } // namespace app::classes::SeinPickupProcessor

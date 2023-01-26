@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CullFlag__Enum.h>
+
+#include <Modloader/app/structs/CullFlag__Enum.h>
 #include <Modloader/app/structs/ScriptableCullingParameters__Boxed.h>
 
 namespace app::classes::UnityEngine::Experimental::Rendering::ScriptableCullingParameters {

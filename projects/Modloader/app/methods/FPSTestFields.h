@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StringBuilder.h>
-#include <Modloader/app/structs/FPSTestFields_Scope__Enum.h>
-#include <Modloader/app/structs/FPSTestResult.h>
+
+#include <Modloader/app/structs/StringBuilder.h>
 #include <Modloader/app/structs/FPSSampleData.h>
 #include <Modloader/app/structs/FPSTestFields_Field__Enum.h>
+#include <Modloader/app/structs/FPSTestFields_Scope__Enum.h>
+#include <Modloader/app/structs/FPSTestResult.h>
 
 namespace app::classes::FPSTestFields {
     IL2CPP_REGISTER_METHOD(0x0098B530, void, AppendHeaderRow, (app::StringBuilder * s, app::FPSTestFields_Scope__Enum scope))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TurbulenceRotationModifier.h>
+
+#include <Modloader/app/structs/TurbulenceRotationModifier.h>
 #include <Modloader/app/structs/IEnumerable_1_System_String_.h>
 
 namespace app::classes::TurbulenceRotationModifier {

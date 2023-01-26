@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OnScreenPositions.h>
+
+#include <Modloader/app/structs/OnScreenPositions.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::OnScreenPositions {

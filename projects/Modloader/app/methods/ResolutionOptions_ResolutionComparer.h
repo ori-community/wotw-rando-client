@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ResolutionOptions_ResolutionComparer.h>
+
+#include <Modloader/app/structs/ResolutionOptions_ResolutionComparer.h>
 #include <Modloader/app/structs/ResolutionOptions_ResolutionEntry.h>
 
 namespace app::classes::ResolutionOptions_ResolutionComparer {

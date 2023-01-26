@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LegacyAnimator__Class.h>
 #include <Modloader/app/structs/LegacyAnimator.h>
 #include <Modloader/app/structs/LegacyAnimator__Array.h>
+#include <Modloader/app/structs/LegacyAnimator__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace LegacyAnimator {
-        namespace {
-            inline app::LegacyAnimator__Class* type_info_ref = nullptr;
+        inline app::LegacyAnimator__Class** type_info() {
+            static app::LegacyAnimator__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LegacyAnimator__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LegacyAnimator__Class** type_info = &type_info_ref;
         inline app::LegacyAnimator__Class* get_class() {
-            return il2cpp::get_class<app::LegacyAnimator__Class>(type_info, "", "LegacyAnimator");
+            return il2cpp::get_class<app::LegacyAnimator__Class>(type_info(), "", "LegacyAnimator");
         }
         inline app::LegacyAnimator* create() {
             return il2cpp::create_object<app::LegacyAnimator>(get_class());

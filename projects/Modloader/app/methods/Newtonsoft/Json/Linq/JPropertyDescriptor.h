@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JPropertyDescriptor.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/JPropertyDescriptor.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JPropertyDescriptor {

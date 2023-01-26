@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RockyEnemyOpeningState.h>
+
+#include <Modloader/app/structs/RockyEnemyOpeningState.h>
 #include <Modloader/app/structs/RockyEnemy.h>
 
 namespace app::classes::RockyEnemyOpeningState {

@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlException.h>
+
+#include <Modloader/app/structs/XmlException.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/IXmlLineInfo.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/IXmlLineInfo.h>
-#include <Modloader/app/structs/Char__Array.h>
 
 namespace app::classes::System::Xml::XmlException {
     IL2CPP_REGISTER_METHOD(0x01DB7C90, void, ctor_1, (app::XmlException * this_ptr, app::SerializationInfo* info, app::StreamingContext context))
@@ -33,7 +34,7 @@ namespace app::classes::System::Xml::XmlException {
     IL2CPP_REGISTER_METHOD(0x01DB8FB0, app::String*, CreateMessage, (app::String * res, app::String__Array* args, int32_t line_number, int32_t line_position))
     IL2CPP_REGISTER_METHOD(0x01DB9220, app::String__Array*, BuildCharExceptionArgs_1, (app::String * data, int32_t inv_char_index))
     IL2CPP_REGISTER_METHOD(0x01DB9280, app::String__Array*, BuildCharExceptionArgs_2, (app::Char__Array * data, int32_t length, int32_t inv_char_index))
-    IL2CPP_REGISTER_METHOD(0x01DB9300, app::String__Array*, BuildCharExceptionArgs_3, (uint16_t inv_char, uint16_t next_char))
+    IL2CPP_REGISTER_METHOD(0x01DB9300, app::String__Array*, BuildCharExceptionArgs_3, (char16_t inv_char, char16_t next_char))
     IL2CPP_REGISTER_METHOD(0x00736620, int32_t, get_LineNumber, (app::XmlException * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007007F0, int32_t, get_LinePosition, (app::XmlException * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01DB9740, app::String*, get_Message, (app::XmlException * this_ptr))

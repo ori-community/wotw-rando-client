@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/AnimationPlayer.h>
-#include <Modloader/app/structs/MoonAnimation.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/AnimationPlayer.h>
 #include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/MoonAnimation.h>
 
 namespace app::classes::Moon::AnimationPlayer {
     IL2CPP_REGISTER_METHOD(0x01BA4D70, app::GameObject*, get_ExternalTarget, (app::AnimationPlayer * this_ptr))
@@ -27,6 +28,5 @@ namespace app::classes::Moon::AnimationPlayer {
     IL2CPP_REGISTER_METHOD(0x01BA5CE0, void, SubscribeToMoonAnimatorEnableCallback, (app::AnimationPlayer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01BA5F40, void, UnsubscribeToMoonAnimatorEnableCallback, (app::AnimationPlayer * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01BA61A0, void, LateAnimationStart, (app::AnimationPlayer * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04722CE8, AnimationPlayer_LateAnimationStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01BA61F0, void, ctor, (app::AnimationPlayer * this_ptr))
 } // namespace app::classes::Moon::AnimationPlayer

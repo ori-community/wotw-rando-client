@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PreRecordingUberStateEntry__Boxed.h>
+
+#include <Modloader/app/structs/PreRecordingUberStateEntry__Boxed.h>
 #include <Modloader/app/structs/IGenericUberState.h>
 
 namespace app::classes::PreRecordingUberStateEntry {

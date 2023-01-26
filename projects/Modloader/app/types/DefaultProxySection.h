@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/DefaultProxySection.h>
+#include <Modloader/app/structs/DefaultProxySection__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/DefaultProxySection__Class.h>
-#include <Modloader/app/structs/DefaultProxySection.h>
 
 namespace app::classes::types {
     namespace DefaultProxySection {
-        namespace {
-            inline app::DefaultProxySection__Class* type_info_ref = nullptr;
+        inline app::DefaultProxySection__Class** type_info() {
+            static app::DefaultProxySection__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::DefaultProxySection__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::DefaultProxySection__Class** type_info = &type_info_ref;
         inline app::DefaultProxySection__Class* get_class() {
-            return il2cpp::get_class<app::DefaultProxySection__Class>(type_info, "System.Net.Configuration", "DefaultProxySection");
+            return il2cpp::get_class<app::DefaultProxySection__Class>(type_info(), "System.Net.Configuration", "DefaultProxySection");
         }
         inline app::DefaultProxySection* create() {
             return il2cpp::create_object<app::DefaultProxySection>(get_class());

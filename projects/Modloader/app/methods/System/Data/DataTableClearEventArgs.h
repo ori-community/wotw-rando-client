@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataTableClearEventArgs.h>
+
+#include <Modloader/app/structs/DataTableClearEventArgs.h>
 #include <Modloader/app/structs/DataTable.h>
 
 namespace app::classes::System::Data::DataTableClearEventArgs {

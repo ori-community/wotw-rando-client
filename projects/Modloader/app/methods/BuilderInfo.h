@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IDisposable.h>
+
+#include <Modloader/app/structs/IDisposable.h>
 
 namespace app::classes::BuilderInfo {
     IL2CPP_REGISTER_METHOD(0x00817790, bool, get_IsBuilding, ())

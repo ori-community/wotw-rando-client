@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkWwiseXMLWatcher.h>
+
+#include <Modloader/app/structs/AkWwiseXMLWatcher.h>
 #include <Modloader/app/structs/Action.h>
 
 namespace app::classes::AkWwiseXMLWatcher {

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_AttachPrefabsToLiannaTongue_TonguePoints___Boxed.h>
-#include <Modloader/app/structs/List_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_AttachPrefabsToLiannaTongue_TonguePoints___Boxed.h>
 #include <Modloader/app/structs/AttachPrefabsToLiannaTongue_TonguePoints.h>
+#include <Modloader/app/structs/List_1_AttachPrefabsToLiannaTongue_TonguePoints_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_AttachPrefabsToLiannaTongue_TonguePoints_ {

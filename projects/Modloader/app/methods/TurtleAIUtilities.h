@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Sensor.h>
+
+#include <Modloader/app/structs/Sensor.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 #include <Modloader/app/structs/TurtleAIUtilities.h>
 #include <Modloader/app/structs/UpdateType__Enum.h>
-#include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::TurtleAIUtilities {
     IL2CPP_REGISTER_METHOD(0x013D7A10, app::Sensor*, get_Sensor, (app::TurtleAIUtilities * this_ptr))

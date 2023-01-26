@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GhostRecordingMetaDataData.h>
-#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
-#include <Modloader/app/structs/PlatformBehaviour.h>
+
+#include <Modloader/app/structs/GhostRecordingMetaDataData.h>
 #include <Modloader/app/structs/BinaryReader.h>
 #include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
+#include <Modloader/app/structs/PlatformBehaviour.h>
 
 namespace app::classes::GhostRecordingMetaDataData {
     IL2CPP_REGISTER_METHOD(0x007E3F10, int64_t, GetSize, (app::GhostRecordingMetaDataData * this_ptr))

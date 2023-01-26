@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ServerAnimatorHelper_BaseAnimatorData__Class.h>
 #include <Modloader/app/structs/ServerAnimatorHelper_BaseAnimatorData.h>
 #include <Modloader/app/structs/ServerAnimatorHelper_BaseAnimatorData__Boxed.h>
+#include <Modloader/app/structs/ServerAnimatorHelper_BaseAnimatorData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace ServerAnimatorHelper_BaseAnimatorData {
-        namespace {
-            inline app::ServerAnimatorHelper_BaseAnimatorData__Class* type_info_ref = nullptr;
+        inline app::ServerAnimatorHelper_BaseAnimatorData__Class** type_info() {
+            static app::ServerAnimatorHelper_BaseAnimatorData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ServerAnimatorHelper_BaseAnimatorData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ServerAnimatorHelper_BaseAnimatorData__Class** type_info = &type_info_ref;
         inline app::ServerAnimatorHelper_BaseAnimatorData__Class* get_class() {
-            return il2cpp::get_nested_class<app::ServerAnimatorHelper_BaseAnimatorData__Class>(type_info, "", "ServerAnimatorHelper", "BaseAnimatorData");
+            return il2cpp::get_nested_class<app::ServerAnimatorHelper_BaseAnimatorData__Class>(type_info(), "", "ServerAnimatorHelper", "BaseAnimatorData");
         }
         inline app::ServerAnimatorHelper_BaseAnimatorData* create() {
             return il2cpp::create_object<app::ServerAnimatorHelper_BaseAnimatorData>(get_class());

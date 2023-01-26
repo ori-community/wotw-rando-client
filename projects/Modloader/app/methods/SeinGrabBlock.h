@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinGrabBlock.h>
-#include <Modloader/app/structs/CharacterSpriteMirror.h>
+
+#include <Modloader/app/structs/SeinGrabBlock.h>
 #include <Modloader/app/structs/CharacterLeftRightMovement.h>
-#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/CharacterSpriteMirror.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
 #include <Modloader/app/structs/IPushable.h>
+#include <Modloader/app/structs/PlatformMovement.h>
 
 namespace app::classes::SeinGrabBlock {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinGrabBlock * this_ptr))
@@ -27,12 +28,10 @@ namespace app::classes::SeinGrabBlock {
     IL2CPP_REGISTER_METHOD(0x014AD980, float, get_ReachDistance, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AD990, void, OnSetReferenceToSein, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014ADA60, void, OnRestoreCheckpoint, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047244B0, SeinGrabBlock_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014ADA80, void, OnAwake, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014ADC30, void, Start, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014ADDD0, void, OnDestroy, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AE090, void, ModifyHorizontalPlatformMovementSettings, (app::SeinGrabBlock * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x047636D8, SeinGrabBlock_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014AE340, void, HandleMovingBlock, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AE820, void, UpdateCharacterState, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AEF30, void, ExitRange, (app::SeinGrabBlock * this_ptr))
@@ -46,15 +45,10 @@ namespace app::classes::SeinGrabBlock {
     IL2CPP_REGISTER_METHOD(0x014AF630, void, GrabBlock, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AF8F0, app::IPushable*, FindPushableNearby, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AF900, bool, ShouldGrabBlockIdleAnimationKeepPlaying, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470B970, SeinGrabBlock_ShouldGrabBlockIdleAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014AF920, bool, ShouldGrabBlockCantPullAnimationKeepPlaying, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047614C0, SeinGrabBlock_ShouldGrabBlockCantPullAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014AF940, bool, ShouldGrabBlockCantPushAnimationKeepPlaying, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04708A70, SeinGrabBlock_ShouldGrabBlockCantPushAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014AF960, bool, ShouldGrabBlockPullAnimationKeepPlaying, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04783030, SeinGrabBlock_ShouldGrabBlockPullAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014AF980, bool, ShouldGrabBlockPushAnimationKeepPlaying, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047310B8, SeinGrabBlock_ShouldGrabBlockPushAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014AF9A0, void, EnterGrabIdleState, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AFB80, void, UpdatePushAnim, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014AFEA0, void, EnterGrabPushState, (app::SeinGrabBlock * this_ptr))
@@ -72,7 +66,5 @@ namespace app::classes::SeinGrabBlock {
     IL2CPP_REGISTER_METHOD(0x014B2450, bool, ShouldLetGo, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014B2590, void, ctor, (app::SeinGrabBlock * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011C4B90, void, _UpdateSounds_b__92_0, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478BE38, SeinGrabBlock__UpdateSounds_b__92_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B6C1D0, void, _UpdateSounds_b__92_1, (app::SeinGrabBlock * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470D9F8, SeinGrabBlock__UpdateSounds_b__92_1__MethodInfo)
 } // namespace app::classes::SeinGrabBlock

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ListenerSyncProcessor.h>
+
+#include <Modloader/app/structs/ListenerSyncProcessor.h>
 #include <Modloader/app/structs/AkWwiseInitializationSettings.h>
 #include <Modloader/app/structs/SoundListener.h>
 

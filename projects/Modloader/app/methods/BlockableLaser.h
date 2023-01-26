@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/BlockableLaser.h>
+#include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/SpherecastCommand.h>
 #include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/SpherecastCommand.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::BlockableLaser {
@@ -29,9 +30,7 @@ namespace app::classes::BlockableLaser {
     IL2CPP_REGISTER_METHOD(0x00D2F180, void, OnDisable, (app::BlockableLaser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D2F280, void, Awake, (app::BlockableLaser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D2F840, void, EnableHitFXViaTrigger, (app::BlockableLaser * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04742978, BlockableLaser_EnableHitFXViaTrigger__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005B90C0, void, DisableHitFXViaTrigger, (app::BlockableLaser * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04748D00, BlockableLaser_DisableHitFXViaTrigger__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D2F850, bool, get_ShouldPlayImpactFX, (app::BlockableLaser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D2F880, void, OnDestroy, (app::BlockableLaser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D2F970, void, PlayLaserLoopSFX, (app::BlockableLaser * this_ptr))
@@ -59,7 +58,5 @@ namespace app::classes::BlockableLaser {
     IL2CPP_REGISTER_METHOD(0x00D33BE0, void, ctor, (app::BlockableLaser * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D340B0, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x00D34200, void, _OnActivatedImmediate_b__39_0, (app::BlockableLaser * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047233C8, BlockableLaser__OnActivatedImmediate_b__39_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D343E0, void, _OnDeactivateImmediate_b__41_0, (app::BlockableLaser * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04724520, BlockableLaser__OnDeactivateImmediate_b__41_0__MethodInfo)
 } // namespace app::classes::BlockableLaser

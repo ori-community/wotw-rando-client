@@ -1,22 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiderBossEntity_SpiderFightState__Enum.h>
-#include <Modloader/app/structs/SpiderBossEntity.h>
-#include <Modloader/app/structs/List_1_SpiderBossBaseBehaviour_.h>
-#include <Modloader/app/structs/SpiderBossBaseBehaviour.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/SpiderBossLocomotion.h>
-#include <Modloader/app/structs/SpiderBossLocationZone__Enum.h>
-#include <Modloader/app/structs/SpiderBossBehaviourZone__Enum.h>
-#include <Modloader/app/structs/List_1_SpiderBossBehaviourZone_.h>
+
+#include <Modloader/app/structs/SpiderBossEntity_SpiderFightState__Enum.h>
 #include <Modloader/app/structs/CageStructureMetaDataGroup.h>
-#include <Modloader/app/structs/List_1_SpiderBossLocationZone_.h>
 #include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IUberState__Array.h>
+#include <Modloader/app/structs/List_1_SpiderBossBaseBehaviour_.h>
+#include <Modloader/app/structs/List_1_SpiderBossBehaviourZone_.h>
+#include <Modloader/app/structs/List_1_SpiderBossLocationZone_.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
+#include <Modloader/app/structs/SpiderBossBaseBehaviour.h>
+#include <Modloader/app/structs/SpiderBossBehaviourZone__Enum.h>
+#include <Modloader/app/structs/SpiderBossEntity.h>
+#include <Modloader/app/structs/SpiderBossLocationZone__Enum.h>
+#include <Modloader/app/structs/SpiderBossLocomotion.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SpiderBossEntity {
     IL2CPP_REGISTER_METHOD(0x0096C1B0, app::SpiderBossEntity_SpiderFightState__Enum, get_CurrentUberState, (app::SpiderBossEntity * this_ptr))
@@ -70,7 +71,6 @@ namespace app::classes::SpiderBossEntity {
     IL2CPP_REGISTER_METHOD(0x0096DFB0, void, OnEnable, (app::SpiderBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0096E160, void, OnDisable, (app::SpiderBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0096E210, bool, ShouldShowHealthBar, (app::SpiderBossEntity * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04780360, SpiderBossEntity_ShouldShowHealthBar__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0096E250, void, Start, (app::SpiderBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0096E540, void, OnFixedUpdate, (app::SpiderBossEntity * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0096ECE0, void, UpdateLaserAiming, (app::SpiderBossEntity * this_ptr, float angle))

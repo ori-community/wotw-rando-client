@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ConfigurableJoint.h>
+
+#include <Modloader/app/structs/ConfigurableJoint.h>
 #include <Modloader/app/structs/AttachToPhysicsSystem.h>
 
 namespace app::classes::AttachToPhysicsSystem {

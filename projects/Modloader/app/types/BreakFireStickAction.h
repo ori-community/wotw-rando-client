@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/BreakFireStickAction.h>
+#include <Modloader/app/structs/BreakFireStickAction__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/BreakFireStickAction__Class.h>
-#include <Modloader/app/structs/BreakFireStickAction.h>
 
 namespace app::classes::types {
     namespace BreakFireStickAction {
-        namespace {
-            inline app::BreakFireStickAction__Class* type_info_ref = nullptr;
+        inline app::BreakFireStickAction__Class** type_info() {
+            static app::BreakFireStickAction__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::BreakFireStickAction__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::BreakFireStickAction__Class** type_info = &type_info_ref;
         inline app::BreakFireStickAction__Class* get_class() {
-            return il2cpp::get_class<app::BreakFireStickAction__Class>(type_info, "", "BreakFireStickAction");
+            return il2cpp::get_class<app::BreakFireStickAction__Class>(type_info(), "", "BreakFireStickAction");
         }
         inline app::BreakFireStickAction* create() {
             return il2cpp::create_object<app::BreakFireStickAction>(get_class());

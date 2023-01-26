@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/fsDictionaryConverter.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/fsDictionaryConverter.h>
+#include <Modloader/app/structs/IDictionary.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/fsData.h>
 #include <Modloader/app/structs/fsResult.h>
-#include <Modloader/app/structs/IDictionary.h>
 
 namespace app::classes::FullSerializer::Internal::fsDictionaryConverter {
     IL2CPP_REGISTER_METHOD(0x01653170, bool, CanProcess, (app::fsDictionaryConverter * this_ptr, app::Type* type))

@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/HitFlash3D_Flash__Class.h>
 #include <Modloader/app/structs/HitFlash3D_Flash.h>
 #include <Modloader/app/structs/HitFlash3D_Flash__Array.h>
+#include <Modloader/app/structs/HitFlash3D_Flash__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace HitFlash3D_Flash {
-        inline app::HitFlash3D_Flash__Class** type_info = (app::HitFlash3D_Flash__Class**)(modloader::win::memory::resolve_rva(0x0476FE70));
+        inline app::HitFlash3D_Flash__Class** type_info() {
+            static app::HitFlash3D_Flash__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::HitFlash3D_Flash__Class**)(modloader::win::memory::resolve_rva(0x0476FE70));
+            }
+            return cache;
+        }
         inline app::HitFlash3D_Flash__Class* get_class() {
-            return il2cpp::get_nested_class<app::HitFlash3D_Flash__Class>(type_info, "", "HitFlash3D", "Flash");
+            return il2cpp::get_nested_class<app::HitFlash3D_Flash__Class>(type_info(), "", "HitFlash3D", "Flash");
         }
         inline app::HitFlash3D_Flash* create() {
             return il2cpp::create_object<app::HitFlash3D_Flash>(get_class());

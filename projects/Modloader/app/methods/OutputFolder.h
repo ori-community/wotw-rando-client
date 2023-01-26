@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::OutputFolder {
     IL2CPP_REGISTER_METHOD(0x00441710, app::String*, get_AppData, ())

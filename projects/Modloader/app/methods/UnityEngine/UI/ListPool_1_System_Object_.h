@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_System_Object_.h>
+
+#include <Modloader/app/structs/List_1_System_Object_.h>
 
 namespace app::classes::UnityEngine::UI::ListPool_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02ACE6D0, void, Clear, (app::List_1_System_Object_ * l))

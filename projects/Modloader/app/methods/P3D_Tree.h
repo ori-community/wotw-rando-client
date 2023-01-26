@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/P3D_Tree.h>
-#include <Modloader/app/structs/Mesh.h>
+
+#include <Modloader/app/structs/P3D_Tree.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/P3D_Result.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/List_1_P3D_Result_.h>
+#include <Modloader/app/structs/Mesh.h>
 #include <Modloader/app/structs/P3D_Node.h>
-#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/P3D_Result.h>
 #include <Modloader/app/structs/P3D_Triangle.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::P3D_Tree {
     IL2CPP_REGISTER_METHOD(0x03099100, app::P3D_Tree*, get_TempInstance, ())
@@ -17,7 +18,6 @@ namespace app::classes::P3D_Tree {
     IL2CPP_REGISTER_METHOD(0x03099590, void, ClearResults, (app::P3D_Tree * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03099780, void, SetMesh_1, (app::P3D_Tree * this_ptr, app::Mesh* new_mesh, int32_t new_sub_mesh_index, bool force_update))
     IL2CPP_REGISTER_METHOD(0x030999F0, void, SetMesh_2, (app::P3D_Tree * this_ptr, app::GameObject* game_object, int32_t sub_mesh_index, bool force_update))
-    IL2CPP_REGISTER_METHODINFO(0x0478FCB0, P3D_Tree_SetMesh_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03099B30, app::P3D_Result*, FindNearest, (app::P3D_Tree * this_ptr, app::Vector3 point, float max_distance))
     IL2CPP_REGISTER_METHOD(0x03099DC0, app::P3D_Result*, FindBetweenNearest, (app::P3D_Tree * this_ptr, app::Vector3 start_point, app::Vector3 end_point))
     IL2CPP_REGISTER_METHOD(0x0309A050, app::List_1_P3D_Result_*, FindBetweenAll, (app::P3D_Tree * this_ptr, app::Vector3 start_point, app::Vector3 end_point))

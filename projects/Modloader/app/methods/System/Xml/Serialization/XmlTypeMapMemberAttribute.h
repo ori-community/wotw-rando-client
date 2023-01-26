@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlTypeMapMemberAttribute.h>
+
+#include <Modloader/app/structs/XmlTypeMapMemberAttribute.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XmlSchemaForm__Enum.h>
 #include <Modloader/app/structs/XmlTypeMapping.h>

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonFlagsSystem_HiddenFlagModification__Boxed.h>
+
+#include <Modloader/app/structs/MoonFlagsSystem_HiddenFlagModification__Boxed.h>
 #include <Modloader/app/structs/Renderer.h>
 
 namespace app::classes::MoonFlagsSystem_HiddenFlagModification {

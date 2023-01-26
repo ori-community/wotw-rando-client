@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/SqlInt32.h>
+#include <Modloader/app/structs/SqlInt32__Array.h>
+#include <Modloader/app/structs/SqlInt32__Boxed.h>
+#include <Modloader/app/structs/SqlInt32__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SqlInt32__Class.h>
-#include <Modloader/app/structs/SqlInt32.h>
-#include <Modloader/app/structs/SqlInt32__Boxed.h>
-#include <Modloader/app/structs/SqlInt32__Array.h>
 
 namespace app::classes::types {
     namespace SqlInt32 {
-        inline app::SqlInt32__Class** type_info = (app::SqlInt32__Class**)(modloader::win::memory::resolve_rva(0x04784FF0));
+        inline app::SqlInt32__Class** type_info() {
+            static app::SqlInt32__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::SqlInt32__Class**)(modloader::win::memory::resolve_rva(0x04784FF0));
+            }
+            return cache;
+        }
         inline app::SqlInt32__Class* get_class() {
-            return il2cpp::get_class<app::SqlInt32__Class>(type_info, "System.Data.SqlTypes", "SqlInt32");
+            return il2cpp::get_class<app::SqlInt32__Class>(type_info(), "System.Data.SqlTypes", "SqlInt32");
         }
         inline app::SqlInt32* create() {
             return il2cpp::create_object<app::SqlInt32>(get_class());

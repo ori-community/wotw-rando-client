@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState.h>
 #include <Modloader/app/structs/PetrifiedOwlBossFinalComboBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState {
@@ -9,5 +10,4 @@ namespace app::classes::PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState {
     IL2CPP_REGISTER_METHOD(0x017702E0, void, UpdateState, (app::PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x017703B0, void, OnExit, (app::PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01770590, void, OnShootEvent, (app::PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04781828, PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState_OnShootEvent__MethodInfo)
 } // namespace app::classes::PetrifiedOwlBossFinalComboBehaviour_FeatherFlurryState

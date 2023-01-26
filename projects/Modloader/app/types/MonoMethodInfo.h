@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MonoMethodInfo__Class.h>
 #include <Modloader/app/structs/MonoMethodInfo.h>
 #include <Modloader/app/structs/MonoMethodInfo__Boxed.h>
+#include <Modloader/app/structs/MonoMethodInfo__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace MonoMethodInfo {
-        namespace {
-            inline app::MonoMethodInfo__Class* type_info_ref = nullptr;
+        inline app::MonoMethodInfo__Class** type_info() {
+            static app::MonoMethodInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::MonoMethodInfo__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::MonoMethodInfo__Class** type_info = &type_info_ref;
         inline app::MonoMethodInfo__Class* get_class() {
-            return il2cpp::get_class<app::MonoMethodInfo__Class>(type_info, "System.Reflection", "MonoMethodInfo");
+            return il2cpp::get_class<app::MonoMethodInfo__Class>(type_info(), "System.Reflection", "MonoMethodInfo");
         }
         inline app::MonoMethodInfo* create() {
             return il2cpp::create_object<app::MonoMethodInfo>(get_class());

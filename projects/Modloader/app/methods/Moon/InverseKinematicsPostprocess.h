@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IK.h>
+
+#include <Modloader/app/structs/IK.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/InverseKinematicsPostprocess.h>
 #include <Modloader/app/structs/MoonAnimator.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::Moon::InverseKinematicsPostprocess {
     IL2CPP_REGISTER_METHOD(0x01B14380, app::IK*, get_IK, (app::InverseKinematicsPostprocess * this_ptr))

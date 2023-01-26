@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Naru.h>
+
+#include <Modloader/app/structs/Naru.h>
 #include <Modloader/app/structs/CharacterCapsuleController.h>
 #include <Modloader/app/structs/DamageOwner.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Naru {
     IL2CPP_REGISTER_METHOD(0x008831D0, void, Awake, (app::Naru * this_ptr))

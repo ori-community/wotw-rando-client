@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CursorController.h>
+
+#include <Modloader/app/structs/CursorController.h>
 
 namespace app::classes::CursorController {
     IL2CPP_REGISTER_METHOD(0x00DBA150, void, ResetIdleTime, ())

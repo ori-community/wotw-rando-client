@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderOrderAttribute.h>
+
+#include <Modloader/app/structs/UberShaderOrderAttribute.h>
 #include <Modloader/app/structs/UberShaderOrder__Enum.h>
 
 namespace app::classes::UberShaderOrderAttribute {

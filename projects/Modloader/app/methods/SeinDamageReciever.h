@@ -1,31 +1,32 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinDamageReciever.h>
-#include <Modloader/app/structs/SeinDamageReceiverPuppet.h>
-#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+
+#include <Modloader/app/structs/SeinDamageReciever.h>
+#include <Modloader/app/structs/Action_1_Damage_.h>
+#include <Modloader/app/structs/ActiveAnimationHandle.h>
+#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/CharacterGravity.h>
 #include <Modloader/app/structs/CharacterInstantStop.h>
-#include <Modloader/app/structs/SeinHealthController.h>
-#include <Modloader/app/structs/PlatformMovement.h>
-#include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/Ku.h>
-#include <Modloader/app/structs/Action_1_Damage_.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/CharacterLeftRightMovement.h>
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/ActiveAnimationHandle.h>
-#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/DamageReceiver.h>
 #include <Modloader/app/structs/DamageType__Enum.h>
 #include <Modloader/app/structs/EnemyEntity.h>
-#include <Modloader/app/structs/DamageReceiver.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 #include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Archive.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Ku.h>
+#include <Modloader/app/structs/PlatformMovement.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/SeinDamageReceiverPuppet.h>
+#include <Modloader/app/structs/SeinHealthController.h>
 #include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinDamageReciever {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_IsBlindForest, (app::SeinDamageReciever * this_ptr))
@@ -66,9 +67,7 @@ namespace app::classes::SeinDamageReciever {
     IL2CPP_REGISTER_METHOD(0x006E93B0, void, UpdateCharacterState, (app::SeinDamageReciever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006E9990, void, UpdateColliderState, (app::SeinDamageReciever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006E9AD0, void, ModifyHorizontalPlatformMovementSettings, (app::SeinDamageReciever * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0471C748, SeinDamageReciever_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006E9C40, void, ModifyGravityPlatformMovementSettings, (app::SeinDamageReciever * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0477E608, SeinDamageReciever_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006E9D00, void, MakeInvincible, (app::SeinDamageReciever * this_ptr, float duration))
     IL2CPP_REGISTER_METHOD(0x006E9DC0, void, MakeInvincibleToEnemies, (app::SeinDamageReciever * this_ptr, float duration))
     IL2CPP_REGISTER_METHOD(0x006E9E80, void, MakeInvincibleOnRespawn, (app::SeinDamageReciever * this_ptr, float duration))
@@ -76,16 +75,13 @@ namespace app::classes::SeinDamageReciever {
     IL2CPP_REGISTER_METHOD(0x006E9F50, void, MakeInvincibleToDamageOfType, (app::SeinDamageReciever * this_ptr, app::DamageType__Enum damage_type, float duration))
     IL2CPP_REGISTER_METHOD(0x006EA100, void, ResetInviciblity, (app::SeinDamageReciever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EA110, void, OnRestoreCheckpoint, (app::SeinDamageReciever * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04786000, SeinDamageReciever_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006EA340, void, OnLoad, (app::SeinDamageReciever * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471B9F8, SeinDamageReciever_OnLoad__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006EA370, void, Flash, (app::SeinDamageReciever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EA4C0, app::IEnumerator*, FlashSprite, (app::SeinDamageReciever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EA610, void, SpriteMaterialTintColor, (app::SeinDamageReciever * this_ptr, app::Color color))
     IL2CPP_REGISTER_METHOD(0x006EAA30, void, OnEnable, (app::SeinDamageReciever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EAA70, bool, get_IsInvinsible, (app::SeinDamageReciever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005E1300, bool, ShouldHurtAnimationKeepPlaying, (app::SeinDamageReciever * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04785510, SeinDamageReciever_ShouldHurtAnimationKeepPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006EAA90, bool, ShouldHurtAnimationKeepPlayingStartedOnGround, (app::SeinDamageReciever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EAAE0, void, OnKill, (app::SeinDamageReciever * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x006EB700, void, ToggleColliders, (app::SeinDamageReciever * this_ptr, bool on))
@@ -93,7 +89,6 @@ namespace app::classes::SeinDamageReciever {
     IL2CPP_REGISTER_METHOD(0x006EC3D0, void, InstantiateDeathEffect, (app::SeinDamageReciever * this_ptr, app::Damage* damage))
     IL2CPP_REGISTER_METHOD(0x006EC8A0, app::IEnumerator*, OnKillRoutine, (app::SeinDamageReciever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006EC9F0, void, OnKillFadeInComplete, (app::SeinDamageReciever * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04701BC0, SeinDamageReciever_OnKillFadeInComplete__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006ECAE0, bool, CanDetonateProjectiles, (app::SeinDamageReciever * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006ECB00, void, Serialize, (app::SeinDamageReciever * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x006ECB60, bool, get_IsLeached, (app::SeinDamageReciever * this_ptr))

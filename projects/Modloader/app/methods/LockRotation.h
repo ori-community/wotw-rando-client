@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LockRotation.h>
+
+#include <Modloader/app/structs/LockRotation.h>
 
 namespace app::classes::LockRotation {
     IL2CPP_REGISTER_METHOD(0x00FC36A0, void, Awake, (app::LockRotation * this_ptr))

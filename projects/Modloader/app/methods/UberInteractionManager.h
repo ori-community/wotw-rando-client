@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberInteractionManager_PropertyIDCache.h>
+
+#include <Modloader/app/structs/UberInteractionManager_PropertyIDCache.h>
+#include <Modloader/app/structs/IInteractable.h>
+#include <Modloader/app/structs/List_1_IInteractable_.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberInteractionActor.h>
 #include <Modloader/app/structs/UberInteractionManager.h>
+#include <Modloader/app/structs/UberInteractionManager_ExplosionApplication.h>
 #include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/List_1_IInteractable_.h>
-#include <Modloader/app/structs/UberInteractionActor.h>
-#include <Modloader/app/structs/UberInteractionManager_ExplosionApplication.h>
-#include <Modloader/app/structs/IInteractable.h>
 
 namespace app::classes::UberInteractionManager {
     IL2CPP_REGISTER_METHOD(0x013F7820, app::UberInteractionManager_PropertyIDCache*, GetCachedPropertyID, (app::UberInteractionManager_PropertyIDCache * *static_cache, app::String* property_interaction_name))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScenesManagerSettings.h>
+
+#include <Modloader/app/structs/ScenesManagerSettings.h>
 
 namespace app::classes::ScenesManagerSettings {
     IL2CPP_REGISTER_METHOD(0x01068120, bool, get_DontUnloadScenes, (app::ScenesManagerSettings * this_ptr))

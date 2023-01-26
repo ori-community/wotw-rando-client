@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneSoundBankData.h>
+
+#include <Modloader/app/structs/SceneSoundBankData.h>
 #include <Modloader/app/structs/HashSet_1_System_UInt32_.h>
 
 namespace app::classes::Moon::Wwise::SceneSoundBankData {

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PauseMenuInventoryElements.h>
+
+#include <Modloader/app/structs/PauseMenuInventoryElements.h>
 #include <Modloader/app/structs/EquipmentType__Enum.h>
 
 namespace app::classes::PauseMenuInventoryElements {

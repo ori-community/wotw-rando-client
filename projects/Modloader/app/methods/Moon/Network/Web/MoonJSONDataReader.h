@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonJSONDataReader.h>
+
+#include <Modloader/app/structs/MoonJSONDataReader.h>
 #include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::Moon::Network::Web::MoonJSONDataReader {

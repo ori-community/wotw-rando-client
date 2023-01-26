@@ -1,22 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
-
-
-
-
+#include <Modloader/app/structs/uint64_t.h>
+#include <Modloader/app/structs/CultureInfo.h>
+#include <Modloader/app/structs/Decimal.h>
+#include <Modloader/app/structs/IFormatProvider.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/NumberFormatInfo.h>
 #include <Modloader/app/structs/NumberFormatter.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Thread.h>
-#include <Modloader/app/structs/Decimal.h>
-#include <Modloader/app/structs/NumberFormatInfo.h>
-#include <Modloader/app/structs/IFormatProvider.h>
-#include <Modloader/app/structs/CultureInfo.h>
 #include <Modloader/app/structs/StringBuilder.h>
-#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Thread.h>
+#include <Modloader/app/structs/char16_t.h>
+#include <Modloader/app/structs/int32_t.h>
+#include <Modloader/app/structs/int64_t.h>
 
 namespace app::classes::System::NumberFormatter {
-    IL2CPP_REGISTER_METHOD(0x02273730, void, GetFormatterTables, (app::uint64_t * *mantissa_bits_table, app::int32_t** tens_exponent_table, app::uint16_t** digit_lower_table, app::uint16_t** digit_upper_table, app::int64_t** ten_powers_list, app::int32_t** dec_hex_digits))
+    IL2CPP_REGISTER_METHOD(0x02273730, void, GetFormatterTables, (app::uint64_t * *mantissa_bits_table, app::int32_t** tens_exponent_table, app::char16_t** digit_lower_table, app::char16_t** digit_upper_table, app::int64_t** ten_powers_list, app::int32_t** dec_hex_digits))
     IL2CPP_REGISTER_METHOD(0x02273780, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x02273840, int64_t, GetTenPowerOf, (int32_t i))
     IL2CPP_REGISTER_METHOD(0x022738F0, void, InitDecHexDigits_1, (app::NumberFormatter * this_ptr, uint32_t value))
@@ -41,8 +41,8 @@ namespace app::classes::System::NumberFormatter {
     IL2CPP_REGISTER_METHOD(0x02274F00, void, Init_7, (app::NumberFormatter * this_ptr, app::String* format, app::Decimal value))
     IL2CPP_REGISTER_METHOD(0x022750F0, void, ResetCharBuf, (app::NumberFormatter * this_ptr, int32_t size))
     IL2CPP_REGISTER_METHOD(0x022751A0, void, Resize, (app::NumberFormatter * this_ptr, int32_t len))
-    IL2CPP_REGISTER_METHOD(0x02275360, void, Append_1, (app::NumberFormatter * this_ptr, uint16_t c))
-    IL2CPP_REGISTER_METHOD(0x022753E0, void, Append_2, (app::NumberFormatter * this_ptr, uint16_t c, int32_t cnt))
+    IL2CPP_REGISTER_METHOD(0x02275360, void, Append_1, (app::NumberFormatter * this_ptr, char16_t c))
+    IL2CPP_REGISTER_METHOD(0x022753E0, void, Append_2, (app::NumberFormatter * this_ptr, char16_t c, int32_t cnt))
     IL2CPP_REGISTER_METHOD(0x02275480, void, Append_3, (app::NumberFormatter * this_ptr, app::String* s))
     IL2CPP_REGISTER_METHOD(0x02275550, app::NumberFormatInfo*, GetNumberFormatInstance, (app::NumberFormatter * this_ptr, app::IFormatProvider* fp))
     IL2CPP_REGISTER_METHOD(0x02275570, void, set_CurrentCulture, (app::NumberFormatter * this_ptr, app::CultureInfo* value))
@@ -69,9 +69,7 @@ namespace app::classes::System::NumberFormatter {
     IL2CPP_REGISTER_METHOD(0x02276B80, app::String*, NumberToString_6, (app::String * format, double value, app::IFormatProvider* fp))
     IL2CPP_REGISTER_METHOD(0x02276E00, app::String*, NumberToString_7, (app::String * format, app::Decimal value, app::IFormatProvider* fp))
     IL2CPP_REGISTER_METHOD(0x02276F20, app::String*, IntegerToString, (app::NumberFormatter * this_ptr, app::String* format, app::IFormatProvider* fp))
-    IL2CPP_REGISTER_METHODINFO(0x04710EB0, NumberFormatter_IntegerToString__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02277170, app::String*, NumberToString_8, (app::NumberFormatter * this_ptr, app::String* format, app::NumberFormatInfo* nfi))
-    IL2CPP_REGISTER_METHODINFO(0x04774700, NumberFormatter_NumberToString_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02277360, app::String*, FormatCurrency, (app::NumberFormatter * this_ptr, int32_t precision, app::NumberFormatInfo* nfi))
     IL2CPP_REGISTER_METHOD(0x022776F0, app::String*, FormatDecimal, (app::NumberFormatter * this_ptr, int32_t precision, app::NumberFormatInfo* nfi))
     IL2CPP_REGISTER_METHOD(0x022777F0, app::String*, FormatHexadecimal, (app::NumberFormatter * this_ptr, int32_t precision))
@@ -87,7 +85,6 @@ namespace app::classes::System::NumberFormatter {
     IL2CPP_REGISTER_METHOD(0x02278D90, void, ZeroTrimEnd, (app::StringBuilder * sb, bool can_empty))
     IL2CPP_REGISTER_METHOD(0x02278E30, bool, IsZeroOnly, (app::StringBuilder * sb))
     IL2CPP_REGISTER_METHOD(0x02278F40, void, AppendNonNegativeNumber, (app::StringBuilder * sb, int32_t v))
-    IL2CPP_REGISTER_METHODINFO(0x047180C8, NumberFormatter_AppendNonNegativeNumber__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022791E0, void, AppendIntegerString_1, (app::NumberFormatter * this_ptr, int32_t min_length, app::StringBuilder* sb))
     IL2CPP_REGISTER_METHOD(0x02279270, void, AppendIntegerString_2, (app::NumberFormatter * this_ptr, int32_t min_length))
     IL2CPP_REGISTER_METHOD(0x02279340, void, AppendDecimalString_1, (app::NumberFormatter * this_ptr, int32_t precision, app::StringBuilder* sb))

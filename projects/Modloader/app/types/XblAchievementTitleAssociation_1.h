@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XblAchievementTitleAssociation_1__Class.h>
 #include <Modloader/app/structs/XblAchievementTitleAssociation_1.h>
 #include <Modloader/app/structs/XblAchievementTitleAssociation_1__Boxed.h>
+#include <Modloader/app/structs/XblAchievementTitleAssociation_1__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace XblAchievementTitleAssociation_1 {
-        inline app::XblAchievementTitleAssociation_1__Class** type_info = (app::XblAchievementTitleAssociation_1__Class**)(modloader::win::memory::resolve_rva(0x04774CF0));
+        inline app::XblAchievementTitleAssociation_1__Class** type_info() {
+            static app::XblAchievementTitleAssociation_1__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::XblAchievementTitleAssociation_1__Class**)(modloader::win::memory::resolve_rva(0x04774CF0));
+            }
+            return cache;
+        }
         inline app::XblAchievementTitleAssociation_1__Class* get_class() {
-            return il2cpp::get_class<app::XblAchievementTitleAssociation_1__Class>(type_info, "XGamingRuntime.Interop", "XblAchievementTitleAssociation");
+            return il2cpp::get_class<app::XblAchievementTitleAssociation_1__Class>(type_info(), "XGamingRuntime.Interop", "XblAchievementTitleAssociation");
         }
         inline app::XblAchievementTitleAssociation_1* create() {
             return il2cpp::create_object<app::XblAchievementTitleAssociation_1>(get_class());

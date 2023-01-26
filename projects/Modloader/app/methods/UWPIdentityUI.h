@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UWPIdentityUI.h>
+
+#include <Modloader/app/structs/UWPIdentityUI.h>
 
 namespace app::classes::UWPIdentityUI {
     IL2CPP_REGISTER_METHOD(0x013DDC10, void, OnEnable, (app::UWPIdentityUI * this_ptr))

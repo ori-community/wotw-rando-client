@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaceMenuScreen.h>
-#include <Modloader/app/structs/MenuTabBackground__Enum.h>
-#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
-#include <Modloader/app/structs/RaceMenuScreenUISlot.h>
-#include <Modloader/app/structs/RaceSettings__Array.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/RaceSettings.h>
-#include <Modloader/app/structs/UberStateValueStore.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/RaceMenuScreen.h>
 #include <Modloader/app/structs/Action_1_Boolean_.h>
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/structs/DifficultyMode__Enum.h>
-#include <Modloader/app/structs/ReplaySetting.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/RaceMenuScreenUISlot.h>
+#include <Modloader/app/structs/RaceSettings.h>
+#include <Modloader/app/structs/RaceSettings__Array.h>
+#include <Modloader/app/structs/ReplaySetting.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/UberStateValueStore.h>
 
 namespace app::classes::RaceMenuScreen {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanInterruptTab, (app::RaceMenuScreen * this_ptr))
@@ -33,12 +34,10 @@ namespace app::classes::RaceMenuScreen {
     IL2CPP_REGISTER_METHOD(0x00EA7AE0, void, SetNextFilter, (app::RaceMenuScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA7C40, void, SetPreviousFilter, (app::RaceMenuScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA7DA0, void, UpdateFilter, (app::RaceMenuScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04723C38, RaceMenuScreen_UpdateFilter__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EA8430, void, HideImmediate, (app::RaceMenuScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA8460, void, Show, (app::RaceMenuScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA8590, void, ShowImmediate, (app::RaceMenuScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA86C0, void, OnBackPressed, (app::RaceMenuScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04751A90, RaceMenuScreen_OnBackPressed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EA8910, void, OnScreenShowed, (app::RaceMenuScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA8950, void, PopulateItems_1, (app::RaceMenuScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA8DF0, void, PopulateItems_2, (app::RaceMenuScreen * this_ptr, app::RaceSettings__Array* racesettings))
@@ -50,7 +49,6 @@ namespace app::classes::RaceMenuScreen {
     IL2CPP_REGISTER_METHOD(0x00EA9180, void, set_Mask, (app::RaceMenuScreen * this_ptr, app::SuspendableMask__Enum value))
     IL2CPP_REGISTER_METHOD(0x00EA9240, void, OnInstantiate, (app::RaceMenuScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA9810, void, OnNavigate, (app::RaceMenuScreen * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472B910, RaceMenuScreen_OnNavigate__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00EA99E0, void, FixedUpdate, (app::RaceMenuScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EA9AE0, void, HandleFilterInput, (app::RaceMenuScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00EAA050, void, UpdateLabel, (app::RaceMenuScreen * this_ptr))
@@ -80,5 +78,4 @@ namespace app::classes::RaceMenuScreen {
     IL2CPP_REGISTER_METHOD(0x00EAC9B0, void, ctor, (app::RaceMenuScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x00EAC9D0, void, _OnInstantiate_b__85_0, (app::RaceMenuScreen * this_ptr, app::GameObject* x))
-    IL2CPP_REGISTER_METHODINFO(0x0477D728, RaceMenuScreen__OnInstantiate_b__85_0__MethodInfo)
 } // namespace app::classes::RaceMenuScreen

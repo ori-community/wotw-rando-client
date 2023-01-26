@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlUnspecifiedAttribute.h>
+
+#include <Modloader/app/structs/XmlUnspecifiedAttribute.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XmlDocument.h>
 #include <Modloader/app/structs/XmlNode.h>

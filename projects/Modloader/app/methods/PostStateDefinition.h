@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PostStateDefinition.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+
+#include <Modloader/app/structs/PostStateDefinition.h>
 #include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/PostStateDefinition_PostState.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::PostStateDefinition {
     IL2CPP_REGISTER_METHOD(0x00654950, int32_t, get_CurrentPassiveStateApplied, (app::PostStateDefinition * this_ptr))

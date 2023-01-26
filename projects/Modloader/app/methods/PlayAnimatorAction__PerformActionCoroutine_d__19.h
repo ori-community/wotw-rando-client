@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayAnimatorAction_PerformActionCoroutine_d_19.h>
+
+#include <Modloader/app/structs/PlayAnimatorAction_PerformActionCoroutine_d_19.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::PlayAnimatorAction__PerformActionCoroutine_d__19 {
@@ -9,6 +10,5 @@ namespace app::classes::PlayAnimatorAction__PerformActionCoroutine_d__19 {
     IL2CPP_REGISTER_METHOD(0x01176360, bool, MoveNext, (app::PlayAnimatorAction_PerformActionCoroutine_d_19 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_object__get_Current, (app::PlayAnimatorAction_PerformActionCoroutine_d_19 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01176A80, void, IEnumerator_Reset, (app::PlayAnimatorAction_PerformActionCoroutine_d_19 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04703568, PlayAnimatorAction_PerformActionCoroutine_d_19_System_Collections_IEnumerator_Reset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB930, app::Object*, IEnumerator_get_Current, (app::PlayAnimatorAction_PerformActionCoroutine_d_19 * this_ptr))
 } // namespace app::classes::PlayAnimatorAction__PerformActionCoroutine_d__19

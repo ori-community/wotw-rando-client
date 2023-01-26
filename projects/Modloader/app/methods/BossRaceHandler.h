@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RaceStateMachineContext.h>
+
+#include <Modloader/app/structs/RaceStateMachineContext.h>
+#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/BossRaceHandler.h>
 #include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::BossRaceHandler {

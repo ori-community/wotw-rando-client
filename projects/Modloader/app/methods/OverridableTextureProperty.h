@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OverridableTextureProperty.h>
+
+#include <Modloader/app/structs/OverridableTextureProperty.h>
 
 namespace app::classes::OverridableTextureProperty {
     IL2CPP_REGISTER_METHOD(0x00443210, int32_t, get_ID, (app::OverridableTextureProperty * this_ptr))

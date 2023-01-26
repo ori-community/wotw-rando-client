@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonAnimator.h>
+
+#include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/KuDashPuppet.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 

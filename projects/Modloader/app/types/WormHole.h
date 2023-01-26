@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/WormHole__Class.h>
 #include <Modloader/app/structs/WormHole.h>
 #include <Modloader/app/structs/WormHole__Array.h>
+#include <Modloader/app/structs/WormHole__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace WormHole {
-        namespace {
-            inline app::WormHole__Class* type_info_ref = nullptr;
+        inline app::WormHole__Class** type_info() {
+            static app::WormHole__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::WormHole__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::WormHole__Class** type_info = &type_info_ref;
         inline app::WormHole__Class* get_class() {
-            return il2cpp::get_class<app::WormHole__Class>(type_info, "", "WormHole");
+            return il2cpp::get_class<app::WormHole__Class>(type_info(), "", "WormHole");
         }
         inline app::WormHole* create() {
             return il2cpp::create_object<app::WormHole>(get_class());

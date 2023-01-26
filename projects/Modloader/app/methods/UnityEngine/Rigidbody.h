@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Rigidbody.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/RigidbodyConstraints__Enum.h>
+
+#include <Modloader/app/structs/Rigidbody.h>
 #include <Modloader/app/structs/CollisionDetectionMode__Enum.h>
-#include <Modloader/app/structs/Quaternion.h>
-#include <Modloader/app/structs/RigidbodyInterpolation__Enum.h>
 #include <Modloader/app/structs/ForceMode__Enum.h>
-#include <Modloader/app/structs/RaycastHit.h>
-#include <Modloader/app/structs/QueryTriggerInteraction__Enum.h>
-#include <Modloader/app/structs/RaycastHit__Array.h>
-#include <Modloader/app/structs/Rigidbody__Array.h>
-#include <Modloader/app/structs/Vector3__Array.h>
+#include <Modloader/app/structs/Quaternion.h>
 #include <Modloader/app/structs/Quaternion__Array.h>
+#include <Modloader/app/structs/QueryTriggerInteraction__Enum.h>
+#include <Modloader/app/structs/RaycastHit.h>
+#include <Modloader/app/structs/RaycastHit__Array.h>
+#include <Modloader/app/structs/RigidbodyConstraints__Enum.h>
+#include <Modloader/app/structs/RigidbodyInterpolation__Enum.h>
+#include <Modloader/app/structs/Rigidbody__Array.h>
 #include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 
 namespace app::classes::UnityEngine::Rigidbody {
     IL2CPP_REGISTER_METHOD(0x003F8A60, void, ctor, (app::Rigidbody * this_ptr))

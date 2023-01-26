@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XTaskQueueHandle.h>
+
+#include <Modloader/app/structs/XTaskQueueHandle.h>
 #include <Modloader/app/structs/XTaskQueue.h>
 
 namespace app::classes::XGamingRuntime::Interop::XTaskQueue {

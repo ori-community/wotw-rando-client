@@ -1,15 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IUberState.h>
-#include <Modloader/app/structs/ShootableCreepLogic.h>
-#include <Modloader/app/structs/Object_1.h>
-#include <Modloader/app/structs/MoonReference_1_IGenericUberState_.h>
-#include <Modloader/app/structs/IMoonSetupAnimator.h>
+
+#include <Modloader/app/structs/IUberState.h>
 #include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/IMoonSetupAnimator.h>
+#include <Modloader/app/structs/IMoonTypeResolver.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/IMoonTypeResolver.h>
+#include <Modloader/app/structs/MoonReference_1_IGenericUberState_.h>
+#include <Modloader/app/structs/Object_1.h>
+#include <Modloader/app/structs/ShootableCreepLogic.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
 
 namespace app::classes::ShootableCreepLogic {
     IL2CPP_REGISTER_METHOD(0x005B9760, app::IUberState*, get_UberState, (app::ShootableCreepLogic * this_ptr))
@@ -23,7 +24,6 @@ namespace app::classes::ShootableCreepLogic {
     IL2CPP_REGISTER_METHOD(0x005B9C60, void, OnEnable, (app::ShootableCreepLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005B9D00, void, OnDisable, (app::ShootableCreepLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005B9DA0, void, OnDamageReceived, (app::ShootableCreepLogic * this_ptr, app::DamageResult result))
-    IL2CPP_REGISTER_METHODINFO(0x04784940, ShootableCreepLogic_OnDamageReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005BA050, void, ChangeState, (app::ShootableCreepLogic * this_ptr, bool destroyed))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_ApplyOnEditor, (app::ShootableCreepLogic * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005BA0C0, void, Apply, (app::ShootableCreepLogic * this_ptr, app::UberStateApplyContext__Enum context))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Object_1.h>
+
+#include <Modloader/app/structs/Object_1.h>
 #include <Modloader/app/structs/DirtyUtility.h>
 
 namespace app::classes::DirtyUtility {

@@ -1,14 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkAuxSendArray.h>
+
+#include <Modloader/app/structs/AkAuxSendArray.h>
+#include <Modloader/app/structs/AKRESULT__Enum.h>
 #include <Modloader/app/structs/AkAuxSendValue.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/AKRESULT__Enum.h>
 
 namespace app::classes::AkAuxSendArray {
     IL2CPP_REGISTER_METHOD(0x026CA1A0, void, ctor, (app::AkAuxSendArray * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026CA3D0, app::AkAuxSendValue*, get_Item, (app::AkAuxSendArray * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x047714F0, AkAuxSendArray_get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x026CA560, bool, get_isFull, (app::AkAuxSendArray * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026CA5F0, void, Dispose, (app::AkAuxSendArray * this_ptr))
     IL2CPP_REGISTER_METHOD(0x026CA6B0, void, Finalize, (app::AkAuxSendArray * this_ptr))

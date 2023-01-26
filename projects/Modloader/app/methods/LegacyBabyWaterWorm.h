@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyBabyWaterWorm.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/LegacyBabyWaterWorm_BabyWaterwormState__Enum.h>
+
+#include <Modloader/app/structs/LegacyBabyWaterWorm.h>
 #include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/WaterZone.h>
-#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/DamageDealer.h>
+#include <Modloader/app/structs/DamageResult.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/IDamageReciever__Array.h>
+#include <Modloader/app/structs/LegacyBabyWaterWorm_BabyWaterwormState__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/WaterZone.h>
 
 namespace app::classes::LegacyBabyWaterWorm {
     IL2CPP_REGISTER_METHOD(0x00C754B0, int32_t, get_BashPriority, (app::LegacyBabyWaterWorm * this_ptr))
@@ -82,9 +83,7 @@ namespace app::classes::LegacyBabyWaterWorm {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeTeleportedByBeacon, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, CanBeGlowed, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015DC080, void, OnRecieveDamage, (app::LegacyBabyWaterWorm * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x04793028, LegacyBabyWaterWorm_OnRecieveDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015DC2C0, void, OnDamageDealt, (app::LegacyBabyWaterWorm * this_ptr, app::DamageDealer* damage_dealer, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x0470FDB8, LegacyBabyWaterWorm_OnDamageDealt__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015DC2D0, void, AreaDamage, (app::LegacyBabyWaterWorm * this_ptr, app::GameObject* collided_object))
     IL2CPP_REGISTER_METHOD(0x015DC810, void, RefreshClosestTarget, (app::LegacyBabyWaterWorm * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015DCEA0, void, OnProcessRootMotion, (app::LegacyBabyWaterWorm * this_ptr, app::Vector3 motion))

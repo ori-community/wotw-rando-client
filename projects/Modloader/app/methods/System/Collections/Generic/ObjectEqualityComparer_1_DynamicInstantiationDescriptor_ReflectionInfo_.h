@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_DynamicInstantiationDescriptor_ReflectionInfo_.h>
 #include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo.h>
 #include <Modloader/app/structs/DynamicInstantiationDescriptor_ReflectionInfo__Array.h>
 #include <Modloader/app/structs/Object.h>

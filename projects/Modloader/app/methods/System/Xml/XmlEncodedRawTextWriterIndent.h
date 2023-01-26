@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlEncodedRawTextWriterIndent.h>
-#include <Modloader/app/structs/TextWriter.h>
-#include <Modloader/app/structs/XmlWriterSettings.h>
+
+#include <Modloader/app/structs/XmlEncodedRawTextWriterIndent.h>
+#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/ConformanceLevel__Enum.h>
 #include <Modloader/app/structs/Stream.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/ConformanceLevel__Enum.h>
-#include <Modloader/app/structs/Char__Array.h>
-#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/XmlWriterSettings.h>
 
 namespace app::classes::System::Xml::XmlEncodedRawTextWriterIndent {
     IL2CPP_REGISTER_METHOD(0x01DB4830, void, ctor_1, (app::XmlEncodedRawTextWriterIndent * this_ptr, app::TextWriter* writer, app::XmlWriterSettings* settings))
@@ -23,8 +24,8 @@ namespace app::classes::System::Xml::XmlEncodedRawTextWriterIndent {
     IL2CPP_REGISTER_METHOD(0x01DB4C50, void, WriteComment, (app::XmlEncodedRawTextWriterIndent * this_ptr, app::String* text))
     IL2CPP_REGISTER_METHOD(0x01DB4C90, void, WriteProcessingInstruction, (app::XmlEncodedRawTextWriterIndent * this_ptr, app::String* target, app::String* text))
     IL2CPP_REGISTER_METHOD(0x01DB4CE0, void, WriteEntityRef, (app::XmlEncodedRawTextWriterIndent * this_ptr, app::String* name))
-    IL2CPP_REGISTER_METHOD(0x01DB4DF0, void, WriteCharEntity, (app::XmlEncodedRawTextWriterIndent * this_ptr, uint16_t ch))
-    IL2CPP_REGISTER_METHOD(0x01DB4E00, void, WriteSurrogateCharEntity, (app::XmlEncodedRawTextWriterIndent * this_ptr, uint16_t low_char, uint16_t high_char))
+    IL2CPP_REGISTER_METHOD(0x01DB4DF0, void, WriteCharEntity, (app::XmlEncodedRawTextWriterIndent * this_ptr, char16_t ch))
+    IL2CPP_REGISTER_METHOD(0x01DB4E00, void, WriteSurrogateCharEntity, (app::XmlEncodedRawTextWriterIndent * this_ptr, char16_t low_char, char16_t high_char))
     IL2CPP_REGISTER_METHOD(0x01DB4E10, void, WriteWhitespace, (app::XmlEncodedRawTextWriterIndent * this_ptr, app::String* ws))
     IL2CPP_REGISTER_METHOD(0x01DB4E90, void, WriteString, (app::XmlEncodedRawTextWriterIndent * this_ptr, app::String* text))
     IL2CPP_REGISTER_METHOD(0x01DB4F10, void, WriteChars, (app::XmlEncodedRawTextWriterIndent * this_ptr, app::Char__Array* buffer, int32_t index, int32_t count))

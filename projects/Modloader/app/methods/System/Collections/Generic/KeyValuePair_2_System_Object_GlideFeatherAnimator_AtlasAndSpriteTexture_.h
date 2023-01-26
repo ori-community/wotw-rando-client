@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_GlideFeatherAnimator_AtlasAndSpriteTexture___Boxed.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_GlideFeatherAnimator_AtlasAndSpriteTexture___Boxed.h>
 #include <Modloader/app/structs/GlideFeatherAnimator_AtlasAndSpriteTexture.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_Object_GlideFeatherAnimator_AtlasAndSpriteTexture_ {

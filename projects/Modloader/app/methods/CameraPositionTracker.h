@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Camera.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Matrix4x4.h>
+
+#include <Modloader/app/structs/Camera.h>
 #include <Modloader/app/structs/CameraPositionTracker.h>
+#include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CameraPositionTracker {
     IL2CPP_REGISTER_METHOD(0x03119EA0, void, TrackCamera, (app::Camera * camera))

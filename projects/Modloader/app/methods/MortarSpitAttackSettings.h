@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MortarSpitAttackSettings.h>
+
+#include <Modloader/app/structs/MortarSpitAttackSettings.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
 
 namespace app::classes::MortarSpitAttackSettings {

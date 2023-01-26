@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OrePickup.h>
+
+#include <Modloader/app/structs/OrePickup.h>
 #include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::OrePickup {

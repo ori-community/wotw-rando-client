@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DynamicMetaObject.h>
-#include <Modloader/app/structs/Expression.h>
+
+#include <Modloader/app/structs/DynamicMetaObject.h>
 #include <Modloader/app/structs/BindingRestrictions.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Expression.h>
 #include <Modloader/app/structs/GetMemberBinder.h>
-#include <Modloader/app/structs/SetMemberBinder.h>
 #include <Modloader/app/structs/IEnumerable_1_System_String_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SetMemberBinder.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Dynamic::DynamicMetaObject {
     IL2CPP_REGISTER_METHOD(0x01F8A880, void, ctor_1, (app::DynamicMetaObject * this_ptr, app::Expression* expression, app::BindingRestrictions* restrictions))
@@ -22,6 +23,5 @@ namespace app::classes::System::Dynamic::DynamicMetaObject {
     IL2CPP_REGISTER_METHOD(0x01F8AB80, app::DynamicMetaObject*, BindSetMember, (app::DynamicMetaObject * this_ptr, app::SetMemberBinder* binder, app::DynamicMetaObject* value))
     IL2CPP_REGISTER_METHOD(0x01F8AC50, app::IEnumerable_1_System_String_*, GetDynamicMemberNames, (app::DynamicMetaObject * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F8ACD0, app::DynamicMetaObject*, Create, (app::Object * value, app::Expression* expression))
-    IL2CPP_REGISTER_METHODINFO(0x0476C218, DynamicMetaObject_Create__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F8AEE0, void, cctor, ())
 } // namespace app::classes::System::Dynamic::DynamicMetaObject

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Vector3__Boxed.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/Vector3__Boxed.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::Vector3 {
     IL2CPP_REGISTER_METHOD(0x00229570, void, ctor_1, (app::Vector3__Boxed * this_ptr, float x, float y, float z))
@@ -13,16 +14,13 @@ namespace app::classes::UnityEngine::Vector3 {
     IL2CPP_REGISTER_METHOD(0x02C749F0, void, OrthoNormalize, (app::Vector3 * normal, app::Vector3* tangent))
     IL2CPP_REGISTER_METHOD(0x02C74AE0, app::Vector3, RotateTowards, (app::Vector3 current, app::Vector3 target, float max_radians_delta, float max_magnitude_delta))
     IL2CPP_REGISTER_METHOD(0x02C74C10, app::Vector3, Lerp, (app::Vector3 a, app::Vector3 b, float t))
-    IL2CPP_REGISTER_METHODINFO(0x047270E0, Vector3_Lerp__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C74D30, app::Vector3, LerpUnclamped, (app::Vector3 a, app::Vector3 b, float t))
     IL2CPP_REGISTER_METHOD(0x02C74D90, app::Vector3, MoveTowards, (app::Vector3 current, app::Vector3 target, float max_distance_delta))
     IL2CPP_REGISTER_METHOD(0x02C74F70, app::Vector3, SmoothDamp_1, (app::Vector3 current, app::Vector3 target, app::Vector3* current_velocity, float smooth_time, float max_speed))
     IL2CPP_REGISTER_METHOD(0x02C75100, app::Vector3, SmoothDamp_2, (app::Vector3 current, app::Vector3 target, app::Vector3* current_velocity, float smooth_time))
     IL2CPP_REGISTER_METHOD(0x02C75290, app::Vector3, SmoothDamp_3, (app::Vector3 current, app::Vector3 target, app::Vector3* current_velocity, float smooth_time, float max_speed, float delta_time))
     IL2CPP_REGISTER_METHOD(0x002295A0, float, get_Item, (app::Vector3__Boxed * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04797088, Vector3_get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002295B0, void, set_Item, (app::Vector3__Boxed * this_ptr, int32_t index, float value))
-    IL2CPP_REGISTER_METHODINFO(0x04792500, Vector3_set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00229570, void, Set, (app::Vector3__Boxed * this_ptr, float new_x, float new_y, float new_z))
     IL2CPP_REGISTER_METHOD(0x02C75910, app::Vector3, Scale_1, (app::Vector3 a, app::Vector3 b))
     IL2CPP_REGISTER_METHOD(0x002295C0, void, Scale_2, (app::Vector3__Boxed * this_ptr, app::Vector3 scale))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SslClientStream.h>
+
+#include <Modloader/app/structs/SslClientStream.h>
 #include <Modloader/app/structs/ClientContext.h>
 #include <Modloader/app/structs/SecurityProtocolType__Enum_1.h>
 #include <Modloader/app/structs/String.h>

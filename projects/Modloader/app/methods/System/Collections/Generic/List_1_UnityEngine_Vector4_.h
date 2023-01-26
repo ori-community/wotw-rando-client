@@ -1,35 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector4_.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Vector4_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_Vector4_.h>
-#include <Modloader/app/structs/IComparer_1_UnityEngine_Vector4_.h>
-#include <Modloader/app/structs/Vector4__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_UnityEngine_Vector4_.h>
+
+#include <Modloader/app/structs/List_1_UnityEngine_Vector4_.h>
 #include <Modloader/app/structs/Action_1_UnityEngine_Vector4_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Vector4_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Vector4_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/IEnumerable_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_Vector4_.h>
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Vector4__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_Vector4_ {
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_UnityEngine_Vector4_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0472FEB0, List_1_UnityEngine_Vector4__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_UnityEngine_Vector4_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477F8B8, List_1_UnityEngine_Vector4__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add, (app::List_1_UnityEngine_Vector4_ * this_ptr, app::Vector4 item))
-    IL2CPP_REGISTER_METHODINFO(0x047227A0, List_1_UnityEngine_Vector4__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_UnityEngine_Vector4_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470D7B8, List_1_UnityEngine_Vector4___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E9020, void, AddRange, (app::List_1_UnityEngine_Vector4_ * this_ptr, app::IEnumerable_1_UnityEngine_Vector4_* collection))
-    IL2CPP_REGISTER_METHODINFO(0x0478F818, List_1_UnityEngine_Vector4__AddRange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::Vector4, get_Item, (app::List_1_UnityEngine_Vector4_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04774EB8, List_1_UnityEngine_Vector4__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8A90, void, set_Item, (app::List_1_UnityEngine_Vector4_ * this_ptr, int32_t index, app::Vector4 value))
-    IL2CPP_REGISTER_METHODINFO(0x0476B5D0, List_1_UnityEngine_Vector4__set_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_2, (app::List_1_UnityEngine_Vector4_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02C1C7D0, void, ctor_3, (app::List_1_UnityEngine_Vector4_ * this_ptr, app::IEnumerable_1_UnityEngine_Vector4_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_UnityEngine_Vector4_ * this_ptr))

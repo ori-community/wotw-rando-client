@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameStateMachine.h>
+
+#include <Modloader/app/structs/GameStateMachine.h>
 #include <Modloader/app/structs/GameStateMachine_State__Enum.h>
 
 namespace app::classes::GameStateMachine {

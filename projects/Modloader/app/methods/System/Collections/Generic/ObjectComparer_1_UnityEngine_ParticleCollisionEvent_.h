@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_ParticleCollisionEvent_.h>
-#include <Modloader/app/structs/ParticleCollisionEvent.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_UnityEngine_ParticleCollisionEvent_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ParticleCollisionEvent.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_UnityEngine_ParticleCollisionEvent_ {
     IL2CPP_REGISTER_METHOD(0x01CCECC0, int32_t, Compare, (app::ObjectComparer_1_UnityEngine_ParticleCollisionEvent_ * this_ptr, app::ParticleCollisionEvent x, app::ParticleCollisionEvent y))

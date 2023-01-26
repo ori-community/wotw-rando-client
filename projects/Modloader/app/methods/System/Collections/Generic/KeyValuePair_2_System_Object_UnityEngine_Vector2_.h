@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_UnityEngine_Vector2___Boxed.h>
+
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_UnityEngine_Vector2___Boxed.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::System::Collections::Generic::KeyValuePair_2_System_Object_UnityEngine_Vector2_ {
     IL2CPP_REGISTER_METHOD(0x00151BF0, void, ctor, (app::KeyValuePair_2_System_Object_UnityEngine_Vector2___Boxed * this_ptr, app::Object* key, app::Vector2 value))

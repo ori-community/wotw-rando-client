@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FtpStatus.h>
+
+#include <Modloader/app/structs/FtpStatus.h>
 #include <Modloader/app/structs/FtpStatusCode__Enum.h>
 #include <Modloader/app/structs/String.h>
 

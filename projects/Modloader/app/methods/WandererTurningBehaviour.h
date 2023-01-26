@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WandererTurningBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/WandererTurningBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::WandererTurningBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FC5D0, float, get_TargetLookDirectionX, (app::WandererTurningBehaviour * this_ptr))
@@ -15,7 +16,6 @@ namespace app::classes::WandererTurningBehaviour {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnExitTask, (app::WandererTurningBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x008D2CA0, app::BehaviourStatus__Enum, OnExecuteTask, (app::WandererTurningBehaviour * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x008D2CE0, void, TurningFinished, (app::WandererTurningBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04792BD0, WandererTurningBehaviour_TurningFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008D2F30, void, PlayAnimation, (app::WandererTurningBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008D3370, void, SetAnimTime, (app::WandererTurningBehaviour * this_ptr, float time))
     IL2CPP_REGISTER_METHOD(0x008D34D0, bool, ShouldEndBehaviour, (app::WandererTurningBehaviour * this_ptr))

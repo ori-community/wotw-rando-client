@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DateTimeTypeInfo.h>
-#include <Modloader/app/structs/TraceLoggingMetadataCollector.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/EventFieldFormat__Enum.h>
-#include <Modloader/app/structs/TraceLoggingDataCollector.h>
+
+#include <Modloader/app/structs/DateTimeTypeInfo.h>
 #include <Modloader/app/structs/DateTime.h>
+#include <Modloader/app/structs/EventFieldFormat__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TraceLoggingDataCollector.h>
+#include <Modloader/app/structs/TraceLoggingMetadataCollector.h>
 
 namespace app::classes::System::Diagnostics::Tracing::DateTimeTypeInfo {
     IL2CPP_REGISTER_METHOD(0x01748F40, void, WriteMetadata, (app::DateTimeTypeInfo * this_ptr, app::TraceLoggingMetadataCollector* collector, app::String* name, app::EventFieldFormat__Enum format))

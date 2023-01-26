@@ -1,15 +1,20 @@
 #pragma once
+#include <Modloader/app/structs/IVRSettings_SetInt32.h>
+#include <Modloader/app/structs/IVRSettings_SetInt32__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/IVRSettings_SetInt32__Class.h>
-#include <Modloader/app/structs/IVRSettings_SetInt32.h>
 
 namespace app::classes::types {
     namespace IVRSettings_SetInt32 {
-        inline app::IVRSettings_SetInt32__Class** type_info = (app::IVRSettings_SetInt32__Class**)(modloader::win::memory::resolve_rva(0x04780420));
+        inline app::IVRSettings_SetInt32__Class** type_info() {
+            static app::IVRSettings_SetInt32__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::IVRSettings_SetInt32__Class**)(modloader::win::memory::resolve_rva(0x04780420));
+            }
+            return cache;
+        }
         inline app::IVRSettings_SetInt32__Class* get_class() {
-            return il2cpp::get_nested_class<app::IVRSettings_SetInt32__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "IVRSettings", "_SetInt32");
+            return il2cpp::get_nested_class<app::IVRSettings_SetInt32__Class>(type_info(), "ZenFulcrum.VR.OpenVRBinding", "IVRSettings", "_SetInt32");
         }
         inline app::IVRSettings_SetInt32* create() {
             return il2cpp::create_object<app::IVRSettings_SetInt32>(get_class());

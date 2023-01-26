@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameWorldArea.h>
+
+#include <Modloader/app/structs/GameWorldArea.h>
 #include <Modloader/app/structs/HasAreaMapCondition.h>
 #include <Modloader/app/structs/IContext.h>
 

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
-#include <Modloader/app/structs/SpiritShardUIShardSocket.h>
+
+#include <Modloader/app/structs/PlayerUberStateShards_Shard.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/SpiritShardUIShardSocket.h>
 #include <Modloader/app/structs/Texture2D.h>
 
 namespace app::classes::SpiritShardUIShardSocket {

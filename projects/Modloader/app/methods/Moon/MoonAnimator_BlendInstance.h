@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonAnimator_BlendInstance.h>
+
+#include <Modloader/app/structs/MoonAnimator_BlendInstance.h>
+#include <Modloader/app/structs/IAnimation.h>
+#include <Modloader/app/structs/MoonAnimator_AnimationInstanceType__Enum.h>
 #include <Modloader/app/structs/MoonAnimator_AnimationInstance__Array.h>
 #include <Modloader/app/structs/Playable.h>
-#include <Modloader/app/structs/MoonAnimator_AnimationInstanceType__Enum.h>
-#include <Modloader/app/structs/IAnimation.h>
 
 namespace app::classes::Moon::MoonAnimator_BlendInstance {
     IL2CPP_REGISTER_METHOD(0x02112700, bool, get_HasValidInput, (app::MoonAnimator_BlendInstance * this_ptr))

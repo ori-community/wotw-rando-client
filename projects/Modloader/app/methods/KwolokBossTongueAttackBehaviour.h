@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/KwolokBossTongueAttackBehaviour.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::KwolokBossTongueAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x012F0DF0, app::Transform*, get_TongueRoot, (app::KwolokBossTongueAttackBehaviour * this_ptr))
@@ -19,14 +20,10 @@ namespace app::classes::KwolokBossTongueAttackBehaviour {
     IL2CPP_REGISTER_METHOD(0x012F1E10, float, ComputeUtility, (app::KwolokBossTongueAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00965980, void, InitializeHitReactionController, (app::KwolokBossTongueAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012F2340, void, ModifyAcceleration, (app::KwolokBossTongueAttackBehaviour * this_ptr, float* acceleration, float* deceleration))
-    IL2CPP_REGISTER_METHODINFO(0x04730888, KwolokBossTongueAttackBehaviour_ModifyAcceleration__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F2370, void, UpdateSounds, (app::KwolokBossTongueAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012F2560, void, UpdateTongueHitEffect, (app::KwolokBossTongueAttackBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012F2A20, void, OnTargetLockEvent, (app::KwolokBossTongueAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04797AC8, KwolokBossTongueAttackBehaviour_OnTargetLockEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F3500, void, OnMouthHeightLockEvent, (app::KwolokBossTongueAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0470E818, KwolokBossTongueAttackBehaviour_OnMouthHeightLockEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnMaxExtenReached, (app::KwolokBossTongueAttackBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473F7B0, KwolokBossTongueAttackBehaviour_OnMaxExtenReached__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012F3630, void, ctor, (app::KwolokBossTongueAttackBehaviour * this_ptr))
 } // namespace app::classes::KwolokBossTongueAttackBehaviour

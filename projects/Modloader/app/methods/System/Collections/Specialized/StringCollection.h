@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/StringCollection.h>
-#include <Modloader/app/structs/String__Array.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StringCollection.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::System::Collections::Specialized::StringCollection {
     IL2CPP_REGISTER_METHOD(0x0249DE30, app::String*, get_Item, (app::StringCollection * this_ptr, int32_t index))

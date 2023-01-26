@@ -1,19 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MethodBase.h>
-#include <Modloader/app/structs/RuntimeMethodHandle.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+
+#include <Modloader/app/structs/MethodBase.h>
 #include <Modloader/app/structs/CallingConventions__Enum.h>
-#include <Modloader/app/structs/Type__Array.h>
-#include <Modloader/app/structs/Object__Array.h>
 #include <Modloader/app/structs/MethodBody.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/ParameterInfo_1__Array.h>
+#include <Modloader/app/structs/RuntimeMethodHandle.h>
 #include <Modloader/app/structs/RuntimeTypeHandle.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type__Array.h>
 
 namespace app::classes::System::Reflection::MethodBase {
     IL2CPP_REGISTER_METHOD(0x0268C9D0, app::MethodBase*, GetMethodFromHandle, (app::RuntimeMethodHandle handle))
-    IL2CPP_REGISTER_METHODINFO(0x0474BB70, MethodBase_GetMethodFromHandle__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::MethodBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0268CC90, bool, op_Equality, (app::MethodBase * left, app::MethodBase* right))
     IL2CPP_REGISTER_METHOD(0x0268CE30, bool, op_Inequality, (app::MethodBase * left, app::MethodBase* right))
@@ -22,12 +22,10 @@ namespace app::classes::System::Reflection::MethodBase {
     IL2CPP_REGISTER_METHOD(0x01E113B0, app::ParameterInfo_1__Array*, GetParametersNoCopy, (app::MethodBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417920, app::CallingConventions__Enum, get_CallingConvention, (app::MethodBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0268CE50, app::Type__Array*, GetGenericArguments, (app::MethodBase * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04712CD0, MethodBase_GetGenericArguments__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsGenericMethodDefinition, (app::MethodBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ContainsGenericParameters, (app::MethodBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsGenericMethod, (app::MethodBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0268CEC0, bool, get_IsSecurityCritical, (app::MethodBase * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478C948, MethodBase_get_IsSecurityCritical__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0268CF10, app::Object*, Invoke, (app::MethodBase * this_ptr, app::Object* obj, app::Object__Array* parameters))
     IL2CPP_REGISTER_METHOD(0x0268CF50, bool, get_IsPublic, (app::MethodBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0268CF80, bool, get_IsStatic, (app::MethodBase * this_ptr))
@@ -37,7 +35,6 @@ namespace app::classes::System::Reflection::MethodBase {
     IL2CPP_REGISTER_METHOD(0x0268D010, bool, get_IsSpecialName, (app::MethodBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0268D040, bool, get_IsConstructor, (app::MethodBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0268D140, app::MethodBody*, GetMethodBody_1, (app::MethodBase * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04778AA8, MethodBase_GetMethodBody__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0268D190, app::String*, ConstructParameters, (app::Type__Array * parameter_types, app::CallingConventions__Enum calling_convention, bool serialization))
     IL2CPP_REGISTER_METHOD(0x0268D4A0, app::String*, FormatNameAndSig, (app::MethodBase * this_ptr, bool serialization))
     IL2CPP_REGISTER_METHOD(0x0268D6C0, app::Type__Array*, GetParameterTypes, (app::MethodBase * this_ptr))

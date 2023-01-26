@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActivationStateModifier.h>
+
+#include <Modloader/app/structs/ActivationStateModifier.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/MoonReference_1_UnityEngine_GameObject_.h>
 #include <Modloader/app/structs/UberStateApplyContext__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::ActivationStateModifier {
     IL2CPP_REGISTER_METHOD(0x01B54A20, bool, get_Active, (app::ActivationStateModifier * this_ptr))

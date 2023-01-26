@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritLeashEffect.h>
-#include <Modloader/app/structs/SeinCharacter.h>
+
+#include <Modloader/app/structs/SpiritLeashEffect.h>
 #include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/SeinCharacter.h>
 
 namespace app::classes::SpiritLeashEffect {
     IL2CPP_REGISTER_METHOD(0x00D5BCE0, void, Awake, (app::SpiritLeashEffect * this_ptr))

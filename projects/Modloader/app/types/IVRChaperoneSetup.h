@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/IVRChaperoneSetup__Class.h>
 #include <Modloader/app/structs/IVRChaperoneSetup.h>
 #include <Modloader/app/structs/IVRChaperoneSetup__Boxed.h>
+#include <Modloader/app/structs/IVRChaperoneSetup__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace IVRChaperoneSetup {
-        inline app::IVRChaperoneSetup__Class** type_info = (app::IVRChaperoneSetup__Class**)(modloader::win::memory::resolve_rva(0x0471AFA0));
+        inline app::IVRChaperoneSetup__Class** type_info() {
+            static app::IVRChaperoneSetup__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::IVRChaperoneSetup__Class**)(modloader::win::memory::resolve_rva(0x0471AFA0));
+            }
+            return cache;
+        }
         inline app::IVRChaperoneSetup__Class* get_class() {
-            return il2cpp::get_class<app::IVRChaperoneSetup__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "IVRChaperoneSetup");
+            return il2cpp::get_class<app::IVRChaperoneSetup__Class>(type_info(), "ZenFulcrum.VR.OpenVRBinding", "IVRChaperoneSetup");
         }
         inline app::IVRChaperoneSetup* create() {
             return il2cpp::create_object<app::IVRChaperoneSetup>(get_class());

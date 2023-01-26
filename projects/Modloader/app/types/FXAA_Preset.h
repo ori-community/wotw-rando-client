@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/FXAA_Preset.h>
+#include <Modloader/app/structs/FXAA_Preset__Array.h>
+#include <Modloader/app/structs/FXAA_Preset__Boxed.h>
+#include <Modloader/app/structs/FXAA_Preset__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/FXAA_Preset__Class.h>
-#include <Modloader/app/structs/FXAA_Preset.h>
-#include <Modloader/app/structs/FXAA_Preset__Boxed.h>
-#include <Modloader/app/structs/FXAA_Preset__Array.h>
 
 namespace app::classes::types {
     namespace FXAA_Preset {
-        inline app::FXAA_Preset__Class** type_info = (app::FXAA_Preset__Class**)(modloader::win::memory::resolve_rva(0x04747438));
+        inline app::FXAA_Preset__Class** type_info() {
+            static app::FXAA_Preset__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::FXAA_Preset__Class**)(modloader::win::memory::resolve_rva(0x04747438));
+            }
+            return cache;
+        }
         inline app::FXAA_Preset__Class* get_class() {
-            return il2cpp::get_nested_class<app::FXAA_Preset__Class>(type_info, "UnityStandardAssets.CinematicEffects", "FXAA", "Preset");
+            return il2cpp::get_nested_class<app::FXAA_Preset__Class>(type_info(), "UnityStandardAssets.CinematicEffects", "FXAA", "Preset");
         }
         inline app::FXAA_Preset* create() {
             return il2cpp::create_object<app::FXAA_Preset>(get_class());

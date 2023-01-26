@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IFieldOfViewInfluencer.h>
+
+#include <Modloader/app/structs/IFieldOfViewInfluencer.h>
 #include <Modloader/app/structs/CameraFovOffsetMixer_OffsetResult.h>
 
 namespace app::classes::CameraFovOffsetMixer {

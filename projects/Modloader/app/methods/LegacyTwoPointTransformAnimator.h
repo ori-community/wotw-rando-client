@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyTwoPointTransformAnimator.h>
+
+#include <Modloader/app/structs/LegacyTwoPointTransformAnimator.h>
 
 namespace app::classes::LegacyTwoPointTransformAnimator {
     IL2CPP_REGISTER_METHOD(0x0112CE20, void, Start, (app::LegacyTwoPointTransformAnimator * this_ptr))

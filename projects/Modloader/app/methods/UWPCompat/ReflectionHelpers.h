@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BindingFlags__Enum_1.h>
+
+#include <Modloader/app/structs/BindingFlags__Enum_1.h>
 #include <Modloader/app/structs/BindingFlags__Enum.h>
 
 namespace app::classes::UWPCompat::ReflectionHelpers {

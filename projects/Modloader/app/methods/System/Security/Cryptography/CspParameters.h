@@ -1,15 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CspProviderFlags__Enum.h>
-#include <Modloader/app/structs/CspParameters.h>
+
+#include <Modloader/app/structs/CspProviderFlags__Enum.h>
 #include <Modloader/app/structs/CryptoKeySecurity.h>
+#include <Modloader/app/structs/CspParameters.h>
 #include <Modloader/app/structs/SecureString.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Security::Cryptography::CspParameters {
     IL2CPP_REGISTER_METHOD(0x005C3FF0, app::CspProviderFlags__Enum, get_Flags, (app::CspParameters * this_ptr))
     IL2CPP_REGISTER_METHOD(0x020D0460, void, set_Flags, (app::CspParameters * this_ptr, app::CspProviderFlags__Enum value))
-    IL2CPP_REGISTER_METHODINFO(0x04715C68, CspParameters_set_Flags__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FB990, app::CryptoKeySecurity*, get_CryptoKeySecurity, (app::CspParameters * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FB9A0, void, set_CryptoKeySecurity, (app::CspParameters * this_ptr, app::CryptoKeySecurity* value))
     IL2CPP_REGISTER_METHOD(0x002FB9B0, app::SecureString*, get_KeyPassword, (app::CspParameters * this_ptr))

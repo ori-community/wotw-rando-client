@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DecoderFallbackException.h>
+
+#include <Modloader/app/structs/DecoderFallbackException.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Text::DecoderFallbackException {
     IL2CPP_REGISTER_METHOD(0x0244A140, void, ctor_1, (app::DecoderFallbackException * this_ptr))

@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/UIVertex.h>
+#include <Modloader/app/structs/UIVertex__Array.h>
+#include <Modloader/app/structs/UIVertex__Boxed.h>
+#include <Modloader/app/structs/UIVertex__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/UIVertex__Class.h>
-#include <Modloader/app/structs/UIVertex.h>
-#include <Modloader/app/structs/UIVertex__Boxed.h>
-#include <Modloader/app/structs/UIVertex__Array.h>
 
 namespace app::classes::types {
     namespace UIVertex {
-        inline app::UIVertex__Class** type_info = (app::UIVertex__Class**)(modloader::win::memory::resolve_rva(0x04798870));
+        inline app::UIVertex__Class** type_info() {
+            static app::UIVertex__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::UIVertex__Class**)(modloader::win::memory::resolve_rva(0x04798870));
+            }
+            return cache;
+        }
         inline app::UIVertex__Class* get_class() {
-            return il2cpp::get_class<app::UIVertex__Class>(type_info, "UnityEngine", "UIVertex");
+            return il2cpp::get_class<app::UIVertex__Class>(type_info(), "UnityEngine", "UIVertex");
         }
         inline app::UIVertex* create() {
             return il2cpp::create_object<app::UIVertex>(get_class());

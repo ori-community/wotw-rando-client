@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/VideoEditor.h>
 #include <Modloader/app/structs/VideoPlayer.h>
 
@@ -24,11 +25,8 @@ namespace app::classes::VideoEditor {
     IL2CPP_REGISTER_METHOD(0x008BE400, void, SpeedUp, (app::VideoEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008BE4C0, app::String*, TimeToTimestamp, (app::VideoEditor * this_ptr, double time))
     IL2CPP_REGISTER_METHOD(0x008BE640, void, EndReached, (app::VideoEditor * this_ptr, app::VideoPlayer* player))
-    IL2CPP_REGISTER_METHODINFO(0x04781E58, VideoEditor_EndReached__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008BE690, void, SeekCompleted, (app::VideoEditor * this_ptr, app::VideoPlayer* player))
-    IL2CPP_REGISTER_METHODINFO(0x04768EA8, VideoEditor_SeekCompleted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008BE6A0, void, PrepareCompleted, (app::VideoEditor * this_ptr, app::VideoPlayer* player))
-    IL2CPP_REGISTER_METHODINFO(0x0470C5B8, VideoEditor_PrepareCompleted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008BE720, void, SetTrimStart, (app::VideoEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008BE820, void, SetTrimEnd, (app::VideoEditor * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008BE920, void, SkipFromCurrent, (app::VideoEditor * this_ptr, float time))

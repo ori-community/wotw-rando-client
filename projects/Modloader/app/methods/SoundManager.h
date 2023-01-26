@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoundManager.h>
+
+#include <Modloader/app/structs/SoundManager.h>
 
 namespace app::classes::SoundManager {
     IL2CPP_REGISTER_METHOD(0x0052A050, bool, get_WWiseEnabled, (app::SoundManager * this_ptr))

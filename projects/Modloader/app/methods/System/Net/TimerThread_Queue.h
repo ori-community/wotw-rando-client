@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimerThread_Queue.h>
+
+#include <Modloader/app/structs/TimerThread_Queue.h>
 #include <Modloader/app/structs/TimerThread_Timer.h>
 
 namespace app::classes::System::Net::TimerThread_Queue {

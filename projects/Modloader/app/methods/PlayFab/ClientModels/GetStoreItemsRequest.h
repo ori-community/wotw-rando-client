@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GetStoreItemsRequest.h>
+
+#include <Modloader/app/structs/GetStoreItemsRequest.h>
 
 namespace app::classes::PlayFab::ClientModels::GetStoreItemsRequest {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::GetStoreItemsRequest * this_ptr))

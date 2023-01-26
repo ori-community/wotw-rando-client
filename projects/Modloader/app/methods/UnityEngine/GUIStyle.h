@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUIStyle.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/Font.h>
+#include <Modloader/app/structs/FontStyle__Enum.h>
+#include <Modloader/app/structs/GUIContent.h>
+#include <Modloader/app/structs/GUIStyleState.h>
 #include <Modloader/app/structs/ImagePosition__Enum.h>
+#include <Modloader/app/structs/Rect.h>
+#include <Modloader/app/structs/RectOffset.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TextAnchor__Enum.h>
 #include <Modloader/app/structs/TextClipping__Enum.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/FontStyle__Enum.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/GUIContent.h>
-#include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/GUIStyleState.h>
-#include <Modloader/app/structs/RectOffset.h>
 
 namespace app::classes::UnityEngine::GUIStyle {
     IL2CPP_REGISTER_METHOD(0x029F2F40, void, ctor_1, (app::GUIStyle * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TimelinePreviewRequirement.h>
+
+#include <Modloader/app/structs/TimelinePreviewRequirement.h>
 #include <Modloader/app/structs/IDesiredUberState.h>
 #include <Modloader/app/structs/MoonTimeline.h>
 

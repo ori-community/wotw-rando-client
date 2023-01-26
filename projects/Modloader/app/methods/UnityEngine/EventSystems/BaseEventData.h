@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BaseEventData.h>
-#include <Modloader/app/structs/EventSystem.h>
+
+#include <Modloader/app/structs/BaseEventData.h>
 #include <Modloader/app/structs/BaseInputModule.h>
+#include <Modloader/app/structs/EventSystem.h>
 #include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::UnityEngine::EventSystems::BaseEventData {

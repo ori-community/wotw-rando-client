@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SliceRenderSettings.h>
+
+#include <Modloader/app/structs/SliceRenderSettings.h>
 #include <Modloader/app/structs/DepthOfFieldController.h>
 
 namespace app::classes::DepthOfFieldController {

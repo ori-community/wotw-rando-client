@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Int64__Array__Class.h>
 #include <Modloader/app/structs/Int64__Array.h>
 #include <Modloader/app/structs/Int64__Array__Array.h>
+#include <Modloader/app/structs/Int64__Array__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace Int64__Array {
-        inline app::Int64__Array__Class** type_info = (app::Int64__Array__Class**)(modloader::win::memory::resolve_rva(0x047337F0));
+        inline app::Int64__Array__Class** type_info() {
+            static app::Int64__Array__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Int64__Array__Class**)(modloader::win::memory::resolve_rva(0x047337F0));
+            }
+            return cache;
+        }
         inline app::Int64__Array__Class* get_class() {
-            return il2cpp::get_class<app::Int64__Array__Class>(type_info, "System", "Int64[]");
+            return il2cpp::get_class<app::Int64__Array__Class>(type_info(), "System", "Int64[]");
         }
         inline app::Int64__Array* create() {
             return il2cpp::create_object<app::Int64__Array>(get_class());

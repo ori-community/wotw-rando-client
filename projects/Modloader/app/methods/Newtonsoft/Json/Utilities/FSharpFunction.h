@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FSharpFunction.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/FSharpFunction.h>
 #include <Modloader/app/structs/MethodCall_2_System_Object_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::FSharpFunction {

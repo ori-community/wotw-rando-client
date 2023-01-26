@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/DebugHubItem_DebugHubItemLayout.h>
+#include <Modloader/app/structs/DebugHubItem_DebugHubItemLayout__Array.h>
+#include <Modloader/app/structs/DebugHubItem_DebugHubItemLayout__Boxed.h>
+#include <Modloader/app/structs/DebugHubItem_DebugHubItemLayout__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/DebugHubItem_DebugHubItemLayout__Class.h>
-#include <Modloader/app/structs/DebugHubItem_DebugHubItemLayout.h>
-#include <Modloader/app/structs/DebugHubItem_DebugHubItemLayout__Boxed.h>
-#include <Modloader/app/structs/DebugHubItem_DebugHubItemLayout__Array.h>
 
 namespace app::classes::types {
     namespace DebugHubItem_DebugHubItemLayout {
-        namespace {
-            inline app::DebugHubItem_DebugHubItemLayout__Class* type_info_ref = nullptr;
+        inline app::DebugHubItem_DebugHubItemLayout__Class** type_info() {
+            static app::DebugHubItem_DebugHubItemLayout__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::DebugHubItem_DebugHubItemLayout__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::DebugHubItem_DebugHubItemLayout__Class** type_info = &type_info_ref;
         inline app::DebugHubItem_DebugHubItemLayout__Class* get_class() {
-            return il2cpp::get_nested_class<app::DebugHubItem_DebugHubItemLayout__Class>(type_info, "", "DebugHubItem", "DebugHubItemLayout");
+            return il2cpp::get_nested_class<app::DebugHubItem_DebugHubItemLayout__Class>(type_info(), "", "DebugHubItem", "DebugHubItemLayout");
         }
         inline app::DebugHubItem_DebugHubItemLayout* create() {
             return il2cpp::create_object<app::DebugHubItem_DebugHubItemLayout>(get_class());

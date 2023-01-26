@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlayerLoopSystem.h>
+
+#include <Modloader/app/structs/PlayerLoopSystem.h>
 #include <Modloader/app/structs/List_1_UnityEngine_Experimental_LowLevel_PlayerLoopSystemInternal_.h>
 #include <Modloader/app/structs/PlayerLoopSystemInternal__Array.h>
 

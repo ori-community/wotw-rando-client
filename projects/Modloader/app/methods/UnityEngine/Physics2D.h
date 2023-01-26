@@ -1,26 +1,25 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PhysicsScene2D.h>
-#include <Modloader/app/structs/ColliderDistance2D.h>
+
+#include <Modloader/app/structs/PhysicsScene2D.h>
 #include <Modloader/app/structs/Collider2D.h>
-#include <Modloader/app/structs/RaycastHit2D.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/ContactFilter2D.h>
-#include <Modloader/app/structs/RaycastHit2D__Array.h>
-#include <Modloader/app/structs/Ray.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/ContactPoint2D__Array.h>
 #include <Modloader/app/structs/Collider2D__Array.h>
+#include <Modloader/app/structs/ColliderDistance2D.h>
+#include <Modloader/app/structs/ContactFilter2D.h>
+#include <Modloader/app/structs/ContactPoint2D__Array.h>
+#include <Modloader/app/structs/Ray.h>
+#include <Modloader/app/structs/RaycastHit2D.h>
+#include <Modloader/app/structs/RaycastHit2D__Array.h>
 #include <Modloader/app/structs/Rigidbody2D.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::UnityEngine::Physics2D {
     IL2CPP_REGISTER_METHOD(0x0316F310, app::PhysicsScene2D, get_defaultPhysicsScene, ())
     IL2CPP_REGISTER_METHOD(0x0316F3F0, bool, get_queriesHitTriggers, ())
     IL2CPP_REGISTER_METHOD(0x0316F440, int32_t, GetLayerCollisionMask, (int32_t layer))
-    IL2CPP_REGISTER_METHODINFO(0x04776898, Physics2D_GetLayerCollisionMask__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0316F550, int32_t, GetLayerCollisionMask_Internal, (int32_t layer))
     IL2CPP_REGISTER_METHOD(0x0316F5A0, app::ColliderDistance2D, Distance, (app::Collider2D * collider_a, app::Collider2D* collider_b))
-    IL2CPP_REGISTER_METHODINFO(0x04767F60, Physics2D_Distance__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0316F870, app::ColliderDistance2D, Distance_Internal, (app::Collider2D * collider_a, app::Collider2D* collider_b))
     IL2CPP_REGISTER_METHOD(0x0316F990, app::RaycastHit2D, Raycast_1, (app::Vector2 origin, app::Vector2 direction))
     IL2CPP_REGISTER_METHOD(0x0316FAA0, app::RaycastHit2D, Raycast_2, (app::Vector2 origin, app::Vector2 direction, float distance))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MemoryManagerDebugger_MemoryManagerDataCache.h>
+
+#include <Modloader/app/structs/MemoryManagerDebugger_MemoryManagerDataCache.h>
 #include <Modloader/app/structs/MemoryManagerDebugger.h>
 
 namespace app::classes::UberShader::optimizations::gc::MemoryManagerDebugger {

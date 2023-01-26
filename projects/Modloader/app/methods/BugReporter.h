@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/BugReporter.h>
+#include <Modloader/app/structs/BugReporter_State__Enum.h>
 #include <Modloader/app/structs/ExceptionEntry.h>
 #include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/List_1_System_String_.h>
 #include <Modloader/app/structs/List_1_BugReporter_Attachment_.h>
-#include <Modloader/app/structs/BugReporter_State__Enum.h>
 #include <Modloader/app/structs/List_1_System_Byte__1.h>
+#include <Modloader/app/structs/List_1_System_String_.h>
 
 namespace app::classes::BugReporter {
     IL2CPP_REGISTER_METHOD(0x00807ED0, uint32_t, Execute, (app::String * path, app::String* parameters, app::String* working_dir))
@@ -36,7 +37,6 @@ namespace app::classes::BugReporter {
     IL2CPP_REGISTER_METHOD(0x0080FC00, void, ResumeGameplay, (app::BugReporter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0080FEB0, void, RequestMuteAudio, (app::BugReporter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0080FF40, void, SetRecording, (app::BugReporter * this_ptr, bool value))
-    IL2CPP_REGISTER_METHODINFO(0x04767140, BugReporter_SetRecording__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008100C0, void, StartCheckingForRecording, (app::BugReporter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00810100, bool, RecordingStarted, (app::BugReporter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00810150, void, InitializeSubmission, (app::BugReporter * this_ptr))
@@ -58,7 +58,6 @@ namespace app::classes::BugReporter {
     IL2CPP_REGISTER_METHOD(0x00812670, void, UpdateState, (app::BugReporter * this_ptr, float delta_time))
     IL2CPP_REGISTER_METHOD(0x00812A50, void, ChangeState, (app::BugReporter * this_ptr, app::BugReporter_State__Enum state))
     IL2CPP_REGISTER_METHOD(0x00812DA0, void, Connect, (app::BugReporter * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04777BE8, BugReporter_Connect__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00813070, void, Ping, (app::BugReporter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008131F0, void, Send, (app::BugReporter * this_ptr, app::List_1_System_Byte__1* messages))
     IL2CPP_REGISTER_METHOD(0x008132E0, void, NotifyServer, (app::BugReporter * this_ptr))

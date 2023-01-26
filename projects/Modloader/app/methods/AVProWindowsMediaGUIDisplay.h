@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AVProWindowsMediaGUIDisplay.h>
+
+#include <Modloader/app/structs/AVProWindowsMediaGUIDisplay.h>
 #include <Modloader/app/structs/Rect.h>
 
 namespace app::classes::AVProWindowsMediaGUIDisplay {

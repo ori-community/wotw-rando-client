@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ImmutableCollectionsUtils_ImmutableCollectionTypeInfo.h>
+
+#include <Modloader/app/structs/ImmutableCollectionsUtils_ImmutableCollectionTypeInfo.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::Newtonsoft::Json::Utilities::ImmutableCollectionsUtils_ImmutableCollectionTypeInfo {

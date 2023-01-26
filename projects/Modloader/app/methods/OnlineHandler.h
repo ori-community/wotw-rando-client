@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/OnlineHandler.h>
+
+#include <Modloader/app/structs/OnlineHandler.h>
 #include <Modloader/app/structs/OnlineHandler_OnlineHandlerState__Enum.h>
 
 namespace app::classes::OnlineHandler {

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FileNotFoundException.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/FileNotFoundException.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::IO::FileNotFoundException {
     IL2CPP_REGISTER_METHOD(0x01E09550, void, ctor_1, (app::FileNotFoundException * this_ptr))

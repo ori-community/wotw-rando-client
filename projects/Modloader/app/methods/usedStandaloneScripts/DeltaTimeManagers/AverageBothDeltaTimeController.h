@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AverageBothDeltaTimeController.h>
+
+#include <Modloader/app/structs/AverageBothDeltaTimeController.h>
 
 namespace app::classes::usedStandaloneScripts::DeltaTimeManagers::AverageBothDeltaTimeController {
     IL2CPP_REGISTER_METHOD(0x00F76640, void, Initialize, (app::AverageBothDeltaTimeController * this_ptr))

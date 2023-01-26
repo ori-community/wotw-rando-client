@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NaruController.h>
+
+#include <Modloader/app/structs/NaruController.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::NaruController {
@@ -12,21 +13,13 @@ namespace app::classes::NaruController {
     IL2CPP_REGISTER_METHOD(0x008848B0, void, OnNaruLand, (app::NaruController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008848E0, void, UpdateAnimations, (app::NaruController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008854F0, bool, ShouldAgainstWallAnimationPlay, (app::NaruController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04774EA8, NaruController_ShouldAgainstWallAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00885630, bool, ShouldLookUpAnimationPlay, (app::NaruController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471A308, NaruController_ShouldLookUpAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00885770, bool, ShouldWalkAnimationPlay, (app::NaruController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473B120, NaruController_ShouldWalkAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00885860, bool, ShouldIdleAnimationPlay, (app::NaruController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04773F88, NaruController_ShouldIdleAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00885950, bool, ShouldFallAnimationPlay, (app::NaruController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471CB70, NaruController_ShouldFallAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008859C0, bool, ShouldFallIdleAnimationPlay, (app::NaruController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478CD08, NaruController_ShouldFallIdleAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00885A30, bool, ShouldJumpIdleAnimationPlay, (app::NaruController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04740FA8, NaruController_ShouldJumpIdleAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00885AE0, bool, ShouldJumpAnimationPlay, (app::NaruController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473F740, NaruController_ShouldJumpAnimationPlay__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00585310, bool, get_IsSuspended, (app::NaruController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00585320, void, set_IsSuspended, (app::NaruController * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x003FF2B0, app::SuspendableMask__Enum, get_Mask, (app::NaruController * this_ptr))

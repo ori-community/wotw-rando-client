@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NewSetupStateController.h>
-#include <Modloader/app/structs/StateControllerVirtualTimeline.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/EntityOperationPermit__Enum.h>
-#include <Modloader/app/structs/ITimelineEntity.h>
+
+#include <Modloader/app/structs/NewSetupStateController.h>
 #include <Modloader/app/structs/EntityId.h>
+#include <Modloader/app/structs/EntityOperationPermit__Enum.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/ITimelineEntity.h>
 #include <Modloader/app/structs/IUberStateModifierDataVirtualAnimator.h>
 #include <Modloader/app/structs/SetupState.h>
 #include <Modloader/app/structs/SetupStateModifier.h>
+#include <Modloader/app/structs/StateControllerVirtualTimeline.h>
 
 namespace app::classes::Moon::Timeline::StateControllerVirtualTimeline {
     IL2CPP_REGISTER_METHOD(0x002FBBE0, app::NewSetupStateController*, get_StateController, (app::StateControllerVirtualTimeline * this_ptr))

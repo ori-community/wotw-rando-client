@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkDiffractionPathInfoArray.h>
+
+#include <Modloader/app/structs/AkDiffractionPathInfoArray.h>
 #include <Modloader/app/structs/AkDiffractionPathInfo.h>
 
 namespace app::classes::AkDiffractionPathInfoArray {

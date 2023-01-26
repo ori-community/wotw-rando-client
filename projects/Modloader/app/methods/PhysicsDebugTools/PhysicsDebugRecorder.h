@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PhysicsDebugRecorder.h>
-#include <Modloader/app/structs/Entity.h>
+
+#include <Modloader/app/structs/PhysicsDebugRecorder.h>
 #include <Modloader/app/structs/CharacterPlatformMovement.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Entity.h>
 #include <Modloader/app/structs/Record.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::PhysicsDebugTools::PhysicsDebugRecorder {
     IL2CPP_REGISTER_METHOD(0x014FCBA0, app::PhysicsDebugRecorder*, get_Instance, ())

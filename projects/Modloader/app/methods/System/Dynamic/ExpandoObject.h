@@ -1,28 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ExpandoObject.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/ExpandoObject.h>
+#include <Modloader/app/structs/DynamicMetaObject.h>
 #include <Modloader/app/structs/ExpandoClass.h>
 #include <Modloader/app/structs/ExpandoObject_ExpandoData.h>
-#include <Modloader/app/structs/DynamicMetaObject.h>
 #include <Modloader/app/structs/Expression.h>
-#include <Modloader/app/structs/ICollection_1_System_String_.h>
 #include <Modloader/app/structs/ICollection_1_System_Object_.h>
+#include <Modloader/app/structs/ICollection_1_System_String_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_String_System_Object_.h>
 #include <Modloader/app/structs/KeyValuePair_2_System_String_System_Object_.h>
 #include <Modloader/app/structs/KeyValuePair_2_System_String_System_Object___Array.h>
-#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_String_System_Object_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/PropertyChangedEventHandler.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Dynamic::ExpandoObject {
     IL2CPP_REGISTER_METHOD(0x01F8CA20, void, ctor, (app::ExpandoObject * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F8CBA0, bool, TryGetValue, (app::ExpandoObject * this_ptr, app::Object* index_class, int32_t index, app::String* name, bool ignore_case, app::Object** value))
-    IL2CPP_REGISTER_METHODINFO(0x04792528, ExpandoObject_TryGetValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F8CD50, void, TrySetValue, (app::ExpandoObject * this_ptr, app::Object* index_class, int32_t index, app::Object* value, app::String* name, bool ignore_case, bool add))
-    IL2CPP_REGISTER_METHODINFO(0x04748C40, ExpandoObject_TrySetValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F8D240, bool, TryDeleteValue, (app::ExpandoObject * this_ptr, app::Object* index_class, int32_t index, app::String* name, bool ignore_case, app::Object* delete_value))
-    IL2CPP_REGISTER_METHODINFO(0x0477EEA8, ExpandoObject_TryDeleteValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F8D6D0, bool, IsDeletedMember, (app::ExpandoObject * this_ptr, int32_t index))
     IL2CPP_REGISTER_METHOD(0x0195B0F0, app::ExpandoClass*, get_Class, (app::ExpandoObject * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F8D7F0, app::ExpandoObject_ExpandoData*, PromoteClassCore, (app::ExpandoObject * this_ptr, app::ExpandoClass* old_class, app::ExpandoClass* new_class))
@@ -34,7 +32,6 @@ namespace app::classes::System::Dynamic::ExpandoObject {
     IL2CPP_REGISTER_METHOD(0x01F8DDB0, app::ICollection_1_System_String_*, IDictionary_string__object__get_Keys, (app::ExpandoObject * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F8DF00, app::ICollection_1_System_Object_*, IDictionary_string__object__get_Values, (app::ExpandoObject * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F8E050, app::Object*, IDictionary_string__object__get_Item, (app::ExpandoObject * this_ptr, app::String* key))
-    IL2CPP_REGISTER_METHODINFO(0x04719298, ExpandoObject_System_Collections_Generic_IDictionary_System_String_System_Object__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F8E130, void, IDictionary_string__object__set_Item, (app::ExpandoObject * this_ptr, app::String* key, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x01F8E200, void, IDictionary_string__object__Add, (app::ExpandoObject * this_ptr, app::String* key, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x01F8E210, bool, IDictionary_string__object__ContainsKey, (app::ExpandoObject * this_ptr, app::String* key))

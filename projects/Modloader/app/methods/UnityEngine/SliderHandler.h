@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SliderHandler__Boxed.h>
-#include <Modloader/app/structs/Rect.h>
-#include <Modloader/app/structs/GUIStyle.h>
-#include <Modloader/app/structs/EventType__Enum.h>
+
+#include <Modloader/app/structs/SliderHandler__Boxed.h>
 #include <Modloader/app/structs/Event.h>
+#include <Modloader/app/structs/EventType__Enum.h>
+#include <Modloader/app/structs/GUIStyle.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/SliderState.h>
 
 namespace app::classes::UnityEngine::SliderHandler {

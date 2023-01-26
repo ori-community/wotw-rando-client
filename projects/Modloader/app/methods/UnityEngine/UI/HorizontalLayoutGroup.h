@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HorizontalLayoutGroup.h>
+
+#include <Modloader/app/structs/HorizontalLayoutGroup.h>
 
 namespace app::classes::UnityEngine::UI::HorizontalLayoutGroup {
     IL2CPP_REGISTER_METHOD(0x024B6530, void, ctor, (app::HorizontalLayoutGroup * this_ptr))

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_BeforeRenderHelper_OrderBlock___Boxed.h>
-#include <Modloader/app/structs/List_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
+
+#include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_BeforeRenderHelper_OrderBlock___Boxed.h>
 #include <Modloader/app/structs/BeforeRenderHelper_OrderBlock.h>
+#include <Modloader/app/structs/List_1_UnityEngine_BeforeRenderHelper_OrderBlock_.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Collections::Generic::List_1_T__Enumerator_UnityEngine_BeforeRenderHelper_OrderBlock_ {

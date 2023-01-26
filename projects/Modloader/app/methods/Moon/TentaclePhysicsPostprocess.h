@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TentaclePhysicsPostprocess.h>
-#include <Modloader/app/structs/TentaclePhysicsController.h>
-#include <Modloader/app/structs/MoonAnimator.h>
-#include <Modloader/app/structs/Vector3__Array.h>
+
+#include <Modloader/app/structs/TentaclePhysicsPostprocess.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Quaternion__Array.h>
 #include <Modloader/app/structs/EnvTopology.h>
-#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/MoonAnimator.h>
 #include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Quaternion__Array.h>
+#include <Modloader/app/structs/TentaclePhysicsController.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector3__Array.h>
 
 namespace app::classes::Moon::TentaclePhysicsPostprocess {
     IL2CPP_REGISTER_METHOD(0x010ADD80, bool, get_ClassEnabled, ())

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EquipmentUIDetails.h>
+
+#include <Modloader/app/structs/EquipmentUIDetails.h>
 #include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
 
 namespace app::classes::EquipmentUIDetails {

@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HierarchyTestBulkTool.h>
-#include <Modloader/app/structs/List_1_RuntimeSceneMetaData_.h>
+
+#include <Modloader/app/structs/HierarchyTestBulkTool.h>
 #include <Modloader/app/structs/HierarchyTestBulkTool_State__Enum.h>
+#include <Modloader/app/structs/List_1_RuntimeSceneMetaData_.h>
 #include <Modloader/app/structs/RuntimeSceneMetaData.h>
 
 namespace app::classes::Moon::HierarchyPerformanceTest::HierarchyTestBulkTool {
@@ -24,7 +25,5 @@ namespace app::classes::Moon::HierarchyPerformanceTest::HierarchyTestBulkTool {
     IL2CPP_REGISTER_METHOD(0x014A2E00, void, ctor, (app::HierarchyTestBulkTool * this_ptr))
     IL2CPP_REGISTER_METHOD(0x014A3310, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x014A3390, void, _ChangeState_b__32_0, (app::HierarchyTestBulkTool * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0477E6F0, HierarchyTestBulkTool__ChangeState_b__32_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x014A3450, void, _ChangeState_b__32_1, (app::HierarchyTestBulkTool * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04766AD0, HierarchyTestBulkTool__ChangeState_b__32_1__MethodInfo)
 } // namespace app::classes::Moon::HierarchyPerformanceTest::HierarchyTestBulkTool

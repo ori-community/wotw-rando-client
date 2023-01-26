@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StandardTaskContinuation.h>
+
+#include <Modloader/app/structs/StandardTaskContinuation.h>
 #include <Modloader/app/structs/Task.h>
 #include <Modloader/app/structs/TaskContinuationOptions__Enum.h>
 #include <Modloader/app/structs/TaskScheduler.h>

@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/Texture_t.h>
+#include <Modloader/app/structs/Texture_t__Array.h>
+#include <Modloader/app/structs/Texture_t__Boxed.h>
+#include <Modloader/app/structs/Texture_t__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Texture_t__Class.h>
-#include <Modloader/app/structs/Texture_t.h>
-#include <Modloader/app/structs/Texture_t__Boxed.h>
-#include <Modloader/app/structs/Texture_t__Array.h>
 
 namespace app::classes::types {
     namespace Texture_t {
-        inline app::Texture_t__Class** type_info = (app::Texture_t__Class**)(modloader::win::memory::resolve_rva(0x04707428));
+        inline app::Texture_t__Class** type_info() {
+            static app::Texture_t__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Texture_t__Class**)(modloader::win::memory::resolve_rva(0x04707428));
+            }
+            return cache;
+        }
         inline app::Texture_t__Class* get_class() {
-            return il2cpp::get_class<app::Texture_t__Class>(type_info, "ZenFulcrum.VR.OpenVRBinding", "Texture_t");
+            return il2cpp::get_class<app::Texture_t__Class>(type_info(), "ZenFulcrum.VR.OpenVRBinding", "Texture_t");
         }
         inline app::Texture_t* create() {
             return il2cpp::create_object<app::Texture_t>(get_class());

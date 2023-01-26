@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
+
+#include <Modloader/app/structs/CleverMenuItemSelectionManager.h>
 #include <Modloader/app/structs/PurchaseThingScreen.h>
 
 namespace app::classes::PurchaseThingScreen {
@@ -10,7 +11,6 @@ namespace app::classes::PurchaseThingScreen {
     IL2CPP_REGISTER_METHOD(0x00C80EF0, void, OnEnable, (app::PurchaseThingScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C81010, void, Hide, (app::PurchaseThingScreen * this_ptr, bool change))
     IL2CPP_REGISTER_METHOD(0x00C810E0, void, OnNewItemHighlightedResetProgress, (app::PurchaseThingScreen * this_ptr, bool first_after_populating))
-    IL2CPP_REGISTER_METHODINFO(0x0478F3A0, PurchaseThingScreen_OnNewItemHighlightedResetProgress__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00C810F0, void, PurchaseInput, (app::PurchaseThingScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C815A0, void, CancelPurchaseInProgress, (app::PurchaseThingScreen * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00C815B0, void, PurchaseIncrease, (app::PurchaseThingScreen * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ByteStack.h>
+
+#include <Modloader/app/structs/ByteStack.h>
 
 namespace app::classes::System::Xml::ByteStack {
     IL2CPP_REGISTER_METHOD(0x021E7EE0, void, ctor, (app::ByteStack * this_ptr, int32_t growth_rate))

@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_KeyValuePair_2_System_Object_System_Int32_.h>
-#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_System_Object_System_Int32_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Int32_.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_System_Collections_Generic_KeyValuePair_2__4.h>
-#include <Modloader/app/structs/IComparer_1_KeyValuePair_2_System_Object_System_Int32_.h>
-#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Int32___Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_System_Collections_Generic_KeyValuePair_2__4.h>
+
+#include <Modloader/app/structs/List_1_KeyValuePair_2_System_Object_System_Int32_.h>
 #include <Modloader/app/structs/Action_1_System_Collections_Generic_KeyValuePair_2__4.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_KeyValuePair_2_System_Object_System_Int32_.h>
-#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Int32_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Comparison_1_System_Collections_Generic_KeyValuePair_2__7.h>
+#include <Modloader/app/structs/IComparer_1_KeyValuePair_2_System_Object_System_Int32_.h>
+#include <Modloader/app/structs/IEnumerable_1_KeyValuePair_2_System_Object_System_Int32_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_Object_System_Int32_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Int32_.h>
+#include <Modloader/app/structs/KeyValuePair_2_System_Object_System_Int32___Array.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_KeyValuePair_2_System_Object_System_Int32_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_System_Collections_Generic_KeyValuePair_2__4.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_System_Collections_Generic_KeyValuePair_2__4.h>
 
 namespace app::classes::System::Collections::Generic::List_1_KeyValuePair_2_System_Object_System_Int32__ {
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_1, (app::List_1_KeyValuePair_2_System_Object_System_Int32_ * this_ptr))

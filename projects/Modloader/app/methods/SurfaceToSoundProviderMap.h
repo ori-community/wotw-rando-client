@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoundDescriptor.h>
-#include <Modloader/app/structs/SurfaceToSoundProviderMap.h>
-#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/SoundDescriptor.h>
 #include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/SurfaceToSoundProviderMap.h>
 
 namespace app::classes::SurfaceToSoundProviderMap {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ResetStatics, ())

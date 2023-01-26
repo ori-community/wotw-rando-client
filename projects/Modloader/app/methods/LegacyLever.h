@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LegacyLever.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/LegacyLever.h>
+#include <Modloader/app/structs/Action.h>
+#include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
 #include <Modloader/app/structs/LeverDirections__Enum.h>
 #include <Modloader/app/structs/LeverMode__Enum.h>
-#include <Modloader/app/structs/SoundHost.h>
 #include <Modloader/app/structs/LeverPuppet.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/SoundHost.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LegacyLever {
     IL2CPP_REGISTER_METHOD(0x004430B0, bool, get_InRange, (app::LegacyLever * this_ptr))

@@ -1,58 +1,59 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonAnimator_AnimationInstance.h>
-#include <Modloader/app/structs/MoonAnimator.h>
-#include <Modloader/app/structs/IAnimation.h>
-#include <Modloader/app/structs/PlayableGraph.h>
-#include <Modloader/app/structs/MoonAnimator_PreviewAnimation.h>
-#include <Modloader/app/structs/MoonAnimation.h>
-#include <Modloader/app/structs/MoonAnimatorLayerName.h>
-#include <Modloader/app/structs/AnimationPostprocessGroupManager.h>
-#include <Modloader/app/structs/AnimationParameterSet.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/AnimationPostprocess__Array.h>
-#include <Modloader/app/structs/List_1_Moon_MoonAnimator_Layer_.h>
-#include <Modloader/app/structs/MoonAnimator_Layer.h>
-#include <Modloader/app/structs/Animator.h>
-#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
-#include <Modloader/app/structs/Action_1_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/Action_1_UnityEngine_Quaternion_.h>
-#include <Modloader/app/structs/Action_4_Moon_IAnimation_Moon_ActiveAnimationHandle_Int32_Func_1_Boolean_.h>
-#include <Modloader/app/structs/Action_2_Moon_IAnimation_Moon_ActiveAnimationHandle_.h>
-#include <Modloader/app/structs/Action_2_Moon_FloatAnimationParameter_Single_.h>
-#include <Modloader/app/structs/Action_2_Moon_VectorAnimationParameter_UnityEngine_Vector3_.h>
-#include <Modloader/app/structs/Action_1_Moon_ClipAnimation_EventMetadata_.h>
+
+#include <Modloader/app/structs/MoonAnimator_AnimationInstance.h>
 #include <Modloader/app/structs/Action.h>
-#include <Modloader/app/structs/FloatAnimationParameter.h>
-#include <Modloader/app/structs/VectorAnimationParameter.h>
-#include <Modloader/app/structs/IActiveAnimation.h>
-#include <Modloader/app/structs/AnimationParameter.h>
+#include <Modloader/app/structs/Action_1_Moon_ClipAnimation_EventMetadata_.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Quaternion_.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Action_2_Moon_FloatAnimationParameter_Single_.h>
+#include <Modloader/app/structs/Action_2_Moon_IAnimation_Moon_ActiveAnimationHandle_.h>
+#include <Modloader/app/structs/Action_2_Moon_VectorAnimationParameter_UnityEngine_Vector3_.h>
+#include <Modloader/app/structs/Action_4_Moon_IAnimation_Moon_ActiveAnimationHandle_Int32_Func_1_Boolean_.h>
 #include <Modloader/app/structs/ActiveAnimationHandle.h>
-#include <Modloader/app/structs/Func_1_Boolean_.h>
-#include <Modloader/app/structs/Nullable_1_Moon_MoonAnimatorLayerName_.h>
+#include <Modloader/app/structs/AnimationParameter.h>
+#include <Modloader/app/structs/AnimationParameterSet.h>
 #include <Modloader/app/structs/AnimationPostprocess.h>
+#include <Modloader/app/structs/AnimationPostprocessGroupManager.h>
+#include <Modloader/app/structs/AnimationPostprocess__Array.h>
+#include <Modloader/app/structs/Animator.h>
+#include <Modloader/app/structs/FloatAnimationParameter.h>
+#include <Modloader/app/structs/Func_1_Boolean_.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IActiveAnimation.h>
+#include <Modloader/app/structs/IAnimation.h>
 #include <Modloader/app/structs/IAnimatorPostprocessBase.h>
-#include <Modloader/app/structs/MoonAnimator_LayersUpdateResult.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/MoonAnimator_AnimationPostprocessMetadata.h>
-#include <Modloader/app/structs/Playable.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/List_1_System_Object_.h>
-#include <Modloader/app/structs/MoonAnimator_ClipInstance.h>
-#include <Modloader/app/structs/List_1_Moon_MoonAnimator_ClipInstance_.h>
-#include <Modloader/app/structs/MoonAnimator_BlendInstance.h>
-#include <Modloader/app/structs/List_1_Moon_MoonAnimator_BlendInstance_.h>
-#include <Modloader/app/structs/MoonAnimator_LayeredInstance.h>
-#include <Modloader/app/structs/List_1_Moon_MoonAnimator_LayeredInstance_.h>
-#include <Modloader/app/structs/MoonAnimator_DirectBlendInstance.h>
-#include <Modloader/app/structs/List_1_Moon_MoonAnimator_DirectBlendInstance_.h>
-#include <Modloader/app/structs/MoonAnimator_Blend2DInstance.h>
-#include <Modloader/app/structs/List_1_Moon_MoonAnimator_Blend2DInstance_.h>
-#include <Modloader/app/structs/MoonAnimator_SimpleCrossfadeInstance.h>
-#include <Modloader/app/structs/List_1_Moon_MoonAnimator_SimpleCrossfadeInstance_.h>
-#include <Modloader/app/structs/MoonAnimator_AnimatedCrossfadeInstance.h>
 #include <Modloader/app/structs/List_1_Moon_MoonAnimator_AnimatedCrossfadeInstance_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonAnimator_Blend2DInstance_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonAnimator_BlendInstance_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonAnimator_ClipInstance_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonAnimator_DirectBlendInstance_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonAnimator_Layer_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonAnimator_LayeredInstance_.h>
+#include <Modloader/app/structs/List_1_Moon_MoonAnimator_SimpleCrossfadeInstance_.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/MoonAnimation.h>
+#include <Modloader/app/structs/MoonAnimator.h>
+#include <Modloader/app/structs/MoonAnimatorLayerName.h>
+#include <Modloader/app/structs/MoonAnimator_AnimatedCrossfadeInstance.h>
+#include <Modloader/app/structs/MoonAnimator_AnimationPostprocessMetadata.h>
+#include <Modloader/app/structs/MoonAnimator_Blend2DInstance.h>
+#include <Modloader/app/structs/MoonAnimator_BlendInstance.h>
+#include <Modloader/app/structs/MoonAnimator_ClipInstance.h>
+#include <Modloader/app/structs/MoonAnimator_DirectBlendInstance.h>
+#include <Modloader/app/structs/MoonAnimator_Layer.h>
+#include <Modloader/app/structs/MoonAnimator_LayeredInstance.h>
+#include <Modloader/app/structs/MoonAnimator_LayersUpdateResult.h>
+#include <Modloader/app/structs/MoonAnimator_PreviewAnimation.h>
+#include <Modloader/app/structs/MoonAnimator_SimpleCrossfadeInstance.h>
+#include <Modloader/app/structs/Nullable_1_Moon_MoonAnimatorLayerName_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Playable.h>
+#include <Modloader/app/structs/PlayableGraph.h>
+#include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/VectorAnimationParameter.h>
 
 namespace app::classes::Moon::MoonAnimator {
     IL2CPP_REGISTER_METHOD(0x01B17B10, app::MoonAnimator_AnimationInstance*, CreateAnimationInstance, (app::MoonAnimator * this_ptr, app::IAnimation* anim, bool preview_mode))
@@ -166,17 +167,10 @@ namespace app::classes::Moon::MoonAnimator {
     IL2CPP_REGISTER_METHOD(0x01B23150, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x015F1D50, app::Object*, GetAnimationInstanceFromPool_1, (app::MoonAnimator * this_ptr, app::List_1_System_Object_* pool, bool is_preview))
     IL2CPP_REGISTER_METHOD(0x015F1D50, app::MoonAnimator_ClipInstance*, GetAnimationInstanceFromPool_2, (app::MoonAnimator * this_ptr, app::List_1_Moon_MoonAnimator_ClipInstance_* pool, bool is_preview))
-    IL2CPP_REGISTER_METHODINFO(0x04732B50, MoonAnimator_GetAnimationInstanceFromPool_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1D50, app::MoonAnimator_BlendInstance*, GetAnimationInstanceFromPool_3, (app::MoonAnimator * this_ptr, app::List_1_Moon_MoonAnimator_BlendInstance_* pool, bool is_preview))
-    IL2CPP_REGISTER_METHODINFO(0x0472BBF8, MoonAnimator_GetAnimationInstanceFromPool_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1D50, app::MoonAnimator_LayeredInstance*, GetAnimationInstanceFromPool_4, (app::MoonAnimator * this_ptr, app::List_1_Moon_MoonAnimator_LayeredInstance_* pool, bool is_preview))
-    IL2CPP_REGISTER_METHODINFO(0x04743958, MoonAnimator_GetAnimationInstanceFromPool_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1D50, app::MoonAnimator_DirectBlendInstance*, GetAnimationInstanceFromPool_5, (app::MoonAnimator * this_ptr, app::List_1_Moon_MoonAnimator_DirectBlendInstance_* pool, bool is_preview))
-    IL2CPP_REGISTER_METHODINFO(0x04789338, MoonAnimator_GetAnimationInstanceFromPool_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1D50, app::MoonAnimator_Blend2DInstance*, GetAnimationInstanceFromPool_6, (app::MoonAnimator * this_ptr, app::List_1_Moon_MoonAnimator_Blend2DInstance_* pool, bool is_preview))
-    IL2CPP_REGISTER_METHODINFO(0x04768960, MoonAnimator_GetAnimationInstanceFromPool_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1D50, app::MoonAnimator_SimpleCrossfadeInstance*, GetAnimationInstanceFromPool_7, (app::MoonAnimator * this_ptr, app::List_1_Moon_MoonAnimator_SimpleCrossfadeInstance_* pool, bool is_preview))
-    IL2CPP_REGISTER_METHODINFO(0x04713D28, MoonAnimator_GetAnimationInstanceFromPool_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015F1D50, app::MoonAnimator_AnimatedCrossfadeInstance*, GetAnimationInstanceFromPool_8, (app::MoonAnimator * this_ptr, app::List_1_Moon_MoonAnimator_AnimatedCrossfadeInstance_* pool, bool is_preview))
-    IL2CPP_REGISTER_METHODINFO(0x0473CDF8, MoonAnimator_GetAnimationInstanceFromPool_7__MethodInfo)
 } // namespace app::classes::Moon::MoonAnimator

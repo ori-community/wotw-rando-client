@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NightberryPlaceholder.h>
+
+#include <Modloader/app/structs/NightberryPlaceholder.h>
 #include <Modloader/app/structs/IEnumerator.h>
 
 namespace app::classes::NightberryPlaceholder {

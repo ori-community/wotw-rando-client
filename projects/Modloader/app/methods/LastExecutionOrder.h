@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LastExecutionOrder.h>
+
+#include <Modloader/app/structs/LastExecutionOrder.h>
 
 namespace app::classes::LastExecutionOrder {
     IL2CPP_REGISTER_METHOD(0x00F21DB0, void, Awake, (app::LastExecutionOrder * this_ptr))

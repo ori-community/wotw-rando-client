@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UnmanagedFunctionPointerAttribute.h>
+
+#include <Modloader/app/structs/UnmanagedFunctionPointerAttribute.h>
 #include <Modloader/app/structs/CallingConvention__Enum.h>
 
 namespace app::classes::System::Runtime::InteropServices::UnmanagedFunctionPointerAttribute {

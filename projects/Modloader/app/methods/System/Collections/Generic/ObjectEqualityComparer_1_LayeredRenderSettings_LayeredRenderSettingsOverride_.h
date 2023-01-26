@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_LayeredRenderSettings_LayeredRenderSettingsOverride_.h>
 #include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsOverride.h>
 #include <Modloader/app/structs/LayeredRenderSettings_LayeredRenderSettingsOverride__Array.h>
 #include <Modloader/app/structs/Object.h>

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WebRequest_WebProxyWrapper.h>
+
+#include <Modloader/app/structs/WebRequest_WebProxyWrapper.h>
 #include <Modloader/app/structs/WebProxy.h>
 
 namespace app::classes::System::Net::WebRequest_WebProxyWrapper {

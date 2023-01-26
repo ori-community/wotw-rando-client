@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EquipmentWheel.h>
-#include <Modloader/app/structs/MenuTabBackground__Enum.h>
-#include <Modloader/app/structs/List_1_EquipmentType_.h>
-#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
-#include <Modloader/app/structs/SpellUIItem.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
+
+#include <Modloader/app/structs/EquipmentWheel.h>
 #include <Modloader/app/structs/EquipmentType__Enum.h>
-#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_.h>
 #include <Modloader/app/structs/HashSet_1_EquipmentType_.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/HashSet_1_Moon_ISuspendable_.h>
+#include <Modloader/app/structs/List_1_EquipmentType_.h>
+#include <Modloader/app/structs/List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_.h>
+#include <Modloader/app/structs/MenuTabBackground__Enum.h>
+#include <Modloader/app/structs/PlayerUberStateInventory_InventoryItem.h>
+#include <Modloader/app/structs/SpellInventory_Binding__Enum.h>
+#include <Modloader/app/structs/SpellUIItem.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::EquipmentWheel {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_CanInterruptTab, (app::EquipmentWheel * this_ptr))
@@ -33,22 +34,16 @@ namespace app::classes::EquipmentWheel {
     IL2CPP_REGISTER_METHOD(0x0097D420, void, SetArrowLookTarget, (app::EquipmentWheel * this_ptr, app::Vector2 look_target))
     IL2CPP_REGISTER_METHOD(0x0097D5A0, void, InitializeGrids, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0097D5F0, void, OnNewItemHighlighted, (app::EquipmentWheel * this_ptr, bool first_after_populating))
-    IL2CPP_REGISTER_METHODINFO(0x04771FA0, EquipmentWheel_OnNewItemHighlighted__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0097D630, void, HandleRestore, (app::EquipmentWheel * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04742C48, EquipmentWheel_HandleRestore__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0097DB50, void, RefreshRestoreEquipment, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0097DC00, void, RemoveBindings, (app::List_1_EquipmentType_ * equipment_list))
     IL2CPP_REGISTER_METHOD(0x0097DE60, void, RemoveAllBindings, (app::EquipmentWheel * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0097DFB0, void, OverrideEquipmentBinding, (app::EquipmentWheel * this_ptr, app::SpellInventory_Binding__Enum binding, app::EquipmentType__Enum type))
     IL2CPP_REGISTER_METHOD(0x0097E0F0, void, OnBindingsUpdated, (app::EquipmentWheel * this_ptr, app::SpellInventory_Binding__Enum binding))
-    IL2CPP_REGISTER_METHODINFO(0x04754530, EquipmentWheel_OnBindingsUpdated__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0097E4C0, void, OnPressButton, (app::EquipmentWheel * this_ptr, app::SpellInventory_Binding__Enum binding_button))
     IL2CPP_REGISTER_METHOD(0x0097EB70, void, OnPressX, (app::EquipmentWheel * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478AD80, EquipmentWheel_OnPressX__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0097EB80, void, OnPressY, (app::EquipmentWheel * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478D460, EquipmentWheel_OnPressY__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0097EB90, void, OnPressB, (app::EquipmentWheel * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047684F8, EquipmentWheel_OnPressB__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0097EBA0, app::List_1_Moon_uberSerializationWisp_PlayerUberStateInventory_InventoryItem_*, GetWheelItems, ())
     IL2CPP_REGISTER_METHOD(0x0097EE20, void, GetValidTypesWithRestrictions, (app::HashSet_1_EquipmentType_ * destination_list))
     IL2CPP_REGISTER_METHOD(0x0097F040, int32_t, GetValidTypesWithRestrictionsCount, ())

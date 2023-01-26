@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ModularZone.h>
+
+#include <Modloader/app/structs/ModularZone.h>
+#include <Modloader/app/structs/IModularZoneModifier.h>
 #include <Modloader/app/structs/IModularZoneModifier__Array.h>
 #include <Modloader/app/structs/List_1_ICondition_.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/IModularZoneModifier.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Type.h>
 
 namespace app::classes::ModularZone {
     IL2CPP_REGISTER_METHOD(0x0132F750, float, get_TimeSinceLastActive, (app::ModularZone * this_ptr))
@@ -35,7 +36,6 @@ namespace app::classes::ModularZone {
     IL2CPP_REGISTER_METHOD(0x01330F70, bool, HasModifier_1, (app::ModularZone * this_ptr, app::Type* type))
     IL2CPP_REGISTER_METHOD(0x01331040, bool, ConditionsPassed, (app::ModularZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x013311C0, void, OnPostRestoreCheckpoint, (app::ModularZone * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473F430, ModularZone_OnPostRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01331230, void, ctor, (app::ModularZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015EB9B0, app::Object*, AddModifier_2, (app::ModularZone * this_ptr))
     IL2CPP_REGISTER_METHOD(0x018F31E0, bool, HasModifier_2, (app::ModularZone * this_ptr))

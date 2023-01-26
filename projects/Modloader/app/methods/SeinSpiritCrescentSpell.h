@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinSpiritCrescentSpell.h>
+
+#include <Modloader/app/structs/SeinSpiritCrescentSpell.h>
 #include <Modloader/app/structs/PlatformMovement.h>
 #include <Modloader/app/structs/Vector2.h>
 
@@ -9,9 +10,7 @@ namespace app::classes::SeinSpiritCrescentSpell {
     IL2CPP_REGISTER_METHOD(0x005E1270, bool, get_CanAfford, (app::SeinSpiritCrescentSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005D06C0, app::PlatformMovement*, get_PlatformMovement, (app::SeinSpiritCrescentSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005E12B0, bool, KeepPlayingThrowAnimation, (app::SeinSpiritCrescentSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04736048, SeinSpiritCrescentSpell_KeepPlayingThrowAnimation__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005E1300, bool, KeepPlayingAirThrowAnimation, (app::SeinSpiritCrescentSpell * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04766060, SeinSpiritCrescentSpell_KeepPlayingAirThrowAnimation__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x005E1350, void, OnSetReferenceToSein, (app::SeinSpiritCrescentSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005E1380, void, OnDestroy, (app::SeinSpiritCrescentSpell * this_ptr))
     IL2CPP_REGISTER_METHOD(0x005E13C0, void, UpdateCharacterState, (app::SeinSpiritCrescentSpell * this_ptr))

@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraSettings.h>
-#include <Modloader/app/structs/PostStateDefinition_PostState.h>
-#include <Modloader/app/structs/PostProcessInfluencerOrder__Enum.h>
-#include <Modloader/app/structs/SceneRoot.h>
+
+#include <Modloader/app/structs/CameraSettings.h>
 #include <Modloader/app/structs/CameraSettingsAsset.h>
+#include <Modloader/app/structs/PostProcessInfluencerOrder__Enum.h>
+#include <Modloader/app/structs/PostStateDefinition_PostState.h>
+#include <Modloader/app/structs/SceneRoot.h>
 
 namespace app::classes::PostStateDefinition_PostState {
     IL2CPP_REGISTER_METHOD(0x00C6A760, app::CameraSettings*, get_Settings, (app::PostStateDefinition_PostState * this_ptr))

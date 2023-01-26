@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AutoDamageCollider.h>
-#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/Polygon_1.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/AutoDamageCollider.h>
 #include <Modloader/app/structs/DamageDealer.h>
 #include <Modloader/app/structs/DamageType__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/List_1_UnityEngine_Vector2_.h>
+#include <Modloader/app/structs/Polygon_1.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::AutoDamageCollider {
     IL2CPP_REGISTER_METHOD(0x0085AAA0, bool, IsDamageBasedOnSpicificArea, (app::AutoDamageCollider * this_ptr))

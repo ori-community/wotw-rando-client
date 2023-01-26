@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlFeedingGroundsPlayArea.h>
+
+#include <Modloader/app/structs/PetrifiedOwlFeedingGroundsPlayArea.h>
 
 namespace app::classes::PetrifiedOwlFeedingGroundsPlayArea {
     IL2CPP_REGISTER_METHOD(0x013B7DD0, void, Start, (app::PetrifiedOwlFeedingGroundsPlayArea * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CryptoStream_ReadAsyncInternal_d_34__Boxed.h>
+
+#include <Modloader/app/structs/CryptoStream_ReadAsyncInternal_d_34__Boxed.h>
 #include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::System::Security::Cryptography::CryptoStream__ReadAsyncInternal_d__34 {

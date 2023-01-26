@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Shader.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Vector4.h>
+
+#include <Modloader/app/structs/Shader.h>
 #include <Modloader/app/structs/Matrix4x4.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Vector4.h>
 #include <Modloader/app/structs/Vector4__Array.h>
 
 namespace app::classes::UnityEngine::Shader {
@@ -22,7 +23,6 @@ namespace app::classes::UnityEngine::Shader {
     IL2CPP_REGISTER_METHOD(0x0297D6C0, void, SetGlobalTextureImpl, (int32_t name, app::Texture* value))
     IL2CPP_REGISTER_METHOD(0x0297D720, void, SetGlobalVectorArrayImpl, (int32_t name, app::Vector4__Array* values, int32_t count))
     IL2CPP_REGISTER_METHOD(0x0297D790, void, SetGlobalVectorArray_1, (int32_t name, app::Vector4__Array* values, int32_t count))
-    IL2CPP_REGISTER_METHODINFO(0x0470D378, Shader_SetGlobalVectorArray__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0297D5A0, void, SetGlobalFloat, (int32_t name_i_d, float value))
     IL2CPP_REGISTER_METHOD(0x0297D910, void, SetGlobalInt, (int32_t name_i_d, int32_t value))
     IL2CPP_REGISTER_METHOD(0x0297D970, void, SetGlobalVector, (int32_t name_i_d, app::Vector4 value))

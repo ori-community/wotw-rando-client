@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/SimpleFPS.h>
+
+#include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/Metric__Enum.h>
+#include <Modloader/app/structs/SimpleFPS.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::SimpleFPS {
@@ -17,7 +18,6 @@ namespace app::classes::SimpleFPS {
     IL2CPP_REGISTER_METHOD(0x0073FD50, void, OnEnable, (app::SimpleFPS * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00740060, void, OnDisable, (app::SimpleFPS * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007402D0, void, OnEndOfFrame, (app::SimpleFPS * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475EEB8, SimpleFPS_OnEndOfFrame__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007402E0, void, CreateLineMaterial, (app::SimpleFPS * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00740480, float, ToXCoordinate, (app::SimpleFPS * this_ptr, float x))
     IL2CPP_REGISTER_METHOD(0x00740490, float, ToYCoordinate, (app::SimpleFPS * this_ptr, float y))
@@ -37,7 +37,7 @@ namespace app::classes::SimpleFPS {
     IL2CPP_REGISTER_METHOD(0x00746240, void, DrawIntWithBackground, (app::SimpleFPS * this_ptr, int32_t value, app::Color background_color, app::Color text_color, int32_t x, int32_t y))
     IL2CPP_REGISTER_METHOD(0x007467C0, void, DrawIntWithBackgroundPadded, (app::SimpleFPS * this_ptr, int32_t value, app::Color background_color, app::Color text_color, int32_t x, int32_t y))
     IL2CPP_REGISTER_METHOD(0x00746C80, void, DrawString, (app::SimpleFPS * this_ptr, app::String* str, int32_t x_offset, int32_t y_offset))
-    IL2CPP_REGISTER_METHOD(0x00746DC0, void, DrawLetter_1, (app::SimpleFPS * this_ptr, uint16_t c, int32_t x_offset, int32_t y_offset))
+    IL2CPP_REGISTER_METHOD(0x00746DC0, void, DrawLetter_1, (app::SimpleFPS * this_ptr, char16_t c, int32_t x_offset, int32_t y_offset))
     IL2CPP_REGISTER_METHOD(0x00746DF0, void, DrawLetter_2, (app::SimpleFPS * this_ptr, int32_t letter, int32_t x_offset, int32_t y_offset))
     IL2CPP_REGISTER_METHOD(0x00747130, int32_t, LetterOffset, (app::SimpleFPS * this_ptr, int32_t letter))
     IL2CPP_REGISTER_METHOD(0x007471E0, void, DrawDebugVideoString, (app::SimpleFPS * this_ptr, app::String* text, float time))

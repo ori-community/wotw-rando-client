@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UnloadIntroLogosAndCleanUpPrewarmOperation.h>
+
+#include <Modloader/app/structs/UnloadIntroLogosAndCleanUpPrewarmOperation.h>
 
 namespace app::classes::frameworks::loading::Prewarmers::UnloadIntroLogosAndCleanUpPrewarmOperation {
     IL2CPP_REGISTER_METHOD(0x00F62740, void, ctor, (app::UnloadIntroLogosAndCleanUpPrewarmOperation * this_ptr))

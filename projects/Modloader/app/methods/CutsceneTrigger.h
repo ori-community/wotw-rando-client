@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CutsceneTrigger.h>
+
+#include <Modloader/app/structs/CutsceneTrigger.h>
 #include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::CutsceneTrigger {

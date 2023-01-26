@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FastHashSet_1_System_Object_.h>
-#include <Modloader/app/structs/IEqualityComparer_1_System_Object_.h>
-#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
-#include <Modloader/app/structs/Object__Array.h>
-#include <Modloader/app/structs/FastHashSet_1_T_TNode_System_Object___Array.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Predicate_1_Object_.h>
+
+#include <Modloader/app/structs/FastHashSet_1_System_Object_.h>
 #include <Modloader/app/structs/FastHashSet_1_T_FoundType_System_Object_.h>
-#include <Modloader/app/structs/List_1_Motvin_Collections_ChainLevelAndCount_.h>
-#include <Modloader/app/structs/IEqualityComparer_1_Motvin_Collections_FastHashSet_1_.h>
-#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/FastHashSet_1_T_TNode_System_Object___Array.h>
+#include <Modloader/app/structs/IEnumerable_1_System_Object_.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_System_Object_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_Motvin_Collections_FastHashSet_1_.h>
+#include <Modloader/app/structs/IEqualityComparer_1_System_Object_.h>
+#include <Modloader/app/structs/List_1_Motvin_Collections_ChainLevelAndCount_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Predicate_1_Object_.h>
 
 namespace app::classes::Motvin::Collections::FastHashSet_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, System_Collections_Generic_ICollection_T__get_IsReadOnly, (app::FastHashSet_1_System_Object_ * this_ptr))
@@ -35,21 +36,17 @@ namespace app::classes::Motvin::Collections::FastHashSet_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02AFA050, void, SetInitialCapacity, (app::FastHashSet_1_System_Object_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02AFA0B0, void, SwitchToHashing, (app::FastHashSet_1_System_Object_ * this_ptr, int32_t capacity_increase))
     IL2CPP_REGISTER_METHOD(0x02AFA310, void, InitHashing, (app::FastHashSet_1_System_Object_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x0478DDC8, FastHashSet_1_System_Object__InitHashing__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02AFA950, void, CreateNoHashArray, (app::FastHashSet_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02AFA9A0, void, CalcUsedItemsLoadFactorThreshold, (app::FastHashSet_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02AFA9F0, void, CopyTo_1, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object__Array* array, int32_t array_index))
     IL2CPP_REGISTER_METHOD(0x02AFAA30, void, CopyTo_2, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object__Array* array))
     IL2CPP_REGISTER_METHOD(0x02AFAA70, void, CopyTo_3, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object__Array* array, int32_t array_index, int32_t count))
-    IL2CPP_REGISTER_METHODINFO(0x04780C78, FastHashSet_1_System_Object__CopyTo_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02AFAEB0, int32_t, EnsureCapacity, (app::FastHashSet_1_System_Object_ * this_ptr, int32_t capacity))
     IL2CPP_REGISTER_METHOD(0x02AFAFE0, bool, CheckForModSizeIncrease, (app::FastHashSet_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02AFB2E0, int32_t, GetNewSlotsArraySizeIncrease, (app::FastHashSet_1_System_Object_ * this_ptr, int32_t* old_array_size))
     IL2CPP_REGISTER_METHOD(0x02AFB320, int32_t, GetNewBucketsArraySize, (app::FastHashSet_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02AFB560, void, IncreaseCapacity, (app::FastHashSet_1_System_Object_ * this_ptr, int32_t capacity_increase))
-    IL2CPP_REGISTER_METHODINFO(0x0471C020, FastHashSet_1_System_Object__IncreaseCapacity__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02AFB720, app::FastHashSet_1_T_TNode_System_Object___Array*, IncreaseCapacityNoCopy, (app::FastHashSet_1_System_Object_ * this_ptr, int32_t capacity_increase))
-    IL2CPP_REGISTER_METHODINFO(0x0478E590, FastHashSet_1_System_Object__IncreaseCapacityNoCopy__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02AFB8B0, void, ResizeBucketsArrayForward, (app::FastHashSet_1_System_Object_ * this_ptr, int32_t new_buckets_array_size))
     IL2CPP_REGISTER_METHOD(0x02AFBBA0, void, ResizeBucketsArrayForwardKeepMarks, (app::FastHashSet_1_System_Object_ * this_ptr, int32_t new_buckets_array_size))
     IL2CPP_REGISTER_METHOD(0x02AFBEA0, void, Clear, (app::FastHashSet_1_System_Object_ * this_ptr))
@@ -63,11 +60,9 @@ namespace app::classes::Motvin::Collections::FastHashSet_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02AFD220, bool, Contains_2, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object* item))
     IL2CPP_REGISTER_METHOD(0x02AFD480, bool, Remove, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object* item))
     IL2CPP_REGISTER_METHOD(0x02AFD860, bool, RemoveIf, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object** item, app::Predicate_1_Object_* remove_if_pred_is_true))
-    IL2CPP_REGISTER_METHODINFO(0x04754BA8, FastHashSet_1_System_Object__RemoveIf__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02AFDD40, app::Object**, FindOrAdd, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object** item, bool* is_found))
     IL2CPP_REGISTER_METHOD(0x02AFE040, app::Object**, Find, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object** item, bool* is_found))
     IL2CPP_REGISTER_METHOD(0x02AFE270, app::Object**, FindAndRemoveIf, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object** item, app::Predicate_1_Object_* remove_if_pred_is_true, bool* is_found, bool* is_removed))
-    IL2CPP_REGISTER_METHODINFO(0x04719988, FastHashSet_1_System_Object__FindAndRemoveIf__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02AFE790, void, FindInSlotsArray_1, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object** item, int32_t* found_node_index, int32_t* prior_node_index, int32_t* buckets_index))
     IL2CPP_REGISTER_METHOD(0x02AFE970, bool, FindInSlotsArray_2, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object** item, int32_t hash))
     IL2CPP_REGISTER_METHOD(0x02AFEAC0, bool, FindInNoHashArray, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object** item))
@@ -78,28 +73,17 @@ namespace app::classes::Motvin::Collections::FastHashSet_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02AFF760, void, ReorderChainedNodesToBeAdjacent, (app::FastHashSet_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02AFF8F0, bool, TryGetValue, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object* equal_value, app::Object** actual_value))
     IL2CPP_REGISTER_METHOD(0x02AFFB00, void, UnionWith, (app::FastHashSet_1_System_Object_ * this_ptr, app::IEnumerable_1_System_Object_* other))
-    IL2CPP_REGISTER_METHODINFO(0x04789E70, FastHashSet_1_System_Object__UnionWith__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02B00080, void, ExceptWith, (app::FastHashSet_1_System_Object_ * this_ptr, app::IEnumerable_1_System_Object_* other))
-    IL2CPP_REGISTER_METHODINFO(0x04788F10, FastHashSet_1_System_Object__ExceptWith__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02B00330, void, IntersectWith, (app::FastHashSet_1_System_Object_ * this_ptr, app::IEnumerable_1_System_Object_* other))
-    IL2CPP_REGISTER_METHODINFO(0x04771CA0, FastHashSet_1_System_Object__IntersectWith__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02B00900, bool, IsProperSubsetOf, (app::FastHashSet_1_System_Object_ * this_ptr, app::IEnumerable_1_System_Object_* other))
-    IL2CPP_REGISTER_METHODINFO(0x04734CF8, FastHashSet_1_System_Object__IsProperSubsetOf__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02B01020, bool, IsSubsetOf, (app::FastHashSet_1_System_Object_ * this_ptr, app::IEnumerable_1_System_Object_* other))
-    IL2CPP_REGISTER_METHODINFO(0x047646A8, FastHashSet_1_System_Object__IsSubsetOf__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02B01570, bool, IsProperSupersetOf, (app::FastHashSet_1_System_Object_ * this_ptr, app::IEnumerable_1_System_Object_* other))
-    IL2CPP_REGISTER_METHODINFO(0x047124F8, FastHashSet_1_System_Object__IsProperSupersetOf__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02B01CC0, bool, IsSupersetOf, (app::FastHashSet_1_System_Object_ * this_ptr, app::IEnumerable_1_System_Object_* other))
-    IL2CPP_REGISTER_METHODINFO(0x0478B6D8, FastHashSet_1_System_Object__IsSupersetOf__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02B02320, bool, Overlaps, (app::FastHashSet_1_System_Object_ * this_ptr, app::IEnumerable_1_System_Object_* other))
-    IL2CPP_REGISTER_METHODINFO(0x0470F450, FastHashSet_1_System_Object__Overlaps__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02B02590, bool, SetEquals, (app::FastHashSet_1_System_Object_ * this_ptr, app::IEnumerable_1_System_Object_* other))
-    IL2CPP_REGISTER_METHODINFO(0x04720CA8, FastHashSet_1_System_Object__SetEquals__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02B03080, void, SymmetricExceptWith, (app::FastHashSet_1_System_Object_ * this_ptr, app::IEnumerable_1_System_Object_* other))
-    IL2CPP_REGISTER_METHODINFO(0x0473E9B0, FastHashSet_1_System_Object__SymmetricExceptWith__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02B036A0, void, RemoveIfNotMarked, (app::FastHashSet_1_System_Object_ * this_ptr, app::Object** item))
     IL2CPP_REGISTER_METHOD(0x02B03930, int32_t, RemoveWhere, (app::FastHashSet_1_System_Object_ * this_ptr, app::Predicate_1_Object_* match))
-    IL2CPP_REGISTER_METHODINFO(0x04785BF8, FastHashSet_1_System_Object__RemoveWhere__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02B03D00, app::IEqualityComparer_1_Motvin_Collections_FastHashSet_1_*, CreateSetComparer, ())
     IL2CPP_REGISTER_METHOD(0x02B03E60, app::IEnumerator_1_System_Object_*, GetEnumerator, (app::FastHashSet_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02B03E60, app::IEnumerator*, IEnumerable_GetEnumerator, (app::FastHashSet_1_System_Object_ * this_ptr))

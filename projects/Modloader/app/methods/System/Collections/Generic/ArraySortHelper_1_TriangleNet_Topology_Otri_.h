@@ -1,17 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Otri__Array.h>
+
+#include <Modloader/app/structs/Otri__Array.h>
+#include <Modloader/app/structs/Comparison_1_TriangleNet_Topology_Otri_.h>
 #include <Modloader/app/structs/IComparer_1_TriangleNet_Topology_Otri_.h>
 #include <Modloader/app/structs/Otri.h>
-#include <Modloader/app/structs/Comparison_1_TriangleNet_Topology_Otri_.h>
 
 namespace app::classes::System::Collections::Generic::ArraySortHelper_1_TriangleNet_Topology_Otri_ {
     IL2CPP_REGISTER_METHOD(0x02F851C0, void, Sort_1, (app::Otri__Array * keys, int32_t index, int32_t length, app::IComparer_1_TriangleNet_Topology_Otri_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x0470BBB0, ArraySortHelper_1_TriangleNet_Topology_Otri__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F854E0, int32_t, BinarySearch, (app::Otri__Array * array, int32_t index, int32_t length, app::Otri value, app::IComparer_1_TriangleNet_Topology_Otri_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04771358, ArraySortHelper_1_TriangleNet_Topology_Otri__BinarySearch__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02F85690, void, Sort_2, (app::Otri__Array * keys, int32_t index, int32_t length, app::Comparison_1_TriangleNet_Topology_Otri_* comparer))
-    IL2CPP_REGISTER_METHODINFO(0x04725230, ArraySortHelper_1_TriangleNet_Topology_Otri__Sort_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02C898B0, int32_t, InternalBinarySearch, (app::Otri__Array * array, int32_t index, int32_t length, app::Otri value, app::IComparer_1_TriangleNet_Topology_Otri_* comparer))
     IL2CPP_REGISTER_METHOD(0x02C89A40, void, SwapIfGreater, (app::Otri__Array * keys, app::Comparison_1_TriangleNet_Topology_Otri_* comparer, int32_t a, int32_t b))
     IL2CPP_REGISTER_METHOD(0x02C89BD0, void, Swap, (app::Otri__Array * a, int32_t i, int32_t j))

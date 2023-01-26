@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/InheritanceAttribute.h>
+
+#include <Modloader/app/structs/InheritanceAttribute.h>
 #include <Modloader/app/structs/InheritanceLevel__Enum.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>

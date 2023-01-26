@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ListMap.h>
+
+#include <Modloader/app/structs/ListMap.h>
 #include <Modloader/app/structs/XmlTypeMapMemberFlatList.h>
 
 namespace app::classes::System::Xml::Serialization::XmlTypeMapMemberFlatList {

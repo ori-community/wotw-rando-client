@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LaserShieldRotationController.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/LaserShooterMinibossEntity.h>
-#include <Modloader/app/structs/LaserShieldRotationController_RotationType__Enum.h>
-#include <Modloader/app/structs/List_1_LaserShieldDamageReceiver_.h>
-#include <Modloader/app/structs/LaserShieldDamageReceiver.h>
+
+#include <Modloader/app/structs/LaserShieldRotationController.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/LaserShieldDamageReceiver.h>
+#include <Modloader/app/structs/LaserShieldRotationController_RotationType__Enum.h>
+#include <Modloader/app/structs/LaserShooterMinibossEntity.h>
+#include <Modloader/app/structs/List_1_LaserShieldDamageReceiver_.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LaserShieldRotationController {
     IL2CPP_REGISTER_METHOD(0x00F0E660, int32_t, get_PieceCount, (app::LaserShieldRotationController * this_ptr))

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StateMachineBehaviour.h>
+
+#include <Modloader/app/structs/StateMachineBehaviour.h>
 #include <Modloader/app/structs/Animator.h>
-#include <Modloader/app/structs/AnimatorStateInfo.h>
 #include <Modloader/app/structs/AnimatorControllerPlayable.h>
+#include <Modloader/app/structs/AnimatorStateInfo.h>
 
 namespace app::classes::UnityEngine::StateMachineBehaviour {
     IL2CPP_REGISTER_METHOD(0x004140E0, void, ctor, (app::StateMachineBehaviour * this_ptr))

@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BowArrow.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SpiritShardType__Enum.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/DamageOwner.h>
-#include <Modloader/app/structs/Damage.h>
+
+#include <Modloader/app/structs/BowArrow.h>
 #include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DamageOwner.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/RecordableParsingGroup__Enum.h>
+#include <Modloader/app/structs/SpiritShardType__Enum.h>
+#include <Modloader/app/structs/SurfaceMaterialType__Enum.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/TrackingExclusions.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::BowArrow {
     IL2CPP_REGISTER_METHOD(0x00413160, bool, get_Charged, (app::BowArrow * this_ptr))
@@ -41,9 +42,7 @@ namespace app::classes::BowArrow {
     IL2CPP_REGISTER_METHOD(0x00D42E80, void, RemoveOldReflectors, (app::BowArrow * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D43260, void, FixedUpdate, (app::BowArrow * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D436B0, void, OnTimelineStopped, (app::BowArrow * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047653D8, BowArrow_OnTimelineStopped__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D437A0, void, OnAfterCollisions, (app::BowArrow * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04721878, BowArrow_OnAfterCollisions__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00D44120, void, SetReflectorTime, (app::BowArrow * this_ptr, app::Collider* reflector, float reflection_time))
     IL2CPP_REGISTER_METHOD(0x00D44260, bool, IsRecentReflector, (app::BowArrow * this_ptr, float reflection_time))
     IL2CPP_REGISTER_METHOD(0x00D442D0, void, OnTriggerEnterByRaycast, (app::BowArrow * this_ptr, app::Collider* collider, app::Vector3 collision_normal, app::Vector3 collision_point))
@@ -63,7 +62,6 @@ namespace app::classes::BowArrow {
     IL2CPP_REGISTER_METHOD(0x00D474A0, float, CalculateDamage, (app::BowArrow * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D474D0, void, Update, (app::BowArrow * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D47710, void, OnDamageResultReceived, (app::BowArrow * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x04789E98, BowArrow_OnDamageResultReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_TrackTranformChangesForRecording, (app::BowArrow * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0043D9E0, app::RecordableParsingGroup__Enum, get_ParsingGroup, (app::BowArrow * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00D47870, app::TrackingExclusions, get_TrackingExclusions, (app::BowArrow * this_ptr))

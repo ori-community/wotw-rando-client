@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BinaryWriter.h>
-#include <Modloader/app/structs/GhostRecorder.h>
-#include <Modloader/app/structs/GhostFrame.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/StateMachine_2.h>
-#include <Modloader/app/structs/IGhostRecorderPlugin.h>
-#include <Modloader/app/structs/GenericPuppet.h>
+
+#include <Modloader/app/structs/BinaryWriter.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/IRecordable.h>
-#include <Modloader/app/structs/IGenericUberState.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/GhostServerEventsPlugin.h>
+#include <Modloader/app/structs/GenericPuppet.h>
+#include <Modloader/app/structs/GhostFrame.h>
 #include <Modloader/app/structs/GhostGenericEventsPlugin.h>
-#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin.h>
+#include <Modloader/app/structs/GhostRecorder.h>
+#include <Modloader/app/structs/GhostServerEventsPlugin.h>
 #include <Modloader/app/structs/GhostUberStatePlugin.h>
+#include <Modloader/app/structs/GhostWorldObjectsLifetimePlugin.h>
+#include <Modloader/app/structs/IGenericUberState.h>
+#include <Modloader/app/structs/IGhostRecorderPlugin.h>
+#include <Modloader/app/structs/IRecordable.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/StateMachine_2.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::GhostRecorder {
     IL2CPP_REGISTER_METHOD(0x002FBBC0, app::BinaryWriter*, get_RecorderStream, (app::GhostRecorder * this_ptr))
@@ -28,10 +29,8 @@ namespace app::classes::GhostRecorder {
     IL2CPP_REGISTER_METHOD(0x007E03D0, void, DestroyRecorder, (app::GhostRecorder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007E0580, void, StartRecorder, (app::GhostRecorder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007E06F0, void, StopRecorder, (app::GhostRecorder * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04767130, GhostRecorder_StopRecorder__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007E0A00, void, WriteToFile, (app::GhostRecorder * this_ptr, app::String* path, bool allow_append))
     IL2CPP_REGISTER_METHOD(0x007E0C90, void, Cancel, (app::GhostRecorder * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04722AF8, GhostRecorder_Cancel__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x007E0CD0, void, FinalizeFrame, (app::GhostRecorder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007E0E30, void, FixedUpdate, (app::GhostRecorder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x007E13C0, void, Record_1, (app::GhostRecorder * this_ptr, app::StateMachine_2* state_machine))
@@ -52,11 +51,7 @@ namespace app::classes::GhostRecorder {
     IL2CPP_REGISTER_METHOD(0x007E2760, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x015EA5B0, app::Object*, GetPlugin_1, (app::GhostRecorder * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015EA5B0, app::GhostServerEventsPlugin*, GetPlugin_2, (app::GhostRecorder * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471F278, GhostRecorder_GetPlugin_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EA5B0, app::GhostGenericEventsPlugin*, GetPlugin_3, (app::GhostRecorder * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04767CB0, GhostRecorder_GetPlugin_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EA5B0, app::GhostWorldObjectsLifetimePlugin*, GetPlugin_4, (app::GhostRecorder * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04773BB8, GhostRecorder_GetPlugin_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EA5B0, app::GhostUberStatePlugin*, GetPlugin_5, (app::GhostRecorder * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478CF68, GhostRecorder_GetPlugin_4__MethodInfo)
 } // namespace app::classes::GhostRecorder

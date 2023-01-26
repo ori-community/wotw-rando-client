@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MiscUpdater.h>
+
+#include <Modloader/app/structs/MiscUpdater.h>
 #include <Modloader/app/structs/CollisionSoundSource.h>
 #include <Modloader/app/structs/LimitedLifetime.h>
 #include <Modloader/app/structs/ParticleSystemEmissionRateOverDistance.h>

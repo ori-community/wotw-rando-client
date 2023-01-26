@@ -1,18 +1,16 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Nullable_1_Moon_MoonAnimatorLayerName___Boxed.h>
+
+#include <Modloader/app/structs/Nullable_1_Moon_MoonAnimatorLayerName___Boxed.h>
 #include <Modloader/app/structs/MoonAnimatorLayerName.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Nullable_1_Moon_MoonAnimatorLayerName_.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Nullable_1_Moon_MoonAnimatorLayerName_ {
     IL2CPP_REGISTER_METHOD(0x001F4750, bool, get_HasValue, (app::Nullable_1_Moon_MoonAnimatorLayerName___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04765668, Nullable_1_Moon_MoonAnimatorLayerName__get_HasValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001F57E0, app::MoonAnimatorLayerName, get_Value, (app::Nullable_1_Moon_MoonAnimatorLayerName___Boxed * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047739C0, Nullable_1_Moon_MoonAnimatorLayerName__get_Value__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00120520, void, ctor, (app::Nullable_1_Moon_MoonAnimatorLayerName___Boxed * this_ptr, app::MoonAnimatorLayerName value))
-    IL2CPP_REGISTER_METHODINFO(0x04778850, Nullable_1_Moon_MoonAnimatorLayerName___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x001F58D0, bool, Equals_1, (app::Nullable_1_Moon_MoonAnimatorLayerName___Boxed * this_ptr, app::Object* other))
     IL2CPP_REGISTER_METHOD(0x001F48A0, bool, Equals_2, (app::Nullable_1_Moon_MoonAnimatorLayerName___Boxed * this_ptr, app::Nullable_1_Moon_MoonAnimatorLayerName_ other))
     IL2CPP_REGISTER_METHOD(0x001F4900, int32_t, GetHashCode, (app::Nullable_1_Moon_MoonAnimatorLayerName___Boxed * this_ptr))

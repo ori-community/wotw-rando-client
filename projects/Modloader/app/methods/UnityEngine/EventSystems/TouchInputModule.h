@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TouchInputModule.h>
+
+#include <Modloader/app/structs/TouchInputModule.h>
 #include <Modloader/app/structs/PointerEventData.h>
 #include <Modloader/app/structs/String.h>
 

@@ -1,33 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility.h>
-#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
-#include <Modloader/app/structs/Comparison_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
-#include <Modloader/app/structs/IEnumerable_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
-#include <Modloader/app/structs/IComparer_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
-#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility__Array.h>
-#include <Modloader/app/structs/Array.h>
-#include <Modloader/app/structs/Predicate_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
+
+#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility.h>
 #include <Modloader/app/structs/Action_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
-#include <Modloader/app/structs/List_1_T_Enumerator_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
-#include <Modloader/app/structs/IEnumerator_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Comparison_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
+#include <Modloader/app/structs/IComparer_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
+#include <Modloader/app/structs/IEnumerable_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
+#include <Modloader/app/structs/List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
+#include <Modloader/app/structs/List_1_T_Enumerator_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Predicate_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_.h>
+#include <Modloader/app/structs/UtilitySelectorNode_NodeUtility__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ {
     IL2CPP_REGISTER_METHOD(0x025E8A60, app::UtilitySelectorNode_NodeUtility, get_Item, (app::List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ * this_ptr, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04743868, List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility__get_Item__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04770E40, List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x04769908, List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475D5A0, List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8DE0, void, Add, (app::List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ * this_ptr, app::UtilitySelectorNode_NodeUtility item))
-    IL2CPP_REGISTER_METHODINFO(0x047295C0, List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025EAEA0, void, Sort_1, (app::List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ * this_ptr, app::Comparison_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_* comparison))
-    IL2CPP_REGISTER_METHODINFO(0x04794400, List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility__Sort__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_2, (app::List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02D4DB20, void, ctor_3, (app::List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ * this_ptr, app::IEnumerable_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_Moon_BehaviourSystem_UtilitySelectorNode_NodeUtility_ * this_ptr))

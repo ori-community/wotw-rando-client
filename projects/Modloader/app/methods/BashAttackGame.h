@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BashAttackGame.h>
+
+#include <Modloader/app/structs/BashAttackGame.h>
 #include <Modloader/app/structs/Action_1_Single_.h>
 #include <Modloader/app/structs/BashAttackGame_State__Enum.h>
 #include <Modloader/app/structs/Vector2.h>
@@ -22,9 +23,7 @@ namespace app::classes::BashAttackGame {
     IL2CPP_REGISTER_METHOD(0x00F8DE30, void, EnterStateDisappearing, (app::BashAttackGame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F8E0D0, void, ExitStateDisappearing, (app::BashAttackGame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F8E290, void, OnAppearingTimelineEnded, (app::BashAttackGame * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0475BEC8, BashAttackGame_OnAppearingTimelineEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F8E2A0, void, OnDisappearingTimelineEnded, (app::BashAttackGame * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04765850, BashAttackGame_OnDisappearingTimelineEnded__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00F8E3F0, void, UpdateMode, (app::BashAttackGame * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00F8E4F0, void, UpdateDPadAngle, (bool smooth, float* angle_in_out, float* kbd_speed_in_out, float* kbd_angle_in_out, bool* kbd_clockwise_in_out))
     IL2CPP_REGISTER_METHOD(0x00F8E810, void, FixedUpdate, (app::BashAttackGame * this_ptr))

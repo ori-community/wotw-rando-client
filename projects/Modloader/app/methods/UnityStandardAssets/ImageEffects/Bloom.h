@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Bloom.h>
-#include <Modloader/app/structs/RenderTexture.h>
+
+#include <Modloader/app/structs/Bloom.h>
 #include <Modloader/app/structs/Color.h>
+#include <Modloader/app/structs/RenderTexture.h>
 
 namespace app::classes::UnityStandardAssets::ImageEffects::Bloom {
     IL2CPP_REGISTER_METHOD(0x025111D0, bool, CheckResources, (app::Bloom * this_ptr))

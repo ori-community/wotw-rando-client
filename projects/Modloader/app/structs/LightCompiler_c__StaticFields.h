@@ -17,7 +17,7 @@ struct LightCompiler_c__StaticFields {
 #endif
 #if !defined(IL2CPP_STRUCT_LightCompiler_c__StaticFields_FWDDECL)
 #define IL2CPP_STRUCT_LightCompiler_c__StaticFields_FWDDECL
-#include <Modloader/app/structs/Action_2_System_Linq_Expressions_Interpreter_LightCompiler_System_Linq_Expressions_Expression_.h>
+#include <Modloader/app/structs/Action_2_System_Linq_Expressions_Interpreter_LightCompiler_Syste_Lin_Expression_Expressio_.h>
 #include <Modloader/app/structs/Func_2_System_Linq_Expressions_Expression_Boolean_.h>
 #include <Modloader/app/structs/Func_2_System_Linq_Expressions_SwitchCase_Boolean_.h>
 #include <Modloader/app/structs/LightCompiler_c.h>

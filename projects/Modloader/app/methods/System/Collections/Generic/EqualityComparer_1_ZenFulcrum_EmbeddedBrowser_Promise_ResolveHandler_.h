@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_.h>
-#include <Modloader/app/structs/Promise_ResolveHandler__Array.h>
-#include <Modloader/app/structs/Promise_ResolveHandler.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Promise_ResolveHandler.h>
+#include <Modloader/app/structs/Promise_ResolveHandler__Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_ZenFulcrum_EmbeddedBrowser_Promise_ResolveHandler_*, get_Default, ())

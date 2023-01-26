@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SceneSettings.h>
-#include <Modloader/app/structs/SceneSettingsComponent.h>
+
+#include <Modloader/app/structs/SceneSettings.h>
 #include <Modloader/app/structs/CameraSettings.h>
 #include <Modloader/app/structs/FogGradientController.h>
-#include <Modloader/app/structs/Renderer.h>
-#include <Modloader/app/structs/SliceRenderSettings_Slice__Array.h>
 #include <Modloader/app/structs/LayeredRenderSettings.h>
+#include <Modloader/app/structs/Renderer.h>
+#include <Modloader/app/structs/SceneSettingsComponent.h>
+#include <Modloader/app/structs/SliceRenderSettings_Slice__Array.h>
 
 namespace app::classes::SceneSettingsComponent {
     IL2CPP_REGISTER_METHOD(0x00BBDFF0, app::SceneSettings*, get_GetSettings, (app::SceneSettingsComponent * this_ptr))

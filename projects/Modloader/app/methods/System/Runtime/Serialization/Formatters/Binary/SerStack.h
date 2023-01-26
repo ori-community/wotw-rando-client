@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SerStack.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/SerStack.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::Serialization::Formatters::Binary::SerStack {
     IL2CPP_REGISTER_METHOD(0x01DA1140, void, ctor, (app::SerStack * this_ptr, app::String* stack_id))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ScalePlatform.h>
+
+#include <Modloader/app/structs/ScalePlatform.h>
 
 namespace app::classes::Moon::ScalePlatform {
     IL2CPP_REGISTER_METHOD(0x00EC6840, void, Awake, (app::ScalePlatform * this_ptr))

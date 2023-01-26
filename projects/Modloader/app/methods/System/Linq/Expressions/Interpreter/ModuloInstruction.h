@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ModuloInstruction.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/ModuloInstruction.h>
 #include <Modloader/app/structs/Instruction.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::System::Linq::Expressions::Interpreter::ModuloInstruction {
@@ -11,5 +12,4 @@ namespace app::classes::System::Linq::Expressions::Interpreter::ModuloInstructio
     IL2CPP_REGISTER_METHOD(0x023FC010, app::String*, get_InstructionName, (app::ModuloInstruction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::ModuloInstruction * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023FC090, app::Instruction*, Create, (app::Type * type))
-    IL2CPP_REGISTER_METHODINFO(0x04752118, ModuloInstruction_Create__MethodInfo)
 } // namespace app::classes::System::Linq::Expressions::Interpreter::ModuloInstruction

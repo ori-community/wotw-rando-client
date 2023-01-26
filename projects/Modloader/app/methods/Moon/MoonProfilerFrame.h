@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MoonProfilerFrame.h>
+
+#include <Modloader/app/structs/MoonProfilerFrame.h>
 
 namespace app::classes::Moon::MoonProfilerFrame {
     IL2CPP_REGISTER_METHOD(0x0111B0D0, app::MoonProfilerFrame, op_Addition, (app::MoonProfilerFrame a, app::MoonProfilerFrame b))

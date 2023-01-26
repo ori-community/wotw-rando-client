@@ -1,27 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComboMoveType__Enum.h>
-#include <Modloader/app/structs/SeinDashNew.h>
+
+#include <Modloader/app/structs/ComboMoveType__Enum.h>
+#include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/ButtonInputType__Enum.h>
 #include <Modloader/app/structs/CharacterPlatformMovement.h>
-#include <Modloader/app/structs/SeinDashNew_PreDashDelegateType.h>
-#include <Modloader/app/structs/List_1_DigZone_.h>
-#include <Modloader/app/structs/List_1_WaterZone_.h>
-#include <Modloader/app/structs/DigZone.h>
-#include <Modloader/app/structs/MonoBehaviour.h>
-#include <Modloader/app/structs/List_1_UnityEngine_MonoBehaviour_.h>
-#include <Modloader/app/structs/SeinDashNewPuppet.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/IComboMove.h>
-#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
-#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 #include <Modloader/app/structs/ComboInput.h>
-#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
-#include <Modloader/app/structs/AbilityType__Enum.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DigZone.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
 #include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/IComboMove.h>
+#include <Modloader/app/structs/List_1_DigZone_.h>
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_IComboMove_.h>
+#include <Modloader/app/structs/List_1_UnityEngine_MonoBehaviour_.h>
+#include <Modloader/app/structs/List_1_WaterZone_.h>
+#include <Modloader/app/structs/MonoBehaviour.h>
 #include <Modloader/app/structs/MoonControllerColliderHit.h>
+#include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/SeinDashNew.h>
+#include <Modloader/app/structs/SeinDashNewPuppet.h>
+#include <Modloader/app/structs/SeinDashNew_PreDashDelegateType.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SeinDashNew {
     IL2CPP_REGISTER_METHOD(0x00417920, app::ComboMoveType__Enum, get_ComboMoveType, (app::SeinDashNew * this_ptr))
@@ -54,11 +55,9 @@ namespace app::classes::SeinDashNew {
     IL2CPP_REGISTER_METHOD(0x006F5410, void, OnSetReferenceToSein, (app::SeinDashNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F5950, void, Start, (app::SeinDashNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F5C50, void, OnGrabSurface, (app::SeinDashNew * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047145B0, SeinDashNew_OnGrabSurface__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006F5C60, void, OnAwake, (app::SeinDashNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F5D90, void, OnDestroy, (app::SeinDashNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F64C0, void, OnTakeDamage, (app::SeinDashNew * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x047512C0, SeinDashNew_OnTakeDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006F64C0, void, InterruptDash, (app::SeinDashNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F64E0, void, UpdateCharacterState, (app::SeinDashNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006F6D40, bool, IsEndTimeline, (app::SeinDashNew * this_ptr, app::MoonTimeline* timeline))
@@ -104,17 +103,12 @@ namespace app::classes::SeinDashNew {
     IL2CPP_REGISTER_METHOD(0x006FB830, app::AbilityType__Enum, get_ComboAbilityType, (app::SeinDashNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006FB840, void, ModifyHorizontalPlatformMovementSettings, (app::SeinDashNew * this_ptr, app::HorizontalPlatformMovementSettings* settings))
     IL2CPP_REGISTER_METHOD(0x006FB9F0, void, OnStartTimelineStoppedPlaying, (app::SeinDashNew * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04771C08, SeinDashNew_OnStartTimelineStoppedPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006FBAF0, void, OnEndTimelineStoppedPlaying, (app::SeinDashNew * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478CF20, SeinDashNew_OnEndTimelineStoppedPlaying__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006FBBD0, void, OnProcessRootMotion, (app::SeinDashNew * this_ptr, app::Vector3 root_velocity))
-    IL2CPP_REGISTER_METHODINFO(0x04772668, SeinDashNew_OnProcessRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006FBDD0, bool, IsHittingWall, (app::SeinDashNew * this_ptr, int32_t dash_direction))
     IL2CPP_REGISTER_METHOD(0x006FBEB0, float, GetRootMotionScale, (app::SeinDashNew * this_ptr, float root_motion_distance))
     IL2CPP_REGISTER_METHOD(0x006FC500, void, OnResetAirLimits, (app::SeinDashNew * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047329F8, SeinDashNew_OnResetAirLimits__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006FC520, void, OnMoonControllerCollision, (app::SeinDashNew * this_ptr, app::MoonControllerColliderHit hit))
-    IL2CPP_REGISTER_METHODINFO(0x04743C48, SeinDashNew_OnMoonControllerCollision__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006FC700, void, ctor, (app::SeinDashNew * this_ptr))
     IL2CPP_REGISTER_METHOD(0x006FCDB0, void, cctor, ())
 } // namespace app::classes::SeinDashNew

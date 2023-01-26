@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EventSystem.h>
+
+#include <Modloader/app/structs/EventSystem.h>
+#include <Modloader/app/structs/BaseEventData.h>
 #include <Modloader/app/structs/BaseInputModule.h>
 #include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/BaseEventData.h>
-#include <Modloader/app/structs/RaycastResult.h>
-#include <Modloader/app/structs/PointerEventData.h>
 #include <Modloader/app/structs/List_1_UnityEngine_EventSystems_RaycastResult_.h>
+#include <Modloader/app/structs/PointerEventData.h>
+#include <Modloader/app/structs/RaycastResult.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::EventSystems::EventSystem {
@@ -29,7 +30,6 @@ namespace app::classes::UnityEngine::EventSystems::EventSystem {
     IL2CPP_REGISTER_METHOD(0x01F1C630, app::BaseEventData*, get_baseEventDataCache, (app::EventSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F1C780, void, SetSelectedGameObject_2, (app::EventSystem * this_ptr, app::GameObject* selected))
     IL2CPP_REGISTER_METHOD(0x01F1C8E0, int32_t, RaycastComparer, (app::RaycastResult lhs, app::RaycastResult rhs))
-    IL2CPP_REGISTER_METHODINFO(0x04789BD8, EventSystem_RaycastComparer__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F1CD40, void, RaycastAll, (app::EventSystem * this_ptr, app::PointerEventData* event_data, app::List_1_UnityEngine_EventSystems_RaycastResult_* raycast_results))
     IL2CPP_REGISTER_METHOD(0x01F1CFE0, bool, IsPointerOverGameObject_1, (app::EventSystem * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F1D0C0, bool, IsPointerOverGameObject_2, (app::EventSystem * this_ptr, int32_t pointer_id))

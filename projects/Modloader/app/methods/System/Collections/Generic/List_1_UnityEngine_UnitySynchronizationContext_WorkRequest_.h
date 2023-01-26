@@ -1,33 +1,28 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
-#include <Modloader/app/structs/UnitySynchronizationContext_WorkRequest.h>
+
+#include <Modloader/app/structs/List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
+#include <Modloader/app/structs/Action_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
+#include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Comparison_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
+#include <Modloader/app/structs/IComparer_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
 #include <Modloader/app/structs/IEnumerable_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/IEnumerator_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
 #include <Modloader/app/structs/List_1_T_Enumerator_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
-#include <Modloader/app/structs/IComparer_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
-#include <Modloader/app/structs/UnitySynchronizationContext_WorkRequest__Array.h>
-#include <Modloader/app/structs/Array.h>
 #include <Modloader/app/structs/Predicate_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
-#include <Modloader/app/structs/Action_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
-#include <Modloader/app/structs/IEnumerator_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Comparison_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
+#include <Modloader/app/structs/ReadOnlyCollection_1_UnityEngine_UnitySynchronizationContext_WorkRequest_.h>
+#include <Modloader/app/structs/UnitySynchronizationContext_WorkRequest.h>
+#include <Modloader/app/structs/UnitySynchronizationContext_WorkRequest__Array.h>
 
 namespace app::classes::System::Collections::Generic::List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ {
     IL2CPP_REGISTER_METHOD(0x025E81E0, void, ctor_1, (app::List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ * this_ptr, int32_t capacity))
-    IL2CPP_REGISTER_METHODINFO(0x0475F658, List_1_UnityEngine_UnitySynchronizationContext_WorkRequest___ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025ECB30, void, Add, (app::List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ * this_ptr, app::UnitySynchronizationContext_WorkRequest item))
-    IL2CPP_REGISTER_METHODINFO(0x04713890, List_1_UnityEngine_UnitySynchronizationContext_WorkRequest__Add__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E9020, void, AddRange, (app::List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ * this_ptr, app::IEnumerable_1_UnityEngine_UnitySynchronizationContext_WorkRequest_* collection))
-    IL2CPP_REGISTER_METHODINFO(0x047078B8, List_1_UnityEngine_UnitySynchronizationContext_WorkRequest__AddRange__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x022A4010, void, Clear, (app::List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047850E0, List_1_UnityEngine_UnitySynchronizationContext_WorkRequest__Clear__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025ED850, app::List_1_T_Enumerator_UnityEngine_UnitySynchronizationContext_WorkRequest_, GetEnumerator, (app::List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047461E0, List_1_UnityEngine_UnitySynchronizationContext_WorkRequest__GetEnumerator__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00529FF0, int32_t, get_Count, (app::List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473B488, List_1_UnityEngine_UnitySynchronizationContext_WorkRequest__get_Count__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x025E8100, void, ctor_2, (app::List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02EE9FD0, void, ctor_3, (app::List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ * this_ptr, app::IEnumerable_1_UnityEngine_UnitySynchronizationContext_WorkRequest_* collection))
     IL2CPP_REGISTER_METHOD(0x02027AB0, int32_t, get_Capacity, (app::List_1_UnityEngine_UnitySynchronizationContext_WorkRequest_ * this_ptr))

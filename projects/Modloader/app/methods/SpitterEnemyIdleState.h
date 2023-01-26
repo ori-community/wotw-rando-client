@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpitterEnemyIdleState.h>
+
+#include <Modloader/app/structs/SpitterEnemyIdleState.h>
 #include <Modloader/app/structs/SpitterEnemy.h>
 
 namespace app::classes::SpitterEnemyIdleState {

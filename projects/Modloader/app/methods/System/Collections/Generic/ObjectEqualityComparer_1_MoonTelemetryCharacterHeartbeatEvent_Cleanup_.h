@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_MoonTelemetryCharacterHeartbeatEvent_Cleanup_.h>
 #include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup.h>
 #include <Modloader/app/structs/MoonTelemetryCharacterHeartbeatEvent_Cleanup__Array.h>
 #include <Modloader/app/structs/Object.h>

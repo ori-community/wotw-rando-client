@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IsTriggerCollidingCondition.h>
-#include <Modloader/app/structs/IContext.h>
-#include <Modloader/app/structs/Collision.h>
+
+#include <Modloader/app/structs/IsTriggerCollidingCondition.h>
 #include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Collision.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::IsTriggerCollidingCondition {
     IL2CPP_REGISTER_METHOD(0x00647DD0, void, Start, (app::IsTriggerCollidingCondition * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ReplayValidatorData.h>
+
+#include <Modloader/app/structs/ReplayValidatorData.h>
 #include <Modloader/app/structs/ITrialData.h>
 #include <Modloader/app/structs/String.h>
 

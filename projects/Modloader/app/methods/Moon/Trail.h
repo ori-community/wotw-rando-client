@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Trail.h>
+
+#include <Modloader/app/structs/Trail.h>
 #include <Modloader/app/structs/List_1_Moon_Trail_Point_.h>
-#include <Modloader/app/structs/Trail_Point.h>
 #include <Modloader/app/structs/Trail_CurveFrame.h>
+#include <Modloader/app/structs/Trail_Point.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::Moon::Trail {

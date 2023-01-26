@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LayoutGroup.h>
-#include <Modloader/app/structs/RectOffset.h>
-#include <Modloader/app/structs/TextAnchor__Enum.h>
-#include <Modloader/app/structs/RectTransform.h>
-#include <Modloader/app/structs/List_1_UnityEngine_RectTransform_.h>
-#include <Modloader/app/structs/IEnumerator.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/GridLayoutGroup_Corner__Enum.h>
+
+#include <Modloader/app/structs/LayoutGroup.h>
 #include <Modloader/app/structs/GridLayoutGroup_Axis__Enum.h>
-#include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/GridLayoutGroup_Constraint__Enum.h>
+#include <Modloader/app/structs/GridLayoutGroup_Corner__Enum.h>
+#include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/Int32Enum__Enum.h>
+#include <Modloader/app/structs/List_1_UnityEngine_RectTransform_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RectOffset.h>
+#include <Modloader/app/structs/RectTransform.h>
+#include <Modloader/app/structs/TextAnchor__Enum.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::UnityEngine::UI::LayoutGroup {
     IL2CPP_REGISTER_METHOD(0x024CF7B0, void, ctor, (app::LayoutGroup * this_ptr))
@@ -47,22 +48,13 @@ namespace app::classes::UnityEngine::UI::LayoutGroup {
     IL2CPP_REGISTER_METHOD(0x024D0CD0, app::IEnumerator*, DelayedSetDirty, (app::LayoutGroup * this_ptr, app::RectTransform* rect_transform))
     IL2CPP_REGISTER_METHOD(0x015E69F0, void, SetProperty_1, (app::LayoutGroup * this_ptr, app::Object** current_value, app::Object* new_value))
     IL2CPP_REGISTER_METHOD(0x015E6920, void, SetProperty_2, (app::LayoutGroup * this_ptr, app::GridLayoutGroup_Corner__Enum* current_value, app::GridLayoutGroup_Corner__Enum new_value))
-    IL2CPP_REGISTER_METHODINFO(0x04704AC0, LayoutGroup_SetProperty_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E6920, void, SetProperty_3, (app::LayoutGroup * this_ptr, app::GridLayoutGroup_Axis__Enum* current_value, app::GridLayoutGroup_Axis__Enum new_value))
-    IL2CPP_REGISTER_METHODINFO(0x04726E08, LayoutGroup_SetProperty_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E6B00, void, SetProperty_4, (app::LayoutGroup * this_ptr, app::Vector2* current_value, app::Vector2 new_value))
-    IL2CPP_REGISTER_METHODINFO(0x047591F8, LayoutGroup_SetProperty_3__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E6920, void, SetProperty_5, (app::LayoutGroup * this_ptr, app::GridLayoutGroup_Constraint__Enum* current_value, app::GridLayoutGroup_Constraint__Enum new_value))
-    IL2CPP_REGISTER_METHODINFO(0x047336B8, LayoutGroup_SetProperty_4__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E6890, void, SetProperty_6, (app::LayoutGroup * this_ptr, int32_t* current_value, int32_t new_value))
-    IL2CPP_REGISTER_METHODINFO(0x0477A1D0, LayoutGroup_SetProperty_5__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E6A70, void, SetProperty_7, (app::LayoutGroup * this_ptr, float* current_value, float new_value))
-    IL2CPP_REGISTER_METHODINFO(0x0477CBE0, LayoutGroup_SetProperty_6__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E6800, void, SetProperty_8, (app::LayoutGroup * this_ptr, bool* current_value, bool new_value))
-    IL2CPP_REGISTER_METHODINFO(0x04793758, LayoutGroup_SetProperty_7__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E69F0, void, SetProperty_9, (app::LayoutGroup * this_ptr, app::RectOffset** current_value, app::RectOffset* new_value))
-    IL2CPP_REGISTER_METHODINFO(0x04731F90, LayoutGroup_SetProperty_8__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E6920, void, SetProperty_10, (app::LayoutGroup * this_ptr, app::TextAnchor__Enum* current_value, app::TextAnchor__Enum new_value))
-    IL2CPP_REGISTER_METHODINFO(0x047086E0, LayoutGroup_SetProperty_9__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015E6920, void, SetProperty_11, (app::LayoutGroup * this_ptr, app::Int32Enum__Enum* current_value, app::Int32Enum__Enum new_value))
 } // namespace app::classes::UnityEngine::UI::LayoutGroup

@@ -1,30 +1,30 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
-#include <Modloader/app/structs/XmlReader.h>
-#include <Modloader/app/structs/ValidationEventHandler.h>
-#include <Modloader/app/structs/XmlReaderSettings.h>
-#include <Modloader/app/structs/XmlNodeType__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSpace__Enum.h>
-#include <Modloader/app/structs/ReadState__Enum_1.h>
-#include <Modloader/app/structs/XmlNameTable.h>
-#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
-#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
-#include <Modloader/app/structs/ValidationType__Enum.h>
-#include <Modloader/app/structs/XmlSchemaCollection.h>
-#include <Modloader/app/structs/XmlResolver.h>
+
+#include <Modloader/app/structs/XmlValidatingReaderImpl.h>
 #include <Modloader/app/structs/BaseValidator.h>
-#include <Modloader/app/structs/XmlNamespaceManager.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/SchemaAttDef.h>
-#include <Modloader/app/structs/IDtdInfo.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
 #include <Modloader/app/structs/IDtdDefaultAttributeInfo.h>
+#include <Modloader/app/structs/IDtdInfo.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ReadState__Enum_1.h>
+#include <Modloader/app/structs/SchemaAttDef.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/ValidationEventHandler.h>
+#include <Modloader/app/structs/ValidationType__Enum.h>
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlNamespaceManager.h>
+#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/XmlSchemaCollection.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
 #include <Modloader/app/structs/XmlTextReaderImpl.h>
 
 namespace app::classes::System::Xml::XmlValidatingReaderImpl {
     IL2CPP_REGISTER_METHOD(0x01FC9360, void, ctor, (app::XmlValidatingReaderImpl * this_ptr, app::XmlReader* reader, app::ValidationEventHandler* settings_event_handler, bool process_identity_constraints))
-    IL2CPP_REGISTER_METHODINFO(0x04748F68, XmlValidatingReaderImpl__ctor__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01FC9920, app::XmlReaderSettings*, get_Settings, (app::XmlValidatingReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016D9400, app::XmlNodeType__Enum, get_NodeType, (app::XmlValidatingReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01717030, app::String*, get_Name, (app::XmlValidatingReaderImpl * this_ptr))
@@ -36,7 +36,7 @@ namespace app::classes::System::Xml::XmlValidatingReaderImpl {
     IL2CPP_REGISTER_METHOD(0x01717120, app::String*, get_BaseURI, (app::XmlValidatingReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01717150, bool, get_IsEmptyElement, (app::XmlValidatingReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01717180, bool, get_IsDefault, (app::XmlValidatingReaderImpl * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x017171B0, uint16_t, get_QuoteChar, (app::XmlValidatingReaderImpl * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x017171B0, char16_t, get_QuoteChar, (app::XmlValidatingReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x017171E0, app::XmlSpace__Enum, get_XmlSpace, (app::XmlValidatingReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01717210, app::String*, get_XmlLang, (app::XmlValidatingReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01FC9B60, app::ReadState__Enum_1, get_ReadState, (app::XmlValidatingReaderImpl * this_ptr))
@@ -58,7 +58,6 @@ namespace app::classes::System::Xml::XmlValidatingReaderImpl {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, get_CanResolveEntity, (app::XmlValidatingReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01FC9FC0, void, ResolveEntity, (app::XmlValidatingReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01FCA000, void, MoveOffEntityReference, (app::XmlValidatingReaderImpl * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04772FB0, XmlValidatingReaderImpl_MoveOffEntityReference__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01FCA110, app::String*, ReadString, (app::XmlValidatingReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, HasLineInfo, (app::XmlValidatingReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01FCA130, int32_t, get_LineNumber, (app::XmlValidatingReaderImpl * this_ptr))
@@ -87,5 +86,4 @@ namespace app::classes::System::Xml::XmlValidatingReaderImpl {
     IL2CPP_REGISTER_METHOD(0x01FCAFD0, bool, AddDefaultAttribute, (app::XmlValidatingReaderImpl * this_ptr, app::SchemaAttDef* attdef))
     IL2CPP_REGISTER_METHOD(0x01FCAFF0, app::IDtdInfo*, get_DtdInfo, (app::XmlValidatingReaderImpl * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01FCB020, void, ValidateDefaultAttributeOnUse, (app::XmlValidatingReaderImpl * this_ptr, app::IDtdDefaultAttributeInfo* default_attribute, app::XmlTextReaderImpl* core_reader))
-    IL2CPP_REGISTER_METHODINFO(0x0474F3D8, XmlValidatingReaderImpl_ValidateDefaultAttributeOnUse__MethodInfo)
 } // namespace app::classes::System::Xml::XmlValidatingReaderImpl

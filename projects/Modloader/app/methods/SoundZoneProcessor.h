@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SoundZoneProcessor.h>
-#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array.h>
-#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array.h>
-#include <Modloader/app/structs/PositionSyncTask__Array.h>
-#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_.h>
-#include <Modloader/app/structs/PositionSyncTask.h>
-#include <Modloader/app/structs/ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData_.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/ListenerSoundZoneTaskData.h>
-#include <Modloader/app/structs/AudioListenerZone.h>
-#include <Modloader/app/structs/EmitterSoundZoneTaskData.h>
+
+#include <Modloader/app/structs/SoundZoneProcessor.h>
 #include <Modloader/app/structs/AudioEmitterZone.h>
 #include <Modloader/app/structs/AudioEmitterZoneReference.h>
+#include <Modloader/app/structs/AudioListenerZone.h>
 #include <Modloader/app/structs/AudioListenerZoneReference.h>
+#include <Modloader/app/structs/EmitterSoundZoneTaskData.h>
+#include <Modloader/app/structs/ListenerSoundZoneTaskData.h>
+#include <Modloader/app/structs/PositionSyncTask.h>
+#include <Modloader/app/structs/PositionSyncTask__Array.h>
 #include <Modloader/app/structs/SoundListener.h>
+#include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTa_TEmitterTa_EmitterZo_ListenerSoundZoneTa_EmitterSoundZoneT___A.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTa_TEmitterTa_ListenerZo_ListenerSoundZoneT_EmitterSoundZoneT___A.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTas_TEmitterTa_ListenerZo_ListenerSoundZoneTa_EmitterSoundZoneTa_.h>
+#include <Modloader/app/structs/ZoneProcessor_2_TListenerTas_TEmitterTas_EmitterZo_ListenerSoundZoneTa_EmitterSoundZoneTa_.h>
 
 namespace app::classes::SoundZoneProcessor {
     IL2CPP_REGISTER_METHOD(0x00EEE370, void, ProcessZoneTasks, (app::SoundZoneProcessor * this_ptr, app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_ListenerZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array* listener_zone_tasks, app::ZoneProcessor_2_TListenerTaskData_TEmitterTaskData_EmitterZoneTask_ListenerSoundZoneTaskData_EmitterSoundZoneTaskData___Array* emitter_zone_tasks, app::PositionSyncTask__Array* position_tasks, int32_t valid_position_tasks_size))

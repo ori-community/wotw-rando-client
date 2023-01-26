@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiritFlameProjectile.h>
+
+#include <Modloader/app/structs/SpiritFlameProjectile.h>
+#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/DamageWeight__Enum.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IAttackable.h>
+#include <Modloader/app/structs/ISpiritFlameAttackable.h>
+#include <Modloader/app/structs/SeinCharacter.h>
+#include <Modloader/app/structs/SpiritFlame.h>
+#include <Modloader/app/structs/SpiritFlameProjectile_PointOnArc.h>
+#include <Modloader/app/structs/SpiritFlameProjectile_State__Enum.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Transform.h>
-#include <Modloader/app/structs/SeinCharacter.h>
-#include <Modloader/app/structs/IAttackable.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SpiritFlame.h>
-#include <Modloader/app/structs/DamageWeight__Enum.h>
-#include <Modloader/app/structs/SpiritFlameProjectile_State__Enum.h>
-#include <Modloader/app/structs/SpiritFlameProjectile_PointOnArc.h>
 #include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/DamageResult.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/ISpiritFlameAttackable.h>
-#include <Modloader/app/structs/Collider.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::SpiritFlameProjectile {
     IL2CPP_REGISTER_METHOD(0x011D4750, bool, get_IsSuspended, (app::SpiritFlameProjectile * this_ptr))
@@ -60,7 +61,6 @@ namespace app::classes::SpiritFlameProjectile {
     IL2CPP_REGISTER_METHOD(0x011D6440, void, UpdateLineRenderer, (app::SpiritFlameProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D6D50, void, UpdateState, (app::SpiritFlameProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D7860, void, DamageTicked, (app::SpiritFlameProjectile * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x0477AC40, SpiritFlameProjectile_DamageTicked__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x011D79E0, void, Detonate, (app::SpiritFlameProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D7DE0, void, Discharge, (app::SpiritFlameProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D7DF0, bool, RayTest, (app::SpiritFlameProjectile * this_ptr, app::GameObject* target))
@@ -69,5 +69,4 @@ namespace app::classes::SpiritFlameProjectile {
     IL2CPP_REGISTER_METHOD(0x011D88D0, void, ctor, (app::SpiritFlameProjectile * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011D8B00, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x01032B30, void, _Detonate_b__106_0, (app::SpiritFlameProjectile * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04703680, SpiritFlameProjectile__Detonate_b__106_0__MethodInfo)
 } // namespace app::classes::SpiritFlameProjectile

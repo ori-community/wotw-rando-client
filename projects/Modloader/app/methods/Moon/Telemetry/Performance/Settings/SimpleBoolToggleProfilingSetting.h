@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SimpleBoolToggleProfilingSetting.h>
+
+#include <Modloader/app/structs/SimpleBoolToggleProfilingSetting.h>
 
 namespace app::classes::Moon::Telemetry::Performance::Settings::SimpleBoolToggleProfilingSetting {
     IL2CPP_REGISTER_METHOD(0x00E3FCE0, void, Enable, (app::SimpleBoolToggleProfilingSetting * this_ptr))

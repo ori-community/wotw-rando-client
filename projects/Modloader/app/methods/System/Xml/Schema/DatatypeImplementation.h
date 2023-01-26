@@ -1,28 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/DatatypeImplementation.h>
-#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
+#include <Modloader/app/structs/Exception.h>
+#include <Modloader/app/structs/FacetsChecker.h>
+#include <Modloader/app/structs/IXmlNamespaceResolver.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/RestrictionFacets.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/XmlNameTable.h>
 #include <Modloader/app/structs/XmlQualifiedName.h>
 #include <Modloader/app/structs/XmlSchemaDatatype.h>
-#include <Modloader/app/structs/XmlTypeCode__Enum.h>
-#include <Modloader/app/structs/XmlSchemaSimpleType__Array.h>
-#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
-#include <Modloader/app/structs/XmlNameTable.h>
-#include <Modloader/app/structs/XmlSchemaType.h>
-#include <Modloader/app/structs/XmlSchemaObjectTable.h>
-#include <Modloader/app/structs/XmlSchemaObject.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/XmlValueConverter.h>
-#include <Modloader/app/structs/FacetsChecker.h>
-#include <Modloader/app/structs/Type.h>
 #include <Modloader/app/structs/XmlSchemaDatatypeVariety__Enum.h>
-#include <Modloader/app/structs/RestrictionFacets.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType__Array.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
 #include <Modloader/app/structs/XmlSchemaWhiteSpace__Enum.h>
-#include <Modloader/app/structs/IXmlNamespaceResolver.h>
-#include <Modloader/app/structs/Exception.h>
-#include <Modloader/app/structs/Byte__Array.h>
+#include <Modloader/app/structs/XmlTokenizedType__Enum.h>
+#include <Modloader/app/structs/XmlTypeCode__Enum.h>
+#include <Modloader/app/structs/XmlValueConverter.h>
 
 namespace app::classes::System::Xml::Schema::DatatypeImplementation {
     IL2CPP_REGISTER_METHOD(0x0234DC40, void, cctor, ())
@@ -44,7 +45,6 @@ namespace app::classes::System::Xml::Schema::DatatypeImplementation {
     IL2CPP_REGISTER_METHOD(0x02353F00, app::XmlSchemaDatatype*, DeriveByRestriction, (app::DatatypeImplementation * this_ptr, app::XmlSchemaObjectCollection* facets, app::XmlNameTable* name_table, app::XmlSchemaType* schema_type))
     IL2CPP_REGISTER_METHOD(0x023540D0, app::XmlSchemaDatatype*, DeriveByList_1, (app::DatatypeImplementation * this_ptr, app::XmlSchemaType* schema_type))
     IL2CPP_REGISTER_METHOD(0x023540E0, app::XmlSchemaDatatype*, DeriveByList_2, (app::DatatypeImplementation * this_ptr, int32_t min_size, app::XmlSchemaType* schema_type))
-    IL2CPP_REGISTER_METHODINFO(0x04789A30, DatatypeImplementation_DeriveByList_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02354490, app::DatatypeImplementation*, DeriveByUnion, (app::XmlSchemaSimpleType__Array * types, app::XmlSchemaType* schema_type))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, VerifySchemaValid, (app::DatatypeImplementation * this_ptr, app::XmlSchemaObjectTable* notations, app::XmlSchemaObject* caller))
     IL2CPP_REGISTER_METHOD(0x023546B0, bool, IsDerivedFrom, (app::DatatypeImplementation * this_ptr, app::XmlSchemaDatatype* datatype))
@@ -63,9 +63,7 @@ namespace app::classes::System::Xml::Schema::DatatypeImplementation {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::DatatypeImplementation*, get_Base, (app::DatatypeImplementation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::XmlSchemaWhiteSpace__Enum, get_BuiltInWhitespaceFacet, (app::DatatypeImplementation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02354CD0, app::Object*, ParseValue_1, (app::DatatypeImplementation * this_ptr, app::String* s, app::XmlNameTable* name_table, app::IXmlNamespaceResolver* nsmgr))
-    IL2CPP_REGISTER_METHODINFO(0x0478D860, DatatypeImplementation_ParseValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02354F40, app::Object*, ParseValue_2, (app::DatatypeImplementation * this_ptr, app::String* s, app::XmlNameTable* name_table, app::IXmlNamespaceResolver* nsmgr, bool create_atomic_value))
-    IL2CPP_REGISTER_METHODINFO(0x0474AF48, DatatypeImplementation_ParseValue_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02355130, app::Exception*, TryParseValue, (app::DatatypeImplementation * this_ptr, app::Object* value, app::XmlNameTable* name_table, app::IXmlNamespaceResolver* namespace_resolver, app::Object** typed_value))
     IL2CPP_REGISTER_METHOD(0x02355530, app::String*, GetTypeName, (app::DatatypeImplementation * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023555C0, int32_t, Compare, (app::DatatypeImplementation * this_ptr, app::Byte__Array* value1, app::Byte__Array* value2))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_GeneralDebugMenuPage_SceneInfo_.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_GeneralDebugMenuPage_SceneInfo_.h>
 #include <Modloader/app/structs/GeneralDebugMenuPage_SceneInfo.h>
 #include <Modloader/app/structs/Object.h>
 

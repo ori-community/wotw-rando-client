@@ -1,14 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpiderBossTimelineBehaviourBase.h>
+
+#include <Modloader/app/structs/SpiderBossTimelineBehaviourBase.h>
+#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/BehaviourStatus__Enum.h>
 
 namespace app::classes::SpiderBossTimelineBehaviourBase {
     IL2CPP_REGISTER_METHOD(0x011BADD0, void, OnEnter, (app::SpiderBossTimelineBehaviourBase * this_ptr, app::IContext* context))
     IL2CPP_REGISTER_METHOD(0x011BB080, void, OnProcessRootMotion, (app::SpiderBossTimelineBehaviourBase * this_ptr, app::Vector3 root_velocity))
-    IL2CPP_REGISTER_METHODINFO(0x04732AA8, SpiderBossTimelineBehaviourBase_OnProcessRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_ShouldPauseLocomotionIsConstant, (app::SpiderBossTimelineBehaviourBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011BB150, bool, ShouldPauseLocomotion, (app::SpiderBossTimelineBehaviourBase * this_ptr))
     IL2CPP_REGISTER_METHOD(0x011BB230, app::BehaviourStatus__Enum, OnExecute, (app::SpiderBossTimelineBehaviourBase * this_ptr, app::IContext* context))

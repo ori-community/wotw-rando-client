@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SimpleCollator_Context__Boxed.h>
+
+#include <Modloader/app/structs/SimpleCollator_Context__Boxed.h>
 #include <Modloader/app/structs/CompareOptions__Enum.h>
 
 namespace app::classes::Mono::Globalization::Unicode::SimpleCollator_Context {

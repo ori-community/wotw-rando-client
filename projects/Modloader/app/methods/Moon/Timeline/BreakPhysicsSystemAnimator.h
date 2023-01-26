@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/BreakPhysicsSystemAnimator.h>
 #include <Modloader/app/structs/IContext.h>
 #include <Modloader/app/structs/MoonReference_1_UnityEngine_Transform_.h>

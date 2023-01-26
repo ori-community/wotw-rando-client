@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/LocalVariableInfo__Class.h>
 #include <Modloader/app/structs/LocalVariableInfo.h>
 #include <Modloader/app/structs/LocalVariableInfo__Array.h>
+#include <Modloader/app/structs/LocalVariableInfo__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace LocalVariableInfo {
-        namespace {
-            inline app::LocalVariableInfo__Class* type_info_ref = nullptr;
+        inline app::LocalVariableInfo__Class** type_info() {
+            static app::LocalVariableInfo__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::LocalVariableInfo__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::LocalVariableInfo__Class** type_info = &type_info_ref;
         inline app::LocalVariableInfo__Class* get_class() {
-            return il2cpp::get_class<app::LocalVariableInfo__Class>(type_info, "System.Reflection", "LocalVariableInfo");
+            return il2cpp::get_class<app::LocalVariableInfo__Class>(type_info(), "System.Reflection", "LocalVariableInfo");
         }
         inline app::LocalVariableInfo* create() {
             return il2cpp::create_object<app::LocalVariableInfo>(get_class());

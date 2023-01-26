@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/servernetadr_t__Boxed.h>
+
+#include <Modloader/app/structs/servernetadr_t__Boxed.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/servernetadr_t.h>
-#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::Steamworks::servernetadr_t {
     IL2CPP_REGISTER_METHOD(0x00113C90, void, Init, (app::servernetadr_t__Boxed * this_ptr, uint32_t ip, uint16_t us_query_port, uint16_t us_connection_port))

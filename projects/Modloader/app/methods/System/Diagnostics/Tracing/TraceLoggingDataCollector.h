@@ -1,23 +1,24 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TraceLoggingDataCollector.h>
-#include <Modloader/app/structs/Guid.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Byte__Array.h>
+
+#include <Modloader/app/structs/TraceLoggingDataCollector.h>
 #include <Modloader/app/structs/Boolean__Array.h>
-#include <Modloader/app/structs/SByte__Array.h>
-#include <Modloader/app/structs/Int16__Array.h>
-#include <Modloader/app/structs/UInt16__Array.h>
-#include <Modloader/app/structs/Int32__Array.h>
-#include <Modloader/app/structs/UInt32__Array.h>
-#include <Modloader/app/structs/Int64__Array.h>
-#include <Modloader/app/structs/UInt64__Array.h>
-#include <Modloader/app/structs/IntPtr__Array.h>
-#include <Modloader/app/structs/UIntPtr__Array.h>
-#include <Modloader/app/structs/Single__Array.h>
-#include <Modloader/app/structs/Double__Array.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Double__Array.h>
+#include <Modloader/app/structs/Guid.h>
 #include <Modloader/app/structs/Guid__Array.h>
+#include <Modloader/app/structs/Int16__Array.h>
+#include <Modloader/app/structs/Int32__Array.h>
+#include <Modloader/app/structs/Int64__Array.h>
+#include <Modloader/app/structs/IntPtr__Array.h>
+#include <Modloader/app/structs/SByte__Array.h>
+#include <Modloader/app/structs/Single__Array.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UInt16__Array.h>
+#include <Modloader/app/structs/UInt32__Array.h>
+#include <Modloader/app/structs/UInt64__Array.h>
+#include <Modloader/app/structs/UIntPtr__Array.h>
 
 namespace app::classes::System::Diagnostics::Tracing::TraceLoggingDataCollector {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::TraceLoggingDataCollector * this_ptr))
@@ -36,7 +37,7 @@ namespace app::classes::System::Diagnostics::Tracing::TraceLoggingDataCollector 
     IL2CPP_REGISTER_METHOD(0x01A0A120, void, AddScalar_11, (app::TraceLoggingDataCollector * this_ptr, void* value))
     IL2CPP_REGISTER_METHOD(0x01A0A200, void, AddScalar_12, (app::TraceLoggingDataCollector * this_ptr, float value))
     IL2CPP_REGISTER_METHOD(0x01A0A2D0, void, AddScalar_13, (app::TraceLoggingDataCollector * this_ptr, double value))
-    IL2CPP_REGISTER_METHOD(0x01A0A3A0, void, AddScalar_14, (app::TraceLoggingDataCollector * this_ptr, uint16_t value))
+    IL2CPP_REGISTER_METHOD(0x01A0A3A0, void, AddScalar_14, (app::TraceLoggingDataCollector * this_ptr, char16_t value))
     IL2CPP_REGISTER_METHOD(0x01A0A470, void, AddScalar_15, (app::TraceLoggingDataCollector * this_ptr, app::Guid value))
     IL2CPP_REGISTER_METHOD(0x01A0A540, void, AddBinary_1, (app::TraceLoggingDataCollector * this_ptr, app::String* value))
     IL2CPP_REGISTER_METHOD(0x01A0A650, void, AddBinary_2, (app::TraceLoggingDataCollector * this_ptr, app::Byte__Array* value))

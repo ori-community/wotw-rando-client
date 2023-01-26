@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TextAreaAttribute.h>
+
+#include <Modloader/app/structs/TextAreaAttribute.h>
 
 namespace app::classes::UnityEngine::TextAreaAttribute {
     IL2CPP_REGISTER_METHOD(0x02C65C70, void, ctor_1, (app::TextAreaAttribute * this_ptr))

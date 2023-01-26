@@ -1,22 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CollapsingPlatform.h>
+
+#include <Modloader/app/structs/CollapsingPlatform.h>
 #include <Modloader/app/structs/CageStructureTool.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/Damage.h>
-#include <Modloader/app/structs/Collision.h>
-#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Collider.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/StressTestStatus__Enum.h>
-#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/DigZone.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IDesiredUberState.h>
 #include <Modloader/app/structs/IUberState__Array.h>
 #include <Modloader/app/structs/List_1_UnityEngine_GameObject_.h>
-#include <Modloader/app/structs/NamedValue_1_System_Boolean___Array.h>
-#include <Modloader/app/structs/IDesiredUberState.h>
 #include <Modloader/app/structs/MoonTimeline.h>
+#include <Modloader/app/structs/NamedValue_1_System_Boolean___Array.h>
 #include <Modloader/app/structs/Nullable_1_Single_.h>
-#include <Modloader/app/structs/DigZone.h>
+#include <Modloader/app/structs/StressTestStatus__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UberStateApplyContext__Enum.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CollapsingPlatform {
     IL2CPP_REGISTER_METHOD(0x012C71C0, bool, get_IsCollapsed, (app::CollapsingPlatform * this_ptr))
@@ -26,15 +27,11 @@ namespace app::classes::CollapsingPlatform {
     IL2CPP_REGISTER_METHOD(0x012C78A0, app::GameObject*, get_AnimatedObject, (app::CollapsingPlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012C78D0, void, Awake, (app::CollapsingPlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012C8070, void, DamageReceived, (app::CollapsingPlatform * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x04767AC0, CollapsingPlatform_DamageReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012C8380, void, GetDigZone, (app::CollapsingPlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012C85A0, void, OnActivatePlatform, (app::CollapsingPlatform * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04752460, CollapsingPlatform_OnActivatePlatform__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012C8670, void, OnDigStartedInZone, (app::CollapsingPlatform * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0471FDA0, CollapsingPlatform_OnDigStartedInZone__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012C86A0, void, OnDestroy, (app::CollapsingPlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012C8C60, void, OnWallJumpPerformed, (app::CollapsingPlatform * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04790DB0, CollapsingPlatform_OnWallJumpPerformed__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012C8C90, void, OnCollisionEnter, (app::CollapsingPlatform * this_ptr, app::Collision* other))
     IL2CPP_REGISTER_METHOD(0x012C8C90, void, ReceivedOnCollisionEnter, (app::CollapsingPlatform * this_ptr, app::Collision* other))
     IL2CPP_REGISTER_METHOD(0x012C8D60, void, OnEnable, (app::CollapsingPlatform * this_ptr))
@@ -43,7 +40,6 @@ namespace app::classes::CollapsingPlatform {
     IL2CPP_REGISTER_METHOD(0x012C9300, void, PerformCollapse, (app::CollapsingPlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012C9470, void, PerformFastColapse, (app::CollapsingPlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012C9640, void, OnLandOnGround, (app::CollapsingPlatform * this_ptr, app::Vector3 position, app::Collider* collider))
-    IL2CPP_REGISTER_METHODINFO(0x04709990, CollapsingPlatform_OnLandOnGround__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012C9A30, void, Respawn, (app::CollapsingPlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012C9C10, app::String*, get_StressTestName, (app::CollapsingPlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012C9C90, void, StartStressTest, (app::CollapsingPlatform * this_ptr))
@@ -72,9 +68,7 @@ namespace app::classes::CollapsingPlatform {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnAfterDeserialize, (app::CollapsingPlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012CAB10, app::CollapsingPlatform*, GetCollapsingPlatformFromDigZone, (app::DigZone * dig_zone))
     IL2CPP_REGISTER_METHOD(0x012CAC40, void, OnRestoreCheckpoint, (app::CollapsingPlatform * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04785D00, CollapsingPlatform_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x012CAC50, void, ctor, (app::CollapsingPlatform * this_ptr))
     IL2CPP_REGISTER_METHOD(0x012CAD00, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x012CAE70, void, _DamageReceived_b__23_0, (app::CollapsingPlatform * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047802D0, CollapsingPlatform__DamageReceived_b__23_0__MethodInfo)
 } // namespace app::classes::CollapsingPlatform

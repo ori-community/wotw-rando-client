@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PlannerNodePostProcessor.h>
+
+#include <Modloader/app/structs/PlannerNodePostProcessor.h>
 #include <Modloader/app/structs/Transform.h>
 
 namespace app::classes::MoonNavigation::Planner::PlannerNodePostProcessor {

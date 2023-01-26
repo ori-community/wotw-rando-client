@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SkillPointPickup.h>
+
+#include <Modloader/app/structs/SkillPointPickup.h>
 #include <Modloader/app/structs/GameObject.h>
 
 namespace app::classes::SkillPointPickup {

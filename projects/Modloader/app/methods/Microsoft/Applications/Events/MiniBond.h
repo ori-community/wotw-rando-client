@@ -1,25 +1,26 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CompactBinaryProtocolWriter.h>
-#include <Modloader/app/structs/Ingest.h>
-#include <Modloader/app/structs/User.h>
-#include <Modloader/app/structs/Device.h>
-#include <Modloader/app/structs/Os.h>
+
+#include <Modloader/app/structs/CompactBinaryProtocolWriter.h>
 #include <Modloader/app/structs/App.h>
-#include <Modloader/app/structs/Utc.h>
-#include <Modloader/app/structs/Xbl.h>
+#include <Modloader/app/structs/Attributes.h>
+#include <Modloader/app/structs/CsEvent.h>
+#include <Modloader/app/structs/CustomerContent.h>
+#include <Modloader/app/structs/Data.h>
+#include <Modloader/app/structs/Device.h>
+#include <Modloader/app/structs/Ingest.h>
 #include <Modloader/app/structs/Javascript.h>
+#include <Modloader/app/structs/Loc.h>
+#include <Modloader/app/structs/Net.h>
+#include <Modloader/app/structs/Os.h>
+#include <Modloader/app/structs/PII.h>
 #include <Modloader/app/structs/Protocol.h>
 #include <Modloader/app/structs/Receipts.h>
-#include <Modloader/app/structs/Net.h>
-#include <Modloader/app/structs/Loc.h>
 #include <Modloader/app/structs/Sdk.h>
-#include <Modloader/app/structs/PII.h>
-#include <Modloader/app/structs/CustomerContent.h>
-#include <Modloader/app/structs/Attributes.h>
+#include <Modloader/app/structs/User.h>
+#include <Modloader/app/structs/Utc.h>
 #include <Modloader/app/structs/Value.h>
-#include <Modloader/app/structs/Data.h>
-#include <Modloader/app/structs/CsEvent.h>
+#include <Modloader/app/structs/Xbl.h>
 
 namespace app::classes::Microsoft::Applications::Events::MiniBond {
     IL2CPP_REGISTER_METHOD(0x002FD800, void, Serialize_1, (app::CompactBinaryProtocolWriter * writer, app::Ingest* value, bool is_base))

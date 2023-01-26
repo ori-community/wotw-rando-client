@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationMeshingSettings.h>
+
+#include <Modloader/app/structs/AnimationMeshingSettings.h>
 
 namespace app::classes::AnimationMeshingSettings {
     IL2CPP_REGISTER_METHOD(0x004FC900, app::AnimationMeshingSettings*, get_Default, ())

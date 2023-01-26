@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnumMap_EnumMapMember.h>
+
+#include <Modloader/app/structs/EnumMap_EnumMapMember.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Xml::Serialization::EnumMap_EnumMapMember {

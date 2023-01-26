@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CatAndMouseRoomDController.h>
+
+#include <Modloader/app/structs/CatAndMouseRoomDController.h>
 #include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::CatAndMouseRoomDController {
@@ -8,7 +9,6 @@ namespace app::classes::CatAndMouseRoomDController {
     IL2CPP_REGISTER_METHOD(0x0102B970, void, Start, (app::CatAndMouseRoomDController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0102BA30, void, OnDestroy, (app::CatAndMouseRoomDController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0102BC00, void, OnRestoreCheckpoint, (app::CatAndMouseRoomDController * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0478D188, CatAndMouseRoomDController_OnRestoreCheckpoint__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0102BD30, void, FixedUpdate, (app::CatAndMouseRoomDController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0102C3D0, void, StartSequence, (app::CatAndMouseRoomDController * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0102C710, void, Attack, (app::CatAndMouseRoomDController * this_ptr))

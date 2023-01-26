@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CageStructureMetaDataGroup.h>
+
+#include <Modloader/app/structs/CageStructureMetaDataGroup.h>
 #include <Modloader/app/structs/SpiderBossBehaviourGroup.h>
 
 namespace app::classes::SpiderBossBehaviourGroup {

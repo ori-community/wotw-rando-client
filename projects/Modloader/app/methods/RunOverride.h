@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RunOverride.h>
+
+#include <Modloader/app/structs/RunOverride.h>
 #include <Modloader/app/structs/SeinRunPuppet.h>
 
 namespace app::classes::RunOverride {

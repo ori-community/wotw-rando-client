@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CCDIK.h>
+
+#include <Modloader/app/structs/CCDIK.h>
 #include <Modloader/app/structs/IKSolver.h>
 
 namespace app::classes::RootMotion::FinalIK::CCDIK {

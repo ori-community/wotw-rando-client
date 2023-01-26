@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSerializationReader_CollectionFixup.h>
+
+#include <Modloader/app/structs/XmlSerializationReader_CollectionFixup.h>
 #include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/XmlSerializationCollectionFixupCallback.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XmlSerializationCollectionFixupCallback.h>
 
 namespace app::classes::System::Xml::Serialization::XmlSerializationReader_CollectionFixup {
     IL2CPP_REGISTER_METHOD(0x025B2FE0, void, ctor, (app::XmlSerializationReader_CollectionFixup * this_ptr, app::Object* collection, app::XmlSerializationCollectionFixupCallback* callback, app::String* id))

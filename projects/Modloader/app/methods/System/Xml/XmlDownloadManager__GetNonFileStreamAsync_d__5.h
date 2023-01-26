@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlDownloadManager_GetNonFileStreamAsync_d_5__Boxed.h>
+
+#include <Modloader/app/structs/XmlDownloadManager_GetNonFileStreamAsync_d_5__Boxed.h>
 #include <Modloader/app/structs/IAsyncStateMachine.h>
 
 namespace app::classes::System::Xml::XmlDownloadManager__GetNonFileStreamAsync_d__5 {

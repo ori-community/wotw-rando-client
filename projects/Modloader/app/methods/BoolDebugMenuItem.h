@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Action_1_Boolean_.h>
 #include <Modloader/app/structs/BoolDebugMenuItem.h>
 #include <Modloader/app/structs/Func_1_Boolean_.h>
-#include <Modloader/app/structs/Action_1_Boolean_.h>
 #include <Modloader/app/structs/Func_1_String_.h>
 #include <Modloader/app/structs/Rect.h>
 

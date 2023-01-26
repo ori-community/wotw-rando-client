@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/EntityKey_5__Class.h>
 #include <Modloader/app/structs/EntityKey_5.h>
 #include <Modloader/app/structs/EntityKey_5__Array.h>
+#include <Modloader/app/structs/EntityKey_5__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace EntityKey_5 {
-        namespace {
-            inline app::EntityKey_5__Class* type_info_ref = nullptr;
+        inline app::EntityKey_5__Class** type_info() {
+            static app::EntityKey_5__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::EntityKey_5__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::EntityKey_5__Class** type_info = &type_info_ref;
         inline app::EntityKey_5__Class* get_class() {
-            return il2cpp::get_class<app::EntityKey_5__Class>(type_info, "PlayFab.GroupsModels", "EntityKey");
+            return il2cpp::get_class<app::EntityKey_5__Class>(type_info(), "PlayFab.GroupsModels", "EntityKey");
         }
         inline app::EntityKey_5* create() {
             return il2cpp::create_object<app::EntityKey_5>(get_class());

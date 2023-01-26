@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameplaySystemsScenePreloadPrewarmOperation.h>
+
+#include <Modloader/app/structs/GameplaySystemsScenePreloadPrewarmOperation.h>
 #include <Modloader/app/structs/AsyncOperation_1.h>
 #include <Modloader/app/structs/String.h>
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Event.h>
+
+#include <Modloader/app/structs/Event.h>
 #include <Modloader/app/structs/KeyCode__Enum.h>
 
 namespace app::classes::ZenFulcrum::EmbeddedBrowser::KeyMappings {

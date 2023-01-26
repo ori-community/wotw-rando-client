@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DebugProjectileTester.h>
+
+#include <Modloader/app/structs/DebugProjectileTester.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::DebugProjectileTester {
     IL2CPP_REGISTER_METHOD(0x00DFDD30, void, Shoot, (app::DebugProjectileTester * this_ptr))

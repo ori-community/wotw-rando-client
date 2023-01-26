@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HtmlEncodedRawTextWriter.h>
-#include <Modloader/app/structs/TextWriter.h>
-#include <Modloader/app/structs/XmlWriterSettings.h>
-#include <Modloader/app/structs/Stream.h>
-#include <Modloader/app/structs/XmlStandalone__Enum.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/HtmlEncodedRawTextWriter.h>
 #include <Modloader/app/structs/Char__Array.h>
+#include <Modloader/app/structs/Stream.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/XmlStandalone__Enum.h>
+#include <Modloader/app/structs/XmlWriterSettings.h>
 
 namespace app::classes::System::Xml::HtmlEncodedRawTextWriter {
     IL2CPP_REGISTER_METHOD(0x021F89F0, void, ctor_1, (app::HtmlEncodedRawTextWriter * this_ptr, app::TextWriter* writer, app::XmlWriterSettings* settings))
@@ -23,17 +24,14 @@ namespace app::classes::System::Xml::HtmlEncodedRawTextWriter {
     IL2CPP_REGISTER_METHOD(0x021F9720, void, WriteProcessingInstruction, (app::HtmlEncodedRawTextWriter * this_ptr, app::String* target, app::String* text))
     IL2CPP_REGISTER_METHOD(0x021F98D0, void, WriteString, (app::HtmlEncodedRawTextWriter * this_ptr, app::String* text))
     IL2CPP_REGISTER_METHOD(0x021F99C0, void, WriteEntityRef, (app::HtmlEncodedRawTextWriter * this_ptr, app::String* name))
-    IL2CPP_REGISTER_METHODINFO(0x0473C880, HtmlEncodedRawTextWriter_WriteEntityRef__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x021F9A30, void, WriteCharEntity, (app::HtmlEncodedRawTextWriter * this_ptr, uint16_t ch))
-    IL2CPP_REGISTER_METHODINFO(0x0471F200, HtmlEncodedRawTextWriter_WriteCharEntity__MethodInfo)
-    IL2CPP_REGISTER_METHOD(0x021F9AA0, void, WriteSurrogateCharEntity, (app::HtmlEncodedRawTextWriter * this_ptr, uint16_t low_char, uint16_t high_char))
-    IL2CPP_REGISTER_METHODINFO(0x047759A8, HtmlEncodedRawTextWriter_WriteSurrogateCharEntity__MethodInfo)
+    IL2CPP_REGISTER_METHOD(0x021F9A30, void, WriteCharEntity, (app::HtmlEncodedRawTextWriter * this_ptr, char16_t ch))
+    IL2CPP_REGISTER_METHOD(0x021F9AA0, void, WriteSurrogateCharEntity, (app::HtmlEncodedRawTextWriter * this_ptr, char16_t low_char, char16_t high_char))
     IL2CPP_REGISTER_METHOD(0x01DB1D60, void, WriteChars, (app::HtmlEncodedRawTextWriter * this_ptr, app::Char__Array* buffer, int32_t index, int32_t count))
     IL2CPP_REGISTER_METHOD(0x021F9B10, void, Init, (app::HtmlEncodedRawTextWriter * this_ptr, app::XmlWriterSettings* settings))
     IL2CPP_REGISTER_METHOD(0x021F9EC0, void, WriteMetaElement, (app::HtmlEncodedRawTextWriter * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x021FA080, void, WriteHtmlElementTextBlock, (app::HtmlEncodedRawTextWriter * this_ptr, uint16_t* p_src, uint16_t* p_src_end))
-    IL2CPP_REGISTER_METHOD(0x021FA0A0, void, WriteHtmlAttributeTextBlock, (app::HtmlEncodedRawTextWriter * this_ptr, uint16_t* p_src, uint16_t* p_src_end))
-    IL2CPP_REGISTER_METHOD(0x021FA0E0, void, WriteHtmlAttributeText, (app::HtmlEncodedRawTextWriter * this_ptr, uint16_t* p_src, uint16_t* p_src_end))
-    IL2CPP_REGISTER_METHOD(0x021FA4A0, void, WriteUriAttributeText, (app::HtmlEncodedRawTextWriter * this_ptr, uint16_t* p_src, uint16_t* p_src_end))
+    IL2CPP_REGISTER_METHOD(0x021FA080, void, WriteHtmlElementTextBlock, (app::HtmlEncodedRawTextWriter * this_ptr, char16_t* p_src, char16_t* p_src_end))
+    IL2CPP_REGISTER_METHOD(0x021FA0A0, void, WriteHtmlAttributeTextBlock, (app::HtmlEncodedRawTextWriter * this_ptr, char16_t* p_src, char16_t* p_src_end))
+    IL2CPP_REGISTER_METHOD(0x021FA0E0, void, WriteHtmlAttributeText, (app::HtmlEncodedRawTextWriter * this_ptr, char16_t* p_src, char16_t* p_src_end))
+    IL2CPP_REGISTER_METHOD(0x021FA4A0, void, WriteUriAttributeText, (app::HtmlEncodedRawTextWriter * this_ptr, char16_t* p_src, char16_t* p_src_end))
     IL2CPP_REGISTER_METHOD(0x021FA920, void, OutputRestAmps, (app::HtmlEncodedRawTextWriter * this_ptr))
 } // namespace app::classes::System::Xml::HtmlEncodedRawTextWriter

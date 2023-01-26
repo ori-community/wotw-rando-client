@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CurrentSystemTimeZone.h>
+
+#include <Modloader/app/structs/CurrentSystemTimeZone.h>
 #include <Modloader/app/structs/Int64__Array.h>
 #include <Modloader/app/structs/String__Array.h>
 

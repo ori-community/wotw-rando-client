@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/MarkAsDontDestroyOnLoadOnAwake.h>
+#include <Modloader/app/structs/MarkAsDontDestroyOnLoadOnAwake__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MarkAsDontDestroyOnLoadOnAwake__Class.h>
-#include <Modloader/app/structs/MarkAsDontDestroyOnLoadOnAwake.h>
 
 namespace app::classes::types {
     namespace MarkAsDontDestroyOnLoadOnAwake {
-        namespace {
-            inline app::MarkAsDontDestroyOnLoadOnAwake__Class* type_info_ref = nullptr;
+        inline app::MarkAsDontDestroyOnLoadOnAwake__Class** type_info() {
+            static app::MarkAsDontDestroyOnLoadOnAwake__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::MarkAsDontDestroyOnLoadOnAwake__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::MarkAsDontDestroyOnLoadOnAwake__Class** type_info = &type_info_ref;
         inline app::MarkAsDontDestroyOnLoadOnAwake__Class* get_class() {
-            return il2cpp::get_class<app::MarkAsDontDestroyOnLoadOnAwake__Class>(type_info, "", "MarkAsDontDestroyOnLoadOnAwake");
+            return il2cpp::get_class<app::MarkAsDontDestroyOnLoadOnAwake__Class>(type_info(), "", "MarkAsDontDestroyOnLoadOnAwake");
         }
         inline app::MarkAsDontDestroyOnLoadOnAwake* create() {
             return il2cpp::create_object<app::MarkAsDontDestroyOnLoadOnAwake>(get_class());

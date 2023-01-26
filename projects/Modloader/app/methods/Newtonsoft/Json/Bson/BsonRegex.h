@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BsonString.h>
+
+#include <Modloader/app/structs/BsonString.h>
 #include <Modloader/app/structs/BsonRegex.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/BsonType__Enum.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::Newtonsoft::Json::Bson::BsonRegex {
     IL2CPP_REGISTER_METHOD(0x002FB950, app::BsonString*, get_Pattern, (app::BsonRegex * this_ptr))

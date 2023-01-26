@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CollisionTriggerSetupHolder.h>
+
+#include <Modloader/app/structs/CollisionTriggerSetupHolder.h>
 #include <Modloader/app/structs/CollisionTriggerSetupData.h>
 #include <Modloader/app/structs/List_1_IIndexedItem_.h>
 

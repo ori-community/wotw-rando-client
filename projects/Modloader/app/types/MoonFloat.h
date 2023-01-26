@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/MoonFloat__Class.h>
 #include <Modloader/app/structs/MoonFloat.h>
 #include <Modloader/app/structs/MoonFloat__Array.h>
+#include <Modloader/app/structs/MoonFloat__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace MoonFloat {
-        inline app::MoonFloat__Class** type_info = (app::MoonFloat__Class**)(modloader::win::memory::resolve_rva(0x04747408));
+        inline app::MoonFloat__Class** type_info() {
+            static app::MoonFloat__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::MoonFloat__Class**)(modloader::win::memory::resolve_rva(0x04747408));
+            }
+            return cache;
+        }
         inline app::MoonFloat__Class* get_class() {
-            return il2cpp::get_class<app::MoonFloat__Class>(type_info, "Moon", "MoonFloat");
+            return il2cpp::get_class<app::MoonFloat__Class>(type_info(), "Moon", "MoonFloat");
         }
         inline app::MoonFloat* create() {
             return il2cpp::create_object<app::MoonFloat>(get_class());

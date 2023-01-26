@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/UberShaderTexture.h>
+
+#include <Modloader/app/structs/UberShaderTexture.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/UberShaderBlock.h>
 #include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/UberShaderBlock.h>
 
 namespace app::classes::UberShaderTexture {
     IL2CPP_REGISTER_METHOD(0x012881C0, void, Set, (app::UberShaderTexture * this_ptr, app::String* bind_name, app::UberShaderBlock* attached_block))

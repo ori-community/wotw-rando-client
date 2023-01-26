@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IEnumerator_1_System_Int32_.h>
-#include <Modloader/app/structs/OrderedEnumerable_1_System_Int32_.h>
+
+#include <Modloader/app/structs/IEnumerator_1_System_Int32_.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/OrderedEnumerable_1_System_Int32_.h>
 
 namespace app::classes::System::Linq::OrderedEnumerable_1_System_Int32_ {
     IL2CPP_REGISTER_METHOD(0x025496B0, app::IEnumerator_1_System_Int32_*, GetEnumerator, (app::OrderedEnumerable_1_System_Int32_ * this_ptr))

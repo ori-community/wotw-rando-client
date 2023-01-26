@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PathList_PathListComparer.h>
+
+#include <Modloader/app/structs/PathList_PathListComparer.h>
 #include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Net::PathList_PathListComparer {

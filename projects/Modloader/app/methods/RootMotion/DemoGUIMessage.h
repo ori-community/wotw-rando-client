@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DemoGUIMessage.h>
+
+#include <Modloader/app/structs/DemoGUIMessage.h>
 
 namespace app::classes::RootMotion::DemoGUIMessage {
     IL2CPP_REGISTER_METHOD(0x02208300, void, OnGUI, (app::DemoGUIMessage * this_ptr))

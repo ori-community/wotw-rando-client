@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/CSteamID.h>
+#include <Modloader/app/structs/CSteamID__Array.h>
+#include <Modloader/app/structs/CSteamID__Boxed.h>
+#include <Modloader/app/structs/CSteamID__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/CSteamID__Class.h>
-#include <Modloader/app/structs/CSteamID.h>
-#include <Modloader/app/structs/CSteamID__Boxed.h>
-#include <Modloader/app/structs/CSteamID__Array.h>
 
 namespace app::classes::types {
     namespace CSteamID {
-        inline app::CSteamID__Class** type_info = (app::CSteamID__Class**)(modloader::win::memory::resolve_rva(0x04746E48));
+        inline app::CSteamID__Class** type_info() {
+            static app::CSteamID__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::CSteamID__Class**)(modloader::win::memory::resolve_rva(0x04746E48));
+            }
+            return cache;
+        }
         inline app::CSteamID__Class* get_class() {
-            return il2cpp::get_class<app::CSteamID__Class>(type_info, "Steamworks", "CSteamID");
+            return il2cpp::get_class<app::CSteamID__Class>(type_info(), "Steamworks", "CSteamID");
         }
         inline app::CSteamID* create() {
             return il2cpp::create_object<app::CSteamID>(get_class());

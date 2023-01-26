@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GenericEqualityComparer_1_System_SByte_.h>
-#include <Modloader/app/structs/SByte__Array.h>
+
+#include <Modloader/app/structs/GenericEqualityComparer_1_System_SByte_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/SByte__Array.h>
 
 namespace app::classes::System::Collections::Generic::GenericEqualityComparer_1_System_SByte_ {
     IL2CPP_REGISTER_METHOD(0x02021DC0, bool, Equals_1, (app::GenericEqualityComparer_1_System_SByte_ * this_ptr, int8_t x, int8_t y))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SpringPlaceholder.h>
+
+#include <Modloader/app/structs/SpringPlaceholder.h>
 
 namespace app::classes::SpringPlaceholder {
     IL2CPP_REGISTER_METHOD(0x009A8240, void, Awake, (app::SpringPlaceholder * this_ptr))

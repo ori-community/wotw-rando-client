@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_System_ValueTuple_2_.h>
-#include <Modloader/app/structs/ValueTuple_2_Int32_Int32_.h>
-#include <Modloader/app/structs/ValueTuple_2_Int32_Int32___Array.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_System_ValueTuple_2_.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ObjectEqualityComparer_1_System_ValueTuple_2__1.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_System_ValueTuple_2__2.h>
+#include <Modloader/app/structs/ObjectEqualityComparer_1_System_ValueTuple_2__3.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Int32_.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Int32___Array.h>
 #include <Modloader/app/structs/ValueTuple_2_Int32_Object_.h>
 #include <Modloader/app/structs/ValueTuple_2_Int32_Object___Array.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_System_ValueTuple_2__2.h>
 #include <Modloader/app/structs/ValueTuple_2_Object_Object_.h>
 #include <Modloader/app/structs/ValueTuple_2_Object_Object___Array.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_System_ValueTuple_2__3.h>
 #include <Modloader/app/structs/ValueTuple_2_Object_Single_.h>
 #include <Modloader/app/structs/ValueTuple_2_Object_Single___Array.h>
 

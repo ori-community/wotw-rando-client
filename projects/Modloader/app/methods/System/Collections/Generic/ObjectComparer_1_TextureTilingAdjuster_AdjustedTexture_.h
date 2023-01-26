@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectComparer_1_TextureTilingAdjuster_AdjustedTexture_.h>
-#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture.h>
+
+#include <Modloader/app/structs/ObjectComparer_1_TextureTilingAdjuster_AdjustedTexture_.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/TextureTilingAdjuster_AdjustedTexture.h>
 
 namespace app::classes::System::Collections::Generic::ObjectComparer_1_TextureTilingAdjuster_AdjustedTexture_ {
     IL2CPP_REGISTER_METHOD(0x01CCCE30, int32_t, Compare, (app::ObjectComparer_1_TextureTilingAdjuster_AdjustedTexture_ * this_ptr, app::TextureTilingAdjuster_AdjustedTexture x, app::TextureTilingAdjuster_AdjustedTexture y))

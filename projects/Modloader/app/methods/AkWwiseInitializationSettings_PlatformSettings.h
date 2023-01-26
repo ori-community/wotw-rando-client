@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkWwiseInitializationSettings_PlatformSettings.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/IEnumerable.h>
+
+#include <Modloader/app/structs/AkWwiseInitializationSettings_PlatformSettings.h>
 #include <Modloader/app/structs/HashSet_1_System_String_.h>
+#include <Modloader/app/structs/IEnumerable.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::AkWwiseInitializationSettings_PlatformSettings {
     IL2CPP_REGISTER_METHOD(0x02706F50, void, IgnorePropertyValue, (app::AkWwiseInitializationSettings_PlatformSettings * this_ptr, app::String* property_path))

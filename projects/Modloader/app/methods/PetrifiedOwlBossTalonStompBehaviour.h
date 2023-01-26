@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PetrifiedOwlBossTalonStompBehaviour.h>
-#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/PetrifiedOwlBossTalonStompBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/Enum__Array.h>
 #include <Modloader/app/structs/Enum.h>
+#include <Modloader/app/structs/Enum__Array.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/PetrifiedOwlBossBaseBehaviour.h>
 
 namespace app::classes::PetrifiedOwlBossTalonStompBehaviour {
     IL2CPP_REGISTER_METHOD(0x0177FB70, void, CopyData, (app::PetrifiedOwlBossTalonStompBehaviour * this_ptr, app::PetrifiedOwlBossBaseBehaviour* other))

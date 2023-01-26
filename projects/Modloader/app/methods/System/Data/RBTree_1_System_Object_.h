@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/RBTree_1_System_Object_.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/TreeAccessMethod__Enum.h>
-#include <Modloader/app/structs/RBTree_1_K_TreePage_System_Object_.h>
-#include <Modloader/app/structs/RBTree_1_K_NodePath_System_Object_.h>
-#include <Modloader/app/structs/IEnumerator.h>
+
+#include <Modloader/app/structs/RBTree_1_System_Object_.h>
 #include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/Object__Array.h>
 #include <Modloader/app/structs/RBTree_1_K_NodeColor_System_Object_.h>
+#include <Modloader/app/structs/RBTree_1_K_NodePath_System_Object_.h>
+#include <Modloader/app/structs/RBTree_1_K_TreePage_System_Object_.h>
+#include <Modloader/app/structs/TreeAccessMethod__Enum.h>
 
 namespace app::classes::System::Data::RBTree_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02FB04C0, int32_t, get_Count, (app::RBTree_1_System_Object_ * this_ptr))
@@ -23,26 +24,19 @@ namespace app::classes::System::Data::RBTree_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02FB0050, int32_t, GetIntValueFromBitMap, (uint32_t bit_map))
     IL2CPP_REGISTER_METHOD(0x02FB6080, void, FreeNode, (app::RBTree_1_System_Object_ * this_ptr, int32_t node_id))
     IL2CPP_REGISTER_METHOD(0x02FB6230, int32_t, GetIndexOfPageWithFreeSlot, (app::RBTree_1_System_Object_ * this_ptr, bool allocated_page))
-    IL2CPP_REGISTER_METHODINFO(0x04703F58, RBTree_1_System_Object__GetIndexOfPageWithFreeSlot__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FB6490, int32_t, GetNewNode, (app::RBTree_1_System_Object_ * this_ptr, app::Object* key))
-    IL2CPP_REGISTER_METHODINFO(0x0477B0C8, RBTree_1_System_Object__GetNewNode__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FB0800, int32_t, Successor_1, (app::RBTree_1_System_Object_ * this_ptr, int32_t x_id))
     IL2CPP_REGISTER_METHOD(0x02FB67D0, bool, Successor_2, (app::RBTree_1_System_Object_ * this_ptr, int32_t* node_id, int32_t* main_tree_node_id))
-    IL2CPP_REGISTER_METHODINFO(0x0470FBB0, RBTree_1_System_Object__Successor_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FB0AB0, int32_t, Minimum, (app::RBTree_1_System_Object_ * this_ptr, int32_t x_id))
     IL2CPP_REGISTER_METHOD(0x02FB6980, int32_t, LeftRotate, (app::RBTree_1_System_Object_ * this_ptr, int32_t root_id, int32_t x_id, int32_t main_tree_node))
     IL2CPP_REGISTER_METHOD(0x02FB6E50, int32_t, RightRotate, (app::RBTree_1_System_Object_ * this_ptr, int32_t root_id, int32_t x_id, int32_t main_tree_node))
     IL2CPP_REGISTER_METHOD(0x02FB7310, int32_t, RBInsert, (app::RBTree_1_System_Object_ * this_ptr, int32_t root_id, int32_t x_id, int32_t main_tree_node_i_d, int32_t position, bool append))
-    IL2CPP_REGISTER_METHODINFO(0x047981D0, RBTree_1_System_Object__RBInsert__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FB8230, void, UpdateNodeKey, (app::RBTree_1_System_Object_ * this_ptr, app::Object* current_key, app::Object* new_key))
     IL2CPP_REGISTER_METHOD(0x02FB8300, app::Object*, DeleteByIndex, (app::RBTree_1_System_Object_ * this_ptr, int32_t i))
     IL2CPP_REGISTER_METHOD(0x02FB2550, int32_t, RBDelete, (app::RBTree_1_System_Object_ * this_ptr, int32_t z_id))
     IL2CPP_REGISTER_METHOD(0x02FB83B0, int32_t, RBDeleteX, (app::RBTree_1_System_Object_ * this_ptr, int32_t root_id, int32_t z_id, int32_t main_tree_node_i_d))
-    IL2CPP_REGISTER_METHODINFO(0x047958C0, RBTree_1_System_Object__RBDeleteX__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FB9040, int32_t, RBDeleteFixup, (app::RBTree_1_System_Object_ * this_ptr, int32_t root_id, int32_t x_id, int32_t px_id, int32_t main_tree_node_i_d))
-    IL2CPP_REGISTER_METHODINFO(0x0474AEE0, RBTree_1_System_Object__RBDeleteFixup__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FB99B0, int32_t, SearchSubTree, (app::RBTree_1_System_Object_ * this_ptr, int32_t root_id, app::Object* key))
-    IL2CPP_REGISTER_METHODINFO(0x04768ED0, RBTree_1_System_Object__SearchSubTree__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FB9B00, app::RBTree_1_K_NodePath_System_Object_, GetNodeByKey, (app::RBTree_1_System_Object_ * this_ptr, app::Object* key))
     IL2CPP_REGISTER_METHOD(0x02FB3E70, int32_t, GetIndexByKey, (app::RBTree_1_System_Object_ * this_ptr, app::Object* key))
     IL2CPP_REGISTER_METHOD(0x02FB9C10, int32_t, GetIndexByNode, (app::RBTree_1_System_Object_ * this_ptr, int32_t node))
@@ -50,7 +44,6 @@ namespace app::classes::System::Data::RBTree_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02FB40D0, int32_t, ComputeIndexByNode, (app::RBTree_1_System_Object_ * this_ptr, int32_t node_id))
     IL2CPP_REGISTER_METHOD(0x02FB41F0, int32_t, ComputeIndexWithSatelliteByNode, (app::RBTree_1_System_Object_ * this_ptr, int32_t node_id))
     IL2CPP_REGISTER_METHOD(0x02FB9D30, app::RBTree_1_K_NodePath_System_Object_, GetNodeByIndex, (app::RBTree_1_System_Object_ * this_ptr, int32_t user_index))
-    IL2CPP_REGISTER_METHODINFO(0x04737878, RBTree_1_System_Object__GetNodeByIndex__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FB44A0, int32_t, ComputeNodeByIndex_1, (app::RBTree_1_System_Object_ * this_ptr, int32_t index, int32_t* satellite_root_id))
     IL2CPP_REGISTER_METHOD(0x02FB46B0, int32_t, ComputeNodeByIndex_2, (app::RBTree_1_System_Object_ * this_ptr, int32_t x_id, int32_t index))
     IL2CPP_REGISTER_METHOD(0x02FB4770, int32_t, Insert_1, (app::RBTree_1_System_Object_ * this_ptr, app::Object* item))
@@ -62,9 +55,7 @@ namespace app::classes::System::Data::RBTree_1_System_Object_ {
     IL2CPP_REGISTER_METHOD(0x02FB4AE0, void, RemoveAt, (app::RBTree_1_System_Object_ * this_ptr, int32_t position))
     IL2CPP_REGISTER_METHOD(0x02FB4B10, void, Clear, (app::RBTree_1_System_Object_ * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02FBA090, void, CopyTo_1, (app::RBTree_1_System_Object_ * this_ptr, app::Array* array, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x04740328, RBTree_1_System_Object__CopyTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FBA280, void, CopyTo_2, (app::RBTree_1_System_Object_ * this_ptr, app::Object__Array* array, int32_t index))
-    IL2CPP_REGISTER_METHODINFO(0x0476B650, RBTree_1_System_Object__CopyTo_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02FBA480, void, SetRight, (app::RBTree_1_System_Object_ * this_ptr, int32_t node_id, int32_t right_node_id))
     IL2CPP_REGISTER_METHOD(0x02FBA500, void, SetLeft, (app::RBTree_1_System_Object_ * this_ptr, int32_t node_id, int32_t left_node_id))
     IL2CPP_REGISTER_METHOD(0x02FBA580, void, SetParent, (app::RBTree_1_System_Object_ * this_ptr, int32_t node_id, int32_t parent_node_id))

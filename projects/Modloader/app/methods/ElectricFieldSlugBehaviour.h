@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ElectricFieldSlugBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/ElectricFieldSlugBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::ElectricFieldSlugBehaviour {
     IL2CPP_REGISTER_METHOD(0x00BF7C50, void, OnEnter, (app::ElectricFieldSlugBehaviour * this_ptr, app::IContext* context))

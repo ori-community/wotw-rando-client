@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlWriter.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/XmlWriter.h>
 #include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/XmlReader.h>
 #include <Modloader/app/structs/Stream.h>
-#include <Modloader/app/structs/XmlWriterSettings.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/TextWriter.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlWriterSettings.h>
 
 namespace app::classes::System::Xml::XmlWriter {
     IL2CPP_REGISTER_METHOD(0x01FD5540, void, WriteStartElement, (app::XmlWriter * this_ptr, app::String* local_name, app::String* ns))
@@ -17,9 +18,7 @@ namespace app::classes::System::Xml::XmlWriter {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Close, (app::XmlWriter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01FD56D0, void, WriteValue, (app::XmlWriter * this_ptr, app::String* value))
     IL2CPP_REGISTER_METHOD(0x01FD56F0, void, WriteAttributes, (app::XmlWriter * this_ptr, app::XmlReader* reader, bool defattr))
-    IL2CPP_REGISTER_METHODINFO(0x04733868, XmlWriter_WriteAttributes__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01FD5A80, void, WriteNode, (app::XmlWriter * this_ptr, app::XmlReader* reader, bool defattr))
-    IL2CPP_REGISTER_METHODINFO(0x047859C8, XmlWriter_WriteNode__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01FD5F90, void, WriteElementString, (app::XmlWriter * this_ptr, app::String* local_name, app::String* ns, app::String* value))
     IL2CPP_REGISTER_METHOD(0x01FD6000, void, Dispose_1, (app::XmlWriter * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01FD6020, void, Dispose_2, (app::XmlWriter * this_ptr, bool disposing))

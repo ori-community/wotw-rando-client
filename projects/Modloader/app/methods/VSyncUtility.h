@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VSyncUtility.h>
+
+#include <Modloader/app/structs/VSyncUtility.h>
 
 namespace app::classes::VSyncUtility {
     IL2CPP_REGISTER_METHOD(0x00482AA0, int32_t, get_vSyncCount, ())

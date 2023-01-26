@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Toad.h>
-#include <Modloader/app/structs/SuspendableMask__Enum.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/Toad.h>
 #include <Modloader/app/structs/Animator.h>
 #include <Modloader/app/structs/AnimatorStateInfo.h>
 #include <Modloader/app/structs/Archive.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/SuspendableMask__Enum.h>
 
 namespace app::classes::Toad {
     IL2CPP_REGISTER_METHOD(0x00585310, bool, get_IsSuspended, (app::Toad * this_ptr))
@@ -22,6 +23,5 @@ namespace app::classes::Toad {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnStateMachineBehaviourUpdate, (app::Toad * this_ptr, app::Animator* animator, app::AnimatorStateInfo state_info, int32_t layer_index))
     IL2CPP_REGISTER_METHOD(0x00AFB950, void, Serialize, (app::Toad * this_ptr, app::Archive* ar))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, OnGameSerializeLoad, (app::Toad * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04729990, Toad_OnGameSerializeLoad__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00AFBA70, void, ctor, (app::Toad * this_ptr))
 } // namespace app::classes::Toad

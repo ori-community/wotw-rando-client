@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CameraController_1.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Quaternion.h>
+
+#include <Modloader/app/structs/CameraController_1.h>
 #include <Modloader/app/structs/Bounds.h>
-#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds_.h>
 #include <Modloader/app/structs/NativeArray_1_System_Byte_.h>
+#include <Modloader/app/structs/NativeArray_1_UnityEngine_Bounds_.h>
 #include <Modloader/app/structs/Plane__Array.h>
+#include <Modloader/app/structs/Quaternion.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::CameraController {
     IL2CPP_REGISTER_METHOD(0x003FBE50, bool, get_FrustumLocked, (app::CameraController_1 * this_ptr))
@@ -18,7 +19,6 @@ namespace app::classes::CameraController {
     IL2CPP_REGISTER_METHOD(0x01685210, void, UnlockFrustum, (app::CameraController_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01685220, void, OnEnterFrustumLock, (app::CameraController_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01685360, void, OnGameReset, (app::CameraController_1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04774E80, CameraController_1_OnGameReset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x006260E0, app::Vector3, get_Position, (app::CameraController_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x016853F0, app::Quaternion, get_Rotation, (app::CameraController_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01685480, bool, InsideFrustum, (app::CameraController_1 * this_ptr, app::Bounds bounds))

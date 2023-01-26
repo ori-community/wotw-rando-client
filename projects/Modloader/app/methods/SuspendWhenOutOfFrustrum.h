@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SuspendWhenOutOfFrustrum.h>
+
+#include <Modloader/app/structs/SuspendWhenOutOfFrustrum.h>
 #include <Modloader/app/structs/Bounds.h>
 
 namespace app::classes::SuspendWhenOutOfFrustrum {

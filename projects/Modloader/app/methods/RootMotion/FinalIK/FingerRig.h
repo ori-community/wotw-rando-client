@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FingerRig.h>
+
+#include <Modloader/app/structs/FingerRig.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Transform__Array.h>

@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/GetVideoURLResult_t__Class.h>
 #include <Modloader/app/structs/GetVideoURLResult_t.h>
 #include <Modloader/app/structs/GetVideoURLResult_t__Boxed.h>
+#include <Modloader/app/structs/GetVideoURLResult_t__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace GetVideoURLResult_t {
-        namespace {
-            inline app::GetVideoURLResult_t__Class* type_info_ref = nullptr;
+        inline app::GetVideoURLResult_t__Class** type_info() {
+            static app::GetVideoURLResult_t__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::GetVideoURLResult_t__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::GetVideoURLResult_t__Class** type_info = &type_info_ref;
         inline app::GetVideoURLResult_t__Class* get_class() {
-            return il2cpp::get_class<app::GetVideoURLResult_t__Class>(type_info, "Steamworks", "GetVideoURLResult_t");
+            return il2cpp::get_class<app::GetVideoURLResult_t__Class>(type_info(), "Steamworks", "GetVideoURLResult_t");
         }
         inline app::GetVideoURLResult_t* create() {
             return il2cpp::create_object<app::GetVideoURLResult_t>(get_class());

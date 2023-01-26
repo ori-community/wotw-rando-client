@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GUISkin.h>
+
+#include <Modloader/app/structs/GUISkin.h>
 #include <Modloader/app/structs/Font.h>
+#include <Modloader/app/structs/GUISettings.h>
 #include <Modloader/app/structs/GUIStyle.h>
 #include <Modloader/app/structs/GUIStyle__Array.h>
-#include <Modloader/app/structs/GUISettings.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/IEnumerator.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::UnityEngine::GUISkin {
     IL2CPP_REGISTER_METHOD(0x029F01A0, void, ctor, (app::GUISkin * this_ptr))

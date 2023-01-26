@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkExternalSourceInfoArray.h>
+
+#include <Modloader/app/structs/AkExternalSourceInfoArray.h>
 #include <Modloader/app/structs/AkExternalSourceInfo.h>
 
 namespace app::classes::AkExternalSourceInfoArray {

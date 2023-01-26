@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComboMove.h>
-#include <Modloader/app/structs/List_1_Moon_ComboSystem_ComboInput_.h>
-#include <Modloader/app/structs/ComboMoveState__Enum.h>
-#include <Modloader/app/structs/SeinComboHandler.h>
+
+#include <Modloader/app/structs/ComboMove.h>
 #include <Modloader/app/structs/ComboInput.h>
+#include <Modloader/app/structs/ComboMoveState__Enum.h>
+#include <Modloader/app/structs/List_1_Moon_ComboSystem_ComboInput_.h>
+#include <Modloader/app/structs/SeinComboHandler.h>
 
 namespace app::classes::Moon::ComboSystem::ComboMove {
     IL2CPP_REGISTER_METHOD(0x00CC5B40, void, ctor, (app::ComboMove * this_ptr))

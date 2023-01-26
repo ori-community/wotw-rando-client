@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaInfo.h>
-#include <Modloader/app/structs/XmlSchemaValidity__Enum.h>
-#include <Modloader/app/structs/XmlSchemaSimpleType.h>
-#include <Modloader/app/structs/XmlSchemaType.h>
-#include <Modloader/app/structs/XmlSchemaElement.h>
+
+#include <Modloader/app/structs/XmlSchemaInfo.h>
 #include <Modloader/app/structs/XmlSchemaAttribute.h>
 #include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaElement.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/XmlSchemaType.h>
+#include <Modloader/app/structs/XmlSchemaValidity__Enum.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaInfo {
     IL2CPP_REGISTER_METHOD(0x01CB6210, void, ctor_1, (app::XmlSchemaInfo * this_ptr))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LockOnTarget.h>
+
+#include <Modloader/app/structs/LockOnTarget.h>
 #include <Modloader/app/structs/IAttackable.h>
 
 namespace app::classes::LockOnTarget {

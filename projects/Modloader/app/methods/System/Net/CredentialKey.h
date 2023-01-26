@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CredentialKey.h>
-#include <Modloader/app/structs/Uri.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/CredentialKey.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Uri.h>
 
 namespace app::classes::System::Net::CredentialKey {
     IL2CPP_REGISTER_METHOD(0x01EABCD0, void, ctor, (app::CredentialKey * this_ptr, app::Uri* uri_prefix, app::String* authentication_type))

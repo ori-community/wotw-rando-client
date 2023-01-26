@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DigZone.h>
-#include <Modloader/app/structs/LegacyBabySandWorm.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/DigZone.h>
 #include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/Collision.h>
+#include <Modloader/app/structs/LegacyBabySandWorm.h>
+#include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LegacyBabySandWorm {
     IL2CPP_REGISTER_METHOD(0x015CE620, void, ResetStatics, ())

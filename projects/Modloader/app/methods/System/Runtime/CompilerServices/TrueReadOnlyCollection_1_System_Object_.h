@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/TrueReadOnlyCollection_1_System_Object_.h>
+
+#include <Modloader/app/structs/TrueReadOnlyCollection_1_System_Object_.h>
 #include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Runtime::CompilerServices::TrueReadOnlyCollection_1_System_Object_ {

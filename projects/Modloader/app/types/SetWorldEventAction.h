@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/SetWorldEventAction.h>
+#include <Modloader/app/structs/SetWorldEventAction__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/SetWorldEventAction__Class.h>
-#include <Modloader/app/structs/SetWorldEventAction.h>
 
 namespace app::classes::types {
     namespace SetWorldEventAction {
-        namespace {
-            inline app::SetWorldEventAction__Class* type_info_ref = nullptr;
+        inline app::SetWorldEventAction__Class** type_info() {
+            static app::SetWorldEventAction__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::SetWorldEventAction__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::SetWorldEventAction__Class** type_info = &type_info_ref;
         inline app::SetWorldEventAction__Class* get_class() {
-            return il2cpp::get_class<app::SetWorldEventAction__Class>(type_info, "", "SetWorldEventAction");
+            return il2cpp::get_class<app::SetWorldEventAction__Class>(type_info(), "", "SetWorldEventAction");
         }
         inline app::SetWorldEventAction* create() {
             return il2cpp::create_object<app::SetWorldEventAction>(get_class());

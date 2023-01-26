@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VertexHelper.h>
-#include <Modloader/app/structs/Vector3.h>
+
+#include <Modloader/app/structs/VertexHelper.h>
 #include <Modloader/app/structs/Color32.h>
 #include <Modloader/app/structs/Vector2.h>
+#include <Modloader/app/structs/Vector3.h>
 #include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::UnityEngine::Experimental::UI::VertexHelperExtension {

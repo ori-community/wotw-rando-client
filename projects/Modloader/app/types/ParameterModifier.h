@@ -1,20 +1,23 @@
 #pragma once
+#include <Modloader/app/structs/ParameterModifier.h>
+#include <Modloader/app/structs/ParameterModifier__Array.h>
+#include <Modloader/app/structs/ParameterModifier__Boxed.h>
+#include <Modloader/app/structs/ParameterModifier__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ParameterModifier__Class.h>
-#include <Modloader/app/structs/ParameterModifier.h>
-#include <Modloader/app/structs/ParameterModifier__Boxed.h>
-#include <Modloader/app/structs/ParameterModifier__Array.h>
 
 namespace app::classes::types {
     namespace ParameterModifier {
-        namespace {
-            inline app::ParameterModifier__Class* type_info_ref = nullptr;
+        inline app::ParameterModifier__Class** type_info() {
+            static app::ParameterModifier__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::ParameterModifier__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::ParameterModifier__Class** type_info = &type_info_ref;
         inline app::ParameterModifier__Class* get_class() {
-            return il2cpp::get_class<app::ParameterModifier__Class>(type_info, "System.Reflection", "ParameterModifier");
+            return il2cpp::get_class<app::ParameterModifier__Class>(type_info(), "System.Reflection", "ParameterModifier");
         }
         inline app::ParameterModifier* create() {
             return il2cpp::create_object<app::ParameterModifier>(get_class());

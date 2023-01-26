@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/TexturePoolEntity__Class.h>
 #include <Modloader/app/structs/TexturePoolEntity.h>
 #include <Modloader/app/structs/TexturePoolEntity__Array.h>
+#include <Modloader/app/structs/TexturePoolEntity__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace TexturePoolEntity {
-        inline app::TexturePoolEntity__Class** type_info = (app::TexturePoolEntity__Class**)(modloader::win::memory::resolve_rva(0x047623A8));
+        inline app::TexturePoolEntity__Class** type_info() {
+            static app::TexturePoolEntity__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::TexturePoolEntity__Class**)(modloader::win::memory::resolve_rva(0x047623A8));
+            }
+            return cache;
+        }
         inline app::TexturePoolEntity__Class* get_class() {
-            return il2cpp::get_class<app::TexturePoolEntity__Class>(type_info, "Moon.ArtOptimization", "TexturePoolEntity");
+            return il2cpp::get_class<app::TexturePoolEntity__Class>(type_info(), "Moon.ArtOptimization", "TexturePoolEntity");
         }
         inline app::TexturePoolEntity* create() {
             return il2cpp::create_object<app::TexturePoolEntity>(get_class());

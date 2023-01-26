@@ -1,11 +1,12 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XPathNodeType__Enum.h>
-#include <Modloader/app/structs/XPathNode__Boxed.h>
+
+#include <Modloader/app/structs/XPathNodeType__Enum.h>
 #include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/XPathDocument.h>
 #include <Modloader/app/structs/XPathNodePageInfo.h>
 #include <Modloader/app/structs/XPathNode__Array.h>
+#include <Modloader/app/structs/XPathNode__Boxed.h>
 
 namespace app::classes::MS::Internal::Xml::Cache::XPathNode {
     IL2CPP_REGISTER_METHOD(0x001DE330, app::XPathNodeType__Enum, get_NodeType, (app::XPathNode__Boxed * this_ptr))

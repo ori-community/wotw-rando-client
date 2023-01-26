@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/BoundedVoronoi.h>
-#include <Modloader/app/structs/Mesh_1.h>
-#include <Modloader/app/structs/IVoronoiFactory.h>
-#include <Modloader/app/structs/IPredicates.h>
+
+#include <Modloader/app/structs/BoundedVoronoi.h>
 #include <Modloader/app/structs/HalfEdge.h>
+#include <Modloader/app/structs/IPredicates.h>
+#include <Modloader/app/structs/IVoronoiFactory.h>
+#include <Modloader/app/structs/Mesh_1.h>
 #include <Modloader/app/structs/Vertex.h>
 
 namespace app::classes::TriangleNet::Voronoi::BoundedVoronoi {

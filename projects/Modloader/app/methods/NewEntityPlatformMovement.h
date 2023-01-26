@@ -1,12 +1,13 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/NewEntityPlatformMovement.h>
+
+#include <Modloader/app/structs/NewEntityPlatformMovement.h>
+#include <Modloader/app/structs/AnimationCurve.h>
 #include <Modloader/app/structs/Collision.h>
 #include <Modloader/app/structs/Kickback.h>
-#include <Modloader/app/structs/AnimationCurve.h>
-#include <Modloader/app/structs/Vector2.h>
-#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/NewEntityPlatformMovement_KickbackEntry.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector2.h>
 
 namespace app::classes::NewEntityPlatformMovement {
     IL2CPP_REGISTER_METHOD(0x005FA060, bool, get_IsAnticipatingLanding, (app::NewEntityPlatformMovement * this_ptr))

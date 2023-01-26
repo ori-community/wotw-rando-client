@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EnemyGroupSwitch.h>
+
+#include <Modloader/app/structs/EnemyGroupSwitch.h>
 
 namespace app::classes::EnemyGroupSwitch {
     IL2CPP_REGISTER_METHOD(0x00C81E10, void, Start, (app::EnemyGroupSwitch * this_ptr))

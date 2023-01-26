@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ClassInterfaceAttribute.h>
+
+#include <Modloader/app/structs/ClassInterfaceAttribute.h>
 #include <Modloader/app/structs/ClassInterfaceType__Enum.h>
 
 namespace app::classes::System::Runtime::InteropServices::ClassInterfaceAttribute {

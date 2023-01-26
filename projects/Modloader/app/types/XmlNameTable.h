@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/XmlNameTable.h>
+#include <Modloader/app/structs/XmlNameTable__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/XmlNameTable__Class.h>
-#include <Modloader/app/structs/XmlNameTable.h>
 
 namespace app::classes::types {
     namespace XmlNameTable {
-        namespace {
-            inline app::XmlNameTable__Class* type_info_ref = nullptr;
+        inline app::XmlNameTable__Class** type_info() {
+            static app::XmlNameTable__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::XmlNameTable__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::XmlNameTable__Class** type_info = &type_info_ref;
         inline app::XmlNameTable__Class* get_class() {
-            return il2cpp::get_class<app::XmlNameTable__Class>(type_info, "System.Xml", "XmlNameTable");
+            return il2cpp::get_class<app::XmlNameTable__Class>(type_info(), "System.Xml", "XmlNameTable");
         }
         inline app::XmlNameTable* create() {
             return il2cpp::create_object<app::XmlNameTable>(get_class());

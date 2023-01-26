@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ElapsedEventHandler.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/ElapsedEventHandler.h>
+#include <Modloader/app/structs/AsyncCallback.h>
 #include <Modloader/app/structs/ElapsedEventArgs.h>
 #include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Object.h>
 
 namespace app::classes::System::Timers::ElapsedEventHandler {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::ElapsedEventHandler * this_ptr, app::Object* object, void* method_1))

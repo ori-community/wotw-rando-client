@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/String__Array.h>
+
+#include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/EditorInfoGizmo.h>
+#include <Modloader/app/structs/String__Array.h>
 
 namespace app::classes::EditorInfoGizmo {
     IL2CPP_REGISTER_METHOD(0x00BF7680, void, DrawInfoGizmo, (app::GameObject * go, app::String__Array* strings))

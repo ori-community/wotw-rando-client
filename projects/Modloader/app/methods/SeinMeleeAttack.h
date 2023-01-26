@@ -1,21 +1,22 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SeinMeleeAttack.h>
-#include <Modloader/app/structs/CharacterPlatformMovement.h>
-#include <Modloader/app/structs/Transform.h>
+
+#include <Modloader/app/structs/SeinMeleeAttack.h>
 #include <Modloader/app/structs/Animator.h>
-#include <Modloader/app/structs/MeleeWeapon.h>
-#include <Modloader/app/structs/MeleeComboMove.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/CharacterPlatformMovement.h>
+#include <Modloader/app/structs/Collider.h>
 #include <Modloader/app/structs/ComboMoveType__Enum.h>
-#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
-#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
-#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
 #include <Modloader/app/structs/Damage.h>
 #include <Modloader/app/structs/DamageResult.h>
+#include <Modloader/app/structs/GravityPlatformMovementSettings.h>
+#include <Modloader/app/structs/HorizontalPlatformMovementSettings.h>
+#include <Modloader/app/structs/MeleeComboMove.h>
+#include <Modloader/app/structs/MeleeWeapon.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/SeinController3D_EventId__Enum.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Collider.h>
 
 namespace app::classes::SeinMeleeAttack {
     IL2CPP_REGISTER_METHOD(0x00417870, bool, get_IsBlindForest, (app::SeinMeleeAttack * this_ptr))
@@ -45,18 +46,13 @@ namespace app::classes::SeinMeleeAttack {
     IL2CPP_REGISTER_METHOD(0x008A8FE0, void, UpdateMeleeAttack, (app::SeinMeleeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008A9810, void, PerformComboMove, (app::SeinMeleeAttack * this_ptr, app::MeleeComboMove* move))
     IL2CPP_REGISTER_METHOD(0x008A9C70, void, ModifyGravityPlatformMovementSettings, (app::SeinMeleeAttack * this_ptr, app::GravityPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x047592C8, SeinMeleeAttack_ModifyGravityPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008A9D50, void, ModifyHorizontalPlatformMovementSettings, (app::SeinMeleeAttack * this_ptr, app::HorizontalPlatformMovementSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x04728730, SeinMeleeAttack_ModifyHorizontalPlatformMovementSettings__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008A9E30, void, OnAnimationEvent, (app::SeinMeleeAttack * this_ptr, app::SeinController3D_EventId__Enum event_id))
-    IL2CPP_REGISTER_METHODINFO(0x04707350, SeinMeleeAttack_OnAnimationEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x002FA000, void, LateUpdate, (app::SeinMeleeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008A9F10, void, BeginCombo, (app::SeinMeleeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008AA2C0, void, EndCombo, (app::SeinMeleeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008AA700, void, OnOriTakeDamage, (app::SeinMeleeAttack * this_ptr, app::Damage* damage))
-    IL2CPP_REGISTER_METHODINFO(0x04760C28, SeinMeleeAttack_OnOriTakeDamage__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008AA850, void, OnDamageResultReceived, (app::SeinMeleeAttack * this_ptr, app::DamageResult damage_result))
-    IL2CPP_REGISTER_METHODINFO(0x047723E8, SeinMeleeAttack_OnDamageResultReceived__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008AB010, float, GetCooldown, (app::SeinMeleeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008AB110, void, UpdateTargetting, (app::SeinMeleeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008AB250, void, UpdateTargetHighlight, (app::SeinMeleeAttack * this_ptr))
@@ -64,11 +60,8 @@ namespace app::classes::SeinMeleeAttack {
     IL2CPP_REGISTER_METHOD(0x008AB8D0, bool, IsMoveOnCooldown, (app::SeinMeleeAttack * this_ptr, app::MeleeComboMove* combo_move))
     IL2CPP_REGISTER_METHOD(0x008ABA20, void, UpdateCooldownRules, (app::SeinMeleeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008ABDC0, void, OnLand, (app::SeinMeleeAttack * this_ptr, app::Vector3 normal, app::Collider* col))
-    IL2CPP_REGISTER_METHODINFO(0x04704E48, SeinMeleeAttack_OnLand__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008ABEC0, void, OnProcessRootMotion, (app::SeinMeleeAttack * this_ptr, app::Vector3 motion))
-    IL2CPP_REGISTER_METHODINFO(0x04772348, SeinMeleeAttack_OnProcessRootMotion__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x008AC760, void, ctor, (app::SeinMeleeAttack * this_ptr))
     IL2CPP_REGISTER_METHOD(0x008ACA90, void, cctor, ())
     IL2CPP_REGISTER_METHOD(0x008ACB20, bool, _OnDamageResultReceived_b__68_0, (app::SeinMeleeAttack * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04737150, SeinMeleeAttack__OnDamageResultReceived_b__68_0__MethodInfo)
 } // namespace app::classes::SeinMeleeAttack

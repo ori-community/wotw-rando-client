@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SendCustomAccountRecoveryEmailResult.h>
+
+#include <Modloader/app/structs/SendCustomAccountRecoveryEmailResult.h>
 
 namespace app::classes::PlayFab::ServerModels::SendCustomAccountRecoveryEmailResult {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::SendCustomAccountRecoveryEmailResult * this_ptr))

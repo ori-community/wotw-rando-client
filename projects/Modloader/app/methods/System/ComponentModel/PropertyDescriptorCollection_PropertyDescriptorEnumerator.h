@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PropertyDescriptorCollection_PropertyDescriptorEnumerator.h>
-#include <Modloader/app/structs/PropertyDescriptorCollection.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/PropertyDescriptorCollection_PropertyDescriptorEnumerator.h>
 #include <Modloader/app/structs/DictionaryEntry.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
 
 namespace app::classes::System::ComponentModel::PropertyDescriptorCollection_PropertyDescriptorEnumerator {
     IL2CPP_REGISTER_METHOD(0x01DC2A00, void, ctor, (app::PropertyDescriptorCollection_PropertyDescriptorEnumerator * this_ptr, app::PropertyDescriptorCollection* owner))

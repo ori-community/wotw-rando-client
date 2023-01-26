@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IndexField__Boxed.h>
+
+#include <Modloader/app/structs/IndexField__Boxed.h>
 #include <Modloader/app/structs/DataColumn.h>
 #include <Modloader/app/structs/IndexField.h>
 #include <Modloader/app/structs/Object.h>

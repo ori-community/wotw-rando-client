@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/DateTimeConstantAttribute__Class.h>
 #include <Modloader/app/structs/DateTimeConstantAttribute.h>
 #include <Modloader/app/structs/DateTimeConstantAttribute__Array.h>
+#include <Modloader/app/structs/DateTimeConstantAttribute__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace DateTimeConstantAttribute {
-        namespace {
-            inline app::DateTimeConstantAttribute__Class* type_info_ref = nullptr;
+        inline app::DateTimeConstantAttribute__Class** type_info() {
+            static app::DateTimeConstantAttribute__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::DateTimeConstantAttribute__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::DateTimeConstantAttribute__Class** type_info = &type_info_ref;
         inline app::DateTimeConstantAttribute__Class* get_class() {
-            return il2cpp::get_class<app::DateTimeConstantAttribute__Class>(type_info, "System.Runtime.CompilerServices", "DateTimeConstantAttribute");
+            return il2cpp::get_class<app::DateTimeConstantAttribute__Class>(type_info(), "System.Runtime.CompilerServices", "DateTimeConstantAttribute");
         }
         inline app::DateTimeConstantAttribute* create() {
             return il2cpp::create_object<app::DateTimeConstantAttribute>(get_class());

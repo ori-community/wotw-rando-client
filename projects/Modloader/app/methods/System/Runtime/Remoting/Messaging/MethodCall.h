@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MethodCall.h>
-#include <Modloader/app/structs/SerializationInfo.h>
-#include <Modloader/app/structs/StreamingContext.h>
+
+#include <Modloader/app/structs/MethodCall.h>
 #include <Modloader/app/structs/CADMethodCallMessage.h>
+#include <Modloader/app/structs/IDictionary.h>
 #include <Modloader/app/structs/IMethodMessage.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/Identity.h>
 #include <Modloader/app/structs/LogicalCallContext.h>
 #include <Modloader/app/structs/MethodBase.h>
-#include <Modloader/app/structs/IDictionary.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
+#include <Modloader/app/structs/SerializationInfo.h>
+#include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/Identity.h>
 #include <Modloader/app/structs/Type__Array.h>
 
 namespace app::classes::System::Runtime::Remoting::Messaging::MethodCall {
@@ -38,7 +39,6 @@ namespace app::classes::System::Runtime::Remoting::Messaging::MethodCall {
     IL2CPP_REGISTER_METHOD(0x02315990, app::Object*, GetArg, (app::MethodCall * this_ptr, int32_t arg_num))
     IL2CPP_REGISTER_METHOD(0x002FA000, void, Init, (app::MethodCall * this_ptr))
     IL2CPP_REGISTER_METHOD(0x023159D0, void, ResolveMethod, (app::MethodCall * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047535D8, MethodCall_ResolveMethod__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x02316170, app::Type*, CastTo, (app::MethodCall * this_ptr, app::String* client_type, app::Type* server_type))
     IL2CPP_REGISTER_METHOD(0x02316480, app::String*, GetTypeNameFromAssemblyQualifiedName, (app::String * aqname))
     IL2CPP_REGISTER_METHOD(0x002FB9F0, app::Identity*, IInternalMessage_get_TargetIdentity, (app::MethodCall * this_ptr))

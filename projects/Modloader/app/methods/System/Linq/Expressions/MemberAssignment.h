@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MemberAssignment.h>
-#include <Modloader/app/structs/MemberInfo_1.h>
+
+#include <Modloader/app/structs/MemberAssignment.h>
 #include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/MemberInfo_1.h>
 
 namespace app::classes::System::Linq::Expressions::MemberAssignment {
     IL2CPP_REGISTER_METHOD(0x009317D0, void, ctor, (app::MemberAssignment * this_ptr, app::MemberInfo_1* member, app::Expression* expression))

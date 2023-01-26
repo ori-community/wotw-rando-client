@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AccessibleAsAttribute.h>
+
+#include <Modloader/app/structs/AccessibleAsAttribute.h>
 #include <Modloader/app/structs/Type.h>
 
 namespace app::classes::Moon::SceneManagement::AccessibleAsAttribute {

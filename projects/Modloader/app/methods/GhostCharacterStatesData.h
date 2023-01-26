@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Dictionary_2_System_Int32_System_Boolean_.h>
-#include <Modloader/app/structs/GhostCharacterStatesData.h>
-#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
+
+#include <Modloader/app/structs/Dictionary_2_System_Int32_System_Boolean_.h>
 #include <Modloader/app/structs/BinaryReader.h>
 #include <Modloader/app/structs/BinaryWriter.h>
+#include <Modloader/app/structs/GhostCharacterStatesData.h>
+#include <Modloader/app/structs/GhostFrame_FrameDataTypes__Enum.h>
 
 namespace app::classes::GhostCharacterStatesData {
     IL2CPP_REGISTER_METHOD(0x002FA280, app::Dictionary_2_System_Int32_System_Boolean_*, get_States, (app::GhostCharacterStatesData * this_ptr))

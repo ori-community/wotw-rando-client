@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/NewGameAction.h>
+#include <Modloader/app/structs/NewGameAction__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/NewGameAction__Class.h>
-#include <Modloader/app/structs/NewGameAction.h>
 
 namespace app::classes::types {
     namespace NewGameAction {
-        namespace {
-            inline app::NewGameAction__Class* type_info_ref = nullptr;
+        inline app::NewGameAction__Class** type_info() {
+            static app::NewGameAction__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::NewGameAction__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::NewGameAction__Class** type_info = &type_info_ref;
         inline app::NewGameAction__Class* get_class() {
-            return il2cpp::get_class<app::NewGameAction__Class>(type_info, "", "NewGameAction");
+            return il2cpp::get_class<app::NewGameAction__Class>(type_info(), "", "NewGameAction");
         }
         inline app::NewGameAction* create() {
             return il2cpp::create_object<app::NewGameAction>(get_class());

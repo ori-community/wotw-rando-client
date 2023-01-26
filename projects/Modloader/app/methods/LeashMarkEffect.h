@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/LeashMarkEffect.h>
+
+#include <Modloader/app/structs/LeashMarkEffect.h>
 #include <Modloader/app/structs/IEnumerator.h>
 #include <Modloader/app/structs/LeashMarkEffect_State__Enum.h>
 
@@ -17,7 +18,5 @@ namespace app::classes::LeashMarkEffect {
     IL2CPP_REGISTER_METHOD(0x015C7640, void, FixedUpdate, (app::LeashMarkEffect * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00444DD0, void, ctor, (app::LeashMarkEffect * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015C7A60, void, _ChangeState_b__19_0, (app::LeashMarkEffect * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04731060, LeashMarkEffect__ChangeState_b__19_0__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015C7A90, void, _ChangeState_b__19_1, (app::LeashMarkEffect * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476BE10, LeashMarkEffect__ChangeState_b__19_1__MethodInfo)
 } // namespace app::classes::LeashMarkEffect

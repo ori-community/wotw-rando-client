@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AssemblyReloadedEvent.h>
+
+#include <Modloader/app/structs/AssemblyReloadedEvent.h>
 #include <Modloader/app/structs/DatadogEvent.h>
 
 namespace app::classes::AssemblyReloadedEvent {

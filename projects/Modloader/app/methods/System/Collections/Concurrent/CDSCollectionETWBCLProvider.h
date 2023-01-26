@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CDSCollectionETWBCLProvider.h>
+
+#include <Modloader/app/structs/CDSCollectionETWBCLProvider.h>
 #include <Modloader/app/structs/CDSCollectionETWBCLProvider_1.h>
 
 namespace app::classes::System::Collections::Concurrent::CDSCollectionETWBCLProvider {

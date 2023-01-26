@@ -1,28 +1,29 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XsdValidatingReader.h>
-#include <Modloader/app/structs/XmlReader.h>
-#include <Modloader/app/structs/XmlResolver.h>
-#include <Modloader/app/structs/XmlReaderSettings.h>
-#include <Modloader/app/structs/XmlSchemaObject.h>
-#include <Modloader/app/structs/XmlNodeType__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/XmlSpace__Enum.h>
+
+#include <Modloader/app/structs/XsdValidatingReader.h>
+#include <Modloader/app/structs/AttributePSVIInfo.h>
+#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
 #include <Modloader/app/structs/IXmlSchemaInfo.h>
-#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/ReadState__Enum_1.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/ValidatingReaderNodeData.h>
 #include <Modloader/app/structs/XmlNameTable.h>
-#include <Modloader/app/structs/XmlSchemaValidity__Enum.h>
+#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
+#include <Modloader/app/structs/XmlNodeType__Enum.h>
+#include <Modloader/app/structs/XmlReader.h>
+#include <Modloader/app/structs/XmlReaderSettings.h>
+#include <Modloader/app/structs/XmlResolver.h>
+#include <Modloader/app/structs/XmlSchemaAttribute.h>
+#include <Modloader/app/structs/XmlSchemaElement.h>
+#include <Modloader/app/structs/XmlSchemaInfo.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
 #include <Modloader/app/structs/XmlSchemaSimpleType.h>
 #include <Modloader/app/structs/XmlSchemaType.h>
-#include <Modloader/app/structs/XmlSchemaElement.h>
-#include <Modloader/app/structs/XmlSchemaAttribute.h>
-#include <Modloader/app/structs/IDictionary_2_System_String_System_String_.h>
-#include <Modloader/app/structs/XmlNamespaceScope__Enum.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/XmlSchemaInfo.h>
-#include <Modloader/app/structs/AttributePSVIInfo.h>
-#include <Modloader/app/structs/ValidatingReaderNodeData.h>
+#include <Modloader/app/structs/XmlSchemaValidity__Enum.h>
+#include <Modloader/app/structs/XmlSpace__Enum.h>
 #include <Modloader/app/structs/XsdCachingReader.h>
 
 namespace app::classes::System::Xml::XsdValidatingReader {
@@ -41,7 +42,7 @@ namespace app::classes::System::Xml::XsdValidatingReader {
     IL2CPP_REGISTER_METHOD(0x01717120, app::String*, get_BaseURI, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01717150, bool, get_IsEmptyElement, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03103300, bool, get_IsDefault, (app::XsdValidatingReader * this_ptr))
-    IL2CPP_REGISTER_METHOD(0x017171B0, uint16_t, get_QuoteChar, (app::XsdValidatingReader * this_ptr))
+    IL2CPP_REGISTER_METHOD(0x017171B0, char16_t, get_QuoteChar, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x017171E0, app::XmlSpace__Enum, get_XmlSpace, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01717210, app::String*, get_XmlLang, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x004C50A0, app::IXmlSchemaInfo*, get_SchemaInfo, (app::XsdValidatingReader * this_ptr))
@@ -52,7 +53,6 @@ namespace app::classes::System::Xml::XsdValidatingReader {
     IL2CPP_REGISTER_METHOD(0x03103690, app::String*, GetAttribute_3, (app::XsdValidatingReader * this_ptr, int32_t i))
     IL2CPP_REGISTER_METHOD(0x031037C0, bool, MoveToAttribute_1, (app::XsdValidatingReader * this_ptr, app::String* name))
     IL2CPP_REGISTER_METHOD(0x03103890, void, MoveToAttribute_2, (app::XsdValidatingReader * this_ptr, int32_t i))
-    IL2CPP_REGISTER_METHODINFO(0x0471FF48, XsdValidatingReader_MoveToAttribute_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03103A50, bool, MoveToFirstAttribute, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03103BF0, bool, MoveToNextAttribute, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03103D80, bool, MoveToElement, (app::XsdValidatingReader * this_ptr))
@@ -64,7 +64,6 @@ namespace app::classes::System::Xml::XsdValidatingReader {
     IL2CPP_REGISTER_METHOD(0x002FBCC0, app::XmlNameTable*, get_NameTable, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03104480, app::String*, LookupNamespace, (app::XsdValidatingReader * this_ptr, app::String* prefix))
     IL2CPP_REGISTER_METHOD(0x03104530, void, ResolveEntity, (app::XsdValidatingReader * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0473D108, XsdValidatingReader_ResolveEntity__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03104580, bool, ReadAttributeValue, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03104640, bool, IXmlSchemaInfo_get_IsDefault, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031046F0, bool, IXmlSchemaInfo_get_IsNil, (app::XsdValidatingReader * this_ptr))
@@ -80,10 +79,8 @@ namespace app::classes::System::Xml::XsdValidatingReader {
     IL2CPP_REGISTER_METHOD(0x03104BF0, app::String*, IXmlNamespaceResolver_LookupNamespace, (app::XsdValidatingReader * this_ptr, app::String* prefix))
     IL2CPP_REGISTER_METHOD(0x03104CC0, app::String*, IXmlNamespaceResolver_LookupPrefix, (app::XsdValidatingReader * this_ptr, app::String* namespace_name))
     IL2CPP_REGISTER_METHOD(0x017170C0, app::Object*, GetStringValue, (app::XsdValidatingReader * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0479A0E0, XsdValidatingReader_GetStringValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03104D90, app::XmlSchemaInfo*, get_AttributeSchemaInfo, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03104DB0, void, ProcessReaderEvent, (app::XsdValidatingReader * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047701B8, XsdValidatingReader_ProcessReaderEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03105140, void, ProcessElementEvent, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03105980, void, ProcessEndElementEvent, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x03105B80, void, ValidateAttributes, (app::XsdValidatingReader * this_ptr))
@@ -101,6 +98,5 @@ namespace app::classes::System::Xml::XsdValidatingReader {
     IL2CPP_REGISTER_METHOD(0x03107390, app::XsdCachingReader*, GetCachingReader, (app::XsdValidatingReader * this_ptr))
     IL2CPP_REGISTER_METHOD(0x031076B0, app::ValidatingReaderNodeData*, CreateDummyTextNode, (app::XsdValidatingReader * this_ptr, app::String* attribute_value, int32_t depth))
     IL2CPP_REGISTER_METHOD(0x03107850, void, CachingCallBack, (app::XsdValidatingReader * this_ptr, app::XsdCachingReader* caching_reader))
-    IL2CPP_REGISTER_METHODINFO(0x0475FC40, XsdValidatingReader_CachingCallBack__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x03107880, app::String*, GetOriginalAtomicValueStringOfElement, (app::XsdValidatingReader * this_ptr))
 } // namespace app::classes::System::Xml::XsdValidatingReader

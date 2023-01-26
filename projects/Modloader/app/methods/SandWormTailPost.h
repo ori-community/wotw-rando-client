@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SandWormTailPost.h>
+
+#include <Modloader/app/structs/SandWormTailPost.h>
 
 namespace app::classes::SandWormTailPost {
     IL2CPP_REGISTER_METHOD(0x00C26B90, void, InitializeSnakeSolver, (app::SandWormTailPost * this_ptr))

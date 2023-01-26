@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IPv6AddressFormatter__Boxed.h>
-#include <Modloader/app/structs/UInt16__Array.h>
+
+#include <Modloader/app/structs/IPv6AddressFormatter__Boxed.h>
 #include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/UInt16__Array.h>
 
 namespace app::classes::System::Net::IPv6AddressFormatter {
     IL2CPP_REGISTER_METHOD(0x00110270, void, ctor, (app::IPv6AddressFormatter__Boxed * this_ptr, app::UInt16__Array* addr, int64_t scope_id))

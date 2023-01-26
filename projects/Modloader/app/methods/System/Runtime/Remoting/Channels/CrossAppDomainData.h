@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CrossAppDomainData.h>
+
+#include <Modloader/app/structs/CrossAppDomainData.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Runtime::Remoting::Channels::CrossAppDomainData {

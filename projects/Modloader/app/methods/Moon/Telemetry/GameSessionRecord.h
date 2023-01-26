@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/GameSessionRecord.h>
+
+#include <Modloader/app/structs/GameSessionRecord.h>
 #include <Modloader/app/structs/EnvironmentInfo.h>
 #include <Modloader/app/structs/String__Array.h>
 

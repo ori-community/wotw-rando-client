@@ -1,35 +1,36 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Linq_JToken_.h>
-#include <Modloader/app/structs/JObject.h>
-#include <Modloader/app/structs/PropertyChangedEventHandler.h>
-#include <Modloader/app/structs/PropertyChangingEventHandler.h>
-#include <Modloader/app/structs/JToken.h>
-#include <Modloader/app/structs/JProperty.h>
-#include <Modloader/app/structs/JTokenType__Enum.h>
-#include <Modloader/app/structs/IEnumerable_1_Newtonsoft_Json_Linq_JProperty_.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/StringComparison__Enum.h>
-#include <Modloader/app/structs/JsonReader.h>
-#include <Modloader/app/structs/JsonLoadSettings.h>
-#include <Modloader/app/structs/JsonWriter.h>
-#include <Modloader/app/structs/JsonConverter__Array.h>
-#include <Modloader/app/structs/ICollection_1_System_String_.h>
+
+#include <Modloader/app/structs/IList_1_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/AttributeCollection.h>
+#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/DynamicMetaObject.h>
+#include <Modloader/app/structs/EventDescriptorCollection.h>
+#include <Modloader/app/structs/EventDescriptor_1.h>
+#include <Modloader/app/structs/Expression.h>
 #include <Modloader/app/structs/ICollection_1_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/ICollection_1_System_String_.h>
+#include <Modloader/app/structs/IEnumerable_1_Newtonsoft_Json_Linq_JProperty_.h>
+#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_String_Newtonsoft_Json_Linq_JToken_.h>
+#include <Modloader/app/structs/JObject.h>
+#include <Modloader/app/structs/JProperty.h>
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/JTokenType__Enum.h>
+#include <Modloader/app/structs/JsonConverter__Array.h>
+#include <Modloader/app/structs/JsonLoadSettings.h>
+#include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/JsonWriter.h>
 #include <Modloader/app/structs/KeyValuePair_2_System_String_Newtonsoft_Json_Linq_JToken_.h>
 #include <Modloader/app/structs/KeyValuePair_2_System_String_Newtonsoft_Json_Linq_JToken___Array.h>
-#include <Modloader/app/structs/IEnumerator_1_KeyValuePair_2_System_String_Newtonsoft_Json_Linq_JToken_.h>
-#include <Modloader/app/structs/PropertyDescriptorCollection.h>
-#include <Modloader/app/structs/Attribute__Array.h>
-#include <Modloader/app/structs/AttributeCollection.h>
-#include <Modloader/app/structs/TypeConverter.h>
-#include <Modloader/app/structs/EventDescriptor_1.h>
-#include <Modloader/app/structs/PropertyDescriptor.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PropertyChangedEventHandler.h>
+#include <Modloader/app/structs/PropertyChangingEventHandler.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
+#include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/StringComparison__Enum.h>
 #include <Modloader/app/structs/Type.h>
-#include <Modloader/app/structs/EventDescriptorCollection.h>
-#include <Modloader/app/structs/DynamicMetaObject.h>
-#include <Modloader/app/structs/Expression.h>
+#include <Modloader/app/structs/TypeConverter.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JObject {
     IL2CPP_REGISTER_METHOD(0x002FBB60, app::IList_1_Newtonsoft_Json_Linq_JToken_*, get_ChildrenTokens, (app::JObject * this_ptr))
@@ -42,7 +43,6 @@ namespace app::classes::Newtonsoft::Json::Linq::JObject {
     IL2CPP_REGISTER_METHOD(0x01F09790, int32_t, IndexOfItem, (app::JObject * this_ptr, app::JToken* item))
     IL2CPP_REGISTER_METHOD(0x01F098E0, void, InsertItem, (app::JObject * this_ptr, int32_t index, app::JToken* item, bool skip_parent_check))
     IL2CPP_REGISTER_METHOD(0x01F09950, void, ValidateToken, (app::JObject * this_ptr, app::JToken* o, app::JToken* existing))
-    IL2CPP_REGISTER_METHODINFO(0x047353F8, JObject_ValidateToken__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F09C30, void, InternalPropertyChanged, (app::JObject * this_ptr, app::JProperty* child_property))
     IL2CPP_REGISTER_METHOD(0x01F09F10, void, InternalPropertyChanging, (app::JObject * this_ptr, app::JProperty* child_property))
     IL2CPP_REGISTER_METHOD(0x01F09F40, app::JToken*, CloneToken, (app::JObject * this_ptr))
@@ -53,7 +53,6 @@ namespace app::classes::Newtonsoft::Json::Linq::JObject {
     IL2CPP_REGISTER_METHOD(0x01F0A410, app::JToken*, get_Item, (app::JObject * this_ptr, app::String* property_name))
     IL2CPP_REGISTER_METHOD(0x01F0A4E0, void, set_Item, (app::JObject * this_ptr, app::String* property_name, app::JToken* value))
     IL2CPP_REGISTER_METHOD(0x01F0A6B0, app::JObject*, Load, (app::JsonReader * reader, app::JsonLoadSettings* settings))
-    IL2CPP_REGISTER_METHODINFO(0x0474B950, JObject_Load__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F0A990, void, WriteTo, (app::JObject * this_ptr, app::JsonWriter* writer, app::JsonConverter__Array* converters))
     IL2CPP_REGISTER_METHOD(0x01F0AB70, void, Add, (app::JObject * this_ptr, app::String* property_name, app::JToken* value))
     IL2CPP_REGISTER_METHOD(0x01F0ACE0, bool, ContainsKey, (app::JObject * this_ptr, app::String* property_name))
@@ -61,12 +60,10 @@ namespace app::classes::Newtonsoft::Json::Linq::JObject {
     IL2CPP_REGISTER_METHOD(0x01F0AF10, bool, Remove, (app::JObject * this_ptr, app::String* property_name))
     IL2CPP_REGISTER_METHOD(0x01F0AFF0, bool, TryGetValue, (app::JObject * this_ptr, app::String* property_name, app::JToken** value))
     IL2CPP_REGISTER_METHOD(0x01F0B040, app::ICollection_1_Newtonsoft_Json_Linq_JToken_*, IDictionary_string__JToken__get_Values, (app::JObject * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x0476D100, JObject_System_Collections_Generic_IDictionary_System_String_Newtonsoft_Json_Linq_JToken__get_Values__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01F0B090, void, ICollection_KeyValuePair_string__JToken___Add, (app::JObject * this_ptr, app::KeyValuePair_2_System_String_Newtonsoft_Json_Linq_JToken_ item))
     IL2CPP_REGISTER_METHOD(0x01F04500, void, ICollection_KeyValuePair_string__JToken___Clear, (app::JObject * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F0B210, bool, ICollection_KeyValuePair_string__JToken___Contains, (app::JObject * this_ptr, app::KeyValuePair_2_System_String_Newtonsoft_Json_Linq_JToken_ item))
     IL2CPP_REGISTER_METHOD(0x01F0B2D0, void, ICollection_KeyValuePair_string__JToken___CopyTo, (app::JObject * this_ptr, app::KeyValuePair_2_System_String_Newtonsoft_Json_Linq_JToken___Array* array, int32_t array_index))
-    IL2CPP_REGISTER_METHODINFO(0x0474A768, JObject_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_System_String_Newtonsoft_Json_Linq_JToken___CopyTo__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00417870, bool, ICollection_KeyValuePair_string__JToken___get_IsReadOnly, (app::JObject * this_ptr))
     IL2CPP_REGISTER_METHOD(0x01F0B650, bool, ICollection_KeyValuePair_string__JToken___Remove, (app::JObject * this_ptr, app::KeyValuePair_2_System_String_Newtonsoft_Json_Linq_JToken_ item))
     IL2CPP_REGISTER_METHOD(0x01F0B780, app::IEnumerator_1_KeyValuePair_2_System_String_Newtonsoft_Json_Linq_JToken_*, GetEnumerator, (app::JObject * this_ptr))

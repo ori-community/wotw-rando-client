@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMoonType_1_UnityEngine_Quaternion_.h>
+
+#include <Modloader/app/structs/IMoonType_1_UnityEngine_Quaternion_.h>
 #include <Modloader/app/structs/BlackboardVariable_1_UnityEngine_Quaternion_.h>
 
 namespace app::classes::Moon::BehaviourSystem::BlackboardVariable_1_UnityEngine_Quaternion_ {

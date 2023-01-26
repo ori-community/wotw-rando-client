@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MixerGroupSettings__Boxed.h>
-#include <Modloader/app/structs/MixerGroupSettings.h>
+
+#include <Modloader/app/structs/MixerGroupSettings__Boxed.h>
 #include <Modloader/app/structs/AudioMixer.h>
+#include <Modloader/app/structs/MixerGroupSettings.h>
 #include <Modloader/app/structs/String.h>
 
 namespace app::classes::MixerGroupSettings {

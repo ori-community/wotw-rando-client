@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Water3Manager.h>
-#include <Modloader/app/structs/Texture2D.h>
+
+#include <Modloader/app/structs/Water3Manager.h>
 #include <Modloader/app/structs/Color.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/Texture.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Transform.h>
 #include <Modloader/app/structs/Mesh.h>
+#include <Modloader/app/structs/Texture.h>
+#include <Modloader/app/structs/Texture2D.h>
+#include <Modloader/app/structs/Transform.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/Vector4.h>
 
 namespace app::classes::Water3Manager {
     IL2CPP_REGISTER_METHOD(0x02D76130, void, SetDisplacementHeightMap, (app::Water3Manager * this_ptr, app::Texture2D* map, int32_t index))

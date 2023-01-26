@@ -1,8 +1,9 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SneezeSlugTurningBehaviour.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/SneezeSlugTurningBehaviour.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
+#include <Modloader/app/structs/IContext.h>
 
 namespace app::classes::Moon::SneezeSlugTurningBehaviour {
     IL2CPP_REGISTER_METHOD(0x00E2E380, void, OnInitializeTask, (app::SneezeSlugTurningBehaviour * this_ptr, app::IContext* context))

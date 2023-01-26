@@ -1,16 +1,21 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_RendererState__Class.h>
 #include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_RendererState.h>
 #include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_RendererState__Array.h>
+#include <Modloader/app/structs/ExperimentalTransparencyAnimatorSystemStrategy_RendererState__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace ExperimentalTransparencyAnimatorSystemStrategy_RendererState {
-        inline app::ExperimentalTransparencyAnimatorSystemStrategy_RendererState__Class** type_info = (app::ExperimentalTransparencyAnimatorSystemStrategy_RendererState__Class**)(modloader::win::memory::resolve_rva(0x04728320));
+        inline app::ExperimentalTransparencyAnimatorSystemStrategy_RendererState__Class** type_info() {
+            static app::ExperimentalTransparencyAnimatorSystemStrategy_RendererState__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::ExperimentalTransparencyAnimatorSystemStrategy_RendererState__Class**)(modloader::win::memory::resolve_rva(0x04728320));
+            }
+            return cache;
+        }
         inline app::ExperimentalTransparencyAnimatorSystemStrategy_RendererState__Class* get_class() {
-            return il2cpp::get_nested_class<app::ExperimentalTransparencyAnimatorSystemStrategy_RendererState__Class>(type_info, "Moon.Timeline", "ExperimentalTransparencyAnimatorSystemStrategy", "RendererState");
+            return il2cpp::get_nested_class<app::ExperimentalTransparencyAnimatorSystemStrategy_RendererState__Class>(type_info(), "Moon.Timeline", "ExperimentalTransparencyAnimatorSystemStrategy", "RendererState");
         }
         inline app::ExperimentalTransparencyAnimatorSystemStrategy_RendererState* create() {
             return il2cpp::create_object<app::ExperimentalTransparencyAnimatorSystemStrategy_RendererState>(get_class());

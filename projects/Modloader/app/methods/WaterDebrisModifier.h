@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/WaterDebrisModifier.h>
+
+#include <Modloader/app/structs/WaterDebrisModifier.h>
 
 namespace app::classes::WaterDebrisModifier {
     IL2CPP_REGISTER_METHOD(0x008D61D0, void, SetProperties, (app::WaterDebrisModifier * this_ptr))

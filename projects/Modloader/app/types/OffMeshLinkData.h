@@ -1,19 +1,22 @@
 #pragma once
-#include <Modloader/il2cpp_helpers.h>
-#include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/OffMeshLinkData__Class.h>
 #include <Modloader/app/structs/OffMeshLinkData.h>
 #include <Modloader/app/structs/OffMeshLinkData__Boxed.h>
+#include <Modloader/app/structs/OffMeshLinkData__Class.h>
+#include <Modloader/il2cpp_helpers.h>
+#include <Modloader/macros.h>
 
 namespace app::classes::types {
     namespace OffMeshLinkData {
-        namespace {
-            inline app::OffMeshLinkData__Class* type_info_ref = nullptr;
+        inline app::OffMeshLinkData__Class** type_info() {
+            static app::OffMeshLinkData__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::OffMeshLinkData__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::OffMeshLinkData__Class** type_info = &type_info_ref;
         inline app::OffMeshLinkData__Class* get_class() {
-            return il2cpp::get_class<app::OffMeshLinkData__Class>(type_info, "UnityEngine.AI", "OffMeshLinkData");
+            return il2cpp::get_class<app::OffMeshLinkData__Class>(type_info(), "UnityEngine.AI", "OffMeshLinkData");
         }
         inline app::OffMeshLinkData* create() {
             return il2cpp::create_object<app::OffMeshLinkData>(get_class());

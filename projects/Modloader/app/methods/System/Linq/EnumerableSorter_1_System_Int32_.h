@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Int32__Array.h>
+
+#include <Modloader/app/structs/Int32__Array.h>
 #include <Modloader/app/structs/EnumerableSorter_1_System_Int32_.h>
 
 namespace app::classes::System::Linq::EnumerableSorter_1_System_Int32_ {

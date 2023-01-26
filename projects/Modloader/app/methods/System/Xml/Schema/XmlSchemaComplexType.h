@@ -1,19 +1,20 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlSchemaComplexType.h>
-#include <Modloader/app/structs/XmlSchemaContentProcessing__Enum.h>
+
+#include <Modloader/app/structs/XmlSchemaComplexType.h>
 #include <Modloader/app/structs/ContentValidator.h>
-#include <Modloader/app/structs/XmlSchemaDerivationMethod__Enum.h>
-#include <Modloader/app/structs/XmlSchemaContentModel.h>
-#include <Modloader/app/structs/XmlSchemaParticle.h>
-#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
-#include <Modloader/app/structs/XmlSchemaAnyAttribute.h>
-#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
-#include <Modloader/app/structs/XmlSchemaObjectTable.h>
-#include <Modloader/app/structs/XmlSchemaObject.h>
 #include <Modloader/app/structs/XmlSchema.h>
-#include <Modloader/app/structs/XmlSchemaForm__Enum.h>
+#include <Modloader/app/structs/XmlSchemaAnyAttribute.h>
+#include <Modloader/app/structs/XmlSchemaContentModel.h>
+#include <Modloader/app/structs/XmlSchemaContentProcessing__Enum.h>
+#include <Modloader/app/structs/XmlSchemaContentType__Enum.h>
+#include <Modloader/app/structs/XmlSchemaDerivationMethod__Enum.h>
 #include <Modloader/app/structs/XmlSchemaElement.h>
+#include <Modloader/app/structs/XmlSchemaForm__Enum.h>
+#include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/XmlSchemaObjectCollection.h>
+#include <Modloader/app/structs/XmlSchemaObjectTable.h>
+#include <Modloader/app/structs/XmlSchemaParticle.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaComplexType {
     IL2CPP_REGISTER_METHOD(0x01CA36E0, void, cctor, ())

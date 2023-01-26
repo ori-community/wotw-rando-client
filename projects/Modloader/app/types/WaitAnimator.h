@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/WaitAnimator.h>
+#include <Modloader/app/structs/WaitAnimator__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/WaitAnimator__Class.h>
-#include <Modloader/app/structs/WaitAnimator.h>
 
 namespace app::classes::types {
     namespace WaitAnimator {
-        namespace {
-            inline app::WaitAnimator__Class* type_info_ref = nullptr;
+        inline app::WaitAnimator__Class** type_info() {
+            static app::WaitAnimator__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::WaitAnimator__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::WaitAnimator__Class** type_info = &type_info_ref;
         inline app::WaitAnimator__Class* get_class() {
-            return il2cpp::get_class<app::WaitAnimator__Class>(type_info, "", "WaitAnimator");
+            return il2cpp::get_class<app::WaitAnimator__Class>(type_info(), "", "WaitAnimator");
         }
         inline app::WaitAnimator* create() {
             return il2cpp::create_object<app::WaitAnimator>(get_class());

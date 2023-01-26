@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AkIterator.h>
+
+#include <Modloader/app/structs/AkIterator.h>
 #include <Modloader/app/structs/AkPlaylistItem.h>
 
 namespace app::classes::AkIterator {

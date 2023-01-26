@@ -1,20 +1,21 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/JToken.h>
-#include <Modloader/app/structs/JTokenWriter.h>
-#include <Modloader/app/structs/JContainer.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/JsonToken__Enum_1.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/JValue.h>
-#include <Modloader/app/structs/Decimal.h>
+
+#include <Modloader/app/structs/JToken.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/DateTime.h>
 #include <Modloader/app/structs/DateTimeOffset.h>
-#include <Modloader/app/structs/Byte__Array.h>
-#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Decimal.h>
 #include <Modloader/app/structs/Guid.h>
-#include <Modloader/app/structs/Uri.h>
+#include <Modloader/app/structs/JContainer.h>
+#include <Modloader/app/structs/JTokenWriter.h>
+#include <Modloader/app/structs/JValue.h>
 #include <Modloader/app/structs/JsonReader.h>
+#include <Modloader/app/structs/JsonToken__Enum_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/TimeSpan.h>
+#include <Modloader/app/structs/Uri.h>
 
 namespace app::classes::Newtonsoft::Json::Linq::JTokenWriter {
     IL2CPP_REGISTER_METHOD(0x01858240, app::JToken*, get_Token, (app::JTokenWriter * this_ptr))
@@ -44,7 +45,7 @@ namespace app::classes::Newtonsoft::Json::Linq::JTokenWriter {
     IL2CPP_REGISTER_METHOD(0x018596C0, void, WriteValue_9, (app::JTokenWriter * this_ptr, bool value))
     IL2CPP_REGISTER_METHOD(0x01859780, void, WriteValue_10, (app::JTokenWriter * this_ptr, int16_t value))
     IL2CPP_REGISTER_METHOD(0x01859840, void, WriteValue_11, (app::JTokenWriter * this_ptr, uint16_t value))
-    IL2CPP_REGISTER_METHOD(0x01859900, void, WriteValue_12, (app::JTokenWriter * this_ptr, uint16_t value))
+    IL2CPP_REGISTER_METHOD(0x01859900, void, WriteValue_12, (app::JTokenWriter * this_ptr, char16_t value))
     IL2CPP_REGISTER_METHOD(0x018599D0, void, WriteValue_13, (app::JTokenWriter * this_ptr, uint8_t value))
     IL2CPP_REGISTER_METHOD(0x01859A90, void, WriteValue_14, (app::JTokenWriter * this_ptr, int8_t value))
     IL2CPP_REGISTER_METHOD(0x01859B50, void, WriteValue_15, (app::JTokenWriter * this_ptr, app::Decimal value))

@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FloatTween__Boxed.h>
+
+#include <Modloader/app/structs/FloatTween__Boxed.h>
 #include <Modloader/app/structs/UnityAction_1_System_Single_.h>
 
 namespace app::classes::UnityEngine::UI::CoroutineTween::FloatTween {

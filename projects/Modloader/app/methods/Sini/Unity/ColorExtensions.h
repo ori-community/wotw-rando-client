@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Color.h>
+
+#include <Modloader/app/structs/Color.h>
 
 namespace app::classes::Sini::Unity::ColorExtensions {
     IL2CPP_REGISTER_METHOD(0x031144D0, app::Color, WithAlpha, (app::Color color, float alpha))

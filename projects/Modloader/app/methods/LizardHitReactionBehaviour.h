@@ -1,14 +1,15 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EntityDamageEvent.h>
-#include <Modloader/app/structs/LizardHitReactionBehaviour.h>
-#include <Modloader/app/structs/Entity.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/EntityDamageEvent.h>
 #include <Modloader/app/structs/BehaviourStatus__Enum.h>
-#include <Modloader/app/structs/MoonTimeline.h>
-#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
-#include <Modloader/app/structs/EntityEvent.h>
 #include <Modloader/app/structs/Damage.h>
+#include <Modloader/app/structs/Entity.h>
+#include <Modloader/app/structs/EntityEvent.h>
+#include <Modloader/app/structs/EntityReactionBehaviour_ReasonWhyReactionWontInterrupt.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/LizardHitReactionBehaviour.h>
+#include <Modloader/app/structs/MoonTimeline.h>
 #include <Modloader/app/structs/Vector3.h>
 
 namespace app::classes::LizardHitReactionBehaviour {
@@ -30,10 +31,8 @@ namespace app::classes::LizardHitReactionBehaviour {
     IL2CPP_REGISTER_METHOD(0x003FFDF0, bool, ShouldPauseLocomotion, (app::LizardHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FB00D0, bool, PlayedAdditiveAnim, (app::LizardHitReactionBehaviour * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00FB00E0, void, TimelineFinished, (app::LizardHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04755460, LizardHitReactionBehaviour_TimelineFinished__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00FB0100, bool, CanInterrupt, (app::LizardHitReactionBehaviour * this_ptr, app::EntityReactionBehaviour_ReasonWhyReactionWontInterrupt* reason))
     IL2CPP_REGISTER_METHOD(0x00FB0310, void, FlipEventStart, (app::LizardHitReactionBehaviour * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x047187C8, LizardHitReactionBehaviour_FlipEventStart__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00B68B50, app::Vector3, RootMotionRollBackModifier, (app::LizardHitReactionBehaviour * this_ptr, app::Vector3 motion))
     IL2CPP_REGISTER_METHOD(0x00FB0360, void, ctor, (app::LizardHitReactionBehaviour * this_ptr))
 } // namespace app::classes::LizardHitReactionBehaviour

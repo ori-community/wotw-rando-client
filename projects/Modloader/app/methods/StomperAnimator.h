@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IMoonSetupVisuals.h>
+
+#include <Modloader/app/structs/IMoonSetupVisuals.h>
+#include <Modloader/app/structs/Rigidbody.h>
 #include <Modloader/app/structs/StomperAnimator.h>
 #include <Modloader/app/structs/StomperVisuals_SoundEvent__Enum.h>
 #include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/Rigidbody.h>
 
 namespace app::classes::StomperAnimator {
     IL2CPP_REGISTER_METHOD(0x002FB990, app::IMoonSetupVisuals*, get_MoonSetupVisuals, (app::StomperAnimator * this_ptr))

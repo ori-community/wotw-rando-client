@@ -1,17 +1,22 @@
 #pragma once
+#include <Modloader/app/structs/Vector4.h>
+#include <Modloader/app/structs/Vector4__Array.h>
+#include <Modloader/app/structs/Vector4__Boxed.h>
+#include <Modloader/app/structs/Vector4__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Vector4__Class.h>
-#include <Modloader/app/structs/Vector4.h>
-#include <Modloader/app/structs/Vector4__Boxed.h>
-#include <Modloader/app/structs/Vector4__Array.h>
 
 namespace app::classes::types {
     namespace Vector4 {
-        inline app::Vector4__Class** type_info = (app::Vector4__Class**)(modloader::win::memory::resolve_rva(0x0473B200));
+        inline app::Vector4__Class** type_info() {
+            static app::Vector4__Class** cache = nullptr;
+            if (cache == nullptr) {
+                cache = (app::Vector4__Class**)(modloader::win::memory::resolve_rva(0x0473B200));
+            }
+            return cache;
+        }
         inline app::Vector4__Class* get_class() {
-            return il2cpp::get_class<app::Vector4__Class>(type_info, "UnityEngine", "Vector4");
+            return il2cpp::get_class<app::Vector4__Class>(type_info(), "UnityEngine", "Vector4");
         }
         inline app::Vector4* create() {
             return il2cpp::create_object<app::Vector4>(get_class());

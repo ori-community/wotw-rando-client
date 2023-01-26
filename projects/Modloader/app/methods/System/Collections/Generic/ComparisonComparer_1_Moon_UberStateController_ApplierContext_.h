@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ComparisonComparer_1_Moon_UberStateController_ApplierContext_.h>
+
+#include <Modloader/app/structs/ComparisonComparer_1_Moon_UberStateController_ApplierContext_.h>
 #include <Modloader/app/structs/Comparison_1_Moon_UberStateController_ApplierContext_.h>
 #include <Modloader/app/structs/UberStateController_ApplierContext.h>
 

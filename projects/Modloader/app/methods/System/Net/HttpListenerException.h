@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/HttpListenerException.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/HttpListenerException.h>
 #include <Modloader/app/structs/SerializationInfo.h>
 #include <Modloader/app/structs/StreamingContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::System::Net::HttpListenerException {
     IL2CPP_REGISTER_METHOD(0x01D45800, void, ctor_1, (app::HttpListenerException * this_ptr))

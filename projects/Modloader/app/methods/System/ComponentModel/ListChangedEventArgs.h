@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ListChangedEventArgs.h>
+
+#include <Modloader/app/structs/ListChangedEventArgs.h>
 #include <Modloader/app/structs/ListChangedType__Enum.h>
 #include <Modloader/app/structs/PropertyDescriptor.h>
 

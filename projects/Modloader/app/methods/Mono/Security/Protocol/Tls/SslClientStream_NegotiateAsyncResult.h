@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/SslClientStream_NegotiateAsyncResult.h>
+
+#include <Modloader/app/structs/SslClientStream_NegotiateAsyncResult.h>
 #include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/SslClientStream_NegotiateState__Enum.h>
-#include <Modloader/app/structs/Exception.h>
 #include <Modloader/app/structs/WaitHandle.h>
 
 namespace app::classes::Mono::Security::Protocol::Tls::SslClientStream_NegotiateAsyncResult {

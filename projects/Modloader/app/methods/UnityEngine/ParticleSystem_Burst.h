@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ParticleSystem_MinMaxCurve.h>
+
+#include <Modloader/app/structs/ParticleSystem_MinMaxCurve.h>
 #include <Modloader/app/structs/ParticleSystem_Burst__Boxed.h>
 
 namespace app::classes::UnityEngine::ParticleSystem_Burst {

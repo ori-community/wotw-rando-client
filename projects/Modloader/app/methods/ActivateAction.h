@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ActivateAction.h>
-#include <Modloader/app/structs/IContext.h>
+
+#include <Modloader/app/structs/ActivateAction.h>
 #include <Modloader/app/structs/Archive.h>
-#include <Modloader/app/structs/String.h>
 #include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/IContext.h>
+#include <Modloader/app/structs/String.h>
 
 namespace app::classes::ActivateAction {
     IL2CPP_REGISTER_METHOD(0x004C6F90, void, OnValidate, (app::ActivateAction * this_ptr))

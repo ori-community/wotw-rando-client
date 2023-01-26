@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/VerletEdge.h>
+
+#include <Modloader/app/structs/VerletEdge.h>
 
 namespace app::classes::VerletEdge {
     IL2CPP_REGISTER_METHOD(0x013C3E30, void, Set, (app::VerletEdge * this_ptr, app::VerletEdge* verlet_edge, bool set_skinning))

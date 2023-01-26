@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/PreRecordingDynamicSceneObjectEntry__Boxed.h>
+
+#include <Modloader/app/structs/PreRecordingDynamicSceneObjectEntry__Boxed.h>
 #include <Modloader/app/structs/IRecordable.h>
 
 namespace app::classes::PreRecordingDynamicSceneObjectEntry {

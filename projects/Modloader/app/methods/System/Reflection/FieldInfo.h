@@ -1,13 +1,14 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FieldInfo_1.h>
+
+#include <Modloader/app/structs/FieldInfo_1.h>
+#include <Modloader/app/structs/MarshalAsAttribute.h>
 #include <Modloader/app/structs/MemberTypes__Enum.h>
 #include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Object__Array.h>
 #include <Modloader/app/structs/RuntimeFieldHandle.h>
 #include <Modloader/app/structs/RuntimeTypeHandle.h>
 #include <Modloader/app/structs/TypedReference.h>
-#include <Modloader/app/structs/MarshalAsAttribute.h>
-#include <Modloader/app/structs/Object__Array.h>
 
 namespace app::classes::System::Reflection::FieldInfo {
     IL2CPP_REGISTER_METHOD(0x002FA000, void, ctor, (app::FieldInfo_1 * this_ptr))
@@ -21,17 +22,12 @@ namespace app::classes::System::Reflection::FieldInfo {
     IL2CPP_REGISTER_METHOD(0x0268A4A0, void, SetValue, (app::FieldInfo_1 * this_ptr, app::Object* obj, app::Object* value))
     IL2CPP_REGISTER_METHOD(0x0268A4D0, app::FieldInfo_1*, internal_from_handle_type, (void* field_handle, void* type_handle))
     IL2CPP_REGISTER_METHOD(0x0268A530, app::FieldInfo_1*, GetFieldFromHandle_1, (app::RuntimeFieldHandle handle))
-    IL2CPP_REGISTER_METHODINFO(0x04788BB8, FieldInfo_1_GetFieldFromHandle__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0268A5F0, app::FieldInfo_1*, GetFieldFromHandle_2, (app::RuntimeFieldHandle handle, app::RuntimeTypeHandle declaring_type))
-    IL2CPP_REGISTER_METHODINFO(0x0475B130, FieldInfo_1_GetFieldFromHandle_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0268A720, int32_t, GetFieldOffset, (app::FieldInfo_1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04743C78, FieldInfo_1_GetFieldOffset__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0268A780, void, SetValueDirect, (app::FieldInfo_1 * this_ptr, app::TypedReference obj, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x04719C70, FieldInfo_1_SetValueDirect__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x00420EE0, app::MarshalAsAttribute*, get_marshal_info, (app::FieldInfo_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0268A7F0, app::Object__Array*, GetPseudoCustomAttributes, (app::FieldInfo_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0268ABA0, app::Object*, GetRawConstantValue, (app::FieldInfo_1 * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04749860, FieldInfo_1_GetRawConstantValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EEA6F0, bool, Equals, (app::FieldInfo_1 * this_ptr, app::Object* obj))
     IL2CPP_REGISTER_METHOD(0x0194D440, int32_t, GetHashCode, (app::FieldInfo_1 * this_ptr))
     IL2CPP_REGISTER_METHOD(0x02283820, bool, op_Equality, (app::FieldInfo_1 * left, app::FieldInfo_1* right))

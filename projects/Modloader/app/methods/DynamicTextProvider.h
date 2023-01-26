@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/MessageProvider.h>
+
+#include <Modloader/app/structs/MessageProvider.h>
 #include <Modloader/app/structs/DynamicTextProvider.h>
 #include <Modloader/app/structs/IMoonTypeResolver.h>
 

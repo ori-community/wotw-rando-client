@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/StandardVoronoi.h>
+
+#include <Modloader/app/structs/StandardVoronoi.h>
+#include <Modloader/app/structs/IPredicates.h>
+#include <Modloader/app/structs/IVoronoiFactory.h>
 #include <Modloader/app/structs/Mesh_1.h>
 #include <Modloader/app/structs/Rectangle.h>
-#include <Modloader/app/structs/IVoronoiFactory.h>
-#include <Modloader/app/structs/IPredicates.h>
 
 namespace app::classes::TriangleNet::Voronoi::StandardVoronoi {
     IL2CPP_REGISTER_METHOD(0x02AAE8D0, void, ctor_1, (app::StandardVoronoi * this_ptr, app::Mesh_1* mesh))

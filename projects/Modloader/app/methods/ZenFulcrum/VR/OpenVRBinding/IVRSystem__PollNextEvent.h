@@ -1,10 +1,11 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/IVRSystem_PollNextEvent.h>
+
+#include <Modloader/app/structs/IVRSystem_PollNextEvent.h>
+#include <Modloader/app/structs/AsyncCallback.h>
+#include <Modloader/app/structs/IAsyncResult.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/VREvent_t.h>
-#include <Modloader/app/structs/IAsyncResult.h>
-#include <Modloader/app/structs/AsyncCallback.h>
 
 namespace app::classes::ZenFulcrum::VR::OpenVRBinding::IVRSystem__PollNextEvent {
     IL2CPP_REGISTER_METHOD(0x00611810, void, ctor, (app::IVRSystem_PollNextEvent * this_ptr, app::Object* object, void* method_1))

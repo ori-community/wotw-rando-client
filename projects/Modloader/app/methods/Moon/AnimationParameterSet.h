@@ -1,17 +1,18 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationParameterSet.h>
+
+#include <Modloader/app/structs/AnimationParameterSet.h>
+#include <Modloader/app/structs/AnimationParameter.h>
 #include <Modloader/app/structs/Dictionary_2_Moon_AnimationParameter_Moon_AnimationParameter_Instance_.h>
 #include <Modloader/app/structs/FloatAnimationParameter.h>
-#include <Modloader/app/structs/Vector3.h>
-#include <Modloader/app/structs/VectorAnimationParameter.h>
-#include <Modloader/app/structs/AnimationParameter.h>
-#include <Modloader/app/structs/List_1_System_Object_.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/FloatAnimationParameter_Instance.h>
-#include <Modloader/app/structs/VectorAnimationParameter_Instance.h>
 #include <Modloader/app/structs/List_1_Moon_FloatAnimationParameter_.h>
 #include <Modloader/app/structs/List_1_Moon_VectorAnimationParameter_.h>
+#include <Modloader/app/structs/List_1_System_Object_.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/Vector3.h>
+#include <Modloader/app/structs/VectorAnimationParameter.h>
+#include <Modloader/app/structs/VectorAnimationParameter_Instance.h>
 
 namespace app::classes::Moon::AnimationParameterSet {
     IL2CPP_REGISTER_METHOD(0x0052B590, bool, get_PreviewMode, (app::AnimationParameterSet * this_ptr))
@@ -28,11 +29,7 @@ namespace app::classes::Moon::AnimationParameterSet {
     IL2CPP_REGISTER_METHOD(0x01EB8980, app::List_1_System_Object_*, GetParametersOfType_1, (app::AnimationParameterSet * this_ptr))
     IL2CPP_REGISTER_METHOD(0x015EBAB0, app::Object*, GetParameterInstance_1, (app::AnimationParameterSet * this_ptr, app::AnimationParameter* parameter))
     IL2CPP_REGISTER_METHOD(0x015EBAB0, app::FloatAnimationParameter_Instance*, GetParameterInstance_2, (app::AnimationParameterSet * this_ptr, app::AnimationParameter* parameter))
-    IL2CPP_REGISTER_METHODINFO(0x04719B68, AnimationParameterSet_GetParameterInstance_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x015EBAB0, app::VectorAnimationParameter_Instance*, GetParameterInstance_3, (app::AnimationParameterSet * this_ptr, app::AnimationParameter* parameter))
-    IL2CPP_REGISTER_METHODINFO(0x04748A48, AnimationParameterSet_GetParameterInstance_2__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EB8980, app::List_1_Moon_FloatAnimationParameter_*, GetParametersOfType_2, (app::AnimationParameterSet * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04725610, AnimationParameterSet_GetParametersOfType_1__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x01EB8980, app::List_1_Moon_VectorAnimationParameter_*, GetParametersOfType_3, (app::AnimationParameterSet * this_ptr))
-    IL2CPP_REGISTER_METHODINFO(0x04757300, AnimationParameterSet_GetParametersOfType_2__MethodInfo)
 } // namespace app::classes::Moon::AnimationParameterSet

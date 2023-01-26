@@ -1,18 +1,19 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/EqualityComparer_1_System_ValueTuple_2_.h>
-#include <Modloader/app/structs/ValueTuple_2_Int32_Int32___Array.h>
-#include <Modloader/app/structs/ValueTuple_2_Int32_Int32_.h>
-#include <Modloader/app/structs/Object.h>
+
+#include <Modloader/app/structs/EqualityComparer_1_System_ValueTuple_2_.h>
 #include <Modloader/app/structs/EqualityComparer_1_System_ValueTuple_2__1.h>
-#include <Modloader/app/structs/ValueTuple_2_Int32_Object___Array.h>
-#include <Modloader/app/structs/ValueTuple_2_Int32_Object_.h>
 #include <Modloader/app/structs/EqualityComparer_1_System_ValueTuple_2__2.h>
-#include <Modloader/app/structs/ValueTuple_2_Object_Object___Array.h>
-#include <Modloader/app/structs/ValueTuple_2_Object_Object_.h>
 #include <Modloader/app/structs/EqualityComparer_1_System_ValueTuple_2__3.h>
-#include <Modloader/app/structs/ValueTuple_2_Object_Single___Array.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Int32_.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Int32___Array.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Object_.h>
+#include <Modloader/app/structs/ValueTuple_2_Int32_Object___Array.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Object_.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Object___Array.h>
 #include <Modloader/app/structs/ValueTuple_2_Object_Single_.h>
+#include <Modloader/app/structs/ValueTuple_2_Object_Single___Array.h>
 
 namespace app::classes::System::Collections::Generic::EqualityComparer_1_System_ValueTuple_2_ {
     IL2CPP_REGISTER_METHOD(0x02807CD0, app::EqualityComparer_1_System_ValueTuple_2_*, get_Default_1, ())

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FastResourceComparer.h>
+
+#include <Modloader/app/structs/FastResourceComparer.h>
+#include <Modloader/app/structs/Byte__Array.h>
 #include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Byte__Array.h>
 
 namespace app::classes::System::Resources::FastResourceComparer {
     IL2CPP_REGISTER_METHOD(0x02699220, int32_t, GetHashCode_1, (app::FastResourceComparer * this_ptr, app::Object* key))

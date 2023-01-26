@@ -1,16 +1,17 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/AnimationClip.h>
-#include <Modloader/app/structs/GameObject.h>
-#include <Modloader/app/structs/WrapMode__Enum.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/Type.h>
+
+#include <Modloader/app/structs/AnimationClip.h>
 #include <Modloader/app/structs/AnimationCurve.h>
-#include <Modloader/app/structs/Bounds.h>
 #include <Modloader/app/structs/AnimationEvent.h>
-#include <Modloader/app/structs/Object.h>
 #include <Modloader/app/structs/AnimationEvent__Array.h>
 #include <Modloader/app/structs/Array.h>
+#include <Modloader/app/structs/Bounds.h>
+#include <Modloader/app/structs/GameObject.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/WrapMode__Enum.h>
 
 namespace app::classes::UnityEngine::AnimationClip {
     IL2CPP_REGISTER_METHOD(0x0307B220, void, ctor, (app::AnimationClip * this_ptr))
@@ -39,7 +40,6 @@ namespace app::classes::UnityEngine::AnimationClip {
     IL2CPP_REGISTER_METHOD(0x0307BB30, bool, get_hasRootCurves, (app::AnimationClip * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0307BB80, bool, get_hasRootMotion, (app::AnimationClip * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0307BBD0, void, AddEvent, (app::AnimationClip * this_ptr, app::AnimationEvent* evt))
-    IL2CPP_REGISTER_METHODINFO(0x04706850, AnimationClip_AddEvent__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x0307BCD0, void, AddEventInternal, (app::AnimationClip * this_ptr, app::Object* evt))
     IL2CPP_REGISTER_METHOD(0x0307BD30, app::AnimationEvent__Array*, get_events, (app::AnimationClip * this_ptr))
     IL2CPP_REGISTER_METHOD(0x0307BE20, void, set_events, (app::AnimationClip * this_ptr, app::AnimationEvent__Array* value))

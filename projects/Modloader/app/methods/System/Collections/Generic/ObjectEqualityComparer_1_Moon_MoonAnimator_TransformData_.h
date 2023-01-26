@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_MoonAnimator_TransformData_.h>
+
+#include <Modloader/app/structs/ObjectEqualityComparer_1_Moon_MoonAnimator_TransformData_.h>
 #include <Modloader/app/structs/MoonAnimator_TransformData.h>
 #include <Modloader/app/structs/MoonAnimator_TransformData__Array.h>
 #include <Modloader/app/structs/Object.h>

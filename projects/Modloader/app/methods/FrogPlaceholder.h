@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/FrogEntity.h>
+
+#include <Modloader/app/structs/FrogEntity.h>
 #include <Modloader/app/structs/FrogPlaceholder.h>
 
 namespace app::classes::FrogPlaceholder {

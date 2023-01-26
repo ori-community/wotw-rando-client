@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XAttribute.h>
-#include <Modloader/app/structs/XAttributeWrapper.h>
-#include <Modloader/app/structs/String.h>
+
+#include <Modloader/app/structs/XAttribute.h>
 #include <Modloader/app/structs/IXmlNode.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/XAttributeWrapper.h>
 
 namespace app::classes::Newtonsoft::Json::Converters::XAttributeWrapper {
     IL2CPP_REGISTER_METHOD(0x01A55F20, app::XAttribute*, get_Attribute, (app::XAttributeWrapper * this_ptr))

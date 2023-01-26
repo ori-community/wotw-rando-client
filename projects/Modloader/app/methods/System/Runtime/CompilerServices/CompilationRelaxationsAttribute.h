@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/CompilationRelaxationsAttribute.h>
+
+#include <Modloader/app/structs/CompilationRelaxationsAttribute.h>
 #include <Modloader/app/structs/CompilationRelaxations__Enum.h>
 
 namespace app::classes::System::Runtime::CompilerServices::CompilationRelaxationsAttribute {

@@ -1,22 +1,23 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/DataRowView.h>
-#include <Modloader/app/structs/DataView.h>
-#include <Modloader/app/structs/DataRow.h>
-#include <Modloader/app/structs/Object.h>
-#include <Modloader/app/structs/String.h>
-#include <Modloader/app/structs/DataRowVersion__Enum.h>
+
+#include <Modloader/app/structs/DataRowView.h>
+#include <Modloader/app/structs/AttributeCollection.h>
+#include <Modloader/app/structs/Attribute__Array.h>
 #include <Modloader/app/structs/DataColumn.h>
 #include <Modloader/app/structs/DataRelation.h>
-#include <Modloader/app/structs/PropertyChangedEventHandler.h>
-#include <Modloader/app/structs/AttributeCollection.h>
-#include <Modloader/app/structs/TypeConverter.h>
-#include <Modloader/app/structs/EventDescriptor_1.h>
-#include <Modloader/app/structs/PropertyDescriptor.h>
-#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/DataRow.h>
+#include <Modloader/app/structs/DataRowVersion__Enum.h>
+#include <Modloader/app/structs/DataView.h>
 #include <Modloader/app/structs/EventDescriptorCollection.h>
-#include <Modloader/app/structs/Attribute__Array.h>
+#include <Modloader/app/structs/EventDescriptor_1.h>
+#include <Modloader/app/structs/Object.h>
+#include <Modloader/app/structs/PropertyChangedEventHandler.h>
+#include <Modloader/app/structs/PropertyDescriptor.h>
 #include <Modloader/app/structs/PropertyDescriptorCollection.h>
+#include <Modloader/app/structs/String.h>
+#include <Modloader/app/structs/Type.h>
+#include <Modloader/app/structs/TypeConverter.h>
 
 namespace app::classes::System::Data::DataRowView {
     IL2CPP_REGISTER_METHOD(0x0058DA40, void, ctor, (app::DataRowView * this_ptr, app::DataView* data_view, app::DataRow* row))
@@ -30,9 +31,7 @@ namespace app::classes::System::Data::DataRowView {
     IL2CPP_REGISTER_METHOD(0x017E1440, bool, HasRecord, (app::DataRowView * this_ptr))
     IL2CPP_REGISTER_METHOD(0x017E14B0, app::Object*, GetColumnValue, (app::DataRowView * this_ptr, app::DataColumn* column))
     IL2CPP_REGISTER_METHOD(0x017E1580, void, SetColumnValue, (app::DataRowView * this_ptr, app::DataColumn* column, app::Object* value))
-    IL2CPP_REGISTER_METHODINFO(0x04781668, DataRowView_SetColumnValue__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x017E16B0, app::DataView*, CreateChildView_1, (app::DataRowView * this_ptr, app::DataRelation* relation, bool follow_parent))
-    IL2CPP_REGISTER_METHODINFO(0x047888A0, DataRowView_CreateChildView__MethodInfo)
     IL2CPP_REGISTER_METHOD(0x017E1C60, app::DataView*, CreateChildView_2, (app::DataRowView * this_ptr, app::DataRelation* relation))
     IL2CPP_REGISTER_METHOD(0x002FB930, app::DataRow*, get_Row, (app::DataRowView * this_ptr))
     IL2CPP_REGISTER_METHOD(0x00447ED0, void, BeginEdit, (app::DataRowView * this_ptr))

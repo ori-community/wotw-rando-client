@@ -1,18 +1,21 @@
 #pragma once
+#include <Modloader/app/structs/Halftone.h>
+#include <Modloader/app/structs/Halftone__Class.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
-#include <Modloader/windows_api/memory.h>
-#include <Modloader/app/structs/Halftone__Class.h>
-#include <Modloader/app/structs/Halftone.h>
 
 namespace app::classes::types {
     namespace Halftone {
-        namespace {
-            inline app::Halftone__Class* type_info_ref = nullptr;
+        inline app::Halftone__Class** type_info() {
+            static app::Halftone__Class** cache = nullptr;
+            if (cache == nullptr) {
+                static app::Halftone__Class* type_info_ref = nullptr;
+                cache = &type_info_ref;
+            }
+            return cache;
         }
-        inline app::Halftone__Class** type_info = &type_info_ref;
         inline app::Halftone__Class* get_class() {
-            return il2cpp::get_class<app::Halftone__Class>(type_info, "Colorful", "Halftone");
+            return il2cpp::get_class<app::Halftone__Class>(type_info(), "Colorful", "Halftone");
         }
         inline app::Halftone* create() {
             return il2cpp::create_object<app::Halftone>(get_class());

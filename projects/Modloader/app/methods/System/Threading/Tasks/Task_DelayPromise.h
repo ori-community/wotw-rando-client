@@ -1,6 +1,7 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/Task_DelayPromise.h>
+
+#include <Modloader/app/structs/Task_DelayPromise.h>
 #include <Modloader/app/structs/CancellationToken.h>
 
 namespace app::classes::System::Threading::Tasks::Task_DelayPromise {

@@ -1,9 +1,10 @@
 #pragma once
 #include <Modloader/interception_macros.h>
-#include <Modloader/app/structs/XmlQualifiedName.h>
-#include <Modloader/app/structs/XmlSchemaSimpleTypeList.h>
-#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+
+#include <Modloader/app/structs/XmlQualifiedName.h>
 #include <Modloader/app/structs/XmlSchemaObject.h>
+#include <Modloader/app/structs/XmlSchemaSimpleType.h>
+#include <Modloader/app/structs/XmlSchemaSimpleTypeList.h>
 
 namespace app::classes::System::Xml::Schema::XmlSchemaSimpleTypeList {
     IL2CPP_REGISTER_METHOD(0x002FBB40, app::XmlQualifiedName*, get_ItemTypeName, (app::XmlSchemaSimpleTypeList * this_ptr))
