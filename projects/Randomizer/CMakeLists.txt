@@ -38,6 +38,7 @@ set(
         "features/difficulty.cpp"
         "features/grenade.cpp"
         "features/keystone_door.cpp"
+        "features/good_hollow.cpp"
         "features/map.cpp"
         "features/npcs/lupo_everywhere.cpp"
         "features/npcs/opher_everywhere.cpp"

@@ -429,6 +429,7 @@ namespace {
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "prevent_pickup", PREVENT_PICKUP_ID, false),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "stomp_through_portals", STOMP_THROUGH_PORTALS_ID, false),
             add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "stomp_into_water", STOMP_INTO_WATER_ID, false),
+            add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoConfig, "good_hollow", GOOD_HOLLOW_ID, true),
 
             add_state<app::SerializedIntUberState>(UberStateGroup::RandoConfig, "force_no_air_deceleration_flag", FORCE_AIR_NO_DECELERATION_ID, 0),
 

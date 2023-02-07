@@ -5,7 +5,7 @@
 
 namespace randomizer {
     namespace conditions {
-        using applier_intercept = std::function<int32_t(app::NewSetupStateController*, std::string const&, int32_t, int32_t)>;
+        using applier_intercept = std::function<int32_t(app::NewSetupStateController*, std::string const& path, int32_t original_state, int32_t)>;
         using applier_key = std::pair<std::string, int32_t>;
 
         void register_new_setup_intercept(applier_key key, applier_intercept callback);
