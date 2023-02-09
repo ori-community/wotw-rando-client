@@ -28,7 +28,6 @@ namespace randomizer::timing {
     }
 
     void SaveFileGameStats::report_death(GameArea area) {
-        this->time_lost_to_deaths += this->time_since_last_checkpoint;
         ++this->total_deaths;
         ++this->area_stats[area].deaths;
     }
@@ -47,6 +46,7 @@ namespace randomizer::timing {
     }
 
     void SaveFileGameStats::report_respawn() {
+        this->time_lost_to_deaths += this->time_since_last_checkpoint;
         this->time_since_last_checkpoint = 0.f;
     }
 
