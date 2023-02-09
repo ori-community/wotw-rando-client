@@ -67,9 +67,16 @@ namespace randomizer::timing {
     // This is set to true by some rando routines which grant abilities temporarily
     bool disable_ability_tracking = false;
 
+    // Used to prevent the timer from running when having started the game just now
+    std::atomic<bool> loaded_any_save_file = false;
+
     std::mutex stats_mutex;
     std::shared_ptr<CheckpointGameStats> checkpoint_stats = std::make_shared<CheckpointGameStats>();
     std::shared_ptr<SaveFileGameStats> save_stats = std::make_shared<SaveFileGameStats>();
+
+    bool timer_should_run() {
+        return loaded_any_save_file.load() && !game_finished.load();
+    }
 
     namespace {
         void reset_stats() {
@@ -96,10 +103,15 @@ namespace randomizer::timing {
 
         void on_before_new_game(GameEvent event, EventTiming timing) {
             reset_stats();
+            loaded_any_save_file = true;
+        }
+
+        void on_before_loading_save(GameEvent event, EventTiming timing) {
+            loaded_any_save_file = true;
         }
 
         void on_create_checkpoint(GameEvent event, EventTiming timing) {
-            if (game_finished.load()) {
+            if (!timer_should_run()) {
                 return;
             }
 
@@ -109,7 +121,7 @@ namespace randomizer::timing {
         }
 
         void on_respawn(GameEvent event, EventTiming timing) {
-            if (game_finished.load()) {
+            if (!timer_should_run()) {
                 return;
             }
 
@@ -119,7 +131,7 @@ namespace randomizer::timing {
         }
 
         void on_teleport(GameEvent event, EventTiming timing) {
-            if (game_finished.load()) {
+            if (!timer_should_run()) {
                 return;
             }
 
@@ -129,7 +141,7 @@ namespace randomizer::timing {
         }
 
         void on_before_death(core::api::death_listener::PlayerDeath death, EventTiming timing) {
-            if (game_finished.load()) {
+            if (!timer_should_run()) {
                 return;
             }
 
@@ -159,7 +171,7 @@ namespace randomizer::timing {
         }
 
         void on_async_update(float delta) {
-            if (game_finished.load()) {
+            if (!timer_should_run()) {
                 return;
             }
 
@@ -192,6 +204,7 @@ namespace randomizer::timing {
 
         void initialize() {
             game::event_bus().register_handler(GameEvent::NewGame, EventTiming::Before, &on_before_new_game);
+            game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::Before, &on_before_loading_save);
             game::event_bus().register_handler(GameEvent::CreateCheckpoint, &on_create_checkpoint);
             game::event_bus().register_handler(GameEvent::Respawn, &on_respawn);
             game::event_bus().register_handler(GameEvent::Teleport, &on_teleport);
@@ -229,7 +242,7 @@ namespace randomizer::timing {
         CALL_ON_INIT(initialize);
 
         IL2CPP_INTERCEPT(PlayerAbilities, void, SetAbility, (app::PlayerAbilities * this_ptr, app::AbilityType__Enum ability, bool value)) {
-            if (value && !disable_ability_tracking && TRACKED_ABILITIES.contains(ability) && !game_finished_uber_state.get<bool>()) {
+            if (value && !disable_ability_tracking && TRACKED_ABILITIES.contains(ability) && timer_should_run()) {
                 stats_mutex.lock();
                 save_stats->report_ability_acquired(ability);
                 stats_mutex.unlock();
@@ -241,7 +254,7 @@ namespace randomizer::timing {
 } // namespace randomizer::timing
 
 void notify_pickup_collected(GameArea area, const char* location_name) {
-    if (randomizer::timing::game_finished.load()) {
+    if (!randomizer::timing::timer_should_run()) {
         return;
     }
 
