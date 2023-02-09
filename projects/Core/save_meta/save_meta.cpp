@@ -183,7 +183,7 @@ namespace core::save_meta {
                 stream.write<SaveMetaSlot>(item.first);
 
                 // Save previous data if this slot is not set to persist through death
-                auto data = static_cast<int>(item.second.persistence) >= static_cast<int>(minimum_persistence)
+                auto data = (static_cast<int>(item.second.persistence) >= static_cast<int>(minimum_persistence) || !item.second.last_saved_data_initialized)
                         ? item.second.handler->save()
                         : item.second.last_saved_data;
 
