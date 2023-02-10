@@ -230,8 +230,9 @@ namespace uber_states {
     void UberState::set(double value, bool ignore_intercept, bool ignore_notify) {
         // Prevent changes that don't change anything.
         auto prev = get();
-        if (prev != value && !ignore_intercept && intercept_change(*this, value))
+        if (prev == value || (!ignore_intercept && intercept_change(*this, value))) {
             return;
+        }
 
         if (is_virtual_state(m_group, m_state))
             set_virtual_value(m_group, m_state, value);
@@ -266,8 +267,9 @@ namespace uber_states {
             }
         }
 
-        if (!ignore_notify && prev != value)
+        if (!ignore_notify) {
             notify_changed(prev);
+        }
     }
 
     double UberState::get() const {
