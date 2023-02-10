@@ -228,9 +228,9 @@ namespace uber_states {
     }
 
     void UberState::set(double value, bool ignore_intercept, bool ignore_notify) {
-        // Prevent changes that don't change anything.
         auto prev = get();
-        if (prev != value && !ignore_intercept && intercept_change(*this, value))
+        
+        if (!ignore_intercept && intercept_change(*this, value))
             return;
 
         if (is_virtual_state(m_group, m_state))
