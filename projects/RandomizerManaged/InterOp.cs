@@ -318,8 +318,6 @@ namespace RandomizerManaged {
 
     public static class System {
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void report_uber_state_change(int group, int uber_state, double value);
-      [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void report_seed_reload();
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void save();

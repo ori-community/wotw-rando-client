@@ -257,10 +257,10 @@ namespace core::ipc {
         return response;
     }
 
-    nlohmann::json make_request(std::string request) {
+    nlohmann::json make_request(std::string method) {
         nlohmann::json response;
         response["type"] = "request";
-        response["method"] = request;
+        response["method"] = method;
         return response;
     }
 

@@ -373,7 +373,6 @@ namespace RandomizerManaged {
           Randomizer.Debug($"State change: {uber_state.GroupName}.{uber_state.Name} ({uber_state.GroupID}|{uber_state.ID}) {uber_state.Type} {oldValFmt}->{uber_state.FmtVal()} at ({Math.Round(pos.X)}, {Math.Round(pos.Y)}) in {zone}");
         }
 
-        InterOp.System.report_uber_state_change(uber_state.GroupID, uber_state.ID, uber_state.ValueAsDouble());
         if (shouldTriggerReachableCheck(uber_state, old)) {
           MapController.QueueReachCheck();
         }

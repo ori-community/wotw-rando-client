@@ -22,13 +22,15 @@ namespace uber_states {
         std::unordered_map<uber_id, double, pair_hash> cached_values;
         IL2CPP_INTERCEPT(GameController, void, Update, (app::GameController * this_ptr)) {
             next::GameController::Update(this_ptr);
+
             for (const auto& state : virtual_states) {
                 auto value = state.second.get();
                 auto it = cached_values.find(state.first);
-                if (it == cached_values.end())
+                if (it == cached_values.end()) {
                     virtual_notify_change(UberState(state.first.first, state.first.second), 0.0);
-                else if (std::abs(it->second - value) >= 0.1)
+                } else if (std::abs(it->second - value) >= 0.1) {
                     UberState(state.first.first, state.first.second).notify_changed(it->second);
+                }
             }
         }
 
@@ -73,8 +75,5 @@ namespace uber_states {
 
         auto value = state.get();
         cached_values[uber_id(state.group(), state.state())] = value;
-
-        // TODO: Add event bus for this
-        // report_uber_state_change(state.group(), state.state(), value);
     }
 } // namespace uber_states

@@ -12,7 +12,6 @@
 
 #include <Modloader/common.h>
 
-#include <memory>
 #include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
@@ -94,7 +93,7 @@ namespace randomizer::ipc {
         }
 
         void get_velocity(const nlohmann::json& j) {
-            app::Vector3 v;
+            app::Vector3 v{ 0.f, 0.f, 0.f };
             nlohmann::json response;
             response["type"] = "response";
             response["id"] = j.at("id").get<int>();
@@ -189,10 +188,7 @@ namespace randomizer::ipc {
         }
 
         void report_load(GameEvent game_event, EventTiming timing) {
-            nlohmann::json response;
-            response["payload"]["type"] = "request";
-            response["payload"]["method"] = "notify_on_load";
-            send_message(response);
+            send_message(core::ipc::make_request("notify_on_load"));
         }
 
         std::unordered_map<GameEvent, std::string> event_to_method{
@@ -200,22 +196,24 @@ namespace randomizer::ipc {
             { GameEvent::LostFocus, "notify_on_lost_focus" },
             { GameEvent::Shutdown, "notify_on_shutdown" },
         };
+
         void report_game_event(GameEvent game_event, EventTiming timing) {
-            nlohmann::json response;
-            response["payload"]["type"] = "request";
-            response["payload"]["method"] = event_to_method.find(game_event)->second;
-            send_message(response);
+            send_message(core::ipc::make_request(event_to_method.find(game_event)->second));
         }
 
         void initialize() {
-            game::event_bus().register_handler(GameEvent::NewGame, EventTiming::After, &report_load);
-            game::event_bus().register_handler(GameEvent::FinishedLoadingSave, EventTiming::After, &report_load);
-            game::event_bus().register_handler(GameEvent::FinishedLoadingCheckpoint, EventTiming::After, &report_load);
-            game::event_bus().register_handler(GameEvent::Respawn, EventTiming::After, &report_load);
-
+            game::event_bus().register_handler(GameEvent::UberStateValueStoreLoaded, EventTiming::After, &report_load);
             game::event_bus().register_handler(GameEvent::GainedFocus, EventTiming::After, &report_game_event);
             game::event_bus().register_handler(GameEvent::LostFocus, EventTiming::After, &report_game_event);
             game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, &report_game_event);
+
+            uber_states::event_bus().register_handler([](auto event) {
+                nlohmann::json request = core::ipc::make_request("notify_on_uber_state_changed");
+                request["payload"]["group"] = static_cast<int>(event.state.group());
+                request["payload"]["state"] = event.state.state();
+                request["payload"]["value"] = event.value;
+                core::ipc::send_message(request);
+            });
 
             register_request_handler("reload", reload);
             register_request_handler("get_uberstates", get_uberstates);
@@ -240,27 +238,12 @@ namespace randomizer::ipc {
 } // namespace randomizer::ipc
 
 RANDOMIZER_C_DLLEXPORT void report_seed_reload() {
-    nlohmann::json response;
-    response["type"] = "request";
-    response["method"] = "notify_on_reload";
-    core::ipc::send_message(response);
-}
-
-RANDOMIZER_C_DLLEXPORT void report_uber_state_change(UberStateGroup group, int state, double value) {
-    nlohmann::json response;
-    response["type"] = "request";
-    response["method"] = "notify_on_uber_state_changed";
-    response["payload"]["group"] = static_cast<int>(group);
-    response["payload"]["state"] = state;
-    response["payload"]["value"] = value;
-    core::ipc::send_message(response);
+    core::ipc::send_message(core::ipc::make_request("notify_on_reload"));
 }
 
 RANDOMIZER_C_DLLEXPORT void report_input(Action type, bool pressed) {
-    nlohmann::json response;
-    response["type"] = "request";
-    response["method"] = "notify_input";
-    response["payload"]["type"] = type;
-    response["payload"]["pressed"] = pressed;
-    core::ipc::send_message(response);
+    nlohmann::json request = core::ipc::make_request("notify_input");
+    request["payload"]["type"] = type;
+    request["payload"]["pressed"] = pressed;
+    core::ipc::send_message(request);
 }

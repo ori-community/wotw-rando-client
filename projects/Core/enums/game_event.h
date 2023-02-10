@@ -21,6 +21,7 @@ enum class GameEvent {
     FinishedLoadingCheckpoint,
     FinishedLoadingSave,
     Respawn,
+    UberStateValueStoreLoaded,
 
     OpenAreaMap,
     CloseAreaMap,

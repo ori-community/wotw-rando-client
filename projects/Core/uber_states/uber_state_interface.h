@@ -3,6 +3,7 @@
 #include <Core/enums/uber_state.h>
 #include <functional>
 #include <Core/macros.h>
+#include <Core/utils/event_bus.h>
 #include <Modloader/app/structs/AbilityType__Enum.h>
 #include <Modloader/app/structs/IUberState.h>
 #include <Modloader/app/structs/SerializedBooleanUberState.h>
@@ -76,12 +77,19 @@ namespace uber_states {
         bool resolve(UberState compared_state, double state_value) const;
     };
 
+    struct UberStateUpdate {
+        UberState state;
+        double previous_value;
+        double value;
+    };
+
     using value_notify = void (*)(UberState state, double previous_value);
     using value_intercept = bool (*)(UberState state, double value);
 
     CORE_DLLEXPORT void apply_all();
     CORE_DLLEXPORT void clear();
 
+    CORE_DLLEXPORT EventBus<UberStateUpdate>& event_bus();
     CORE_DLLEXPORT void register_value_notify(value_notify notify);
     CORE_DLLEXPORT void register_value_intercept(value_intercept intercept);
 

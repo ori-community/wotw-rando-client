@@ -17,7 +17,6 @@
 #include <Modloader/app/methods/Moon/SerializedFloatUberState.h>
 #include <Modloader/app/methods/Moon/SerializedIntUberState.h>
 #include <Modloader/app/methods/Moon/UberStateCollection.h>
-#include <Modloader/app/methods/Moon/UberStateCollectionGroup.h>
 #include <Modloader/app/methods/Moon/UberStateController.h>
 #include <Modloader/app/methods/Moon/UberStateValueStore.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/SerializedBoolUberStateWrapper.h>
@@ -54,6 +53,8 @@ using namespace app::classes::Moon;
 using namespace app::classes::Moon::uberSerializationWisp;
 
 namespace uber_states {
+    EventBus<UberStateUpdate> m_event_bus;
+
     namespace {
         std::vector<value_notify> notifiers;
         std::vector<value_intercept> intercepts;
@@ -349,6 +350,10 @@ namespace uber_states {
     void UberState::notify_changed(double prev) const {
         for (auto notifier : notifiers)
             notifier(*this, prev);
+
+        m_event_bus.trigger_event(UberStateUpdate {
+            *this, prev, this->get(),
+        });
     }
 
     void apply_all() {
@@ -380,6 +385,10 @@ namespace uber_states {
             UberState(UberStateGroup::RandoStats, save.first).set(save.second, true, true);
 
         apply_all();
+    }
+
+    EventBus<UberStateUpdate>& event_bus() {
+        return m_event_bus;
     }
 
     void register_value_notify(value_notify notify) {

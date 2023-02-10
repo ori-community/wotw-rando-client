@@ -7,6 +7,7 @@
 #include <Modloader/app/methods/SaveGameController.h>
 #include <Modloader/app/methods/SaveSlotBackupsManager.h>
 #include <Modloader/app/methods/SeinHealthController.h>
+#include <Modloader/app/methods/Moon/UberStateController.h>
 #include <Modloader/common.h>
 #include <Modloader/interception_macros.h>
 
@@ -60,6 +61,12 @@ namespace {
         game::event_bus().trigger_event(GameEvent::Respawn, EventTiming::Before);
         next::SeinHealthController::OnRespawn(this_ptr);
         game::event_bus().trigger_event(GameEvent::Respawn, EventTiming::After);
+    }
+
+    IL2CPP_INTERCEPT(Moon::UberStateController, void, SetState, (app::UberStateValueStore * store)) {
+        game::event_bus().trigger_event(GameEvent::UberStateValueStoreLoaded, EventTiming::Before);
+        next::Moon::UberStateController::SetState(store);
+        game::event_bus().trigger_event(GameEvent::UberStateValueStoreLoaded, EventTiming::After);
     }
 } // namespace
 
