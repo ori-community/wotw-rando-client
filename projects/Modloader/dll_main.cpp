@@ -117,7 +117,7 @@ namespace modloader {
 
     bool attached = false;
 
-    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string path) {
+    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string path, void(*on_initialization_complete)()) {
         base_path = path;
         trace(MessageType::Info, 5, "initialize", "Loading settings.");
 
@@ -150,10 +150,12 @@ namespace modloader {
 
         run_initialization_callbacks(InitializationType::OnInjectionComplete);
 
-        auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
-        auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());
-        auto unity_version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_unityVersion());
-        trace(MessageType::Info, 5, "initialize", fmt::format("Application {} injected ({})[{}].", product, version, unity_version));
+        on_initialization_complete();
+
+        // auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
+        // auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());
+        // auto unity_version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_unityVersion());
+        // trace(MessageType::Info, 5, "initialize", fmt::format("Application {} injected ({})[{}].", product, version, unity_version));
 
         while (!shutdown_requested) {
             console::console_poll();
