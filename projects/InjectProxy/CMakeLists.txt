@@ -10,6 +10,7 @@ set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 set(
         SOURCE_FILES
         "proxy.cpp"
+        "winhttp_proxy.cpp"
 )
 
 set(
@@ -54,10 +55,11 @@ target_include_directories(
         ${WOTWR_BASE_INCLUDES}
 )
 
-target_link_libraries(
-        ${PROJECT_NAME}
-        InjectLoader
-)
+find_package(tclap)
+target_link_libraries(${PROJECT_NAME} tclap::tclap)
+
+find_package(fmt)
+target_link_libraries(${PROJECT_NAME} fmt::fmt)
 
 message(STATUS "Assigning source groups.")
 

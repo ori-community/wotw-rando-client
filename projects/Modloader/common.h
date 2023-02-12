@@ -1,13 +1,14 @@
 #pragma once
 
 #include <string>
+#include <filesystem>
 
 #include <Modloader/constants.h>
 #include <Modloader/macros.h>
 
 namespace modloader {
     using shutdown_handler = void (*)();
-    extern IL2CPP_MODLOADER_DLLEXPORT std::string base_path;
+    extern IL2CPP_MODLOADER_DLLEXPORT std::filesystem::path base_path;
 
     enum class InitializationType {
         OnInjectionComplete,

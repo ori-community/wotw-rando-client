@@ -68,16 +68,16 @@ namespace app {
 
 bool load_json_file(std::string path, nlohmann::json& j) {
     using namespace modloader;
-    std::ifstream stream(base_path + path);
+    std::ifstream stream(base_path / path);
     if (stream.is_open()) {
         try {
             stream >> j;
         } catch (nlohmann::json::parse_error& ex) {
-            trace(MessageType::Warning, 3, "util", fmt::format("failed to parse '{}{}' error '{}' at byte '{}'", base_path, path, ex.id, ex.byte));
+            trace(MessageType::Warning, 3, "util", fmt::format("failed to parse '{}{}' error '{}' at byte '{}'", base_path.string(), path, ex.id, ex.byte));
             return false;
         }
     } else {
-        trace(MessageType::Warning, 3, "util", fmt::format("failed to open '{}{}'", base_path, path));
+        trace(MessageType::Warning, 3, "util", fmt::format("failed to open '{}{}'", base_path.string(), path));
         return false;
     }
 

@@ -54,7 +54,7 @@ namespace RandomizerManaged {
 
     public static void PopulateTrackedNodes() {
       try {
-        foreach (var line in File.ReadAllLines(Randomizer.BasePath + "state_data.csv").Skip(1)) {
+        foreach (var line in File.ReadAllLines(Path.Combine(Randomizer.BasePath, "state_data.csv")).Skip(1)) {
           var data = line.Split(',').Select(p => p.Trim()).ToArray();
 
           var conditionString = data[2];
@@ -130,7 +130,7 @@ namespace RandomizerManaged {
     public static void UpdateReachableAsync(List<String> argsList) {
       try {
         var proc = new System.Diagnostics.Process();
-        proc.StartInfo.FileName = $"{Randomizer.BasePath}\\seedgen.exe";
+        proc.StartInfo.FileName = Path.Combine(Randomizer.BasePath, "seedgen.exe");
         proc.StartInfo.Arguments = String.Join(" ", argsList);
         proc.StartInfo.CreateNoWindow = true;
         proc.StartInfo.UseShellExecute = false;
@@ -160,11 +160,11 @@ namespace RandomizerManaged {
         "reach-check",
         // TODO maybe we won't pass these explicitly? since it's samefolder shit
         "--areas",
-        $"\"{Randomizer.BasePath}areas.wotw\"",
+        $"\"{Path.Combine(Randomizer.BasePath, "areas.wotw")}\"",
         "--locations",
-        $"\"{Randomizer.BasePath}loc_data.csv\"",
+        $"\"{Path.Combine(Randomizer.BasePath, "loc_data.csv")}\"",
         "--uber-states",
-        $"\"{Randomizer.BasePath}state_data.csv\"",
+        $"\"{Path.Combine(Randomizer.BasePath, "state_data.csv")}\"",
         $"\"{SeedController.SeedFile}\"",
         $"{InterOp.Player.get_max_health()}",
         InterOp.Player.get_max_energy().ToString(System.Globalization.CultureInfo.InvariantCulture),

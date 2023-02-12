@@ -1,1 +1,0 @@
-PROXIED_FUNCTION(WinHttpGetIEProxyConfigForCurrentUser)

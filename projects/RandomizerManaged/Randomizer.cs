@@ -10,12 +10,12 @@ namespace RandomizerManaged {
   public static class Randomizer {
     public static Random R;
     public static string BasePath = @"C:\moon\";
-    public static string SeedPathFile => BasePath + ".currentseedpath";
-    public static string TempSeed => BasePath + ".tempseed";
-    public static string MessageLog => BasePath + ".messagelog";
-    public static string LogFile => BasePath + "cs_log.txt";
-    public static string SaveFolder => BasePath + "saves";
-    public static string VersionFile => BasePath + "VERSION";
+    public static string SeedPathFile => Path.Combine(BasePath, ".currentseedpath");
+    public static string TempSeed => Path.Combine(BasePath, ".tempseed");
+    public static string MessageLog => Path.Combine(BasePath, ".messagelog");
+    public static string LogFile => Path.Combine(BasePath, "cs_log.txt");
+    public static string SaveFolder => Path.Combine(BasePath, "saves");
+    public static string VersionFile => Path.Combine(BasePath, "VERSION");
 
     public static string VERSION =>
       _version ?? (_version = File.Exists(VersionFile) ? File.ReadAllText(VersionFile) : "0.0.0");
@@ -81,14 +81,14 @@ namespace RandomizerManaged {
 
         R = new Random();
 
-        BasePath = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(InterOp.Utils.get_base_path());
+        BasePath = System.Runtime.InteropServices.Marshal.PtrToStringUni(InterOp.Utils.get_base_path());
         Debug($"Init: set base path to {BasePath}");
 
         if (!Directory.Exists(SaveFolder))
           Directory.CreateDirectory(SaveFolder);
 
         if (!File.Exists(SeedPathFile))
-          File.WriteAllText(SeedPathFile, BasePath + ".currentseed");
+          File.WriteAllText(SeedPathFile, Path.Combine(BasePath, ".currentseed"));
 
         foreach (var fileName in new string[] {LogFile, MessageLog}) {
           if (!File.Exists(fileName)) {
