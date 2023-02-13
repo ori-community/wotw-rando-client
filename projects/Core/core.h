@@ -11,5 +11,6 @@ namespace core {
     // Gives number from 0.0-1.0
     CORE_DLLEXPORT float random();
     // The start and end parameters are inclusive.
+    // aka you can possibly return end here.
     CORE_DLLEXPORT int random(int start, int end);
 } // namespace core

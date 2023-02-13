@@ -167,7 +167,7 @@ namespace randomizer::ipc {
 
             if (p.contains("visible")) {
                 if (p.at("visible").get<bool>()) {
-                    // TODO: Change to use sound and instant here instead of on creation.
+                    // TODO: Change to use sound and instant_fade here instead of on creation.
                     message_box->show();
                 } else {
                     message_box->hide();

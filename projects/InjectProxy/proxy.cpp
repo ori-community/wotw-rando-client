@@ -65,7 +65,6 @@ void inject() {
             modloader_injection_entry_fn(
                 base_path.string(),
                 [&modloader_initialization_mutex]() {
-                    std::cout << "Releasing" << std::endl;
                     modloader_initialization_mutex.release();
                 },
                 [&modloader_initialization_mutex](auto error_message) {
@@ -85,7 +84,6 @@ void inject() {
 
         std::cout << "Waiting for initialization to complete..." << std::endl;
         modloader_initialization_mutex.acquire();
-        std::cout << "Acquired" << std::endl;
     }
 }
 

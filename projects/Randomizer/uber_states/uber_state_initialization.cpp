@@ -281,6 +281,8 @@ namespace {
 
             add_state<app::BooleanUberState>(UberStateGroup::GameState, "Load", 7, false),
             add_state<app::BooleanUberState>(UberStateGroup::GameState, "Goal Modes Complete", 11, false),
+            add_state<app::IntUberState>(UberStateGroup::GameState, "Current map area", 15, static_cast<int>(GameArea::TOTAL)),
+
             add_state<app::BooleanUberState>(UberStateGroup::GameState, "On Teleport", 20, false),
             add_state<app::BooleanUberState>(UberStateGroup::GameState, "On Jump", 30, false),
             add_state<app::BooleanUberState>(UberStateGroup::GameState, "On Double Jump", 31, false),
@@ -589,8 +591,9 @@ namespace {
 
         dev::print_time(start_time, "Built multi state list");
 
-        for (auto* state : states)
+        for (auto* state : states) {
             il2cpp::invoke(this_ptr->fields.m_descriptors, "Add", state);
+        }
 
         dev::print_time(start_time, "Added states");
 

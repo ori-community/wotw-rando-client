@@ -270,7 +270,7 @@ namespace core::text {
             return "";
         }
 
-        int index = core::random(0, static_cast<int>(entry.text.size()));
+        int index = core::random(0, static_cast<int>(entry.text.size() - 1));
         return entry.text[index];
     }
 
@@ -292,7 +292,7 @@ namespace core::text {
 
     app::MessageProvider* get_random_provider(text_id id) {
         auto& entry = text_entries[id];
-        int index = entry.text.empty() ? 0 : core::random(0, static_cast<int>(entry.text.size()));
+        int index = entry.text.empty() ? 0 : core::random(0, static_cast<int>(entry.text.size() - 1));
         return get_provider(id, index);
     }
 

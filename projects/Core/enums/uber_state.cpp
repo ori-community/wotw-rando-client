@@ -16,7 +16,6 @@ namespace {
         { UberStateGroup::BingoState, "bingo_state" },
         { UberStateGroup::Appliers, "appliers_serialization" },
         { UberStateGroup::MultiVars, "multi_vars" },
-        { UberStateGroup::PseuodoLocs, "pseuodo_locs" },
         { UberStateGroup::RandoStats, "rando_stats" },
         { UberStateGroup::RandoVirtual, "rando_virtual" },
         { UberStateGroup::LupoGroup, "lupo" },

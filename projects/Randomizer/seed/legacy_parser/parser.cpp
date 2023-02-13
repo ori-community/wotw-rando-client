@@ -828,8 +828,10 @@ namespace randomizer::seed::legacy_parser {
                 // Not used anymore.
             } else if (part == "quiet") {
                 // Not used anymore.
-            } else if (part == "instant") {
-                message->info.instant = true;
+            } else if (part == "instant_fade" || part == "prioritized") {
+                message->info.prioritized = true;
+            } else if (part == "nofade") {
+                message->info.instant_fade = true;
             } else if (part == "prepend") {
                 // Not used anymore.
             } else {

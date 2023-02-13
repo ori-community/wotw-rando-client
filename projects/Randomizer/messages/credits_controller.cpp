@@ -187,7 +187,7 @@ namespace randomizer::messages {
             return;
         }
 
-        m_random_value = m_random_generator();
+        m_random_value = static_cast<int>(m_random_generator());
         while (m_entries.size() > m_current_index && m_entries[m_current_index]->should_resolve(this, time)) {
             m_active_entries.push_back(m_entries[m_current_index]);
             ++m_current_index;

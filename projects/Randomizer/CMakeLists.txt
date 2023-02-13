@@ -133,7 +133,6 @@ set(
         "messages/credit_entries/text_entry.cpp"
         "messages/credit_entries/move_entry.cpp"
         "messages/messages.cpp"
-        "messages/progress_hint.cpp"
         "online/multiplayer.cpp"
         "online/network.cpp"
         "online/player.cpp"

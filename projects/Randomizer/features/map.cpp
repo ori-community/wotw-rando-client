@@ -103,22 +103,6 @@ namespace {
         return true;
     }
 
-    app::GameWorldAreaID__Enum area_id = app::GameWorldAreaID__Enum::None;
-
-    IL2CPP_INTERCEPT(GameMapUI, void, FixedUpdate, (app::GameMapUI * this_ptr)) {
-        next::GameMapUI::FixedUpdate(this_ptr);
-        auto area = GameMapUI::get_CurrentHighlightedArea(this_ptr);
-        if (area == nullptr || area->fields.Area == nullptr) {
-            return;
-        }
-
-        auto aid = area->fields.Area->fields.WorldMapAreaUniqueID;
-        if (aid != area_id) {
-            area_id = aid;
-            // TODO: Set map hint text based on area.
-        }
-    }
-
     // region Quest List UI
 
     IL2CPP_INTERCEPT(QuestsUI, void, OptionChangeCallback, (app::QuestsUI * this_ptr)) {
@@ -271,12 +255,6 @@ namespace {
         this_ptr->fields._Navigation_k__BackingField->fields.WorldMapZoomLevel = original_zoom / scaling_factor;
         this_ptr->fields._IconScaler_k__BackingField->fields.MaxScaleFactor = original_scale / scaling_factor;
     }
-
-    void on_area_map(GameEvent game_event, EventTiming timing) {
-        area_id = app::GameWorldAreaID__Enum::None;
-    }
-
-    auto on_area_map_handle = core::api::game::event_bus().register_handler(GameEvent::OpenAreaMap, EventTiming::After, &on_area_map);
 
     bool discover_everything() {
         auto game_world = get_game_world();

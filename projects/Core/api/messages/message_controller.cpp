@@ -1,5 +1,6 @@
 #include <Core/api/game/game.h>
 #include <Core/api/game/player.h>
+#include <Core/api/game/ui.h>
 #include <Core/api/messages/message_controller.h>
 #include <Core/utils/position_converter.h>
 
@@ -34,7 +35,7 @@ namespace core::api::messages {
             const auto message_visible = m_data.message->get_visibility() == MessageBox::Visibility::Visible ||
                 m_data.message->get_visibility() == MessageBox::Visibility::FadingIn;
             if (message_visible && *m_data.sync->time_left <= m_data.message->fade_out().get()) {
-                m_data.message->hide(m_data.info.instant);
+                m_data.message->hide(m_data.info.instant_fade);
             }
 
             if (*m_data.sync->time_left <= 0.f) {
@@ -58,7 +59,7 @@ namespace core::api::messages {
             }
 
             if (m_current.has_value()) {
-                if (!m_current->info.priority && !m_priority_data.empty()) {
+                if (!m_current->info.prioritized && !m_priority_data.empty()) {
                     // Switch out normal message for prioritized, pausing it.
                     m_current->message->hide(true);
                     m_current->sync->state = MessageController::MessageState::Paused;
@@ -71,16 +72,16 @@ namespace core::api::messages {
                 switch (m_current->sync->state) {
                     case MessageController::MessageState::Paused:
                         m_current->sync->state = MessageController::MessageState::Showing;
-                        m_current->message->show(m_current->info.instant, m_current->info.play_sound);
+                        m_current->message->show(m_current->info.instant_fade, m_current->info.play_sound);
                         break;
                     case MessageController::MessageState::Waiting:
                         m_current->sync->time_left = m_current->info.duration;
                         m_current->sync->state = MessageController::MessageState::Showing;
-                        m_current->message->show(m_current->info.instant, m_current->info.play_sound);
+                        m_current->message->show(m_current->info.instant_fade, m_current->info.play_sound);
                         break;
                     case MessageController::MessageState::Finished:
                         // Clear m_current, so it gets set next time update is run.
-                        m_current->message->hide(m_current->info.instant);
+                        m_current->message->hide(m_current->info.instant_fade);
                         m_current = std::optional<MessageData>();
                         break;
                     default:
@@ -90,7 +91,7 @@ namespace core::api::messages {
         }
 
         MessageController::sync_handle add(std::shared_ptr<MessageBox> message, MessageInfo info) {
-            auto& collection = info.priority ? m_priority_data : m_normal_data;
+            auto& collection = info.prioritized ? m_priority_data : m_normal_data;
             auto sync = std::make_shared<MessageController::SyncHandle>();
             collection.push_back({
                 std::move(message),
@@ -108,6 +109,7 @@ namespace core::api::messages {
     };
 
     struct MessageController::MessageControllerData {
+        bool in_priority = false;
         int max_line_count = 5;
         int max_messages_queued = 5;
 
@@ -115,11 +117,14 @@ namespace core::api::messages {
         std::vector<MessageData> unqueued_messages;
 
         std::optional<CentralMessageInfo> last_central_message;
-        std::vector<CentralMessageInfo> priority_central_messages;
+        std::optional<CentralMessageInfo> priority_central_message;
+        std::optional<CentralMessageData> priority_central_message_data;
         std::vector<CentralMessageInfo> normal_central_messages;
         std::vector<CentralMessageData> active_central_messages;
 
         common::registration_handle update_handle;
+
+        static CentralMessageData create_data(CentralMessageInfo const& info, int& total_lines, float& y_position, std::shared_ptr<text::ITextProcessor> const& text_processor);
     };
 
     MessageController::MessageController()
@@ -140,7 +145,7 @@ namespace core::api::messages {
             sync = std::make_shared<MessageController::SyncHandle>();
             sync->state = MessageState::Showing;
             sync->time_left = info.duration;
-            message->show(info.instant, info.play_sound);
+            message->show(info.instant_fade, info.play_sound);
             m_data->unqueued_messages.push_back({
                 std::move(message),
                 std::move(info),
@@ -156,8 +161,11 @@ namespace core::api::messages {
             m_data->last_central_message = info;
         }
 
-        auto& collection = info.prioritized ? m_data->priority_central_messages : m_data->normal_central_messages;
-        collection.push_back(std::move(info));
+        if (info.prioritized) {
+            m_data->priority_central_message = std::move(info);
+        } else {
+            m_data->normal_central_messages.push_back(std::move(info));
+        }
     }
 
     void MessageController::limit_central_queue() {
@@ -170,13 +178,13 @@ namespace core::api::messages {
     void MessageController::requeue_last_central_message() {
         if (m_data->last_central_message.has_value()) {
             m_data->last_central_message->world_position = std::nullopt;
-            m_data->priority_central_messages.push_back(*m_data->last_central_message);
+            m_data->priority_central_message = *m_data->last_central_message;
         } else {
-            m_data->priority_central_messages.push_back({
+            m_data->priority_central_message = {
                 .text = "No pickups collected yet, good Luck!",
                 .duration = 5.f,
                 .prioritized = true,
-            });
+            };
         }
 
         limit_central_queue();
@@ -184,7 +192,7 @@ namespace core::api::messages {
 
     void MessageController::clear_central_messages() {
         m_data->last_central_message = std::nullopt;
-        m_data->priority_central_messages.clear();
+        m_data->priority_central_message = std::nullopt;
         m_data->normal_central_messages.clear();
         m_data->active_central_messages.clear();
     }
@@ -247,102 +255,178 @@ namespace core::api::messages {
             y_position -= hint_size.padding_top * 2;
             y_position -= hint_size.text_height;
             y_position -= 0.3f; // Gap
+        } else if (game::ui::area_map_open()) {
+            static float test_map_offset = 0.85f;
+            y_position -= test_map_offset; // Put it below the map text.
         }
 
+        if (m_data->priority_central_message.has_value() || m_data->priority_central_message_data.has_value()) {
+            if (!m_data->in_priority) {
+                m_data->in_priority = true;
+                for (auto& message : m_data->active_central_messages) {
+                    message.message->hide(true);
+                }
+            }
+
+            update_priority_message(y_position);
+        } else {
+            if (m_data->in_priority) {
+                m_data->in_priority = false;
+                bool first = true;
+                for (auto& message : m_data->active_central_messages) {
+                    message.message->show(false, first);
+                    first = false;
+                }
+            }
+
+            update_active_messages(total_lines, y_position);
+            update_message_queue(total_lines, y_position);
+        }
+    }
+
+    CentralMessageData MessageController::MessageControllerData::create_data(
+        CentralMessageInfo const& info,
+        int& total_lines,
+        float& y_position,
+        std::shared_ptr<text::ITextProcessor> const& text_processor
+    ) {
         const auto player_position = game::player::get_position();
+        const auto message_lines = static_cast<int>(std::count(info.text.begin(), info.text.end(), '\n') + 1);
+        auto display_message_in_game_world = false;
+        if (info.world_position.has_value()) {
+            auto distance_to_player = modloader::math::distance2(player_position, info.world_position.value());
+            display_message_in_game_world = distance_to_player < 20.f;
+        }
+
+        const auto message_box = std::make_shared<MessageBox>();
+        message_box->alignment().set(app::AlignmentMode__Enum::Center);
+        message_box->show_box(info.show_box);
+        message_box->text().set(info.text);
+
+        message_box->text().text_processor(text_processor);
+        if (display_message_in_game_world) {
+            app::Vector3 offset{ 0 };
+            get_screen_position(ScreenPosition::TopCenter, &offset);
+            const auto position = world_to_ui_position(info.world_position.value()) - offset;
+            message_box->position().set(position);
+            message_box->fade_in().set(0.2f);
+        } else {
+            const auto message_box_size = calculate_message_box_size(message_lines);
+            y_position -= info.margins.x;
+            y_position -= info.padding.x;
+            y_position -= message_box_size.padding_top;
+            message_box->position().set({ 0.f, y_position, 0.f });
+            y_position -= message_box_size.text_height;
+            y_position -= message_box_size.padding_top;
+            y_position -= info.margins.y;
+            y_position -= info.padding.z;
+        }
+
+        message_box->screen_position().set(ScreenPosition::TopCenter);
+        total_lines += message_lines;
+        message_box->text().set(info.text);
+        message_box->vertical_anchor().set(app::VerticalAnchorMode__Enum::Top);
+        message_box->top_padding().set(info.padding.x);
+        message_box->left_padding().set(info.padding.y);
+        message_box->bottom_padding().set(info.padding.z);
+        message_box->right_padding().set(info.padding.w);
+        if (!info.text.empty()) {
+            message_box->show();
+        }
+
+        auto sync = std::make_shared<SyncHandle>();
+        sync->state = MessageState::Showing;
+        sync->time_left = info.duration;
+        return {
+            message_box,
+            info,
+            std::move(sync),
+        };
+    }
+
+    bool handle_active_message(CentralMessageData& data, int& total_lines, float& y_position, float fade_out) {
+        const float dt = game::delta_time();
+        update_time(data, dt);
+        const auto player_position = game::player::get_position();
+        if (data.sync->state != MessageController::MessageState::Finished) {
+            const auto message_lines = static_cast<int>(std::count(data.info.text.begin(), data.info.text.end(), '\n') + 1);
+            const auto message_box_size = calculate_message_box_size(message_lines);
+
+            y_position -= data.info.margins.x;
+            y_position -= data.info.padding.x;
+            y_position -= message_box_size.padding_top;
+            auto display_message_in_game_world = false;
+            if (data.info.world_position.has_value()) {
+                auto distance_to_player = modloader::math::distance2(player_position, data.info.world_position.value());
+                display_message_in_game_world = distance_to_player < 20.f;
+            }
+
+            const auto target_position = app::Vector3{ 0, y_position, 0 };
+            if (display_message_in_game_world) {
+                const auto start_position = app::Vector3{ data.info.world_position->x, data.info.world_position->y, 0.f };
+
+                data.message->position().set(modloader::math::lerp(
+                    start_position,
+                    target_position,
+                    dt * 15.f * std::min(1.f, data.sync->active_time * 2.0f + 0.1f)
+                ));
+            } else {
+                data.message->position().set(target_position);
+            }
+
+            total_lines += message_lines;
+            y_position -= message_box_size.text_height;
+            y_position -= message_box_size.padding_top;
+            y_position -= data.info.margins.y;
+            y_position -= data.info.padding.z;
+
+            data.message->fade_out().set(fade_out);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    void MessageController::update_priority_message(float y_position) {
+        int total_lines = 0;
+        if (m_data->priority_central_message.has_value()) {
+            if (m_data->priority_central_message_data.has_value()) {
+                m_data->priority_central_message_data->message->hide(true);
+            }
+
+            const auto& info = m_data->priority_central_message.value();
+            m_data->priority_central_message_data = m_data->create_data(info, total_lines, y_position, m_text_processor);
+            m_data->priority_central_message = std::nullopt;
+        } else {
+            auto& data = m_data->priority_central_message_data.value();
+            if (!handle_active_message(data, total_lines, y_position, 0.1f)) {
+                m_data->priority_central_message_data = std::nullopt;
+            }
+        }
+    }
+
+    void MessageController::update_active_messages(int& total_lines, float& y_position) {
         for (auto it = m_data->active_central_messages.begin(); it != m_data->active_central_messages.end();) {
             auto& message_data = *it;
-            update_time(message_data, dt);
-            if (message_data.sync->state != MessageState::Finished) {
-                const auto message_lines = static_cast<int>(std::count(message_data.info.text.begin(), message_data.info.text.end(), '\n') + 1);
-                const auto message_box_size = calculate_message_box_size(message_lines);
-
-                y_position -= message_box_size.padding_top;
-                auto display_message_in_game_world = false;
-                if (message_data.info.world_position.has_value()) {
-                    auto distance_to_player = modloader::math::distance2(player_position, message_data.info.world_position.value());
-                    display_message_in_game_world = distance_to_player < 20.f;
-                }
-
-                const auto target_position = app::Vector3{ 0, y_position, 0 };
-                if (display_message_in_game_world) {
-                    const auto start_position = app::Vector3{ message_data.info.world_position->x, message_data.info.world_position->y, 0.f };
-
-                    message_data.message->position().set(modloader::math::lerp(
-                        start_position,
-                        target_position,
-                        dt * 15.f * std::min(1.f, message_data.sync->active_time * 2.0f + 0.1f)
-                    ));
-                } else {
-                    message_data.message->position().set(target_position);
-                }
-
-                total_lines += message_lines;
-                y_position -= message_box_size.text_height;
-                y_position -= message_box_size.padding_top;
-
-                message_data.message->fade_out().set(m_data->active_central_messages.size() == 1 ? 0.5f : 0.1f);
+            const auto fade_out = m_data->active_central_messages.size() == 1 ? 0.5f : 0.1f;
+            if (handle_active_message(message_data, total_lines, y_position, fade_out)) {
                 ++it;
             } else {
                 it = m_data->active_central_messages.erase(it);
             }
         }
+    }
 
-        while (total_lines < m_data->max_line_count && !(m_data->normal_central_messages.empty() && m_data->priority_central_messages.empty())) {
-            auto& collection = (m_data->priority_central_messages.empty() ? m_data->normal_central_messages : m_data->priority_central_messages);
-            auto message_data = collection.front();
-            const auto message_lines = static_cast<int>(std::count(message_data.text.begin(), message_data.text.end(), '\n') + 1);
+    void MessageController::update_message_queue(int& total_lines, float& y_position) {
+        while (total_lines < m_data->max_line_count && !m_data->normal_central_messages.empty()) {
+            auto info = m_data->normal_central_messages.front();
+            const auto message_lines = static_cast<int>(std::count(info.text.begin(), info.text.end(), '\n') + 1);
             if (total_lines != 0 && total_lines + message_lines > m_data->max_line_count) {
                 break;
             }
 
-            collection.erase(collection.begin());
-            auto display_message_in_game_world = false;
-            if (message_data.world_position.has_value()) {
-                auto distance_to_player = modloader::math::distance2(player_position, message_data.world_position.value());
-                display_message_in_game_world = distance_to_player < 20.f;
-            }
-
-            const auto message_box = std::make_shared<MessageBox>();
-            message_box->alignment().set(app::AlignmentMode__Enum::Center);
-            message_box->show_box(message_data.show_box);
-            message_box->text().set(message_data.text);
-
-            message_box->text().text_processor(m_text_processor);
-            if (display_message_in_game_world) {
-                app::Vector3 offset{ 0 };
-                get_screen_position(ScreenPosition::TopCenter, &offset);
-                const auto position = world_to_ui_position(message_data.world_position.value()) - offset;
-                message_box->position().set(position);
-                message_box->fade_in().set(0.2f);
-            } else {
-                const auto message_box_size = calculate_message_box_size(message_lines);
-                y_position -= message_box_size.padding_top;
-                message_box->position().set({ 0.f, y_position, 0.f });
-                y_position -= message_box_size.text_height;
-                y_position -= message_box_size.padding_top;
-            }
-
-            message_box->screen_position().set(ScreenPosition::TopCenter);
-            total_lines += message_lines;
-            message_box->text().set(message_data.text);
-            message_box->vertical_anchor().set(app::VerticalAnchorMode__Enum::Top);
-            message_box->top_padding().set(0);
-            message_box->bottom_padding().set(0);
-            message_box->left_padding().set(1);
-            message_box->right_padding().set(1);
-            if (!message_data.text.empty()) {
-                message_box->show();
-            }
-
-            const auto sync = std::make_shared<SyncHandle>();
-            sync->state = MessageState::Showing;
-            sync->time_left = message_data.duration;
-            m_data->active_central_messages.push_back({
-                message_box,
-                message_data,
-                std::move(sync),
-            });
+            m_data->normal_central_messages.erase(m_data->normal_central_messages.begin());
+            m_data->active_central_messages.push_back(m_data->create_data(info, total_lines, y_position, m_text_processor));
         }
     }
 } // namespace core::api::messages

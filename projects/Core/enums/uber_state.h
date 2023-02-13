@@ -19,7 +19,6 @@ enum class UberStateGroup {
     BingoState = 10,
     Appliers = 11,
     MultiVars = 12,
-    PseuodoLocs = 13,
     RandoStats = 14,
     RandoVirtual = 15,
     LupoGroup = 16,
