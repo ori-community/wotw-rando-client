@@ -94,7 +94,7 @@ namespace online {
 
         client.register_handler<Network::PrintPickupMessage>(
             Network::Packet_PacketID_PrintPickupMessage,
-            [this](auto const& message) { print_pickup(message); }
+            [](auto const& message) { print_pickup(message); }
         );
 
         client.register_handler<Network::InitBingoMessage>(
@@ -321,7 +321,7 @@ namespace online {
             return;
         }
 
-        auto state = message.state();
+        const auto& state = message.state();
         m_uber_state_handler.change_uber_state(
             core::api::uber_states::UberState(state.group(), state.state()),
             message.value()
@@ -339,7 +339,7 @@ namespace online {
         }
 
         for (auto const& update : message.updates()) {
-            auto state = update.state();
+            const auto& state = update.state();
             m_uber_state_handler.change_uber_state(
                 core::api::uber_states::UberState(state.group(), state.state()),
                 update.value()
@@ -348,43 +348,50 @@ namespace online {
     }
 
     void MultiplayerUniverse::print_text(Network::PrintTextMessage const& message) {
-        // if (!message.has_id()) {
-        //     core::message_controller().queue_message()
-        // }
-        //
-        // auto& box = m_message_boxes[message.id()];
-        // box->text() = message.text();
-        // box.has
+        std::shared_ptr<core::api::messages::MessageBox> box = nullptr;
+        if (message.has_id()) {
+            auto it = m_message_boxes.find(message.id());
+            if (it != m_message_boxes.end()) {
+                box = it->second->message.lock();
+            }
+        }
 
-        // var message = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
-        // MessageController.ShowMessage(
-        //     text
-        //     : message.Text,
-        //       time
-        //     : message.HasTime ? new float ? (message.Time) : null,
-        //       position
-        //                       : new Vector2(message.Position),
-        //       id
-        //     : message.HasId ? message.Id : -1,
-        //       showsBox
-        //     : message.WithBox,
-        //       alignment
-        //     : (Alignment)message.Alignment,
-        //       vertical
-        //     : (VerticalAnchor)message.VerticalAnchor,
-        //       horizontal
-        //     : (HorizontalAnchor)message.HorizontalAnchor,
-        //       screen
-        //     : (ScreenPosition)message.ScreenPosition,
-        //       queue
-        //     : message.Queue,
-        //       prioritized
-        //     : message.Prioritized,
-        //       log
-        //     : true,
-        //       useWorldCoordinates
-        //     : message.UseInGameCoordinates
-        // );
+        const bool is_constructed = box == nullptr;
+        if (is_constructed) {
+            box = std::make_shared<core::api::messages::MessageBox>();
+        }
+
+        app::Vector3 position{};
+        if (message.has_position()) {
+            const auto& pos2 = message.position();
+            position.x = pos2.x();
+            position.y = pos2.y();
+        }
+
+        box->text() = message.text();
+        box->position() = position;
+        box->screen_position() = static_cast<core::api::messages::ScreenPosition>(message.screenposition());
+        box->alignment() = static_cast<app::AlignmentMode__Enum>(message.alignment());
+        box->horizontal_anchor() = static_cast<app::HorizontalAnchorMode__Enum>(message.horizontalanchor());
+        box->vertical_anchor() = static_cast<app::VerticalAnchorMode__Enum>(message.verticalanchor());
+        box->use_world_coordinates() = message.useingamecoordinates();
+        box->fade_in() = message.fadeinlength();
+        box->fade_out() = message.fadeoutlength();
+        box->show_box(message.withbox());
+
+        if (is_constructed) {
+            core::api::messages::MessageInfo info{
+                .duration = message.has_time() ? std::optional(message.time()) : std::nullopt,
+                .queue = message.has_queue() ? std::optional(message.queue()) : std::nullopt,
+                .prioritized = message.prioritized(),
+                .play_sound = message.withsound(),
+            };
+
+            auto sync = core::message_controller().queue_message(box, info);
+            if (message.has_id()) {
+                m_message_boxes[message.id()] = std::move(sync);
+            }
+        }
     }
 
     void MultiplayerUniverse::print_pickup(Network::PrintPickupMessage const& message) {

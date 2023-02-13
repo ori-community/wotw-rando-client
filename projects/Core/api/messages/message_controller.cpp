@@ -93,6 +93,7 @@ namespace core::api::messages {
         MessageController::sync_handle add(std::shared_ptr<MessageBox> message, MessageInfo info) {
             auto& collection = info.prioritized ? m_priority_data : m_normal_data;
             auto sync = std::make_shared<MessageController::SyncHandle>();
+            sync->message = message;
             collection.push_back({
                 std::move(message),
                 std::move(info),
@@ -145,6 +146,7 @@ namespace core::api::messages {
             sync = std::make_shared<MessageController::SyncHandle>();
             sync->state = MessageState::Showing;
             sync->time_left = info.duration;
+            sync->message = message;
             message->show(info.instant_fade, info.play_sound);
             m_data->unqueued_messages.push_back({
                 std::move(message),

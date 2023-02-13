@@ -46,6 +46,7 @@ namespace core::api::messages {
             MessageState state = MessageState::Waiting;
             std::optional<float> time_left;
             float active_time = 0;
+            std::weak_ptr<MessageBox> message;
         };
 
         using sync_handle = std::shared_ptr<MessageController::SyncHandle>;
@@ -74,3 +75,5 @@ namespace core::api::messages {
         void limit_central_queue();
     };
 } // namespace core::api::messages
+
+using sync_handle = std::shared_ptr<core::api::messages::MessageController::SyncHandle>;

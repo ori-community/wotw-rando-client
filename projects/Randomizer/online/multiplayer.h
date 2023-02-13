@@ -6,7 +6,7 @@
 
 #include <Core/api/game/game.h>
 #include <Core/api/graphics/textures.h>
-#include <Core/api/messages/message_box.h>
+#include <Core/api/messages/message_controller.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/enums/game_event.h>
 
@@ -60,7 +60,7 @@ namespace online {
         void uber_state_batch_update(Network::UberStateBatchUpdateMessage const& message);
 
         void print_text(Network::PrintTextMessage const& message);
-        void print_pickup(Network::PrintPickupMessage const& message);
+        static void print_pickup(Network::PrintPickupMessage const& message);
         void initialize_bingo(Network::InitBingoMessage const& message);
         void set_seed(Network::SetSeedMessage const& message);
 
@@ -70,7 +70,7 @@ namespace online {
 
         std::unordered_map<std::string, PlayerInfo> m_players;
         std::unordered_map<std::string, std::unique_ptr<Player>> m_player_avatars;
-        std::unordered_map<int, core::api::messages::MessageBox> m_message_boxes;
+        std::unordered_map<int, sync_handle> m_message_boxes;
 
         UberStateHandler m_uber_state_handler;
         NetworkClient* m_client = nullptr;
