@@ -6,6 +6,7 @@
 
 #include <Core/api/game/game.h>
 #include <Core/api/graphics/textures.h>
+#include <Core/api/messages/message_box.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/enums/game_event.h>
 
@@ -40,6 +41,10 @@ namespace online {
         UberStateHandler& uber_state_handler() { return m_uber_state_handler; }
 
     private:
+        struct MessageBoxStorage {
+            std::optional<float> time;
+        };
+
         void update();
         void on_load();
         void request_full_sync();
@@ -65,6 +70,7 @@ namespace online {
 
         std::unordered_map<std::string, PlayerInfo> m_players;
         std::unordered_map<std::string, std::unique_ptr<Player>> m_player_avatars;
+        std::unordered_map<int, core::api::messages::MessageBox> m_message_boxes;
 
         UberStateHandler m_uber_state_handler;
         NetworkClient* m_client = nullptr;

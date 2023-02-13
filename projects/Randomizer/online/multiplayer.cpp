@@ -4,6 +4,7 @@
 #include <Core/api/game/player.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/api/uber_states/uber_state_handlers.h>
+#include <Core/core.h>
 #include <Core/dev/object_visualizer.h>
 #include <Core/events/task.h>
 #include <Core/utils/color.h>
@@ -347,6 +348,14 @@ namespace online {
     }
 
     void MultiplayerUniverse::print_text(Network::PrintTextMessage const& message) {
+        // if (!message.has_id()) {
+        //     core::message_controller().queue_message()
+        // }
+        //
+        // auto& box = m_message_boxes[message.id()];
+        // box->text() = message.text();
+        // box.has
+
         // var message = PrintTextMessage.Parser.ParseFrom(packet.Packet_);
         // MessageController.ShowMessage(
         //     text
@@ -379,19 +388,13 @@ namespace online {
     }
 
     void MultiplayerUniverse::print_pickup(Network::PrintPickupMessage const& message) {
-        // var message = PrintPickupMessage.Parser.ParseFrom(packet.Packet_);
-        // MessageController.ShowPickup(
-        //     text
-        //     : message.Text,
-        //       time
-        //     : message.Time,
-        //       prioritized
-        //     : message.Prioritized,
-        //       pickupPosition
-        //     : message.PickupPosition != null ? new Vector2 ? (new Vector2(message.PickupPosition)) : null,
-        //       log
-        //                                      : true
-        // );
+        auto const& position = message.pickupposition();
+        core::message_controller().queue_central_message({
+            .text = message.text(),
+            .duration = message.time(),
+            .prioritized = message.prioritized(),
+            .world_position = app::Vector3{ position.x(), position.y(), 0 },
+        });
     }
 
     void MultiplayerUniverse::initialize_bingo(Network::InitBingoMessage const& message) {
