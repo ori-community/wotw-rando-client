@@ -251,11 +251,11 @@ namespace modloader::win::console {
             return;
         }
 
-        if (console_file != nullptr) {
-            fclose(console_file);
-        }
-
         FreeConsole();
+
+        fclose(stdin);
+        fclose(stdout);
+        fclose(stderr);
     }
 
     void list_commands() {

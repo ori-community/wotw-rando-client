@@ -80,8 +80,9 @@ namespace {
             auto arr = MessageProvider::GetAllMessages(context->fields.Name);
             if (arr->max_length > 0) {
                 auto name = il2cpp::convert_csstring(arr->vector[0]);
-                if (name == "Gorlek Ore" || name == "Giant Spirit Light Container")
+                if (name == "Gorlek Ore" || name == "Giant Spirit Light Container") {
                     return nullptr;
+                }
             }
         }
 

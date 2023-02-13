@@ -96,6 +96,6 @@ namespace randomizer::text_processors {
         search_and_replace("[state_bool(", boolean, text);
         search_and_replace("[state_int(", integer, text);
         search_and_replace("[state_real(", real, text);
-        search_and_replace("[state_value(", real, text);
+        search_and_replace("[state_value(", value, text);
     }
 } // namespace randomizer::text_processors

@@ -59,6 +59,10 @@ namespace randomizer {
             core::api::uber_states::UberState(9593, 3621).set(true); // inkwaterMarshStateGroup.mokiTorchPlayed
             core::api::uber_states::UberState(21786, 50432).set(true); // swampStateGroup.leverA
         }
+        
+        auto on_before_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::Before, [](auto, auto) {
+            server_disconnect();
+        });
 
         auto on_update = core::api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
             if (reach_check_queued && do_reach_check()) {
@@ -67,12 +71,6 @@ namespace randomizer {
         });
 
         auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
-            timer::clear_uber_state_timers();
-            // TODO: Maybe this should be on seed load instead?
-            universe.uber_state_handler().clear_unsyncables();
-            features::wheel::clear_wheels();
-            features::wheel::initialize_defaults();
-            game::shops::reset_shop_data();
             core::api::game::player::shard_slots() = 3;
         });
 
@@ -106,7 +104,13 @@ namespace randomizer {
         });
 
         auto on_after_seed_load = event_bus().register_handler(RandomizerEvent::SeedLoaded, EventTiming::After, [](auto, auto) {
+            // Clear all the things that seed sets on load.
             timer::clear_uber_state_timers();
+            universe.uber_state_handler().clear_unsyncables();
+            features::wheel::clear_wheels();
+            features::wheel::initialize_defaults();
+            game::shops::reset_shop_data();
+
             randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 1), 0);
             queue_reach_check();
         });

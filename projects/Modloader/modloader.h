@@ -5,6 +5,7 @@
 #include <Modloader/constants.h>
 #include <Modloader/macros.h>
 
+#include <atomic>
 #include <filesystem>
 #include <string>
 
@@ -77,5 +78,5 @@ namespace modloader {
     IL2CPP_MODLOADER_DLLEXPORT void add_shutdown_handler(shutdown_handler handler);
     IL2CPP_MODLOADER_DLLEXPORT void shutdown();
 
-    IL2CPP_MODLOADER_DLLEXPORT extern bool shutdown_requested;
+    IL2CPP_MODLOADER_DLLEXPORT extern std::atomic<bool> shutdown_requested;
 } // namespace modloader

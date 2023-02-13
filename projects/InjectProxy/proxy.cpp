@@ -1,21 +1,20 @@
 #include "hook.h"
+#include <AtlBase.h>
+#include <InjectProxy/winhttp_proxy.h>
+#include <atlconv.h>
+#include <fmt/format.h>
+#include <tclap/CmdLine.h>
 #include <windows.h>
 #include <winuser.h>
-#include <thread>
-#include <iostream>
-#include <tclap/CmdLine.h>
-#include <AtlBase.h>
-#include <atlconv.h>
 #include <filesystem>
 #include <functional>
+#include <iostream>
 #include <semaphore>
-#include <InjectProxy/winhttp_proxy.h>
-#include <fmt/format.h>
-
+#include <thread>
 
 std::string convert_wstring_to_string(std::wstring_view str) {
     CW2A cw2a(str.data());
-    return {cw2a};
+    return { cw2a };
 }
 
 void inject() {
@@ -32,18 +31,18 @@ void inject() {
     cmd.ignoreUnmatched(true);
 
     TCLAP::ValueArg<std::string> modloader_base_dir(
-            "m",
-            "modloader-base-dir",
-            "Directory that has the Modloader.dll",
-            false,
-            "",
-            "string"
+        "m",
+        "modloader-base-dir",
+        "Directory that has the Modloader.dll",
+        false,
+        "",
+        "string"
     );
     cmd.add(modloader_base_dir);
 
     std::vector<std::string> arguments;
     int argc = 0;
-    LPWSTR *argv = CommandLineToArgvW(GetCommandLineW(), &argc);
+    LPWSTR* argv = CommandLineToArgvW(GetCommandLineW(), &argc);
 
     for (int i = 0; i < argc; ++i) {
         auto arg = argv[i];
@@ -56,48 +55,53 @@ void inject() {
         auto base_path = std::filesystem::path(modloader_base_dir.getValue());
 
         auto modloader = LoadLibraryW((base_path / "Modloader.dll").c_str());
-        auto modloader_injection_entry_fn = reinterpret_cast<void (*)(std::string, const std::function<void()>,
-                                                                      const std::function<void(std::string_view)>)>(
-                GetProcAddress(modloader, "injection_entry")
+        auto modloader_injection_entry_fn = reinterpret_cast<void (*)(std::string, const std::function<void()>, const std::function<void(std::string_view)>)>(
+            GetProcAddress(modloader, "injection_entry")
         );
 
         std::binary_semaphore modloader_initialization_mutex(0);
 
         std::thread thread([&modloader_injection_entry_fn, base_path, &modloader_initialization_mutex]() {
-            modloader_injection_entry_fn(base_path.string(), [&modloader_initialization_mutex]() {
-                modloader_initialization_mutex.release();
-            }, [&modloader_initialization_mutex](auto error_message) {
-                MessageBoxA(
+            modloader_injection_entry_fn(
+                base_path.string(),
+                [&modloader_initialization_mutex]() {
+                    std::cout << "Releasing" << std::endl;
+                    modloader_initialization_mutex.release();
+                },
+                [&modloader_initialization_mutex](auto error_message) {
+                    MessageBoxA(
                         nullptr,
-                        (LPCSTR) fmt::format("Modloader initialization failed: {}", error_message).c_str(),
+                        (LPCSTR)fmt::format("Modloader initialization failed: {}", error_message).c_str(),
                         (LPCSTR) "Ori and the Will of the Wisps Modloader",
                         MB_ICONERROR | MB_OK
-                );
+                    );
 
-                modloader_initialization_mutex.release();
-            });
+                    modloader_initialization_mutex.release();
+                }
+            );
         });
 
         thread.detach();
 
-        std::cout << "Waiting for initialization to complete...";
+        std::cout << "Waiting for initialization to complete..." << std::endl;
         modloader_initialization_mutex.acquire();
+        std::cout << "Acquired" << std::endl;
     }
 }
 
-void(*il2cpp_init)(const char* domain_name);
+void (*il2cpp_init)(const char* domain_name);
 
 void il2cpp_init_intercept(const char* domain_name) {
     il2cpp_init(domain_name);
     inject();
 }
 
-void* WINAPI get_proc_address_detour(HMODULE module_name, char *name) {
-    auto return_value = (void(*)()) GetProcAddress(module_name, name);
+void* WINAPI get_proc_address_detour(HMODULE module_name, char* name) {
+    auto return_value = (void (*)())GetProcAddress(module_name, name);
 
     if (lstrcmpA(name, "il2cpp_init") == 0) {
-        il2cpp_init = reinterpret_cast<void(*)(const char*)>(return_value);
-        return reinterpret_cast<void *>(&il2cpp_init_intercept);
+        il2cpp_init = reinterpret_cast<void (*)(const char*)>(return_value);
+        return reinterpret_cast<void*>(&il2cpp_init_intercept);
     }
 
     return reinterpret_cast<void*>(return_value);
@@ -114,10 +118,10 @@ void inject_iat() {
 
     if (!ok) {
         MessageBoxA(
-                nullptr,
-                (LPCSTR) "IAT hooking failed.",
-                (LPCSTR) "Ori and the Will of the Wisps Modloader",
-                MB_ICONERROR | MB_OK
+            nullptr,
+            (LPCSTR) "IAT hooking failed.",
+            (LPCSTR) "Ori and the Will of the Wisps Modloader",
+            MB_ICONERROR | MB_OK
         );
     }
 }

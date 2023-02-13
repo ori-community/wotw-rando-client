@@ -108,7 +108,6 @@ namespace core::api::game {
             next::GameController::OnApplicationQuit(this_ptr);
             game_event_bus.trigger_event(GameEvent::Shutdown, EventTiming::After);
 
-            modloader::win::console::console_free();
             modloader::shutdown();
 
             // Force exit to prevent crash.

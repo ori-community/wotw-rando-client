@@ -69,7 +69,7 @@ namespace core::animation {
                 parse_entries(path, state, frames, j);
             } catch (...) {
                 trace(MessageType::Warning, 3, "timeline", fmt::format("failed to parse timeline '{}{}'", base_path.string(), path));
-                return std::move(std::unique_ptr<Timeline>());
+                return nullptr;
             }
         }
 

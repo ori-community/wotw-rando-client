@@ -1,3 +1,7 @@
+#include <app/methods/GameController.h>
+#include <app/methods/J2i/Net/XInputWrapper/XboxController.h>
+#include <app/methods/UnityEngine/Application.h>
+#include <app/methods/UnityEngine/Cursor.h>
 #include <constants.h>
 #include <il2cpp_helpers.h>
 #include <interception_macros.h>
@@ -7,13 +11,13 @@
 #include <windows_api/common.h>
 #include <windows_api/console.h>
 
-#include <fstream>
-#include <string>
-#include <utility>
-#include <functional>
 #include <filesystem>
+#include <fstream>
+#include <functional>
+#include <utility>
 
 #include <mutex>
+#include <semaphore>
 
 #include <Common/csv.h>
 #include <Common/ext.h>
@@ -34,7 +38,7 @@ namespace modloader {
     std::filesystem::path base_path = "C:\\moon\\";
     std::filesystem::path modloader_config_path = "modloader_config.json";
     std::filesystem::path csv_path = "inject_log.csv";
-    bool shutdown_requested = false;
+    std::atomic<bool> shutdown_requested = false;
 
     common::EventBus<void, ModloaderEvent>& event_bus() {
         static common::EventBus<void, ModloaderEvent> bus;
@@ -108,16 +112,12 @@ namespace modloader {
 
     bool attached = false;
 
+    std::binary_semaphore wait_for_exit(0);
     IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
         base_path = path;
         trace(MessageType::Info, 5, "initialize", "Loading settings.");
 
         auto settings = read_utf16_ini((base_path / "settings.ini").string());
-
-        auto wait_for_debugger = settings->GetBoolean("Flags", "WaitForDebugger", false);
-        while (wait_for_debugger && !win::common::is_debugger_present()) {
-            win::common::sleep(100); // to avoid 100% CPU load
-        }
 
         initialize_trace_file();
         trace(MessageType::Info, 5, "initialize", "Mod Loader initialization.");
@@ -149,15 +149,12 @@ namespace modloader {
             win::console::console_poll();
         }
 
-        win::console::console_free();
-
+        modloader::win::console::console_free();
         if (write_to_csv) {
             csv_file.close();
         }
 
-        interception::interception_detach();
-        win::bootstrap::bootstrap_shutdown();
-        win::common::free_library_and_exit_thread("Modloader.dll");
+        wait_for_exit.release();
     }
 
     IL2CPP_MODLOADER_DLLEXPORT bool cursor_lock() {
@@ -174,6 +171,11 @@ namespace modloader {
 
     void shutdown() {
         shutdown_requested = true;
+        app::classes::J2i::Net::XInputWrapper::XboxController::StopPolling();
+        wait_for_exit.acquire();
+        interception::interception_detach();
+        win::bootstrap::bootstrap_shutdown();
+        win::common::free_library_and_exit_thread("Modloader.dll");
     }
 
     bool initialized = false;

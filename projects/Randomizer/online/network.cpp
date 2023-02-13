@@ -1,6 +1,7 @@
 #include <online/network.h>
 
 #include <Common/ext.h>
+#include <Core/api/game/game.h>
 #include <Core/events/task.h>
 #include <Modloader/modloader.h>
 
@@ -12,8 +13,12 @@
 
 namespace online {
     namespace {
-        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+        auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::InjectionComplete, [](auto) {
             ix::initNetSystem();
+        });
+
+        auto on_after_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::After, [](auto, auto) {
+            ix::uninitNetSystem();
         });
     } // namespace
 
@@ -57,7 +62,7 @@ namespace online {
     void NetworkClient::disconnect() {
         reconnect_websocket = false;
         reopen_udp = false;
-        websocket.close();
+        websocket.stop();
         udp_socket.close();
     }
 

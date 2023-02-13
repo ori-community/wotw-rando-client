@@ -1,6 +1,7 @@
 #pragma once
 
 #include <windows.h>
+#include <string>
 
 HANDLE hHeap;
 
@@ -9,15 +10,15 @@ HANDLE hHeap;
 
 #define STR_LEN(str) (sizeof(str) / sizeof(str[0]))
 
-inline void *_wmemcpy(wchar_t *dst, const wchar_t *src, size_t n) {
-    wchar_t *d = dst;
-    const wchar_t *s = src;
+inline void* _wmemcpy(wchar_t* dst, const wchar_t* src, size_t n) {
+    wchar_t* d = dst;
+    const wchar_t* s = src;
     while (n--)
         *d++ = *s++;
     return dst;
 }
 
-inline size_t wcslen(wchar_t const *str) {
+inline size_t wcslen(wchar_t const* str) {
     size_t result = 0;
     while (*str++)
         result++;
@@ -40,14 +41,14 @@ inline void load_proxy(std::wstring module_name_str) {
     size_t module_name_len = wcslen(module_name);
 
     size_t alt_name_len = module_name_len + STR_LEN(ALT_POSTFIX);
-    wchar_t *alt_name = (wchar_t *)memalloc(sizeof(wchar_t) * alt_name_len);
+    wchar_t* alt_name = (wchar_t*)memalloc(sizeof(wchar_t) * alt_name_len);
     _wmemcpy(alt_name, module_name, module_name_len);
     _wmemcpy(alt_name + module_name_len, ALT_POSTFIX, STR_LEN(ALT_POSTFIX));
 
-    wchar_t *dll_path = NULL; // The final DLL path
+    wchar_t* dll_path = NULL; // The final DLL path
 
     const int alt_full_path_len = GetFullPathNameW(alt_name, 0, NULL, NULL);
-    wchar_t *alt_full_path = (wchar_t *)memalloc(sizeof(wchar_t) * alt_full_path_len);
+    wchar_t* alt_full_path = (wchar_t*)memalloc(sizeof(wchar_t) * alt_full_path_len);
     GetFullPathNameW(alt_name, alt_full_path_len, alt_full_path, NULL);
     memfree(alt_name);
 
@@ -56,7 +57,7 @@ inline void load_proxy(std::wstring module_name_str) {
 
     if (handle == NULL) {
         size_t system_dir_len = GetSystemDirectoryW(NULL, 0);
-        dll_path = (wchar_t *)memalloc(sizeof(wchar_t) * (system_dir_len + module_name_len + STR_LEN(DLL_POSTFIX)));
+        dll_path = (wchar_t*)memalloc(sizeof(wchar_t) * (system_dir_len + module_name_len + STR_LEN(DLL_POSTFIX)));
         _ASSERTE(dll_path != nullptr);
         GetSystemDirectoryW(dll_path, system_dir_len);
         dll_path[system_dir_len - 1] = L'\\';
