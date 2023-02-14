@@ -1,5 +1,6 @@
 add_subdirectory("Common")
 
+add_subdirectory("Injector")
 add_subdirectory("InjectProxy")
 add_subdirectory("Modloader")
 add_subdirectory("Core")
