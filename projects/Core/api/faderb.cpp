@@ -1,23 +1,18 @@
-#include "faderb.h"
+#include <api/faderb.h>
+#include <api/game/game.h>
+#include <enums/game_event.h>
 
 #include <Modloader/app/methods/FaderB.h>
 #include <Modloader/app/types/UI.h>
-#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
 
 using namespace app::classes;
 
 namespace core::api::faderb {
-    app::FaderB* faderb_cache = nullptr;
-
     app::FaderB* get() {
-        if (!il2cpp::unity::is_valid(faderb_cache)) {
-            auto ui = types::UI::get_class();
-            faderb_cache = ui->static_fields->Fader;
-        }
-
-        return faderb_cache;
+        static auto cache = types::UI::get_class()->static_fields->Fader;
+        return cache;
     }
 
     void fade_in(float duration) {
@@ -26,5 +21,17 @@ namespace core::api::faderb {
 
     void fade_out(float duration) {
         FaderB::FadeOut_2(get(), duration);
+    }
+
+    IL2CPP_INTERCEPT(FaderB, void, OnFadeInFinished, (app::FaderB * this_ptr)) {
+        game::event_bus().trigger_event(GameEvent::FaderBFadeInFinished, EventTiming::Before);
+        next::FaderB::OnFadeInFinished(this_ptr);
+        game::event_bus().trigger_event(GameEvent::FaderBFadeInFinished, EventTiming::After);
+    }
+
+    IL2CPP_INTERCEPT(FaderB, void, OnFadeOutFinished, (app::FaderB * this_ptr)) {
+        game::event_bus().trigger_event(GameEvent::FaderBFadeOutFinished, EventTiming::Before);
+        next::FaderB::OnFadeOutFinished(this_ptr);
+        game::event_bus().trigger_event(GameEvent::FaderBFadeOutFinished, EventTiming::After);
     }
 } // namespace core::api::faderb

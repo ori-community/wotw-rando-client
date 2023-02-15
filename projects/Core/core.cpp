@@ -1,16 +1,22 @@
 #include <core.h>
+#include <api/game/game.h>
 
 #include <random>
 
 namespace core {
     namespace {
-        std::mt19937 random_generator;
+        std::mt19937 random_generator; // NOLINT
         std::uniform_real_distribution<float> float_distribution = std::uniform_real_distribution<float>(0.0f, 1.0f);
-        api::messages::MessageController main_message_controller;
+        messages::MessageController main_message_controller;
         IDRegistry<std::shared_ptr<api::messages::MessageBox>> main_message_registry;
+
+        auto on_update = api::game::event_bus().register_handler(GameEvent::FixedUpdate, EventTiming::Before, [](auto, auto) {
+            const float delta_time = core::api::game::fixed_delta_time();
+            main_message_controller.update(delta_time);
+        });
     } // namespace
 
-    api::messages::MessageController& message_controller() {
+    messages::MessageController& message_controller() {
         return main_message_controller;
     }
 

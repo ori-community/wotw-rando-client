@@ -1,10 +1,15 @@
-#include <Core/api/game/game.h>
-#include <Core/api/game/ui.h>
+#include <api/game/game.h>
+#include <api/game/ui.h>
+#include <events/action.h>
 
 #include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/MenuScreenManager.h>
 #include <Modloader/app/methods/SeinUI.h>
+#include <Modloader/app/methods/System/Action.h>
+#include <Modloader/app/methods/TitleScreenManager.h>
+#include <Modloader/app/types/Action.h>
 #include <Modloader/app/types/UI.h>
+#include <Modloader/interception_macros.h>
 #include <Modloader/modloader.h>
 
 using namespace modloader;
@@ -22,6 +27,16 @@ namespace core::api::game::ui {
         auto on_after_close_area_map = game::event_bus().register_handler(GameEvent::CloseAreaMap, EventTiming::After, [](auto game_event, auto timing) {
             is_area_map_open = false;
         });
+
+        common::registration_handle on_after_faderb_fade_out_finished;
+        IL2CPP_INTERCEPT(TitleScreenManager, void, Start, (app::TitleScreenManager * this_ptr)) {
+            game::event_bus().trigger_event(GameEvent::TitleScreenStartup, EventTiming::Before);
+            next::TitleScreenManager::Start(this_ptr);
+            on_after_faderb_fade_out_finished = game::event_bus().register_handler(GameEvent::FaderBFadeOutFinished, EventTiming::After, [](auto, auto) {
+                on_after_faderb_fade_out_finished = nullptr;
+                game::event_bus().trigger_event(GameEvent::TitleScreenStartup, EventTiming::After);
+            });
+        }
     } // namespace
 
     bool is_manually_shaking_resource_ui() {

@@ -55,7 +55,7 @@ void inject() {
         auto base_path = std::filesystem::path(modloader_base_dir.getValue());
 
         auto modloader = LoadLibraryW((base_path / "Modloader.dll").c_str());
-        auto modloader_injection_entry_fn = reinterpret_cast<void (*)(std::string, const std::function<void()>, const std::function<void(std::string_view)>)>(
+        auto modloader_injection_entry_fn = reinterpret_cast<void (*)(std::string const&, const std::function<void()>, const std::function<void(std::string_view)>)>(
             GetProcAddress(modloader, "injection_entry")
         );
 

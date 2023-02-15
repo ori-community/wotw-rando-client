@@ -1,5 +1,6 @@
 #include <features/wheel.h>
 #include <game/shops/shop.h>
+#include <online/network_monitor.h>
 #include <randomizer.h>
 #include <seed/legacy_parser/parser.h>
 #include <text_processors/ability.h>
@@ -30,6 +31,14 @@ namespace randomizer {
         online::MultiplayerUniverse universe;
         std::shared_ptr<core::text::CompositeTextProcessor> text_processor;
 
+        online::NetworkMonitor monitor;
+        core::dev::StatusDisplay status({
+            .position = app::Vector3{ -1.4f, 0.2f, 0 },
+            .margins = { -0.09f, -0.09f },
+            .alignment = app::AlignmentMode__Enum::Left,
+            .screen_position = core::api::messages::ScreenPosition::TopCenter,
+        });
+
         bool reach_check_queued = false;
         bool reach_check_in_progress = false;
 
@@ -59,7 +68,7 @@ namespace randomizer {
             core::api::uber_states::UberState(9593, 3621).set(true); // inkwaterMarshStateGroup.mokiTorchPlayed
             core::api::uber_states::UberState(21786, 50432).set(true); // swampStateGroup.leverA
         }
-        
+
         auto on_before_shutdown = core::api::game::event_bus().register_handler(GameEvent::Shutdown, EventTiming::Before, [](auto, auto) {
             server_disconnect();
         });
@@ -68,6 +77,10 @@ namespace randomizer {
             if (reach_check_queued && do_reach_check()) {
                 reach_check_queued = false;
             }
+
+            const float delta_time = core::api::game::fixed_delta_time();
+            monitor.update(delta_time);
+            status.update(delta_time);
         });
 
         auto on_before_new_game_initialized = core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::Before, [](auto, auto) {
@@ -97,7 +110,7 @@ namespace randomizer {
                 uber_states::disable_reverts() = false;
             });
 
-            core::message_controller().queue_central_message({
+            core::message_controller().queue_central({
                 .text = "*Good Luck! <3*",
                 .prioritized = true,
             });
@@ -121,7 +134,7 @@ namespace randomizer {
 
         void load_seed(bool show_message) {
             // TODO: Check if we need to download/receive the seed from the server.
-            std::ifstream seed_name(modloader::base_path / ".currentseedpath");
+            std::ifstream seed_name(modloader::base_path() / ".currentseedpath");
             if (seed_name.is_open()) {
                 std::stringstream seed_name_buffer;
                 seed_name_buffer << seed_name.rdbuf();
@@ -132,6 +145,9 @@ namespace randomizer {
         }
 
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
+            monitor.display(&status);
+            monitor.network_client(&client);
+
             universe.register_packet_handlers(client);
             server_connect();
 
@@ -146,7 +162,7 @@ namespace randomizer {
             text_processor->compose(std::make_shared<text_processors::ShardProcessor>());
             text_processor->compose(std::make_shared<text_processors::LegacyProcessor>());
 
-            core::message_controller().central_text_processor(text_processor);
+            core::message_controller().central_display().text_processor(text_processor);
             load_seed(false);
         });
 
@@ -163,14 +179,14 @@ namespace randomizer {
             }
 
             std::string version = "0.0.0";
-            std::ifstream version_file(modloader::base_path / "VERSION");
+            std::ifstream version_file(modloader::base_path() / "VERSION");
             if (version_file.is_open()) {
                 std::stringstream version_buffer;
                 version_buffer << version_file.rdbuf();
                 version = version_buffer.str();
             }
 
-            core::message_controller().queue_central_message({
+            core::message_controller().queue_central({
                 .text = fmt::format("v{} - Loaded {}{}", version, randomizer_seed.info().name, flags),
                 .show_box = true,
                 .prioritized = true,

@@ -70,7 +70,6 @@ Checks: |
   google-runtime-operator,
   hicpp-exception-baseclass,
   hicpp-multiway-paths-covered,
-  hicpp-signed-bitwise,
   misc-misplaced-const,
   misc-new-delete-overloads,
   misc-no-recursion,

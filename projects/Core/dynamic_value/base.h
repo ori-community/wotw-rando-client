@@ -33,6 +33,7 @@ namespace core::dynamic_value {
         using value_type = typename DynamicValueContainer<T, CanSet, CanGet, EnableUberState>::value_type;
 
         DynamicValue();
+        DynamicValue(T const& value);
         DynamicValue(value_type value); // NOLINT
 
         [[nodiscard]] T get() const;

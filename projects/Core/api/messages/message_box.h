@@ -7,6 +7,7 @@
 #include <Modloader/app/structs/Color.h>
 #include <Modloader/app/structs/GameObject.h>
 #include <Modloader/app/structs/MessageBox.h>
+#include <Modloader/app/structs/Rect.h>
 #include <Modloader/app/structs/ScaleToTextBox.h>
 
 #include <nlohmann/json.hpp>
@@ -26,19 +27,22 @@ namespace core::api::messages {
         BottomRight = 8
     };
 
-    NLOHMANN_JSON_SERIALIZE_ENUM(ScreenPosition, {
-                                                     { ScreenPosition::TopLeft, "TopLeft" },
-                                                     { ScreenPosition::TopCenter, "TopCenter" },
-                                                     { ScreenPosition::TopRight, "TopRight" },
-                                                     { ScreenPosition::MiddleLeft, "MiddleLeft" },
-                                                     { ScreenPosition::MiddleCenter, "MiddleCenter" },
-                                                     { ScreenPosition::MiddleRight, "MiddleRight" },
-                                                     { ScreenPosition::BottomLeft, "BottomLeft" },
-                                                     { ScreenPosition::BottomCenter, "BottomCenter" },
-                                                     { ScreenPosition::BottomRight, "BottomRight" },
-                                                 });
+    NLOHMANN_JSON_SERIALIZE_ENUM(
+        ScreenPosition,
+        {
+            { ScreenPosition::TopLeft, "TopLeft" },
+            { ScreenPosition::TopCenter, "TopCenter" },
+            { ScreenPosition::TopRight, "TopRight" },
+            { ScreenPosition::MiddleLeft, "MiddleLeft" },
+            { ScreenPosition::MiddleCenter, "MiddleCenter" },
+            { ScreenPosition::MiddleRight, "MiddleRight" },
+            { ScreenPosition::BottomLeft, "BottomLeft" },
+            { ScreenPosition::BottomCenter, "BottomCenter" },
+            { ScreenPosition::BottomRight, "BottomRight" },
+        }
+    );
 
-    CORE_DLLEXPORT void get_screen_position(ScreenPosition position, app::Vector3* output);
+    CORE_DLLEXPORT app::Vector3 get_screen_position(ScreenPosition position);
 
     class CORE_DLLEXPORT MessageBox {
     public:
@@ -62,6 +66,8 @@ namespace core::api::messages {
         void hide(bool instant = false);
 
         void show_box(bool value);
+        [[nodiscard]] app::Rect text_bounds();
+        [[nodiscard]] app::Rect bounds();
 
         [[nodiscard]] DynamicValue<std::string>& text() { return m_text; }
         [[nodiscard]] DynamicValue<app::Vector3>& position() { return m_position; }

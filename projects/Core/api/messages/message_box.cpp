@@ -4,8 +4,8 @@
 #include <api/system/message_provider.h>
 #include <utils/position_converter.h>
 
+#include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/MessageBox.h>
-#include <Modloader/app/methods/OnScreenPositions.h>
 #include <Modloader/app/methods/ScaleToTextBox.h>
 #include <Modloader/app/methods/SoundSource.h>
 #include <Modloader/app/methods/UnityEngine/GameObject.h>
@@ -19,42 +19,33 @@
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/modloader.h>
 
-#include <unordered_set>
-
 using namespace modloader;
 using namespace app::classes;
 using namespace app::classes::UnityEngine;
 
 namespace core::api::messages {
-    void get_screen_position(ScreenPosition position, app::Vector3* output) {
+    app::Vector3 get_screen_position(ScreenPosition position) {
+        // Because these positions are always the same and OnScreenPositions
+        // sometimes isn't initialized for all values we hardcode them.
         switch (position) {
             case ScreenPosition::TopLeft:
-                *output = OnScreenPositions::get_TopLeft();
-                break;
+                return { -5, 3, 0 };
             case ScreenPosition::TopCenter:
-                *output = OnScreenPositions::get_TopCenter();
-                break;
+                return { 0, 3, 0 };
             case ScreenPosition::TopRight:
-                *output = OnScreenPositions::get_TopRight();
-                break;
+                return { 5, 3, 0 };
             case ScreenPosition::MiddleLeft:
-                *output = OnScreenPositions::get_MiddleLeft();
-                break;
+                return { -5, 0, 0 };
             case ScreenPosition::MiddleCenter:
-                *output = OnScreenPositions::get_MiddleCenter();
-                break;
+                return { 0, 0, 0 };
             case ScreenPosition::MiddleRight:
-                *output = OnScreenPositions::get_MiddleRight();
-                break;
+                return { 5, 0, 0 };
             case ScreenPosition::BottomLeft:
-                *output = OnScreenPositions::get_BottomLeft();
-                break;
+                return { -5, -3, 0 };
             case ScreenPosition::BottomCenter:
-                *output = OnScreenPositions::get_BottomCenter();
-                break;
+                return { 0, -2.5, 0 };
             case ScreenPosition::BottomRight:
-                *output = OnScreenPositions::get_BottomRight();
-                break;
+                return { 5, -3, 0 };
         }
     }
 
@@ -62,6 +53,8 @@ namespace core::api::messages {
         auto controller = types::UI::get_class()->static_fields->MessageController;
         m_game_object = reinterpret_cast<app::GameObject*>(Object::Instantiate_3(reinterpret_cast<app::Object_1*>(controller->fields.HintSmallMessage)));
         game::add_to_container(game::RandoContainer::Messages, m_game_object);
+        // TODO: Change how alignment and anchors work for custom message boxes using this tag.
+        GameObject::set_tag(m_game_object, il2cpp::string_new("rando_message"));
 
         il2cpp::unity::destroy_object(
             il2cpp::unity::get_component_in_children<app::DestroyOnRestoreCheckpoint>(
@@ -212,6 +205,21 @@ namespace core::api::messages {
         }
     }
 
+    app::Rect MessageBox::text_bounds() {
+        const auto text_box = m_message_box->fields.TextBox;
+        return CatlikeCoding::TextBox::TextBox::GetRealTextBoxLocalRect(text_box);
+    }
+
+    app::Rect MessageBox::bounds() {
+        const auto text_box = m_message_box->fields.TextBox;
+        return {
+            text_box->fields.boundsLeft,
+            text_box->fields.boundsBottom,
+            text_box->fields.boundsRight - text_box->fields.boundsLeft,
+            text_box->fields.boundsTop - text_box->fields.boundsBottom,
+        };
+    }
+
     void MessageBox::update_text() {
         auto new_text = m_text.get();
         if (m_processed_text != new_text) {
@@ -235,8 +243,7 @@ namespace core::api::messages {
         }
 
         if (m_screen_position.get().has_value()) {
-            app::Vector3 offset;
-            get_screen_position(*m_screen_position.get(), &offset);
+            app::Vector3 offset = get_screen_position(*m_screen_position.get());
             pos = pos + offset;
         }
 
@@ -248,7 +255,7 @@ namespace core::api::messages {
     }
 
     MessageBox::Visibility MessageBox::get_visibility() {
-        if (m_message_box == nullptr) {
+        if (m_message_box == nullptr) { // NOLINT
             return Visibility::Hidden;
         } else if (m_message_box->fields.Visibility->fields.m_time >= 1.0f) {
             return Visibility::Visible;

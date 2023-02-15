@@ -19,9 +19,9 @@ namespace randomizer_tester {
             }
 
             auto enemy_entity = il2cpp::unity::get_component<app::EnemyEntity>(death.game_object, app::classes::types::EnemyEntity::get_class());
-            core::api::messages::CentralMessageInfo info;
+            core::messages::MessageInfo info;
             info.text = fmt::format("Enemy died: {}", enemy_entity->klass->_0.name);
-            core::message_controller().queue_central_message(info);
+            core::message_controller().queue_central(info);
             modloader::trace(modloader::MessageType::Info, 4, "death_listener", info.text);
         }
 

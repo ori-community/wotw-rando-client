@@ -27,7 +27,7 @@ namespace credits {
         void credits_scene_loaded_callback(std::string_view scene_name, app::SceneState__Enum state, app::GameObject* scene_root) {
             if (state == app::SceneState__Enum::Loaded && scene_root != nullptr) {
                 credits.reset();
-                credits.load(fmt::format(CREDITS_PATH_FMT, modloader::base_path.string()));
+                credits.load(fmt::format(CREDITS_PATH_FMT, modloader::base_path().string()));
                 auto credits_go = il2cpp::unity::find_child(scene_root, "credits");
                 auto cred_cont = il2cpp::unity::get_component<app::CreditsController>(credits_go, types::CreditsController::get_class());
                 auto timeline = cred_cont->fields.CreditsTimeline;

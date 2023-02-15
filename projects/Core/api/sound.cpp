@@ -36,15 +36,15 @@ namespace core::api {
             return evt;
         }
 
-    std::unordered_map<std::string, std::vector<unsigned char>> banks;
-    void load_bank(std::string_view name, std::filesystem::path path) {
-        std::ifstream input(path, std::ios::binary);
-        banks[std::string(name)] = std::vector<unsigned char>(std::istreambuf_iterator<char>(input), {});
-        auto& data = banks[std::string(name)];
-        uint32_t bank_id = 0;
-        void* data_ptr = data.data();
-        AkSoundEngine::LoadAndDecodeBankFromMemory(data_ptr, data.size(), true, il2cpp::string_new("WotwRando"), false, &bank_id);
-    }
+        std::unordered_map<std::string, std::vector<unsigned char>> banks;
+        void load_bank(std::string_view name, std::filesystem::path path) {
+            std::ifstream input(path, std::ios::binary);
+            banks[std::string(name)] = std::vector<unsigned char>(std::istreambuf_iterator<char>(input), {});
+            auto& data = banks[std::string(name)];
+            uint32_t bank_id = 0;
+            void* data_ptr = data.data();
+            AkSoundEngine::LoadAndDecodeBankFromMemory(data_ptr, data.size(), true, il2cpp::string_new("WotwRando"), false, &bank_id);
+        }
 
         std::string artificial_host_name_template("randomizer_artificial_host_");
         int artificial_host_id = 1;
@@ -53,7 +53,7 @@ namespace core::api {
             modloader::info("sound", fmt::format("WWise version '{}.{}'", AkSoundEngine::GetMajorMinorVersion(), AkSoundEngine::GetSubminorBuildVersion()));
             modloader::info("sound", fmt::format("WWise soundbank version '{}'", AkSoundEngine::get_AK_SOUNDBANK_VERSION()));
 
-            load_bank("WotwRando", modloader::base_path / "assets/sounds/WotwRando.bnk");
+            load_bank("WotwRando", modloader::base_path() / "assets/sounds/WotwRando.bnk");
         });
     } // namespace
 

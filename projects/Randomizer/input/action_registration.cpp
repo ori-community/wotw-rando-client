@@ -41,14 +41,14 @@ namespace randomizer::input {
         });
 
         auto on_show_last_pickup_before = single_input_bus().register_handler(Action::ShowLastPickup, EventTiming::Before, [](auto, auto) {
-            core::message_controller().requeue_last_central_message();
+            core::message_controller().requeue_last_saved();
         });
 
         auto on_warp_credits_before = single_input_bus().register_handler(Action::WarpCredits, EventTiming::Before, [](auto, auto) {
             if (core::api::uber_states::UberState().get<bool>()) {
                 credits::start();
             } else {
-                core::message_controller().queue_central_message({
+                core::message_controller().queue_central({
                     .text = "Credit warp not unlocked!",
                     .prioritized = true,
                 });
@@ -57,7 +57,7 @@ namespace randomizer::input {
 
         auto on_toggle_cursor_lock_before = single_input_bus().register_handler(Action::ToggleCursorLock, EventTiming::Before, [](auto, auto) {
             modloader::cursor_lock(!modloader::cursor_lock());
-            core::message_controller().queue_central_message({
+            core::message_controller().queue_central({
                 .text = fmt::format("Cursor Lock {}", modloader::cursor_lock() ? "enabled" : "disabled"),
                 .prioritized = true,
             });
@@ -65,14 +65,14 @@ namespace randomizer::input {
 
         auto on_toggle_always_show_keystones_before = single_input_bus().register_handler(Action::ToggleAlwaysShowKeystones, EventTiming::Before, [](auto, auto) {
             core::settings::always_show_keystones(!core::settings::always_show_keystones());
-            core::message_controller().queue_central_message({
+            core::message_controller().queue_central({
                 .text = fmt::format("Debug {}", core::settings::always_show_keystones() ? "enabled" : "disabled"),
                 .prioritized = true,
             });
         });
 
         auto on_show_dev_flag_before = single_input_bus().register_handler(Action::ShowDevFlag, EventTiming::Before, [](auto, auto) {
-            core::message_controller().queue_central_message({
+            core::message_controller().queue_central({
                 .text = fmt::format("Dev: {}", core::settings::dev_mode() ? "True" : "False"),
                 .prioritized = true,
             });
@@ -80,7 +80,7 @@ namespace randomizer::input {
 
         auto on_toggle_debug_before = single_input_bus().register_handler(Action::ToggleDebug, EventTiming::Before, [](auto, auto) {
             core::api::game::debug_controls(!core::api::game::debug_controls());
-            core::message_controller().queue_central_message({
+            core::message_controller().queue_central({
                 .text = fmt::format("Debug {}", core::api::game::debug_controls() ? "enabled" : "disabled"),
                 .prioritized = true,
             });
@@ -88,7 +88,7 @@ namespace randomizer::input {
 
         auto on_print_coordinates_before = single_input_bus().register_handler(Action::PrintCoordinates, EventTiming::Before, [](auto, auto) {
             auto position = core::api::game::player::get_position();
-            core::message_controller().queue_central_message({
+            core::message_controller().queue_central({
                 .text = fmt::format("[ {}, {}, {} ]", position.x, position.y, position.z),
                 .prioritized = true,
             });
@@ -97,7 +97,7 @@ namespace randomizer::input {
 
         auto on_teleport_cheat_before = single_input_bus().register_handler(Action::TeleportCheat, EventTiming::Before, [](auto, auto) {
             if (game_seed().info().race_mode) {
-                core::message_controller().queue_central_message({
+                core::message_controller().queue_central({
                     .text = "Teleport anywhere is not available in race mode",
                     .prioritized = true,
                 });
@@ -105,7 +105,7 @@ namespace randomizer::input {
             }
 
             game::map::teleport_anywhere = !game::map::teleport_anywhere;
-            core::message_controller().queue_central_message({
+            core::message_controller().queue_central({
                 .text = fmt::format("Teleport anywhere {}", game::map::teleport_anywhere ? "enabled" : "disabled"),
                 .prioritized = true,
             });
@@ -113,7 +113,7 @@ namespace randomizer::input {
 
         auto on_unlock_spoilers_before = single_input_bus().register_handler(Action::UnlockSpoilers, EventTiming::Before, [](auto, auto) {
             if (game_seed().info().race_mode) {
-                core::message_controller().queue_central_message({
+                core::message_controller().queue_central({
                     .text = "Unlock spoilers is not available in race mode",
                     .prioritized = true,
                 });
@@ -121,7 +121,7 @@ namespace randomizer::input {
             }
 
             core::api::uber_states::UberState(34543, 11226).set(1);
-            core::message_controller().queue_central_message({
+            core::message_controller().queue_central({
                 .text = "Spoilers unlocked",
                 .prioritized = true,
             });
@@ -136,7 +136,7 @@ namespace randomizer::input {
         });
 
         auto on_clear_messages_before = single_input_bus().register_handler(Action::ClearMessages, EventTiming::Before, [](auto, auto) {
-            core::message_controller().clear_central_messages();
+            core::message_controller().clear_central();
         });
     } // namespace
 } // namespace randomizer::input

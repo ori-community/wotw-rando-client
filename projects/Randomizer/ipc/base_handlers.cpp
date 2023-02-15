@@ -133,12 +133,11 @@ namespace randomizer::ipc {
             if (p.contains("position")) {
                 auto pos = p.at("position");
                 auto screen_position = p.value("screen_position", core::api::messages::ScreenPosition::MiddleCenter);
-                app::Vector3 position{};
-                get_screen_position(screen_position, &position);
+                app::Vector3 position = get_screen_position(screen_position);
                 position.x += pos.at("x").get<float>();
                 position.y += pos.at("y").get<float>();
                 position.z += pos.at("z").get<float>();
-                message_box->position().set(position);
+                message_box->screen_position() = screen_position;
                 message_box->use_world_coordinates().set(pos.at("use_in_game_coordinates").get<bool>());
             }
 

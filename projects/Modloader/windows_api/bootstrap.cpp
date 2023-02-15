@@ -7,13 +7,12 @@
 #include <fmt/core.h>
 #include <nlohmann/json.hpp>
 
+#include <filesystem>
 #include <fstream>
 #include <unordered_set>
 #include <vector>
-#include <filesystem>
 
 namespace modloader {
-    extern std::filesystem::path base_path;
     extern std::filesystem::path modloader_config_path;
 
     namespace win::bootstrap {
@@ -56,14 +55,14 @@ namespace modloader {
         } // namespace
 
         bool bootstrap() {
-            std::ifstream stream(base_path / modloader_config_path);
+            std::ifstream stream(base_path() / modloader_config_path);
 
             if (stream.is_open()) {
                 nlohmann::json j;
                 try {
                     stream >> j;
                 } catch (nlohmann::json::parse_error& ex) {
-                    trace(MessageType::Debug, 3, "initialize", fmt::format("failed to parse '{}{}' error '{}' at byte '{}'", base_path.string(), modloader_config_path.string(), ex.id, ex.byte));
+                    trace(MessageType::Debug, 3, "initialize", fmt::format("failed to parse '{}{}' error '{}' at byte '{}'", base_path().string(), modloader_config_path.string(), ex.id, ex.byte));
                 }
 
                 if (j.contains("cpp") && j["cpp"].is_array()) {
@@ -71,7 +70,7 @@ namespace modloader {
                     auto cpp = j["cpp"];
                     for (auto it = cpp.begin(); it != cpp.end(); ++it) {
                         if (it->is_string()) {
-                            cpp_dlls.push_back((base_path / it->get<std::string>()).string());
+                            cpp_dlls.push_back((base_path() / it->get<std::string>()).string());
                         }
                     }
                 }

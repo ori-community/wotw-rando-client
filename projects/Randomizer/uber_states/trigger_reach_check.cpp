@@ -19,7 +19,7 @@ namespace randomizer::uber_states {
         });
 
         auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {
-            std::ifstream state_data(modloader::base_path / "state_data.csv");
+            std::ifstream state_data(modloader::base_path() / "state_data.csv");
             std::string line;
             while (std::getline(state_data, line)) {
                 std::vector<std::string> parts;

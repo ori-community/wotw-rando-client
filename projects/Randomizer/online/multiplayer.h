@@ -6,16 +6,16 @@
 
 #include <Core/api/game/game.h>
 #include <Core/api/graphics/textures.h>
-#include <Core/api/messages/message_controller.h>
 #include <Core/api/uber_states/uber_state.h>
 #include <Core/enums/game_event.h>
+#include <Core/messages/message_controller.h>
 
 #include <proto/packets.pb.h>
 
 #include <string>
 #include <vector>
 
-namespace online {
+namespace randomizer::online {
     class MultiplayerUniverse {
     public:
         struct PlayerInfo {
@@ -70,7 +70,7 @@ namespace online {
 
         std::unordered_map<std::string, PlayerInfo> m_players;
         std::unordered_map<std::string, std::unique_ptr<Player>> m_player_avatars;
-        std::unordered_map<int, sync_handle> m_message_boxes;
+        std::unordered_map<int, message_sync_handle> m_message_boxes;
 
         UberStateHandler m_uber_state_handler;
         NetworkClient* m_client = nullptr;
@@ -78,4 +78,4 @@ namespace online {
         std::string m_name;
         app::Color m_color = { 1.f, 1.f, 1.f, 1.f };
     };
-} // namespace online
+} // namespace randomizer::online

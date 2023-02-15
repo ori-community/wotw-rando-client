@@ -54,7 +54,7 @@ namespace randomizer::seed {
             flags += flag;
         }
 
-        core::message_controller().queue_central_message({
+        core::message_controller().queue_central({
             .text = fmt::format("Loaded {}{}", info().name, flags),
             .show_box = true,
             .prioritized = true,

@@ -1,10 +1,10 @@
 #pragma once
 
-#include <Core/api/messages/message_controller.h>
 #include <Core/id_registry.h>
+#include <Core/messages/message_controller.h>
 
 namespace core {
-    CORE_DLLEXPORT api::messages::MessageController& message_controller();
+    CORE_DLLEXPORT messages::MessageController& message_controller();
     CORE_DLLEXPORT IDRegistry<std::shared_ptr<api::messages::MessageBox>>& message_registry();
 
     CORE_DLLEXPORT void random_seed(int seed);

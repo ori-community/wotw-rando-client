@@ -66,9 +66,10 @@ namespace text_style {
     }
 
     std::unordered_set<std::string> created_styles;
-    app::TextStyle* create_color_style(std::string_view text) {
-        auto it = created_styles.find(std::string(text));
-        if (it != created_styles.end() || text.size() != 8) {
+    app::TextStyle* create_color_style(std::unordered_set<std::string>& styles, std::string_view text) {
+        auto hex_style = fmt::format("hex_{}", text);
+        auto it = styles.find(hex_style);
+        if (it != styles.end() || text.size() != 8) {
             return nullptr;
         }
 
@@ -78,7 +79,6 @@ namespace text_style {
             return nullptr;
         }
 
-        auto hex_style = fmt::format("hex_{}", text);
         auto style = create_style(hex_style);
         style->fields.hasColor = true;
         style->fields.color.rgba = static_cast<int>(
@@ -91,9 +91,10 @@ namespace text_style {
         return style;
     }
 
-    app::TextStyle* create_size_style(std::string_view text) {
-        auto it = created_styles.find(std::string(text));
-        if (it != created_styles.end()) {
+    app::TextStyle* create_size_style(std::unordered_set<std::string>& styles, std::string_view text) {
+        auto size_style = fmt::format("s_{}", text);
+        auto it = styles.find(size_style);
+        if (it != styles.end()) {
             return nullptr;
         }
 
@@ -103,7 +104,6 @@ namespace text_style {
             return nullptr;
         }
 
-        auto size_style = fmt::format("s_{}", text);
         auto style = create_style(size_style);
         style->fields.hasFontScale = true;
         style->fields.fontScale = static_cast<float>(font_scale);
@@ -113,40 +113,42 @@ namespace text_style {
     }
 
     void create_styles(app::TextBox* box, std::string_view text) {
+        std::unordered_set<std::string> styles;
+        auto style_array = box->fields.styleCollection->fields.styles;
+        for (auto i = 0; i < style_array->max_length; ++i) {
+            styles.emplace(il2cpp::convert_csstring(style_array->vector[i]->fields.name));
+        }
+
         std::vector<app::TextStyle*> new_styles;
         std::string value;
         for (int i = 0; i < text.size();) {
             app::TextStyle* style = nullptr;
             if (check_style(text, i, "<hex_", value)) {
-                style = create_color_style(value);
+                style = create_color_style(styles, value);
             } else if (check_style(text, i, "<s_", value)) {
-                style = create_size_style(value);
+                style = create_size_style(styles, value);
             } else {
                 ++i;
             }
 
             if (style != nullptr) {
-                created_styles.emplace(value);
+                styles.emplace(value);
                 new_styles.push_back(style);
             }
         }
 
         if (!new_styles.empty()) {
-            auto* styles = box->fields.styleCollection->fields.styles;
-            auto size = styles->max_length + new_styles.size();
+            auto size = style_array->max_length + new_styles.size();
             auto arr = types::TextStyle::create_array(static_cast<int>(size));
-            for (int i = 0; i < styles->max_length; ++i) {
-                arr->vector[i] = styles->vector[i];
+            for (int i = 0; i < style_array->max_length; ++i) {
+                arr->vector[i] = style_array->vector[i];
             }
 
             for (int i = 0; i < new_styles.size(); ++i) {
-                arr->vector[i + styles->max_length] = new_styles.at(i);
+                arr->vector[i + style_array->max_length] = new_styles.at(i);
             }
 
             box->fields.styleCollection->fields.styles = arr;
-            for (auto i = 0; i < box->fields.styleCollection->fields.styles->max_length; ++i) {
-                auto name = il2cpp::convert_csstring(box->fields.styleCollection->fields.styles->vector[i]->fields.name);
-            }
         }
     }
 } // namespace text_style

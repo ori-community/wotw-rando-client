@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-namespace online {
+namespace randomizer::online {
     class UberStateHandler {
     public:
         void change_uber_state(core::api::uber_states::UberState state, double value);
@@ -23,4 +23,4 @@ namespace online {
         std::unordered_set<core::api::uber_states::UberState> m_synced_states;
         std::unordered_map<core::api::uber_states::UberState, double> m_current_frame_changes;
     };
-} // namespace online
+} // namespace randomizer::online

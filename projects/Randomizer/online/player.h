@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <unordered_map>
 
-namespace online {
+namespace randomizer::online {
     class Player {
     public:
         Player();
@@ -35,4 +35,4 @@ namespace online {
         std::unique_ptr<PlayerIcon> map_icon;
         ghosts::RandoGhost world_ghost;
     };
-} // namespace online
+} // namespace randomizer::online

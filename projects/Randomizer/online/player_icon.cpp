@@ -28,7 +28,7 @@ using namespace app::classes;
 using namespace app::classes::UnityEngine;
 using namespace app::classes::CatlikeCoding::TextBox;
 
-namespace online {
+namespace randomizer::online {
     constexpr float MAP_SPRITE_SCALE = 0.6f;
     constexpr float MAX_EXTRAPOLATE_TIME = 0.3f;
     constexpr float MAX_EXTRAPOLATE_DISTANCE_SQUARED = 25.f;
@@ -299,4 +299,4 @@ namespace online {
             TextBox::RenderText(text_box);
         }
     }
-} // namespace online
+} // namespace randomizer::online

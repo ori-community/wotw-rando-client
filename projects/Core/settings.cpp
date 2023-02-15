@@ -19,7 +19,7 @@ namespace core::settings {
 
         INIReader& get_settings() {
             if (reader == nullptr) {
-                reader = read_utf16_ini((modloader::base_path / "settings.ini").string());
+                reader = read_utf16_ini((modloader::base_path() / "settings.ini").string());
             }
 
             return *reader;

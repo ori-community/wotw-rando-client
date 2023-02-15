@@ -11,7 +11,7 @@
 
 #include <unordered_map>
 
-namespace online {
+namespace randomizer::online {
 
     Player::Player()
             : map_icon(std::make_unique<PlayerIcon>(PlayerIcon::Type::Moki)) {
@@ -92,4 +92,4 @@ namespace online {
 
         world_ghost.skip_next_extrapolation = true;
     }
-} // namespace online
+} // namespace randomizer::online

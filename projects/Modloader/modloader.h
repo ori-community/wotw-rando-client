@@ -3,6 +3,7 @@
 #include <Common/event_bus.h>
 
 #include <Modloader/constants.h>
+#include <Modloader/il2cpp_helpers.h>
 #include <Modloader/macros.h>
 
 #include <atomic>
@@ -16,7 +17,7 @@ enum class ModloaderEvent {
 
 namespace modloader {
     using shutdown_handler = void (*)();
-    extern IL2CPP_MODLOADER_DLLEXPORT std::filesystem::path base_path;
+    IL2CPP_MODLOADER_DLLEXPORT std::filesystem::path base_path();
 
     enum class InitializationType {
         OnInjectionComplete,
@@ -62,6 +63,38 @@ namespace modloader {
         ~ScopedCaller() {
             end();
         }
+    };
+
+    struct ScopedGCHandleUntyped {
+        ScopedGCHandleUntyped(void* obj) {
+            m_handle = il2cpp::gchandle_new(obj);
+        }
+
+        ScopedGCHandleUntyped(ScopedGCHandleUntyped const&) = delete;
+        ScopedGCHandleUntyped(ScopedGCHandleUntyped&&) = delete;
+        ~ScopedGCHandleUntyped() {
+            il2cpp::gchandle_free(m_handle);
+        }
+
+        void* get() {
+            return il2cpp::gchandle_target(m_handle);
+        }
+
+    private:
+        gchandle m_handle;
+    };
+
+    template <typename T>
+    struct ScopedGCHandle {
+        ScopedGCHandle(T* obj)
+                : m_handle(obj) {}
+
+        T* get() {
+            return reinterpret_cast<T*>(m_handle.get());
+        }
+
+    private:
+        ScopedGCHandleUntyped m_handle;
     };
 
     IL2CPP_MODLOADER_DLLEXPORT common::EventBus<void, ModloaderEvent>& event_bus();

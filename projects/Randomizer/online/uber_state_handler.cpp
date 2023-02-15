@@ -2,7 +2,7 @@
 
 #include <Modloader/modloader.h>
 
-namespace online {
+namespace randomizer::online {
     void UberStateHandler::change_uber_state(core::api::uber_states::UberState state, double value) {
         m_current_frame_changes[state] = value;
         state.set(value);

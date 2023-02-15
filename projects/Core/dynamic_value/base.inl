@@ -41,6 +41,11 @@ namespace core::dynamic_value {
     };
 
     template <typename T, bool CanSet, bool CanGet, bool EnableUberState>
+    DynamicValue<T, CanSet, CanGet, EnableUberState>::DynamicValue(T const& value) {
+        m_container.value = value_type(std::make_shared<T>(value));
+    }
+
+    template <typename T, bool CanSet, bool CanGet, bool EnableUberState>
     DynamicValue<T, CanSet, CanGet, EnableUberState>::DynamicValue(value_type value) {
         m_container.value = value;
     }

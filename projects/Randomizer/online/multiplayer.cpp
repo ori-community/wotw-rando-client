@@ -16,7 +16,7 @@
 #include <algorithm>
 #include <unordered_map>
 
-namespace online {
+namespace randomizer::online {
     MultiplayerUniverse::MultiplayerUniverse() {
         m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::Update, EventTiming::After, [this](auto, auto) { update(); }));
         m_bus_handles.emplace_back(core::api::game::event_bus().register_handler(GameEvent::NewGameInitialized, EventTiming::After, [this](auto, auto) { request_full_sync(); }));
@@ -109,7 +109,6 @@ namespace online {
     }
 
     void MultiplayerUniverse::full_sync_states() {
-        // Randomizer.Debug($"Syncing {SyncedUberStates.Count} states", false);
         Network::UberStateBatchUpdateMessage message;
         auto const& states = m_uber_state_handler.get_synced_states();
         for (auto state : states) {
@@ -380,14 +379,16 @@ namespace online {
         box->show_box(message.withbox());
 
         if (is_constructed) {
-            core::api::messages::MessageInfo info{
-                .duration = message.has_time() ? std::optional(message.time()) : std::nullopt,
-                .queue = message.has_queue() ? std::optional(message.queue()) : std::nullopt,
-                .prioritized = message.prioritized(),
-                .play_sound = message.withsound(),
-            };
+            auto sync = core::message_controller().queue(
+                box,
+                {
+                    .duration = message.has_time() ? std::optional(message.time()) : std::nullopt,
+                    .queue = message.has_queue() ? std::optional(message.queue()) : std::nullopt,
+                    .prioritized = message.prioritized(),
+                    .play_sound = message.withsound(),
+                }
+            );
 
-            auto sync = core::message_controller().queue_message(box, info);
             if (message.has_id()) {
                 m_message_boxes[message.id()] = std::move(sync);
             }
@@ -396,11 +397,11 @@ namespace online {
 
     void MultiplayerUniverse::print_pickup(Network::PrintPickupMessage const& message) {
         auto const& position = message.pickupposition();
-        core::message_controller().queue_central_message({
+        core::message_controller().queue_central({
             .text = message.text(),
             .duration = message.time(),
             .prioritized = message.prioritized(),
-            .world_position = app::Vector3{ position.x(), position.y(), 0 },
+            .starting_world_position = app::Vector3{ position.x(), position.y(), 0 },
         });
     }
 
@@ -425,4 +426,4 @@ namespace online {
     // void MultiplayerUniverse::player_caught(Network::PlayerCaught const& message) {
     //
     // }
-} // namespace online
+} // namespace randomizer::online

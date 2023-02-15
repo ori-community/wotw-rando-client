@@ -1,7 +1,6 @@
 #pragma once
 #include <Modloader/interception_macros.h>
 
-#include <Modloader/app/structs/Action.h>
 #include <Modloader/app/structs/AsyncCallback.h>
 #include <Modloader/app/structs/IAsyncResult.h>
 #include <Modloader/app/structs/Object.h>

@@ -72,7 +72,7 @@ namespace randomizer_tester {
             text += param.value;
         }
 
-        core::message_controller().queue_central_message({ .text = text, .duration = 10, .prioritized = command == "test.message_box.show_priority" });
+        core::message_controller().queue_central({ .text = text, .duration = 10, .prioritized = command == "test.message_box.show_priority" });
     }
 
     auto on_game_ready = modloader::event_bus().register_handler(ModloaderEvent::GameReady, [](auto) {

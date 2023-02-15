@@ -35,10 +35,14 @@ namespace modloader {
     // Have this here so it is included in the assembly and can be used to examine thrown exceptions.
     Il2CppExceptionWrapper ex;
 
-    std::filesystem::path base_path = "C:\\moon\\";
+    std::filesystem::path inner_base_path = "C:\\moon\\";
     std::filesystem::path modloader_config_path = "modloader_config.json";
     std::filesystem::path csv_path = "inject_log.csv";
     std::atomic<bool> shutdown_requested = false;
+
+    std::filesystem::path base_path() {
+        return inner_base_path;
+    }
 
     common::EventBus<void, ModloaderEvent>& event_bus() {
         static common::EventBus<void, ModloaderEvent> bus;
@@ -56,7 +60,7 @@ namespace modloader {
                 return;
             }
 
-            csv_file.open(base_path / csv_path);
+            csv_file.open(base_path() / csv_path);
             write_to_csv = csv_file.is_open();
 
             if (write_to_csv) {
@@ -113,11 +117,11 @@ namespace modloader {
     bool attached = false;
 
     std::binary_semaphore wait_for_exit(0);
-    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
-        base_path = path;
+    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string const& path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
+        inner_base_path = path;
         trace(MessageType::Info, 5, "initialize", "Loading settings.");
 
-        auto settings = read_utf16_ini((base_path / "settings.ini").string());
+        auto settings = read_utf16_ini((base_path() / "settings.ini").string());
 
         initialize_trace_file();
         trace(MessageType::Info, 5, "initialize", "Mod Loader initialization.");

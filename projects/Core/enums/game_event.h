@@ -24,6 +24,10 @@ enum class GameEvent {
     Respawn,
     UberStateValueStoreLoaded,
 
+    TitleScreenStartup,
+    FaderBFadeInFinished,
+    FaderBFadeOutFinished,
+
     OpenAreaMap,
     CloseAreaMap,
 

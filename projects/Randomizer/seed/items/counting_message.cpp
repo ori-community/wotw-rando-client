@@ -1,16 +1,16 @@
 #include <randomizer.h>
 #include <seed/items/counting_message.h>
 
-#include <Core/api/messages/message_controller.h>
 #include <Core/core.h>
+#include <Core/messages/message_controller.h>
 
 #include <fmt/core.h>
 
 namespace randomizer::seed::items {
     void CountingMessage::grant() {
-        core::api::messages::CentralMessageInfo info;
-        info.text = message_text();
-        core::message_controller().queue_central_message(info);
+        core::message_controller().queue_central({
+            .text = message_text(),
+        });
     }
 
     std::string CountingMessage::message_text() {

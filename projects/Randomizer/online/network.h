@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string_view>
+#include <utility>
 #include <vector>
 
 #include <ixwebsocket/IXWebSocket.h>
@@ -10,16 +11,33 @@
 
 #include <Modloader/udp_socket.h>
 
-namespace online {
+namespace randomizer::online {
     class NetworkClient {
     public:
+        enum class StatusType {
+            WebsocketConnected,
+            WebsocketClosedUnexpected,
+            WebsocketClosed,
+            WebsocketError,
+            WebsocketSendError,
+
+            UdpClosed,
+            UdpError,
+        };
+
+        struct Status {
+            StatusType type;
+            std::string info;
+        };
+
         using handler_callback = std::function<void(Network::Packet_PacketID, std::string)>;
+        using status_callback = std::function<void(Status const&)>;
 
         NetworkClient();
         ~NetworkClient();
 
         void websocket_connect(std::string_view url);
-        bool websocket_want_connection() const { return reconnect_websocket; }
+        bool websocket_want_connection() const { return m_reconnect_websocket; }
         bool websocket_connected() const;
         void websocket_send(Network::Packet const& packet);
 
@@ -44,10 +62,10 @@ namespace online {
         }
 
         void disconnect();
-        bool wants_connection() { return reconnect_websocket; }
+        bool wants_connection() const { return m_reconnect_websocket; }
 
         void update();
-        void register_handler(Network::Packet_PacketID packet, handler_callback handler);
+        void register_handler(Network::Packet_PacketID packet, handler_callback const& handler);
 
         template <typename T>
         void register_handler(Network::Packet_PacketID packet, std::function<void(T const&)> handler) {
@@ -58,22 +76,27 @@ namespace online {
             });
         }
 
+        void set_status_listener(status_callback callback) {
+            m_status_listener = std::move(callback);
+        }
+
     private:
         void websocket_handle_message(ix::WebSocketMessagePtr const& msg);
         void udp_handle_message(std::vector<char> const& msg);
         void udp_handle_error(int error);
         void ping_udp();
 
-        std::mutex packet_mutex;
-        std::vector<Network::Packet> packets;
-        std::unordered_map<Network::Packet_PacketID, std::vector<handler_callback>> callbacks;
-        ix::WebSocket websocket;
-        modloader::UDPSocket udp_socket;
+        std::mutex m_packet_mutex;
+        std::vector<Network::Packet> m_packets;
+        std::unordered_map<Network::Packet_PacketID, std::vector<handler_callback>> m_callbacks;
+        ix::WebSocket m_websocket;
+        modloader::UDPSocket m_udp_socket;
+        status_callback m_status_listener;
 
-        bool reconnect_websocket;
-        bool reopen_udp;
+        bool m_reconnect_websocket;
+        bool m_reopen_udp;
 
-        int udp_id;
-        std::vector<char> udp_key;
+        int m_udp_id;
+        std::vector<char> m_udp_key;
     };
-} // namespace online
+} // namespace randomizer::online

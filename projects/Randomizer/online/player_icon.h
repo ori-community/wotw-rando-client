@@ -15,7 +15,7 @@
 
 #include <string_view>
 
-namespace online {
+namespace randomizer::online {
     class PlayerIcon {
     public:
         enum class Type : int32_t {
@@ -84,4 +84,4 @@ namespace online {
         core::DynamicValue<std::string> m_dynamic_name;
         core::DynamicValue<Type> m_dynamic_type;
     };
-} // namespace online
+} // namespace randomizer::online

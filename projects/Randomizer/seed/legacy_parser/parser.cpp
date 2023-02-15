@@ -161,10 +161,8 @@ namespace randomizer::seed::legacy_parser {
 
         const auto text = fmt::format("{} {}", spirit_light, currency);
         auto message = std::make_shared<items::Message>();
-        message->info = core::api::messages::CentralMessageInfo{
-            .text = text,
-            .should_save_as_last = true,
-        };
+        message->should_save_as_last = true;
+        message->info = { .text = text };
         data.location_data.items[data.next_location_id++] = message;
 
         data.location_data.names.emplace_back().assign(message->info.text);
@@ -184,7 +182,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         auto message = std::make_shared<items::Message>();
-        message->info.should_save_as_last = true;
+        message->should_save_as_last = true;
         const auto resource_type = static_cast<ResourceType>(resource_type_int);
         switch (resource_type) {
             case ResourceType::Health: {
@@ -263,7 +261,7 @@ namespace randomizer::seed::legacy_parser {
         assigner->value.set(should_add);
         data.location_data.items[data.next_location_id++] = assigner;
         auto message = std::make_shared<items::Message>();
-        message->info.should_save_as_last = true;
+        message->should_save_as_last = true;
         const auto text = should_add
             ? fmt::format("[ability({0})]", ability_type_int)
             : fmt::format("Removed [ability({0})]", ability_type_int);
@@ -293,7 +291,7 @@ namespace randomizer::seed::legacy_parser {
         data.location_data.items[data.next_location_id++] = assigner;
 
         auto message = std::make_shared<items::Message>();
-        message->info.should_save_as_last = true;
+        message->should_save_as_last = true;
         const auto text = should_add
             ? fmt::format("[shard({0})]", shard_type_int)
             : fmt::format("Removed [shard({0})]", shard_type_int);
@@ -724,53 +722,53 @@ namespace randomizer::seed::legacy_parser {
                 assigner->variable.assign(core::api::uber_states::UberState(11666, 61594));
                 teleporter_name = "Howl's Den";
                 break;
-            case 2:
+            case 3:
                 assigner->variable.assign(core::api::uber_states::UberState(53632, 18181));
                 teleporter_name = "Wellspring";
                 break;
-            case 3:
+            case 4:
                 assigner->variable.assign(core::api::uber_states::UberState(28895, 54235));
                 teleporter_name = "Baurs Reach";
                 break;
-            case 4:
-                assigner->variable.assign(core::api::uber_states::UberState(937, 26601));
-                teleporter_name = "Hollow";
-                break;
             case 5:
+                assigner->variable.assign(core::api::uber_states::UberState(937, 26601));
+                teleporter_name = "Kwolok's Hollow";
+                break;
+            case 6:
                 assigner->variable.assign(core::api::uber_states::UberState(18793, 38871));
                 teleporter_name = "Mouldwood Depths";
                 break;
-            case 6:
-                assigner->variable.assign(core::api::uber_states::UberState(58674, 7071));
-                teleporter_name = "West Woods";
-                break;
             case 7:
-                assigner->variable.assign(core::api::uber_states::UberState(58674, 1965));
-                teleporter_name = "East Woods";
+                assigner->variable.assign(core::api::uber_states::UberState(58674, 7071));
+                teleporter_name = "Woods Entrance";
                 break;
             case 8:
-                assigner->variable.assign(core::api::uber_states::UberState(58674, 10029));
-                teleporter_name = "West Wastes";
+                assigner->variable.assign(core::api::uber_states::UberState(58674, 1965));
+                teleporter_name = "Woods Exit";
                 break;
             case 9:
-                assigner->variable.assign(core::api::uber_states::UberState(20120, 49994));
-                teleporter_name = "East Wastes";
+                assigner->variable.assign(core::api::uber_states::UberState(58674, 10029));
+                teleporter_name = "Feeding Grounds";
                 break;
             case 10:
+                assigner->variable.assign(core::api::uber_states::UberState(20120, 49994));
+                teleporter_name = "Central Wastes";
+                break;
+            case 11:
                 assigner->variable.assign(core::api::uber_states::UberState(20120, 41398));
                 teleporter_name = "Outer Ruins";
                 break;
-            case 11:
-                assigner->variable.assign(core::api::uber_states::UberState(16155, 41465));
-                teleporter_name = "Willow";
-                break;
             case 12:
+                assigner->variable.assign(core::api::uber_states::UberState(16155, 41465));
+                teleporter_name = "Willow's End";
+                break;
+            case 14:
                 assigner->variable.assign(core::api::uber_states::UberState(10289, 4928));
                 teleporter_name = "Inner Ruins";
                 break;
-            case 13: {
+            case 2: {
                 assigner->variable.assign(core::api::uber_states::UberState(945, 58183));
-                teleporter_name = "East Pools";
+                teleporter_name = "Central Luma";
                 if (should_add) {
                     auto lower_water = std::make_shared<items::ValueModifier<bool, items::ValueOperator::Assign>>();
                     lower_water->variable.assign(core::api::uber_states::UberState(5377, 63173));
@@ -779,9 +777,9 @@ namespace randomizer::seed::legacy_parser {
                 }
                 break;
             }
-            case 14:
+            case 13:
                 assigner->variable.assign(core::api::uber_states::UberState(1370, 61594));
-                teleporter_name = "West Pools";
+                teleporter_name = "Luma Boss";
                 break;
             case 15:
                 assigner->variable.assign(core::api::uber_states::UberState(16155, 50867));
@@ -801,7 +799,7 @@ namespace randomizer::seed::legacy_parser {
 
         data.location_data.items[data.next_location_id++] = assigner;
         auto message = std::make_shared<items::Message>();
-        message->info.should_save_as_last = true;
+        message->should_save_as_last = true;
         const auto text = should_add
             ? fmt::format("{0} TP", teleporter_name)
             : fmt::format("Removed {0} TP", teleporter_name);
@@ -814,7 +812,7 @@ namespace randomizer::seed::legacy_parser {
 
     bool parse_message(std::span<std::string> parts, ParserData& data) {
         auto message = std::make_shared<items::Message>();
-        message->info.should_save_as_last = true;
+        message->should_save_as_last = true;
         message->info.duration = 4;
         for (const auto& part : parts) {
             if (part.starts_with("f=")) {
@@ -996,7 +994,7 @@ namespace randomizer::seed::legacy_parser {
             : fmt::format("Removed {0}", quest_event);
 
         auto message = std::make_shared<items::Message>();
-        message->info.should_save_as_last = true;
+        message->should_save_as_last = true;
         message->info.text = fmt::format("*{0}*", text);
         data.location_data.items[data.next_location_id++] = message;
 
@@ -1040,7 +1038,7 @@ namespace randomizer::seed::legacy_parser {
         data.location_data.items[data.next_location_id++] = item;
 
         auto message = std::make_shared<items::Message>();
-        message->info.should_save_as_last = true;
+        message->should_save_as_last = true;
         message->info.text = fmt::format(R"(#{0}[if([state_int(4, {1})] > 1, x[state_int(4, {1})],)]#)", bonus_item, bonus_type_int);
         data.location_data.items[data.next_location_id++] = message;
 
@@ -1089,9 +1087,8 @@ namespace randomizer::seed::legacy_parser {
         }
 
         auto message = std::make_shared<items::Message>();
-        message->info.should_save_as_last = true;
+        message->should_save_as_last = true;
         message->info.text = fmt::format("#{0}#", upgrade);
-        message->info.should_save_as_last = true;
         data.location_data.items[data.next_location_id++] = message;
 
         data.location_data.items[data.next_location_id++] = item;
@@ -1151,7 +1148,7 @@ namespace randomizer::seed::legacy_parser {
                 return false;
             case 2: {
                 auto message = std::make_shared<items::Message>();
-                message->info.should_save_as_last = true;
+                message->should_save_as_last = true;
                 message->info.text = "[state_int(6, 2)]/[seed(pickup_count)]";
                 data.location_data.items[data.next_location_id++] = message;
                 data.location_data.names.emplace_back().assign(message->info.text);
@@ -1216,7 +1213,7 @@ namespace randomizer::seed::legacy_parser {
                 // WorldName
                 auto message = std::make_shared<items::Message>();
                 message->info.text = "[world(name)]";
-                message->info.should_save_as_last = true;
+                message->should_save_as_last = true;
                 data.location_data.items[data.next_location_id++] = message;
                 data.location_data.names.emplace_back().assign(message->info.text);
                 break;
