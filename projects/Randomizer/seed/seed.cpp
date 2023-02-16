@@ -24,7 +24,7 @@ namespace randomizer::seed {
 
         event_bus().trigger_event(RandomizerEvent::SeedLoaded, EventTiming::Before);
         clear();
-        m_last_parser(m_last_path, m_data);
+        m_last_parser(m_last_path, m_location_data, m_data);
 
         for (auto& [state, inner_locations] : m_data.locations) {
             for (auto& [location, data] : inner_locations) {

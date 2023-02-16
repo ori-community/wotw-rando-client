@@ -5,7 +5,6 @@
 
 #include <Modloader/app/methods/CatlikeCoding/TextBox/TextBox.h>
 #include <Modloader/app/methods/Game/UI_Hints.h>
-#include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/types/UI_Hints.h>
 #include <Modloader/il2cpp_math.h>
 
@@ -166,7 +165,7 @@ namespace core::messages {
             return;
         }
 
-        for (auto queue : m_queues) {
+        for (auto& queue : m_queues) {
             queue.second.update(delta_time);
         }
 

@@ -44,7 +44,7 @@ namespace randomizer::seed {
             std::unordered_map<int, ItemData> procedures;
         };
 
-        using seed_parser = bool (*)(std::string_view path, Data& data);
+        using seed_parser = bool (*)(std::string_view path, location_data::LocationCollection const& location_data, Data& data);
 
         Seed(location_data::LocationCollection const& location_data);
 

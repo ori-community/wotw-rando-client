@@ -28,6 +28,7 @@
 #include <Modloader/il2cpp_math.h>
 #include <Modloader/modloader.h>
 
+#include <cmath>
 #include <fstream>
 #include <magic_enum.hpp>
 #include <regex>
@@ -36,6 +37,8 @@
 
 namespace randomizer::seed::legacy_parser {
     using location_type = core::api::uber_states::UberStateCondition;
+    // Hacky way to do it, but can't be bothered to pass it all the way down.
+    location_data::LocationCollection const* current_location_data = nullptr;
 
     struct ParserData {
         Seed::Data& data;
@@ -106,6 +109,14 @@ namespace randomizer::seed::legacy_parser {
         AppendString = 30,
     };
 
+    void set_location(items::Message* message, location_type const& location) {
+        auto const& location_data = current_location_data->location(location);
+        if (location_data.has_value() && location_data.value().position.has_value()) {
+            const auto position = location_data.value().position.value();
+            message->info.starting_world_position = app::Vector3{ position.x, position.y, 0 };
+        }
+    }
+
     bool parse_action(location_type const& location, std::span<std::string> parts, ParserData& data);
 
     void parse_parts(std::string_view str, std::vector<std::string>& parts) {
@@ -161,6 +172,7 @@ namespace randomizer::seed::legacy_parser {
 
         const auto text = fmt::format("{} {}", spirit_light, currency);
         auto message = std::make_shared<items::Message>();
+        set_location(message.get(), location);
         message->should_save_as_last = true;
         message->info = { .text = text };
         data.location_data.items[data.next_location_id++] = message;
@@ -182,6 +194,7 @@ namespace randomizer::seed::legacy_parser {
         }
 
         auto message = std::make_shared<items::Message>();
+        set_location(message.get(), location);
         message->should_save_as_last = true;
         const auto resource_type = static_cast<ResourceType>(resource_type_int);
         switch (resource_type) {
@@ -261,6 +274,7 @@ namespace randomizer::seed::legacy_parser {
         assigner->value.set(should_add);
         data.location_data.items[data.next_location_id++] = assigner;
         auto message = std::make_shared<items::Message>();
+        set_location(message.get(), location);
         message->should_save_as_last = true;
         const auto text = should_add
             ? fmt::format("[ability({0})]", ability_type_int)
@@ -291,6 +305,7 @@ namespace randomizer::seed::legacy_parser {
         data.location_data.items[data.next_location_id++] = assigner;
 
         auto message = std::make_shared<items::Message>();
+        set_location(message.get(), location);
         message->should_save_as_last = true;
         const auto text = should_add
             ? fmt::format("[shard({0})]", shard_type_int)
@@ -698,7 +713,7 @@ namespace randomizer::seed::legacy_parser {
         }
     }
 
-    bool parse_teleporter(std::span<std::string> parts, ParserData& data) {
+    bool parse_teleporter(location_type const& location, std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -799,6 +814,7 @@ namespace randomizer::seed::legacy_parser {
 
         data.location_data.items[data.next_location_id++] = assigner;
         auto message = std::make_shared<items::Message>();
+        set_location(message.get(), location);
         message->should_save_as_last = true;
         const auto text = should_add
             ? fmt::format("{0} TP", teleporter_name)
@@ -810,8 +826,9 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_message(std::span<std::string> parts, ParserData& data) {
+    bool parse_message(location_type const& location, std::span<std::string> parts, ParserData& data) {
         auto message = std::make_shared<items::Message>();
+        set_location(message.get(), location);
         message->should_save_as_last = true;
         message->info.duration = 4;
         for (const auto& part : parts) {
@@ -958,7 +975,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_quest_event(std::span<std::string> parts, ParserData& data) {
+    bool parse_quest_event(location_type const& location, std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -994,6 +1011,7 @@ namespace randomizer::seed::legacy_parser {
             : fmt::format("Removed {0}", quest_event);
 
         auto message = std::make_shared<items::Message>();
+        set_location(message.get(), location);
         message->should_save_as_last = true;
         message->info.text = fmt::format("*{0}*", text);
         data.location_data.items[data.next_location_id++] = message;
@@ -1004,7 +1022,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_bonus_item(std::span<std::string> parts, ParserData& data) {
+    bool parse_bonus_item(location_type const& location, std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -1038,6 +1056,7 @@ namespace randomizer::seed::legacy_parser {
         data.location_data.items[data.next_location_id++] = item;
 
         auto message = std::make_shared<items::Message>();
+        set_location(message.get(), location);
         message->should_save_as_last = true;
         message->info.text = fmt::format(R"(#{0}[if([state_int(4, {1})] > 1, x[state_int(4, {1})],)]#)", bonus_item, bonus_type_int);
         data.location_data.items[data.next_location_id++] = message;
@@ -1048,7 +1067,7 @@ namespace randomizer::seed::legacy_parser {
         return true;
     }
 
-    bool parse_weapon_upgrade(std::span<std::string> parts, ParserData& data) {
+    bool parse_weapon_upgrade(location_type const& location, std::span<std::string> parts, ParserData& data) {
         if (parts.size() != 1) {
             return false;
         }
@@ -1058,10 +1077,36 @@ namespace randomizer::seed::legacy_parser {
             return false;
         }
 
-        auto item = std::make_shared<items::ValueModifier<int, items::ValueOperator::Assign>>();
-        item->value.set(1);
+        auto item = std::make_shared<items::ValueModifier<float, items::ValueOperator::Assign>>();
+        item->value.set(1.f);
         std::string upgrade;
         switch (weapon_upgrade_int) {
+            case 0:
+            case 1:
+                item->variable.assign(core::api::uber_states::UberState(4, weapon_upgrade_int));
+                item->value.assign(core::set_get<float>{
+                    [](auto value) {},
+                    [weapon_upgrade_int]() {
+                        return std::powf(1.25f, core::api::uber_states::UberState(4, 50 + weapon_upgrade_int).get<float>());
+                    },
+                });
+                break;
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                item->variable.assign(core::api::uber_states::UberState(4, weapon_upgrade_int));
+                item->value.assign(core::set_get<float>{
+                    [](auto value) {},
+                    [weapon_upgrade_int]() {
+                        return std::powf(0.5f, core::api::uber_states::UberState(4, 50 + weapon_upgrade_int).get<float>());
+                    },
+                });
+                break;
             case 45:
                 upgrade = "Shock Smash";
                 item->variable.assign(core::api::uber_states::UberState(3440, 5687));
@@ -1087,8 +1132,10 @@ namespace randomizer::seed::legacy_parser {
         }
 
         auto message = std::make_shared<items::Message>();
+        set_location(message.get(), location);
         message->should_save_as_last = true;
         message->info.text = fmt::format("#{0}#", upgrade);
+        set_location(message.get(), location);
         data.location_data.items[data.next_location_id++] = message;
 
         data.location_data.items[data.next_location_id++] = item;
@@ -1655,17 +1702,17 @@ namespace randomizer::seed::legacy_parser {
             case ActionType::SystemCommand:
                 return parse_sys_command(location, next_parts, data);
             case ActionType::Teleporter:
-                return parse_teleporter(next_parts, data);
+                return parse_teleporter(location, next_parts, data);
             case ActionType::Message:
-                return parse_message(next_parts, data);
+                return parse_message(location, next_parts, data);
             case ActionType::UberState:
                 return parse_uber_state(next_parts, data);
             case ActionType::QuestEvent:
-                return parse_quest_event(next_parts, data);
+                return parse_quest_event(location, next_parts, data);
             case ActionType::BonusItem:
-                return parse_bonus_item(next_parts, data);
+                return parse_bonus_item(location, next_parts, data);
             case ActionType::WeaponUpgrade:
-                return parse_weapon_upgrade(next_parts, data);
+                return parse_weapon_upgrade(location, next_parts, data);
             case ActionType::Relic:
                 return parse_relic(next_parts, data);
             case ActionType::SysMessage:
@@ -1714,12 +1761,13 @@ namespace randomizer::seed::legacy_parser {
         // If we don't match anything here it's a comment, and we can ignore it.
     }
 
-    bool parse(std::string_view path, Seed::Data& data) {
+    bool parse(std::string_view path, location_data::LocationCollection const& location_data, Seed::Data& data) {
         std::ifstream seed_file(path.data());
         if (!seed_file.is_open()) {
             return false;
         }
 
+        current_location_data = &location_data;
         int next_location_id = 0;
         int next_procedure_id = 0;
         std::string line;
