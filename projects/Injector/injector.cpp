@@ -19,7 +19,7 @@
 std::filesystem::path base_path = R"(C:\moon\randomizer)";
 const std::string STEAM_PROCESS_NAME = "oriwotw.exe";
 const std::string STORE_PROCESS_NAME = "oriandthewillofthewisps-pc.exe";
-const std::string DLL_NAME = "Modloader.dll";
+const std::string DLL_NAME = "InjectLoader.dll";
 const std::string SETTINGS_NAME = "settings.ini";
 
 bool find_base_path(std::filesystem::path &output_path) {
