@@ -83,7 +83,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 
         loaded = true;
 
-        CreateThread(0, 0, (LPTHREAD_START_ROUTINE)load_modloader, 0, 0, 0);
+        CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)load_modloader, nullptr, 0, 0);
     }
 
     return 1;
