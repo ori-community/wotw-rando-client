@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using IniParser;
 using IniParser.Model;
+using System.IO;
 
 namespace RandomizerManaged {
   public static class Settings {
@@ -40,7 +41,7 @@ namespace RandomizerManaged {
     public static void Reload() {
       try {
         var reader = new FileIniDataParser();
-        SettingsData = reader.ReadFile(Randomizer.BasePath + "settings.ini", Encoding.Unicode);
+        SettingsData = reader.ReadFile(Path.Combine(Randomizer.BasePath, "settings.ini"), Encoding.Unicode);
       }
       catch (Exception e) {
         Randomizer.Log(e.Message);

@@ -42,8 +42,8 @@ namespace core::sound {
     }
 
     std::unordered_map<std::string, std::vector<unsigned char>> banks;
-    void load_bank(std::string_view name, std::string_view path) {
-        std::ifstream input(std::string(path), std::ios::binary);
+    void load_bank(std::string_view name, std::filesystem::path path) {
+        std::ifstream input(path, std::ios::binary);
         banks[std::string(name)] = std::vector<unsigned char>(std::istreambuf_iterator<char>(input), {});
         auto& data = banks[std::string(name)];
         uint32_t bank_id = 0;
@@ -83,7 +83,7 @@ namespace core::sound {
         modloader::info("sound", fmt::format("WWise version '{}.{}'", AkSoundEngine::GetMajorMinorVersion(), AkSoundEngine::GetSubminorBuildVersion()));
         modloader::info("sound", fmt::format("WWise soundbank version '{}'", AkSoundEngine::get_AK_SOUNDBANK_VERSION()));
 
-        load_bank("WotwRando", modloader::base_path + "assets/sounds/WotwRando.bnk");
+        load_bank("WotwRando", modloader::base_path / "assets/sounds/WotwRando.bnk");
     }
 
     CALL_ON_INIT(initialize);

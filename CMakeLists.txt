@@ -111,7 +111,7 @@ add_custom_target(
         INSTALL_RUNTIME
         ALL
         cmake -DCOMPONENT=runtime -DBUILD_TYPE=$<CONFIG> -P ${CMAKE_BUILD_DIRECTORY}/cmake_install.cmake
-        DEPENDS Modloader Randomizer TAS InjectLoader Injector RandomizerManaged
+        DEPENDS Modloader Randomizer TAS Injector InjectProxy RandomizerManaged InjectLoader
 )
 
 set_target_properties(

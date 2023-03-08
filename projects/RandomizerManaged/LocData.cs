@@ -164,7 +164,7 @@ namespace RandomizerManaged {
 
   public static class LocDataStatic {
     public static void PopulateLocData() {
-      foreach (var line in File.ReadAllLines(Randomizer.BasePath + "loc_data.csv").Skip(1)) {
+      foreach (var line in File.ReadAllLines(Path.Combine(Randomizer.BasePath, "loc_data.csv")).Skip(1)) {
         var data = new LocData(line);
         _byCondition[data.Condition] = data;
         _byName[data.FullName] = data;

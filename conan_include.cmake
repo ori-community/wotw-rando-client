@@ -13,6 +13,7 @@ conan_cmake_configure(
             nlohmann_json/3.11.2
             antlr4-cppruntime/4.11.1
             inih/56
+            tclap/1.2.5
         GENERATORS
             cmake_find_package
 )

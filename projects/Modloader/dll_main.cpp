@@ -12,6 +12,8 @@
 #include <fstream>
 #include <string>
 #include <utility>
+#include <functional>
+#include <filesystem>
 
 #include <mutex>
 
@@ -31,9 +33,9 @@ namespace modloader {
     // Have this here so it is included in the assembly and can be used to examine thrown exceptions.
     Il2CppExceptionWrapper ex;
 
-    std::string base_path = "C:\\moon\\";
-    std::string modloader_path = "modloader_config.json";
-    std::string csv_path = "inject_log.csv";
+    std::filesystem::path base_path = "C:\\moon\\";
+    std::filesystem::path modloader_config_path = "modloader_config.json";
+    std::filesystem::path csv_path = "inject_log.csv";
     bool shutdown_requested = false;
 
     namespace {
@@ -46,7 +48,7 @@ namespace modloader {
             if (!write_to_csv)
                 return;
 
-            csv_file.open(base_path + csv_path);
+            csv_file.open(base_path / csv_path);
             write_to_csv = csv_file.is_open();
 
             if (write_to_csv) {
@@ -117,11 +119,11 @@ namespace modloader {
 
     bool attached = false;
 
-    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string path) {
+    IL2CPP_MODLOADER_C_DLLEXPORT void injection_entry(std::string path, const std::function<void()>& on_initialization_complete, const std::function<void(std::string_view)>& on_error) {
         base_path = path;
         trace(MessageType::Info, 5, "initialize", "Loading settings.");
 
-        auto settings = read_utf16_ini(base_path + "settings.ini");
+        auto settings = read_utf16_ini((base_path / "settings.ini").string());
 
         auto wait_for_debugger = settings->GetBoolean("Flags", "WaitForDebugger", false);
         while (wait_for_debugger && !common::is_debugger_present())
@@ -140,6 +142,7 @@ namespace modloader {
             trace(MessageType::Info, 5, "initialize", "Failed to bootstrap, shutting down.");
             csv_file.close();
             shutdown_requested = true;
+            on_error("Failed to bootstrap, shutting down.");
             common::free_library_and_exit_thread("Modloader.dll");
         }
 
@@ -150,10 +153,7 @@ namespace modloader {
 
         run_initialization_callbacks(InitializationType::OnInjectionComplete);
 
-        auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
-        auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());
-        auto unity_version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_unityVersion());
-        trace(MessageType::Info, 5, "initialize", fmt::format("Application {} injected ({})[{}].", product, version, unity_version));
+        on_initialization_complete();
 
         while (!shutdown_requested) {
             console::console_poll();
@@ -177,7 +177,7 @@ namespace modloader {
         return state == app::CursorLockMode__Enum::None;
     }
 
-    IL2CPP_MODLOADER_C_DLLEXPORT const char* get_base_path() {
+    IL2CPP_MODLOADER_C_DLLEXPORT const wchar_t* get_base_path() {
         return base_path.c_str();
     }
 
@@ -188,6 +188,11 @@ namespace modloader {
     bool initialized = false;
     IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
         if (!initialized) {
+            auto product = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_productName());
+            auto version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_version());
+            auto unity_version = il2cpp::convert_csstring(app::classes::UnityEngine::Application::get_unityVersion());
+            trace(MessageType::Info, 5, "initialize", fmt::format("Initializing Application {} ({})[{}].", product, version, unity_version));
+
             trace(MessageType::Info, 5, "initialize", "Calling initialization callbacks.");
             run_initialization_callbacks(InitializationType::OnGameReady);
             initialized = true;

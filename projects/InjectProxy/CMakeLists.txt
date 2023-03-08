@@ -1,4 +1,4 @@
-project("InjectLoader")
+project("InjectProxy")
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
 
 message(STATUS "")
@@ -9,7 +9,8 @@ set(CONFIG_DIR ${CMAKE_CONFIG_DIRECTORY}/${PROJECT_NAME})
 
 set(
         SOURCE_FILES
-        "loader.cpp"
+        "proxy.cpp"
+        "winhttp_proxy.cpp"
 )
 
 set(
@@ -22,8 +23,8 @@ set(
         "CMakeLists.txt"
 )
 
-
-add_library(${PROJECT_NAME} SHARED
+add_library(
+        ${PROJECT_NAME} SHARED
         ${SOURCE_FILES}
         ${PUBLIC_HEADER_FILES}
         ${MISC_FILES}
@@ -31,7 +32,7 @@ add_library(${PROJECT_NAME} SHARED
 
 target_compile_definitions(
         ${PROJECT_NAME}
-        PRIVATE COMPILING_INJECT_LOADER
+        PRIVATE COMPILING_INJECT_PROXY
 )
 
 set_target_properties(
@@ -40,6 +41,7 @@ set_target_properties(
         VERSION ${WORWR_VERSION}
         SOVERSION ${WORWR_MAJOR_VERSION}
         FOLDER cpp
+        OUTPUT_NAME "winhttp"
 )
 
 target_include_directories(
@@ -53,17 +55,16 @@ target_include_directories(
         ${WOTWR_BASE_INCLUDES}
 )
 
-message(STATUS "Assigning source groups.")
-
-set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};")
-set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
+find_package(tclap)
+target_link_libraries(${PROJECT_NAME} tclap::tclap)
 
 find_package(fmt)
 target_link_libraries(${PROJECT_NAME} fmt::fmt)
 
-target_link_libraries(
-        ${PROJECT_NAME}
-)
+message(STATUS "Assigning source groups.")
+
+set_vc_structure("${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_FILES};${PUBLIC_HEADER_FILES};${MISC_FILES};")
+set_vc_structure_with_prefix("_project_settings" "${CMAKE_CURRENT_SOURCE_DIR}" "${MISC_FILES};")
 
 install(
         TARGETS ${PROJECT_NAME}

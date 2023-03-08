@@ -3,25 +3,21 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <vector>
+#include <semaphore>
+#include <functional>
+#include <fmt/format.h>
 
 #include <Windows.h>
 
-int load_state = 0;
 
-std::string process_name = "oriwotw.exe";
-std::string base_path = "C:\\moon\\randomizer\\";
-std::string log_path = "loader_log.txt";
+bool loaded = false;
 
-// Load order is top to bottom.
-std::array<std::string, 1> dll_paths = {
-    "Modloader.dll"
-};
 
-bool find_base_path(std::string& output_path) {
+bool find_base_path(std::string &output_path) {
     char path[MAX_PATH];
     HMODULE handle = nullptr;
-    if (GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)&find_base_path, &handle) == 0) {
+    if (GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+                          (LPCSTR) &find_base_path, &handle) == 0) {
         std::cout << "failed to GetModuleHandle, error: " << GetLastError() << std::endl;
         return false;
     }
@@ -37,71 +33,57 @@ bool find_base_path(std::string& output_path) {
     return true;
 }
 
-int load_inject_dlls() {
-    std::vector<HMODULE> loaded_libraries;
-    bool failed = false;
+void load_modloader() {
+    std::string base_path_string;
 
-    auto found = find_base_path(base_path);
-
-    std::ofstream log(base_path + log_path);
-    log.clear();
-
-    if (found)
-        log << "found base_path '" << base_path << "'" << std::endl;
-    else
-        log << "failed to find base_path using default" << std::endl;
-
-    {
-        log << "starting dll load" << std::endl;
-        for (auto const& dll : dll_paths) {
-            auto handle = LoadLibraryA((base_path + dll).c_str());
-            if (handle == nullptr) {
-                auto error_code = GetLastError();
-                log << "failed to load library '" << dll << "', aborting: " << error_code << std::endl;
-                log << std::system_category().message(error_code) << std::endl;
-                failed = true;
-                break;
-            } else {
-                log << "successfully loaded dll '" << dll << "'" << std::endl;
-                loaded_libraries.push_back(handle);
-            }
-        }
-
-        if (failed) {
-            for (auto handle : loaded_libraries) {
-                FreeLibrary(handle);
-            }
-
-            load_state = 0;
-            log.close();
-            return -1;
-        }
+    if (!find_base_path(base_path_string)) {
+        MessageBoxA(
+                nullptr,
+                (LPCSTR) "Injection loader initialization failed: Base path not found",
+                (LPCSTR) "Ori and the Will of the Wisps Modloader",
+                MB_ICONERROR | MB_OK
+        );
     }
 
-    auto randomizer_handle = loaded_libraries[0];
-    auto proc_address = GetProcAddress(randomizer_handle, "injection_entry");
-    if (proc_address == nullptr) {
-        log << "failed to get address of injection_entry: " << GetLastError() << std::endl;
-        load_state = 0;
-        log.close();
-        return -3;
-    }
+    auto base_path = std::filesystem::path(base_path_string);
 
-    log << "starting Randomizer main function." << std::endl;
-    log.close();
-    load_state = 2;
-    auto injection_entry = reinterpret_cast<void (*)(std::string)>(proc_address);
-    injection_entry(base_path);
+    auto modloader = LoadLibraryW((base_path / "Modloader.dll").c_str());
+    auto modloader_injection_entry_fn = reinterpret_cast<void (*)(std::string, const std::function<void()>,
+                                                                  const std::function<void(std::string_view)>)>(
+            GetProcAddress(modloader, "injection_entry")
+    );
 
-    return 0;
+    std::binary_semaphore modloader_initialization_mutex(0);
+
+    std::thread thread([&modloader_injection_entry_fn, base_path, &modloader_initialization_mutex]() {
+        modloader_injection_entry_fn(base_path.string(), [&modloader_initialization_mutex]() {
+            modloader_initialization_mutex.release();
+        }, [&modloader_initialization_mutex](auto error_message) {
+            MessageBoxA(
+                    nullptr,
+                    (LPCSTR) fmt::format("Modloader initialization failed: {}", error_message).c_str(),
+                    (LPCSTR) "Ori and the Will of the Wisps Modloader",
+                    MB_ICONERROR | MB_OK
+            );
+
+            modloader_initialization_mutex.release();
+        });
+    });
+
+    thread.detach();
+
+    std::cout << "Waiting for initialization to complete...";
+    modloader_initialization_mutex.acquire();
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
     if ((ul_reason_for_call == DLL_PROCESS_ATTACH ||
          ul_reason_for_call == DLL_THREAD_ATTACH) &&
-        load_state == 0) {
-        load_state = 1;
-        CreateThread(0, 0, (LPTHREAD_START_ROUTINE)load_inject_dlls, 0, 0, 0);
+        !loaded) {
+
+        loaded = true;
+
+        CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)load_modloader, nullptr, 0, 0);
     }
 
     return 1;

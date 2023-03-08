@@ -15,8 +15,8 @@
 using namespace modloader::win;
 
 namespace modloader {
-    extern std::string base_path;
-    extern std::string modloader_path;
+    extern std::filesystem::path base_path;
+    extern std::filesystem::path modloader_config_path;
 
     namespace interception {
         binding* first_binding = nullptr;

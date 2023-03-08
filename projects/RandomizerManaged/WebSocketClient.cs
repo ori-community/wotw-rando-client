@@ -8,9 +8,9 @@ using WebSocketSharp;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using RandomizerManaged.Memory;
 using Vector2 = RandomizerManaged.Memory.Vector2;
-using System.IO;
 
 namespace RandomizerManaged {
   public static class WebSocketClient {
@@ -80,7 +80,7 @@ namespace RandomizerManaged {
           socket.OnMessage += HandleMessage;
           socket.OnOpen += (sender, args) => {
             Randomizer.Log($"Connected to server", false);
-            string jwt = System.IO.File.ReadAllText(Randomizer.BasePath + JWTFile).Trim();
+            string jwt = System.IO.File.ReadAllText(Path.Combine(Randomizer.BasePath, JWTFile)).Trim();
             SendAuthenticate(jwt);
             UberStateController.QueueSyncedStateUpdate();
           };

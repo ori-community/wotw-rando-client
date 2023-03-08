@@ -20,6 +20,7 @@
 #include <unordered_set>
 
 using namespace app::classes;
+using namespace uber_states;
 
 namespace randomizer::timing {
     constexpr bool ENABLE_DEBUG_LOGGING = false;
@@ -49,20 +50,20 @@ namespace randomizer::timing {
         app::AbilityType__Enum::DamageUpgradeB, // Ancestral Light 2
     };
 
-    const std::unordered_map<uber_states::UberState, WorldEvent> TRACKED_WORLD_EVENTS{
-        { uber_states::UberState(UberStateGroup::RandoState, 2000), WorldEvent::CleanWater },
+    const std::unordered_map<UberState, WorldEvent> TRACKED_WORLD_EVENTS{
+        { UberState(UberStateGroup::RandoState, 2000), WorldEvent::CleanWater },
     };
 
-    const uber_states::UberState game_finished_uber_state(34543, 11226);
+    const UberState game_finished_uber_state(34543, 11226);
 
     // Caches for values that are processed in multiple threads
     std::atomic<bool> game_finished = false;
     std::atomic<GameArea> current_game_area = GameArea::Void;
 
     // Loading time report throttling
-    constexpr float loading_time_reporting_throttle_seconds = 1.f;
-    std::atomic<bool> queue_loading_time_report = false;
-    float loading_time_reporting_throttled_for = 0.f;
+    constexpr float LOADING_TIME_REPORTING_THROTTLE_SECONDS = 1.f;
+    std::atomic<bool> queue_timer_state_report = false;
+    float timer_state_reporting_throttled_for = 0.f;
 
     // This is set to true by some rando routines which grant abilities temporarily
     bool disable_ability_tracking = false;
@@ -79,6 +80,16 @@ namespace randomizer::timing {
     }
 
     namespace {
+        void report_timer_state_to_external_services(float total_time, float loading_time, bool timer_should_run) {
+            csharp_bridge::report_loading_time(loading_time);
+
+            auto request = core::ipc::make_request("notify_timer_state_changed");
+            request["payload"]["total_time"] = total_time;
+            request["payload"]["loading_time"] = loading_time;
+            request["payload"]["timer_should_run"] = timer_should_run;
+            core::ipc::send_message(request);
+        }
+
         void reset_stats() {
             stats_mutex.lock();
 
@@ -96,7 +107,7 @@ namespace randomizer::timing {
                     save_stats
             );
 
-            queue_loading_time_report = true;
+            queue_timer_state_report = true;
 
             stats_mutex.unlock();
         }
@@ -159,15 +170,15 @@ namespace randomizer::timing {
                 current_game_area.store(game::player::get_current_area());
             }
 
-            if (queue_loading_time_report && loading_time_reporting_throttled_for <= 0.f) {
-                loading_time_reporting_throttled_for = loading_time_reporting_throttle_seconds;
-                queue_loading_time_report = false;
+            if (queue_timer_state_report && timer_state_reporting_throttled_for <= 0.f) {
+                timer_state_reporting_throttled_for = LOADING_TIME_REPORTING_THROTTLE_SECONDS;
+                queue_timer_state_report = false;
                 stats_mutex.lock();
-                csharp_bridge::report_loading_time(save_stats->get_total_loading_time());
+                report_timer_state_to_external_services(save_stats->total_time, save_stats->get_total_loading_time(), timer_should_run());
                 stats_mutex.unlock();
             }
 
-            loading_time_reporting_throttled_for -= TimeUtility::get_fixedDeltaTime();
+            timer_state_reporting_throttled_for -= TimeUtility::get_fixedDeltaTime();
         }
 
         void on_async_update(float delta) {
@@ -181,7 +192,7 @@ namespace randomizer::timing {
                 save_stats->report_time_spent(current_game_area.load(), delta);
             } else {
                 save_stats->report_loading_time(delta, loading_state);
-                queue_loading_time_report = true;
+                queue_timer_state_report = true;
             }
             stats_mutex.unlock();
 
@@ -225,7 +236,26 @@ namespace randomizer::timing {
                 core::ipc::send_message(response);
             });
 
+            core::ipc::register_request_handler("timer.get_timer_state", [](const nlohmann::json& j) {
+                auto response = core::ipc::respond_to(j);
+
+                stats_mutex.lock();
+                response["payload"]["total_time"] = save_stats->total_time;
+                response["payload"]["loading_time"] = save_stats->get_total_loading_time();
+                response["payload"]["timer_should_run"] = timer_should_run();
+                stats_mutex.unlock();
+
+                core::ipc::send_message(response);
+            });
+
             uber_states::register_value_notify([](auto state, auto previous_value) {
+                if (state == game_finished_uber_state) {
+                    stats_mutex.lock();
+                    report_timer_state_to_external_services(save_stats->total_time, save_stats->get_total_loading_time(), false);
+                    stats_mutex.unlock();
+                    queue_timer_state_report = true;
+                }
+
                 if (!state.get<bool>() || game_finished_uber_state.get<bool>()) {
                     return;
                 }

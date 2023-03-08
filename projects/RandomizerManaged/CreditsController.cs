@@ -72,8 +72,8 @@ namespace RandomizerManaged {
       rand = new Random(0);
       collections.Clear();
       creditsEntries.Clear();
-      if (File.Exists(Randomizer.BasePath + CreditsFile)) {
-        foreach (string line in File.ReadLines(Randomizer.BasePath + CreditsFile)) {
+      if (File.Exists(Path.Combine(Randomizer.BasePath, CreditsFile))) {
+        foreach (string line in File.ReadLines(Path.Combine(Randomizer.BasePath, CreditsFile))) {
           var comment = line.IndexOf("//");
           var uncommented_line = comment < 0 ? line.Trim() : line.Substring(0, comment).Trim();
           if (uncommented_line.Length != 0) {

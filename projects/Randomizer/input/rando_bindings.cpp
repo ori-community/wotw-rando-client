@@ -193,7 +193,7 @@ namespace randomizer::input {
     }
 
     void on_before_register_input_simulators(GameEvent game_event, EventTiming timing) {
-        read_bindings(base_path + KEYBOARD_REBIND_FILE, on_binding_read);
+        read_bindings(base_path / KEYBOARD_REBIND_FILE, on_binding_read);
     }
 
     void initialize() {
