@@ -24,9 +24,9 @@ namespace RandomizerManaged {
       [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_equipment(EquipmentType ability, bool value);
       [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void bind(int slot, EquipmentType equip_type);
+      public extern static void player_bind(int slot, EquipmentType equip_type);
       [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
-      public extern static void unbind(EquipmentType equip_type);
+      public extern static void player_unbind(EquipmentType equip_type);
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_ability_level(AbilityType type, int value);
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]

@@ -14,8 +14,11 @@ conan_cmake_configure(
             antlr4-cppruntime/4.11.1
             inih/56
             tclap/1.2.5
+            cppzmq/4.9.0
         GENERATORS
             cmake_find_package
+        OPTIONS
+            zeromq:encryption=None
 )
 
 conan_cmake_autodetect(settings)

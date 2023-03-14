@@ -949,7 +949,7 @@ namespace RandomizerManaged {
       Equip = equip;
     }
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.Ability.bind(Slot, Equip);
+      InterOp.Ability.player_bind(Slot, Equip);
       base.Grant(skipBase, position);
     }
     public override string DisplayName { get => $"Bind {Equip} to {Slot}"; }
@@ -962,7 +962,7 @@ namespace RandomizerManaged {
       Equip = equip;
     }
     public override void Grant(bool skipBase = false, Vector2? position = null) {
-      InterOp.Ability.unbind(Equip);
+      InterOp.Ability.player_unbind(Equip);
       base.Grant(skipBase, position);
     }
     public override string DisplayName { get => $"Unbind {Equip}"; }
