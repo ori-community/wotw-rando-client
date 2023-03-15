@@ -513,7 +513,7 @@ namespace RandomizerManaged {
       if (abilityType != AbilityType.NONE) {
         var hasEquip = abilityType.Equip().HasValue;
         if (hasEquip && !uber_state.Value.Bool) {
-          InterOp.Ability.unbind(abilityType.Equip().Value);
+          InterOp.Ability.player_unbind(abilityType.Equip().Value);
         }
 
         InterOp.Ability.set_ability(abilityType, uber_state.Value.Bool);

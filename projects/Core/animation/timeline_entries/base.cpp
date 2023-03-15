@@ -1,5 +1,3 @@
-#pragma once
-
 #include <animation/animation.h>
 #include <animation/timeline.h>
 #include <animation/timeline_entries/base.h>

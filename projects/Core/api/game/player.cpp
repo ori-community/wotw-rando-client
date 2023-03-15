@@ -143,11 +143,11 @@ CORE_C_DLLEXPORT void set_equipment(app::EquipmentType__Enum equip, bool value) 
     return game::player::set_equipment(equip, value);
 }
 
-CORE_C_DLLEXPORT void bind(app::SpellInventory_Binding__Enum slot, app::EquipmentType__Enum equip_type) {
+CORE_C_DLLEXPORT void player_bind(app::SpellInventory_Binding__Enum slot, app::EquipmentType__Enum equip_type) {
     return game::player::bind(slot, equip_type);
 }
 
-CORE_C_DLLEXPORT void unbind(app::EquipmentType__Enum equip_type) {
+CORE_C_DLLEXPORT void player_unbind(app::EquipmentType__Enum equip_type) {
     return game::player::unbind(equip_type);
 }
 

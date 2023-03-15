@@ -75,12 +75,12 @@ namespace {
             return;
         }
 
-        if (!console::try_get_float(params[1], r)) {
+        if (!console::try_get_float(params[1], g)) {
             console::console_send(fmt::format("Invalid argument. Expected float, got '{}'", params[1].value.data()));
             return;
         }
 
-        if (!console::try_get_float(params[2], r)) {
+        if (!console::try_get_float(params[2], b)) {
             console::console_send(fmt::format("Invalid argument. Expected float, got '{}'", params[2].value.data()));
             return;
         }
