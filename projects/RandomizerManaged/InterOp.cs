@@ -369,6 +369,8 @@ namespace RandomizerManaged {
       [DllImport("Core.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void reload_all_file_textures();
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void apply_sein_character_texture();
+      [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
       [return: MarshalAs(UnmanagedType.U1)]
       public extern static bool get_debug_controls();
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]

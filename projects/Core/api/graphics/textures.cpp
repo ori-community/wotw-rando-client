@@ -307,7 +307,6 @@ namespace core::textures {
                 }
 
                 auto texture_path = (base_path / value).string();
-                replace_all(texture_path, "/", "\\");
 
                 int x;
                 int y;
@@ -406,6 +405,9 @@ namespace core::textures {
 
     void reload_all_file_textures() {
         clear_holder();
+
+        files.clear();
+
         for (auto collection : file_instances) {
             for (auto it = collection.second.begin(); it != collection.second.end(); ++it) {
                 if ((*it).expired())

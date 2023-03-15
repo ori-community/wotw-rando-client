@@ -55,4 +55,12 @@ namespace core::settings {
     bool shriek_is_shrek() {
         return get_settings().GetBoolean("Flags", "ShriekIsShrek", false);
     }
+
+    std::string ori_model_texture() {
+        return get_settings().GetString("Paths", "OriModelTexture", "");
+    }
+
+    std::string ori_model_emissivity_mask_texture() {
+        return get_settings().GetString("Paths", "OriModelEmissivityMaskTexture", "");
+    }
 } // namespace core::settings

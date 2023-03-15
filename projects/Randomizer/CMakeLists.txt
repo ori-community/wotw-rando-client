@@ -13,6 +13,7 @@ set(
         "conditions/condition_uber_state.cpp"
         "conditions/new_setup_state_override.cpp"
         "conditions/targeting_override.cpp"
+        "custom_skin.cpp"
         "features/better_menus.cpp"
         "features/chaos.cpp"
         "features/controls/ability_overrides.cpp"

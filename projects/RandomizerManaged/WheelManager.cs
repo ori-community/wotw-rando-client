@@ -129,6 +129,7 @@ namespace RandomizerManaged {
             case 2:
               MessageController.ShowMessage($"Reloading file textures", queue: "debug");
               InterOp.Utils.reload_all_file_textures();
+              InterOp.Utils.apply_sein_character_texture();
               break;
             case 3:
               MessageController.ShowMessage($"Reloading sprite animations", queue: "debug");

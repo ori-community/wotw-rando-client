@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/macros.h>
+#include <string>
 
 namespace core::settings {
     CORE_DLLEXPORT void reload();
@@ -18,4 +19,7 @@ namespace core::settings {
     CORE_DLLEXPORT float camera_shake_intensity();
 
     CORE_DLLEXPORT bool shriek_is_shrek();
+
+    CORE_DLLEXPORT std::string ori_model_texture();
+    CORE_DLLEXPORT std::string ori_model_emissivity_mask_texture();
 } // namespace core::settings
