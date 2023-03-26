@@ -7,6 +7,7 @@
 #include <Modloader/app/methods/UberPostProcess.h>
 #include <Modloader/app/methods/UnityEngine/Camera.h>
 #include <Modloader/app/methods/UnityEngine/Color.h>
+#include <Modloader/app/methods/UnityEngine/ScreenCapture.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/common.h>
 #include <Modloader/interception_macros.h>
@@ -19,6 +20,7 @@ namespace {
     app::Color default_background_color;
     bool enable_vignette = true;
     bool camera_locked = false;
+    bool camera_ortho = false;
 
     IL2CPP_INTERCEPT(UberPostProcess, void, ApplySettings_2, (app::UberPostProcess * this_ptr, app::CameraSettings* settingsAsset)) {
         next::UberPostProcess::ApplySettings_2(this_ptr, settingsAsset);
@@ -58,6 +60,16 @@ namespace {
     void set_background_color(app::Color color) {
         auto camera = UnityEngine::Camera::get_main();
         UnityEngine::Camera::set_backgroundColor(camera, color);
+    }
+
+    void set_camera_ortho(bool ortho) {
+        auto camera = UnityEngine::Camera::get_main();
+        UnityEngine::Camera::set_orthographic(camera, ortho);
+    }
+
+    void set_camera_ortho_size(float size) {
+        auto camera = UnityEngine::Camera::get_main();
+        UnityEngine::Camera::set_orthographicSize(camera, size);
     }
 
     void set_background_color_command(std::string const& command, std::vector<console::CommandParam> const& params) {
@@ -120,6 +132,31 @@ namespace {
         }
     }
 
+    void set_camera_ortho_command(std::string const& command, std::vector<console::CommandParam> const& params) {
+        if (read_single_bool_from_command(params, camera_ortho)) {
+            set_camera_ortho(camera_ortho);
+            console::console_send(fmt::format("Camera {}", camera_ortho ? "orthographic projection enabled" : "orthographic projection disabled"));
+        }
+    }
+
+    void set_camera_ortho_size_command(std::string const& command, std::vector<console::CommandParam> const& params) {
+        if (params.size() != 1) {
+            console::console_send("Invalid number of arguments. Expected 1");
+            return;
+        }
+
+        float size = 0.f;
+
+        if (!console::try_get_float(params[0], size)) {
+            console::console_send(fmt::format("Invalid argument. Expected float, got '{}'", params[0].value.data()));
+            return;
+        }
+
+
+        set_camera_ortho_size(size);
+        console::console_send("Camera orthographic size set");
+    }
+
     void initialize() {
         auto camera = UnityEngine::Camera::get_main();
         default_background_color = UnityEngine::Camera::get_backgroundColor(camera);
@@ -129,6 +166,8 @@ namespace {
         console::register_command({ "recording_utils", "set_vignette" }, set_vignette_command);
         console::register_command({ "recording_utils", "set_camera_swaying" }, set_camera_swaying_command);
         console::register_command({ "recording_utils", "set_camera_locked" }, set_camera_locked_command);
+        console::register_command({ "recording_utils", "set_camera_ortho" }, set_camera_ortho_command);
+        console::register_command({ "recording_utils", "set_camera_ortho_size" }, set_camera_ortho_size_command);
     }
 
     CALL_ON_INIT(initialize);
