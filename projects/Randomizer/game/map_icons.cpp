@@ -742,7 +742,7 @@ namespace {
     app::AreaMapIconFilterFooterLabel create_filter(NewFilters filter, const std::string& message) {
         app::AreaMapIconFilterFooterLabel label{
             .Filter = static_cast<app::AreaMapIconFilter__Enum>(filter),
-            .Footer = utils::create_message_provider("Filter: " + message),
+            .Footer = utils::create_message_provider("[MapCycleFilter] Filter: " + message),
         };
         return label;
     }
@@ -757,8 +757,9 @@ namespace {
         if (il2cpp::is_assignable(icon_manager, types::AreaMapIconManager::get_class()) && icon_manager->fields.Labels->max_length < static_cast<int>(NewFilters::COUNT)) {
             auto arr = types::AreaMapIconFilterFooterLabel::create_array(static_cast<int>(NewFilters::COUNT));
 
-            for (auto i = 0; i < static_cast<int>(app::AreaMapIconFilter__Enum::COUNT); ++i)
+            for (auto i = 0; i < static_cast<int>(app::AreaMapIconFilter__Enum::COUNT); ++i) {
                 arr->vector[i] = icon_manager->fields.Labels->vector[i];
+            }
 
             // Add extra labels.
             arr->vector[static_cast<int>(NewFilters::InLogic)] = create_filter(NewFilters::InLogic, "In Logic");
