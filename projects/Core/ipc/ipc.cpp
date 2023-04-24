@@ -36,7 +36,13 @@ namespace core::ipc {
             while (!shutdown_ipc_thread) {
                 zmq::message_t msg;
 
-                auto receive_result = socket->recv(msg);
+                std::optional<size_t> receive_result;
+
+                try {
+                    receive_result = socket->recv(msg);
+                } catch (zmq::error_t& e) {
+                    modloader::warn("IPC", fmt::format("ZeroMQ Error: {} {}", e.num(), e.what()));
+                }
 
                 if (!receive_result.has_value()) {
                     continue;
@@ -148,6 +154,7 @@ namespace core::ipc {
         shutdown_ipc_thread = true;
 
         if (socket) {
+            socket->set(zmq::sockopt::linger, 0);
             socket->close();
         }
 
