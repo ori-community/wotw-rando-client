@@ -2,6 +2,7 @@
 
 #include <string>
 #include <Core/macros.h>
+#include <nlohmann/json.hpp>
 
 enum class UberStateGroup {
     Invalid = -1,
@@ -44,5 +45,22 @@ enum class UberStateType : uint8_t {
     ConditionUberState,
     PlayerUberStateDescriptor
 };
+
+NLOHMANN_JSON_SERIALIZE_ENUM(
+        UberStateType,
+        {
+            { UberStateType::BooleanUberState, "BooleanUberState" },
+            { UberStateType::ByteUberState, "ByteUberState" },
+            { UberStateType::IntUberState, "IntUberState" },
+            { UberStateType::SerializedBooleanUberState, "SerializedBooleanUberState" },
+            { UberStateType::SerializedFloatUberState, "SerializedFloatUberState" },
+            { UberStateType::SerializedIntUberState, "SerializedIntUberState" },
+            { UberStateType::SerializedByteUberState, "SerializedByteUberState" },
+            { UberStateType::CountUberState, "CountUberState" },
+            { UberStateType::SavePedestalUberState, "SavePedestalUberState" },
+            { UberStateType::ConditionUberState, "ConditionUberState" },
+            { UberStateType::PlayerUberStateDescriptor, "PlayerUberStateDescriptor" },
+        }
+);
 
 CORE_DLLEXPORT std::string uber_state_group_name(UberStateGroup group);

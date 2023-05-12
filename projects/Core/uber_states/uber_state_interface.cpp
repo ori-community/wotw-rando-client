@@ -1,6 +1,5 @@
 #include <Core/api/game/player.h>
 #include <Core/api/scenes/scene_load.h>
-#include <Core/enums/uber_state.h>
 #include <Core/macros.h>
 #include <uber_states/uber_state_interface.h>
 #include <uber_states/uber_state_virtual.h>
@@ -24,6 +23,7 @@
 #include <Modloader/app/methods/Moon/UberStateVisualization/SerializedFloatUberStateWrapper.h>
 #include <Modloader/app/methods/Moon/UberStateVisualization/SerializedIntUberStateWrapper.h>
 #include <Modloader/app/methods/Moon/uberSerializationWisp/SavePedestalUberState.h>
+#include <Modloader/app/methods/MessageControllerB.h>
 #include <Modloader/app/methods/SavePedestalController.h>
 #include <Modloader/app/types/BooleanUberState.h>
 #include <Modloader/app/types/ByteUberState.h>
@@ -225,6 +225,10 @@ namespace uber_states {
             return true;
 
         return ptr() != nullptr;
+    }
+
+    UberStateType UberState::type() const {
+        return uber_states::resolve_type(ptr());
     }
 
     void UberState::set(double value, bool ignore_intercept, bool ignore_notify) {

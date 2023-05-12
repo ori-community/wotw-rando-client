@@ -9,6 +9,7 @@ set(PROJECT_DIR ${WOTWR_PROJECTS_DIR}/${PROJECT_NAME})
 set(
         SOURCE_FILES
         "windows_api/bootstrap.cpp"
+        "windows_api/clipboard.cpp"
         "windows_api/console.cpp"
         "windows_api/memory.cpp"
         "windows_api/detours.cpp"
@@ -23,6 +24,7 @@ set(
 set(
         PUBLIC_HEADER_FILES
         "windows_api/bootstrap.h"
+        "windows_api/clipboard.cpp"
         "windows_api/common.h"
         "windows_api/console.h"
         "windows_api/detours.h"

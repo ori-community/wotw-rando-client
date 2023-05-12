@@ -1,25 +1,30 @@
 #include <Modloader/interception_macros.h>
 #include <dev/object_visualizer.h>
 #include <uber_states/uber_state_interface.h>
+#include <uber_states/uber_states.h>
 
 #include <Common/ext.h>
 #include <Modloader/app/methods/GameController.h>
 #include <Modloader/app/methods/Moon/UberStateController.h>
 #include <Modloader/app/types/UberStateController.h>
+#include <Modloader/app/types/UberStateCollection.h>
 #include <Modloader/common.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/windows_api/console.h>
+#include <Modloader/windows_api/clipboard.h>
 
 #include <algorithm>
 #include <array>
 #include <fstream>
+#include <nlohmann/json.hpp>
 
 using namespace modloader;
 using namespace modloader::win;
 using namespace app::classes;
 
 namespace {
-    void visualizer_setup(dev::Visualizer& visualizer, std::vector<console::CommandParam> const& params, int default_level = 1, int default_depth = 200000) {
+    void visualizer_setup(dev::Visualizer &visualizer, std::vector<console::CommandParam> const &params,
+                          int default_level = 1, int default_depth = 200000) {
         int value = default_level;
         auto value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "level"; });
         if (value_it != params.end())
@@ -37,7 +42,7 @@ namespace {
             visualizer.initial_depth = default_depth;
     }
 
-    void output_visualizer(dev::Visualizer& visualizer, std::vector<console::CommandParam> const& params) {
+    void output_visualizer(dev::Visualizer &visualizer, std::vector<console::CommandParam> const &params) {
         std::ofstream str;
         auto value_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "file"; });
         if (value_it != params.end())
@@ -51,7 +56,7 @@ namespace {
             console::console_send(dev::visualize::get_string(visualizer));
     }
 
-    bool find_state_group(std::vector<console::CommandParam> const& params, int& state, int& group) {
+    bool find_state_group(std::vector<console::CommandParam> const &params, int &state, int &group) {
         auto state_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "state"; });
         auto group_it = std::find_if(params.begin(), params.end(), [](auto p) -> bool { return p.name == "group"; });
         if (state_it == params.end()) {
@@ -77,7 +82,7 @@ namespace {
         return true;
     }
 
-    void set_us_bool(std::string const& command, std::vector<console::CommandParam> const& params) {
+    void set_us_bool(std::string const &command, std::vector<console::CommandParam> const &params) {
         int state = 0;
         int group = 0;
         if (!find_state_group(params, state, group))
@@ -98,7 +103,7 @@ namespace {
         uber_states::UberState(static_cast<UberStateGroup>(group), state).set(value);
     }
 
-    void set_us_int(std::string const& command, std::vector<console::CommandParam> const& params) {
+    void set_us_int(std::string const &command, std::vector<console::CommandParam> const &params) {
         int state = 0;
         int group = 0;
         if (!find_state_group(params, state, group))
@@ -119,7 +124,7 @@ namespace {
         uber_states::UberState(static_cast<UberStateGroup>(group), state).set(value);
     }
 
-    void check_appliers(std::vector<console::CommandParam> const& params) {
+    void check_appliers(std::vector<console::CommandParam> const &params) {
         auto uber_state_controller = types::UberStateController::get_class();
         int state = 0;
         int group = 0;
@@ -139,13 +144,13 @@ namespace {
         for (auto i = 0; i < list->fields._size; ++i) {
             auto item = list->fields._items->vector[i];
             if (Moon::UberStateController::ApplierIsAffectedByUberState(item, uber_state.ptr()))
-                dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject*>(item));
+                dev::visualize::visualize_object(visualizer, reinterpret_cast<Il2CppObject *>(item));
         }
 
         output_visualizer(visualizer, params);
     }
 
-    void check_all_appliers(std::vector<console::CommandParam> const& params) {
+    void check_all_appliers(std::vector<console::CommandParam> const &params) {
         auto uber_state_controller = types::UberStateController::get_class();
         dev::Visualizer visualizer;
         visualizer_setup(visualizer, params, 1, 1);
@@ -164,7 +169,7 @@ namespace {
         output_visualizer(visualizer, params);
     }
 
-    void dump_scene(std::vector<console::CommandParam> const& params) {
+    void dump_scene(std::vector<console::CommandParam> const &params) {
         dev::Visualizer visualizer;
         visualizer_setup(visualizer, params);
 
@@ -182,52 +187,60 @@ namespace {
         output_visualizer(visualizer, params);
     }
 
-    enum class Command {
-        None,
-        CheckAppliers,
-        CheckAllAppliers,
-        DumpScene
-    };
+    void dump_uber_states(std::vector<console::CommandParam> const &params) {
+        auto collection = types::UberStateCollection::get_class()
+                ->static_fields->m_instance->fields.m_descriptors->fields;
 
-    Command queued;
-    std::vector<console::CommandParam> saved_params;
-    IL2CPP_INTERCEPT(GameController, void, FixedUpdate, (app::GameController * this_ptr)) {
-        switch (queued) {
-            case Command::None:
-                break;
-            case Command::CheckAppliers:
-                check_appliers(saved_params);
-                queued = Command::None;
-                break;
-            case Command::CheckAllAppliers:
-                check_all_appliers(saved_params);
-                queued = Command::None;
-                break;
-            case Command::DumpScene:
-                dump_scene(saved_params);
-                queued = Command::None;
-                break;
+        nlohmann::json j = nlohmann::json::object();
+
+        j["groups"] = nlohmann::json::object();
+
+        for (auto i = 0; i < collection._size; ++i) {
+            uber_states::UberState uber_state(reinterpret_cast<app::IUberState *>(collection._items->vector[i]));
+
+            auto group_key = std::to_string(static_cast<int>(uber_state.group()));
+            auto state_key = std::to_string(static_cast<int>(uber_state.state()));
+
+            if (!j["groups"].contains(group_key)) {
+                j["groups"][group_key] = nlohmann::json::object(
+                        {
+                                {"name",   uber_state.group_name()},
+                                {"states", nlohmann::json::array()},
+                        }
+                );
+            }
+
+            j["groups"][group_key]["states"][state_key] = nlohmann::json::object(
+                    {
+                            {"name",   uber_state.state_name()},
+                            {"type",   uber_state.type()},
+                            {"value",  uber_state.get<double>()},
+                    }
+            );
         }
 
-        next::GameController::FixedUpdate(this_ptr);
-    }
-
-    void queue_command(std::string const& command, std::vector<console::CommandParam> const& params) {
-        saved_params = params;
-        if (command == "debug.check_appliers")
-            queued = Command::CheckAppliers;
-        else if (command == "debug.check_all_appliers")
-            queued = Command::CheckAllAppliers;
-        else
-            queued = Command::DumpScene;
+        modloader::win::copy_text_to_clipboard(j.dump(2));
     }
 
     void add_uber_state_commands() {
-        console::register_command({ "uber_state", "set_bool" }, set_us_bool);
-        console::register_command({ "uber_state", "set_int" }, set_us_int);
-        console::register_command({ "debug", "check_appliers" }, queue_command);
-        console::register_command({ "debug", "check_all_appliers" }, queue_command);
-        console::register_command({ "debug", "dump_scene" }, queue_command);
+        console::register_command({"uber_state", "set_bool"}, set_us_bool);
+        console::register_command({"uber_state", "set_int"}, set_us_int);
+
+        console::register_command({"debug", "check_appliers"}, [](auto command, auto params) {
+            check_appliers(params);
+        }, true);
+
+        console::register_command({"debug", "check_all_appliers"}, [](auto command, auto params) {
+            check_all_appliers(params);
+        }, true);
+
+        console::register_command({"debug", "dump_scene"}, [](auto command, auto params) {
+            dump_scene(params);
+        }, true);
+
+        console::register_command({"debug", "dump_uber_states"}, [](auto command, auto params) {
+            dump_uber_states(params);
+        }, true);
     }
 
     CALL_ON_INIT(add_uber_state_commands);
