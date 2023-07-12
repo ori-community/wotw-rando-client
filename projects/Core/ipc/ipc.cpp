@@ -39,7 +39,7 @@ namespace core::ipc {
                 std::optional<size_t> receive_result;
 
                 try {
-                    receive_result = socket->recv(msg, zmq::recv_flags::dontwait);
+                    receive_result = socket->recv(msg);
                 } catch (const zmq::error_t& e) {
                     modloader::warn("IPC", fmt::format("ZeroMQ recv Error: {} {}", e.num(), e.what()));
                     continue;
