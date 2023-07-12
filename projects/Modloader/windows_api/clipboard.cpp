@@ -8,7 +8,7 @@ namespace modloader::win {
 
         OpenClipboard(0);
         EmptyClipboard();
-        SetClipboardData(CF_UNICODETEXT, memory);
+        SetClipboardData(CF_TEXT, memory);
         CloseClipboard();
     }
 }

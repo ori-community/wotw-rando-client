@@ -205,7 +205,7 @@ namespace {
                 j["groups"][group_key] = nlohmann::json::object(
                         {
                                 {"name",   uber_state.group_name()},
-                                {"states", nlohmann::json::array()},
+                                {"states", nlohmann::json::object()},
                         }
                 );
             }
@@ -220,6 +220,7 @@ namespace {
         }
 
         modloader::win::copy_text_to_clipboard(j.dump(2));
+        console::console_send("Copied states to clipboard");
     }
 
     void add_uber_state_commands() {
