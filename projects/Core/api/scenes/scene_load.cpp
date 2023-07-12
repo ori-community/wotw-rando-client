@@ -159,7 +159,10 @@ namespace scenes {
             auto scene_manager_scene = ScenesManager::GetFromCurrentScenes_1(scenes_manager, scene_meta);
             auto scene_root_go = il2cpp::unity::get_game_object(scene_manager_scene->fields.SceneRoot);
             scene_manager_scene->fields.PreventUnloading = keep_preloaded;
-            callback(scene, scene_manager_scene->fields.m_currentState, scene_root_go);
+
+            if (callback != nullptr) {
+                callback(scene, scene_manager_scene->fields.m_currentState, scene_root_go);
+            }
         } else if (!ScenesManager::SceneIsLoading(scenes_manager, scene_meta->fields.SceneMoonGuid)) {
             ScenesManager::RequestAdditivelyLoadScene(scenes_manager, scene_meta, async, true, true, true, false);
         }
