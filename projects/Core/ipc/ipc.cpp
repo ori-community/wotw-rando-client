@@ -39,9 +39,10 @@ namespace core::ipc {
                 std::optional<size_t> receive_result;
 
                 try {
-                    receive_result = socket->recv(msg);
-                } catch (zmq::error_t& e) {
-                    modloader::warn("IPC", fmt::format("ZeroMQ Error: {} {}", e.num(), e.what()));
+                    receive_result = socket->recv(msg, zmq::recv_flags::dontwait);
+                } catch (const zmq::error_t& e) {
+                    modloader::warn("IPC", fmt::format("ZeroMQ recv Error: {} {}", e.num(), e.what()));
+                    continue;
                 }
 
                 if (!receive_result.has_value()) {
@@ -76,8 +77,18 @@ namespace core::ipc {
                 outgoing_messages_mutex.unlock();
 
                 for (const auto &message: local_outgoing_messages) {
+                    if (shutdown_ipc_thread) {
+                        break;
+                    }
+
                     zmq::message_t zmq_message(message.dump());
-                    socket->send(zmq_message, zmq::send_flags::none);
+
+                    try {
+                        socket->send(zmq_message, zmq::send_flags::none);
+                    } catch (const zmq::error_t& e) {
+                        modloader::warn("IPC", fmt::format("ZeroMQ send Error: {} {}", e.num(), e.what()));
+                        continue;
+                    }
                 }
             }
         }
@@ -156,6 +167,12 @@ namespace core::ipc {
         if (socket) {
             socket->set(zmq::sockopt::linger, 0);
             socket->close();
+        }
+
+        if (context) {
+            context->shutdown();
+            context->close();
+            context = nullptr;
         }
 
         if (send_thread != nullptr && send_thread->joinable()) {
