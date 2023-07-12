@@ -71,6 +71,8 @@ namespace il2cpp {
     IL2CPP_MODLOADER_DLLEXPORT app::Type* get_runtime_type(Il2CppClass* klass);
     IL2CPP_MODLOADER_DLLEXPORT app::Type* get_runtime_type(void* klass);
 
+    IL2CPP_MODLOADER_DLLEXPORT void shutdown();
+
     IL2CPP_MODLOADER_DLLEXPORT app::String* string_new(std::string_view str);
     IL2CPP_MODLOADER_DLLEXPORT app::String* string_new(std::string_view str, uint32_t len);
     IL2CPP_MODLOADER_DLLEXPORT app::String* string_new(std::wstring_view str);

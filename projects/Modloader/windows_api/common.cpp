@@ -13,4 +13,8 @@ namespace modloader::win::common {
     void free_library_and_exit_thread(std::string_view library, unsigned long exit_code) {
         FreeLibraryAndExitThread(GetModuleHandleA(library.data()), exit_code);
     }
+
+    void force_exit(uint8_t exit_code) {
+        TerminateProcess(GetCurrentProcess(), exit_code);
+    }
 }

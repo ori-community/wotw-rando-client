@@ -584,6 +584,10 @@ namespace il2cpp {
         il2cpp_gchandle_free(handle);
     }
 
+    void shutdown() {
+        il2cpp_shutdown();
+    }
+
     app::String* string_new(std::string_view str) {
         return reinterpret_cast<app::String*>(il2cpp_string_new_len(str.data(), str.size()));
     }

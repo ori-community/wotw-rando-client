@@ -31,6 +31,7 @@
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
+#include <Modloader/windows_api/common.h>
 
 #include "player.h"
 #include <magic_enum.hpp>
@@ -105,7 +106,7 @@ namespace game {
             modloader::shutdown();
 
             // Force exit to prevent crash.
-            quick_exit(0);
+            modloader::win::common::force_exit(0);
         }
     } // namespace
 
