@@ -4,6 +4,7 @@
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
 #include <Modloader/app/methods/FaderB.h>
+#include <Modloader/app/methods/Game/UI.h>
 #include <Modloader/app/methods/MenuScreenManager__PostFadeMenuOpen_d__100.h>
 
 using namespace app::classes;
@@ -28,6 +29,14 @@ namespace {
         ScopedSetter setter(skip_fade_to_black, true);
         next::MenuScreenManager__PostFadeMenuOpen_d__100::MoveNext(this_ptr);
         return next::MenuScreenManager__PostFadeMenuOpen_d__100::MoveNext(this_ptr);
+    }
+
+    IL2CPP_INTERCEPT(FaderB, void, ExecuteGCIfNeeded, (app::FaderB* this_ptr)) {
+        if (Game::UI::get_Menu()->fields.m_isPaused) {
+            return;
+        }
+
+        next::FaderB::ExecuteGCIfNeeded(this_ptr);
     }
 
     /*
