@@ -11,7 +11,6 @@ conan_cmake_configure(
             fmt/9.1.0
             magic_enum/0.8.1
             nlohmann_json/3.11.2
-            antlr4-cppruntime/4.11.1
             inih/56
             tclap/1.2.5
             cppzmq/4.10.0
