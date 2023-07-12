@@ -35,7 +35,7 @@ namespace randomizer::timing {
         app::AbilityType__Enum::SpiritLeash, // Grapple
         app::AbilityType__Enum::GlowSpell, // Flash
         app::AbilityType__Enum::SpiritSpearSpell, // Spear
-        app::AbilityType__Enum::Regenerate,
+        app::AbilityType__Enum::MeditateSpell, // Regenerate but the actual one
         app::AbilityType__Enum::Bow,
         app::AbilityType__Enum::Hammer,
         app::AbilityType__Enum::Sword,
