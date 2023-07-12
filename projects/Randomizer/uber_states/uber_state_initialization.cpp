@@ -587,7 +587,7 @@ namespace {
 
         for (int i = 0; i < 2000; ++i) {
             states.push_back(
-                    add_state<app::SerializedBooleanUberState>(UberStateGroup::MultiVars, fmt::format("%3d_multi", i), i, false)
+                    add_state<app::SerializedBooleanUberState>(UberStateGroup::MultiVars, fmt::format("{}_multi", i), i, false)
             );
         }
 
