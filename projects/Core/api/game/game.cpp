@@ -106,6 +106,7 @@ namespace game {
             modloader::shutdown();
 
             // Force exit to prevent crash.
+            modloader::win::common::sleep(1000);
             modloader::win::common::force_exit(0);
         }
     } // namespace

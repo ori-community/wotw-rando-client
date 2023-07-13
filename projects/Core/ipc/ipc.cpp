@@ -174,14 +174,6 @@ namespace core::ipc {
             context->close();
             context = nullptr;
         }
-
-        if (send_thread != nullptr && send_thread->joinable()) {
-            send_thread->join();
-        }
-
-        if (receive_thread != nullptr && receive_thread->joinable()) {
-            receive_thread->join();
-        }
     }
 
     void initialize() {
