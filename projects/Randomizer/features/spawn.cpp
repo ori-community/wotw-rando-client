@@ -224,11 +224,11 @@ namespace {
             // Make QTMs faster
             auto qtm_fade_to_black_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "actions", "usedSlotPressed (part2)", "06. FadeToBlack over 5 seconds"} );
             auto qtm_fade_to_black = il2cpp::unity::get_component<app::FaderBFadeInAction>(qtm_fade_to_black_go, types::FaderBFadeInAction::get_class());
-            qtm_fade_to_black->fields.FadeInDuration = 2f;
+            qtm_fade_to_black->fields.FadeInDuration = 2.f;
 
             auto qtm_wait_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "actions", "usedSlotPressed (part2)", "07. Wait 5 seconds"} );
             auto qtm_wait = il2cpp::unity::get_component<app::WaitAction>(qtm_wait_go, types::WaitAction::get_class());
-            qtm_wait->fields.Duration = 2f;
+            qtm_wait->fields.Duration = 2.f;
         }
     }
 
