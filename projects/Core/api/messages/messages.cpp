@@ -96,9 +96,13 @@ namespace {
     }
 
     void do_position_refresh(RandoMessage& message) {
-        app::Vector3 pos = { message.pos.x, message.pos.y, 0.0f };
-        if (message.use_in_game_coordinates)
+        app::Vector3 pos = { message.pos.x, message.pos.y, 0.f };
+
+        if (message.use_in_game_coordinates) {
             pos = world_to_ui_position(pos);
+        } else {
+            pos.z = -5.f; // Better readability in the main menu
+        }
 
         auto transform = il2cpp::unity::get_transform(message.obj);
         Transform::set_position(transform, pos);
