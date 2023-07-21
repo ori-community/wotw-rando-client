@@ -113,17 +113,22 @@ namespace RandomizerManaged {
       if (updateThread == null) {
         updateThread = new Thread(() => {
           while (true) {
-            try {
-              while (true) {
-                if (CanSend) {
-                  var packet = SendQueue.Take(source.Token);
-                  socket.Send(packet.ToByteArray());
-                }
+            while (true) {
+              if (!CanSend) {
+                Thread.Sleep(50);
+                continue;
               }
-            }
-            catch (OperationCanceledException) { }
-            catch (Exception e) {
-              Randomizer.Warn("WebSocket.UpdateThread", $"caught error {e}");
+
+              var packet = SendQueue.Take(source.Token);
+
+              try {
+                socket.Send(packet.ToByteArray());
+              }
+              catch (Exception e) {
+                SendQueue.Add(packet, source.Token);
+                Randomizer.Warn("WebSocket.UpdateThread", $"caught error {e}");
+                break;
+              }
             }
 
             try {
