@@ -572,8 +572,8 @@ namespace il2cpp {
         return il2cpp_gchandle_new(reinterpret_cast<Il2CppObject*>(obj), pinned);
     }
 
-    gchandle gchandle_new_weak(void* obj, bool track_ressurection) {
-        return il2cpp_gchandle_new_weakref(reinterpret_cast<Il2CppObject*>(obj), track_ressurection);
+    gchandle gchandle_new_weak(void* obj, bool track_resurrection) {
+        return il2cpp_gchandle_new_weakref(reinterpret_cast<Il2CppObject*>(obj), track_resurrection);
     }
 
     Il2CppObject* gchandle_target(gchandle handle) {

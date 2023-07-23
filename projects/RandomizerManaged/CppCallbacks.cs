@@ -221,6 +221,10 @@ namespace RandomizerManaged {
             Delegate = new f_void_float(WebSocketClient.ReportLoadingTime),
             CallbackName = "report_loading_time"
           },
+          new Method() {
+            Delegate = new f_void_bool(WebSocketClient.ReportPlayerRaceReady),
+            CallbackName = "report_player_race_ready"
+          },
         };
       }
     }

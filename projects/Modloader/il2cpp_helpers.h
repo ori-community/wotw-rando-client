@@ -51,7 +51,7 @@ namespace il2cpp {
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring_fast(app::String* str);
     IL2CPP_MODLOADER_DLLEXPORT gchandle gchandle_new(void* obj, bool pinned = false);
-    IL2CPP_MODLOADER_DLLEXPORT gchandle gchandle_new_weak(void* obj, bool track_resurrection);
+    IL2CPP_MODLOADER_DLLEXPORT gchandle gchandle_new_weak(void* obj, bool track_resurrection = true);
     IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* gchandle_target(gchandle handle);
     IL2CPP_MODLOADER_DLLEXPORT void gchandle_free(gchandle handle);
 

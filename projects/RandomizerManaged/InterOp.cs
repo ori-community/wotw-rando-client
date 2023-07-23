@@ -188,6 +188,8 @@ namespace RandomizerManaged {
       public extern static void set_player_visibility([MarshalAs(UnmanagedType.LPWStr)] string id, bool world, bool map);
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
       unsafe public extern static byte* get_current_ghost_frame_data(ref int size);
+      [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_block_starting_new_game(bool block_starting_new_game);
     }
 
     public static class Player {

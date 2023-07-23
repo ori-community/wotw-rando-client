@@ -113,4 +113,5 @@ namespace csharp_bridge {
     extern signatures::f_int_ga get_pickup_count_by_area;
 
     extern signatures::f_void_float report_loading_time;
+    extern signatures::f_void_bool report_player_race_ready;
 } // namespace csharp_bridge

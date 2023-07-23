@@ -21,8 +21,7 @@ namespace RandomizerManaged {
     private static readonly string JWTFile = ".jwt";
 
     public static bool ExpectingDisconnect = false;
-    public static int ReconnectCooldown = 0;
-    public static int FramesSinceLastCheck = 0;
+    public static bool PerformedAuthentication = false;
     private static string ServerAddress => $"ws{S}://{Domain}/api/game_sync/";
 
     private static Thread updateThread;
@@ -35,7 +34,7 @@ namespace RandomizerManaged {
     private static WebSocket socket;
 
     public static bool IsConnected { get { return socket != null && socket.IsConnected; } }
-    public static bool CanSend { get { return IsConnected && socket.ReadyState == WebSocketState.Open; } }
+    public static bool CanSend { get { return IsConnected && socket.ReadyState == WebSocketState.Open && PerformedAuthentication; } }
     public static bool Connecting { get => connectThread?.IsAlive ?? false; }
     public static void Connect() {
       if (!WantConnection) return;
@@ -71,24 +70,34 @@ namespace RandomizerManaged {
           socket.OnError += (sender, e) => {
             Randomizer.Error("WebSocket", $"{e} {e?.Exception}", false);
             TimeUntilReconnectAttempt = 10.0f;
+            PerformedAuthentication = false;
           };
           socket.OnClose += (sender, e) => {
             Randomizer.Log($"Closing socket ({e?.Code}: {e?.Reason})");
+            PerformedAuthentication = false;
             if (!ExpectingDisconnect)
               Randomizer.Log("Disconnected! Retrying in 5s");
           };
           socket.OnMessage += HandleMessage;
           socket.OnOpen += (sender, args) => {
             Randomizer.Log($"Connected to server", false);
+            
             string jwt = System.IO.File.ReadAllText(Path.Combine(Randomizer.BasePath, JWTFile)).Trim();
-            SendAuthenticate(jwt);
+            Packet packet = new Packet {
+              Id = Packet.Types.PacketID.AuthenticateMessage,
+              Packet_ = new AuthenticateMessage() { Jwt = jwt }.ToByteString()
+            };
+            socket.Send(packet.ToByteArray());
+            PerformedAuthentication = true;
+            
             UberStateController.QueueSyncedStateUpdate();
           };
           Randomizer.Log($"Attempting to connect to {Domain}", false);
           socket.Connect();
         } catch (Exception e) {
           TimeUntilReconnectAttempt = 2.0f;
-          Randomizer.Error("Connect (socket.)", e, false); 
+          Randomizer.Error("Connect (socket.)", e, false);
+          PerformedAuthentication = false;
         }
 
       });
@@ -119,7 +128,14 @@ namespace RandomizerManaged {
                 continue;
               }
 
-              var packet = SendQueue.Take(source.Token);
+              Packet packet;
+
+              try {
+                packet = SendQueue.Take(source.Token);
+              }
+              catch (OperationCanceledException e) {
+                break;
+              }
 
               try {
                 socket.Send(packet.ToByteArray());
@@ -193,20 +209,6 @@ namespace RandomizerManaged {
       } catch(Exception e) { Randomizer.Error("SendUpdate", e, false);  }
     }
 
-    public static void SendAuthenticate(string jwt) {
-      try {
-        if (!WantConnection)
-          return;
-
-        Packet packet = new Packet {
-          Id = Packet.Types.PacketID.AuthenticateMessage,
-          Packet_ = new AuthenticateMessage() { Jwt = jwt }.ToByteString()
-        };
-        SendQueue.Add(packet);
-      }
-      catch (Exception e) { Randomizer.Error("SendAuthenticate", e, false); }
-    }
-
     public static void SendSeedRequest(bool init) {
       try {
         if (!WantConnection)
@@ -250,6 +252,22 @@ namespace RandomizerManaged {
         SendQueue.Add(packet);
       }
       catch (Exception e) { Randomizer.Error("ReportLoadingTime", e, false); }
+    }
+
+    public static void ReportPlayerRaceReady(bool raceReady) {
+      try {
+        if (!WantConnection)
+          return;
+
+        var reportPlayerRaceReadyMessage = new ReportPlayerRaceReadyMessage();
+        reportPlayerRaceReadyMessage.RaceReady = raceReady;
+        Packet packet = new Packet {
+          Id = Packet.Types.PacketID.ReportPlayerRaceReadyMessage,
+          Packet_ = reportPlayerRaceReadyMessage.ToByteString()
+        };
+        SendQueue.Add(packet);
+      }
+      catch (Exception e) { Randomizer.Error("ReportPlayerRaceReady", e, false); }
     }
 
     public static void SendResourceRequestMessage(Memory.UberId id, int amount, bool relative, SpendResourceTarget target) {
@@ -331,9 +349,10 @@ namespace RandomizerManaged {
             );
             break;
           }
-          case Packet.Types.PacketID.InitBingoMessage:
-            var init = InitBingoMessage.Parser.ParseFrom(packet.Packet_);
+          case Packet.Types.PacketID.InitGameSyncMessage:
+            var init = InitGameSyncMessage.Parser.ParseFrom(packet.Packet_);
             UberStateController.SyncedUberStates = init.UberId.Select(s => s.IdFromMsg()).ToHashSet(); // LINQ BAAAYBEEEEEE
+            InterOp.Multiplayer.set_block_starting_new_game(init.BlockStartingNewGame);
             break;
           case Packet.Types.PacketID.UberStateUpdateMessage:
             try {
@@ -361,6 +380,11 @@ namespace RandomizerManaged {
             else {
               Infection.Queue.Add(packet);
             }
+            break;
+          case Packet.Types.PacketID.SetBlockStartingNewGameMessage:
+            InterOp.Multiplayer.set_block_starting_new_game(
+              SetBlockStartingNewGameMessage.Parser.ParseFrom(packet.Packet_).BlockStartingNewGame
+            );
             break;
           default:
             break;
