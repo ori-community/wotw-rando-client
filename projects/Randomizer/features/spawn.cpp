@@ -21,6 +21,7 @@
 #include <Modloader/app/methods/TitleScreenManager.h>
 #include <Modloader/app/methods/WaitAction.h>
 #include <Modloader/app/methods/ActionSequence.h>
+#include <Modloader/app/methods/MessageBox.h>
 #include <Modloader/app/types/UI_Cameras.h>
 #include <Modloader/app/types/GameStateMachine.h>
 #include <Modloader/app/types/SaveSlotsUI.h>
@@ -29,11 +30,13 @@
 #include <Modloader/app/types/WaitAction.h>
 #include <Modloader/app/types/FaderBFadeInAction.h>
 #include <Modloader/app/types/ActionSequence.h>
+#include <Modloader/app/types/MessageBox.h>
 #include <Modloader/il2cpp_helpers.h>
 #include <Modloader/interception_macros.h>
 #include <Modloader/windows_api/console.h>
 #include <Core/enums/game_event.h>
 #include <Core/utils/event_bus.h>
+#include <Core/api/system/message_provider.h>
 #include <Core/task.h>
 #include <Randomizer/interop/csharp_bridge.h>
 #include <fmt/format.h>
@@ -60,22 +63,25 @@ namespace randomizer::spawn {
         std::set<std::string> pending_scenes_to_preload;
         std::set<std::string> scenes_to_preload;
 
-        std::optional<gchandle> ui_go_handle;
-        std::optional<gchandle> start_game_sequence_handle;
-        std::optional<gchandle> full_game_main_menu_go_handle;
-        std::optional<gchandle> empty_slot_pressed_wait_handle;
+        std::optional<il2cpp::WeakGCRef<app::GameObject>> ui_go_handle;
+        std::optional<il2cpp::WeakGCRef<app::ActionSequence>> start_game_sequence_handle;
+        std::optional<il2cpp::WeakGCRef<app::GameObject>> full_game_main_menu_go_handle;
+        std::optional<il2cpp::WeakGCRef<app::WaitAction>> empty_slot_pressed_wait_handle;
+        std::optional<il2cpp::WeakGCRef<app::MessageBox>> easy_mode_text_handle;
+        std::optional<il2cpp::WeakGCRef<app::MessageBox>> normal_mode_text_handle;
+        std::optional<il2cpp::WeakGCRef<app::MessageBox>> hard_mode_text_handle;
     }
 
     void start_new_game() {
         if (start_game_sequence_handle.has_value()) {
-            auto action = il2cpp::gchandle_target(start_game_sequence_handle.value());
+            auto action = start_game_sequence_handle.value().ref();
 
             if (il2cpp::unity::is_valid(action)) {
                 is_waiting_for_race_start = false;
 
                 faderb::fade_in(0.4f);
                 core::task::schedule(0.4f, [action]() {
-                    ActionSequence::Perform_1(reinterpret_cast<app::ActionSequence*>(action));
+                    ActionSequence::Perform_1(action);
                 });
             }
         }
@@ -84,6 +90,29 @@ namespace randomizer::spawn {
     void check_if_preloaded_and_report_ready() {
         if (pending_scenes_to_preload.empty()) {
             csharp_bridge::report_player_race_ready(true);
+        }
+    }
+
+    void update_difficulty_text_boxes() {
+        std::string prepend_to_difficulty = "";
+
+        if (block_starting_new_game) {
+            prepend_to_difficulty = "JOIN RACE in ";
+        }
+
+        if (easy_mode_text_handle.has_value() && **easy_mode_text_handle != nullptr) {
+            (**easy_mode_text_handle)->fields.MessageProvider = utils::create_message_provider(fmt::format("{}EASY MODE", prepend_to_difficulty));
+            MessageBox::RefreshText_1(**easy_mode_text_handle);
+        }
+
+        if (normal_mode_text_handle.has_value() && **normal_mode_text_handle != nullptr) {
+            (**normal_mode_text_handle)->fields.MessageProvider = utils::create_message_provider(fmt::format("{}NORMAL MODE", prepend_to_difficulty));
+            MessageBox::RefreshText_1(**normal_mode_text_handle);
+        }
+
+        if (hard_mode_text_handle.has_value() && **hard_mode_text_handle != nullptr) {
+            (**hard_mode_text_handle)->fields.MessageProvider = utils::create_message_provider(fmt::format("{}HARD MODE", prepend_to_difficulty));
+            MessageBox::RefreshText_1(**hard_mode_text_handle);
         }
     }
 
@@ -228,7 +257,7 @@ namespace randomizer::spawn {
             // If the player started a new empty save slot...
             if (
                     empty_slot_pressed_wait_handle.has_value() &&
-                    this_ptr == reinterpret_cast<app::WaitAction*>(il2cpp::gchandle_target(empty_slot_pressed_wait_handle.value())) &&
+                    this_ptr == empty_slot_pressed_wait_handle.value().ref() &&
                     start_game_sequence_handle.has_value()
             ) {
                 if (block_starting_new_game) {
@@ -268,17 +297,21 @@ namespace randomizer::spawn {
                 auto empty_slot_pressed_wait_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "emptySlotPressed(newGame)", "04. Wait 1.5 seconds" });
                 auto empty_slot_pressed_wait = il2cpp::unity::get_component<app::WaitAction>(empty_slot_pressed_wait_go, types::WaitAction::get_class());
                 empty_slot_pressed_wait->fields.Duration = 0.4f;
-                empty_slot_pressed_wait_handle = il2cpp::gchandle_new_weak(empty_slot_pressed_wait);
+                empty_slot_pressed_wait_handle = il2cpp::WeakGCRef(empty_slot_pressed_wait);
 
                 // Save handles
-                ui_go_handle = il2cpp::gchandle_new_weak(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui"} ));
-                full_game_main_menu_go_handle = il2cpp::gchandle_new_weak(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu"} )); // Need this to get the CleverMenuItemSelectionManager later...
-                start_game_sequence_handle = il2cpp::gchandle_new_weak(
+                ui_go_handle = il2cpp::WeakGCRef(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui"} ));
+                full_game_main_menu_go_handle = il2cpp::WeakGCRef(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu"} )); // Need this to get the CleverMenuItemSelectionManager later...
+                start_game_sequence_handle = il2cpp::WeakGCRef(
                         il2cpp::unity::get_component<app::ActionSequence>(
                                 il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "startGameSequence"} ),
                                 types::ActionSequence::get_class()
                         )
                 );
+
+                easy_mode_text_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>( il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. easyMode", "text"} ), types::MessageBox::get_class()));
+                normal_mode_text_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. normalMode", "text"} ), types::MessageBox::get_class()));
+                hard_mode_text_handle = il2cpp::WeakGCRef(il2cpp::unity::get_component<app::MessageBox>(il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "IV. profileSelected", "4. fullGameMainMenu", "0. hardMode", "text"} ), types::MessageBox::get_class()));
 
                 // Make QTMs faster
                 auto qtm_fade_to_black_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "actions", "usedSlotPressed (part2)", "06. FadeToBlack over 5 seconds"} );
@@ -288,6 +321,8 @@ namespace randomizer::spawn {
                 auto qtm_wait_go = il2cpp::unity::find_child(scene_root_go, std::vector<std::string>{ "titleScreen (new)", "ui", "group", "actions", "usedSlotPressed (part2)", "07. Wait 5 seconds"} );
                 auto qtm_wait = il2cpp::unity::get_component<app::WaitAction>(qtm_wait_go, types::WaitAction::get_class());
                 qtm_wait->fields.Duration = 2.f;
+
+                update_difficulty_text_boxes();
             }
         }
 
@@ -349,10 +384,17 @@ RANDOMIZER_C_DLLEXPORT void set_start_position(float x, float y) {
 RANDOMIZER_C_DLLEXPORT void set_block_starting_new_game(bool block_starting_new_game) {
     if (randomizer::spawn::block_starting_new_game != block_starting_new_game) {
         randomizer::spawn::block_starting_new_game = block_starting_new_game;
+
+        core::task::schedule_for_next_update([]() {
+            randomizer::spawn::update_difficulty_text_boxes();
+        });
+
         modloader::win::console::console_send(fmt::format("Blocking new game: {}", block_starting_new_game ? "True" : "False"));
 
         if (!block_starting_new_game && randomizer::spawn::is_waiting_for_race_start) {
-            randomizer::spawn::start_new_game();
+            core::task::schedule_for_next_update([]() {
+                randomizer::spawn::start_new_game();
+            });
         }
     }
 }

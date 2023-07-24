@@ -17,13 +17,9 @@ namespace randomizer::online_indicator {
     namespace {
         bool is_in_main_menu = false;
 
-        app::TextBox* online_status_textbox = nullptr;
-        app::TextBox* handle_textbox = nullptr;
-        app::GameObject* separator_go = nullptr;
-
-        void update_online_indicator() {
-
-        }
+        il2cpp::WeakGCRef<app::TextBox> online_status_textbox;
+        il2cpp::WeakGCRef<app::TextBox> handle_textbox;
+        il2cpp::WeakGCRef<app::GameObject> separator_go;
 
         void on_scene_load(scenes::SceneLoadEventMetadata* metadata, EventTiming timing) {
             if (metadata->scene_name != "wotwTitleScreen") {

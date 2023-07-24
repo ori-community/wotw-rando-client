@@ -48,12 +48,56 @@ namespace il2cpp {
         IL2CPP_MODLOADER_DLLEXPORT Il2CppArraySize* array_new_full(Il2CppClass* array_klass, il2cpp_array_size_t* lengths, il2cpp_array_size_t* lower_bounds);
     } // namespace untyped
 
-    IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
-    IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring_fast(app::String* str);
+    IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* gchandle_target(gchandle handle);
     IL2CPP_MODLOADER_DLLEXPORT gchandle gchandle_new(void* obj, bool pinned = false);
     IL2CPP_MODLOADER_DLLEXPORT gchandle gchandle_new_weak(void* obj, bool track_resurrection = true);
-    IL2CPP_MODLOADER_DLLEXPORT Il2CppObject* gchandle_target(gchandle handle);
     IL2CPP_MODLOADER_DLLEXPORT void gchandle_free(gchandle handle);
+    IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
+    IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring_fast(app::String* str);
+
+    template<typename T>
+    struct GCRef {
+        gchandle handle;
+
+        explicit GCRef(T* obj, bool pinned = false) {
+            handle = il2cpp::gchandle_new(obj, pinned);
+        }
+
+        T* ref() {
+            return reinterpret_cast<T*>(il2cpp::gchandle_target(handle));
+        }
+
+        T* operator*() {
+            return reinterpret_cast<T*>(il2cpp::gchandle_target(handle));
+        }
+
+        void free() {
+            il2cpp::gchandle_free(handle);
+        }
+    };
+
+    template<typename T>
+    struct WeakGCRef {
+        gchandle handle;
+
+        explicit WeakGCRef() : handle(0) {};
+
+        explicit WeakGCRef(T* obj, bool track_resurrection = true) {
+            handle = il2cpp::gchandle_new_weak(obj, track_resurrection);
+        }
+
+        T* ref() {
+            return reinterpret_cast<T*>(il2cpp::gchandle_target(handle));
+        }
+
+        T* operator*() {
+            return ref();
+        }
+
+        void free() {
+            il2cpp::gchandle_free(handle);
+        }
+    };
 
     IL2CPP_MODLOADER_DLLEXPORT std::vector<MethodOverloadInfo> const& get_all_methods(void* klass);
     IL2CPP_MODLOADER_DLLEXPORT int get_method_overload_count(Il2CppClass* klass, std::string_view method, int param_count);
@@ -293,7 +337,7 @@ namespace il2cpp {
     void load_all_types();
 
     template <typename Return>
-    Return* gchandle_target(gchandle handle) {
+    Return* gchandle_target(uint32_t handle) {
         return reinterpret_cast<Return*>(il2cpp::gchandle_target(handle));
     }
 
