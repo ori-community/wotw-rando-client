@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -77,28 +78,31 @@ namespace RandomizerManaged {
 
     public static void UpdateMultivere(MultiverseInfoMessage multiverse) {
       lastMultiverseInfo = multiverse;
-      var universe = multiverse.Universes.First(u => u.Worlds.Any(w => w.Members.Any(m => m.Id == Id)));
+      
       var players = new Dictionary<string, PlayerInfo>();
-      foreach (var world in universe.Worlds) {
-        // Cut away # and convert to number.
-        float r = (int.Parse(world.Color.Substring(1, 2), System.Globalization.NumberStyles.HexNumber)) / 255.0f;
-        float g = (int.Parse(world.Color.Substring(3, 2), System.Globalization.NumberStyles.HexNumber)) / 255.0f;
-        float b = (int.Parse(world.Color.Substring(5, 2), System.Globalization.NumberStyles.HexNumber)) / 255.0f;
-        float a = 1.0f;
-        foreach (var member in world.Members) {
-          var found = currentPlayers.TryGetValue(member.Id, out var current);
-          players.Add(member.Id, new PlayerInfo {
-            UniverseId = universe.Id,
-            WorldId = world.Id,
-            User = member,
-            Color = new RGBA { R = r, G = g, B = b, A = a },
-            VisibleInWorld = found ? current.VisibleInWorld : true,
-            VisibleOnMap = found ? current.VisibleOnMap : true,
-          });
-          if (member.Id == Id) {
-            UniverseId = universe.Id;
-            WorldId = world.Id;
-            InterOp.Multiplayer.set_local_player_color(r, g, b, a);
+
+      foreach (var universe in multiverse.Universes) {
+        foreach (var world in universe.Worlds) {
+          // Cut away # and convert to number.
+          float r = (int.Parse(world.Color.Substring(1, 2), NumberStyles.HexNumber)) / 255.0f;
+          float g = (int.Parse(world.Color.Substring(3, 2), NumberStyles.HexNumber)) / 255.0f;
+          float b = (int.Parse(world.Color.Substring(5, 2), NumberStyles.HexNumber)) / 255.0f;
+          float a = 1.0f;
+          foreach (var member in world.Members) {
+            var found = currentPlayers.TryGetValue(member.Id, out var current);
+            players.Add(member.Id, new PlayerInfo {
+              UniverseId = universe.Id,
+              WorldId = world.Id,
+              User = member,
+              Color = new RGBA { R = r, G = g, B = b, A = a },
+              VisibleInWorld = found ? current.VisibleInWorld : true,
+              VisibleOnMap = found ? current.VisibleOnMap : true,
+            });
+            if (member.Id == Id) {
+              UniverseId = universe.Id;
+              WorldId = world.Id;
+              InterOp.Multiplayer.set_local_player_color(r, g, b, a);
+            }
           }
         }
       }
@@ -122,12 +126,15 @@ namespace RandomizerManaged {
         Randomizer.Log($"Added player {player}", false);
       }
 
+      List<string> playerStatuses = new List<string>();
+      
       currentPlayers = players;
       foreach (var player in players) {
         if (player.Key == Id)
           continue;
 
         InterOp.Multiplayer.set_player_online(player.Key, player.Value.User.HasConnectedMultiverseId);
+        InterOp.Multiplayer.set_player_race_ready(player.Key, player.Value.User.RaceReady);
         Randomizer.Log($"Player {player} is online: {player.Value.User.HasConnectedMultiverseId}", false);
         InterOp.Multiplayer.set_player_color(player.Key,
           player.Value.Color.R, player.Value.Color.G, player.Value.Color.B, player.Value.Color.A);
@@ -140,11 +147,20 @@ namespace RandomizerManaged {
           if (player.Key == Id)
             continue;
 
-          InterOp.Multiplayer.set_player_visibility(
-            player.Key,
-            player.Value.VisibleInWorld,
-            player.Value.VisibleOnMap
-          );
+          if (player.Value.UniverseId == UniverseId) {
+            InterOp.Multiplayer.set_player_visibility(
+              player.Key,
+              player.Value.VisibleInWorld,
+              player.Value.VisibleOnMap
+            );
+          }
+          else {
+            InterOp.Multiplayer.set_player_visibility(
+              player.Key,
+              false,
+              false
+            );
+          }
         }
       }
 
@@ -164,6 +180,8 @@ namespace RandomizerManaged {
           break;
         }
       }
+
+      InterOp.Multiplayer.notify_multiverse_updated();
     }
 
     public static void UpdatePlayerWorldPosition(string id, float x, float y, byte[] ghostFrameData) {
@@ -191,6 +209,15 @@ namespace RandomizerManaged {
         if (player.Key == Id)
           continue;
 
+        if (player.Value.UniverseId != UniverseId) {
+          InterOp.Multiplayer.set_player_visibility(
+            player.Key,
+            false,
+            false
+          );
+          continue;
+        }
+        
         player.Value.VisibleInWorld = !hiddenInWorld.Contains(player.Key);
         player.Value.VisibleOnMap = !hiddenOnMap.Contains(player.Key);
         InterOp.Multiplayer.set_player_visibility(

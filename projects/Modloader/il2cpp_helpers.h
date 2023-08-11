@@ -55,6 +55,10 @@ namespace il2cpp {
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring(app::String* str);
     IL2CPP_MODLOADER_DLLEXPORT std::string convert_csstring_fast(app::String* str);
 
+    namespace unity {
+        IL2CPP_MODLOADER_DLLEXPORT bool is_valid(void* obj);
+    }
+
     template<typename T>
     struct GCRef {
         gchandle handle;
@@ -96,6 +100,10 @@ namespace il2cpp {
 
         void free() {
             il2cpp::gchandle_free(handle);
+        }
+
+        bool is_valid() {
+            return il2cpp::unity::is_valid(ref());
         }
     };
 

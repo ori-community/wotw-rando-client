@@ -31,4 +31,6 @@ enum class GameEvent {
     TrialEnd,
 
     RegisteringInputSimulators,
+
+    MultiverseUpdated,
 };

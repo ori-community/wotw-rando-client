@@ -185,11 +185,17 @@ namespace RandomizerManaged {
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_player_online([MarshalAs(UnmanagedType.LPWStr)] string id, bool online);
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void set_player_race_ready([MarshalAs(UnmanagedType.LPWStr)] string id, bool race_ready);
+      [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void notify_multiverse_updated();
+      [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_player_visibility([MarshalAs(UnmanagedType.LPWStr)] string id, bool world, bool map);
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
       unsafe public extern static byte* get_current_ghost_frame_data(ref int size);
       [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
       public extern static void set_block_starting_new_game(bool block_starting_new_game);
+      [DllImport("Randomizer.dll", CallingConvention = CallingConvention.Cdecl)]
+      public extern static void send_race_ready_state();
     }
 
     public static class Player {

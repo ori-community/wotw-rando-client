@@ -353,6 +353,7 @@ namespace RandomizerManaged {
             var init = InitGameSyncMessage.Parser.ParseFrom(packet.Packet_);
             UberStateController.SyncedUberStates = init.UberId.Select(s => s.IdFromMsg()).ToHashSet(); // LINQ BAAAYBEEEEEE
             InterOp.Multiplayer.set_block_starting_new_game(init.BlockStartingNewGame);
+            InterOp.Multiplayer.send_race_ready_state();
             break;
           case Packet.Types.PacketID.UberStateUpdateMessage:
             try {

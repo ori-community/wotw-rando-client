@@ -648,3 +648,15 @@ RANDOMIZER_C_DLLEXPORT void set_player_online(const wchar_t* id, bool online) {
         info.online = online;
     }
 }
+
+RANDOMIZER_C_DLLEXPORT void set_player_race_ready(const wchar_t* id, bool race_ready) {
+    auto it = multiplayer::player_map.find(id);
+    if (it != multiplayer::player_map.end()) {
+        multiplayer::PlayerInfo& info = multiplayer::players[it->second];
+        info.race_ready = race_ready;
+    }
+}
+
+RANDOMIZER_C_DLLEXPORT void notify_multiverse_updated() {
+    game::event_bus().trigger_event(GameEvent::MultiverseUpdated);
+}

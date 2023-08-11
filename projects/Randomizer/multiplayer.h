@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Randomizer/macros.h>
 #include <Randomizer/ghosts.h>
 #include <Core/api/graphics/textures.h>
 #include <string>
@@ -35,6 +36,7 @@ namespace multiplayer {
         bool online = true;
         bool world_visible = true;
         bool map_visible = true;
+        bool race_ready = false;
         app::Color color = { 1, 1, 1, 1 };
         PlayerIcon icon = PlayerIcon::Moki;
 
@@ -56,5 +58,7 @@ namespace multiplayer {
         std::vector<Dot> dots;
     };
 
-    app::Color const& get_local_player_color();
+    RANDOMIZER_DLLEXPORT app::Color const& get_local_player_color();
+
+    RANDOMIZER_DLLEXPORT std::vector<PlayerInfo> const& get_players();
 } // namespace multiplayer
