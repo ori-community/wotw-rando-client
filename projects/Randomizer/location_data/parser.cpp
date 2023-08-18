@@ -23,9 +23,6 @@ namespace randomizer::location_data {
                 trim(item);
             }
 
-            std::vector<std::string> name_parts;
-            split_str(parts[0], name_parts, '.');
-
             if (parts[9] != "0" && parts[10] != "0") {
                 app::Vector2 position;
                 if (!string_convert(parts[9], position.x) || !string_convert(parts[10], position.y)) {

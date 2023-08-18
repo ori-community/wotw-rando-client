@@ -18,9 +18,9 @@ namespace randomizer::location_data {
         Keystone = 6,
         Eyestone = 7,
         Quest = 8,
-        Tree = 9,
+        Ability = 9,
         Shop = 10,
-        Control = 11,
+        Wisp = 11,
         Unknown = 15
     };
 
