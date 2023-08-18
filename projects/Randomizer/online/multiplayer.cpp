@@ -97,8 +97,8 @@ namespace randomizer::online {
             [](auto const& message) { print_pickup(message); }
         );
 
-        client.register_handler<Network::InitBingoMessage>(
-            Network::Packet_PacketID_InitBingoMessage,
+        client.register_handler<Network::InitGameSyncMessage>(
+            Network::Packet_PacketID_InitGameSyncMessage,
             [this](auto const& message) { initialize_bingo(message); }
         );
 
@@ -406,7 +406,7 @@ namespace randomizer::online {
         });
     }
 
-    void MultiplayerUniverse::initialize_bingo(Network::InitBingoMessage const& message) {
+    void MultiplayerUniverse::initialize_bingo(Network::InitGameSyncMessage const& message) {
         std::unordered_set<core::api::uber_states::UberState> states;
         for (auto& id : message.uberid()) {
             states.emplace(id.group(), id.state());

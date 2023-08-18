@@ -61,7 +61,7 @@ namespace randomizer::online {
 
         void print_text(Network::PrintTextMessage const& message);
         static void print_pickup(Network::PrintPickupMessage const& message);
-        void initialize_bingo(Network::InitBingoMessage const& message);
+        void initialize_bingo(Network::InitGameSyncMessage const& message);
         void set_seed(Network::SetSeedMessage const& message);
 
         std::vector<common::registration_handle> m_bus_handles;
