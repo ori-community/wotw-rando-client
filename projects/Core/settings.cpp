@@ -19,7 +19,7 @@ namespace core::settings {
 
         INIReader& get_settings() {
             if (reader == nullptr) {
-                reader = read_utf16_ini((modloader::base_path() / "settings.ini").string());
+                reader = read_utf8_ini((modloader::base_path() / "settings.ini").string());
             }
 
             return *reader;
@@ -81,10 +81,6 @@ namespace core::settings {
 
     std::string host() {
         return get_string("Paths", "Host", "wotw.orirando.com");
-    }
-
-    int websocket_port() {
-        return get_int("Paths", "WebsocketPort", insecure() ? 80 : 443);
     }
 
     int udp_port() {
@@ -188,10 +184,6 @@ namespace core::settings {
 
     void host(std::string value) {
         overrides[key{ "Paths", "Host" }] = value;
-    }
-
-    void websocket_port(int value) {
-        overrides[key{ "Paths", "WebsocketPort" }] = value;
     }
 
     void udp_port(int value) {

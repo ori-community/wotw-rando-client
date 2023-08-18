@@ -121,7 +121,7 @@ namespace modloader {
         inner_base_path = path;
         trace(MessageType::Info, 5, "initialize", "Loading settings.");
 
-        auto settings = read_utf16_ini((base_path() / "settings.ini").string());
+        auto settings = read_utf8_ini((base_path() / "settings.ini").string());
 
         initialize_trace_file();
         trace(MessageType::Info, 5, "initialize", "Mod Loader initialization.");

@@ -12,7 +12,6 @@ namespace core::settings {
     CORE_DLLEXPORT bool netcode_disabled();
     CORE_DLLEXPORT bool insecure();
     CORE_DLLEXPORT std::string host();
-    CORE_DLLEXPORT int websocket_port();
     CORE_DLLEXPORT int udp_port();
     CORE_DLLEXPORT bool use_default_currency_name();
     CORE_DLLEXPORT bool start_in_logic_filter();
@@ -41,7 +40,6 @@ namespace core::settings {
     CORE_DLLEXPORT void netcode_disabled(bool value);
     CORE_DLLEXPORT void insecure(bool value);
     CORE_DLLEXPORT void host(std::string value);
-    CORE_DLLEXPORT void websocket_port(int value);
     CORE_DLLEXPORT void udp_port(int value);
     CORE_DLLEXPORT void start_in_logic_filter(bool value);
     CORE_DLLEXPORT void hide_quest_filter(bool value);

@@ -223,10 +223,9 @@ namespace randomizer {
 
         auto insecure = core::settings::insecure();
         auto host = core::settings::host();
-        auto websocket_port = core::settings::websocket_port();
         auto udp_port = core::settings::udp_port();
 
-        std::string websocket_url = fmt::format("ws{}://{}:{}/api/game_sync/", insecure ? "" : "s", host, websocket_port);
+        std::string websocket_url = fmt::format("ws{}://{}/api/game_sync/", insecure ? "" : "s", host);
         client.websocket_connect(websocket_url);
         client.udp_open(host, udp_port);
     }
