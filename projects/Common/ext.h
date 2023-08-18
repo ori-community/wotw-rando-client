@@ -133,6 +133,11 @@ void split_str(std::string_view str, Container& cont, char delim = ' ') {
     while (std::getline(ss, token, delim)) {
         cont.push_back(token);
     }
+
+    if (str.ends_with(delim))
+    {
+        cont.push_back("");
+    }
 }
 
 std::string_view find_next_unbalanced(std::string_view text, std::string_view start, std::string_view end);

@@ -61,6 +61,7 @@ namespace core::messages {
         bool handle_active_message(MessageData& data, int& total_lines, app::Vector3& cursor_position, float fade_out, float delta_time);
         void show_message_box(MessageData& data, int& total_lines, app::Vector3& cursor_position);
 
+        // TODO: Implement this.
         const float m_max_length_from_position = 20.f;
         bool m_showing_priority = false;
         DynamicValue<app::Vector3> m_position;

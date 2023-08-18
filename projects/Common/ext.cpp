@@ -48,8 +48,8 @@ namespace common {
             return std::nullopt;
         }
 
-        result.prefix = str.substr(0, operator_start);
-        result.suffix = str.substr(operator_end);
+        result.prefix = trim(str.substr(0, operator_start));
+        result.suffix = trim(str.substr(operator_end));
         return result;
     }
 } // namespace common
