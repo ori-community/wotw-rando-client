@@ -131,7 +131,7 @@ namespace core::messages {
 
     void MessageController::requeue_last_saved() {
         if (m_saved_message.has_value()) {
-            m_saved_message->starting_world_position = std::nullopt;
+            m_saved_message->pickup_position = std::nullopt;
             m_saved_message->prioritized = true;
             m_central_display.push(m_saved_message.value());
         } else {
@@ -181,7 +181,7 @@ namespace core::messages {
         auto y_position = 0.3f;
         if (app::classes::Game::UI_Hints::get_IsShowingHint()) {
             auto bounds = active_hint_bounds();
-            y_position -= bounds.m_Height;
+            y_position += bounds.m_Height;
             y_position -= 0.3f; // Gap
         } else if (api::game::ui::area_map_open()) {
             static float test_map_offset = 0.85f;

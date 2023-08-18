@@ -113,7 +113,7 @@ namespace randomizer::seed::legacy_parser {
         auto const& location_data = current_location_data->location(location);
         if (location_data.has_value() && location_data.value().position.has_value()) {
             const auto position = location_data.value().position.value();
-            message->info.starting_world_position = app::Vector3{ position.x, position.y, 0 };
+            message->info.pickup_position = app::Vector3{ position.x, position.y, 0 };
         }
     }
 

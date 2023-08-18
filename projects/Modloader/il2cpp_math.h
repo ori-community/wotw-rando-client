@@ -116,11 +116,11 @@ namespace modloader::math {
     }
 
     inline app::Vector2 lerp(app::Vector2 a, app::Vector2 b, float weight) {
-        return a + (a - b) * weight;
+        return a + (b - a) * weight;
     }
 
     inline app::Vector3 lerp(app::Vector3 a, app::Vector3 b, float weight) {
-        return a + (a - b) * weight;
+        return a + (b - a) * weight;
     }
 
     inline float lerp(float a, float b, float weight) {

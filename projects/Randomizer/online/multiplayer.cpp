@@ -402,7 +402,7 @@ namespace randomizer::online {
             .text = message.text(),
             .duration = message.time(),
             .prioritized = message.prioritized(),
-            .starting_world_position = app::Vector3{ position.x(), position.y(), 0 },
+            .pickup_position = app::Vector3{ position.x(), position.y(), 0 },
         });
     }
 

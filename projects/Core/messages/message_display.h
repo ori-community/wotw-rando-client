@@ -12,7 +12,6 @@
 #include <utility>
 
 namespace core::messages {
-
     struct MessageInfo {
         std::string text;
         float duration = 3.f;
@@ -20,9 +19,10 @@ namespace core::messages {
         bool instant_fade = false;
         bool prioritized = false;
         bool play_sound = true;
+        bool use_world_space = false;
         app::Vector2 margins{ 0.1, 0.1 }; // Top-Bottom
         app::Vector4 padding{ 0, 1, 0, 1 }; // Top-Left-Bottom-Right
-        std::optional<app::Vector3> starting_world_position = std::nullopt;
+        std::optional<app::Vector3> pickup_position = std::nullopt; // Pickup position in world space. Used for the animation.
     };
 
     class CORE_DLLEXPORT MessageDisplay {
@@ -36,7 +36,6 @@ namespace core::messages {
 
         void update(float delta_time);
 
-        DynamicValue<bool>& display_in_world() { return m_display_in_world; };
         DynamicValue<app::Vector3>& position() { return m_position; };
         DynamicValue<std::optional<int>>& max_line_count() { return m_max_line_count; };
         DynamicValue<std::optional<int>>& max_in_queue() { return m_max_in_queue; };
@@ -50,21 +49,20 @@ namespace core::messages {
         struct MessageData {
             std::shared_ptr<api::messages::MessageBox> message;
             MessageInfo info;
-            message_handle sync;
+            message_handle handle;
         };
 
         static void update_time(MessageData& data, float delta_time);
 
         void update_priority_message(float delta_time);
-        void update_active_messages(int& total_lines, app::Vector3& position, float delta_time);
-        void update_message_queue(int& total_lines, app::Vector3& position);
-        void update_message_position(MessageData& data, int& total_lines, app::Vector3& position, float delta_time);
-        bool handle_active_message(MessageData& data, int& total_lines, app::Vector3& position, float fade_out, float delta_time);
-        void populate_data(MessageData& data, int& total_lines, app::Vector3& position);
+        void update_active_messages(int& total_lines, app::Vector3& cursor_position, float delta_time);
+        void update_message_queue(int& total_lines, app::Vector3& cursor_position);
+        void update_message_position(MessageData& data, int& total_lines, app::Vector3& cursor_position, float delta_time);
+        bool handle_active_message(MessageData& data, int& total_lines, app::Vector3& cursor_position, float fade_out, float delta_time);
+        void show_message_box(MessageData& data, int& total_lines, app::Vector3& cursor_position);
 
         const float m_max_length_from_position = 20.f;
         bool m_showing_priority = false;
-        DynamicValue<bool> m_display_in_world;
         DynamicValue<app::Vector3> m_position;
         DynamicValue<std::optional<int>> m_max_line_count;
         DynamicValue<std::optional<int>> m_max_in_queue;
