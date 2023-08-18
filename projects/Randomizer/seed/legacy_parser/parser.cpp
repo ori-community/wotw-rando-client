@@ -878,7 +878,7 @@ namespace randomizer::seed::legacy_parser {
             value.assign(core::api::uber_states::UberState(group, state));
         } else {
             double constant_value;
-            if (string_convert(results[0].str(), constant_value)) {
+            if (string_convert(frag, constant_value)) {
                 value.set(constant_value);
             } else {
                 return false;
@@ -957,17 +957,19 @@ namespace randomizer::seed::legacy_parser {
                 data.location_data.items[data.next_location_id++] = setter;
             }
         } else if (is_modifier) {
-            auto setter = std::make_shared<items::ValueModifier<double, items::ValueOperator::Assign>>();
-            setter->variable.assign(core::api::uber_states::UberState(group, state));
-            gen_from_frag(parts[3], setter->value);
-            data.location_data.items[data.next_location_id++] = setter;
-        } else if (negative) {
-            auto setter = std::make_shared<items::ValueModifier<double, items::ValueOperator::Sub>>();
-            setter->variable.assign(core::api::uber_states::UberState(group, state));
-            gen_from_frag(parts[3], setter->value);
-            data.location_data.items[data.next_location_id++] = setter;
+            if (negative) {
+                auto setter = std::make_shared<items::ValueModifier<double, items::ValueOperator::Sub>>();
+                setter->variable.assign(core::api::uber_states::UberState(group, state));
+                gen_from_frag(parts[3], setter->value);
+                data.location_data.items[data.next_location_id++] = setter;
+            } else {
+                auto setter = std::make_shared<items::ValueModifier<double, items::ValueOperator::Add>>();
+                setter->variable.assign(core::api::uber_states::UberState(group, state));
+                gen_from_frag(parts[3], setter->value);
+                data.location_data.items[data.next_location_id++] = setter;
+            }
         } else {
-            auto setter = std::make_shared<items::ValueModifier<double, items::ValueOperator::Add>>();
+            auto setter = std::make_shared<items::ValueModifier<double, items::ValueOperator::Assign>>();
             setter->variable.assign(core::api::uber_states::UberState(group, state));
             gen_from_frag(parts[3], setter->value);
             data.location_data.items[data.next_location_id++] = setter;
@@ -1778,7 +1780,7 @@ namespace randomizer::seed::legacy_parser {
                 continue;
             }
 
-            if (line == "9|999=400|6|#Skill Velocity x$(9|5)#") {
+            if (line == "0|0|8|9|5|int|+1") {
                 modloader::trace(modloader::MessageType::Info, 3, "test", "Wohooo");
             }
 
