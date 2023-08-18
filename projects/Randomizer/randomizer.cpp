@@ -151,7 +151,6 @@ namespace randomizer {
             monitor.network_client(&client);
 
             universe.register_packet_handlers(client);
-            server_connect();
 
             // TODO: Don't just do this on game ready.
             modloader::cursor_lock(core::settings::cursor_locked());
@@ -166,6 +165,9 @@ namespace randomizer {
 
             core::message_controller().central_display().text_processor(text_processor);
             load_seed(false);
+            if (!core::settings::netcode_disabled() && randomizer_seed.info().net_code_enabled) {
+                server_connect();
+            }
         });
 
         common::registration_handle on_title_screen_handler = core::api::scenes::single_event_bus().register_handler("wotwTitleScreen", [](auto, auto) {
@@ -201,11 +203,13 @@ namespace randomizer {
     void reload() {
         if (network_client().wants_connection()) {
             server_disconnect();
-            server_connect();
         }
 
         core::settings::reload();
         load_seed(true);
+        if (!core::settings::netcode_disabled() && randomizer_seed.info().net_code_enabled) {
+            server_connect();
+        }
     }
 
     void queue_input_unlocked_callback(std::function<void()> const& callback) {

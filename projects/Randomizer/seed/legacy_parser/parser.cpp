@@ -1757,7 +1757,10 @@ namespace randomizer::seed::legacy_parser {
         } else if (line.starts_with("// Target:")) {
         } else if (line.starts_with("// Generator Version:")) {
         } else if (line.starts_with("// Slug:")) {
+            data.info.slug = trim(line.substr(sizeof("Slug:")));
         } else if (line.starts_with("// Config:")) {
+            auto j = nlohmann::json::parse(line.begin() + sizeof("// Config:"), line.end());
+            data.info.net_code_enabled = j.value("online", false);
         }
 
         // If we don't match anything here it's a comment, and we can ignore it.
@@ -1800,8 +1803,6 @@ namespace randomizer::seed::legacy_parser {
                 }
 
                 data.info.start_position = position;
-            } else if (line.starts_with("Slug:")) {
-                data.info.slug = trim(line.substr(5));
             } else if (line.starts_with("timer:")) {
             } else if (!line.empty()) {
                 std::vector<std::string> parts;
