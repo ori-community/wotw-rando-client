@@ -535,19 +535,19 @@ namespace randomizer {
             const int game_modes_float_count = 5;
             for (int i = 0; i < game_modes_int_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::RandoGameModes, fmt::format("%3d_int", i), game_modes_int_start + i, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::RandoGameModes, fmt::format("{:04d}_int", i), game_modes_int_start + i, 0)
                 );
             }
 
             for (int i = 0; i < game_modes_bool_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoGameModes, fmt::format("%3d_bool", i), game_modes_bool_start + i, false)
+                    add_state<app::SerializedBooleanUberState>(UberStateGroup::RandoGameModes, fmt::format("{:04d}_bool", i), game_modes_bool_start + i, false)
                 );
             }
 
             for (int i = 0; i < game_modes_float_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedFloatUberState>(UberStateGroup::RandoGameModes, fmt::format("%3d_float", i), game_modes_float_start + i, false)
+                    add_state<app::SerializedFloatUberState>(UberStateGroup::RandoGameModes, fmt::format("{:04d}_float", i), game_modes_float_start + i, false)
                 );
             }
 
@@ -560,19 +560,19 @@ namespace randomizer {
             const int plando_float_count = 25;
             for (int i = 0; i < plando_int_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, fmt::format("{}_int", plando_int_start + i), plando_int_start + i, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::PlandoVars, fmt::format("{:04d}_int", plando_int_start + i), plando_int_start + i, 0)
                 );
             }
 
             for (int i = 0; i < plando_bool_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedBooleanUberState>(UberStateGroup::PlandoVars, fmt::format("{}_bool", plando_bool_start + i), plando_bool_start + i, false)
+                    add_state<app::SerializedBooleanUberState>(UberStateGroup::PlandoVars, fmt::format("{:04d}_bool", plando_bool_start + i), plando_bool_start + i, false)
                 );
             }
 
             for (int i = 0; i < plando_float_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedFloatUberState>(UberStateGroup::PlandoVars, fmt::format("{}_float", plando_float_start + i), plando_float_start + i, false)
+                    add_state<app::SerializedFloatUberState>(UberStateGroup::PlandoVars, fmt::format("{:04d}_float", plando_float_start + i), plando_float_start + i, false)
                 );
             }
 
@@ -580,11 +580,11 @@ namespace randomizer {
             const int appliers_group_count = 50;
             for (int i = 0; i < appliers_group_count; ++i) {
                 states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, fmt::format("{}_id", i * 2), i * 2, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, fmt::format("{:04d}_id", i * 2), i * 2, 0)
                 );
 
                 states.push_back(
-                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, fmt::format("{}_value", i * 2 + 1), i * 2 + 1, 0)
+                    add_state<app::SerializedIntUberState>(UberStateGroup::Appliers, fmt::format("{:04d}_value", i * 2 + 1), i * 2 + 1, 0)
                 );
             }
 

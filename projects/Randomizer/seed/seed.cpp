@@ -82,9 +82,13 @@ namespace randomizer::seed {
         std::string output;
         const auto location_data = m_data.locations[location.state][location];
         const auto& names = location_data.names;
+
         for (auto const& name : names) {
+            if (!output.empty()) {
+                output += '\n';
+            }
+
             output += name.get();
-            output += '\n';
         }
 
         return output;

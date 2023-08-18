@@ -11,7 +11,7 @@ namespace randomizer::text_processors {
     namespace {
         std::optional<std::string> value(std::string_view content) {
             std::vector<std::string> parts;
-            split_str(content, parts);
+            split_str(content, parts, '|');
             int group;
             int state;
             if (!string_convert(parts[0], group) || !string_convert(parts[1], state)) {

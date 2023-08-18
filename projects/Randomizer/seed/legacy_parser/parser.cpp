@@ -135,6 +135,7 @@ namespace randomizer::seed::legacy_parser {
                 next.clear();
             } else if (mode == ReadMode::Normal && c == '$' && stream.peek() == '(') {
                 mode = ReadMode::Ptr;
+                next += c;
             } else if (mode == ReadMode::Ptr && c == ')') {
                 mode = ReadMode::Normal;
                 next += c;
@@ -1777,7 +1778,7 @@ namespace randomizer::seed::legacy_parser {
                 continue;
             }
 
-            if (line == "20120|19113|11|5") {
+            if (line == "9|999=400|6|#Skill Velocity x$(9|5)#") {
                 modloader::trace(modloader::MessageType::Info, 3, "test", "Wohooo");
             }
 
