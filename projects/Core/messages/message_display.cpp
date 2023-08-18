@@ -23,8 +23,8 @@ namespace core::messages {
             , m_vertical_anchor(app::VerticalAnchorMode__Enum::Middle)
             , m_screen_position(api::messages::ScreenPosition::MiddleCenter) {}
 
-    message_sync_handle MessageDisplay::push(MessageInfo info) {
-        auto sync = std::make_shared<message_sync_handle_type>();
+    message_handle MessageDisplay::push(MessageInfo info) {
+        auto sync = std::make_shared<message_handle_type>();
         if (info.prioritized) {
             m_priority_message = {
                 .info = std::move(info),
@@ -55,7 +55,7 @@ namespace core::messages {
         const auto max_in_queue = m_max_in_queue.get();
         if (max_in_queue.has_value() && m_messages.size() > max_in_queue.value() && !m_active_messages.empty()) {
             m_active_messages.front().message->hide();
-            m_active_messages.front().sync->state = message_sync_handle_type::MessageState::Finished;
+            m_active_messages.front().sync->state = message_handle_type::MessageState::Finished;
         }
 
         if (m_priority_message.has_value() || m_priority_message_data.has_value()) {
@@ -145,7 +145,7 @@ namespace core::messages {
 
     bool MessageDisplay::handle_active_message(MessageData& data, int& total_lines, app::Vector3& position, float fade_out, float delta_time) {
         update_time(data, delta_time);
-        if (data.sync->state != message_sync_handle_type::MessageState::Finished) {
+        if (data.sync->state != message_handle_type::MessageState::Finished) {
             update_message_position(data, total_lines, position, delta_time);
             data.message->fade_out().set(fade_out);
             return true;
@@ -155,7 +155,7 @@ namespace core::messages {
     }
 
     void MessageDisplay::update_time(MessageData& data, float delta_time) {
-        if (data.sync->state == message_sync_handle_type::MessageState::Showing) {
+        if (data.sync->state == message_handle_type::MessageState::Visible) {
             data.sync->active_time += delta_time;
         }
 
@@ -168,7 +168,7 @@ namespace core::messages {
             }
 
             if (*data.sync->time_left <= 0.f) {
-                data.sync->state = message_sync_handle_type::MessageState::Finished;
+                data.sync->state = message_handle_type::MessageState::Finished;
                 data.sync->time_left = std::optional<float>();
             }
         }
@@ -235,8 +235,8 @@ namespace core::messages {
             data.message->show(false, data.info.play_sound);
         }
 
-        data.sync = std::make_shared<message_sync_handle_type>();
-        data.sync->state = message_sync_handle_type::MessageState::Showing;
+        data.sync = std::make_shared<message_handle_type>();
+        data.sync->state = message_handle_type::MessageState::Visible;
         data.sync->time_left = data.info.duration;
     }
 } // namespace core::messages

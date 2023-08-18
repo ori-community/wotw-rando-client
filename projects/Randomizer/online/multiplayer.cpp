@@ -350,7 +350,7 @@ namespace randomizer::online {
         std::shared_ptr<core::api::messages::MessageBox> box = nullptr;
         if (message.has_id()) {
             auto it = m_message_boxes.find(message.id());
-            if (it != m_message_boxes.end() && it->second->state != message_sync_handle_type::MessageState::Finished) {
+            if (it != m_message_boxes.end() && it->second->state != message_handle_type::MessageState::Finished) {
                 box = it->second->message.lock();
                 it->second->time_left = message.time();
             }

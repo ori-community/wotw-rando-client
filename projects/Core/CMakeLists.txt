@@ -138,7 +138,7 @@ set(
         "macros.h"
         "messages/message_controller.h"
         "messages/message_display.h"
-        "messages/message_sync_handle.h"
+        "messages/message_handle.h"
         "mood_guid.h"
         "save_meta/save_meta.h"
         "settings.h"

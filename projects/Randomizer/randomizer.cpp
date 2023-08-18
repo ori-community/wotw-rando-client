@@ -3,6 +3,7 @@
 #include <online/network_monitor.h>
 #include <randomizer.h>
 #include <seed/legacy_parser/parser.h>
+#include <location_data/parser.h>
 #include <text_processors/ability.h>
 #include <text_processors/control.h>
 #include <text_processors/legacy.h>
@@ -138,6 +139,7 @@ namespace randomizer {
             if (seed_name.is_open()) {
                 std::stringstream seed_name_buffer;
                 seed_name_buffer << seed_name.rdbuf();
+                randomizer_location_collection.read(modloader::base_path() / "loc_data.csv", location_data::parse_location_data);
                 randomizer_seed.read(seed_name_buffer.str(), seed::legacy_parser::parse, show_message);
             } else {
                 randomizer_seed.reload(show_message);

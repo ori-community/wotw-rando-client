@@ -11,7 +11,7 @@ namespace randomizer::location_data {
     enum class LocationType {
         SpiritLight = 0,
         Shard = 1,
-        Health = 2,
+        Life = 2,
         Energy = 3,
         Ore = 4,
         ShardSlot = 5,

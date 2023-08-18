@@ -6,5 +6,5 @@
 #include <vector>
 
 namespace randomizer::location_data {
-    bool parse_location_data(std::string_view path, location_data_emitter emitter);
+    bool parse_location_data(std::filesystem::path path, location_data_emitter emitter);
 } // namespace randomizer::location_data

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Core/api/messages/message_box.h>
-#include <Core/messages/message_sync_handle.h>
+#include <Core/messages/message_handle.h>
 
 #include <Modloader/app/structs/Vector2.h>
 #include <Modloader/app/structs/Vector4.h>
@@ -29,7 +29,7 @@ namespace core::messages {
     public:
         MessageDisplay(std::optional<int> max_line_count, std::optional<int> max_in_queue);
 
-        message_sync_handle push(MessageInfo info);
+        message_handle push(MessageInfo info);
         void clear();
 
         void text_processor(auto text_processor) { m_text_processor = std::move(text_processor); }
@@ -50,7 +50,7 @@ namespace core::messages {
         struct MessageData {
             std::shared_ptr<api::messages::MessageBox> message;
             MessageInfo info;
-            message_sync_handle sync;
+            message_handle sync;
         };
 
         static void update_time(MessageData& data, float delta_time);

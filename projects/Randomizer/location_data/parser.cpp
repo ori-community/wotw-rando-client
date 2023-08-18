@@ -6,9 +6,9 @@
 #include <magic_enum.hpp>
 
 namespace randomizer::location_data {
-    bool parse_location_data(std::string_view path, location_data_emitter emitter) {
+    bool parse_location_data(std::filesystem::path path, location_data_emitter emitter) {
         // Example line: MarshSpawn.RockHC, Inkwater Marsh, Resource, Life, swampStateGroup, 21786, healthContainerA, 60210, -958, -4313
-        std::ifstream location_data_file(path.data());
+        std::ifstream location_data_file(path);
         if (!location_data_file.is_open()) {
             return false;
         }
@@ -18,6 +18,10 @@ namespace randomizer::location_data {
             Location location;
             std::vector<std::string> parts;
             split_str(line, parts, ',');
+
+            for (auto &item: parts) {
+                trim(item);
+            }
 
             std::vector<std::string> name_parts;
             split_str(parts[0], name_parts, '.');
@@ -31,12 +35,12 @@ namespace randomizer::location_data {
                 location.position = position;
             }
 
-            location.area = name_to_area(name_parts[0]);
+            location.area = name_to_area(parts[1]);
             if (location.area == GameArea::TOTAL) {
                 continue;
             }
 
-            location.name = name_parts[1];
+            location.name = parts[0];
             auto type = magic_enum::enum_cast<LocationType>(parts[2] == "Resource" ? parts[3] : parts[2]);
             if (!type.has_value()) {
                 continue;

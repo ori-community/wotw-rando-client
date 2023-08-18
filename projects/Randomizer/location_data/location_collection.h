@@ -12,13 +12,13 @@ namespace randomizer::location_data {
     GameArea name_to_area(std::string const& name);
 
     using location_data_emitter = std::function<void(Location location)>;
-    using location_data_parser = bool (*)(std::string_view path, location_data_emitter emitter);
+    using location_data_parser = bool (*)(std::filesystem::path path, location_data_emitter emitter);
 
     class LocationCollection {
     public:
         using location_id = core::api::uber_states::UberStateCondition;
 
-        void read(std::string_view path, location_data_parser parser);
+        void read(std::filesystem::path path, location_data_parser parser);
 
         GameArea area(location_id const& id) const;
         GameArea area(std::string const& name) const;

@@ -49,7 +49,7 @@ namespace randomizer::location_data {
         return it != name_to_area_map.end() ? it->second : GameArea::TOTAL;
     }
 
-    void LocationCollection::read(std::string_view path, location_data_parser parser) {
+    void LocationCollection::read(std::filesystem::path path, location_data_parser parser) {
         location_data_emitter emitter = [this](Location location) {
             m_area_to_locations[location.area].push_back(location);
         };

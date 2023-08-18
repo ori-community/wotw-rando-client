@@ -174,7 +174,7 @@ namespace randomizer::seed::legacy_parser {
         auto message = std::make_shared<items::Message>();
         set_location(message.get(), location);
         message->should_save_as_last = true;
-        message->info = { .text = text };
+        message->info.text = text;
         data.location_data.items[data.next_location_id++] = message;
 
         data.location_data.names.emplace_back().assign(message->info.text);
