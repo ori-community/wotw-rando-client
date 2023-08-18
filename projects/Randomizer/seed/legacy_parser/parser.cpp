@@ -866,11 +866,10 @@ namespace randomizer::seed::legacy_parser {
 
     std::regex ptr_regex(R"(\$\(([0-9]+)\|([0-9]+)\))");
     std::regex range_regex(R"(\[([^,\]]+),([^,\]]+)\])");
-    std::regex uber_state_regex(R"(\$\(([0-9]+);([0-9]+)\))");
 
     bool gen_from_frag(const std::string& frag, core::DynamicValue<double>& value) {
         std::smatch results;
-        if (std::regex_match(frag, results, uber_state_regex)) {
+        if (std::regex_match(frag, results, ptr_regex)) {
             int group;
             int state;
             string_convert(results[0].str(), group);
