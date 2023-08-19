@@ -122,7 +122,7 @@ namespace randomizer {
             timer::clear_uber_state_timers();
             universe.uber_state_handler().clear_unsyncables();
             features::wheel::clear_wheels();
-            features::wheel::initialize_defaults();
+            features::wheel::initialize_default_wheel();
             game::shops::reset_shop_data();
 
             randomizer_seed.grant(core::api::uber_states::UberState(UberStateGroup::GameState, 1), 0);

@@ -22,5 +22,5 @@ namespace randomizer::features::wheel {
     void set_wheel_sticky(int wheel, bool value);
     void set_wheel_behavior(int behavior);
     void clear_wheels();
-    void initialize_defaults();
+    void initialize_default_wheel();
 } // namespace randomizer::features::wheel

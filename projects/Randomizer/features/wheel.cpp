@@ -1,6 +1,7 @@
 #include <features/wheel.h>
 #include <input/rando_bindings.h>
 
+#include <Core/settings.h>
 #include <Core/api/graphics/shaders.h>
 #include <Core/api/graphics/textures.h>
 #include <Core/api/system/message_provider.h>
@@ -645,9 +646,5 @@ namespace randomizer::features::wheel {
         wheel_index = 0;
         wheels.clear();
         refresh_wheel();
-    }
-
-    void initialize_defaults() {
-        // TODO: Implement this.
     }
 } // namespace randomizer::features::wheel

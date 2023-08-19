@@ -170,6 +170,7 @@ set(
         "uber_states/uber_state_intercepts.cpp"
         "ui/always_show_keystones.cpp"
         "ui/online_mode_switcher.cpp"
+        features/wheel_initialization.cpp
 )
 
 set(
