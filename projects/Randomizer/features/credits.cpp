@@ -24,6 +24,26 @@ namespace credits {
                 auto cred_cont = il2cpp::unity::get_component<app::CreditsController>(credits_go, types::CreditsController::get_class());
                 auto timeline = cred_cont->fields.CreditsTimeline;
                 il2cpp::invoke_virtual(timeline, reinterpret_cast<Il2CppClass*>(types::TimelineEntity::get_class()), "StartPlayback");
+
+                auto credits_text_go = il2cpp::unity::find_child(credits_go, std::vector<std::string>{ "defaultCredits", "credits", "creditsTexts" });
+                auto children = il2cpp::unity::get_children(credits_text_go);
+
+                // reverse to get the last creditsIcon
+                std::reverse(children.begin(), children.end());
+                bool post_first_icon = false;
+
+                for (auto child_go : children) {
+                    auto child_name = il2cpp::unity::get_object_name(child_go);
+                    if (child_name == "Logo" || child_name == "LogoChineese" || child_name == "creditsThanks") {
+                        continue;
+                    } else if (child_name == "creditsIcon" && !post_first_icon) {
+                        post_first_icon = true;
+                        continue;
+                    }
+                    auto child_position = il2cpp::unity::get_local_position(child_go);
+                    child_position.y -= 1.0f;
+                    il2cpp::unity::set_local_position(child_go, child_position);
+                }
             }
         }
 
